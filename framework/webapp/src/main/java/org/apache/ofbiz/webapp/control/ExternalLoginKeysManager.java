@@ -158,7 +158,6 @@ public class ExternalLoginKeysManager {
 
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
         LoginWorker.autoLoginSet(request, response);
-        
         return "success";
     }
 
@@ -175,7 +174,7 @@ public class ExternalLoginKeysManager {
      * Check if using externalLoginKey
      * @return
      */
-    public static boolean isExternalLoginKeyEnabled (HttpServletRequest request){
+    public static boolean isExternalLoginKeyEnabled (HttpServletRequest request) {
         if (UtilValidate.isEmpty(isExternalLoginKeyEnabled)) {
             isExternalLoginKeyEnabled = EntityUtilProperties.getPropertyValue("security",
                     "security.login.externalLoginKey.enabled", "true",

@@ -55,7 +55,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param rhs the right hand side element
      * @return a condition expression representing a comparison between two elements
      */
-    static <L,R,LL,RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
+    static <L, R, LL, RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL, RR> operator, R rhs) {
         return new EntityExpr(lhs, operator, rhs);
     }
 
@@ -137,8 +137,8 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param joinOp the binary infix operator used to join the field/value comparisons
      * @return a condition expression representing a combination of field/value comparisons
      */
-    static <L,R> EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap,
-            EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp) {
+    static <L, R> EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap,
+            EntityComparisonOperator<L, R> compOp, EntityJoinOperator joinOp) {
         return new EntityFieldMap(fieldMap, compOp, joinOp);
     }
 
@@ -171,7 +171,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param keysValues the field/values pairs to match
      * @return a condition expression representing a combination of field/value comparisons
      */
-    static <L,R> EntityFieldMap makeCondition(EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp,
+    static <L, R> EntityFieldMap makeCondition(EntityComparisonOperator<L, R> compOp, EntityJoinOperator joinOp,
             Object... keysValues) {
         return new EntityFieldMap(compOp, joinOp, keysValues);
     }

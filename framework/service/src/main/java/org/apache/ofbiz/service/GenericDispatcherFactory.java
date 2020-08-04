@@ -64,7 +64,9 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
             DispatchContext ctx = new DispatchContext(name, loader, this);
             this.dispatcher.register(ctx);
             this.ctx = ctx;
-            if (Debug.verboseOn()) Debug.logVerbose("[GenericDispatcher] : Created Dispatcher for: " + name, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[GenericDispatcher] : Created Dispatcher for: " + name, MODULE);
+            }
         }
 
         @Override

@@ -120,25 +120,29 @@ def uploadProductAdditionalViewImages() {
     if (parameters.additionalImageOne) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageOne
         addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_1"
-        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageOne_contentType
+        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageOne_fileName
+        addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageOne_contentType
         run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
     }
     if (parameters.additionalImageTwo) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageTwo
         addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_2"
-        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageTwo_contentType
+        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageTwo_fileName
+        addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageTwo_contentType
         run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
     }
     if (parameters.additionalImageThree) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageThree
         addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_3"
-        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageThree_contentType
+        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageThree_fileName
+        addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageThree_contentType
         run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
     }
     if (parameters.additionalImageFour) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageFour
         addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_4"
-        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageFour_contentType
+        addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageFour_fileName
+        addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageFour_contentType
         run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
     }
     result.productId = parameters.productId

@@ -47,9 +47,9 @@ import org.apache.ofbiz.entity.GenericValue;
 @SuppressWarnings("serial")
 public final class EntityUtilProperties implements Serializable {
 
-    public final static String MODULE = EntityUtilProperties.class.getName();
+    private static final String MODULE = EntityUtilProperties.class.getName();
 
-    private EntityUtilProperties () {}
+    private EntityUtilProperties() { }
 
     private static Map<String, String> getSystemPropertyValue(String resource, String name, Delegator delegator) {
         Map<String, String> results = new HashMap<>();
@@ -100,7 +100,7 @@ public final class EntityUtilProperties implements Serializable {
             return UtilProperties.getPropertyValue(resource, name, defaultValue);
         }
     }
-    
+
     public static String getPropertyValueFromDelegatorName(String resource, String name, String defaultValue, String delegatorName) {
         Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
         if (delegator == null) { // This should not happen, but in case...

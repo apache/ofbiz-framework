@@ -35,7 +35,7 @@ import org.apache.ofbiz.product.category.ftl.CatalogUrlSeoTransform;
 
 public class CatalogUrlSeoFilter extends CatalogUrlFilter {
 
-    public final static String MODULE = CatalogUrlSeoFilter.class.getName();
+    private static final String MODULE = CatalogUrlSeoFilter.class.getName();
 
     protected String defaultLocaleString = null;
     protected String redirectUrl = null;

@@ -106,21 +106,21 @@ public class CatalinaContainer implements Container {
         Host host = prepareHost(tomcat, null);
 
         // add realm and valve for Tomcat SSO
-        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")) {
             boolean useEncryption = EntityUtilProperties.propertyValueEquals("security", "password.encrypt", "true");
             OFBizRealm ofBizRealm = new OFBizRealm();
-            if (useEncryption){
+            if (useEncryption) {
                 ofBizRealm.setCredentialHandler(new HashedCredentialHandler());
             } else {
                 ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());
             }
             host.setRealm(ofBizRealm);
-            ((StandardHost)host).addValve(new SingleSignOn());
+            ((StandardHost) host).addValve(new SingleSignOn());
         }
 
         // clustering, valves and connectors setup
         Configuration.Property clusterProps = prepareTomcatClustering(host, engineConfig);
-        prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine)engine).addValve(valve));
+        prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine) engine).addValve(valve));
         prepareTomcatConnectors(configuration).forEach(connector -> tomcat.getService().addConnector(connector));
 
         loadWebapps(tomcat, configuration, clusterProps);
@@ -135,8 +135,8 @@ public class CatalinaContainer implements Container {
         }
 
         for (Connector con: tomcat.getService().findConnectors()) {
-            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
-                (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
+            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - "
+                    + (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
         }
         Debug.logInfo("Started " + ServerInfo.getServerInfo(), MODULE);
         return true;
@@ -171,8 +171,8 @@ public class CatalinaContainer implements Container {
 
     private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc, Configuration.Property engineConfig)
             throws ContainerException {
-        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/" +
-                    ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
+        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/"
+                + ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
         System.setProperty(Globals.CATALINA_BASE_PROP, System.getProperty(Globals.CATALINA_HOME_PROP));
 
         Tomcat tomcat = new Tomcat();
@@ -216,7 +216,7 @@ public class CatalinaContainer implements Container {
 
         if (UtilValidate.isEmpty(virtualHosts)) {
             host = (Host) tomcat.getEngine().findChild(tomcat.getEngine().getDefaultHost());
-            if(host == null) {
+            if (host == null) {
                 host = tomcat.getHost();
             }
         } else {
@@ -227,7 +227,7 @@ public class CatalinaContainer implements Container {
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
-        ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
+        ((StandardHost) host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
                 "work" + File.separator + host.getName()).getAbsolutePath());
 
         return host;
@@ -310,7 +310,7 @@ public class CatalinaContainer implements Container {
             throws ContainerException {
         ReplicationTransmitter trans = new ReplicationTransmitter();
         try {
-            MultiPointSender mps = (MultiPointSender)Class.forName(ContainerConfig.getPropertyValue(clusterProp,
+            MultiPointSender mps = (MultiPointSender) Class.forName(ContainerConfig.getPropertyValue(clusterProp,
                     "replication-mode", "org.apache.catalina.tribes.transport.bio.PooledMultiSender")).getDeclaredConstructor().newInstance();
             trans.setTransport(mps);
         } catch (Exception exc) {
@@ -348,7 +348,7 @@ public class CatalinaContainer implements Container {
     private static ClusterManager prepareClusterManager(Configuration.Property clusterProp) throws ContainerException {
         String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
         try {
-            return (ClusterManager)Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
+            return (ClusterManager) Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
             throw new ContainerException("Cluster configuration requires a valid manager-class property", e);
         }
@@ -459,7 +459,7 @@ public class CatalinaContainer implements Container {
         webResourceInfos.forEach(appInfo -> webappsMounts.addAll(getWebappMounts(appInfo)));
 
         for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
-            if(webappsMounts.removeAll(getWebappMounts(appInfo))) {
+            if (webappsMounts.removeAll(getWebappMounts(appInfo))) {
                 // webapp is not yet loaded
                 if (!appInfo.location.isEmpty()) {
                     futures.add(executor.submit(createCallableContext(tomcat, appInfo, clusterProp, configuration)));

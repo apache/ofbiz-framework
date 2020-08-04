@@ -65,7 +65,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * Generic Entity Data Access Object - Handles persistence for any defined entity.
- *
  */
 public class GenericDAO {
 
@@ -75,6 +74,12 @@ public class GenericDAO {
     private final GenericHelperInfo helperInfo;
     private final ModelFieldTypeReader modelFieldTypeReader;
     private final Datasource datasource;
+
+    public GenericDAO(GenericHelperInfo helperInfo) {
+        this.helperInfo = helperInfo;
+        this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
+        this.datasource = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
+    }
 
     public static GenericDAO getGenericDAO(GenericHelperInfo helperInfo) {
         String cacheKey = helperInfo.getHelperFullName();
@@ -86,14 +91,8 @@ public class GenericDAO {
         return newGenericDAO;
     }
 
-    public GenericDAO(GenericHelperInfo helperInfo) {
-        this.helperInfo = helperInfo;
-        this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
-        this.datasource = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
-    }
-
     private static void addFieldIfMissing(List<ModelField> fieldsToSave, String fieldName, ModelEntity modelEntity) {
-        for (ModelField fieldToSave: fieldsToSave) {
+        for (ModelField fieldToSave : fieldsToSave) {
             if (fieldName.equals(fieldToSave.getName())) {
                 return;
             }
@@ -106,17 +105,19 @@ public class GenericDAO {
         ModelEntity modelEntity = entity.getModelEntity();
 
         try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
-        try {
-            return singleInsert(entity, modelEntity, modelEntity.getFieldsUnmodifiable(), sqlP);
-        } catch (GenericEntityException e) {
-            sqlP.rollback();
-            // no need to create nested, just throw original which will have all info: throw new GenericEntityException("Exception while inserting the following entity: " + entity.toString(), e);
-            throw e;
-        }
+            try {
+                return singleInsert(entity, modelEntity, modelEntity.getFieldsUnmodifiable(), sqlP);
+            } catch (GenericEntityException e) {
+                sqlP.rollback();
+                // no need to create nested, just throw original which will have all info: throw new
+                // GenericEntityException("Exception while inserting the following entity: " + entity.toString(), e);
+                throw e;
+            }
         }
     }
 
-    private int singleInsert(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP) throws GenericEntityException {
+    private int singleInsert(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP)
+            throws GenericEntityException {
         if (modelEntity instanceof ModelViewEntity) {
             return singleUpdateView(entity, (ModelViewEntity) modelEntity, fieldsToSave, sqlP);
         }
@@ -124,10 +125,13 @@ public class GenericDAO {
         // if we have a STAMP_TX_FIELD or CREATE_STAMP_TX_FIELD then set it with NOW, always do this before the STAMP_FIELD
         // NOTE: these fairly complicated if statements have a few objectives:
         //   1. don't run the TransationUtil.getTransaction*Stamp() methods when we don't need to
-        //   2. don't set the stamp values if it is from an EntitySync (ie maintain original values), unless the stamps are null then set it anyway, ie even if it was from an EntitySync (also used for imports and such)
+        //   2. don't set the stamp values if it is from an EntitySync (ie maintain original values), unless the stamps are null then set it
+        // anyway, ie even if it was from an EntitySync (also used for imports and such)
         boolean stampTxIsField = modelEntity.isField(ModelEntity.STAMP_TX_FIELD);
         boolean createStampTxIsField = modelEntity.isField(ModelEntity.CREATE_STAMP_TX_FIELD);
-        if ((stampTxIsField || createStampTxIsField) && (!entity.getIsFromEntitySync() || (stampTxIsField && entity.get(ModelEntity.STAMP_TX_FIELD) == null) || (createStampTxIsField && entity.get(ModelEntity.CREATE_STAMP_TX_FIELD) == null))) {
+        if ((stampTxIsField || createStampTxIsField) && (!entity.getIsFromEntitySync()
+                || (stampTxIsField && entity.get(ModelEntity.STAMP_TX_FIELD) == null)
+                || (createStampTxIsField && entity.get(ModelEntity.CREATE_STAMP_TX_FIELD) == null))) {
             Timestamp txStartStamp = TransactionUtil.getTransactionStartStamp();
             if (stampTxIsField && (!entity.getIsFromEntitySync() || entity.get(ModelEntity.STAMP_TX_FIELD) == null)) {
                 entity.set(ModelEntity.STAMP_TX_FIELD, txStartStamp);
@@ -142,7 +146,7 @@ public class GenericDAO {
         // if we have a STAMP_FIELD or CREATE_STAMP_FIELD then set it with NOW
         boolean stampIsField = modelEntity.isField(ModelEntity.STAMP_FIELD);
         boolean createStampIsField = modelEntity.isField(ModelEntity.CREATE_STAMP_FIELD);
-        if ((stampIsField || createStampIsField)  && (!entity.getIsFromEntitySync() || (stampIsField && entity.get(ModelEntity.STAMP_FIELD) == null) || (createStampIsField && entity.get(ModelEntity.CREATE_STAMP_FIELD) == null))) {
+        if ((stampIsField || createStampIsField) && (!entity.getIsFromEntitySync() || (stampIsField && entity.get(ModelEntity.STAMP_FIELD) == null) || (createStampIsField && entity.get(ModelEntity.CREATE_STAMP_FIELD) == null))) {
             Timestamp startStamp = TransactionUtil.getTransactionUniqueNowStamp();
             if (stampIsField && (!entity.getIsFromEntitySync() || entity.get(ModelEntity.STAMP_FIELD) == null)) {
                 entity.set(ModelEntity.STAMP_FIELD, startStamp);
@@ -199,24 +203,29 @@ public class GenericDAO {
 
     private int customUpdate(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave) throws GenericEntityException {
         try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
-        try {
-            return singleUpdate(entity, modelEntity, fieldsToSave, sqlP);
-        } catch (GenericEntityException e) {
-            sqlP.rollback();
-            // no need to create nested, just throw original which will have all info: throw new GenericEntityException("Exception while updating the following entity: " + entity.toString(), e);
-            throw e;
-        }
+            try {
+                return singleUpdate(entity, modelEntity, fieldsToSave, sqlP);
+            } catch (GenericEntityException e) {
+                sqlP.rollback();
+                // no need to create nested, just throw original which will have all info: throw new
+                // GenericEntityException("Exception while updating the following entity: " + entity.toString(), e);
+                throw e;
+            }
         }
     }
 
-    private int singleUpdate(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP) throws GenericEntityException {
+    private int singleUpdate(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP)
+            throws GenericEntityException {
         if (modelEntity instanceof ModelViewEntity) {
             return singleUpdateView(entity, (ModelViewEntity) modelEntity, fieldsToSave, sqlP);
         }
 
         // no non-primaryKey fields, update doesn't make sense, so don't do it
         if (fieldsToSave.size() <= 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("Trying to do an update on an entity with no non-PK fields, returning having done nothing; entity=" + entity, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Trying to do an update on an entity with no non-PK fields, returning having done nothing; entity=" + entity,
+                        MODULE);
+            }
             // returning one because it was effectively updated, ie the same thing, so don't trigger any errors elsewhere
             return 1;
         }
@@ -237,7 +246,8 @@ public class GenericDAO {
         // if we have a STAMP_TX_FIELD then set it with NOW, always do this before the STAMP_FIELD
         // NOTE: these fairly complicated if statements have a few objectives:
         //   1. don't run the TransationUtil.getTransaction*Stamp() methods when we don't need to
-        //   2. don't set the stamp values if it is from an EntitySync (ie maintain original values), unless the stamps are null then set it anyway, ie even if it was from an EntitySync (also used for imports and such)
+        //   2. don't set the stamp values if it is from an EntitySync (ie maintain original values), unless the stamps are null then set it
+        // anyway, ie even if it was from an EntitySync (also used for imports and such)
         if (modelEntity.isField(ModelEntity.STAMP_TX_FIELD) && (!entity.getIsFromEntitySync() || entity.get(ModelEntity.STAMP_TX_FIELD) == null)) {
             entity.set(ModelEntity.STAMP_TX_FIELD, TransactionUtil.getTransactionStartStamp());
             addFieldIfMissing(fieldsToSave, ModelEntity.STAMP_TX_FIELD, modelEntity);
@@ -272,7 +282,8 @@ public class GenericDAO {
         return retVal;
     }
 
-    public int updateByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
+    public int updateByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet,
+                                 EntityCondition condition) throws GenericEntityException {
 
         try (SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo)) {
             try {
@@ -284,9 +295,11 @@ public class GenericDAO {
         }
     }
 
-    public int updateByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition, SQLProcessor sqlP) throws GenericEntityException {
-        if (modelEntity == null || fieldsToSet == null || condition == null)
+    public int updateByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition, SQLProcessor sqlP)
+            throws GenericEntityException {
+        if (modelEntity == null || fieldsToSet == null || condition == null) {
             return 0;
+        }
         if (modelEntity instanceof ModelViewEntity) {
             throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation updateByCondition not supported yet for view entities");
         }
@@ -294,7 +307,7 @@ public class GenericDAO {
         StringBuilder sql = new StringBuilder("UPDATE ").append(modelEntity.getTableName(datasource));
         sql.append(" SET ");
         List<EntityConditionParam> params = new LinkedList<>();
-        for (Map.Entry<String, ? extends Object> entry: fieldsToSet.entrySet()) {
+        for (Map.Entry<String, ? extends Object> entry : fieldsToSet.entrySet()) {
             String name = entry.getKey();
             ModelField field = modelEntity.getField(name);
             if (field != null) {
@@ -308,7 +321,7 @@ public class GenericDAO {
         sql.append(" WHERE ").append(condition.makeWhereString(modelEntity, params, this.datasource));
 
         sqlP.prepareStatement(sql.toString());
-        for (EntityConditionParam param: params) {
+        for (EntityConditionParam param : params) {
             SqlJdbcUtil.setValue(sqlP, param.getModelField(), modelEntity.getEntityName(), param.getFieldValue(), modelFieldTypeReader);
         }
 
@@ -321,7 +334,7 @@ public class GenericDAO {
 
     /**
      * Try to update the given ModelViewEntity by trying to insert/update on the entities of which the view is composed.
-     *
+     * <p>
      * Works fine with standard O/R mapped models, but has some restrictions meeting more complicated view entities.
      * <li>A direct link is required, which means that one of the ModelViewLink field entries must have a value found
      * in the given view entity, for each ModelViewLink</li>
@@ -330,20 +343,22 @@ public class GenericDAO {
      * <li>For now, aliased field names in views are not processed correctly, I guess. To be honest, I did not
      * find out how to construct such a view - so view fieldnames must have same named fields in member entities.</li>
      * <li>A new exception, e.g. GenericViewNotUpdatable, should be defined and thrown if the update fails</li>
-     *
      */
-    private int singleUpdateView(GenericEntity entity, ModelViewEntity modelViewEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP) throws GenericEntityException {
+    private int singleUpdateView(GenericEntity entity, ModelViewEntity modelViewEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP)
+            throws GenericEntityException {
         Delegator delegator = entity.getDelegator();
 
         int retVal = 0;
         ModelEntity memberModelEntity = null;
 
         // Construct insert/update for each model entity
-        for (ModelViewEntity.ModelMemberEntity modelMemberEntity: modelViewEntity.getMemberModelMemberEntities().values()) {
+        for (ModelViewEntity.ModelMemberEntity modelMemberEntity : modelViewEntity.getMemberModelMemberEntities().values()) {
             String meName = modelMemberEntity.getEntityName();
             String meAlias = modelMemberEntity.getEntityAlias();
 
-            if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: Processing MemberEntity " + meName + " with Alias " + meAlias, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[singleUpdateView]: Processing MemberEntity " + meName + " with Alias " + meAlias, MODULE);
+            }
             try {
                 memberModelEntity = delegator.getModelReader().getModelEntity(meName);
             } catch (GenericEntityException e) {
@@ -373,15 +388,21 @@ public class GenericDAO {
                             fieldName = keyMap.getRelFieldName();
                         }
 
-                        if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: --- Found field to set: " + meAlias + "." + fieldName, MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("[singleUpdateView]: --- Found field to set: " + meAlias + "." + fieldName, MODULE);
+                        }
                         Object value = null;
 
                         if (modelViewEntity.isField(keyMap.getFieldName())) {
                             value = entity.get(keyMap.getFieldName());
-                            if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: --- Found map value: " + value.toString(), MODULE);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("[singleUpdateView]: --- Found map value: " + value.toString(), MODULE);
+                            }
                         } else if (modelViewEntity.isField(keyMap.getRelFieldName())) {
                             value = entity.get(keyMap.getRelFieldName());
-                            if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: --- Found map value: " + value.toString(), MODULE);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("[singleUpdateView]: --- Found map value: " + value.toString(), MODULE);
+                            }
                         } else {
                             throw new GenericNotImplementedException("Update on view entities: no direct link found, unable to update");
                         }
@@ -399,7 +420,9 @@ public class GenericDAO {
             } catch (GenericEntityException e) {
                 throw new GenericEntityException("Error while retrieving partial results for entity member: " + meName, e);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: --- Found " + meResult.size() + " results for entity member " + meName, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[singleUpdateView]: --- Found " + meResult.size() + " results for entity member " + meName, MODULE);
+            }
 
             // Got results 0 -> INSERT, 1 -> UPDATE, >1 -> View is nor updatable
             GenericValue meGenericValue = null;
@@ -410,27 +433,33 @@ public class GenericDAO {
                     // Create new value to store
                     meGenericValue = delegator.makeValue(meName, findByMap);
                 } catch (Exception e) {
-                    throw new GenericEntityException("Could not create new value for member entity" + meName + " of view " + modelViewEntity.getEntityName(), e);
+                    throw new GenericEntityException("Could not create new value for member entity" + meName + " of view "
+                            + modelViewEntity.getEntityName(), e);
                 }
             } else if (meResult.size() == 1) {
                 // Update existing value
                 meGenericValue = meResult.iterator().next();
             } else {
-                throw new GenericEntityException("Found more than one result for member entity " + meName + " in view " + modelViewEntity.getEntityName() + " - this is no updatable view");
+                throw new GenericEntityException("Found more than one result for member entity " + meName + " in view "
+                        + modelViewEntity.getEntityName() + " - this is no updatable view");
             }
 
             // Construct fieldsToSave list for this member entity
             List<ModelField> meFieldsToSave = new LinkedList<>();
-            for (ModelField modelField: fieldsToSave) {
+            for (ModelField modelField : fieldsToSave) {
                 if (memberModelEntity.isField(modelField.getName())) {
                     ModelField meModelField = memberModelEntity.getField(modelField.getName());
 
                     if (meModelField != null) {
                         meGenericValue.set(meModelField.getName(), entity.get(modelField.getName()));
                         meFieldsToSave.add(meModelField);
-                        if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: --- Added field to save: " + meModelField.getName() + " with value " + meGenericValue.get(meModelField.getName()), MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("[singleUpdateView]: --- Added field to save: " + meModelField.getName() + " with value "
+                                    + meGenericValue.get(meModelField.getName()), MODULE);
+                        }
                     } else {
-                        throw new GenericEntityException("Could not get field " + modelField.getName() + " from model entity " + memberModelEntity.getEntityName());
+                        throw new GenericEntityException("Could not get field " + modelField.getName() + " from model entity "
+                                + memberModelEntity.getEntityName());
                     }
                 }
             }
@@ -449,7 +478,9 @@ public class GenericDAO {
                 if (meFieldsToSave.size() > 0) {
                     retVal += singleUpdate(meGenericValue, memberModelEntity, meFieldsToSave, sqlP);
                 } else {
-                    if (Debug.verboseOn()) Debug.logVerbose("[singleUpdateView]: No update on member entity " + memberModelEntity.getEntityName() + " needed", MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("[singleUpdateView]: No update on member entity " + memberModelEntity.getEntityName() + " needed", MODULE);
+                    }
                 }
             }
         }
@@ -485,23 +516,23 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasource));
         sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPkFieldsUnmodifiable(), entity, "AND", datasource.getJoinStyle()));
 
-            sqlP.prepareStatement(sqlBuffer.toString(), true, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            SqlJdbcUtil.setPkValues(sqlP, modelEntity, entity, modelFieldTypeReader);
-            sqlP.executeQuery();
+        sqlP.prepareStatement(sqlBuffer.toString(), true, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        SqlJdbcUtil.setPkValues(sqlP, modelEntity, entity, modelFieldTypeReader);
+        sqlP.executeQuery();
 
-            if (sqlP.next()) {
-                int idx = 1;
-                Iterator<ModelField> nopkIter = modelEntity.getNopksIterator();
-                while (nopkIter.hasNext()) {
-                    ModelField curField = nopkIter.next();
-                    SqlJdbcUtil.getValue(sqlP.getResultSet(), idx, curField, entity, modelFieldTypeReader);
-                    idx++;
-                }
+        if (sqlP.next()) {
+            int idx = 1;
+            Iterator<ModelField> nopkIter = modelEntity.getNopksIterator();
+            while (nopkIter.hasNext()) {
+                ModelField curField = nopkIter.next();
+                SqlJdbcUtil.getValue(sqlP.getResultSet(), idx, curField, entity, modelFieldTypeReader);
+                idx++;
+            }
 
-                entity.synchronizedWithDatasource();
-            } else {
-                // Debug.logWarning("[GenericDAO.select]: select failed, result set was empty for entity: " + entity.toString(), MODULE);
-                throw new GenericEntityNotFoundException("Result set was empty for entity: " + entity.toString());
+            entity.synchronizedWithDatasource();
+        } else {
+            // Debug.logWarning("[GenericDAO.select]: select failed, result set was empty for entity: " + entity.toString(), MODULE);
+            throw new GenericEntityNotFoundException("Result set was empty for entity: " + entity.toString());
         }
     }
 
@@ -561,19 +592,26 @@ public class GenericDAO {
     /* ====================================================================== */
     /* ====================================================================== */
 
-    /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
-     *@param modelEntity The ModelEntity of the Entity as defined in the entity XML file
-     *@param whereEntityCondition The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is a view entity with group-by aliases)
-     *@param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done (if this is a view entity with group-by aliases)
-     *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retreived
-     *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
-     *@param findOptions An instance of EntityFindOptions that specifies advanced query options. See the EntityFindOptions JavaDoc for more details.
-     *@return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
-     *      DONE WITH IT (preferably in a finally block), 
-     *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
+    /**
+     * Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
+     *
+     * @param modelEntity           The ModelEntity of the Entity as defined in the entity XML file
+     * @param whereEntityCondition  The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is
+     *                             a view entity with group-by aliases)
+     * @param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done (if this is
+     *                              a view entity with group-by aliases)
+     * @param fieldsToSelect        The fields of the named entity to get from the database; if empty or null all fields will be retreived
+     * @param orderBy               The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for
+     *                              descending
+     * @param findOptions           An instance of EntityFindOptions that specifies advanced query options. See the EntityFindOptions JavaDoc for
+     *                              more details.
+     * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
+     * DONE WITH IT (preferably in a finally block),
+     * AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
     public EntityListIterator selectListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
-            EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
+                                                            EntityCondition havingEntityCondition, Collection<String> fieldsToSelect,
+                                                            List<String> orderBy, EntityFindOptions findOptions)
             throws GenericEntityException {
         if (modelEntity == null) {
             return null;
@@ -591,7 +629,9 @@ public class GenericDAO {
 
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            if (Debug.verboseOn()) Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, MODULE);
+            }
         }
 
         // make two ArrayLists of fields, one for fields to select and the other for where clause fields (to find by)
@@ -671,7 +711,8 @@ public class GenericDAO {
             viewWhereConditions = new LinkedList<>();
             viewHavingConditions = new LinkedList<>();
             viewOrderByList = new LinkedList<>();
-            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList, null);
+            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList,
+                    null);
         }
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
@@ -714,19 +755,25 @@ public class GenericDAO {
 
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            if (Debug.verboseOn()) Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, MODULE);
+            }
         }
         // set all of the values from the Where EntityCondition
-        for (EntityConditionParam whereEntityConditionParam: whereEntityConditionParams) {
-            SqlJdbcUtil.setValue(sqlP, whereEntityConditionParam.getModelField(), modelEntity.getEntityName(), whereEntityConditionParam.getFieldValue(), modelFieldTypeReader);
+        for (EntityConditionParam whereEntityConditionParam : whereEntityConditionParams) {
+            SqlJdbcUtil.setValue(sqlP, whereEntityConditionParam.getModelField(), modelEntity.getEntityName(),
+                    whereEntityConditionParam.getFieldValue(), modelFieldTypeReader);
         }
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            if (Debug.verboseOn()) Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, MODULE);
+            }
         }
         // set all of the values from the Having EntityCondition
-        for (EntityConditionParam havingEntityConditionParam: havingEntityConditionParams) {
-            SqlJdbcUtil.setValue(sqlP, havingEntityConditionParam.getModelField(), modelEntity.getEntityName(), havingEntityConditionParam.getFieldValue(), modelFieldTypeReader);
+        for (EntityConditionParam havingEntityConditionParam : havingEntityConditionParams) {
+            SqlJdbcUtil.setValue(sqlP, havingEntityConditionParam.getModelField(), modelEntity.getEntityName(),
+                    havingEntityConditionParam.getFieldValue(), modelFieldTypeReader);
         }
 
         long queryStartTime = 0;
@@ -738,18 +785,24 @@ public class GenericDAO {
             long queryEndTime = System.currentTimeMillis();
             long queryTotalTime = queryEndTime - queryStartTime;
             if (queryTotalTime > 150) {
-                Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + " EntityName: " + modelEntity.getEntityName() + " Sql: " + sql + " where clause:" + whereEntityConditionParams, MODULE);
+                Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + " EntityName: " + modelEntity.getEntityName() + " Sql: "
+                        + sql + " where clause:" + whereEntityConditionParams, MODULE);
             }
         }
-        return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader, this, whereEntityCondition, havingEntityCondition, findOptions.getDistinct());
+        return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader, this, whereEntityCondition, havingEntityCondition,
+                findOptions.getDistinct());
     }
 
     @Deprecated
-    protected StringBuilder makeConditionWhereString(ModelEntity modelEntity, EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions, List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
+    protected StringBuilder makeConditionWhereString(ModelEntity modelEntity, EntityCondition whereEntityCondition,
+                                                     List<EntityCondition> viewWhereConditions,
+                                                     List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
         return makeConditionWhereString(new StringBuilder(), "", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
     }
 
-    protected StringBuilder makeConditionWhereString(StringBuilder whereString, String prefix, ModelEntity modelEntity, EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions, List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
+    protected StringBuilder makeConditionWhereString(StringBuilder whereString, String prefix, ModelEntity modelEntity,
+                                                     EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions,
+                                                     List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
@@ -775,18 +828,24 @@ public class GenericDAO {
 
         if (!conditions.isEmpty()) {
             whereString.append(prefix);
-            whereString.append(EntityCondition.makeCondition(conditions, EntityOperator.AND).makeWhereString(modelEntity, whereEntityConditionParams, this.datasource));
+            whereString.append(EntityCondition.makeCondition(conditions, EntityOperator.AND).makeWhereString(modelEntity,
+                    whereEntityConditionParams, this.datasource));
         }
 
         return whereString;
     }
 
     @Deprecated
-    protected StringBuilder makeConditionHavingString(ModelEntity modelEntity, EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions, List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
-        return makeConditionHavingString(new StringBuilder(), "", modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
+    protected StringBuilder makeConditionHavingString(ModelEntity modelEntity, EntityCondition havingEntityCondition,
+                                                      List<EntityCondition> viewHavingConditions,
+                                                      List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
+        return makeConditionHavingString(new StringBuilder(), "", modelEntity, havingEntityCondition, viewHavingConditions,
+                havingEntityConditionParams);
     }
 
-    protected StringBuilder makeConditionHavingString(StringBuilder havingString, String prefix, ModelEntity modelEntity, EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions, List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
+    protected StringBuilder makeConditionHavingString(StringBuilder havingString, String prefix, ModelEntity modelEntity,
+                                                      EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions,
+                                                      List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
@@ -835,7 +894,7 @@ public class GenericDAO {
                         offsetString.append(" OFFSET " + findOptions.getOffset());
                     }
                 }
-            } else if ("fetch".equals(datasource.getOffsetStyle())) {
+            } else {
                 // use SQL2008 OFFSET/FETCH style by default
                 if (findOptions.getOffset() > -1) {
                     offsetString.append(" OFFSET ").append(findOptions.getOffset()).append(" ROWS");
@@ -849,7 +908,8 @@ public class GenericDAO {
     }
 
     public List<GenericValue> selectByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
-        ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
+                                                    ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy)
+            throws GenericEntityException {
 
         // get the tables names
         String atable = modelEntityOne.getTableName(datasource);
@@ -880,7 +940,8 @@ public class GenericDAO {
             if (wheresb.length() > 0) {
                 wheresb.append(" AND ");
             }
-            wheresb.append(atable).append(".").append(modelEntityOne.getField(lfname).getColName()).append(" = ").append(ttable).append(".").append(modelEntityTwo.getField(rfname).getColName());
+            wheresb.append(atable).append(".").append(modelEntityOne.getField(lfname).getColName()).append(" = ").append(ttable).append(".")
+                    .append(modelEntityTwo.getField(rfname).getColName());
         }
 
         // construct the source entity qualifier
@@ -919,7 +980,7 @@ public class GenericDAO {
 
         try (SQLProcessor sqlP = new SQLProcessor(value.getDelegator(), helperInfo)) {
             sqlP.prepareStatement(sqlsb.toString());
-            for (Map.Entry<ModelField, Object> entry: bindMap.entrySet()) {
+            for (Map.Entry<ModelField, Object> entry : bindMap.entrySet()) {
                 ModelField mf = entry.getKey();
                 Object curvalue = entry.getValue();
 
@@ -934,7 +995,7 @@ public class GenericDAO {
 
                 // loop thru all columns for in one row
                 int idx = 1;
-                for (String fldname: fldlist) {
+                for (String fldname : fldlist) {
                     ModelField mf = modelEntityTwo.getField(fldname);
                     SqlJdbcUtil.getValue(sqlP.getResultSet(), idx, mf, gv, modelFieldTypeReader);
                     idx++;
@@ -946,11 +1007,14 @@ public class GenericDAO {
         return retlist;
     }
 
-    public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+    public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
+                                       EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, null, findOptions);
     }
 
-    public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions) throws GenericEntityException {
+    public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
+                                       EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions)
+            throws GenericEntityException {
         if (modelEntity == null) {
             return 0;
         }
@@ -963,7 +1027,9 @@ public class GenericDAO {
 
         if (verboseOn) {
             // put this inside an if statement so that we don't have to generate the string when not used...
-            if (Debug.verboseOn()) Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, MODULE);
+            }
         }
 
         boolean isGroupBy = false;
@@ -986,9 +1052,10 @@ public class GenericDAO {
 
         if (findOptions.getDistinct()) {
             // old style, not sensitive to selecting limited columns: sqlBuffer.append("DISTINCT COUNT(*) ");
-            /* DEJ20100304: the code below was causing problems so the line above may be used instead, but hopefully this is fixed now 
-             * may need varying SQL for different databases, and also in view-entities in some cases it seems to 
-             * cause the "COUNT(DISTINCT " to appear twice, causing an attempt to try to count a count (function="count-distinct", distinct=true in find options)
+            /* DEJ20100304: the code below was causing problems so the line above may be used instead, but hopefully this is fixed now
+             * may need varying SQL for different databases, and also in view-entities in some cases it seems to
+             * cause the "COUNT(DISTINCT " to appear twice, causing an attempt to try to count a count (function="count-distinct", distinct=true in
+              * find options)
              */
             if (selectFields != null && selectFields.size() > 0) {
                 ModelField firstSelectField = selectFields.get(0);
@@ -998,7 +1065,8 @@ public class GenericDAO {
                     sqlBuffer.append("COUNT(DISTINCT *) ");
                 } else {
                     sqlBuffer.append("COUNT(DISTINCT ");
-                    // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
+                    // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain
+                    // cases all columns
                     sqlBuffer.append(firstSelectField.getColValue());
                     // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasource.aliasViews));
                     sqlBuffer.append(")");
@@ -1007,7 +1075,8 @@ public class GenericDAO {
                 sqlBuffer.append("COUNT(DISTINCT *) ");
             }
         } else {
-            // NOTE DEJ20080701 Changed from COUNT(*) to COUNT(1) to improve performance, and should get the same results at least when there is no DISTINCT
+            // NOTE DEJ20080701 Changed from COUNT(*) to COUNT(1) to improve performance, and should get the same results at least when there is no
+            // DISTINCT
             sqlBuffer.append("COUNT(1) ");
         }
 
@@ -1019,7 +1088,8 @@ public class GenericDAO {
             viewWhereConditions = new LinkedList<>();
             viewHavingConditions = new LinkedList<>();
             viewOrderByList = new LinkedList<>();
-            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList, null);
+            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList
+                    , null);
         }
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
@@ -1043,41 +1113,47 @@ public class GenericDAO {
         }
 
         String sql = sqlBuffer.toString();
-        if (Debug.verboseOn()) Debug.logVerbose("Count select sql: " + sql, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Count select sql: " + sql, MODULE);
+        }
 
         try (SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo)) {
-        sqlP.prepareStatement(sql, findOptions.getSpecifyTypeAndConcur(), findOptions.getResultSetType(),
-                findOptions.getResultSetConcurrency(), findOptions.getFetchSize(), findOptions.getMaxRows());
-        if (verboseOn) {
-            // put this inside an if statement so that we don't have to generate the string when not used...
-            if (Debug.verboseOn()) Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, MODULE);
-        }
-        // set all of the values from the Where EntityCondition
-        for (EntityConditionParam whereEntityConditionParam: whereEntityConditionParams) {
-            SqlJdbcUtil.setValue(sqlP, whereEntityConditionParam.getModelField(), modelEntity.getEntityName(), whereEntityConditionParam.getFieldValue(), modelFieldTypeReader);
-        }
-        if (verboseOn) {
-            // put this inside an if statement so that we don't have to generate the string when not used...
-            if (Debug.verboseOn()) Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, MODULE);
-        }
-        // set all of the values from the Having EntityCondition
-        for (EntityConditionParam havingEntityConditionParam: havingEntityConditionParams) {
-            SqlJdbcUtil.setValue(sqlP, havingEntityConditionParam.getModelField(), modelEntity.getEntityName(), havingEntityConditionParam.getFieldValue(), modelFieldTypeReader);
-        }
-
-
-        try {
-            sqlP.executeQuery();
-            long count = 0;
-            ResultSet resultSet = sqlP.getResultSet();
-            if (resultSet.next()) {
-                count = resultSet.getLong(1);
+            sqlP.prepareStatement(sql, findOptions.getSpecifyTypeAndConcur(), findOptions.getResultSetType(),
+                    findOptions.getResultSetConcurrency(), findOptions.getFetchSize(), findOptions.getMaxRows());
+            if (verboseOn) {
+                // put this inside an if statement so that we don't have to generate the string when not used...
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Setting the whereEntityConditionParams: " + whereEntityConditionParams, MODULE);
+                }
             }
-            return count;
+            // set all of the values from the Where EntityCondition
+            for (EntityConditionParam whereEntityConditionParam : whereEntityConditionParams) {
+                SqlJdbcUtil.setValue(sqlP, whereEntityConditionParam.getModelField(), modelEntity.getEntityName(),
+                        whereEntityConditionParam.getFieldValue(), modelFieldTypeReader);
+            }
+            if (verboseOn) {
+                // put this inside an if statement so that we don't have to generate the string when not used...
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Setting the havingEntityConditionParams: " + havingEntityConditionParams, MODULE);
+                }
+            }
+            // set all of the values from the Having EntityCondition
+            for (EntityConditionParam havingEntityConditionParam : havingEntityConditionParams) {
+                SqlJdbcUtil.setValue(sqlP, havingEntityConditionParam.getModelField(), modelEntity.getEntityName(),
+                        havingEntityConditionParam.getFieldValue(), modelFieldTypeReader);
+            }
+            try {
+                sqlP.executeQuery();
+                long count = 0;
+                ResultSet resultSet = sqlP.getResultSet();
+                if (resultSet.next()) {
+                    count = resultSet.getLong(1);
+                }
+                return count;
 
-        } catch (SQLException e) {
-            throw new GenericDataSourceException("Error getting count value", e);
-        }
+            } catch (SQLException e) {
+                throw new GenericDataSourceException("Error getting count value", e);
+            }
         }
     }
 
@@ -1087,13 +1163,12 @@ public class GenericDAO {
 
     public int delete(GenericEntity entity) throws GenericEntityException {
         try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
-
-        try {
-            return delete(entity, sqlP);
-        } catch (GenericDataSourceException e) {
-            sqlP.rollback();
-            throw new GenericDataSourceException("Exception while deleting the following entity: " + entity.toString(), e);
-        }
+            try {
+                return delete(entity, sqlP);
+            } catch (GenericDataSourceException e) {
+                sqlP.rollback();
+                throw new GenericDataSourceException("Exception while deleting the following entity: " + entity.toString(), e);
+            }
         }
     }
 
@@ -1109,21 +1184,21 @@ public class GenericDAO {
 
         int retVal;
 
-            sqlP.prepareStatement(sql.toString());
-            SqlJdbcUtil.setPkValues(sqlP, modelEntity, entity, modelFieldTypeReader);
-            retVal = sqlP.executeUpdate();
-            entity.removedFromDatasource();
+        sqlP.prepareStatement(sql.toString());
+        SqlJdbcUtil.setPkValues(sqlP, modelEntity, entity, modelFieldTypeReader);
+        retVal = sqlP.executeUpdate();
+        entity.removedFromDatasource();
         return retVal;
     }
 
     public int deleteByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
         try (SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo)) {
-        try {
-            return deleteByCondition(modelEntity, condition, sqlP);
-        } catch (GenericDataSourceException e) {
-            sqlP.rollback();
-            throw new GenericDataSourceException("Generic Entity Exception occurred in deleteByCondition", e);
-        }
+            try {
+                return deleteByCondition(modelEntity, condition, sqlP);
+            } catch (GenericDataSourceException e) {
+                sqlP.rollback();
+                throw new GenericDataSourceException("Generic Entity Exception occurred in deleteByCondition", e);
+            }
         }
     }
 
@@ -1140,10 +1215,9 @@ public class GenericDAO {
         if (UtilValidate.isNotEmpty(whereCondition)) {
             sql.append(" WHERE ").append(whereCondition);
         }
+        sqlP.prepareStatement(sql.toString());
 
-            sqlP.prepareStatement(sql.toString());
-
-            return sqlP.executeUpdate();
+        return sqlP.executeUpdate();
     }
 
     /* ====================================================================== */
@@ -1153,7 +1227,9 @@ public class GenericDAO {
         dbUtil.checkDb(modelEntities, messages, addMissing);
     }
 
-    /** Creates a list of ModelEntity objects based on meta data from the database */
+    /**
+     * Creates a list of ModelEntity objects based on meta data from the database
+     */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
         DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo);
         return dbUtil.induceModelFromDb(messages);

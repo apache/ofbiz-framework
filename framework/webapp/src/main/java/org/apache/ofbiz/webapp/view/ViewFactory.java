@@ -43,9 +43,9 @@ public class ViewFactory {
     public ViewFactory(ServletContext context, URL controllerConfigURL) {
         // load all the view handlers
         try {
-            Set<Map.Entry<String,String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
+            Set<Map.Entry<String, String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
             if (handlerEntries != null) {
-                for (Map.Entry<String,String> handlerEntry: handlerEntries) {
+                for (Map.Entry<String, String> handlerEntry: handlerEntries) {
                     ViewHandler handler = (ViewHandler) ObjectType.getInstance(handlerEntry.getValue());
                     handler.setName(handlerEntry.getKey());
                     handler.init(context);

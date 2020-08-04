@@ -57,7 +57,7 @@ public class CCPaymentServices {
     private static final String RESOURCE = "AccountingUiLabels";
     private static final int DECIMALS = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static final RoundingMode ROUNDING_MODE = UtilNumber.getRoundingMode("invoice.rounding");
-    private final static int MAX_SEV_COMP = 4;
+    private static final int MAX_SEV_COMP = 4;
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, Object> context) {
         String ccAction = (String) context.get("ccAction");

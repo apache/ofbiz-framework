@@ -35,7 +35,7 @@ public final class WidgetContextCacheKey {
 
     private static Set<String> fieldNamesToSkip = createFieldNamesToSkip();
 
-    private static Set<String> createFieldNamesToSkip(){
+    private static Set<String> createFieldNamesToSkip() {
         Set<String> fieldNamesToSkip = new HashSet<>();
         fieldNamesToSkip.add("globalContext");
         fieldNamesToSkip.add("delegator");
@@ -94,7 +94,7 @@ public final class WidgetContextCacheKey {
     public boolean equals(Object obj) {
         WidgetContextCacheKey key = null;
         if (obj instanceof WidgetContextCacheKey) {
-            key = (WidgetContextCacheKey)obj;
+            key = (WidgetContextCacheKey) obj;
         }
         if (key == null || key.context == null) {
             return this.context == null;
@@ -149,10 +149,8 @@ public final class WidgetContextCacheKey {
         Map<String, Object> printableMap = new HashMap<>();
         for (Map.Entry<String, ? extends Object> entry : map.entrySet()) {
             String fieldName = entry.getKey();
-            if (!fieldNamesToSkip.contains(fieldName) &&
-                    !fieldName.startsWith("javax.servlet") &&
-                    !fieldName.startsWith("org.apache") &&
-                    !fieldName.startsWith("_CLIENT_")) {
+            if (!fieldNamesToSkip.contains(fieldName) && !fieldName.startsWith("javax.servlet")
+                    && !fieldName.startsWith("org.apache") && !fieldName.startsWith("_CLIENT_")) {
                 printableMap.put(fieldName, entry.getValue());
             }
         }
@@ -167,9 +165,7 @@ public final class WidgetContextCacheKey {
             if (fieldNamesToSkip.contains(fieldName)) {
                 continue;
             }
-            if (fieldName.startsWith("javax.servlet") ||
-                    fieldName.startsWith("org.apache") ||
-                    fieldName.startsWith("_CLIENT_")) {
+            if (fieldName.startsWith("javax.servlet") || fieldName.startsWith("org.apache") || fieldName.startsWith("_CLIENT_")) {
                 continue;
             }
             Object field1 = map1.get(fieldName);

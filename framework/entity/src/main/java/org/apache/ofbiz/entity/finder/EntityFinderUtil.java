@@ -59,7 +59,7 @@ public final class EntityFinderUtil {
 
     private static final String MODULE = EntityFinderUtil.class.getName();
 
-    private EntityFinderUtil () {}
+    private EntityFinderUtil() { }
 
     public static Map<FlexibleMapAccessor<Object>, Object> makeFieldMap(Element element) {
         Map<FlexibleMapAccessor<Object>, Object> fieldMap = null;
@@ -154,7 +154,7 @@ public final class EntityFinderUtil {
     @SuppressWarnings("serial")
     public static final class ConditionExpr implements Condition {
         private final String fieldName;
-        private final EntityOperator<?,?> operator;
+        private final EntityOperator<?, ?> operator;
         private final FlexibleMapAccessor<Object> envNameAcsr;
         private final FlexibleStringExpander valueExdr;
         private final FlexibleStringExpander ignoreExdr;
@@ -209,13 +209,13 @@ public final class EntityFinderUtil {
             if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN) || operator.equals(EntityOperator.NOT_IN))
                     && value instanceof String) {
                 String delim = null;
-                if (((String)value).indexOf('|') >= 0) {
+                if (((String) value).indexOf('|') >= 0) {
                     delim = "|";
-                } else if (((String)value).indexOf(',') >= 0) {
+                } else if (((String) value).indexOf(',') >= 0) {
                     delim = ",";
                 }
                 if (delim != null) {
-                    value = StringUtil.split((String)value, delim);
+                    value = StringUtil.split((String) value, delim);
                 }
             }
 
@@ -239,27 +239,27 @@ public final class EntityFinderUtil {
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(value)),
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), EntityFunction.UPPER(value)),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
                 }
                 return EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), value),
+                        EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), value),
                         EntityOperator.OR,
                         EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
             }
             if (ignoreCase) {
                 // use the stuff to upper case both sides
-                return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(value));
+                return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), EntityFunction.UPPER(value));
             }
-            return EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), value);
+            return EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), value);
         }
     }
 
     @SuppressWarnings("serial")
     public static final class ConditionList implements Condition {
         private final List<Condition> conditionList;
-        private final EntityOperator<?,?> operator;
+        private final EntityOperator<?, ?> operator;
 
         public ConditionList(Element conditionListElement) {
             String operatorAttribute = conditionListElement.getAttribute("combine");

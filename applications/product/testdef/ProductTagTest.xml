@@ -23,7 +23,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="producttag-test">
-        <simple-method-test location="component://product/minilang/product/test/ProductTagTest.xml" name="testProductTag"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductTagTest"/>
     </test-case>
 
 </test-suite>

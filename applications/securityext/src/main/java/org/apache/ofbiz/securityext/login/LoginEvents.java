@@ -143,14 +143,12 @@ public class LoginEvents {
         }
 
         GenericValue supposedUserLogin = null;
-        String passwordHint = null; 
-        
+        String passwordHint = null;
         try {
             supposedUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, "", MODULE);
         }
-        
         if (supposedUserLogin != null) {
             passwordHint = supposedUserLogin.getString("passwordHint");
         }

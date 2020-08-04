@@ -88,7 +88,7 @@ public class OrderReadHelper {
     protected List<GenericValue> orderItemAttributes = null;
     protected BigDecimal totalPrice = null;
 
-    protected OrderReadHelper() {}
+    protected OrderReadHelper() { }
 
     public OrderReadHelper(GenericValue orderHeader, List<GenericValue> adjustments, List<GenericValue> orderItems) {
         this.orderHeader = orderHeader;
@@ -236,7 +236,7 @@ public class OrderReadHelper {
             BigDecimal chargedToPaymentPref = ZERO;
             for (GenericValue payment : payments) {
                 if (payment.get("amount") != null) {
-                    chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(DECIMALS+1, ROUNDING);
+                    chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(DECIMALS + 1, ROUNDING);
                 }
             }
 
@@ -271,7 +271,7 @@ public class OrderReadHelper {
             }
             BigDecimal refundedToPaymentPref = ZERO;
             for (GenericValue returnItemResponse : returnItemResponses) {
-                refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(DECIMALS+1, ROUNDING);
+                refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(DECIMALS + 1, ROUNDING);
             }
 
             if (refundedToPaymentPref.compareTo(ZERO) == 1) {
@@ -354,8 +354,8 @@ public class OrderReadHelper {
                     GenericValue shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", false);
 
                     if (shipmentMethodType != null) {
-                        return UtilFormatOut.checkNull(shipGroup.getString("carrierPartyId")) + " " +
-                                UtilFormatOut.checkNull(shipmentMethodType.getString("description"));
+                        return UtilFormatOut.checkNull(shipGroup.getString("carrierPartyId")) + " "
+                                + UtilFormatOut.checkNull(shipmentMethodType.getString("description"));
                     }
                 }
                 return UtilFormatOut.checkNull(shipGroup.getString("carrierPartyId"));
@@ -1220,7 +1220,7 @@ public class OrderReadHelper {
         itemInfo.put("productId", item.getString("productId"));
         itemInfo.put("quantity", getOrderItemQuantity(item));
         itemInfo.put("weight", this.getItemWeight(item));
-        itemInfo.put("size",  this.getItemSize(item));
+        itemInfo.put("size", this.getItemSize(item));
         itemInfo.put("piecesIncluded", this.getItemPiecesIncluded(item));
         itemInfo.put("featureSet", this.getItemFeatureSet(item));
         return itemInfo;
@@ -1256,7 +1256,7 @@ public class OrderReadHelper {
     public BigDecimal getOrderGrandTotal() {
         if (totalPrice == null) {
             totalPrice = getOrderGrandTotal(getValidOrderItems(), getAdjustments());
-        }// else already set
+        } // else already set
         return totalPrice;
     }
 
@@ -1540,7 +1540,7 @@ public class OrderReadHelper {
         return getOrderItemAdjustmentList(orderItem, getAdjustments());
     }
 
-    public String getCurrentOrderItemWorkEffort(GenericValue orderItem)    {
+    public String getCurrentOrderItemWorkEffort(GenericValue orderItem) {
         String orderItemSeqId = orderItem.getString("orderItemSeqId");
         String orderId = orderItem.getString("orderId");
         Delegator delegator = orderItem.getDelegator();
@@ -1741,7 +1741,7 @@ public class OrderReadHelper {
     /**
      * Get the returned total by return type (credit, refund, etc.).  Specify returnTypeId = null to get sum over all
      * return types.  Specify includeAll = true to sum up over all return statuses except cancelled.  Specify includeAll
-     * = false to sum up over ACCEPTED,RECEIVED And COMPLETED returns.
+     * = false to sum up over ACCEPTED, RECEIVED And COMPLETED returns.
      */
     public BigDecimal getOrderReturnedTotalByTypeBd(String returnTypeId, boolean includeAll) {
         List<GenericValue> returnedItemsBase = getOrderReturnItems();
@@ -1821,7 +1821,7 @@ public class OrderReadHelper {
             String orderItemSeqId = returnedItem.getString("orderItemSeqId");
             BigDecimal returnedQuantity = returnedItem.getBigDecimal("returnQuantity");
             if (orderItemSeqId != null && returnedQuantity != null) {
-                BigDecimal existingQuantity =  itemReturnedQuantities.get(orderItemSeqId);
+                BigDecimal existingQuantity = itemReturnedQuantities.get(orderItemSeqId);
                 if (existingQuantity == null) {
                     itemReturnedQuantities.put(orderItemSeqId, returnedQuantity);
                 } else {
@@ -2422,7 +2422,7 @@ public class OrderReadHelper {
                 Iterator<GenericValue> weIter = UtilMisc.toIterator(workEfforts);
                 while (weIter != null && weIter.hasNext()) {
                     GenericValue workEffort = weIter.next();
-                    if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0)    {
+                    if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0) {
                         itemTotal = itemTotal.multiply(getWorkEffortRentalQuantity(workEffort)).setScale(DECIMALS, ROUNDING);
                         break;
                     }
@@ -2490,7 +2490,7 @@ public class OrderReadHelper {
         while (itemIter != null && itemIter.hasNext()) {
             result = result.add(getOrderItemTotal(itemIter.next(), adjustments));
         }
-        return result.setScale(DECIMALS,  ROUNDING);
+        return result.setScale(DECIMALS, ROUNDING);
     }
 
     public static BigDecimal getOrderItemTotal(GenericValue orderItem, List<GenericValue> adjustments) {
@@ -2519,7 +2519,7 @@ public class OrderReadHelper {
     public static BigDecimal getWorkEffortRentalLength(GenericValue workEffort) {
         BigDecimal length = null;
         if (workEffort.get("estimatedStartDate") != null && workEffort.get("estimatedCompletionDate") != null) {
-            length = new BigDecimal(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"),workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
+            length = new BigDecimal(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
         }
         return length;
     }
@@ -2543,7 +2543,7 @@ public class OrderReadHelper {
         }
 
         BigDecimal rentalAdjustment = ZERO;
-        if (persons.compareTo(BigDecimal.ONE) == 1)    {
+        if (persons.compareTo(BigDecimal.ONE) == 1) {
             if (persons.compareTo(new BigDecimal(2)) == 1) {
                 persons = persons.subtract(new BigDecimal(2));
                 if (nthPersonPerc.signum() == 1) {
@@ -2663,9 +2663,9 @@ public class OrderReadHelper {
             for (GenericValue orderAdjustment : adjustments) {
                 boolean includeAdjustment = false;
 
-                if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
-                        "VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
-                        "VAT_PRICE_CORRECT".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
+                if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))
+                        || "VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))
+                        || "VAT_PRICE_CORRECT".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
                     if (includeTax) {
                         includeAdjustment = true;
                     }
@@ -2798,7 +2798,7 @@ public class OrderReadHelper {
             adjustments = EntityQuery.use(delegator).from("ReturnAdjustment").where(condition).queryList();
             if (adjustments != null) {
                 for (GenericValue returnAdjustment : adjustments) {
-                    total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount")));
+                    total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")), returnAdjustment.getBigDecimal("amount")));
                 }
             }
         } catch (GenericEntityException e) {
@@ -2849,7 +2849,7 @@ public class OrderReadHelper {
     /**
      * When you call this function after a OrderReadHelper instantiation
      * all OrderItemAttributes related to the orderHeader are load on local cache
-     * to optimize database call, after we just filter the cache with attributeName and 
+     * to optimize database call, after we just filter the cache with attributeName and
      * orderItemSeqId wanted.
      * @param orderItemSeqId
      * @param attributeName
@@ -3006,8 +3006,8 @@ public class OrderReadHelper {
                             if (amount != null) {
                                 totalAmount = totalAmount.add(amount);
                             }
-                            if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) &&
-                                    orderAdjustment.get("amountAlreadyIncluded") != null) {
+                            if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))
+                                    && orderAdjustment.get("amountAlreadyIncluded") != null) {
                                 // this is the only case where the VAT_TAX amountAlreadyIncluded should be added in, and should just be for display and not to calculate the order grandTotal
                                 totalAmount = totalAmount.add(orderAdjustment.getBigDecimal("amountAlreadyIncluded"));
                             }

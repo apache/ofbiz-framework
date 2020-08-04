@@ -74,7 +74,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 int dotIndex = name.indexOf('.');
                 if (dotIndex != -1) {
                     attributeName = name.substring(0, dotIndex);
-                    fma = FlexibleMapAccessor.getInstance(name.substring(dotIndex+1));
+                    fma = FlexibleMapAccessor.getInstance(name.substring(dotIndex + 1));
                 } else {
                     attributeName = name;
                     fma = null;
@@ -215,7 +215,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 int dotIndex = name.indexOf('.');
                 if (dotIndex != -1) {
                     attributeName = name.substring(0, dotIndex);
-                    fma = FlexibleMapAccessor.getInstance(name.substring(dotIndex+1));
+                    fma = FlexibleMapAccessor.getInstance(name.substring(dotIndex + 1));
                 } else {
                     attributeName = name;
                     fma = null;
@@ -229,7 +229,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             openBrace = attributeName.indexOf('[');
             closeBrace = (openBrace == -1 ? -1 : attributeName.indexOf(']', openBrace));
             if (openBrace != -1 && closeBrace != -1) {
-                String liStr = attributeName.substring(openBrace+1, closeBrace);
+                String liStr = attributeName.substring(openBrace + 1, closeBrace);
                 //if brackets are empty, append to list
                 if (liStr.length() == 0) {
                     isAddAtEnd = true;

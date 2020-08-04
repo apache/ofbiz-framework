@@ -127,7 +127,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Executes the actions contained in <code>actions</code>.
-     * 
      * @param actions
      * @param context
      */
@@ -163,7 +162,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Returns the <code>ModelWidget</code> that contains the &lt;actions&gt; element.
-     * 
      * @return The <code>ModelWidget</code> that contains the &lt;actions&gt; element
      */
     public ModelWidget getModelWidget() {
@@ -320,7 +318,9 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                }
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -401,7 +401,9 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", MODULE);
+                }
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -856,13 +858,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     }
                 }
             }
-            if (!setIfNull && newValue == null){
+            if (!setIfNull && newValue == null) {
                 if (Debug.warningOn()) {
                     Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
                 }
                 return;
             }
-            if (!setIfEmpty && ObjectType.isEmpty(newValue)){
+            if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
                 if (Debug.warningOn()) {
                     Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
                 }

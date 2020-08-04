@@ -216,7 +216,7 @@ public class ProductFeatureServices {
                 // product feature and add it to the id code and product feature applications
                 // of the next variant.  just a matter of whether we're starting with an
                 // existing list of features and id code or from scratch.
-                if (combinations.size()==0) {
+                if (combinations.size() == 0) {
                     for (GenericValue currentFeature: currentFeatures) {
                         if ("SELECTABLE_FEATURE".equals(currentFeature.getString("productFeatureApplTypeId"))) {
                             Map<String, Object> newCombination = new HashMap<>();
@@ -270,7 +270,7 @@ public class ProductFeatureServices {
             for (Map<String, Object> combination: oldCombinations) {
                 // Verify if the default code is already used, if so add a numeric suffix
                 if (defaultVariantProductIds.contains(combination.get("defaultVariantProductId"))) {
-                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + "-" + (defaultCodeCounter < 10? "0" + defaultCodeCounter: "" + defaultCodeCounter));
+                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + "-" + (defaultCodeCounter < 10 ? "0" + defaultCodeCounter : "" + defaultCodeCounter));
                     defaultCodeCounter++;
                 }
                 defaultVariantProductIds.add((String) combination.get("defaultVariantProductId"));

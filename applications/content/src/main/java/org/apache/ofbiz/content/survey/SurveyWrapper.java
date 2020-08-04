@@ -71,7 +71,7 @@ public class SurveyWrapper {
     protected Map<String, Object> defaultValues = null;
     protected boolean edit = false;
 
-    protected SurveyWrapper() {}
+    protected SurveyWrapper() { }
 
     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
         this.delegator = delegator;
@@ -83,9 +83,9 @@ public class SurveyWrapper {
         this.checkParameters();
     }
 
-     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru) {
-         this(delegator, responseId, partyId, surveyId, passThru, null);
-     }
+    public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru) {
+        this(delegator, responseId, partyId, surveyId, passThru, null);
+    }
 
     public SurveyWrapper(Delegator delegator, String surveyId) {
         this(delegator, null, null, surveyId, null);
@@ -223,10 +223,8 @@ public class SurveyWrapper {
         Configuration config = FreeMarkerWorker.getDefaultOfbizConfig();
 
         Template template = null;
-        try (
-            InputStream templateStream = templateUrl.openStream();
-            InputStreamReader templateReader = new InputStreamReader(templateStream,StandardCharsets.UTF_8);
-                ){
+        try (InputStream templateStream = templateUrl.openStream();
+                InputStreamReader templateReader = new InputStreamReader(templateStream, StandardCharsets.UTF_8);) {
             template = new Template(templateUrl.toExternalForm(), templateReader, config);
         } catch (IOException e) {
             Debug.logError(e, "Unable to get template from URL :" + templateUrl.toExternalForm(), MODULE);
@@ -372,7 +370,7 @@ public class SurveyWrapper {
             for (String key : passThru.keySet()) {
                 if (key.toUpperCase(Locale.getDefault()).startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
-                    String questionId = key.substring(splitIndex+1);
+                    String questionId = key.substring(splitIndex + 1);
                     Map<String, Object> thisAnswer = new HashMap<>();
                     String answer = (String) passThru.remove(key);
                     thisAnswer.put("booleanResponse", answer);
@@ -461,31 +459,31 @@ public class SurveyWrapper {
         // note this will need to be updated as new types are added
         if ("OPTION".equals(questionType)) {
             Map<String, Object> thisResult = getOptionResult(question);
-                Long questionTotal = (Long) thisResult.remove("_total");
-                if (questionTotal == null) {
-                    questionTotal = 0L;
-                }
-                // set the total responses
-                resultMap.put("_total", questionTotal);
+            Long questionTotal = (Long) thisResult.remove("_total");
+            if (questionTotal == null) {
+                questionTotal = 0L;
+            }
+            // set the total responses
+            resultMap.put("_total", questionTotal);
 
-                // create the map of option info ("_total", "_percent")
+            // create the map of option info ("_total", "_percent")
             for (Entry<String, Object> entry : thisResult.entrySet()) {
-                    Map<String, Object> optMap = new HashMap<>();
-                    Long optTotal = (Long) entry.getValue();
-                    String optId = entry.getKey();
-                    if (optTotal == null) {
-                        optTotal = 0L;
-                    }
-                    Long percent = (long) (((double) optTotal / (double) questionTotal) * 100);
-                    optMap.put("_total", optTotal);
-                    optMap.put("_percent", percent);
-                    resultMap.put(optId, optMap);
+                Map<String, Object> optMap = new HashMap<>();
+                Long optTotal = (Long) entry.getValue();
+                String optId = entry.getKey();
+                if (optTotal == null) {
+                    optTotal = 0L;
                 }
-                resultMap.put("_a_type", "option");
+                Long percent = (long) (((double) optTotal / (double) questionTotal) * 100);
+                optMap.put("_total", optTotal);
+                optMap.put("_percent", percent);
+                resultMap.put(optId, optMap);
+            }
+            resultMap.put("_a_type", "option");
         } else if ("BOOLEAN".equals(questionType)) {
             long[] thisResult = getBooleanResult(question);
-            long yesPercent = thisResult[1] > 0 ? (long)(((double)thisResult[1] / (double)thisResult[0]) * 100) : 0;
-            long noPercent = thisResult[2] > 0 ? (long)(((double)thisResult[2] / (double)thisResult[0]) * 100) : 0;
+            long yesPercent = thisResult[1] > 0 ? (long) (((double) thisResult[1] / (double) thisResult[0]) * 100) : 0;
+            long noPercent = thisResult[2] > 0 ? (long) (((double) thisResult[2] / (double) thisResult[0]) * 100) : 0;
 
             resultMap.put("_total", thisResult[0]);
             resultMap.put("_yes_total", thisResult[1]);
@@ -528,7 +526,7 @@ public class SurveyWrapper {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            long[] result = { 0, 0, 0 };
+            long[] result = {0, 0, 0 };
             // index 0 = total responses
             // index 1 = total yes
             // index 2 = total no
@@ -567,7 +565,7 @@ public class SurveyWrapper {
     }
 
     private double[] getNumberResult(GenericValue question, int type) throws SurveyWrapperException {
-        double[] result = { 0, 0, 0 };
+        double[] result = {0, 0, 0 };
         // index 0 = total responses
         // index 1 = tally
         // index 2 = average
@@ -584,24 +582,24 @@ public class SurveyWrapper {
                 GenericValue value;
                 while (((value = eli.next()) != null)) {
                     switch (type) {
-                        case 1:
-                            Long n = value.getLong("numericResponse");
-                            if (UtilValidate.isNotEmpty(n)) {
-                                result[1] += n;
-                            }
-                            break;
-                        case 2:
-                            Double c = value.getDouble("currencyResponse");
-                            if (UtilValidate.isNotEmpty(c)) {
-                                result[1] += (((double) Math.round((c - c) * 100)) / 100);
-                            }
-                            break;
-                        case 3:
-                            Double f = value.getDouble("floatResponse");
-                            if (UtilValidate.isNotEmpty(f)) {
-                                result[1] += f;
-                            }
-                            break;
+                    case 1:
+                        Long n = value.getLong("numericResponse");
+                        if (UtilValidate.isNotEmpty(n)) {
+                            result[1] += n;
+                        }
+                        break;
+                    case 2:
+                        Double c = value.getDouble("currencyResponse");
+                        if (UtilValidate.isNotEmpty(c)) {
+                            result[1] += (((double) Math.round((c - c) * 100)) / 100);
+                        }
+                        break;
+                    case 3:
+                        Double f = value.getDouble("floatResponse");
+                        if (UtilValidate.isNotEmpty(f)) {
+                            result[1] += f;
+                        }
+                        break;
                     }
                     result[0]++; // increment the count
                 }
@@ -626,21 +624,21 @@ public class SurveyWrapper {
 
         // average
         switch (type) {
-            case 1:
-                if (result[0] > 0) {
-                    result[2] = result[1] / ((long) result[0]);
-                }
-                break;
-            case 2:
-                if (result[0] > 0) {
-                    result[2] = (((double) Math.round((result[1] / result[0]) * 100)) / 100);
-                }
-                break;
-            case 3:
-                if (result[0] > 0) {
-                    result[2] = result[1] / (long) result[0];
-                }
-                break;
+        case 1:
+            if (result[0] > 0) {
+                result[2] = result[1] / ((long) result[0]);
+            }
+            break;
+        case 2:
+            if (result[0] > 0) {
+                result[2] = (((double) Math.round((result[1] / result[0]) * 100)) / 100);
+            }
+            break;
+        case 3:
+            if (result[0] > 0) {
+                result[2] = result[1] / (long) result[0];
+            }
+            break;
         }
 
         return result;

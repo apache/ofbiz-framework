@@ -36,6 +36,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.wsdl.Binding;
 import javax.wsdl.BindingInput;
@@ -129,6 +130,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** The namespace of this service */
     public String nameSpace;
 
+    /** The corresponding REST verb behaviour for this service */
+    public String action;
+
     /** The package name or location of this service */
     public String location;
 
@@ -214,7 +218,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public Metrics metrics = null;
 
-    public ModelService() {}
+    public ModelService() { }
 
     public ModelService(ModelService model) {
         this.name = model.name;
@@ -233,6 +237,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.defaultEntityName = model.defaultEntityName;
         this.auth = model.auth;
         this.export = model.export;
+        this.action = model.action;
         this.validate = model.validate;
         this.useTransaction = model.useTransaction;
         this.requireNewTransaction = model.requireNewTransaction;
@@ -368,6 +373,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         buf.append(defaultEntityName).append("::");
         buf.append(auth).append("::");
         buf.append(export).append("::");
+        buf.append(action).append("::");
         buf.append(validate).append("::");
         buf.append(useTransaction).append("::");
         buf.append(requireNewTransaction).append("::");
@@ -456,6 +462,27 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
         return nameList;
     }
+    /**
+     * Creates a map of service IN parameters using Name as key and Type as value.
+     * Skips internal parameters
+     * @return Map of IN parameters
+     */
+    public Map<String, String> getInParamNamesMap() {
+        // TODO : Does not yet support getting nested parameters
+        return getInModelParamList().stream().filter(param -> !param.internal)
+                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+    }
+
+    /**
+     * Creates a map of service OUT parameters using Name as key and Type as value.
+     * Skips internal parameters
+     * @return Map of OUT parameters
+     */
+    public Map<String, String> getOutParamNamesMap() {
+        // TODO : Does not yet support getting nested parameters
+        return getModelParamList().stream().filter(param -> param.isOut() && !param.internal)
+                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+    }
 
     // only returns number of defined parameters (not internal)
     public int getDefinedInCount() {
@@ -520,12 +547,16 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, String> requiredInfo = new HashMap<>();
         Map<String, String> optionalInfo = new HashMap<>();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, MODULE);
+        }
 
         // do not validate results with errors
         if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
             if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
+                }
                 return;
             }
         }
@@ -587,14 +618,18 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 }
                 requiredNames.append(key);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
-
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - " +
-                requiredTest.size() + " / " + requiredInfo.size(), MODULE);
-            if (Debug.verboseOn()) Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - " +
-                optionalTest.size() + " / " + optionalInfo.size(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - "
+                        + requiredTest.size() + " / " + requiredInfo.size(), MODULE);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - "
+                        + optionalTest.size() + " / " + optionalInfo.size(), MODULE);
+            }
         }
-
         try {
             validate(requiredInfo, requiredTest, true, this, mode, locale);
             validate(optionalInfo, optionalTest, false, this, mode, locale);
@@ -670,7 +705,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String key: missing) {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale) ;
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale);
                     msg = errMsg + " [" + mode + "] [" + model.name + "." + key + "]";
                 }
                 missingMsgs.add(msg);
@@ -972,7 +1007,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
             if (key.startsWith(param.stringMapPrefix)) {
-                key=key.replace(param.stringMapPrefix,"");
+                key = key.replace(param.stringMapPrefix, "");
                 paramMap.put(key, entry.getValue());
             }
         }
@@ -1032,9 +1067,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         // old permission checking
         if (this.containsPermissions()) {
             for (ModelPermGroup group: this.permissionGroups) {
-                if (Debug.verboseOn()) Debug.logVerbose(" Permission : Analyse " + group.toString(), MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose(" Permission : Analyse " + group.toString(), MODULE);
+                }
                 Map<String, Object> permResult = group.evalPermissions(dctx, context);
-                if (! ServiceUtil.isSuccess(permResult)) {
+                if (!ServiceUtil.isSuccess(permResult)) {
                     ServiceUtil.addErrors(permGroupErrors, null, permResult);
                 }
             }
@@ -1113,7 +1150,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 if (group != null) {
                     for (GroupServiceModel sm: group.getServices()) {
                         implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
-                        if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", MODULE);
+                        }
                     }
                 }
             }
@@ -1208,7 +1247,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public void informIfDeprecated() {
         if (this.deprecatedUseInstead != null) {
             StringBuilder informMsg = new StringBuilder("DEPRECATED: the service ")
-                    .append(name).append( " has been deprecated and replaced by ").append(deprecatedUseInstead);
+                    .append(name).append(" has been deprecated and replaced by ").append(deprecatedUseInstead);
             if (this.deprecatedSince != null) {
                 informMsg.append(", since ").append(deprecatedSince);
             }

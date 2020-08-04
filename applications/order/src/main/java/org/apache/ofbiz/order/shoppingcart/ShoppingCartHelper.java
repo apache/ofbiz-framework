@@ -107,31 +107,31 @@ public class ShoppingCartHelper {
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
-        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
-                productCategoryId,itemType,itemDescription,price,amount,quantity,
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
-                configWrapper,itemGroupNumber,context,parentProductId);
+        return addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
+                productCategoryId, itemType, itemDescription, price, amount, quantity,
+                reservStart, reservLength, reservPersons, null, null, shipBeforeDate, shipAfterDate,
+                configWrapper, itemGroupNumber, context, parentProductId);
     }
 
     /** Overriden for reserveAfterDate. */
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
-            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
-        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
-                productCategoryId,itemType,itemDescription,price,amount,quantity,
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,null,
-                configWrapper,itemGroupNumber,context,parentProductId);
+        return addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
+                productCategoryId, itemType, itemDescription, price, amount, quantity,
+                reservStart, reservLength, reservPersons, null, null, shipBeforeDate, shipAfterDate, null,
+                configWrapper, itemGroupNumber, context, parentProductId);
     }
 
     /** Event to add an item to the shopping cart with accommodation. */
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
-            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate, java.sql.Timestamp reserveAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
         Map<String, Object> result = null;
@@ -165,7 +165,7 @@ public class ShoppingCartHelper {
             try {
                 java.sql.Timestamp.valueOf((String) context.get("itemDesiredDeliveryDate"));
             } catch (IllegalArgumentException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderInvalidDesiredDeliveryDateSyntaxError",this.cart.getLocale()));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidDesiredDeliveryDateSyntaxError", this.cart.getLocale()));
             }
         } else {
             context.remove("itemDesiredDeliveryDate");
@@ -214,8 +214,8 @@ public class ShoppingCartHelper {
             if (product == null || product.get("requireAmount") == null || "N".equals(product.getString("requireAmount"))) {
                 amount = null;
             }
-            Debug.logInfo("carthelper productid " + productId,MODULE);
-            Debug.logInfo("parent productid " + pProductId,MODULE);
+            Debug.logInfo("carthelper productid " + productId, MODULE);
+            Debug.logInfo("parent productid " + pProductId, MODULE);
         }
 
         // Get the additional features selected for the product (if any)
@@ -296,7 +296,7 @@ public class ShoppingCartHelper {
         String errMsg = null;
 
         if (UtilValidate.isEmpty(orderId)) {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"cart.order_not_specified_to_add_from", this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "cart.order_not_specified_to_add_from", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -373,7 +373,7 @@ public class ShoppingCartHelper {
 
         if (noItems) {
             result = ServiceUtil.returnSuccess();
-            result.put("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,"OrderNoItemsFoundToAdd", this.cart.getLocale()));
+            result.put("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderNoItemsFoundToAdd", this.cart.getLocale()));
             return result; // don't return error because this is a non-critical error and should go back to the same page
         }
 
@@ -438,7 +438,7 @@ public class ShoppingCartHelper {
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     // check for alternative packing
-                    if(ProductWorker.isAlternativePacking(delegator, null , productId)){
+                    if (ProductWorker.isAlternativePacking(delegator, null, productId)) {
                         GenericValue originalProduct = null;
                         originalProductId = productId;
                         productId = ProductWorker.getOriginalProductId(delegator, productId);
@@ -447,7 +447,7 @@ public class ShoppingCartHelper {
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Error getting parent product", MODULE);
                         }
-                        if(originalProduct != null){
+                        if (originalProduct != null) {
                             BigDecimal piecesIncluded = new BigDecimal(originalProduct.getLong("piecesIncluded"));
                             quantity = quantity.multiply(piecesIncluded);
                         }
@@ -456,7 +456,7 @@ public class ShoppingCartHelper {
                     try {
                         //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                         // if not and if quantity is in decimal format then return error.
-                        if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+                        if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                             BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                             if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale()));
@@ -465,7 +465,7 @@ public class ShoppingCartHelper {
                         } else {
                             quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                         }
-                    } catch(GenericEntityException e) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e.getMessage(), MODULE);
                         quantity = BigDecimal.ONE;
                     }
@@ -496,7 +496,7 @@ public class ShoppingCartHelper {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // check if we are using per row submit
         boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
-                "Y".equalsIgnoreCase((String)context.get("_useRowSubmit"));
+                "Y".equalsIgnoreCase((String) context.get("_useRowSubmit"));
 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(context);
@@ -514,7 +514,7 @@ public class ShoppingCartHelper {
             String requirementId = null;
             String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
             boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix))? false :
-                    "Y".equalsIgnoreCase((String)context.get("_rowSubmit" + thisSuffix));
+                    "Y".equalsIgnoreCase((String) context.get("_rowSubmit" + thisSuffix));
 
             // make sure we are to process this row
             if (useRowSubmit && !rowSelected) {
@@ -557,7 +557,7 @@ public class ShoppingCartHelper {
                         }
                         if (requirementAlreadyInCart) {
                             if (Debug.warningOn()) {
-                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), MODULE);
+                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId", requirementId), cart.getLocale()), MODULE);
                             }
                             continue;
                         }
@@ -591,7 +591,7 @@ public class ShoppingCartHelper {
         String errMsg = null;
 
         if (UtilValidate.isEmpty(categoryId)) {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"cart.category_not_specified_to_add_from", this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "cart.category_not_specified_to_add_from", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -604,14 +604,14 @@ public class ShoppingCartHelper {
             Debug.logWarning(e.toString(), MODULE);
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
             messageMap.put("message", e.getMessage());
-            errMsg = UtilProperties.getMessage(RES_ERROR,"cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         if (prodCatMemberCol == null) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
-            errMsg = UtilProperties.getMessage(RES_ERROR,"cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -734,7 +734,7 @@ public class ShoppingCartHelper {
                     } else if (parameterName.toUpperCase(Locale.getDefault()).startsWith("COMMENT")) {
                          itemComment= quantString;  // the quantString is actually the comment if the field name starts with COMMENT
                     } else if (parameterName.startsWith("reservStart")) {
-                        if (quantString.length() ==0) {
+                        if (quantString.length() == 0) {
                             // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                             quantString += " 00:00:00.000000000";
                         }
@@ -796,8 +796,7 @@ public class ShoppingCartHelper {
                                 return result;
                             }
                             quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
-                        }
-                        else {
+                        } else {
                             quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                         }
                         if (quantity.compareTo(BigDecimal.ZERO) < 0) {
@@ -891,13 +890,13 @@ public class ShoppingCartHelper {
                     }
 
                     if (parameterName.toUpperCase(Locale.getDefault()).startsWith("COMMENT")) {
-                      if (!oldItemComment.equals(itemComment)) {
-                          if (security.hasEntityPermission("ORDERMGR", "_CREATE", userLogin)) {
-                              if (item != null) {
-                                  item.setItemComment(itemComment);
-                              }
-                          }
-                      }
+                        if (!oldItemComment.equals(itemComment)) {
+                            if (security.hasEntityPermission("ORDERMGR", "_CREATE", userLogin)) {
+                                if (item != null) {
+                                    item.setItemComment(itemComment);
+                                }
+                            }
+                        }
                     }
 
                     if (parameterName.toUpperCase(Locale.getDefault()).startsWith("PRICE")) {
@@ -1048,12 +1047,12 @@ public class ShoppingCartHelper {
         GenericValue agreement = null;
 
         if ((this.delegator == null) || (this.dispatcher == null) || (this.cart == null)) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderDispatcherOrDelegatorOrCartArgumentIsNull",this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderDispatcherOrDelegatorOrCartArgumentIsNull", this.cart.getLocale()));
             return result;
         }
 
         if ((agreementId == null) || (agreementId.length() <= 0)) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderNoAgreementSpecified",this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderNoAgreementSpecified", this.cart.getLocale()));
             return result;
         }
 
@@ -1061,12 +1060,12 @@ public class ShoppingCartHelper {
             agreement = EntityQuery.use(this.delegator).from("Agreement").where("agreementId", agreementId).cache(true).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR,"OrderError",this.cart.getLocale()) + e.getMessage());
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError", this.cart.getLocale()) + e.getMessage());
             return result;
         }
 
         if (agreement == null) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()));
         } else {
             // set the agreement id in the cart
             cart.setAgreementId(agreementId);
@@ -1078,38 +1077,40 @@ public class ShoppingCartHelper {
                     String currencyUomId = (String) agreementItem.get("currencyUomId");
                     if (UtilValidate.isNotEmpty(currencyUomId)) {
                         try {
-                            cart.setCurrency(dispatcher,currencyUomId);
+                            cart.setCurrency(dispatcher, currencyUomId);
                         } catch (CartItemModifyException ex) {
-                            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
+                            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSetCurrencyError", this.cart.getLocale()) + ex.getMessage());
                             return result;
                         }
                     }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCouldNotGetAgreementItemsThrough",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR,"OrderError",this.cart.getLocale()) + e.getMessage());
+                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementItemsThrough", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError", this.cart.getLocale()) + e.getMessage());
                 return result;
             }
 
             try {
-                 // clear the existing order terms
-                 cart.removeOrderTerms();
-                 // set order terms based on agreement terms
-                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
-                 if (agreementTerms.size() > 0) {
-                      for (int i = 0; agreementTerms.size() > i;i++) {
-                           GenericValue agreementTerm = agreementTerms.get(i);
-                           String termTypeId = (String) agreementTerm.get("termTypeId");
-                           BigDecimal termValue = agreementTerm.getBigDecimal("termValue");
-                           Long termDays = (Long) agreementTerm.get("termDays");
-                           String textValue = agreementTerm.getString("textValue");
-                           cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
-                      }
-                  }
+                // clear the existing order terms
+                cart.removeOrderTerms();
+                // set order terms based on agreement terms
+                List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
+                if (agreementTerms.size() > 0) {
+                    for (int i = 0; agreementTerms.size() > i; i++) {
+                        GenericValue agreementTerm = agreementTerms.get(i);
+                        String termTypeId = (String) agreementTerm.get("termTypeId");
+                        BigDecimal termValue = agreementTerm.getBigDecimal("termValue");
+                        Long termDays = (Long) agreementTerm.get("termDays");
+                        String textValue = agreementTerm.getString("textValue");
+                        cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
+                    }
+                }
             } catch (GenericEntityException e) {
-                  Debug.logWarning(e.toString(), MODULE);
-                  result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCouldNotGetAgreementTermsThrough",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale())  + UtilProperties.getMessage(RES_ERROR,"OrderError",this.cart.getLocale()) + e.getMessage());
-                  return result;
+                Debug.logWarning(e.toString(), MODULE);
+                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementTermsThrough", UtilMisc.toMap(
+                        "agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
+                        this.cart.getLocale()) + e.getMessage());
+                return result;
             }
         }
         return result;
@@ -1119,12 +1120,12 @@ public class ShoppingCartHelper {
         Map<String, Object> result = null;
 
         try {
-            this.cart.setCurrency(this.dispatcher,currencyUomId);
+            this.cart.setCurrency(this.dispatcher, currencyUomId);
             result = ServiceUtil.returnSuccess();
-         } catch (CartItemModifyException ex) {
-             result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
-             return result;
-         }
+        } catch (CartItemModifyException ex) {
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSetCurrencyError", this.cart.getLocale()) + ex.getMessage());
+            return result;
+        }
         return result;
     }
 
@@ -1132,9 +1133,9 @@ public class ShoppingCartHelper {
         return addOrderTerm(termTypeId, termValue, termDays, null);
     }
 
-    public Map<String, Object> addOrderTerm(String termTypeId, BigDecimal termValue,Long termDays, String textValue) {
+    public Map<String, Object> addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays, String textValue) {
         Map<String, Object> result = null;
-        this.cart.addOrderTerm(termTypeId,termValue,termDays,textValue);
+        this.cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
         result = ServiceUtil.returnSuccess();
         return result;
     }
@@ -1145,5 +1146,4 @@ public class ShoppingCartHelper {
         result = ServiceUtil.returnSuccess();
         return result;
     }
-
 }

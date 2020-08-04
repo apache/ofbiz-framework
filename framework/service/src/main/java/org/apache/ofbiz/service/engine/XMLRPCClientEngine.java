@@ -90,7 +90,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         String password = null;
         String keyStoreComponent = null;
         String keyStoreName = null;
-        String keyAlias  = null;
+        String keyAlias = null;
         try {
             url = ServiceConfigUtil.getEngineParameter(engine, "url");
             if (Start.getInstance().getConfig().portOffset != 0) {
@@ -143,7 +143,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
             }
         }
 
-        List<Map<String,Object>> listParams = UtilMisc.toList(params);
+        List<Map<String, Object>> listParams = UtilMisc.toList(params);
         try {
             result = UtilGenerics.cast(client.execute(serviceName, listParams.toArray()));
         } catch (XmlRpcException e) {

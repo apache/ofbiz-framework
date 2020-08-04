@@ -36,10 +36,10 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 
 public final class UtilAccounting {
-    
+
     private static final String MODULE = UtilAccounting.class.getName();
 
-    private UtilAccounting() {}
+    private UtilAccounting() { }
 
     /**
      * Get the GL Account for a product or the default account type based on input. This replaces the simple-method service
@@ -119,8 +119,8 @@ public final class UtilAccounting {
         String parentTypeId = paymentType.getString("parentTypeId");
 
         // isPaymentTypeRecurse => otherwise, we have to go to the grandparent (recurse)
-        return !(parentTypeId == null) &&
-                (parentTypeId.equals(inputTypeId) || isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId));
+        return !(parentTypeId == null)
+                && (parentTypeId.equals(inputTypeId) || isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId));
     }
 
 
@@ -173,8 +173,8 @@ public final class UtilAccounting {
         String parentClassId = glAccountClass.getString("parentClassId");
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentClassId == null) &&
-                (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
+        return !(parentClassId == null)
+                && (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
     }
 
     /**
@@ -237,8 +237,8 @@ public final class UtilAccounting {
         String parentTypeId = invoiceType.getString("parentTypeId");
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentTypeId == null || invoiceTypeId.equals(parentTypeId)) &&
-                (parentTypeId.equals(inputTypeId) || isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId));
+        return !(parentTypeId == null || invoiceTypeId.equals(parentTypeId))
+                && (parentTypeId.equals(inputTypeId) || isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId));
     }
 
     /**

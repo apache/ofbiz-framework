@@ -53,7 +53,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
     protected boolean isConstant = false;
     protected boolean isService = false;
 
-    protected ServiceEcaCondition() {}
+    protected ServiceEcaCondition() { }
 
     public ServiceEcaCondition(Element condition, boolean isConstant, boolean isService) {
         if (isService) {
@@ -112,7 +112,9 @@ public class ServiceEcaCondition implements java.io.Serializable {
             throw new GenericServiceException("Cannot have null Service, Context or DispatchContext!");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose(this.toString() + ", In the context: " + context, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(this.toString() + ", In the context: " + context, MODULE);
+        }
 
         // condition-service; run the service and return the reply result
         if (isService) {
@@ -123,8 +125,8 @@ public class ServiceEcaCondition implements java.io.Serializable {
 
             Boolean conditionReply = Boolean.FALSE;
             if (ServiceUtil.isError(conditionServiceResult)) {
-                Debug.logError("Error in condition-service : " +
-                        ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
+                Debug.logError("Error in condition-service : "
+                        + ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
             } else {
                 conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
             }
@@ -173,7 +175,9 @@ public class ServiceEcaCondition implements java.io.Serializable {
             }
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        }
 
         // evaluate the condition & invoke the action(s)
         List<Object> messages = new LinkedList<>();

@@ -373,7 +373,7 @@ public final class MultiBlockHtmlTemplateUtil {
         Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_FOOT));
         if (scriptLinks == null) {
             // use of LinkedHashSet to maintain insertion order
-            scriptLinks = new LinkedHashSet<String>();
+            scriptLinks = new LinkedHashSet<>();
             request.setAttribute(SCRIPT_LINKS_FOR_FOOT, scriptLinks);
         }
         scriptLinks.add(filePath);

@@ -31,7 +31,7 @@ public final class UtilNumber {
     private static final String MODULE = UtilNumber.class.getName();
 
     // properties file name for arithmetic configuration
-    private static final String arithmeticPropertiesFile = "arithmetic.properties";
+    private static final String ARITH_PROP_FILE = "arithmetic.properties";
 
     // default scale and rounding mode for BigDecimals
     private static final int DEFAULT_BD_SCALE = 2;
@@ -39,7 +39,7 @@ public final class UtilNumber {
 
     // ICU4J rule sets for the en_US locale. To add more rules, expand this string.
     // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-    private static final String ruleSet_en_US =
+    private static final String RULE_SET_EN_US =
         /*
          * These rules format a number in one of the two styles often used
          * on checks.  %dollars-and-hundredths formats cents as hundredths of
@@ -47,38 +47,38 @@ public final class UtilNumber {
          * %dollars-and-cents formats in dollars and cents (23.40 comes out as
          * "twenty-three dollars and forty cents")
          */
-        "%dollars-and-cents:\n"
-        + "    x.0: << [and >%%cents>];\n"
-        + "    0.x: >%%cents>;\n"
-        + "    0: zero dollars; one dollar; =%%main= dollars;\n"
-        + "%%main:\n"
-        + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
-        + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
-        + "        seventeen; eighteen; nineteen;\n"
-        + "    20: twenty[->>];\n"
-        + "    30: thirty[->>];\n"
-        + "    40: forty[->>];\n"
-        + "    50: fifty[->>];\n"
-        + "    60: sixty[->>];\n"
-        + "    70: seventy[->>];\n"
-        + "    80: eighty[->>];\n"
-        + "    90: ninety[->>];\n"
-        + "    100: << hundred[ >>];\n"
-        + "    1000: << thousand[ >>];\n"
-        + "    1,000,000: << million[ >>];\n"
-        + "    1,000,000,000: << billion[ >>];\n"
-        + "    1,000,000,000,000: << trillion[ >>];\n"
-        + "    1,000,000,000,000,000: =#,##0=;\n"
-        + "%%cents:\n"
-        + "    100: <%%main< cent[s];\n"
-        + "%dollars-and-hundredths:\n"
-        + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'dollars' but that should be added later
-        + "%%hundredths:\n"
-        + "    100: <00<;\n";
+            "%dollars-and-cents:\n"
+            + "    x.0: << [and >%%cents>];\n"
+            + "    0.x: >%%cents>;\n"
+            + "    0: zero dollars; one dollar; =%%main= dollars;\n"
+            + "%%main:\n"
+            + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
+            + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
+            + "        seventeen; eighteen; nineteen;\n"
+            + "    20: twenty[->>];\n"
+            + "    30: thirty[->>];\n"
+            + "    40: forty[->>];\n"
+            + "    50: fifty[->>];\n"
+            + "    60: sixty[->>];\n"
+            + "    70: seventy[->>];\n"
+            + "    80: eighty[->>];\n"
+            + "    90: ninety[->>];\n"
+            + "    100: << hundred[ >>];\n"
+            + "    1000: << thousand[ >>];\n"
+            + "    1,000,000: << million[ >>];\n"
+            + "    1,000,000,000: << billion[ >>];\n"
+            + "    1,000,000,000,000: << trillion[ >>];\n"
+            + "    1,000,000,000,000,000: =#,##0=;\n"
+            + "%%cents:\n"
+            + "    100: <%%main< cent[s];\n"
+            + "%dollars-and-hundredths:\n"
+            + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'dollars' but that should be added later
+            + "%%hundredths:\n"
+            + "    100: <00<;\n";
 
     // ICU4J rule sets for the th_TH locale. To add more rules, expand this string.
     // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-    private static final String ruleSet_th_TH =
+    private static final String RULE_SET_TH_TH =
         /*
          * These rules format a number in one of the two styles often used
          * on checks.  %bahts-and-hundredths formats stangs as hundredths of
@@ -86,38 +86,38 @@ public final class UtilNumber {
          * %bahts-and-stangs formats in bahts and stangs (23.40 comes out as
          * "twenty-three bahts and forty stangs")
          */
-        "%bahts-and-stangs:\n"
-        + "    x.0: << [and >%%stangs>];\n"
-        + "    0.x: >%%stangs>;\n"
-        + "    0: zero bahts; one baht; =%%main= bahts;\n"
-        + "%%main:\n"
-        + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
-        + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
-        + "        seventeen; eighteen; nineteen;\n"
-        + "    20: twenty[->>];\n"
-        + "    30: thirty[->>];\n"
-        + "    40: forty[->>];\n"
-        + "    50: fifty[->>];\n"
-        + "    60: sixty[->>];\n"
-        + "    70: seventy[->>];\n"
-        + "    80: eighty[->>];\n"
-        + "    90: ninety[->>];\n"
-        + "    100: << hundred[ >>];\n"
-        + "    1000: << thousand[ >>];\n"
-        + "    1,000,000: << million[ >>];\n"
-        + "    1,000,000,000: << billion[ >>];\n"
-        + "    1,000,000,000,000: << trillion[ >>];\n"
-        + "    1,000,000,000,000,000: =#,##0=;\n"
-        + "%%stangs:\n"
-        + "    100: <%%main< stang[s];\n"
-        + "%bahts-and-hundredths:\n"
-        + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'bahts' but that should be added later
-        + "%%hundredths:\n"
-        + "    100: <00<;\n";
+            "%bahts-and-stangs:\n"
+            + "    x.0: << [and >%%stangs>];\n"
+            + "    0.x: >%%stangs>;\n"
+            + "    0: zero bahts; one baht; =%%main= bahts;\n"
+            + "%%main:\n"
+            + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
+            + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
+            + "        seventeen; eighteen; nineteen;\n"
+            + "    20: twenty[->>];\n"
+            + "    30: thirty[->>];\n"
+            + "    40: forty[->>];\n"
+            + "    50: fifty[->>];\n"
+            + "    60: sixty[->>];\n"
+            + "    70: seventy[->>];\n"
+            + "    80: eighty[->>];\n"
+            + "    90: ninety[->>];\n"
+            + "    100: << hundred[ >>];\n"
+            + "    1000: << thousand[ >>];\n"
+            + "    1,000,000: << million[ >>];\n"
+            + "    1,000,000,000: << billion[ >>];\n"
+            + "    1,000,000,000,000: << trillion[ >>];\n"
+            + "    1,000,000,000,000,000: =#,##0=;\n"
+            + "%%stangs:\n"
+            + "    100: <%%main< stang[s];\n"
+            + "%bahts-and-hundredths:\n"
+            + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'bahts' but that should be added later
+            + "%%hundredths:\n"
+            + "    100: <00<;\n";
 
         // ICU4J rule sets for the en_IN locale. To add more rules, expand this string.
         // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-        public static final String ruleSet_en_IN =
+    public static final String RULE_SET_EN_IN =
              /*
              * These rules format a number in one of the two styles often used
              * on checks. %simplified formats paise as hundredths of
@@ -125,76 +125,76 @@ public final class UtilNumber {
              * %default formats in rupees and paise (23.40 comes out as
              * "twenty three point four")
              */
-            "%simplified:\n"
-            + "    x.0: << [rupees and >%%paise>];\n"
-            + "    0.x: >%%paise>;\n"
-            + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
-            + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
-            + "    seventeen; eighteen; nineteen;\n"
-            + "    20: twenty[ >>];\n"
-            + "    30: thirty[ >>];\n"
-            + "    40: forty[ >>];\n"
-            + "    50: fifty[ >>];\n"
-            + "    60: sixty[ >>];\n"
-            + "    70: seventy[ >>];\n"
-            + "    80: eighty[ >>];\n"
-            + "    90: ninety[ >>];\n"
-            + "    100: << hundred[ >%%and>];\n"
-            + "    1000: << thousand[ >%%and>];\n"
-            + "    1,00,000: << lakh[>%%commas>];\n"
-            + "    1,00,00,000: << crore[>%%commas>];\n"
-            + "    1,00,00,00,000: =#,##0=;\n"
-            + "%default:\n"
-            + "    -x: minus >>;\n"
-            + "    x.x: << point >>;\n"
-            + "    =%simplified=;\n"
-            + "    100: << hundred[ >%%and>];\n"
-            + "    1000: << thousand[ >%%and>];\n"
-            + "    1,00,000: << lakh[>%%commas>];\n"
-            + "    1,00,00,000: << crore[>%%commas>];\n"
-            + "    10,00,00,000: =#,##0=;\n"
-            + "%%paise:\n"
-            + "    100: <%simplified< paise;\n"
-            + "%%and:\n"
-            + "    and =%default=;\n"
-            + "    100: =%default=;\n"
-            + "%%commas:\n"
-            + "    ' and =%default=;\n"
-            + "    100: , =%default=;\n"
-            + "    1000: , <%default< thousand, >%default>;\n"
-            + "    1,00,000: , =%default=;"
-            + "%%lenient-parse:\n"
-            + "    & ' ' , ',' ;\n";
+                "%simplified:\n"
+                + "    x.0: << [rupees and >%%paise>];\n"
+                + "    0.x: >%%paise>;\n"
+                + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
+                + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
+                + "    seventeen; eighteen; nineteen;\n"
+                + "    20: twenty[ >>];\n"
+                + "    30: thirty[ >>];\n"
+                + "    40: forty[ >>];\n"
+                + "    50: fifty[ >>];\n"
+                + "    60: sixty[ >>];\n"
+                + "    70: seventy[ >>];\n"
+                + "    80: eighty[ >>];\n"
+                + "    90: ninety[ >>];\n"
+                + "    100: << hundred[ >%%and>];\n"
+                + "    1000: << thousand[ >%%and>];\n"
+                + "    1,00,000: << lakh[>%%commas>];\n"
+                + "    1,00,00,000: << crore[>%%commas>];\n"
+                + "    1,00,00,00,000: =#,##0=;\n"
+                + "%default:\n"
+                + "    -x: minus >>;\n"
+                + "    x.x: << point >>;\n"
+                + "    =%simplified=;\n"
+                + "    100: << hundred[ >%%and>];\n"
+                + "    1000: << thousand[ >%%and>];\n"
+                + "    1,00,000: << lakh[>%%commas>];\n"
+                + "    1,00,00,000: << crore[>%%commas>];\n"
+                + "    10,00,00,000: =#,##0=;\n"
+                + "%%paise:\n"
+                + "    100: <%simplified< paise;\n"
+                + "%%and:\n"
+                + "    and =%default=;\n"
+                + "    100: =%default=;\n"
+                + "%%commas:\n"
+                + "    ' and =%default=;\n"
+                + "    100: , =%default=;\n"
+                + "    1000: , <%default< thousand, >%default>;\n"
+                + "    1,00,000: , =%default=;"
+                + "%%lenient-parse:\n"
+                + "    & ' ' , ',' ;\n";
 
     // hash map to store ICU4J rule sets keyed to Locale
     private static HashMap<Locale, String> rbnfRuleSets;
     static {
         rbnfRuleSets = new HashMap<>();
-        rbnfRuleSets.put(Locale.US, ruleSet_en_US);
-        rbnfRuleSets.put(new Locale("th"), ruleSet_th_TH);
-        rbnfRuleSets.put(new Locale("en", "IN"), ruleSet_en_IN);
+        rbnfRuleSets.put(Locale.US, RULE_SET_EN_US);
+        rbnfRuleSets.put(new Locale("th"), RULE_SET_TH_TH);
+        rbnfRuleSets.put(new Locale("en", "IN"), RULE_SET_EN_IN);
     }
 
-    private UtilNumber() {}
+    private UtilNumber() { }
 
     /**
      * Method to get BigDecimal scale factor from a property
      * @param   file     - Name of the property file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.decimals")
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.decimals")
      * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String file, String property) {
         if (UtilValidate.isEmpty(file) || UtilValidate.isEmpty(property)) {
             return DEFAULT_BD_SCALE;
         }
-        
+
         int scale = -1;
         String value = UtilProperties.getPropertyValue(file, property);
-            try {
-                scale = Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                Debug.logWarning(e, e.getMessage(), MODULE);
-            }
+        try {
+            scale = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            Debug.logWarning(e, e.getMessage(), MODULE);
+        }
         if (scale == -1) {
             Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", MODULE);
             scale = DEFAULT_BD_SCALE;
@@ -203,41 +203,41 @@ public final class UtilNumber {
     }
 
     /**
-     * Method to get BigDecimal scale factor from a property. Use the default arithmeticPropertiesFile properties file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.decimals")
+     * Method to get BigDecimal scale factor from a property. Use the default ARITH_PROP_FILE properties file
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.decimals")
      * @return  int - Scale factor to pass to BigDecimal's methods. Defaults to DEFAULT_BD_SCALE (2)
      */
     public static int getBigDecimalScale(String property) {
-        return getBigDecimalScale(arithmeticPropertiesFile, property);
+        return getBigDecimalScale(ARITH_PROP_FILE, property);
     }
 
     /**
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
-     * @deprecated Use {@link #getRoundingMode(String,String)} instead
+     * @deprecated Use {@link #getRoundingMode(String, String)} instead
      */
     @Deprecated
-    public static int  getBigDecimalRoundingMode(String file, String property) {
+    public static int getBigDecimalRoundingMode(String file, String property) {
         return getRoundingMode(file, property).ordinal();
     }
 
     /**
-     * Method to get BigDecimal rounding mode from a property. Use the default arithmeticPropertiesFile properties file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * Method to get BigDecimal rounding mode from a property. Use the default ARITH_PROP_FILE properties file
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String)} instead
      */
     @Deprecated
     public static int getBigDecimalRoundingMode(String property) {
-        return getRoundingMode(arithmeticPropertiesFile, property).ordinal();
+        return getRoundingMode(ARITH_PROP_FILE, property).ordinal();
     }
 
     /**
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  RoundingMode - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
      */
     public static RoundingMode getRoundingMode(String file, String property) {
@@ -254,12 +254,12 @@ public final class UtilNumber {
         return mode;
     }
     /**
-     * Method to get BigDecimal rounding mode from a property. Use the default arithmeticPropertiesFile properties file
-     * @param   property - Name of the config property from arithmeticPropertiesFile (e.g., "invoice.rounding")
+     * Method to get BigDecimal rounding mode from a property. Use the default ARITH_PROP_FILE properties file
+     * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
      * @return  RoundingMode - Rounding mode to pass to BigDecimal's methods. Defaults to DEFAULT_BD_ROUNDING_MODE (RoundingMode.HALF_UP)
      */
     public static RoundingMode getRoundingMode(String property) {
-        return getRoundingMode(arithmeticPropertiesFile, property);
+        return getRoundingMode(ARITH_PROP_FILE, property);
     }
 
     /**
@@ -336,13 +336,11 @@ public final class UtilNumber {
 
     /**
      * Method to turn a number such as "0.9853" into a nicely formatted percent, "98.53%".
-     *
      * @param number    The number object to format
      * @param scale     How many places after the decimal to include
      * @param roundingMode  The BigDecimal rounding mode to apply
      * @return          The formatted string or "" if there were errors.
      * @deprecated Use {@link #toPercentString(Number number, int scale, RoundingMode roundingMode)} instead
-     * 
      */
     @Deprecated
     public static String toPercentString(Number number, int scale, int roundingMode) {

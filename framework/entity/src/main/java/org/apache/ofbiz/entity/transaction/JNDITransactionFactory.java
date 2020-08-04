@@ -212,5 +212,5 @@ public class JNDITransactionFactory implements TransactionFactory {
     }
 
     @Override
-    public void shutdown() {}
+    public void shutdown() { }
 }

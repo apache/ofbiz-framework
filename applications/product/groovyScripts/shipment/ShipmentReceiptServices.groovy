@@ -82,13 +82,13 @@ def receiveInventoryProduct () {
     Double loops = 1.0
     if (parameters.inventoryItemTypeId == "SERIALIZED_INV_ITEM") {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
-        if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal) 1)) {
+        if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal.ONE))) {
             Map errorLog = [parameters: parameters]
             return error(UtilProperties.getMessage("ProductUiLabels", "FacilityReceiveInventoryProduct", errorLog,  parameters.locale))
             // before getting going, see if there are any validation issues so far
         }
         loops = parameters.quantityAccepted
-        parameters.quantityAccepted = (BigDecimal) 1
+        parameters.quantityAccepted = BigDecimal.ONE
     }
     parameters.quantityOnHandDiff = parameters.quantityAccepted
     parameters.availableToPromiseDiff = parameters.quantityAccepted
@@ -108,7 +108,7 @@ def receiveInventoryProduct () {
         }
     }
 
-    for (Double currentLoop = 0; currentLoop <= loops; currentLoop++) {
+    for (Double currentLoop = 0; currentLoop < loops; currentLoop++) {
         logInfo("receiveInventoryProduct Looping and creating inventory info - ${currentLoop}")
 
         // if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one
@@ -166,7 +166,7 @@ def receiveInventoryProduct () {
         serviceInMap.inventoryItemId = currentInventoryItemId
         run service:"balanceInventoryItems", with: serviceInMap
 
-        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}"
+        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}".toString()
     }
     // return the last inventory item received
     result.inventoryItemId = currentInventoryItemId
@@ -236,7 +236,7 @@ def quickReceiveReturn() {
                     }
                     if (!setNonSerial) {
                         parameters.inventoryItemTypeId = "SERIALIZED_INV_ITEM"
-                        returnItem.returnQuantity = (BigDecimal) 1
+                        returnItem.returnQuantity = BigDecimal.ONE
                     }
                     receiveCtx = [inventoryItemTypeId: parameters.inventoryItemTypeId,
                         statusId: returnItem.expectedItemStatus,
@@ -248,7 +248,7 @@ def quickReceiveReturn() {
                         shipmentId: shipmentId, // important: associate ShipmentReceipt with return shipment created
                         comments: "Returned Item RA# ${returnItem.returnId}",
                         datetimeReceived: nowTimestamp,
-                        quantityRejected: (BigDecimal) 0
+                        quantityRejected: BigDecimal.ZERO
                     ]
                     Map serviceResult = run service:"receiveInventoryProduct", with: receiveCtx
                     result.successMessageList = serviceResult.successMessageList

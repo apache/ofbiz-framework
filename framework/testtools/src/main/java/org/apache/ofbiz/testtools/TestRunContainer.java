@@ -116,14 +116,14 @@ public class TestRunContainer implements Container {
         if (logLevel != null) {
             int selectedLogLevel = Debug.getLevelFromString(logLevel);
 
-            for(int level = Debug.ALWAYS; level <= Debug.FATAL; level++) {
+            for (int level = Debug.ALWAYS; level <= Debug.FATAL; level++) {
                 boolean isOn = level >= selectedLogLevel;
                 Debug.set(level, isOn);
             }
         }
     }
 
-    private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String,String> testProps) throws ContainerException {
+    private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String, String> testProps) throws ContainerException {
         String component = testProps.get("component");
         String suiteName = testProps.get("suitename");
         String testCase = testProps.get("case");
@@ -146,8 +146,8 @@ public class TestRunContainer implements Container {
 
     private static void logTestSuiteResults(TestSuite suite, TestResult results) {
         Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), MODULE);
-        Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
-                results.failureCount() + " # Errors: " + results.errorCount(), MODULE);
+        Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: "
+                + results.failureCount() + " # Errors: " + results.errorCount(), MODULE);
         if (Debug.importantOn() && !results.wasSuccessful()) {
             Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", MODULE);
             logErrorsOrFailures(results.errors());
@@ -217,7 +217,7 @@ public class TestRunContainer implements Container {
 
         private String getTestName(Test test) {
             if (test instanceof TestCase) {
-                return ((TestCase)test).getName();
+                return ((TestCase) test).getName();
             } else {
                 return test.getClass().getName();
             }

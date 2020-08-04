@@ -56,8 +56,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = LimitedSubContentCacheTransform.class.getName();
 
-    static final String[] upSaveKeyNames = { "globalNodeTrail" };
-    static final String[] saveKeyNames = { "contentId", "subContentId", "entityList", "entityIndex",
+    static final String[] upSaveKeyNames = {"globalNodeTrail" };
+    static final String[] saveKeyNames = {"contentId", "subContentId", "entityList", "entityIndex",
             "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "entityList", "viewSize", "viewIndex",
             "highIndex", "lowIndex", "listSize", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly",
             "globalNodeTrail", "outputIndex" };
@@ -225,8 +225,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 Boolean isReturnBeforeObj = (Boolean) trailNode.get("isReturnBefore");
                 Boolean isPickObj = (Boolean) trailNode.get("isPick");
                 Boolean isFollowObj = (Boolean) trailNode.get("isFollow");
-                if ((isReturnBeforeObj == null || !isReturnBeforeObj) && ((isPickObj != null &&
-                        isPickObj) || (isFollowObj != null && isFollowObj))) {
+                if ((isReturnBeforeObj == null || !isReturnBeforeObj) && ((isPickObj != null
+                        && isPickObj) || (isFollowObj != null && isFollowObj))) {
                     List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(ctx.get("globalNodeTrail"));
                     if (globalNodeTrail == null) {
                         globalNodeTrail = new LinkedList<>();

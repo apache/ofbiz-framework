@@ -150,7 +150,9 @@ public class EntitySyncServices {
         List<GenericValue> valuesToStore = UtilGenerics.cast(context.get("valuesToStore"));
         List<GenericEntity> keysToRemove = UtilGenerics.cast(context.get("keysToRemove"));
 
-        if (Debug.infoOn()) Debug.logInfo("Running storeEntitySyncData (" + entitySyncId + ") - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove.", MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Running storeEntitySyncData (" + entitySyncId + ") - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove.", MODULE);
+        }
         try {
             long toCreateInserted = 0;
             long toCreateUpdated = 0;
@@ -247,7 +249,9 @@ public class EntitySyncServices {
             result.put("toStoreNotUpdated", toStoreNotUpdated);
             result.put("toRemoveDeleted", toRemoveDeleted);
             result.put("toRemoveAlreadyDeleted", toRemoveAlreadyDeleted);
-            if (Debug.infoOn()) Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, MODULE);
+            }
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Exception saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + e.toString(), MODULE);
@@ -316,9 +320,9 @@ public class EntitySyncServices {
                     // store data returned, get results (just call storeEntitySyncData locally, get the numbers back and boom shakalaka)
 
                     // anything to store locally?
-                    if (startDate != null && (UtilValidate.isNotEmpty(result.get("valuesToCreate")) ||
-                            UtilValidate.isNotEmpty(result.get("valuesToStore")) ||
-                            UtilValidate.isNotEmpty(result.get("keysToRemove")))) {
+                    if (startDate != null && (UtilValidate.isNotEmpty(result.get("valuesToCreate"))
+                            || UtilValidate.isNotEmpty(result.get("valuesToStore"))
+                            || UtilValidate.isNotEmpty(result.get("keysToRemove")))) {
 
                         // yep, we got more data
                         gotMoreData = true;
@@ -413,7 +417,9 @@ public class EntitySyncServices {
 
                 esc.setTotalRowCounts(valuesToCreate, valuesToStore, keysToRemove);
 
-                if (Debug.infoOn()) Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", MODULE);
+                }
                 if (esc.totalRowsPerSplit > 0) {
                     // stop if we found some data, otherwise look and try again
                     Map<String, Object> result = ServiceUtil.returnSuccess();

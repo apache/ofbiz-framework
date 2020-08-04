@@ -233,11 +233,11 @@ public class XmlSerializer {
             }
 
             Element element = document.createElement(elementName);
-            Map<?,?> value = UtilGenerics.cast(object);
+            Map<?, ?> value = UtilGenerics.cast(object);
             Iterator<Map.Entry<?, ?>> iter = UtilGenerics.cast(value.entrySet().iterator());
 
             while (iter.hasNext()) {
-                Map.Entry<?,?> entry = iter.next();
+                Map.Entry<?, ?> entry = iter.next();
 
                 Element entryElement = document.createElement("map-Entry");
 
@@ -347,8 +347,7 @@ public class XmlSerializer {
                 try {
                     Calendar cal = DatatypeConverter.parseDate(valStr);
                     return new java.sql.Timestamp(cal.getTimeInMillis());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Debug.logWarning("sql-Timestamp does not conform to XML Schema definition, try java.sql.Timestamp format", MODULE);
                     return java.sql.Timestamp.valueOf(valStr);
                 }

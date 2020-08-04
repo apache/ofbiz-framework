@@ -309,6 +309,14 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     If true csrf token is expected. If false no csrf token check. Default to "".
+                    
+                    When csrf-token is empty or not set, the behaviour should be determined by 
+                    CsrfDefenseStrategy class (or another implementation of ICsrfDefenseStrategy).
+                    
+                    When csrf-token is explicitly set to either true or false, 
+                    CsrfDefenseStrategy class (or another implementation of ICsrfDefenseStrategy) 
+                    should follow the setting.
+                    So if true, csrf token is expected. If false, no csrf token check.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>

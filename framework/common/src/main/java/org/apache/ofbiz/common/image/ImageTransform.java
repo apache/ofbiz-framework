@@ -71,18 +71,18 @@ public class ImageTransform {
 
         /* VARIABLES */
         BufferedImage bufImg;
-        Map<String, Object> result =  new LinkedHashMap<>();
+        Map<String, Object> result = new LinkedHashMap<>();
 
         /* BUFFERED IMAGE */
         try {
             bufImg = ImageIO.read(new File(fileLocation));
         } catch (IllegalArgumentException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.input_is_null", locale) + " : " + fileLocation + " ; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.input_is_null", locale) + " : " + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + " ; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -111,7 +111,7 @@ public class ImageTransform {
         /* VARIABLES */
         BufferedImage bufNewImg;
         double defaultHeight, defaultWidth, scaleFactor;
-        Map<String, Object> result =  new LinkedHashMap<>();
+        Map<String, Object> result = new LinkedHashMap<>();
 
         /* DIMENSIONS from ImageProperties */
         // A missed dimension is authorized
@@ -126,7 +126,7 @@ public class ImageTransform {
             defaultWidth = -1;
         }
         if (defaultHeight == 0.0 || defaultWidth == 0.0) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + " ; defaultWidth = " + defaultWidth;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + "; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -218,8 +218,8 @@ public class ImageTransform {
         /* VARIABLES */
         Document document;
         Element rootElt;
-        Map<String, Map<String, String>> valueMap =  new LinkedHashMap<>();
-        Map<String, Object> result =  new LinkedHashMap<>();
+        Map<String, Map<String, String>> valueMap = new LinkedHashMap<>();
+        Map<String, Object> result = new LinkedHashMap<>();
 
         /* PARSING */
         try {
@@ -248,10 +248,10 @@ public class ImageTransform {
         /* get NAME and VALUE */
         List<? extends Element> children = UtilXml.childElementList(rootElt); // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element> but only List)
         for (Element currentElt : children) {
-            Map<String, String> eltMap =  new LinkedHashMap<>();
+            Map<String, String> eltMap = new LinkedHashMap<>();
             List<? extends Element> children2 = UtilXml.childElementList(currentElt);
             if (children2.size() > 0) {
-                Map<String, String> childMap =  new LinkedHashMap<>();
+                Map<String, String> childMap = new LinkedHashMap<>();
                 // loop over Children 1st level
                 for (Element currentChild : children2) {
                     childMap.put(currentChild.getAttribute("name"), currentChild.getAttribute("value"));
@@ -283,8 +283,8 @@ public class ImageTransform {
 
     public static BufferedImage toBufferedImage(Image image, int bufImgType) {
         /** Check if the image isn't already a BufferedImage instance */
-        if( image instanceof BufferedImage ) {
-                return( (BufferedImage)image );
+        if (image instanceof BufferedImage) {
+            return ((BufferedImage) image);
         }
         /** Full image loading */
         image = new ImageIcon(image).getImage();
@@ -296,9 +296,9 @@ public class ImageTransform {
                     bufImgType);
 
         Graphics2D g = bufferedImage.createGraphics();
-        g.drawImage(image,0,0,null);
+        g.drawImage(image, 0, 0, null);
         g.dispose();
 
-        return( bufferedImage );
+        return (bufferedImage);
     }
 }

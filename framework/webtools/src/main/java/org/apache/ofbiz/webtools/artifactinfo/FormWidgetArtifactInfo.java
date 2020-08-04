@@ -143,7 +143,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -160,7 +160,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
-    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -207,8 +207,8 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof FormWidgetArtifactInfo) {
-            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) &&
-                    this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
+            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName())
+                    && this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
         } else {
             return false;
         }

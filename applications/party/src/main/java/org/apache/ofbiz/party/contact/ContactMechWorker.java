@@ -57,7 +57,7 @@ public class ContactMechWorker {
 
     private static final String MODULE = ContactMechWorker.class.getName();
 
-    private ContactMechWorker() {}
+    private ContactMechWorker() { }
 
     /**
      * Check the contactMechTypeId value on toAnalyzeFields map and if is a PostalAddress, a TelecomNumber or FtpAddress
@@ -70,18 +70,18 @@ public class ContactMechWorker {
         String entityName = null;
         String prefix = null;
         switch (contactMechTypeId) {
-            case "POSTAL_ADDRESS":
-                entityName = "PostalAddress";
-                prefix = "pa";
-                break;
-            case "TELECOM_NUMBER":
-                entityName = "TelecomNumber";
-                prefix = "tn";
-                break;
-            case "FTP_ADDRESS":
-                entityName = "FtpAddress";
-                prefix = "fa";
-                break;
+        case "POSTAL_ADDRESS":
+            entityName = "PostalAddress";
+            prefix = "pa";
+            break;
+        case "TELECOM_NUMBER":
+            entityName = "TelecomNumber";
+            prefix = "tn";
+            break;
+        case "FTP_ADDRESS":
+            entityName = "FtpAddress";
+            prefix = "fa";
+            break;
         }
         if (entityName != null) {
             GenericValue element = delegator.makeValue(entityName);

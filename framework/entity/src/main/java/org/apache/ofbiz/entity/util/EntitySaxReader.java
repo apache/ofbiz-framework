@@ -112,7 +112,7 @@ public class EntitySaxReader extends DefaultHandler {
     private Document documentForTemplate = null;
     private Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
 
-    protected EntitySaxReader() {}
+    protected EntitySaxReader() { }
 
     public EntitySaxReader(Delegator delegator, int transactionTimeout) {
         // clone the delegator right off so there is no chance of making change to the initial object
@@ -155,7 +155,7 @@ public class EntitySaxReader extends DefaultHandler {
         this.continueOnFail = continueOnFail;
     }
 
-    public void setPlaceholderValues(Map<String,Object> placeholderValues) {
+    public void setPlaceholderValues(Map<String, Object> placeholderValues) {
         this.placeholderValues = placeholderValues;
     }
 
@@ -211,7 +211,7 @@ public class EntitySaxReader extends DefaultHandler {
         SAXParser parser;
         try {
             parser = SAXParserFactory.newInstance().newSAXParser();
-        } catch(ParserConfigurationException pce) {
+        } catch (ParserConfigurationException pce) {
             throw new SAXException("Unable to create the SAX parser", pce);
         }
         numberRead = 0;
@@ -243,10 +243,10 @@ public class EntitySaxReader extends DefaultHandler {
             throw new SAXException("A transaction error occurred reading data", e);
         }
         Debug.logImportant("Finished " + numberRead + " values from " + docDescription, MODULE);
-        if (Debug.verboseOn()) { 
-            Debug.logVerbose("  Detail created : " + numberCreated + ", skipped : " + numberSkipped +
-                    ", updated : " + numberUpdated + ", replaced : " + numberReplaced +
-                    ", deleted : " + numberDeleted, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("  Detail created : " + numberCreated + ", skipped : " + numberSkipped
+                    + ", updated : " + numberUpdated + ", replaced : " + numberReplaced
+                    + ", deleted : " + numberDeleted, MODULE);
         }
         return numberRead;
     }
@@ -297,7 +297,9 @@ public class EntitySaxReader extends DefaultHandler {
 
     @Override
     public void endElement(String namespaceURI, String localName, String fullNameString) throws SAXException {
-        if (Debug.verboseOn()) Debug.logVerbose("endElement: localName=" + localName + ", fullName=" + fullNameString + ", numberRead=" + numberRead, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("endElement: localName=" + localName + ", fullName=" + fullNameString + ", numberRead=" + numberRead, MODULE);
+        }
         if ("entity-engine-xml".equals(fullNameString)) {
             return;
         }
@@ -314,7 +316,7 @@ public class EntitySaxReader extends DefaultHandler {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
             } else {
                 try {
-                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),StandardCharsets.UTF_8));
+                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(), StandardCharsets.UTF_8));
 
                     StringWriter outWriter = new StringWriter();
                     Configuration config = FreeMarkerWorker.newConfiguration();
@@ -331,7 +333,9 @@ public class EntitySaxReader extends DefaultHandler {
                     context.put("doc", nodeModel);
                     template.process(context, outWriter);
                     String s = outWriter.toString();
-                    if (Debug.verboseOn()) Debug.logVerbose("transformed xml: " + s, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("transformed xml: " + s, MODULE);
+                    }
 
                     EntitySaxReader reader = new EntitySaxReader(delegator);
                     reader.setUseTryInsertMethod(this.useTryInsertMethod);
@@ -453,7 +457,9 @@ public class EntitySaxReader extends DefaultHandler {
 
     @Override
     public void startElement(String namepsaceURI, String localName, String fullNameString, Attributes attributes) throws SAXException {
-        if (Debug.verboseOn()) Debug.logVerbose("startElement: localName=" + localName + ", fullName=" + fullNameString + ", attributes=" + attributes, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("startElement: localName=" + localName + ", fullName=" + fullNameString + ", attributes=" + attributes, MODULE);
+        }
         if ("entity-engine-xml".equals(fullNameString)) {
             // check the maintain-timestamp flag
             CharSequence maintainTx = attributes.getValue("maintain-timestamps");

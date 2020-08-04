@@ -511,20 +511,17 @@ public class Record implements Serializable {
 
             try {
                 strVal = line.substring(modelField.position, modelField.position + modelField.length);
-            }
-            catch (IndexOutOfBoundsException ioobe) {
+            } catch (IndexOutOfBoundsException ioobe) {
                 throw new DataFileException("Field " + modelField.name + " from " + modelField.position + " for " + modelField.length + " chars could not be read from a line ("
                                             + lineNum + ") with only " + line.length() + " chars.",
                         ioobe);
             }
             try {
                 record.setString(modelField.name, strVal);
-            }
-            catch (java.text.ParseException e) {
+            } catch (java.text.ParseException e) {
                 throw new DataFileException(
                         "Could not parse field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
-            }
-            catch (java.lang.NumberFormatException e) {
+            } catch (java.lang.NumberFormatException e) {
                 throw new DataFileException(
                         "Number not valid for field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
             }
@@ -569,8 +566,7 @@ public class Record implements Serializable {
                         } else if (st.hasMoreTokens()) {
                             st.nextToken();
                         }
-                    }
-                    catch (NoSuchElementException nsee) {
+                    } catch (NoSuchElementException nsee) {
                         throw new DataFileException("Field " + modelField.name + " could not be read from a line (" + lineNum + ") with only " + line.length() + " chars.", nsee);
                     }
                 }
@@ -587,12 +583,10 @@ public class Record implements Serializable {
                     strVal = strVal.substring(textDelimiter.length(), strVal.length() - textDelimiter.length());
                 }
                 record.setString(modelField.name, strVal);
-            }
-            catch (java.text.ParseException e) {
+            } catch (java.text.ParseException e) {
                 throw new DataFileException(
                         "Could not parse field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
-            }
-            catch (java.lang.NumberFormatException e) {
+            } catch (java.lang.NumberFormatException e) {
                 throw new DataFileException(
                         "Number not valid for field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
             }

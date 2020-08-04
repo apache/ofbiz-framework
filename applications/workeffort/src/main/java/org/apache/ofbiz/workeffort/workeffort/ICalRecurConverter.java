@@ -95,7 +95,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     protected VisitorState state = new VisitorState();
     protected Stack<VisitorState> stateStack = new Stack<>();
 
-    protected ICalRecurConverter() {}
+    protected ICalRecurConverter() { }
 
     @SuppressWarnings("unchecked")
     protected Recur consolidateRecurs(List<Recur> recurList) {

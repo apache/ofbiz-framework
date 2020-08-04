@@ -31,7 +31,7 @@ public class EntityConditionParam implements Serializable {
     protected ModelField modelField;
     protected Object fieldValue;
 
-    protected EntityConditionParam() {}
+    protected EntityConditionParam() { }
 
     public EntityConditionParam(ModelField modelField, Object fieldValue) {
         if (modelField == null) {

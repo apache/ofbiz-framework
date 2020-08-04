@@ -72,7 +72,7 @@ public class QRCodeServices {
     private static final int WHITE = 0xFFFFFFFF;
 
     /** Streams QR Code to the result. */
-    public static Map<String, Object> generateQRCodeImage(DispatchContext ctx,Map<String, Object> context) {
+    public static Map<String, Object> generateQRCodeImage(DispatchContext ctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         String message = (String) context.get("message");
         Integer width = (Integer) context.get("width");
@@ -86,7 +86,7 @@ public class QRCodeServices {
         Delegator delegator = ctx.getDelegator();
 
         if (UtilValidate.isEmpty(message)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ParameterCannotEmpty", new Object[] { "message" }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ParameterCannotEmpty", new Object[] {"message" }, locale));
         }
         if (width == null) {
             width = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.width", "200", delegator));
@@ -98,8 +98,8 @@ public class QRCodeServices {
             height = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.height", "200", delegator));
         }
         if (height < MIN_SIZE || height > MAX_SIZE) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", 
-                    new Object[] { "height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError",
+                    new Object[] {"height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
         }
         if (UtilValidate.isEmpty(format)) {
             format = EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.format", "jpg", delegator);
@@ -145,7 +145,6 @@ public class QRCodeServices {
                 }
                 logoBufferedImage = defaultLogoImage;
             }
-            
             BufferedImage newBufferedImage = null;
             if (UtilValidate.isNotEmpty(logoBufferedImage)) {
                 if (UtilValidate.isNotEmpty(logoImageMaxWidth) && UtilValidate.isNotEmpty(logoImageMaxHeight) && (logoBufferedImage.getWidth() > logoImageMaxWidth || logoBufferedImage.getHeight() > logoImageMaxHeight)) {
@@ -165,7 +164,6 @@ public class QRCodeServices {
                 graphics.drawImage(logoBufferedImage, new AffineTransformOp(AffineTransform.getTranslateInstance(1, 1), null), (newBufferedImage.getWidth() - logoBufferedImage.getWidth())/2, (newBufferedImage.getHeight() - logoBufferedImage.getHeight())/2);
                 graphics.dispose();
             }
-            
             if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput) {
                 Decoder decoder = new Decoder();
                 Map<DecodeHintType, Object> decodeHints = new EnumMap<>(DecodeHintType.class);
@@ -207,16 +205,15 @@ public class QRCodeServices {
             result.put("bufferedImage", bufferedImage);
             return result;
         } catch (WriterException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.toString() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] {e.toString() }, locale));
         } catch (ChecksumException | FormatException | NotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] { e.toString() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] {e.toString() }, locale));
         }
     }
 
     /**
      * Renders a {@link BitMatrix} as an image, where "false" bits are rendered
      * as white, and "true" bits are rendered as black.
-     * 
      * This is to replace MatrixToImageWriter.toBufferedImage(bitMatrix) if you
      * find the output image is not right, you can change BufferedImage image =
      * new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB); to
@@ -250,9 +247,9 @@ public class QRCodeServices {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int pixel = pixels[y * width + x];
-                int luminance = (306 * ((pixel >> 16) & 0xFF) +
-                    601 * ((pixel >> 8) & 0xFF) +
-                    117 * (pixel & 0xFF)) >> 10;
+                int luminance = (306 * ((pixel >> 16) & 0xFF)
+                    + 601 * ((pixel >> 8) & 0xFF)
+                    + 117 * (pixel & 0xFF)) >> 10;
                 if (luminance <= 0x7F) {
                     matrix.set(x, y);
                 }

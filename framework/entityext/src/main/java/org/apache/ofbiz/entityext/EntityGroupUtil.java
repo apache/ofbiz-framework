@@ -38,7 +38,7 @@ public final class EntityGroupUtil {
 
     private static final String MODULE = EntityGroupUtil.class.getName();
 
-    private EntityGroupUtil () {}
+    private EntityGroupUtil() { }
 
     public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
         Set<String> entityNames = new HashSet<>();

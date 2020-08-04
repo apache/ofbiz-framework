@@ -89,7 +89,7 @@ public class RmiServiceContainer implements Container {
             Integer portValue = Integer.valueOf(port);
             portValue += Start.getInstance().getConfig().portOffset;
             port = portValue.toString();
-        }                
+        }
         String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);
         String ksType = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-type", "JKS");
         String ksPass = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-pass", null);
@@ -148,7 +148,7 @@ public class RmiServiceContainer implements Container {
             try {
                 Naming.rebind("//" + host + ":" + port + "/" + name, remote);
             } catch (RemoteException e) {
-                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name[" + name + "] - with remote=" + remote , e);
+                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name[" + name + "] - with remote=" + remote, e);
             } catch (java.net.MalformedURLException e) {
                 throw new ContainerException("Invalid URL for binding", e);
             }

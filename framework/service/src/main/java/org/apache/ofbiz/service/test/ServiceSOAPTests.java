@@ -29,7 +29,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class ServiceSOAPTests extends OFBizTestCase {
 
-    public final static String MODULE = ServiceSOAPTests.class.getName();
+    private static final String MODULE = ServiceSOAPTests.class.getName();
 
     public ServiceSOAPTests(String name) {
         super(name);

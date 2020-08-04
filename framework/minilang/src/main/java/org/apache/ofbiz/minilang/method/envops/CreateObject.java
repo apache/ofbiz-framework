@@ -40,7 +40,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;create-object&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class CreateObject extends MethodOperation {
@@ -112,7 +111,7 @@ public final class CreateObject extends MethodOperation {
         }
         try {
             Constructor<?> constructor = targetClass.getConstructor(parameterTypes);
-            fieldFma.put(methodContext.getEnvMap(),constructor.newInstance(args));
+            fieldFma.put(methodContext.getEnvMap(), constructor.newInstance(args));
         } catch (Exception e) {
             throw new MiniLangRuntimeException(e, this);
         }

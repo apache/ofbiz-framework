@@ -77,21 +77,23 @@ public class ModelPermission implements Serializable {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorUserLoginMissing", locale));
         }
         boolean hasPermission = false;
-        if (Debug.verboseOn()) Debug.logVerbose(" Permission : Analyse " + this.toString(), MODULE);
-        switch (permissionType) {
-            case PERMISSION:
-                hasPermission = evalSimplePermission(security, userLogin);
-                break;
-            case ENTITY_PERMISSION:
-                hasPermission = evalEntityPermission(security, userLogin);
-                break;
-            case PERMISSION_SERVICE:
-                return evalPermissionService(serviceModel, dctx, context);
-            default:
-                Debug.logWarning("Invalid permission type [" + permissionType + "] for permission named : " + nameOrRole + " on service : " + serviceModel.name, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorInvalidPermissionType", locale));
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(" Permission : Analyse " + this.toString(), MODULE);
         }
-        if (! hasPermission) {
+        switch (permissionType) {
+        case PERMISSION:
+            hasPermission = evalSimplePermission(security, userLogin);
+            break;
+        case ENTITY_PERMISSION:
+            hasPermission = evalEntityPermission(security, userLogin);
+            break;
+        case PERMISSION_SERVICE:
+            return evalPermissionService(serviceModel, dctx, context);
+        default:
+            Debug.logWarning("Invalid permission type [" + permissionType + "] for permission named : " + nameOrRole + " on service : " + serviceModel.name, MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorInvalidPermissionType", locale));
+        }
+        if (!hasPermission) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorRefused", locale));
         }
         return ServiceUtil.returnSuccess();
@@ -111,7 +113,7 @@ public class ModelPermission implements Serializable {
             return false;
         }
         if (action == null) {
-            Debug.logWarning("Null action passed for evaluation",  MODULE);
+            Debug.logWarning("Null action passed for evaluation", MODULE);
         }
         return security.hasEntityPermission(nameOrRole, action, userLogin);
     }
@@ -154,10 +156,14 @@ public class ModelPermission implements Serializable {
             Debug.logError(failMessage + e.getMessage(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorDefinitionProblem", locale));
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Service permission result : hasPermission " + resp.get("hasPermission") + ", failMessage " + failMessage , MODULE);
-        if (permissionReturnErrorOnFailure &&
-                (UtilValidate.isNotEmpty(failMessage) || ! ((Boolean) resp.get("hasPermission")).booleanValue())) {
-            if (UtilValidate.isEmpty(failMessage)) failMessage = UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorRefused", locale);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Service permission result : hasPermission " + resp.get("hasPermission") + ", failMessage " + failMessage, MODULE);
+        }
+        if (permissionReturnErrorOnFailure
+                && (UtilValidate.isNotEmpty(failMessage) || !((Boolean) resp.get("hasPermission")).booleanValue())) {
+            if (UtilValidate.isEmpty(failMessage)) {
+                failMessage = UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorRefused", locale);
+            }
             return ServiceUtil.returnError(failMessage);
         }
         return resp;

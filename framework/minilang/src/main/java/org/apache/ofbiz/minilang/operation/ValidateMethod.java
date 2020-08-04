@@ -58,7 +58,7 @@ public class ValidateMethod extends SimpleMapOperation {
         if (loader == null) {
             loader = Thread.currentThread().getContextClassLoader();
         }
-        Class<?>[] paramTypes = new Class<?>[] { String.class };
+        Class<?>[] paramTypes = new Class<?>[] {String.class };
         Object[] params = new Object[] { fieldValue };
         Class<?> valClass;
         try {

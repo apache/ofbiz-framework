@@ -820,25 +820,25 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         ModelEntity modelEntityToUse = this.getModelEntity();
         Object resourceValue = get(this.getModelEntity(), modelEntityToUse, name, resource, locale);
         if (resourceValue == null) {
-          if (modelEntityToUse instanceof ModelViewEntity) {
-              //  now try to retrieve with the field heading from the real entity linked to the view
-              ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
-              Iterator<ModelAlias> it = modelViewEntity.getAliasesIterator();
-              while (it.hasNext()) {
-                  ModelAlias modelAlias = it.next();
-                  if (modelAlias.getName().equalsIgnoreCase(name)) {
-                      modelEntityToUse = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
-                      name = modelAlias.getField();
-                      break;
-                  }
-              }
-              resourceValue = get(this.getModelEntity(), modelEntityToUse, name, resource, locale);
-              if (resourceValue == null) {
-                  return fieldValue;
-              }
-            return resourceValue;
-          }
-        return fieldValue;
+            if (modelEntityToUse instanceof ModelViewEntity) {
+                //  now try to retrieve with the field heading from the real entity linked to the view
+                ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
+                Iterator<ModelAlias> it = modelViewEntity.getAliasesIterator();
+                while (it.hasNext()) {
+                    ModelAlias modelAlias = it.next();
+                    if (modelAlias.getName().equalsIgnoreCase(name)) {
+                        modelEntityToUse = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
+                        name = modelAlias.getField();
+                        break;
+                    }
+                }
+                resourceValue = get(this.getModelEntity(), modelEntityToUse, name, resource, locale);
+                if (resourceValue == null) {
+                    return fieldValue;
+                }
+                return resourceValue;
+            }
+            return fieldValue;
         }
         return resourceValue;
     }
@@ -878,7 +878,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         keyBuffer.append('.');
         keyBuffer.append(name);
         // finish off by adding the values of all PK fields
-        if (modelEntity instanceof ModelViewEntity){
+        if (modelEntity instanceof ModelViewEntity) {
             // retrieve pkNames of realEntity
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
             List<String> pkNamesToUse = new LinkedList<>();
@@ -891,7 +891,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 //search aliasName for pkField of realEntity
                 while (iterAlias != null && iterAlias.hasNext()) {
                     ModelAlias aliasField = iterAlias.next();
-                    if (aliasField.getField().equals(curField.getName())){
+                    if (aliasField.getField().equals(curField.getName())) {
                         ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(aliasField.getEntityAlias());
                         if (memberModelEntity.getEntityName().equals(modelEntityToUse.getEntityName())) {
                             pkName = aliasField.getName();
@@ -1192,9 +1192,9 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             String type = modelField.getType();
             if (type != null && "blob".equals(type)) {
                 Object obj = get(name);
-                boolean b1 = obj instanceof byte [];
+                boolean b1 = obj instanceof byte[];
                 if (b1) {
-                    byte [] binData = (byte [])obj;
+                    byte[] binData = (byte[]) obj;
                     String strData = new String(Base64.getMimeEncoder().encode(binData), StandardCharsets.UTF_8);
                     cdataMap.put(name, strData);
                 } else {
@@ -1217,19 +1217,19 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
                         switch (curChar) {
                         case '\'':
-                            value.replace(i, i+1, "&apos;");
+                            value.replace(i, i + 1, "&apos;");
                             break;
                         case '"':
-                            value.replace(i, i+1, "&quot;");
+                            value.replace(i, i + 1, "&quot;");
                             break;
                         case '&':
-                            value.replace(i, i+1, "&amp;");
+                            value.replace(i, i + 1, "&amp;");
                             break;
                         case '<':
-                            value.replace(i, i+1, "&lt;");
+                            value.replace(i, i + 1, "&lt;");
                             break;
                         case '>':
-                            value.replace(i, i+1, "&gt;");
+                            value.replace(i, i + 1, "&gt;");
                             break;
                         case 0xA: // newline, \n
                             needsCdata = true;
@@ -1241,25 +1241,25 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                             // do nothing, just catch here so it doesn't get into the default
                             break;
                         case 0x5: // elipses (...)
-                            value.replace(i, i+1, "...");
+                            value.replace(i, i + 1, "...");
                             break;
                         case 0x12: // apostrophe
-                            value.replace(i, i+1, "&apos;");
+                            value.replace(i, i + 1, "&apos;");
                             break;
                         case 0x13: // left quote
-                            value.replace(i, i+1, "&quot;");
+                            value.replace(i, i + 1, "&quot;");
                             break;
                         case 0x14: // right quote
-                            value.replace(i, i+1, "&quot;");
+                            value.replace(i, i + 1, "&quot;");
                             break;
                         case 0x16: // big(?) dash -
-                            value.replace(i, i+1, "-");
+                            value.replace(i, i + 1, "-");
                             break;
                         case 0x17: // dash -
-                            value.replace(i, i+1, "-");
+                            value.replace(i, i + 1, "-");
                             break;
                         case 0x19: // tm
-                            value.replace(i, i+1, "tm");
+                            value.replace(i, i + 1, "tm");
                             break;
                         default:
                             if (curChar < 0x20) {
@@ -1272,7 +1272,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                                 if (Debug.verboseOn()) {
                                     Debug.logVerbose("Entity: " + this.getEntityName() + ", PK: " + this.getPrimaryKey().toString() + " -> char [" + curChar + "] replaced with [" + replacement + "]", MODULE);
                                 }
-                                value.replace(i, i+1, replacement);
+                                value.replace(i, i + 1, replacement);
                             }
                         }
                     }

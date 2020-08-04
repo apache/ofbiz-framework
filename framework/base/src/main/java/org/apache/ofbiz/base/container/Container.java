@@ -61,19 +61,19 @@ public interface Container {
      * @return <code>true</code> if the process started.
      * @throws ContainerException If an error was encountered.
      */
-    public boolean start() throws ContainerException;
+    boolean start() throws ContainerException;
 
     /**
      * Stop the container process. This method must not block.
      *
      * @throws ContainerException If an error was encountered.
      */
-    public void stop() throws ContainerException;
+    void stop() throws ContainerException;
 
     /**
      * Return the container name.
      *
      * @return Name of the container's instance.
      */
-    public String getName();
+    String getName();
 }

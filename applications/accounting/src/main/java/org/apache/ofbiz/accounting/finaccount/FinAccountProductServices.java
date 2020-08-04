@@ -51,7 +51,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class FinAccountProductServices {
 
     private static final String MODULE = FinAccountProductServices.class.getName();
-    private static final String RES_ORDERError = "OrderErrorUiLabels";
+    private static final String RES_ORDER_ERROR = "OrderErrorUiLabels";
     private static final String RES_ERROR = "AccountingErrorUiLabels";
 
     public static Map<String, Object> createPartyFinAccountFromPurchase(DispatchContext dctx, Map<String, Object> context) {
@@ -72,7 +72,7 @@ public class FinAccountProductServices {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDERError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER_ERROR,
                     "OrderCannotGetOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 

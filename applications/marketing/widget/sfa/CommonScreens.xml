@@ -39,6 +39,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.MarketingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="SfaAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://marketing/widget/sfa/SfaMenus.xml" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_sfa"/>
                 <set field="applicationTitle" from-field="uiLabelMap.SfaManagerApplication" global="true"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="SFA" global="true"/>
                 <script location="component://common/groovyScripts/GetParentPortalPageId.groovy"/>
@@ -53,6 +54,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" from-field="parameters.headerItem" default-value="main"/>
+                <set field="helpAnchor" value="_main_screen"/>
                 <set field="removeAccountDescription" value="${groovy:session.removeAttribute(&quot;accountDescription&quot;)}"/>
                 <set field="removeContactDescription" value="${groovy:session.removeAttribute(&quot;contactDescription&quot;)}"/>
                 <set field="removeLeadDescription" value="${groovy:session.removeAttribute(&quot;leadDescription&quot;)}"/>

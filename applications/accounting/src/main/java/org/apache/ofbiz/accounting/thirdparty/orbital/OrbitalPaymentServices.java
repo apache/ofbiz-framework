@@ -252,7 +252,7 @@ public class OrbitalPaymentServices {
         //TODO: Will move this to property file and then will read it from there.
         String configFile = "/applications/accounting/config/linehandler.properties";
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        Map<String, Object> buildConfiguratorContext = new HashMap<String, Object>();
+        Map<String, Object> buildConfiguratorContext = new HashMap<>();
         try {
             buildConfiguratorContext.put("OrbitalConnectionUsername", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "username"));
             buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
@@ -305,7 +305,7 @@ public class OrbitalPaymentServices {
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
         String cardSecurityCode = (String) params.get("cardSecurityCode");
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         String transType = props.get("transType").toString();
         String messageType = null;
         if ("AUTH_ONLY".equals(transType)) {
@@ -330,7 +330,7 @@ public class OrbitalPaymentServices {
                 if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
                     // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
                      creditCard = (GenericValue) params.get("creditCard");
-                    if (creditCard == null || ! (opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
+                    if (creditCard == null || !(opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
                         creditCard = opp.getRelatedOne("CreditCard", false);
                     }
                 }
@@ -347,8 +347,8 @@ public class OrbitalPaymentServices {
                 }
             } else {
                 // this would be the case for an authorization
-                GenericValue cp = (GenericValue)params.get("billToParty");
-                GenericValue ba = (GenericValue)params.get("billingAddress");
+                GenericValue cp = (GenericValue) params.get("billToParty");
+                GenericValue ba = (GenericValue) params.get("billingAddress");
                 request.setFieldValue("AVSname", UtilFormatOut.checkNull(cp.getString("firstName")) + UtilFormatOut.checkNull(cp.getString("lastName")));
                 request.setFieldValue("AVSaddress1", UtilFormatOut.checkNull(ba.getString("address1")));
                 request.setFieldValue("AVScity", UtilFormatOut.checkNull(ba.getString("city")));
@@ -383,7 +383,7 @@ public class OrbitalPaymentServices {
         GenericValue creditCard = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("captureAmount");
         String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
             //Basic Auth Fields
@@ -424,7 +424,7 @@ public class OrbitalPaymentServices {
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         expDate = formatExpDateForOrbital(expDate);
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
             //Basic Auth Fields
@@ -452,7 +452,7 @@ public class OrbitalPaymentServices {
     private static void buildReleaseTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         BigDecimal amount = (BigDecimal) params.get("releaseAmount");
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
-        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
+        String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         try {
             //If there were no errors preparing the template, we can now specify the data
             //Basic Auth Fields
@@ -487,7 +487,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> processCard(RequestIF request) {
-        Map<String, Object> processCardResult = new HashMap<String, Object>();
+        Map<String, Object> processCardResult = new HashMap<>();
         try {
             response = tp.process(request);
             if (response.isApproved()) {
@@ -521,7 +521,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthTransResult: " + results.toString(), MODULE);
     }
 
     private static void processAuthCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -545,7 +545,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
-        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processAuthCaptureTransResult: " + results.toString(), MODULE);
     }
 
     private static void processCaptureTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -561,7 +561,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("captureAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processCaptureTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processCaptureTransResult: " + results.toString(), MODULE);
     }
 
     private static void processRefundTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -577,7 +577,7 @@ public class OrbitalPaymentServices {
         } else {
             results.put("refundAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processRefundTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processRefundTransResult: " + results.toString(), MODULE);
     }
 
     private static void processReleaseTransResult(Map<String, Object> processCardResponseContext, Map<String, Object> results) {
@@ -593,25 +593,25 @@ public class OrbitalPaymentServices {
         } else {
             results.put("releaseAmount", BigDecimal.ZERO);
         }
-        Debug.logInfo("processReleaseTransResult: " + results.toString(),MODULE);
+        Debug.logInfo("processReleaseTransResult: " + results.toString(), MODULE);
     }
 
     private static void printTransResult(ResponseIF response) {
-        Map<String, Object> generatedResponse = new HashMap<String, Object>();
-        generatedResponse.put("isGood",  response.isGood());
+        Map<String, Object> generatedResponse = new HashMap<>();
+        generatedResponse.put("isGood", response.isGood());
         generatedResponse.put("isError", response.isError());
-        generatedResponse.put("isQuickResponse",  response.isQuickResponse());
+        generatedResponse.put("isQuickResponse", response.isQuickResponse());
         generatedResponse.put("isApproved", response.isApproved());
-        generatedResponse.put("isDeclined",  response.isDeclined());
-        generatedResponse.put("AuthCode",  response.getAuthCode());
-        generatedResponse.put("TxRefNum",  response.getTxRefNum());
-        generatedResponse.put("ResponseCode",  response.getResponseCode());
-        generatedResponse.put("Status",  response.getStatus());
-        generatedResponse.put("Message",  response.getMessage());
-        generatedResponse.put("AVSCode",  response.getAVSResponseCode());
+        generatedResponse.put("isDeclined", response.isDeclined());
+        generatedResponse.put("AuthCode", response.getAuthCode());
+        generatedResponse.put("TxRefNum", response.getTxRefNum());
+        generatedResponse.put("ResponseCode", response.getResponseCode());
+        generatedResponse.put("Status", response.getStatus());
+        generatedResponse.put("Message", response.getMessage());
+        generatedResponse.put("AVSCode", response.getAVSResponseCode());
         generatedResponse.put("CVV2ResponseCode", response.getCVV2RespCode());
 
-        Debug.logInfo("printTransResult === " + generatedResponse.toString(),MODULE);
+        Debug.logInfo("printTransResult === " + generatedResponse.toString(), MODULE);
     }
 
     private static String formatExpDateForOrbital(String expDate) {
@@ -641,7 +641,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> validateRequest(Map<String, Object> params, Map props, RequestIF request) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

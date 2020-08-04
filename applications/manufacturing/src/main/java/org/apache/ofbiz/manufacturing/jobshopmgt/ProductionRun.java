@@ -76,7 +76,7 @@ public class ProductionRun {
 
     public ProductionRun(String productionRunId, Delegator delegator, LocalDispatcher dispatcher) {
         try {
-            if (! UtilValidate.isEmpty(productionRunId)) {
+            if (!UtilValidate.isEmpty(productionRunId)) {
                 this.dispatcher = dispatcher;
                 GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();
                 if (workEffort != null) {
@@ -128,14 +128,14 @@ public class ProductionRun {
             if (updateCompletionDate) {
                 this.estimatedCompletionDate = recalculateEstimatedCompletionDate();
             }
-            productionRun.set("estimatedStartDate",this.estimatedStartDate);
-            productionRun.set("estimatedCompletionDate",this.estimatedCompletionDate);
-            productionRun.set("workEffortName",this.productionRunName);
-            productionRun.set("description",this.description);
+            productionRun.set("estimatedStartDate", this.estimatedStartDate);
+            productionRun.set("estimatedCompletionDate", this.estimatedCompletionDate);
+            productionRun.set("workEffortName", this.productionRunName);
+            productionRun.set("description", this.description);
             try {
                 if (quantityIsUpdated) {
                     productionRun.set("quantityToProduce", this.quantity);
-                    productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
+                    productionRunProduct.set("estimatedQuantity", this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;
                 }
@@ -274,7 +274,7 @@ public class ProductionRun {
         }
     }
     /**
-     * call recalculateEstimatedCompletionDate(0,estimatedStartDate), so recalculated for all the routing tasks.
+     * call recalculateEstimatedCompletionDate(0, estimatedStartDate), so recalculated for all the routing tasks.
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;
@@ -333,8 +333,8 @@ public class ProductionRun {
                         GenericValue routingTask;
                         for (GenericValue productionRunRoutingTask : productionRunRoutingTasks) {
                             routingTask = productionRunRoutingTask;
-                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard"
-                                    , UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), null, false));
+                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard",
+                                    UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), null, false));
                         }
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e.getMessage(), MODULE);
@@ -353,7 +353,7 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
@@ -371,12 +371,12 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
-            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
+            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1) : null);
         }
         return null;
     }
@@ -411,7 +411,7 @@ public class ProductionRun {
             taskTime = task.getDouble("estimatedMilliSeconds");
         }
         totalTaskTime = (setupTime + taskTime * quantity.doubleValue());
-        
+
         if (task.get("estimateCalcMethod") != null) {
             String serviceName = null;
             try {
@@ -427,7 +427,7 @@ public class ProductionRun {
                         String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                         Debug.logError(errorMessage, MODULE);
                     }
-                    totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
+                    totalTaskTime = ((BigDecimal) serviceResult.get("totalTime")).doubleValue();
                 }
             } catch (GenericEntityException | GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);

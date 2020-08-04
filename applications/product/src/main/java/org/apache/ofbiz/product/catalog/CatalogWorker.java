@@ -48,9 +48,9 @@ public final class CatalogWorker {
 
     private static final String MODULE = CatalogWorker.class.getName();
 
-    private CatalogWorker () {}
+    private CatalogWorker() { }
 
-    
+
     /**
      * @deprecated - Use WebSiteWorker.getWebSiteId(ServletRequest) instead
      */
@@ -174,9 +174,11 @@ public final class CatalogWorker {
         }
 
         if (!fromSession) {
-            if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
+            }
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new LinkedList<String>());
+            CategoryWorker.setTrail(request, new LinkedList<>());
         }
         return prodCatalogId;
     }
@@ -264,8 +266,7 @@ public final class CatalogWorker {
 
     public static String getProdCatalogCategoryId(Delegator delegator, String prodCatalogId, String prodCatalogCategoryTypeId) {
         if (UtilValidate.isNotEmpty(prodCatalogId) && UtilValidate.isNotEmpty(prodCatalogCategoryTypeId)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId
-                                                            , prodCatalogCategoryTypeId));
+            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId, prodCatalogCategoryTypeId));
 
             if (prodCatalogCategory != null) {
                 return prodCatalogCategory.getString("productCategoryId");
@@ -353,9 +354,7 @@ public final class CatalogWorker {
 
         return EntityUtil.getFieldListFromEntityList(
                 getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD"),
-                "productCategoryId",
-                true
-        );
+                "productCategoryId", true);
     }
 
     public static String getCatalogTopEbayCategoryId(ServletRequest request, String prodCatalogId) {

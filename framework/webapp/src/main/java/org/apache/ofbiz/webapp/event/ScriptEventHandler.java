@@ -111,15 +111,15 @@ public final class ScriptEventHandler implements EventHandler {
             }
             if (result instanceof Map) {
                 Map<String, Object> resultMap = UtilGenerics.cast(result);
-                String successMessage = (String)resultMap.get("_event_message_");
+                String successMessage = (String) resultMap.get("_event_message_");
                 if (successMessage != null) {
                     request.setAttribute("_EVENT_MESSAGE_", successMessage);
                 }
-                String errorMessage = (String)resultMap.get("_error_message_");
+                String errorMessage = (String) resultMap.get("_error_message_");
                 if (errorMessage != null) {
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 }
-                return (String)resultMap.get("_response_code_");
+                return (String) resultMap.get("_response_code_");
             }
             if (result != null && !(result instanceof String)) {
                 throw new EventHandlerException("Event did not return a String result, it returned a " + result.getClass().getName());

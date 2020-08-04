@@ -143,7 +143,7 @@ public class ServerHitBin {
         if (delegator == null) {
             throw new IllegalArgumentException("In countHit could not find a delegator or delegatorName to work from");
         }
-        
+
         String id = makeIdTenantAware(baseId, delegator);
 
         ServerHitBin bin = null;
@@ -496,9 +496,9 @@ public class ServerHitBin {
                 Debug.logInfo("The Visit GenericValue stored in the client session does not exist in the database, not storing server hit.", MODULE);
                 return;
             }
-            
+
             Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName=" + this.delegator.getDelegatorName(), MODULE);
-            
+
             GenericValue serverHit = delegator.makeValue("ServerHit");
 
             serverHit.set("visitId", visitId);

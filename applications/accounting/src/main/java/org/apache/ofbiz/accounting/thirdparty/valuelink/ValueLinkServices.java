@@ -51,9 +51,9 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ValueLinkServices {
 
     private static final String MODULE = ValueLinkServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
-    public final static String RES_ERROR = "AccountingErrorUiLabels";
-    public final static String RES_ORDER = "OrderUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
+    private static final String RES_ORDER = "OrderUiLabels";
 
     // generate/display new public/private/kek keys
     public static Map<String, Object> createKeys(DispatchContext dctx, Map<String, Object> context) {
@@ -970,7 +970,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1004,7 +1004,7 @@ public class ValueLinkServices {
         }
         if (paymentConfig == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "AccountingFinAccountSetting", 
+                    "AccountingFinAccountSetting",
                     UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", "GIFT_CARD"), locale));
         }
 
@@ -1036,7 +1036,7 @@ public class ValueLinkServices {
         try {
             typeFeature = EntityQuery.use(delegator)
                     .from("ProductFeatureAndAppl")
-                    .where("productId", product.get("productId"), 
+                    .where("productId", product.get("productId"),
                             "productFeatureTypeId", "TYPE")
                     .orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
@@ -1046,7 +1046,7 @@ public class ValueLinkServices {
         }
         if (typeFeature == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingValueLinkFeatureTypeRequested", 
+                    "AccountingValueLinkFeatureTypeRequested",
                     UtilMisc.toMap("productId", product.get("productId")), locale));
         }
 
@@ -1254,7 +1254,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1309,8 +1309,8 @@ public class ValueLinkServices {
         GenericValue surveyResponse = null;
         try {
             surveyResponse = EntityQuery.use(delegator).from("SurveyResponse")
-                    .where("orderId", orderId, 
-                            "orderItemSeqId", orderItem.get("orderItemSeqId"), 
+                    .where("orderId", orderId,
+                            "orderItemSeqId", orderItem.get("orderItemSeqId"),
                             "surveyId", surveyId).orderBy("-responseDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
@@ -1403,7 +1403,7 @@ public class ValueLinkServices {
 
             // process the return
             try {
-                Map<String, Object> refundCtx = UtilMisc.<String, Object>toMap("orderItem", orderItem, 
+                Map<String, Object> refundCtx = UtilMisc.<String, Object>toMap("orderItem", orderItem,
                         "partyId", partyId, "userLogin", userLogin);
                 dispatcher.runAsync("refundGcPurchase", refundCtx, null, true, 300, true);
             } catch (GenericServiceException e) {

@@ -22,7 +22,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 
 public final class SeoUrlUtil {
 
-    private SeoUrlUtil() {}
+    private SeoUrlUtil() { }
 
     public static String replaceSpecialCharsUrl(String url) {
         if (UtilValidate.isEmpty(url)) {

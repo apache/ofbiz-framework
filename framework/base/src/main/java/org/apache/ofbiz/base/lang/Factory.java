@@ -30,6 +30,6 @@ public interface Factory<R, A> {
      * or to be used as a selector key
      * @return An instance of <code>R</code>
      */
-    public R getInstance(A obj);
+    R getInstance(A obj);
 
 }

@@ -123,7 +123,7 @@ public class MiscConverters implements ConverterLoader {
             StringBuilder strBuf = new StringBuilder();
             char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
             int charsRead = 0;
-            try (Reader clobReader =  obj.getCharacterStream()) {
+            try (Reader clobReader = obj.getCharacterStream()) {
                 while ((charsRead = clobReader.read(inCharBuffer, 0, CHAR_BUFFER_SIZE)) > 0) {
                     strBuf.append(inCharBuffer, 0, charsRead);
                 }

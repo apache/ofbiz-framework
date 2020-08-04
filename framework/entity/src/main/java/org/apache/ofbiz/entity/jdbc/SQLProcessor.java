@@ -148,12 +148,16 @@ public class SQLProcessor implements AutoCloseable {
             return;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:commit() _manualTX=" + _manualTX, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("SQLProcessor:commit() _manualTX=" + _manualTX, MODULE);
+        }
 
         if (_manualTX) {
             try {
                 _connection.commit();
-                if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:commit() : called commit on connection", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("SQLProcessor:commit() : called commit on connection", MODULE);
+                }
             } catch (SQLException sqle) {
                 Debug.logError(sqle, "Error committing transaction: " + sqle.toString());
                 try {
@@ -174,16 +178,22 @@ public class SQLProcessor implements AutoCloseable {
             return;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:rollback() _manualTX=" + _manualTX, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("SQLProcessor:rollback() _manualTX=" + _manualTX, MODULE);
+        }
 
         try {
             if (_manualTX) {
                 _connection.rollback();
-                if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:rollback() : _manualTX=" + _manualTX, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("SQLProcessor:rollback() : _manualTX=" + _manualTX, MODULE);
+                }
             } else {
                 try {
                     TransactionUtil.setRollbackOnly("rollback called in Entity Engine SQLProcessor", new Exception("Current Location Stack"));
-                    if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:rollback() : _manualTX=" + _manualTX, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("SQLProcessor:rollback() : _manualTX=" + _manualTX, MODULE);
+                    }
                 } catch (GenericTransactionException e) {
                     Debug.logError(e, "Error setting rollback only", MODULE);
                     throw new GenericDataSourceException("Error setting rollback only", e);
@@ -203,7 +213,9 @@ public class SQLProcessor implements AutoCloseable {
     @Override
     public void close() throws GenericDataSourceException {
         if (_manualTX) {
-            if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() calling commit : _manualTX=" + _manualTX, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("SQLProcessor:close() calling commit : _manualTX=" + _manualTX, MODULE);
+            }
             commit();
         }
 
@@ -212,7 +224,9 @@ public class SQLProcessor implements AutoCloseable {
         if (_rs != null) {
             try {
                 _rs.close();
-                if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() result close : _manualTX=" + _manualTX, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("SQLProcessor:close() result close : _manualTX=" + _manualTX, MODULE);
+                }
             } catch (SQLException sqle) {
                 Debug.logWarning(sqle.getMessage(), MODULE);
             }
@@ -223,7 +237,9 @@ public class SQLProcessor implements AutoCloseable {
         if (_ps != null) {
             try {
                 _ps.close();
-                if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() preparedStatement close : _manualTX=" + _manualTX, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("SQLProcessor:close() preparedStatement close : _manualTX=" + _manualTX, MODULE);
+                }
             } catch (SQLException sqle) {
                 Debug.logWarning(sqle.getMessage(), MODULE);
             }
@@ -234,7 +250,9 @@ public class SQLProcessor implements AutoCloseable {
         if ((_connection != null) && _bDeleteConnection) {
             try {
                 _connection.close();
-                if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() connection close : _manualTX=" + _manualTX, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("SQLProcessor:close() connection close : _manualTX=" + _manualTX, MODULE);
+                }
             } catch (SQLException sqle) {
                 Debug.logWarning(sqle.getMessage(), MODULE);
             }
@@ -259,7 +277,9 @@ public class SQLProcessor implements AutoCloseable {
 
         try {
             _connection = TransactionFactoryLoader.getInstance().getConnection(helperInfo);
-            if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:connection() : manualTx=" + _manualTX, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("SQLProcessor:connection() : manualTx=" + _manualTX, MODULE);
+            }
         } catch (SQLException sqle) {
             throw new GenericDataSourceException("Unable to establish a connection with the database.", sqle);
         }
@@ -299,7 +319,9 @@ public class SQLProcessor implements AutoCloseable {
             if (_connection.getAutoCommit()) {
                 try {
                     _connection.setAutoCommit(false);
-                    if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:setAutoCommit(false) : manualTx=" + _manualTX, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("SQLProcessor:setAutoCommit(false) : manualTx=" + _manualTX, MODULE);
+                    }
                 } catch (SQLException sqle) {
                     _manualTX = false;
                 }
@@ -310,16 +332,20 @@ public class SQLProcessor implements AutoCloseable {
 
         try {
             if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.getConnection] : active transaction", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[SQLProcessor.getConnection] : active transaction", MODULE);
+                }
                 _manualTX = false;
             }
         } catch (GenericTransactionException e) {
             // nevermind, don't worry about it, but print the exc anyway
-            Debug.logWarning("[SQLProcessor.getConnection]: Exception was thrown trying to check " +
-                "transaction status: " + e.toString(), MODULE);
+            Debug.logWarning("[SQLProcessor.getConnection]: Exception was thrown trying to check "
+                    + "transaction status: " + e.toString(), MODULE);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.getConnection] : con=" + _connection, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[SQLProcessor.getConnection] : con=" + _connection, MODULE);
+        }
 
         _bDeleteConnection = true;
         return _connection;
@@ -361,7 +387,9 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericEntityException
      */
     public void prepareStatement(String sql, boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency, int fetchSize, int maxRows) throws GenericDataSourceException, GenericEntityException {
-        if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.prepareStatement] sql=" + sql, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[SQLProcessor.prepareStatement] sql=" + sql, MODULE);
+        }
 
         if (_connection == null) {
             getConnection();
@@ -372,14 +400,20 @@ public class SQLProcessor implements AutoCloseable {
             _ind = 1;
             if (specifyTypeAndConcur) {
                 _ps = _connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
-                if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.prepareStatement] _ps=" + _ps, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[SQLProcessor.prepareStatement] _ps=" + _ps, MODULE);
+                }
             } else {
                 _ps = _connection.prepareStatement(sql);
-                if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.prepareStatement] (def) _ps=" + _ps, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[SQLProcessor.prepareStatement] (def) _ps=" + _ps, MODULE);
+                }
             }
             if (maxRows > 0) {
                 _ps.setMaxRows(maxRows);
-                if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.prepareStatement] max rows set : " + maxRows, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[SQLProcessor.prepareStatement] max rows set : " + maxRows, MODULE);
+                }
             }
             this.setFetchSize(_ps, fetchSize);
         } catch (SQLException sqle) {
@@ -500,7 +534,9 @@ public class SQLProcessor implements AutoCloseable {
         }
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.execQuery]: " + sql, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[SQLProcessor.execQuery]: " + sql, MODULE);
+            }
             executeQuery(sql);
 
             // process the results by calling the listener for
@@ -516,8 +552,8 @@ public class SQLProcessor implements AutoCloseable {
             }
 
         } catch (SQLException sqle) {
-            Debug.logWarning("[SQLProcessor.execQuery]: SQL Exception while executing the following:\n" +
-                sql + "\nError was:", MODULE);
+            Debug.logWarning("[SQLProcessor.execQuery]: SQL Exception while executing the following:\n"
+                    + sql + "\nError was:", MODULE);
             Debug.logWarning(sqle.getMessage(), MODULE);
             throw new GenericEntityException("SQL Exception while executing the following:" + _sql, sqle);
         } finally {
@@ -867,8 +903,7 @@ public class SQLProcessor implements AutoCloseable {
         // see if there is a lock wait timeout error, if so try to get and print more info about it
         //   the string for Derby is "A lock could not be obtained within the time requested"
         //   the string for MySQL is "Lock wait timeout exceeded; try restarting transaction"
-        if (eMsg.indexOf("A lock could not be obtained within the time requested") >= 0 ||
-                eMsg.indexOf("Lock wait timeout exceeded") >= 0) {
+        if (eMsg.indexOf("A lock could not be obtained within the time requested") >= 0 || eMsg.indexOf("Lock wait timeout exceeded") >= 0) {
             Debug.logWarning(sqle, "Lock wait timeout error found in thread [" + Thread.currentThread().getId() + "]: (" + eMsg + ") when executing the SQL [" + _sql + "]", MODULE);
             TransactionUtil.printAllThreadsTransactionBeginStacks();
         }

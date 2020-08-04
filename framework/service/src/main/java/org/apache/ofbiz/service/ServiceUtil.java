@@ -53,17 +53,17 @@ public final class ServiceUtil {
     private static final String MODULE = ServiceUtil.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
-    private ServiceUtil () {}
+    private ServiceUtil() { }
 
     /** A little short-cut method to check to see if a service returned an error */
     public static boolean isError(Map<String, ? extends Object> results) {
-        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) &&
-                ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
+        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null)
+                && ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
     public static boolean isFailure(Map<String, ? extends Object> results) {
-        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) &&
-                ModelService.RESPOND_FAIL.equals(results.get(ModelService.RESPONSE_MESSAGE));
+        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null)
+                && ModelService.RESPOND_FAIL.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
     /** A little short-cut method to check to see if a service was successful (neither error or failed) */

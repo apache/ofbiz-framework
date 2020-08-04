@@ -85,7 +85,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             // we can do something with this!
             SimpleMethod simpleMethodToCall = null;
             try {
-                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke,null);
+                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke, null);
             } catch (MiniLangException e) {
                 Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), MODULE);
             }
@@ -144,7 +144,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             // we can do something with this!
             SimpleMethod simpleMethodToCall = null;
             try {
-                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke,null);
+                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke, null);
             } catch (MiniLangException e) {
                 Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), MODULE);
             }

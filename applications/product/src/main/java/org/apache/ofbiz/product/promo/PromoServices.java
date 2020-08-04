@@ -55,9 +55,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PromoServices {
 
-    public final static String MODULE = PromoServices.class.getName();
+    private static final String MODULE = PromoServices.class.getName();
     private static final String RESOURCE = "ProductUiLabels";
-    private final static char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+    private static final char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -94,8 +94,7 @@ public class PromoServices {
                 GenericValue existingPromoCode = null;
                 try {
                     existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", newPromoCodeId).cache().queryOne();
-                }
-                catch (GenericEntityException e) {
+                } catch (GenericEntityException e) {
                     Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, MODULE);
                 }
                 if (existingPromoCode == null) {

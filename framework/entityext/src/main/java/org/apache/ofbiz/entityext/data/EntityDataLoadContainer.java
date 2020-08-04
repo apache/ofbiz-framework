@@ -112,7 +112,7 @@ public class EntityDataLoadContainer implements Container {
             }
         } else {
             // load data for a single delegator
-            loadDataForDelegator(loadDataProps, configuration, delegatorNameProp,  overrideDelegator);
+            loadDataForDelegator(loadDataProps, configuration, delegatorNameProp, overrideDelegator);
         }
     }
 
@@ -150,7 +150,7 @@ public class EntityDataLoadContainer implements Container {
 
     private static void loadDataForDelegator(Map<String, String> loadDataProps, Configuration configuration,
             Configuration.Property delegatorNameProp, String overrideDelegator)
-                    throws ContainerException{
+                    throws ContainerException {
         // prepare command line properties passed by user
         boolean createPks = isPropertySet(loadDataProps, CREATE_P_KEYS);
         boolean dropPks = isPropertySet(loadDataProps, DROP_P_KEYS);
@@ -540,7 +540,7 @@ public class EntityDataLoadContainer implements Container {
 
     private static List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
         List<URL> fileUrls = new ArrayList<>();
-        for(String file: files) {
+        for (String file: files) {
             URL url = UtilURL.fromResource(file);
             if (url == null) {
                 throw new ContainerException("Unable to locate data file: " + file);
@@ -557,7 +557,7 @@ public class EntityDataLoadContainer implements Container {
                         .filter(file -> file.getName().toLowerCase(Locale.getDefault()).endsWith(".xml"))
                         .map(file -> UtilURL.fromFilename(file.getPath()))
                         .collect(Collectors.toList()))
-                .orElse(new ArrayList<URL>());
+                .orElse(new ArrayList<>());
     }
 
     private static void logDataLoadingPlan(List<URL> urlList, String delegatorName) {

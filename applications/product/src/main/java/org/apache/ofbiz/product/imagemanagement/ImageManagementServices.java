@@ -276,7 +276,7 @@ public class ImageManagementServices {
         return result;
     }
 
-    public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context){
+    public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context) {
         String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String dataResourceName = (String) context.get("dataResourceName");
@@ -303,7 +303,7 @@ public class ImageManagementServices {
         Locale locale = (Locale) context.get("locale");
         List<String> sizeTypeList = null;
         if (UtilValidate.isNotEmpty(resizeType)) {
-            sizeTypeList  = UtilMisc.toList(resizeType);
+            sizeTypeList = UtilMisc.toList(resizeType);
         } else {
             sizeTypeList = UtilMisc.toList("small","100x75", "150x112", "320x240", "640x480", "800x600", "1024x768", "1280x1024", "1600x1200");
         }
@@ -415,7 +415,7 @@ public class ImageManagementServices {
         return ServiceUtil.returnError(errMsg);
     }
 
-    public static Map<String, Object> createContentAndDataResource(DispatchContext dctx, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String fileContentType){
+    public static Map<String, Object> createContentAndDataResource(DispatchContext dctx, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String fileContentType) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -492,7 +492,7 @@ public class ImageManagementServices {
         return result;
     }
 
-    public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context, GenericValue userLogin, ByteBuffer imageData, String productId, String imageName){
+    public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context, GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -517,7 +517,7 @@ public class ImageManagementServices {
 
         String contentIdThumb = (String) contentThumbResult.get("contentId");
         result.put("contentIdThumb", contentIdThumb);
-        String filenameToUseThumb = imageName.substring(0 , imageName.indexOf('.')) + nameOfThumb;
+        String filenameToUseThumb = imageName.substring(0, imageName.indexOf('.')) + nameOfThumb;
         String fileContentType = (String) context.get("_uploadedFile_contentType");
         if ("image/pjpeg".equals(fileContentType)) {
             fileContentType = "image/jpeg";
@@ -668,7 +668,7 @@ public class ImageManagementServices {
     public static Map<String, Object> createNewImageThumbnail(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dispatcher.getDelegator();
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
@@ -739,7 +739,7 @@ public class ImageManagementServices {
 
     public static Map<String, Object> resizeImageOfProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String productId = (String) context.get("productId");
         String dataResourceName = (String) context.get("dataResourceName");
@@ -766,7 +766,7 @@ public class ImageManagementServices {
     public static Map<String, Object> renameImage(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);

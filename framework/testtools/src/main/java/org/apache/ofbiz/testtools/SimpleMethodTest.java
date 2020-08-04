@@ -46,14 +46,13 @@ public class SimpleMethodTest extends OFBizTestCase {
 
     protected String methodLocation;
     protected String methodName;
-    
     public static MockHttpServletRequest request = new MockHttpServletRequest();
     public static MockHttpServletResponse response = new MockHttpServletResponse();
 
     /**
      * Tests of Simple Method
      * @param caseName test case name
-     * @param mainElement DOM main element 
+     * @param mainElement DOM main element
      */
     public SimpleMethodTest(String caseName, Element mainElement) {
         this(caseName, mainElement.getAttribute("location"), mainElement.getAttribute("name"));
@@ -73,7 +72,6 @@ public class SimpleMethodTest extends OFBizTestCase {
     @Override
     public void run(TestResult result) {
         result.startTest(this);
-        
         try {
             // define request
             Security security = SecurityFactory.getInstance(delegator);

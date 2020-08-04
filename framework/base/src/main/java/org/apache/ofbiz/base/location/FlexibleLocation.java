@@ -140,5 +140,5 @@ public final class FlexibleLocation {
         return strippedSoFar.toString();
     }
 
-    private FlexibleLocation() {}
+    private FlexibleLocation() { }
 }

@@ -37,7 +37,7 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
     protected String resultTemplate = null;
     protected boolean callResult = false;
 
-    protected ProductStoreSurveyWrapper() {}
+    protected ProductStoreSurveyWrapper() { }
 
     public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
         this.productStoreSurveyAppl = productStoreSurveyAppl;

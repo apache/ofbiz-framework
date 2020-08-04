@@ -54,8 +54,7 @@ public class RecordIterator {
         InputStream urlStream = null;
         try {
             urlStream = fileUrl.openStream();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DataFileException("Error open URL: " + fileUrl.toString(), e);
         }
         this.setupStream(urlStream, fileUrl.toString());
@@ -72,8 +71,7 @@ public class RecordIterator {
         String charsetStr = modelDataFile.getEncodingType();
         try {
             this.br = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new DataFileException(charsetStr + " is not supported");
         }
         //move the cursor to the good start line
@@ -107,8 +105,7 @@ public class RecordIterator {
                 } else {
                     nextLine = new String(charData);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DataFileException("Error reading line #" + nextLineNum + " (index " + (nextLineNum - 1) * modelDataFile.recordLength + " length "
                                             + modelDataFile.recordLength + ") from location: " + locationInfo,
                         e);
@@ -116,8 +113,7 @@ public class RecordIterator {
         } else {
             try {
                 nextLine = br.readLine();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new DataFileException("Error reading line #" + nextLineNum + " from location: " + locationInfo, e);
             }
         }
@@ -211,8 +207,7 @@ public class RecordIterator {
         try {
             this.br.close(); // this should also close the stream
             this.closed = true;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DataFileException("Error closing data file input stream", e);
         }
     }

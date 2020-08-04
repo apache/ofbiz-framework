@@ -33,7 +33,7 @@ public final class UtilURL {
     private static final String MODULE = UtilURL.class.getName();
     private static final Map<String, URL> urlMap = new ConcurrentHashMap<>();
 
-    private UtilURL() {}
+    private UtilURL() { }
 
     public static <C> URL fromClass(Class<C> contextClass) {
         String resourceName = contextClass.getName();
@@ -169,7 +169,7 @@ public final class UtilURL {
         String path = fileUrl.getPath();
         if (path.startsWith(ofbizHome)) {
             // note: the +1 is to remove the leading slash
-            path = path.substring(ofbizHome.length()+1);
+            path = path.substring(ofbizHome.length() + 1);
         }
         return path;
     }

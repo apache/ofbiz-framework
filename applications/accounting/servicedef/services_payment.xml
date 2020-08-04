@@ -59,8 +59,8 @@ under the License.
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="quickSendPayment" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="quickSendPayment">
+    <service name="quickSendPayment" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="quickSendPayment">
         <description>Updates a Payment and then marks it as PMNT_SENT</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -108,8 +108,8 @@ under the License.
         <auto-attributes mode="OUT" include="nonpk" optional="true"/>
     </service>
 
-    <service name="createPaymentAndApplication" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentAndApplication" auth="true">
+    <service name="createPaymentAndApplication" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplication" auth="true">
         <description>Create a payment and a payment application for the full amount</description>
         <auto-attributes entity-name="Payment" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Payment" include="pk" mode="INOUT" optional="true"/>
@@ -126,8 +126,8 @@ under the License.
         <override name="amount" optional="false"/>
     </service>
 
-    <service name="getInvoicePaymentInfoList" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getInvoicePaymentInfoList" auth="true">
+    <service name="getInvoicePaymentInfoList" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getInvoicePaymentInfoList" auth="true">
         <description>Create a list with information on payment due dates and amounts for the invoice; one of invoiceId or invoice must be provided.</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
@@ -158,8 +158,8 @@ under the License.
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="cancelPaymentBatch" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="cancelPaymentBatch" auth="true">
+    <service name="cancelPaymentBatch" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="cancelPaymentBatch" auth="true">
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
@@ -207,15 +207,15 @@ under the License.
         <auto-attributes entity-name="FinAccountTrans" include="pk" mode="INOUT" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="true"/>
     </service>
-    <service name="getPayments" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getPayments" auth="true">
+    <service name="getPayments" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPayments" auth="true">
         <description>Get list of payment</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
         <attribute name="payments" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="getPaymentGroupReconciliationId" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getPaymentGroupReconciliationId" auth="true">
+    <service name="getPaymentGroupReconciliationId" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPaymentGroupReconciliationId" auth="true">
         <description>Get ReconciliationId associated to paymentGroup</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="glReconciliationId" type="String" mode="OUT" optional="true"/>

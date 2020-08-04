@@ -189,7 +189,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /** Only allow creation through the factory method */
-    protected GenericDelegator() {}
+    protected GenericDelegator() { }
 
     /** Only allow creation through the factory method */
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
@@ -1091,7 +1091,7 @@ public class GenericDelegator implements Delegator {
                 : Collections.emptyList();
 
             int rowsAffected = 0;
-            if (! removedEntities.isEmpty()) {
+            if (!removedEntities.isEmpty()) {
                 for (GenericValue entity : removedEntities) {
                     rowsAffected += removeValue(entity);
                 }
@@ -1179,7 +1179,7 @@ public class GenericDelegator implements Delegator {
                 updatedEntities = this.findList(entityName, condition, null, null, null, false);
             }
 
-            int rowsAffected =  helper.storeByCondition(this, modelEntity, fieldsToSet, condition);
+            int rowsAffected = helper.storeByCondition(this, modelEntity, fieldsToSet, condition);
             if (rowsAffected > 0) {
                 this.clearCacheLine(entityName);
             }
@@ -1546,10 +1546,22 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#findList(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set,
+     *  java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions, boolean)
+     */
+    @Override
+    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy,
+                                       EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
+        return findList(entityName, entityCondition, null, fieldsToSelect, orderBy, findOptions, useCache);
+    }
+
+    /* (non-Javadoc)
      * @see org.apache.ofbiz.entity.Delegator#findList(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions, boolean)
      */
     @Override
-    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
+    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, EntityCondition havingCondition,
+                  Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
 
         EntityEcaRuleRunner<?> ecaRunner = null;
         GenericValue dummyValue = null;
@@ -1572,7 +1584,7 @@ public class GenericDelegator implements Delegator {
             }
 
             List<GenericValue> list = null;
-            try (EntityListIterator eli = this.find(entityName, entityCondition, null, fieldsToSelect, orderBy, findOptions)) {
+            try (EntityListIterator eli = this.find(entityName, entityCondition, havingCondition, fieldsToSelect, orderBy, findOptions)) {
                 list = eli.getCompleteList();
             }
 
@@ -1622,11 +1634,22 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
      */
     @Override
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+        return findCountByCondition(entityName, whereEntityCondition, null, havingEntityCondition, findOptions);
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
+     *  java.util.Set, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     */
+    @Override
+    public long findCountByCondition(String entityName, EntityCondition whereEntityCondition, Set<String> fieldsToSelect,
+                                     EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
 
         boolean beganTransaction = false;
         try {
@@ -1646,9 +1669,20 @@ public class GenericDelegator implements Delegator {
                 havingEntityCondition.checkCondition(modelEntity);
             }
 
+            List<ModelField> selectFields = new LinkedList<>();
+            if (UtilValidate.isNotEmpty(fieldsToSelect)) {
+                for (String fieldToSelect : fieldsToSelect) {
+                    ModelField curField = modelEntity.getField(fieldToSelect);
+                    if (curField != null) {
+                        selectFields.add(curField);
+                    }
+                }
+            }
+
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
             GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
-            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
+            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition,
+                                            havingEntityCondition, selectFields, findOptions);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
             TransactionUtil.commit(beganTransaction);
@@ -2198,7 +2232,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
-        this.entityEcaHandler.set(new ConstantFuture<EntityEcaHandler<?>>(entityEcaHandler));
+        this.entityEcaHandler.set(new ConstantFuture<>(entityEcaHandler));
         this.warnNoEcaHandler = false;
     }
 
@@ -2574,7 +2608,7 @@ public class GenericDelegator implements Delegator {
         this.testMode = true;
     }
 
-    public final static class TestOperation {
+    public static final class TestOperation {
         private final OperationType operation;
         private final GenericValue value;
 
@@ -2628,7 +2662,9 @@ public class GenericDelegator implements Delegator {
                 Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " does not implement the DistributedCacheClear interface, distributed cache clearing will be disabled", MODULE);
             }
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", MODULE);
+            }
         }
         return null;
     }

@@ -63,7 +63,7 @@ public class OrderTestServices {
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
                 }
-                String orderId = (String)outputMap.get("orderId");
+                String orderId = (String) outputMap.get("orderId");
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been processed.", MODULE);
             } catch (GenericServiceException e) {
                 String errMsg = "Error calling createTestSalesOrderSingle: " + e.toString();
@@ -115,7 +115,7 @@ public class OrderTestServices {
         }
         if (productsList.size() == 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage("OrderUiLabels",
-                    "OrderCreateTestSalesOrderSingleError", 
+                    "OrderCreateTestSalesOrderSingleError",
                     UtilMisc.toMap("productCategoryId", productCategoryId), locale));
         }
 

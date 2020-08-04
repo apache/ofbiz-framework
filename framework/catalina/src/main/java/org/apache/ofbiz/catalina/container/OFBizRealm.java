@@ -40,7 +40,7 @@ public class OFBizRealm extends RealmBase
         Delegator delegator = DelegatorFactory.getDelegator(null);
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).queryOne();
-            if (userLogin!=null){
+            if (userLogin!=null) {
                 return userLogin.getString("currentPassword");
             }
         } catch (GenericEntityException e) {

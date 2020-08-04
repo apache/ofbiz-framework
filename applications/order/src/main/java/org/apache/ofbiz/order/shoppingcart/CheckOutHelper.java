@@ -95,7 +95,7 @@ public class CheckOutHelper {
         if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
         if (errorMessages.size() == 1) {
@@ -118,7 +118,7 @@ public class CheckOutHelper {
             this.cart.setAllShippingContactMechId(shippingContactMechId);
         } else if (cart.shippingApplies()) {
             // only return an error if shipping is required for this purchase
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_shipping_destination", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_shipping_destination", cart.getLocale());
             errorMessages.add(errMsg);
         }
 
@@ -135,7 +135,7 @@ public class CheckOutHelper {
             errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions,
                     orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -170,7 +170,7 @@ public class CheckOutHelper {
             this.cart.setAllCarrierPartyId(carrierPartyId);
         } else if (cart.shippingApplies()) {
             // only return an error if shipping is required for this purchase
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_shipping_method", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_shipping_method", cart.getLocale());
             errorMessages.add(errMsg);
         }
 
@@ -180,7 +180,7 @@ public class CheckOutHelper {
         if (UtilValidate.isNotEmpty(maySplit)) {
             cart.setAllMaySplit(Boolean.valueOf(maySplit));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_splitting_preference", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_splitting_preference", cart.getLocale());
             errorMessages.add(errMsg);
         }
 
@@ -229,7 +229,7 @@ public class CheckOutHelper {
         if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -259,7 +259,7 @@ public class CheckOutHelper {
 
             if (UtilValidate.isNotEmpty(billingAccountId)) {
                 Map<String, Object> billingAccountMap = selectedPaymentMethods.get("EXT_BILLACT");
-                BigDecimal billingAccountAmt = (BigDecimal)billingAccountMap.get("amount");
+                BigDecimal billingAccountAmt = (BigDecimal) billingAccountMap.get("amount");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
                 cart.setBillingAccount(billingAccountId, (billingAccountAmt != null ? billingAccountAmt: BigDecimal.ZERO));
                 // copy the billing account terms as order terms
@@ -288,7 +288,7 @@ public class CheckOutHelper {
 
                 // if an amount was entered, check that it doesn't exceed available amount
                 if (amountToUse.compareTo(BigDecimal.ZERO) > 0 && amountToUse.compareTo(accountCredit) > 0) {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.insufficient_credit_available_on_account",
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.insufficient_credit_available_on_account",
                             cart.getLocale());
                     errorMessages.add(errMsg);
                 } else {
@@ -300,7 +300,7 @@ public class CheckOutHelper {
                 BigDecimal grandTotal = cart.getGrandTotal();
                 if (grandTotal.compareTo(amountToUse) > 0) {
                     cart.setBillingAccount(null, BigDecimal.ZERO); // erase existing billing account data
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.insufficient_credit_available_on_account",
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.insufficient_credit_available_on_account",
                             cart.getLocale());
                     errorMessages.add(errMsg);
                 } else {
@@ -346,18 +346,18 @@ public class CheckOutHelper {
                 boolean singleUse = singleUsePayments.contains(checkOutPaymentId);
                 ShoppingCart.CartPaymentInfo inf = cart.addPaymentAmount(checkOutPaymentId, paymentAmount, singleUse);
                 if (finAccountId != null) {
-                    inf.finAccountId = finAccountId;
+                    inf.setFinAccountId(finAccountId);
                 }
                 if (securityCode != null) {
-                    inf.securityCode = securityCode;
+                    inf.setSecurityCode(securityCode);
                 }
                 if (refNum != null) {
-                    inf.refNum[0] = refNum;
+                    inf.setRefNum(refNum);
                 }
             }
         } else if (cart.getGrandTotal().compareTo(BigDecimal.ZERO) != 0) {
             // only return an error if the order total is not 0.00
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_method_of_payment",
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_method_of_payment",
                     cart.getLocale());
             errorMessages.add(errMsg);
         }
@@ -366,27 +366,27 @@ public class CheckOutHelper {
     }
 
     public Map<String, Object> setCheckOutDates(Timestamp shipBefore, Timestamp shipAfter) {
-          List<String> errorMessages = new ArrayList<>();
-          Map<String, Object> result = null;
-          String errMsg = null;
+        List<String> errorMessages = new ArrayList<>();
+        Map<String, Object> result = null;
+        String errMsg = null;
 
-          if (UtilValidate.isNotEmpty(this.cart)) {
-              this.cart.setShipBeforeDate(shipBefore);
-              this.cart.setShipAfterDate(shipAfter);
-          } else {
-              errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart",
-                                                     (cart != null ? cart.getLocale() : Locale.getDefault()));
-              errorMessages.add(errMsg);
-          }
+        if (UtilValidate.isNotEmpty(this.cart)) {
+            this.cart.setShipBeforeDate(shipBefore);
+            this.cart.setShipAfterDate(shipAfter);
+        } else {
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null
+                    ? cart.getLocale() : Locale.getDefault()));
+            errorMessages.add(errMsg);
+        }
 
-          if (errorMessages.size() == 1) {
-              result = ServiceUtil.returnError(errorMessages.get(0));
-          } else if (errorMessages.size() > 0) {
-              result = ServiceUtil.returnError(errorMessages);
-          } else {
-              result = ServiceUtil.returnSuccess();
-          }
-          return result;
+        if (errorMessages.size() == 1) {
+            result = ServiceUtil.returnError(errorMessages.get(0));
+        } else if (errorMessages.size() > 0) {
+            result = ServiceUtil.returnError(errorMessages);
+        } else {
+            result = ServiceUtil.returnSuccess();
+        }
+        return result;
     }
 
 
@@ -425,7 +425,7 @@ public class CheckOutHelper {
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
 
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
         }
 
@@ -454,14 +454,14 @@ public class CheckOutHelper {
 
             boolean gcFieldsOkay = true;
             if (UtilValidate.isEmpty(gcNum)) {
-                errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 errorMessages.add(errMsg);
                 gcFieldsOkay = false;
             }
             if (cart.isPinRequiredForGC(delegator)) {
                 //  if a PIN is required, make sure the PIN is valid
                 if (UtilValidate.isEmpty(gcPin)) {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_gift_card_pin_number", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_pin_number", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
@@ -473,13 +473,13 @@ public class CheckOutHelper {
                     if (!cart.isPinRequiredForGC(delegator)) {
                         GenericValue finAccount = FinAccountHelper.getFinAccountFromCode(gcNum, delegator);
                         if (finAccount == null) {
-                            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.gift_card_does_not_exist", cart.getLocale());
+                            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.gift_card_does_not_exist", cart.getLocale());
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
-                        } else if ((finAccount.getBigDecimal("availableBalance") == null) ||
-                                !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.getZero()) > 0)) {
+                        } else if ((finAccount.getBigDecimal("availableBalance") == null)
+                                || !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.getZero()) > 0)) {
                             // if account's available balance (including authorizations) is not greater than zero, then return an error
-                            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.gift_card_has_no_value", cart.getLocale());
+                            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.gift_card_has_no_value", cart.getLocale());
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
                         }
@@ -493,7 +493,7 @@ public class CheckOutHelper {
 
             if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
                 if (UtilValidate.isEmpty(gcAmt)) {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_amount_to_place_on_gift_card", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_amount_to_place_on_gift_card", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
@@ -503,7 +503,7 @@ public class CheckOutHelper {
                     gcAmount = new BigDecimal(gcAmt);
                 } catch (NumberFormatException e) {
                     Debug.logError(e, MODULE);
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.invalid_amount_for_gift_card", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.invalid_amount_for_gift_card", cart.getLocale());
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
@@ -543,7 +543,7 @@ public class CheckOutHelper {
                         result.put("amount", giftCardAmount);
                     }
                 } else {
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problem_with_gift_card_information", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problem_with_gift_card_information", cart.getLocale());
                     errorMessages.add(errMsg);
                 }
             }
@@ -725,7 +725,7 @@ public class CheckOutHelper {
         try {
             party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderProblemsGettingPartyRecord", cart.getLocale()), MODULE);
+            Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsGettingPartyRecord", cart.getLocale()), MODULE);
         }
 
         // create order contact mechs for the email address(s)
@@ -769,7 +769,7 @@ public class CheckOutHelper {
                 this.delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 // not a fatal error; so just print a message
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR,"OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
+                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
             }
         }
 
@@ -826,14 +826,14 @@ public class CheckOutHelper {
             }
 
             // need to manually clear the order adjustments
-            csi.shipTaxAdj.clear();
-            csi.shipTaxAdj.addAll(orderAdj);
+            csi.clearShipTaxAdj();
+            csi.addShipTaxAdj(orderAdj);
         }
     }
 
     private Map<String, Object> makeTaxContext(int shipGroup, GenericValue shipAddress, Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap, String originFacilityId, boolean skipEmptyAddresses) {
         ShoppingCart.CartShipInfo csi = cart.getShipInfo(shipGroup);
-        int totalItems = csi.shipItemInfo.size();
+        int totalItems = csi.getShipItemInfo().size();
 
         List<GenericValue> product = new ArrayList<>(totalItems);
         List<BigDecimal> amount = new ArrayList<>(totalItems);
@@ -841,12 +841,12 @@ public class CheckOutHelper {
         List<BigDecimal> quantity = new ArrayList<>(totalItems);
         List<BigDecimal> shipAmt = new ArrayList<>(totalItems);
 
-        Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
+        Iterator<ShoppingCartItem> it = csi.getShipItemInfo().keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
             ShoppingCartItem cartItem = it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
             product.add(i, cartItem.getProduct());
-            amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
+            amount.add(i, cartItem.getItemSubTotal(itemInfo.getItemQuantity()));
             price.add(i, cartItem.getBasePrice());
             quantity.add(i, cartItem.getQuantity());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
@@ -857,7 +857,7 @@ public class CheckOutHelper {
         List<GenericValue> allAdjustments = cart.getAdjustments();
         BigDecimal orderPromoAmt = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
 
-        BigDecimal shipAmount = csi.shipEstimate;
+        BigDecimal shipAmount = csi.getShipEstimate();
         if (shipAddress == null) {
             shipAddress = cart.getShippingAddress(shipGroup);
         }
@@ -950,11 +950,11 @@ public class CheckOutHelper {
 
     public static Map<String, Object> processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
         // Get some payment related strings
-        String DECLINE_MESSAGE = productStore.getString("authDeclinedMessage");
-        String ERROR_MESSAGE = productStore.getString("authErrorMessage");
-        String RETRY_ON_ERROR = productStore.getString("retryFailedAuths");
-        if (RETRY_ON_ERROR == null) {
-            RETRY_ON_ERROR = "Y";
+        String declineMessage = productStore.getString("authDeclinedMessage");
+        String errMessage = productStore.getString("authErrorMessage");
+        String retryOnError = productStore.getString("retryFailedAuths");
+        if (retryOnError == null) {
+            retryOnError = "Y";
         }
 
         List<GenericValue> allPaymentPreferences = null;
@@ -1020,8 +1020,7 @@ public class CheckOutHelper {
         // check for a paypal express checkout needing completion
         List<EntityExpr> payPalExprs = UtilMisc.toList(
                 EntityCondition.makeCondition("paymentMethodId", EntityOperator.NOT_EQUAL, null),
-                EntityCondition.makeCondition("paymentMethodTypeId", "EXT_PAYPAL")
-           );
+                EntityCondition.makeCondition("paymentMethodTypeId", "EXT_PAYPAL"));
         List<GenericValue> payPalPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, payPalExprs);
         if (UtilValidate.isNotEmpty(payPalPaymentPrefs)) {
             GenericValue payPalPaymentPref = EntityUtil.getFirst(payPalPaymentPrefs);
@@ -1079,7 +1078,7 @@ public class CheckOutHelper {
                         throw new GeneralException("Problem with order change; see above error");
                     }
                     if (UtilValidate.isEmpty(messages)) {
-                        return ServiceUtil.returnError(DECLINE_MESSAGE);
+                        return ServiceUtil.returnError(declineMessage);
                     }
                     return ServiceUtil.returnError(messages);
                 } else if ("APPROVED".equals(authResp)) {
@@ -1120,36 +1119,36 @@ public class CheckOutHelper {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("Payment auth failed due to processor trouble.", MODULE);
                     }
-                    if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
+                    if (!faceToFace && "Y".equalsIgnoreCase(retryOnError)) {
                         // never do this for a face to face purchase regardless of store setting
-                        return ServiceUtil.returnSuccess(ERROR_MESSAGE);
+                        return ServiceUtil.returnSuccess(errMessage);
                     }
                     boolean ok = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
                     if (!ok) {
                         throw new GeneralException("Problem with order change; see above error");
                     }
                     if (UtilValidate.isEmpty(messages)) {
-                        return ServiceUtil.returnError(ERROR_MESSAGE);
+                        return ServiceUtil.returnError(errMessage);
                     }
                     return ServiceUtil.returnError(messages);
                 } else {
                     // should never happen
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
                 }
             } else {
                 // result returned null == service failed
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Payment auth failed due to processor trouble.", MODULE);
                 }
-                if (!faceToFace && "Y".equalsIgnoreCase(RETRY_ON_ERROR)) {
+                if (!faceToFace && "Y".equalsIgnoreCase(retryOnError)) {
                     // never do this for a face to face purchase regardless of store setting
-                    return ServiceUtil.returnSuccess(ERROR_MESSAGE);
+                    return ServiceUtil.returnSuccess(errMessage);
                 }
                 boolean ok = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
                 if (!ok) {
                     throw new GeneralException("Problem with order change; see above error");
                 }
-                return ServiceUtil.returnError(ERROR_MESSAGE);
+                return ServiceUtil.returnError(errMessage);
             }
         } else {
             // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
@@ -1159,9 +1158,9 @@ public class CheckOutHelper {
                                            EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
             List<GenericValue> cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
-            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) &&
-                    UtilValidate.isNotEmpty(allPaymentPreferences) &&
-                    cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
+            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences)
+                    && UtilValidate.isNotEmpty(allPaymentPreferences)
+                    && cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
 
                 //if there are Check type, approve the order only if it is face to face
                 List<GenericValue> checkPreferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));
@@ -1180,8 +1179,6 @@ public class CheckOutHelper {
                     }
                 }
 
-            } else {
-                // There is nothing to do, we just treat this as a success
             }
         }
 
@@ -1243,7 +1240,7 @@ public class CheckOutHelper {
                 EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS, EntityFunction.UPPER(shippingAddress)),
                 EntityOperator.AND,
                 EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
-        String errMsg=null;
+        String errMsg = null;
 
         List<GenericValue> paymentMethods = this.cart.getPaymentMethods();
         for (GenericValue paymentMethod : paymentMethods) {
@@ -1257,7 +1254,7 @@ public class CheckOutHelper {
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems getting credit card from payment method", MODULE);
-                    errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_reading_database", cart.getLocale());
+                    errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
                     return ServiceUtil.returnError(errMsg);
                 }
                 if (creditCard != null) {
@@ -1283,13 +1280,13 @@ public class CheckOutHelper {
                 blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems with OrderBlacklist lookup.", MODULE);
-                errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_reading_database", cart.getLocale());
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
             }
         }
 
         if (UtilValidate.isNotEmpty(blacklistFound)) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR,"OrderFailed", cart.getLocale()));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "OrderFailed", cart.getLocale()));
         }
         return ServiceUtil.returnSuccess("success");
     }
@@ -1301,8 +1298,8 @@ public class CheckOutHelper {
 
     public Map<String, Object> failedBlacklistCheck(GenericValue userLogin, GenericValue productStore) {
         Map<String, Object> result;
-        String errMsg=null;
-        String REJECT_MESSAGE = productStore.getString("authFraudMessage");
+        String errMsg = null;
+        String rejectMessage = productStore.getString("authFraudMessage");
         String orderId = this.cart.getOrderId();
 
         try {
@@ -1315,7 +1312,7 @@ public class CheckOutHelper {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.database_error", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.database_error", cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -1323,7 +1320,7 @@ public class CheckOutHelper {
         // set the order/item status - reverse inv
         OrderChangeHelper.rejectOrder(dispatcher, userLogin, orderId);
         result = ServiceUtil.returnSuccess();
-        result.put(ModelService.ERROR_MESSAGE, REJECT_MESSAGE);
+        result.put(ModelService.ERROR_MESSAGE, rejectMessage);
 
         // wipe the cart and session
         this.cart.clear();
@@ -1340,7 +1337,7 @@ public class CheckOutHelper {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting order header", MODULE);
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -1350,7 +1347,7 @@ public class CheckOutHelper {
                 paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems getting order payments", MODULE);
-                errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 result = ServiceUtil.returnError(errMsg);
                 return result;
             }
@@ -1406,7 +1403,7 @@ public class CheckOutHelper {
             }
             result = ServiceUtil.returnSuccess();
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
         }
 
@@ -1457,7 +1454,7 @@ public class CheckOutHelper {
             this.cart.setShipmentMethodTypeId(shipGroupIndex, shipmentMethodTypeId);
             this.cart.setCarrierPartyId(shipGroupIndex, carrierPartyId);
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"checkhelper.select_shipping_method", cart.getLocale());
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.select_shipping_method", cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
         }
 
@@ -1473,31 +1470,32 @@ public class CheckOutHelper {
 
         // set ship before date
         if ((shipBeforeDate != null) && (shipBeforeDate.length() > 8)) {
-           shipBeforeDate = shipBeforeDate.trim();
-           if (shipBeforeDate.length() < 14) {
-               shipBeforeDate = shipBeforeDate + " " + "00:00:00.000";
-           }
+            shipBeforeDate = shipBeforeDate.trim();
+            if (shipBeforeDate.length() < 14) {
+                shipBeforeDate = shipBeforeDate + " " + "00:00:00.000";
+            }
 
-           try {
-               this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipBeforeDate, "Timestamp", null, null));
-           } catch (Exception e) {
-               errMsg = "Ship Before Date must be a valid date formed ";
-               result = ServiceUtil.returnError(errMsg);
-           }
+            try {
+                this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipBeforeDate, "Timestamp", null,
+                        null));
+            } catch (Exception e) {
+                errMsg = "Ship Before Date must be a valid date formed ";
+                result = ServiceUtil.returnError(errMsg);
+            }
         }
 
         // set ship after date
         if ((shipAfterDate != null) && (shipAfterDate.length() > 8)) {
-           shipAfterDate = shipAfterDate.trim();
-           if (shipAfterDate.length() < 14) {
-               shipAfterDate = shipAfterDate + " " + "00:00:00.000";
-           }
+            shipAfterDate = shipAfterDate.trim();
+            if (shipAfterDate.length() < 14) {
+                shipAfterDate = shipAfterDate + " " + "00:00:00.000";
+            }
 
-           try {
-               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate,"Timestamp", null, null));
+            try {
+                this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate, "Timestamp", null, null));
             } catch (Exception e) {
-              errMsg = "Ship After Date must be a valid date formed ";
-              result = ServiceUtil.returnError(errMsg);
+                errMsg = "Ship After Date must be a valid date formed ";
+                result = ServiceUtil.returnError(errMsg);
             }
         }
 
@@ -1614,20 +1612,20 @@ public class CheckOutHelper {
                     Debug.logVerbose("Remaining total is - " + newAmount, MODULE);
                 }
                 if (newAmount.compareTo(BigDecimal.ZERO) > 0) {
-                    info.amount = newAmount;
+                    info.setAmount(newAmount);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, MODULE);
+                        Debug.logVerbose("Set null paymentMethodId - " + info.getPaymentMethodId() + " / " + newAmount, MODULE);
                     }
                 } else {
-                    info.amount = BigDecimal.ZERO;
+                    info.setAmount(BigDecimal.ZERO);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set null paymentMethodId - " + info.paymentMethodId + " / " + info.amount, MODULE);
+                        Debug.logVerbose("Set null paymentMethodId - " + info.getPaymentMethodId() + " / " + BigDecimal.ZERO, MODULE);
                     }
                 }
                 if (!setOverflow) {
-                    info.overflow = true;
+                    info.setOverflow(true);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Set overflow flag on payment - " + info.paymentMethodId, MODULE);
+                        Debug.logVerbose("Set overflow flag on payment - " + info.getPaymentMethodId(), MODULE);
                     }
                 }
             }

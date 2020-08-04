@@ -193,8 +193,8 @@ public class PackingServices {
                             } catch (NumberFormatException nex) {
                             }
                         }
-                        for (int numPackage=0; numPackage<numPackages; numPackage++) {
-                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity);
+                        for (int numPackage = 0; numPackage < numPackages; numPackage++) {
+                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq + numPackage, weightSeq, updateQuantity);
                         }
                     } catch (GeneralException e) {
                         Debug.logError(e, MODULE);
@@ -278,7 +278,6 @@ public class PackingServices {
     public static Map<String, Object> completePack(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         Locale locale = (Locale) context.get("locale");
-        
         // set the instructions -- will clear out previous if now null
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
@@ -321,7 +320,7 @@ public class PackingServices {
 
     public static BigDecimal setSessionPackageWeights(PackingSession session, Map<String, String> packageWeights) {
         BigDecimal shippableWeight = BigDecimal.ZERO;
-        if (! UtilValidate.isEmpty(packageWeights)) {
+        if (!UtilValidate.isEmpty(packageWeights)) {
             for (Map.Entry<String, String> entry: packageWeights.entrySet()) {
                 String packageSeqId = entry.getKey();
                 String packageWeightStr = entry.getValue();

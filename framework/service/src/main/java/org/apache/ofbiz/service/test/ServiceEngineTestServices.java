@@ -54,17 +54,20 @@ public class ServiceEngineTestServices {
             Map<String, Object> threadBResult = threadBWaiter.waitForResult();
             List<Object> errorList = new LinkedList<>();
             if (ServiceUtil.isError(threadAResult)) {
-                errorList.add(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockThreadA", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(threadAResult)), locale));
+                errorList.add(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockThreadA", UtilMisc.toMap("errorString",
+                        ServiceUtil.getErrorMessage(threadAResult)), locale));
             }
             if (ServiceUtil.isError(threadBResult)) {
-                errorList.add(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockThreadB", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(threadBResult)), locale));
+                errorList.add(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockThreadB", UtilMisc.toMap("errorString",
+                        ServiceUtil.getErrorMessage(threadBResult)), locale));
             }
             if (errorList.size() > 0) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockRetry", locale), errorList, null, null);
             }
         } catch (Exception e) {
             Debug.logError(e, "Error running deadlock test services: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -90,18 +93,22 @@ public class ServiceEngineTestServices {
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with updating SVCLRT_B, updating SVCLRT_AONLY", MODULE);
             GenericValue testingTypeAOnly = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLRT_AONLY").queryOne();
-            testingTypeAOnly.set("description", "New description for SVCLRT_AONLY; this is only changed by thread A so if it doesn't match something happened to thread A!");
+            testingTypeAOnly.set("description", "New description for SVCLRT_AONLY; this is only changed by thread A so if it doesn't match "
+                    + "something happened to thread A!");
             testingTypeAOnly.store();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception running dead lock test thread A: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineExceptionThreadA", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineExceptionThreadA", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         } catch (InterruptedException e) {
             Debug.logError(e, "Wait Interrupted Exception running dead lock test thread A: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineWaitInterruptedExceptionThreadA", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineWaitInterruptedExceptionThreadA",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
     }
+
     public static Map<String, Object> testServiceDeadLockRetryThreadB(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -122,14 +129,17 @@ public class ServiceEngineTestServices {
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with updating SVCLRT_A, updating SVCLRT_BONLY", MODULE);
             GenericValue testingTypeAOnly = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLRT_BONLY").queryOne();
-            testingTypeAOnly.set("description", "New description for SVCLRT_BONLY; this is only changed by thread B so if it doesn't match something happened to thread B!");
+            testingTypeAOnly.set("description", "New description for SVCLRT_BONLY; this is only changed by thread B so if it doesn't match "
+                    + "something happened to thread B!");
             testingTypeAOnly.store();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception running dead lock test thread B: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineExceptionThreadB", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineExceptionThreadB", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         } catch (InterruptedException e) {
             Debug.logError(e, "Wait Interrupted Exception running dead lock test thread B: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineWaitInterruptedExceptionThreadB", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineWaitInterruptedExceptionThreadB",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -159,18 +169,21 @@ public class ServiceEngineTestServices {
             }
         } catch (Exception e) {
             Debug.logError(e, "Error running deadlock test services: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
     }
+
     public static Map<String, Object> testServiceLockWaitTimeoutRetryGrabber(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         try {
             // grab entity SVCLWTRT by changing, then wait a LONG time, ie more than the wait timeout
             GenericValue testingType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLWTRT").queryOne();
-            testingType.set("description", "New description for SVCLWTRT from the GRABBER service, this should be replaced by Waiter service in the service engine auto-retry");
+            testingType.set("description", "New description for SVCLWTRT from the GRABBER service, this should be replaced by Waiter service in the"
+                    + " service engine auto-retry");
             testingType.store();
 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryGrabber just updated SVCLWTRT, beginning wait", MODULE);
@@ -180,14 +193,17 @@ public class ServiceEngineTestServices {
             Thread.sleep(4 * 1000);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception running lock wait timeout test Grabber thread: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetryGrabber", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetryGrabber", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         } catch (InterruptedException e) {
             Debug.logError(e, "Wait Interrupted Exception running lock wait timeout test Grabber thread: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryGrabber", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryGrabber", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
     }
+
     public static Map<String, Object> testServiceLockWaitTimeoutRetryWaiter(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -205,10 +221,12 @@ public class ServiceEngineTestServices {
             Debug.logInfo("In testServiceLockWaitTimeoutRetryWaiter successfully updated SVCLWTRT", MODULE);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception running lock wait timeout test Waiter thread: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetryWaiter", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetryWaiter", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         } catch (InterruptedException e) {
             Debug.logError(e, "Wait Interrupted Exception running lock wait timeout test Waiter thread: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryWaiter", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryWaiter", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -221,14 +239,14 @@ public class ServiceEngineTestServices {
      * testServiceLockWaitTimeoutRetryCantRecoverWaiter would NOT be able to recover because it would try again
      * given the new transaction and all, but the lock for the waiting thread would still be there... so it will fail
      * repeatedly.
-     *
+     * <p>
      * TODO: there's got to be some way to do this, but how?!? :(
-     *
+     * <p>
      * NOTE: maybe this will work: create a list that the service engine maintains of services it will run after the
      * current service run is complete, and AFTER it has committed or rolled back its transaction; if a service finds
      * it has a lock wait timeout, add itself to the list for its parent service (somehow...) and off we go!
      *
-     * @param dctx the dispatch context
+     * @param dctx    the dispatch context
      * @param context the context
      * @return returns the results of the service execution
      */
@@ -239,27 +257,34 @@ public class ServiceEngineTestServices {
         try {
             // grab entity SVCLWTRTCR by changing, then wait a LONG time, ie more than the wait timeout
             GenericValue testingType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLWTRTCR").queryOne();
-            testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock GRABBER, this should be replaced by the one in the Waiter service.");
+            testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock GRABBER, this should be replaced by the one "
+                    + "in the Waiter service.");
             testingType.store();
 
-            Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) just updated SVCLWTRTCR, running sub-service in own transaction", MODULE);
-            // timeout is 5 seconds so it is longer than the tx timeout for this service, so will fail quickly; with this transaction keeping a lock on the record and that one trying to get it, bam we cause the error
+            Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) just updated SVCLWTRTCR, running sub-service in own transaction",
+                    MODULE);
+            // timeout is 5 seconds so it is longer than the tx timeout for this service, so will fail quickly; with this transaction keeping a
+            // lock on the record and that one trying to get it, bam we cause the error
             Map<String, Object> waiterResult = dispatcher.runSync("testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, 5, true);
             if (ServiceUtil.isError(waiterResult)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetryCantRecoverWaiter", locale), null, null, waiterResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetryCantRecoverWaiter", locale),
+                        null, null, waiterResult);
             }
 
-            Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) successfully finished running sub-service in own transaction", MODULE);
+            Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) successfully finished running sub-service in own transaction",
+                    MODULE);
         } catch (GenericServiceException e) {
             String errMsg = "Error running deadlock test services: " + e.toString();
             Debug.logError(e, errMsg, MODULE);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception running lock wait timeout test main/Grabber thread: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryGrabber", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryGrabber", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
     }
+
     public static Map<String, Object> testServiceLockWaitTimeoutRetryCantRecoverWaiter(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -268,13 +293,15 @@ public class ServiceEngineTestServices {
 
             // TRY grab entity SVCLWTRTCR by looking up and changing, should get a lock wait timeout exception because of the Grabber thread
             GenericValue testingType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLWTRTCR").queryOne();
-            testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock Waiter, this is the value that should be there.");
+            testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock Waiter, this is the value that should be "
+                    + "there.");
             testingType.store();
 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecoverWaiter successfully updated SVCLWTRTCR", MODULE);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception running lock wait timeout test Waiter thread: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryWaiter", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockInterruptedExceptionRetryWaiter", UtilMisc.toMap(
+                    "errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -282,45 +309,55 @@ public class ServiceEngineTestServices {
 
     // ==================================================
 
-    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper(DispatchContext dctx, Map<String, ?
+            extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         try {
             Map<String, Object> resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, 60, true);
             if (ServiceUtil.isError(resultMap)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper", locale), null, null, resultMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper", locale), null, null, resultMap);
             }
         } catch (GenericServiceException e) {
-            String errMsg = "This is the expected error running sub-service with own tx after the parent has set rollback only, logging and ignoring: " + e.toString();
+            String errMsg = "This is the expected error running sub-service with own tx after the parent has set rollback only, logging and "
+                    + "ignoring: " + e.toString();
             Debug.logError(e, errMsg, MODULE);
         }
 
         return ServiceUtil.returnSuccess();
     }
-    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map<String, ? extends Object> context) {
+
+    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx,
+                                                                                             Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         try {
             // change the SVC_SRBO value first to test that the rollback really does revert/reset
             GenericValue testingType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVC_SRBO").queryOne();
-            testingType.set("description", "New description for SVC_SRBO; this should be reset on the rollback, if this is in the db then the test failed");
+            testingType.set("description", "New description for SVC_SRBO; this should be reset on the rollback, if this is in the db then the test "
+                    + "failed");
             testingType.store();
 
             TransactionUtil.setRollbackOnly("Intentionally setting rollback only for testing purposes", null);
 
             Map<String, Object> resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService", null, 60, true);
             if (ServiceUtil.isError(resultMap)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParent", locale), null, null, resultMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxSubServiceAfterSetRollbackOnlyInParent",
+                        locale), null, null, resultMap);
             }
         } catch (Exception e) {
             Debug.logError(e, "Error running sub-service with own tx: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxError", UtilMisc.toMap("errorString", e.toString())
+                    , locale));
         }
 
         return ServiceUtil.returnSuccess();
     }
-    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map<String, ? extends Object> context) {
+
+    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map<String, ?
+            extends Object> context) {
         // this service doesn't actually have to do anything, the problem was in just pausing and resuming the transaciton with setRollbackOnly
         return ServiceUtil.returnSuccess();
     }
@@ -335,13 +372,17 @@ public class ServiceEngineTestServices {
             // this will return an error, but we'll ignore the result
             dispatcher.runSync("testServiceEcaGlobalEventExecToRollback", null, 60, true);
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Error calling sub-service, it should return an error but not throw an exception, so something went wrong: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestSubServiceError", UtilMisc.toMap("errorString", e.toString()), locale));
+            Debug.logError(e,
+                    "Error calling sub-service, it should return an error but not throw an exception, so something went wrong: " + e.toString(),
+                    MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestSubServiceError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should commit
         return ServiceUtil.returnSuccess();
     }
+
     public static Map<String, Object> testServiceEcaGlobalEventExecOnCommit(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -351,16 +392,19 @@ public class ServiceEngineTestServices {
             testingType.store();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
     }
+
     public static Map<String, Object> testServiceEcaGlobalEventExecToRollback(DispatchContext dctx, Map<String, ? extends Object> context) {
         // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should rollback
         Locale locale = (Locale) context.get("locale");
         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestRollback", locale));
     }
+
     public static Map<String, Object> testServiceEcaGlobalEventExecOnRollback(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -370,7 +414,8 @@ public class ServiceEngineTestServices {
             testingType.store();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Engine Exception: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();

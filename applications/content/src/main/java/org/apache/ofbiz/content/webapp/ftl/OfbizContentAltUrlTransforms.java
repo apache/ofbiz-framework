@@ -46,7 +46,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
-    public final static String MODULE = OfbizContentAltUrlTransforms.class.getName();
+    private static final String MODULE = OfbizContentAltUrlTransforms.class.getName();
     private static final String defaultViewRequest = "contentViewInfo";
 
     public String getStringArg(Map<String, Object> args, String key) {

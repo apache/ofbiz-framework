@@ -26,6 +26,7 @@ under the License.
                 <set field="titleProperty" value="MarketingFindContacts"/>
                 <set field="currentUrl" value="FindContacts"/>
                 <set field="headerItem" value="Contacts"/>
+                <set field="helpAnchor" value="_sfa_contacts_findlist_screen"/>
                 <set field="setContactDescription" value="${groovy:session.setAttribute(&quot;contactDescription&quot;,headerItem)}"/>
                 <set field="removeAccountDescription" value="${groovy:session.removeAttribute(&quot;accountDescription&quot;)}"/>
                 <set field="removeLeadDescription" value="${groovy:session.removeAttribute(&quot;leadDescription&quot;)}"/>

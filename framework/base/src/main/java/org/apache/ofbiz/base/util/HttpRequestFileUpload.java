@@ -284,10 +284,10 @@ public class HttpRequestFileUpload {
         while (((i = in.readLine(buf, off, len)) == -1) && (reqLen > 0)) {
             Debug.logInfo("waiting", MODULE);
             if (waitCount > MAX_WAITS) {
-                Debug.logInfo("waited " + waitCount + " times, bailing out while still expecting " +
-                    reqLen + " bytes.", MODULE);
-                throw new IOException("waited " + waitCount + " times, bailing out while still expecting " +
-                        reqLen + " bytes.");
+                Debug.logInfo("waited " + waitCount + " times, bailing out while still expecting "
+                        + reqLen + " bytes.", MODULE);
+                throw new IOException("waited " + waitCount + " times, bailing out while still expecting "
+                        + reqLen + " bytes.");
             }
             waitCount++;
             long endMS = new Date().getTime() + WAIT_INTERVAL;

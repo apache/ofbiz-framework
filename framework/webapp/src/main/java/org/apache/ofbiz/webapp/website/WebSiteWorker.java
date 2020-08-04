@@ -34,7 +34,7 @@ public final class WebSiteWorker {
 
     private static final String MODULE = WebSiteWorker.class.getName();
 
-    private WebSiteWorker() {}
+    private WebSiteWorker() { }
 
     public static String getWebSiteId(ServletRequest request) {
         ServletContext ctx = request.getServletContext();
@@ -62,8 +62,7 @@ public final class WebSiteWorker {
         GenericValue result = null;
         try {
             result = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache(useCache).queryOne();
-        }
-        catch (GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError("Error looking up website with id " + webSiteId, MODULE);
         }
         return result;

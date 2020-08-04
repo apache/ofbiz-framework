@@ -160,7 +160,6 @@ public final class MethodContext {
     /**
      * Gets the named value from the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List entries. This value is expanded, supporting the
      * insertion of other environment values using the "${}" notation.
-     * 
      * @param key
      *            The name of the environment value to get. Can contain "." and "[]" syntax elements as described above.
      * @return The environment value if found, otherwise null.
@@ -248,7 +247,6 @@ public final class MethodContext {
      * Puts the named value in the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List entries. If the brackets for a list are empty the value
      * will be appended to end of the list, otherwise the value will be set in the position of the number in the brackets. If a "+" (plus sign) is included inside the square brackets before the index
      * number the value will inserted/added at that index instead of set at that index. This value is expanded, supporting the insertion of other environment values using the "${}" notation.
-     * 
      * @param key
      *            The name of the environment value to get. Can contain "." syntax elements as described above.
      * @param value
@@ -275,7 +273,6 @@ public final class MethodContext {
     /**
      * Removes the named value from the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List entries. This value is expanded, supporting the
      * insertion of other environment values using the "${}" notation.
-     * 
      * @param key
      *            The name of the environment value to get. Can contain "." syntax elements as described above.
      */

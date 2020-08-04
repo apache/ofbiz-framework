@@ -92,13 +92,13 @@ public final class UtilJavaParse {
         entityMethodNames.add("findCountByCondition");
     }
 
-    private UtilJavaParse () {}
+    private UtilJavaParse() { }
 
     public static String findRealPathAndFileForClass(String fullyQualifiedClassName) {
         // search through the component directories, in the src directory for each, using the class path as the path within it
 
         String sourceSubPath = fullyQualifiedClassName.substring(0, fullyQualifiedClassName.lastIndexOf(".")).replace('.', File.separatorChar);
-        String classFileName = fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".")+1) + ".java";
+        String classFileName = fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".") + 1) + ".java";
 
         Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents();
         for (ComponentConfig cc: allComponentConfigs) {
@@ -163,8 +163,8 @@ public final class UtilJavaParse {
 
     public static int findEndOfBlock(int blockStart, String javaFile) {
 
-        int nextOpen = javaFile.indexOf("{", blockStart+1);
-        int nextClose = javaFile.indexOf("}", blockStart+1);
+        int nextOpen = javaFile.indexOf("{", blockStart + 1);
+        int nextClose = javaFile.indexOf("}", blockStart + 1);
         if (nextOpen > 0 && nextClose > 0 && nextClose > nextOpen) {
             javaFile = javaFile.substring(nextOpen, nextClose);
         }
@@ -178,8 +178,8 @@ public final class UtilJavaParse {
             if (endOfSubBlock < 0) {
                 return -1;
             }
-            nextOpen = javaFile.indexOf("{", endOfSubBlock+1);
-            nextClose = javaFile.indexOf("}", endOfSubBlock+1);
+            nextOpen = javaFile.indexOf("{", endOfSubBlock + 1);
+            nextClose = javaFile.indexOf("}", endOfSubBlock + 1);
         }
 
         // at this point there should be no nextOpen or nextOpen is after the nextClose, meaning we're at the end of the block
@@ -189,7 +189,7 @@ public final class UtilJavaParse {
     public static Set<String> findServiceCallsInBlock(int blockStart, int blockEnd, String javaFile) {
         Set<String> serviceNameSet = new HashSet<>();
 
-        int dispatcherIndex = javaFile.indexOf("dispatcher.", blockStart+1);
+        int dispatcherIndex = javaFile.indexOf("dispatcher.", blockStart + 1);
         while (dispatcherIndex > 0 && dispatcherIndex < blockEnd) {
             // verify it is a call we're looking for
             int openParenIndex = javaFile.indexOf("(", dispatcherIndex);
@@ -197,10 +197,10 @@ public final class UtilJavaParse {
             if (serviceMethodNames.contains(curMethodName)) {
                 // find the service name
                 int openQuoteIndex = javaFile.indexOf("\"", openParenIndex);
-                int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex+1);
+                int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex + 1);
                 if (openQuoteIndex - openParenIndex <= 3 && openQuoteIndex >= 0 && closeQuoteIndex >= 0) {
                     //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
-                    String serviceName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
+                    String serviceName = javaFile.substring(openQuoteIndex + 1, closeQuoteIndex).trim();
                     serviceNameSet.add(serviceName);
                 }
             }
@@ -214,7 +214,7 @@ public final class UtilJavaParse {
     public static Set<String> findEntityUseInBlock(int blockStart, int blockEnd, String javaFile) {
         Set<String> entityNameSet = new HashSet<>();
 
-        int delegatorIndex = javaFile.indexOf("delegator.", blockStart+1);
+        int delegatorIndex = javaFile.indexOf("delegator.", blockStart + 1);
         while (delegatorIndex > 0 && delegatorIndex < blockEnd) {
             // verify it is a call we're looking for
             int openParenIndex = javaFile.indexOf("(", delegatorIndex);
@@ -222,10 +222,10 @@ public final class UtilJavaParse {
             if (entityMethodNames.contains(curMethodName)) {
                 // find the entity name
                 int openQuoteIndex = javaFile.indexOf("\"", openParenIndex);
-                int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex+1);
+                int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex + 1);
                 if (openQuoteIndex - openParenIndex <= 3 && openQuoteIndex >= 0 && closeQuoteIndex >= 0) {
                     //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
-                    String entityName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
+                    String entityName = javaFile.substring(openQuoteIndex + 1, closeQuoteIndex).trim();
                     entityNameSet.add(entityName);
                 }
             }
