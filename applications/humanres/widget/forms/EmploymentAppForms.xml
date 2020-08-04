@@ -70,7 +70,7 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" use-when="listSize>0" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="FindEmploymentApps" type="single" target="FindEmploymentApps" header-row-style="header-row" default-table-style="basic-table" default-map-name="employmentApp">
+    <form name="FindEmploymentApps" type="single" target="FindEmploymentApps" header-row-style="header-row" default-table-style="basic-table" default-map-name="parameters">
         <actions>
             <set field="referredByPartyId" from-field="parameters.partyId"/>
         </actions>
@@ -79,12 +79,12 @@ under the License.
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="statusId">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="employmentAppSourceTypeId">
             <drop-down allow-empty="true" current-description="">
