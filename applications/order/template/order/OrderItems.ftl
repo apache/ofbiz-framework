@@ -45,7 +45,6 @@ under the License.
                 <#else>
                     <#assign itemClass = "2">
                     <#list orderItemList as orderItem>
-                        <#assign orderItemContentWrapper = Static["org.apache.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
                         <#assign orderItemShipGrpInvResList = orderReadHelper.getOrderItemShipGrpInvResList(orderItem)>
                         <#if "SALES_ORDER" == orderHeader.orderTypeId><#assign pickedQty = orderReadHelper.getItemPickedQuantityBd(orderItem)></#if>
                         <tr<#if "1" == itemClass> class="alternate-row"</#if>>
@@ -89,10 +88,6 @@ under the License.
                                         </#if>
                                         <a href="/catalog/control/EditProduct?productId=${productId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                                         <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
-                                        <#if orderItemContentWrapper.get("IMAGE_URL", "url")?has_content>
-                                            <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>"
-                                               target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
-                                        </#if>
                                     </div>
                                 </td>
                             </#if>
