@@ -38,7 +38,7 @@ public class CartEventListener implements HttpSessionListener {
 
     private static final String MODULE = CartEventListener.class.getName();
 
-    public CartEventListener() {}
+    public CartEventListener() { }
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {

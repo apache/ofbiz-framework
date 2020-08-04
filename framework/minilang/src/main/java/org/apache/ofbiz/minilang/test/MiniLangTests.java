@@ -74,7 +74,7 @@ public class MiniLangTests extends OFBizTestCase {
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
         assertNotNull("<check-errors> error message list", messages);
         assertTrue("<check-errors> error message text", messages.contains("This should fail"));
-        // <assert>, <not>,  and <if-empty> tests
+        // <assert>, <not>, and <if-empty> tests
         methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><not><if-empty field=\"locale\"/></not></assert><check-errors/></simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
@@ -92,12 +92,12 @@ public class MiniLangTests extends OFBizTestCase {
     }
 
     public void testFieldToResultOperation() throws Exception {
-        String simpleMethodXml = "<simple-method name=\"testFieldToResult\">" +
-                                 "  <set field=\"resultValue\" value=\"someResultValue\"/>" +
-                                 "  <set field=\"result1\" value=\"dynamicResultName\"/>" +
-                                 "  <field-to-result field=\"resultValue\" result-name=\"constantResultName\"/>" +
-                                 "  <field-to-result field=\"resultValue\" result-name=\"${result1}\"/>" +
-                                 "</simple-method>";
+        String simpleMethodXml = "<simple-method name=\"testFieldToResult\">"
+                + "  <set field=\"resultValue\" value=\"someResultValue\"/>"
+                + "  <set field=\"result1\" value=\"dynamicResultName\"/>"
+                + "  <field-to-result field=\"resultValue\" result-name=\"constantResultName\"/>"
+                + "  <field-to-result field=\"resultValue\" result-name=\"${result1}\"/>"
+                + "</simple-method>";
         SimpleMethod methodToTest = createSimpleMethod(simpleMethodXml);
         MethodContext context = createServiceMethodContext();
         String result = methodToTest.exec(context);

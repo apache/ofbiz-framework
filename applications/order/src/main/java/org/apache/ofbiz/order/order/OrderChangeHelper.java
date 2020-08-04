@@ -40,7 +40,7 @@ public final class OrderChangeHelper {
 
     private static final String MODULE = OrderChangeHelper.class.getName();
 
-    private OrderChangeHelper() {}
+    private OrderChangeHelper() { }
 
     public static boolean approveOrder(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) {
         return approveOrder(dispatcher, userLogin, orderId, false);
@@ -53,24 +53,24 @@ public final class OrderChangeHelper {
         }
 
         // interal status for held orders
-        String HEADER_STATUS = "ORDER_PROCESSING";
-        String ITEM_STATUS = "ITEM_CREATED";
-        String DIGITAL_ITEM_STATUS = "ITEM_APPROVED";
+        String headerStatus = "ORDER_PROCESSING";
+        String itemStatus = "ITEM_CREATED";
+        String digitalItemStatus = "ITEM_APPROVED";
 
         if (!holdOrder) {
             if (productStore.get("headerApprovedStatus") != null) {
-                HEADER_STATUS = productStore.getString("headerApprovedStatus");
+                headerStatus = productStore.getString("headerApprovedStatus");
             }
             if (productStore.get("itemApprovedStatus") != null) {
-                ITEM_STATUS = productStore.getString("itemApprovedStatus");
+                itemStatus = productStore.getString("itemApprovedStatus");
             }
             if (productStore.get("digitalItemApprovedStatus") != null) {
-                DIGITAL_ITEM_STATUS = productStore.getString("digitalItemApprovedStatus");
+                digitalItemStatus = productStore.getString("digitalItemApprovedStatus");
             }
         }
 
         try {
-            OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, "ITEM_CREATED", ITEM_STATUS, DIGITAL_ITEM_STATUS);
+            OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, headerStatus, "ITEM_CREATED", itemStatus, digitalItemStatus);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
@@ -81,19 +81,19 @@ public final class OrderChangeHelper {
 
     public static boolean rejectOrder(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) {
         GenericValue productStore = OrderReadHelper.getProductStoreFromOrder(dispatcher.getDelegator(), orderId);
-        String HEADER_STATUS = "ORDER_REJECTED";
-        String ITEM_STATUS = "ITEM_REJECTED";
+        String headerStatus = "ORDER_REJECTED";
+        String itemStatus = "ITEM_REJECTED";
         if (productStore.get("headerDeclinedStatus") != null) {
-              HEADER_STATUS = productStore.getString("headerDeclinedStatus");
-          }
-          if (productStore.get("itemDeclinedStatus") != null) {
-              ITEM_STATUS = productStore.getString("itemDeclinedStatus");
-          }
+            headerStatus = productStore.getString("headerDeclinedStatus");
+        }
+        if (productStore.get("itemDeclinedStatus") != null) {
+            itemStatus = productStore.getString("itemDeclinedStatus");
+        }
 
         try {
-            OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
+            OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, headerStatus, null, itemStatus, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
-            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
+            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
@@ -115,19 +115,19 @@ public final class OrderChangeHelper {
 
     public static boolean cancelOrder(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) {
         GenericValue productStore = OrderReadHelper.getProductStoreFromOrder(dispatcher.getDelegator(), orderId);
-        String HEADER_STATUS = "ORDER_CANCELLED";
-        String ITEM_STATUS = "ITEM_CANCELLED";
+        String headerStatus = "ORDER_CANCELLED";
+        String itemStatus = "ITEM_CANCELLED";
         if (productStore.get("headerCancelStatus") != null) {
-              HEADER_STATUS = productStore.getString("headerCancelStatus");
-          }
-          if (productStore.get("itemCancelStatus") != null) {
-              ITEM_STATUS = productStore.getString("itemCancelStatus");
-          }
+            headerStatus = productStore.getString("headerCancelStatus");
+        }
+        if (productStore.get("itemCancelStatus") != null) {
+            itemStatus = productStore.getString("itemCancelStatus");
+        }
 
         try {
-            OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
+            OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, headerStatus, null, itemStatus, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
-            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
+            OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, MODULE);
             return false;
@@ -266,7 +266,7 @@ public final class OrderChangeHelper {
                         // only do this one time; if we have payment already for this pref ignore.
                         Map<String, Object> results = dispatcher.runSync("createPaymentFromPreference",
                                 UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"),
-                                "paymentRefNum",  UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
+                                "paymentRefNum", UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);
                             Debug.logError(errorMessage, MODULE);

@@ -77,9 +77,9 @@ public class ContentMapFacade implements Map<Object, Object> {
     protected ContentMapFacade decoratedContent = null;
 
     // internal objects
-    private String sortOrder="-fromDate";
-    private String mapKeyFilter="";
-    private String statusFilter="";
+    private String sortOrder = "-fromDate";
+    private String mapKeyFilter = "";
+    private String statusFilter = "";
     private DataResource dataResource;
     private SubContent subContent;
     private MetaData metaData;
@@ -260,14 +260,14 @@ public class ContentMapFacade implements Map<Object, Object> {
             if (rh != null && request != null && response != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
                 Delegator delegator = (Delegator) request.getAttribute("delegator");
-                
+
                 String contentUri = this.contentId;
-                // Try and find a WebSitePathAlias record to use, it isn't very feasible to find an alias by (parent)contentId/mapKey
+                // Try and find a WebSitePathAlias record to use, it isn't very feasible to find an alias by (parent) contentId/mapKey
                 // so we're only looking for a direct alias using contentId
                 if (webSiteId != null && delegator != null) {
                     try {
                         GenericValue webSitePathAlias = EntityQuery.use(delegator).from("WebSitePathAlias")
-                                .where("mapKey", null, "webSiteId", webSiteId,"contentId", this.contentId)
+                                .where("mapKey", null, "webSiteId", webSiteId, "contentId", this.contentId)
                                 .orderBy("-fromDate")
                                 .cache()
                                 .filterByDate()
@@ -294,10 +294,10 @@ public class ContentMapFacade implements Map<Object, Object> {
             try {
                 Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
-                if(!this.mapKeyFilter.equals("")) {
+                if (!this.mapKeyFilter.equals("")) {
                     expressions.put("caMapKey", this.mapKeyFilter);
                 }
-                if(!this.statusFilter.equals("")) {
+                if (!this.statusFilter.equals("")) {
                     expressions.put("statusId", this.statusFilter);
                 }
 
@@ -457,7 +457,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     class SubContent extends AbstractInfo {
         private String sortOrder="-fromDate";
-        private String statusFilter="";
+        private String statusFilter= "";
         @Override
         public Object get(Object key) {
             if (!(key instanceof String)) {
@@ -475,7 +475,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
                 expressions.put("caMapKey", name);
-                if(!this.statusFilter.equals("")) {
+                if (!this.statusFilter.equals("")) {
                     expressions.put("statusId", this.statusFilter);
                 }
                 sub = EntityQuery.use(delegator).from("ContentAssocViewTo")

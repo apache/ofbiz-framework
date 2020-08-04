@@ -65,22 +65,22 @@ public final class JobPoller implements ServiceConfigListener {
         try {
             ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             return new ThreadPoolExecutor(
-                    threadPool.getMinThreads(), 
-                    threadPool.getMaxThreads(), 
+                    threadPool.getMinThreads(),
+                    threadPool.getMaxThreads(),
                     threadPool.getTtl(),
-                    TimeUnit.MILLISECONDS, 
-                    new PriorityBlockingQueue<>(threadPool.getJobs(), createPriorityComparator()), 
-                    new JobInvokerThreadFactory(), 
+                    TimeUnit.MILLISECONDS,
+                    new PriorityBlockingQueue<>(threadPool.getJobs(), createPriorityComparator()),
+                    new JobInvokerThreadFactory(),
                     new ThreadPoolExecutor.AbortPolicy());
         } catch (GenericConfigException e) {
             Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", MODULE);
             return new ThreadPoolExecutor(
-                    ThreadPool.MIN_THREADS, 
-                    ThreadPool.MAX_THREADS, 
+                    ThreadPool.MIN_THREADS,
+                    ThreadPool.MAX_THREADS,
                     ThreadPool.THREAD_TTL,
-                    TimeUnit.MILLISECONDS, 
-                    new PriorityBlockingQueue<>(ThreadPool.QUEUE_SIZE, createPriorityComparator()), 
-                    new JobInvokerThreadFactory(), 
+                    TimeUnit.MILLISECONDS,
+                    new PriorityBlockingQueue<>(ThreadPool.QUEUE_SIZE, createPriorityComparator()),
+                    new JobInvokerThreadFactory(),
                     new ThreadPoolExecutor.AbortPolicy());
         }
     }

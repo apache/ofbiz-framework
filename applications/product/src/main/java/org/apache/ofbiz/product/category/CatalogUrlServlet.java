@@ -79,70 +79,72 @@ public class CatalogUrlServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/" + WebAppUtil.CONTROL_MOUNT_POINT + "/main");
             rd.forward(request, response);
         } else {
-        try {
-            String lastPathElement = pathElements.get(pathElements.size() - 1);
-            if (lastPathElement.startsWith("p_")) {
-                productId = lastPathElement.substring(2);
-            } else {
-                GenericValue productCategory =  EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", lastPathElement).cache(true).queryOne();
-                if (productCategory != null) {
-                    categoryId = lastPathElement;
+            try {
+                String lastPathElement = pathElements.get(pathElements.size() - 1);
+                if (lastPathElement.startsWith("p_")) {
+                    productId = lastPathElement.substring(2);
                 } else {
-                    productId = lastPathElement;
+                    GenericValue productCategory =
+                            EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", lastPathElement).cache(true).queryOne();
+                    if (productCategory != null) {
+                        categoryId = lastPathElement;
+                    } else {
+                        productId = lastPathElement;
+                    }
                 }
-            }
-            pathElements.remove(pathElements.size() - 1);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error in looking up ProductUrl or CategoryUrl with path info [" + pathInfo + "]: " + e.toString(), MODULE);
-        }
-
-        // get category info going with the IDs that remain
-        if (pathElements.size() == 1) {
-            CategoryWorker.setTrail(request, pathElements.get(0), null);
-            categoryId = pathElements.get(0);
-        } else if (pathElements.size() == 2) {
-            CategoryWorker.setTrail(request, pathElements.get(1), pathElements.get(0));
-            categoryId = pathElements.get(1);
-        } else if (pathElements.size() > 2) {
-            List<String> trail = CategoryWorker.getTrail(request);
-            if (trail == null) {
-                trail = new LinkedList<>();
+                pathElements.remove(pathElements.size() - 1);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error in looking up ProductUrl or CategoryUrl with path info [" + pathInfo + "]: " + e.toString(), MODULE);
             }
 
-            if (trail.contains(pathElements.get(0))) {
-                // first category is in the trail, so remove it everything after that and fill it in with the list from the pathInfo
-                int firstElementIndex = trail.indexOf(pathElements.get(0));
-                while (trail.size() > firstElementIndex) {
-                    trail.remove(firstElementIndex);
+            // get category info going with the IDs that remain
+            if (pathElements.size() == 1) {
+                CategoryWorker.setTrail(request, pathElements.get(0), null);
+                categoryId = pathElements.get(0);
+            } else if (pathElements.size() == 2) {
+                CategoryWorker.setTrail(request, pathElements.get(1), pathElements.get(0));
+                categoryId = pathElements.get(1);
+            } else if (pathElements.size() > 2) {
+                List<String> trail = CategoryWorker.getTrail(request);
+                if (trail == null) {
+                    trail = new LinkedList<>();
                 }
-                trail.addAll(pathElements);
-            } else {
-                // first category is NOT in the trail, so clear out the trail and use the pathElements list
-                trail.clear();
-                trail.addAll(pathElements);
+
+                if (trail.contains(pathElements.get(0))) {
+                    // first category is in the trail, so remove it everything after that and fill it in with the list from the pathInfo
+                    int firstElementIndex = trail.indexOf(pathElements.get(0));
+                    while (trail.size() > firstElementIndex) {
+                        trail.remove(firstElementIndex);
+                    }
+                    trail.addAll(pathElements);
+                } else {
+                    // first category is NOT in the trail, so clear out the trail and use the pathElements list
+                    trail.clear();
+                    trail.addAll(pathElements);
+                }
+                CategoryWorker.setTrail(request, trail);
+                categoryId = pathElements.get(pathElements.size() - 1);
             }
-            CategoryWorker.setTrail(request, trail);
-            categoryId = pathElements.get(pathElements.size() - 1);
-        }
-        if (categoryId != null) {
-            request.setAttribute("productCategoryId", categoryId);
-        }
+            if (categoryId != null) {
+                request.setAttribute("productCategoryId", categoryId);
+            }
 
-        String rootCategoryId = null;
-        if (pathElements.size() >= 1) {
-            rootCategoryId = pathElements.get(0);
-        }
-        if (rootCategoryId != null) {
-            request.setAttribute("rootCategoryId", rootCategoryId);
-        }
+            String rootCategoryId = null;
+            if (pathElements.size() >= 1) {
+                rootCategoryId = pathElements.get(0);
+            }
+            if (rootCategoryId != null) {
+                request.setAttribute("rootCategoryId", rootCategoryId);
+            }
 
-        if (productId != null) {
-            request.setAttribute("product_id", productId);
-            request.setAttribute("productId", productId);
-        }
+            if (productId != null) {
+                request.setAttribute("product_id", productId);
+                request.setAttribute("productId", productId);
+            }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/" + WebAppUtil.CONTROL_MOUNT_POINT + "/" + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
-        rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/" + WebAppUtil.CONTROL_MOUNT_POINT + "/" + (productId != null ? PRODUCT_REQUEST
+                    : CATEGORY_REQUEST));
+            rd.forward(request, response);
         }
     }
 

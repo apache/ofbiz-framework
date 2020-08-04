@@ -51,75 +51,12 @@ import org.apache.ofbiz.base.location.ComponentLocationResolver;
 
 /**
  * File Utilities
- *
  */
 public final class FileUtil {
 
     private static final String MODULE = FileUtil.class.getName();
 
-    private FileUtil () {}
-
-    private static class SearchTextFilesFilter implements FilenameFilter {
-        String fileExtension;
-        Set<String> stringsToFindInFile = new HashSet<>();
-        Set<String> stringsToFindInPath = new HashSet<>();
-
-        public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
-            this.fileExtension = fileExtension;
-            if (stringsToFindInPath != null) {
-                this.stringsToFindInPath.addAll(stringsToFindInPath);
-            }
-            if (stringsToFindInFile != null) {
-                this.stringsToFindInFile.addAll(stringsToFindInFile);
-            }
-        }
-
-        @Override
-        public boolean accept(File dir, String name) {
-            File file = new File(dir, name);
-            if (file.getName().startsWith(".")) {
-                return false;
-            }
-            if (file.isDirectory()) {
-                return true;
-            }
-
-            boolean hasAllPathStrings = true;
-            String fullPath = dir.getPath().replace('\\', '/');
-            for (String pathString: stringsToFindInPath) {
-                if (fullPath.indexOf(pathString) < 0) {
-                    hasAllPathStrings = false;
-                    break;
-                }
-            }
-
-            if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
-                if (stringsToFindInFile.size() == 0) {
-                    return true;
-                }
-                StringBuffer xmlFileBuffer = null;
-                try {
-                    xmlFileBuffer = FileUtil.readTextFile(file, true);
-                } catch (IOException e) {
-                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), MODULE);
-                    return false;
-                }
-                if (UtilValidate.isNotEmpty(xmlFileBuffer)) {
-                    boolean hasAllStrings = true;
-                    for (String stringToFile: stringsToFindInFile) {
-                        if (xmlFileBuffer.indexOf(stringToFile) < 0) {
-                            hasAllStrings = false;
-                            break;
-                        }
-                    }
-                    return hasAllStrings;
-                }
-            } else {
-                return false;
-            }
-            return false;
-        }
-    }
+    private FileUtil() { }
 
     public static File getFile(String path) {
         return getFile(null, path);
@@ -154,9 +91,7 @@ public final class FileUtil {
 
     public static void writeString(String path, String name, String s) {
 
-        try (
-        Writer out = getBufferedWriter(path, name);
-        ) {
+        try (Writer out = getBufferedWriter(path, name);) {
             out.write(s + System.getProperty("line.separator"));
         } catch (IOException e) {
             Debug.logError(e, MODULE);
@@ -243,8 +178,7 @@ public final class FileUtil {
         }
 
         StringBuffer buf = new StringBuffer();
-        try (
-                BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
 
             String str;
             while ((str = in.readLine()) != null) {
@@ -259,6 +193,7 @@ public final class FileUtil {
 
         return buf;
     }
+
     public static StringBuffer readTextFile(String fileName, boolean newline) throws FileNotFoundException, IOException {
         File file = new File(fileName);
         return readTextFile(file, newline);
@@ -303,10 +238,10 @@ public final class FileUtil {
         Set<String> stringsToFindInFile = new HashSet<>();
 
         if (partialPath != null) {
-           stringsToFindInPath.add(partialPath);
+            stringsToFindInPath.add(partialPath);
         }
         if (stringToFind != null) {
-           stringsToFindInFile.add(stringToFind);
+            stringsToFindInFile.add(stringToFind);
         }
 
         List<File> fileList = new LinkedList<>();
@@ -339,75 +274,67 @@ public final class FileUtil {
     }
 
     /**
-    *
-    *
-    * Search for the specified <code>searchString</code> in the given
-    * {@link Reader}.
-    *
-    * @param reader A Reader in which the String will be searched.
-    * @param searchString The String to search for
-    * @return <code>TRUE</code> if the <code>searchString</code> is found;
-    *         <code>FALSE</code> otherwise.
-    * @throws IOException
-    */
-   public static boolean containsString(Reader reader, final String searchString) throws IOException {
-       char[] buffer = new char[1024];
-       int numCharsRead;
-       int count = 0;
-       while((numCharsRead = reader.read(buffer)) > 0) {
-           for (int c = 0; c < numCharsRead; ++c) {
-               if (buffer[c] == searchString.charAt(count)) {
-                   count++;
-               } else {
-                   count = 0;
-               }
-               if (count == searchString.length()) {
-                   return true;
-               }
-           }
-       }
-       return false;
-   }
+     * Search for the specified <code>searchString</code> in the given
+     * {@link Reader}.
+     *
+     * @param reader       A Reader in which the String will be searched.
+     * @param searchString The String to search for
+     * @return <code>TRUE</code> if the <code>searchString</code> is found;
+     * <code>FALSE</code> otherwise.
+     * @throws IOException
+     */
+    public static boolean containsString(Reader reader, final String searchString) throws IOException {
+        char[] buffer = new char[1024];
+        int numCharsRead;
+        int count = 0;
+        while ((numCharsRead = reader.read(buffer)) > 0) {
+            for (int c = 0; c < numCharsRead; ++c) {
+                if (buffer[c] == searchString.charAt(count)) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count == searchString.length()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-   /**
-    *
-    *
-    * Search for the specified <code>searchString</code> in the given
-    * filename. If the specified file doesn't exist, <code>FALSE</code>
-    * returns.
-    *
-    * @param fileName A full path to a file in which the String will be searched.
-    * @param searchString The String to search for
-    * @return <code>TRUE</code> if the <code>searchString</code> is found;
-    *         <code>FALSE</code> otherwise.
-    * @throws IOException
-    */
-   public static boolean containsString(final String fileName, final String searchString) throws IOException {
-       File inFile = new File(fileName);
-       if (inFile.exists()) {
-            try (
-           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),StandardCharsets.UTF_8));
-            ) {
-               return containsString(in, searchString);
-           }
-       }
-       return false;
-   }
+    /**
+     * Search for the specified <code>searchString</code> in the given
+     * filename. If the specified file doesn't exist, <code>FALSE</code>
+     * returns.
+     *
+     * @param fileName     A full path to a file in which the String will be searched.
+     * @param searchString The String to search for
+     * @return <code>TRUE</code> if the <code>searchString</code> is found;
+     * <code>FALSE</code> otherwise.
+     * @throws IOException
+     */
+    public static boolean containsString(final String fileName, final String searchString) throws IOException {
+        File inFile = new File(fileName);
+        if (inFile.exists()) {
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile), StandardCharsets.UTF_8));) {
+                return containsString(in, searchString);
+            }
+        }
+        return false;
+    }
 
-   /**
-   *
-   *
-   * Check if the specified <code>fileName</code> exists and is a file (not a directory)
-   * If the specified file doesn't exist or is a directory <code>FALSE</code> returns.
-   *
-   * @param fileName A full path to a file in which the String will be searched.
-   * @return <code>TRUE</code> if the <code>fileName</code> exists and is a file (not a directory)
-   *         <code>FALSE</code> otherwise.
-   */
-   public static boolean isFile(String fileName) {
-       File f = new File(fileName);
-       return f.isFile();
-   }
+    /**
+     * Check if the specified <code>fileName</code> exists and is a file (not a directory)
+     * If the specified file doesn't exist or is a directory <code>FALSE</code> returns.
+     *
+     * @param fileName A full path to a file in which the String will be searched.
+     * @return <code>TRUE</code> if the <code>fileName</code> exists and is a file (not a directory)
+     * <code>FALSE</code> otherwise.
+     */
+    public static boolean isFile(String fileName) {
+        File f = new File(fileName);
+        return f.isFile();
+    }
 
     /**
      * For an inputStream and a file name, create a zip stream containing only one entry with the inputStream set to fileName
@@ -488,28 +415,90 @@ public final class FileUtil {
         zis.closeEntry();
         zis.close();
     }
-    
+
     /**
      * Creates a File with a normalized file path
-     * This useful to prevent path traversal security issues 
-     * cf. OFBIZ-9973 for more details 
+     * This useful to prevent path traversal security issues
+     * cf. OFBIZ-9973 for more details
      *
      * @param filePath The file path to normalize
      * @return A File with a normalized file path
      */
     public static File createFileWithNormalizedPath(String filePath) {
-        return new File(filePath).toPath().normalize().toFile(); 
+        return new File(filePath).toPath().normalize().toFile();
     }
-    
+
     /**
      * Normalizes a file path
-     * This useful to prevent path traversal security issues 
+     * This useful to prevent path traversal security issues
      *
      * @param filePath The file path to normalize
      * @return A normalized file path
      */
     public static String normalizeFilePath(String filePath) {
-        return createFileWithNormalizedPath(filePath).toString(); 
+        return createFileWithNormalizedPath(filePath).toString();
     }
-    
+
+    private static class SearchTextFilesFilter implements FilenameFilter {
+        String fileExtension;
+        Set<String> stringsToFindInFile = new HashSet<>();
+        Set<String> stringsToFindInPath = new HashSet<>();
+
+        public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
+            this.fileExtension = fileExtension;
+            if (stringsToFindInPath != null) {
+                this.stringsToFindInPath.addAll(stringsToFindInPath);
+            }
+            if (stringsToFindInFile != null) {
+                this.stringsToFindInFile.addAll(stringsToFindInFile);
+            }
+        }
+
+        @Override
+        public boolean accept(File dir, String name) {
+            File file = new File(dir, name);
+            if (file.getName().startsWith(".")) {
+                return false;
+            }
+            if (file.isDirectory()) {
+                return true;
+            }
+
+            boolean hasAllPathStrings = true;
+            String fullPath = dir.getPath().replace('\\', '/');
+            for (String pathString : stringsToFindInPath) {
+                if (fullPath.indexOf(pathString) < 0) {
+                    hasAllPathStrings = false;
+                    break;
+                }
+            }
+
+            if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
+                if (stringsToFindInFile.size() == 0) {
+                    return true;
+                }
+                StringBuffer xmlFileBuffer = null;
+                try {
+                    xmlFileBuffer = FileUtil.readTextFile(file, true);
+                } catch (IOException e) {
+                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), MODULE);
+                    return false;
+                }
+                if (UtilValidate.isNotEmpty(xmlFileBuffer)) {
+                    boolean hasAllStrings = true;
+                    for (String stringToFile : stringsToFindInFile) {
+                        if (xmlFileBuffer.indexOf(stringToFile) < 0) {
+                            hasAllStrings = false;
+                            break;
+                        }
+                    }
+                    return hasAllStrings;
+                }
+            } else {
+                return false;
+            }
+            return false;
+        }
+    }
+
 }

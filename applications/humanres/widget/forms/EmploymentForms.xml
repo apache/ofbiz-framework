@@ -123,7 +123,7 @@
             </drop-down>
         </field>
         <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}"><hidden/></field>
-        <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" required-field="true"><lookup target-form-name="LookupEmployee"/></field>
         <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResEmployeePartyIdTo}"><hidden/></field>
         <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonFromDate}"><display default-value="${nowTimestamp}"/></field>

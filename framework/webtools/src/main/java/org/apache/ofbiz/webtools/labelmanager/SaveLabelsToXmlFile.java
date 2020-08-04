@@ -113,7 +113,7 @@ public class SaveLabelsToXmlFile {
                 Document resourceDocument = UtilXml.makeEmptyXmlDocument("resource");
                 Element resourceElem = resourceDocument.getDocumentElement();
                 resourceElem.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-                resourceElem.setAttribute("xsi:noNamespaceSchemaLocation","http://ofbiz.apache.org/dtds/ofbiz-properties.xsd");
+                resourceElem.setAttribute("xsi:noNamespaceSchemaLocation", "http://ofbiz.apache.org/dtds/ofbiz-properties.xsd");
                 for (String labelKey : labelsList) {
                     LabelInfo labelInfo = labels.get(labelKey);
                     if (!(labelInfo.getFileName().equalsIgnoreCase(fileName))) {

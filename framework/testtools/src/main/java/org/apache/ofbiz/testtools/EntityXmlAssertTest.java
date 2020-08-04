@@ -43,7 +43,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
     /**
      * Tests of entity xml
      * @param caseName test case name
-     * @param mainElement DOM main element 
+     * @param mainElement DOM main element
      */
     public EntityXmlAssertTest(String caseName, Element mainElement) {
         super(caseName);

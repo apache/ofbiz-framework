@@ -363,8 +363,8 @@ public class FinAccountPaymentServices {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
-        Debug.logInfo("Financial account capture [" + finAccountAuth.get("finAccountId") + "] for the amount of $" +
-                amount + " Tx #" + finAccountAuth.get("finAccountAuthId"), MODULE);
+        Debug.logInfo("Financial account capture [" + finAccountAuth.get("finAccountId") + "] for the amount of $"
+                + amount + " Tx #" + finAccountAuth.get("finAccountAuthId"), MODULE);
 
         // get the financial account
         GenericValue finAccount;

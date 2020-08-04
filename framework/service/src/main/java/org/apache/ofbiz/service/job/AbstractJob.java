@@ -116,7 +116,7 @@ public abstract class AbstractJob implements Job {
         return (Date) startTime.clone();
     }
 
-    /* 
+    /*
      * Returns JobPriority.NORMAL, the default setting
      */
     @Override

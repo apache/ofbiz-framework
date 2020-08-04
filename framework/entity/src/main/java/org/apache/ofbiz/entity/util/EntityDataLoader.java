@@ -175,7 +175,7 @@ public class EntityDataLoader {
                             }
                         }
                     }
-                    Collections.sort(tempFileList);
+                    tempFileList.sort(null);
                     for (File dataFile: tempFileList) {
                         if (dataFile.exists()) {
                             URL url = null;
@@ -247,7 +247,9 @@ public class EntityDataLoader {
             return 0;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", MODULE);
+        }
 
         try {
             /* The OLD way

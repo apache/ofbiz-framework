@@ -95,7 +95,7 @@ public class ModelParam implements Serializable {
     /** Is this Parameter set internally? */
     public boolean internal = false;
 
-    public ModelParam() {}
+    public ModelParam() { }
 
     public ModelParam(ModelParam param) {
         this.name = param.name;
@@ -206,7 +206,9 @@ public class ModelParam implements Serializable {
         if (this.defaultValue != null) {
             this.optional = true;
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", MODULE);
+        }
     }
     public void copyDefaultValue(ModelParam param) {
         this.setDefaultValue(param.defaultValue.getOriginal());

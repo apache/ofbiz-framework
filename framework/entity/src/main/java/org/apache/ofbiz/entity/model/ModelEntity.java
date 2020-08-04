@@ -462,7 +462,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     /**
      * An indicator to specific if this entity should ignore automatic DB checks.
      * This should be set when the entity is mapped to a database view to prevent
-     * warnings and attempts to modify the schema.     
+     * warnings and attempts to modify the schema.
      */
     public boolean getNeverCheck() {
         return neverCheck;
@@ -689,7 +689,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      */
     public List<String> getAutomaticFieldNames() {
         List<String> nameList = new LinkedList<>();
-        if (! this.noAutoStamp) {
+        if (!this.noAutoStamp) {
             nameList.add(STAMP_FIELD);
             nameList.add(STAMP_TX_FIELD);
             nameList.add(CREATE_STAMP_FIELD);
@@ -972,7 +972,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return colNameString(new StringBuilder(), "", flds).toString();
     }
 
-    public StringBuilder colNameString(StringBuilder sb, String prefix,  ModelField... flds) {
+    public StringBuilder colNameString(StringBuilder sb, String prefix, ModelField... flds) {
         return colNameString(Arrays.asList(flds), sb, prefix);
     }
 
@@ -1439,8 +1439,8 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
         Element root = document.createElement("entity");
         root.setAttribute("entity-name", this.getEntityName());
-        if (!this.getEntityName().equals(ModelUtil.dbNameToClassName(this.getPlainTableName())) ||
-                !ModelUtil.javaNameToDbName(this.getEntityName()).equals(this.getPlainTableName())) {
+        if (!this.getEntityName().equals(ModelUtil.dbNameToClassName(this.getPlainTableName()))
+                || !ModelUtil.javaNameToDbName(this.getEntityName()).equals(this.getPlainTableName())) {
                 root.setAttribute("table-name", this.getPlainTableName());
         }
         root.setAttribute("package-name", packageName);
@@ -1612,7 +1612,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf('(')));
                 // since there is a field length set that
                 String widthStr = sqlType.substring(sqlType.indexOf('(') + 1, sqlType.indexOf(')'));
-                // if there is a comma split by it for width,precision
+                // if there is a comma split by it for width, precision
                 if (widthStr.indexOf(',') >= 0) {
                     attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(',')));
                     // since there is a field precision set that

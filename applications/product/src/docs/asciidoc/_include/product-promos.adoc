@@ -1,0 +1,60 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Promotions
+
+==  Similar to Price Rules
+Promotions are similar to Price Rules (see Price Rules, below) but are used to record special promotional offers which
+apply to the entire order, rather than prices for a particular product.
+
+For example, the promotional manager can be used to set up rules to give customers a percentage discount if they purchase
+a minimum quantity, or to create a coupon code.
+
+[NOTE]
+Promotions are tied to specific stores, whereas price rules are applicable to all products +
+(although you can specify the website, product catalog, or category for which a price rule is applicable).
+
+== Opening Screen
+The opening screen lists all promotions which are currently available and a link for creating additional promotions; +
+click on one to go to a promotion.
+
+You will also see a series of four tabs: [Promo], [Rules], [Stores] and [Codes].
+
+== Promo tab
+At the top is general information about this promotion.
+
+Each promotion has an ID, a name and a longer descriptive text, which are shown to customers.
+
+If no text is entered, Apache OFBiz will automatically generate text for you.
+
+== Rules tab
+Rules for promotions are used to determine what actions should be taken in the promotion.
+
+Each promotion can have multiple rules, and each rule can have multiple conditions and actions.
+
+If a promotion had multiple rules, they would all be checked in sequence, and the rules whose conditions were true
+will be activated.
+This is especially helpful for complicated promotions that have multiple offers.
+
+== Stores tab
+The stores tab shows a list of product stores in which this promotion is active.
+
+You can add additional stores here or delete them.
+
+==  Codes tab
+The codes tab is used to associate codes for a promotion, similar to coupon codes.

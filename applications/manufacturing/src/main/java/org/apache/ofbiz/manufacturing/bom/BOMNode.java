@@ -121,15 +121,15 @@ public class BOMNode {
             if (oneChildNode != null) {
                 oneChildNode.setParentNode(this);
                 switch (type) {
-                    case BOMTree.EXPLOSION:
-                        oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
-                    break;
-                    case BOMTree.EXPLOSION_MANUFACTURING:
-                        // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item
-                        if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
-                            oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
-                        }
-                    break;
+                case BOMTree.EXPLOSION:
+                    oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
+                break;
+                case BOMTree.EXPLOSION_MANUFACTURING:
+                    // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item
+                    if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
+                        oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
+                    }
+                break;
                 }
             }
             childrenNodes.add(oneChildNode);
@@ -194,9 +194,9 @@ public class BOMNode {
         return oneChildNode;
     }
 
-    private BOMNode configurator(GenericValue node, List<GenericValue> productFeatures, 
+    private BOMNode configurator(GenericValue node, List<GenericValue> productFeatures,
             String productIdForRules, Date inDate) throws GenericEntityException {
-        BOMNode oneChildNode = new BOMNode((String)node.get("productIdTo"), delegator, dispatcher, userLogin);
+        BOMNode oneChildNode = new BOMNode((String) node.get("productIdTo"), delegator, dispatcher, userLogin);
         oneChildNode.setTree(tree);
         oneChildNode.setProductAssoc(node);
         try {
@@ -367,7 +367,7 @@ public class BOMNode {
     }
 
     public BOMNode getRootNode() {
-        return (parentNode != null? getParentNode(): this);
+        return (parentNode != null ? getParentNode() : this);
     }
     /** Setter for property parentNode.
      * @param parentNode New value of property parentNode.
@@ -436,7 +436,7 @@ public class BOMNode {
                     String errorMessage = ServiceUtil.getErrorMessage(resultContext);
                     Debug.logError(errorMessage, MODULE);
                 }
-                BigDecimal calcQuantity = (BigDecimal)resultContext.get("quantity");
+                BigDecimal calcQuantity = (BigDecimal) resultContext.get("quantity");
                 if (calcQuantity != null) {
                     this.quantity = calcQuantity;
                 }
@@ -570,8 +570,8 @@ public class BOMNode {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                     Debug.logError(errorMessage, MODULE);
                 }
-                productionRunId = (String)serviceResult.get("productionRunId");
-                endDate = (Timestamp)serviceResult.get("estimatedCompletionDate");
+                productionRunId = (String) serviceResult.get("productionRunId");
+                endDate = (Timestamp) serviceResult.get("estimatedCompletionDate");
             } catch (GenericServiceException e) {
                 Debug.logError("Problem calling the createProductionRun service", MODULE);
             }
@@ -581,8 +581,8 @@ public class BOMNode {
                         delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
                     }
                     for (String childProductionRun : childProductionRuns) {
-                        delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", childProductionRun
-                                , "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
+                        delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", childProductionRun,
+                                "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
                     }
                 }
             } catch (GenericEntityException e) {
@@ -653,7 +653,7 @@ public class BOMNode {
     /**
      * A part is considered manufactured if it has child nodes AND unless ignoreSupplierProducts is set, if it also has no unexpired SupplierProducts defined
      * @param ignoreSupplierProducts
-     * @return return if a part is considered manufactured 
+     * @return return if a part is considered manufactured
      */
     public boolean isManufactured(boolean ignoreSupplierProducts) {
         List<GenericValue> supplierProducts = null;
@@ -675,7 +675,7 @@ public class BOMNode {
     }
 
     public boolean isVirtual() {
-        return (product.get("isVirtual") != null? "Y".equals(product.get("isVirtual")): false);
+        return (product.get("isVirtual") != null ? "Y".equals(product.get("isVirtual")) : false);
     }
 
     public void isConfigured(List<BOMNode> arr) {

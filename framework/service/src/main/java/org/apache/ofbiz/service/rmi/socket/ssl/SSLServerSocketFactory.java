@@ -42,7 +42,7 @@ import org.apache.ofbiz.base.util.SSLUtil;
 @SuppressWarnings("serial")
 public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializable {
 
-    private static final String MODULE =  SSLServerSocketFactory.class.getName();
+    private static final String MODULE = SSLServerSocketFactory.class.getName();
     protected boolean clientAuth = false;
     protected String keystore = null;
     protected String ksType = null;

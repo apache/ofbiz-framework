@@ -87,8 +87,7 @@ public class WorkEffortServices {
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
                         EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
-                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED")
-               );
+                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
                 validWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssign").where(ecl).orderBy("estimatedStartDate", "priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
@@ -381,7 +380,7 @@ public class WorkEffortServices {
             dateBoundaries.add(inDateRange.end());
         }
         for (Map<String, Object>calendarEntry: calendarEntries) {
-            DateRange calEntryRange = (DateRange)calendarEntry.get("calEntryRange");
+            DateRange calEntryRange = (DateRange) calendarEntry.get("calEntryRange");
             dateBoundaries.add(calEntryRange.start());
             dateBoundaries.add(calEntryRange.end());
         }
@@ -390,7 +389,7 @@ public class WorkEffortServices {
             if (prevDateBoundary != null) {
                 DateRange dateRange = new DateRange(prevDateBoundary, dateBoundary);
                 for (Map<String, Object>calendarEntry: calendarEntries) {
-                    DateRange calEntryRange = (DateRange)calendarEntry.get("calEntryRange");
+                    DateRange calEntryRange = (DateRange) calendarEntry.get("calEntryRange");
                     if (calEntryRange.intersectsRange(dateRange) && !(calEntryRange.end().equals(dateRange.start()) || calEntryRange.start().equals(dateRange.end()))) {
                         List<Map<String, Object>> calendarEntryByDateRangeList = calendarEntriesByDateRange.get(dateRange);
                         if (calendarEntryByDateRangeList == null) {
@@ -419,22 +418,19 @@ public class WorkEffortServices {
             // public events are always included to the "personal calendar"
             List<EntityCondition> publicEvents = UtilMisc.<EntityCondition>toList(
                     EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
-                    EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT")
-                    );
+                    EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT"));
             if (UtilValidate.isNotEmpty(partyIds)) {
                 entityExprList.add(
                         EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds),
-                                EntityCondition.makeCondition(publicEvents, EntityJoinOperator.AND)
-                        ), EntityJoinOperator.OR));
+                                EntityCondition.makeCondition(publicEvents, EntityJoinOperator.AND)), EntityJoinOperator.OR));
             }
         }
         if ("CAL_MANUFACTURING".equals(calendarType)) {
             entityExprList.add(
                     EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"),
-                            EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK")
-                    ), EntityJoinOperator.OR));
+                            EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK")), EntityJoinOperator.OR));
         }
         EntityCondition typesCondition = null;
         if (typesList.size() == 0) {
@@ -591,8 +587,7 @@ public class WorkEffortServices {
         // should have at least a start date
         EntityCondition startDateRequired = EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                 EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
-                EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null)
-        ), EntityJoinOperator.OR);
+                EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null)), EntityJoinOperator.OR);
 
         List<EntityCondition> periodCheckAndlList = UtilMisc.<EntityCondition>toList(
                 startDateRequired,
@@ -601,32 +596,30 @@ public class WorkEffortServices {
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                                 EntityCondition.makeCondition("actualStartDate", EntityOperator.EQUALS, null),
                                 EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
-                                EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
-                        ), EntityJoinOperator.AND),
+                                EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)),
+                                EntityJoinOperator.AND),
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                                 EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null),
-                                EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
-                        ), EntityJoinOperator.AND)
-                ), EntityJoinOperator.OR),
+                                EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)), EntityJoinOperator.AND)),
+                        EntityJoinOperator.OR),
                 // if the completion date is not null then it should be larger than the period start
                 EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                         // can also be empty
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                                 EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.EQUALS, null),
-                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null)
-                        ), EntityJoinOperator.AND),
+                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null)),
+                                EntityJoinOperator.AND),
                         // check estimated value if the actual is not provided
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                                 EntityCondition.makeCondition("actualCompletionDate", EntityOperator.EQUALS, null),
                                 EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.NOT_EQUAL, null),
-                                EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
-                        ), EntityJoinOperator.AND),
+                                EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)),
+                                EntityJoinOperator.AND),
                         // at last check the actual value
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                                 EntityCondition.makeCondition("actualCompletionDate", EntityOperator.NOT_EQUAL, null),
-                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
-                        ), EntityJoinOperator.AND)
-                ), EntityJoinOperator.OR));
+                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)),
+                                EntityJoinOperator.AND)), EntityJoinOperator.OR));
 
         entityExprList.addAll(periodCheckAndlList);
 
@@ -822,7 +815,7 @@ public class WorkEffortServices {
                     quantitySummary.put("facilityId", weFacilityId);
                     summaryInByFacility.put(weFacilityId, quantitySummary);
                 }
-                Double remainingQuantityTot = (Double)quantitySummary.get("estimatedQuantityTotal");
+                Double remainingQuantityTot = (Double) quantitySummary.get("estimatedQuantityTotal");
                 if (remainingQuantityTot == null) {
                     quantitySummary.put("estimatedQuantityTotal", remainingQuantity);
                 } else {
@@ -870,7 +863,7 @@ public class WorkEffortServices {
                     quantitySummary.put("facilityId", weFacilityId);
                     summaryOutByFacility.put(weFacilityId, quantitySummary);
                 }
-                Double remainingQuantityTot = (Double)quantitySummary.get("estimatedQuantityTotal");
+                Double remainingQuantityTot = (Double) quantitySummary.get("estimatedQuantityTotal");
                 if (remainingQuantityTot == null) {
                     quantitySummary.put("estimatedQuantityTotal", neededQuantity);
                 } else {

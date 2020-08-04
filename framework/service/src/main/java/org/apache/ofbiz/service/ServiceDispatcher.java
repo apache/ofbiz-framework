@@ -104,7 +104,7 @@ public final class ServiceDispatcher {
             try {
                 int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.instanceId);
                 if (rn > 0) {
-                    Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors." , MODULE);
+                    Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors.", MODULE);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
@@ -119,8 +119,7 @@ public final class ServiceDispatcher {
                     origDelegator = DelegatorFactory.getDelegator(this.delegator.getOriginalDelegatorName());
                 }
                 this.jm = JobManager.getInstance(origDelegator, enableJM);
-            }
-            catch (GeneralRuntimeException e) {
+            } catch (GeneralRuntimeException e) {
                 Debug.logWarning(e.getMessage(), MODULE);
             }
         } else {
@@ -163,7 +162,9 @@ public final class ServiceDispatcher {
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
         sd = dispatchers.get(dispatcherKey);
         if (sd == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", MODULE);
+            }
             sd = new ServiceDispatcher(delegator);
             ServiceDispatcher cachedDispatcher = dispatchers.putIfAbsent(dispatcherKey, sd);
             if (cachedDispatcher == null) {
@@ -195,10 +196,10 @@ public final class ServiceDispatcher {
         localContext.remove(local.getName());
         if (localContext.size() == 0) {
             try {
-                 this.shutdown();
-             } catch (GenericServiceException e) {
-                 Debug.logError(e, "Trouble shutting down ServiceDispatcher!", MODULE);
-             }
+                this.shutdown();
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Trouble shutting down ServiceDispatcher!", MODULE);
+            }
         }
     }
 
@@ -285,8 +286,10 @@ public final class ServiceDispatcher {
             }
 
             if (Debug.verboseOn() || modelService.debug) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location +
-                    "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location
+                            + "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
+                }
             }
 
             Map<String, Object> context = new HashMap<>();
@@ -480,8 +483,8 @@ public final class ServiceDispatcher {
                             // look for lock wait timeout error, retry in a different way by running after the parent transaction finishes, ie attach to parent tx
                             // - Derby 10.2.2.0 lock wait timeout string: "A lock could not be obtained within the time requested"
                             // - MySQL ? lock wait timeout string: "Lock wait timeout exceeded; try restarting transaction"
-                            if (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0 ||
-                                    errMsg.indexOf("Lock wait timeout exceeded") >= 0) {
+                            if (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0
+                                    || errMsg.indexOf("Lock wait timeout exceeded") >= 0) {
                                 // TODO: add to run after parent tx
                             }
                         }
@@ -549,7 +552,7 @@ public final class ServiceDispatcher {
                 } else if (t instanceof GenericServiceException) {
                     throw (GenericServiceException) t;
                 } else {
-                    throw new GenericServiceException("Service [" + modelService.name + "] Failed" + modelService.debugInfo() , t);
+                    throw new GenericServiceException("Service [" + modelService.name + "] Failed" + modelService.debugInfo(), t);
                 }
             } finally {
                 // if there was an error, rollback transaction, otherwise commit
@@ -629,7 +632,9 @@ public final class ServiceDispatcher {
             if (resultStr.length() > 10240) {
                 resultStr = resultStr.substring(0, 10226) + "...[truncated]";
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", MODULE);
+            }
         }
         if (modelService.metrics != null) {
             modelService.metrics.recordServiceRate(1, timeToRun);
@@ -653,8 +658,10 @@ public final class ServiceDispatcher {
             UtilTimer.timerLog(localName + " / " + service.name, "ASync service started...", MODULE);
         }
         if (Debug.verboseOn() || service.debug) {
-            if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke +
-                "] (" + service.engineName + ")", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke
+                        + "] (" + service.engineName + ")", MODULE);
+            }
         }
 
         Map<String, Object> context = new HashMap<>();
@@ -771,7 +778,7 @@ public final class ServiceDispatcher {
                 } else if (t instanceof GenericServiceException) {
                     throw (GenericServiceException) t;
                 } else {
-                    throw new GenericServiceException("Service [" + service.name + "] Failed" + service.debugInfo() , t);
+                    throw new GenericServiceException("Service [" + service.name + "] Failed" + service.debugInfo(), t);
                 }
             } finally {
                 // always try to commit the transaction since we don't know in this case if its was an error or not
@@ -969,7 +976,9 @@ public final class ServiceDispatcher {
     private GenericValue getLoginObject(String service, String localName, String username, String password, String jwtToken, Locale locale) throws GenericServiceException {
         Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "login.token", jwtToken, "isServiceAuth", true, "locale", locale);
 
-        if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", MODULE);
+        }
 
         // get the dispatch context and service model
         DispatchContext dctx = getLocalContext(localName);

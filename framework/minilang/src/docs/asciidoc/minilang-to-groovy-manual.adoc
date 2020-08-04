@@ -1,0 +1,884 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= From Mini Language to Groovy
+:author: Dennis Balkir
+
+This is a small guide for everybody involved in converting the Mini Language into Groovy.
+
+IMPORTANT: *Why is this important?* +
+This tutorial is directly linked to the efforts of converting all scripts in Mini Language to newer Groovy Scripts.
+All of this is done, because Groovy is much more readable and easier to review, more up to date and many other reasons, which can be found here: https://lists.apache.org/thread.html/253b41060a295b8ab68bc78763cc129fc74b712cf776f8716022097f@%3Cdev.ofbiz.apache.org%3E[Proposal for deprecating Mini Language] +
+ +
+To contribute, or just be up to date with the current process, you can look at the existing https://issues.apache.org/jira/browse/OFBIZ-9350[JIRA issue OFBIZ-9350 - Deprecate Mini Lang]
+
+[NOTE]
+For memory, a description of the Mini Language guide can be found at the https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference[OFBiz wiki - Mini Language Reference]
+
+== Groovy DSL (dynamic scripting library)
+
+=== How to get Groovy support in your IDE
+*The following paragraph is for Eclipse users.*
+
+It is possible to get Groovy support in Eclipse by converting the loaded project to a Groovy Project. The project itself will work as before.
+
+To do this just follow these few steps:
+
+. Right-click on the project that has to be converted
+. Click on "Configure"
+. Click on "Convert to Groovy Project"
+
+Eclipse will automatically load the file OfbizDslDescriptorForEclipse.dsld , in which the known fields and methods used in Groovy Scripts are defined.
+
+=== Known Fields
+`*property name: 'parameters' +
+type : 'java.util.Map'*` +
+These are the parameters given to the Groovy Script, when it is called as a service. It is equivalent to `Map<String, Object>` context in the Java-Service-Definition. +
+ +
+`*property name: 'context' +
+type: 'java.util.Map'*` +
+More parameters, which are, for example, given through a screen or another Groovy Script. This is important when the script is called through an action segment of a screen. +
+ +
+`*property name: 'delegator' +
+type: 'org.apache.ofbiz.entity.Delegator'*` +
+Normal instance of the Delegator, which is used for special database access. +
+ +
+`*property name: 'dispatcher' +
+type: 'org.apache.ofbiz.service.LocalDispatcher'*` +
+Normal instance of the LocalDispatcher, which is used to call services and other service-like operations. +
+ +
+`*property name: 'security' +
+type: 'org.apache.ofbiz.security.Security'*` +
+Normal instance of the Security-Interface with which permission checks are done.
+
+=== Known Methods
+`*method name: 'runService' +
+type: 'java.util.Map' +
+params: [serviceName: 'String', inputMap: 'java.util.Map']*` +
+Helping method to call services instead of dispatcher.runSync(serviceName, inputMap). Also possible: run service: serviceName, with: inputMap +
+ +
+`*method name: 'makeValue' +
+type: 'java.util.Map' +
+params: [entityName: 'String']*` +
+Helping method to make a GenericValue instead of delegator.makeValue(entityName). Creates an empty GenericValue of the specific entity. +
+ +
+`*method name: 'findOne' +
+type: 'java.util.Map' +
+params: [entityName: 'String', inputMap: 'java.util.Map']*` +
+Helping method to find one GenericValue in the database. Used instead of delegator.findOne(entityName, inputMap) +
+ +
+`*method name: 'findList' +
+type: 'java.util.List' +
+params: [entityName: 'String', inputMap: 'java.util.Map']*` +
+Helping method to find many GenericValue in the database. Used instead of delegator.findList(entityName, inputMap, null, null, null, false) +
+ +
+`*method name: 'select' +
+type: 'org.apache.ofbiz.entity.util.EntityQuery' +
+params: [entity: 'java.util.Set']*` +
+Helping method used instead of EntityQuery.use(delegator).select(...) +
+ +
+`*method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'String...']*` +
+As above. +
+ +
+`*method name: 'from' +
+type: 'org.apache.ofbiz.entity.util.EntityQuery' +
+params: [entity: 'java.lang.Object']*` +
+Helping method used instead of EntityQuery.use(delegator).from(...) +
+ +
+`*method name: 'success' +
+type: 'def' +
+params: [message: 'String']*` +
+Helping method used instead of ServiceUtil.returnSuccess(message) +
+ +
+`*method name: 'failure' +
+type: 'java.util.Map' +
+params: [message: 'String']*` +
+Helping method used instead of ServiceUtil.returnFailure(message) +
+ +
+`*method name: 'error' +
+type: 'def' +
+params: [message: 'String']*` +
+Helping method used instead of ServiceUtil.returnError(message) +
+ +
+`*method name: 'logInfo' +
+type: 'void' +
+params: [message: 'String']*` +
+Helping method used instead of Debug.logInfo(message, fileName) +
+ +
+`*method name: 'logWarning' +
+type: 'void' +
+params: [message: 'String']*` +
+Helping method used instead of Debug.logWarning(message, fileName) +
+ +
+`*method name: 'logError' +
+type: 'void' +
+params: [message: 'String']*` +
+Helping method used instead of Debug.logError(message, fileName) +
+ +
+`*method name: 'logVerbose' +
+type: 'void' +
+params: [message: 'String']*` +
+Helping method used instead of Debug.logVerbose(message, fileName) +
+
+The actual definition of the methods can be found in ``/framework/service/src/main/java/org/apache/ofbiz/service/engine/GroovyBaseScript.groovy`,
+the variables `dctx`, `dispatcher` and `delegator` are set in the file `GroovyEngine.java` which can be found in the same location.
+
+== Services
+=== From MiniLang to Groovy
+
+To see additional examples and finished conversions, which may help with occurring questions, click: https://issues.apache.org/jira/browse/OFBIZ-9350[OFBIZ-9350 - Deprecate Mini Lang]
+There is a chance that a similar case has already been converted.
+
+IMPORTANT: When a simple-method ends, it will automatically at least return a success-map.
+
+All the Groovy Services have to return success at least, too.
+[source,java]
+--
+return success()
+--
+
+=== Getting started
+
+MiniLang files consist of services, which, in most cases, implement services.
+
+The get converted to Groovy like the following:
+[source,xml]
+--
+<!-- This is MiniLang -->
+<simple-method method-name="createProductCategory" short-description="Create an ProductCategory">
+   <!-- Code -->
+</simple-method>
+--
+[source,groovy]
+--
+// This is the converted Groovy equivalent
+/**
+ * Create an ProductCategory
+ */
+def createProductCategory() {
+    // Code
+}
+--
+It will be useful for future developers, and everybody who has to check something in the code, to put at least the short-description as the new Groovydoc. This will hopefully more or less explain, what the method should or shouldn't do.
+If the short-description isn't helpful enough, feel free  complete it.
+
+The structure of if and else in MiniLang is a little different than the one from Groovy or Java and can be a bit confusing when first seen, so here is an example:
+[source,xml]
+--
+<if-empty field="parameters.productCategoryId">
+    <sequenced-id sequence-name="ProductCategory" field="newEntity.productCategoryId"/>
+<else>
+    <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
+    <check-id field="newEntity.productCategoryId"/>
+    <check-errors/>
+</else>
+</if-empty>
+--
+NOTE: Notice, that the else always starts before the if-tag is closed, but sometimes isn't indented as one would expect it.
+
+When navigating through bigger `if`-phrases, the navigation itself will be much easier through just clicking in the opening or closing `if`-tag; Eclipse will automatically mark the matching opening or closing `if`-tag for you.
+
+There are two possibilities to initialize a field/variable in Groovy.
+
+. To define a field/variable with its correct typing +
+`String fieldName = "value"``
+. To just "define" a field/variable. The IDE you are working with may not recognize the typing, but OFBiz can work with it: +
+`def fieldName = "value"`
+
+== Checking Fields
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<if-empty field="fieldName"></if-empty>
+--
+
+a|[source,groovy]
+--
+ //checks if fieldName is existent and/or empty
+if (!fieldName) {}
+--
+
+a|[source,xml]
+--
+<if-empty field="fieldName.property"></if-empty>
+--
+
+a|[source,groovy]
+--
+ // fieldName has to be existent, property doesn't need to
+ // if known, that property does exist, the ? can be left out
+if (!fieldName?.property) {}
+ // CAUTION: every query like this in Groovy evaluates to a Boolean type
+ // everything that is empty or false will turn into false:
+ // null, [], [:], "", false -> false
+
+// if you want to check if the field really is empty
+if (UtilValidate.isEmpty(fieldName)) {}
+--
+
+a|[source,xml]
+--
+<if>
+    <condition>
+        <or>
+            <if-empty field="field1"/>
+            <if-empty field="field2"/>
+        </or>
+    </condition>
+    <then>
+        <!-- code in if -->
+    </then>
+    <else>
+        <!-- code in else -->
+    </else>
+</if>
+--
+
+a|[source,groovy]
+--
+if (!field1 \|\| !field2) {
+ // code in if
+} else {
+ // code in else
+}
+--
+
+a|[source,xml]
+--
+<if-compare-field field="product.primaryProductCategoryId" to-field="parameters.productCategoryId" operator="equals">
+    <!-- code -->
+</if-compare-field>
+--
+
+a|[source,groovy]
+--
+ // this will even work, if product is not existent or null
+if (UtilValidate.areEqual(product?.primaryProductCategoryId, parameters.productCategoryId)) {
+    // code
+}
+--
+
+a|[source,xml]
+--
+<if-instance-of field="parameters.categories" class="java.util.List"></if-instance-of>
+--
+
+a|[source,groovy]
+--
+if (parameters.categories instanceof java.util.List) {}
+--
+
+|===
+== Setting Fields
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<set field="fieldName" value="value"/>
+--
+
+a|[source,groovy]
+--
+ // if fieldName is not initialized
+String fieldName = "value"
+ // if fieldName is initialized
+fieldName = "value"
+--
+
+a|[source,xml]
+--
+<set field="otherFieldName.property" value="value"/>
+<set field="otherFieldName.otherProperty" value="true" type="Boolean"/>
+<set field="otherFieldName.otherProperty" from-field="parameters.property/>
+--
+
+a|[source,groovy]
+--
+ // if otherFieldName is not yet initialized, you have to do it first
+ // MiniLang does that automatically
+Map otherFieldName = [:] // empty Map
+ // now put the values in
+otherFieldName = [
+    property: "value",
+    otherProperty: true
+]
+ // or the less efficient way
+otherFieldName.property = "value"
+otherFieldName.otherProperty = true
+
+ // it is possible to put different values in later:
+otherFieldName.property = parameters.property
+--
+
+a|[source,xml]
+--
+<set field="thisFieldName" value="${groovy: []}" type="List"/>
+--
+
+a|[source,groovy]
+--
+ // this is easier in Groovy
+List thisFieldName = []
+--
+
+a|[source,xml]
+--
+<property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field="failMessage"/>
+<!-- there are different cases of this, which are not distinguished in MiniLang -->
+<property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
+--
+
+a|[source,groovy]
+--
+String failMessage = UtilProperties.getMessage("CommonUiLabels", "CommonGenericPermissionError", parameters.locale)
+ // in Groovy there can be a difference for the second case
+parameters.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+--
+
+a|[source,xml]
+--
+<clear-field field="product.primaryProductCategoryId"/>
+--
+
+a|[source,groovy]
+--
+product.primaryProductCategoryId = null
+--
+|===
+
+== Starting Services
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<set field="relatedCategoryContext.parentProductCategoryId"  from-field="defaultTopCategoryId"/>
+<call-service service-name="getRelatedCategories" in-map-name="relatedCategoryContext">
+    <result-to-field result-name="categories" field="resCategories"/>
+</call-service>
+--
+
+a|[source,groovy]
+--
+def relatedCategoryContext = [parentProductCategoryId: defaultTopCategoryId]
+def serviceResult = run service: "getRelatedCategoryies", with: relatedCategoryContext
+def resCategories = serviceResult.categories
+ // if it is not too confusing to read you can leave out the extra variable
+run service: "getRelatedCategoryies", with: [parentProductCategoryId: defaultTopCategoryId]
+--
+
+a|[source,xml]
+--
+<set-service-fields service-name="productCategoryGenericPermission" map="parameters" to-map="productCategoryGenericPermissionMap"/>
+<call-service service-name="productCategoryGenericPermission" in-map-name="productCategoryGenericPermissionMap">
+    <results-to-map map-name="genericResult"/>
+</call-service>
+--
+
+a|[source,groovy]
+--
+ // instead of setting the service fields from parameters, it is possible to run the service with the parameters map
+Map genericResult = run service: "productCategoryGenericPermission", with: parameters
+--
+
+|===
+== Preparing Service Results
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<field-to-result field="fieldBudgetId" result-name="budgetId"/>
+--
+
+a|[source,groovy]
+--
+ // MiniLang knows this implicitly
+def result = success()
+result.budgetId = fieldBudgetId
+return result
+--
+|===
+== Database Communication
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<make-value entity-name="FinAccountTrans" value-field="newEntity"/>
+<set-nonpk-fields map="parameters" value-field="newEntity"/>
+<set-pk-fields map="parameters" value-field="newEntity"/>
+--
+
+a|[source,groovy]
+--
+ // this is the easy way
+GenericValue newEntity = makeValue("FinAccountTrans", parameters)
+ // this is also possible
+GenericValue newEntity = makeValue("FinAccountTrans")
+newEntity.setPKFields(parameters)
+newEntity.setNonPKFields(parameters)
+--
+
+a|[source,xml]
+--
+<entity-and entity-name="BudgetStatus" list="budgetStatuses">
+    <field-map field-name="budgetId" from-field="parameters.budgetId"/>
+    <order-by field-name="-statusDate"/>
+</entity-and>
+--
+
+a|[source,groovy]
+--
+ // this can also be done in one line, but it can easily become unreadable
+def budgetStatuses = from("BudgetStatus")
+    .where("budgetId", paramters.budgetId)
+    .orderBy("-statusDate")
+    .queryList()
+--
+
+a|[source,xml]
+--
+<entity-one entity-name="StatusValidChange" value-field="statusValidChange">
+    <field-map field-name="statusId" from-field="budgetStatus.statusId"/>
+    <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
+</entity-one>
+<!-- entity-one can be called without child elements, too -->
+<entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
+--
+
+a|[source,groovy]
+--
+ // MiniLang has false set for useCache as the default value
+statusValidChange = findOne("StatusValidChange", [statusId: budgetStatus.statusId, statusIdTo: parameters.statusId], false)
+ // this is also possible
+statusValidChange = from("StatusValidChange")
+    .where("statusId", budgetStatus.statusId, "statusIdTo", parameters.statusId)
+    .queryOne()
+ // if there are no child elements, this can be used
+GenericValue product = from("Product").where(parameters).queryOne()
+--
+
+a|[source,xml]
+--
+<find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
+--
+
+a|[source,groovy]
+--
+GenericValue lookedUpValue = findOne("ProductCategoryMember", lookupPKMap, false)
+ // this is also possible
+lookedUpValue = from("ProductCategoryRole")
+    .where(lookupPKMap)
+    .queryOne()
+--
+
+a|[source,xml]
+--
+<entity-condition entity-name="ProductCategoryContentAndInfo" list="productCategoryContentAndInfoList" filter-by-date="true" use-cache="true">
+    <condition-list combine="and">
+        <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
+        <condition-expr field-name="prodCatContentTypeId" value="ALTERNATIVE_URL"/>
+    </condition-list>
+    <order-by field-name="-fromDate"/>
+</entity-condition>
+<!-- entity-condition can also be used with the "or" operator -->
+<entity-condition entity-name="ProdCatalogCategory" list="prodCatalogCategoryList" filter-by-date="true">
+    <condition-list combine="and">
+        <condition-expr field-name="productCategoryId" from-field="parameters.productCategoryId"/>
+        <condition-list combine="or">
+            <condition-expr field-name="prodCatalogCategoryTypeId" value="PCCT_VIEW_ALLW"/>
+            <condition-expr field-name="prodCatalogCategoryTypeId" value="PCCT_PURCH_ALLW"/>
+        </condition-list>
+    </condition-list>
+</entity-condition>
+--
+
+a|[source,groovy]
+--
+ // the Groovy methods use the "and" and "equals" operator as default values
+List productCategoryContentAndInfoList = from("ProductCategoryContentAndInfo")
+    .where("productCategoryId", productCategoryList.productCategoryId, "prodCatContentTypeId", "ALTERNATIVE_URL")
+    .cache().orderBy("-fromDate")
+    .filterByDate()
+    .queryList()
+ // with the use of the "or" operator you have to build your condition like this
+EntityCondition condition = EntityCondition.makeCondition([
+    EntityCondition.makeCondition([
+        EntityCondition.makeCondition("prodCatalogCategoryTypeId", "PCCT_VIEW_ALLW"),
+        EntityCondition.makeCondition("prodCatalogCategoryTypeId", "PCCT_PURCH_ALLW")
+    ], EntityOperator.OR),
+    EntityCondition.makeCondition("productCategoryId", parameters.productCategoryId)
+])
+List prodCatalogCategoryList = from("ProdCatalogCategory").where(condition).filterByDate().queryList()
+--
+
+a|[source,xml]
+--
+<make-value entity-name="FinAccountTrans" value-field="newEntity"/>
+<set-nonpk-fields map="parameters" value-field="newEntity"/>
+<!-- In this case multiple fields of the GenericValue are set -->
+<make-value entity-name="ProductCategoryRollup" value-field="newLimitRollup"/>
+<set field="newLimitRollup.productCategoryId" from-field="newEntity.productCategoryId"/>
+<set field="newLimitRollup.parentProductCategoryId" from-field="productCategoryRole.productCategoryId"/>
+<set field="newLimitRollup.fromDate" from-field="nowTimestamp"/>
+--
+
+a|[source,groovy]
+--
+def newEntity = makeValue("FinAccountTrans", parameters)
+ // you can set multiple fields of a GenericValue like this
+def newLimitRollup = makeValue("ProductCategoryRollup", [
+    productCategoryId: newEntity.productCategoryId,
+    parentProductCategoryId: productCategoryRole.productCategoryId,
+    fromDate: nowTimestamp
+])
+--
+
+a|[source,xml]
+--
+<set field="statusValidChange.prop" value="value"/>
+--
+a|[source,groovy]
+--
+statusValidChange.prop = "value"
+--
+
+a|[source,xml]
+--
+<create-value value-field="newEntity"/>
+--
+a|[source,groovy]
+--
+newEntity.create()
+--
+
+a|[source,xml]
+--
+<store-value value-field="newEntity"/>
+<store-list list="listToStore"/>
+--
+a|[source,groovy]
+--
+newEntity.store()
+delegator.storeAll(listToStore)
+--
+
+a|[source,xml]
+--
+<clone-value value-field="productCategoryMember" new-value-field="newProductCategoryMember"/>
+--
+a|[source,groovy]
+--
+def newProductCategoryMember = productCategoryMember.clone()
+--
+
+a|[source,xml]
+--
+<remove-value value-field="lookedUpValue"/>
+--
+a|[source,groovy]
+--
+lookedUpValue.remove()
+--
+
+a|[source,xml]
+--
+<sequenced-id sequence-name="ProductCategory" field="newEntity.productCategoryId"/>
+--
+a|[source,groovy]
+--
+newEntity.productCategoryId = delegator.getNextSeqId("ProductCategory")
+--
+
+a|[source,xml]
+--
+<check-id field="newEntity.productCategoryId"/>
+--
+a|[source,groovy]
+--
+UtilValidate.checkValidDatabaseId(newEntity.productCategoryId)
+--
+
+a|[source,xml]
+--
+<make-next-seq-id value-field="newEntity" seq-field-name="linkSeqId"/>
+--
+a|[source,groovy]
+--
+delegator.setNextSubSeqId(newEntity, "linkSeqId", 5, 1)
+ // the numbers 5 and 1 are used in the Java implementation of the MiniLang method
+ // and can also be found as the default values in the MiniLang documentation
+--
+|===
+
+== Permissions
+
+CAUTION: To also check for admin-permissions, this method has to be used: +
+`*hasEntityPermission(permission, action, userLogin)*`
+
+
+If the method is used with wildcards, it is important to [underline]#not forget the underscore#, which comes before the parameter action!
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<check-permission permission="CATALOG" action="_CREATE">
+    <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
+    <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+</check-permission>
+<check-errors/>
+--
+a|[source,groovy]
+--
+if (!(security.hasEntityPermission("CATALOG", "_CREATE", parameters.userLogin)
+    \|\| security.hasEntityPermission("CATALOG_ROLE", "_CREATE", parameters.userLogin))) {
+    return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogCreatePermissionError", parameters.locale))
+}
+--
+
+a|[source,xml]
+--
+<set field="hasCreatePermission" value="false" type="Boolean"/>
+<if-has-permission permission="${primaryPermission}" action="${mainAction}">
+    <set field="hasCreatePermission" value="true" type="Boolean"/>
+</if-has-permission>
+--
+a|[source,groovy]
+--
+ // this will automatically be set to false if the user doesn't have the permission
+def hasCreatePermission = security.hasEntityPermission(primaryPermission, "_${mainAction}", parameters.userLogin)
+--
+|===
+== Timestamp And System Time
+The first two simple-method are deprecated; the third method should have been used instead.
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<now-timestamp field="nowTimestamp"/>
+--
+a|[source,groovy]
+--
+Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
+--
+
+a|[source,xml]
+--
+<now-date-to-env field="nowDate"/>
+--
+a|[source,groovy]
+--
+Timestamp nowDate = UtilDateTime.nowTimestamp()
+--
+
+a|[source,xml]
+--
+<!-- this method also has the parameter "type", which is set to 'java.sql.timestamp' as default -->
+<now field="fooNow"/>
+--
+a|[source,groovy]
+--
+Timestamp fooNow = UtilDateTime.nowTimestamp()
+--
+
+a|[source,xml]
+--
+<if-compare-field field="productCategoryMember.thruDate" to-field="expireTimestamp" operator="less" type="Timestamp">
+    <!-- code -->
+</if-compare-field>
+--
+a|[source,groovy]
+--
+Timestamp thruDate = productCategoryMember.thruDate
+if (thruDate && thruDate.before(expireTimestamp)) {
+    // code
+}
+--
+|===
+
+== Logging
+
+Since all of the log methods are know to the Groovy Language, it is possible to just nearly use them as they are in MiniLang. +
+For further explanation, here are some examples:
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<log level="verbose" message="Permission check failed, user does not have permission"/>
+--
+a|[source,groovy]
+--
+logVerbose("Permission check failed, user does not have the correct permission.")
+--
+
+a|[source,xml]
+--
+<log level="info" message="Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]"/>
+--
+a|[source,groovy]
+--
+logInfo("Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]")
+--
+|===
+== General
+|===
+h| Minilang h| Groovy
+
+a|[source,xml]
+--
+<call-simple-method method-name="checkCategoryRelatedPermission"/>
+<check-errors/>
+--
+a|[source,groovy]
+--
+ // simple-methods inside of classes, as long as they are not services, will be called like normal methods
+Map res = checkCategoryRelatedPermission("updateProductCategory", "UPDATE", null, null)
+if (!ServiceUtil.isSuccess(res)) {
+    return res
+}
+--
+
+a|[source,xml]
+--
+<iterate list="subCategories" entry="subCategory">
+    <!-- code -->
+</iterate>
+--
+a|[source,groovy]
+--
+for (def subCategory : subCategories) {
+    // code
+}
+// this is also possible (CAUTION: Eclipse sometimes doesn't know, that it already knows methods inside of closures)
+subCategories.each { subCategory ->
+    // code
+}
+--
+
+a|[source,xml]
+--
+<iterate-map map="parameters.productFeatureIdByType" key="productFeatureTypeId" value="productFeatureId">
+    <!-- in here something should happen with value and key -->
+</iterate-map>
+--
+a|[source,groovy]
+--
+for (Map entry : parameters.productFeatureIdByType.entrySet()) {
+    def productFeatureTypeId = entry.getKey()
+    def productFeatureId = entry.getValue()
+    // in here something should happen with value and key
+}
+--
+
+a|[source,xml]
+--
+<if>
+    <condition>
+        <not>
+            <or>
+                <if-has-permission permission="CATALOG" action="_${checkAction}"/>
+                <and>
+                    <if-has-permission permission="CATALOG_ROLE" action="_${checkAction}"/>
+                    <not><if-empty field="roleCategories"/></not>
+                </and>
+            </or>
+        </not>
+    </condition>
+    <then>
+        <!-- code -->
+    </then>
+</if>
+--
+a|[source,groovy]
+--
+if (!security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)
+    && !(security.hasEntityPermission("CATALOG_ROLE", "_${checkAction}", parameters.userLogin)
+    && roleCategories)) {
+    // code
+}
+--
+
+a|[source,xml]
+--
+<set field="validDate" from-field="parameters.validDate"/>
+<if-not-empty field="validDate">
+    <filter-list-by-date list="productCategoryMembers" valid-date="validDate"/>
+</if-not-empty>
+--
+a|[source,groovy]
+--
+def query = from("ProductCategoryMember").where("productCategoryId", parameters.productCategoryId)
+if (parameters.validDate) {
+    query.filterByDate()
+}
+List productCategoryMembers = query.queryList()
+--
+
+a|[source,xml]
+--
+<order-map-list list="productsList">
+    <order-by field-name="sequenceNum"/>
+</order-map-list>
+--
+a|[source,groovy]
+--
+productsList = EntityUtil.orderBy(productsList, ["sequenceNum"])
+--
+|===
+
+== Where to find MiniLang implementation
+If you find yourself in a position, where you don't know how to convert a certain tag from MiniLang to Groovy, you can always check the Java implementation of the MiniLang method. +
+All of the methods have an existing Java implementation and you can find all of them in this folder: `/ofbiz/trunk/framework/minilang/src/main/java/org/apache/ofbiz/minilang/method` +
+
+The interesting part of this implementation is the method `exec()`, which actually runs the MiniLang tag. +
+The tag `<remove-by-and>` for example is realized using this part of code here:
+[source,java]
+--
+@Override
+
+public boolean exec(MethodContext methodContext) throws MiniLangException {
+    @Deprecated
+    String entityName = entityNameFse.expandString(methodContext.getEnvMap());
+    if (entityName.isEmpty()) {
+        throw new MiniLangRuntimeException("Entity name not found.", this);
+    }
+    try {
+        Delegator delegator = getDelegator(methodContext);
+        delegator.removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()));
+    } catch (GenericEntityException e) {
+        String errMsg = "Exception thrown while removing entities: " + e.getMessage();
+        Debug.logWarning(e, errMsg, module);
+        simpleMethod.addErrorMessage(methodContext, errMsg);
+        return false;
+    }
+    return true;
+}
+--
+In this you can find one important part of code, which is:
+[source,java]
+--
+delegator.removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()));
+--
+This tells you, that, if you're trying to convert the tag `<remove-by-and>`, you can use `delegator.removeByAnd()` in Groovy.

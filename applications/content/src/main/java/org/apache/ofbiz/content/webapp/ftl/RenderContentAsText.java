@@ -52,8 +52,8 @@ import freemarker.template.TemplateTransformModel;
 public class RenderContentAsText implements TemplateTransformModel {
 
     private static final String MODULE = RenderContentAsText.class.getName();
-    static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    static final String[] upSaveKeyNames = {"globalNodeTrail"};
+    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     @Override
     @SuppressWarnings("unchecked")
@@ -73,11 +73,11 @@ public class RenderContentAsText implements TemplateTransformModel {
         if (Debug.verboseOn()) {
             Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
         }
-        final String thisContentId =  (String)templateRoot.get("contentId");
-        final String xmlEscape =  (String)templateRoot.get("xmlEscape");
+        final String thisContentId = (String) templateRoot.get("contentId");
+        final String xmlEscape = (String) templateRoot.get("xmlEscape");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
         if (Debug.verboseOn()) {
-            Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , MODULE);
+            Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode, MODULE);
         }
 
         final Map<String, Object> savedValues = new HashMap<>();
@@ -112,9 +112,9 @@ public class RenderContentAsText implements TemplateTransformModel {
                     locale = UtilMisc.ensureLocale(localeObject);
                 }
 
-                String editRequestName = (String)templateRoot.get("editRequestName");
+                String editRequestName = (String) templateRoot.get("editRequestName");
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("in Render(3), editRequestName ." + editRequestName , MODULE);
+                    Debug.logVerbose("in Render(3), editRequestName ." + editRequestName, MODULE);
                 }
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
@@ -161,7 +161,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                 }
                 String fullRequest = editRequestName;
                 String contentId = null;
-                contentId = (String)templateRoot.get("subContentId");
+                contentId = (String) templateRoot.get("subContentId");
                 String delim = "?";
                 if (UtilValidate.isNotEmpty(contentId)) {
                     fullRequest += delim + "contentId=" + contentId;
@@ -177,7 +177,7 @@ public class RenderContentAsText implements TemplateTransformModel {
             }
 
             public String getEditStyle() {
-                String editStyle = (String)templateRoot.get("editStyle");
+                String editStyle = (String) templateRoot.get("editStyle");
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = UtilProperties.getPropertyValue("content", "defaultEditStyle");
                 }

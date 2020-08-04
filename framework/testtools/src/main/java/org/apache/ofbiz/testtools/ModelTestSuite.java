@@ -130,7 +130,7 @@ public class ModelTestSuite {
                 Class<?> cl;
                 cl = Class.forName(className);
                 Constructor<?> con = cl.getConstructor(String.class, Element.class);
-                this.testList.add((Test)con.newInstance(caseName, testElement));
+                this.testList.add((Test) con.newInstance(caseName, testElement));
             } catch (Exception e) {
                 Debug.logError(e, MODULE);
             }
@@ -174,9 +174,9 @@ public class ModelTestSuite {
                 prepareTest(subTests.nextElement());
             }
         } else if (test instanceof EntityTestCase) {
-            ((EntityTestCase)test).setDelegator(delegator);
+            ((EntityTestCase) test).setDelegator(delegator);
             if (test instanceof OFBizTestCase) {
-                ((OFBizTestCase)test).setDispatcher(dispatcher);
+                ((OFBizTestCase) test).setDispatcher(dispatcher);
             }
         }
     }

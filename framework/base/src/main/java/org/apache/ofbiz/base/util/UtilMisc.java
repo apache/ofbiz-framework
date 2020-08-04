@@ -62,7 +62,7 @@ public final class UtilMisc {
 
     private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
-    private UtilMisc () {}
+    private UtilMisc() { }
 
     public static final <T extends Throwable> T initCause(T throwable, Throwable cause) {
         throwable.initCause(cause);
@@ -98,6 +98,7 @@ public final class UtilMisc {
 
     /**
      * Get an iterator from a collection, returning null if collection is null
+     *
      * @param col The collection to be turned in to an iterator
      * @return The resulting Iterator
      */
@@ -111,7 +112,7 @@ public final class UtilMisc {
     /**
      * Creates a pseudo-literal map corresponding to key-values.
      *
-     * @param kvs  the key-value pairs
+     * @param kvs the key-value pairs
      * @return the corresponding map.
      * @throws IllegalArgumentException when the key-value list is not even.
      */
@@ -122,8 +123,8 @@ public final class UtilMisc {
     /**
      * Creates a pseudo-literal map corresponding to key-values.
      *
-     * @param constructor  the constructor used to instantiate the map
-     * @param kvs  the key-value pairs
+     * @param constructor the constructor used to instantiate the map
+     * @param kvs         the key-value pairs
      * @return the corresponding map.
      * @throws IllegalArgumentException when the key-value list is not even.
      */
@@ -134,12 +135,12 @@ public final class UtilMisc {
         }
         if (kvs.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException(
-                    "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
+                "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
             Debug.logInfo(e, MODULE);
             throw e;
         }
         Map<K, V> map = constructor.get();
-        for (int i = 0; i < kvs.length;) {
+        for (int i = 0; i < kvs.length; ) {
             map.put((K) kvs[i++], (V) kvs[i++]);
         }
         return map;
@@ -147,7 +148,7 @@ public final class UtilMisc {
 
     public static <K, V> String printMap(Map<? extends K, ? extends V> theMap) {
         StringBuilder theBuf = new StringBuilder();
-        for (Map.Entry<? extends K, ? extends V> entry: theMap.entrySet()) {
+        for (Map.Entry<? extends K, ? extends V> entry : theMap.entrySet()) {
             theBuf.append(entry.getKey());
             theBuf.append(" --> ");
             theBuf.append(entry.getValue());
@@ -182,23 +183,26 @@ public final class UtilMisc {
     public static <V> void makeMapSerializable(Map<String, V> map) {
         // now filter out all non-serializable values
         Set<String> keysToRemove = new LinkedHashSet<>();
-        for (Map.Entry<String, V> mapEntry: map.entrySet()) {
+        for (Map.Entry<String, V> mapEntry : map.entrySet()) {
             Object entryValue = mapEntry.getValue();
             if (entryValue != null && !(entryValue instanceof Serializable)) {
                 keysToRemove.add(mapEntry.getKey());
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), MODULE);
                 }
-                
+
             }
         }
-        for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
+        for (String keyToRemove : keysToRemove) {
+            map.remove(keyToRemove);
+        }
     }
 
     /**
      * Sort a List of Maps by specified consistent keys.
+     *
      * @param listOfMaps List of Map objects to sort.
-     * @param sortKeys List of Map keys to sort by.
+     * @param sortKeys   List of Map keys to sort by.
      * @return a new List of sorted Maps.
      */
     public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {
@@ -209,7 +213,7 @@ public final class UtilMisc {
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
-            Collections.sort(toSort, mc);
+            toSort.sort(mc);
         } catch (Exception e) {
             Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
             return null;
@@ -310,6 +314,7 @@ public final class UtilMisc {
 
     /**
      * Create a set from the passed objects.
+     *
      * @param data
      * @return theSet
      */
@@ -342,7 +347,7 @@ public final class UtilMisc {
             return null;
         }
         Set<T> set = new LinkedHashSet<>();
-        for (T value: data) {
+        for (T value : data) {
             set.add(value);
         }
         return set;
@@ -350,18 +355,19 @@ public final class UtilMisc {
 
     /**
      * Creates a list from passed objects.
+     *
      * @param data
      * @return list
      */
     @SafeVarargs
     public static <T> List<T> toList(T... data) {
-        if(data == null){
+        if (data == null) {
             return null;
         }
 
         List<T> list = new LinkedList<>();
 
-        for(T t : data){
+        for (T t : data) {
             list.add(t);
         }
 
@@ -373,7 +379,7 @@ public final class UtilMisc {
             return null;
         }
         List<T> list = new LinkedList<>();
-        for (T value: data) {
+        for (T value : data) {
             list.add(value);
         }
         return list;
@@ -406,8 +412,10 @@ public final class UtilMisc {
         theSet.add(element);
     }
 
-    /** Converts an <code>Object</code> to a <code>double</code>. Returns
+    /**
+     * Converts an <code>Object</code> to a <code>double</code>. Returns
      * zero if conversion is not possible.
+     *
      * @param obj Object to convert
      * @return double value
      */
@@ -416,8 +424,10 @@ public final class UtilMisc {
         return result == null ? 0.0 : result;
     }
 
-    /** Converts an <code>Object</code> to a <code>Double</code>. Returns
+    /**
+     * Converts an <code>Object</code> to a <code>Double</code>. Returns
      * <code>null</code> if conversion is not possible.
+     *
      * @param obj Object to convert
      * @return Double
      */
@@ -441,8 +451,10 @@ public final class UtilMisc {
         return result;
     }
 
-    /** Converts an <code>Object</code> to an <code>int</code>. Returns
+    /**
+     * Converts an <code>Object</code> to an <code>int</code>. Returns
      * zero if conversion is not possible.
+     *
      * @param obj Object to convert
      * @return int value
      */
@@ -451,8 +463,10 @@ public final class UtilMisc {
         return result == null ? 0 : result;
     }
 
-    /** Converts an <code>Object</code> to an <code>Integer</code>. Returns
+    /**
+     * Converts an <code>Object</code> to an <code>Integer</code>. Returns
      * <code>null</code> if conversion is not possible.
+     *
      * @param obj Object to convert
      * @return Integer
      */
@@ -464,7 +478,7 @@ public final class UtilMisc {
             return (Integer) obj;
         }
         if (obj instanceof Number) {
-            return ((Number)obj).intValue();
+            return ((Number) obj).intValue();
         }
         Integer result = null;
         try {
@@ -476,8 +490,10 @@ public final class UtilMisc {
         return result;
     }
 
-    /** Converts an <code>Object</code> to a <code>long</code>. Returns
+    /**
+     * Converts an <code>Object</code> to a <code>long</code>. Returns
      * zero if conversion is not possible.
+     *
      * @param obj Object to convert
      * @return long value
      */
@@ -486,8 +502,10 @@ public final class UtilMisc {
         return result == null ? 0 : result;
     }
 
-    /** Converts an <code>Object</code> to a <code>Long</code>. Returns
+    /**
+     * Converts an <code>Object</code> to a <code>Long</code>. Returns
      * <code>null</code> if conversion is not possible.
+     *
      * @param obj Object to convert
      * @return Long
      */
@@ -513,6 +531,7 @@ public final class UtilMisc {
 
     /**
      * Adds value to the key entry in theMap, or creates a new one if not already there
+     *
      * @param theMap
      * @param key
      * @param value
@@ -528,6 +547,7 @@ public final class UtilMisc {
 
     /**
      * Parse a locale string Locale object
+     *
      * @param localeString The locale string (en_US)
      * @return Locale The new Locale object or null if no valid locale can be interpreted
      */
@@ -552,19 +572,22 @@ public final class UtilMisc {
             String extension = localeString.substring(6);
             locale = new Locale(language, country, extension);
         } else {
-            Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, returning null", MODULE);
+            Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, "
+                    + "returning null", MODULE);
         }
 
         return locale;
     }
 
-    /** The input can be a String, Locale, or even null and a valid Locale will always be returned; if nothing else works, returns the default locale.
+    /**
+     * The input can be a String, Locale, or even null and a valid Locale will always be returned; if nothing else works, returns the default locale.
+     *
      * @param localeObject An Object representing the locale
      */
     public static Locale ensureLocale(Object localeObject) {
         if (localeObject instanceof String) {
             Locale locale = parseLocale((String) localeObject);
-            if (locale != null)  {
+            if (locale != null) {
                 return locale;
             }
         } else if (localeObject instanceof Locale) {
@@ -573,39 +596,17 @@ public final class UtilMisc {
         return Locale.getDefault();
     }
 
-    // Private lazy-initializer class
-    private static class LocaleHolder {
-        private static final List<Locale> availableLocaleList = getAvailableLocaleList();
-
-        private static List<Locale> getAvailableLocaleList() {
-            TreeMap<String, Locale> localeMap = new TreeMap<>();
-            String localesString = UtilProperties.getPropertyValue("general", "locales.available");
-            if (UtilValidate.isNotEmpty(localesString)) {
-                List<String> idList = StringUtil.split(localesString, ",");
-                for (String id : idList) {
-                    Locale curLocale = parseLocale(id);
-                    localeMap.put(curLocale.getDisplayName(), curLocale);
-                }
-            } else {
-                Locale[] locales = Locale.getAvailableLocales();
-                for (int i = 0; i < locales.length && locales[i] != null; i++) {
-                    String displayName = locales[i].getDisplayName();
-                    if (!displayName.isEmpty()) {
-                        localeMap.put(displayName, locales[i]);
-                    }
-                }
-            }
-            return Collections.unmodifiableList(new ArrayList<>(localeMap.values()));
-        }
-    }
-
-    /** Returns a List of available locales sorted by display name */
+    /**
+     * Returns a List of available locales sorted by display name
+     */
     public static List<Locale> availableLocales() {
-        return LocaleHolder.availableLocaleList;
+        return LocaleHolder.AVAIL_LOCALE_LIST;
     }
 
-    /** List of domains or IP addresses to be checked to prevent Host Header Injection, 
-     * no spaces after commas,no wildcard, can be extended of course... 
+    /**
+     * List of domains or IP addresses to be checked to prevent Host Header Injection,
+     * no spaces after commas, no wildcard, can be extended of course...
+     *
      * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
      */
     public static List<String> getHostHeadersAllowed() {
@@ -617,20 +618,20 @@ public final class UtilMisc {
         return Collections.unmodifiableList(hostHeadersAllowed);
     }
 
-    /** @deprecated use Thread.sleep() */
+    /**
+     * @deprecated use Thread.sleep()
+     */
     @Deprecated
     public static void staticWait(long timeout) throws InterruptedException {
         Thread.sleep(timeout);
     }
 
-    public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
+    public static void copyFile(File sourceLocation, File targetLocation) throws IOException {
         if (sourceLocation.isDirectory()) {
-            throw new IOException("File is a directory, not a file, cannot copy") ;
+            throw new IOException("File is a directory, not a file, cannot copy");
         }
-        try (
-                InputStream in = new FileInputStream(sourceLocation);
-                OutputStream out = new FileOutputStream(targetLocation);
-        ) {
+        try (InputStream in = new FileInputStream(sourceLocation);
+             OutputStream out = new FileOutputStream(targetLocation);) {
             // Copy the bits from instream to outstream
             byte[] buf = new byte[1024];
             int len;
@@ -641,7 +642,7 @@ public final class UtilMisc {
     }
 
     public static int getViewLastIndex(int listSize, int viewSize) {
-        return (int)Math.ceil(listSize / (float) viewSize) - 1;
+        return (int) Math.ceil(listSize / (float) viewSize) - 1;
     }
 
     public static Map<String, String> splitPhoneNumber(String phoneNumber, Delegator delegator) {
@@ -672,6 +673,32 @@ public final class UtilMisc {
             result.put(ModelService.ERROR_MESSAGE, ex.getMessage());
         }
         return result;
+    }
+
+    // Private lazy-initializer class
+    private static class LocaleHolder {
+        private static final List<Locale> AVAIL_LOCALE_LIST = getAvailableLocaleList();
+
+        private static List<Locale> getAvailableLocaleList() {
+            TreeMap<String, Locale> localeMap = new TreeMap<>();
+            String localesString = UtilProperties.getPropertyValue("general", "locales.available");
+            if (UtilValidate.isNotEmpty(localesString)) {
+                List<String> idList = StringUtil.split(localesString, ",");
+                for (String id : idList) {
+                    Locale curLocale = parseLocale(id);
+                    localeMap.put(curLocale.getDisplayName(), curLocale);
+                }
+            } else {
+                Locale[] locales = Locale.getAvailableLocales();
+                for (int i = 0; i < locales.length && locales[i] != null; i++) {
+                    String displayName = locales[i].getDisplayName();
+                    if (!displayName.isEmpty()) {
+                        localeMap.put(displayName, locales[i]);
+                    }
+                }
+            }
+            return Collections.unmodifiableList(new ArrayList<>(localeMap.values()));
+        }
     }
 
 }

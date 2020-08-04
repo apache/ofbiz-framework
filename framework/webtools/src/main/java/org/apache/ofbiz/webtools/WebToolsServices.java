@@ -111,17 +111,17 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         List<String> messages = new LinkedList<>();
 
-        String filename = (String)context.get("filename");
-        String fmfilename = (String)context.get("fmfilename");
-        String fulltext = (String)context.get("fulltext");
-        boolean isUrl = (String)context.get("isUrl") != null;
-        String onlyInserts = (String)context.get("onlyInserts");
-        String maintainTimeStamps = (String)context.get("maintainTimeStamps");
-        String createDummyFks = (String)context.get("createDummyFks");
+        String filename = (String) context.get("filename");
+        String fmfilename = (String) context.get("fmfilename");
+        String fulltext = (String) context.get("fulltext");
+        boolean isUrl = (String) context.get("isUrl") != null;
+        String onlyInserts = (String) context.get("onlyInserts");
+        String maintainTimeStamps = (String) context.get("maintainTimeStamps");
+        String createDummyFks = (String) context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
         }
@@ -132,7 +132,7 @@ public class WebToolsServices {
         // #############################
         if (UtilValidate.isNotEmpty(filename)) {
             try {
-                url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
+                url = isUrl ? FlexibleLocation.resolveLocation(filename) : UtilURL.fromFilename(filename);
             } catch (MalformedURLException mue) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsInvalidFileName", UtilMisc.toMap("filename", filename, "errorString", mue.getMessage()), locale));
             } catch (Exception exc) {
@@ -193,7 +193,7 @@ public class WebToolsServices {
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorParsingFile", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
                 } else {
-                    Long numberRead = (Long)outputMap.get("rowProcessed");
+                    Long numberRead = (Long) outputMap.get("rowProcessed");
                     messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportRowProcessed", UtilMisc.toMap("numberRead", numberRead.toString()), locale));
                 }
             } catch (GenericServiceException gsex) {
@@ -222,8 +222,8 @@ public class WebToolsServices {
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
-        Integer txTimeout = (Integer)context.get("txTimeout");
-        Long filePause = (Long)context.get("filePause");
+        Integer txTimeout = (Integer) context.get("txTimeout");
+        Long filePause = (Long) context.get("filePause");
 
         if (txTimeout == null) {
             txTimeout = 7200;
@@ -245,12 +245,12 @@ public class WebToolsServices {
                     }
                 }
 
-                int passes=0;
+                int passes = 0;
                 int initialListSize = files.size();
                 int lastUnprocessedFilesCount = 0;
                 List<File> unprocessedFiles = new LinkedList<>();
-                while (files.size()>0 &&
-                        files.size() != lastUnprocessedFilesCount) {
+                while (files.size() > 0
+                        && files.size() != lastUnprocessedFilesCount) {
                     lastUnprocessedFilesCount = files.size();
                     unprocessedFiles = new LinkedList<>();
                     for (File f: files) {
@@ -461,9 +461,9 @@ public class WebToolsServices {
     public static Map<String, Object> entityExportAll(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String outpath = (String)context.get("outpath"); // mandatory
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        String outpath = (String) context.get("outpath"); // mandatory
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
         }
@@ -490,7 +490,7 @@ public class WebToolsServices {
                     long numberWritten = 0;
                     ModelEntity me = delegator.getModelEntity(curEntityName);
                     if (me instanceof ModelViewEntity) {
-                        results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
+                        results.add("[" + fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
                         continue;
                     }
                     List<EntityCondition> conds = new LinkedList<>();
@@ -519,15 +519,15 @@ public class WebToolsServices {
                                     } while ((value = values.next()) != null);
                                     writer.println("</entity-engine-xml>");
                                 } catch (UnsupportedEncodingException | FileNotFoundException e) {
-                                    results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + e);
+                                    results.add("[" + fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + e);
                                 }
-                                results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
+                                results.add("[" + fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
                             } else {
-                                results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
+                                results.add("[" + fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
                             }
                             TransactionUtil.commit(beganTx);
                         } catch (GenericEntityException entityEx) {
-                            results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
+                            results.add("[" + fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;
                         }
                         fileNumber++;

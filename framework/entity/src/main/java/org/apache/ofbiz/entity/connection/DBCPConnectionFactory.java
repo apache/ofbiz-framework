@@ -48,7 +48,6 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * Apache Commons DBCP connection factory.
- * 
  * @see <a href="http://commons.apache.org/proper/commons-dbcp/">Apache Commons DBCP</a>
  */
 public class DBCPConnectionFactory implements ConnectionFactory {

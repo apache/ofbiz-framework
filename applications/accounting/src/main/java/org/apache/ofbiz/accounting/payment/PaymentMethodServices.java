@@ -48,8 +48,8 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PaymentMethodServices {
 
-    public final static String MODULE = PaymentMethodServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
+    private static final String MODULE = PaymentMethodServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
     private static final String RES_ERROR = "AccountingUiLabels";
 
     /**
@@ -101,7 +101,7 @@ public class PaymentMethodServices {
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "AccountingPaymentMethodCannotBeDeletedWriteFailure", 
+                    "AccountingPaymentMethodCannotBeDeletedWriteFailure",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
@@ -152,15 +152,15 @@ public class PaymentMethodServices {
         context.put("cardNumber", StringUtil.removeSpaces((String) context.get("cardNumber")));
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
-                    UtilMisc.toMap("cardType", (String) context.get("cardType"),
-                                   "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
+                            UtilMisc.toMap("cardType", (String) context.get("cardType"),
+                                    "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
         }
 
         if (!UtilValidate.isDateAfterToday((String) context.get("expireDate"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
-                    UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
+                            UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
         }
 
         if (messages.size() > 0) {
@@ -186,7 +186,7 @@ public class PaymentMethodServices {
         }
 
         newPm.set("partyId", partyId);
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
         newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
         newPm.set("thruDate", context.get("thruDate"));
         newCc.set("companyNameOnCard", context.get("companyNameOnCard"));
@@ -294,7 +294,7 @@ public class PaymentMethodServices {
         }
         if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingCreditCardUpdateWithoutPermission", UtilMisc.toMap("partyId", partyId, 
+                    "AccountingCreditCardUpdateWithoutPermission", UtilMisc.toMap("partyId", partyId,
                             "paymentMethodId", paymentMethodId), locale));
         }
 
@@ -307,8 +307,7 @@ public class PaymentMethodServices {
             // get the masked card number from the db
             String origCardNumber = creditCard.getString("cardNumber");
             int cardLength = origCardNumber.length() - 4;
-            
-            // use builder for better performance 
+            // use builder for better performance
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < cardLength; i++) {
                 builder.append("*");
@@ -324,15 +323,15 @@ public class PaymentMethodServices {
 
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
-                    UtilMisc.toMap("cardType", (String) context.get("cardType"),
-                                   "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardNumberInvalid",
+                            UtilMisc.toMap("cardType", (String) context.get("cardType"),
+                                    "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
         }
 
         if (!UtilValidate.isDateAfterToday((String) context.get("expireDate"))) {
             messages.add(
-                UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
-                    UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
+                    UtilProperties.getMessage(RESOURCE, "AccountingCreditCardExpireDateBeforeToday",
+                            UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
         }
 
         if (messages.size() > 0) {
@@ -355,7 +354,7 @@ public class PaymentMethodServices {
 
         newPm.set("partyId", partyId);
         newPm.set("fromDate", context.get("fromDate"), false);
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
         // The following check is needed to avoid to reactivate an expired pm
         if (newPm.get("thruDate") == null) {
             newPm.set("thruDate", context.get("thruDate"));
@@ -473,7 +472,7 @@ public class PaymentMethodServices {
 
         // expire the payment method
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> expireCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin, 
+        Map<String, Object> expireCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin,
                 "paymentMethodId", paymentMethodId);
         Map<String, Object> expireResp;
         try {
@@ -523,7 +522,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
         newPm.set("thruDate", context.get("thruDate"));
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
 
         newGc.set("cardNumber", context.get("cardNumber"));
         newGc.set("pinNumber", context.get("pinNumber"));
@@ -632,7 +631,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", context.get("fromDate"), false);
         newPm.set("thruDate", context.get("thruDate"));
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
 
         newGc.set("cardNumber", context.get("cardNumber"));
         newGc.set("pinNumber", context.get("pinNumber"));
@@ -718,7 +717,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
         newPm.set("thruDate", context.get("thruDate"));
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
         newEa.set("bankName", context.get("bankName"));
         newEa.set("routingNumber", context.get("routingNumber"));
         newEa.set("accountType", context.get("accountType"));
@@ -754,7 +753,7 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                    UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                    UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId,
                             "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
             }
         }
@@ -846,7 +845,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", context.get("fromDate"), false);
         newPm.set("thruDate", context.get("thruDate"));
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
         newEa.set("bankName", context.get("bankName"));
         newEa.set("routingNumber", context.get("routingNumber"));
         newEa.set("accountType", context.get("accountType"));
@@ -884,7 +883,7 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId,
                                 "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
             }
         }
@@ -922,12 +921,13 @@ public class PaymentMethodServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
+
     public static Map<String, Object> createCheckAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
-                GenericValue userLogin = (GenericValue) context.get("userLogin");
-                Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         Timestamp now = UtilDateTime.nowTimestamp();
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");
@@ -952,7 +952,7 @@ public class PaymentMethodServices {
         }
 
         newPm.set("partyId", partyId);
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
         newPm.set("paymentMethodTypeId", context.get("paymentMethodTypeId"));
         newPm.set("fromDate", now);
         newPm.set("paymentMethodId", newPmId);
@@ -1072,7 +1072,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("paymentMethodTypeId", context.get("paymentMethodTypeId"));
         newPm.set("fromDate", context.get("fromDate"), false);
-        newPm.set("description",context.get("description"));
+        newPm.set("description", context.get("description"));
         newCa.set("bankName", context.get("bankName"));
         newCa.set("routingNumber", context.get("routingNumber"));
         newCa.set("accountType", context.get("accountType"));

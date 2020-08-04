@@ -178,7 +178,9 @@ public class GroupModel {
             result.putAll(thisResult);
             if (model.resultToContext()) {
                 runContext.putAll(thisResult);
-                if (Debug.verboseOn()) Debug.logVerbose("Added result(s) to context.", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Added result(s) to context.", MODULE);
+                }
             }
         }
         return result;

@@ -51,7 +51,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to find entity values by a and
- *
  */
 @SuppressWarnings("serial")
 public abstract class ListFinder extends Finder {
@@ -90,7 +89,7 @@ public abstract class ListFinder extends Finder {
         List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
         if (orderByElementList.size() > 0) {
             orderByExpanderList = new ArrayList<>(orderByElementList.size());
-            for (Element orderByElement: orderByElementList) {
+            for (Element orderByElement : orderByElementList) {
                 orderByExpanderList.add(FlexibleStringExpander.getInstance(orderByElement.getAttribute("field-name")));
             }
         }
@@ -99,8 +98,10 @@ public abstract class ListFinder extends Finder {
         Element limitRangeElement = UtilXml.firstChildElement(element, "limit-range");
         Element limitViewElement = UtilXml.firstChildElement(element, "limit-view");
         Element useIteratorElement = UtilXml.firstChildElement(element, "use-iterator");
-        if ((limitRangeElement != null && limitViewElement != null) || (limitRangeElement != null && useIteratorElement != null) || (limitViewElement != null && useIteratorElement != null)) {
-            throw new IllegalArgumentException("In entity find by " + label + " element, cannot have more than one of the following: limit-range, limit-view, " + label + " use-iterator");
+        if ((limitRangeElement != null && limitViewElement != null) || (limitRangeElement != null && useIteratorElement != null)
+                || (limitViewElement != null && useIteratorElement != null)) {
+            throw new IllegalArgumentException("In entity find by " + label + " element, cannot have more than one of the following: limit-range, "
+                    + "limit-view, " + label + " use-iterator");
         }
         if (limitRangeElement != null) {
             outputHandler = new LimitRange(limitRangeElement);
@@ -125,7 +126,8 @@ public abstract class ListFinder extends Finder {
         String resultSetTypeString = this.resultSetTypeExdr.expandString(context);
 
         if (modelEntity == null) {
-            throw new IllegalArgumentException("In find entity by " + label + " could not find definition for entity with name [" + entityName + "].");
+            throw new IllegalArgumentException("In find entity by " + label + " could not find definition for entity with name [" + entityName + "]"
+                    + ".");
         }
 
         boolean useCache = "true".equals(useCacheStr);
@@ -145,14 +147,17 @@ public abstract class ListFinder extends Finder {
         if (useCache) {
             // if useCache == true && outputHandler instanceof UseIterator, throw exception; not a valid combination
             if (outputHandler instanceof UseIterator) {
-                Debug.logWarning("In find entity by " + label + " cannot have use-cache set to true " + label + " select use-iterator for the output type. Using cache and ignoring use-iterator setting.", MODULE);
+                Debug.logWarning("In find entity by " + label + " cannot have use-cache set to true " + label + " select use-iterator for the "
+                        + "output type. Using cache and ignoring use-iterator setting.", MODULE);
                 outputHandler = new GetAll();
             }
             if (distinct) {
-                throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true " + label + " set distinct to true.");
+                throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true " + label + " set distinct to"
+                        + " true.");
             }
             if (havingEntityCondition != null) {
-                throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true and specify a having-condition-list (can only use a where condition with condition-expr or condition-list).");
+                throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true and specify a "
+                        + "having-condition-list (can only use a where condition with condition-expr or condition-list).");
             }
         }
 
@@ -162,7 +167,8 @@ public abstract class ListFinder extends Finder {
 
         //if fieldsToSelect != null and useCacheBool is true, throw an error
         if (fieldsToSelect != null && useCache) {
-            throw new IllegalArgumentException("Error in entity query by " + label + " definition, cannot specify select-field elements when use-cache is set to true");
+            throw new IllegalArgumentException("Error in entity query by " + label + " definition, cannot specify select-field elements when "
+                    + "use-cache is set to true");
         }
 
         // get the list of orderByFields from orderByExpanderList
@@ -189,7 +195,8 @@ public abstract class ListFinder extends Finder {
                 boolean useTransaction = true;
                 if (this.outputHandler instanceof UseIterator && !TransactionUtil.isTransactionInPlace()) {
                     Exception newE = new Exception("Stack Trace");
-                    Debug.logError(newE, "ERROR: Cannot do a by " + label + " find that returns an EntityListIterator with no transaction in place. Wrap this call in a transaction.", MODULE);
+                    Debug.logError(newE, "ERROR: Cannot do a by " + label + " find that returns an EntityListIterator with no transaction in place."
+                            + " Wrap this call in a transaction.", MODULE);
                     useTransaction = false;
                 }
 
@@ -212,9 +219,11 @@ public abstract class ListFinder extends Finder {
                     if (useTransaction) {
                         beganTransaction = TransactionUtil.begin();
                     }
-                    EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options);
+                    EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields,
+                            options);
                     this.outputHandler.handleOutput(eli, context, listAcsr);
-                    // NOTE: the eli EntityListIterator is not closed here. It SHOULD be closed later after the returned list will be used (eg see EntityAnd.getChildren() in ModelTree.java)
+                    // NOTE: the eli EntityListIterator is not closed here. It SHOULD be closed later after the returned list will be used (eg see
+                    // EntityAnd.getChildren() in ModelTree.java)
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in by " + label + " find operation, rolling back transaction";
                     Debug.logError(e, errMsg, MODULE);

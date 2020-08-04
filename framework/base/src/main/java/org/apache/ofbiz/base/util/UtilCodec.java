@@ -52,8 +52,8 @@ public class UtilCodec {
     private static final StringEncoder stringEncoder = new StringEncoder();
     private static final UrlCodec urlCodec = new UrlCodec();
     private static final List<Codec> codecs;
-    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers 
-    private static final List<String> jsEventList = Arrays.asList(new String[] { "onAbort", "onActivate",
+    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers
+    private static final List<String> jsEventList = Arrays.asList(new String[] {"onAbort", "onActivate",
             "onAfterPrint", "onAfterUpdate", "onBeforeActivate", "onBeforeCopy", "onBeforeCut", "onBeforeDeactivate",
             "onBeforeEditFocus", "onBeforePaste", "onBeforePrint", "onBeforeUnload", "onBeforeUpdate", "onBegin",
             "onBlur", "onBounce", "onCellChange", "onChange", "onClick", "onContextMenu", "onControlSelect", "onCopy",
@@ -87,7 +87,7 @@ public class UtilCodec {
     public static interface SimpleEncoder {
         public String encode(String original);
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Deprecated
         public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
@@ -109,7 +109,7 @@ public class UtilCodec {
             return htmlCodec.encode(IMMUNE_HTML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -121,7 +121,7 @@ public class UtilCodec {
          * This method will start a configurable sanitizing process. The sanitizer can
          * be turns off through "sanitizer.enable=false", the default value is true. It
          * is possible to configure a custom policy using the properties
-         * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class". 
+         * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class".
          * The custom policy has to implement
          * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
          *
@@ -177,9 +177,9 @@ public class UtilCodec {
 
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
         // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true.
-        // Note that I was unable to render </html> and </body>. I guess because <html> and <body> 
+        // Note that I was unable to render </html> and </body>. I guess because <html> and <body>
         // are not sanitized in 1st place (else the sanitizer makes some damages I found)
-        // You might even want to adapt the PERMISSIVE_POLICY to your needs... 
+        // You might even want to adapt the PERMISSIVE_POLICY to your needs...
         // Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
         // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
         // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
@@ -193,7 +193,7 @@ public class UtilCodec {
 
         // This is the PolicyFactory used for the Birt Report Builder usage feature. ("FLEXIBLE_REPORT" contentTypeId)
         // It allows to use the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not. 
+        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not.
         // See PERMISSIVE_POLICY above for documentation and examples
         public static final PolicyFactory BIRT_FLEXIBLE_REPORT_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
@@ -204,7 +204,7 @@ public class UtilCodec {
                 .allowAttributes("cols", "rows").onElements("textarea")
                 .allowAttributes("class").onElements("td")
                 .allowAttributes("method").onElements("form")
-                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method", 
+                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method",
                         "name", "novalidate", "target").onElements("form")
                 .toFactory();
     }
@@ -220,7 +220,7 @@ public class UtilCodec {
             return xmlCodec.encode(IMMUNE_XML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -244,7 +244,7 @@ public class UtilCodec {
             }
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -277,7 +277,7 @@ public class UtilCodec {
             return original;
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -377,7 +377,6 @@ public class UtilCodec {
      * Uses a black-list approach for necessary characters for HTML.
      * Does not allow various characters (after canonicalization), including
      * "&lt;", "&gt;", "&amp;" and "%" (if not followed by a space).
-     * 
      * Also does not allow js events as in OFBIZ-10054
      *
      * @param valueName field name checked
@@ -385,7 +384,7 @@ public class UtilCodec {
      * @param errorMessageList an empty list passed by and modified in case of issues
      * @param locale
      */
-    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList, 
+    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList,
             Locale locale) {
         if (UtilValidate.isEmpty(value)) {
             return value;
@@ -404,7 +403,7 @@ public class UtilCodec {
                 issueMsg = "In field [" + valueName + "] found character escaping (mixed or double) "
                         + "that is not allowed or other format consistency error: ";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneMixedOrDouble", 
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneMixedOrDouble",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg + e.toString());
@@ -416,21 +415,21 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) {
                 issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneLess-thanGreater-than", 
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg);
         }
-        
+
         // check for js events
         String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
-        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) 
+        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
             if (locale.equals(new Locale("test"))) {
                 issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneJsEvents", 
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg);
@@ -442,14 +441,14 @@ public class UtilCodec {
         // But all our Tomcat connectors use UTF-8
         // We don't care about Flash now rather deprecated
         // AFAIK all others need less-than (<) and greater-than (>) symbols
-        
+
         return value;
     }
 
     /**
      * This method check if the input is safe HTML.
      * It is possible to configure a safe policy using the properties
-     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class". 
+     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class".
      * The safe policy has to implement
      * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
      *
@@ -458,7 +457,7 @@ public class UtilCodec {
      * @param errorMessageList an empty list passed by and modified in case of issues
      * @param locale
      */
-    public static String checkStringForHtmlSafe(String valueName, String value, List<String> errorMessageList, 
+    public static String checkStringForHtmlSafe(String valueName, String value, List<String> errorMessageList,
             Locale locale, boolean enableSanitizer) {
         if (!enableSanitizer) {
             return value;
@@ -492,18 +491,18 @@ public class UtilCodec {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
                             + "for security reason. Please check and modify accordingly, thanks.";
                 } else {
-                    issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
+                    issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicySafe",
                             UtilMisc.toMap("valueName", valueName), locale);
                 }
                 errorMessageList.add(issueMsg);
             }
         }
-        
+
         return value;
     }
-    
+
     /**
-     * A simple Map wrapper class that will do HTML encoding. 
+     * A simple Map wrapper class that will do HTML encoding.
      * To be used for passing a Map to something that will expand Strings with it as a context, etc.
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object> {

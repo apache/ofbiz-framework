@@ -186,7 +186,7 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="FindWorkEffort" default-map-name="workEffort" target="FindWorkEffort" type="single">
+    <form name="FindWorkEffort" default-map-name="parameters" target="FindWorkEffort" type="single">
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
         <field name="workEffortParentId" position="2"><text-find/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
@@ -204,7 +204,7 @@ under the License.
             </drop-down>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
                     <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
                     <entity-order-by field-name="description"/>
@@ -217,7 +217,7 @@ under the License.
                     <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="priority" position="2">
             <drop-down allow-empty="true">

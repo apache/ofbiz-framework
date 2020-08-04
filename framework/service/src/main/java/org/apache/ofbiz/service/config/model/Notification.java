@@ -48,7 +48,7 @@ public final class Notification {
             service = "sendMailFromScreen";
         }
         this.service = service;
-        
+
     }
 
     public String getScreen() {

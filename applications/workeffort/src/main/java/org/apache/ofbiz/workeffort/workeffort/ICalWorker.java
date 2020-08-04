@@ -61,7 +61,7 @@ public final class ICalWorker {
 
     private static final String MODULE = ICalWorker.class.getName();
 
-    private ICalWorker() {}
+    private ICalWorker() { }
 
     public static final class ResponseProperties {
         public final int statusCode;
@@ -310,8 +310,8 @@ public final class ICalWorker {
 
     private static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
-                    ", message = " + responseProps.statusMessage, MODULE);
+            Debug.logVerbose("Returning response: code = " + responseProps.statusCode
+                    + ", message = " + responseProps.statusMessage, MODULE);
         }
         response.setStatus(responseProps.statusCode);
         if (responseProps.statusCode == HttpServletResponse.SC_UNAUTHORIZED) {

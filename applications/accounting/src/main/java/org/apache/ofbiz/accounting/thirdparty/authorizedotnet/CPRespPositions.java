@@ -36,12 +36,10 @@ public class CPRespPositions extends AuthorizeResponse.RespPositions {
         positions.put(AuthorizeResponse.TRANSACTION_ID, 8);
         positions.put(AuthorizeResponse.AMOUNT, 25);
     }
-
     @Override
     public int getPosition(String name) {
         return positions.getOrDefault(name, -1);
     }
-    
     @Override
     public String getApprovalString() {
         return "1";

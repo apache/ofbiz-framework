@@ -75,10 +75,10 @@ public final class TransactionUtil implements Status {
     private static final boolean debugResources = readDebugResources();
     public static final Map<Xid, DebugXaResource> debugResMap = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
     // in order to improve performance allThreadsTransactionBeginStack and allThreadsTransactionBeginStackSave are only maintained when logging level INFO is on
-    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<Long, Exception>());
-    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<Long, List<Exception>>());
+    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<>());
+    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<>());
 
-    private TransactionUtil () {}
+    private TransactionUtil() { }
     public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
         return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
@@ -234,7 +234,9 @@ public final class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int status = ut.getStatus();
-                if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(status), MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Current status : " + getTransactionStateString(status), MODULE);
+                }
 
                 if (status != STATUS_NO_TRANSACTION && status != STATUS_COMMITTING && status != STATUS_COMMITTED && status != STATUS_ROLLING_BACK && status != STATUS_ROLLEDBACK) {
                     ut.commit();
@@ -245,7 +247,9 @@ public final class TransactionUtil implements Status {
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
 
-                    if (Debug.verboseOn()) Debug.logVerbose("Transaction committed", MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Transaction committed", MODULE);
+                    }
                 } else {
                     Debug.logWarning("Not committing transaction, status is " + getStatusString(), MODULE);
                 }
@@ -355,7 +359,8 @@ public final class TransactionUtil implements Status {
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {
                         if (Debug.warningOn()) {
-                            Debug.logWarning(new Exception(causeMessage), "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
+                            Debug.logWarning(new Exception(causeMessage),
+                                    "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
                         }
                         ut.setRollbackOnly();
                         setSetRollbackOnlyCause(causeMessage, causeThrowable);
@@ -458,7 +463,7 @@ public final class TransactionUtil implements Status {
             if (tm != null && tm.getStatus() == STATUS_ACTIVE) {
                 Transaction tx = tm.getTransaction();
                 if (tx != null) {
-                     tx.enlistResource(resource);
+                    tx.enlistResource(resource);
                 }
             }
         } catch (RollbackException e) {
@@ -485,28 +490,28 @@ public final class TransactionUtil implements Status {
          * STATUS_ROLLING_BACK     9
          */
         switch (state) {
-            case Status.STATUS_ACTIVE:
-                return "Transaction Active (" + state + ")";
-            case Status.STATUS_COMMITTED:
-                return "Transaction Committed (" + state + ")";
-            case Status.STATUS_COMMITTING:
-                return "Transaction Committing (" + state + ")";
-            case Status.STATUS_MARKED_ROLLBACK:
-                return "Transaction Marked Rollback (" + state + ")";
-            case Status.STATUS_NO_TRANSACTION:
-                return "No Transaction (" + state + ")";
-            case Status.STATUS_PREPARED:
-                return "Transaction Prepared (" + state + ")";
-            case Status.STATUS_PREPARING:
-                return "Transaction Preparing (" + state + ")";
-            case Status.STATUS_ROLLEDBACK:
-                return "Transaction Rolledback (" + state + ")";
-            case Status.STATUS_ROLLING_BACK:
-                return "Transaction Rolling Back (" + state + ")";
-            case Status.STATUS_UNKNOWN:
-                return "Transaction Status Unknown (" + state + ")";
-            default:
-                return "Not a valid state code (" + state + ")";
+        case Status.STATUS_ACTIVE:
+            return "Transaction Active (" + state + ")";
+        case Status.STATUS_COMMITTED:
+            return "Transaction Committed (" + state + ")";
+        case Status.STATUS_COMMITTING:
+            return "Transaction Committing (" + state + ")";
+        case Status.STATUS_MARKED_ROLLBACK:
+            return "Transaction Marked Rollback (" + state + ")";
+        case Status.STATUS_NO_TRANSACTION:
+            return "No Transaction (" + state + ")";
+        case Status.STATUS_PREPARED:
+            return "Transaction Prepared (" + state + ")";
+        case Status.STATUS_PREPARING:
+            return "Transaction Preparing (" + state + ")";
+        case Status.STATUS_ROLLEDBACK:
+            return "Transaction Rolledback (" + state + ")";
+        case Status.STATUS_ROLLING_BACK:
+            return "Transaction Rolling Back (" + state + ")";
+        case Status.STATUS_UNKNOWN:
+            return "Transaction Status Unknown (" + state + ")";
+        default:
+            return "Not a valid state code (" + state + ")";
         }
     }
 
@@ -565,7 +570,7 @@ public final class TransactionUtil implements Status {
             rollback();
             num++;
         }
-        // no transaction stamps to remember anymore ;-)
+        // no transaction stamps to remember anymore
         clearTransactionStartStampStack();
         return num;
     }

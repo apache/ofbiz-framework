@@ -150,9 +150,7 @@ public final class JobManager {
                     EntityCondition.makeConditionDate("fromDate", "thruDate"),
                     EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("instanceId", instanceId),
-                            EntityCondition.makeCondition("instanceId", "_NA_"))
-                            , EntityJoinOperator.OR)
-                    ), EntityJoinOperator.AND);
+                            EntityCondition.makeCondition("instanceId", "_NA_")), EntityJoinOperator.OR)), EntityJoinOperator.AND);
             return delegator.findCountByCondition("JobManagerLock", condition, null, null) == 0;
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + instanceId, MODULE);
@@ -381,7 +379,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -401,7 +399,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -423,7 +421,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param endTime
@@ -445,7 +443,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -488,7 +486,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -528,7 +526,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count

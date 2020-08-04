@@ -32,7 +32,7 @@ public class ControlActivationEventListener implements HttpSessionActivationList
     // Debug MODULE name
     private static final String MODULE = ControlActivationEventListener.class.getName();
 
-    public ControlActivationEventListener() {}
+    public ControlActivationEventListener() { }
 
     @Override
     public void sessionWillPassivate(HttpSessionEvent event) {
@@ -45,11 +45,10 @@ public class ControlActivationEventListener implements HttpSessionActivationList
         ControlEventListener.countActivateSession();
         Debug.logInfo("Activating session: " + showSessionId(event.getSession()), MODULE);
     }
-    
     public static String showSessionId(HttpSession session) {
         boolean showSessionIdInLog = UtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y");
         if (showSessionIdInLog) {
-            return " sessionId=" + session.getId(); 
+            return " sessionId=" + session.getId();
         }
         return " hidden sessionId by default.";
     }

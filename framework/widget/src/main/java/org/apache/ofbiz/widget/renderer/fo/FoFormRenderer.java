@@ -70,7 +70,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     HttpServletRequest request;
     HttpServletResponse response;
 
-    public FoFormRenderer() {}
+    public FoFormRenderer() { }
 
     public FoFormRenderer(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.request = request;
@@ -145,8 +145,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             boolean optionSelected = false;
             for (ModelFormField.OptionValue optionValue : allOptionValues) {
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
-                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
-                        (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
+                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent()))
+                        || (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
                     makeBlockString(writer, modelFormField.getWidgetStyle(), optionValue.getDescription());
                     optionSelected = true;
                     break;
@@ -245,13 +245,11 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         writer.append("</fo:table>");
         appendWhitespace(writer);
     }
-    
     @Override
     public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("<fo:table-header>");
         appendWhitespace(writer);
     }
-        
     @Override
     public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("  </fo:table-header>");

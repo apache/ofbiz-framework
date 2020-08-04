@@ -36,7 +36,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;now&gt;, &lt;now-date-to-env&gt;, and &lt;now-timestamp&gt; elements.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class Now extends MethodOperation {

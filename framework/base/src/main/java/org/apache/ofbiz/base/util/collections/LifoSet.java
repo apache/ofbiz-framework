@@ -41,7 +41,7 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
      * collection, in the order they are returned by the collection's
      * iterator.
      */
-    public LifoSet() {}
+    public LifoSet() { }
 
     /**
      * Constructs a set containing the elements of the specified

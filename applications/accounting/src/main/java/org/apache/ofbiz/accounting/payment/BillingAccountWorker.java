@@ -21,7 +21,6 @@ package org.apache.ofbiz.accounting.payment;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -72,8 +71,7 @@ public final class BillingAccountWorker {
 
         List<GenericValue> billingAccountRoleList = EntityQuery.use(delegator).from("BillingAccountRole")
                 .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
-                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")
-                ).filterByDate().queryList();
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")).filterByDate().queryList();
 
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
@@ -98,7 +96,7 @@ public final class BillingAccountWorker {
                     billingAccountList.add(billingAccount);
                 }
             }
-            Collections.sort(billingAccountList, new BillingAccountComparator());
+            billingAccountList.sort(new BillingAccountComparator());
         }
         return billingAccountList;
     }
@@ -111,8 +109,7 @@ public final class BillingAccountWorker {
                 .where(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")
-                ).queryList();
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")).queryList();
     }
 
     /**
@@ -171,7 +168,7 @@ public final class BillingAccountWorker {
      * Returns the amount of the billing account which could be captured, which is BillingAccount.accountLimit - net balance
      * @param billingAccount GenericValue object of the billing account
      * @return the amount of the billing account which could be captured
-     * @throws GenericEntityException 
+     * @throws GenericEntityException
      */
     public static BigDecimal availableToCapture(GenericValue billingAccount) throws GenericEntityException {
         BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
@@ -208,12 +205,11 @@ public final class BillingAccountWorker {
                     UtilMisc.toMap("billingAccountId", billingAccountId), locale));
         }
     }
-    
     @SuppressWarnings("serial")
-    protected static class BillingAccountComparator implements Comparator<Map<String, Object>>, Serializable{
+    protected static class BillingAccountComparator implements Comparator<Map<String, Object>>, Serializable {
         @Override
         public int compare(Map<String, Object> billingAccount1, Map<String, Object> billingAccount2) {
-            return ((BigDecimal)billingAccount1.get("accountBalance")).compareTo((BigDecimal)billingAccount2.get("accountBalance"));
+            return ((BigDecimal) billingAccount1.get("accountBalance")).compareTo((BigDecimal) billingAccount2.get("accountBalance"));
         }
     }
 }

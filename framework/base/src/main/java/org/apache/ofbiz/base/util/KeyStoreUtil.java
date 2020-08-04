@@ -62,7 +62,7 @@ public final class KeyStoreUtil {
 
     private static final String MODULE = KeyStoreUtil.class.getName();
 
-    private KeyStoreUtil () {}
+    private KeyStoreUtil() { }
 
     public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);

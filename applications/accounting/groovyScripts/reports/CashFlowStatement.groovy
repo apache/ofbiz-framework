@@ -103,7 +103,7 @@ transactionTotals.each { transactionTotal ->
         accountMap.remove("debitCreditFlag")
         accountMap.remove("amount")
     }
-    if (transactionTotal.debitCreditFlag == "C") {
+    if ("C" == transactionTotal.debitCreditFlag) {
         accountMap.C = ((BigDecimal)accountMap.get("C")).add(transactionTotal.amount)
         accountMap.balance = (accountMap.balance).subtract(transactionTotal.amount)
     } else {

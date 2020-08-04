@@ -62,7 +62,7 @@ public class TokenFilter implements Filter  {
             String userLoginId = (String) result.get("userLoginId");
             if (UtilValidate.isNotEmpty(result.get(ModelService.ERROR_MESSAGE))) {
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels","loginservices.sorry_problem_processing_request_error", locale));
+                httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels", "loginservices.sorry_problem_processing_request_error", locale));
                 CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
             } else if (UtilValidate.isNotEmpty(userLoginId)) {
                 try {
@@ -74,12 +74,12 @@ public class TokenFilter implements Filter  {
                         chain.doFilter(httpRequest, httpResponse);
                     } else {
                         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                        httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels","loginservices.sorry_problem_processing_request_error", locale));
+                        httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels", "loginservices.sorry_problem_processing_request_error", locale));
                         CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
-                    httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels","loginservices.sorry_problem_processing_request_error_try_later", locale));
+                    httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels", "loginservices.sorry_problem_processing_request_error_try_later", locale));
                     CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
                 }
             }

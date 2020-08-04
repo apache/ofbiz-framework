@@ -58,10 +58,10 @@ public class GeneralServiceException extends org.apache.ofbiz.base.util.GeneralE
         this.nestedServiceResult = nestedServiceResult;
     }
 
-    public Map<String, Object> returnError(String MODULE) {
+    public Map<String, Object> returnError(String module) {
         String errMsg = this.getMessage() == null ? "Error in Service" : this.getMessage();
         if (this.getNested() != null) {
-            Debug.logError(this.getNested(), errMsg, MODULE);
+            Debug.logError(this.getNested(), errMsg, module);
         }
         return ServiceUtil.returnError(errMsg, this.errorMsgList, this.errorMsgMap, this.nestedServiceResult);
     }

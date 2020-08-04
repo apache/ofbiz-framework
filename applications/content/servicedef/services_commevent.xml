@@ -52,9 +52,10 @@ under the License.
         <attribute name="fromDate" type="java.sql.Timestamp" mode="OUT" optional="false"/>
     </service>
 
-    <service name="updateCommContentDataResource" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="updateCommContentDataResource" auth="true">
+    <service name="updateCommContentDataResource" engine="groovy"
+                location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateCommContentDataResource" auth="true">
         <description>Update CommunicationEvent and Content</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false">
             <type-validate>

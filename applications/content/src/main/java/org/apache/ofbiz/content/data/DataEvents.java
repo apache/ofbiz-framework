@@ -51,7 +51,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class DataEvents {
 
     private static final String MODULE = DataEvents.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     public static String uploadImage(HttpServletRequest request, HttpServletResponse response) {
         return DataResourceWorker.uploadAndStoreImage(request, "dataResourceId", "imageData");
@@ -81,6 +81,13 @@ public class DataEvents {
 
         // get the permission service required for streaming data; default is always the genericContentPermission
         String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service", "genericContentPermission", delegator);
+
+        // This is counterintuitive but it works, for OFBIZ-11840
+        // It could be improved by checking for possible events associated with svg
+        // As listed at https://portswigger.net/web-security/cross-site-scripting/cheat-sheet
+        if (contentId.contains("<svg")) {
+            return "success";
+        }
 
         // get the content record
         GenericValue content;
@@ -286,7 +293,7 @@ public class DataEvents {
             }
             OutputStream os = response.getOutputStream();
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
-            os.write(IOUtils.toByteArray((InputStream)resourceData.get("stream")));
+            os.write(IOUtils.toByteArray((InputStream) resourceData.get("stream")));
             os.flush();
         } catch (GeneralException | IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
@@ -314,14 +321,14 @@ public class DataEvents {
         dataResource.setNonPKFields(paramMap);
         Map<String, Object> serviceInMap = UtilMisc.makeMapWritable(dataResource);
         serviceInMap.put("userLogin", userLogin);
-        String mode = (String)paramMap.get("mode");
+        String mode = (String) paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
 
         try {
             if (mode != null && "UPDATE".equals(mode)) {
                 result = dispatcher.runSync("updateDataResource", serviceInMap);
                 if (ServiceUtil.isError(result)) {
-                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
+                    String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "dataEvents.error_call_update_service", locale);
                     String errorMsg = ServiceUtil.getErrorMessage(result);
                     Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -331,13 +338,13 @@ public class DataEvents {
                 mode = "CREATE";
                 result = dispatcher.runSync("createDataResource", serviceInMap);
                 if (ServiceUtil.isError(result)) {
-                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
+                    String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "dataEvents.error_call_create_service", locale);
                     String errorMsg = ServiceUtil.getErrorMessage(result);
                     Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
-                dataResourceId = (String)result.get("dataResourceId");
+                dataResourceId = (String) result.get("dataResourceId");
                 dataResource.set("dataResourceId", dataResourceId);
             }
         } catch (GenericServiceException e) {
@@ -350,12 +357,12 @@ public class DataEvents {
         if ("CREATE".equals(mode)) {
             // Set up return message to guide selection of follow on view
             request.setAttribute("dataResourceId", result.get("dataResourceId"));
-            String dataResourceTypeId = (String)serviceInMap.get("dataResourceTypeId");
+            String dataResourceTypeId = (String) serviceInMap.get("dataResourceTypeId");
             if (dataResourceTypeId != null) {
-                 if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
-                     || "IMAGE_OBJECT".equals(dataResourceTypeId)) {
+                if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
+                        || "IMAGE_OBJECT".equals(dataResourceTypeId)) {
                     returnStr = dataResourceTypeId;
-                 }
+                }
             }
         }
 

@@ -41,9 +41,9 @@ import org.xml.sax.SAXException;
  */
 public class CdyneServices {
 
-    public final static String MODULE = CdyneServices.class.getName();
+    private static final String MODULE = CdyneServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
-    public final static String licenseKey = UtilProperties.getPropertyValue("cdyne", "LicenseKey", "0");
+    public static final String licenseKey = UtilProperties.getPropertyValue("cdyne", "LicenseKey", "0");
 
     /**
      * CDyne ReturnCityState Service

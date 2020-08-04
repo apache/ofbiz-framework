@@ -89,7 +89,7 @@ public class MenuFactory {
             if (!"menus".equalsIgnoreCase(rootElement.getTagName())) {
                 rootElement = UtilXml.firstChildElement(rootElement, "menus");
             }
-            for (Element menuElement: UtilXml.childElementList(rootElement, "menu")){
+            for (Element menuElement: UtilXml.childElementList(rootElement, "menu")) {
                 ModelMenu modelMenu = new ModelMenu(menuElement, menuLocation, visualTheme);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }

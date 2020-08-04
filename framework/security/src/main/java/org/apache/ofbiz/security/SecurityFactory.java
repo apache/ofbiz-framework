@@ -81,18 +81,18 @@ public final class SecurityFactory {
         return security;
     }
 
-    private SecurityFactory() {}
+    private SecurityFactory() { }
 
     private static final class OFBizSecurity implements Security {
 
         private Delegator delegator = null;
 
-        private static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
-            "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
-            "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
-            "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
+        private static final Map<String, Map<String, String>> SIMPLE_ROLE_ENT = UtilMisc.toMap(
+                "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
+                "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
+                "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
 
-        private OFBizSecurity() {}
+        private OFBizSecurity() { }
 
         @Override
         public void clearUserData(GenericValue userLogin) {
@@ -222,7 +222,7 @@ public final class SecurityFactory {
             }
             String entityName = null;
             EntityCondition condition = null;
-            Map<String, String> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
+            Map<String, String> simpleRoleMap = OFBizSecurity.SIMPLE_ROLE_ENT.get(application);
             if (simpleRoleMap != null && roles != null) {
                 entityName = simpleRoleMap.get("name");
                 String pkey = simpleRoleMap.get("pkey");

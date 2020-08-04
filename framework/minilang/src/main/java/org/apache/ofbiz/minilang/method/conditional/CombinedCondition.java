@@ -32,7 +32,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;and&gt;, &lt;or&gt;, &lt;not&gt;, and &lt;xor&gt; elements.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public abstract class CombinedCondition extends MiniLangElement implements Conditional {
@@ -62,7 +61,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;and&gt; element factory. 
+     * A &lt;and&gt; element factory.
      */
     public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
@@ -93,7 +92,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;not&gt; element factory. 
+     * A &lt;not&gt; element factory.
      */
     public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
@@ -125,7 +124,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;or&gt; element factory. 
+     * A &lt;or&gt; element factory.
      */
     public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override
@@ -156,7 +155,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
     }
 
     /**
-     * A &lt;xor&gt; element factory. 
+     * A &lt;xor&gt; element factory.
      */
     public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
         @Override

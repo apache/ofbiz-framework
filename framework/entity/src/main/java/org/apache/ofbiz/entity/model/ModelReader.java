@@ -146,12 +146,12 @@ public class ModelReader implements Serializable {
 
         // check to see if entity with same name has already been read
         if (entityCache.containsKey(entityName) && !redefinedEntity) {
-            Debug.logWarning("Entity " + entityName +
-                    " is defined more than once, most recent will over-write " +
-                    "previous definition(s)", MODULE);
-            Debug.logWarning("Entity " + entityName + " was found in " +
-                    entityResourceHandler + ", but was already defined in " +
-                    entityResourceHandlerMap.get(entityName).toString(), MODULE);
+            Debug.logWarning("Entity " + entityName
+                    + " is defined more than once, most recent will over-write "
+                    + "previous definition(s)", MODULE);
+            Debug.logWarning("Entity " + entityName + " was found in "
+                    + entityResourceHandler + ", but was already defined in "
+                    + entityResourceHandlerMap.get(entityName).toString(), MODULE);
         }
 
         // add entityName, entityFileName pair to entityResourceHandlerMap map
@@ -188,8 +188,8 @@ public class ModelReader implements Serializable {
                 }
             }
         } else {
-            Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create " +
-                    "entity for entityName: " + entityName, MODULE);
+            Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create "
+                    + "entity for entityName: " + entityName, MODULE);
         }
         return modelEntity;
     }
@@ -345,8 +345,8 @@ public class ModelReader implements Serializable {
                             Iterator<ModelRelation> relationsIter = curModelEntity.getRelationsIterator();
                             while (relationsIter.hasNext()) {
                                 ModelRelation modelRelation = relationsIter.next();
-                                if (("one".equals(modelRelation.getType()) 
-                                        || "one-nofk".equals(modelRelation.getType())) 
+                                if (("one".equals(modelRelation.getType())
+                                        || "one-nofk".equals(modelRelation.getType()))
                                         && !modelRelation.isAutoRelation()) {
                                     ModelEntity relatedEnt = null;
                                     try {
@@ -406,10 +406,10 @@ public class ModelReader implements Serializable {
                                     } else {
                                         if (newRel.equals(existingRelation)) {
                                             // don't warn if the target title+entity = current title+entity
-                                            if (Debug.infoOn() 
+                                            if (Debug.infoOn()
                                                     && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
-                                                // String errorMsg = "Relation already exists to entity [] with title ["
-                                                // + targetTitle + "],from entity []";
+                                                // String errorMsg = "Relation already exists to entity[] with title ["
+                                                // + targetTitle + "], from entity[]";
                                                 String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName()
                                                         + "] already has identical relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
                                                         + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
@@ -419,7 +419,9 @@ public class ModelReader implements Serializable {
                                             String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity ["
                                                     + relatedEnt.getEntityName() + "] and relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
                                                     + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
-                                            if (Debug.verboseOn()) Debug.logVerbose(message, MODULE);
+                                            if (Debug.verboseOn()) {
+                                                Debug.logVerbose(message, MODULE);
+                                            }
                                         }
                                     }
                                 }
@@ -491,7 +493,6 @@ public class ModelReader implements Serializable {
 
     /**
      * Gets an Entity object based on a definition from the specified XML Entity descriptor file.
-     * 
      * @param entityName
      *            The entityName of the Entity definition to use.
      * @return An Entity object describing the specified entity of the specified descriptor file.
@@ -529,7 +530,6 @@ public class ModelReader implements Serializable {
 
     /**
      * Creates a Iterator with the entityName of each Entity defined in the specified XML Entity Descriptor file.
-     * 
      * @return A Iterator of entityName Strings
      */
     public Iterator<String> getEntityNamesIterator() throws GenericEntityException {
@@ -543,7 +543,6 @@ public class ModelReader implements Serializable {
 
     /**
      * Creates a Set with the entityName of each Entity defined in the specified XML Entity Descriptor file.
-     * 
      * @return A Set of entityName Strings
      */
     public Set<String> getEntityNames() throws GenericEntityException {
@@ -602,7 +601,6 @@ public class ModelReader implements Serializable {
      * characters are stripped from the beginning of the name until a valid entity
      * name is found. It is intended to be used to determine the entity name from a
      * relation name.
-     * 
      * @return A valid entityName or null
      */
     public String validateEntityName(String entityName) throws GenericEntityException {

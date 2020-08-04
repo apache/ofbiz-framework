@@ -39,9 +39,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class InventoryWorker {
 
-    public final static String MODULE = InventoryWorker.class.getName();
+    private static final String MODULE = InventoryWorker.class.getName();
 
-    private InventoryWorker () {}
+    private InventoryWorker() { }
 
     /**
      * Finds all outstanding Purchase orders for a productId.  The orders and the items cannot be completed, cancelled, or rejected
@@ -114,8 +114,7 @@ public final class InventoryWorker {
                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
-               );
+                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
         if (productIds.size() > 0) {
             condList.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds));
         }

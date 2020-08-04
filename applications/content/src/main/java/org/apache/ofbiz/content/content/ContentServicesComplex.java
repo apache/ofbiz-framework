@@ -67,13 +67,13 @@ public class ContentServicesComplex {
         Delegator delegator = dctx.getDelegator();
         List<String> assocTypes = UtilGenerics.cast(context.get("assocTypes"));
         List<String> contentTypes = UtilGenerics.cast(context.get("contentTypes"));
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
-        Timestamp thruDate = (Timestamp)context.get("thruDate");
-        String fromDateStr = (String)context.get("fromDateStr");
-        String thruDateStr = (String)context.get("thruDateStr");
-        String contentId = (String)context.get("contentId");
-        String direction = (String)context.get("direction");
-        String mapKey = (String)context.get("mapKey");
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Timestamp thruDate = (Timestamp) context.get("thruDate");
+        String fromDateStr = (String) context.get("fromDateStr");
+        String thruDateStr = (String) context.get("thruDateStr");
+        String contentId = (String) context.get("contentId");
+        String direction = (String) context.get("direction");
+        String mapKey = (String) context.get("mapKey");
         Map<String, Object> results = getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, direction, fromDate, thruDate, fromDateStr, thruDateStr, assocTypes, contentTypes);
         return results;
     }
@@ -139,9 +139,10 @@ public class ContentServicesComplex {
             return ServiceUtil.returnError(e.getMessage());
         }
         for (GenericValue a : relatedAssocs) {
-            if (Debug.verboseOn())
-                Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") +
-                        " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate")
+                        + " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
+            }
         }
         Map<String, Object> results = new HashMap<>();
         results.put("entityList", relatedAssocs);
@@ -159,7 +160,7 @@ public class ContentServicesComplex {
     public static Map<String, Object> getAssocAndContentAndDataResourceCache(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         List<String> assocTypes = UtilGenerics.cast(context.get("assocTypes"));
-        String assocTypesString = (String)context.get("assocTypesString");
+        String assocTypesString = (String) context.get("assocTypesString");
         if (UtilValidate.isNotEmpty(assocTypesString)) {
             List<String> lst = StringUtil.split(assocTypesString, "|");
             if (assocTypes == null) {
@@ -168,7 +169,7 @@ public class ContentServicesComplex {
             assocTypes.addAll(lst);
         }
         List<String> contentTypes = UtilGenerics.cast(context.get("contentTypes"));
-        String contentTypesString = (String)context.get("contentTypesString");
+        String contentTypesString = (String) context.get("contentTypesString");
         if (UtilValidate.isNotEmpty(contentTypesString)) {
             List<String> lst = StringUtil.split(contentTypesString, "|");
             if (contentTypes == null) {
@@ -176,13 +177,13 @@ public class ContentServicesComplex {
             }
             contentTypes.addAll(lst);
         }
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
-        String fromDateStr = (String)context.get("fromDateStr");
-        String contentId = (String)context.get("contentId");
-        String direction = (String)context.get("direction");
-        String mapKey = (String)context.get("mapKey");
-        String contentAssocPredicateId = (String)context.get("contentAssocPredicateId");
-        Boolean nullThruDatesOnly = (Boolean)context.get("nullThruDatesOnly");
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        String fromDateStr = (String) context.get("fromDateStr");
+        String contentId = (String) context.get("contentId");
+        String direction = (String) context.get("direction");
+        String mapKey = (String) context.get("mapKey");
+        String contentAssocPredicateId = (String) context.get("contentAssocPredicateId");
+        Boolean nullThruDatesOnly = (Boolean) context.get("nullThruDatesOnly");
         Map<String, Object> results = null;
         try {
             results = getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, direction, fromDate, fromDateStr, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
@@ -242,39 +243,43 @@ public class ContentServicesComplex {
         GenericValue dataResource = null;
         List<GenericValue> contentAssocDataResourceList = new LinkedList<>();
         Locale locale = Locale.getDefault(); // TODO: this needs to be passed in
-        try{
-        for (GenericValue contentAssocView : contentAssocsTypeFiltered) {
-            GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(UtilMisc.toMap("contentId", contentAssocView.getString("contentId"),
-                    "contentIdTo", contentAssocView.getString(contentFieldName), "contentAssocTypeId", contentAssocView.getString("caContentAssocTypeId"), 
-                    "fromDate", contentAssocView.getTimestamp("caFromDate"))).queryOne();
-            content = contentAssoc.getRelatedOne(assocRelationName, true);
-            if (UtilValidate.isNotEmpty(contentTypes)) {
-                String contentTypeId = (String)content.get("contentTypeId");
-                if (contentTypes.contains(contentTypeId)) {
+        try {
+            for (GenericValue contentAssocView : contentAssocsTypeFiltered) {
+                GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(UtilMisc.toMap("contentId",
+                        contentAssocView.getString("contentId"),
+                        "contentIdTo", contentAssocView.getString(contentFieldName), "contentAssocTypeId", contentAssocView.getString(
+                                "caContentAssocTypeId"),
+                        "fromDate", contentAssocView.getTimestamp("caFromDate"))).queryOne();
+                content = contentAssoc.getRelatedOne(assocRelationName, true);
+                if (UtilValidate.isNotEmpty(contentTypes)) {
+                    String contentTypeId = (String) content.get("contentTypeId");
+                    if (contentTypes.contains(contentTypeId)) {
+                        contentAssocDataResourceView = delegator.makeValue(viewName);
+                        contentAssocDataResourceView.setAllFields(content, true, null, null);
+                    }
+                } else {
                     contentAssocDataResourceView = delegator.makeValue(viewName);
                     contentAssocDataResourceView.setAllFields(content, true, null, null);
                 }
-            } else {
-                contentAssocDataResourceView = delegator.makeValue(viewName);
-                contentAssocDataResourceView.setAllFields(content, true, null, null);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut",
+                        contentAssoc, contentAssocDataResourceView, new LinkedList<>(), locale);
+                String dataResourceId = content.getString("dataResourceId");
+                if (UtilValidate.isNotEmpty(dataResourceId))
+                    dataResource = content.getRelatedOne("DataResource", true);
+                if (dataResource != null) {
+                    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut",
+                            dataResource, contentAssocDataResourceView, new LinkedList<>(), locale);
+                }
+                contentAssocDataResourceList.add(contentAssocDataResourceView);
             }
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, new LinkedList<>(), locale);
-            String dataResourceId = content.getString("dataResourceId");
-            if (UtilValidate.isNotEmpty(dataResourceId))
-                dataResource = content.getRelatedOne("DataResource", true);
-            if (dataResource != null) {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceView, new LinkedList<>(), locale);
-            }
-            contentAssocDataResourceList.add(contentAssocDataResourceView);
-        }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         if (UtilValidate.isNotEmpty(orderBy)) {
             List<String> orderByList = StringUtil.split(orderBy, "|");
-           contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);
+            contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);
         }
         Map<String, Object> results = new HashMap<>();
         results.put("entityList", contentAssocDataResourceList);

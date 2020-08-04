@@ -135,7 +135,7 @@ public class GatewayResponse {
         Node rootnode = doc.getDocumentElement();
         String root = rootnode.getNodeName();
 
-        if (root != "ewayResponse") {
+        if ("ewayResponse" != root) {
             throw new Exception("Bad root element in response: " + root);
         }
 
@@ -143,9 +143,9 @@ public class GatewayResponse {
         NodeList list = doc.getElementsByTagName("*");
         int length = list.getLength();
         for (int i = 0; i < length; i++) {
-            Node node = list.item(i);                        
+            Node node = list.item(i);
             String name = node.getNodeName();
-            if (name == "ewayResponse") {
+            if ("ewayResponse" == name) {
                 continue;
             }
             Text textnode = (Text) node.getFirstChild();
@@ -154,7 +154,7 @@ public class GatewayResponse {
                 value = textnode.getNodeValue();
             }
 
-            switch(name) {
+            switch (name) {
             case "ewayTrxnError":
                 txTrxnError = value;
                 break;
@@ -186,7 +186,7 @@ public class GatewayResponse {
             case "ewayTrxnReference":
                 txTrxnReference = value;
                 break;
-            case "ewayBeagleScore": 
+            case "ewayBeagleScore":
                 if (!value.equals("")) {
                     txBeagleScore = Double.parseDouble(value);
                 }
@@ -195,12 +195,10 @@ public class GatewayResponse {
                 throw new Exception("Unknown field in response: " + name);
             }
         }
-            
         if (req.isTestMode()) {
             Debug.logInfo("[eWay Reply]\n" + this.toString(), MODULE);
         }
     }
-    
     @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();

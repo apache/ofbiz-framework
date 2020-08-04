@@ -226,8 +226,8 @@ public class WorldPayEvents {
         // get the currency
         String defCur = UtilFormatOut.checkEmpty(productStore.getString("defaultCurrencyUomId"), "USD");
         // order description
-        String description = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " " +
-                                 (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
+        String description = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " "
+                                 + (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " " + company : "");
         // check the instId - very important
         if (instId == null || "NONE".equals(instId)) {
             Debug.logError("Worldpay InstId not found, cannot continue", MODULE);
@@ -310,7 +310,7 @@ public class WorldPayEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parametersMap = UtilHttp.getParameterMap(request);
         String orderId = request.getParameter("cartId");
         for (String name : parametersMap.keySet()) {
             String value = request.getParameter(name);
@@ -401,7 +401,9 @@ public class WorldPayEvents {
     }
 
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
-        if (Debug.verboseOn()) Debug.logVerbose("Setting payment preferences..", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Setting payment preferences..", MODULE);
+        }
         List<GenericValue> paymentPrefs = null;
         try {
             paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")
@@ -492,7 +494,7 @@ public class WorldPayEvents {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String RESOURCE, String parameterName) {
+                                                       String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -507,17 +509,16 @@ public class WorldPayEvents {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }
         }
         return returnValue;
     }
-
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String RESOURCE, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, RESOURCE, parameterName);
+                                                       String resource, String parameterName, String defaultValue) {
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

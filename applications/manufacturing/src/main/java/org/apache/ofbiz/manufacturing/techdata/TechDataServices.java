@@ -74,7 +74,7 @@ public class TechDataServices {
         if (UtilValidate.isNotEmpty(workEffortName)) {
             constraints.add(EntityCondition.makeCondition("workEffortName", EntityOperator.GREATER_THAN_EQUAL_TO, workEffortName));
         }
-        if (UtilValidate.isNotEmpty(fixedAssetId) && ! "ANY".equals(fixedAssetId)) {
+        if (UtilValidate.isNotEmpty(fixedAssetId) && !"ANY".equals(fixedAssetId)) {
             constraints.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
         }
         constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
@@ -92,14 +92,14 @@ public class TechDataServices {
         if (listRoutingTask == null) {
             listRoutingTask = new LinkedList<>();
         }
-        if (listRoutingTask.size() == 0) {
+        //if (listRoutingTask.size() == 0) {
             //FIXME is it correct ?
-            // listRoutingTask.add(UtilMisc.toMap("label","no Match","value","NO_MATCH"));
-        }
+            // listRoutingTask.add(UtilMisc.toMap("label", "no Match", "value", "NO_MATCH"));
+        //}
         result.put("lookupResult", listRoutingTask);
         return result;
     }
-    
+
     /**
      *
      * Used to check if there is not two routing task with the same SeqId valid at the same period
@@ -116,17 +116,17 @@ public class TechDataServices {
         String workEffortIdFrom = (String) context.get("workEffortIdFrom");
         String workEffortIdTo = (String) context.get("workEffortIdTo");
         String workEffortAssocTypeId = (String) context.get("workEffortAssocTypeId");
-        Long sequenceNum =  (Long) context.get("sequenceNum");
+        Long sequenceNum = (Long) context.get("sequenceNum");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
         Timestamp thruDate = (Timestamp) context.get("thruDate");
         String create = (String) context.get("create");
 
-        boolean createProcess = (create !=null && "Y".equals(create)) ? true : false;
+        boolean createProcess = (create != null && "Y".equals(create)) ? true : false;
         List<GenericValue> listRoutingTaskAssoc = null;
 
         try {
             listRoutingTaskAssoc = EntityQuery.use(delegator).from("WorkEffortAssoc")
-                    .where("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum)
+                    .where("workEffortIdFrom", workEffortIdFrom, "sequenceNum", sequenceNum)
                     .orderBy("fromDate")
                     .queryList();
         } catch (GenericEntityException e) {
@@ -136,28 +136,26 @@ public class TechDataServices {
 
         if (listRoutingTaskAssoc != null) {
             for (GenericValue routingTaskAssoc : listRoutingTaskAssoc) {
-                if (! workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom")) ||
-                ! workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo")) ||
-                ! workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId")) ||
-                ! sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))
-               ) {
-                    if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null) sequenceNumNotOk = "Y";
+                if (!workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom"))
+                        || !workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo"))
+                        || !workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId"))
+                        || !sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))) {
+                    if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null)
+                        sequenceNumNotOk = "Y";
                     else if (routingTaskAssoc.getTimestamp("thruDate") == null) {
                         if (thruDate == null) sequenceNumNotOk = "Y";
                         else if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) sequenceNumNotOk = "Y";
-                    }
-                    else  if (routingTaskAssoc.getTimestamp("fromDate") == null) {
+                    } else if (routingTaskAssoc.getTimestamp("fromDate") == null) {
                         if (fromDate == null) sequenceNumNotOk = "Y";
                         else if (fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
-                    }
-                    else if (fromDate == null && thruDate == null) sequenceNumNotOk = "Y";
+                    } else if (fromDate == null && thruDate == null) sequenceNumNotOk = "Y";
                     else if (thruDate == null) {
                         if (fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
-                    }
-                    else if (fromDate == null) {
+                    } else if (fromDate == null) {
                         if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) sequenceNumNotOk = "Y";
-                    }
-                    else if (routingTaskAssoc.getTimestamp("fromDate").before(thruDate) && fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
+                    } else if (routingTaskAssoc.getTimestamp("fromDate").before(thruDate) && fromDate.before(routingTaskAssoc.getTimestamp(
+                            "thruDate")))
+                        sequenceNumNotOk = "Y";
                 } else if (createProcess) sequenceNumNotOk = "Y";
             }
         }
@@ -173,28 +171,29 @@ public class TechDataServices {
      * @return the techDataCalendar associated
      */
     public static GenericValue getTechDataCalendar(GenericValue routingTask) {
-        GenericValue machineGroup = null, techDataCalendar = null;
+        GenericValue machineGroup = null;
+        GenericValue techDataCalendar = null;
         try {
             machineGroup = routingTask.getRelatedOne("FixedAsset", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading FixedAsset associated with routingTask"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading FixedAsset associated with routingTask" + e.getMessage(), MODULE);
         }
         if (machineGroup != null) {
             if (machineGroup.getString("calendarId") != null) {
                 try {
                     techDataCalendar = machineGroup.getRelatedOne("TechDataCalendar", true);
                 } catch (GenericEntityException e) {
-                    Debug.logError("Pb reading TechDataCalendar associated with machineGroup"+e.getMessage(), MODULE);
+                    Debug.logError("Pb reading TechDataCalendar associated with machineGroup" + e.getMessage(), MODULE);
                 }
             } else {
                 try {
                     List<GenericValue> machines = machineGroup.getRelated("ChildFixedAsset", null, null, true);
-                    if (machines != null && machines.size()>0) {
+                    if (machines != null && machines.size() > 0) {
                         GenericValue machine = EntityUtil.getFirst(machines);
                         techDataCalendar = machine.getRelatedOne("TechDataCalendar", true);
                     }
                 } catch (GenericEntityException e) {
-                    Debug.logError("Pb reading machine child from machineGroup"+e.getMessage(), MODULE);
+                    Debug.logError("Pb reading machine child from machineGroup" + e.getMessage(), MODULE);
                 }
             }
         }
@@ -203,7 +202,7 @@ public class TechDataServices {
                 Delegator delegator = routingTask.getDelegator();
                 techDataCalendar = EntityQuery.use(delegator).from("TechDataCalendar").where("calendarId", "DEFAULT").queryOne();
             } catch (GenericEntityException e) {
-                Debug.logError("Pb reading TechDataCalendar DEFAULT"+e.getMessage(), MODULE);
+                Debug.logError("Pb reading TechDataCalendar DEFAULT" + e.getMessage(), MODULE);
             }
         }
         return techDataCalendar;
@@ -215,49 +214,49 @@ public class TechDataServices {
      * @param dayStart
      * @return a map with the  capacity (Double) available and moveDay (int): the number of day it's necessary to move to have capacity available
      */
-    public static Map<String, Object> dayStartCapacityAvailable(GenericValue techDataCalendarWeek,  int  dayStart) {
+    public static Map<String, Object> dayStartCapacityAvailable(GenericValue techDataCalendarWeek, int dayStart) {
         Map<String, Object> result = new HashMap<>();
         int moveDay = 0;
         Double capacity = null;
         Time startTime = null;
-        while (capacity == null || capacity ==0) {
+        while (capacity == null || capacity == 0) {
             switch (dayStart) {
-                case Calendar.MONDAY:
-                    capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("mondayStartTime");
-                    break;
-                case Calendar.TUESDAY:
-                    capacity =  techDataCalendarWeek.getDouble("tuesdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("tuesdayStartTime");
-                    break;
-                case Calendar.WEDNESDAY:
-                    capacity =  techDataCalendarWeek.getDouble("wednesdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("wednesdayStartTime");
-                    break;
-                case Calendar.THURSDAY:
-                    capacity =  techDataCalendarWeek.getDouble("thursdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("thursdayStartTime");
-                    break;
-                case Calendar.FRIDAY:
-                    capacity =  techDataCalendarWeek.getDouble("fridayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("fridayStartTime");
-                    break;
-                case Calendar.SATURDAY:
-                    capacity =  techDataCalendarWeek.getDouble("saturdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("saturdayStartTime");
-                    break;
-                case Calendar.SUNDAY:
-                    capacity =  techDataCalendarWeek.getDouble("sundayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("sundayStartTime");
-                    break;
+            case Calendar.MONDAY:
+                capacity = techDataCalendarWeek.getDouble("mondayCapacity");
+                startTime = techDataCalendarWeek.getTime("mondayStartTime");
+                break;
+            case Calendar.TUESDAY:
+                capacity = techDataCalendarWeek.getDouble("tuesdayCapacity");
+                startTime = techDataCalendarWeek.getTime("tuesdayStartTime");
+                break;
+            case Calendar.WEDNESDAY:
+                capacity = techDataCalendarWeek.getDouble("wednesdayCapacity");
+                startTime = techDataCalendarWeek.getTime("wednesdayStartTime");
+                break;
+            case Calendar.THURSDAY:
+                capacity = techDataCalendarWeek.getDouble("thursdayCapacity");
+                startTime = techDataCalendarWeek.getTime("thursdayStartTime");
+                break;
+            case Calendar.FRIDAY:
+                capacity = techDataCalendarWeek.getDouble("fridayCapacity");
+                startTime = techDataCalendarWeek.getTime("fridayStartTime");
+                break;
+            case Calendar.SATURDAY:
+                capacity = techDataCalendarWeek.getDouble("saturdayCapacity");
+                startTime = techDataCalendarWeek.getTime("saturdayStartTime");
+                break;
+            case Calendar.SUNDAY:
+                capacity = techDataCalendarWeek.getDouble("sundayCapacity");
+                startTime = techDataCalendarWeek.getTime("sundayStartTime");
+                break;
             }
             if (capacity == null || capacity == 0) {
-                moveDay +=1;
-                dayStart = (dayStart==7) ? 1 : dayStart +1;
+                moveDay += 1;
+                dayStart = (dayStart == 7) ? 1 : dayStart + 1;
             }
         }
-        result.put("capacity",capacity);
-        result.put("startTime",startTime);
+        result.put("capacity", capacity);
+        result.put("startTime", startTime);
         result.put("moveDay", moveDay);
         return result;
     }
@@ -268,17 +267,17 @@ public class TechDataServices {
      * @param dateFrom                        the date
      * @return  long capacityRemaining
      */
-    public static long capacityRemaining(GenericValue techDataCalendar,  Timestamp  dateFrom) {
+    public static long capacityRemaining(GenericValue techDataCalendar, Timestamp dateFrom) {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage execption week (maybe it's needed to refactor the entity definition
         try {
             techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading Calendar Week associated with calendar" + e.getMessage(), MODULE);
             return 0;
         }
         // TODO read TechDataCalendarExcDay to manage execption day
-        Calendar cDateTrav =  Calendar.getInstance();
+        Calendar cDateTrav = Calendar.getInstance();
         cDateTrav.setTime(dateFrom);
         Map<String, Object> position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         int moveDay = (Integer) position.get("moveDay");
@@ -287,9 +286,9 @@ public class TechDataServices {
         Double capacity = (Double) position.get("capacity");
         Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod)) return 0;
-        Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime()+capacity.longValue());
+        Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime() + capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
-        return  endAvailablePeriod.getTime() - dateFrom.getTime();
+        return endAvailablePeriod.getTime() - dateFrom.getTime();
     }
     /** Used to move in a TechDataCalenda, produce the Timestamp for the begining of the next day available and its associated capacity.
      * If the dateFrom (param in) is not  in an available TechDataCalendar period, the return value is the next day available
@@ -298,7 +297,7 @@ public class TechDataServices {
      * @param dateFrom                        the date
      * @return a map with Timestamp dateTo, Double nextCapacity
      */
-    public static Map<String, Object> startNextDay(GenericValue techDataCalendar, Timestamp  dateFrom) {
+    public static Map<String, Object> startNextDay(GenericValue techDataCalendar, Timestamp dateFrom) {
         Map<String, Object> result = new HashMap<>();
         Timestamp dateTo = null;
         GenericValue techDataCalendarWeek = null;
@@ -306,31 +305,30 @@ public class TechDataServices {
         try {
             techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading Calendar Week associated with calendar" + e.getMessage(), MODULE);
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
         }
         // TODO read TechDataCalendarExcDay to manage execption day
-        Calendar cDateTrav =  Calendar.getInstance();
+        Calendar cDateTrav = Calendar.getInstance();
         cDateTrav.setTime(dateFrom);
         Map<String, Object> position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         Time startTime = (Time) position.get("startTime");
         int moveDay = (Integer) position.get("moveDay");
-        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom,moveDay);
+        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom, moveDay);
         Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.before(startAvailablePeriod)) {
             dateTo = startAvailablePeriod;
-        }
-        else {
+        } else {
             dateTo = UtilDateTime.getNextDayStart(dateTo);
             cDateTrav.setTime(dateTo);
             position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
-            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
+            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
-        result.put("dateTo",dateTo);
-        result.put("nextCapacity",position.get("capacity"));
+        result.put("dateTo", dateTo);
+        result.put("nextCapacity", position.get("capacity"));
         return result;
     }
     /** Used to move forward in a TechDataCalenda, start from the dateFrom and move forward only on available period.
@@ -341,21 +339,21 @@ public class TechDataServices {
      * @param amount                           the amount of millisecond to move forward
      * @return the dateTo
      */
-    public static Timestamp addForward(GenericValue techDataCalendar,  Timestamp  dateFrom, long amount) {
+    public static Timestamp addForward(GenericValue techDataCalendar, Timestamp dateFrom, long amount) {
         Timestamp dateTo = (Timestamp) dateFrom.clone();
         long nextCapacity = capacityRemaining(techDataCalendar, dateFrom);
         if (amount <= nextCapacity) {
-            dateTo.setTime(dateTo.getTime()+amount);
+            dateTo.setTime(dateTo.getTime() + amount);
             amount = 0;
         } else amount -= nextCapacity;
 
         Map<String, Object> result = new HashMap<>();
-        while (amount > 0)  {
+        while (amount > 0) {
             result = startNextDay(techDataCalendar, dateTo);
             dateTo = (Timestamp) result.get("dateTo");
             nextCapacity = ((Double) result.get("nextCapacity")).longValue();
             if (amount <= nextCapacity) {
-                dateTo.setTime(dateTo.getTime()+amount);
+                dateTo.setTime(dateTo.getTime() + amount);
                 amount = 0;
             } else amount -= nextCapacity;
         }
@@ -376,42 +374,42 @@ public class TechDataServices {
         Time startTime = null;
         while (capacity == null || capacity == 0) {
             switch (dayEnd) {
-                case Calendar.MONDAY:
-                    capacity =  techDataCalendarWeek.getDouble("mondayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("mondayStartTime");
-                    break;
-                case Calendar.TUESDAY:
-                    capacity =  techDataCalendarWeek.getDouble("tuesdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("tuesdayStartTime");
-                    break;
-                case Calendar.WEDNESDAY:
-                    capacity =  techDataCalendarWeek.getDouble("wednesdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("wednesdayStartTime");
-                    break;
-                case Calendar.THURSDAY:
-                    capacity =  techDataCalendarWeek.getDouble("thursdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("thursdayStartTime");
-                    break;
-                case Calendar.FRIDAY:
-                    capacity =  techDataCalendarWeek.getDouble("fridayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("fridayStartTime");
-                    break;
-                case Calendar.SATURDAY:
-                    capacity =  techDataCalendarWeek.getDouble("saturdayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("saturdayStartTime");
-                    break;
-                case Calendar.SUNDAY:
-                    capacity =  techDataCalendarWeek.getDouble("sundayCapacity");
-                    startTime =  techDataCalendarWeek.getTime("sundayStartTime");
-                    break;
+            case Calendar.MONDAY:
+                capacity = techDataCalendarWeek.getDouble("mondayCapacity");
+                startTime = techDataCalendarWeek.getTime("mondayStartTime");
+                break;
+            case Calendar.TUESDAY:
+                capacity = techDataCalendarWeek.getDouble("tuesdayCapacity");
+                startTime = techDataCalendarWeek.getTime("tuesdayStartTime");
+                break;
+            case Calendar.WEDNESDAY:
+                capacity = techDataCalendarWeek.getDouble("wednesdayCapacity");
+                startTime = techDataCalendarWeek.getTime("wednesdayStartTime");
+                break;
+            case Calendar.THURSDAY:
+                capacity = techDataCalendarWeek.getDouble("thursdayCapacity");
+                startTime = techDataCalendarWeek.getTime("thursdayStartTime");
+                break;
+            case Calendar.FRIDAY:
+                capacity = techDataCalendarWeek.getDouble("fridayCapacity");
+                startTime = techDataCalendarWeek.getTime("fridayStartTime");
+                break;
+            case Calendar.SATURDAY:
+                capacity = techDataCalendarWeek.getDouble("saturdayCapacity");
+                startTime = techDataCalendarWeek.getTime("saturdayStartTime");
+                break;
+            case Calendar.SUNDAY:
+                capacity = techDataCalendarWeek.getDouble("sundayCapacity");
+                startTime = techDataCalendarWeek.getTime("sundayStartTime");
+                break;
             }
             if (capacity == null || capacity == 0) {
-                moveDay -=1;
-                dayEnd = (dayEnd==1) ? 7 : dayEnd - 1;
+                moveDay -= 1;
+                dayEnd = (dayEnd == 1) ? 7 : dayEnd - 1;
             }
         }
-        result.put("capacity",capacity);
-        result.put("startTime",startTime);
+        result.put("capacity", capacity);
+        result.put("startTime", startTime);
         result.put("moveDay", moveDay);
         return result;
     }
@@ -422,17 +420,17 @@ public class TechDataServices {
      * @param dateFrom                        the date
      * @return  long capacityRemaining
      */
-    public static long capacityRemainingBackward(GenericValue techDataCalendar,  Timestamp  dateFrom) {
+    public static long capacityRemainingBackward(GenericValue techDataCalendar, Timestamp dateFrom) {
         GenericValue techDataCalendarWeek = null;
         // TODO read TechDataCalendarExcWeek to manage exception week (maybe it's needed to refactor the entity definition
         try {
             techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading Calendar Week associated with calendar" + e.getMessage(), MODULE);
             return 0;
         }
         // TODO read TechDataCalendarExcDay to manage execption day
-        Calendar cDateTrav =  Calendar.getInstance();
+        Calendar cDateTrav = Calendar.getInstance();
         cDateTrav.setTime(dateFrom);
         Map<String, Object> position = dayEndCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         int moveDay = (Integer) position.get("moveDay");
@@ -441,9 +439,9 @@ public class TechDataServices {
         Double capacity = (Double) position.get("capacity");
         Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod)) return 0;
-        Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime()+capacity.longValue());
+        Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime() + capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
-        return  dateFrom.getTime() - startAvailablePeriod.getTime();
+        return dateFrom.getTime() - startAvailablePeriod.getTime();
     }
     /** Used to move in a TechDataCalenda, produce the Timestamp for the end of the previous day available and its associated capacity.
      * If the dateFrom (param in) is not  in an available TechDataCalendar period, the return value is the previous day available
@@ -452,7 +450,7 @@ public class TechDataServices {
      * @param dateFrom                        the date
      * @return a map with Timestamp dateTo, Double previousCapacity
      */
-    public static Map<String, Object> endPreviousDay(GenericValue techDataCalendar,  Timestamp  dateFrom) {
+    public static Map<String, Object> endPreviousDay(GenericValue techDataCalendar, Timestamp dateFrom) {
         Map<String, Object> result = new HashMap<>();
         Timestamp dateTo = null;
         GenericValue techDataCalendarWeek = null;
@@ -460,11 +458,11 @@ public class TechDataServices {
         try {
             techDataCalendarWeek = techDataCalendar.getRelatedOne("TechDataCalendarWeek", true);
         } catch (GenericEntityException e) {
-            Debug.logError("Pb reading Calendar Week associated with calendar"+e.getMessage(), MODULE);
+            Debug.logError("Pb reading Calendar Week associated with calendar" + e.getMessage(), MODULE);
             return ServiceUtil.returnError("Pb reading Calendar Week associated with calendar");
         }
         // TODO read TechDataCalendarExcDay to manage execption day
-        Calendar cDateTrav =  Calendar.getInstance();
+        Calendar cDateTrav = Calendar.getInstance();
         cDateTrav.setTime(dateFrom);
         Map<String, Object> position = dayEndCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         Time startTime = (Time) position.get("startTime");
@@ -474,19 +472,18 @@ public class TechDataServices {
         Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.after(endAvailablePeriod)) {
             dateTo = endAvailablePeriod;
-        }
-        else {
+        } else {
             dateTo = UtilDateTime.getDayStart(dateTo, -1);
             cDateTrav.setTime(dateTo);
             position = dayEndCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
             capacity = (Double) position.get("capacity");
-            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
+            if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
             dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
-        result.put("dateTo",dateTo);
-        result.put("previousCapacity",position.get("capacity"));
+        result.put("dateTo", dateTo);
+        result.put("previousCapacity", position.get("capacity"));
         return result;
     }
     /** Used to move backward in a TechDataCalendar, start from the dateFrom and move backward only on available period.
@@ -497,21 +494,21 @@ public class TechDataServices {
      * @param amount                           the amount of millisecond to move backward
      * @return the dateTo
      */
-    public static Timestamp addBackward(GenericValue techDataCalendar, Timestamp  dateFrom, long amount) {
+    public static Timestamp addBackward(GenericValue techDataCalendar, Timestamp dateFrom, long amount) {
         Timestamp dateTo = (Timestamp) dateFrom.clone();
         long previousCapacity = capacityRemainingBackward(techDataCalendar, dateFrom);
         if (amount <= previousCapacity) {
-            dateTo.setTime(dateTo.getTime()-amount);
+            dateTo.setTime(dateTo.getTime() - amount);
             amount = 0;
         } else amount -= previousCapacity;
 
         Map<String, Object> result = new HashMap<>();
-        while (amount > 0)  {
+        while (amount > 0) {
             result = endPreviousDay(techDataCalendar, dateTo);
             dateTo = (Timestamp) result.get("dateTo");
             previousCapacity = ((Double) result.get("previousCapacity")).longValue();
             if (amount <= previousCapacity) {
-                dateTo.setTime(dateTo.getTime()-amount);
+                dateTo.setTime(dateTo.getTime() - amount);
                 amount = 0;
             } else amount -= previousCapacity;
         }

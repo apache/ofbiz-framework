@@ -53,7 +53,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
     /** Puts a new Map on the top of the stack */
     public void push() {
-        contexts.addFirst(new HashMap<K, V>());
+        contexts.addFirst(new HashMap<>());
     }
 
     /** Puts an existing Map on the top of the stack (top meaning will override lower layers on the stack) */

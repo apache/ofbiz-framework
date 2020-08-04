@@ -30,7 +30,7 @@ public class LoginEventListener implements HttpSessionListener {
     // Debug MODULE name
     private static final String MODULE = LoginEventListener.class.getName();
 
-    public LoginEventListener() {}
+    public LoginEventListener() { }
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {

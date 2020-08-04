@@ -37,7 +37,7 @@ public final class Observable {
     private final AtomicBoolean changed = new AtomicBoolean();
     private final CopyOnWriteArrayList<Observer> observers = new CopyOnWriteArrayList<>();
 
-    public Observable() {}
+    public Observable() { }
 
     public Observable(Observable observable) {
         Assert.notNull("observable", observable);

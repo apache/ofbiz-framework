@@ -136,7 +136,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name, "errorString", e.toString()), locale));
         }
         result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
         return result;
@@ -224,7 +224,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (pkValue instanceof String) {
                     StringBuffer errorDetails = new StringBuffer();
                     if (!UtilValidate.isValidDatabaseId((String) pkValue, errorDetails)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name,"errorDetails", errorDetails), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name, "errorDetails", errorDetails), locale));
                     }
                 }
             }
@@ -278,18 +278,18 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 newEntity.setPKFields(parameters, true);
                 String pkFieldName = pkFieldNameOutOnly.get(0);
                 //if it's a fromDate, don't update it now, it's will be done next step
-                if (! "fromDate".equals(pkFieldName)) {
+                if (!"fromDate".equals(pkFieldName)) {
                     String pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     newEntity.set(pkFieldName, pkValue);
                 }
             } else {
-                throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the create invoke option: " +
-                        "could not find a valid combination of primary key settings to do a known create operation; options include: " +
-                        "1. a single OUT pk for primary auto-sequencing, " +
-                        "2. a single INOUT pk for primary auto-sequencing with optional override, " +
-                        "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secondary pk to sub-sequence), " +
-                        "4. a N-part pk with N-1 part IN and one party OUT only (missing pk is a sub-sequence mainly for entity assoc), " +
-                        "5. all pk fields are IN for a manually specified primary key");
+                throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the create invoke option: "
+                        + "could not find a valid combination of primary key settings to do a known create operation; options include: "
+                        + "1. a single OUT pk for primary auto-sequencing, "
+                        + "2. a single INOUT pk for primary auto-sequencing with optional override, "
+                        + "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secondary pk to sub-sequence), "
+                        + "4. a N-part pk with N-1 part IN and one party OUT only (missing pk is a sub-sequence mainly for entity assoc), "
+                        + "5. all pk fields are IN for a manually specified primary key");
             }
         }
 
@@ -465,16 +465,16 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
 
-        if (modelEntity.getField("changeByUserLoginId") != null ) {
+        if (modelEntity.getField("changeByUserLoginId") != null) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
-                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
             }
             GenericValue userLogin = (GenericValue) parameters.get("userLogin");
             if (userLogin != null) {
                 lookedUpValue.set("changeByUserLoginId", userLogin.get("userLoginId"));
             } else {
-                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
             }
         }
 
@@ -499,10 +499,10 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the delete invoke option not all pk fields have the mode IN");
         }
 
-        if (modelEntity.getField("changeByUserLoginId") != null ) {
+        if (modelEntity.getField("changeByUserLoginId") != null) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
-                throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
             }
         }
 

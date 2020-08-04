@@ -66,7 +66,7 @@ public class HttpClient {
     private URLConnection con = null;
 
     /** Creates an empty HttpClient object. */
-    public HttpClient() {}
+    public HttpClient() { }
 
     /** Creates a new HttpClient object. */
     public HttpClient(URL url) {
@@ -352,8 +352,8 @@ public class HttpClient {
         try {
             if (Debug.verboseOn() || debug) {
                 try {
-                    Debug.logVerbose("ContentEncoding: " + con.getContentEncoding() + "; ContentType: " +
-                            con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), MODULE);
+                    Debug.logVerbose("ContentEncoding: " + con.getContentEncoding() + "; ContentType: "
+                            + con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), MODULE);
                 } catch (IOException ioe) {
                     Debug.logWarning(ioe, "Caught exception printing content debugging information", MODULE);
                 }
@@ -393,23 +393,22 @@ public class HttpClient {
                 }
             }
 
-            try (
-                    BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in)
+            try (BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in)
                             : new InputStreamReader(in, charset))) {
-            String line = "";
+                String line = "";
 
-            if (Debug.verboseOn() || debug) {
-                Debug.logVerbose("---- HttpClient Response Content ----", MODULE);
-            }
-            while ((line = post.readLine()) != null) {
                 if (Debug.verboseOn() || debug) {
-                    Debug.logVerbose("[HttpClient] : " + line, MODULE);
+                    Debug.logVerbose("---- HttpClient Response Content ----", MODULE);
                 }
-                buf.append(line);
-                if (lineFeed) {
-                    buf.append("\n");
+                while ((line = post.readLine()) != null) {
+                    if (Debug.verboseOn() || debug) {
+                        Debug.logVerbose("[HttpClient] : " + line, MODULE);
+                    }
+                    buf.append(line);
+                    if (lineFeed) {
+                        buf.append("\n");
+                    }
                 }
-            }
             }
         } catch (RuntimeException e) {
             throw e;

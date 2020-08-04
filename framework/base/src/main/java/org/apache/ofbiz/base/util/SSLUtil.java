@@ -38,7 +38,6 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLServerSocketFactory;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509KeyManager;
@@ -61,7 +60,7 @@ public final class SSLUtil {
 
     private static boolean loadedProps = false;
 
-    private SSLUtil () {}
+    private SSLUtil() { }
 
     static {
         SSLUtil.loadJsseProperties();
@@ -170,11 +169,11 @@ public final class SSLUtil {
             }
         }
 
-        return new TrustManager[] { tm };
+        return new TrustManager[] {tm };
     }
 
     public static TrustManager[] getTrustAnyManagers() {
-        return new TrustManager[] { new TrustAnyManager() };
+        return new TrustManager[] {new TrustAnyManager() };
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -184,7 +183,7 @@ public final class SSLUtil {
         if (alias != null) {
             for (int i = 0; i < keyManagers.length; i++) {
                 if (keyManagers[i] instanceof X509KeyManager) {
-                    keyManagers[i] = new AliasKeyManager((X509KeyManager)keyManagers[i], alias);
+                    keyManagers[i] = new AliasKeyManager((X509KeyManager) keyManagers[i], alias);
                 }
             }
         }
@@ -192,14 +191,16 @@ public final class SSLUtil {
     }
 
     public static TrustManager[] getTrustManagers(KeyStore ks) {
-        return new TrustManager[] { new MultiTrustManager(ks) };
+        return new TrustManager[] {new MultiTrustManager(ks) };
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(ks, password, alias, false).getSocketFactory();
     }
 
-    public static SSLContext getSSLContext(KeyStore ks, String password, String alias, boolean trustAny) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLContext getSSLContext(KeyStore ks, String password, String alias, boolean trustAny)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         KeyManager[] km = SSLUtil.getKeyManagers(ks, password, alias);
         TrustManager[] tm;
         if (trustAny) {
@@ -213,7 +214,8 @@ public final class SSLUtil {
         return context;
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(String alias, boolean trustAny) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLSocketFactory getSSLSocketFactory(String alias, boolean trustAny)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(alias, trustAny).getSocketFactory();
     }
 
@@ -239,50 +241,52 @@ public final class SSLUtil {
         return getSSLSocketFactory(null);
     }
 
-    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(ks, password, alias, false).getServerSocketFactory();
     }
 
-    public static SSLServerSocketFactory getSSLServerSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLServerSocketFactory getSSLServerSocketFactory(String alias)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(alias, false).getServerSocketFactory();
     }
 
     public static HostnameVerifier getHostnameVerifier(int level) {
         switch (level) {
-            case HOSTCERT_MIN_CHECK:
-                return (hostname, session) -> {
-                    Certificate[] peerCerts;
+        case HOSTCERT_MIN_CHECK:
+            return (hostname, session) -> {
+                Certificate[] peerCerts;
+                try {
+                    peerCerts = session.getPeerCertificates();
+                } catch (SSLPeerUnverifiedException e) {
+                    // cert not verified
+                    Debug.logWarning(e.getMessage(), MODULE);
+                    return false;
+                }
+                for (Certificate peerCert : peerCerts) {
                     try {
-                        peerCerts = session.getPeerCertificates();
-                    } catch (SSLPeerUnverifiedException e) {
-                        // cert not verified
-                        Debug.logWarning(e.getMessage(), MODULE);
+                        Principal x500s = session.getPeerPrincipal();
+                        Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
+                        if (Debug.infoOn()) {
+                            byte[] encodedCert = peerCert.getEncoded();
+                            Debug.logInfo(new BigInteger(encodedCert).toString(16)
+                                    + " :: " + subjectMap.get("CN"), MODULE);
+                        }
+                        peerCert.verify(peerCert.getPublicKey());
+                    } catch (RuntimeException e) {
+                        throw e;
+                    } catch (Exception e) {
+                        // certificate not valid
+                        Debug.logWarning("Certificate is not valid!", MODULE);
                         return false;
                     }
-                    for (Certificate peerCert : peerCerts) {
-                        try {
-                            Principal x500s = session.getPeerPrincipal();
-                            Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
-                            if (Debug.infoOn()) {
-                                byte[] encodedCert = peerCert.getEncoded();
-                                Debug.logInfo(new BigInteger(encodedCert).toString(16)
-                                        + " :: " + subjectMap.get("CN"), MODULE);
-                            }
-                            peerCert.verify(peerCert.getPublicKey());
-                        } catch (RuntimeException e) {
-                            throw e;
-                        } catch (Exception e) {
-                            // certificate not valid
-                            Debug.logWarning("Certificate is not valid!", MODULE);
-                            return false;
-                        }
-                    }
-                    return true;
-                };
-            case HOSTCERT_NO_CHECK:
-                return (hostname, session) -> true;
-            default:
-                return null;
+                }
+                return true;
+            };
+        case HOSTCERT_NO_CHECK:
+            return (hostname, session) -> true;
+        default:
+            return null;
         }
     }
 
@@ -310,7 +314,7 @@ public final class SSLUtil {
             }
 
             if (debug) {
-                System.setProperty("javax.net.debug","ssl:handshake");
+                System.setProperty("javax.net.debug", "ssl:handshake");
             }
             loadedProps = true;
         }

@@ -488,8 +488,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 Map<String, Object> resp;
                 try {
                     resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
-                }
-                catch (GenericServiceException e) {
+                } catch (GenericServiceException e) {
                     Debug.logError(e, MODULE);
                     return false;
                 }
@@ -545,8 +544,8 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (fieldString == null) {
                 fieldString = "";
             }
-            Class<?>[] paramTypes = { String.class };
-            Object[] params = new Object[] { fieldString };
+            Class<?>[] paramTypes = {String.class };
+            Object[] params = new Object[] {fieldString };
             Class<?> valClass;
             try {
                 valClass = ObjectType.loadClass(className);

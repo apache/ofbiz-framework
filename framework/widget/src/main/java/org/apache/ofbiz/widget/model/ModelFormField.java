@@ -395,8 +395,7 @@ public class ModelFormField {
                         }
                         if (simpleEncoder != null) {
                             newCol.add(simpleEncoder.encode(item.toString()));
-                        }
-                        else {
+                        } else {
                             newCol.add(item.toString());
                         }
                     }
@@ -690,7 +689,7 @@ public class ModelFormField {
         // For English, ID is correct abbreviation for identity.
         // So if a label ends with " Id", replace with " ID".
         // If there is another locale that doesn't follow this rule, we can add condition for this locale to exempt from the change.
-        if (autoTitlewriterString.endsWith(" Id")){
+        if (autoTitlewriterString.endsWith(" Id")) {
                 autoTitlewriterString = autoTitlewriterString.subSequence(0, autoTitlewriterString.length() - 3) + " ID";
         }
 
@@ -931,7 +930,7 @@ public class ModelFormField {
         }
 
         try {
-            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr),context);
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr), context);
             boolean condTrue = false;
             // retVal should be a Boolean, if not something weird is up...
             if (retVal instanceof Boolean) {
@@ -1038,7 +1037,7 @@ public class ModelFormField {
      * @see <code>widget-form.xsd</code>
      */
     public static class CheckField extends FieldInfoWithOptions {
-        public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
+        public static final String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
         private final FlexibleStringExpander allChecked;
 
         private CheckField(CheckField original, ModelFormField modelFormField) {
@@ -1179,8 +1178,8 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if (parameters.containsKey(fieldName.concat("_fld0_value"))){
-                    defaultOption = (String)parameters.get(fieldName.concat("_fld0_op"));
+                if (parameters.containsKey(fieldName.concat("_fld0_value"))) {
+                    defaultOption = (String) parameters.get(fieldName.concat("_fld0_op"));
                 }
             }
             return defaultOption;
@@ -1196,8 +1195,8 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if( parameters.containsKey(fieldName.concat("_fld1_value"))) {
-                    defaultOption = (String)parameters.get(fieldName.concat("_fld1_op"));
+                if ( parameters.containsKey(fieldName.concat("_fld1_value"))) {
+                    defaultOption = (String) parameters.get(fieldName.concat("_fld1_op"));
                 }
             }
             return defaultOption;
@@ -1677,19 +1676,18 @@ public class ModelFormField {
                     // create default date/time value from timestamp string
                     retVal = retVal.substring(0, 16);
                 }
-            } else if ("number".equals(this.type) ||
-                    (this.type != null && this.type.endsWith("-number"))) {
+            } else if ("number".equals(this.type) || (this.type != null && this.type.endsWith("-number"))) {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {
                     locale = Locale.getDefault();
                 }
                 String formatVal;
-                if (! this.format.isEmpty()) {
+                if (!this.format.isEmpty()) {
                     formatVal = this.format.expandString(context);
                 } else {
-                    formatVal = this.type.endsWith("-number")?
-                        this.type.replaceFirst("-number", "")
-                        :"default";
+                    formatVal = this.type.endsWith("-number")
+                        ? this.type.replaceFirst("-number", "")
+                        : "default";
                 }
                 Delegator delegator = (Delegator) context.get("delegator");
                 try {
@@ -2317,8 +2315,8 @@ public class ModelFormField {
             String location = this.getFormLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -2399,8 +2397,8 @@ public class ModelFormField {
             String location = this.getGridLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -3336,7 +3334,9 @@ public class ModelFormField {
             // Output format might not support menus, so make menu rendering optional.
             MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
             if (menuStringRenderer == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("MenuStringRenderer instance not found in rendering context, menu not rendered.", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("MenuStringRenderer instance not found in rendering context, menu not rendered.", MODULE);
+                }
                 return;
             }
             ModelMenu modelMenu = getModelMenu(context);
@@ -3614,7 +3614,7 @@ public class ModelFormField {
             String name = this.getScreenName(context);
             String location = this.getScreenLocation(context);
             try {
-                ScreenRenderer renderer = (ScreenRenderer)context.get("screens");
+                ScreenRenderer renderer = (ScreenRenderer) context.get("screens");
                 if (renderer != null) {
                     MapStack<String> mapStack = UtilGenerics.cast(context);
                     ScreenRenderer subRenderer = new ScreenRenderer(writer, mapStack, renderer.getScreenStringRenderer());
@@ -3850,7 +3850,7 @@ public class ModelFormField {
             String useWhen = this.getUseWhen(context);
             if (UtilValidate.isNotEmpty(useWhen)) {
                 try {
-                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
+                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen), context);
 
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
@@ -3878,16 +3878,18 @@ public class ModelFormField {
         }
 
         try {
-            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen),context);
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen), context);
 
             if (retVal instanceof Boolean) {
-                shouldIgnore =(Boolean) retVal;
+                shouldIgnore = (Boolean) retVal;
             } else {
-                throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: "  + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
+                throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: " + (retVal != null
+                        ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
             }
 
         } catch (CompilationFailedException e) {
-            String errMsg = "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
+            String errMsg =
+                    "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }

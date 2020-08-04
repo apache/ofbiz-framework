@@ -94,9 +94,9 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                     Debug.logVerbose("in RenderContentAndSubContent, subContentId(2):" + templateRoot.get("subContentId"), MODULE);
                 }
                     try {
-                        String contentId = (String)templateRoot.get("contentId");
-                        String mapKey = (String)templateRoot.get("mapKey");
-                        String contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
+                        String contentId = (String) templateRoot.get("contentId");
+                        String mapKey = (String) templateRoot.get("mapKey");
+                        String contentAssocTypeId = (String) templateRoot.get("contentAssocTypeId");
                         if (UtilValidate.isNotEmpty(mapKey) || UtilValidate.isNotEmpty(contentAssocTypeId)) {
                             String txt = ContentWorker.renderSubContentAsText(dispatcher, contentId, mapKey, templateRoot, locale, mimeTypeId, true);
                             out.write(txt);
@@ -104,7 +104,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                             ContentWorker.renderContentAsText(dispatcher, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
                         }
                     } catch (GeneralException e) {
-                        String errMsg = "Error rendering thisContentId:" + (String)templateRoot.get("contentId") + " msg:" + e.toString();
+                        String errMsg = "Error rendering thisContentId:" + (String) templateRoot.get("contentId") + " msg:" + e.toString();
                         Debug.logError(e, errMsg, MODULE);
                         // just log a message and don't return anything: throw new IOException();
                     }

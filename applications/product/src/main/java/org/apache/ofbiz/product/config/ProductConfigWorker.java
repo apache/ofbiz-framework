@@ -50,7 +50,7 @@ public final class ProductConfigWorker {
     private static final String MODULE = ProductConfigWorker.class.getName();
     private static final String SEPARATOR = "::";    // cache key separator
 
-    private ProductConfigWorker () {}
+    private ProductConfigWorker() { }
 
     private static final UtilCache<String, ProductConfigWrapper> productConfigCache = UtilCache.createUtilCache("product.config", true);     // use soft reference to free up memory if needed
 
@@ -59,7 +59,7 @@ public final class ProductConfigWorker {
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
-        GenericValue autoUserLogin = (GenericValue)request.getSession().getAttribute("autoUserLogin");
+        GenericValue autoUserLogin = (GenericValue) request.getSession().getAttribute("autoUserLogin");
         try {
             /* caching: there is one cache created, "product.config"  Each product's config wrapper is cached with a key of
              * productId::catalogId::webSiteId::currencyUomId, or whatever the SEPARATOR is defined above to be.
@@ -68,8 +68,8 @@ public final class ProductConfigWorker {
             String cacheKey = productId + SEPARATOR + productStoreId + SEPARATOR + catalogId + SEPARATOR + webSiteId + SEPARATOR + currencyUomId + SEPARATOR + delegator;
             configWrapper = productConfigCache.get(cacheKey);
             if (configWrapper == null) {
-                configWrapper = new ProductConfigWrapper((Delegator)request.getAttribute("delegator"),
-                                                         (LocalDispatcher)request.getAttribute("dispatcher"),
+                configWrapper = new ProductConfigWrapper((Delegator) request.getAttribute("delegator"),
+                                                         (LocalDispatcher) request.getAttribute("dispatcher"),
                                                          productId, productStoreId, catalogId, webSiteId,
                                                          currencyUomId, UtilHttp.getLocale(request),
                                                          autoUserLogin);
@@ -91,9 +91,9 @@ public final class ProductConfigWorker {
             String[] opts = new String[0];
             Object o = combinedMap.get(Integer.toString(k));
             if (o instanceof String) {
-                opts = new String[]{(String)o};
-            } else if(o instanceof List) {
-                List<?> list = (List<?>)o;
+                opts = new String[]{(String) o};
+            } else if (o instanceof List) {
+                List<?> list = (List<?>) o;
                 opts = list.toArray(new String[list.size()]);
             }
             if (opts == null) {
@@ -145,8 +145,8 @@ public final class ProductConfigWorker {
                                 } else {
 
                                     //  handle also feature tree virtual variant methods
-                                    if (ProductWorker.isVirtual((Delegator)request.getAttribute("delegator"), selectedProductId)) {
-                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProductId))) {
+                                    if (ProductWorker.isVirtual((Delegator) request.getAttribute("delegator"), selectedProductId)) {
+                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator) request.getAttribute("delegator"), selectedProductId))) {
                                             // get the selected features
                                             List<String> selectedFeatures = new LinkedList<>();
                                             String prefix = "FT" + k + "_" + cnt + "_" + variantIndex;
@@ -161,7 +161,7 @@ public final class ProductConfigWorker {
                                                 Debug.logWarning("ERROR: No features selected for productId [" + selectedProductId+ "]", MODULE);
                                             }
 
-                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProductId, selectedFeatures, (Delegator)request.getAttribute("delegator"));
+                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProductId, selectedFeatures, (Delegator) request.getAttribute("delegator"));
                                             if (UtilValidate.isNotEmpty(variantProductId)) {
                                                 selectedProductId = variantProductId;
                                             } else {
@@ -218,7 +218,7 @@ public final class ProductConfigWorker {
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 try {
-                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId",configItemId,"sequenceNum", sequenceNum).queryList();
+                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId", configItemId, "sequenceNum", sequenceNum).queryList();
                     for (GenericValue productConfigConfig: configs) {
                         for (ConfigOption oneOption: selectedOptions) {
                             String configOptionId = oneOption.configOption.getString("configOptionId");
@@ -241,9 +241,9 @@ public final class ProductConfigWorker {
             for (GenericValue productConfigConfig: configsToCheck) {
                 String tempConfigId = productConfigConfig.getString("configId");
                 try {
-                    List<GenericValue> tempResult = EntityQuery.use(delegator).from("ProductConfigConfig").where("configId",tempConfigId).queryList();
+                    List<GenericValue> tempResult = EntityQuery.use(delegator).from("ProductConfigConfig").where("configId", tempConfigId).queryList();
                     if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {
-                        List<GenericValue> configOptionProductOptions = EntityQuery.use(delegator).from("ConfigOptionProductOption").where("configId",tempConfigId).queryList();
+                        List<GenericValue> configOptionProductOptions = EntityQuery.use(delegator).from("ConfigOptionProductOption").where("configId", tempConfigId).queryList();
                         if (UtilValidate.isNotEmpty(configOptionProductOptions)) {
 
                             //  check for variant product equality
@@ -271,7 +271,7 @@ public final class ProductConfigWorker {
                                                 Map<String, String> componentOptions = anOption.getComponentOptions();
                                                 String optionProductId = aComponent.getString("productId");
                                                 String optionProductOptionId = null;
-                                                if(UtilValidate.isNotEmpty(componentOptions)) {
+                                                if (UtilValidate.isNotEmpty(componentOptions)) {
                                                     optionProductOptionId = componentOptions.get(optionProductId);
                                                 }
                                                 String configOptionId = anOption.configOption.getString("configOptionId");
@@ -280,7 +280,7 @@ public final class ProductConfigWorker {
 
                                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
                                                 configOptionProductOption.set("configId", tempConfigId);
-                                                configOptionProductOption.set("configItemId",configItemId);
+                                                configOptionProductOption.set("configItemId", configItemId);
                                                 configOptionProductOption.set("sequenceNum", sequenceNum);
                                                 configOptionProductOption.set("configOptionId", configOptionId);
                                                 configOptionProductOption.set("productId", optionProductId);
@@ -296,14 +296,14 @@ public final class ProductConfigWorker {
 
                                 if (match && (UtilValidate.isEmpty(configOptionProductOptions))) {
                                     configWrapper.configId = tempConfigId;
-                                    Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  MODULE);
+                                    Debug.logInfo("Existing configuration found with configId:"+ tempConfigId, MODULE);
                                     return;
                                 }
                             }
 
                         } else {
                             configWrapper.configId = tempConfigId;
-                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  MODULE);
+                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId, MODULE);
                             return;
                         }
                     }
@@ -380,7 +380,7 @@ public final class ProductConfigWorker {
 
         //save  configId to configWrapper, so we can use it in shopping cart operations
         configWrapper.configId = configId;
-        Debug.logInfo("New configId created:"+ configId,  MODULE);
+        Debug.logInfo("New configId created:"+ configId, MODULE);
         return;
     }
 

@@ -51,7 +51,7 @@ public final class PreferenceWorker {
      */
     private static final String DEFAULT_UID = "_NA_";
 
-    private PreferenceWorker () {}
+    private PreferenceWorker() { }
 
     /**
      * Add a UserPreference GenericValue to a Map.
@@ -143,7 +143,7 @@ public final class PreferenceWorker {
      * @return user preference map
      */
     public static Map<String, Object> createUserPrefMap(List<GenericValue> recList) throws GeneralException {
-        Map<String, Object> userPrefMap =  new LinkedHashMap<>();
+        Map<String, Object> userPrefMap = new LinkedHashMap<>();
         if (recList != null) {
             for (GenericValue value: recList) {
                 addPrefToMap(value, userPrefMap);

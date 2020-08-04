@@ -85,7 +85,7 @@ public final class ModelScreenCondition {
             if ("if-empty-section".equals(conditionElement.getLocalName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
             }
-            return super.newInstance(this, modelWidget,conditionElement);
+            return super.newInstance(this, modelWidget, conditionElement);
         }
     }
 }

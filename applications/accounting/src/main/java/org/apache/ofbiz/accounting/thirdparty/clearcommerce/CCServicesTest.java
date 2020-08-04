@@ -192,8 +192,7 @@ public class CCServicesTest extends OFBizTestCase {
          * a recurring order expires and a payment is rejected, the order must be
          * cancelled. If the order is to be resumed, a new recurring order must be
          * submitted. --> Orders are cancelled by using the Store Administrator Tool.
-         * 
-         * So cannot by program.
+             * So cannot by program.
          */
     }
 

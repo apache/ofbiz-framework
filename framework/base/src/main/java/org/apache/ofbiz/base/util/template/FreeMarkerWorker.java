@@ -129,18 +129,18 @@ public final class FreeMarkerWorker {
         String templateClassResolver = UtilProperties.getPropertyValue("security", "templateClassResolver",
                 "SAFER_RESOLVER");
         switch (templateClassResolver) {
-            case "UNRESTRICTED_RESOLVER":
-                newConfig.setNewBuiltinClassResolver(TemplateClassResolver.UNRESTRICTED_RESOLVER);
-                break;
-            case "SAFER_RESOLVER":
-                newConfig.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);
-                break;
-            case "ALLOWS_NOTHING_RESOLVER":
-                newConfig.setNewBuiltinClassResolver(TemplateClassResolver.ALLOWS_NOTHING_RESOLVER);
-                break;
-            default:
-                Debug.logError("Not a TemplateClassResolver.", MODULE);
-                break;
+        case "UNRESTRICTED_RESOLVER":
+            newConfig.setNewBuiltinClassResolver(TemplateClassResolver.UNRESTRICTED_RESOLVER);
+            break;
+        case "SAFER_RESOLVER":
+            newConfig.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);
+            break;
+        case "ALLOWS_NOTHING_RESOLVER":
+            newConfig.setNewBuiltinClassResolver(TemplateClassResolver.ALLOWS_NOTHING_RESOLVER);
+            break;
+        default:
+            Debug.logError("Not a TemplateClassResolver.", MODULE);
+            break;
         }
         // Transforms properties file set up as key=transform name, property=transform class name
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

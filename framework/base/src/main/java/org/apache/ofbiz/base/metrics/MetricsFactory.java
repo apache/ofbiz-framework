@@ -290,5 +290,5 @@ public final class MetricsFactory {
         }
     }
 
-    private MetricsFactory() {}
+    private MetricsFactory() { }
 }

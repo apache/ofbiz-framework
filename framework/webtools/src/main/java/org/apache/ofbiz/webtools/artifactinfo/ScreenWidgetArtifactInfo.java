@@ -137,7 +137,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -184,8 +184,8 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ScreenWidgetArtifactInfo) {
-            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName()) &&
-                    this.modelScreen.getSourceLocation().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getSourceLocation()));
+            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName())
+                    && this.modelScreen.getSourceLocation().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getSourceLocation()));
         } else {
             return false;
         }

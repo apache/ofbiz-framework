@@ -19,6 +19,7 @@
 
 import java.sql.Timestamp
 
+import org.apache.ofbiz.content.content.ContentKeywordIndex
 import org.apache.ofbiz.common.UrlServletHelper
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -51,6 +52,42 @@ def createTextAndUploadedContent(){
     return result
 }
 
+def createEmailContent() {
+    Map result = success()
+    Map createContentMap = dispatcher.getDispatchContext()
+            .makeValidContext('createContent', ModelService.IN_PARAM, parameters)
+
+    //Create subject
+    Map serviceResult = run service: 'createElectronicText', with: [textData: parameters.subject]
+    createContentMap.dataResourceId = serviceResult.dataResourceId
+    serviceResult = run service: 'createContent', with: createContentMap
+
+    //Create plain body and assoc with subject
+    Map createBodyAssoc = [contentId: serviceResult.contentId,
+                           contentAssocTypeId: 'TREE_CHILD',
+                           mapKey: 'plainBody']
+
+    serviceResult = run service: 'createElectronicText', with: [textData: parameters.plainBody]
+    createContentMap.dataResourceId = serviceResult.dataResourceId
+    serviceResult = run service: 'createContent', with: createContentMap
+
+    createBodyAssoc.contentIdTo = serviceResult.contentId
+
+    run service: 'createContentAssoc', with: createBodyAssoc
+    result.contentId = createBodyAssoc.contentId
+
+    if (parameters.htmlBody) {
+        serviceResult = run service: 'createElectronicText', with: [textData: parameters.htmlBody]
+        createContentMap.dataResourceId = serviceResult.dataResourceId
+        serviceResult = run service: 'createContent', with: createContentMap
+        createBodyAssoc.contentIdTo = serviceResult.contentId
+        createBodyAssoc.mapKey = 'htmlBody'
+        run service: 'createContentAssoc', with: createBodyAssoc
+    }
+
+    return result
+}
+
 def deactivateAllContentRoles() {
     List contentRoles = from("ContentRole").
             where("contentId", parameters.contentId, "partyId", parameters.partyId, "roleTypeId", parameters.roleTypeId)
@@ -63,7 +100,6 @@ def deactivateAllContentRoles() {
     }
     return success()
 }
-
 def createContentAlternativeUrl() {
     //create Content Alternative URLs.
     String contentCreated
@@ -173,7 +209,6 @@ def createContentAlternativeUrl() {
             }
         }
     }
-
     map = success()
     map.contentCreated = contentCreated
     return map
@@ -190,7 +225,6 @@ def updateEmailContent() {
         run service: "updateElectronicText", with: [dataResourceId: parameters.htmlBodyDataResourceId, textData: parameters.htmlBody]
     }
 }
-
 def createArticleContent() {
     // Post a new Content article Entry
     String origContentAssocTypeId = parameters.contentAssocTypeId
@@ -317,7 +351,6 @@ def createArticleContent() {
     result.contentId = contentId
     return result
 }
-
 def setContentStatus() {
     Map resultMap = new HashMap()
     content = from("Content").where("contentId", parameters.contentId).queryOne()
@@ -356,4 +389,108 @@ def updateDownloadContent() {
         result = runService("updateOtherDataResource", [dataResourceId: parameters.fileDataResourceId, dataResourceContent: parameters.file])
     }
     return result
+}
+def getDataResource() {
+    Map result = success()
+    resultData = [:]
+
+    GenericValue dataResource = from('DataResource').where(parameters).queryOne()
+    if (dataResource) {
+        resultData.dataResource = dataResource
+        if ("ELECTRONIC_TEXT" == dataResource.dataResourceTypeId) {
+            resultData.electronicText = dataResource.getRelatedOne('ElectronicText', false)
+        }
+        if ("IMAGE_OBJECT" == dataResource.dataResourceTypeId) {
+            resultData.imageDataResource = dataResource.getRelatedOne('ImageDataResource', false)
+        }
+    }
+    result.resultData = resultData
+    return result
+}
+def getContentAndDataResource () {
+    resultMap = [:];
+    resultDataContent = [:];
+    content = from("Content").where("contentId", parameters.contentId).queryOne();
+    resultDataContent.content = content;
+    if (content && content.dataResourceId) {
+        result = runService("getDataResource", ["dataResourceId": content.dataResourceId, "userLogin": userLogin]);
+        if (result) {
+            resultData = result.resultData;
+            resultDataContent.dataResource = resultData.dataResource;
+            resultDataContent.electronicText = resultData.electronicText;
+            resultDataContent.imageDataResource = resultData.imageDataResource;
+        }
+    }
+    resultMap.resultData = resultDataContent;
+    return resultMap;
+}
+/* create content from data resource */
+/*This method will create a skeleton content record from a data resource */
+def createContentFromDataResource() {
+    dataResource = from("DataResource").where("dataResourceId", parameters.dataResourceId).queryOne()
+    if (dataResource == null) {
+            return error(UtilProperties.getMessage("ContentUiLabels", "ContentDataResourceNotFound", UtilMisc.toMap("parameters.dataResourceId", parameters.dataResourceId), parameters.locale))
+        }
+    Map createContentMap = dispatcher.getDispatchContext().makeValidContext('createContent', ModelService.IN_PARAM, parameters)
+    if (!(createContentMap.contentName)) {
+        createContentMap.contentName = dataResource.dataResourceName
+    }
+    if (!(createContentMap.contentTypeId)) {
+        createContentMap.contentTypeId = "DOCUMENT"
+    }
+    if (!(createContentMap.statusId)) {
+        createContentMap.statusId = "CTNT_INITIAL_DRAFT"
+    }
+    if (!(createContentMap.mimeTypeId)) {
+        createContentMap.mimeTypeId = dataResource.mimeTypeId
+    }
+    Map result = run service: "createContent", with: createContentMap
+    return result
+}
+def deleteContentKeywords() {
+    content = from('Content').where('contentId', contentId).queryOne()
+    content.removeRelated('ContentKeyword')
+    return success()
+}
+
+// This method first updates Content, DataResource and ElectronicText,
+// ImageDataResource, etc. entities (if needed) by calling persistContentAndAssoc.
+// It then takes the passed in contentId, communicationEventId and fromDate primary keys
+// and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+def updateCommContentDataResource() {
+    Map serviceResult = run service: 'persistContentAndAssoc', with: parameters
+    run service: 'updateCommEventContentAssoc', with: [contentId           : serviceResult.contentId,
+                                                       fromDate            : parameters.fromDate,
+                                                       communicationEventId: parameters.communicationEventId,
+                                                       sequenceNum         : parameters.sequenceNum,
+                                                       userLogin           : userLogin]
+
+    return [*                   : success(),
+            contentId           : serviceResult.contentId,
+            dataResourceId      : serviceResult.dataResourceId,
+            drDataResourceId    : serviceResult.drDataResourceId,
+            caContentIdTo       : serviceResult.caContentIdTo,
+            caContentId         : serviceResult.caContentId,
+            caContentAssocTypeId: serviceResult.caContentAssocTypeId,
+            caFromDate          : serviceResult.caFromDate,
+            caSequenceNum       : serviceResult.caSequenceNum,
+            roleTypeList        : serviceResult.roleTypeList]
+}
+
+def indexContentKeywords() {
+    // this service is meant to be called from an entity ECA for entities that include a contentId
+    // if it is the Content entity itself triggering this action, then a [contentInstance] parameter
+    // will be passed and we can save a few cycles looking that up
+    contentInstance = parameters.contentInstance
+    if (!contentInstance) {
+        contentInstance = from("Content").where("contentId", parameters.contentId).queryOne()
+    }
+    ContentKeywordIndex.indexKeywords(contentInstance)
+    return success()
+}
+
+def forceIndexContentKeywords() {
+    content = from("Content").where("contentId", parameters.contentId).queryOne()
+    ContentKeywordIndex.forceIndexKeywords(content)
+    return success()
 }

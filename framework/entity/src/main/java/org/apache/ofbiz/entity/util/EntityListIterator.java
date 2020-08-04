@@ -91,7 +91,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to just after the last result so that previous() will return the last result.
-     * 
      * @throws GenericEntityException
      *             if a database error occurs.
      */
@@ -106,7 +105,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to just before the first result so that next() will return the first result.
-     * 
      * @throws GenericEntityException
      *             if a database error occurs.
      */
@@ -121,7 +119,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to last result.
-     * 
      * @return true if the result set is not empty.
      * @throws GenericEntityException
      *             if a database error occurs.
@@ -137,7 +134,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the cursor position to first result.
-     * 
      * @return true if the result set is not empty.
      * @throws GenericEntityException
      *             in case of a database error.
@@ -253,7 +249,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * performs the same function as the {@link ResultSet#relative(int)} method.
      * if rows is positive, goes forward relative to the current position;
      * if rows is negative, goes backward relative to the current position;
-     * 
      * @param rows
      *            the amount of rows to move.
      * @return true if the cursor is on a row.
@@ -273,10 +268,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * PLEASE NOTE: Because of the nature of the JDBC ResultSet interface this method can be very inefficient.
-     * It is much better to just use next() until it returns null 
+     * It is much better to just use next() until it returns null
      * For example, you could use the following to iterate through the results in an EntityListIterator:
      *
-     * GenericValue nextValue = null; 
+     * GenericValue nextValue = null;
      * while ((nextValue = (GenericValue)
      * this.next()) != null) { ... }
      *
@@ -387,7 +382,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Sets the fetch size of the result set to the given value.
-     * 
      * @param rows
      *            the fetch size
      * @throws GenericEntityException
@@ -433,14 +427,14 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     }
 
     /**
-     * Gets a partial list of results starting at start and containing at most number elements. 
+     * Gets a partial list of results starting at start and containing at most number elements.
      * Start is a one based value, i.e. 1 is the first element.
      *
      * @param start
      *            the index from which on the elements should be retrieved. Is one based.
      * @param number
      *            the maximum number of elements to get after the start index.
-     * @return A list with the retrieved elements, with the size of number or less if the result set does not contain enough values. 
+     * @return A list with the retrieved elements, with the size of number or less if the result set does not contain enough values.
      *            Empty list in case of no values or an invalid start index.
      * @throws GenericEntityException
      *            if there is an issue with the database.

@@ -158,7 +158,7 @@ public final class SecurityUtil {
                 GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                 Map<String, Object> claims = JWTManager.validateToken(delegator, jwtToken,
                         userLogin.getString("userLoginId") + userLogin.getString("currentPassword"));
-                return (! ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
+                return (!ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
             } catch (GenericEntityException e) {
                 Debug.logWarning("failed to validate a jwToken for user " + userLoginId, MODULE);
             }

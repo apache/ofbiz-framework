@@ -44,7 +44,7 @@ public class URLConnector {
     private boolean trustAnyCert = false;
     private int hostCertLevel = 2;
 
-    protected URLConnector() {}
+    protected URLConnector() { }
     protected URLConnector(URL url, String clientCertAlias, int hostCertLevel, boolean trustAnyCert) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;

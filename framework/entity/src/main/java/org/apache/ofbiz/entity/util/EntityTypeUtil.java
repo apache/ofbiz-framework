@@ -35,7 +35,7 @@ public final class EntityTypeUtil {
 
     private static final String MODULE = EntityTypeUtil.class.getName();
 
-    private EntityTypeUtil() {}
+    private EntityTypeUtil() { }
 
     public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {
         for (GenericValue value: thisCollection) {
@@ -56,7 +56,7 @@ public final class EntityTypeUtil {
      while (iter.hasNext()) {
      if (isType((GenericValue) iter.next(), targetType)) {
      return true;
-     }//else keep looking
+     } //else keep looking
      }
      return false;
      }*/
@@ -136,7 +136,7 @@ public final class EntityTypeUtil {
         try {
             childTypeValue = EntityQuery.use(delegator).from(entityName).where(primaryKey, childType).cache(true).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError("Error finding "+entityName+" record for type "+childType, MODULE);
+            Debug.logError("Error finding " + entityName + " record for type " + childType, MODULE);
         }
         if (childTypeValue != null) {
             if (parentType.equals(childTypeValue.getString(primaryKey))) return true;

@@ -35,7 +35,7 @@ public class AliasKeyManager implements X509KeyManager {
     protected X509KeyManager keyManager = null;
     protected String alias = null;
 
-    protected AliasKeyManager() {}
+    protected AliasKeyManager() { }
 
     public AliasKeyManager(X509KeyManager keyManager, String alias) {
         this.keyManager = keyManager;

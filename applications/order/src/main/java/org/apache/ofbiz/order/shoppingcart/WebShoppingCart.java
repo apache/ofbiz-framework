@@ -39,19 +39,19 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 @SuppressWarnings("serial")
 public class WebShoppingCart extends ShoppingCart {
     public WebShoppingCart(HttpServletRequest request, Locale locale, String currencyUom) {
-        // for purchase orders, bill to customer partyId must be set - otherwise, no way to know who we're purchasing for.  supplierPartyId is furnished
-        // by order manager for PO entry.
+        // for purchase orders, bill to customer partyId must be set - otherwise, no way to know who we're purchasing for.
+        // supplierPartyId is furnished by order manager for PO entry.
         // TODO: refactor constructor and the getCartObject method which calls them to multiple constructors for different types of orders
-        super((Delegator)request.getAttribute("delegator"), ProductStoreWorker.getProductStoreId(request),
-                WebSiteWorker.getWebSiteId(request), (locale != null ? locale : ProductStoreWorker.getStoreLocale(request)),
-                (currencyUom != null ? currencyUom : ProductStoreWorker.getStoreCurrencyUomId(request)),
-                request.getParameter("billToCustomerPartyId"),
-                (request.getParameter("supplierPartyId") != null ? request.getParameter("supplierPartyId") : request.getParameter("billFromVendorPartyId")));
+        super((Delegator) request.getAttribute("delegator"), ProductStoreWorker.getProductStoreId(request),
+                WebSiteWorker.getWebSiteId(request), (locale != null ? locale : ProductStoreWorker.getStoreLocale(request)), (currencyUom != null
+                        ? currencyUom : ProductStoreWorker.getStoreCurrencyUomId(request)), request.getParameter("billToCustomerPartyId"), (
+                        request.getParameter("supplierPartyId") != null ? request.getParameter("supplierPartyId")
+                        : request.getParameter("billFromVendorPartyId")));
 
         HttpSession session = request.getSession(true);
-        this.userLogin = (GenericValue) session.getAttribute("userLogin");
-        this.autoUserLogin = (GenericValue) session.getAttribute("autoUserLogin");
-        this.orderPartyId = (String) session.getAttribute("orderPartyId");
+        this.setUserLogin((GenericValue) session.getAttribute("userLogin"));
+        this.setAutoUserLogin((GenericValue) session.getAttribute("autoUserLogin"));
+        this.setOrderPartyId((String) session.getAttribute("orderPartyId"));
     }
 
     public WebShoppingCart(HttpServletRequest request) {

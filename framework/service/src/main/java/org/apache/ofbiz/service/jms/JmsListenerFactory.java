@@ -58,7 +58,7 @@ public class JmsListenerFactory implements Runnable {
     protected Thread thread;
 
 
-    public static JmsListenerFactory getInstance(Delegator delegator){
+    public static JmsListenerFactory getInstance(Delegator delegator) {
         JmsListenerFactory instance = jlFactoryRef.get();
         if (instance == null) {
             instance = new JmsListenerFactory(delegator);
@@ -80,7 +80,9 @@ public class JmsListenerFactory implements Runnable {
     public void run() {
         Debug.logInfo("Starting JMS Listener Factory Thread", MODULE);
         while (firstPass || connected < loadable) {
-            if (Debug.verboseOn()) Debug.logVerbose("First Pass: " + firstPass + " Connected: " + connected + " Available: " + loadable, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("First Pass: " + firstPass + " Connected: " + connected + " Available: " + loadable, MODULE);
+            }
             this.loadListeners();
             if (loadable == 0) {
                 // if there is nothing to do then we can break without sleeping
@@ -102,7 +104,9 @@ public class JmsListenerFactory implements Runnable {
         try {
             List<JmsService> jmsServices = ServiceConfigUtil.getServiceEngine().getJmsServices();
 
-            if (Debug.verboseOn()) Debug.logVerbose("Loading JMS Listeners.", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Loading JMS Listeners.", MODULE);
+            }
             for (JmsService service: jmsServices) {
                 StringBuilder serverKey = new StringBuilder();
                 for (Server server: service.getServers()) {

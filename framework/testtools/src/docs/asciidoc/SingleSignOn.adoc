@@ -1,0 +1,159 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= OFBiz Single Sign On using CAS and LDAP
+
+== Setup the Java Key Store
+From the directory in which you want to create the keystore, run keytool with the following parameters.
+
+. Generate the server certificate.
++
+[source]
+----
+    $ keytool -genkey -alias tomcat -keyalg RSA -keypass changeit -storepass changeit -keystore keystore.jks
+----
+When you press Enter, keytool prompts you to enter the server name, organizational unit, organization, locality, state,
+and country code.
+[NOTE]
+Note that you must enter the server name in response to keytool's first prompt, in which it asks for first and
+ last names.
++
+For testing purposes, this can be localhost.
+. Export the generated server certificate in keystore.jks into the file server.cer.
++
+[source]
+----
+    $ keytool -export -alias tomcat -storepass changeit -file server.cer -keystore keystore.jks
+----
+. To create the trust-store file cacerts.jks and add the server certificate to the trust-store, run keytool from
+  the directory where you created the keystore and server certificate. Use the following parameters:
++
+[source]
+----
+    $ keytool -import -v -trustcacerts -alias tomcat -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit
+----
+. Information on the certificate, such as that shown next, will display.
++
+[source]
+----
+    $ keytool -import -v -trustcacerts -alias tomcat -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit
+
+    Owner: CN=localhost, OU=Sun Micro, O=Docs, L=Santa Clara, ST=CA, C=US
+    Issuer: CN=localhost, OU=Sun Micro, O=Docs, L=Santa Clara, ST=CA, C=US
+    Serial number: 3e932169
+    Valid from: Tue Apr 08
+    Certificate fingerprints:
+    MD5: 52:9F:49:68:ED:78:6F:39:87:F3:98:B3:6A:6B:0F:90
+    SHA1: EE:2E:2A:A6:9E:03:9A:3A:1C:17:4A:28:5E:97:20:78:3F:
+    Trust this certificate? [no]:
+----
+. Enter yes, and then press the Enter or Return key. The following information displays:
++
+[source]
+----
+    Certificate was added to keystore
+    [Saving cacerts.jks]
+----
+
+
+== CAS Server
+. Download CAS server from http://www.jasig.org/cas[the CAS web site].
+. Deploy cas-server-webapp-[version].war to Tomcat
+. Set key store file to Tomcat
++
+[source]
+----
+    keystoreFile="path/to/keystore.jks"
+----
+. Start Tomcat
+
+
+== OFBiz Certificate
+Set trust store's file to Java Virtual Machine (JVM) before start OFBiz.
+[source]
+----
+    -Djavax.net.ssl.trustStore=path/to/cacerts.jks
+----
+
+== LDAP Component
+OFBiz uses the LDAP component in the plugins to check the security in a web application. +
+OFBiz disabled LDAP component as default, you can enable this component by take the comment out from
+plugins/component-load.xml file.
+
+=== LDAP Properties
+LDAP properties file is plugins/ldap/config/ldap.xml. +
+You can change a filter condition you want.
+
+==== Attributes
+. Attribute : LDAP attbitue for filter e.g. uid=%u
+. AuthenType : LDAP authentication method e.g. simple
+. AuthenticaionHandler : CAS handler class e.g. org.apache.ofbiz.ldap.cas.OFBizCasAuthenticationHandler
+. AutoPartyId : Party's id for user login e.g. admin
+. AutoSecurityGroupId : Security group's id for user login e.g. FULLADMIN
+. BaseDN : The top level ofbiz LDAP directory tree e.g. dc=example,dc=com
+. Filter : LDAP search filter e.g. (objectclass=*)
+. Scope : LDAP search scope parameter e.g. sub,one, etc.
+. URL : LDAP server's url e.g. ldap://localhost:389
+. UserOFBizLoginWhenLDAPFail : indicate that if LDAP fail then login with normal OFBiz's user or not.
+  (true/false)
+
+==== CAS
+. CasLoginUri : URI to CAS login e.g. /login
+. CasLogoutUri : URI to CAS logout  e.g. /logout
+. CasUrl : CAS Server's URL e.g. https://localhost:8443/cas
+. CasValidateUri : URI to CAS validate e.g. /validate
+. CasLdapHandler : LDAP hanlder class e.g. org.apache.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler
+. CasTGTCookieName : CAS TGT's cookie name e.g. CASTGC
+
+
+== OpenLDAP
+The LDAP component need data from LDAP server (OpenLDAP). The server needs to install, configure and populate
+ OpenLDAP: see at http://www.openldap.org[the OpenLDAP web site].
+
+== Web Application Security Mapping
+Every web application you need to use LDAP (single sign on) feature, you need to change the event's path of
+ some the security request mappings to org.apache.ofbiz.ldap.LdapLoginWorker class.
+
+=== checkLogin
+[source, xml]
+    <request-map uri="checkLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.ldap.LdapLoginWorker" invoke="checkLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+
+=== login
+[source, xml]
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.ldap.LdapLoginWorker" invoke="login"/>
+        <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+
+=== logout
+[source, xml]
+    <request-map uri="logout">
+            <security https="true" auth="true"/>
+            <event type="java" path="org.apache.ofbiz.ldap.LdapLoginWorker" invoke="logout"/>
+            <response name="success" type="request-redirect" value="main"/>
+            <response name="error" type="view" value="main"/>
+    </request-map>

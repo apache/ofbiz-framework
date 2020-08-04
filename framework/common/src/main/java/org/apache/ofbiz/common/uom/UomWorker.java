@@ -38,33 +38,33 @@ public class UomWorker {
 
     private static final String MODULE = UomWorker.class.getName();
 
-    private UomWorker () {}
+    private UomWorker() { }
 
     public static int[] uomTimeToCalTime(String uomId) {
         if ("TF_ms".equals(uomId)) {
-            return new int[] { Calendar.MILLISECOND, 1 };
+            return new int[] {Calendar.MILLISECOND, 1 };
         } else if ("TF_s".equals(uomId)) {
-            return new int[] { Calendar.SECOND, 1 };
+            return new int[] {Calendar.SECOND, 1 };
         } else if ("TF_min".equals(uomId)) {
-            return new int[] { Calendar.MINUTE, 1 };
+            return new int[] {Calendar.MINUTE, 1 };
         } else if ("TF_hr".equals(uomId)) {
-            return new int[] { Calendar.HOUR, 1 };
+            return new int[] {Calendar.HOUR, 1 };
         } else if ("TF_day".equals(uomId)) {
-            return new int[] { Calendar.DAY_OF_YEAR, 1 };
+            return new int[] {Calendar.DAY_OF_YEAR, 1 };
         } else if ("TF_wk".equals(uomId)) {
-            return new int[] { Calendar.WEEK_OF_YEAR, 1 };
+            return new int[] {Calendar.WEEK_OF_YEAR, 1 };
         } else if ("TF_mon".equals(uomId)) {
-            return new int[] { Calendar.MONTH, 1 };
+            return new int[] {Calendar.MONTH, 1 };
         } else if ("TF_yr".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 1 };
+            return new int[] {Calendar.YEAR, 1 };
         } else if ("TF_decade".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 10 };
+            return new int[] {Calendar.YEAR, 10 };
         } else if ("TF_score".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 20 };
+            return new int[] {Calendar.YEAR, 20 };
         } else if ("TF_century".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 100 };
+            return new int[] {Calendar.YEAR, 100 };
         } else if ("TF_millenium".equals(uomId)) {
-            return new int[] { Calendar.YEAR, 1000 };
+            return new int[] {Calendar.YEAR, 1000 };
         }
 
         return null;
@@ -99,7 +99,7 @@ public class UomWorker {
         if (originalValue == null || uomId == null || uomIdTo == null) return null;
         if (uomId.equals(uomIdTo)) return originalValue;
 
-        Map<String, Object> svcInMap =  new LinkedHashMap<>();
+        Map<String, Object> svcInMap = new LinkedHashMap<>();
         svcInMap.put("originalValue", originalValue);
         svcInMap.put("uomId", uomId);
         svcInMap.put("uomIdTo", uomIdTo);
@@ -115,7 +115,7 @@ public class UomWorker {
         if (svcOutMap.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && svcOutMap.get("convertedValue") != null) {
             return (BigDecimal) svcOutMap.get("convertedValue");
         }
-        Debug.logError("Failed to perform conversion for value [" + originalValue.toPlainString() + "] from Uom [" + uomId + "] to Uom [" + uomIdTo + "]",MODULE);
+        Debug.logError("Failed to perform conversion for value [" + originalValue.toPlainString() + "] from Uom [" + uomId + "] to Uom [" + uomIdTo + "]", MODULE);
         return null;
     }
 }

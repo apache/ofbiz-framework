@@ -26,7 +26,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -61,7 +60,7 @@ public final class EntityUtil {
 
     private static final String MODULE = EntityUtil.class.getName();
 
-    private EntityUtil() {}
+    private EntityUtil() { }
 
     @SafeVarargs
     public static <V> Map<String, V> makeFields(V... args) {
@@ -74,8 +73,12 @@ public final class EntityUtil {
                 i++;
                 V value = args[i];
                 if (value != null) {
-                    if (! (value instanceof Comparable<?>)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
-                    if (! (value instanceof Serializable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
+                    if (!(value instanceof Comparable<?>)) {
+                        throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
+                    }
+                    if (!(value instanceof Serializable)) {
+                        throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
+                    }
                 }
                 fields.put(key, value);
                 i++;
@@ -147,57 +150,60 @@ public final class EntityUtil {
     }
 
     /**
-     *returns the values that are currently active.
+     * returns the values that are currently active.
      *
-     *@param datedValues GenericValue's that have "fromDate" and "thruDate" fields
-     *@return List of GenericValue's that are currently active
+     * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
+     * @return List of GenericValue's that are currently active
      */
     public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues) {
         return filterByDate(datedValues, UtilDateTime.nowTimestamp(), null, null, true);
     }
 
     /**
-     *returns the values that are currently active.
+     * returns the values that are currently active.
      *
-     *@param datedValues GenericValue's that have "fromDate" and "thruDate" fields
-     *@param allAreSame Specifies whether all values in the List are of the same entity; this can help speed things up a fair amount since we only have to see if the from and thru date fields are valid once
-     *@return List of GenericValue's that are currently active
+     * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
+     * @param allAreSame  Specifies whether all values in the List are of the same entity; this can help speed things up a fair amount since we
+     *                    only have to see if the from and thru date fields are valid once
+     * @return List of GenericValue's that are currently active
      */
     public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, boolean allAreSame) {
         return filterByDate(datedValues, UtilDateTime.nowTimestamp(), null, null, allAreSame);
     }
 
     /**
-     *returns the values that are active at the moment.
+     * returns the values that are active at the moment.
      *
-     *@param datedValues GenericValue's that have "fromDate" and "thruDate" fields
-     *@param moment the moment in question
-     *@return List of GenericValue's that are active at the moment
+     * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
+     * @param moment      the moment in question
+     * @return List of GenericValue's that are active at the moment
      */
     public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.util.Date moment) {
         return filterByDate(datedValues, new java.sql.Timestamp(moment.getTime()), null, null, true);
     }
 
     /**
-     *returns the values that are active at the moment.
+     * returns the values that are active at the moment.
      *
-     *@param datedValues GenericValue's that have "fromDate" and "thruDate" fields
-     *@param moment the moment in question
-     *@return List of GenericValue's that are active at the moment
+     * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
+     * @param moment      the moment in question
+     * @return List of GenericValue's that are active at the moment
      */
     public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.sql.Timestamp moment) {
         return filterByDate(datedValues, moment, null, null, true);
     }
 
     /**
-     *returns the values that are active at the moment.
+     * returns the values that are active at the moment.
      *
-     *@param datedValues GenericValue's that have "fromDate" and "thruDate" fields
-     *@param moment the moment in question
-     *@param allAreSame Specifies whether all values in the List are of the same entity; this can help speed things up a fair amount since we only have to see if the from and thru date fields are valid once
-     *@return List of GenericValue's that are active at the moment
+     * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
+     * @param moment      the moment in question
+     * @param allAreSame  Specifies whether all values in the List are of the same entity; this can help speed things up a fair amount since we
+     *                    only have to see if the from and thru date fields are valid once
+     * @return List of GenericValue's that are active at the moment
      */
-    public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.sql.Timestamp moment, String fromDateName, String thruDateName, boolean allAreSame) {
+    public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.sql.Timestamp moment, String fromDateName,
+                                                                 String thruDateName, boolean allAreSame) {
         if (datedValues == null) return null;
         if (moment == null) return datedValues;
         if (fromDateName == null) fromDateName = "fromDate";
@@ -214,16 +220,20 @@ public final class EntityUtil {
                 T datedValue = iter.next();
 
                 fromDateField = datedValue.getModelEntity().getField(fromDateName);
-                if (fromDateField == null) throw new IllegalArgumentException("\"" + fromDateName + "\" is not a field of " + datedValue.getEntityName());
+                if (fromDateField == null) {
+                    throw new IllegalArgumentException("\"" + fromDateName + "\" is not a field of " + datedValue.getEntityName());
+                }
                 thruDateField = datedValue.getModelEntity().getField(thruDateName);
-                if (thruDateField == null) throw new IllegalArgumentException("\"" + thruDateName + "\" is not a field of " + datedValue.getEntityName());
+                if (thruDateField == null) {
+                    throw new IllegalArgumentException("\"" + thruDateName + "\" is not a field of " + datedValue.getEntityName());
+                }
 
                 java.sql.Timestamp fromDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
                 java.sql.Timestamp thruDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
 
                 if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
-                }// else not active at moment
+                } // else not active at moment
             }
             while (iter.hasNext()) {
                 T datedValue = iter.next();
@@ -232,7 +242,7 @@ public final class EntityUtil {
 
                 if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
-                }// else not active at moment
+                } // else not active at moment
             }
         } else {
             // if not all values are known to be of the same entity, must check each one...
@@ -243,7 +253,7 @@ public final class EntityUtil {
 
                 if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
-                }// else not active at moment
+                } // else not active at moment
             }
         }
 
@@ -257,16 +267,16 @@ public final class EntityUtil {
     public static boolean isValueActive(GenericValue datedValue, java.sql.Timestamp moment, String fromDateName, String thruDateName) {
         java.sql.Timestamp fromDate = datedValue.getTimestamp(fromDateName);
         java.sql.Timestamp thruDate = datedValue.getTimestamp(thruDateName);
-        return (thruDate == null || thruDate.after(moment)) &&
-                (fromDate == null || fromDate.before(moment) || fromDate.equals(moment));
+        return (thruDate == null || thruDate.after(moment))
+                && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment));
     }
 
     /**
-     *returns the values that match the values in fields
+     * returns the values that match the values in fields
      *
-     *@param values List of GenericValues
-     *@param fields the field-name/value pairs that must match
-     *@return List of GenericValue's that match the values in fields
+     * @param values List of GenericValues
+     * @param fields the field-name/value pairs that must match
+     * @return List of GenericValue's that match the values in fields
      */
     public static <T extends GenericEntity> List<T> filterByAnd(List<T> values, Map<String, ? extends Object> fields) {
         if (values == null || UtilValidate.isEmpty(fields)) {
@@ -276,11 +286,11 @@ public final class EntityUtil {
     }
 
     /**
-     *returns the values that match all of the exprs in list
+     * returns the values that match all of the exprs in list
      *
-     *@param values List of GenericValues
-     *@param exprs the expressions that must validate to true
-     *@return List of GenericValue's that match the values in fields
+     * @param values List of GenericValues
+     * @param exprs  the expressions that must validate to true
+     * @return List of GenericValue's that match the values in fields
      */
     public static <T extends GenericEntity> List<T> filterByAnd(List<T> values, List<? extends EntityCondition> exprs) {
         if (values == null || UtilValidate.isEmpty(exprs)) {
@@ -293,11 +303,11 @@ public final class EntityUtil {
     }
 
     /**
-     *returns the values that match any of the exprs in list
+     * returns the values that match any of the exprs in list
      *
-     *@param values List of GenericValues
-     *@param exprs the expressions that must validate to true
-     *@return List of GenericValue's that match the values in fields
+     * @param values List of GenericValues
+     * @param exprs  the expressions that must validate to true
+     * @return List of GenericValue's that match the values in fields
      */
     public static <T extends GenericEntity> List<T> filterByOr(List<T> values, List<? extends EntityCondition> exprs) {
         if (values == null || UtilValidate.isEmpty(exprs)) {
@@ -308,15 +318,15 @@ public final class EntityUtil {
                 .filter(value -> exprs.stream().anyMatch(condition -> condition.entityMatches(value)))
                 .collect(toList());
     }
-    
+
     /**
-     *returns the values in the order specified after with localized value 
+     * returns the values in the order specified after with localized value
      *
-     *@param values List of GenericValues
-     *@param orderBy The fields of the named entity to order the query by;
-     *      optionally add a " ASC" for ascending or " DESC" for descending
-     *@param locale Locale use to retrieve localized value
-     *@return List of GenericValue's in the proper order
+     * @param values  List of GenericValues
+     * @param orderBy The fields of the named entity to order the query by;
+     *                optionally add a " ASC" for ascending or " DESC" for descending
+     * @param locale  Locale use to retrieve localized value
+     * @return List of GenericValue's in the proper order
      */
     public static <T extends GenericEntity> List<T> localizedOrderBy(Collection<T> values, List<String> orderBy, Locale locale) {
         if (values == null) return null;
@@ -327,12 +337,12 @@ public final class EntityUtil {
             T newValue = UtilGenerics.cast(value.clone());
             for (String orderByField : orderBy) {
                 if (orderByField.endsWith(" DESC")) {
-                    orderByField= orderByField.substring(0, orderByField.length() - 5);
+                    orderByField = orderByField.substring(0, orderByField.length() - 5);
                 } else if (orderByField.endsWith(" ASC")) {
-                    orderByField= orderByField.substring(0, orderByField.length() - 4);
+                    orderByField = orderByField.substring(0, orderByField.length() - 4);
                 } else if (orderByField.startsWith("-")
                         || orderByField.startsWith("+")) {
-                    orderByField= orderByField.substring(1, orderByField.length());
+                    orderByField = orderByField.substring(1, orderByField.length());
                 }
                 newValue.put(orderByField, value.get(orderByField, locale));
             }
@@ -342,12 +352,12 @@ public final class EntityUtil {
     }
 
     /**
-     *returns the values in the order specified
+     * returns the values in the order specified
      *
-     *@param values List of GenericValues
-     *@param orderBy The fields of the named entity to order the query by;
-     *      optionally add a " ASC" for ascending or " DESC" for descending
-     *@return List of GenericValue's in the proper order
+     * @param values  List of GenericValues
+     * @param orderBy The fields of the named entity to order the query by;
+     *                optionally add a " ASC" for ascending or " DESC" for descending
+     * @return List of GenericValue's in the proper order
      */
     public static <T extends GenericEntity> List<T> orderBy(Collection<T> values, List<String> orderBy) {
         if (values == null) return null;
@@ -360,8 +370,10 @@ public final class EntityUtil {
 
         List<T> result = new ArrayList<>();
         result.addAll(values);
-        if (Debug.verboseOn()) Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), MODULE);
-        Collections.sort(result, new OrderByList(orderBy));
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), MODULE);
+        }
+        result.sort(new OrderByList(orderBy));
         return result;
     }
 
@@ -370,15 +382,17 @@ public final class EntityUtil {
      */
     @Deprecated
     public static List<GenericValue> getRelated(String relationName, List<GenericValue> values) throws GenericEntityException {
-        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", GenericValue.getStackTraceAsString());
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651",
+                GenericValue.getStackTraceAsString());
         return getRelated(relationName, null, values, false);
     }
 
-    public static List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values, boolean useCache) throws GenericEntityException {
+    public static List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values,
+                                                boolean useCache) throws GenericEntityException {
         if (values == null) return null;
 
         List<GenericValue> result = new LinkedList<>();
-        for (GenericValue value: values) {
+        for (GenericValue value : values) {
             result.addAll(value.getRelated(relationName, fields, null, useCache));
         }
         return result;
@@ -398,34 +412,38 @@ public final class EntityUtil {
         return values.stream().filter(value -> !condition.entityMatches(value)).collect(toList());
     }
 
-    public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
+    public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search)
+            throws GenericEntityException {
         return findDatedInclusionEntity(delegator, entityName, search, UtilDateTime.nowTimestamp());
     }
 
-    public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
+    public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search,
+                                                              Timestamp now) throws GenericEntityException {
         EntityCondition searchCondition = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition(search), EntityUtil.getFilterByDateExpr(now)));
         return EntityQuery.use(delegator).from(entityName).where(searchCondition).orderBy("-fromDate").queryList();
     }
 
-    public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
+    public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search)
+            throws GenericEntityException {
         return newDatedInclusionEntity(delegator, entityName, search, UtilDateTime.nowTimestamp());
     }
 
-    public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> find, Timestamp now) throws GenericEntityException {
+    public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> find, Timestamp now)
+            throws GenericEntityException {
         Map<String, Object> search;
         List<GenericValue> entities = findDatedInclusionEntity(delegator, entityName, find, now);
         if (UtilValidate.isNotEmpty(entities)) {
             search = null;
-            for (GenericValue entity: entities) {
+            for (GenericValue entity : entities) {
                 if (now.equals(entity.get("fromDate"))) {
                     search = new HashMap<>();
-                    for (Map.Entry<String, ? super Object> entry: entity.getPrimaryKey().entrySet()) {
+                    for (Map.Entry<String, ? super Object> entry : entity.getPrimaryKey().entrySet()) {
                         search.put(entry.getKey(), entry.getValue());
                     }
                     entity.remove("thruDate");
                 } else {
-                    entity.set("thruDate",now);
+                    entity.set("thruDate", now);
                 }
                 entity.store();
             }
@@ -443,20 +461,22 @@ public final class EntityUtil {
         if (now.equals(search.get("fromDate"))) {
             return EntityUtil.getOnly(EntityQuery.use(delegator).from(entityName).where(search).queryList());
         } else {
-            search.put("fromDate",now);
+            search.put("fromDate", now);
             search.remove("thruDate");
             return delegator.makeValue(entityName, search);
         }
     }
 
-    public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
+    public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search)
+            throws GenericEntityException {
         delDatedInclusionEntity(delegator, entityName, search, UtilDateTime.nowTimestamp());
     }
 
-    public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
+    public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now)
+            throws GenericEntityException {
         List<GenericValue> entities = findDatedInclusionEntity(delegator, entityName, search, now);
-        for (GenericValue entity: entities) {
-            entity.set("thruDate",now);
+        for (GenericValue entity : entities) {
+            entity.set("thruDate", now);
             entity.store();
         }
     }
@@ -522,8 +542,8 @@ public final class EntityUtil {
     }
 
     /**
-     * @param iter EntityListIterator
-     * @param viewIndex 
+     * @param iter      EntityListIterator
+     * @param viewIndex
      * @param viewSize
      * @return PagedList object with a subset of data items from EntityListIterator based on viewIndex and viewSize
      * @throws GenericEntityException
@@ -549,6 +569,7 @@ public final class EntityUtil {
     /**
      * For a entityName return the primary keys path that identify it
      * like entityName/pkValue1/pkValue2/../pkValueN
+     *
      * @param delegator
      * @param entityName
      * @param context
@@ -557,9 +578,11 @@ public final class EntityUtil {
     public static String entityToPath(Delegator delegator, String entityName, Map<String, Object> context) {
         return entityToPath(delegator.makeValidValue(entityName, context));
     }
+
     /**
      * For a entityName return the primary keys path that identify it
      * like entityName/pkValue1/pkValue2/../pkValueN
+     *
      * @param gv
      * @return
      */
@@ -574,11 +597,12 @@ public final class EntityUtil {
     /**
      * Form a entityName and primary keys path
      * convert it to a Map contains all pkValue :
-     *  entityName/pkValue1/pkValue2/../pkValueN
-     *    -&gt; [pkName1: pkValue1,
-     *        pkName2, pkValue2,
-     *        ...,
-     *        pkNameN: pkValueN]
+     * entityName/pkValue1/pkValue2/../pkValueN
+     * -&gt; [pkName1: pkValue1,
+     * pkName2, pkValue2,
+     * ...,
+     * pkNameN: pkValueN]
+     *
      * @param modelEntity
      * @param path
      * @return
@@ -589,7 +613,7 @@ public final class EntityUtil {
         LinkedList<String> pkValues = new LinkedList<>(Arrays.asList(path.split("/")));
         List<String> pkFieldNames = modelEntity.getPkFieldNames();
         if (pkFieldNames.size() != pkValues.size()) {
-            throw new GenericEntityException ("Identification path failed ");
+            throw new GenericEntityException("Identification path failed ");
         }
         Map<String, Object> pkValuesMap = new HashMap<>();
         for (String pkName : modelEntity.getPkFieldNames()) {

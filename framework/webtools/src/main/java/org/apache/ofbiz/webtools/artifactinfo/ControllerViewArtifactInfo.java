@@ -57,12 +57,12 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
-        if ("screen".equals(this.viewInfoMap.type) || "screenfop".equals(this.viewInfoMap.type) ||
-                "screentext".equals(this.viewInfoMap.type) || "screenxml".equals(this.viewInfoMap.type)) {
+        if ("screen".equals(this.viewInfoMap.type) || "screenfop".equals(this.viewInfoMap.type)
+                || "screentext".equals(this.viewInfoMap.type) || "screenxml".equals(this.viewInfoMap.type)) {
             String fullScreenName = this.viewInfoMap.page;
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
-                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
+                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex + 1), fullScreenName.substring(0, poundIndex));
                 if (this.screenCalledByThisView != null) {
                     // add the reverse association
                     UtilMisc.addToSortedSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
@@ -112,8 +112,8 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     public boolean equals(Object obj) {
         if (obj instanceof ControllerViewArtifactInfo) {
             ControllerViewArtifactInfo that = (ControllerViewArtifactInfo) obj;
-            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl) &&
-                Objects.equals(this.viewUri, that.viewUri);
+            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl)
+                    && Objects.equals(this.viewUri, that.viewUri);
         } else {
             return false;
         }

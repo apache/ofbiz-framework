@@ -84,8 +84,8 @@ public class JWTManager {
     public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-        if(!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
-            if(Debug.verboseOn()) {
+        if (!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
+            if (Debug.verboseOn()) {
                 Debug.logVerbose("Internal single sign on is disabled.", MODULE);
             }
             return "success";
@@ -107,7 +107,7 @@ public class JWTManager {
         // get userLoginId from the token and retrieve the corresponding userLogin from the database
         GenericValue userLogin = getUserlogin(delegator, claims);
 
-        if(UtilValidate.isNotEmpty(userLogin)) {
+        if (UtilValidate.isNotEmpty(userLogin)) {
             // check userLogin base permission and if it is enabled
             request.getSession().setAttribute("userLogin", userLogin);
             userLogin = LoginWorker.checkLogout(request, response);
@@ -137,13 +137,13 @@ public class JWTManager {
     public static String getJWTKey(Delegator delegator) {
         return getJWTKey(delegator, null);
     }
-    
+
     /**
      * Get the JWT secret key from database or security.properties.
      * @param delegator the delegator
      * @return the JWT secret key
      */
-    
+
     public static String getJWTKey(Delegator delegator, String salt) {
         String key = EntityUtilProperties.getPropertyValue("security", "security.token.key", delegator);
         if (salt != null) {
@@ -220,7 +220,7 @@ public class JWTManager {
         String headerAuthValue = request.getHeader(HttpHeaders.AUTHORIZATION);
         String bearerPrefix = "Bearer ";
 
-        if(UtilValidate.isEmpty(headerAuthValue) || !headerAuthValue.startsWith(bearerPrefix)) {
+        if (UtilValidate.isEmpty(headerAuthValue) || !headerAuthValue.startsWith(bearerPrefix)) {
             return null;
         }
 
@@ -269,7 +269,7 @@ public class JWTManager {
      * @param delegator
      * @param jwtToken
      * @param keySalt
-     * @return Map of the claims contained in the token or an error 
+     * @return Map of the claims contained in the token or an error
      */
     public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
         return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));
@@ -282,7 +282,7 @@ public class JWTManager {
      * @return a JWT token
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims) {
-        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         return createJwt(delegator, claims, expirationTime);
     }
 
@@ -307,7 +307,7 @@ public class JWTManager {
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
         if (expireTime <= 0) {
-            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         }
 
         String key = JWTManager.getJWTKey(delegator, keySalt);
@@ -377,7 +377,7 @@ public class JWTManager {
     private static GenericValue getUserlogin(Delegator delegator, Map<String, Object> jwtMap) {
         String userLoginId = (String) jwtMap.get("userLoginId");
 
-        if(UtilValidate.isEmpty(userLoginId)) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             Debug.logWarning("No userLoginId found in the JWT token.", MODULE);
             return null;
         }

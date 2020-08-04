@@ -62,7 +62,9 @@ public class JavaEventHandler implements EventHandler {
             HttpServletRequest request, HttpServletResponse response)
                     throws EventHandlerException {
         Class<?> k = classes.computeIfAbsent(event.path, JavaEventHandler::loadClass);
-        if (Debug.verboseOn()) Debug.logVerbose("*[[Event invocation]]*", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("*[[Event invocation]]*", MODULE);
+        }
         if (k == null) {
             throw new EventHandlerException("Error invoking event, the class "
                                             + event.path + " was not found");
@@ -71,7 +73,9 @@ public class JavaEventHandler implements EventHandler {
             throw new EventHandlerException("Invalid event method or path; call initialize()");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: Java Event", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Processing]: Java Event", MODULE);
+        }
         boolean began = false;
         try {
             int timeout = Integer.max(event.transactionTimeout, 0);
@@ -79,7 +83,9 @@ public class JavaEventHandler implements EventHandler {
             Method m = k.getMethod(event.invoke, HttpServletRequest.class,
                                    HttpServletResponse.class);
             String ret = (String) m.invoke(null, request, response);
-            if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + ret, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[Event Return]: " + ret, MODULE);
+            }
             return ret;
         } catch (java.lang.reflect.InvocationTargetException e) {
             Throwable t = e.getTargetException();

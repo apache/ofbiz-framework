@@ -62,10 +62,10 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class ShoppingCartServices {
 
+    private static final MathContext GEN_ROUNDING = new MathContext(10);
     private static final String MODULE = ShoppingCartServices.class.getName();
     private static final String RES_ERROR = "OrderErrorUiLabels";
 
-    public static final MathContext generalRounding = new MathContext(10);
     public static Map<String, Object> assignItemShipGroup(DispatchContext dctx, Map<String, Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Integer fromGroupIndex = (Integer) context.get("fromGroupIndex");
@@ -91,7 +91,7 @@ public class ShoppingCartServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object>setShippingOptions(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> setShippingOptions(DispatchContext dctx, Map<String, Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Integer groupIndex = (Integer) context.get("groupIndex");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
@@ -114,7 +114,7 @@ public class ShoppingCartServices {
                 if (delimiterPos > 0) {
                     shipmentMethodTypeId = shipmentMethodString.substring(0, delimiterPos);
                     carrierPartyId = shipmentMethodString.substring(delimiterPos + 1);
-                 }
+                }
 
                 cart.setShipmentMethodTypeId(idx, shipmentMethodTypeId);
                 cart.setCarrierPartyId(idx, carrierPartyId);
@@ -131,18 +131,19 @@ public class ShoppingCartServices {
                 cart.setIsGift(idx, isGift);
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",groupIndex), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",
+                    groupIndex), locale));
         }
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object>setPaymentOptions(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> setPaymentOptions(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
 
-        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,"OrderServiceNotYetImplemented",locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceNotYetImplemented", locale));
     }
 
-    public static Map<String, Object>setOtherOptions(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> setOtherOptions(DispatchContext dctx, Map<String, Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String orderAdditionalEmails = (String) context.get("orderAdditionalEmails");
         String correspondingPoId = (String) context.get("correspondingPoId");
@@ -157,7 +158,7 @@ public class ShoppingCartServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object>loadCartFromOrder(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> loadCartFromOrder(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -184,7 +185,8 @@ public class ShoppingCartServices {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
-            orderContactMechs = EntityQuery.use(delegator).select("orderId", "contactMechId", "contactMechPurposeTypeId").from("OrderAndPartyContactMech").where("orderId", orderId).filterByDate("contactFromDate", "contactThruDate").distinct().queryList();
+            orderContactMechs = EntityQuery.use(delegator).select("orderId", "contactMechId", "contactMechPurposeTypeId").from(
+                    "OrderAndPartyContactMech").where("orderId", orderId).filterByDate("contactFromDate", "contactThruDate").distinct().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
@@ -301,7 +303,7 @@ public class ShoppingCartServices {
                 }
                 // for finance account the finAccountId needs to be set
                 if ("FIN_ACCOUNT".equals(paymentId)) {
-                    cpi.finAccountId = opp.getString("finAccountId");
+                    cpi.setFinAccountId(opp.getString("finAccountId"));
                 }
                 // set the billing account and amount
                 cart.setBillingAccount(orderHeader.getString("billingAccountId"), orh.getBillingAccountMaxAmount());
@@ -313,7 +315,7 @@ public class ShoppingCartServices {
         if (UtilValidate.isNotEmpty(orderTerms)) {
             for (GenericValue orderTerm : orderTerms) {
                 BigDecimal termValue = BigDecimal.ZERO;
-                if (UtilValidate.isNotEmpty(orderTerm.getString("termValue"))){
+                if (UtilValidate.isNotEmpty(orderTerm.getString("termValue"))) {
                     termValue = new BigDecimal(orderTerm.getString("termValue"));
                 }
                 long termDays = 0;
@@ -321,7 +323,8 @@ public class ShoppingCartServices {
                     termDays = Long.parseLong(orderTerm.getString("termDays").trim());
                 }
                 String orderItemSeqId = orderTerm.getString("orderItemSeqId");
-                cart.addOrderTerm(orderTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, orderTerm.getString("textValue"), orderTerm.getString("description"));
+                cart.addOrderTerm(orderTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, orderTerm.getString("textValue"),
+                        orderTerm.getString("description"));
             }
         }
         if (UtilValidate.isNotEmpty(orderContactMechs)) {
@@ -330,26 +333,26 @@ public class ShoppingCartServices {
             }
         }
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
-        for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
+        for (GenericValue orderItemShipGroup : orderItemShipGroupList) {
             // should be sorted by shipGroupSeqId
             int groupIdx = Integer.parseInt(orderItemShipGroup.getString("shipGroupSeqId"));
-            CartShipInfo cartShipInfo = cart.getShipInfo(groupIdx-1);
+            CartShipInfo cartShipInfo = cart.getShipInfo(groupIdx - 1);
             if (cartShipInfo == null) {
                 cartShipInfo = cart.getShipInfo(cart.addShipInfo());
             }
-            cartShipInfo.shipAfterDate = orderItemShipGroup.getTimestamp("shipAfterDate");
-            cartShipInfo.shipBeforeDate = orderItemShipGroup.getTimestamp("shipByDate");
-            cartShipInfo.shipmentMethodTypeId = orderItemShipGroup.getString("shipmentMethodTypeId");
-            cartShipInfo.carrierPartyId = orderItemShipGroup.getString("carrierPartyId");
-            cartShipInfo.supplierPartyId = orderItemShipGroup.getString("supplierPartyId");
+            cartShipInfo.setShipAfterDate(orderItemShipGroup.getTimestamp("shipAfterDate"));
+            cartShipInfo.setShipBeforeDate(orderItemShipGroup.getTimestamp("shipByDate"));
+            cartShipInfo.setShipmentMethodTypeId(orderItemShipGroup.getString("shipmentMethodTypeId"));
+            cartShipInfo.setCarrierPartyId(orderItemShipGroup.getString("carrierPartyId"));
+            cartShipInfo.setSupplierPartyId(orderItemShipGroup.getString("supplierPartyId"));
             cartShipInfo.setMaySplit(orderItemShipGroup.getBoolean("maySplit"));
-            cartShipInfo.giftMessage = orderItemShipGroup.getString("giftMessage");
+            cartShipInfo.setGiftMessage(orderItemShipGroup.getString("giftMessage"));
             cartShipInfo.setContactMechId(orderItemShipGroup.getString("contactMechId"));
-            cartShipInfo.shippingInstructions = orderItemShipGroup.getString("shippingInstructions");
+            cartShipInfo.setShippingInstructions(orderItemShipGroup.getString("shippingInstructions"));
             cartShipInfo.setFacilityId(orderItemShipGroup.getString("facilityId"));
             cartShipInfo.setVendorPartyId(orderItemShipGroup.getString("vendorPartyId"));
             cartShipInfo.setShipGroupSeqId(orderItemShipGroup.getString("shipGroupSeqId"));
-            cartShipInfo.shipTaxAdj.addAll(orh.getOrderHeaderAdjustmentsTax(orderItemShipGroup.getString("shipGroupSeqId")));
+            cartShipInfo.addShipTaxAdj(orh.getOrderHeaderAdjustmentsTax(orderItemShipGroup.getString("shipGroupSeqId")));
         }
 
         List<GenericValue> orderItems = orh.getOrderItems();
@@ -383,11 +386,13 @@ public class ShoppingCartServices {
                     if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
                         Map<String, Object> surveyResponseMap = new HashMap<>();
                         Map<String, Object> answers = new HashMap<>();
-                        List<GenericValue> surveyResponseAndAnswers = EntityQuery.use(delegator).from("SurveyResponseAndAnswer").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
+                        List<GenericValue> surveyResponseAndAnswers = EntityQuery.use(delegator).from("SurveyResponseAndAnswer").where("orderId",
+                                orderId, "orderItemSeqId", orderItemSeqId).queryList();
                         if (UtilValidate.isNotEmpty(surveyResponseAndAnswers)) {
                             String surveyId = EntityUtil.getFirst(surveyResponseAndAnswers).getString("surveyId");
                             for (GenericValue surveyResponseAndAnswer : surveyResponseAndAnswers) {
-                                answers.put((surveyResponseAndAnswer.get("surveyQuestionId").toString()), surveyResponseAndAnswer.get("textResponse"));
+                                answers.put((surveyResponseAndAnswer.get("surveyQuestionId").toString()),
+                                        surveyResponseAndAnswer.get("textResponse"));
                             }
                             surveyResponseMap.put("answers", answers);
                             surveyResponseMap.put("surveyId", surveyId);
@@ -414,7 +419,7 @@ public class ShoppingCartServices {
                 }
                 //BigDecimal quantity = item.getBigDecimal("quantity");
                 BigDecimal quantity = BigDecimal.ZERO;
-                if("ITEM_COMPLETED".equals(item.getString("statusId")) && "N".equals(createAsNewOrder)) {
+                if ("ITEM_COMPLETED".equals(item.getString("statusId")) && "N".equals(createAsNewOrder)) {
                     quantity = item.getBigDecimal("quantity");
                 } else {
                     quantity = OrderReadHelper.getOrderItemQuantity(item);
@@ -474,11 +479,12 @@ public class ShoppingCartServices {
                     String configId = null;
                     try {
                         product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-                        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
+                        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"),
+                                "parentTypeId", "AGGREGATED")) {
                             GenericValue productAssoc = EntityQuery.use(delegator).from("ProductAssoc")
-                                                                  .where("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId"))
-                                                                  .filterByDate()
-                                                                  .queryFirst();
+                                    .where("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId"))
+                                    .filterByDate()
+                                    .queryFirst();
                             if (productAssoc != null) {
                                 productId = productAssoc.getString("productId");
                                 configId = product.getString("configId");
@@ -489,10 +495,14 @@ public class ShoppingCartServices {
                     }
 
                     if (UtilValidate.isNotEmpty(configId)) {
-                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId, prodCatalogId, website, currency, locale, userLogin);
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId,
+                                prodCatalogId, website, currency, locale, userLogin);
                     }
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
+                        itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,
+                                accommodationMapId, accommodationSpotId, null, null, prodCatalogId, configWrapper,
+                                item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks,
+                                skipProductChecks);
                     } catch (ItemNotFoundException | CartItemModifyException e) {
                         Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
@@ -511,7 +521,7 @@ public class ShoppingCartServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 // attach surveyResponseId for each item
-                if (UtilValidate.isNotEmpty(surveyResponseResult)){
+                if (UtilValidate.isNotEmpty(surveyResponseResult)) {
                     cartItem.setAttribute("surveyResponses", UtilMisc.toList(surveyResponseResult.get("surveyResponseId")));
                 }
                 // attach addition item information
@@ -535,7 +545,8 @@ public class ShoppingCartServices {
                 // load order item attributes
                 List<GenericValue> orderItemAttributesList = null;
                 try {
-                    orderItemAttributesList = EntityQuery.use(delegator).from("OrderItemAttribute").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
+                    orderItemAttributesList = EntityQuery.use(delegator).from("OrderItemAttribute").where("orderId", orderId, "orderItemSeqId",
+                            orderItemSeqId).queryList();
                     if (UtilValidate.isNotEmpty(orderItemAttributesList)) {
                         for (GenericValue orderItemAttr : orderItemAttributesList) {
                             String name = orderItemAttr.getString("attrName");
@@ -551,7 +562,8 @@ public class ShoppingCartServices {
                 // load order item contact mechs
                 List<GenericValue> orderItemContactMechList = null;
                 try {
-                    orderItemContactMechList = EntityQuery.use(delegator).from("OrderItemContactMech").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
+                    orderItemContactMechList = EntityQuery.use(delegator).from("OrderItemContactMech").where("orderId", orderId, "orderItemSeqId",
+                            orderItemSeqId).queryList();
                     if (UtilValidate.isNotEmpty(orderItemContactMechList)) {
                         for (GenericValue orderItemContactMech : orderItemContactMechList) {
                             String contactMechPurposeTypeId = orderItemContactMech.getString("contactMechPurposeTypeId");
@@ -613,27 +625,30 @@ public class ShoppingCartServices {
                         // reservation, tax calculation, etc.
                         ShoppingCart.CartShipInfo csi = cart.getShipInfo(cartShipGroupIndex);
                         ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
-                        if (cartItem == null || cartItem.getQuantity() == null ||
-                                BigDecimal.ZERO.equals(cartItem.getQuantity()) ||
-                                shipGroupQty.equals(cartItem.getQuantity())) {
-                            Debug.logInfo("In loadCartFromOrder not adding item [" + item.getString("orderItemSeqId") +
-                                    "] to ship group with index [" + itemIndex + "]; group quantity is [" + shipGroupQty +
-                                    "] item quantity is [" + (cartItem != null ? cartItem.getQuantity() : "no cart item") +
-                                    "] cartShipGroupIndex is [" + cartShipGroupIndex + "], csi.shipItemInfo.size(): " +
-                                    (cartShipGroupIndex < 0 ? 0 : csi.shipItemInfo.size()), MODULE);
+                        if (cartItem == null || cartItem.getQuantity() == null
+                                || BigDecimal.ZERO.equals(cartItem.getQuantity())
+                                || shipGroupQty.equals(cartItem.getQuantity())) {
+                            Debug.logInfo("In loadCartFromOrder not adding item [" + item.getString("orderItemSeqId")
+                                    + "] to ship group with index [" + itemIndex + "]; group quantity is [" + shipGroupQty
+                                    + "] item quantity is [" + (cartItem != null ? cartItem.getQuantity() : "no cart item")
+                                    + "] cartShipGroupIndex is [" + cartShipGroupIndex + "], csi.shipItemInfo.size(): "
+                                    + (cartShipGroupIndex < 0 ? 0 : csi.getShipItemInfo().size()), MODULE);
                         } else {
                             cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
                         }
 
-                        List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
+                        List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId",
+                                cartShipGroupIndexStr));
                         if (cartItem == null || cartShipGroupIndex < 0) {
-                            Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, MODULE);
+                            Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId="
+                                    + orderId, MODULE);
                         } else {
                             CartShipItemInfo cartShipItemInfo = csi.getShipItemInfo(cartItem);
                             if (cartShipItemInfo == null) {
-                                Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for orderId=" + orderId, MODULE);
+                                Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for "
+                                        + "orderId=" + orderId, MODULE);
                             } else {
-                                List<GenericValue> itemTaxAdj = cartShipItemInfo.itemTaxAdj;
+                                List<GenericValue> itemTaxAdj = cartShipItemInfo.getItemTaxAdj();
                                 for (GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
                                     if (isTaxAdjustment(shipGroupItemAdjustment)) {
                                         itemTaxAdj.add(shipGroupItemAdjustment);
@@ -642,14 +657,14 @@ public class ShoppingCartServices {
                             }
                         }
                     }
-                    itemIndex ++;
+                    itemIndex++;
                 }
             }
 
             // set the item seq in the cart
             if (nextItemSeq > 0) {
                 try {
-                    cart.setNextItemSeq(nextItemSeq+1);
+                    cart.setNextItemSeq(nextItemSeq + 1);
                 } catch (GeneralException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
@@ -658,11 +673,13 @@ public class ShoppingCartServices {
         }
 
         if (includePromoItems) {
-            for (String productPromoCode: orh.getProductPromoCodesEntered()) {
+            for (String productPromoCode : orh.getProductPromoCodesEntered()) {
                 cart.addProductPromoCode(productPromoCode, dispatcher);
             }
-            for (GenericValue productPromoUse: orh.getProductPromoUse()) {
-                cart.addProductPromoUse(productPromoUse.getString("productPromoId"), productPromoUse.getString("productPromoCodeId"), productPromoUse.getBigDecimal("totalDiscountAmount"), productPromoUse.getBigDecimal("quantityLeftInActions"), new HashMap<ShoppingCartItem, BigDecimal>());
+            for (GenericValue productPromoUse : orh.getProductPromoUse()) {
+                cart.addProductPromoUse(productPromoUse.getString("productPromoId"), productPromoUse.getString("productPromoCodeId"),
+                        productPromoUse.getBigDecimal("totalDiscountAmount"), productPromoUse.getBigDecimal("quantityLeftInActions"),
+                        new HashMap<ShoppingCartItem, BigDecimal>());
             }
         }
 
@@ -720,11 +737,11 @@ public class ShoppingCartServices {
         cart.setOrderName(quote.getString("quoteName"));
         cart.setChannelType(quote.getString("salesChannelEnumId"));
 
-        List<GenericValue>quoteItems = null;
-        List<GenericValue>quoteAdjs = null;
-        List<GenericValue>quoteRoles = null;
-        List<GenericValue>quoteAttributes = null;
-        List<GenericValue>quoteTerms = null;
+        List<GenericValue> quoteItems = null;
+        List<GenericValue> quoteAdjs = null;
+        List<GenericValue> quoteRoles = null;
+        List<GenericValue> quoteAttributes = null;
+        List<GenericValue> quoteTerms = null;
         try {
             quoteItems = quote.getRelated("QuoteItem", null, UtilMisc.toList("quoteItemSeqId"), false);
             quoteAdjs = quote.getRelated("QuoteAdjustment", null, null, false);
@@ -762,7 +779,7 @@ public class ShoppingCartServices {
             // create order term from quote term
             for (GenericValue quoteTerm : quoteTerms) {
                 BigDecimal termValue = BigDecimal.ZERO;
-                if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))){
+                if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))) {
                     termValue = new BigDecimal(quoteTerm.getString("termValue"));
                 }
                 long termDays = 0;
@@ -770,7 +787,8 @@ public class ShoppingCartServices {
                     termDays = Long.parseLong(quoteTerm.getString("termDays").trim());
                 }
                 String orderItemSeqId = quoteTerm.getString("quoteItemSeqId");
-                cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId,termValue, termDays, quoteTerm.getString("textValue"),quoteTerm.getString("description"));
+                cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, quoteTerm.getString("textValue"),
+                        quoteTerm.getString("description"));
             }
         }
 
@@ -783,12 +801,14 @@ public class ShoppingCartServices {
 
         // Convert the quote adjustment to order header adjustments and
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
-        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<>() ;
+        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<>();
         for (GenericValue quoteAdj : quoteAdjs) {
-            List<GenericValue> orderAdjs = orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
+            List<GenericValue> orderAdjs = orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString(
+                    "quoteItemSeqId") : quoteId);
             if (orderAdjs == null) {
                 orderAdjs = new LinkedList<>();
-                orderAdjsMap.put(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId, orderAdjs);
+                orderAdjsMap.put(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId,
+                        orderAdjs);
             }
             // convert quote adjustments to order adjustments
             GenericValue orderAdj = delegator.makeValue("OrderAdjustment");
@@ -859,7 +879,7 @@ public class ShoppingCartServices {
                 if (amount.compareTo(BigDecimal.ZERO) > 0) {
                     // If, in the quote, an amount is set, we need to
                     // pass to the cart the quoteUnitPrice/amount value.
-                    quoteUnitPrice = quoteUnitPrice.divide(amount, generalRounding);
+                    quoteUnitPrice = quoteUnitPrice.divide(amount, GEN_ROUNDING);
                 }
 
                 //rental product data
@@ -882,10 +902,13 @@ public class ShoppingCartServices {
                     String productId = quoteItem.getString("productId");
                     ProductConfigWrapper configWrapper = null;
                     if (UtilValidate.isNotEmpty(quoteItem.getString("configId"))) {
-                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, quoteItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, quoteItem.getString("configId"),
+                                productId, productStoreId, null, null, currency, locale, userLogin);
                     }
                     try {
-                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, !applyQuoteAdjustments, quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0, Boolean.FALSE, Boolean.FALSE);
+                        itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons, null,
+                                null, null, null, null, configWrapper, null, dispatcher, !applyQuoteAdjustments,
+                                quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0, Boolean.FALSE, Boolean.FALSE);
 
                     } catch (ItemNotFoundException | CartItemModifyException e) {
                         Debug.logError(e, MODULE);
@@ -921,8 +944,8 @@ public class ShoppingCartServices {
 
             if (adjs != null) {
                 for (GenericValue adj : adjs) {
-                    if (isTaxAdjustment( adj )) {
-                        shipInfo.shipTaxAdj.add(adj);
+                    if (isTaxAdjustment(adj)) {
+                        shipInfo.addShipTaxAdj(adj);
                     } else {
                         cartAdjs.add(adj);
                     }
@@ -940,7 +963,7 @@ public class ShoppingCartServices {
                     }
                     if (adjs != null) {
                         for (GenericValue adj : adjs) {
-                            if (isTaxAdjustment( adj )) {
+                            if (isTaxAdjustment(adj)) {
                                 CartShipItemInfo csii = shipInfo.getShipItemInfo(item);
 
                                 if (csii.itemTaxAdj == null) {
@@ -960,7 +983,7 @@ public class ShoppingCartServices {
         // set the item seq in the cart
         if (nextItemSeq > 0) {
             try {
-                cart.setNextItemSeq(nextItemSeq+1);
+                cart.setNextItemSeq(nextItemSeq + 1);
             } catch (GeneralException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
@@ -976,12 +999,13 @@ public class ShoppingCartServices {
         String adjType = cartAdj.getString("orderAdjustmentTypeId");
         return "SALES_TAX".equals(adjType) || "VAT_TAX".equals(adjType) || "VAT_PRICE_CORRECT".equals(adjType);
     }
+
     private static boolean isPromoAdjustment(GenericValue cartAdj) {
         String adjType = cartAdj.getString("orderAdjustmentTypeId");
         return "PROMOTION_ADJUSTMENT".equals(adjType);
     }
 
-    public static Map<String, Object>loadCartFromShoppingList(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> loadCartFromShoppingList(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -1016,7 +1040,7 @@ public class ShoppingCartServices {
         }
         // If we still have no currency, use the default from general.properties.  Failing that, use USD
         if (currency == null) {
-                currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
+            currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // create the cart
@@ -1036,7 +1060,7 @@ public class ShoppingCartServices {
             cart.setOrderPartyId(shoppingList.getString("partyId"));
         }
 
-        List<GenericValue>shoppingListItems = null;
+        List<GenericValue> shoppingListItems = null;
         try {
             shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
         } catch (GenericEntityException e) {
@@ -1072,10 +1096,12 @@ public class ShoppingCartServices {
                     String productId = shoppingListItem.getString("productId");
                     ProductConfigWrapper configWrapper = null;
                     if (UtilValidate.isNotEmpty(shoppingListItem.getString("configId"))) {
-                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, shoppingListItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, shoppingListItem.getString("configId"),
+                                productId, productStoreId, null, null, currency, locale, userLogin);
                     }
                     try {
-                        itemIndex = cart.addItemToEnd(productId, null, quantity, null, null, null, null, null, configWrapper, dispatcher, Boolean.TRUE, Boolean.TRUE);
+                        itemIndex = cart.addItemToEnd(productId, null, quantity, null, null, null, null, null, configWrapper, dispatcher,
+                                Boolean.TRUE, Boolean.TRUE);
                     } catch (ItemNotFoundException | CartItemModifyException e) {
                         Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1103,7 +1129,7 @@ public class ShoppingCartServices {
         // set the item seq in the cart
         if (nextItemSeq > 0) {
             try {
-                cart.setNextItemSeq(nextItemSeq+1);
+                cart.setNextItemSeq(nextItemSeq + 1);
             } catch (GeneralException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
@@ -1115,39 +1141,49 @@ public class ShoppingCartServices {
         return result;
     }
 
-    public static Map<String, Object>getShoppingCartData(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> getShoppingCartData(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Locale locale = (Locale) context.get("locale");
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         if (shoppingCart != null) {
             String isoCode = shoppingCart.getCurrency();
             result.put("totalQuantity", shoppingCart.getTotalQuantity());
-            result.put("currencyIsoCode",isoCode);
+            result.put("currencyIsoCode", isoCode);
             result.put("subTotal", shoppingCart.getSubTotal());
-            result.put("subTotalCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(), isoCode, locale));
+            result.put("subTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(), isoCode,
+                    locale));
             result.put("totalShipping", shoppingCart.getTotalShipping());
-            result.put("totalShippingCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(), isoCode, locale));
-            result.put("totalSalesTax",shoppingCart.getTotalSalesTax());
-            result.put("totalSalesTaxCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(), isoCode, locale));
+            result.put("totalShippingCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(),
+                    isoCode, locale));
+            result.put("totalSalesTax", shoppingCart.getTotalSalesTax());
+            result.put("totalSalesTaxCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(),
+                    isoCode, locale));
             result.put("displayGrandTotal", shoppingCart.getDisplayGrandTotal());
-            result.put("displayGrandTotalCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
-            BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
-            result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
+            result.put("displayGrandTotalCurrencyFormatted",
+                    org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
+            BigDecimal orderAdjustmentsTotal =
+                    OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null),
+                            shoppingCart.getSubTotal(), true, true, true);
+            result.put("displayOrderAdjustmentsTotalCurrencyFormatted",
+                    org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
             Map<String, Object> cartItemData = new HashMap<>();
             for (ShoppingCartItem cartLine : shoppingCart) {
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
-                cartItemData.put("displayItemPrice_" + cartLineIndex, org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
+                cartItemData.put("displayItemPrice_" + cartLineIndex,
+                        org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
                 cartItemData.put("displayItemSubTotal_" + cartLineIndex, cartLine.getDisplayItemSubTotal());
-                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
-                cartItemData.put("displayItemAdjustment_" + cartLineIndex ,org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
+                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex,
+                        org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
+                cartItemData.put("displayItemAdjustment_" + cartLineIndex,
+                        org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
             }
-            result.put("cartItemData",cartItemData);
+            result.put("cartItemData", cartItemData);
         }
         return result;
     }
 
-    public static Map<String, Object>getShoppingCartItemIndex(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> getShoppingCartItemIndex(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         String productId = (String) context.get("productId");
@@ -1162,7 +1198,7 @@ public class ShoppingCartServices {
         return result;
     }
 
-    public static Map<String, Object>resetShipGroupItems(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> resetShipGroupItems(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         for (ShoppingCartItem item : cart) {
@@ -1172,7 +1208,7 @@ public class ShoppingCartServices {
         return result;
     }
 
-    public static Map<String, Object>prepareVendorShipGroups(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> prepareVendorShipGroups(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
@@ -1195,7 +1231,8 @@ public class ShoppingCartServices {
             }
             int index = 0;
             try {
-                vendorProduct = EntityQuery.use(delegator).from("VendorProduct").where("productId", productId, "productStoreGroupId", "_NA_").queryFirst();
+                vendorProduct = EntityQuery.use(delegator).from("VendorProduct").where("productId", productId, "productStoreGroupId", "_NA_")
+                        .queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e.toString(), MODULE);
             }

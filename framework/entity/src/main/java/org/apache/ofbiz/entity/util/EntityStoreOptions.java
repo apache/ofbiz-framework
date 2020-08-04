@@ -35,7 +35,6 @@ public class EntityStoreOptions implements java.io.Serializable {
 
     /**
      * Optional constructor with options to specify.
-     * 
      * @param createDummyFks
      */
     public EntityStoreOptions(boolean createDummyFks) {
@@ -44,7 +43,6 @@ public class EntityStoreOptions implements java.io.Serializable {
 
     /**
      * If true, missing entries in FK referenced entities will be created while storing the given GenericValues.
-     * 
      * @return boolean
      */
     public boolean isCreateDummyFks() {
@@ -53,7 +51,6 @@ public class EntityStoreOptions implements java.io.Serializable {
 
     /**
      * If true, missing entries in FK referenced entities will be created while storing the given GenericValues.
-     * 
      * @param createDummyFks
      */
     public void setCreateDummyFks(boolean createDummyFks) {

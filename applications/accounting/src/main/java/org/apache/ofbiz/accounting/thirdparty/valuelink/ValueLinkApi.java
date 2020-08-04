@@ -89,7 +89,7 @@ public class ValueLinkApi {
     protected Long mwkIndex = null;
     protected boolean debug = false;
 
-    protected ValueLinkApi() {}
+    protected ValueLinkApi() { }
     protected ValueLinkApi(Delegator delegator, Properties props) {
         String mId = (String) props.get("payment.valuelink.merchantId");
         String tId = (String) props.get("payment.valuelink.terminalId");
@@ -325,7 +325,7 @@ public class ValueLinkApi {
 
         // test the KEK
         Cipher cipher = this.getCipher(this.getKekKey(), Cipher.ENCRYPT_MODE);
-        byte[] kekTestB = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] kekTestB = {0, 0, 0, 0, 0, 0, 0, 0 };
         byte[] kekTestC = new byte[0];
         if (kekTest != null) {
             kekTestB = StringUtil.fromHexString(kekTest);
@@ -419,7 +419,7 @@ public class ValueLinkApi {
         byte[] secretKey = ka.generateSecret();
 
         if (debug) {
-            Debug.logInfo("Secret Key : " + StringUtil.toHexString(secretKey) + " / " + secretKey.length,  MODULE);
+            Debug.logInfo("Secret Key : " + StringUtil.toHexString(secretKey) + " / " + secretKey.length, MODULE);
         }
 
         // generate 3DES from secret key using VL algorithm (KEK)
@@ -767,7 +767,7 @@ public class ValueLinkApi {
 
     // return a cipher for a key - DESede/CBC/NoPadding IV = 0
     protected Cipher getCipher(SecretKey key, int mode) {
-        byte[] zeros = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] zeros = {0, 0, 0, 0, 0, 0, 0, 0 };
         IvParameterSpec iv = new IvParameterSpec(zeros);
 
         // create the Cipher - DESede/CBC/NoPadding

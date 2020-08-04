@@ -63,8 +63,8 @@
         </group>
     </service>
 
-    <service name="createContentFromDataResource" engine="simple"
-             location="component://content/minilang/content/ContentServices.xml" invoke="createContentFromDataResource">
+    <service name="createContentFromDataResource" engine="groovy"
+             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createContentFromDataResource">
         <description>Creates content record from data resource and allows all content fields to be set</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="createContent" optional="true"/>
@@ -477,8 +477,8 @@
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteContentKeywords" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="deleteContentKeywords" auth="true">
+    <service name="deleteContentKeywords" engine="groovy"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="deleteContentKeywords" auth="true">
         <description>Delete all the keywords of a content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">
@@ -487,8 +487,8 @@
             </type-validate>
         </attribute>
     </service>
-    <service name="indexContentKeywords" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="indexContentKeywords" auth="false">
+    <service name="indexContentKeywords" engine="groovy"
+                location="component://content/groovyScripts/content/ContentServices.groovy" invoke="indexContentKeywords" auth="false">
         <description>Index the Keywords for a Content</description>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -497,8 +497,8 @@
         </attribute>
         <attribute name="contentInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
-    <service name="forceIndexContentKeywords" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="forceIndexContentKeywords" auth="true">
+    <service name="forceIndexContentKeywords" engine="groovy"
+             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="forceIndexContentKeywords" auth="true">
         <description>Induce all the keywords of a content, ignoring the flag in the Content.</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">

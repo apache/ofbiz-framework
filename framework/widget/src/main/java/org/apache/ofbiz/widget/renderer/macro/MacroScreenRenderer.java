@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -256,10 +257,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
         }
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
-            StringBuilder sb = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
-                    link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-            actionUrl = sb.toString();
+            final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
+                    link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                    request, response);
+            actionUrl = actionUri.toString();
             parameters.append("[");
             for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
                 if (parameters.length() >1) {
@@ -280,10 +281,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String text = link.getText(context);
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
-                StringBuilder sb = new StringBuilder();
-                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                        link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-                linkUrl = sb.toString();
+                final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), link.getParameterMap(context),
+                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                linkUrl = uri.toString();
             }
         }
         String imgStr = "";
@@ -296,7 +297,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringWriter sr = new StringWriter();
         sr.append("<@renderLink ");
         sr.append("parameterList=");
-        sr.append(parameters.length()==0?"\"\"":parameters.toString());
+        sr.append(parameters.length() == 0 ? "\"\"" : parameters.toString());
         sr.append(" targetWindow=\"");
         sr.append(targetWindow);
         sr.append("\" target=\"");
@@ -334,7 +335,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     @Override
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenImage image) throws IOException {
         if (image == null) {
-            return ;
+            return;
         }
         String src = image.getSrc(context);
 
@@ -376,19 +377,19 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     @Override
     public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
-         String editRequest = content.getEditRequest(context);
-         String enableEditName = content.getEnableEditName(context);
-         String enableEditValue = (String)context.get(enableEditName);
+        String editRequest = content.getEditRequest(context);
+        String enableEditName = content.getEnableEditName(context);
+        String enableEditValue = (String) context.get(enableEditName);
 
-         if (Debug.verboseOn()) {
+        if (Debug.verboseOn()) {
             Debug.logVerbose("directEditRequest:" + editRequest, MODULE);
         }
 
-         Map<String, Object> parameters = new HashMap<>();
-         parameters.put("editRequest", editRequest);
-         parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
-         parameters.put("editContainerStyle", content.getEditContainerStyle(context));
-         executeMacro(writer, "renderContentBegin", parameters);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("editRequest", editRequest);
+        parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
+        parameters.put("editContainerStyle", content.getEditContainerStyle(context));
+        executeMacro(writer, "renderContentBegin", parameters);
     }
 
     @Override
@@ -404,7 +405,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         // make a new map for content rendering; so our current map does not get clobbered
         Map<String, Object> contentContext = new HashMap<>();
         contentContext.putAll(context);
-        String dataResourceId = (String)contentContext.get("dataResourceId");
+        String dataResourceId = (String) contentContext.get("dataResourceId");
         if (Debug.verboseOn()) {
             Debug.logVerbose("expandedContentId:" + expandedContentId, MODULE);
         }
@@ -458,7 +459,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String editMode = "Edit";
         String editRequest = content.getEditRequest(context);
         String enableEditName = content.getEnableEditName(context);
-        String enableEditValue = (String)context.get(enableEditName);
+        String enableEditValue = (String) context.get(enableEditName);
         String urlString = "";
         if (editRequest != null && editRequest.toUpperCase(Locale.getDefault()).indexOf("IMAGE") < 0) {
             editMode += " Image";
@@ -510,95 +511,97 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     @Override
     public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-         String enableEditName = content.getEnableEditName(context);
-         String enableEditValue = (String)context.get(enableEditName);
+        String enableEditName = content.getEnableEditName(context);
+        String enableEditValue = (String) context.get(enableEditName);
 
-         Map<String, Object> parameters = new HashMap<>();
-         parameters.put("editContainerStyle", content.getEditContainerStyle(context));
-         parameters.put("editRequest", content.getEditRequest(context));
-         parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
-         executeMacro(writer, "renderSubContentBegin", parameters);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("editContainerStyle", content.getEditContainerStyle(context));
+        parameters.put("editRequest", content.getEditRequest(context));
+        parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
+        executeMacro(writer, "renderSubContentBegin", parameters);
     }
 
     @Override
     public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-         String mimeTypeId = "text/html";
-         String expandedContentId = content.getContentId(context);
-         String expandedMapKey = content.getMapKey(context);
-         String renderedContent = "";
-         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        String mimeTypeId = "text/html";
+        String expandedContentId = content.getContentId(context);
+        String expandedMapKey = content.getMapKey(context);
+        String renderedContent = "";
+        LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
 
-         // create a new map for the content rendering; so our current context does not get overwritten!
-         Map<String, Object> contentContext = new HashMap<>();
-         contentContext.putAll(context);
+        // create a new map for the content rendering; so our current context does not get overwritten!
+        Map<String, Object> contentContext = new HashMap<>();
+        contentContext.putAll(context);
 
-         try {
-             if (WidgetContentWorker.getContentWorker() != null) {
-                 renderedContent = WidgetContentWorker.getContentWorker().renderSubContentAsTextExt(dispatcher, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
-             } else {
-                 Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
-             }
-             if (UtilValidate.isEmpty(renderedContent)) {
-                 String editRequest = content.getEditRequest(context);
-                 if (UtilValidate.isNotEmpty(editRequest)) {
-                     if (WidgetContentWorker.getContentWorker() != null) {
-                         WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
-                     } else {
-                         Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
-                     }
-                 }
-             } else {
-                 if (content.xmlEscape()) {
-                     renderedContent = UtilFormatOut.encodeXmlValue(renderedContent);
-                 }
+        try {
+            if (WidgetContentWorker.getContentWorker() != null) {
+                renderedContent = WidgetContentWorker.getContentWorker().renderSubContentAsTextExt(dispatcher, expandedContentId, expandedMapKey,
+                        contentContext, locale, mimeTypeId, true);
+            } else {
+                Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
+            }
+            if (UtilValidate.isEmpty(renderedContent)) {
+                String editRequest = content.getEditRequest(context);
+                if (UtilValidate.isNotEmpty(editRequest)) {
+                    if (WidgetContentWorker.getContentWorker() != null) {
+                        WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, "NOCONTENTFOUND", writer, contentContext, locale,
+                                mimeTypeId, true);
+                    } else {
+                        Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
+                    }
+                }
+            } else {
+                if (content.xmlEscape()) {
+                    renderedContent = UtilFormatOut.encodeXmlValue(renderedContent);
+                }
 
-                 writer.append(renderedContent);
-             }
+                writer.append(renderedContent);
+            }
 
-         } catch (GeneralException | IOException e) {
-             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
-             Debug.logError(e, errMsg, MODULE);
-         }
+        } catch (GeneralException | IOException e) {
+            String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
+            Debug.logError(e, errMsg, MODULE);
+        }
     }
 
     @Override
     public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-         String editMode = "Edit";
-         String editRequest = content.getEditRequest(context);
-         String enableEditName = content.getEnableEditName(context);
-         String enableEditValue = (String)context.get(enableEditName);
-         String expandedContentId = content.getContentId(context);
-         String expandedMapKey = content.getMapKey(context);
-         String urlString = "";
+        String editMode = "Edit";
+        String editRequest = content.getEditRequest(context);
+        String enableEditName = content.getEnableEditName(context);
+        String enableEditValue = (String) context.get(enableEditName);
+        String expandedContentId = content.getContentId(context);
+        String expandedMapKey = content.getMapKey(context);
+        String urlString = "";
         if (editRequest != null && !(editRequest.toUpperCase(Locale.getDefault()).indexOf("IMAGE") < 1)) {
-             editMode += " Image";
-         }
-         if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
-             HttpServletResponse response = (HttpServletResponse) context.get("response");
-             HttpServletRequest request = (HttpServletRequest) context.get("request");
-             if (request != null && response != null) {
+            editMode += " Image";
+        }
+        if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
+            HttpServletResponse response = (HttpServletResponse) context.get("response");
+            HttpServletRequest request = (HttpServletRequest) context.get("request");
+            if (request != null && response != null) {
                 if (editRequest.indexOf('?') < 0) {
                     editRequest += "?";
                 } else {
                     editRequest += "&amp;";
                 }
-                 editRequest += "contentId=" + expandedContentId;
-                 if (UtilValidate.isNotEmpty(expandedMapKey)) {
-                     editRequest += "&amp;mapKey=" + expandedMapKey;
-                 }
-                 RequestHandler rh = RequestHandler.from(request);
-                 urlString = rh.makeLink(request, response, editRequest, false, false, false);
-             }
-         }
+                editRequest += "contentId=" + expandedContentId;
+                if (UtilValidate.isNotEmpty(expandedMapKey)) {
+                    editRequest += "&amp;mapKey=" + expandedMapKey;
+                }
+                RequestHandler rh = RequestHandler.from(request);
+                urlString = rh.makeLink(request, response, editRequest, false, false, false);
+            }
+        }
 
-         Map<String, Object> parameters = new HashMap<>();
-         parameters.put("urlString", urlString);
-         parameters.put("editMode", editMode);
-         parameters.put("editContainerStyle", content.getEditContainerStyle(context));
-         parameters.put("editRequest", editRequest);
-         parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
-         executeMacro(writer, "renderSubContentEnd", parameters);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("urlString", urlString);
+        parameters.put("editMode", editMode);
+        parameters.put("editContainerStyle", content.getEditContainerStyle(context));
+        parameters.put("editRequest", editRequest);
+        parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
+        executeMacro(writer, "renderSubContentEnd", parameters);
     }
 
 
@@ -662,12 +665,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         parameters.put("title", title);
         parameters.put("collapsible", collapsible);
         parameters.put("saveCollapsed", screenlet.saveCollapsed());
-        if (UtilValidate.isNotEmpty (screenlet.getId(context))) {
+        if (UtilValidate.isNotEmpty(screenlet.getId(context))) {
             parameters.put("id", screenlet.getId(context));
             parameters.put("collapsibleAreaId", screenlet.getId(context) + "_col");
         } else {
             parameters.put("id", "screenlet_" + screenLetsIdCounter);
-            parameters.put("collapsibleAreaId","screenlet_" + screenLetsIdCounter + "_col");
+            parameters.put("collapsibleAreaId", "screenlet_" + screenLetsIdCounter + "_col");
             screenLetsIdCounter++;
         }
         parameters.put("expandToolTip", expandToolTip);

@@ -121,7 +121,7 @@ public class ProductServices {
                     products.add(EntityQuery.use(delegator).from("Product").where("productId", oneVariant.getString("productIdTo")).queryOne());
                 } catch (GenericEntityException e) {
                     Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
-                    String errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features_errors", messageMap, locale);
+                    String errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features_errors", messageMap, locale);
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -154,13 +154,13 @@ public class ProductServices {
             }
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features_errors", messageMap, locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features_errors", messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
 
         if (featureSet.size() == 0) {
-            errMsg = UtilProperties.getMessage(RES_ERROR,"productservices.problem_reading_product_features", locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features", locale);
             // ToDo DO 2004-02-23 Where should the errMsg go?
             Debug.logWarning(errMsg + " for product " + productId, MODULE);
         }
@@ -219,8 +219,8 @@ public class ProductServices {
             // check to see if introductionDate hasn't passed yet
             if (productTo.get("introductionDate") != null && nowTimestamp.before(productTo.getTimestamp("introductionDate"))) {
                 if (Debug.verboseOn()) {
-                    String excMsg = "Tried to view the Product " + productTo.getString("productName") +
-                        " (productId: " + productTo.getString("productId") + ") as a variant. This product has not yet been made available for sale, so not adding for view.";
+                    String excMsg = "Tried to view the Product " + productTo.getString("productName")
+                            + " (productId: " + productTo.getString("productId") + ") as a variant. This product has not yet been made available for sale, so not adding for view.";
 
                     Debug.logVerbose(excMsg, MODULE);
                 }
@@ -230,8 +230,8 @@ public class ProductServices {
             // check to see if salesDiscontinuationDate has passed
             if (productTo.get("salesDiscontinuationDate") != null && nowTimestamp.after(productTo.getTimestamp("salesDiscontinuationDate"))) {
                 if (Debug.verboseOn()) {
-                    String excMsg = "Tried to view the Product " + productTo.getString("productName") +
-                        " (productId: " + productTo.getString("productId") + ") as a variant. This product is no longer available for sale, so not adding for view.";
+                    String excMsg = "Tried to view the Product " + productTo.getString("productName")
+                            + " (productId: " + productTo.getString("productId") + ") as a variant. This product is no longer available for sale, so not adding for view.";
 
                     Debug.logVerbose(excMsg, MODULE);
                 }
@@ -481,8 +481,7 @@ public class ProductServices {
                 EntityCondition cond = EntityCondition.makeCondition(
                         UtilMisc.toList(
                                 EntityCondition.makeCondition("productId", productId),
-                                EntityCondition.makeCondition("productIdTo", productId)
-                       ), EntityJoinOperator.OR);
+                                EntityCondition.makeCondition("productIdTo", productId)), EntityJoinOperator.OR);
                 productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where(EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type))).orderBy(orderBy).cache(true).queryList();
             } else {
                 if (productIdTo == null) {
@@ -961,7 +960,7 @@ public class ProductServices {
             Map<String, Object> imageContext = new HashMap<>();
             imageContext.putAll(context);
             imageContext.put("delegator", delegator);
-            imageContext.put("tenantId",delegator.getDelegatorTenantId());
+            imageContext.put("tenantId", delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format", delegator);
 
             String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), imageContext);
@@ -1026,7 +1025,7 @@ public class ProductServices {
 
                         }
                     } catch (SecurityException e) {
-                        Debug.logError(e,MODULE);
+                        Debug.logError(e, MODULE);
                     }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id})
                 } else {
@@ -1040,11 +1039,11 @@ public class ProductServices {
                             }
                         }
                     } catch (SecurityException e) {
-                        Debug.logError(e,MODULE);
+                        Debug.logError(e, MODULE);
                     }
                 }
             } catch (NullPointerException e) {
-                Debug.logError(e,MODULE);
+                Debug.logError(e, MODULE);
             }
             // Write
             try {
@@ -1063,7 +1062,7 @@ public class ProductServices {
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } catch (NullPointerException e) {
-                Debug.logError(e,MODULE);
+                Debug.logError(e, MODULE);
             }
 
             /* scale Image in different sizes */
@@ -1084,16 +1083,16 @@ public class ProductServices {
             /* store the imageUrl version of the image, for backwards compatibility with code that does not use scaled versions */
             Map<String, Object> result = addImageResource(dispatcher, delegator, context, imageUrl, productContentTypeId);
 
-            if( ServiceUtil.isError(result)) {
+            if ( ServiceUtil.isError(result)) {
                 return result;
             }
 
             /* now store the image versions created by ScaleImage.scaleImageInAllSize */
             /* have to shrink length of productContentTypeId, as otherwise value is too long for database field */
-            Map<String,String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
-            for ( String sizeType : ScaleImage.sizeTypeList ) {
+            Map<String, String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
+            for (String sizeType : ScaleImage.sizeTypeList) {
                 imageUrl = imageUrlMap.get(sizeType);
-                if( UtilValidate.isNotEmpty(imageUrl)) {
+                if ( UtilValidate.isNotEmpty(imageUrl)) {
                     try {
                         GenericValue productContentType = EntityQuery.use(delegator)
                                 .from("ProductContentType")
@@ -1102,13 +1101,13 @@ public class ProductServices {
                                 .queryOne();
                         if (UtilValidate.isNotEmpty(productContentType)) {
                             result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()));
-                            if( ServiceUtil.isError(result)) {
+                            if ( ServiceUtil.isError(result)) {
                                 Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                                 return result;
                             }
                         }
-                    } catch(GenericEntityException e) {
-                        Debug.logError(e,MODULE);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, MODULE);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 }
@@ -1117,7 +1116,7 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Map<String,Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
+    private static Map<String, Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
             String imageUrl, String productContentTypeId ) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
@@ -1303,10 +1302,10 @@ public class ProductServices {
         if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
             Map<String, Object> imageContext = new HashMap<>();
             imageContext.putAll(context);
-            imageContext.put("tenantId",delegator.getDelegatorTenantId());
+            imageContext.put("tenantId", delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
 
-            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path",delegator), imageContext);
+            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), imageContext);
             String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", delegator), imageContext);
             imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
             imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
@@ -1337,7 +1336,7 @@ public class ProductServices {
                 filenameToUse += "." + extension.getString("fileExtensionId");
             }
 
-            File makeResourceDirectory  = new File(imageServerPath + "/" + filePathPrefix);
+            File makeResourceDirectory = new File(imageServerPath + "/" + filePathPrefix);
             if (!makeResourceDirectory.exists()) {
                 if (!makeResourceDirectory.mkdirs()) {
                     Debug.logError("Directory :" + makeResourceDirectory.getPath() + ", couldn't be created", MODULE);

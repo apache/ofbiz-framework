@@ -50,7 +50,7 @@ public class EntityFindOptions implements java.io.Serializable {
 
     /** LIMIT option */
     protected int limit = -1;
-    
+
     /** OFFSET option */
     protected int offset = -1;
 
@@ -61,7 +61,7 @@ public class EntityFindOptions implements java.io.Serializable {
      *      distinct = false
      *      maxRows = 0 (all rows)
      */
-    public EntityFindOptions() {}
+    public EntityFindOptions() { }
 
     public EntityFindOptions(boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency, int fetchSize, int maxRows, boolean distinct) {
         this.specifyTypeAndConcur = specifyTypeAndConcur;
