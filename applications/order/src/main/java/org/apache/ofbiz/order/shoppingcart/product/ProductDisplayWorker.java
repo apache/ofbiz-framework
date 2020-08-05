@@ -20,7 +20,6 @@ package org.apache.ofbiz.order.shoppingcart.product;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
