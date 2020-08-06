@@ -292,9 +292,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false">
-                <parameter param-name="partyId"/>
-            </hyperlink>
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="backHome" also-hidden="false"/>
         </field>
     </form>
 
@@ -731,8 +729,7 @@ under the License.
         <field use-when="attribute!=null" name="attrName" tooltip="${uiLabelMap.PartyNotModifRecreateAttribute}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
-                <parameter param-name="partyId"/>
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="backHome" also-hidden="false">
             </hyperlink>
         </field>
     </form>
@@ -893,6 +890,7 @@ under the License.
             </drop-down>
         </field>
         <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="roleTypeId"><hidden value="${parameters.roleTypeId}"/></field>
         <field name="finAccountTypeId"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>

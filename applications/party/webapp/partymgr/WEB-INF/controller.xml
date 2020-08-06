@@ -122,9 +122,11 @@ under the License.
         <event type="service" invoke="createServiceCredit"/>
         <response name="success" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
         <response name="error" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
     </request-map>
 
@@ -373,9 +375,11 @@ under the License.
         <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="deletePaymentMethod"/>
         <response name="success" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
         <response name="error" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
     </request-map>
 
@@ -1178,9 +1182,11 @@ under the License.
         <event type="simple" path="component://party/minilang/party/PartySimpleMethods.xml" invoke="deleteBillingAccount"/>
         <response name="success" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
         <response name="error" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
     </request-map>
 
