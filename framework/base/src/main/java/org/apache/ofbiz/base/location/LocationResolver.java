@@ -27,5 +27,5 @@ import java.net.URL;
  */
 
 public interface LocationResolver {
-    public URL resolveLocation(String location) throws MalformedURLException;
+    URL resolveLocation(String location) throws MalformedURLException;
 }

@@ -1014,11 +1014,11 @@ public class DatabaseUtil {
                         String tableType = tableSet.getString("TABLE_TYPE");
                         // only allow certain table types
                         if (tableType != null
-                            && !"TABLE".equalsIgnoreCase(tableType)
-                            && !"VIEW".equalsIgnoreCase(tableType)
-                            && !"ALIAS".equalsIgnoreCase(tableType)
-                            && !"SYNONYM".equalsIgnoreCase(tableType)
-                            && !"BASE TABLE".equalsIgnoreCase(tableType)) {
+                                && !"TABLE".equalsIgnoreCase(tableType)
+                                && !"VIEW".equalsIgnoreCase(tableType)
+                                && !"ALIAS".equalsIgnoreCase(tableType)
+                                && !"SYNONYM".equalsIgnoreCase(tableType)
+                                && !"BASE TABLE".equalsIgnoreCase(tableType)) {
                             continue;
                         }
                         // String remarks = tableSet.getString("REMARKS");

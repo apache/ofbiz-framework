@@ -119,7 +119,7 @@ public final class ExecutionPool {
         }
     }
 
-    public static abstract class Pulse implements Delayed, Runnable {
+    public abstract static class Pulse implements Delayed, Runnable {
         protected final long expireTimeNanos;
         protected final long loadTimeNanos;
 

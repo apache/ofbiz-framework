@@ -30,7 +30,7 @@ import org.owasp.html.PolicyFactory;
  */
 public interface SanitizerCustomPolicy {
 
-    public static final PolicyFactory POLICY_DEFINITION = new HtmlPolicyBuilder().toFactory();
+    PolicyFactory POLICY_DEFINITION = new HtmlPolicyBuilder().toFactory();
 
     /**
      * Used for getting the policy from the custom class which implements this

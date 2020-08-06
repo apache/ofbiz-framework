@@ -1657,7 +1657,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         return true;
     }
 
-    public static interface NULL {
+    public interface NULL {
     }
 
     public static class NullGenericEntity extends GenericEntity implements NULL {

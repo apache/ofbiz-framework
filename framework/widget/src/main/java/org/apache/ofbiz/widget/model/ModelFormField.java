@@ -2115,7 +2115,7 @@ public class ModelFormField {
         }
     }
 
-    public static abstract class FieldInfoWithOptions extends FieldInfo {
+    public abstract static class FieldInfoWithOptions extends FieldInfo {
 
         public static String getDescriptionForOptionKey(String key, List<OptionValue> allOptionValues) {
             if (UtilValidate.isEmpty(key)) {
@@ -3358,7 +3358,7 @@ public class ModelFormField {
         }
     }
 
-    public static abstract class OptionSource {
+    public abstract static class OptionSource {
 
         private final ModelFormField modelFormField;
 

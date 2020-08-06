@@ -126,7 +126,7 @@ public abstract class ModelWidgetCondition implements Serializable {
         }
     }
 
-    public static interface Condition {
+    public interface Condition {
         boolean eval(Map<String, Object> context);
     }
 
@@ -134,7 +134,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * A factory for <code>Condition</code> instances.
      *
      */
-    public static interface ConditionFactory {
+    public interface ConditionFactory {
         /**
          * Returns a new <code>Condition</code> instance built from <code>conditionElement</code>.
          *

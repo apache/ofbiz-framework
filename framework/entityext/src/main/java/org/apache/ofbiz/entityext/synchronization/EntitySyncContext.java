@@ -1171,7 +1171,7 @@ public class EntitySyncContext {
     }
 
     @SuppressWarnings("serial")
-    public static abstract class SyncErrorException extends GeneralServiceException {
+    public abstract static class SyncErrorException extends GeneralServiceException {
         public SyncErrorException() { super(); }
         public SyncErrorException(String str) { super(str); }
         public SyncErrorException(String str, Throwable nested) { super(str, nested); }

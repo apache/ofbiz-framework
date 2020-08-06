@@ -361,7 +361,7 @@ public abstract class EntityOperator<L, R> implements Serializable {
      *
      * @param <E>
      */
-    public static abstract class CollectionEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, Collection<Comparable<E>>> {
+    public abstract static class CollectionEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, Collection<Comparable<E>>> {
         public CollectionEntityComparisonOperator(int id, String code) {
             super(id, code);
         }
@@ -372,7 +372,7 @@ public abstract class EntityOperator<L, R> implements Serializable {
      *
      * @param <E>
      */
-    public static abstract class ComparableEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, E> {
+    public abstract static class ComparableEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, E> {
         public ComparableEntityComparisonOperator(int id, String code) {
             super(id, code);
         }

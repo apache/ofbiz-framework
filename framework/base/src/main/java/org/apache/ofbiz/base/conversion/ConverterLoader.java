@@ -31,5 +31,5 @@ public interface ConverterLoader {
      * with the <code>Converter</code> instance.
      *
      */
-    public void loadConverters();
+    void loadConverters();
 }

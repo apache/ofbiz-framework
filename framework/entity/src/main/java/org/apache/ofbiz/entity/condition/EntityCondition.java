@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  */
 public interface EntityCondition extends IsEmpty, Serializable {
 
-    static final long serialVersionUID = -7601205800717391212L;
+    long serialVersionUID = -7601205800717391212L;
 
     /**
      * Constructs a condition expression to represent a comparison between two elements.
@@ -91,7 +91,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      */
     @SafeVarargs
     static <R extends EntityCondition, T extends R>
-    EntityConditionList<R> makeCondition(EntityJoinOperator operator, T... conditionList) {
+            EntityConditionList<R> makeCondition(EntityJoinOperator operator, T... conditionList) {
         return new EntityConditionList<>(Arrays.asList(conditionList), operator);
     }
 
@@ -103,7 +103,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      */
     @SafeVarargs
     static <R extends EntityCondition, T extends R>
-    EntityConditionList<R> makeCondition(T... conditionList) {
+            EntityConditionList<R> makeCondition(T... conditionList) {
         return new EntityConditionList<>(Arrays.asList(conditionList), EntityOperator.AND);
     }
 
@@ -115,7 +115,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @return a condition expression representing a combination of condition expressions.
      */
     static <T extends EntityCondition>
-    EntityConditionList<T> makeCondition(List<? extends T> conditionList, EntityJoinOperator operator) {
+            EntityConditionList<T> makeCondition(List<? extends T> conditionList, EntityJoinOperator operator) {
         return new EntityConditionList<>(conditionList, operator);
     }
 

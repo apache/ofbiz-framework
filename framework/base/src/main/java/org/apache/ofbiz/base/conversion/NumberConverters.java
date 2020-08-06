@@ -43,7 +43,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static abstract class AbstractStringToNumberConverter<N extends Number> extends AbstractNumberConverter<String, N> {
+    public abstract static class AbstractStringToNumberConverter<N extends Number> extends AbstractNumberConverter<String, N> {
         public AbstractStringToNumberConverter(Class<N> targetClass) {
             super(String.class, targetClass);
         }
@@ -60,7 +60,7 @@ public class NumberConverters implements ConverterLoader {
         protected abstract N convert(Number number) throws ConversionException;
     }
 
-    public static abstract class AbstractNumberConverter<S, T> extends AbstractLocalizedConverter<S, T> {
+    public abstract static class AbstractNumberConverter<S, T> extends AbstractLocalizedConverter<S, T> {
         protected AbstractNumberConverter(Class<S> sourceClass, Class<T> targetClass) {
             super(sourceClass, targetClass);
         }
@@ -71,7 +71,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static abstract class AbstractNumberToStringConverter<N extends Number> extends AbstractNumberConverter<N, String> {
+    public abstract static class AbstractNumberToStringConverter<N extends Number> extends AbstractNumberConverter<N, String> {
         public AbstractNumberToStringConverter(Class<N> sourceClass) {
             super(sourceClass, String.class);
         }

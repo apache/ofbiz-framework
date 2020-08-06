@@ -84,18 +84,18 @@ public class UtilCodec {
         }
     }
 
-    public static interface SimpleEncoder {
-        public String encode(String original);
+    public interface SimpleEncoder {
+        String encode(String original);
         /**
          * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Deprecated
-        public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
-        public String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method
+        String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
+        String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method
     }
 
-    public static interface SimpleDecoder {
-        public String decode(String original);
+    public interface SimpleDecoder {
+        String decode(String original);
     }
 
     public static class HtmlEncoder implements SimpleEncoder {
@@ -530,13 +530,21 @@ public class UtilCodec {
         }
 
         @Override
-        public int size() { return this.internalMap.size(); }
+        public int size() {
+            return this.internalMap.size();
+        }
         @Override
-        public boolean isEmpty() { return this.internalMap.isEmpty(); }
+        public boolean isEmpty() {
+            return this.internalMap.isEmpty();
+        }
         @Override
-        public boolean containsKey(Object key) { return this.internalMap.containsKey(key); }
+        public boolean containsKey(Object key) {
+            return this.internalMap.containsKey(key);
+        }
         @Override
-        public boolean containsValue(Object value) { return this.internalMap.containsValue(value); }
+        public boolean containsValue(Object value) {
+            return this.internalMap.containsValue(value);
+        }
         @Override
         public Object get(Object key) {
             Object theObject = this.internalMap.get(key);
@@ -550,22 +558,46 @@ public class UtilCodec {
             }
             return theObject;
         }
+
         @Override
-        public Object put(K key, Object value) { return this.internalMap.put(key, value); }
+        public Object put(K key, Object value) {
+            return this.internalMap.put(key, value);
+        }
+
         @Override
-        public Object remove(Object key) { return this.internalMap.remove(key); }
+        public Object remove(Object key) {
+            return this.internalMap.remove(key);
+        }
+
         @Override
-        public void putAll(Map<? extends K, ? extends Object> arg0) { this.internalMap.putAll(arg0); }
+        public void putAll(Map<? extends K, ? extends Object> arg0) {
+            this.internalMap.putAll(arg0);
+        }
+
         @Override
-        public void clear() { this.internalMap.clear(); }
+        public void clear() {
+            this.internalMap.clear();
+        }
+
         @Override
-        public Set<K> keySet() { return this.internalMap.keySet(); }
+        public Set<K> keySet() {
+            return this.internalMap.keySet();
+        }
+
         @Override
-        public Collection<Object> values() { return this.internalMap.values(); }
+        public Collection<Object> values() {
+            return this.internalMap.values();
+        }
+
         @Override
-        public Set<Map.Entry<K, Object>> entrySet() { return this.internalMap.entrySet(); }
+        public Set<Map.Entry<K, Object>> entrySet() {
+            return this.internalMap.entrySet();
+        }
+
         @Override
-        public String toString() { return this.internalMap.toString(); }
+        public String toString() {
+            return this.internalMap.toString();
+        }
     }
 
 }

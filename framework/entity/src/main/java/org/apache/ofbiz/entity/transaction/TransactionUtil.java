@@ -769,7 +769,7 @@ public final class TransactionUtil implements Status {
         protected String causeMessage;
         protected Throwable causeThrowable;
 
-        public RollbackOnlyCause(String causeMessage, Throwable causeThrowable) {
+        RollbackOnlyCause(String causeMessage, Throwable causeThrowable) {
             this.causeMessage = causeMessage;
             this.causeThrowable = causeThrowable;
         }

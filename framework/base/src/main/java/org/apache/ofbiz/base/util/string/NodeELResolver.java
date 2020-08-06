@@ -137,7 +137,7 @@ public class NodeELResolver extends ELResolver {
         }
     }
 
-    private static final boolean isResolvable(Object base) {
+    private static boolean isResolvable(Object base) {
         return base != null && (base instanceof Node || base instanceof NodeImpl);
     }
 

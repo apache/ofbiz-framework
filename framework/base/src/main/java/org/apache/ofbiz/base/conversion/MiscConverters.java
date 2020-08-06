@@ -176,7 +176,7 @@ public class MiscConverters implements ConverterLoader {
     }
 
     private static class StringToEnum<E extends Enum<E>> extends AbstractConverter<String, E> {
-        public StringToEnum() {
+        StringToEnum() {
             super(String.class, Enum.class);
         }
 

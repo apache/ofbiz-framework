@@ -64,7 +64,7 @@ public final class UtilMisc {
 
     private UtilMisc() { }
 
-    public static final <T extends Throwable> T initCause(T throwable, Throwable cause) {
+    public static <T extends Throwable> T initCause(T throwable, Throwable cause) {
         throwable.initCause(cause);
         return throwable;
     }
@@ -135,12 +135,12 @@ public final class UtilMisc {
         }
         if (kvs.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException(
-                "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
+                    "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
             Debug.logInfo(e, MODULE);
             throw e;
         }
         Map<K, V> map = constructor.get();
-        for (int i = 0; i < kvs.length; ) {
+        for (int i = 0; i < kvs.length;) {
             map.put((K) kvs[i++], (V) kvs[i++]);
         }
         return map;

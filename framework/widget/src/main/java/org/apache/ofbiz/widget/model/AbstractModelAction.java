@@ -812,7 +812,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     HttpSession session = (HttpSession) context.get("session");
                     newValue = getInMemoryPersistedFromField(session, context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -822,7 +822,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = getInMemoryPersistedFromField(servletContext, context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue,
+                                MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
@@ -831,7 +832,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -885,7 +886,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 HttpSession session = (HttpSession) context.get("session");
                 session.setAttribute(newKey, newValue);
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
+                    Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
                 }
             } else if (this.toScope != null && "application".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
@@ -902,13 +903,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 ServletContext servletContext = (ServletContext) context.get("application");
                 servletContext.setAttribute(newKey, newValue);
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
+                    Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
                 }
             } else {
                 // only do this if it is not global, if global ONLY put it in the global context
                 if (!global) {
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, MODULE);
+                        Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, MODULE);
                     }
                     this.field.put(context, newValue);
                 }

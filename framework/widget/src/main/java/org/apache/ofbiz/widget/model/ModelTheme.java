@@ -453,7 +453,7 @@ public class ModelTheme implements Serializable {
          * Constructor to initialize a ModelTemplate class from xml definition
          * @param template
          */
-        public ModelTemplate(Element template) {
+        ModelTemplate(Element template) {
             this.name = template.getAttribute("name");
             this.type = template.getAttribute("type");
             this.compress = template.getAttribute("compress");
@@ -497,7 +497,7 @@ public class ModelTheme implements Serializable {
          * @param currentModelTemplate
          * @param originModelTemplate
          */
-        public ModelTemplate(ModelTemplate currentModelTemplate, ModelTemplate originModelTemplate) {
+        ModelTemplate(ModelTemplate currentModelTemplate, ModelTemplate originModelTemplate) {
             boolean exist = currentModelTemplate != null;
             this.name = exist ? currentModelTemplate.name : originModelTemplate.name;
             this.type = exist ? currentModelTemplate.type : originModelTemplate.type;

@@ -642,9 +642,9 @@ public class EntityTestSuite extends EntityTestCase {
         // delete them their primary key
         //
         EntityCondition isRoot = EntityCondition.makeCondition(
-            EntityCondition.makeCondition("description", EntityOperator.LIKE, "remove-by-pk:%"),
-            EntityOperator.AND,
-            EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
+                EntityCondition.makeCondition("description", EntityOperator.LIKE, "remove-by-pk:%"),
+                EntityOperator.AND,
+                EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
         List<GenericValue> rootValues = EntityQuery.use(delegator).select("testingNodeId").from("TestingNode").where(isRoot).queryList();
 
         for (GenericValue value: rootValues) {
@@ -926,16 +926,16 @@ public class EntityTestSuite extends EntityTestCase {
     private static String getTestId(String strTestBase, int iNum) {
         StringBuilder strBufTemp = new StringBuilder(strTestBase);
         if (iNum < 10000) {
-           strBufTemp.append("0");
+            strBufTemp.append("0");
         }
         if (iNum < 1000) {
-           strBufTemp.append("0");
+            strBufTemp.append("0");
         }
         if (iNum < 100) {
-           strBufTemp.append("0");
+            strBufTemp.append("0");
         }
         if (iNum < 10) {
-           strBufTemp.append("0");
+            strBufTemp.append("0");
         }
         strBufTemp.append(iNum);
         return strBufTemp.toString();

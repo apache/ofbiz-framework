@@ -502,7 +502,7 @@ public class EmailServices {
         try {
             screenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screen");
         } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering screen for email: " + e.toString(), MODULE);
+            Debug.logError("Error rendering screen for email: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, screenStringRenderer);
@@ -569,9 +569,10 @@ public class EmailServices {
                     // store in the list of maps for sendmail....
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", attachmentType, "filename", attachmentName));
 
-                } catch (GeneralException|IOException|SAXException|ParserConfigurationException |TemplateException ge) {
-                    Debug.logError(ge, "Error rendering PDF attachment for email: " + ge.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", ge.toString()), locale));
+                } catch (GeneralException | IOException | SAXException | ParserConfigurationException | TemplateException ge) {
+                    Debug.logError("Error rendering PDF attachment for email: " + ge.toString(), MODULE);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenPdfError",
+                            UtilMisc.toMap("errorString", ge.toString()), locale));
                 }
 
                 serviceContext.put("bodyParts", bodyParts);

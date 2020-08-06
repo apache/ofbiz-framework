@@ -238,7 +238,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         return fse;
     }
 
-    private static abstract class Key {
+    private abstract static class Key {
         @Override
         public final boolean equals(Object o) {
             // No class test here, nor null, as this class is only used
@@ -515,7 +515,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         return this.getOriginal();
     }
 
-    protected static abstract class ArrayOffsetString extends FlexibleStringExpander {
+    protected abstract static class ArrayOffsetString extends FlexibleStringExpander {
         protected final int offset;
         protected final int length;
 

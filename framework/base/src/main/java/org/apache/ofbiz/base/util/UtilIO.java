@@ -60,7 +60,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes) {
+    public static String readString(byte[] bytes) {
         return readString(bytes, 0, bytes.length, StandardCharsets.UTF_8);
     }
 
@@ -74,7 +74,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length) {
+    public static String readString(byte[] bytes, int offset, int length) {
         return readString(bytes, offset, length, StandardCharsets.UTF_8);
     }
 
@@ -87,7 +87,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, String charset) {
+    public static String readString(byte[] bytes, String charset) {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -103,7 +103,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, String charset) {
+    public static String readString(byte[] bytes, int offset, int length, String charset) {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -115,7 +115,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, Charset charset) {
+    public static String readString(byte[] bytes, Charset charset) {
         return readString(bytes, 0, bytes.length, charset);
     }
 
@@ -131,7 +131,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, Charset charset) {
+    public static String readString(byte[] bytes, int offset, int length, Charset charset) {
         ByteBuffer buf = ByteBuffer.allocate(length);
         buf.put(bytes, offset, length);
         buf.flip();
@@ -145,7 +145,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(InputStream stream) throws IOException {
+    public static String readString(InputStream stream) throws IOException {
         return readString(stream, StandardCharsets.UTF_8);
     }
 
@@ -157,7 +157,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(InputStream stream, String charset) throws IOException {
+    public static String readString(InputStream stream, String charset) throws IOException {
         return readString(stream, Charset.forName(charset));
     }
 
@@ -169,7 +169,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(InputStream stream, Charset charset) throws IOException {
+    public static String readString(InputStream stream, Charset charset) throws IOException {
         return readString(new InputStreamReader(new BufferedInputStream(stream), charset));
     }
 
@@ -180,7 +180,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(Reader reader) throws IOException {
+    public static String readString(Reader reader) throws IOException {
         try {
             StringBuilder sb = new StringBuilder();
             char[] buf = new char[4096];

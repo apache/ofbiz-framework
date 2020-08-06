@@ -49,6 +49,7 @@ import org.apache.commons.cli.ParseException;
  */
 public final class StartupCommandUtil {
 
+    private StartupCommandUtil() { }
     /*
      * Make sure of defining the same set of values in:
      *
@@ -71,7 +72,7 @@ public final class StartupCommandUtil {
         TEST("test");
 
         private String name;
-        private StartupOption(String name) {
+        StartupOption(String name) {
             this.name = name;
         }
         public String getName() {
@@ -162,7 +163,7 @@ public final class StartupCommandUtil {
             .argName("key=value")
             .build();
 
-    static final List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
+    static List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
         CommandLine commandLine = null;
         CommandLineParser parser = new DefaultParser();
         try {
@@ -174,7 +175,7 @@ public final class StartupCommandUtil {
         return mapCommonsCliOptionsToStartupCommands(commandLine);
     }
 
-    static final void printOfbizStartupHelp(final PrintStream printStream) {
+    static void printOfbizStartupHelp(final PrintStream printStream) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
                 new PrintWriter(new OutputStreamWriter(printStream, StandardCharsets.UTF_8), true),
@@ -192,7 +193,7 @@ public final class StartupCommandUtil {
                 true);
     }
 
-    static final void highlightAndPrintErrorMessage(String errorMessage) {
+    static void highlightAndPrintErrorMessage(String errorMessage) {
         System.err.println(
                 "==============================================================================="
                 + System.lineSeparator()
@@ -201,7 +202,7 @@ public final class StartupCommandUtil {
                 + "===============================================================================");
     }
 
-    private static final Options getOfbizStartupOptions() {
+    private static Options getOfbizStartupOptions() {
         OptionGroup ofbizCommandOptions = new OptionGroup();
         ofbizCommandOptions.addOption(HELP);
         ofbizCommandOptions.addOption(LOAD_DATA);
@@ -216,7 +217,7 @@ public final class StartupCommandUtil {
         return options;
     }
 
-    private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
+    private static List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
         Set<Option> uniqueOptions = new HashSet<>(Arrays.asList(commandLine.getOptions()));
         return uniqueOptions.stream()
                 .map(option -> new StartupCommand.Builder(option.getLongOpt())
@@ -225,13 +226,13 @@ public final class StartupCommandUtil {
                 .collect(Collectors.toList());
     }
 
-    private static final Map<String, String> populateMapFromProperties(final Properties properties) {
+    private static Map<String, String> populateMapFromProperties(final Properties properties) {
         return properties.entrySet().stream().collect(Collectors.toMap(
                 entry -> String.valueOf(entry.getKey()),
                 entry -> String.valueOf(entry.getValue())));
     }
 
-    private static final void validateAllCommandArguments(CommandLine commandLine) throws StartupException {
+    private static void validateAllCommandArguments(CommandLine commandLine) throws StartupException {
         // Make sure no extra options are passed
         if (!commandLine.getArgList().isEmpty()) {
             throw new StartupException("unrecognized options / properties: " + commandLine.getArgList());

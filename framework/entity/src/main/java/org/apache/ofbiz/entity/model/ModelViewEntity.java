@@ -972,8 +972,8 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static interface ComplexAliasMember extends Serializable {
-        public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
+    public interface ComplexAliasMember extends Serializable {
+        void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
     }
 
     public static final class ComplexAlias implements ComplexAliasMember {
@@ -1324,8 +1324,8 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static interface ViewCondition extends Serializable {
-        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack);
+    public interface ViewCondition extends Serializable {
+        EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack);
     }
 
     public static final class ViewConditionExpr implements ViewCondition {

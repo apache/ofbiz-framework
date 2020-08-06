@@ -95,7 +95,8 @@ public final class EntityFinderUtil {
         return fieldMap;
     }
 
-    public static void expandFieldMapToContext(Map<FlexibleMapAccessor<Object>, Object> fieldMap, Map<String, Object> context, Map<String, Object> outContext) {
+    public static void expandFieldMapToContext(Map<FlexibleMapAccessor<Object>, Object> fieldMap, Map<String, Object> context, Map<String, Object>
+            outContext) {
         if (fieldMap != null) {
             for (Map.Entry<FlexibleMapAccessor<Object>, Object> entry: fieldMap.entrySet()) {
                 FlexibleMapAccessor<Object> serviceContextFieldAcsr = entry.getKey();
@@ -106,7 +107,7 @@ public final class EntityFinderUtil {
                 } else if (valueSrc instanceof FlexibleStringExpander) {
                     FlexibleStringExpander valueExdr = (FlexibleStringExpander) valueSrc;
                     serviceContextFieldAcsr.put(outContext, valueExdr.expandString(context));
-                } else {
+                //} else {
                     // hmmmm...
                 }
             }
@@ -147,8 +148,8 @@ public final class EntityFinderUtil {
         return orderByFields;
     }
 
-    public static interface Condition extends Serializable {
-        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader);
+    public interface Condition extends Serializable {
+        EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader);
     }
 
     @SuppressWarnings("serial")
@@ -189,12 +190,14 @@ public final class EntityFinderUtil {
         }
 
         @Override
-        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader
+                modelFieldTypeReader) {
             if ("true".equals(this.ignoreExdr.expandString(context))) {
                 return null;
             }
             if (modelEntity.getField(fieldName) == null) {
-                throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + modelEntity.getEntityName() + "]");
+                throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name ["
+                        + modelEntity.getEntityName() + "]");
             }
 
             Object value = envNameAcsr.get(context);
@@ -236,10 +239,12 @@ public final class EntityFinderUtil {
 
             if (operator == EntityOperator.NOT_EQUAL && value != null) {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
-                // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
+                // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute
+                // that is true by default
                 if (ignoreCase) {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), EntityFunction.UPPER(value)),
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName),
+                                    UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), EntityFunction.UPPER(value)),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
                 }
@@ -250,7 +255,8 @@ public final class EntityFinderUtil {
             }
             if (ignoreCase) {
                 // use the stuff to upper case both sides
-                return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), EntityFunction.UPPER(value));
+                return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName),
+                        UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), EntityFunction.UPPER(value));
             }
             return EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?, ?>>cast(operator), value);
         }
@@ -283,7 +289,8 @@ public final class EntityFinderUtil {
                     } else if ("condition-object".equals(subElement.getNodeName())) {
                         conditionList.add(new ConditionObject(subElement));
                     } else {
-                        throw new IllegalArgumentException("Invalid element with name [" + subElement.getNodeName() + "] found under a condition-list element.");
+                        throw new IllegalArgumentException("Invalid element with name [" + subElement.getNodeName()
+                                + "] found under a condition-list element.");
                     }
                 }
                 this.conditionList = Collections.unmodifiableList(conditionList);
@@ -291,7 +298,8 @@ public final class EntityFinderUtil {
         }
 
         @Override
-        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader
+                modelFieldTypeReader) {
             if (this.conditionList == null) {
                 return null;
             }
@@ -323,14 +331,15 @@ public final class EntityFinderUtil {
         }
 
         @Override
-        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader
+                modelFieldTypeReader) {
             return (EntityCondition) fieldNameAcsr.get(context);
         }
     }
 
-    public static interface OutputHandler extends Serializable {
-        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
-        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
+    public interface OutputHandler extends Serializable {
+        void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
+        void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
     }
 
     @SuppressWarnings("serial")

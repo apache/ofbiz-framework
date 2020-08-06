@@ -276,7 +276,7 @@ public class JavaMailContainer implements Container {
         LocalDispatcher dispatcher;
         GenericValue userLogin;
 
-        public PollerTask(LocalDispatcher dispatcher, GenericValue userLogin) {
+        PollerTask(LocalDispatcher dispatcher, GenericValue userLogin) {
             this.dispatcher = dispatcher;
             this.userLogin = userLogin;
         }

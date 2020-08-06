@@ -444,7 +444,7 @@ public final class FileUtil {
         Set<String> stringsToFindInFile = new HashSet<>();
         Set<String> stringsToFindInPath = new HashSet<>();
 
-        public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
+        SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
             this.fileExtension = fileExtension;
             if (stringsToFindInPath != null) {
                 this.stringsToFindInPath.addAll(stringsToFindInPath);

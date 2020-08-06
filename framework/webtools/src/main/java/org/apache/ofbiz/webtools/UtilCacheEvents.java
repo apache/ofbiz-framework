@@ -203,7 +203,7 @@ public final class UtilCacheEvents {
                 continue;
             }
 
-            String name = request.getParameter("cacheName"+suffix);
+            String name = request.getParameter("cacheName" + suffix);
 
             if (name == null) {
                 errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCache", locale) + ".";

@@ -35,7 +35,7 @@ public interface Converter<S, T> {
      * @return <code>true</code> if this object can convert
      * <code>sourceClass</code> to <code>targetClass</code>.
      */
-    public boolean canConvert(Class<?> sourceClass, Class<?> targetClass);
+    boolean canConvert(Class<?> sourceClass, Class<?> targetClass);
 
     /** Converts <code>obj</code> to <code>T</code>.
      *
@@ -43,7 +43,7 @@ public interface Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(S obj) throws ConversionException;
+    T convert(S obj) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
      *
@@ -52,17 +52,17 @@ public interface Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(Class<? extends T> targetClass, S obj) throws ConversionException;
+    T convert(Class<? extends T> targetClass, S obj) throws ConversionException;
 
     /** Returns the source <code>Class</code> for this converter.
      *
      * @return The source <code>Class</code> for this converter
      */
-    public Class<?> getSourceClass();
+    Class<?> getSourceClass();
 
     /** Returns the target <code>Class</code> for this converter.
      *
      * @return The target <code>Class</code> for this converter
      */
-    public Class<?> getTargetClass();
+    Class<?> getTargetClass();
 }

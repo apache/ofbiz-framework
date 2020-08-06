@@ -175,7 +175,7 @@ public class TestRunContainer implements Container {
 
         Map<String, Long> startTimes = new HashMap<>();
 
-        public JunitXmlListener(OutputStream out) {
+        JunitXmlListener(OutputStream out) {
             this.setOutput(out);
         }
 

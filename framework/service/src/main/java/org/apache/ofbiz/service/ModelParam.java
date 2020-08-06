@@ -317,7 +317,7 @@ public class ModelParam implements Serializable {
         protected String failResource;
         protected String failProperty;
 
-        public ModelParamValidator(String className, String methodName, String failMessage, String failResource, String failProperty) {
+        ModelParamValidator(String className, String methodName, String failMessage, String failResource, String failProperty) {
             this.className = className;
             this.methodName = methodName;
             this.failMessage = failMessage;

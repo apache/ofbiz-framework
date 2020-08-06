@@ -39,7 +39,6 @@ import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
-import org.apache.ofbiz.entity.util.EntityBatchIterator;
 
 /**
  * Used to setup various options for and subsequently execute entity queries.
@@ -389,10 +388,12 @@ public class EntityQuery {
         if (dynamicViewEntity == null) {
             return delegator.find(entityName, makeWhereCondition(false), havingEntityCondition, fieldsToSelect, orderBy, makeEntityFindOptions());
         } else {
-            return delegator.findListIteratorByCondition(dynamicViewEntity, makeWhereCondition(false), havingEntityCondition, fieldsToSelect, orderBy, makeEntityFindOptions());
+            return delegator.findListIteratorByCondition(dynamicViewEntity, makeWhereCondition(false), havingEntityCondition, fieldsToSelect,
+                    orderBy, makeEntityFindOptions());
         }
     }
 
+    /** query batch iterator */
     public EntityBatchIterator queryBatchIterator() {
         return new EntityBatchIterator(this);
     }
@@ -541,8 +542,7 @@ public class EntityQuery {
                     }
                 }
                 return new ArrayList<>(distinctSet);
-            }
-            else {
+            } else {
                 List<T> fieldList = new LinkedList<>();
                 GenericValue value = null;
                 while ((value = genericValueEli.next()) != null) {

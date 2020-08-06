@@ -1653,7 +1653,7 @@ public abstract class ModelForm extends ModelWidget {
         }
     }
 
-    public static interface FieldGroupBase {
+    public interface FieldGroupBase {
     }
 
     public static class SortField {

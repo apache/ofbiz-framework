@@ -563,7 +563,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" " + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
             }
             timeValues.append("[");
-            for (int i = 0; i <= 59; ) {
+            for (int i = 0; i <= 59;) {
                 if (i != 0) {
                     timeValues.append(", ");
                 }

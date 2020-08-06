@@ -294,7 +294,7 @@ public final class EntityCrypto {
         }
     }
 
-    protected static abstract class LegacyStorageHandler extends StorageHandler {
+    protected abstract static class LegacyStorageHandler extends StorageHandler {
         @Override
         protected Key generateNewKey() throws EntityCryptoException {
             try {

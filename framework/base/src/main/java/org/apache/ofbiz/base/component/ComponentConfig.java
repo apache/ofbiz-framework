@@ -667,7 +667,7 @@ public final class ComponentConfig {
             return componentConfig.rootLocation().resolve(location);
         }
 
-        public static enum Type {
+        public enum Type {
             DIR, JAR;
 
             private static Type of(String type) {
@@ -834,7 +834,7 @@ public final class ComponentConfig {
         }
     }
 
-    public static abstract class ResourceInfo {
+    public abstract static class ResourceInfo {
         private final ComponentConfig componentConfig;
         private final String loader;
         private final String location;
