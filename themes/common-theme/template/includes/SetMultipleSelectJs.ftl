@@ -16,6 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#-- Define select2 js and css tags to be added to html head tag when multi-block=true.
+     Note select2 language js will be auto added by MultiBlockHtmlTemplateUtil#addLinksToLayoutSettings -->
+<script data-import="head" type="application/javascript"
+        src="/common/js/jquery/plugins/select2/js/select2-4.0.6.js"></script>
+<link rel="stylesheet" type="text/css"
+      href="/common/js/jquery/plugins/select2/css/select2-4.0.6.css"/>
 <#if asm_multipleSelect??> <#-- we check only this var and suppose the others are also present -->
 <script type="application/javascript">
     jQuery(document).ready(function () {

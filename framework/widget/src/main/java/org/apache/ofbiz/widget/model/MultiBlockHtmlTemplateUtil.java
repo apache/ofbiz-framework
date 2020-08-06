@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -208,15 +209,18 @@ public final class MultiBlockHtmlTemplateUtil {
             return;
         }
         List<String> layoutSettingsStyleSheets = UtilGenerics.cast(layoutSettings.get("styleSheets"));
-        if (UtilValidate.isEmpty(layoutSettingsStyleSheets)
-                && UtilValidate.isEmpty(layoutSettings.get("VT_STYLESHEET"))) {
-            return;
+        if (UtilValidate.isEmpty(layoutSettingsStyleSheets)) {
+            layoutSettingsStyleSheets = UtilGenerics.cast(layoutSettings.get("VT_STYLESHEET"));
+            if (UtilValidate.isEmpty(layoutSettingsStyleSheets)) {
+                return;
+            }
         }
         // ensure initTheme.groovy has run.
         Map<String, String> commonScreenLocations = UtilGenerics.cast(context.get("commonScreenLocations"));
         if (UtilValidate.isEmpty(commonScreenLocations)) {
             return;
         }
+        Locale locale = (Locale) context.get("locale");
         Object objValue = request.getAttribute(HTML_LINKS_FOR_HEAD);
         if (objValue instanceof String) {
             // store expressions for Template Location that is not expanded correctly, for retry.
@@ -255,7 +259,7 @@ public final class MultiBlockHtmlTemplateUtil {
                 }
             }
             if (UtilValidate.isNotEmpty(htmlLinks)) {
-                addLinksToLayoutSettings(htmlLinks, layoutSettingsJavaScripts, layoutSettingsStyleSheets);
+                addLinksToLayoutSettings(htmlLinks, layoutSettingsJavaScripts, layoutSettingsStyleSheets, locale);
             }
             if (UtilValidate.isEmpty(retryScreenLocHashNameExpressions) && UtilValidate.isEmpty(retryTemplateLocationExpressions)) {
                 request.setAttribute(HTML_LINKS_FOR_HEAD, true);
@@ -305,7 +309,7 @@ public final class MultiBlockHtmlTemplateUtil {
                 }
             }
             if (UtilValidate.isNotEmpty(htmlLinks)) {
-                addLinksToLayoutSettings(htmlLinks, layoutSettingsJavaScripts, layoutSettingsStyleSheets);
+                addLinksToLayoutSettings(htmlLinks, layoutSettingsJavaScripts, layoutSettingsStyleSheets, locale);
             }
             if (UtilValidate.isEmpty(retryScreenLocHashNameExpressions) && UtilValidate.isEmpty(retryTemplateLocationExpressions)) {
                 request.setAttribute(HTML_LINKS_FOR_HEAD, true);
@@ -320,13 +324,21 @@ public final class MultiBlockHtmlTemplateUtil {
 
     private static void addLinksToLayoutSettings(Set<String> htmlLinks,
                                                  List<String> layoutSettingsJavaScripts,
-                                                 List<String> layoutSettingsStyleSheets) {
+                                                 List<String> layoutSettingsStyleSheets, Locale locale) {
         for (String link : htmlLinks) {
             if (link.startsWith("script:")) {
                 String url = link.substring(7);
                 // check url is not already in layoutSettings.javaScripts
                 if (!layoutSettingsJavaScripts.contains(url)) {
                     layoutSettingsJavaScripts.add(url);
+                    if (url.contains("select2")) {
+                        // find and add select2 language js
+                        String localeString = locale.toString();
+                        String langJsUrl = org.apache.ofbiz.common.JsLanguageFilesMapping.select2.getFilePath(localeString);
+                        if (!layoutSettingsJavaScripts.contains(langJsUrl)) {
+                            layoutSettingsJavaScripts.add(langJsUrl);
+                        }
+                    }
                 }
             } else if (link.startsWith("link:")) {
                 String url = link.substring(5);
