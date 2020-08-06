@@ -1078,7 +1078,7 @@ public class PackingSession implements java.io.Serializable {
         public BigDecimal quantity;
         public String productId;
 
-        public ItemDisplay(GenericValue v) {
+        ItemDisplay(GenericValue v) {
             if ("PicklistItem".equals(v.getEntityName())) {
                 quantity = v.getBigDecimal("quantity").setScale(2, RoundingMode.HALF_UP);
                 try {

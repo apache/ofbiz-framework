@@ -114,7 +114,7 @@ public class AuthorizeResponse {
     public String toString() {
         return Arrays.toString(response);
     }
-    public static abstract class RespPositions {
+    public abstract static class RespPositions {
         public abstract int getPosition(String name);
         public abstract String getApprovalString();
     }

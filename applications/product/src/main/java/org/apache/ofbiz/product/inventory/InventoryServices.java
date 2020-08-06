@@ -115,9 +115,11 @@ public class InventoryServices {
                  * atp < qoh && xferQty < atp - split and save qoh - atp + atp - xferQty
                  */
 
-                // at this point we have already made sure that the xferQty is less than or equals to the atp, so if less that just create a new inventory record for the quantity to be moved
+                // at this point we have already made sure that the xferQty is less than or equals to the atp,
+                // so if less that just create a new inventory record for the quantity to be moved
                 // NOTE: atp should always be <= qoh, so if xfer < atp, then xfer < qoh, so no need to check/handle that
-                // however, if atp < qoh && atp == xferQty, then we still need to split; oh, but no need to check atp == xferQty in the second part because if it isn't greater and isn't less, then it is equal
+                // however, if atp < qoh && atp == xferQty, then we still need to split; oh, but no need to check atp == xferQty in the second part
+                // because if it isn't greater and isn't less, then it is equal
                 if (xferQty.compareTo(atp) < 0 || atp.compareTo(qoh) < 0) {
                     BigDecimal negXferQty = xferQty.negate();
                     // NOTE: new inventory items should always be created calling the
@@ -134,11 +136,11 @@ public class InventoryServices {
                     results.put("inventoryItemId", newItem.get("inventoryItemId"));
 
                     // TODO: how do we get this here: "inventoryTransferId", inventoryTransferId
-                    Map<String, Object> createNewDetailMap = UtilMisc.toMap("availableToPromiseDiff", xferQty, "quantityOnHandDiff", xferQty, "accountingQuantityDiff", xferQty,
-                            "inventoryItemId", newItem.get("inventoryItemId"), "userLogin", userLogin);
-                    Map<String, Object> createUpdateDetailMap = UtilMisc.toMap("availableToPromiseDiff", negXferQty, "quantityOnHandDiff", negXferQty, "accountingQuantityDiff", negXferQty,
-                            "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
-
+                    Map<String, Object> createNewDetailMap = UtilMisc.toMap("availableToPromiseDiff", xferQty, "quantityOnHandDiff", xferQty,
+                            "accountingQuantityDiff", xferQty, "inventoryItemId", newItem.get("inventoryItemId"), "userLogin", userLogin);
+                    Map<String, Object> createUpdateDetailMap = UtilMisc.toMap("availableToPromiseDiff", negXferQty, "quantityOnHandDiff",
+                            negXferQty, "accountingQuantityDiff", negXferQty, "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin",
+                            userLogin);
                     try {
                         Map<String, Object> resultNew = dctx.getDispatcher().runSync("createInventoryItemDetail", createNewDetailMap);
                         if (ServiceUtil.isError(resultNew)) {
@@ -170,11 +172,13 @@ public class InventoryServices {
             // setup values so that no one will grab the inventory during the move
             // if newItem is not null, it is the item to be moved, otherwise the original inventoryItem is the one to be moved
             if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
-                // set the transfered inventory item's atp to 0 and the qoh to the xferQty; at this point atp and qoh will always be the same, so we can safely zero the atp for now
+                // set the transfered inventory item's atp to 0 and the qoh to the xferQty; at this point atp and qoh will always be the same,
+                // so we can safely zero the atp for now
                 GenericValue inventoryItemToClear = newItem == null ? inventoryItem : newItem;
 
                 inventoryItemToClear.refresh();
-                BigDecimal atp = inventoryItemToClear.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItemToClear.getBigDecimal("availableToPromiseTotal");
+                BigDecimal atp = inventoryItemToClear.get("availableToPromiseTotal") == null ? BigDecimal.ZERO
+                        : inventoryItemToClear.getBigDecimal("availableToPromiseTotal");
                 if (atp.compareTo(BigDecimal.ZERO) != 0) {
                     Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", atp.negate(),
                             "inventoryItemId", inventoryItemToClear.get("inventoryItemId"), "userLogin", userLogin);
@@ -253,7 +257,8 @@ public class InventoryServices {
 
         if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
-            BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
+            BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO
+                    : inventoryItem.getBigDecimal("availableToPromiseTotal");
             BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
             Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", qoh.subtract(atp),
                     "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
@@ -361,8 +366,10 @@ public class InventoryServices {
         // re-set the fields on the item
         if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
-            BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("availableToPromiseTotal");
-            BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO : inventoryItem.getBigDecimal("quantityOnHandTotal");
+            BigDecimal atp = inventoryItem.get("availableToPromiseTotal") == null ? BigDecimal.ZERO
+                    : inventoryItem.getBigDecimal("availableToPromiseTotal");
+            BigDecimal qoh = inventoryItem.get("quantityOnHandTotal") == null ? BigDecimal.ZERO
+                    : inventoryItem.getBigDecimal("quantityOnHandTotal");
             Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", qoh.subtract(atp),
                                                  "inventoryItemId", inventoryItem.get("inventoryItemId"),
                                                  "userLogin", userLogin);
@@ -417,7 +424,8 @@ public class InventoryServices {
         // find all inventory items w/ a negative ATP
         List<GenericValue> inventoryItems = null;
         try {
-            inventoryItems = EntityQuery.use(delegator).from("InventoryItem").where(EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, BigDecimal.ZERO)).queryList();
+            inventoryItems = EntityQuery.use(delegator).from("InventoryItem").where(EntityCondition.makeCondition("availableToPromiseTotal",
+                    EntityOperator.LESS_THAN, BigDecimal.ZERO)).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting inventory items", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -441,7 +449,8 @@ public class InventoryServices {
                 exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"));
                 exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED"));
 
-                shipmentAndItems = EntityQuery.use(delegator).from("ShipmentAndItem").where(EntityCondition.makeCondition(exprs, EntityOperator.AND)).orderBy("estimatedArrivalDate").queryList();
+                shipmentAndItems = EntityQuery.use(delegator).from("ShipmentAndItem").where(EntityCondition.makeCondition(exprs, EntityOperator.AND))
+                        .orderBy("estimatedArrivalDate").queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem getting ShipmentAndItem records", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -579,7 +588,7 @@ public class InventoryServices {
 
             List<GenericValue> orderItemShipGroups = null;
             try {
-                orderItemShipGroups= EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId).queryList();
+                orderItemShipGroups = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get OrderItemShipGroups from orderId" + orderId, MODULE);
             }
@@ -588,7 +597,8 @@ public class InventoryServices {
                 List<GenericValue> orderItems = new LinkedList<>();
                 List<GenericValue> orderItemShipGroupAssoc = null;
                 try {
-                    orderItemShipGroupAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("shipGroupSeqId", orderItemShipGroup.get("shipGroupSeqId"), "orderId", orderId).queryList();
+                    orderItemShipGroupAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("shipGroupSeqId",
+                            orderItemShipGroup.get("shipGroupSeqId"), "orderId", orderId).queryList();
 
                     for (GenericValue assoc: orderItemShipGroupAssoc) {
                         GenericValue orderItem = assoc.getRelatedOne("OrderItem", false);
@@ -626,7 +636,7 @@ public class InventoryServices {
                     Timestamp cancelDate = cancelItems.get(orderItemSeqId);
                     Timestamp currentCancelDate = orderItem.getTimestamp("autoCancelDate");
 
-                    Debug.logInfo("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, MODULE);
+                    Debug.logInfo("OI: " + orderId + " SEQID: " + orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, MODULE);
                     if (backOrderedItems.containsKey(orderItemSeqId)) {
                         orderItem.set("estimatedShipDate", shipDate);
 
@@ -731,7 +741,8 @@ public class InventoryServices {
                 }
 
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("productIdTo = " + productIdTo + " assocQuantity = " + assocQuantity + "current QOH " + currentQuantityOnHandTotal
+                    Debug.logVerbose("productIdTo = " + productIdTo + " assocQuantity = " + assocQuantity + "current QOH "
+                            + currentQuantityOnHandTotal
                             + "currentATP = " + currentAvailableToPromiseTotal + " minQOH = " + minQuantityOnHandTotal + " minATP = "
                             + minAvailableToPromiseTotal, MODULE);
                 }
@@ -910,7 +921,8 @@ public class InventoryServices {
         }
         List<GenericValue> productPrices = null;
         try {
-            productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId", productId).orderBy("-fromDate").cache(true).queryList();
+            productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId",
+                    productId).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -941,7 +953,8 @@ public class InventoryServices {
             salesUsageViewEntity.addMemberEntity("ItIss", "ItemIssuance");
             salesUsageViewEntity.addMemberEntity("InvIt", "InventoryItem");
             salesUsageViewEntity.addViewLink("OI", "OH", Boolean.FALSE, ModelKeyMap.makeKeyMapList("orderId"));
-            salesUsageViewEntity.addViewLink("OI", "ItIss", Boolean.FALSE, ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
+            salesUsageViewEntity.addViewLink("OI", "ItIss", Boolean.FALSE,
+                    ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
             salesUsageViewEntity.addViewLink("ItIss", "InvIt", Boolean.FALSE, ModelKeyMap.makeKeyMapList("inventoryItemId"));
             salesUsageViewEntity.addAlias("OI", "productId");
             salesUsageViewEntity.addAlias("OH", "statusId");
@@ -968,10 +981,11 @@ public class InventoryServices {
                     UtilMisc.toList(
                         EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                         EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-                        EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
+                        EntityCondition.makeCondition("statusId",
+                                EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
                         EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)),
-                EntityOperator.AND);
+                    EntityOperator.AND);
 
             try (EntityListIterator salesUsageIt = EntityQuery.use(delegator).from(salesUsageViewEntity).where(cond).queryIterator()) {
 
@@ -992,7 +1006,8 @@ public class InventoryServices {
                                 EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)),
                         EntityOperator.AND);
 
-                try (EntityListIterator productionUsageIt = EntityQuery.use(delegator).from(productionUsageViewEntity).where(conditions).queryIterator()) {
+                try (EntityListIterator productionUsageIt = EntityQuery.use(delegator).from(productionUsageViewEntity)
+                        .where(conditions).queryIterator()) {
 
                     // Sum the production usage quantities found
                     BigDecimal productionUsageQuantity = BigDecimal.ZERO;

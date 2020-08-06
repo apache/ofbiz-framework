@@ -434,7 +434,7 @@ public class ContentSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ContentSearchConstraint implements java.io.Serializable {
+    public abstract static class ContentSearchConstraint implements java.io.Serializable {
         public ContentSearchConstraint() { }
 
         public abstract void addConstraint(ContentSearchContext contentSearchContext);
@@ -832,7 +832,7 @@ public class ContentSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ResultSortOrder implements java.io.Serializable {
+    public abstract static class ResultSortOrder implements java.io.Serializable {
         public ResultSortOrder() {
         }
 

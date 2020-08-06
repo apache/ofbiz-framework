@@ -47,7 +47,7 @@ public class ExpressCheckoutEvents {
 
     private static final String RES_ERROR = "AccountingErrorUiLabels";
     private static final String MODULE = ExpressCheckoutEvents.class.getName();
-    public static enum CheckoutType {PAYFLOW, STANDARD, NONE}
+    public enum CheckoutType { PAYFLOW, STANDARD, NONE }
 
     public static String setExpressCheckout(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);

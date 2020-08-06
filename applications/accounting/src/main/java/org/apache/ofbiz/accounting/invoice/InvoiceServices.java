@@ -2410,7 +2410,7 @@ public class InvoiceServices {
             paymentAppl = EntityQuery.use(delegator).from("PaymentAndApplication").where("invoiceId", invoiceId).queryList();
             // For each payment application, select only those that are RECEIVED or SENT based on whether the payment is a RECEIPT or DISBURSEMENT
             // respectively
-            for (Iterator<GenericValue> iter = paymentAppl.iterator(); iter.hasNext(); ) {
+            for (Iterator<GenericValue> iter = paymentAppl.iterator(); iter.hasNext();) {
                 GenericValue payment = iter.next();
                 if ("PMNT_RECEIVED".equals(payment.get("statusId")) && UtilAccounting.isReceipt(payment)) {
                     continue; // keep

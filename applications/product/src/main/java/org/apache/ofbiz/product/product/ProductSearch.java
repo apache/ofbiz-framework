@@ -823,7 +823,7 @@ public class ProductSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ProductSearchConstraint implements java.io.Serializable {
+    public abstract static class ProductSearchConstraint implements java.io.Serializable {
         public ProductSearchConstraint() { }
 
         public abstract void addConstraint(ProductSearchContext productSearchContext);
@@ -2337,7 +2337,7 @@ public class ProductSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ResultSortOrder implements java.io.Serializable {
+    public abstract static class ResultSortOrder implements java.io.Serializable {
         public ResultSortOrder() {
         }
 

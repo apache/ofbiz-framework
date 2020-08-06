@@ -1641,7 +1641,7 @@ public final class ProductPromoWorker {
 
     @SuppressWarnings("serial")
     private static class UseLimitException extends Exception {
-        public UseLimitException(String str) {
+        UseLimitException(String str) {
             super(str);
         }
     }

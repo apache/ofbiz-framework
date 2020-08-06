@@ -458,7 +458,7 @@ public class WorkEffortSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class WorkEffortSearchConstraint implements java.io.Serializable {
+    public abstract static class WorkEffortSearchConstraint implements java.io.Serializable {
         public WorkEffortSearchConstraint() { }
 
         public abstract void addConstraint(WorkEffortSearchContext workEffortSearchContext);
@@ -1145,7 +1145,7 @@ public class WorkEffortSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ResultSortOrder implements java.io.Serializable {
+    public abstract static class ResultSortOrder implements java.io.Serializable {
         public ResultSortOrder() {
         }
 
