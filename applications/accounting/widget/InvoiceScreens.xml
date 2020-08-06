@@ -77,6 +77,12 @@ under the License.
                 <set field="tabButtonItem" value="find"/>
                 <set field="titleProperty" value="PageTitleFindInvoice"/>
                 <set field="helpAnchor" value="_help_for_find_invoices"/>
+                <set field="asm_multipleSelectForm" value="FindInvoices"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindInvoices_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -89,6 +95,11 @@ under the License.
                                         <container style="clear"/>
                                     </decorator-section>
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html>
+                                                <html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                            </html>
+                                        </platform-specific>
                                         <include-form name="FindInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">

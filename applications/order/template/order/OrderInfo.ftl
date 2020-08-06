@@ -36,6 +36,16 @@ under the License.
               </form>
               </li>
             </#if>
+
+            <#if "PURCHASE_ORDER" == orderHeader.orderTypeId && ("ORDER_REJECTED" != currentStatus.statusId || "ORDER_CANCELLED" != currentStatus.statusId)>
+              <li><a href="javascript:document.SendPOEmail.submit()">Send Email</a>
+                <form name="SendPOEmail" method="post" action="<@ofbizUrl>sendPOEmail</@ofbizUrl>">
+                  <input type="hidden" name="orderId" value="${orderHeader.orderId!}"/>
+                  <input type="hidden" name="emailTemplateSettingId" value="SEND_PO_EMAIL"/>
+                </form>
+              </li>
+            </#if>
+
             <#if "ORDER_CREATED" == currentStatus.statusId || "ORDER_PROCESSING" == currentStatus.statusId>
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a>
               <form class ="basic-form" name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">

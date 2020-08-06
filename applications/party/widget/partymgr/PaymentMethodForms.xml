@@ -33,8 +33,7 @@ under the License.
         <field name="submitButton"><hidden/></field>
         <field name="saveButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="viewprofile">
-                <parameter param-name="partyId" from-field="partyId"/>
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="backHome">
             </hyperlink>
         </field>
     </form>
