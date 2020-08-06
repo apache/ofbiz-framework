@@ -21,7 +21,6 @@ package org.apache.ofbiz.entity;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
