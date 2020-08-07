@@ -53,7 +53,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart.ShoppingCartItemGroup;
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.apache.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.apache.ofbiz.product.catalog.CatalogWorker;
