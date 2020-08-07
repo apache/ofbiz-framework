@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.RejectedExecutionException;
 
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Assert;
@@ -56,8 +55,6 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
-
-import com.ibm.icu.util.Calendar;
 
 /**
  * Job manager. The job manager queues and manages jobs. Client code can queue a job to be run immediately
