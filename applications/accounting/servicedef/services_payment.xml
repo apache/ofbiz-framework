@@ -66,8 +66,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="createPaymentApplication" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
+    <service name="createPaymentApplication" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentApplication" auth="true">
         <description>Create a payment application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
         <attribute name="toPaymentId" type="String" mode="IN" optional="true"/>

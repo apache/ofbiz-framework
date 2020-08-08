@@ -17,6 +17,7 @@
  * under the License.
  */
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
@@ -384,7 +385,6 @@ def quickSendPayment() {
     Map updatePaymentResp = dispatcher.runSync('updatePayment', updatePaymentCtx)
 
     if (ServiceUtil.isError(updatePaymentResp)) return updatePaymentResp
-
     Map setPaymentStatusCtx = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', 'IN', parameters)
     setPaymentStatusCtx.statusId = "PMNT_SENT"
     Map setPaymentStatusResp = dispatcher.runSync('setPaymentStatus', setPaymentStatusCtx)
@@ -438,4 +438,74 @@ def getPayments() {
     result = success()
     result.payments = payments
     return result
+}
+
+def createPaymentApplication() {
+    // Create a Payment Application
+    if (!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId) {
+        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPaymentApplicationParameterMissing)
+    }
+    GenericValue paymentAppl = delegator.makeValue("PaymentApplication")
+    paymentAppl.setNonPKFields(parameters)
+
+    GenericValue payment = from("Payment").where("paymentId", parameters.paymentId).queryOne()
+    if (!payment) {
+        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPaymentApplicationParameterMissing)
+    }
+
+    BigDecimal notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
+
+    if (parameters.invoiceId) {
+        // get the invoice and do some further validation against it
+        GenericValue invoice = from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
+        // check the currencies if they are compatible
+        if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId != payment.actualCurrencyUomId) {
+            return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingCurrenciesOfInvoiceAndPaymentNotCompatible)
+        }
+        if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId == payment.actualCurrencyUomId) {
+            // if required get the payment amount in foreign currency (local we already have)
+            Boolean actual = true
+            notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment, actual)
+        }
+        // get the amount that has not been applied yet for the invoice (outstanding amount)
+        BigDecimal notAppliedInvoice = InvoiceWorker.getInvoiceNotApplied(invoice)
+        if (notAppliedInvoice <= notAppliedPayment) {
+            paymentAppl.amountApplied = notAppliedInvoice
+        } else {
+            paymentAppl.amountApplied = notAppliedPayment
+        }
+
+        if (invoice.billingAccountId) {
+            paymentAppl.billingAccountId = invoice.billingAccountId
+        }
+    }
+
+    if (parameters.toPaymentId) {
+        // get the to payment and check the parent types are compatible
+        GenericValue toPayment = from("Payment").where("paymentId", parameters.toPaymentId).queryOne()
+        //  when amount not provided use the the lowest value available
+        if (!parameters.amountApplied) {
+            notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
+            BigDecimal notAppliedToPayment = PaymentWorker.getPaymentNotApplied(toPayment)
+            if (notAppliedPayment < notAppliedToPayment) {
+                paymentAppl.amountApplied = notAppliedPayment
+            } else {
+                paymentAppl.amountApplied = notAppliedToPayment
+            }
+        }
+    }
+
+    if (!paymentAppl.amountApplied) {
+        if (parameters.billingAccountId || parameters.taxAuthGeoId) {
+            paymentAppl.amountApplied = notAppliedPayment
+        }
+    }
+    paymentAppl.paymentApplicationId = delegator.getNextSeqId("PaymentApplication")
+
+    serviceResult = success()
+    serviceResult.amountApplied = paymentAppl.amountApplied
+    serviceResult.paymentApplicationId = paymentAppl.paymentApplicationId
+    serviceResult.paymentTypeId = payment.paymentTypeId
+    paymentAppl.create()
+    return serviceResult
 }
