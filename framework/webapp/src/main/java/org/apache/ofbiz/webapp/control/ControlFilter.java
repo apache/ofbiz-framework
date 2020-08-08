@@ -125,7 +125,6 @@ public class ControlFilter extends HttpFilter {
     /**
      * Makes allowed paths pass through while redirecting the others to a fix location.
      *
-     * @see Filter#doFilter
      */
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)

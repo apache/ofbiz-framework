@@ -206,7 +206,6 @@ public final class JobPoller implements ServiceConfigListener {
     /**
      * Adds a job to the job queue.
      * @throws InvalidJobException if the job is in an invalid state.
-     * @throws RejectedExecutionException if the poller is stopped.
      */
     public void queueNow(Job job) throws InvalidJobException {
         job.queue();

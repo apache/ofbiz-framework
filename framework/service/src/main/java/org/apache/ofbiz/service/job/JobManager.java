@@ -357,7 +357,6 @@ public final class JobManager {
 
     /** Queues a Job to run now.
      * @throws IllegalStateException if the Job Manager is shut down.
-     * @throws RejectedExecutionException if the poller is stopped.
      */
     public void runJob(Job job) throws JobManagerException {
         assertIsRunning();
