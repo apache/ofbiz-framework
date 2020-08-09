@@ -388,32 +388,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="cancelCheckRunPayments" short-description="Cancel all payments for payment group">
-        <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans"  list="paymentGroupMemberAndTransList">
-            <field-map field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
-        </entity-and>
-        <first-from-list list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans"/>
-        <if-compare field="paymentGroupMemberAndTrans.finAccountTransStatusId" operator="not-equals" value="FINACT_TRNS_APPROVED">
-        <iterate list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans">
-            <entity-one entity-name="Payment" value-field="payment">
-                <field-map field-name="paymentId" from-field="paymentGroupMemberAndTrans.paymentId"/>
-            </entity-one>
-            <set-service-fields service-name="voidPayment" map="payment" to-map="voidPaymentMap"/>
-            <call-service service-name="voidPayment" in-map-name="voidPaymentMap"/>
-            <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMemberAndTrans" to-map="expirePaymentGroupMemberMap"/>
-            <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
-            <clear-field field="voidPaymentMap"/>
-            <clear-field field="expirePaymentGroupMemberMap"/>
-        </iterate>
-        <else>
-            <add-error>
-                <fail-property resource="AccountingUiLabels" property="AccountingCheckIsAlreadyIssued"/>
-            </add-error>
-            <check-errors/>
-        </else>
-        </if-compare>
-    </simple-method>
-
     <simple-method method-name="checkAndCreateBatchForValidPayments" short-description="Check the valid(unbatched) payment and create batch for same">
         <set field="paymentIds" from-field="parameters.paymentIds"/>
         <entity-condition entity-name="Payment" list="payments">

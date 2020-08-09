@@ -439,3 +439,24 @@ def getPayments() {
     result.payments = payments
     return result
 }
+
+def cancelCheckRunPayments() {
+    paymentGroupMemberAndTransList = from("PmtGrpMembrPaymentAndFinAcctTrans").where("paymentGroupId", parameters.paymentGroupId).queryList()
+    if (paymentGroupMemberAndTransList) {
+        paymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
+        if ("FINACT_TRNS_APPROVED" != paymentGroupMemberAndTrans.finAccountTransStatusId) {
+            for (GenericValue paymentGroupMemberAndTrans : paymentGroupMemberAndTransList) {
+                payment = from("Payment").where("paymentId", paymentGroupMemberAndTrans.paymentId).queryOne()
+                Map voidPaymentMap = dispatcher.getDispatchContext().makeValidContext("voidPayment", "IN", payment)
+                result = runService("voidPayment", voidPaymentMap)
+                if (ServiceUtil.isError(result)) return result
+                Map expirePaymentGroupMemberMap = dispatcher.getDispatchContext().makeValidContext("expirePaymentGroupMember", "IN", paymentGroupMemberAndTrans)
+                result = runService("expirePaymentGroupMember", expirePaymentGroupMemberMap)
+                if (ServiceUtil.isError(result)) return result
+            }
+        } else {
+            return error(UtilProperties.getMessage("AccountingErrorUiLabels", "AccountingCheckIsAlreadyIssued", locale))
+        }
+    }
+    return success()
+}
