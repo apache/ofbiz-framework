@@ -70,7 +70,11 @@ under the License.
             <property name="max" value="500"/>
             <property name="countEmpty" value="false"/>
         </module>
-        <module name="ParameterNumber"/>
+        <module name="ParameterNumber">
+            <property name="max" value="10"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+        </module>
 
         <!-- Checks for whitespace -->
         <module name="EmptyForIteratorPad"/>
