@@ -319,6 +319,49 @@ def massChangePaymentStatus() {
     }
     return serviceResult
 }
+def getInvoicePaymentInfoListByDueDateOffset(){
+
+    filteredInvoicePaymentInfoList = []
+
+    Timestamp asOfDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), (long) parameters.daysOffset);
+
+    exprList = [EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, parameters.invoiceTypeId),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_PAID")
+    ]
+    if (parameters.partyId) {
+        exprList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, parameters.partyId))
+    }
+    if (parameters.partyIdFrom) {
+        exprList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyIdFrom))
+    }
+
+    condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+
+    invoices = from("Invoice").where(condition).orderBy("invoiceDate").queryList();
+
+    if (invoices) {
+        for (GenericValue invoice : invoices) {
+            getInvoicePaymentInfoListInMap = [:]
+            getInvoicePaymentInfoListInMap.put("invoice", invoice);
+            getInvoicePaymentInfoListInMap.put("userLogin", userLogin);
+            serviceResult = run service: 'getInvoicePaymentInfoList', with: getInvoicePaymentInfoListInMap
+            if (ServiceUtil.isError(serviceResult)) return result
+            invoicePaymentInfoList = serviceResult.invoicePaymentInfoList;
+            if (invoicePaymentInfoList) {
+                invoicePaymentInfoList.each { invoicePaymentInfo ->
+                    if (invoicePaymentInfo.outstandingAmount.compareTo(BigDecimal.ZERO) > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
+                        filteredInvoicePaymentInfoList.add(invoicePaymentInfo);
+                    }
+                }
+            }
+        }
+    }
+
+    result = success()
+    result.invoicePaymentInfoList = filteredInvoicePaymentInfoList
+    return result
+}
 
 def getPaymentGroupReconciliationId() {
     paymentGroupMember = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).queryFirst()

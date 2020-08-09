@@ -228,45 +228,6 @@ under the License.
         </if-compare-field>
     </simple-method>
 
-    <simple-method method-name="getInvoicePaymentInfoListByDueDateOffset" short-description="Select a list with information on payment due dates and amounts for invoices.">
-        <now-timestamp field="nowTimestamp"/>
-        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field="asOfDate">
-            <field field="nowTimestamp" type="Timestamp"/>
-            <field field="parameters.daysOffset" type="Long"/>
-        </call-class-method>
-        <entity-condition entity-name="Invoice" list="invoices">
-            <condition-list combine="and">
-                <condition-expr field-name="invoiceTypeId" operator="equals" from-field="parameters.invoiceTypeId"/>
-                <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
-                <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom" ignore-if-empty="true"/>
-                <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_CANCELLED"/>
-                <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_PAID"/>
-            </condition-list>
-            <order-by field-name="invoiceDate"/>
-        </entity-condition>
-        <iterate list="invoices" entry="invoice">
-            <clear-field field="getInvoicePaymentInfoListInMap"/>
-            <set field="getInvoicePaymentInfoListInMap.invoice" from-field="invoice"/>
-            <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListInMap">
-                <result-to-field result-name="invoicePaymentInfoList" field="invoicePaymentInfoList"/>
-            </call-service>
-            <iterate list="invoicePaymentInfoList" entry="invoicePaymentInfo">
-                <if>
-                    <condition>
-                        <and>
-                            <if-compare field="invoicePaymentInfo.outstandingAmount" operator="greater" value="0.0" type="BigDecimal"/>
-                            <if-compare-field field="invoicePaymentInfo.dueDate" to-field="asOfDate" operator="less" type="Timestamp"/>
-                        </and>
-                    </condition>
-                    <then>
-                        <set field="selectedInvoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
-                    </then>
-                </if>
-            </iterate>
-        </iterate>
-        <field-to-result field="selectedInvoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
-    </simple-method>
-
     <simple-method method-name="voidPayment" short-description="Service to void a payment">
         <entity-one entity-name="Payment" value-field="payment"/>
         <field-to-result field="payment.finAccountTransId" result-name="finAccountTransId"/>

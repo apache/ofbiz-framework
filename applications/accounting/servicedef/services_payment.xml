@@ -133,8 +133,8 @@ under the License.
         <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="false"/>
     </service>
-    <service name="getInvoicePaymentInfoListByDueDateOffset" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getInvoicePaymentInfoListByDueDateOffset" auth="true">
+    <service name="getInvoicePaymentInfoListByDueDateOffset" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getInvoicePaymentInfoListByDueDateOffset" auth="true">
         <description>Create a list with information on payment due dates and amounts.</description>
         <attribute name="invoiceTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="daysOffset" type="Long" mode="IN" optional="false"/>
