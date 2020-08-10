@@ -187,6 +187,19 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    /**
+     * Render html template when multi-block=true.
+     * We use stack to store the string writer because a freemarker template may also render a sub screen widget
+     * by using ${screens.render(<link to the screen>)}. So before rendering the sub screen widget, ScreenRenderer
+     * class will check for the existence of the stack and retrieve the correct string writer.
+     * The following tags are removed from the final rendering:
+     * 1. External and inline javascript tags
+     * 2. Css link tags
+     * @param writer
+     * @param locationExdr
+     * @param context
+     * @throws IOException
+     */
     public static void renderHtmlTemplateWithMultiBlock(Appendable writer, FlexibleStringExpander locationExdr,
                                                         Map<String, Object> context) throws IOException {
         String location = locationExdr.expandString(context);
@@ -197,7 +210,6 @@ public class HtmlWidget extends ModelScreenWidget {
             stringWriterStack = new Stack<>();
         }
         stringWriterStack.push(stringWriter);
-        // we use stack because a freemarker template may render a sub screen widget
         context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriterStack);
         renderHtmlTemplate(stringWriter, locationExdr, context);
         stringWriterStack.pop();
@@ -210,7 +222,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
         Document doc = Jsoup.parseBodyFragment(data);
 
-        // extract scripts
+        // extract js script tags
         Elements scriptElements = doc.select("script");
         if (scriptElements != null && scriptElements.size() > 0) {
             StringBuilder scripts = new StringBuilder();
@@ -253,6 +265,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
             }
         }
+        // extract css link tags
         Elements csslinkElements = doc.select("link");
         if (csslinkElements != null && csslinkElements.size() > 0) {
             for (org.jsoup.nodes.Element link : csslinkElements) {

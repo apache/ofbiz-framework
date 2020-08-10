@@ -40,6 +40,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+/**
+ * Utility to support different handling of code blocks in an html template:
+ * 1. external script tags with data-import="head" are removed from the rendered template and merged with
+ *    layoutSetting.javaScripts. This helps to keep page-specific external script tags to the html-template that needs it.
+ *    In future when the javascript library allows, we can use import module functionality of the browser instead of
+ *    special handling at the server side.
+ * 2. link tags are removed from the rendered template and merged with layoutSetting.styleSheets.
+ *    This helps to keep page-specific link tags to the html-template that needs it.
+ * 3. Inline javascript tags are turned into external javascript tags for better compliance of Content Security Policy.
+ *    These external javascript tags are placed at the bottom of the html page. The scripts are retrieved via the getJs
+ *    request handler.
+ */
 public final class MultiBlockHtmlTemplateUtil {
 
     private static final String MODULE = MultiBlockHtmlTemplateUtil.class.getName();
@@ -438,6 +450,10 @@ public final class MultiBlockHtmlTemplateUtil {
         return "";
     }
 
+    /**
+     * cleanup the script cache when user session is invalidated.
+     * @param session
+     */
     public static void cleanupScriptCache(HttpSession session) {
         scriptCache.remove(session.getId());
     }
