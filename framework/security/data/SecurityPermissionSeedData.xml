@@ -29,6 +29,7 @@ under the License.
     <SecurityPermission permissionId="update" description="Base UPDATE permission"/>
     <SecurityPermission permissionId="delete" description="Base DELETE permission"/>
     <SecurityPermission permissionId="OFBTOOLS_VIEW" description="Permission to access the Stock OFBiz Manager Applications."/>
+    <SecurityPermission description="Permission to access the Stock OFBiz Manager Applications." permissionId="OFBTOOLS_VIEW"/>
 
     <!-- normally only permissions in this file, however permission group SUPER is an exception -->
     <SecurityGroup groupId="SUPER" description="Super admin group, has all *_ADMIN permission loaded as seed data" groupName="Super"/>
