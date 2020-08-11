@@ -160,5 +160,7 @@ under the License.
     <PerfRatingType perfRatingTypeId="5" hasTable="N" description="Consistently Exceeds"/>
     
     <!-- Public Holiday -->
-    <WorkEffortType workEffortTypeId="PUBLIC_HOLIDAY" description="Public Holiday" hasTable="N"/> 
+    <WorkEffortType workEffortTypeId="PUBLIC_HOLIDAY" description="Public Holiday" hasTable="N"/>
+
+    <SecurityPermission description="Employee can check the status of his requests and trainings assigned to him with this permission." permissionId="EMPLOYEE_VIEW"/>
 </entity-engine-xml>
