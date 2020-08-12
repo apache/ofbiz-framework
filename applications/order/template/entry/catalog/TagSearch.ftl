@@ -51,11 +51,13 @@ under the License.
 
     <@paginationControls/>
     <div class="productsummary-container">
+        <div class="row">
         <#list productIds as productId> <#-- note that there is no boundary range because that is being done before the list is put in the content -->
             ${setRequestAttribute("optProductId", productId)}
             ${setRequestAttribute("listIndex", productId_index)}
             ${screens.render(productsummaryScreen)}
         </#list>
+        </div>
     </div>
     <@paginationControls/>
 </#if>

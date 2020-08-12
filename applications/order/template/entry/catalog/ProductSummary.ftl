@@ -17,40 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 ${virtualJavaScript!}
-<script type="text/javascript">
-<!--
-    function displayProductVirtualId(variantId, virtualProductId, pForm) {
-        if(variantId){
-            pForm.product_id.value = variantId;
-        }else{
-            pForm.product_id.value = '';
-            variantId = '';
-        }
-        var elem = document.getElementById('product_id_display');
-        var txt = document.createTextNode(variantId);
-        if(elem.hasChildNodes()) {
-            elem.replaceChild(txt, elem.firstChild);
-        } else {
-            elem.appendChild(txt);
-        }
-        
-        var priceElem = document.getElementById('variant_price_display');
-        var price = getVariantPrice(variantId);
-        var priceTxt = null;
-        if(price){
-            priceTxt = document.createTextNode(price);
-        }else{
-            priceTxt = document.createTextNode('');
-        }
-        
-        if(priceElem.hasChildNodes()) {
-            priceElem.replaceChild(priceTxt, priceElem.firstChild);
-        } else {
-            priceElem.appendChild(priceTxt);
-        }
-    }
-//-->
-</script>
+${screens.render("component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productvariantjs")}
+${variantInfoJavaScript!}
 <#if product??>
     <#-- variable setup -->
     <#if "Y" == backendPath?default("N")>
@@ -133,15 +101,15 @@ ${virtualJavaScript!}
               <a href="javascript:document.the${requestAttributes.formNamePrefix!}${requestAttributes.listIndex!}form.submit()" class="buttontext">${uiLabelMap.OrderAddToCart}</a>
             <#if mainProducts?has_content>
                 <input type="hidden" name="product_id" value=""/>
-                <select name="productVariantId" onchange="javascript:displayProductVirtualId(this.value, '${product.productId}', this.form);">
-                    <option value="">Select Unit Of Measure</option>
+                <select name="productVariantId" style="width: 100%;">
+                    <option value="">${uiLabelMap.CommonSelect} ${uiLabelMap.ProductUnitOfMeasure}</option>
                     <#list mainProducts as mainProduct>
                         <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
                     </#list>
                 </select>
-                <div style="display: inline-block;">
-                    <strong><span id="product_id_display"> </span></strong>
-                    <strong><span id="variant_price_display"> </span></strong>
+                <div class="variant-price" style="display: none;">
+                    <strong><span class="product_id_display"> </span></strong>
+                    <strong><span class="variant_price_display"> </span></strong>
                 </div>
             </#if>
             </form>
