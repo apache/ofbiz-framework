@@ -54,19 +54,22 @@ if (project.hasProperty('jvmArgs')) {
 }
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
-javadoc.failOnError = true
-javadoc.options {
-    source '8'
-    encoding "UTF-8"
-    charSet "UTF-8"
-    // Those external Javadoc links should correspond to the actual
-    // versions declared in the "dependencies" block.
-    links(
-        "https://docs.oracle.com/javase/8/docs/api",
-        "https://docs.oracle.com/javaee/7/api",
-        "http://docs.groovy-lang.org/docs/groovy-2.4.13/html/api",
-        "https://commons.apache.org/proper/commons-cli/apidocs"
-    )
+javadoc {
+    title='OFBiz R18.12 API'
+    failOnError = true
+    options {
+        source '8'
+        encoding "UTF-8"
+        charSet "UTF-8"
+        // Those external Javadoc links should correspond to the actual
+        // versions declared in the "dependencies" block.
+        links(
+            "https://docs.oracle.com/javase/8/docs/api",
+            "https://docs.oracle.com/javaee/7/api",
+            "http://docs.groovy-lang.org/docs/groovy-2.4.13/html/api",
+            "https://commons.apache.org/proper/commons-cli/apidocs"
+        )
+    }
 }
 // Checks OFBiz Java coding conventions.
 checkstyle {
