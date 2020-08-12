@@ -89,6 +89,7 @@ distributions.main.contents.from(rootDir) {
 }
 
 javadoc {
+    title='OFBiz trunk API'
     failOnError = true
     options {
         source '8'
