@@ -53,6 +53,7 @@ if (project.hasProperty('jvmArgs')) {
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
 javadoc.failOnError = true
+javadoc.title = "OFBiz R17.12 API"
 javadoc.options {
     encoding "UTF-8"
     charSet "UTF-8"
