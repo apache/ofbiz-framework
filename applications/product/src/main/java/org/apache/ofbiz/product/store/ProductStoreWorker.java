@@ -81,7 +81,7 @@ public final class ProductStoreWorker {
         defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
     }
 
-    private ProductStoreWorker() {}
+    private ProductStoreWorker() { }
 
     public static GenericValue getProductStore(String productStoreId, Delegator delegator) {
         if (productStoreId == null || delegator == null) {
@@ -139,7 +139,7 @@ public final class ProductStoreWorker {
             return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
         }
     }
-    
+
     public static TimeZone getStoreTimeZone(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
         if (UtilValidate.isEmpty(productStore)) {
@@ -196,7 +196,7 @@ public final class ProductStoreWorker {
 
         String payProps = "payment.properties";
         if (setting != null && setting.get("paymentPropertiesPath") != null) {
-            payProps =  setting.getString("paymentPropertiesPath");
+            payProps = setting.getString("paymentPropertiesPath");
         }
         return payProps;
     }
@@ -378,9 +378,9 @@ public final class ProductStoreWorker {
                 }
                 if (UtilValidate.isNotEmpty(includeGeoId)) {
                     List<GenericValue> includeGeoGroup = GeoWorker.expandGeoGroup(includeGeoId, delegator);
-                    if (!GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("countryGeoId"), delegator) &&
-                            !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("stateProvinceGeoId"), delegator) &&
-                            !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
+                    if (!GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("countryGeoId"), delegator)
+                            && !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("stateProvinceGeoId"), delegator)
+                            && !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
                         // not in required included geos
                         returnShippingMethods.remove(method);
                         continue;
@@ -388,9 +388,9 @@ public final class ProductStoreWorker {
                 }
                 if (UtilValidate.isNotEmpty(excludeGeoId)) {
                     List<GenericValue> excludeGeoGroup = GeoWorker.expandGeoGroup(excludeGeoId, delegator);
-                    if (GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("countryGeoId"), delegator) ||
-                            GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("stateProvinceGeoId"), delegator) ||
-                            GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
+                    if (GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("countryGeoId"), delegator)
+                            || GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("stateProvinceGeoId"), delegator)
+                            || GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
                         // in excluded geos
                         returnShippingMethods.remove(method);
                         continue;
@@ -479,7 +479,7 @@ public final class ProductStoreWorker {
     }
 
     public static List<GenericValue> getProductSurveys(Delegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
-        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId,parentProductId);
+        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, parentProductId);
     }
 
     public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
@@ -500,7 +500,7 @@ public final class ProductStoreWorker {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
-         Debug.logInfo("getSurvey for product " + productId,MODULE);
+         Debug.logInfo("getSurvey for product " + productId, MODULE);
         // limit by product
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(storeSurveys)) {
             for (GenericValue surveyAppl: storeSurveys) {
@@ -513,11 +513,10 @@ public final class ProductStoreWorker {
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
                         if (parentProductId != null) {
                             virtualProductId = parentProductId;
-                        }
-                        else {
+                        } else {
                             virtualProductId = ProductWorker.getVariantVirtualId(product);
                         }
-                        Debug.logInfo("getSurvey for virtual product " + virtualProductId,MODULE);
+                        Debug.logInfo("getSurvey for virtual product " + virtualProductId, MODULE);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem finding product from productId " + productId, MODULE);
@@ -679,7 +678,9 @@ public final class ProductStoreWorker {
         // if prodCatalog is set to not check inventory break here
         if ("N".equals(productStore.getString("checkInventory"))) {
             // note: if not set, defaults to yes, check inventory
-            if (Debug.verboseOn()) Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
+            }
             return true;
         }
         boolean isInventoryAvailable = false;

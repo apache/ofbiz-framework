@@ -46,7 +46,6 @@ import javax.script.SimpleScriptContext;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.ScriptHelper;
 import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
@@ -69,7 +68,7 @@ public final class ScriptUtil {
     public static final String RESULT_KEY = "result";
     /** The <code>ScriptHelper</code> key. */
     public static final String SCRIPT_HELPER_KEY = "ofbiz";
-    private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
+    private static final UtilCache<String, CompiledScript> PARSED_SCRIPTS = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
     /** A set of script names - derived from the JSR-223 scripting engines. */
     public static final Set<String> SCRIPT_NAMES;
@@ -117,7 +116,7 @@ public final class ScriptUtil {
      */
     public static CompiledScript compileScriptFile(String filePath) throws ScriptException, IOException {
         Assert.notNull("filePath", filePath);
-        CompiledScript script = parsedScripts.get(filePath);
+        CompiledScript script = PARSED_SCRIPTS.get(filePath);
         if (script == null) {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByExtension(getFileExtension(filePath));
@@ -138,7 +137,7 @@ public final class ScriptUtil {
                 }
             }
             if (script != null) {
-                parsedScripts.putIfAbsent(filePath, script);
+                PARSED_SCRIPTS.putIfAbsent(filePath, script);
             }
         }
         return script;
@@ -156,7 +155,7 @@ public final class ScriptUtil {
     public static CompiledScript compileScriptString(String language, String script) throws ScriptException {
         Assert.notNull("language", language, "script", script);
         String cacheKey = language.concat("://").concat(script);
-        CompiledScript compiledScript = parsedScripts.get(cacheKey);
+        CompiledScript compiledScript = PARSED_SCRIPTS.get(cacheKey);
         if (compiledScript == null) {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName(language);
@@ -175,7 +174,7 @@ public final class ScriptUtil {
                 }
             }
             if (compiledScript != null) {
-                parsedScripts.putIfAbsent(cacheKey, compiledScript);
+                PARSED_SCRIPTS.putIfAbsent(cacheKey, compiledScript);
             }
         }
         return compiledScript;
@@ -271,7 +270,8 @@ public final class ScriptUtil {
      * @return The script result.
      * @throws IllegalArgumentException
      */
-    public static Object executeScript(CompiledScript script, String functionName, ScriptContext scriptContext, Object[] args) throws ScriptException, NoSuchMethodException {
+    public static Object executeScript(CompiledScript script, String functionName, ScriptContext scriptContext, Object[] args)
+            throws ScriptException, NoSuchMethodException {
         Assert.notNull("script", script, "scriptContext", scriptContext);
         Object result = script.eval(scriptContext);
         if (UtilValidate.isNotEmpty(functionName)) {
@@ -299,7 +299,7 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      */
     public static Object executeScript(String filePath, String functionName, Map<String, Object> context) {
-        return executeScript(filePath, functionName, context, new Object[] { context });
+        return executeScript(filePath, functionName, context, new Object[] {context });
     }
 
     /**
@@ -399,7 +399,7 @@ public final class ScriptUtil {
         return scriptClass;
     }
 
-    private ScriptUtil() {}
+    private ScriptUtil() { }
 
     private static final class ProtectedBindings implements Bindings {
         private final Map<String, Object> bindings;

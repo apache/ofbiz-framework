@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  */
 public interface EntityCondition extends IsEmpty, Serializable {
 
-    static final long serialVersionUID = -7601205800717391212L;
+    long serialVersionUID = -7601205800717391212L;
 
     /**
      * Constructs a condition expression to represent a comparison between two elements.
@@ -55,7 +55,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param rhs the right hand side element
      * @return a condition expression representing a comparison between two elements
      */
-    static <L,R,LL,RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
+    static <L, R, LL, RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL, RR> operator, R rhs) {
         return new EntityExpr(lhs, operator, rhs);
     }
 
@@ -91,7 +91,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      */
     @SafeVarargs
     static <R extends EntityCondition, T extends R>
-    EntityConditionList<R> makeCondition(EntityJoinOperator operator, T... conditionList) {
+            EntityConditionList<R> makeCondition(EntityJoinOperator operator, T... conditionList) {
         return new EntityConditionList<>(Arrays.asList(conditionList), operator);
     }
 
@@ -103,7 +103,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      */
     @SafeVarargs
     static <R extends EntityCondition, T extends R>
-    EntityConditionList<R> makeCondition(T... conditionList) {
+            EntityConditionList<R> makeCondition(T... conditionList) {
         return new EntityConditionList<>(Arrays.asList(conditionList), EntityOperator.AND);
     }
 
@@ -115,7 +115,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @return a condition expression representing a combination of condition expressions.
      */
     static <T extends EntityCondition>
-    EntityConditionList<T> makeCondition(List<? extends T> conditionList, EntityJoinOperator operator) {
+            EntityConditionList<T> makeCondition(List<? extends T> conditionList, EntityJoinOperator operator) {
         return new EntityConditionList<>(conditionList, operator);
     }
 
@@ -137,8 +137,8 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param joinOp the binary infix operator used to join the field/value comparisons
      * @return a condition expression representing a combination of field/value comparisons
      */
-    static <L,R> EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap,
-            EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp) {
+    static <L, R> EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap,
+            EntityComparisonOperator<L, R> compOp, EntityJoinOperator joinOp) {
         return new EntityFieldMap(fieldMap, compOp, joinOp);
     }
 
@@ -171,7 +171,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param keysValues the field/values pairs to match
      * @return a condition expression representing a combination of field/value comparisons
      */
-    static <L,R> EntityFieldMap makeCondition(EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp,
+    static <L, R> EntityFieldMap makeCondition(EntityComparisonOperator<L, R> compOp, EntityJoinOperator joinOp,
             Object... keysValues) {
         return new EntityFieldMap(compOp, joinOp, keysValues);
     }

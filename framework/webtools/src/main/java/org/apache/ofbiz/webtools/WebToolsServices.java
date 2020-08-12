@@ -103,7 +103,7 @@ import org.xml.sax.SAXException;
 public class WebToolsServices {
 
     private static final String MODULE = WebToolsServices.class.getName();
-    public static final String resource = "WebtoolsUiLabels";
+    private static final String RESOURCE = "WebtoolsUiLabels";
 
     public static Map<String, Object> entityImport(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -111,17 +111,17 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         List<String> messages = new LinkedList<>();
 
-        String filename = (String)context.get("filename");
-        String fmfilename = (String)context.get("fmfilename");
-        String fulltext = (String)context.get("fulltext");
-        boolean isUrl = (String)context.get("isUrl") != null;
-        String onlyInserts = (String)context.get("onlyInserts");
-        String maintainTimeStamps = (String)context.get("maintainTimeStamps");
-        String createDummyFks = (String)context.get("createDummyFks");
+        String filename = (String) context.get("filename");
+        String fmfilename = (String) context.get("fmfilename");
+        String fulltext = (String) context.get("fulltext");
+        boolean isUrl = (String) context.get("isUrl") != null;
+        String onlyInserts = (String) context.get("onlyInserts");
+        String maintainTimeStamps = (String) context.get("maintainTimeStamps");
+        String createDummyFks = (String) context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
         }
@@ -132,11 +132,13 @@ public class WebToolsServices {
         // #############################
         if (UtilValidate.isNotEmpty(filename)) {
             try {
-                url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
+                url = isUrl ? FlexibleLocation.resolveLocation(filename) : UtilURL.fromFilename(filename);
             } catch (MalformedURLException mue) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsInvalidFileName", UtilMisc.toMap("filename", filename, "errorString", mue.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsInvalidFileName",
+                        UtilMisc.toMap("filename", filename, "errorString", mue.getMessage()), locale));
             } catch (Exception exc) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingFileName", UtilMisc.toMap("filename", filename, "errorString", exc.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorReadingFileName",
+                        UtilMisc.toMap("filename", filename, "errorString", exc.getMessage()), locale));
             }
         }
 
@@ -146,7 +148,8 @@ public class WebToolsServices {
         if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
             File fmFile = new File(fmfilename);
             if (!fmFile.exists()) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorReadingTemplateFile",
+                        UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
             }
             try {
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -168,7 +171,8 @@ public class WebToolsServices {
                 FreeMarkerWorker.renderTemplate(fmFile.toURI().toURL().toString(), fmcontext, outWriter);
                 fulltext = outWriter.toString();
             } catch (Exception ex) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorProcessingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", ex.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorProcessingTemplateFile",
+                        UtilMisc.toMap("filename", fmfilename, "errorString", ex.getMessage()), locale));
             }
         }
 
@@ -178,12 +182,12 @@ public class WebToolsServices {
         if (fulltext != null || url != null) {
             try {
                 Map<String, Object> inputMap = UtilMisc.toMap("onlyInserts", onlyInserts,
-                                              "createDummyFks", createDummyFks,
-                                              "checkDataOnly", checkDataOnly,
-                                              "maintainTimeStamps", maintainTimeStamps,
-                                              "txTimeout", txTimeout,
-                                              "placeholderValues", placeholderValues,
-                                              "userLogin", userLogin);
+                        "createDummyFks", createDummyFks,
+                        "checkDataOnly", checkDataOnly,
+                        "maintainTimeStamps", maintainTimeStamps,
+                        "txTimeout", txTimeout,
+                        "placeholderValues", placeholderValues,
+                        "userLogin", userLogin);
                 if (fulltext != null) {
                     inputMap.put("xmltext", fulltext);
                 } else {
@@ -191,18 +195,19 @@ public class WebToolsServices {
                 }
                 Map<String, Object> outputMap = dispatcher.runSync("parseEntityXmlFile", inputMap);
                 if (ServiceUtil.isError(outputMap)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorParsingFile", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorParsingFile",
+                            UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
                 } else {
-                    Long numberRead = (Long)outputMap.get("rowProcessed");
-                    messages.add(UtilProperties.getMessage(resource, "EntityImportRowProcessed", UtilMisc.toMap("numberRead", numberRead.toString()), locale));
+                    Long numberRead = (Long) outputMap.get("rowProcessed");
+                    messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportRowProcessed",
+                            UtilMisc.toMap("numberRead", numberRead.toString()), locale));
                 }
             } catch (GenericServiceException gsex) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", gsex.getMessage()), locale));
-            } catch (Exception ex) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", ex.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportParsingError",
+                        UtilMisc.toMap("errorString", gsex.getMessage()), locale));
             }
         } else {
-            messages.add(UtilProperties.getMessage(resource, "EntityImportNoXmlFileSpecified", locale));
+            messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportNoXmlFileSpecified", locale));
         }
 
         // send the notification
@@ -224,8 +229,8 @@ public class WebToolsServices {
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
-        Integer txTimeout = (Integer)context.get("txTimeout");
-        Long filePause = (Long)context.get("filePause");
+        Integer txTimeout = (Integer) context.get("txTimeout");
+        Long filePause = (Long) context.get("filePause");
 
         if (txTimeout == null) {
             txTimeout = 7200;
@@ -241,21 +246,21 @@ public class WebToolsServices {
             if (baseDir.isDirectory() && baseDir.canRead()) {
                 File[] fileArray = baseDir.listFiles();
                 List<File> files = new LinkedList<>();
-                for (File file: fileArray) {
+                for (File file : fileArray) {
                     if (file.getName().toUpperCase().endsWith("XML")) {
                         files.add(file);
                     }
                 }
 
-                int passes=0;
+                int passes = 0;
                 int initialListSize = files.size();
                 int lastUnprocessedFilesCount = 0;
                 List<File> unprocessedFiles = new LinkedList<>();
-                while (files.size()>0 &&
-                        files.size() != lastUnprocessedFilesCount) {
+                while (files.size() > 0
+                        && files.size() != lastUnprocessedFilesCount) {
                     lastUnprocessedFilesCount = files.size();
                     unprocessedFiles = new LinkedList<>();
-                    for (File f: files) {
+                    for (File f : files) {
                         Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("onlyInserts", onlyInserts,
                                 "createDummyFks", createDummyFks,
                                 "checkDataOnly", checkDataOnly,
@@ -269,14 +274,17 @@ public class WebToolsServices {
                             parseEntityXmlFileArgs.put("url", furl);
                             Map<String, Object> outputMap = dispatcher.runSync("parseEntityXmlFile", parseEntityXmlFileArgs);
                             Long numberRead = (Long) outputMap.get("rowProcessed");
-                            messages.add(UtilProperties.getMessage(resource, "EntityImportNumberOfEntityToBeProcessed", UtilMisc.toMap("numberRead", numberRead.toString(), "fileName", f.getName()), locale));
+                            messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportNumberOfEntityToBeProcessed",
+                                    UtilMisc.toMap("numberRead", numberRead.toString(), "fileName", f.getName()), locale));
                             if (deleteFiles) {
-                                messages.add(UtilProperties.getMessage(resource, "EntityImportDeletFile", UtilMisc.toMap("fileName", f.getName()), locale));
+                                messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportDeletFile", UtilMisc.toMap("fileName", f.getName()),
+                                        locale));
                                 f.delete();
                             }
                         } catch (Exception e) {
                             unprocessedFiles.add(f);
-                            messages.add(UtilProperties.getMessage(resource, "EntityImportFailedFile", UtilMisc.toMap("fileName", f.getName()), locale));
+                            messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportFailedFile", UtilMisc.toMap("fileName", f.getName()),
+                                    locale));
                         }
                         // pause in between files
                         if (pauseLong > 0) {
@@ -290,23 +298,25 @@ public class WebToolsServices {
                     }
                     files = unprocessedFiles;
                     passes++;
-                    messages.add(UtilProperties.getMessage(resource, "EntityImportPassedFile", UtilMisc.toMap("passes", passes), locale));
+                    messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportPassedFile", UtilMisc.toMap("passes", passes), locale));
                     Debug.logInfo("Pass " + passes + " complete", MODULE);
                 }
-                lastUnprocessedFilesCount=unprocessedFiles.size();
+                lastUnprocessedFilesCount = unprocessedFiles.size();
                 messages.add("---------------------------------------");
-                messages.add(UtilProperties.getMessage(resource, "EntityImportSucceededNumberFile", UtilMisc.toMap("succeeded", (initialListSize-lastUnprocessedFilesCount), "total", initialListSize), locale));
-                messages.add(UtilProperties.getMessage(resource, "EntityImportFailedNumberFile", UtilMisc.toMap("failed", lastUnprocessedFilesCount, "total", initialListSize), locale));
+                messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportSucceededNumberFile", UtilMisc.toMap("succeeded",
+                        (initialListSize - lastUnprocessedFilesCount), "total", initialListSize), locale));
+                messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportFailedNumberFile", UtilMisc.toMap("failed",
+                        lastUnprocessedFilesCount, "total", initialListSize), locale));
                 messages.add("---------------------------------------");
-                messages.add(UtilProperties.getMessage(resource, "EntityImportFailedFileList", locale));
-                for (File file: unprocessedFiles) {
+                messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportFailedFileList", locale));
+                for (File file : unprocessedFiles) {
                     messages.add(file.toString());
                 }
             } else {
-                messages.add(UtilProperties.getMessage(resource, "EntityImportPathNotFound", locale));
+                messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportPathNotFound", locale));
             }
         } else {
-            messages.add(UtilProperties.getMessage(resource, "EntityImportPathNotSpecified", locale));
+            messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportPathNotSpecified", locale));
         }
         // send the notification
         Map<String, Object> resp = UtilMisc.toMap("messages", (Object) messages);
@@ -348,7 +358,8 @@ public class WebToolsServices {
 
         String helperName = delegator.getGroupHelperName(groupNameToUse);
         if (helperName == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportNoDataSourceSpecified", UtilMisc.toMap("groupNameToUse", groupNameToUse), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportNoDataSourceSpecified",
+                    UtilMisc.toMap("groupNameToUse", groupNameToUse), locale));
         }
 
         // get the reader name URLs first
@@ -374,31 +385,29 @@ public class WebToolsServices {
         int totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
-            for (URL dataUrl: urlList) {
+            for (URL dataUrl : urlList) {
                 messages.add(dataUrl.toExternalForm());
             }
 
             messages.add("=-=-=-=-=-=-= Starting the data " + (checkDataOnly ? "check" : "load") + "...");
 
-            for (URL dataUrl: urlList) {
+            for (URL dataUrl : urlList) {
                 try {
                     int rowsChanged = 0;
                     if (checkDataOnly) {
                         try {
                             errorMessages.add("Checking data in [" + dataUrl.toExternalForm() + "]");
                             rowsChanged = EntityDataAssert.assertData(dataUrl, delegator, errorMessages);
-                        } catch (SAXException e) {
-                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
-                        } catch (ParserConfigurationException e) {
-                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
-                        } catch (IOException e) {
+                        } catch (SAXException | IOException | ParserConfigurationException e) {
                             errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
                         }
                     } else {
-                        rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+                        rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs,
+                                tryInserts);
                     }
                     totalRowsChanged += rowsChanged;
-                    infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from " + dataUrl.toExternalForm());
+                    infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from "
+                            + dataUrl.toExternalForm());
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), MODULE);
                 }
@@ -417,7 +426,8 @@ public class WebToolsServices {
             messages.addAll(errorMessages);
         }
 
-        messages.add("=-=-=-=-=-=-= Finished the data " + (checkDataOnly ? "check" : "load") + " with " + totalRowsChanged + " rows " + (checkDataOnly ? "checked" : "changed") + ".");
+        messages.add("=-=-=-=-=-=-= Finished the data " + (checkDataOnly ? "check" : "load") + " with " + totalRowsChanged + " rows "
+                + (checkDataOnly ? "checked" : "changed") + ".");
 
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         resultMap.put("messages", messages);
@@ -431,7 +441,7 @@ public class WebToolsServices {
         String xmltext = (String) context.get("xmltext");
 
         if (url == null && xmltext == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportNoXmlFileOrTextSpecified", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportNoXmlFileOrTextSpecified", locale));
         }
         boolean onlyInserts = (String) context.get("onlyInserts") != null;
         boolean maintainTimeStamps = (String) context.get("maintainTimeStamps") != null;
@@ -457,7 +467,8 @@ public class WebToolsServices {
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
             rowProcessed = numberRead;
         } catch (Exception ex) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportParsingError", UtilMisc.toMap("errorString", ex.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportParsingError", UtilMisc.toMap("errorString",
+                    ex.toString()), locale));
         }
         // send the notification
         Map<String, Object> resp = UtilMisc.<String, Object>toMap("rowProcessed", rowProcessed);
@@ -467,9 +478,9 @@ public class WebToolsServices {
     public static Map<String, Object> entityExportAll(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String outpath = (String)context.get("outpath"); // mandatory
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        String outpath = (String) context.get("outpath"); // mandatory
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
         }
@@ -488,15 +499,15 @@ public class WebToolsServices {
                     Collection<String> ec = reader.getEntityNames();
                     passedEntityNames = new TreeSet<>(ec);
                 } catch (Exception exc) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportErrorRetrievingEntityNames", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportErrorRetrievingEntityNames", locale));
                 }
                 int fileNumber = 1;
 
-                for (String curEntityName: passedEntityNames) {
+                for (String curEntityName : passedEntityNames) {
                     long numberWritten = 0;
                     ModelEntity me = delegator.getModelEntity(curEntityName);
                     if (me instanceof ModelViewEntity) {
-                        results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
+                        results.add("[" + fileNumber + "] [vvv] " + curEntityName + " skipping view entity");
                         continue;
                     }
                     List<EntityCondition> conds = new LinkedList<>();
@@ -507,12 +518,13 @@ public class WebToolsServices {
 
                     try {
                         boolean beganTx = TransactionUtil.begin();
-                        // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
-                        //Don't bother writing the file if there's nothing to put into it
+                        // some databases don't support cursors, or other problems may happen, so if there is an error here log it and
+                        // move on to get as much as possible. Don't bother writing the file if there's nothing to put into it
                         try (EntityListIterator values = eq.queryIterator()) {
                             GenericValue value = values.next();
                             if (value != null) {
-                                try (PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, curEntityName +".xml")), "UTF-8")))) {
+                                try (PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                                        new File(outdir, curEntityName + ".xml")), "UTF-8")))) {
                                     writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                                     writer.println("<entity-engine-xml>");
                                     do {
@@ -525,15 +537,15 @@ public class WebToolsServices {
                                     } while ((value = values.next()) != null);
                                     writer.println("</entity-engine-xml>");
                                 } catch (UnsupportedEncodingException | FileNotFoundException e) {
-                                    results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + e);
+                                    results.add("[" + fileNumber + "] [xxx] Error when writing " + curEntityName + ": " + e);
                                 }
-                                results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
+                                results.add("[" + fileNumber + "] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
                             } else {
-                                results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
+                                results.add("[" + fileNumber + "] [---] " + curEntityName + " has no records, not writing file");
                             }
                             TransactionUtil.commit(beganTx);
                         } catch (GenericEntityException entityEx) {
-                            results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
+                            results.add("[" + fileNumber + "] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;
                         }
                         fileNumber++;
@@ -553,58 +565,59 @@ public class WebToolsServices {
         return resp;
     }
 
-    /** Get entity reference data. Returns the number of entities in
+    /**
+     * Get entity reference data. Returns the number of entities in
      * <code>numberOfEntities</code> and a List of Maps -
      * <code>packagesList</code>.
      * Each Map contains:<br>
      * <ul><li><code>packageName</code> - the entity package name</li>
      * <li><code>entitiesList</code> - a list of Maps:
-       <ul>
-         <li><code>entityName</code></li>
-         <li><code>helperName</code></li>
-         <li><code>groupName</code></li>
-         <li><code>plainTableName</code></li>
-         <li><code>title</code></li>
-         <li><code>description</code></li>
-         <!-- <li><code>location</code></li> -->
-         <li><code>javaNameList</code> - list of Maps:
-           <ul>
-             <li><code>isPk</code></li>
-             <li><code>name</code></li>
-             <li><code>colName</code></li>
-             <li><code>description</code></li>
-             <li><code>type</code></li>
-             <li><code>javaType</code></li>
-             <li><code>sqlType</code></li>
-           </ul>
-         </li>
-         <li><code>relationsList</code> - list of Maps:
-           <ul>
-             <li><code>title</code></li>
-             <!-- <li><code>description</code></li> -->
-             <li><code>relEntity</code></li>
-             <li><code>fkName</code></li>
-             <li><code>type</code></li>
-             <li><code>length</code></li>
-             <li><code>keysList</code> - list of Maps:
-               <ul>
-                 <li><code>row</code></li>
-                 <li><code>fieldName</code></li>
-                 <li><code>relFieldName</code></li>
-               </ul>
-             </li>
-           </ul>
-         </li>
-         <li><code>indexList</code> - list of Maps:
-           <ul>
-             <li><code>name</code></li>
-             <!-- <li><code>description</code></li> -->
-             <li><code>fieldNameList</code> - list of Strings</li>
-           </ul>
-         </li>
-       </ul>
-       </li></ul>
-     * */
+     * <ul>
+     * <li><code>entityName</code></li>
+     * <li><code>helperName</code></li>
+     * <li><code>groupName</code></li>
+     * <li><code>plainTableName</code></li>
+     * <li><code>title</code></li>
+     * <li><code>description</code></li>
+     * <!-- <li><code>location</code></li> -->
+     * <li><code>javaNameList</code> - list of Maps:
+     * <ul>
+     * <li><code>isPk</code></li>
+     * <li><code>name</code></li>
+     * <li><code>colName</code></li>
+     * <li><code>description</code></li>
+     * <li><code>type</code></li>
+     * <li><code>javaType</code></li>
+     * <li><code>sqlType</code></li>
+     * </ul>
+     * </li>
+     * <li><code>relationsList</code> - list of Maps:
+     * <ul>
+     * <li><code>title</code></li>
+     * <!-- <li><code>description</code></li> -->
+     * <li><code>relEntity</code></li>
+     * <li><code>fkName</code></li>
+     * <li><code>type</code></li>
+     * <li><code>length</code></li>
+     * <li><code>keysList</code> - list of Maps:
+     * <ul>
+     * <li><code>row</code></li>
+     * <li><code>fieldName</code></li>
+     * <li><code>relFieldName</code></li>
+     * </ul>
+     * </li>
+     * </ul>
+     * </li>
+     * <li><code>indexList</code> - list of Maps:
+     * <ul>
+     * <li><code>name</code></li>
+     * <!-- <li><code>description</code></li> -->
+     * <li><code>fieldNameList</code> - list of Strings</li>
+     * </ul>
+     * </li>
+     * </ul>
+     * </li></ul>
+     */
     public static Map<String, Object> getEntityRefData(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -620,7 +633,7 @@ public class WebToolsServices {
         try {
             Collection<String> ec = reader.getEntityNames();
             resultMap.put("numberOfEntities", ec.size());
-            for (String eName: ec) {
+            for (String eName : ec) {
                 ModelEntity ent = reader.getModelEntity(eName);
                 //make sure the table name is in the list of all table names, if not null
                 if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
@@ -635,7 +648,8 @@ public class WebToolsServices {
                 entities.add(eName);
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportErrorRetrievingEntityNames", locale) + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportErrorRetrievingEntityNames", locale)
+                    + e.getMessage());
         }
 
         String search = (String) context.get("search");
@@ -645,7 +659,7 @@ public class WebToolsServices {
                 Map<String, Object> packageMap = new HashMap<>();
                 TreeSet<String> entities = entitiesByPackage.get(pName);
                 List<Map<String, Object>> entitiesList = new LinkedList<>();
-                for (String entityName: entities) {
+                for (String entityName : entities) {
                     Map<String, Object> entityMap = new HashMap<>();
                     String helperName = delegator.getEntityHelperName(entityName);
                     String groupName = delegator.getEntityGroupName(entityName);
@@ -664,7 +678,7 @@ public class WebToolsServices {
                             try {
                                 entityDescription = bundle.getString("EntityDescription." + entity.getEntityName());
                             } catch (Exception exception) {
-                                Debug.logError(exception, MODULE);
+                                Debug.logWarning("EntityDescription for entity " + entity.getEntityName() + " is missing", MODULE);
                             }
                         }
                         if (UtilValidate.isEmpty(entityDescription)) {
@@ -685,7 +699,8 @@ public class WebToolsServices {
                                 try {
                                     fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
                                 } catch (Exception exception) {
-                                    Debug.logError(exception, MODULE);
+                                    Debug.logWarning("FieldDescription for entity.field " + entity.getEntityName() + "."
+                                            + field.getName() + " is missing", MODULE);
                                 }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
@@ -693,9 +708,9 @@ public class WebToolsServices {
                             }
                             if (UtilValidate.isEmpty(fieldDescription) && bundle != null) {
                                 try {
-                                fieldDescription = bundle.getString("FieldDescription." + field.getName());
+                                    fieldDescription = bundle.getString("FieldDescription." + field.getName());
                                 } catch (Exception exception) {
-                                    Debug.logError(exception, MODULE);
+                                    Debug.logWarning("FieldDescription for field " + field.getName() + " is missing", MODULE);
                                 }
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
@@ -781,7 +796,8 @@ public class WebToolsServices {
                 packagesList.add(packageMap);
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityImportErrorRetrievingEntityNames", locale) + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityImportErrorRetrievingEntityNames", locale)
+                    + e.getMessage());
         }
 
         resultMap.put("packagesList", packagesList);
@@ -809,10 +825,12 @@ public class WebToolsServices {
                 outdir.mkdir();
             }
             if (!outdir.isDirectory()) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelFullPathIsNotADirectory", UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotADirectory",
+                        UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
             }
             if (!outdir.canWrite()) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelFullPathIsNotWriteable", UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotWriteable",
+                        UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
             }
 
             Set<String> entityNames = new TreeSet<>();
@@ -823,7 +841,7 @@ public class WebToolsServices {
                 Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, MODULE);
 
                 Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(entityPackageNameSet, null);
-                for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry: entitiesByPackage.entrySet()) {
+                for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry : entitiesByPackage.entrySet()) {
                     entityNames.addAll(entitiesByPackageMapEntry.getValue());
                 }
             } else if (UtilValidate.isNotEmpty(entityGroupId)) {
@@ -849,7 +867,7 @@ public class WebToolsServices {
             topLevelMap.put("EOModelVersion", "\"2.1\"");
             List<Map<String, Object>> entitiesMapList = new LinkedList<>();
             topLevelMap.put("entities", entitiesMapList);
-            for (String entityName: entityNames) {
+            for (String entityName : entityNames) {
                 Map<String, Object> entitiesMap = new HashMap<>();
                 entitiesMapList.add(entitiesMap);
                 entitiesMap.put("className", "EOGenericRecord");
@@ -858,24 +876,31 @@ public class WebToolsServices {
             UtilPlist.writePlistFile(topLevelMap, eomodeldFullPath, "index.eomodeld", true);
 
             // write each <EntityName>.plist file
-            for (String curEntityName: entityNames) {
+            for (String curEntityName : entityNames) {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
-                UtilPlist.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath, curEntityName +".plist", true);
+                UtilPlist.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath,
+                        curEntityName + ".plist", true);
             }
             Integer entityNamesSize = entityNames.size();
-            return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "WebtoolsEomodelExported", UtilMisc.toMap("entityNamesSize", entityNamesSize.toString(), "eomodeldFullPath", eomodeldFullPath), locale));
+            return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelExported",
+                    UtilMisc.toMap("entityNamesSize", entityNamesSize.toString(), "eomodeldFullPath", eomodeldFullPath), locale));
         } catch (UnsupportedEncodingException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelSavingFileError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelSavingFileError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelFileOrDirectoryNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFileOrDirectoryNotFound",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelErrorGettingEntityNames", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelErrorGettingEntityNames",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
     }
 
-    /** Performs an entity maintenance security check. Returns hasPermission=true
+    /**
+     * Performs an entity maintenance security check. Returns hasPermission=true
      * if the user has the ENTITY_MAINT permission.
-     * @param dctx the dispatch context
+     *
+     * @param dctx    the dispatch context
      * @param context the context
      * @return return the result of the service execution
      */
@@ -888,7 +913,7 @@ public class WebToolsServices {
             resultMap = ServiceUtil.returnSuccess();
             resultMap.put("hasPermission", true);
         } else {
-            resultMap = ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "WebtoolsPermissionError", locale));
+            resultMap = ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "WebtoolsPermissionError", locale));
             resultMap.put("hasPermission", false);
         }
         return resultMap;
@@ -913,10 +938,12 @@ public class WebToolsServices {
             outdir.mkdir();
         }
         if (!outdir.isDirectory()) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelFullPathIsNotADirectory", UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotADirectory",
+                    UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
         }
         if (!outdir.canWrite()) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelFullPathIsNotWriteable", UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotWriteable",
+                    UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
         }
 
         try {
@@ -925,11 +952,14 @@ public class WebToolsServices {
             serviceInfo.writeServiceCallGraphEoModel(eomodeldFullPath);
         } catch (GeneralException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelErrorGettingEntityNames", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelErrorGettingEntityNames",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (UnsupportedEncodingException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelSavingFileError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelSavingFileError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelFileOrDirectoryNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFileOrDirectoryNotFound",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();

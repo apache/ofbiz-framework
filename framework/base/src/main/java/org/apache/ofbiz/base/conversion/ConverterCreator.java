@@ -30,5 +30,5 @@ public interface ConverterCreator {
      * @param targetClass The target <code>Class</code> to convert to
      * @return a converter that can convert <code>Object</code>s
      */
-    public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass);
+    <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass);
 }

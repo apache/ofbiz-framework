@@ -140,7 +140,7 @@ public class DataServices {
             try {
                 GenericValue statusItem = EntityQuery.use(delegator).from("StatusItem").where("statusTypeId", "CONTENT_STATUS").orderBy("sequenceId").queryFirst();
                 if (statusItem != null) {
-                    dataResource.put("statusId",  statusItem.get("statusId"));
+                    dataResource.put("statusId", statusItem.get("statusId"));
                 }
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -243,9 +243,7 @@ public class DataServices {
 
         // write the data to the file
         if (UtilValidate.isNotEmpty(textData)) {
-            try (
-                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
-            ) {
+            try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                 out.write(textData);
             } catch (IOException e) {
                 Debug.logWarning(e, MODULE);
@@ -432,9 +430,7 @@ public class DataServices {
 
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
-                try (
-                        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8);
-                ) {
+                try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                     out.write(textData);
                 } catch (IOException e) {
                     Debug.logWarning(e, MODULE);
@@ -511,7 +507,7 @@ public class DataServices {
         Delegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
-        ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
+        ByteBuffer byteBuffer = (ByteBuffer) context.get("imageData");
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {
@@ -544,7 +540,7 @@ public class DataServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
-        ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
+        ByteBuffer byteBuffer = (ByteBuffer) context.get("imageData");
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {
@@ -580,8 +576,8 @@ public class DataServices {
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
-        byte [] imageData = (byte []) context.get("imageData");
-        String rootDir = (String)context.get("rootDir");
+        byte[] imageData = (byte[]) context.get("imageData");
+        String rootDir = (String) context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
             Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
@@ -599,9 +595,7 @@ public class DataServices {
             Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, MODULE);
         }
         if (imageData != null && imageData.length > 0) {
-            try (
-                FileOutputStream out = new FileOutputStream(file);
-            ) {
+            try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), MODULE);
@@ -633,8 +627,8 @@ public class DataServices {
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
-        byte [] imageData = (byte []) context.get("imageData");
-        String rootDir = (String)context.get("rootDir");
+        byte[] imageData = (byte[]) context.get("imageData");
+        String rootDir = (String) context.get("rootDir");
         File file = null;
         if (Debug.infoOn()) {
             Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
@@ -643,21 +637,16 @@ public class DataServices {
         }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | GeneralException e) {
             Debug.logWarning(e, MODULE);
             throw new GenericServiceException(e.getMessage());
-        } catch (GeneralException e2) {
-            Debug.logWarning(e2, MODULE);
-            throw new GenericServiceException(e2.getMessage());
         }
         if (Debug.infoOn()) {
             Debug.logInfo("in updateBinaryFileMethod, file:" + file, MODULE);
             Debug.logInfo("in updateBinaryFileMethod, imageData:" + Arrays.toString(imageData), MODULE);
         }
         if (imageData != null && imageData.length > 0) {
-            try (
-                    FileOutputStream out = new FileOutputStream(file);
-                    ){
+            try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), MODULE);

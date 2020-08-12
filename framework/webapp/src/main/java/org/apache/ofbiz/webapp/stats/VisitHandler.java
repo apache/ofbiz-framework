@@ -163,7 +163,6 @@ public class VisitHandler {
                             GenericValue visitor = (GenericValue) session.getAttribute("visitor");
                             if (visitor != null) {
                                 String visitorId = visitor.getString("visitorId");
-                                
                                 // sometimes these values get stale, so check it before we use it
                                 try {
                                     GenericValue checkVisitor = EntityQuery.use(delegator).from("Visitor").where("visitorId", visitorId).queryOne();
@@ -176,13 +175,11 @@ public class VisitHandler {
                                     Debug.logWarning("Problem checking the visitorId: " + e.toString(), MODULE);
                                 }
                             }
-
                             // get localhost ip address and hostname to store
                             if (address != null) {
                                 visit.set("serverIpAddress", address.getHostAddress());
                                 visit.set("serverHostName", address.getHostName());
                             }
-
                             try {
                                 visit = delegator.createSetNextSeqId(visit);
                                 session.setAttribute("visit", visit);
@@ -194,7 +191,6 @@ public class VisitHandler {
                     }
                 }
             }
-
             if (visit == null) {
                 Debug.logWarning("Could not find or create the visit...", MODULE);
             }
@@ -202,13 +198,11 @@ public class VisitHandler {
         }
         return null;
     }
-
     public static GenericValue getVisitor(HttpServletRequest request, HttpServletResponse response) {
         // this defaults to true: ie if anything but "false" it will be true
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (!EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visitor", "false", delegator)) {
             HttpSession session = request.getSession();
-
             GenericValue visitor = (GenericValue) session.getAttribute("visitor");
             if (visitor == null) {
                 synchronized (session) {
@@ -226,7 +220,9 @@ public class VisitHandler {
                             // first try to get the current ID from the visitor cookie
                             String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
-                            if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, MODULE);
+                            if (Debug.verboseOn()) {
+                                Debug.logVerbose("Cookies:" + cookies, MODULE);
+                            }
                             if (cookies != null) {
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(visitorCookieName)) {
@@ -236,7 +232,9 @@ public class VisitHandler {
                                 }
                             }
 
-                            if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", MODULE);
+                            if (Debug.infoOn()) {
+                                Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", MODULE);
+                            }
 
                             if (UtilValidate.isEmpty(cookieVisitorId)) {
                                 // no visitor cookie? create visitor and send back cookie too

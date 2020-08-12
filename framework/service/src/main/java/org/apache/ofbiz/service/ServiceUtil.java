@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -38,11 +37,8 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.job.JobUtil;
 
 
 /**
@@ -53,17 +49,17 @@ public final class ServiceUtil {
     private static final String MODULE = ServiceUtil.class.getName();
     private static final String resource = "ServiceErrorUiLabels";
 
-    private ServiceUtil () {}
+    private ServiceUtil() { }
 
     /** A little short-cut method to check to see if a service returned an error */
     public static boolean isError(Map<String, ? extends Object> results) {
-        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) &&
-                ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
+        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null)
+                && ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
     public static boolean isFailure(Map<String, ? extends Object> results) {
-        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) &&
-                ModelService.RESPOND_FAIL.equals(results.get(ModelService.RESPONSE_MESSAGE));
+        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null)
+                && ModelService.RESPOND_FAIL.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
     /** A little short-cut method to check to see if a service was successful (neither error or failed) */

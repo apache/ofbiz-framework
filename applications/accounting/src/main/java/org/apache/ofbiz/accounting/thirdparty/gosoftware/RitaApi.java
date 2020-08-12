@@ -76,11 +76,11 @@ public class RitaApi {
     public static final String ORIG_TRANS_AMOUNT = "ORIG_TRANS_AMOUNT";
 
     // IN/OUT validation array
-    private static final String[] validOut = { TERMINATION_STATUS, INTRN_SEQ_NUM, RESULT, RESULT_CODE, RESPONSE_TEXT,
+    private static final String[] validOut = {TERMINATION_STATUS, INTRN_SEQ_NUM, RESULT, RESULT_CODE, RESPONSE_TEXT,
             AUTH_CODE, AVS_CODE, CVV2_CODE, REFERENCE, TRANS_DATE, TRANS_TIME,
             ORIG_TRANS_AMOUNT };
 
-    private static final String[] validIn = { FUNCTION_TYPE, PAYMENT_TYPE, USER_ID, USER_PW, COMMAND, CLIENT_ID,
+    private static final String[] validIn = {FUNCTION_TYPE, PAYMENT_TYPE, USER_ID, USER_PW, COMMAND, CLIENT_ID,
             ACCT_NUM, EXP_MONTH, EXP_YEAR, TRANS_AMOUNT, CARDHOLDER, TRACK_DATA,
             INVOICE, PRESENT_FLAG, CUSTOMER_STREET, CUSTOMER_ZIP, CVV2, TAX_AMOUNT,
             PURCHASE_ID, FORCE_FLAG, ORIG_TRANS_AMOUNT, ORIG_SEQ_NUM };
@@ -185,14 +185,14 @@ public class RitaApi {
             }
 
             String[] lines = resp.split("\n");
-            for (int i = 0; i < lines.length; i++) {
-                Debug.logInfo(lines[i], MODULE);
-                if (!".".equals(lines[i].trim())) {
-                    String[] lineSplit = lines[i].trim().split(" ", 2);
+            for (String line : lines) {
+                Debug.logInfo(line, MODULE);
+                if (!".".equals(line.trim())) {
+                    String[] lineSplit = line.trim().split(" ", 2);
                     if (lineSplit != null && lineSplit.length == 2) {
                         docMap.put(lineSplit[0], lineSplit[1]);
                     } else {
-                        Debug.logWarning("Line split error - " + lines[i], MODULE);
+                        Debug.logWarning("Line split error - " + line, MODULE);
                     }
                 } else {
                     break;

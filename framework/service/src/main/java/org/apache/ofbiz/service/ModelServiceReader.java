@@ -137,8 +137,8 @@ public class ModelServiceReader implements Serializable {
 
                     // check to see if service with same name has already been read
                     if (modelServices.containsKey(serviceName)) {
-                        Debug.logWarning("Service " + serviceName + " is defined more than once, " +
-                            "most recent will over-write previous definition(s)", MODULE);
+                        Debug.logWarning("Service " + serviceName + " is defined more than once, "
+                                + "most recent will over-write previous definition(s)", MODULE);
                     }
                     ModelService service = createModelService(curServiceElement, resourceLocation);
 
@@ -169,6 +169,7 @@ public class ModelServiceReader implements Serializable {
         service.semaphore = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern();
         service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern();
         service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();
+        service.action = UtilXml.checkEmpty(serviceElement.getAttribute("action")).intern();
 
         // these default to true; if anything but true, make false
         service.auth = "true".equalsIgnoreCase(serviceElement.getAttribute("auth"));

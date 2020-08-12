@@ -19,7 +19,7 @@
 package org.apache.ofbiz.minilang;
 
 /**
- * Thrown to indicate a Mini-language run-time error. 
+ * Thrown to indicate a Mini-language run-time error.
  */
 @SuppressWarnings("serial")
 public class MiniLangRuntimeException extends MiniLangException {

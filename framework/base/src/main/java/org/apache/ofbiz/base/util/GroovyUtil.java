@@ -115,9 +115,9 @@ public final class GroovyUtil {
             vars.putAll(context);
             if (UtilValidate.isNotEmpty(expression)) {
                 //analyse expression to find variables by split non alpha, ignoring "_" to allow my_variable usage
-                String [] variables = expression.split("[\\P{Alpha}&&[^_]]+");
+                String[] variables = expression.split("[\\P{Alpha}&&[^_]]+");
                 for (String variable: variables) {
-                    if(!vars.containsKey(variable)) {
+                    if (!vars.containsKey(variable)) {
                         vars.put(variable, null);
                     }
                 }
@@ -125,7 +125,7 @@ public final class GroovyUtil {
             vars.put("context", context);
             if (vars.get(ScriptUtil.SCRIPT_HELPER_KEY) == null) {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
-                ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
+                ScriptHelper scriptHelper = (ScriptHelper) scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
                 if (scriptHelper != null) {
                     vars.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
                 }
@@ -153,7 +153,8 @@ public final class GroovyUtil {
                         Debug.logVerbose("Cached Groovy script at: " + location, MODULE);
                     }
                 } else {
-                    // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the meantime) is used
+                    // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the
+                    // meantime) is used
                     scriptClass = scriptClassCached;
                 }
             }
@@ -213,6 +214,6 @@ public final class GroovyUtil {
         Script script = InvokerHelper.createScript(getScriptClassFromLocation(location), getBinding(context));
         return UtilValidate.isEmpty(methodName)
                 ? script.run()
-                : script.invokeMethod(methodName, new Object[] { context });
+                : script.invokeMethod(methodName, new Object[] {context });
     }
 }

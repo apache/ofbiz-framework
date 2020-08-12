@@ -74,8 +74,8 @@ public class AgreementServices {
         List<Map<String, Object>> commissions = new LinkedList<>();
 
         try {
-            BigDecimal amount = ((BigDecimal)context.get("amount"));
-            BigDecimal quantity = (BigDecimal)context.get("quantity");
+            BigDecimal amount = ((BigDecimal) context.get("amount"));
+            BigDecimal quantity = (BigDecimal) context.get("quantity");
             quantity = quantity == null ? BigDecimal.ONE : quantity;
             boolean negative = amount.signum() < 0;
             // Ensure that price and quantity are positive since the terms may not be linear.

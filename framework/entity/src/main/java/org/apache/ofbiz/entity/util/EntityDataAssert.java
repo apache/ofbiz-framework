@@ -49,7 +49,9 @@ public class EntityDataAssert {
             return 0;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), MODULE);
+        }
 
         try {
             for (GenericValue checkValue: delegator.readXmlDocument(dataUrl)) {
@@ -94,8 +96,8 @@ public class EntityDataAssert {
             ModelEntity modelEntity = checkValue.getModelEntity();
             for (String nonpkFieldName: modelEntity.getNoPkFieldNames()) {
                 // skip the fields the entity engine maintains
-                if (ModelEntity.CREATE_STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.CREATE_STAMP_TX_FIELD.equals(nonpkFieldName) ||
-                        ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {
+                if (ModelEntity.CREATE_STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.CREATE_STAMP_TX_FIELD.equals(nonpkFieldName)
+                        || ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {
                     continue;
                 }
 
@@ -103,8 +105,8 @@ public class EntityDataAssert {
                 Object currentField = currentValue.get(nonpkFieldName);
 
                 if (checkField != null && !checkField.equals(currentField)) {
-                    errorMessages.add("Field [" + modelEntity.getEntityName() + "." + nonpkFieldName +
-                            "] did not match; file value [" + checkField + "], db value [" + currentField + "] pk [" + checkPK + "]");
+                    errorMessages.add("Field [" + modelEntity.getEntityName() + "." + nonpkFieldName
+                            + "] did not match; file value [" + checkField + "], db value [" + currentField + "] pk [" + checkPK + "]");
                 }
             }
         } catch (GenericEntityException e) {

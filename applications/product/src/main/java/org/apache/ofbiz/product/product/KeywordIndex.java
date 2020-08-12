@@ -70,8 +70,8 @@ public class KeywordIndex {
                 return;
             }
             Timestamp salesDiscontinuationDate = product.getTimestamp("salesDiscontinuationDate");
-            if (salesDiscontinuationDate != null && salesDiscontinuationDate.before(nowTimestamp) &&
-                    "true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.discontinued.sales", delegator))) {
+            if (salesDiscontinuationDate != null && salesDiscontinuationDate.before(nowTimestamp)
+                    && "true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.discontinued.sales", delegator))) {
                 return;
             }
         }
@@ -117,9 +117,9 @@ public class KeywordIndex {
         }
 
         // ProductFeatureAppl
-        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0", delegator)) ||
-            !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0", delegator)) ||
-            !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0", delegator))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0", delegator))
+            || !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0", delegator))
+            || !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0", delegator))) {
             // get strings from attributes and features
             List<GenericValue> productFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId).queryList();
             for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
@@ -130,8 +130,8 @@ public class KeywordIndex {
         }
 
         // ProductAttribute
-        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0", delegator)) ||
-                !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0", delegator))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0", delegator))
+                || !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0", delegator))) {
             List<GenericValue> productAttributes = EntityQuery.use(delegator).from("ProductAttribute").where("productId", productId).queryList();
             for (GenericValue productAttribute: productAttributes) {
                 addWeightedKeywordSourceString(productAttribute, "attrName", strings);

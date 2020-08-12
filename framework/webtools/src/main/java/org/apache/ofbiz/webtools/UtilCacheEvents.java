@@ -39,11 +39,11 @@ import org.apache.ofbiz.security.Security;
  */
 public final class UtilCacheEvents {
 
-    private static final String err_resource = "WebtoolsErrorUiLabels";
+    private static final String ERR_RESOURCE = "WebtoolsErrorUiLabels";
     private static final String MODULE = UtilCacheEvents.class.getName();
 
 
-    private UtilCacheEvents() {}
+    private UtilCacheEvents() { }
 
     /** An HTTP WebEvent handler the specified element from the specified cache
      * @param request The HTTP request object for the current JSP or Servlet request.
@@ -56,21 +56,21 @@ public final class UtilCacheEvents {
 
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.permissionEdit", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         String name = request.getParameter("UTIL_CACHE_NAME");
         if (name == null) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.noCacheNameSpecified", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.noCacheNameSpecified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String numString = request.getParameter("UTIL_CACHE_ELEMENT_NUMBER");
 
         if (numString == null) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.noElementNumberSpecified", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.noElementNumberSpecified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", "");
             return "error";
         }
@@ -102,15 +102,15 @@ public final class UtilCacheEvents {
 
             if (key != null) {
                 utilCache.remove(key);
-                errMsg = UtilProperties.getMessage(err_resource, "utilCache.removeElementWithKey", UtilMisc.toMap("key", key.toString()), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.removeElementWithKey", UtilMisc.toMap("key", key.toString()), locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } else {
-                errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name", name, "numString", numString), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name", name, "numString", numString), locale) + ".";
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         } else {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotRemoveElement", UtilMisc.toMap("name", name), locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElement", UtilMisc.toMap("name", name), locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -128,7 +128,7 @@ public final class UtilCacheEvents {
 
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.permissionEdit", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -136,7 +136,7 @@ public final class UtilCacheEvents {
         String name = request.getParameter("UTIL_CACHE_NAME");
 
         if (name == null) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotClearCache", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCache", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -144,10 +144,10 @@ public final class UtilCacheEvents {
 
         if (utilCache != null) {
             utilCache.clear();
-            errMsg = UtilProperties.getMessage(err_resource, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
             request.setAttribute("_EVENT_MESSAGE_", errMsg);
         } else {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -165,17 +165,16 @@ public final class UtilCacheEvents {
 
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.permissionEdit", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         UtilCache.clearAllCaches();
-        errMsg = UtilProperties.getMessage(err_resource, "utilCache.clearAllCaches", locale);
+        errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearAllCaches", locale);
         request.setAttribute("_EVENT_MESSAGE_", errMsg + " (" + UtilDateTime.nowDateString("yyyy-MM-dd HH:mm:ss")  + ").");
         return "success";
     }
-    
     /** An HTTP WebEvent handler that clears the selected caches
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
@@ -188,7 +187,7 @@ public final class UtilCacheEvents {
 
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.permissionEdit", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -199,15 +198,15 @@ public final class UtilCacheEvents {
         int rowCount = UtilHttp.getMultiFormRowCount(ctx);
         for (int i = 0; i < rowCount; i++) {
             String suffix = UtilHttp.getMultiRowDelimiter() + i;
-            isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
+            isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String) ctx.get("_rowSubmit" + suffix)));
             if (!isSelected) {
                 continue;
             }
 
-            String name = request.getParameter("cacheName"+suffix);
+            String name = request.getParameter("cacheName" + suffix);
 
             if (name == null) {
-                errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotClearCache", locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCache", locale) + ".";
                 eventList.add(errMsg);
             }
 
@@ -215,10 +214,10 @@ public final class UtilCacheEvents {
 
             if (utilCache != null) {
                 utilCache.clear();
-                errMsg = UtilProperties.getMessage(err_resource, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
                 eventList.add(errMsg);
             } else {
-                errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
                 eventList.add(errMsg);
             }
         }
@@ -237,7 +236,7 @@ public final class UtilCacheEvents {
 
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCacheEvents.permissionEdit", locale) + ".";
             request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "error";
         }
@@ -245,7 +244,7 @@ public final class UtilCacheEvents {
         String name = request.getParameter("UTIL_CACHE_NAME");
 
         if (name == null) {
-            errMsg = UtilProperties.getMessage(err_resource, "utilCache.couldNotUpdateCacheSetting", locale) + ".";
+            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotUpdateCacheSetting", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

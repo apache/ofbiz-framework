@@ -203,7 +203,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
 
         @Override
         public int size() {
-            if(isMapInitialized) {
+            if (isMapInitialized) {
                 // this is an approximate size, won't include elements from parent bundles
                 return topLevelMap.size() -1;
             }
@@ -248,7 +248,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         @Override
         public Object get(Object arg0) {
             Object value = null;
-            if(isMapInitialized) {
+            if (isMapInitialized) {
                 value = this.topLevelMap.get(arg0);
             }
 

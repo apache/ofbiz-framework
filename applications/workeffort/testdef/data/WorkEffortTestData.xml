@@ -38,7 +38,7 @@ under the License.
 
     <Party partyId="TestParty-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestParty-1" firstName="Test" lastName="Party"/>
-    <PartyRole partyId="TestParty-1" roleTypeId="CONTACT"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="CAL_OWNER"/>
     <PartyRole partyId="TestParty-1" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="TestParty-1" roleTypeId="ACCOUNTANT"/>
     <PartyStatus partyId="TestParty-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>

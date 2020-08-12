@@ -40,9 +40,9 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class CommonWorkers {
 
-    public final static String MODULE = CommonWorkers.class.getName();
+    private static final String MODULE = CommonWorkers.class.getName();
 
-    private CommonWorkers() {}
+    private CommonWorkers() { }
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = new LinkedList<>();
@@ -147,16 +147,14 @@ public final class CommonWorkers {
             EntityCondition stateProvinceFindCond = EntityCondition.makeCondition(
                     EntityCondition.makeCondition("geoIdFrom", country),
                     EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
-                    EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"),
-                    		EntityCondition.makeCondition("geoTypeId", "TERRITORY"), EntityCondition.makeCondition("geoTypeId", "COUNTY")));
+                    EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"), EntityCondition.makeCondition("geoTypeId", "TERRITORY"), EntityCondition.makeCondition("geoTypeId", "COUNTY")));
             geoList.addAll(EntityQuery.use(delegator)
                                       .from("GeoAssocAndGeoToWithState")
                                       .where(stateProvinceFindCond)
                                       .orderBy(sortList)
                                       .cache(true)
-                                      .queryList()
-                          );
-        } catch (GenericEntityException e){
+                                      .queryList());
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", MODULE);
         }
 

@@ -238,7 +238,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         return fse;
     }
 
-    private static abstract class Key {
+    private abstract static class Key {
         @Override
         public final boolean equals(Object o) {
             // No class test here, nor null, as this class is only used
@@ -295,7 +295,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         String expression = new String(chars, 0, length + offset);
         int start = expression.indexOf(openBracket, offset);
         if (start == -1) {
-            return new FlexibleStringExpander[] { new ConstOffsetElem(chars, offset, length) };
+            return new FlexibleStringExpander[] {new ConstOffsetElem(chars, offset, length) };
         }
         int origLen = length;
         ArrayList<FlexibleStringExpander> strElems = new ArrayList<>();
@@ -515,7 +515,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         return this.getOriginal();
     }
 
-    protected static abstract class ArrayOffsetString extends FlexibleStringExpander {
+    protected abstract static class ArrayOffsetString extends FlexibleStringExpander {
         protected final int offset;
         protected final int length;
 
@@ -653,7 +653,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         @Override
         protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Map <String, Object> contextCopy = new HashMap<>(context);
+                Map<String, Object> contextCopy = new HashMap<>(context);
                 Object obj = ScriptUtil.evaluate(this.language, this.script, this.parsedScript, contextCopy);
                 if (obj != null) {
                     return obj;

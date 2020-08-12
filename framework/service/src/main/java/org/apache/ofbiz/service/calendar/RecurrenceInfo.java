@@ -19,7 +19,6 @@
 package org.apache.ofbiz.service.calendar;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -105,8 +104,8 @@ public class RecurrenceInfo {
         eDateList = RecurrenceUtil.parseDateList(StringUtil.split(info.getString("exceptionDateTimes"), ","));
 
         // Sort the lists.
-        Collections.sort(rDateList);
-        Collections.sort(eDateList);
+        rDateList.sort(null);
+        eDateList.sort(null);
     }
 
     /** Returns the primary key for this value object */
@@ -350,7 +349,7 @@ public class RecurrenceInfo {
     @SuppressWarnings("serial")
     protected static class RecurrenceWrapper extends TemporalExpression {
         protected RecurrenceInfo info;
-        protected RecurrenceWrapper() {}
+        protected RecurrenceWrapper() { }
         public RecurrenceWrapper(RecurrenceInfo info) {
             this.info = info;
         }

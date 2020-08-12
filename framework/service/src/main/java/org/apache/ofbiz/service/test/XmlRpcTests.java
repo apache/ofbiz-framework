@@ -37,7 +37,7 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     private static final String MODULE = XmlRpcTests.class.getName();
-    public static final String resource = "ServiceErrorUiLabels";
+    private static final String RESOURCE = "ServiceErrorUiLabels";
     private static String url = "http://localhost:8080/webtools/control/xmlrpc?USERNAME=admin&PASSWORD=ofbiz";
 
     public XmlRpcTests(String name) {
@@ -68,7 +68,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
         Integer num1 = (Integer) context.get("num1");
         Integer num2 = (Integer) context.get("num2");
         if (UtilValidate.isEmpty(num1) || UtilValidate.isEmpty(num2)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceTestXmlRpcMissingParameters", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestXmlRpcMissingParameters", locale));
         }
         Integer res = num1 + num2;
         response.put("resulting", res);
@@ -88,8 +88,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
             localMap.put("num1", num1);
             localMap.put("num2", num2);
             result = dctx.getDispatcher().runSync("testXmlRpcLocalEngine", localMap);
-        }
-        catch (GenericServiceException e) {
+        } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getLocalizedMessage());
         }
         if (ServiceUtil.isError(result)) {
@@ -97,9 +96,9 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
         }
         Integer res = (Integer) result.get("resulting");
         if (res == (num1 + num2)) {
-            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "ServiceTestXmlRpcCalculationOK", locale) + res);
+            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "ServiceTestXmlRpcCalculationOK", locale) + res);
         } else {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceTestXmlRpcCalculationKO", locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestXmlRpcCalculationKO", locale));
         }
         return result;
     }

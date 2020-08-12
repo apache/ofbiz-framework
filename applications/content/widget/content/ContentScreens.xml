@@ -34,6 +34,12 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
+                <set field="asm_multipleSelectForm" value="FindContent"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindContent_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -49,6 +55,9 @@ under the License.
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                        </platform-specific>
                                         <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">

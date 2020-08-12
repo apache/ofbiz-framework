@@ -26,7 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;field&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class FieldObject<T> extends MethodObject<T> {

@@ -115,7 +115,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
 
     @Override
     public boolean isEmpty() {
-         return this.isEmpty;
+        return this.isEmpty;
     }
 
     /** Given the name based information in this accessor, get the value from the passed in Map.

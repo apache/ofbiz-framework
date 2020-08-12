@@ -338,7 +338,7 @@ under the License.
     <!--========================== AJAX events =====================-->
 
     <!-- View Mappings -->
-    <view-map name="error" page="/error/error.jsp"/>
+    <view-map name="error" type="ftl" page="component://common/webcommon/error/Error.ftl"/>
     <view-map name="main" type="none"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
     <view-map name="impersonated" type="screen" page="component://common/widget/CommonScreens.xml#impersonated"/>

@@ -306,7 +306,7 @@ public class ProductSearchSession {
             for (ProductSearchConstraint productSearchConstraint: productSearchConstraintList) {
                 if (productSearchConstraint == null) {
                     continue;
-                }                
+                }
                 String constraintString = productSearchConstraint.prettyPrintConstraint(dispatcher, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
                     constraintStrings.add(constraintString);
@@ -443,7 +443,7 @@ public class ProductSearchSession {
                             } else if ("KOTT_AURL".equals(targetTypeEnumId)) {
                                 // do nothing, is absolute URL
                             } else {
-                                Debug.logError("The targetTypeEnumId [] is not recognized, not doing keyword override", MODULE);
+                                Debug.logError("The targetTypeEnumId[] is not recognized, not doing keyword override", MODULE);
                                 // might as well see if there are any others...
                                 continue;
                             }
@@ -808,18 +808,18 @@ public class ProductSearchSession {
             constraintsChanged = true;
         }
 
-        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE")) ||
-            UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"))
+            || UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
             String include = (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_INCL");
             if (UtilValidate.isEmpty(include)) {
                 include = "Y";
             }
-            Boolean inc =  Boolean.TRUE;
+            Boolean inc = Boolean.TRUE;
             if ("N".equalsIgnoreCase(include)) {
-                inc =  Boolean.FALSE;
+                inc = Boolean.FALSE;
             }
 
-            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String)parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"),
+            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"),
                                 (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"), inc), session);
             constraintsChanged = true;
         }
@@ -892,7 +892,7 @@ public class ProductSearchSession {
         List<String> keywordTypeIds = new LinkedList<>();
         if (requestParams.get("keywordTypeId") instanceof String) {
             keywordTypeIds.add((String) requestParams.get("keywordTypeId"));
-        } else if (requestParams.get("keywordTypeId") instanceof List){
+        } else if (requestParams.get("keywordTypeId") instanceof List) {
             keywordTypeIds = (List<String>) requestParams.get("keywordTypeId");
         }
         String statusId = (String) requestParams.get("statusId");

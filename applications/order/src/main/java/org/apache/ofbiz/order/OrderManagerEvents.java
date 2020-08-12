@@ -194,10 +194,10 @@ public class OrderManagerEvents {
                     // create a payment, payment reference and payment appl record, when not exist yet.
                     Map<String, Object> results = null;
                     try {
-                        results = dispatcher.runSync("createPaymentFromOrder", 
+                        results = dispatcher.runSync("createPaymentFromOrder",
                             UtilMisc.toMap("orderId", orderId,
                                     "paymentMethodId", paymentMethodId,
-                                    "paymentRefNum", paymentMethodReference, 
+                                    "paymentRefNum", paymentMethodReference,
                                     "comments", "Payment received offline and manually entered.",
                                     "userLogin", userLogin));
                         if (ServiceUtil.isError(results)) {

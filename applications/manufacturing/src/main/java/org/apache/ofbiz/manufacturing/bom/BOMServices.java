@@ -116,8 +116,8 @@ public class BOMServices {
      * It also updates the llc of all the product's descendants.
      * For the llc only the manufacturing bom ("MANUF_COMPONENT") is considered.
      * @param dctx the distach context
-     * @param context the context 
-     * @return the results of the updates the product's low level code 
+     * @param context the context
+     * @return the results of the updates the product's low level code
     */
     public static Map<String, Object> updateLowLevelCode(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
@@ -137,12 +137,12 @@ public class BOMServices {
         Long llc = null;
         try {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-            Map<String, Object> depthResult = dispatcher.runSync("getMaxDepth", 
+            Map<String, Object> depthResult = dispatcher.runSync("getMaxDepth",
                     UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
             if (ServiceUtil.isError(depthResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
             }
-            llc = (Long)depthResult.get("depth");
+            llc = (Long) depthResult.get("depth");
             // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be
             // lower than the billOfMaterialLevel of the virtual product.
             List<GenericValue> virtualProducts = EntityQuery.use(delegator).from("ProductAssoc")
@@ -172,11 +172,10 @@ public class BOMServices {
                 if (ServiceUtil.isError(treeResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(treeResult));
                 }
-                BOMTree tree = (BOMTree)treeResult.get("tree");
+                BOMTree tree = (BOMTree) treeResult.get("tree");
                 List<BOMNode> products = new LinkedList<>();
                 tree.print(products, llc.intValue());
-                for (int i = 0; i < products.size(); i++) {
-                    BOMNode oneNode = products.get(i);
+                for (BOMNode oneNode : products) {
                     GenericValue oneProduct = oneNode.getProduct();
                     int lev = 0;
                     if (oneProduct.get("billOfMaterialLevel") != null) {
@@ -190,7 +189,7 @@ public class BOMServices {
             }
             if (alsoVariants) {
                 List<GenericValue> variantProducts = EntityQuery.use(delegator).from("ProductAssoc")
-                        .where("productId", productId, 
+                        .where("productId", productId,
                                 "productAssocTypeId", "PRODUCT_VARIANT")
                         .filterByDate().queryList();
                 for (GenericValue oneVariantProductAssoc : variantProducts) {
@@ -199,10 +198,9 @@ public class BOMServices {
                     variantProduct.store();
                 }
             }
-        } catch (GenericEntityException|GenericServiceException ge) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", ge.getMessage()), locale));
-        } catch (Exception e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
+        } catch (GenericEntityException | GenericServiceException ge) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode",
+                    UtilMisc.toMap("errorString", ge.getMessage()), locale));
         }
         result.put("lowLevelCode", llc);
         return result;
@@ -211,8 +209,8 @@ public class BOMServices {
     /** Updates the product's low level code (llc) for all the products in the Product entity.
      * For the llc only the manufacturing bom ("MANUF_COMPONENT") is considered.
      * @param dctx the distach context
-     * @param context the context 
-     * @return the results of the updates the product's low level code 
+     * @param context the context
+     * @return the results of the updates the product's low level code
     */
     public static Map<String, Object> initLowLevelCode(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
@@ -238,15 +236,14 @@ public class BOMServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
                     }
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", MODULE);
-                } catch (Exception exc) {
+                } catch (GenericServiceException exc) {
                     Debug.logWarning(exc.getMessage(), MODULE);
                 }
             }
             // FIXME: also all the variants llc should be updated?
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
-        } catch (Exception e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
     }
@@ -256,14 +253,14 @@ public class BOMServices {
      * Useful to avoid loops when adding new assocs (components)
      * to a bill of materials.
      * @param dctx the distach context
-     * @param context the context 
-     * @return returns the ProductAssoc generic value for a duplicate productIdKey ancestor if present 
+     * @param context the context
+     * @return returns the ProductAssoc generic value for a duplicate productIdKey ancestor if present
      */
     public static Map<String, Object> searchDuplicatedAncestor(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         String productIdKey = (String) context.get("productIdTo");
@@ -289,14 +286,14 @@ public class BOMServices {
      * configured bill of material tree.
      * Useful for tree traversal (breakdown, explosion, implosion).
      * @param dctx the distach context
-     * @param context the context 
+     * @param context the context
      * @return return the bill of material tree
      */
     public static Map<String, Object> getBOMTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
@@ -340,14 +337,14 @@ public class BOMServices {
      * if necessary configures it, and it returns its (possibly configured) components in
      * a List of {@link BOMNode}).
      * @param dctx the distach context
-     * @param context the context 
+     * @param context the context
      * @return return the list of manufacturing components
      */
     public static Map<String, Object> getManufacturingComponents(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
@@ -400,7 +397,7 @@ public class BOMServices {
             if (ServiceUtil.isError(routingOutMap)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
             }
-            GenericValue routing = (GenericValue)routingOutMap.get("routing");
+            GenericValue routing = (GenericValue) routingOutMap.get("routing");
             if (routing == null) {
                 // try to find a routing linked to the virtual product
                 routingInMap = UtilMisc.toMap("productId", tree.getRoot().getProduct().getString("productId"), "userLogin", userLogin);
@@ -408,7 +405,7 @@ public class BOMServices {
                 if (ServiceUtil.isError(routingOutMap)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
                 }
-                routing = (GenericValue)routingOutMap.get("routing");
+                routing = (GenericValue) routingOutMap.get("routing");
             }
             if (routing != null) {
                 workEffortId = routing.getString("workEffortId");
@@ -441,7 +438,7 @@ public class BOMServices {
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
         if (quantity == null) {
@@ -478,7 +475,7 @@ public class BOMServices {
                 notAssembledComponents.add(oneComponent);
             }
         }
-        result.put("notAssembledComponents" , notAssembledComponents);
+        result.put("notAssembledComponents", notAssembledComponents);
         return result;
     }
 
@@ -490,7 +487,7 @@ public class BOMServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
 
         try {
@@ -515,7 +512,7 @@ public class BOMServices {
             GenericValue orderShipment = null;
             try {
                 orderShipment = EntityQuery.use(delegator).from("OrderShipment")
-                        .where("shipmentId", shipmentId, 
+                        .where("shipmentId", shipmentId,
                                 "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId"))
                         .queryFirst();
             } catch (GenericEntityException e) {
@@ -524,10 +521,10 @@ public class BOMServices {
             if (orderShipment != null && !orderReadHelpers.containsKey(orderShipment.getString("orderId"))) {
                 orderReadHelpers.put(orderShipment.getString("orderId"), new OrderReadHelper(delegator, orderShipment.getString("orderId")));
             }
-            OrderReadHelper orderReadHelper = (OrderReadHelper)orderReadHelpers.get(orderShipment.getString("orderId"));
+            OrderReadHelper orderReadHelper = (OrderReadHelper) orderReadHelpers.get(orderShipment.getString("orderId"));
             if (orderReadHelper != null) {
                 Map<String, Object> orderShipmentReadMap = UtilMisc.toMap("orderShipment", orderShipment, "orderReadHelper", orderReadHelper);
-                String partyId = (orderReadHelper.getPlacingParty() != null? orderReadHelper.getPlacingParty().getString("partyId"): null); // FIXME: is it the customer?
+                String partyId = (orderReadHelper.getPlacingParty() != null ? orderReadHelper.getPlacingParty().getString("partyId") : null); // FIXME: is it the customer?
                 if (partyId != null) {
                     if (!partyOrderShipments.containsKey(partyId)) {
                         List<Map<String, Object>> orderShipmentReadMapList = new LinkedList<>();
@@ -542,10 +539,10 @@ public class BOMServices {
         // (search for components that needs to be packaged).
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipment.getValue());
-            for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
-                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
-                GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
-                OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
+            for (Map<String, Object> stringObjectMap : orderShipmentReadMapList) {
+                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(stringObjectMap);
+                GenericValue orderShipment = (GenericValue) orderShipmentReadMap.get("orderShipment");
+                OrderReadHelper orderReadHelper = (OrderReadHelper) orderShipmentReadMap.get("orderReadHelper");
                 GenericValue orderItem = orderReadHelper.getOrderItem(orderShipment.getString("orderItemSeqId"));
                 // getProductsInPackages
                 Map<String, Object> serviceContext = new HashMap<>();
@@ -563,7 +560,8 @@ public class BOMServices {
                 List<BOMNode> productsInPackages = UtilGenerics.cast(serviceResult.get("productsInPackages"));
                 if (productsInPackages.size() == 1) {
                     BOMNode root = productsInPackages.get(0);
-                    String rootProductId = (root.getSubstitutedNode() != null? root.getSubstitutedNode().getProduct().getString("productId"): root.getProduct().getString("productId"));
+                    String rootProductId = (root.getSubstitutedNode() != null ? root.getSubstitutedNode().getProduct().getString("productId")
+                            : root.getProduct().getString("productId"));
                     if (orderItem.getString("productId").equals(rootProductId)) {
                         productsInPackages = null;
                     }
@@ -582,10 +580,10 @@ public class BOMServices {
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             Map<String, List<Map<String, Object>>> boxTypeContent = new HashMap<>();
             List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipment.getValue());
-            for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
-                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
-                GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
-                OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
+            for (Map<String, Object> objectMap : orderShipmentReadMapList) {
+                Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(objectMap);
+                GenericValue orderShipment = (GenericValue) orderShipmentReadMap.get("orderShipment");
+                OrderReadHelper orderReadHelper = (OrderReadHelper) orderShipmentReadMap.get("orderReadHelper");
                 List<BOMNode> productsInPackages = UtilGenerics.cast(orderShipmentReadMap.get("productsInPackages"));
                 if (productsInPackages != null) {
                     // there are subcomponents:
@@ -655,19 +653,19 @@ public class BOMServices {
                     boxWidth = BigDecimal.ZERO;
                 }
                 String shipmentPackageSeqId = null;
-                for (int i = 0; i < contentList.size(); i++) {
-                    Map<String, Object> contentMap = UtilGenerics.cast(contentList.get(i));
+                for (Map<String, Object> stringObjectMap : contentList) {
+                    Map<String, Object> contentMap = UtilGenerics.cast(stringObjectMap);
                     Map<String, Object> content = UtilGenerics.cast(contentMap.get("content"));
-                    OrderReadHelper orderReadHelper = (OrderReadHelper)content.get("orderReadHelper");
+                    OrderReadHelper orderReadHelper = (OrderReadHelper) content.get("orderReadHelper");
                     List<BOMNode> productsInPackages = UtilGenerics.cast(content.get("productsInPackages"));
-                    GenericValue orderShipment = (GenericValue)content.get("orderShipment");
+                    GenericValue orderShipment = (GenericValue) content.get("orderShipment");
 
                     GenericValue product = null;
                     BigDecimal quantity = BigDecimal.ZERO;
                     boolean subProduct = contentMap.containsKey("componentIndex");
                     if (subProduct) {
                         // multi package
-                        Integer index = (Integer)contentMap.get("componentIndex");
+                        Integer index = (Integer) contentMap.get("componentIndex");
                         BOMNode component = productsInPackages.get(index);
                         product = component.getProduct();
                         quantity = component.getQuantity();
@@ -714,7 +712,7 @@ public class BOMServices {
                                 if (ServiceUtil.isError(serviceResult)) {
                                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                                 }
-                                shipmentPackageSeqId = (String)serviceResult.get("shipmentPackageSeqId");
+                                shipmentPackageSeqId = (String) serviceResult.get("shipmentPackageSeqId");
                             } catch (GenericServiceException e) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingPackageConfiguratorError", locale));
                             }
@@ -724,17 +722,17 @@ public class BOMServices {
                             Map<String, Object> inputMap = null;
                             if (subProduct) {
                                 inputMap = UtilMisc.toMap("shipmentId", orderShipment.getString("shipmentId"),
-                                "shipmentPackageSeqId", shipmentPackageSeqId,
-                                "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
-                                "subProductId", product.getString("productId"),
-                                "userLogin", userLogin,
-                                "subProductQuantity", qty);
+                                        "shipmentPackageSeqId", shipmentPackageSeqId,
+                                        "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
+                                        "subProductId", product.getString("productId"),
+                                        "userLogin", userLogin,
+                                        "subProductQuantity", qty);
                             } else {
                                 inputMap = UtilMisc.toMap("shipmentId", orderShipment.getString("shipmentId"),
-                                "shipmentPackageSeqId", shipmentPackageSeqId,
-                                "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
-                                "userLogin", userLogin,
-                                "quantity", qty);
+                                        "shipmentPackageSeqId", shipmentPackageSeqId,
+                                        "shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"),
+                                        "userLogin", userLogin,
+                                        "quantity", qty);
                             }
                             Map<String, Object> serviceResult = dispatcher.runSync("createShipmentPackageContent", inputMap);
                             if (ServiceUtil.isError(serviceResult)) {
@@ -757,14 +755,14 @@ public class BOMServices {
      * if necessary configures it, and it returns its (possibly configured) components in
      * a List of {@link BOMNode}).
      * @param dctx the distach context
-     * @param context the context 
+     * @param context the context
      * @return returns the list of products in packages
      */
     public static Map<String, Object> getProductsInPackages(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");

@@ -115,15 +115,14 @@ public final class AdminServerContainer implements Container {
             writer.println(serverResponse);
 
             // if the client request is shutdown, execute shutdown sequence
-            if(clientCommand.equals(OfbizSocketCommand.SHUTDOWN)) {
+            if (clientCommand.equals(OfbizSocketCommand.SHUTDOWN)) {
                 writer.flush();
                 Start.getInstance().stop();
             }
         }
     }
-
     private OfbizSocketCommand determineClientCommand(String request) {
-        if(!isValidRequest(request)) {
+        if (!isValidRequest(request)) {
             return OfbizSocketCommand.FAIL;
         }
         return OfbizSocketCommand.valueOf(request.substring(request.indexOf(':') + 1));
@@ -140,25 +139,23 @@ public final class AdminServerContainer implements Container {
                 && request.substring(0, request.indexOf(':')).equals(cfg.adminKey)
                 && !request.substring(request.indexOf(':') + 1).isEmpty();
     }
-
-
     private static String prepareResponseToClient(OfbizSocketCommand control) {
         String response = null;
         ServerState state = Start.getInstance().getCurrentState();
-        switch(control) {
-            case SHUTDOWN:
-                if (state == ServerState.STOPPING) {
-                    response = "IN-PROGRESS";
-                } else {
-                    response = "OK";
-                }
-                break;
-            case STATUS:
-                response = state.toString();
-                break;
-            case FAIL:
-                response = "FAIL";
-                break;
+        switch (control) {
+        case SHUTDOWN:
+            if (state == ServerState.STOPPING) {
+                response = "IN-PROGRESS";
+            } else {
+                response = "OK";
+            }
+            break;
+        case STATUS:
+            response = state.toString();
+            break;
+        case FAIL:
+            response = "FAIL";
+            break;
         }
         return response;
     }

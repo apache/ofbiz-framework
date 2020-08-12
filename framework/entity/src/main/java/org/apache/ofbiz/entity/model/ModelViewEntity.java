@@ -459,8 +459,8 @@ public class ModelViewEntity extends ModelEntity {
                 ModelEntity aliasedEntity = getAliasedEntity(alias.entityAlias, modelReader);
                 ModelField aliasedField = getAliasedField(aliasedEntity, alias.field, modelReader);
                 if (aliasedField == null) {
-                    Debug.logError("[" + this.getEntityName() + "]: [populateFields] ERROR: could not find ModelField for field name \"" +
-                        alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), MODULE);
+                    Debug.logError("[" + this.getEntityName() + "]: [populateFields] ERROR: could not find ModelField for field name \""
+                            + alias.field + "\" on entity with name: " + aliasedEntity.getEntityName(), MODULE);
                     continue;
                 }
                 if (alias.isPk != null) {
@@ -972,8 +972,8 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static interface ComplexAliasMember extends Serializable {
-        public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
+    public interface ComplexAliasMember extends Serializable {
+        void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
     }
 
     public static final class ComplexAlias implements ComplexAliasMember {
@@ -1064,9 +1064,9 @@ public class ModelViewEntity extends ModelEntity {
          */
         @Override
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
-            if(UtilValidate.isEmpty(entityAlias) 
-                    && UtilValidate.isEmpty(field) 
-                    && UtilValidate.isNotEmpty(value)){
+            if (UtilValidate.isEmpty(entityAlias)
+                    && UtilValidate.isEmpty(field)
+                    && UtilValidate.isNotEmpty(value)) {
                 colNameBuffer.append(value);
             }
             else {
@@ -1305,7 +1305,7 @@ public class ModelViewEntity extends ModelEntity {
         public EntityCondition getWhereCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
 
             List<EntityCondition> conditionList = new LinkedList<>();
-            if(this.filterByDate) {
+            if (this.filterByDate) {
                 conditionList.add(EntityUtil.getFilterByDateExpr());
             }
             if (this.whereCondition != null) {
@@ -1324,8 +1324,8 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static interface ViewCondition extends Serializable {
-        public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack);
+    public interface ViewCondition extends Serializable {
+        EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack);
     }
 
     public static final class ViewConditionExpr implements ViewCondition {
@@ -1405,10 +1405,12 @@ public class ModelViewEntity extends ModelEntity {
             if (!((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
-                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value,modelFieldTypeReader, new HashMap<>());
+                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, new HashMap<>());
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Got value for fieldName [" + fieldName + "]: " + value, MODULE);
+            }
 
             Object rhs = null;
             if (value != null) {
@@ -1444,7 +1446,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            if(this.viewEntityCondition.filterByDate) {
+            if (this.viewEntityCondition.filterByDate) {
                 List<EntityCondition> conditionList = new LinkedList<>();
                 conditionList.add(entityCondition);
                 conditionList.add(EntityUtil.getFilterByDateExpr());
@@ -1512,11 +1514,11 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            if(this.viewEntityCondition.filterByDate) {
+            if (this.viewEntityCondition.filterByDate) {
                 entityConditionList.add(EntityUtil.getFilterByDateExpr());
             }
 
-            if(this.viewEntityCondition.filterByDate) {
+            if (this.viewEntityCondition.filterByDate) {
                 entityConditionList.add(EntityUtil.getFilterByDateExpr());
             }
 

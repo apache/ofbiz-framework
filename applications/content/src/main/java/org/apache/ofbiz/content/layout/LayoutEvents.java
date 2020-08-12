@@ -56,7 +56,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class LayoutEvents {
 
     private static final String MODULE = LayoutEvents.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     public static String createLayoutImage(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
@@ -70,7 +70,7 @@ public class LayoutEvents {
             Map<String, Object> context = new HashMap<>();
             ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
-                String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.image_data_null", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
@@ -161,11 +161,8 @@ public class LayoutEvents {
                 imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.store();
             }
-        } catch (GenericEntityException e3) {
+        } catch (GenericEntityException | GenericServiceException e3) {
             request.setAttribute("_ERROR_MESSAGE_", e3.getMessage());
-            return "error";
-        } catch (GenericServiceException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
         return "success";
@@ -180,12 +177,14 @@ public class LayoutEvents {
             Map<String, Object> context = UtilGenerics.cast(uploadResults.get("formInput"));
             ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
-                String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.image_data_null", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
             String imageFileName = (String) uploadResults.get("imageFileName");
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
+            }
             context.put("userLogin", session.getAttribute("userLogin"));
             context.put("dataResourceTypeId", "IMAGE_OBJECT");
             context.put("contentAssocTypeId", "SUB_CONTENT");
@@ -197,13 +196,19 @@ public class LayoutEvents {
             context.put("drDataResourceTypeId", null);
 
             String dataResourceId = (String) context.get("drDataResourceId");
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
+            }
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
+            }
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
+            }
             if (dataResource != null) {
                 dataResource.setNonPKFields(context);
                 dataResource.store();
@@ -232,16 +237,18 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> context = new HashMap<>();
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        if (Debug.verboseOn()) Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, MODULE);
+        }
         String dataResourceId = (String) paramMap.get("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
-            String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.data_ressource_id_null", locale);
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.data_ressource_id_null", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String contentIdTo = (String) paramMap.get("contentIdTo");
         if (UtilValidate.isEmpty(contentIdTo)) {
-            String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_id_to_null", locale);
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.content_id_to_null", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -300,14 +307,18 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String contentId = (String) paramMap.get("contentId");
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
+        }
         if (UtilValidate.isEmpty(contentId)) {
-            String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_id_empty", locale);
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.content_id_empty", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String contentIdTo = (String) paramMap.get("contentIdTo");
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentIdTo:" + contentIdTo, "");
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in cloneLayout, contentIdTo:" + contentIdTo, "");
+        }
         GenericValue content = null;
         GenericValue newContent = null;
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -317,14 +328,18 @@ public class LayoutEvents {
         String newDataResourceId = null;
         try {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, content:" + content, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, content:" + content, "");
+            }
             if (content == null) {
-                String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_empty", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.content_empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
             newContent = delegator.makeValue("Content", content);
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            }
             String oldName = (String) content.get("contentName");
             newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
@@ -332,7 +347,9 @@ public class LayoutEvents {
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             if (dataResource != null) {
                 GenericValue newDataResource = delegator.makeValue("DataResource", dataResource);
-                if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
+                }
                 String dataResourceName = "Copy:" + (String) dataResource.get("dataResourceName");
                 newDataResource.set("dataResourceName", dataResourceName);
                 newDataResourceId = delegator.getNextSeqId("DataResource");
@@ -349,7 +366,9 @@ public class LayoutEvents {
             newContent.set("createdByUserLogin", userLoginId);
             newContent.set("lastModifiedByUserLogin", userLoginId);
             newContent.create();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            }
 
             GenericValue newContentAssoc = delegator.makeValue("ContentAssoc");
             newContentAssoc.set("contentId", newId);
@@ -357,7 +376,9 @@ public class LayoutEvents {
             newContentAssoc.set("contentAssocTypeId", "SUB_CONTENT");
             newContentAssoc.set("fromDate", UtilDateTime.nowTimestamp());
             newContentAssoc.create();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
+            }
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -380,7 +401,7 @@ public class LayoutEvents {
             }
             entityList = UtilGenerics.cast(results.get("entityList"));
             if (UtilValidate.isEmpty(entityList)) {
-                String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.no_subcontent", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
             }
         } catch (GenericServiceException e) {
@@ -393,18 +414,14 @@ public class LayoutEvents {
 
         // Can't count on records being unique
         Map<String, GenericValue> beenThere = new HashMap<>();
-        for (int i=0; i<entityList.size(); i++) {
-            GenericValue view = entityList.get(i);
+        for (GenericValue view : entityList) {
             List<Object> errorMessages = new LinkedList<>();
             if (locale == null) {
                 locale = Locale.getDefault();
             }
             try {
                 SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", view, serviceIn, errorMessages, locale);
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
-            } catch (MiniLangException e) {
+            } catch (IllegalArgumentException | MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -412,7 +429,9 @@ public class LayoutEvents {
             String mapKey = (String) view.get("caMapKey");
             Timestamp fromDate = (Timestamp) view.get("caFromDate");
             Timestamp thruDate = (Timestamp) view.get("caThruDate");
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate + " mapKey:" + mapKey, "");
+            if (Debug.verboseOn())
+                Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate
+                        + " mapKey:" + mapKey, "");
             if (beenThere.get(contentIdFrom) == null) {
                 serviceIn.put("contentIdFrom", contentIdFrom);
                 serviceIn.put("contentIdTo", newId);
@@ -437,7 +456,9 @@ public class LayoutEvents {
         GenericValue view = delegator.makeValue("ContentDataResourceView");
         view.set("contentId", newId);
         view.set("drDataResourceId", newDataResourceId);
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, view:" + view, "");
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in cloneLayout, view:" + view, "");
+        }
         ContentManagementWorker.setCurrentEntityMap(request, view);
         request.setAttribute("contentId", view.get("contentId"));
         request.setAttribute("drDataResourceId", view.get("drDataResourceId"));
@@ -543,9 +564,12 @@ public class LayoutEvents {
             String rootDir = request.getSession().getServletContext().getRealPath("/");
             context.put("rootDir", rootDir);
             try {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                        "contentIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                        "dataResourceIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                        "contentAssocIn", paramMap, context, errorMessages, loc);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -585,7 +609,7 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         if (UtilValidate.isEmpty(entityName)) {
-            String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.entityname_empty", locale);
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.entityname_empty", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -593,16 +617,20 @@ public class LayoutEvents {
         GenericPK passedPK = v.getPrimaryKey();
         Collection<String> keyColl = passedPK.getAllKeys();
         for (String attrName : keyColl) {
-            String attrVal = (String)request.getAttribute(attrName);
+            String attrVal = (String) request.getAttribute(attrName);
             if (attrVal == null) {
                 attrVal = (String) paramMap.get(attrName);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
-            if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in copyToClip, attrName:" + attrName, "");
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in copyToClip, attrVal:" + attrVal, "");
+            }
             if (UtilValidate.isNotEmpty(attrVal)) {
-                passedPK.put(attrName,attrVal);
+                passedPK.put(attrName, attrVal);
             } else {
-                String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.empty", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", attrName + " " + errMsg);
                 return "error";
             }

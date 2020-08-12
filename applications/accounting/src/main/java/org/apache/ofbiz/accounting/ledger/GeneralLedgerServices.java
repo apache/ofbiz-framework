@@ -56,8 +56,8 @@ public class GeneralLedgerServices {
             }
             try {
                 result = dispatcher.runSync("createGlAcctCatMemFromCostCenters", createGlAcctCatMemFromCostCentersMap);
-                if (ServiceUtil.isError(result )) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result ));
+                if (ServiceUtil.isError(result)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);

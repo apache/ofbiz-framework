@@ -38,7 +38,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;set&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class SetOperation extends MethodOperation {
@@ -145,7 +144,7 @@ public final class SetOperation extends MethodOperation {
         } else if (!this.fromFma.isEmpty()) {
             newValue = this.fromFma.get(methodContext.getEnvMap());
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, MODULE);
+                Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, MODULE);
             }
         } else if (!this.valueFse.isEmpty()) {
             newValue = this.valueFse.expand(methodContext.getEnvMap());
@@ -158,13 +157,15 @@ public final class SetOperation extends MethodOperation {
         }
         if (!setIfNull && newValue == null && !"NewMap".equals(this.type) && !"NewList".equals(this.type)) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", MODULE);
+                Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse
+                        + "], and there was not default value, not setting field", MODULE);
             }
             return true;
         }
         if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", MODULE);
+                Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse
+                        + "], and there was not default value, not setting field", MODULE);
             }
             return true;
         }
@@ -190,7 +191,8 @@ public final class SetOperation extends MethodOperation {
                         newValue = MiniLangUtil.convertType(newValue, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
                     }
                 } catch (Exception e) {
-                    String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.getMessage();
+                    String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type
+                            + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, MODULE);
                     this.simpleMethod.addErrorMessage(methodContext, errMsg);
                     return false;

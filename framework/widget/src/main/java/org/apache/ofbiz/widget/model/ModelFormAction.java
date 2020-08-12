@@ -115,7 +115,7 @@ public abstract class ModelFormAction {
             }
         }
 
-        protected static enum ActionsKind {
+        protected enum ActionsKind {
             ACTIONS, ROW_ACTIONS
         }
     }

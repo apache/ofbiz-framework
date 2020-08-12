@@ -125,7 +125,7 @@ public abstract class FieldInfo {
     }
 
     public static boolean isInputFieldType(Integer fieldType) {
-        return ! nonInputFieldTypeList.contains(fieldType);
+        return !nonInputFieldTypeList.contains(fieldType);
     }
 
     private final int fieldType;

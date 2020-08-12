@@ -30,5 +30,5 @@ public interface RequestBodyMapHandler {
      * @param request the request with the data in its body
      * @return an instance of <code>Map&lt;String, Object&gt;</code> that represents the data in the request body
      */
-    public Map<String, Object> extractMapFromRequestBody(ServletRequest request) throws IOException;
+    Map<String, Object> extractMapFromRequestBody(ServletRequest request) throws IOException;
 }

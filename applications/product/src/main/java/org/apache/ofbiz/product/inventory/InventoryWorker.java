@@ -39,9 +39,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class InventoryWorker {
 
-    public final static String MODULE = InventoryWorker.class.getName();
+    private static final String MODULE = InventoryWorker.class.getName();
 
-    private InventoryWorker () {}
+    private InventoryWorker() { }
 
     /**
      * Finds all outstanding Purchase orders for a productId.  The orders and the items cannot be completed, cancelled, or rejected
@@ -51,7 +51,8 @@ public final class InventoryWorker {
      */
     public static List<GenericValue> getOutstandingPurchaseOrders(String productId, Delegator delegator) {
         try {
-            List<EntityCondition> purchaseOrderConditions = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+            List<EntityCondition> purchaseOrderConditions =
+                    UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
@@ -65,7 +66,8 @@ public final class InventoryWorker {
                     .queryList();
             return purchaseOrders;
         } catch (GenericEntityException ex) {
-            Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage() + " - returning null", MODULE);
+            Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage()
+                    + " - returning null", MODULE);
             return null;
         }
     }
@@ -114,8 +116,7 @@ public final class InventoryWorker {
                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
-               );
+                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
         if (productIds.size() > 0) {
             condList.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds));
         }
@@ -126,7 +127,8 @@ public final class InventoryWorker {
 
         Map<String, BigDecimal> results = new HashMap<>();
         try {
-            List<GenericValue> orderedProducts = EntityQuery.use(delegator).select(fieldsToSelect).from("OrderItemQuantityReportGroupByProduct").where(conditions).queryList();
+            List<GenericValue> orderedProducts = EntityQuery.use(delegator).select(fieldsToSelect).from("OrderItemQuantityReportGroupByProduct")
+                    .where(conditions).queryList();
             for (GenericValue value: orderedProducts) {
                 results.put(value.getString("productId"), value.getBigDecimal("quantityOpen"));
             }

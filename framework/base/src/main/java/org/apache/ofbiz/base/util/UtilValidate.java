@@ -72,7 +72,7 @@ public final class UtilValidate {
 
     private static final String MODULE = UtilValidate.class.getName();
 
-    private UtilValidate() {}
+    private UtilValidate() { }
 
     /** boolean specifying by default whether or not it is okay for a String to be empty */
     private static final boolean defaultEmptyOK = true;
@@ -176,7 +176,7 @@ public final class UtilValidate {
     }
 
     /** Check whether map m is empty. */
-    public static <K,E> boolean isEmpty(Map<K,E> m) {
+    public static <K, E> boolean isEmpty(Map<K, E> m) {
         return (m == null) || m.isEmpty();
     }
 
@@ -1082,7 +1082,7 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
 
-        if(((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0) && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
+        if (((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0) && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1096,15 +1096,15 @@ public final class UtilValidate {
         String first4digs = cc.substring(0, 4);
         String first6digs = cc.substring(0, 6);
 
-        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-            ("4903".equals(first4digs) ||
-                "4905".equals(first4digs) ||
-                "4911".equals(first4digs) ||
-                "4936".equals(first4digs) ||
-                "564182".equals(first6digs) ||
-                "633110".equals(first6digs) ||
-                "6333".equals(first4digs) ||
-                "6759".equals(first4digs))) {
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19))
+                && ("4903".equals(first4digs)
+                || "4905".equals(first4digs)
+                || "4911".equals(first4digs)
+                || "4936".equals(first4digs)
+                || "564182".equals(first6digs)
+                || "633110".equals(first6digs)
+                || "6333".equals(first4digs)
+                || "6759".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1117,8 +1117,7 @@ public final class UtilValidate {
     private static boolean isSolo(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
-        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
-                ("63".equals(first2digs) || "6767".equals(first4digs))) {
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) && ("63".equals(first2digs) || "6767".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1132,18 +1131,16 @@ public final class UtilValidate {
         String first6digs = cc.substring(0, 6);
         String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 16) &&
-            ("417500".equals(first6digs) ||
-                "4917".equals(first4digs) ||
-                "4913".equals(first4digs) ||
-                "4508".equals(first4digs) ||
-                "4844".equals(first4digs) ||
-                "4027".equals(first4digs))) {
+        if ((cc.length() == 16) && ("417500".equals(first6digs)
+                || "4917".equals(first4digs)
+                || "4913".equals(first4digs)
+                || "4508".equals(first4digs)
+                || "4844".equals(first4digs)
+                || "4027".equals(first4digs))) {
             return isCreditCard(cc);
         }
         return false;
     }
-
 
     /** Checks to see if the cc number is a valid number for any accepted credit card
      *   @param     ccPassed - a string representing a credit card number
@@ -1153,10 +1150,9 @@ public final class UtilValidate {
         if (isEmpty(ccPassed)) {
             return defaultEmptyOK;
         }
-
         String cc = stripCharsInBag(ccPassed, creditCardDelimiters);
-        return isCreditCard(cc) && (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc) ||
-                        isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch (cc)|| isVisaElectron(cc));
+        return isCreditCard(cc) && (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc)
+                        || isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc) || isSwitch(cc) || isVisaElectron(cc));
     }
 
     /** Checks to see if the cc number is a valid number for any accepted credit card, and return the name of that type
@@ -1197,7 +1193,7 @@ public final class UtilValidate {
         if (isSolo(cc)) {
             return "CCT_SOLO";
         }
-        if (isSwitch (cc)) {
+        if (isSwitch(cc)) {
             return "CCT_SWITCH";
         }
         if (isVisaElectron(cc)) {
@@ -1244,7 +1240,7 @@ public final class UtilValidate {
         if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) {
             return true;
         }
-        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch (cardNumber))) {
+        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isSwitch(cardNumber))) {
             return true;
         }
         if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) {

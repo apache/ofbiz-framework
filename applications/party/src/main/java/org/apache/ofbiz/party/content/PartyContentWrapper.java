@@ -100,14 +100,8 @@ public class PartyContentWrapper implements ContentWrapper {
     public List<String> getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
-        } catch (GeneralException ge) {
-            Debug.logError(ge, MODULE);
-            return null;
-        } catch (IOException ioe) {
+        } catch (GeneralException | IOException ioe) {
             Debug.logError(ioe, MODULE);
-            return null;
-        } catch (Exception e) {
-            Debug.logError(e, MODULE);
             return null;
         }
     }
@@ -124,7 +118,7 @@ public class PartyContentWrapper implements ContentWrapper {
     public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", party.getDelegator());
-        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), mimeTypeId, party.getDelegator(), dispatcher, true,encoderType);
+        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), mimeTypeId, party.getDelegator(), dispatcher, true, encoderType);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
@@ -141,16 +135,16 @@ public class PartyContentWrapper implements ContentWrapper {
         if (party == null) {
             return null;
         }
-        
+
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
         String cacheKey;
         if (contentId != null) {
-            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                    CACHE_KEY_SEPARATOR + party.get("partyId");
+            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                    + CACHE_KEY_SEPARATOR + party.get("partyId");
         } else {
-            cacheKey = partyContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                    CACHE_KEY_SEPARATOR + party.get("partyId");
+            cacheKey = partyContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                    + CACHE_KEY_SEPARATOR + party.get("partyId");
         }
 
         try {
@@ -167,21 +161,17 @@ public class PartyContentWrapper implements ContentWrapper {
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
                 outString = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-                outString = outString == null? "" : outString;
+                outString = outString == null ? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
             if (partyContentCache != null) {
                 partyContentCache.put(cacheKey, outString);
             }
             return outString;
-        } catch (GeneralException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
-        } catch (IOException e) {
-            Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
-            String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
         }
     }
 
@@ -221,7 +211,7 @@ public class PartyContentWrapper implements ContentWrapper {
             ContentWorker.renderContentAsText(dispatcher, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
-        
+
         if (partyContentTypeId != null) {
             String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
 

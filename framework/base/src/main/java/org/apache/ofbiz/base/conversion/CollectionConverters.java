@@ -54,7 +54,7 @@ public class CollectionConverters implements ConverterLoader {
     }
 
     private static class ArrayClassToList<S, T> extends AbstractConverter<S, T> {
-        public ArrayClassToList(Class<S> sourceClass, Class<T> targetClass) {
+        ArrayClassToList(Class<S> sourceClass, Class<T> targetClass) {
             super(sourceClass, targetClass);
         }
 

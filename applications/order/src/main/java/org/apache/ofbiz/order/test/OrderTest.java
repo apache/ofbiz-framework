@@ -19,8 +19,6 @@
 package org.apache.ofbiz.order.test;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
@@ -35,9 +33,9 @@ public class OrderTest extends OFBizTestCase {
     }
 
     public void testAdminGetNextOrderSeqId() throws Exception {
-        Map <String, Object> ctx = new HashMap<>();
+        Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "admin"); //party with no AcctgPref prefix
-        Map <String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
+        Map<String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
@@ -48,9 +46,9 @@ public class OrderTest extends OFBizTestCase {
     }
 
     public void testCompanyGetNextOrderSeqId() throws Exception {
-        Map <String, Object> ctx = new HashMap<>();
+        Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO
-        Map <String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
+        Map<String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
@@ -61,10 +59,10 @@ public class OrderTest extends OFBizTestCase {
     }
 
     public void testCompleteGetNextOrderSeqId() throws Exception {
-        Map <String, Object> ctx = new HashMap<>();
+        Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO
         ctx.put("productStoreId", "9000"); // prefix WS
-        Map <String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
+        Map<String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;

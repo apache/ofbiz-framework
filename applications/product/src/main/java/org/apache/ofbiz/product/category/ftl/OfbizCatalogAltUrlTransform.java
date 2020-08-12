@@ -49,7 +49,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
-    public final static String MODULE = OfbizCatalogUrlTransform.class.getName();
+    private static final String MODULE = OfbizCatalogUrlTransform.class.getName();
 
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
@@ -120,7 +120,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                             url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
                         // make the link
-                        if (fullPath){
+                        if (fullPath) {
                             OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
                             builder.buildHostPart(newURL, url, secure);
                         }

@@ -121,16 +121,16 @@ public class ProductContentWrapper implements ContentWrapper {
             getProductContentAsText(null, product, productContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
-                outString = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
-                outString = outString == null? "" : outString;
+                outString = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName) : "";
+                outString = outString == null ? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
             productContentCache.put(cacheKey, outString);
             return outString;
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering ProductContent, inserting empty String", MODULE);
-            String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName) : "";
+            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
         }
     }
 
@@ -183,22 +183,21 @@ public class ProductContentWrapper implements ContentWrapper {
         }
 
         if (productModel.isField(candidateFieldName)) {
-                String candidateValue = product.getString(candidateFieldName);
-                if (UtilValidate.isNotEmpty(candidateValue)) {
-                    outWriter.write(candidateValue);
-                    return;
-                } else if ("Y".equals(product.getString("isVariant"))) {
-                    // look up the virtual product
-                    GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
-                    if (parent != null) {
-                        candidateValue = parent.getString(candidateFieldName);
-                        if (UtilValidate.isNotEmpty(candidateValue)) {
-                            outWriter.write(candidateValue);
-                            return;
-                        }
+            String candidateValue = product.getString(candidateFieldName);
+            if (UtilValidate.isNotEmpty(candidateValue)) {
+                outWriter.write(candidateValue);
+                return;
+            } else if ("Y".equals(product.getString("isVariant"))) {
+                // look up the virtual product
+                GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
+                if (parent != null) {
+                    candidateValue = parent.getString(candidateFieldName);
+                    if (UtilValidate.isNotEmpty(candidateValue)) {
+                        outWriter.write(candidateValue);
+                        return;
                     }
                 }
+            }
         }
-
     }
 }

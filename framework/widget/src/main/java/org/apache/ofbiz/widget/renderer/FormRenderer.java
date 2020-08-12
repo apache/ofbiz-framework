@@ -128,7 +128,7 @@ public class FormRenderer {
     }
 
     private static Predicate<ModelFormField> filteringIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered) {
-       return  modelFormField -> {
+        return modelFormField -> {
             FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
             // render hidden/ignored field widget
@@ -324,7 +324,7 @@ public class FormRenderer {
             for (ModelFormField modelFormField : mainFieldList) {
                 FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
-                // if the field's title is explicitly set to "" (title="") then
+                // if the field's title is explicitly set to "" (title= "") then
                 // the header is not created for it; this is useful for position list
                 // where one line can be rendered with more than one row, and we
                 // only want to display the title header for the main row
@@ -551,7 +551,7 @@ public class FormRenderer {
                 boolean cellOpen = false;
                 ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
 
-                if(modelFormField.shouldIgnore(localContext)) {
+                if (modelFormField.shouldIgnore(localContext)) {
                     continue;
                 }
 
@@ -911,7 +911,7 @@ public class FormRenderer {
         if (!modelForm.getHideHeader() && containsData) {
             numOfColumns = this.renderHeaderRow(writer, context);
         }
-        if (!containsData){
+        if (!containsData) {
             formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
         }
         // ===== render the item rows =====
@@ -940,7 +940,7 @@ public class FormRenderer {
         if (!modelForm.getHideHeader() && containsData) {
             numOfColumns = this.renderHeaderRow(writer, context);
         }
-        if (!containsData){
+        if (!containsData) {
             formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
         }
         // ===== render the item rows =====
@@ -1204,11 +1204,11 @@ public class FormRenderer {
         if (iter instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) iter;
             try {
-                if(eli.getResultsSizeAfterPartialList() > 0){
+                if (eli.getResultsSizeAfterPartialList() > 0) {
                     itemIndex++;
                 }
             } catch (GenericEntityException gee) {
-                Debug.logError(gee,MODULE);
+                Debug.logError(gee, MODULE);
             }
         } else {
             while (iter.hasNext()) {

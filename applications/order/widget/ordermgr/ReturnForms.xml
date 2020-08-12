@@ -120,7 +120,7 @@ under the License.
         <field name="statusId"><ignored/></field>
     </form>
     -->
-    <form name="FindReturns" type="single"  target="findreturn" title=""
+    <form name="FindReturns" type="single"  target="findreturn" title="" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="returnHeaderTypeId">
             <drop-down allow-empty="true">
@@ -135,11 +135,11 @@ under the License.
             <text-find/>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_RETURN_STTS"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="entryDate" title="${uiLabelMap.OrderEntryDate}">
             <date-find/>

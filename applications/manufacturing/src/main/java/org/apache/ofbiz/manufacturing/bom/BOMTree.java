@@ -102,13 +102,13 @@ public class BOMTree {
         String productIdForRules = productId;
         // The selected product features are loaded
         List<GenericValue> productFeaturesAppl = EntityQuery.use(delegator).from("ProductFeatureAppl")
-                .where("productId", productId, 
+                .where("productId", productId,
                         "productFeatureApplTypeId", "STANDARD_FEATURE")
                 .queryList();
         List<GenericValue> productFeatures = new LinkedList<>();
         GenericValue oneProductFeatureAppl = null;
-        for (int i = 0; i < productFeaturesAppl.size(); i++) {
-            oneProductFeatureAppl = productFeaturesAppl.get(i);
+        for (GenericValue genericValue : productFeaturesAppl) {
+            oneProductFeatureAppl = genericValue;
             productFeatures.add(oneProductFeatureAppl.getRelatedOne("ProductFeature", false));
         }
         // If the product is manufactured as a different product,
@@ -117,7 +117,7 @@ public class BOMTree {
         // We load the information about the product that needs to be manufactured
         // from Product entity
         GenericValue product = EntityQuery.use(delegator).from("Product")
-                .where("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId))
+                .where("productId", (manufacturedAsProduct != null ? manufacturedAsProduct.getString("productIdTo") : productId))
                 .queryOne();
         if (product == null) return;
         BOMNode originalNode = new BOMNode(product, dispatcher, userLogin);
@@ -135,7 +135,7 @@ public class BOMTree {
                 productIdForRules = virtualProduct.getString("productId");
                 manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
                 product = EntityQuery.use(delegator).from("Product")
-                        .where("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId")))
+                        .where("productId", (manufacturedAsProduct != null ? manufacturedAsProduct.getString("productIdTo") : virtualProduct.get("productId")))
                         .queryOne();
             }
         }
@@ -303,8 +303,8 @@ public class BOMTree {
         List<BOMNode> nodeArr = new LinkedList<>();
         List<String> productsId = new LinkedList<>();
         print(nodeArr);
-        for (int i = 0; i < nodeArr.size(); i++) {
-            productsId.add((nodeArr.get(i)).getProduct().getString("productId"));
+        for (BOMNode bomNode : nodeArr) {
+            productsId.add(bomNode.getProduct().getString("productId"));
         }
         return productsId;
     }
@@ -346,7 +346,7 @@ public class BOMTree {
                 }
             }
             Map<String, Object> tmpMap = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId, orderItemSeqId, shipGroupSeqId, shipmentId, true, true);
-            workEffortId = (String)tmpMap.get("productionRunId");
+            workEffortId = (String) tmpMap.get("productionRunId");
         }
         return workEffortId;
     }

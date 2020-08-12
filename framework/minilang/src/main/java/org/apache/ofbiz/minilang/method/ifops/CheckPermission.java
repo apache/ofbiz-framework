@@ -38,7 +38,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;check-permission&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class CheckPermission extends MethodOperation {
@@ -117,7 +116,7 @@ public final class CheckPermission extends MethodOperation {
     }
 
     /**
-     * A &lt;check-permission&gt; element factory. 
+     * A &lt;check-permission&gt; element factory.
      */
     public static final class CheckPermissionFactory implements Factory<CheckPermission> {
         @Override

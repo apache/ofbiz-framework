@@ -50,7 +50,7 @@ public class ControlEventListener implements HttpSessionListener {
     protected static long totalActiveSessions = 0;
     protected static long totalPassiveSessions = 0;
 
-    public ControlEventListener() {}
+    public ControlEventListener() { }
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {

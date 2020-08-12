@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -65,22 +64,22 @@ public final class JobPoller implements ServiceConfigListener {
         try {
             ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             return new ThreadPoolExecutor(
-                    threadPool.getMinThreads(), 
-                    threadPool.getMaxThreads(), 
+                    threadPool.getMinThreads(),
+                    threadPool.getMaxThreads(),
                     threadPool.getTtl(),
-                    TimeUnit.MILLISECONDS, 
-                    new PriorityBlockingQueue<>(threadPool.getJobs(), createPriorityComparator()), 
-                    new JobInvokerThreadFactory(), 
+                    TimeUnit.MILLISECONDS,
+                    new PriorityBlockingQueue<>(threadPool.getJobs(), createPriorityComparator()),
+                    new JobInvokerThreadFactory(),
                     new ThreadPoolExecutor.AbortPolicy());
         } catch (GenericConfigException e) {
             Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", MODULE);
             return new ThreadPoolExecutor(
-                    ThreadPool.MIN_THREADS, 
-                    ThreadPool.MAX_THREADS, 
+                    ThreadPool.MIN_THREADS,
+                    ThreadPool.MAX_THREADS,
                     ThreadPool.THREAD_TTL,
-                    TimeUnit.MILLISECONDS, 
-                    new PriorityBlockingQueue<>(ThreadPool.QUEUE_SIZE, createPriorityComparator()), 
-                    new JobInvokerThreadFactory(), 
+                    TimeUnit.MILLISECONDS,
+                    new PriorityBlockingQueue<>(ThreadPool.QUEUE_SIZE, createPriorityComparator()),
+                    new JobInvokerThreadFactory(),
                     new ThreadPoolExecutor.AbortPolicy());
         }
     }
@@ -207,7 +206,6 @@ public final class JobPoller implements ServiceConfigListener {
     /**
      * Adds a job to the job queue.
      * @throws InvalidJobException if the job is in an invalid state.
-     * @throws RejectedExecutionException if the poller is stopped.
      */
     public void queueNow(Job job) throws InvalidJobException {
         job.queue();

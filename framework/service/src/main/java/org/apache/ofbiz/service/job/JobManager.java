@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.RejectedExecutionException;
 
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Assert;
@@ -56,8 +55,6 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
-
-import com.ibm.icu.util.Calendar;
 
 /**
  * Job manager. The job manager queues and manages jobs. Client code can queue a job to be run immediately
@@ -150,9 +147,7 @@ public final class JobManager {
                     EntityCondition.makeConditionDate("fromDate", "thruDate"),
                     EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("instanceId", instanceId),
-                            EntityCondition.makeCondition("instanceId", "_NA_"))
-                            , EntityJoinOperator.OR)
-                    ), EntityJoinOperator.AND);
+                            EntityCondition.makeCondition("instanceId", "_NA_")), EntityJoinOperator.OR)), EntityJoinOperator.AND);
             return delegator.findCountByCondition("JobManagerLock", condition, null, null) == 0;
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + instanceId, MODULE);
@@ -362,7 +357,6 @@ public final class JobManager {
 
     /** Queues a Job to run now.
      * @throws IllegalStateException if the Job Manager is shut down.
-     * @throws RejectedExecutionException if the poller is stopped.
      */
     public void runJob(Job job) throws JobManagerException {
         assertIsRunning();
@@ -381,7 +375,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -401,7 +395,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -423,7 +417,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param endTime
@@ -445,7 +439,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -488,7 +482,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count
@@ -528,7 +522,7 @@ public final class JobManager {
      *@param startTime
      *            The time in milliseconds the service should run
      *@param frequency
-     *            The frequency of the recurrence (HOURLY,DAILY,MONTHLY,etc)
+     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
      *@param interval
      *            The interval of the frequency recurrence
      *@param count

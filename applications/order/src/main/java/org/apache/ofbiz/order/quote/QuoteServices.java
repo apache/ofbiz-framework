@@ -70,7 +70,7 @@ public class QuoteServices {
 
         if (quote == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "OrderOrderQuoteCannotBeFound", 
+                    "OrderOrderQuoteCannotBeFound",
                     UtilMisc.toMap("quoteId", quoteId), locale));
         }
 
@@ -82,15 +82,15 @@ public class QuoteServices {
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
-                    "ProductProductStoreEmailSettingsNotValid", 
-                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"), 
+                    "ProductProductStoreEmailSettingsNotValid",
+                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"),
                             "emailType", emailType), locale));
         }
         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
-                    "ProductProductStoreEmailSettingsNotValidBodyScreenLocation", 
-                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"), 
+                    "ProductProductStoreEmailSettingsNotValidBodyScreenLocation",
+                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"),
                             "emailType", emailType), locale));
         }
         sendMap.put("bodyScreenUri", bodyScreenLocation);
@@ -131,10 +131,7 @@ public class QuoteServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceExceptionSeeLogs",locale));
-        } catch (Exception e) {
-            Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceExceptionSeeLogs",locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderServiceExceptionSeeLogs", locale));
         }
 
         // check for errors
@@ -166,7 +163,7 @@ public class QuoteServices {
         List<GenericValue> quoteAdjustments = UtilGenerics.cast(context.get("quoteAdjustments"));
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> serviceResult = new HashMap<>();
-        
+
         //TODO create Quote Terms still to be implemented
         //TODO create Quote Term Attributes still to be implemented
         Map<String, Object> result = new HashMap<>();
@@ -191,7 +188,7 @@ public class QuoteServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(quoteOut));
             }
             if (UtilValidate.isNotEmpty(quoteOut) && UtilValidate.isNotEmpty(quoteOut.get("quoteId"))) {
-                String quoteId = (String)quoteOut.get("quoteId");
+                String quoteId = (String) quoteOut.get("quoteId");
                 result.put("quoteId", quoteId);
 
                 // create Quote Items

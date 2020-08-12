@@ -87,11 +87,11 @@ public class PrimaryKeyFinder extends Finder {
         GenericValue valueOut = runFind(modelEntity, context, delegator, useCacheBool, autoFieldMapBool, this.fieldMap, this.selectFieldExpanderList);
 
         if (!valueNameAcsr.isEmpty()) {
-           this.valueNameAcsr.put(context, valueOut);
+            this.valueNameAcsr.put(context, valueOut);
         } else {
-           if (valueOut != null) {
-               context.putAll(valueOut);
-           }
+            if (valueOut != null) {
+                context.putAll(valueOut);
+            }
         }
     }
 

@@ -255,14 +255,14 @@ public class JavaMailContainer implements Container {
         public void notification(StoreEvent event) {
             String typeString = "";
             switch (event.getMessageType()) {
-                case StoreEvent.ALERT:
-                    typeString = "ALERT: ";
-                    break;
-                case StoreEvent.NOTICE:
-                    typeString = "NOTICE: ";
-                    break;
-                default:
-                    Debug.logWarning("There was a case error in LoggingStoreListener.notification", MODULE);
+            case StoreEvent.ALERT:
+                typeString = "ALERT: ";
+                break;
+            case StoreEvent.NOTICE:
+                typeString = "NOTICE: ";
+                break;
+            default:
+                Debug.logWarning("There was a case error in LoggingStoreListener.notification", MODULE);
             }
 
             if (Debug.verboseOn()) {
@@ -276,7 +276,7 @@ public class JavaMailContainer implements Container {
         LocalDispatcher dispatcher;
         GenericValue userLogin;
 
-        public PollerTask(LocalDispatcher dispatcher, GenericValue userLogin) {
+        PollerTask(LocalDispatcher dispatcher, GenericValue userLogin) {
             this.dispatcher = dispatcher;
             this.userLogin = userLogin;
         }
@@ -350,7 +350,7 @@ public class JavaMailContainer implements Container {
                     } else {
                         this.processMessage(message, session);
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed." , MODULE);
+                            Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed.", MODULE);
                         }
                         message.setFlag(Flags.Flag.SEEN, true);
                         if (Debug.verboseOn()) {

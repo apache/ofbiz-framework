@@ -36,7 +36,9 @@ import org.w3c.dom.Element;
  * A container configuration.
  */
 public final class ContainerConfig {
-    /** The global container configuration store. */
+    /**
+     * The global container configuration store.
+     */
     private static final Map<String, Configuration> CONFIGURATIONS = new LinkedHashMap<>();
 
     private ContainerConfig() { }
@@ -44,12 +46,12 @@ public final class ContainerConfig {
     /**
      * Retrieves the container configuration element corresponding to a container name.
      *
-     * @param containerName  the name of the container to retrieve
-     * @param configFile  the file name corresponding to the global container configuration file
+     * @param containerName the name of the container to retrieve
+     * @param configFile    the file name corresponding to the global container configuration file
      * @return the corresponding configuration element.
      * @throws ContainerException when no configuration element are found.
      * @deprecated Use {@link #getConfiguration(String)} instead.
-    */
+     */
     @Deprecated
     public static Configuration getConfiguration(String containerName, String configFile)
             throws ContainerException {
@@ -59,7 +61,7 @@ public final class ContainerConfig {
     /**
      * Retrieves the container configuration element corresponding to a container name.
      *
-     * @param containerName  the name of the container to retrieve
+     * @param containerName the name of the container to retrieve
      * @return the corresponding configuration element.
      * @throws ContainerException when no configuration element are found.
      */
@@ -74,7 +76,7 @@ public final class ContainerConfig {
     /**
      * Finds the {@code <container>} configuration elements in a XML element.
      *
-     * @param root  the XML element which cannot be {@code null}
+     * @param root the XML element which cannot be {@code null}
      * @return a list of container configuration
      */
     public static List<Configuration> getConfigurations(Element root) {
@@ -85,16 +87,6 @@ public final class ContainerConfig {
             res.forEach(cfg -> CONFIGURATIONS.put(cfg.name(), cfg));
         }
         return res;
-    }
-
-    interface PropertyChildren {
-        /**
-         * Provides the child property corresponding to a specified identifier.
-         *
-         * @param name the child property identifier
-         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
-         */
-        Configuration.Property getProperty(String name);
     }
 
     public static String getPropertyValue(PropertyChildren parentProp, String name, String defaultValue) {
@@ -125,25 +117,47 @@ public final class ContainerConfig {
         return "true".equalsIgnoreCase(prop.value);
     }
 
+    interface PropertyChildren {
+        /**
+         * Provides the child property corresponding to a specified identifier.
+         *
+         * @param name the child property identifier
+         * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
+         */
+        Configuration.Property getProperty(String name);
+    }
+
     /**
      * A container configuration.
      */
     public static final class Configuration implements PropertyChildren {
         //ALLOW PUBLIC FIELDS
-        /** The identifier of the configuration. */
-        @Deprecated public final String name;
-        /** The name of class the configuration. */
-        @Deprecated public final String className;
-        /** The list of loader names triggering the launch of the container. */
-        @Deprecated public final List<String> loaders;
-        /** The container property elements. */
-        @Deprecated public final Map<String, Property> properties;
+        /**
+         * The identifier of the configuration.
+         */
+        @Deprecated
+        public final String name;
+        /**
+         * The name of class the configuration.
+         */
+        @Deprecated
+        public final String className;
+        /**
+         * The list of loader names triggering the launch of the container.
+         */
+        @Deprecated
+        public final List<String> loaders;
+        /**
+         * The container property elements.
+         */
+        @Deprecated
+        public final Map<String, Property> properties;
         //FORBID PUBLIC FIELDS
 
         /**
          * Constructs a container configuration.
          *
-         * @param element  the {@code <container>} XML element to parse
+         * @param element the {@code <container>} XML element to parse
          */
         public Configuration(Element element) {
             name = element.getAttribute("name");
@@ -165,7 +179,6 @@ public final class ContainerConfig {
         public String className() {
             return className;
         }
-
         /**
          * @return the loaders
          */
@@ -179,35 +192,40 @@ public final class ContainerConfig {
         public Map<String, Property> properties() {
             return properties;
         }
-
         @Override
         public Configuration.Property getProperty(String name) {
             return properties().get(name);
         }
-
         /**
          * Provides all the child properties whose values are equal a specified value.
          *
-         * @param value  the value to match
+         * @param value the value to match
          * @return a list of matching properties
          */
         public List<Property> getPropertiesWithValue(String value) {
             return Property.getPropertiesWithValue(properties(), value);
         }
-
         /**
          * A tree of container configuration properties.
          */
         public static final class Property implements PropertyChildren {
             //ALLOW PUBLIC FIELDS
-            /** The identifier of the configuration element */
-            @Deprecated public final String name;
-            /** The value associated with the {@code name} identifier. */
-            @Deprecated public final String value;
-            /** The properties children */
-            @Deprecated public final Map<String, Property> properties;
+            /**
+             * The identifier of the configuration element
+             */
+            @Deprecated
+            public final String name;
+            /**
+             * The value associated with the {@code name} identifier.
+             */
+            @Deprecated
+            public final String value;
+            /**
+             * The properties children
+             */
+            @Deprecated
+            public final Map<String, Property> properties;
             //FORBID PUBLIC FIELDS
-
             /**
              * Constructs a container configuration element.
              *
@@ -222,7 +240,32 @@ public final class ContainerConfig {
                 this.value = value;
                 this.properties = parseProps(element);
             }
-
+            /**
+             * Aggregates the {@code <property>} XML elements in a Map.
+             *
+             * @param root the root XML Element containing {@code <property>} children
+             * @return a map of property elements
+             */
+            private static Map<String, Property> parseProps(Element root) {
+                LinkedHashMap<String, Property> res = new LinkedHashMap<>();
+                UtilXml.childElementList(root, "property").forEach(el -> {
+                    Property p = new Property(el);
+                    res.put(p.name(), p);
+                });
+                return Collections.unmodifiableMap(res);
+            }
+            /**
+             * Provides all the child properties whose values are equal a specified value.
+             *
+             * @param value the value to match
+             * @return a list of matching properties
+             */
+            private static List<Property> getPropertiesWithValue(Map<String, Property> propkvs, String value) {
+                return propkvs.values().stream()
+                        .filter(Objects::nonNull)
+                        .filter(p -> value.equals(p.value()))
+                        .collect(toList());
+            }
             /**
              * @return the name
              */
@@ -248,43 +291,14 @@ public final class ContainerConfig {
             public Configuration.Property getProperty(String name) {
                 return properties().get(name);
             }
-
             /**
              * Provides all the child properties whose values are equal a specified value.
              *
-             * @param value  the value to match
+             * @param value the value to match
              * @return a list of matching properties
              */
             public List<Property> getPropertiesWithValue(String value) {
                 return getPropertiesWithValue(properties(), value);
-            }
-
-            /**
-             * Aggregates the {@code <property>} XML elements in a Map.
-             *
-             * @param root  the root XML Element containing {@code <property>} children
-             * @return a map of property elements
-             */
-            private static Map<String, Property> parseProps(Element root) {
-                LinkedHashMap<String, Property> res = new LinkedHashMap<>();
-                UtilXml.childElementList(root, "property").forEach(el -> {
-                    Property p = new Property(el);
-                    res.put(p.name(), p);
-                });
-                return Collections.unmodifiableMap(res);
-            }
-
-            /**
-             * Provides all the child properties whose values are equal a specified value.
-             *
-             * @param value  the value to match
-             * @return a list of matching properties
-             */
-            private static List<Property> getPropertiesWithValue(Map<String, Property> propkvs, String value) {
-                return propkvs.values().stream()
-                        .filter(Objects::nonNull)
-                        .filter(p -> value.equals(p.value()))
-                        .collect(toList());
             }
         }
     }

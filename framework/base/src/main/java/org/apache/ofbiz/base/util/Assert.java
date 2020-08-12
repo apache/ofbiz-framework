@@ -211,5 +211,5 @@ public class Assert {
         }
     }
 
-    private Assert() {}
+    private Assert() { }
 }

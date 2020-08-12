@@ -55,7 +55,7 @@ public class ContentKeywordIndex {
 
     public static void indexKeywords(GenericValue content, boolean doAll) throws GenericEntityException {
         if (content == null) return;
-        
+
         Delegator delegator = content.getDelegator();
         String contentId = content.getString("contentId");
 
@@ -195,7 +195,9 @@ public class ContentKeywordIndex {
             }
         }
         if (toBeStored.size() > 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), MODULE);
+            }
 
             if ("true".equals(EntityUtilProperties.getPropertyValue("contentsearch", "index.delete.on_index", "false", delegator))) {
                 // delete all keywords if the properties file says to
@@ -213,9 +215,7 @@ public class ContentKeywordIndex {
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }
-        } catch (IOException e1) {
-            Debug.logError(e1, "Error getting content text to index", MODULE);
-        } catch (GeneralException e1) {
+        } catch (IOException | GeneralException e1) {
             Debug.logError(e1, "Error getting content text to index", MODULE);
         }
     }

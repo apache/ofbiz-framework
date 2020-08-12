@@ -254,7 +254,7 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static abstract class GenericLocalizedConverter<S, T> extends AbstractLocalizedConverter<S, T> {
+    public abstract static class GenericLocalizedConverter<S, T> extends AbstractLocalizedConverter<S, T> {
         protected GenericLocalizedConverter(Class<S> sourceClass, Class<T> targetClass) {
             super(sourceClass, targetClass);
         }

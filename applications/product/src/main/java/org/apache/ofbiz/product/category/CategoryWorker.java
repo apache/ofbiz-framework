@@ -53,7 +53,7 @@ public final class CategoryWorker {
 
     private static final String MODULE = CategoryWorker.class.getName();
 
-    private CategoryWorker () {}
+    private CategoryWorker() { }
 
     public static String getCatalogTopCategory(ServletRequest request, String defaultTopCategory) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -76,7 +76,9 @@ public final class CategoryWorker {
             topCatName = "CATALOG1";
 
         if (!fromSession) {
-            if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.getCatalogTopCategory] Setting new top category: " + topCatName, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("[CategoryWorker.getCatalogTopCategory] Setting new top category: " + topCatName, MODULE);
+            }
             httpRequest.getSession().setAttribute("CATALOG_TOP_CATEGORY", topCatName);
         }
         return topCatName;
@@ -104,12 +106,14 @@ public final class CategoryWorker {
         Map<String, Object> requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
         String requestId = null;
 
-        requestId = UtilFormatOut.checkNull((String)requestParameters.get("catalog_id"), (String)requestParameters.get("CATALOG_ID"),
-                (String)requestParameters.get("category_id"), (String)requestParameters.get("CATEGORY_ID"));
+        requestId = UtilFormatOut.checkNull((String) requestParameters.get("catalog_id"), (String) requestParameters.get("CATALOG_ID"),
+                (String) requestParameters.get("category_id"), (String) requestParameters.get("CATEGORY_ID"));
 
         if (requestId.equals(""))
             return;
-        if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, MODULE);
+        }
         getRelatedCategories(request, attributeName, requestId, limitView);
     }
 
@@ -140,7 +144,9 @@ public final class CategoryWorker {
     public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
         List<GenericValue> categories = new LinkedList<>();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, MODULE);
+        }
 
         List<GenericValue> rollups = null;
 
@@ -229,7 +235,9 @@ public final class CategoryWorker {
     }
 
     public static void setTrail(ServletRequest request, String currentCategory, String previousCategory) {
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory + " currentCategory=" + currentCategory, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory + " currentCategory=" + currentCategory, MODULE);
+        }
 
         // if there is no current category, just return and do nothing to that the last settings will stay
         if (UtilValidate.isEmpty(currentCategory)) {
@@ -289,7 +297,9 @@ public final class CategoryWorker {
 
         // add the current category to the end of the list
         trail.add(currentCategoryId);
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategoryId, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategoryId, MODULE);
+        }
 
         return trail;
     }
@@ -386,17 +396,14 @@ public final class CategoryWorker {
             getCategoryContentWrappers(catContentWrappers, subCat, request);
         }
     }
-    
     /**
-     * Returns a complete category trail - can be used for exporting proper category trees. 
-     * This is mostly useful when used in combination with bread-crumbs,  for building a 
+     * Returns a complete category trail - can be used for exporting proper category trees.
+     * This is mostly useful when used in combination with bread-crumbs, for building a
      * faceted index tree, or to export a category tree for migration to another system.
      * Will create the tree from root point to categoryId.
-     * 
      * This method is not meant to be run on every request.
-     * Its best use is to generate the trail every so often and store somewhere 
-     * (a lucene/solr tree, entities, cache or so). 
-     * 
+     * Its best use is to generate the trail every so often and store somewhere
+     * (a lucene/solr tree, entities, cache or so).
      * @param dctx The DispatchContext that this service is operating in
      * @param context Map containing the input parameters
      * @return Map organized trail from root point to categoryId.

@@ -55,11 +55,10 @@ import freemarker.template.TemplateTransformModel;
  * exists, it is prepended to the contents of the transform (the part between
  * <code>&lt;@ofbizUrl&gt;</code> and <code>&lt;/@ofbizUrl&gt;</code>), and all transform arguments are
  * ignored.</p>
- * 
  */
 public class OfbizUrlTransform implements TemplateTransformModel {
 
-    public final static String MODULE = OfbizUrlTransform.class.getName();
+    private static final String MODULE = OfbizUrlTransform.class.getName();
 
     @SuppressWarnings("rawtypes")
     private static boolean checkBooleanArg(Map args, String key, boolean defaultValue) {

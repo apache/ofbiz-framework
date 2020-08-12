@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -126,7 +125,6 @@ public class ControlFilter extends HttpFilter {
     /**
      * Makes allowed paths pass through while redirecting the others to a fix location.
      *
-     * @see Filter#doFilter
      */
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)

@@ -56,7 +56,7 @@ public final class PaymentWorker {
 
     // to be able to use in minilanguage where Boolean cannot be used
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId) {
-        return(getPartyPaymentMethodValueMaps(delegator, partyId, false));
+        return (getPartyPaymentMethodValueMaps(delegator, partyId, false));
     }
 
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId, Boolean showOld) {
@@ -278,7 +278,7 @@ public final class PaymentWorker {
                 if (paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
                     GenericValue invoice = paymentApplication.getRelatedOne("Invoice", false);
                     if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-                           appliedAmount = appliedAmount.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                           appliedAmount = appliedAmount.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"), new MathContext(100));
                     }
                 }
             }
@@ -309,8 +309,7 @@ public final class PaymentWorker {
         try {
             List<EntityExpr> cond = UtilMisc.toList(
                     EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, payment.getString("paymentId")),
-                    EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId"))
-                   );
+                    EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId")));
             EntityCondition partyCond = EntityCondition.makeCondition(cond, EntityOperator.OR);
             paymentApplications = payment.getDelegator().findList("PaymentApplication", partyCond, null, UtilMisc.toList("invoiceId", "billingAccountId"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {
@@ -320,7 +319,7 @@ public final class PaymentWorker {
                     if (actual.equals(Boolean.FALSE) && paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
                         GenericValue invoice = paymentApplication.getRelatedOne("Invoice", false);
                         if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-                               amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                               amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"), new MathContext(100));
                         }
                     }
                     paymentApplied = paymentApplied.add(amountApplied).setScale(DECIMALS, ROUNDING_MODE);
@@ -333,9 +332,9 @@ public final class PaymentWorker {
     }
 
     public static BigDecimal getPaymentNotApplied(GenericValue payment) {
-        if (payment != null) { 
+        if (payment != null) {
             return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(DECIMALS, ROUNDING_MODE);
-        } 
+        }
         return BigDecimal.ZERO;
     }
 
@@ -347,7 +346,7 @@ public final class PaymentWorker {
     }
 
     public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId) {
-        return getPaymentNotApplied(delegator,paymentId, false);
+        return getPaymentNotApplied(delegator, paymentId, false);
     }
 
     public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId, Boolean actual) {
@@ -365,6 +364,6 @@ public final class PaymentWorker {
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator,paymentId, actual)).setScale(DECIMALS, ROUNDING_MODE);
+        return payment.getBigDecimal("amount").subtract(getPaymentApplied(delegator, paymentId, actual)).setScale(DECIMALS, ROUNDING_MODE);
     }
 }

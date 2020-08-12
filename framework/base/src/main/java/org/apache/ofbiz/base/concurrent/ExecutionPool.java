@@ -119,7 +119,7 @@ public final class ExecutionPool {
         }
     }
 
-    public static abstract class Pulse implements Delayed, Runnable {
+    public abstract static class Pulse implements Delayed, Runnable {
         protected final long expireTimeNanos;
         protected final long loadTimeNanos;
 
@@ -159,7 +159,7 @@ public final class ExecutionPool {
 
         @Override
         public final boolean equals(Object other) {
-            if(other instanceof Pulse) {
+            if (other instanceof Pulse) {
                 return timeDiff((Pulse) other) == 0;
             }
             return false;

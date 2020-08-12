@@ -29,6 +29,6 @@ import org.apache.ofbiz.entity.Delegator;
  * ContentWorkerInterface
  */
 public interface DataResourceWorkerInterface {
-    public String renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
+    String renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 }

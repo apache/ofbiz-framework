@@ -20,7 +20,6 @@ package org.apache.ofbiz.order.shoppingcart.product;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,7 +51,7 @@ public final class ProductDisplayWorker {
 
     private static final String MODULE = ProductDisplayWorker.class.getName();
 
-    private ProductDisplayWorker() {}
+    private ProductDisplayWorker() { }
 
     /* ========================================================================================*/
 
@@ -246,18 +245,18 @@ public final class ProductDisplayWorker {
             }
 
             // if desired check view allow category
-                String currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-                String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
-                if (viewProductCategoryId != null) {
-                    for (Map.Entry<String, GenericValue> entry : products.entrySet()) {
-                        String productId = entry.getKey();
-                        if (!CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
-                            products.remove(productId);
-                            productQuantities.remove(productId);
-                            productOccurances.remove(productId);
-                        }
+            String currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
+            String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
+            if (viewProductCategoryId != null) {
+                for (Map.Entry<String, GenericValue> entry : products.entrySet()) {
+                    String productId = entry.getKey();
+                    if (!CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
+                        products.remove(productId);
+                        productQuantities.remove(productId);
+                        productOccurances.remove(productId);
                     }
                 }
+            }
 
             List<GenericValue> reorderProds = new LinkedList<>();
             reorderProds.addAll(products.values());
@@ -271,10 +270,9 @@ public final class ProductDisplayWorker {
                 Integer quantity = entry.getValue();
                 BigDecimal occs = productQuantities.get(prodId);
                 //For quantity we should test if we allow to add decimal quantity for this product an productStore : if not then round to 0
-                if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, prodId, cart.getProductStoreId())){
+                if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, prodId, cart.getProductStoreId())) {
                     occs = occs.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
-                }
-                else {
+                } else {
                     occs = occs.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
                 }
                 productQuantities.put(prodId, occs);
@@ -307,7 +305,7 @@ public final class ProductDisplayWorker {
         }
 
         List<GenericValue> result = new LinkedList<>(values);
-        Collections.sort(result, new ProductByMapComparator(orderByMap, descending));
+        result.sort(new ProductByMapComparator(orderByMap, descending));
         return result;
     }
 

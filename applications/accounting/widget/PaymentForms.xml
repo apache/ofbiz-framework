@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
  xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="FindPayments" type="single" target="findPayments"
+    <form name="FindPayments" type="single" target="findPayments" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="paymentId"><text-find ignore-case="true"/></field>
@@ -34,12 +34,12 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field position="1" name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>

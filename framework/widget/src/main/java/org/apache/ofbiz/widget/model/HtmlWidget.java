@@ -28,6 +28,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -57,8 +60,6 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -186,20 +187,40 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    /**
+     * Render html template when multi-block=true. We use stack to store the string writer because a freemarker template may also render a sub screen
+     * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
+     * existence of the stack and retrieve the correct string writer. The following tags are removed from the final rendering: 1. External and inline
+     * javascript tags 2. Css link tags
+     * 
+     * @param writer
+     * @param locationExdr
+     * @param context
+     * @throws IOException
+     */
     public static void renderHtmlTemplateWithMultiBlock(Appendable writer, FlexibleStringExpander locationExdr,
                                                         Map<String, Object> context) throws IOException {
         String location = locationExdr.expandString(context);
 
         StringWriter stringWriter = new StringWriter();
-        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriter);
+        Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+        if (stringWriterStack == null) {
+            stringWriterStack = new Stack<>();
+        }
+        stringWriterStack.push(stringWriter);
+        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriterStack);
         renderHtmlTemplate(stringWriter, locationExdr, context);
-        context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
+        stringWriterStack.pop();
+        // check if no more parent freemarker template before removing from context
+        if (stringWriterStack.empty()) {
+            context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
+        }
         String data = stringWriter.toString();
         stringWriter.close();
 
         Document doc = Jsoup.parseBodyFragment(data);
 
-        // extract scripts
+        // extract js script tags
         Elements scriptElements = doc.select("script");
         if (scriptElements != null && scriptElements.size() > 0) {
             StringBuilder scripts = new StringBuilder();
@@ -242,6 +263,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
             }
         }
+        // extract css link tags
         Elements csslinkElements = doc.select("link");
         if (csslinkElements != null && csslinkElements.size() > 0) {
             for (org.jsoup.nodes.Element link : csslinkElements) {

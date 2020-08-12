@@ -65,7 +65,7 @@ public final class UtilProperties implements Serializable {
 
     private static final String MODULE = UtilProperties.class.getName();
 
-    private UtilProperties() {}
+    private UtilProperties() { }
 
     /**
      * A cache for storing Properties instances. Each Properties instance is keyed by its URL.
@@ -140,11 +140,13 @@ public final class UtilProperties implements Serializable {
     private static Number getPropertyNumber(String resource, String name, Number defaultNumber, String type) {
         String str = getPropertyValue(resource, name);
         if (UtilValidate.isEmpty(str)) {
-            if (Debug.verboseOn()) Debug.logVerbose("The property " + resource + ":" + name + " is empty, using defaultNumber " + defaultNumber + ".", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("The property " + resource + ":" + name + " is empty, using defaultNumber " + defaultNumber + ".", MODULE);
+            }
             return defaultNumber;
         }
         try {
-            return (Number)(ObjectType.simpleTypeOrObjectConvert(str, type, null, null));
+            return (Number) (ObjectType.simpleTypeOrObjectConvert(str, type, null, null));
         } catch (GeneralException e) {
             Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", MODULE);
         }
@@ -179,7 +181,7 @@ public final class UtilProperties implements Serializable {
      * @return An Integer-Object of the property; or if not found the defaultNumber
      */
     public static Integer getPropertyAsInteger(String resource, String name, int defaultNumber) {
-        return (Integer)getPropertyNumber(resource, name, defaultNumber, "Integer");
+        return (Integer) getPropertyNumber(resource, name, defaultNumber, "Integer");
     }
 
     /**
@@ -191,7 +193,7 @@ public final class UtilProperties implements Serializable {
      * @return A Long-Object of the property; or if not found the defaultNumber
      */
     public static Long getPropertyAsLong(String resource, String name, long defaultNumber) {
-        return (Long)getPropertyNumber(resource, name, defaultNumber, "Long");
+        return (Long) getPropertyNumber(resource, name, defaultNumber, "Long");
     }
 
     /**
@@ -203,7 +205,7 @@ public final class UtilProperties implements Serializable {
      * @return A Long-Object of the property; or if not found the defaultNumber
      */
     public static Float getPropertyAsFloat(String resource, String name, float defaultNumber) {
-        return (Float)getPropertyNumber(resource, name, defaultNumber, "Float");
+        return (Float) getPropertyNumber(resource, name, defaultNumber, "Float");
     }
 
     /**
@@ -215,7 +217,7 @@ public final class UtilProperties implements Serializable {
      * @return A Double-Object of the property; or if not found the defaultNumber
      */
     public static Double getPropertyAsDouble(String resource, String name, double defaultNumber) {
-        return (Double)getPropertyNumber(resource, name, defaultNumber, "Double");
+        return (Double) getPropertyNumber(resource, name, defaultNumber, "Double");
     }
 
     /**
@@ -484,24 +486,27 @@ public final class UtilProperties implements Serializable {
         return value == null ? "" : value.trim();
     }
 
-     /** Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
-      * @param resource The name of the resource
-      * @param name The name of the property in the resource
-      * @param value The value of the property to set in memory */
-      public static void setPropertyValueInMemory(String resource, String name, String value) {
-          if (UtilValidate.isEmpty(resource)) {
+    /**
+     * Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
+     *
+     * @param resource The name of the resource
+     * @param name     The name of the property in the resource
+     * @param value    The value of the property to set in memory
+     */
+    public static void setPropertyValueInMemory(String resource, String name, String value) {
+        if (UtilValidate.isEmpty(resource)) {
             return;
         }
-          if (UtilValidate.isEmpty(name)) {
+        if (UtilValidate.isEmpty(name)) {
             return;
         }
 
-          Properties properties = getProperties(resource);
-          if (properties == null) {
-              return;
-          }
-          properties.setProperty(name, value);
-      }
+        Properties properties = getProperties(resource);
+        if (properties == null) {
+            return;
+        }
+        properties.setProperty(name, value);
+    }
 
     // ========= Locale & Resource Based Methods ==========
 
@@ -530,7 +535,7 @@ public final class UtilProperties implements Serializable {
         if (bundle.containsKey(name)) {
             value = bundle.getString(name);
         } else {
-            if (Debug.warningOn()) { 
+            if (Debug.warningOn()) {
                 Debug.logWarning(name + " is missing in " + resource + " for locale " + locale, MODULE);
             }
             return name;
@@ -954,7 +959,7 @@ public final class UtilProperties implements Serializable {
                 // Support old way of specifying xml:lang value.
                 // Old way: en_AU, new way: en-AU
                 Element value = UtilXml.firstChildElement(property, "value", "xml:lang", correctedLocaleString);
-                if( value == null ) {
+                if ( value == null) {
                     value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
                 }
                 if (value != null) {
@@ -996,7 +1001,7 @@ public final class UtilProperties implements Serializable {
         protected Locale locale = null;
         protected int hashCode = hashCode();
 
-        protected UtilResourceBundle() {}
+        protected UtilResourceBundle() { }
 
         public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;

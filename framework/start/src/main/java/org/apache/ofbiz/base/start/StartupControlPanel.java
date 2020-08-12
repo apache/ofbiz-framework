@@ -48,7 +48,7 @@ final class StartupControlPanel {
         Config config = null;
         try {
             loadGlobalOfbizSystemProperties("ofbiz.system.props");
-            config =  new Config(ofbizCommands);
+            config = new Config(ofbizCommands);
         } catch (StartupException e) {
             fullyTerminateSystem(e);
         }
@@ -76,12 +76,11 @@ final class StartupControlPanel {
         } else {
             // Print startup message.
             String ls = System.lineSeparator();
-            System.out.println(ls + "   ____  __________  _" +
-                               ls + "  / __ \\/ ____/ __ )(_)___" +
-                               ls + " / / / / /_  / __  / /_  /" +
-                               ls + "/ /_/ / __/ / /_/ / / / /_" +
-                               ls + "\\____/_/   /_____/_/ /___/  is started and ready." +
-                               ls);
+            System.out.println(ls + "   ____  __________  _" + ls
+                                  + "  / __ \\/ ____/ __ )(_)___" + ls
+                                  + " / / / / /_  / __  / /_  /" + ls
+                                  + "/ /_/ / __/ / /_/ / / / /_" + ls
+                                  + "\\____/_/   /_____/_/ /___/  is started and ready." + ls);
         }
     }
 

@@ -33,7 +33,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -50,58 +49,6 @@ public class PartyRelationshipServices {
     private static final String RESOURCE = "PartyUiLabels";
     private static final String RES_ERROR = "PartyErrorUiLabels";
 
-    /** Creates a PartyRelationshipType
-     *@param ctx The DispatchContext that this service is operating in
-     *@param context Map containing the input parameters
-     *@return Map with the result of the service, the output parameters
-     */
-    public static Map<String, Object> createPartyRelationshipType(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<>();
-        Delegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
-
-        ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_CREATE");
-
-        if (result.size() > 0) {
-            return result;
-        }
-
-        GenericValue partyRelationshipType = delegator.makeValue("PartyRelationshipType", UtilMisc.toMap("partyRelationshipTypeId", context.get("partyRelationshipTypeId")));
-
-        partyRelationshipType.set("parentTypeId", context.get("parentTypeId"), false);
-        partyRelationshipType.set("hasTable", context.get("hasTable"), false);
-        partyRelationshipType.set("roleTypeIdValidFrom", context.get("roleTypeIdValidFrom"), false);
-        partyRelationshipType.set("roleTypeIdValidTo", context.get("roleTypeIdValidTo"), false);
-        partyRelationshipType.set("description", context.get("description"), false);
-        partyRelationshipType.set("partyRelationshipName", context.get("partyRelationshipName"), false);
-
-        try {
-            if ((EntityQuery.use(delegator).from(partyRelationshipType.getEntityName()).where(partyRelationshipType.getPrimaryKey()).queryOne()) != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                        "PartyRelationshipTypeAlreadyExists", locale));
-            }
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "PartyRelationshipTypeReadFailure",
-                    UtilMisc.toMap("errorString", e.getMessage()),    locale));
-        }
-
-        try {
-            partyRelationshipType.create();
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "PartyRelationshipTypeWriteFailure",
-                    UtilMisc.toMap("errorString", e.getMessage()),    locale));
-        }
-
-        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        return result;
-    }
-
     /** Creates and updates a PartyRelationship creating related PartyRoles if needed.
      *  A side of the relationship is checked to maintain history
      *@param ctx The DispatchContext that this service is operating in
@@ -117,12 +64,12 @@ public class PartyRelationshipServices {
         try {
             List<GenericValue> partyRelationShipList = PartyRelationshipHelper.getActivePartyRelationships(delegator, context);
             if (UtilValidate.isEmpty(partyRelationShipList)) { // If already exists and active nothing to do: keep the current one
-                String partyId = (String) context.get("partyId") ;
-                String partyIdFrom = (String) context.get("partyIdFrom") ;
-                String partyIdTo = (String) context.get("partyIdTo") ;
-                String roleTypeIdFrom = (String) context.get("roleTypeIdFrom") ;
-                String roleTypeIdTo = (String) context.get("roleTypeIdTo") ;
-                String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId") ;
+                String partyId = (String) context.get("partyId");
+                String partyIdFrom = (String) context.get("partyIdFrom");
+                String partyIdTo = (String) context.get("partyIdTo");
+                String roleTypeIdFrom = (String) context.get("roleTypeIdFrom");
+                String roleTypeIdTo = (String) context.get("roleTypeIdTo");
+                String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId");
 
                 // Before creating the partyRelationShip, create the partyRoles if they don't exist
                 GenericValue partyToRole = null;

@@ -22,12 +22,14 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.collect.ImmutableList;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -37,6 +39,7 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
+import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import org.apache.ofbiz.widget.model.ModelTree;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
@@ -166,13 +169,8 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                     StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
-                    if (target.indexOf("?") < 0) {
-                        target.append("?");
-                    } else {
-                        target.append("&");
-                    }
-                    target.append(trailName).append("=").append(currentNodeTrailPiped);
-                    expandCollapseLink = new ModelTree.ModelNode.Link("collapsed", target.toString(), " ");
+                    expandCollapseLink = new ModelTree.ModelNode.Link("collapsed", target.toString(), " ",
+                            ImmutableList.of(new CommonWidgetModels.Parameter(trailName, currentNodeTrailPiped, false)));
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
@@ -183,13 +181,8 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                 }
                 StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                 String trailName = node.getModelTree().getTrailName(context);
-                if (target.indexOf("?") < 0) {
-                    target.append("?");
-                } else {
-                    target.append("&");
-                }
-                target.append(trailName).append("=").append(currentNodeTrailPiped);
-                expandCollapseLink = new ModelTree.ModelNode.Link("expanded", target.toString(), " ");
+                expandCollapseLink = new ModelTree.ModelNode.Link("expanded", target.toString(), " ",
+                        ImmutableList.of(new CommonWidgetModels.Parameter(trailName, currentNodeTrailPiped, false)));
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
             }
@@ -260,8 +253,10 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
 
         if (UtilValidate.isNotEmpty(target)) {
-            WidgetWorker.buildHyperlinkUrl(linkUrl, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                    link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
+            final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), link.getParameterMap(context),
+                    link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                    request, response);
+            linkUrl.append(uri.toString());
         }
 
         String id = link.getId(context);
@@ -364,7 +359,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
     @Override
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
+        ScreenRenderer screenRenderer = (ScreenRenderer) context.get("screens");
         if (screenRenderer != null) {
             return screenRenderer.getScreenStringRenderer();
         }

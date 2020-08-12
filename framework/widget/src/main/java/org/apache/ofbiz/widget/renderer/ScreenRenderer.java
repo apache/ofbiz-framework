@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -139,8 +140,8 @@ public class ScreenRenderer {
         } else {
             context.put("renderFormSeqNumber", String.valueOf(renderFormSeqNumber));
             if (context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER) != null) {
-                StringWriter stringWriter = (StringWriter) context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
-                modelScreen.renderScreenString(stringWriter, context, screenStringRenderer);
+                Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+                modelScreen.renderScreenString(stringWriterStack.peek(), context, screenStringRenderer);
             } else {
                 modelScreen.renderScreenString(writer, context, screenStringRenderer);
             }
@@ -226,7 +227,7 @@ public class ScreenRenderer {
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         if (visualTheme == null) {
             String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", (Delegator) request.getAttribute("delegator"));
-            visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
+            visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
         }
         context.put("visualTheme", visualTheme);
         context.put("modelTheme", visualTheme.getModelTheme());
@@ -260,7 +261,7 @@ public class ScreenRenderer {
         context.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
         TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
         context.put("JspTaglibs", JspTaglibs);
-        context.put("requestParameters",  UtilHttp.getParameterMap(request));
+        context.put("requestParameters", UtilHttp.getParameterMap(request));
 
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
         context.put("Application", ftlServletContext);

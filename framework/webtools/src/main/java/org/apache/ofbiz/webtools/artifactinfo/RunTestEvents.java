@@ -37,7 +37,7 @@ public class RunTestEvents {
     private static final String MODULE = RunTestEvents.class.getName();
 
     public static String runTest(HttpServletRequest request, HttpServletResponse response) throws ContainerException {
-        
+
         String component = request.getParameter("compName");
         String suiteName = request.getParameter("suiteName");
         String caseName = request.getParameter("caseName");

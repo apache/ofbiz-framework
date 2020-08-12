@@ -71,12 +71,12 @@ public class NamingServiceContainer implements Container {
         // get the naming (JNDI) server
         Configuration.Property host = cfg.getProperty("host");
         if (host != null && host.value() != null) {
-            this.namingHost =  host.value() ;
+            this.namingHost = host.value();
         }
 
         try {
-            rmiSocketFactory = new RMIExtendedSocketFactory( namingHost );
-        } catch ( UnknownHostException uhEx ) {
+            rmiSocketFactory = new RMIExtendedSocketFactory(namingHost);
+        } catch (UnknownHostException uhEx) {
             throw new ContainerException("Invalid host defined in container [naming-container] configuration; not a valid IP address", uhEx);
         }
 

@@ -45,14 +45,14 @@ public class PermissionRecorder {
     protected Map<String, Object> currentContentMap;
     protected String privilegeEnumId;
     protected int currentCheckMode;
-    protected GenericValue [] contentPurposeOperations;
-    protected String [] statusTargets;
-    protected String [] targetOperations;
+    protected GenericValue[] contentPurposeOperations;
+    protected String[] statusTargets;
+    protected String[] targetOperations;
 
     private static final String MODULE = PermissionRecorder.class.getName();
 
-    private static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
-    private static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
+    private static final String[] opFields = {"contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
+    private static final String[] fieldTitles = {"Purpose", "Operation", "Role", "Status", "Privilege"};
 
     public PermissionRecorder() {
         isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");
@@ -90,7 +90,7 @@ public class PermissionRecorder {
         entityPermCheckResult = b;
     }
 
-    public GenericValue [] getContentPurposeOperations() {
+    public GenericValue[] getContentPurposeOperations() {
        return contentPurposeOperations != null ? contentPurposeOperations.clone() : null;
     }
 
@@ -106,7 +106,7 @@ public class PermissionRecorder {
         return privilegeEnumId;
     }
 
-    public String [] getStatusTargets() {
+    public String[] getStatusTargets() {
        return statusTargets != null ? statusTargets.clone() : null;
     }
 
@@ -114,7 +114,7 @@ public class PermissionRecorder {
        statusTargets = opList.toArray(new String[opList.size()]);
     }
 
-    public String [] getTargetOperations() {
+    public String[] getTargetOperations() {
        return targetOperations != null ? targetOperations.clone() : null;
     }
 
@@ -211,8 +211,7 @@ public class PermissionRecorder {
         sb.append("Content Id");
         sb.append("</td>");
 
-        for (int i=0; i < fieldTitles.length; i++) {
-            String opField = fieldTitles[i];
+        for (String opField : fieldTitles) {
             sb.append("<td class=\"headr\">");
             sb.append(opField);
             sb.append("</td>");
@@ -245,16 +244,15 @@ public class PermissionRecorder {
         sb.append("<tr>");
 
         sb.append("<td class=\"target\">");
-        sb.append((String)rMap.get("contentId"));
+        sb.append((String) rMap.get("contentId"));
         sb.append("</td>");
 
         //if (Debug.infoOn()) Debug.logInfo("renderResultRowHtml, (1):" + sb.toString(), MODULE);
         String str = null;
         String s = null;
-        for (int i=0; i < opFields.length; i++) {
-            String opField = opFields[i];
+        for (String opField : opFields) {
             sb.append("<td class=\"target\">");
-            s = (String)currentContentResultMap.get(opField);
+            s = (String) currentContentResultMap.get(opField);
             if (s != null)
                 str = s;
             else
@@ -269,18 +267,17 @@ public class PermissionRecorder {
         sb.append("<tr>");
 
         sb.append("<td class=\"target\">");
-        sb.append((String)currentContentResultMap.get("contentId"));
+        sb.append((String) currentContentResultMap.get("contentId"));
         sb.append("</td>");
 
         boolean isPass = true;
-        for (int i=0; i < opFields.length; i++) {
-            String opField = opFields[i];
-            Boolean bool = (Boolean)rMap.get(opField + "Cond");
+        for (String opField : opFields) {
+            Boolean bool = (Boolean) rMap.get(opField + "Cond");
             String cls = (bool) ? "pass" : "fail";
             if (!bool)
                 isPass = false;
             sb.append("<td class=\"" + cls + "\">");
-            s = (String)rMap.get(opField);
+            s = (String) rMap.get(opField);
             sb.append(s);
             sb.append("</td>");
         }

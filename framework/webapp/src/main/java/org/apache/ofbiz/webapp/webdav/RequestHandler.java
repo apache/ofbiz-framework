@@ -25,21 +25,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.entity.GenericDelegator;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.LocalDispatcher;
-
 @FunctionalInterface
 public interface RequestHandler {
     /**
-     *  Method called by the the WebDAV servlet to handle a WebDAV request.
+     * Method called by the the WebDAV servlet to handle a WebDAV request.
      *
-     *  @param req the HTTP request to handle which contains the {@link GenericDelegator delegator},
-     *             {@link LocalDispatcher dispatcher}, and {@link Security security} attributes
-     *  @param resp the HTTP response to send
-     *  @param ctx the context of the current servlet
-     *  @throws ServletException if servlet execution failed
-     *  @throws IOException if communication with the HTTP request/response buffers failed
+     * @param req
+     *            the HTTP request to handle which contains the delegator, dispatcher}, Security attributes
+     * @param resp
+     *            the HTTP response to send
+     * @param ctx
+     *            the context of the current servlet
+     * @throws ServletException
+     *             if servlet execution failed
+     * @throws IOException
+     *             if communication with the HTTP request/response buffers failed
      */
     void handleRequest(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException;

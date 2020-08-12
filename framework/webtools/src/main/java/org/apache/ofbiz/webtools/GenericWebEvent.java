@@ -49,7 +49,7 @@ import org.apache.ofbiz.security.Security;
 public class GenericWebEvent {
 
     private static final String MODULE = GenericWebEvent.class.getName();
-    public static final String err_resource = "WebtoolsErrorUiLabels";
+    private static final String ERR_RESOURCE = "WebtoolsErrorUiLabels";
 
     /** An HTTP WebEvent handler that updates a Generic entity
      *
@@ -66,7 +66,7 @@ public class GenericWebEvent {
             entityName = (String) request.getAttribute("entityName");
         }
         if (UtilValidate.isEmpty(entityName)) {
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.entity_name_not_specified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[GenericWebEvent.updateGeneric] The entityName was not specified,"
@@ -78,7 +78,7 @@ public class GenericWebEvent {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         if (security == null) {
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.security_object_not_found", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[updateGeneric] The security object was not found in the request,"
@@ -86,7 +86,7 @@ public class GenericWebEvent {
             return "error";
         }
         if (delegator == null) {
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.delegator_object_not_found", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[updateGeneric] The delegator object was not found in the request,"
@@ -117,14 +117,14 @@ public class GenericWebEvent {
                         (String) request.getAttribute("pkValues"));
             } catch (Exception e) {
 
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(err_resource,
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.entity_path_not_valid", locale));
                 return "error";
             }
         }
 
         if (UtilValidate.isEmpty(updateMode)) {
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.update_mode_not_specified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[updateGeneric] Update Mode was not specified, but is required;"
@@ -140,9 +140,9 @@ public class GenericWebEvent {
                     "updateMode", updateMode,
                     "entityName", entity.getEntityName(),
                     "entityPlainTableName", plainTableName);
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.not_sufficient_permissions_01", messageMap, locale);
-            errMsg += UtilProperties.getMessage(err_resource,
+            errMsg += UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.not_sufficient_permissions_02", messageMap, locale) + ".";
 
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -165,7 +165,7 @@ public class GenericWebEvent {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("fieldType", field.getType());
-                errMsg += UtilProperties.getMessage(err_resource,
+                errMsg += UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.fatal_error_param", messageMap, locale) + ".";
             }
 
@@ -175,7 +175,7 @@ public class GenericWebEvent {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
                     Map<String, String> messageMap = UtilMisc.toMap("fval", fval);
-                    errMsg = errMsg + "<li>" + field.getColName() + UtilProperties.getMessage(err_resource, "genericWebEvent.conversion_failed", messageMap, locale) + type.getJavaType() + ".";
+                    errMsg = errMsg + "<li>" + field.getColName() + UtilProperties.getMessage(ERR_RESOURCE, "genericWebEvent.conversion_failed", messageMap, locale) + type.getJavaType() + ".";
                     Debug.logWarning("[updateGeneric] " + field.getColName() + " conversion failed: \"" + fval + "\" is not a valid " + type.getJavaType() + "; entityName: " + entityName, MODULE);
                 }
             }
@@ -192,11 +192,11 @@ public class GenericWebEvent {
             // Delete actual main entity last, just in case database is set up to do a cascading delete, caches won't get cleared
             try {
                 delegator.removeByPrimaryKey(findByEntity.getPrimaryKey());
-                String confirmMsg = UtilProperties.getMessage(err_resource,
+                String confirmMsg = UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.delete_succeeded", locale);
                 request.setAttribute("_EVENT_MESSAGE_", confirmMsg);
             } catch (GenericEntityException e) {
-                String errMsg = UtilProperties.getMessage(err_resource,
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.delete_failed", locale) + ": " + e.toString();
                 Debug.logWarning(e, errMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -218,7 +218,7 @@ public class GenericWebEvent {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("fieldType", field.getType());
-                errMsgNonPk += UtilProperties.getMessage(err_resource,
+                errMsgNonPk += UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.fatal_error_param", messageMap, locale) + ".";
             }
 
@@ -228,7 +228,7 @@ public class GenericWebEvent {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
                     Map<String, String> messageMap = UtilMisc.toMap("fval", fval);
-                    errMsgNonPk += field.getColName() + UtilProperties.getMessage(err_resource,
+                    errMsgNonPk += field.getColName() + UtilProperties.getMessage(ERR_RESOURCE,
                             "genericWebEvent.conversion_failed", messageMap, locale) + type.getJavaType() + ".";
                     Debug.logWarning("[updateGeneric] " + field.getColName()
                             + " conversion failed: \"" + fval + "\" is not a valid "
@@ -255,7 +255,7 @@ public class GenericWebEvent {
                         .where(findByEntity.getPrimaryKey())
                         .queryOne();
             } catch (GenericEntityException e) {
-                String errMsg = UtilProperties.getMessage(err_resource,
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.create_failed_by_check", locale) + ": " + e.toString();
                 Debug.logWarning(e, errMsg, MODULE);
 
@@ -264,7 +264,7 @@ public class GenericWebEvent {
             }
             if (tempEntity != null) {
                 Map<String, String> messageMap = UtilMisc.toMap("primaryKey", findByEntity.getPrimaryKey().toString());
-                String errMsg = "[updateGeneric] " + entity.getEntityName() + UtilProperties.getMessage(err_resource,
+                String errMsg = "[updateGeneric] " + entity.getEntityName() + UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.already_exists_pk", messageMap, locale) + ".";
                 Debug.logWarning(errMsg, MODULE);
             }
@@ -327,9 +327,9 @@ public class GenericWebEvent {
                     } catch (Exception e) {
                         Debug.logError("[updateGeneric] Could not find validation message field: " + curValidate
                                 + "Msg of class " + className + "; returning generic validation failure message.", MODULE);
-                        message = UtilProperties.getMessage(err_resource, "genericWebEvent.validation_failed", locale) + ".";
+                        message = UtilProperties.getMessage(ERR_RESOURCE, "genericWebEvent.validation_failed", locale) + ".";
                     }
-                    errMsgParam += field.getColName() + " " + curValidate + " " + UtilProperties.getMessage(err_resource,
+                    errMsgParam += field.getColName() + " " + curValidate + " " + UtilProperties.getMessage(ERR_RESOURCE,
                             "genericWebEvent.failed", locale) + ": " + message;
 
                     Debug.logWarning("[updateGeneric] " + field.getColName() + " " + curValidate + " failed: " + message, MODULE);
@@ -338,7 +338,7 @@ public class GenericWebEvent {
         }
 
         if (errMsgParam.length() > 0) {
-            errMsgParam = UtilProperties.getMessage(err_resource,
+            errMsgParam = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.following_error_occurred", locale) + errMsgParam;
             request.setAttribute("_ERROR_MESSAGE_", errMsgParam);
             return "error";
@@ -349,7 +349,7 @@ public class GenericWebEvent {
                 delegator.create(findByEntity.getEntityName(), findByEntity.getAllFields());
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("entityName", entity.getEntityName());
-                String errMsg = UtilProperties.getMessage(err_resource,
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.creation_param_failed", messageMap, locale)
                         + ": " + findByEntity.toString() + ": " + e.toString();
                 Debug.logWarning(e, errMsg, MODULE);
@@ -363,7 +363,7 @@ public class GenericWebEvent {
                 value.store();
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("entityName", entity.getEntityName());
-                String errMsg = UtilProperties.getMessage(err_resource,
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                         "genericWebEvent.update_of_param_failed", messageMap, locale)
                         + ": " + value.toString() + ": " + e.toString();
                 Debug.logWarning(e, errMsg, MODULE);
@@ -372,7 +372,7 @@ public class GenericWebEvent {
             }
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
-            String errMsg = UtilProperties.getMessage(err_resource,
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.update_of_param_failed", messageMap, locale) + ".";
 
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

@@ -243,7 +243,7 @@ public class ProductConfigWrapper implements Serializable {
         if (!(obj instanceof ProductConfigWrapper)) {
             return false;
         }
-        ProductConfigWrapper cw = (ProductConfigWrapper)obj;
+        ProductConfigWrapper cw = (ProductConfigWrapper) obj;
         if (!product.getString("productId").equals(cw.getProduct().getString("productId"))) {
             return false;
         }
@@ -476,7 +476,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (content != null) {
                     question = content.get("DESCRIPTION", "html").toString();
                 } else {
-                    question = (configItem.getString("description") != null? configItem.getString("description"): "");
+                    question = (configItem.getString("description") != null ? configItem.getString("description") : "");
                 }
             }
             return question;
@@ -490,7 +490,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (content != null) {
                     description = content.get("LONG_DESCRIPTION", "html").toString();
                 } else {
-                    description = (configItem.getString("longDescription") != null? configItem.getString("longDescription"): "");
+                    description = (configItem.getString("longDescription") != null ? configItem.getString("longDescription") : "");
                 }
             }
             return description;
@@ -535,9 +535,9 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigItem that = (ConfigItem) o;
-            return Objects.equals(getConfigItem(), that.getConfigItem()) &&
-                    Objects.equals(getConfigItemAssoc(), that.getConfigItemAssoc()) &&
-                    Objects.equals(getOptions(), that.getOptions());
+            return Objects.equals(getConfigItem(), that.getConfigItem())
+                    && Objects.equals(getConfigItemAssoc(), that.getConfigItemAssoc())
+                    && Objects.equals(getOptions(), that.getOptions());
         }
 
         @Override
@@ -572,7 +572,7 @@ public class ProductConfigWrapper implements Serializable {
                 BigDecimal listPrice = BigDecimal.ZERO;
                 BigDecimal price = BigDecimal.ZERO;
                 // Get the component's price
-                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct", false), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId",productStoreId);
+                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponent.getRelatedOne("ProductProduct", false), "prodCatalogId", catalogId, "webSiteId", webSiteId, "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin, "productStoreId", productStoreId);
                 Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 if (ServiceUtil.isError(priceMap)) {
                     String errorMessage = ServiceUtil.getErrorMessage(priceMap);
@@ -580,7 +580,7 @@ public class ProductConfigWrapper implements Serializable {
                 }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
-                Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
+                Boolean validPriceFound = (Boolean) priceMap.get("validPriceFound");
                 BigDecimal mult = BigDecimal.ONE;
                 if (oneComponent.getBigDecimal("quantity") != null) {
                     mult = oneComponent.getBigDecimal("quantity");
@@ -646,7 +646,7 @@ public class ProductConfigWrapper implements Serializable {
                 }
 
                 // Get the component's price
-                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin, "productStoreId",productStoreId);
+                Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin, "productStoreId", productStoreId);
                 Map<String, Object> priceMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
                 Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 if (ServiceUtil.isError(purchasePriceResultMap)) {
@@ -655,7 +655,7 @@ public class ProductConfigWrapper implements Serializable {
                 }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
-                Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
+                Boolean validPriceFound = (Boolean) priceMap.get("validPriceFound");
                 BigDecimal mult = BigDecimal.ONE;
                 if (oneComponent.getBigDecimal("quantity") != null) {
                     mult = oneComponent.getBigDecimal("quantity");
@@ -692,20 +692,20 @@ public class ProductConfigWrapper implements Serializable {
         }
 
         public String getOptionName() {
-            return (configOption.getString("configOptionName") != null? configOption.getString("configOptionName"): "no option name");
+            return (configOption.getString("configOptionName") != null ? configOption.getString("configOptionName") : "no option name");
         }
 
         public String getOptionName(Locale locale) {
 
-            return (configOption.getString("configOptionName") != null? (String) configOption.get("configOptionName", locale): "no option name");
+            return (configOption.getString("configOptionName") != null ? (String) configOption.get("configOptionName", locale) : "no option name");
         }
 
         public String getDescription() {
-            return (configOption.getString("description") != null? configOption.getString("description"): "no description");
+            return (configOption.getString("description") != null ? configOption.getString("description") : "no description");
         }
 
         public String getDescription(Locale locale) {
-            return (configOption.getString("description") != null? (String) configOption.get("description", locale): "no description");
+            return (configOption.getString("description") != null ? (String) configOption.get("description", locale) : "no description");
         }
 
         public String getId() {
@@ -751,20 +751,20 @@ public class ProductConfigWrapper implements Serializable {
             return this.equals(defaultConfigOption);
         }
 
-        public boolean hasVirtualComponent () {
-           List <GenericValue> components = getComponents();
-           if (UtilValidate.isNotEmpty(components)) {
-               for (GenericValue component : components) {
-                   if (isVirtualComponent(component)) {
-                       return true;
-                   }
-               }
-           }
+        public boolean hasVirtualComponent() {
+            List<GenericValue> components = getComponents();
+            if (UtilValidate.isNotEmpty(components)) {
+                for (GenericValue component : components) {
+                    if (isVirtualComponent(component)) {
+                        return true;
+                    }
+                }
+            }
 
-           return false;
-       }
+            return false;
+        }
 
-        public boolean isVirtualComponent (GenericValue component) {
+        public boolean isVirtualComponent(GenericValue component) {
             int index = getComponents().indexOf(component);
             if (index != -1) {
                 try {
@@ -806,10 +806,10 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigOption that = (ConfigOption) o;
-            return Objects.equals(availabilityDate, that.availabilityDate) &&
-                    Objects.equals(componentList, that.componentList) &&
-                    Objects.equals(getComponentOptions(), that.getComponentOptions()) &&
-                    Objects.equals(configOption, that.configOption);
+            return Objects.equals(availabilityDate, that.availabilityDate)
+                    && Objects.equals(componentList, that.componentList)
+                    && Objects.equals(getComponentOptions(), that.getComponentOptions())
+                    && Objects.equals(configOption, that.configOption);
         }
 
         @Override

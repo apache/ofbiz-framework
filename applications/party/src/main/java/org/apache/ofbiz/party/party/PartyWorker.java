@@ -52,7 +52,7 @@ public class PartyWorker {
 
     private static final String MODULE = PartyWorker.class.getName();
 
-    private PartyWorker() {}
+    private PartyWorker() { }
 
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -140,7 +140,7 @@ public class PartyWorker {
         GenericValue latestPostalAddress = findPartyLatestPostalAddress(partyId, delegator);
         if (latestPostalAddress  != null) {
             try {
-                GenericValue latestGeoPoint =  latestPostalAddress.getRelatedOne("GeoPoint", false);
+                GenericValue latestGeoPoint = latestPostalAddress.getRelatedOne("GeoPoint", false);
                 if (latestGeoPoint  != null) {
                     return latestGeoPoint;
                 }
@@ -219,10 +219,10 @@ public class PartyWorker {
             String firstName, String middleName, String lastName) throws GeneralException {
 
         List<GenericValue> matching = findMatchingPersonPostalAddresses(delegator, address1, address2, city, stateProvinceGeoId, postalCode,
-            postalCodeExt, countryGeoId, firstName, middleName, lastName);
+                postalCodeExt, countryGeoId, firstName, middleName, lastName);
         GenericValue v = EntityUtil.getFirst(matching);
         if (v != null) {
-            return new String[] { v.getString("partyId"), v.getString("contactMechId") };
+            return new String[] {v.getString("partyId"), v.getString("contactMechId") };
         }
         return null;
     }
@@ -462,7 +462,7 @@ public class PartyWorker {
                     }
                     partyList.add(associatedParty);
                 }
-                associatedParties  = currentAssociatedParties;
+                associatedParties = currentAssociatedParties;
             }
             partyIds = EntityUtil.getFieldListFromEntityList(partyList, "partyIdTo", true);
         } catch (GenericEntityException e) {
@@ -509,7 +509,7 @@ public class PartyWorker {
             partiesFound = EntityQuery.use(delegator).from("PartyIdentificationAndParty").where(conditions).orderBy("partyId").cache(true).queryList();
         }
 
-        if (! searchPartyFirst) {
+        if (!searchPartyFirst) {
             party = EntityQuery.use(delegator).from("Party").where("partyId", idToFind).cache().queryOne();
         }
 
@@ -527,7 +527,7 @@ public class PartyWorker {
     }
 
     public static List<GenericValue> findPartiesById(Delegator delegator, String idToFind, String partyIdentificationTypeId)
-    throws GenericEntityException {
+        throws GenericEntityException {
         return findPartiesById(delegator, idToFind, partyIdentificationTypeId, true, false);
     }
 
@@ -557,14 +557,13 @@ public class PartyWorker {
             for (GenericValue party : partiesByIds) {
                 GenericValue partyToAdd = party;
                 //retreive party GV if the actual genericValue came from viewEntity
-                if (! "Party".equals(party.getEntityName())) {
+                if (!"Party".equals(party.getEntityName())) {
                     partyToAdd = EntityQuery.use(delegator).from("Party").where("partyId", party.get("partyId")).cache().queryOne();
                 }
 
                 if (UtilValidate.isEmpty(parties)) {
                     parties = UtilMisc.toList(partyToAdd);
-                }
-                else {
+                } else {
                     parties.add(partyToAdd);
                 }
             }

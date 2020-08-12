@@ -32,12 +32,12 @@ import java.util.Map;
  */
 public final class StartupCommand {
     private String name;
-    private Map<String,String> properties;
+    private Map<String, String> properties;
 
     public String getName() {
         return name;
     }
-    public Map<String,String> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
@@ -51,12 +51,12 @@ public final class StartupCommand {
         private final String name;
 
         //optional parameters
-        private Map<String,String> properties;
+        private Map<String, String> properties;
 
         public Builder(String name) {
             this.name = name;
         }
-        public Builder properties(Map<String,String> properties) {
+        public Builder properties(Map<String, String> properties) {
             this.properties = properties;
             return this;
         }

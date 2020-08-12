@@ -40,7 +40,7 @@ public final class UtilFormatOut {
     public static final String PERCENTAGE_FORMAT = "percentage";
     public static final String SPELLED_OUT_FORMAT = "spelled-out";
 
-    private UtilFormatOut() {}
+    private UtilFormatOut() { }
 
     public static String safeToString(Object obj) {
         if (obj != null) {
@@ -70,19 +70,19 @@ public final class UtilFormatOut {
 
         //Resolve template to use from formatType
         String formatTypeKey = formatType + ".displaying.format";
-        String template = delegator != null ?
-                EntityUtilProperties.getPropertyValue("number", formatTypeKey, delegator):
-                UtilProperties.getPropertyValue("number", formatTypeKey);
+        String template = delegator != null
+                ? EntityUtilProperties.getPropertyValue("number", formatTypeKey, delegator)
+                : UtilProperties.getPropertyValue("number", formatTypeKey);
         if (UtilValidate.isEmpty(template)) {
-            Debug.logWarning("Number template not found for format " + formatType +
-                    ", please check your property on number for " + formatTypeKey, MODULE);
-            template = delegator != null ?
-                    EntityUtilProperties.getPropertyValue("number", "default.displaying.format", delegator):
-                    UtilProperties.getPropertyValue("number", "default.displaying.format");
+            Debug.logWarning("Number template not found for format " + formatType
+                    + ", please check your property on number for " + formatTypeKey, MODULE);
+            template = delegator != null
+                    ? EntityUtilProperties.getPropertyValue("number", "default.displaying.format", delegator)
+                    : UtilProperties.getPropertyValue("number", "default.displaying.format");
         }
         if (UtilValidate.isEmpty(template)) {
-            Debug.logWarning("Number template not found for default displaying.format" +
-                    ", please check your property on number for default.displaying.format", MODULE);
+            Debug.logWarning("Number template not found for default displaying.format"
+                    + ", please check your property on number for default.displaying.format", MODULE);
             template = "##0.00";
         }
 
@@ -157,8 +157,8 @@ public final class UtilFormatOut {
     public static String formatDecimalNumber(double number, String pattern, Locale locale) {
         com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getNumberInstance(locale);
         String nbParsing = "";
-        ((com.ibm.icu.text.DecimalFormat)nf).applyPattern( pattern );
-        ((com.ibm.icu.text.DecimalFormat)nf).toPattern();
+        ((com.ibm.icu.text.DecimalFormat) nf).applyPattern(pattern);
+        ((com.ibm.icu.text.DecimalFormat) nf).toPattern();
         nbParsing = nf.format(number);
         return nbParsing;
     }
@@ -574,7 +574,7 @@ public final class UtilFormatOut {
         }
 
         StringBuilder buffer = new StringBuilder();
-        for (int i=0; i < original.length()-4 ; i++) {
+        for (int i = 0; i < original.length()-4; i++) {
             buffer.append('*');
         }
         buffer.append(original.substring(original.length()-4));

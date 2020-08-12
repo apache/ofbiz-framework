@@ -46,6 +46,12 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+                <set field="asm_multipleSelectForm" value="FindReturns"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindReturns_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -54,6 +60,9 @@ under the License.
                             <container style="basic-nav">
                                 <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
                             </container>
+                            <platform-specific>
+                                <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                            </platform-specific>
                             <include-form name="FindReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                             <include-form name="ListReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                         </screenlet>

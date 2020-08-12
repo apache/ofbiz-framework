@@ -57,7 +57,7 @@ public class WebDavServlet extends GenericServlet {
     protected Security security = null;
 
     @Override
-    public void init(ServletConfig config) throws ServletException{
+    public void init(ServletConfig config) throws ServletException {
         try {
             super.init(config);
             ServletContext context = this.getServletContext();
@@ -94,9 +94,7 @@ public class WebDavServlet extends GenericServlet {
         RequestHandler handler = this.handlerFactory.getHandler(httpRequest.getMethod());
         try {
             handler.handleRequest(httpRequest, (HttpServletResponse) response, this.getServletContext());
-        } catch (IOException e) {
-            throw e;
-        } catch (ServletException e) {
+        } catch (IOException | ServletException e) {
             throw e;
         } catch (Exception e) {
             throw new ServletException(e);

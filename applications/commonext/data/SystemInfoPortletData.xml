@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,11 +28,6 @@
         editFormName="EditSysInfoPortletParams" editFormLocation="component://commonext/widget/SystemInfoForms.xml"
         screenshot="/images/portlets/SystemInfoNotes.png"/>
     <PortletPortletCategory portalPortletId="SystemInfoNotes" portletCategoryId="SYSTEMINFO"/>
-    <DataResource dataResourceId="HELP_SystemInfoNotes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/commonext/data/helpdata/HELP_SystemInfoNotes.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SystemInfoNotes help file" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_SystemInfoNotes" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SystemInfoNotes" statusId="CTNT_IN_PROGRESS" 
-        contentName="Help SystemInfoNotes" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_MYPORTAL" contentIdTo="HELP_SystemInfoNotes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
 
     <PortalPortlet portalPortletId="SystemInfoStatus"
         portletName="System status for this particular user"

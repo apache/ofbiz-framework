@@ -93,8 +93,7 @@ public class TemporalExpressions implements Serializable {
                 }
                 try {
                     return this.range.equals(((DateRange) obj).range);
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -207,8 +206,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     DayInMonth that = (DayInMonth) obj;
                     return this.dayOfWeek == that.dayOfWeek && this.occurrence == that.occurrence;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -340,8 +338,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     DayOfMonthRange that = (DayOfMonthRange) obj;
                     return this.start == that.start && this.end == that.end;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -460,8 +457,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     DayOfWeekRange that = (DayOfWeekRange) obj;
                     return this.start == that.start && this.end == that.end;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -597,8 +593,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     Difference that = (Difference) obj;
                     return this.included.equals(that.included) && this.excluded.equals(that.excluded);
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -713,8 +708,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     Frequency that = (Frequency) obj;
                     return this.start.equals(that.start) && this.freqType == that.freqType && this.freqCount == that.freqCount;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -802,7 +796,7 @@ public class TemporalExpressions implements Serializable {
             }
             long units = deltaMillis / divisor;
             units -= units % this.freqCount;
-            skip.add(this.freqType, (int)units);
+            skip.add(this.freqType, (int) units);
             while (skip.after(cal)) {
                 skip.add(this.freqType, -this.freqCount);
             }
@@ -871,8 +865,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     HourRange that = (HourRange) obj;
                     return this.start == that.start && this.end == that.end;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -1035,8 +1028,7 @@ public class TemporalExpressions implements Serializable {
                 }
                 try {
                     return this.expressionSet.equals(((Intersection) obj).expressionSet);
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -1159,8 +1151,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     MinuteRange that = (MinuteRange) obj;
                     return this.start == that.start && this.end == that.end;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -1316,8 +1307,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     MonthRange that = (MonthRange) obj;
                     return this.start == that.start && this.end == that.end;
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -1479,8 +1469,7 @@ public class TemporalExpressions implements Serializable {
                 try {
                     Substitution that = (Substitution) obj;
                     return this.included.equals(that.included) && this.excluded.equals(that.excluded) && this.substitute.equals(that.substitute);
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }
@@ -1596,8 +1585,7 @@ public class TemporalExpressions implements Serializable {
                 }
                 try {
                     return this.expressionSet.equals(((Union) obj).expressionSet);
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     Debug.logInfo(e.getMessage(), MODULE);
                 }
             }

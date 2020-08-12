@@ -90,7 +90,7 @@ public final class CsrfUtil {
         if (UtilValidate.isNotEmpty(partyId)) {
             Map<String, Map<String, String>> partyTokenMap = csrfTokenCache.get(partyId);
             if (partyTokenMap == null) {
-                partyTokenMap = new HashMap<String, Map<String, String>>();
+                partyTokenMap = new HashMap<>();
                 csrfTokenCache.put(partyId, partyTokenMap);
             }
 

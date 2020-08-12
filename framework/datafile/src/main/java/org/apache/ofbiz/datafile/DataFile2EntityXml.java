@@ -83,8 +83,7 @@ public class DataFile2EntityXml {
                 outFile.newLine();
             }
             outFile.write("</entity-engine-xml>");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new DataFileException("Error writing to file " + fileName, e);
         }
 
@@ -104,8 +103,7 @@ public class DataFile2EntityXml {
             if (dataFileUrl != null && definitionUrl != null && UtilValidate.isNotEmpty(definitionName)) {
                 try {
                     dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
-                }
-                catch (DataFileException e) {
+                } catch (DataFileException e) {
                     Debug.logError("Error Occurred while reading Datafile, Exception: " + e, MODULE);
                 }
             }
@@ -127,8 +125,7 @@ public class DataFile2EntityXml {
                     outFile.newLine();
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Debug.logError(e, MODULE);
         }
     }

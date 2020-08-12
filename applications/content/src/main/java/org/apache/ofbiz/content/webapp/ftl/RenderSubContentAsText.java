@@ -48,8 +48,8 @@ import freemarker.template.TemplateTransformModel;
 public class RenderSubContentAsText implements TemplateTransformModel {
 
     private static final String MODULE = RenderSubContentAsText.class.getName();
-    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    public static final String[] upSaveKeyNames = {"globalNodeTrail"};
+    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     @Override
     @SuppressWarnings("unchecked")
@@ -68,15 +68,15 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         if (Debug.infoOn()) {
             Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
         }
-        final String thisContentId =  (String)templateRoot.get("contentId");
-        final String thisMapKey =  (String)templateRoot.get("mapKey");
-        final String xmlEscape =  (String)templateRoot.get("xmlEscape");
+        final String thisContentId = (String) templateRoot.get("contentId");
+        final String thisMapKey = (String) templateRoot.get("mapKey");
+        final String xmlEscape = (String) templateRoot.get("xmlEscape");
         if (Debug.infoOn()) {
-            Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId , MODULE);
+            Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId, MODULE);
         }
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
         if (Debug.infoOn()) {
-            Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode , MODULE);
+            Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode, MODULE);
         }
 
         final Map<String, Object> savedValues = new HashMap<>();
@@ -111,8 +111,10 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                     locale = UtilMisc.ensureLocale(localeObject);
                 }
 
-                String editRequestName = (String)templateRoot.get("editRequestName");
-                if (Debug.infoOn()) Debug.logInfo("in Render(3), editRequestName ." + editRequestName , MODULE);
+                String editRequestName = (String) templateRoot.get("editRequestName");
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in Render(3), editRequestName ." + editRequestName, MODULE);
+                }
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
                     String editStyle = getEditStyle();
@@ -128,7 +130,9 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
                     out.write(txt);
 
-                    if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", MODULE);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", MODULE);
+                    }
                 } catch (GeneralException e) {
                     String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
                     Debug.logError(e, errMsg, MODULE);
@@ -152,7 +156,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             }
 
             public String getEditStyle() {
-                String editStyle = (String)templateRoot.get("editStyle");
+                String editStyle = (String) templateRoot.get("editStyle");
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = UtilProperties.getPropertyValue("content", "defaultEditStyle");
                 }

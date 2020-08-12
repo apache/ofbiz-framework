@@ -29,6 +29,12 @@
                 <set field="partyQualTypeId" from-field="parameters.partyQualTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <set field="partyQualCtx" from-field="parameters"/>
+                <set field="asm_multipleSelectForm" value="FindPartyQuals"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindPartyQuals_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -44,6 +50,11 @@
                                 </section>
                             </decorator-section>
                            <decorator-section name="search-options">
+                               <platform-specific>
+                                   <html>
+                                       <html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                   </html>
+                               </platform-specific>
                                <include-form name="FindPartyQuals" location="component://humanres/widget/forms/PartyQualForms.xml"/>
                            </decorator-section>
                            <decorator-section name="search-results">

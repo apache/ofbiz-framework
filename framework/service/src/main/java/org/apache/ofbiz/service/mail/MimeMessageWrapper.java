@@ -105,7 +105,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         if (message == null) {
             // deserialize the message
             if (serializedBytes != null) {
-                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)){
+                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)) {
                     message = new MimeMessage(this.getSession(), bais);
                 } catch (MessagingException | IOException e) {
                     Debug.logError(e, MODULE);
@@ -247,14 +247,14 @@ public class MimeMessageWrapper implements java.io.Serializable {
             if (subPartCount > 0) {
                 for (int si = 0; si < subPartCount; si++) {
                     String sidx = idx + "." + Integer.toString(si);
-                    if (getPartDisposition(sidx) != null && (getPartDisposition(sidx).equalsIgnoreCase(Part.ATTACHMENT) ||
-                            getPartDisposition(sidx).equalsIgnoreCase(Part.INLINE))) {
+                    if (getPartDisposition(sidx) != null && (getPartDisposition(sidx).equalsIgnoreCase(Part.ATTACHMENT)
+                            || getPartDisposition(sidx).equalsIgnoreCase(Part.INLINE))) {
                         attachments.add(sidx);
                     }
                 }
             } else {
-                if (getPartDisposition(idx) != null && (getPartDisposition(idx).equalsIgnoreCase(Part.ATTACHMENT) ||
-                        getPartDisposition(idx).equalsIgnoreCase(Part.INLINE))) {
+                if (getPartDisposition(idx) != null && (getPartDisposition(idx).equalsIgnoreCase(Part.ATTACHMENT)
+                        || getPartDisposition(idx).equalsIgnoreCase(Part.INLINE))) {
                     attachments.add(idx);
                 }
             }
@@ -439,10 +439,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 mainIndex = Integer.parseInt(indexSplit[0]);
                 subIndex = Integer.parseInt(indexSplit[1]);
             }
-        } catch (NumberFormatException e) {
-            Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, MODULE);
             return null;
         }
@@ -526,10 +523,9 @@ public class MimeMessageWrapper implements java.io.Serializable {
 
     /**
      * Convert MimeMessageWrapper to String. This is used when sending emails.
-     *
      */
     private static class MimeMessageToString extends AbstractConverter<MimeMessageWrapper, String> {
-        public MimeMessageToString() {
+        MimeMessageToString() {
             super(MimeMessageWrapper.class, String.class);
         }
 

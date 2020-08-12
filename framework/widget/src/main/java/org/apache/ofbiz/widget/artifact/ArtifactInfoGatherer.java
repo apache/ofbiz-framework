@@ -460,12 +460,12 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         public void visit(MenuField menuField) {
             //TODO
         }
-        
+
         @Override
         public void visit(FormField formField) {
             //TODO
         }
-        
+
         @Override
         public void visit(GridField gridField) {
             //TODO
@@ -503,7 +503,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         @Override
         public void visit(ResetField resetField) {
         }
-        
+
         @Override
         public void visit(ScreenField screenField) {
             //TODO

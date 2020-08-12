@@ -21,7 +21,6 @@ package org.apache.ofbiz.entity.util;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -175,7 +174,7 @@ public class EntityDataLoader {
                             }
                         }
                     }
-                    Collections.sort(tempFileList);
+                    tempFileList.sort(null);
                     for (File dataFile: tempFileList) {
                         if (dataFile.exists()) {
                             URL url = null;
@@ -247,7 +246,9 @@ public class EntityDataLoader {
             return 0;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", MODULE);
+        }
 
         try {
             /* The OLD way

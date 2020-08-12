@@ -73,7 +73,7 @@ public class VCard {
      * @param dctx
      * @param context
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) throws IOException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -98,7 +98,7 @@ public class VCard {
                     String refCardId = formattedName.getValue();
                     GenericValue partyIdentification = EntityQuery.use(delegator).from("PartyIdentification").where("partyIdentificationTypeId", "VCARD_FN_ORIGIN", "idValue", refCardId).queryFirst();
                     if (partyIdentification != null) {
-                        partiesExist.add(UtilMisc.toMap("partyId", (String)partyIdentification.get("partyId")));
+                        partiesExist.add(UtilMisc.toMap("partyId", (String) partyIdentification.get("partyId")));
                         continue;
                     }
                     //TODO manage update
@@ -123,7 +123,7 @@ public class VCard {
                             break;
                         }
                     }
-                    if (! workAddress) continue;
+                    if (!workAddress) continue;
 
                     serviceCtx.put("address1", address.getStreetAddressFull());
                     serviceCtx.put("city", address.getLocality());
@@ -154,7 +154,7 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (! workEmail) continue;
+                        if (!workEmail) continue;
                     }
                     String emailAddr = email.getValue();
                     if (UtilValidate.isEmail(emailAddr)) {
@@ -176,7 +176,7 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (! workPhone) continue;
+                        if (!workPhone) continue;
                     }
                     String phoneAddr = phone.getText();
                     boolean internationalPhone = phoneAddr.startsWith("+") || phoneAddr.startsWith("00");
@@ -252,7 +252,7 @@ public class VCard {
 
             GenericValue postalAddress = PartyWorker.findPartyLatestPostalAddress(partyId, delegator);
             if (postalAddress != null) {
-                Address address =  new Address();
+                Address address = new Address();
                 address.setStreetAddress(postalAddress.getString("address1"));
                 address.setLocality(postalAddress.getString("city"));
                 address.setPostalCode(postalAddress.getString("postalCode"));

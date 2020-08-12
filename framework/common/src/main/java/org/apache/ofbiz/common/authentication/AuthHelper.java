@@ -22,7 +22,6 @@ package org.apache.ofbiz.common.authentication;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -119,7 +118,7 @@ public final class AuthHelper {
                 }
             }
 
-            Collections.sort(authenticators, new AuthenticationComparator());
+            authenticators.sort(new AuthenticationComparator());
             authenticatorsLoaded = true;
         }
     }
@@ -131,17 +130,14 @@ public final class AuthHelper {
      */
     private static ClassLoader getContextClassLoader() {
         return AccessController.doPrivileged(
-                new PrivilegedAction<ClassLoader>() {
-                    @Override
-                    public ClassLoader run() {
-                        ClassLoader cl = null;
-                        try {
-                            cl = Thread.currentThread().getContextClassLoader();
-                        } catch (SecurityException e) {
-                            Debug.logError(e, e.getMessage(), MODULE);
-                        }
-                        return cl;
+                (PrivilegedAction<ClassLoader>) () -> {
+                    ClassLoader cl = null;
+                    try {
+                        cl = Thread.currentThread().getContextClassLoader();
+                    } catch (SecurityException e) {
+                        Debug.logError(e, e.getMessage(), MODULE);
                     }
+                    return cl;
                 });
     }
 }

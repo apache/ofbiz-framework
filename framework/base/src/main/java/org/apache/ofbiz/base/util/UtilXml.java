@@ -81,20 +81,20 @@ import com.thoughtworks.xstream.XStream;
 public final class UtilXml {
 
     private static final String MODULE = UtilXml.class.getName();
-    private static final XStream xstream = createXStream();
-    private UtilXml () {}
+    private static final XStream X_STREAM = createXStream();
+    private UtilXml() { }
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
-        /* This method is a pure helper method for XStream 1.4.x. 
+        /* This method is a pure helper method for XStream 1.4.x.
          * It initializes an XStream instance with a white list of well-known and simple types of the Java runtime
          *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
-         *  and could be removed them  
-         */ 
-        XStream.setupDefaultSecurity(xstream); 
-        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5) 
+         *  and could be removed them
+         */
+        XStream.setupDefaultSecurity(xstream);
+        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5)
          * using xstream::allowTypesByWildcard with your own classes
-         */  
+         */
         return xstream;
     }
 
@@ -110,7 +110,7 @@ public final class UtilXml {
      */
     public static DOMImplementationLS getDomLsImplementation() throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-        return (DOMImplementationLS)registry.getDOMImplementation("LS");
+        return (DOMImplementationLS) registry.getDOMImplementation("LS");
     }
 
     /** Returns a <code>LSOutput</code> instance.
@@ -255,7 +255,7 @@ public final class UtilXml {
      * @return The deserialized <code>Object</code>
      */
     public static Object fromXml(InputStream input) {
-        return xstream.fromXML(input);
+        return X_STREAM.fromXML(input);
     }
 
     /** Deserialize an object from a <code>Reader</code>.
@@ -264,7 +264,7 @@ public final class UtilXml {
      * @return The deserialized <code>Object</code>
      */
     public static Object fromXml(Reader reader) {
-        return xstream.fromXML(reader);
+        return X_STREAM.fromXML(reader);
     }
 
     /** Deserialize an object from a <code>String</code>.
@@ -273,7 +273,7 @@ public final class UtilXml {
      * @return The deserialized <code>Object</code>
      */
     public static Object fromXml(String str) {
-        return xstream.fromXML(str);
+        return X_STREAM.fromXML(str);
     }
 
     /** Serialize an object to an XML <code>String</code>.
@@ -282,7 +282,7 @@ public final class UtilXml {
      * @return An XML <code>String</code>
      */
     public static String toXml(Object obj) {
-        return xstream.toXML(obj);
+        return X_STREAM.toXML(obj);
     }
 
     /** Serialize an object to an <code>OutputStream</code>.
@@ -291,7 +291,7 @@ public final class UtilXml {
      * @param output The <code>OutputStream</code>
      */
     public static void toXml(Object obj, OutputStream output) {
-        xstream.toXML(obj, output);
+        X_STREAM.toXML(obj, output);
     }
 
     /** Serialize an object to a <code>Writer</code>.
@@ -300,7 +300,7 @@ public final class UtilXml {
      * @param writer The <code>Writer</code>
      */
     public static void toXml(Object obj, Writer writer) {
-        xstream.toXML(obj, writer);
+        X_STREAM.toXML(obj, writer);
     }
 
     // ------------------------------------------------- //
@@ -325,14 +325,8 @@ public final class UtilXml {
             return;
         }
         File outFile = new File(filename);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(outFile);
+        try (FileOutputStream fos = new FileOutputStream(outFile)) {
             writeXmlDocument(fos, node);
-        } finally {
-            if (fos != null) {
-                fos.close();
-            }
         }
     }
 
@@ -450,7 +444,7 @@ public final class UtilXml {
         }
         document = builder.parse(is);
 
-        double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+        double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
         if (Debug.verboseOn()) {
             Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, MODULE);
         }
@@ -575,7 +569,7 @@ public final class UtilXml {
         parser.parse(inputSource);
         document = parser.getDocument();
 
-        double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
+        double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
         if (Debug.verboseOn()) {
             Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, MODULE);
         }
@@ -694,8 +688,7 @@ public final class UtilXml {
         if (node != null) {
             do {
                 String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
-                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                    childElementName.equals(nodeName))) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null || childElementName.equals(nodeName))) {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
@@ -834,11 +827,10 @@ public final class UtilXml {
         if (node != null) {
             do {
                 String nodeName = node.getLocalName();
-                if (nodeName == null){
+                if (nodeName == null) {
                     nodeName = UtilXml.getNodeNameIgnorePrefix(node);
                 }
-                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                    childElementName.equals(nodeName))) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null || childElementName.equals(nodeName))) {
                     Element childElement = (Element) node;
                     return childElement;
                 }
@@ -858,8 +850,8 @@ public final class UtilXml {
 
         if (node != null) {
             do {
-                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null
+                        || childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
                     Element childElement = (Element) node;
 
                     String value = childElement.getAttribute(attrName);
@@ -1053,8 +1045,8 @@ public final class UtilXml {
             String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId +
-                            "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", MODULE);
+                    Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId
+                            + "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", MODULE);
                 }
                 try {
                     URL dtdURL = UtilURL.fromResource(dtd);
@@ -1067,8 +1059,8 @@ public final class UtilXml {
                     inputSource.setPublicId(publicId);
                     hasDTD = true;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId [" +
-                                publicId + "] and the dtd file is [" + dtd + "]", MODULE);
+                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD input source with publicId ["
+                                + publicId + "] and the dtd file is [" + dtd + "]", MODULE);
                     }
                     return inputSource;
                 } catch (GeneralException | IOException e) {
@@ -1095,13 +1087,13 @@ public final class UtilXml {
                     }
                     hasDTD = true;
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD/Schema input source with publicId [" +
-                                publicId + "] and the file/resource is [" + filename + "]", MODULE);
+                        Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] got LOCAL DTD/Schema input source with publicId ["
+                                + publicId + "] and the file/resource is [" + filename + "]", MODULE);
                     }
                     return inputSource;
                 }
-                Debug.logWarning("[UtilXml.LocalResolver.resolveEntity] could not find LOCAL DTD/Schema with publicId [" +
-                        publicId + "] and the file/resource is [" + filename + "]", MODULE);
+                Debug.logWarning("[UtilXml.LocalResolver.resolveEntity] could not find LOCAL DTD/Schema with publicId ["
+                        + publicId + "] and the file/resource is [" + filename + "]", MODULE);
                 return null;
             }
             return defaultResolver.resolveEntity(publicId, systemId);
@@ -1137,12 +1129,11 @@ public final class UtilXml {
             Matcher matcher = valueFlexExpr.matcher(exceptionMessage.toLowerCase());
             if (localResolver.hasDTD() && !matcher.find()) {
                 Debug.logError("XmlFileLoader: File "
-                    + docDescription
-                    + " process error. Line: "
-                    + String.valueOf(exception.getLineNumber())
-                    + ". Error message: "
-                    + exceptionMessage, MODULE
-               );
+                        + docDescription
+                        + " process error. Line: "
+                        + String.valueOf(exception.getLineNumber())
+                        + ". Error message: "
+                        + exceptionMessage, MODULE);
             }
         }
 
@@ -1150,12 +1141,11 @@ public final class UtilXml {
         public void fatalError(SAXParseException exception) {
             if (localResolver.hasDTD()) {
                 Debug.logError("XmlFileLoader: File "
-                    + docDescription
-                    + " process fatal error. Line: "
-                    + String.valueOf(exception.getLineNumber())
-                    + ". Error message: "
-                    + exception.getMessage(), MODULE
-               );
+                        + docDescription
+                        + " process fatal error. Line: "
+                        + String.valueOf(exception.getLineNumber())
+                        + ". Error message: "
+                        + exception.getMessage(), MODULE);
             }
         }
 
@@ -1163,12 +1153,11 @@ public final class UtilXml {
         public void warning(SAXParseException exception) {
             if (localResolver.hasDTD()) {
                 Debug.logError("XmlFileLoader: File "
-                    + docDescription
-                    + " process warning. Line: "
-                    + String.valueOf(exception.getLineNumber())
-                    + ". Error message: "
-                    + exception.getMessage(), MODULE
-               );
+                        + docDescription
+                        + " process warning. Line: "
+                        + String.valueOf(exception.getLineNumber())
+                        + ". Error message: "
+                        + exception.getMessage(), MODULE);
             }
         }
     }
@@ -1178,12 +1167,12 @@ public final class UtilXml {
      * @param node
      * @return nodeName
      */
-    public static String getNodeNameIgnorePrefix(Node node){
-        if (node==null) {
+    public static String getNodeNameIgnorePrefix(Node node) {
+        if (node == null) {
             return null;
         }
         String nodeName = node.getNodeName();
-        if (nodeName.contains(":")){
+        if (nodeName.contains(":")) {
             // remove any possible prefix
             nodeName = nodeName.split(":")[1];
         }
@@ -1194,13 +1183,13 @@ public final class UtilXml {
      * get tag name without any prefix
      * @param element
      * @return tagName
-     */ 
-    public static String getTagNameIgnorePrefix(Element element){
-        if (element==null) {
+     */
+    public static String getTagNameIgnorePrefix(Element element) {
+        if (element == null) {
             return null;
         }
         String tagName = element.getTagName();
-        if (tagName.contains(":")){
+        if (tagName.contains(":")) {
             // remove any possible prefix
             tagName = tagName.split(":")[1];
         }
@@ -1212,19 +1201,18 @@ public final class UtilXml {
      * @param element
      * @return The value of the node, depending on its type; see the table Node class
      */
-    public static String getAttributeValueIgnorePrefix(Element element, String attributeName){
-        if (element==null) {
+    public static String getAttributeValueIgnorePrefix(Element element, String attributeName) {
+        if (element == null) {
             return "";
         }
 
         NamedNodeMap attributes = element.getAttributes();
-        if (attributes != null){
-            for (int i = 0, size = attributes.getLength(); i < size; i++)
-            {
+        if (attributes != null) {
+            for (int i = 0, size = attributes.getLength(); i < size; i++) {
                 Node node = attributes.item(i);
-                if (node.getNodeType() == Node.ATTRIBUTE_NODE){
+                if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
                     String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
-                    if (nodeName.equals(attributeName)){
+                    if (nodeName.equals(attributeName)) {
                         return node.getNodeValue();
                     }
                 }

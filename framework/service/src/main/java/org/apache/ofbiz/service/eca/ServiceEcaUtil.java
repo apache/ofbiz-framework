@@ -53,7 +53,7 @@ public final class ServiceEcaUtil {
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
     private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<>();
 
-    private ServiceEcaUtil() {}
+    private ServiceEcaUtil() { }
 
     public static void reloadConfig() {
         ecaCache.clear();
@@ -185,7 +185,9 @@ public final class ServiceEcaUtil {
             return;
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Running ECA (" + event + ").", MODULE);
+        }
         Set<String> actionsRun = new TreeSet<>();
         for (ServiceEcaRule eca: rules) {
             eca.eval(serviceName, dctx, context, result, isError, isFailure, actionsRun);

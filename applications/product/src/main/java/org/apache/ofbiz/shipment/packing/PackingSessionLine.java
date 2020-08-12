@@ -34,7 +34,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class PackingSessionLine implements java.io.Serializable {
 
-    public final String MODULE = PackingSessionLine.class.getName();
+    private static final String MODULE = PackingSessionLine.class.getName();
 
     protected String orderId = null;
     protected String orderItemSeqId = null;

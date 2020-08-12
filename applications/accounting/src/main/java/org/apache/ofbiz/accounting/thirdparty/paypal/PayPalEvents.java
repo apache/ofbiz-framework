@@ -115,8 +115,8 @@ public class PayPalEvents {
         String company = UtilFormatOut.checkEmpty(productStore.getString("companyName"), "");
 
         // create the item name
-        String itemName = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " " +
-                                 (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
+        String itemName = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " "
+                                 + (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         String itemNumber = "0";
 
         // get the redirect url
@@ -135,15 +135,17 @@ public class PayPalEvents {
         String imageUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "imageUrl", configString, "payment.paypal.image");
 
         // get the paypal account
-        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal.business");
+        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal"
+                + ".business");
 
         if (UtilValidate.isEmpty(redirectUrl)
-            || UtilValidate.isEmpty(notifyUrl)
-            || UtilValidate.isEmpty(returnUrl)
-            || UtilValidate.isEmpty(imageUrl)
-            || UtilValidate.isEmpty(payPalAccount)) {
+                || UtilValidate.isEmpty(notifyUrl)
+                || UtilValidate.isEmpty(returnUrl)
+                || UtilValidate.isEmpty(imageUrl)
+                || UtilValidate.isEmpty(payPalAccount)) {
             Debug.logError("Payment properties is not configured properly, some notify URL from PayPal is not correctly defined!", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration",
+                    locale));
             return "error";
         }
 
@@ -182,7 +184,7 @@ public class PayPalEvents {
         return "success";
     }
 
-    /** PayPal Call-Back Event 
+    /** PayPal Call-Back Event
      * @throws IOException */
     public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = UtilHttp.getLocale(request);
@@ -224,7 +226,7 @@ public class PayPalEvents {
         }
 
         // first verify this is valid from PayPal
-        Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parametersMap = UtilHttp.getParameterMap(request);
         parametersMap.put("cmd", "_notify-validate");
 
         // send off the confirm request
@@ -250,8 +252,8 @@ public class PayPalEvents {
         for (String name : parametersMap.keySet()) {
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, MODULE);
-            if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name) &&
-                UtilValidate.isNotEmpty(value) && "verified".equalsIgnoreCase(value)) {
+            if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name)
+                && UtilValidate.isNotEmpty(value) && "verified".equalsIgnoreCase(value)) {
                 verified = true;
             }
         }
@@ -336,18 +338,15 @@ public class PayPalEvents {
                 }
             }
         }
-
-
         if (okay) {
             // call the email confirm service
-            Map <String, String> emailContext = UtilMisc.toMap("orderId", orderId);
+            Map<String, String> emailContext = UtilMisc.toMap("orderId", orderId);
             try {
                 dispatcher.runSync("sendOrderConfirmation", emailContext);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems sending email confirmation", MODULE);
             }
         }
-
         return "success";
     }
 
@@ -391,7 +390,7 @@ public class PayPalEvents {
 
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
         Debug.logVerbose("Setting payment prefrences..", MODULE);
-        List <GenericValue> paymentPrefs = null;
+        List<GenericValue> paymentPrefs = null;
         try {
             paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED").queryList();
         } catch (GenericEntityException e) {
@@ -424,10 +423,7 @@ public class PayPalEvents {
         java.sql.Timestamp authDate = null;
         try {
             authDate = new java.sql.Timestamp(sdf.parse(paymentDate).getTime());
-        } catch (ParseException e) {
-            Debug.logError(e, "Cannot parse date string: " + paymentDate, MODULE);
-            authDate = UtilDateTime.nowTimestamp();
-        } catch (NullPointerException e) {
+        } catch (ParseException | NullPointerException e) {
             Debug.logError(e, "Cannot parse date string: " + paymentDate, MODULE);
             authDate = UtilDateTime.nowTimestamp();
         }
@@ -471,7 +467,7 @@ public class PayPalEvents {
         }
 
         // create a payment record too
-        Map <String, Object> results = null;
+        Map<String, Object> results = null;
         try {
             String comment = UtilProperties.getMessage(RESOURCE, "AccountingPaymentReceiveViaPayPal", locale);
             results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
@@ -492,7 +488,7 @@ public class PayPalEvents {
     }
 
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
-                                                       String RESOURCE, String parameterName) {
+                                                       String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
@@ -507,7 +503,7 @@ public class PayPalEvents {
                 Debug.logError(e, MODULE);
             }
         } else {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, parameterName, delegator);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

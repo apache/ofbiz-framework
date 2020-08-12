@@ -126,7 +126,7 @@ public abstract class ModelWidgetCondition implements Serializable {
         }
     }
 
-    public static interface Condition {
+    public interface Condition {
         boolean eval(Map<String, Object> context);
     }
 
@@ -134,7 +134,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * A factory for <code>Condition</code> instances.
      *
      */
-    public static interface ConditionFactory {
+    public interface ConditionFactory {
         /**
          * Returns a new <code>Condition</code> instance built from <code>conditionElement</code>.
          *
@@ -147,18 +147,8 @@ public abstract class ModelWidgetCondition implements Serializable {
     }
 
     public static class DefaultConditionFactory implements ConditionFactory {
-        public static final Condition TRUE = new Condition() {
-            @Override
-            public boolean eval(Map<String, Object> context) {
-                return true;
-            }
-        };
-        public static final Condition FALSE = new Condition() {
-            @Override
-            public boolean eval(Map<String, Object> context) {
-                return false;
-            }
-        };
+        public static final Condition TRUE = context -> true;
+        public static final Condition FALSE = context -> false;
 
         @Override
         public Condition newInstance(ModelWidget modelWidget, Element conditionElement) {
@@ -498,8 +488,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 Map<String, Object> resp;
                 try {
                     resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
-                }
-                catch (GenericServiceException e) {
+                } catch (GenericServiceException e) {
                     Debug.logError(e, MODULE);
                     return false;
                 }
@@ -555,8 +544,8 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (fieldString == null) {
                 fieldString = "";
             }
-            Class<?>[] paramTypes = { String.class };
-            Object[] params = new Object[] { fieldString };
+            Class<?>[] paramTypes = {String.class };
+            Object[] params = new Object[] {fieldString };
             Class<?> valClass;
             try {
                 valClass = ObjectType.loadClass(className);

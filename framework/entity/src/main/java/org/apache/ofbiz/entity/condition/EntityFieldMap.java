@@ -50,7 +50,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      * @param op the operator used to compared each entry in the condition field map.
      * @return a list of condition expression
      */
-    private static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?,V> op) {
+    private static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?, V> op) {
         return (fieldMap == null)
             ? Collections.emptyList()
             : fieldMap.entrySet().stream()
@@ -69,7 +69,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      * @param <V> The type of values that are compared.
      */
     @SafeVarargs
-    public <V> EntityFieldMap(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
+    public <V> EntityFieldMap(EntityComparisonOperator<?, ?> compOp, EntityJoinOperator joinOp, V... keysValues) {
         this(EntityUtil.makeFields(keysValues), UtilGenerics.cast(compOp), joinOp);
     }
 
@@ -81,7 +81,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      * @param joinOp the operator to join entries in the field map
      * @param <V> the type of values contained in {@code fieldMap}
      */
-    public <V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<?,?> compOp,
+    public <V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<?, ?> compOp,
                               EntityJoinOperator joinOp) {
         super(makeConditionList(fieldMap, UtilGenerics.cast(compOp)), joinOp);
         this.fieldMap = (fieldMap == null) ? Collections.emptyMap() : fieldMap;

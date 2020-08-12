@@ -174,21 +174,27 @@ public class RecurrenceRule {
      */
     public long getEndTime() {
         if (rule == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Rule is null.", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Rule is null.", MODULE);
+            }
             return -1;
         }
         long time = 0;
         java.sql.Timestamp stamp = null;
 
         stamp = rule.getTimestamp("untilDateTime");
-        if (Debug.verboseOn()) Debug.logVerbose("Stamp value: " + stamp, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Stamp value: " + stamp, MODULE);
+        }
 
         if (stamp != null) {
             long nanos = stamp.getNanos();
             time = stamp.getTime();
             time += (nanos / 1000000);
         }
-        if (Debug.verboseOn()) Debug.logVerbose("Returning time: " + time, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Returning time: " + time, MODULE);
+        }
         return time;
     }
 
@@ -730,8 +736,7 @@ public class RecurrenceRule {
         }
         String numberStr = numberBuf.toString();
 
-        if (numberStr.length() > 0 && (numberStr.length() > 1 ||
-                (numberStr.charAt(0) != '+' && numberStr.charAt(0) != '-'))) {
+        if (numberStr.length() > 0 && (numberStr.length() > 1 || (numberStr.charAt(0) != '+' && numberStr.charAt(0) != '-'))) {
             try {
                 number = Integer.parseInt(numberStr);
             } catch (NumberFormatException nfe) {
@@ -746,7 +751,7 @@ public class RecurrenceRule {
         StringBuilder sBuf = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
-            String thisChar = str.substring(i, i+1);
+            String thisChar = str.substring(i, i + 1);
 
             if (!hasNumber(thisChar)) {
                 sBuf.append(thisChar);

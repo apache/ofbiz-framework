@@ -46,10 +46,12 @@ public class OfbizNumberTransform implements TemplateTransformModel {
     String format = null;
 
     private static String getArg(Map<String, Object> args, String key) {
-        String  result = "";
+        String result = "";
         Object o = args.get(key);
         if (o != null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Arg Object : " + o.getClass().getName(), MODULE);
+            }
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {
@@ -58,15 +60,18 @@ public class OfbizNumberTransform implements TemplateTransformModel {
                     Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
-              result = o.toString();
+                result = o.toString();
             }
         }
         return result;
     }
+
     private static Double getNumber(Map<String, Object> args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
-            if (Debug.verboseOn()) Debug.logVerbose("Number Object : " + o.getClass().getName(), MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Number Object : " + o.getClass().getName(), MODULE);
+            }
 
             // handle nulls better
             if (o == null) {
@@ -113,7 +118,9 @@ public class OfbizNumberTransform implements TemplateTransformModel {
             @Override
             public void close() throws IOException {
                 try {
-                    if (Debug.verboseOn()) Debug.logVerbose("parms: " + number + " " + format + " " + locale, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("params: " + number + " " + format + " " + locale, MODULE);
+                    }
                     Locale localeObj = null;
                     Delegator delegator = null;
                     // Load the locale from the session

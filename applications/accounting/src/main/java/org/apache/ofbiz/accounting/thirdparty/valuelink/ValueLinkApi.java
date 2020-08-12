@@ -89,7 +89,7 @@ public class ValueLinkApi {
     protected Long mwkIndex = null;
     protected boolean debug = false;
 
-    protected ValueLinkApi() {}
+    protected ValueLinkApi() { }
     protected ValueLinkApi(Delegator delegator, Properties props) {
         String mId = (String) props.get("payment.valuelink.merchantId");
         String tId = (String) props.get("payment.valuelink.terminalId");
@@ -182,11 +182,7 @@ public class ValueLinkApi {
         try {
             byte[] encryptedEan = mwkCipher.doFinal(eanBlock);
             encryptedEanHex = StringUtil.toHexString(encryptedEan);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -212,11 +208,7 @@ public class ValueLinkApi {
             byte[] decryptedEan = mwkCipher.doFinal(StringUtil.fromHexString(pin));
             byte[] decryptedPin = getByteRange(decryptedEan, 8, 8);
             decryptedPinString = new String(decryptedPin, StandardCharsets.UTF_8);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -294,11 +286,7 @@ public class ValueLinkApi {
             KeyPair keyPair = null;
             try {
                 keyPair = this.createKeys();
-            } catch (NoSuchAlgorithmException e) {
-                Debug.logError(e, MODULE);
-            } catch (InvalidAlgorithmParameterException e) {
-                Debug.logError(e, MODULE);
-            } catch (InvalidKeySpecException e) {
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidAlgorithmParameterException e) {
                 Debug.logError(e, MODULE);
             }
 
@@ -327,11 +315,7 @@ public class ValueLinkApi {
         byte[] kekBytes = null;
         try {
             kekBytes = this.generateKek(privateKey);
-        } catch (NoSuchAlgorithmException e) {
-            Debug.logError(e, MODULE);
-        } catch (InvalidKeySpecException e) {
-            Debug.logError(e, MODULE);
-        } catch (InvalidKeyException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -341,7 +325,7 @@ public class ValueLinkApi {
 
         // test the KEK
         Cipher cipher = this.getCipher(this.getKekKey(), Cipher.ENCRYPT_MODE);
-        byte[] kekTestB = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] kekTestB = {0, 0, 0, 0, 0, 0, 0, 0 };
         byte[] kekTestC = new byte[0];
         if (kekTest != null) {
             kekTestB = StringUtil.fromHexString(kekTest);
@@ -435,7 +419,7 @@ public class ValueLinkApi {
         byte[] secretKey = ka.generateSecret();
 
         if (debug) {
-            Debug.logInfo("Secret Key : " + StringUtil.toHexString(secretKey) + " / " + secretKey.length,  MODULE);
+            Debug.logInfo("Secret Key : " + StringUtil.toHexString(secretKey) + " / " + secretKey.length, MODULE);
         }
 
         // generate 3DES from secret key using VL algorithm (KEK)
@@ -589,11 +573,7 @@ public class ValueLinkApi {
         byte[] encryptedZeros = new byte[0];
         try {
             encryptedZeros = cipher.doFinal(zeros);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
 
@@ -779,11 +759,7 @@ public class ValueLinkApi {
         byte[] dec = new byte[0];
         try {
             dec = cipher.doFinal(content);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, MODULE);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, MODULE);
-        } catch (BadPaddingException e) {
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, MODULE);
         }
         return dec;
@@ -791,7 +767,7 @@ public class ValueLinkApi {
 
     // return a cipher for a key - DESede/CBC/NoPadding IV = 0
     protected Cipher getCipher(SecretKey key, int mode) {
-        byte[] zeros = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] zeros = {0, 0, 0, 0, 0, 0, 0, 0 };
         IvParameterSpec iv = new IvParameterSpec(zeros);
 
         // create the Cipher - DESede/CBC/NoPadding
@@ -817,8 +793,8 @@ public class ValueLinkApi {
     protected byte[] getPinCheckSum(byte[] pinBytes) {
         byte[] checkSum = new byte[1];
         checkSum[0] = 0;
-        for (int i = 0; i < pinBytes.length; i++) {
-            checkSum[0] += pinBytes[i];
+        for (byte pinByte : pinBytes) {
+            checkSum[0] += pinByte;
         }
         return checkSum;
     }
@@ -996,8 +972,8 @@ public class ValueLinkApi {
 
         // create a List of Maps for each set of values
         List<Map<String, String>> valueMap = new LinkedList<>();
-        for (int i = 0; i < valueList.size(); i++) {
-            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
+        for (String s : valueList) {
+            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(s, "|")));
         }
 
         if (debug) {

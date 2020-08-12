@@ -22,7 +22,6 @@ package org.apache.ofbiz.manufacturing.jobshopmgt;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +75,7 @@ public class ProductionRun {
 
     public ProductionRun(String productionRunId, Delegator delegator, LocalDispatcher dispatcher) {
         try {
-            if (! UtilValidate.isEmpty(productionRunId)) {
+            if (!UtilValidate.isEmpty(productionRunId)) {
                 this.dispatcher = dispatcher;
                 GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();
                 if (workEffort != null) {
@@ -128,27 +127,25 @@ public class ProductionRun {
             if (updateCompletionDate) {
                 this.estimatedCompletionDate = recalculateEstimatedCompletionDate();
             }
-            productionRun.set("estimatedStartDate",this.estimatedStartDate);
-            productionRun.set("estimatedCompletionDate",this.estimatedCompletionDate);
-            productionRun.set("workEffortName",this.productionRunName);
-            productionRun.set("description",this.description);
+            productionRun.set("estimatedStartDate", this.estimatedStartDate);
+            productionRun.set("estimatedCompletionDate", this.estimatedCompletionDate);
+            productionRun.set("workEffortName", this.productionRunName);
+            productionRun.set("description", this.description);
             try {
                 if (quantityIsUpdated) {
                     productionRun.set("quantityToProduce", this.quantity);
-                    productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
+                    productionRunProduct.set("estimatedQuantity", this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;
                 }
                 productionRun.store();
                 if (productionRunRoutingTasks != null) {
-                    for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                        GenericValue routingTask = iter.next();
+                    for (GenericValue routingTask : productionRunRoutingTasks) {
                         routingTask.store();
                     }
                 }
                 if (productionRunComponents != null) {
-                    for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
-                        GenericValue component = iter.next();
+                    for (GenericValue component : productionRunComponents) {
                         component.store();
                     }
                 }
@@ -205,8 +202,7 @@ public class ProductionRun {
         this.quantityIsUpdated = true;
         this.updateCompletionDate = true;
         if (productionRunComponents == null) getProductionRunComponents();
-        for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
-            GenericValue component = iter.next();
+        for (GenericValue component : productionRunComponents) {
             componentQuantity = component.getBigDecimal("estimatedQuantity");
             component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, RoundingMode.HALF_UP).multiply(newQuantity).doubleValue());
         }
@@ -260,15 +256,14 @@ public class ProductionRun {
             getProductionRunRoutingTasks();
             if (quantity == null) getQuantity();
             Timestamp endDate=null;
-            for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                GenericValue routingTask = iter.next();
+            for (GenericValue routingTask : productionRunRoutingTasks) {
                 if (priority.compareTo(routingTask.getLong("priority")) <= 0) {
                     // Calculate the estimatedCompletionDate
                     long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
-                    endDate = TechDataServices.addForward(TechDataServices.getTechDataCalendar(routingTask),startDate, totalTime);
+                    endDate = TechDataServices.addForward(TechDataServices.getTechDataCalendar(routingTask), startDate, totalTime);
                     // update the routingTask
-                    routingTask.set("estimatedStartDate",startDate);
-                    routingTask.set("estimatedCompletionDate",endDate);
+                    routingTask.set("estimatedStartDate", startDate);
+                    routingTask.set("estimatedCompletionDate", endDate);
                     startDate = endDate;
                 }
             }
@@ -278,7 +273,7 @@ public class ProductionRun {
         }
     }
     /**
-     * call recalculateEstimatedCompletionDate(0,estimatedStartDate), so recalculated for all the routing tasks.
+     * call recalculateEstimatedCompletionDate(0, estimatedStartDate), so recalculated for all the routing tasks.
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;
@@ -335,9 +330,10 @@ public class ProductionRun {
                     try {
                         productionRunComponents = new LinkedList<>();
                         GenericValue routingTask;
-                        for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                            routingTask = iter.next();
-                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null, false));
+                        for (GenericValue productionRunRoutingTask : productionRunRoutingTasks) {
+                            routingTask = productionRunRoutingTask;
+                            productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard",
+                                    UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), null, false));
                         }
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e.getMessage(), MODULE);
@@ -356,7 +352,7 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
@@ -374,12 +370,12 @@ public class ProductionRun {
         if (exist()) {
             if (productionRunRoutingTasks == null) {
                 try {
-                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),UtilMisc.toList("priority"), false);
+                    productionRunRoutingTasks = productionRun.getRelated("ChildWorkEffort", UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("priority"), false);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
-            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
+            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1) : null);
         }
         return null;
     }
@@ -414,7 +410,7 @@ public class ProductionRun {
             taskTime = task.getDouble("estimatedMilliSeconds");
         }
         totalTaskTime = (setupTime + taskTime * quantity.doubleValue());
-        
+
         if (task.get("estimateCalcMethod") != null) {
             String serviceName = null;
             try {
@@ -430,11 +426,9 @@ public class ProductionRun {
                         String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
                         Debug.logError(errorMessage, MODULE);
                     }
-                    totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
+                    totalTaskTime = ((BigDecimal) serviceResult.get("totalTime")).doubleValue();
                 }
-            } catch (GenericServiceException exc) {
-                Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
-            } catch (Exception exc) {
+            } catch (GenericEntityException | GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             }
         }

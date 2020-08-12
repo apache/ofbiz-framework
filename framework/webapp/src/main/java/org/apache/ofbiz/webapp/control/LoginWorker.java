@@ -362,9 +362,6 @@ public final class LoginWorker {
                 if (UtilValidate.isNotEmpty(formParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
-
-                //if (Debug.infoOn()) Debug.logInfo("checkLogin: PathInfo=" + request.getPathInfo(), MODULE);
-
                 return "error";
             }
         }
@@ -392,12 +389,10 @@ public final class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        
-        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie). 
-        if (!session.isNew()) {  // Only do when really signing in. 
+        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie).
+        if (!session.isNew()) {  // Only do when really signing in.
             request.changeSessionId();
         }
-        
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
@@ -411,8 +406,7 @@ public final class LoginWorker {
         } catch (EntityCryptoException e1) {
             Debug.logError(e1.getMessage(), MODULE);
         }
-        
-        if(entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
+        if (entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
             try {
                 Object decryptedPwd = entityDeCrypto.decrypt(KEY_VALUE, ModelField.EncryptMethod.TRUE, password);
                 password = decryptedPwd.toString();
@@ -561,8 +555,7 @@ public final class LoginWorker {
                 } else {
                     try {
                         userLogin.refresh();
-                    }
-                    catch (GenericEntityException e) {
+                    } catch (GenericEntityException e) {
                         Debug.logError(e, "Error refreshing userLogin value", MODULE);
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                         String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
@@ -623,7 +616,7 @@ public final class LoginWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         LocalDispatcher dispatcher;
 
-        if (UtilProperties.getPropertyAsBoolean("security","security.disable.impersonation", true)) {
+        if (UtilProperties.getPropertyAsBoolean("security", "security.disable.impersonation", true)) {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonation_disabled", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -675,7 +668,7 @@ public final class LoginWorker {
             String visitId = VisitHandler.getVisitId(session);
             result = dispatcher.runSync("userImpersonate",
                     UtilMisc.toMap("userLoginIdToImpersonate", userLoginIdToImpersonate,
-                            "userLogin", userLogin,"visitId", visitId, "locale", UtilHttp.getLocale(request)));
+                            "userLogin", userLogin, "visitId", visitId, "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -819,7 +812,6 @@ public final class LoginWorker {
         autoLoginSet(request, response);
 
         return autoLoginCheck(request, response);
-        
     }
 
     public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
@@ -874,7 +866,6 @@ public final class LoginWorker {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         doBasicLogout(userLogin, request, response);
-        
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -913,7 +904,7 @@ public final class LoginWorker {
         session.invalidate();
         session = request.getSession(true);
 
-        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")) {
             try {
                 // log out from Tomcat SSO
                 request.logout();
@@ -950,10 +941,9 @@ public final class LoginWorker {
         String serverId = (String) request.getServletContext().getAttribute("_serverId");
         String applicationName = UtilHttp.getApplicationName(request);
         Optional<WebappInfo> webappInfo = WEBAPPS.getWebappInfo(serverId, applicationName);
-                
-        if (userLogin != null && 
+        if (userLogin != null
                 // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
-                webappInfo.map(WebappInfo::isAutologinCookieUsed).orElse(!webappInfo.isPresent())) {
+                && webappInfo.map(WebappInfo::isAutologinCookieUsed).orElse(!webappInfo.isPresent())) {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
@@ -974,7 +964,6 @@ public final class LoginWorker {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String applicationName = UtilHttp.getApplicationName(request);
-        
         if (userLogin != null) {
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(request), userLogin.getString("userLoginId"));
             securedLoginIdCookie.setMaxAge(-1);
@@ -993,7 +982,6 @@ public final class LoginWorker {
     protected static String getSecuredLoginIdCookieName(HttpServletRequest request) {
         return UtilHttp.getApplicationName(request) + ".securedLoginId";
     }
-    
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1010,7 +998,6 @@ public final class LoginWorker {
         }
         return autoUserLoginId;
     }
-    
     public static String getSecuredUserLoginId(HttpServletRequest request) {
         String securedUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1029,16 +1016,13 @@ public final class LoginWorker {
         return securedUserLoginId;
     }
 
-
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        
         GenericValue autoUserLogin = (GenericValue) session.getAttribute("autoUserLogin");
-        if (autoUserLogin != null){
+        if (autoUserLogin != null) {
             return "success";
         }
-
         return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
     }
 
@@ -1096,7 +1080,6 @@ public final class LoginWorker {
         }
         return "success";
     }
-    
     public static boolean isUserLoggedIn(HttpServletRequest request) {
         HttpSession session = request.getSession();
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
@@ -1154,8 +1137,7 @@ public final class LoginWorker {
                 String headerValue = request.getHeader(httpHeader);
                 if (UtilValidate.isNotEmpty(headerValue)) {
                     return LoginWorker.loginUserWithUserLoginId(request, response, headerValue);
-                }
-                else {
+                } else {
                     // empty headerValue is not good
                     return "error";
                 }
@@ -1178,8 +1160,7 @@ public final class LoginWorker {
                 String remoteUserId = request.getRemoteUser();
                 if (UtilValidate.isNotEmpty(remoteUserId)) {
                     return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId);
-                }
-                else {
+                } else {
                     // empty remoteUserId is not good
                     return "error";
                 }
@@ -1202,7 +1183,6 @@ public final class LoginWorker {
 
         return "success";
     }
-    
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1331,8 +1311,8 @@ public final class LoginWorker {
                 Debug.logWarning(e, "Unable to refresh UserLogin", MODULE);
             }
         }
-        return (userLogin.get("hasLoggedOut") != null ?
-                "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
+        return (userLogin.get("hasLoggedOut") != null
+                ? "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false);
     }
 
     /**

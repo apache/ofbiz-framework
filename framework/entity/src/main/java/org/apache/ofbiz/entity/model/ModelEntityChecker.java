@@ -109,7 +109,7 @@ public class ModelEntityChecker {
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
                     ModelField field = fieldIter.next();
-                    ModelFieldType type = delegator.getEntityFieldType(entity,field.getType());
+                    ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
                     if (ufields.contains(field.getName())) {
                         warningList.add("[FieldNotUnique] Field [" + field.getName() + " of entity " + entity.getEntityName() + " is not unique for that entity.");
@@ -205,7 +205,7 @@ public class ModelEntityChecker {
 
                         // make sure all FK names are <= 18 characters
                         if (relation.getFkName().length() > 18) {
-                            warningList.add("[RelFKNameGT18] The foreign key named " + relation.getFkName() 
+                            warningList.add("[RelFKNameGT18] The foreign key named " + relation.getFkName()
                                             + " (length:" + relation.getFkName().length()
                                             + ") was greater than 18 characters in length for relation " + relation.getTitle() + relation.getRelEntityName()
                                             + " of entity " + entity.getEntityName() + ".");
@@ -286,7 +286,7 @@ public class ModelEntityChecker {
         }
     }
 
-    protected static final String[] rwArray = { "ABORT", "ABS", "ABSOLUTE",
+    protected static final String[] rwArray = {"ABORT", "ABS", "ABSOLUTE",
             "ACCEPT", "ACCES", "ACCESS", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
             "ADMIN", "AFTER", "AGGREGATE", "ALIAS", "ALL", "ALLOCATE", "ALTER",
             "ANALYZE", "AND", "ANDFILENAME", "ANY", "ANYFINISH", "APPEND",
@@ -505,6 +505,6 @@ public class ModelEntityChecker {
 
             "ZEROFILL", "ZONE" };
 
-    private ModelEntityChecker() {}
+    private ModelEntityChecker() { }
 }
 

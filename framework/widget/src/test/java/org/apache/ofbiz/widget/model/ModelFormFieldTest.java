@@ -21,7 +21,7 @@ package org.apache.ofbiz.widget.model;
 import static org.apache.ofbiz.widget.model.ModelFormField.from;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -115,6 +115,7 @@ public class ModelFormFieldTest {
      * property type is changed from String to FlexibleStringExpander.
      */
     @Test
+    @SuppressWarnings("deprecation")
     public void lookupFieldDeprecatedMethodTreatsTargetParameterAsString() {
         Element element = Mockito.mock(Element.class);
         when(element.getTagName()).thenReturn("lookup");

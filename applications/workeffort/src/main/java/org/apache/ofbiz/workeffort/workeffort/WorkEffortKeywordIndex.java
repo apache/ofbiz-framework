@@ -79,8 +79,8 @@ public class WorkEffortKeywordIndex {
             }
         }
         //WorkEffortAttribute
-        if (!"0".equals(EntityUtilProperties.getPropertyValue("workeffort", "index.weight.WorkEffortAttribute.attrName", "1", delegator)) ||
-                !"0".equals(EntityUtilProperties.getPropertyValue("workeffort", "index.weight.WorkEffortAttribute.attrValue", "1", delegator))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("workeffort", "index.weight.WorkEffortAttribute.attrName", "1", delegator))
+                || !"0".equals(EntityUtilProperties.getPropertyValue("workeffort", "index.weight.WorkEffortAttribute.attrValue", "1", delegator))) {
             List<GenericValue> workEffortAttributes = EntityQuery.use(delegator).from("WorkEffortAttribute").where("workEffortId", workEffortId).queryList();
             for (GenericValue workEffortAttribute : workEffortAttributes) {
                 addWeightedKeywordSourceString(workEffortAttribute, "attrName", strings);

@@ -42,8 +42,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
-public class SagePayServices
-{
+public class SagePayServices {
     private static final String MODULE = SagePayServices.class.getName();
     private static final String RESOURCE = "AccountingUiLabels";
 
@@ -58,7 +57,7 @@ public class SagePayServices
                 GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (sagePay != null) {
                     for (Entry<String, Object> set : sagePay.entrySet()) {
-                        if(set.getValue() == null){
+                        if (set.getValue() == null) {
                             sagePayConfig.put(set.getKey(), null);
                         } else {
                             sagePayConfig.put(set.getKey(), set.getValue().toString());
@@ -83,7 +82,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String cardHolder = (String) context.get("cardHolder");
         String cardNumber = (String) context.get("cardNumber");
         String expiryDate = (String) context.get("expiryDate");
@@ -129,78 +128,156 @@ public class SagePayServices
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
         String txType = props.get("authenticationTransType");
-        
         //start - required parameters
         StringBuilder errorRequiredParameters = new StringBuilder();
-        if(vpsProtocol == null){
+        if (vpsProtocol == null) {
             errorRequiredParameters.append("Required transaction parameter 'protocolVersion' is missing. ");
         }
-        if(vendor == null){
+        if (vendor == null) {
             errorRequiredParameters.append("Required transaction parameter 'vendor' is missing. ");
         }
-        if(txType == null){
+        if (txType == null) {
             errorRequiredParameters.append("Required transaction parameter 'authenticationsTransType' is missing. ");
         }
-        if(errorRequiredParameters.length() > 0){
+        if (errorRequiredParameters.length() > 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", errorRequiredParameters), locale));
         }
-        
         parameters.put("VPSProtocol", vpsProtocol);
         parameters.put("TxType", txType);
         parameters.put("Vendor", vendor);
 
-        if (vendorTxCode != null) { parameters.put("VendorTxCode", vendorTxCode); }
-        if (amount != null) { parameters.put("Amount", amount); }
-        if (currency != null) { parameters.put("Currency", currency); } //GBP/USD
-        if (description != null) { parameters.put("Description", description); }
-        if (cardHolder != null) { parameters.put("CardHolder", cardHolder); }
-        if (cardNumber != null) { parameters.put("CardNumber", cardNumber); }
-        if (expiryDate != null) { parameters.put("ExpiryDate", expiryDate); }
-        if (cardType != null) { parameters.put("CardType", cardType); }
+        if (vendorTxCode != null) {
+            parameters.put("VendorTxCode", vendorTxCode);
+        }
+        if (amount != null) {
+            parameters.put("Amount", amount);
+        }
+        if (currency != null) {
+            parameters.put("Currency", currency);
+        } //GBP/USD
+        if (description != null) {
+            parameters.put("Description", description);
+        }
+        if (cardHolder != null) {
+            parameters.put("CardHolder", cardHolder);
+        }
+        if (cardNumber != null) {
+            parameters.put("CardNumber", cardNumber);
+        }
+        if (cardType != null) {
+            parameters.put("CardType", cardType);
+        }
+        if (expiryDate != null) {
+            parameters.put("ExpiryDate", expiryDate);
+        }
 
         //start - billing details
-        if (billingSurname != null) { parameters.put("BillingSurname", billingSurname); }
-        if (billingFirstnames != null) { parameters.put("BillingFirstnames", billingFirstnames); }
-        if (billingAddress != null) { parameters.put("BillingAddress", billingAddress); }
-        if (billingAddress2 != null) { parameters.put("BillingAddress2", billingAddress2); }
-        if (billingCity != null) { parameters.put("BillingCity", billingCity); }
-        if (billingPostCode != null) { parameters.put("BillingPostCode", billingPostCode); }
-        if (billingCountry != null) { parameters.put("BillingCountry", billingCountry); }
-        if (billingState != null) { parameters.put("BillingState", billingState); }
-        if (billingPhone != null) { parameters.put("BillingPhone", billingPhone); }
+        if (billingSurname != null) {
+            parameters.put("BillingSurname", billingSurname);
+        }
+        if (billingFirstnames != null) {
+            parameters.put("BillingFirstnames", billingFirstnames);
+        }
+        if (billingAddress != null) {
+            parameters.put("BillingAddress", billingAddress);
+        }
+        if (billingAddress2 != null) {
+            parameters.put("BillingAddress2", billingAddress2);
+        }
+        if (billingCity != null) {
+            parameters.put("BillingCity", billingCity);
+        }
+        if (billingPostCode != null) {
+            parameters.put("BillingPostCode", billingPostCode);
+        }
+        if (billingCountry != null) {
+            parameters.put("BillingCountry", billingCountry);
+        }
+        if (billingState != null) {
+            parameters.put("BillingState", billingState);
+        }
+        if (billingPhone != null) {
+            parameters.put("BillingPhone", billingPhone);
+        }
         //end - billing details
 
         //start - delivery details
         if (isBillingSameAsDelivery != null && isBillingSameAsDelivery) {
-            if (billingSurname != null) { parameters.put("DeliverySurname", billingSurname); }
-            if (billingFirstnames != null) { parameters.put("DeliveryFirstnames", billingFirstnames); }
-            if (billingAddress != null) { parameters.put("DeliveryAddress", billingAddress); }
-            if (billingAddress2 != null) { parameters.put("DeliveryAddress2", billingAddress2); }
-            if (billingCity != null) { parameters.put("DeliveryCity", billingCity); }
-            if (billingPostCode != null) { parameters.put("DeliveryPostCode", billingPostCode); }
-            if (billingCountry != null) { parameters.put("DeliveryCountry", billingCountry); }
-            if (billingState != null) { parameters.put("DeliveryState", billingState); }
-            if (billingPhone != null) { parameters.put("DeliveryPhone", billingPhone); }
+            if (billingSurname != null) {
+                parameters.put("DeliverySurname", billingSurname);
+            }
+            if (billingFirstnames != null) {
+                parameters.put("DeliveryFirstnames", billingFirstnames);
+            }
+            if (billingAddress != null) {
+                parameters.put("DeliveryAddress", billingAddress);
+            }
+            if (billingAddress2 != null) {
+                parameters.put("DeliveryAddress2", billingAddress2);
+            }
+            if (billingCity != null) {
+                parameters.put("DeliveryCity", billingCity);
+            }
+            if (billingPostCode != null) {
+                parameters.put("DeliveryPostCode", billingPostCode);
+            }
+            if (billingCountry != null) {
+                parameters.put("DeliveryCountry", billingCountry);
+            }
+            if (billingState != null) {
+                parameters.put("DeliveryState", billingState);
+            }
+            if (billingPhone != null) {
+                parameters.put("DeliveryPhone", billingPhone);
+            }
         } else {
-            if (deliverySurname != null) { parameters.put("DeliverySurname", deliverySurname); }
-            if (deliveryFirstnames != null) { parameters.put("DeliveryFirstnames", deliveryFirstnames); }
-            if (deliveryAddress != null) { parameters.put("DeliveryAddress", deliveryAddress); }
-            if (deliveryAddress2 != null) { parameters.put("DeliveryAddress2", deliveryAddress2); }
-            if (deliveryCity != null) { parameters.put("DeliveryCity", deliveryCity); }
-            if (deliveryPostCode != null) { parameters.put("DeliveryPostCode", deliveryPostCode); }
-            if (deliveryCountry != null) { parameters.put("DeliveryCountry", deliveryCountry); }
-            if (deliveryState != null) { parameters.put("DeliveryState", deliveryState); }
-            if (deliveryPhone != null) {parameters.put("DeliveryPhone", deliveryPhone); }
+            if (deliverySurname != null) {
+                parameters.put("DeliverySurname", deliverySurname);
+            }
+            if (deliveryFirstnames != null) {
+                parameters.put("DeliveryFirstnames", deliveryFirstnames);
+            }
+            if (deliveryAddress != null) {
+                parameters.put("DeliveryAddress", deliveryAddress);
+            }
+            if (deliveryAddress2 != null) {
+                parameters.put("DeliveryAddress2", deliveryAddress2);
+            }
+            if (deliveryCity != null) {
+                parameters.put("DeliveryCity", deliveryCity);
+            }
+            if (deliveryPostCode != null) {
+                parameters.put("DeliveryPostCode", deliveryPostCode);
+            }
+            if (deliveryCountry != null) {
+                parameters.put("DeliveryCountry", deliveryCountry);
+            }
+            if (deliveryState != null) {
+                parameters.put("DeliveryState", deliveryState);
+            }
+            if (deliveryPhone != null) {
+                parameters.put("DeliveryPhone", deliveryPhone);
+            }
         }
         //end - delivery details
         //end - required parameters
 
         //start - optional parameters
-        if (cv2 != null) { parameters.put("CV2", cv2); }
-        if (startDate != null) { parameters.put("StartDate", startDate); }
-        if (issueNumber != null) { parameters.put("IssueNumber", issueNumber); }
-        if (basket != null) { parameters.put("Basket", basket); }
-        if (clientIPAddress != null) { parameters.put("ClientIPAddress", clientIPAddress); }
+        if (cv2 != null) {
+            parameters.put("CV2", cv2);
+        }
+        if (startDate != null) {
+            parameters.put("StartDate", startDate);
+        }
+        if (issueNumber != null) {
+            parameters.put("IssueNumber", issueNumber);
+        }
+        if (basket != null) {
+            parameters.put("Basket", basket);
+        }
+        if (clientIPAddress != null) {
+            parameters.put("ClientIPAddress", clientIPAddress);
+        }
         //end - optional parameters
         //end - authentication parameters
 
@@ -278,15 +355,15 @@ public class SagePayServices
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        } catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
@@ -303,7 +380,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String vpsTxId = (String) context.get("vpsTxId");
         String securityKey = (String) context.get("securityKey");
         String txAuthNo = (String) context.get("txAuthNo");
@@ -370,15 +447,15 @@ public class SagePayServices
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        } catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
@@ -395,7 +472,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String vpsTxId = (String) context.get("vpsTxId");
         String securityKey = (String) context.get("securityKey");
         String txAuthNo = (String) context.get("txAuthNo");
@@ -459,15 +536,15 @@ public class SagePayServices
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        }  catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
@@ -484,7 +561,7 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
+        String vendorTxCode = (String) context.get("vendorTxCode");
         String vpsTxId = (String) context.get("vpsTxId");
         String securityKey = (String) context.get("securityKey");
         String txAuthNo = (String) context.get("txAuthNo");
@@ -545,16 +622,15 @@ public class SagePayServices
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
-
-        }  catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
@@ -571,10 +647,10 @@ public class SagePayServices
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
-        String vendorTxCode = (String)context.get("vendorTxCode");
-        String amount = (String)context.get("amount");
-        String currency = (String)context.get("currency");
-        String description = (String)context.get("description");
+        String vendorTxCode = (String) context.get("vendorTxCode");
+        String amount = (String) context.get("amount");
+        String currency = (String) context.get("currency");
+        String description = (String) context.get("description");
 
         String relatedVPSTxId = (String) context.get("relatedVPSTxId");
         String relatedVendorTxCode = (String) context.get("relatedVendorTxCode");
@@ -605,7 +681,6 @@ public class SagePayServices
 
         try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
             String successMessage = null;
-            
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("refundUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
@@ -653,15 +728,15 @@ public class SagePayServices
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
-        }  catch(UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
-        } catch(ClientProtocolException cpe) {
+        } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));

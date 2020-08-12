@@ -34,7 +34,7 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(S obj, Locale locale, TimeZone timeZone) throws ConversionException;
+    T convert(S obj, Locale locale, TimeZone timeZone) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
      *
@@ -45,7 +45,7 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException;
+    T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
      *
@@ -56,7 +56,7 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
+    T convert(S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
      *
@@ -68,5 +68,5 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
+    T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
 }

@@ -38,7 +38,6 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
 
     /**
      * Run the service synchronously and return the result
-     * 
      * @param context
      *            Map of name, value pairs composing the context
      * @return Map of name, value pairs composing the result
@@ -53,7 +52,6 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
 
     /**
      * Run the service synchronously and IGNORE the result
-     * 
      * @param context
      *            Map of name, value pairs composing the context
      */

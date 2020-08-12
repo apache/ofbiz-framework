@@ -42,14 +42,14 @@ public class HumanResEvents {
     private static final String RES_ERROR = "HumanResErrorUiLabels";
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
-    public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response){
+    public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String partyId = request.getParameter("partyId");
         String onclickFunction = request.getParameter("onclickFunction");
         String additionParam = request.getParameter("additionParam");
         String hrefString = request.getParameter("hrefString");
         String hrefString2 = request.getParameter("hrefString2");
-        List<Map<String,Object>> categoryList = new ArrayList<>();
+        List<Map<String, Object>> categoryList = new ArrayList<>();
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("delegator", delegator);
         paramMap.put("partyId", partyId);
@@ -67,7 +67,7 @@ public class HumanResEvents {
         }
         try {
             GenericValue partyGroup = EntityQuery.use(delegator).from("PartyGroup").where("partyId", partyId).queryOne();
-            if (partyGroup != null) {    
+            if (partyGroup != null) {
                 paramMap.put("partyGroup", partyGroup);
                 /* get the child departments of company or party */
                 categoryList.addAll(getChildComps(paramMap));
@@ -83,7 +83,7 @@ public class HumanResEvents {
         return "success";
     }
 
-    private static List<Map<String, Object>> getCurrentEmployeeDetails(Map<String, Object> params) throws GenericEntityException{
+    private static List<Map<String, Object>> getCurrentEmployeeDetails(Map<String, Object> params) throws GenericEntityException {
         Delegator delegator = (Delegator) params.get("delegator");
         List<Map<String, Object>> responseList = new ArrayList<>();
         long emplPosCount;
@@ -102,13 +102,13 @@ public class HumanResEvents {
                         .where("emplPositionId", emplId)
                         .filterByDate().queryList();
                 if (UtilValidate.isNotEmpty(emlpfillCtxs)) {
-                    for (GenericValue emlpfillCtx : emlpfillCtxs ) {
+                    for (GenericValue emlpfillCtx : emlpfillCtxs) {
                         String memberId = emlpfillCtx.getString("partyId");
                         title = PartyHelper.getPartyName(delegator, memberId, false);
-                        Map<String,Object> josonMap = new HashMap<>();
-                        Map<String,Object> dataMap = new HashMap<>();
-                        Map<String,Object> dataAttrMap = new HashMap<>();
-                        Map<String,Object> attrMap = new HashMap<>();
+                        Map<String, Object> josonMap = new HashMap<>();
+                        Map<String, Object> dataMap = new HashMap<>();
+                        Map<String, Object> dataAttrMap = new HashMap<>();
+                        Map<String, Object> attrMap = new HashMap<>();
                         String hrefStr = hrefString + memberId;
                         if (UtilValidate.isNotEmpty(hrefString2)) {
                             hrefStr = hrefStr + hrefString2;
@@ -119,9 +119,9 @@ public class HumanResEvents {
                         dataAttrMap.put("href", hrefStr);
                         dataMap.put("title", title);
                         dataMap.put("attr", dataAttrMap);
-                        josonMap.put("attr",attrMap);
+                        josonMap.put("attr", attrMap);
                         josonMap.put("data", dataMap);
-                        responseList.add(josonMap) ;
+                        responseList.add(josonMap);
                     }
                 }
             }
@@ -132,9 +132,9 @@ public class HumanResEvents {
         return responseList;
     }
 
-    private static List<Map<String, Object>> getChildComps(Map<String, Object> params) throws GenericEntityException{
+    private static List<Map<String, Object>> getChildComps(Map<String, Object> params) throws GenericEntityException {
         Delegator delegator = (Delegator) params.get("delegator");
-        Map<String , Object> partyGroup = UtilGenerics.cast(params.get("partyGroup"));
+        Map<String, Object> partyGroup = UtilGenerics.cast(params.get("partyGroup"));
         List<Map<String, Object>> resultList = new ArrayList<>();
         List<GenericValue> childOfComs = null;
         String onclickFunction = (String) params.get("onclickFunction");
@@ -143,11 +143,11 @@ public class HumanResEvents {
         String hrefString2 = (String) params.get("hrefString2");
         try {
             childOfComs = EntityQuery.use(delegator).from("PartyRelationship")
-                    .where("partyIdFrom", partyGroup.get("partyId"), 
+                    .where("partyIdFrom", partyGroup.get("partyId"),
                             "partyRelationshipTypeId", "GROUP_ROLLUP")
                             .filterByDate().queryList();
             if (UtilValidate.isNotEmpty(childOfComs)) {
-                for (GenericValue childOfCom : childOfComs ) {
+                for (GenericValue childOfCom : childOfComs) {
                     String catId = null;
                     String childPartyId = null;
                     String catNameField = null;
@@ -157,11 +157,11 @@ public class HumanResEvents {
                     Map<String, Object> dataAttrMap = new HashMap<>();
                     Map<String, Object> attrMap = new HashMap<>();
                     catId = childOfCom.getString("partyIdTo");
-                    title = PartyHelper.getPartyName(delegator,catId, false);
-                    josonMap.put("title",title);
+                    title = PartyHelper.getPartyName(delegator, catId, false);
+                    josonMap.put("title", title);
                     //Check child existing
                     List<GenericValue> childOfSubComs = EntityQuery.use(delegator).from("PartyRelationship")
-                            .where("partyIdFrom", catId, 
+                            .where("partyIdFrom", catId,
                                     "partyRelationshipTypeId", "GROUP_ROLLUP")
                                     .filterByDate().queryList();
                     //check employee position
@@ -179,10 +179,10 @@ public class HumanResEvents {
                     dataAttrMap.put("href", hrefStr);
                     dataMap.put("attr", dataAttrMap);
                     dataMap.put("title", title);
-                    josonMap.put("attr",attrMap);
+                    josonMap.put("attr", attrMap);
                     josonMap.put("data", dataMap);
                     resultList.add(josonMap);
-                }  
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
@@ -191,7 +191,7 @@ public class HumanResEvents {
         return resultList;
     }
 
-    private static List<Map<String, Object>> getEmployeeInComp(Map<String, Object> params) throws GenericEntityException{
+    private static List<Map<String, Object>> getEmployeeInComp(Map<String, Object> params) throws GenericEntityException {
         List<GenericValue> isEmpls = null;
         Delegator delegator = (Delegator) params.get("delegator");
         String partyId = (String) params.get("partyId");
@@ -203,7 +203,7 @@ public class HumanResEvents {
                             .filterByDate("actualFromDate", "actualThruDate")
                             .queryList();
             if (UtilValidate.isNotEmpty(isEmpls)) {
-                for (GenericValue childOfEmpl : isEmpls ) {
+                for (GenericValue childOfEmpl : isEmpls) {
                     Map<String, Object> emplMap = new HashMap<>();
                     Map<String, Object> emplAttrMap = new HashMap<>();
                     Map<String, Object> empldataMap = new HashMap<>();
@@ -220,7 +220,7 @@ public class HumanResEvents {
                     GenericValue emplContext = EntityQuery.use(delegator).from("EmplPositionType").where("emplPositionTypeId", typeId).queryOne();
                     String title = null;
                     if (UtilValidate.isNotEmpty(emplContext)) {
-                        title = (String) emplContext.get("description") + " " +"["+ emplId +"]";
+                        title = (String) emplContext.get("description") + " " + "[" + emplId +"]";
                     }
                     String hrefStr = "emplPositionView?emplPositionId=" + emplId;
                     emplAttrMap.put("href", hrefStr);
@@ -231,8 +231,8 @@ public class HumanResEvents {
                     emplDataAttrMap.put("id", emplId);
                     emplDataAttrMap.put("rel", "N");
                     emplMap.put("data", empldataMap);
-                    emplMap.put("attr",emplDataAttrMap);
-                    emplMap.put("title",title);
+                    emplMap.put("attr", emplDataAttrMap);
+                    emplMap.put("title", title);
                     resultList.add(emplMap);
                 }
             }

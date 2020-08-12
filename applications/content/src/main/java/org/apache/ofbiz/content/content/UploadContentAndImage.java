@@ -64,22 +64,22 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class UploadContentAndImage {
 
     private static final String MODULE = UploadContentAndImage.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
-    public UploadContentAndImage() {}
+    public UploadContentAndImage() { }
 
     public static String uploadContentAndImage(HttpServletRequest request, HttpServletResponse response) {
         try {
             Locale locale = UtilHttp.getLocale(request);
-            LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             HttpSession session = request.getSession();
-            GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
             File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            
+
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
             List<FileItem> lst = null;
@@ -92,7 +92,7 @@ public class UploadContentAndImage {
             }
 
             if (lst.size() == 0) {
-                String errMsg = UtilProperties.getMessage(UploadContentAndImage.err_resource, "uploadContentAndImage.no_files_uploaded", locale);
+                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "uploadContentAndImage.no_files_uploaded", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
                 return "error";
@@ -102,8 +102,8 @@ public class UploadContentAndImage {
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes = {};
-            for (int i = 0; i < lst.size(); i++) {
-                fi = lst.get(i);
+            for (FileItem fileItem : lst) {
+                fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -120,32 +120,32 @@ public class UploadContentAndImage {
             TransactionUtil.begin();
             List<String> contentPurposeList = ContentWorker.prepContentPurposeList(passedParams);
             passedParams.put("contentPurposeList", contentPurposeList);
-            String entityOperation = (String)passedParams.get("entityOperation");
-            String passedContentId = (String)passedParams.get("ftlContentId");
+            String entityOperation = (String) passedParams.get("entityOperation");
+            String passedContentId = (String) passedParams.get("ftlContentId");
             List<String> targetOperationList = ContentWorker.prepTargetOperationList(passedParams, entityOperation);
             passedParams.put("targetOperationList", targetOperationList);
-            
+
             // Create or update FTL template
             Map<String, Object> ftlContext = new HashMap<>();
             ftlContext.put("userLogin", userLogin);
             ftlContext.put("contentId", passedParams.get("ftlContentId"));
             ftlContext.put("ownerContentId", passedParams.get("ownerContentId"));
-            String contentTypeId = (String)passedParams.get("contentTypeId");
+            String contentTypeId = (String) passedParams.get("contentTypeId");
             ftlContext.put("contentTypeId", contentTypeId);
             ftlContext.put("statusId", passedParams.get("statusId"));
             ftlContext.put("contentPurposeList", UtilMisc.toList(passedParams.get("contentPurposeList")));
             ftlContext.put("contentPurposeList", contentPurposeList);
-            ftlContext.put("targetOperationList",targetOperationList);
+            ftlContext.put("targetOperationList", targetOperationList);
             ftlContext.put("contentName", passedParams.get("contentName"));
             ftlContext.put("dataTemplateTypeId", passedParams.get("dataTemplateTypeId"));
             ftlContext.put("description", passedParams.get("description"));
             ftlContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
-            String drid = (String)passedParams.get("dataResourceId");
+            String drid = (String) passedParams.get("dataResourceId");
             ftlContext.put("dataResourceId", drid);
             ftlContext.put("dataResourceTypeId", null); // inhibits persistence of DataResource, because it already exists
-            String contentIdTo = (String)passedParams.get("contentIdTo");
+            String contentIdTo = (String) passedParams.get("contentIdTo");
             ftlContext.put("contentIdTo", contentIdTo);
-            String contentAssocTypeId = (String)passedParams.get("contentAssocTypeId");
+            String contentAssocTypeId = (String) passedParams.get("contentAssocTypeId");
             ftlContext.put("contentAssocTypeId", null); // Don't post assoc at this time
             Map<String, Object> ftlResults = dispatcher.runSync("persistContentAndAssoc", ftlContext);
             if (ServiceUtil.isError(ftlResults)) {
@@ -155,7 +155,7 @@ public class UploadContentAndImage {
                 TransactionUtil.rollback();
                 return "error";
             }
-            String ftlContentId = (String)ftlResults.get("contentId");
+            String ftlContentId = (String) ftlResults.get("contentId");
             if (UtilValidate.isNotEmpty(contentIdTo)) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("fromDate", UtilDateTime.nowTimestamp());
@@ -170,7 +170,7 @@ public class UploadContentAndImage {
                     map.put("contentAssocTypeId", "PUBLISH_RELEASE");
                 } else if ("PUBLISH_LINK".equals(contentAssocTypeId)) {
                     map.put("contentAssocTypeId", "PUBLISH_LINK");
-                    String publishOperation = (String)passedParams.get("publishOperation");
+                    String publishOperation = (String) passedParams.get("publishOperation");
                     if (UtilValidate.isEmpty(publishOperation)) {
                         publishOperation = "CONTENT_PUBLISH";
                     }
@@ -197,7 +197,9 @@ public class UploadContentAndImage {
 
             String ftlDataResourceId = drid;
 
-            if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, MODULE);
+            }
             // Create or update summary text subContent
             if (passedParams.containsKey("summaryData")) {
                 Map<String, Object> sumContext = new HashMap<>();
@@ -207,7 +209,7 @@ public class UploadContentAndImage {
                 sumContext.put("contentTypeId", "DOCUMENT");
                 sumContext.put("statusId", passedParams.get("statusId"));
                 sumContext.put("contentPurposeList", UtilMisc.toList("SUMMARY"));
-                sumContext.put("targetOperationList",targetOperationList);
+                sumContext.put("targetOperationList", targetOperationList);
                 sumContext.put("contentName", passedParams.get("contentName"));
                 sumContext.put("description", passedParams.get("description"));
                 sumContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
@@ -237,7 +239,7 @@ public class UploadContentAndImage {
                 txtContext.put("contentTypeId", "DOCUMENT");
                 txtContext.put("statusId", passedParams.get("statusId"));
                 txtContext.put("contentPurposeList", UtilMisc.toList("MAIN_ARTICLE"));
-                txtContext.put("targetOperationList",targetOperationList);
+                txtContext.put("targetOperationList", targetOperationList);
                 txtContext.put("contentName", passedParams.get("contentName"));
                 txtContext.put("description", passedParams.get("description"));
                 txtContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
@@ -270,7 +272,7 @@ public class UploadContentAndImage {
                 imgContext.put("description", passedParams.get("description"));
                 imgContext.put("contentPurposeList", contentPurposeList);
                 imgContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
-                imgContext.put("targetOperationList",targetOperationList);
+                imgContext.put("targetOperationList", targetOperationList);
                 imgContext.put("dataResourceId", passedParams.get("imgDataResourceId"));
                 String dataResourceTypeId = "IMAGE_OBJECT";
                 imgContext.put("dataResourceTypeId", dataResourceTypeId);
@@ -280,7 +282,9 @@ public class UploadContentAndImage {
                 imgContext.put("mapKey", "IMAGE");
                 imgContext.put("dataTemplateTypeId", "NONE");
                 imgContext.put("rootDir", "rootDir");
-                if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, MODULE);
+                }
                 Map<String, Object> imgResults = dispatcher.runSync("persistContentAndAssoc", imgContext);
                 if (ServiceUtil.isError(imgResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(imgResults);
@@ -323,7 +327,7 @@ public class UploadContentAndImage {
             request.setAttribute("passedParams", passedParams);
             TransactionUtil.commit();
         } catch (GenericEntityException | GenericServiceException e) {
-            Debug.logError(e, "[UploadContentAndImage] " , MODULE);
+            Debug.logError(e, "[UploadContentAndImage]", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
@@ -339,13 +343,12 @@ public class UploadContentAndImage {
     public static String uploadContentStuff(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
-            GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-            Delegator delegator = (Delegator)request.getAttribute("delegator");
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
 
             long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
             int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
             File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
 
@@ -369,8 +372,8 @@ public class UploadContentAndImage {
             FileItem imageFi = null;
             byte[] imageBytes;
             passedParams.put("userLogin", userLogin);
-            for (int i = 0; i < lst.size(); i++) {
-                fi = lst.get(i);
+            for (FileItem fileItem : lst) {
+                fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -398,9 +401,9 @@ public class UploadContentAndImage {
                 rowCount = 1;
             }
             TransactionUtil.begin();
-            for (int i=0; i < rowCount; i++) {
+            for (int i = 0; i < rowCount; i++) {
                 String suffix = "_o_" + i;
-                if (i==0) {
+                if (i == 0) {
                    suffix = "";
                 }
                 String returnMsg = processContentUpload(passedParams, suffix, request);
@@ -416,7 +419,7 @@ public class UploadContentAndImage {
             }
             TransactionUtil.commit();
         } catch (GenericTransactionException | GenericServiceException e) {
-            Debug.logError(e, "[UploadContentAndImage] " , MODULE);
+            Debug.logError(e, "[UploadContentAndImage]", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
                 TransactionUtil.rollback();
@@ -430,25 +433,25 @@ public class UploadContentAndImage {
     }
 
     public static String processContentUpload(Map<String, Object> passedParams, String suffix, HttpServletRequest request) throws GenericServiceException {
-        LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Map<String, Object> ftlContext = new HashMap<>();
 
-        String contentPurposeString = (String)passedParams.get("contentPurposeString" + suffix);
+        String contentPurposeString = (String) passedParams.get("contentPurposeString" + suffix);
         if (UtilValidate.isEmpty(contentPurposeString)) {
-            contentPurposeString = (String)passedParams.get("contentPurposeString");
+            contentPurposeString = (String) passedParams.get("contentPurposeString");
         }
         List<String> contentPurposeList = StringUtil.split(contentPurposeString,"|");
         ftlContext.put("contentPurposeList", contentPurposeList);
 
-        String targetOperationString = (String)passedParams.get("targetOperationString" + suffix);
+        String targetOperationString = (String) passedParams.get("targetOperationString" + suffix);
         if (UtilValidate.isEmpty(targetOperationString)) {
-            targetOperationString = (String)passedParams.get("targetOperationString");
+            targetOperationString = (String) passedParams.get("targetOperationString");
         }
         List<String> targetOperationList = StringUtil.split(targetOperationString,"|");
-        ftlContext.put("targetOperationList",targetOperationList);
+        ftlContext.put("targetOperationList", targetOperationList);
 
         ftlContext.put("userLogin", userLogin);
         Object objSequenceNum = passedParams.get("caSequenceNum");
@@ -456,7 +459,7 @@ public class UploadContentAndImage {
             if (objSequenceNum instanceof String) {
                 Long sequenceNum = null;
                 try {
-                    sequenceNum = Long.valueOf((String)objSequenceNum);
+                    sequenceNum = Long.valueOf((String) objSequenceNum);
                 } catch (NumberFormatException e) {
                     String msg = "Caught an exception : " + e.toString();
                     Debug.logError(e, msg);
@@ -502,7 +505,7 @@ public class UploadContentAndImage {
         }
 
         ftlContext.put("textData", passedParams.get("textData" + suffix));
-        byte[] bytes = (byte[])passedParams.get("imageData" + suffix);
+        byte[] bytes = (byte[]) passedParams.get("imageData" + suffix);
         ftlContext.put("imageData", bytes);
         if (Debug.infoOn()) {
             Debug.logInfo("[UploadContentStuff]ftlContext:" + ftlContext, MODULE);
@@ -538,7 +541,7 @@ public class UploadContentAndImage {
             errorMsgList.add(msg);
             return "error";
         }
-        String returnedContentId = (String)ftlResults.get("contentId");
+        String returnedContentId = (String) ftlResults.get("contentId");
         if (Debug.infoOn()) {
             Debug.logInfo("returnedContentId:" + returnedContentId, MODULE);
         }
@@ -550,7 +553,7 @@ public class UploadContentAndImage {
         request.setAttribute("drDataResourceId" + suffix, ftlResults.get("dataResourceId"));
         request.setAttribute("caContentId" + suffix, ftlResults.get("contentId"));
 
-        String caContentIdTo = (String)passedParams.get("caContentIdTo");
+        String caContentIdTo = (String) passedParams.get("caContentIdTo");
         if (UtilValidate.isNotEmpty(caContentIdTo)) {
             Map<String, Object> resequenceContext = new HashMap<>();
             resequenceContext.put("contentIdTo", caContentIdTo);

@@ -176,7 +176,7 @@ public class ContentSearch {
             }
 
             long endMillis = System.currentTimeMillis();
-            double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
+            double totalSeconds = ((double) endMillis - (double) startMillis) / 1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
             this.saveSearchResultInfo((long) contentIds.size(), totalSeconds);
@@ -274,7 +274,7 @@ public class ContentSearch {
         /**
          * @param delegator the delegator
          * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
-         *      DONE WITH IT (preferably in a finally block), 
+         *      DONE WITH IT (preferably in a finally block),
          *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
          */
         public EntityListIterator doQuery(Delegator delegator) {
@@ -319,7 +319,9 @@ public class ContentSearch {
                     hasResults = true;
                 }
                 if (resultOffset != null && resultOffset > 1) {
-                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), MODULE);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), MODULE);
+                    }
                     hasResults = eli.relative(resultOffset - 1);
                     initialResult = null;
                 }
@@ -432,7 +434,7 @@ public class ContentSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ContentSearchConstraint implements java.io.Serializable {
+    public abstract static class ContentSearchConstraint implements java.io.Serializable {
         public ContentSearchConstraint() { }
 
         public abstract void addConstraint(ContentSearchContext contentSearchContext);
@@ -502,7 +504,7 @@ public class ContentSearch {
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentAssocTypeId", "contentAssocTypeId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId","contentIdTo"));
+            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId", "contentIdTo"));
 
             List<EntityExpr> assocConditionToFrom = new LinkedList<>();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "ContentIdFrom", EntityOperator.IN, contentIdSet));
@@ -773,7 +775,7 @@ public class ContentSearch {
             contentSearchContext.entityConditionList.add(conditions);
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString","fromDate : " + fromDate + " thruDate : " + thruDate)));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
         }
 
         /** pretty print for log messages and even UI stuff */
@@ -830,7 +832,7 @@ public class ContentSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-    public static abstract class ResultSortOrder implements java.io.Serializable {
+    public abstract static class ResultSortOrder implements java.io.Serializable {
         public ResultSortOrder() {
         }
 

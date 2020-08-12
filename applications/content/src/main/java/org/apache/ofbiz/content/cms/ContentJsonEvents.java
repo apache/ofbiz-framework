@@ -21,8 +21,6 @@ package org.apache.ofbiz.content.cms;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -56,9 +54,8 @@ public class ContentJsonEvents {
         String contentId = request.getParameter("contentId");
 
         EntityCondition condition = EntityCondition.makeCondition(
-            EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
-            EntityUtil.getFilterByDateExpr()
-            );
+                EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
+                EntityUtil.getFilterByDateExpr());
         List<GenericValue> assocs = delegator.findList("ContentAssoc", condition, null, null, null, false);
 
         List<Map<String, Object>> nodes = new LinkedList<>();
@@ -66,25 +63,20 @@ public class ContentJsonEvents {
             nodes.add(getTreeNode(assoc));
         }
 
-        Collections.sort(nodes, new Comparator<Map<String, Object>>() {
-
-            @Override
-            public int compare(Map<String, Object> node1, Map<String, Object> node2) {
-                Map<String, Object> data1 = UtilGenerics.cast(node1.get("data"));
-                Map<String, Object> data2 = UtilGenerics.cast(node2.get("data"));
-                if (data1 == null || data2 == null) {
-                    return 0;
-                }
-
-                String title1 = (String) data1.get("title");
-                String title2 = (String) data2.get("title");
-                if (title1 == null || title2 == null) {
-                    return 0;
-                }
-
-                return title1.toLowerCase(Locale.getDefault()).compareTo(title2.toLowerCase(Locale.getDefault()));
+        nodes.sort((node1, node2) -> {
+            Map<String, Object> data1 = UtilGenerics.cast(node1.get("data"));
+            Map<String, Object> data2 = UtilGenerics.cast(node2.get("data"));
+            if (data1 == null || data2 == null) {
+                return 0;
             }
 
+            String title1 = (String) data1.get("title");
+            String title2 = (String) data2.get("title");
+            if (title1 == null || title2 == null) {
+                return 0;
+            }
+
+            return title1.toLowerCase(Locale.getDefault()).compareTo(title2.toLowerCase(Locale.getDefault()));
         });
         IOUtils.write(JSON.from(nodes).toString(), response.getOutputStream(), Charset.defaultCharset());
 
@@ -139,9 +131,8 @@ public class ContentJsonEvents {
     public static void deleteContent(Delegator delegator, String contentId) throws GenericEntityException {
         Timestamp now = UtilDateTime.nowTimestamp();
         EntityCondition condition = EntityCondition.makeCondition(
-            EntityCondition.makeCondition(UtilMisc.toMap("contentIdTo", contentId)),
-            EntityUtil.getFilterByDateExpr()
-        );
+                EntityCondition.makeCondition(UtilMisc.toMap("contentIdTo", contentId)),
+                EntityUtil.getFilterByDateExpr());
         List<GenericValue> assocs = delegator.findList("ContentAssoc", condition, null, null, null, true);
         for (GenericValue assoc : assocs) {
             assoc.set("thruDate", now);
@@ -153,9 +144,8 @@ public class ContentJsonEvents {
     private static void deleteWebPathAliases(Delegator delegator, String contentId) throws GenericEntityException {
         Timestamp now = UtilDateTime.nowTimestamp();
         EntityCondition condition = EntityCondition.makeCondition(
-            EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
-            EntityUtil.getFilterByDateExpr()
-        );
+                EntityCondition.makeCondition(UtilMisc.toMap("contentId", contentId)),
+                EntityUtil.getFilterByDateExpr());
         List<GenericValue> pathAliases = delegator.findList("WebSitePathAlias", condition, null, null, null, true);
         for (GenericValue alias : pathAliases) {
             alias.set("thruDate", now);
@@ -177,20 +167,17 @@ public class ContentJsonEvents {
             }
         }
 
-        Map<String, Object> data = UtilMisc.toMap(
-            "title", (Object) contentName
-        );
+        Map<String, Object> data = UtilMisc.toMap("title", (Object) contentName);
 
         Map<String, Object> attr = UtilMisc.toMap(
-            "id", assoc.get("contentIdTo"),
-            "contentId", assoc.get("contentId"),
-            "fromDate", assoc.getTimestamp("fromDate").toString(),
-            "contentAssocTypeId", assoc.get("contentAssocTypeId")
-        );
+                "id", assoc.get("contentIdTo"),
+                "contentId", assoc.get("contentId"),
+                "fromDate", assoc.getTimestamp("fromDate").toString(),
+                "contentAssocTypeId", assoc.get("contentAssocTypeId"));
 
         Map<String, Object> node = UtilMisc.toMap("data", (Object) data, "attr", (Object) attr);
 
-        List<GenericValue> assocChildren  = content != null ? content.getRelated("FromContentAssoc", null, null, true) : null;
+        List<GenericValue> assocChildren = content != null ? content.getRelated("FromContentAssoc", null, null, true) : null;
         assocChildren = EntityUtil.filterByDate(assocChildren);
         if (!CollectionUtils.isEmpty(assocChildren)) {
             node.put("state", "closed");

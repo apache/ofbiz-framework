@@ -57,7 +57,7 @@ public final class EntityConditionList<T extends EntityCondition> extends Entity
      */
     @SuppressWarnings("unchecked")
     public Iterator<T> getConditionIterator() {
-        return (Iterator<T>)conditions.iterator();
+        return (Iterator<T>) conditions.iterator();
     }
 
     @Override

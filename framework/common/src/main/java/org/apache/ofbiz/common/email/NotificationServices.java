@@ -48,7 +48,7 @@ import freemarker.template.TemplateException;
  * via email.
  * <p>
  * To use the NotificationService, a message specific service should be
- * defined for a particular 
+ * defined for a particular
  * <a href="http://freemarker.sourceforge.net/docs/dgui_quickstart_template.html">
  * Freemarker Template</a> mapping the required fields of the template to the
  * required attributes of the service.
@@ -70,7 +70,7 @@ import freemarker.template.TemplateException;
  * }
  * </pre>
  * <p>
- * An optional parameter available to all message templates is 
+ * An optional parameter available to all message templates is
  * <code>baseUrl</code> which can either be specified when the service is
  * invoked or let the <code>NotificationService</code> attempt to resolve it
  * as best it can, see {@link #setBaseUrl(Delegator, String, Map) setBaseUrl(Map)}
@@ -101,7 +101,7 @@ import freemarker.template.TemplateException;
 public class NotificationServices {
 
     private static final String MODULE = NotificationServices.class.getName();
-    public static final String resource = "CommonUiLabels";
+    private static final String RESOURCE = "CommonUiLabels";
 
     /**
      * This will use the {@link #prepareNotification(DispatchContext, Map) prepareNotification(DispatchContext, Map)}
@@ -145,7 +145,7 @@ public class NotificationServices {
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
-                Map<String, Object> emailContext =  new LinkedHashMap<>();
+                Map<String, Object> emailContext = new LinkedHashMap<>();
                 emailContext.put("sendTo", context.get("sendTo"));
                 emailContext.put("body", body);
                 emailContext.put("sendCc", context.get("sendCc"));
@@ -160,11 +160,11 @@ public class NotificationServices {
                 result = dispatcher.runSync("sendMail", emailContext);
             } else {
                 Debug.logError("Invalid email body; null is not allowed", MODULE);
-                result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailInvalidBody", locale));
+                result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNotifyEmailInvalidBody", locale));
             }
         } catch (GenericServiceException serviceException) {
             Debug.logError(serviceException, "Error sending email", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailDeliveryError", locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNotifyEmailDeliveryError", locale));
         }
 
         return result;
@@ -193,7 +193,7 @@ public class NotificationServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
         if (templateData == null) {
-            templateData =  new LinkedHashMap<>();
+            templateData = new LinkedHashMap<>();
         }
 
         try {
@@ -205,7 +205,7 @@ public class NotificationServices {
 
             if (templateUrl == null) {
                 Debug.logError("Problem getting the template URL: " + templateName + " not found", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemFindingTemplate", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNotifyEmailProblemFindingTemplate", locale));
             }
 
             // process the template with the given data and write
@@ -217,14 +217,14 @@ public class NotificationServices {
             String notificationBody = writer.toString();
 
             // generate the successful response
-            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "CommonNotifyEmailMessageBodyGeneratedSuccessfully", locale));
+            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "CommonNotifyEmailMessageBodyGeneratedSuccessfully", locale));
             result.put("body", notificationBody);
         } catch (IOException ie) {
             Debug.logError(ie, "Problems reading template", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemReadingTemplate", locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNotifyEmailProblemReadingTemplate", locale));
         } catch (TemplateException te) {
             Debug.logError(te, "Problems processing template", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemProcessingTemplate", locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNotifyEmailProblemProcessingTemplate", locale));
         }
 
         return result;

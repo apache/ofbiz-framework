@@ -143,7 +143,7 @@ public class QRCodeEvents {
                 return "error";
             }
         } catch (IOException | GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.getMessage() }, locale);
+            String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] {e.getMessage() }, locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

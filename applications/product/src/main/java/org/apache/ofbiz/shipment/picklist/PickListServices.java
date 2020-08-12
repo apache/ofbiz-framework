@@ -25,7 +25,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -86,27 +86,19 @@ public class PickListServices {
     }
 
     public static boolean isBinComplete(Delegator delegator, String picklistBinId) throws GeneralException {
-        // lookup the items in the bin
-        List<GenericValue> items;
         try {
-            items = EntityQuery.use(delegator).from("PicklistItem").where("picklistBinId", picklistBinId).queryList();
+            EntityCondition cond = EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PICKITEM_COMPLETED", "PICKITEM_CANCELLED")),
+                    EntityCondition.makeCondition("picklistBinId", picklistBinId));
+            long picklistItemCount = EntityQuery.use(delegator).from("PicklistItem").where(cond).queryCount();
+            if (picklistItemCount != 0) {
+                return false;
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             throw e;
         }
 
-        if (UtilValidate.isNotEmpty(items)) {
-            for (GenericValue v: items) {
-                String itemStatus = v.getString("itemStatusId");
-                if (itemStatus != null) {
-                    if (!"PICKITEM_COMPLETED".equals(itemStatus)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        return false;
+        return true;
     }
 }

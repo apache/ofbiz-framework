@@ -68,11 +68,11 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class FindServices {
 
     private static final String MODULE = FindServices.class.getName();
-    public static final String resource = "CommonUiLabels";
+    private static final String RESOURCE = "CommonUiLabels";
     public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
-        entityOperators =  new LinkedHashMap<>();
+        entityOperators = new LinkedHashMap<>();
         entityOperators.put("between", EntityOperator.BETWEEN);
         entityOperators.put("equals", EntityOperator.EQUALS);
         entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
@@ -87,7 +87,7 @@ public class FindServices {
         entityOperators.put("notEqual", EntityOperator.NOT_EQUAL);
     }
 
-    public FindServices() {}
+    public FindServices() { }
 
     /**
      * prepareField, analyse inputFields to created normalizedFields a map with field name and operator.
@@ -100,7 +100,7 @@ public class FindServices {
     public static Map<String, Map<String, Map<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
-        //    fld0 or fld1,  and, then, "op" or "value"
+        //    fld0 or fld1, and, then, "op" or "value"
         // ie. id
         //  - fld0
         //      - op:like
@@ -198,7 +198,7 @@ public class FindServices {
                 origList = new LinkedList<>();
                 origValueMap.put(fieldNameRoot, origList);
             }
-            Object [] origValues = {fieldNameRaw, fieldValue};
+            Object[] origValues = {fieldNameRaw, fieldValue};
             origList.add(origValues);
         }
         return normalizedFields;
@@ -288,9 +288,9 @@ public class FindServices {
             if (ObjectType.isEmpty(fieldValue) && !"empty".equals(operation)) {
                 continue;
             }
-            if (UtilValidate.isNotEmpty(currentGroup)){
+            if (UtilValidate.isNotEmpty(currentGroup)) {
                 List<EntityCondition> groupedConditions = new LinkedList<>();
-                if(savedGroups.get(currentGroup) != null) {
+                if (savedGroups.get(currentGroup) != null) {
                     groupedConditions.addAll(savedGroups.get(currentGroup));
                 }
                 groupedConditions.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
@@ -374,7 +374,7 @@ public class FindServices {
             }
         }
         Object fieldObject = fieldValue;
-        if ((fieldOp != EntityOperator.IN && fieldOp != EntityOperator.NOT_IN ) || !(fieldValue instanceof Collection<?>)) {
+        if ((fieldOp != EntityOperator.IN && fieldOp != EntityOperator.NOT_IN) || !(fieldValue instanceof Collection<?>)) {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {
@@ -474,7 +474,7 @@ public class FindServices {
         }
         context.put("viewIndex", viewIndex);
 
-        Map<String, Object> result = performFind(dctx,context);
+        Map<String, Object> result = performFind(dctx, context);
 
         int start = viewIndex * viewSize;
         List<GenericValue> list = null;
@@ -487,7 +487,7 @@ public class FindServices {
         }
 
         result.put("listSize", listSize);
-        result.put("list",list);
+        result.put("list", list);
         result.remove("listIt");
         return result;
     }
@@ -504,7 +504,7 @@ public class FindServices {
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
         String distinct = (String) context.get("distinct");
-        List<String> fieldList =  UtilGenerics.cast(context.get("fieldList"));
+        List<String> fieldList = UtilGenerics.cast(context.get("fieldList"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
@@ -549,7 +549,7 @@ public class FindServices {
                                                "filterByDateValue", filterByDateValue, "userLogin", userLogin, "fromDateName", fromDateName, "thruDateName", thruDateName,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
         EntityConditionList<EntityCondition> exprList = UtilGenerics.cast(prepareResult.get("entityConditionList"));
         List<String> orderByList = checkCollection(prepareResult.get("orderByList"), String.class);
@@ -562,7 +562,7 @@ public class FindServices {
                                                                              "locale", context.get("locale"), "timeZone", context.get("timeZone"),
                                                                              "maxRows", maxRows));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorRetrieveIterator", UtilMisc.toMap("errorString", gse.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRetrieveIterator", UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
 
         if (executeResult.get("listIt") == null) {
@@ -671,7 +671,7 @@ public class FindServices {
         List<String> orderByList = checkCollection(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
         boolean distinct = "Y".equals(context.get("distinct"));
-        List<String> fieldList =  UtilGenerics.cast(context.get("fieldList"));
+        List<String> fieldList = UtilGenerics.cast(context.get("fieldList"));
         Locale locale = (Locale) context.get("locale");
         Set<String> fieldSet = null;
         if (fieldList != null) {
@@ -697,7 +697,7 @@ public class FindServices {
                 listSize = listIt.getResultsSizeAfterPartialList();
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorRunning", UtilMisc.toMap("entityName", entityName, "errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRunning", UtilMisc.toMap("entityName", entityName, "errorString", e.getMessage()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -728,7 +728,7 @@ public class FindServices {
     public static Map<String, Object> buildReducedQueryString(Map<String, ?> inputFields, String entityName, Delegator delegator) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
-        //    fld0 or fld1,  and, then, "op" or "value"
+        //    fld0 or fld1, and, then, "op" or "value"
         // ie. id
         //  - fld0
         //      - op:like
@@ -795,7 +795,7 @@ public class FindServices {
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
         context.put("viewSize", 1);
         context.put("viewIndex", 0);
-        Map<String, Object> result = org.apache.ofbiz.common.FindServices.performFind(dctx,context);
+        Map<String, Object> result = org.apache.ofbiz.common.FindServices.performFind(dctx, context);
 
         List<GenericValue> list = null;
         GenericValue item= null;
@@ -805,11 +805,11 @@ public class FindServices {
                 item = list.get(0);
             }
         } catch (ClassCastException | NullPointerException | GenericEntityException e) {
-            Debug.logInfo("Problem getting list Item" + e,MODULE);
+            Debug.logInfo("Problem getting list Item" + e, MODULE);
         }
 
         if (UtilValidate.isNotEmpty(item)) {
-            result.put("item",item);
+            result.put("item", item);
         }
         result.remove("listIt");
 

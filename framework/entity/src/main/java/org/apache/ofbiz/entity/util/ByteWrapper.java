@@ -32,7 +32,7 @@ import java.io.Serializable;
 public class ByteWrapper implements Serializable {
     protected byte[] bytes;
 
-    protected ByteWrapper() {}
+    protected ByteWrapper() { }
 
     public ByteWrapper(byte[] bytes) {
         this.bytes = bytes;

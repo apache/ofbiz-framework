@@ -102,7 +102,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.makeValue("JobSandbox", [poolId : "pool", jobName : "Initial Name" + i, serviceName : "foo", statusId : "SERVICE_FINISHED", jobId : "_~WRITE_TEST~_" + i])
+        dummy = makeValue("JobSandbox", [poolId : "pool", jobName : "Initial Name" + i, serviceName : "foo", statusId : "SERVICE_FINISHED", jobId : "_~WRITE_TEST~_" + i])
         createTestList.add(dummy)
         delegator.create(dummy)
     }

@@ -43,7 +43,6 @@ public class SeoControlServlet extends ControlServlet {
 
     private static String defaultPage = null;
     private static String controlServlet = null;
-    
     public static final String REQUEST_IN_ALLOW_LIST = "_REQUEST_IN_ALLOW_LIST_";
 
     public SeoControlServlet() {
@@ -69,7 +68,7 @@ public class SeoControlServlet extends ControlServlet {
 
         SeoConfigUtil.init();
     }
-    
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");

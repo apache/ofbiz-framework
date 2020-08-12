@@ -38,13 +38,13 @@ import org.apache.ofbiz.service.job.JobManagerException;
  */
 public abstract class GenericAbstractDispatcher implements LocalDispatcher {
 
-    public static final String MODULE = GenericAbstractDispatcher.class.getName();
+    protected static final String MODULE = GenericAbstractDispatcher.class.getName();
 
     protected DispatchContext ctx = null;
     protected ServiceDispatcher dispatcher = null;
     protected String name = null;
 
-    public GenericAbstractDispatcher() {}
+    public GenericAbstractDispatcher() { }
 
     @Override
     public void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
