@@ -418,8 +418,9 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param context
      * @param fileName
      * @param fileContent
+     * @return key used to store the script
      */
-    public static void putScriptInCache(Map<String, Object> context, String fileName, String fileContent) {
+    public static String putScriptInCache(Map<String, Object> context, String fileName, String fileContent) {
         HttpSession session = (HttpSession) context.get("session");
         String sessionId = session.getId();
         Map<String, String> scriptMap = UtilGenerics.cast(scriptCache.get(sessionId));
@@ -433,7 +434,17 @@ public final class MultiBlockHtmlTemplateUtil {
             };
             scriptCache.put(sessionId, scriptMap);
         }
-        scriptMap.put(fileName, fileContent);
+        String key = fileName;
+        if (scriptMap.containsKey(fileName)) {
+            int counter = 1;
+            key = fileName + "-" + counter;
+            while (scriptMap.containsKey(key)) {
+                counter++;
+                key = fileName + "-" + counter;
+            }
+        }
+        scriptMap.put(key, fileContent);
+        return key;
     }
 
     /**
