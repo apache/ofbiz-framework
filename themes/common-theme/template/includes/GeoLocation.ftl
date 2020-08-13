@@ -16,6 +16,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#-- Define OpenLayers js and css tags to be added to html head tag when multi-block=true. -->
+<script data-import="head" type="application/javascript"
+        src="/common/js/plugins/OpenLayers-5.3.0.js"></script>
+<link rel="stylesheet" type="text/css"
+      href="/common/js/plugins/OpenLayers-5.3.0.css"/>
 <#if geoChart?has_content>
 <#-- ================================= Golbal Init ======================================-->
   <#if geoChart.id?has_content>
