@@ -20,7 +20,7 @@ public class JsLanguageFilesMappingTransform implements TemplateTransformModel {
     private static final String MODULE = JsLanguageFilesMappingTransform.class.getName();
 
     @Override
-    public Writer getWriter(Writer out, Map args) {
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
             @Override
