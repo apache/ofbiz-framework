@@ -147,7 +147,7 @@ under the License.
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <span class="ui-widget">
-    <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if ajaxEnabled> class="autoCompleteDropDown"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#if disabled?has_content && disabled> disabled="${disabled}"</#if><#rt/>
+    <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if ajaxEnabled> class="autoCompleteDropDown"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#if disabled?has_content && disabled> disabled</#if><#rt/>
     <#if otherFieldName?has_content>
     data-other-field-name="${otherFieldName}"
     data-other-field-value='${otherValue?js_string}'
