@@ -16,11 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#-- Define OpenLayers js and css tags to be added to html head tag when multi-block=true. -->
-<script data-import="head" type="application/javascript"
-        src="/common/js/plugins/OpenLayers-5.3.0.js"></script>
-<link rel="stylesheet" type="text/css"
-      href="/common/js/plugins/OpenLayers-5.3.0.css"/>
 <#if geoChart?has_content>
 <#-- ================================= Golbal Init ======================================-->
   <#if geoChart.id?has_content>
@@ -120,62 +115,65 @@ under the License.
     <#elseif "GEOPT_OSM" == geoChart.dataSourceId>
     <div id="${id}" class="map" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;"></div>
     <script type="application/javascript">
-        var iconFeatures=[];
+        importLibrary(["/common/js/plugins/OpenLayers-5.3.0.js", "/common/js/plugins/OpenLayers-5.3.0.css"],
+        function() {
+            var iconFeatures=[];
 
-        <#if geoChart.points?has_content>
-            <#list geoChart.points as point>
-            iconFeatures.push(
-                    new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.transform([${point.lon},${point.lat}],
-                                'EPSG:4326', 'EPSG:900913'))
-                    })
-            );
-            </#list>
-        </#if>
+            <#if geoChart.points?has_content>
+                <#list geoChart.points as point>
+                iconFeatures.push(
+                        new ol.Feature({
+                            geometry: new ol.geom.Point(ol.proj.transform([${point.lon},${point.lat}],
+                                    'EPSG:4326', 'EPSG:900913'))
+                        })
+                );
+                </#list>
+            </#if>
 
-        var vectorSource = new ol.source.Vector({
-            features: iconFeatures
-        });
+            var vectorSource = new ol.source.Vector({
+                features: iconFeatures
+            });
 
-        var iconStyle = new ol.style.Style({
-            image: new ol.style.Icon(({
-                anchor: [0.5, 25],
-                anchorXUnits: 'fraction',
-                anchorYUnits: 'pixels',
-                opacity: 0.75,
-                src: '<@ofbizContentUrl>/images/img/marker.png</@ofbizContentUrl>'
-            }))
-        });
+            var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon(({
+                    anchor: [0.5, 25],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    opacity: 0.75,
+                    src: '<@ofbizContentUrl>/images/img/marker.png</@ofbizContentUrl>'
+                }))
+            });
 
-        var vectorLayer = new ol.layer.Vector({
-            source: vectorSource,
-            style: iconStyle
-        });
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+                style: iconStyle
+            });
 
-        var map = new ol.Map({
-            target: '${id}',
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
+            var map = new ol.Map({
+                target: '${id}',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    vectorLayer
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([${center.lon}, ${center.lat}]),
+                    zoom: ${zoom}
                 }),
-                vectorLayer
-            ],
-            view: new ol.View({
-                center: ol.proj.fromLonLat([${center.lon}, ${center.lat}]),
-                zoom: ${zoom}
-            }),
-            controls: [
-                new ol.control.Zoom(),
-                new ol.control.ZoomSlider(),
-                new ol.control.ZoomToExtent(),
-                new ol.control.OverviewMap(),
-                new ol.control.ScaleLine(),
-                new ol.control.FullScreen()
-            ]
-        });
+                controls: [
+                    new ol.control.Zoom(),
+                    new ol.control.ZoomSlider(),
+                    new ol.control.ZoomToExtent(),
+                    new ol.control.OverviewMap(),
+                    new ol.control.ScaleLine(),
+                    new ol.control.FullScreen()
+                ]
+            });
 
-        // fit to show all markers (optional)
-        map.getView().fit(vectorSource.getExtent(), map.getSize());
+            // fit to show all markers (optional)
+            map.getView().fit(vectorSource.getExtent(), map.getSize());
+        });
     </script>
 
     </#if>

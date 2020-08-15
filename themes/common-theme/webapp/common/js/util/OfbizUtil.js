@@ -1418,3 +1418,40 @@ function sendJWT(targetUrl) {
         });
     }
 }
+
+var importLibrary = function() {
+    var importLibraryFiles = new Map();
+    return function (urls, onSuccessFn, onErrorFn) {
+        function cachedScript(url, options) {
+            // Allow user to set any option except for dataType, cache, and url
+            options = $.extend(options || {}, {
+                dataType: "script",
+                cache: true,
+                url: url
+            });
+
+            // Use $.ajax() since it is more flexible than $.getScript
+            // Return the jqXHR object so we can chain callbacks
+            return jQuery.ajax(options);
+        };
+
+        jQuery.when.apply(jQuery,
+            jQuery.map(urls, function (url) {
+                if (!importLibraryFiles.has(url)) {
+                    var deferObj = (url.endsWith(".css") ?
+                        jQuery.get(url, function (css) {
+                                jQuery("<style>" + css + "</style>").appendTo("head");
+                            }
+                        ) :
+                        cachedScript(url));
+                    importLibraryFiles.set(url, deferObj);
+                    return deferObj;
+                } else {
+                    return importLibraryFiles.get(url);
+                }
+            })
+        ).then(onSuccessFn).catch(onErrorFn || function () {
+            alert('Error loading one of the files: \n' + urls.join('\n'))
+        });
+    }
+}();
