@@ -343,14 +343,6 @@ public final class MultiBlockHtmlTemplateUtil {
                 // check url is not already in layoutSettings.javaScripts
                 if (!layoutSettingsJavaScripts.contains(url)) {
                     layoutSettingsJavaScripts.add(url);
-                    if (url.contains("select2")) {
-                        // find and add select2 language js
-                        String localeString = locale.toString();
-                        String langJsUrl = org.apache.ofbiz.common.JsLanguageFilesMapping.select2.getFilePath(localeString);
-                        if (!layoutSettingsJavaScripts.contains(langJsUrl)) {
-                            layoutSettingsJavaScripts.add(langJsUrl);
-                        }
-                    }
                 }
             } else if (link.startsWith("link:")) {
                 String url = link.substring(5);
