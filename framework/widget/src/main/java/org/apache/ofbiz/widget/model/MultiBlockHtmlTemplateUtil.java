@@ -440,15 +440,15 @@ public final class MultiBlockHtmlTemplateUtil {
     }
 
     /**
-     * Get the script stored in cache.
+     * Remove script from cache after reading.
      * @param session
      * @param fileName
      * @return script to be sent back to browser
      */
     public static String getScriptFromCache(HttpSession session, final String fileName) {
         Map<String, String> scriptMap = UtilGenerics.cast(scriptCache.get(session.getId()));
-        if (scriptMap != null) {
-            return scriptMap.get(fileName);
+        if (scriptMap != null && scriptMap.containsKey(fileName)) {
+            return scriptMap.remove(fileName);
         }
         return "";
     }
