@@ -1090,47 +1090,51 @@ function submitFormDisableSubmits(form) {
 }
 
 function showjGrowl(showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
-
-    var contentMessages = jQuery("#content-messages");
-    if (contentMessages.length) {
-        jQuery("#content-messages").hide();
-        var errMessage = jQuery("#content-messages").html();
-        var classEvent = "";
-        var classList = jQuery("#content-messages").attr('class').split(/\s+/);
-        var stickyValue = false;
-        jQuery(classList).each(function(index) {
-            var localClass = classList[index];
-            if(localClass == "eventMessage" || localClass == "errorMessage" ){
-                classEvent = localClass + "JGrowl";
+    var libraryFiles = ["/common/js/jquery/plugins/Readmore.js-master/readmore.js",
+        "/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js"];
+    importLibrary(libraryFiles, function() {
+        var contentMessages = jQuery("#content-messages");
+        if (contentMessages.length) {
+            jQuery("#content-messages").hide();
+            var errMessage = jQuery("#content-messages").html();
+            var classEvent = "";
+            var classList = jQuery("#content-messages").attr('class').split(/\s+/);
+            var stickyValue = false;
+            jQuery(classList).each(function (index) {
+                var localClass = classList[index];
+                if (localClass == "eventMessage" || localClass == "errorMessage") {
+                    classEvent = localClass + "JGrowl";
+                }
+            });
+            if (classEvent == "errorMessageJGrowl") {
+                stickyValue = true;
             }
-        });
-        if (classEvent == "errorMessageJGrowl") {
-            stickyValue = true;
-        }
 
-        if (errMessage == null || errMessage == "" || errMessage == undefined ) {
-            // No Error Message Information is set, Error Msg Box can't be created
-            return;
-        }
-        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">'+hideAllLabel+'</div>';
-        if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
-        $.jGrowl(errMessage, { theme: classEvent, sticky: stickyValue,
-            beforeOpen: function(e,m,o){
-                if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width( jGrowlWidth+'px' );
-                if (jGrowlHeight !== null  && jGrowlHeight !== undefined) $(e).height( jGrowlHeight+'px' );
-            },
-            afterOpen: function(e,m) {
-                jQuery(".jGrowl-message").readmore({
-                    moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">'+showAllLabel+'</a>',
-                    lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">'+collapseLabel+'</a>',
+            if (errMessage == null || errMessage == "" || errMessage == undefined) {
+                // No Error Message Information is set, Error Msg Box can't be created
+                return;
+            }
+            $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
+            if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
+            $.jGrowl(errMessage, {
+                theme: classEvent, sticky: stickyValue,
+                beforeOpen: function (e, m, o) {
+                    if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
+                    if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
+                },
+                afterOpen: function (e, m) {
+                    jQuery(".jGrowl-message").readmore({
+                        moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
+                        lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
 
-                    maxHeight: 75
-                });
-            },
-            speed:jGrowlSpeed
-        });
-        contentMessages.remove();
-    }
+                        maxHeight: 75
+                    });
+                },
+                speed: jGrowlSpeed
+            });
+            contentMessages.remove();
+        }
+    });
 }
 
 
@@ -1444,15 +1448,14 @@ var importLibrary = function() {
         jQuery.when.apply(jQuery,
             jQuery.map(urls, function (url) {
                 if (!importLibraryFiles.has(url)) {
-                    var folder = url.substring(0,url.lastIndexOf("/"))
-                    var parentFolder = folder.substring(0,folder.lastIndexOf("/"))
                     var deferObj = (url.endsWith(".css") ?
                         jQuery.get(url, function (css) {
-                                // convert any relative path
-                                var updatedCss = css.replace(/\.\.\/(images|css|js)+/g, parentFolder+"/$1");
-                                jQuery("<style>" + updatedCss + "</style>").appendTo("head");
-                            }
-                        ) :
+                            var folder = url.substring(0,url.lastIndexOf("/"))
+                            var parentFolder = folder.substring(0,folder.lastIndexOf("/"))
+                            // convert any relative path
+                            var updatedCss = css.replace(/\.\.\/(images|css|js)+/g, parentFolder+"/$1");
+                            jQuery("<style>" + updatedCss + "</style>").appendTo("head");
+                        }) :
                         cachedScript(url));
                     importLibraryFiles.set(url, deferObj);
                     return deferObj;
