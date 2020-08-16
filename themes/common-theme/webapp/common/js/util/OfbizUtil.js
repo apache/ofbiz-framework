@@ -100,17 +100,22 @@ function bindObservers(bind_element) {
         })
     });
     jQuery(bind_element).find(".visual-editor").each(function(){
-        var element = jQuery(this);
-        var toolbar = element.data('toolbar');
-        var language = element.data('language');
-        var opts = {
-            cssClass : 'el-rte',
-            lang     : language,
-            toolbar  : toolbar,
-            doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
-            cssfiles : ['/images/jquery/plugins/elrte-1.3/css/elrte-inner.css']
-        }
-        element.elrte(opts);
+        var self = this;
+        importLibrary(["https://localhost:8443/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
+                "https://localhost:8443/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"],
+        function() {
+            var element = jQuery(self);
+            var toolbar = element.data('toolbar');
+            var language = element.data('language');
+            var opts = {
+                cssClass : 'el-rte',
+                lang     : language,
+                toolbar  : toolbar,
+                doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
+                cssfiles : ['/common/js/jquery/plugins/elrte-1.3/css/elrte-inner.css']
+            }
+            element.elrte(opts);
+        });
     });
     jQuery(bind_element).find(".ajaxAutoCompleter").each(function(){
         var element = jQuery(this);
@@ -1438,9 +1443,13 @@ var importLibrary = function() {
         jQuery.when.apply(jQuery,
             jQuery.map(urls, function (url) {
                 if (!importLibraryFiles.has(url)) {
+                    var folder = url.substring(0,url.lastIndexOf("/"))
+                    var parentFolder = folder.substring(0,folder.lastIndexOf("/"))
                     var deferObj = (url.endsWith(".css") ?
                         jQuery.get(url, function (css) {
-                                jQuery("<style>" + css + "</style>").appendTo("head");
+                                // convert any relative path
+                                var updatedCss = css.replace(/\.\.\/(images|css|js)+/g, parentFolder+"/$1");
+                                jQuery("<style>" + updatedCss + "</style>").appendTo("head");
                             }
                         ) :
                         cachedScript(url));

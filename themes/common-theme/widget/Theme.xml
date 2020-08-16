@@ -66,7 +66,6 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/mask/jquery.mask-1.14.13.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.format-1.2.3-min.js"/>
@@ -78,7 +77,6 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/application.js"/>
         <!--Css styles: don't load them since they differ depending on theme -->
-        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"/>
         <property name="VT_STYLESHEET['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css"/>
         <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css"/>
     </theme-properties>
