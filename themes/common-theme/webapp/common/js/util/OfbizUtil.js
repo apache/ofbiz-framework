@@ -101,9 +101,9 @@ function bindObservers(bind_element) {
     });
     jQuery(bind_element).find(".visual-editor").each(function(){
         var self = this;
-        importLibrary(["https://localhost:8443/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
-                "https://localhost:8443/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"],
-        function() {
+        var importLibraryFiles = ["https://localhost:8443/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
+            "https://localhost:8443/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"];
+        importLibrary(importLibraryFiles, function() {
             var element = jQuery(self);
             var toolbar = element.data('toolbar');
             var language = element.data('language');
@@ -1428,8 +1428,9 @@ var importLibrary = function() {
     var importLibraryFiles = new Map();
     return function (urls, onSuccessFn, onErrorFn) {
         function cachedScript(url, options) {
-            // Allow user to set any option except for dataType, cache, and url
+            // Allow user to set any option except for following
             options = $.extend(options || {}, {
+                crossDomain: true, // set to true to allow the file to be shown under browser's sources folder
                 dataType: "script",
                 cache: true,
                 url: url

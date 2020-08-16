@@ -445,8 +445,7 @@ function createEditor() {
         <#if language?has_content && language != "en">
         libraryFiles.push("/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js")
         </#if>
-        importLibrary(libraryFiles,
-        function() {
+        importLibrary(libraryFiles, function() {
             var opts = {
                 cssClass : 'el-rte',
                 lang     : '${language!"en"}',

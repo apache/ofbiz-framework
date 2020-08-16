@@ -21,36 +21,36 @@ under the License.
     <#if row.asm_multipleSelect??>
       <script type="application/javascript">
           jQuery(document).ready(function () {
-              importLibrary(["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
-                      "/common/js/jquery/plugins/select2/css/select2-4.0.6.css",
-                      "<@jsLangFilesMap>select2</@jsLangFilesMap>"],
-                  function() {
-                      multiple = jQuery("#${row.asm_multipleSelect!}");
+              var importLibraryFiles = ["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
+                  "/common/js/jquery/plugins/select2/css/select2-4.0.6.css",
+                  "<@jsLangFilesMap>select2</@jsLangFilesMap>"];
+              importLibrary(importLibraryFiles, function() {
+                  multiple = jQuery("#${row.asm_multipleSelect!}");
 
-                      <#if row.asm_title??>
-                      // set the dropdown "title" if??
-                      multiple.attr('title', '${row.asm_title}');
-                      </#if>
+                  <#if row.asm_title??>
+                  // set the dropdown "title" if??
+                  multiple.attr('title', '${row.asm_title}');
+                  </#if>
 
-                      multiple.select2({
-                          tags: true,
-                          multiple: true,
-                          lang: <#if userLogin??>'${userLogin.lastLocale!"en"}'<#else>"en"</#if>,
-                          width: "50%"
-                      });
+                  multiple.select2({
+                      tags: true,
+                      multiple: true,
+                      lang: <#if userLogin??>'${userLogin.lastLocale!"en"}'<#else>"en"</#if>,
+                      width: "50%"
+                  });
 
-                      <#if row.asm_relatedField??> <#-- can be used without related field -->
-                      // track possible relatedField changes
-                      // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values.
-                      typeValue = jQuery('#${row.asm_typeField}').val();
-                      jQuery("#${row.asm_relatedField}").one('focus', function () {
-                          selectMultipleRelatedValues('${row.asm_requestName}', '${row.asm_paramKey}', '${row.asm_relatedField}', '${row.asm_multipleSelect}', '${row.asm_type}', typeValue, '${row.asm_responseName}');
-                      });
-                      jQuery("#${row.asm_relatedField}").change(function () {
-                          selectMultipleRelatedValues('${row.asm_requestName}', '${row.asm_paramKey}', '${row.asm_relatedField}', '${row.asm_multipleSelect}', '${row.asm_type}', typeValue, '${row.asm_responseName}');
-                      });
+                  <#if row.asm_relatedField??> <#-- can be used without related field -->
+                  // track possible relatedField changes
+                  // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values.
+                  typeValue = jQuery('#${row.asm_typeField}').val();
+                  jQuery("#${row.asm_relatedField}").one('focus', function () {
                       selectMultipleRelatedValues('${row.asm_requestName}', '${row.asm_paramKey}', '${row.asm_relatedField}', '${row.asm_multipleSelect}', '${row.asm_type}', typeValue, '${row.asm_responseName}');
-                      </#if>
+                  });
+                  jQuery("#${row.asm_relatedField}").change(function () {
+                      selectMultipleRelatedValues('${row.asm_requestName}', '${row.asm_paramKey}', '${row.asm_relatedField}', '${row.asm_multipleSelect}', '${row.asm_type}', typeValue, '${row.asm_responseName}');
+                  });
+                  selectMultipleRelatedValues('${row.asm_requestName}', '${row.asm_paramKey}', '${row.asm_relatedField}', '${row.asm_multipleSelect}', '${row.asm_type}', typeValue, '${row.asm_responseName}');
+                  </#if>
               });
           });
       </script>
