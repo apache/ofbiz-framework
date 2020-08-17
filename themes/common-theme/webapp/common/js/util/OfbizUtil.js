@@ -1434,7 +1434,7 @@ var importLibrary = function() {
         function cachedScript(url, options) {
             // Allow user to set any option except for following
             options = $.extend(options || {}, {
-                crossDomain: true, // set to true to allow the file to be shown under browser's sources folder
+                crossDomain: isLocalEnviron(), // when true, file is shown under browser's sources folder
                 dataType: "script",
                 cache: true,
                 url: url
@@ -1468,3 +1468,7 @@ var importLibrary = function() {
         });
     }
 }();
+
+function isLocalEnviron(){
+    return ["localhost","127.0.0.1"].includes(window.location.hostname);
+}
