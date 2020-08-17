@@ -33,7 +33,6 @@ public class EntityWatchServices {
 
     /**
      * This service is meant to be called through an Entity ECA (EECA) to watch an entity
-     *
      * @param dctx the dispatch context
      * @param context the context
      * @return the result of the service execution

@@ -35,7 +35,6 @@ public interface SanitizerCustomPolicy {
     /**
      * Used for getting the policy from the custom class which implements this
      * interface
-     *
      * @return the policy specified in the class will be returned
      */
     PolicyFactory getSanitizerPolicy();

@@ -50,7 +50,6 @@ public final class UtilFormatOut {
     }
 
     /** Format a number with format type define by properties
-     *
      */
     public static String formatNumber(Double number, String formatType, Delegator delegator, Locale locale) {
         if (number == null) {
@@ -308,7 +307,6 @@ public final class UtilFormatOut {
 
     /** Formats a <code>Date</code> into a date-only <code>String</code> using the specified locale and time zone,
      * or using the specified format.
-     *
      * @param date The date to format
      * @param dateTimeFormat Optional format string
      * @param locale The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
@@ -322,7 +320,6 @@ public final class UtilFormatOut {
 
     /** Formats a <code>Date</code> into a date-time <code>String</code> using the specified locale and time zone,
      * or using the specified format.
-     *
      * @param date The date to format
      * @param dateTimeFormat Optional format string
      * @param locale The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>

@@ -95,7 +95,6 @@ public final class ServiceSemaphore {
     /**
      * Try to get lock ownership corresponding to semaphore type
      * Throw exception when failure.
-     *
      * @throws SemaphoreWaitException @link SemaphoreWaitException
      * @throws SemaphoreFailException @link SemaphoreFailException
      */
@@ -166,7 +165,6 @@ public final class ServiceSemaphore {
     /**
      * Operates synchronized jdbc access (create/remove) method to ensure unique semaphore token management
      * The same method is used for creating or removing the lock.
-     *
      * @param value  the value that will be operated
      * @param delete specify the action
      *               {@code true} for removal

@@ -150,7 +150,6 @@ public abstract class FieldInfo {
 
     /**
      * Returns a new instance of this object.
-     *
      * @param modelFormField
      */
     public abstract FieldInfo copy(ModelFormField modelFormField);

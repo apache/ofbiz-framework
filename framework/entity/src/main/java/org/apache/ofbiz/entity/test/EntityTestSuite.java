@@ -69,7 +69,6 @@ public class EntityTestSuite extends EntityTestCase {
     /*
      * This sets how many values to insert when trying to create a large number of values.  10,000 causes HSQL to crash but is ok
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.
-     *
      * NOTE: setting this lower so that the general tests don't take so long to run; to really push it can increase this number.
      * NOTE: Let's try to distinguish between functional testing and stress testing. Any value greater than 1 will be sufficient
      * for functional testing. Values like 10,000 or 100,000 are more appropriate for stress testing.

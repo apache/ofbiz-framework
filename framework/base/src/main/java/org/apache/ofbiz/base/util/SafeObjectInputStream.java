@@ -47,7 +47,6 @@ public final class SafeObjectInputStream extends ObjectInputStream {
 
     /**
      * Instantiates a safe object input stream.
-     *
      * @param in  the input stream to read
      * @throws IOException when reading is not possible.
      */

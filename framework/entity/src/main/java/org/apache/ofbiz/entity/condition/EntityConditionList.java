@@ -33,7 +33,6 @@ import java.util.List;
 public final class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
     /**
      * Constructs an entity condition list.
-     *
      * @param conditionList the list of conditions
      * @param operator the operator used to join the list of conditions
      */
@@ -43,7 +42,6 @@ public final class EntityConditionList<T extends EntityCondition> extends Entity
 
     /**
      * Provides the size of the internal list of condition expressions.
-     *
      * @return the size of the internal list of condition expressions
      */
     public int getConditionListSize() {
@@ -52,7 +50,6 @@ public final class EntityConditionList<T extends EntityCondition> extends Entity
 
     /**
      * Provides an iterator to iterate on the internal list of condition expressions.
-     *
      * @return an iterator iterating on the internal list of condition expressions
      */
     @SuppressWarnings("unchecked")

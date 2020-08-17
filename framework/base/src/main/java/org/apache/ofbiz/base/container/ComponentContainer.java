@@ -59,7 +59,6 @@ public class ComponentContainer implements Container {
 
     /**
      * Loads components found in a directory.
-     *
      * @param name  the name of this container
      * @param ofbizHome  the directory where to search for components
      * @throws ContainerException when components are already loaded or when failing to load them.
@@ -89,7 +88,6 @@ public class ComponentContainer implements Container {
 
     /**
      * Loads any kind of component definition.
-     *
      * @param dir  the location where the component should be loaded
      * @param component  a single component or a component directory definition
      * @throws IOException when component directory loading fails.
@@ -109,7 +107,6 @@ public class ComponentContainer implements Container {
     /**
      * Checks to see if the directory contains a load file (component-load.xml) and
      * then delegates loading to the appropriate method
-     *
      * @param directoryName the name of component directory to load
      * @throws IOException
      */
@@ -133,7 +130,6 @@ public class ComponentContainer implements Container {
      * load components residing in a directory only if they exist in the component
      * load file (component-load.xml) and they are sorted in order from top to bottom
      * in the load file
-     *
      * @param directoryPath the absolute path of the directory
      * @param componentLoadFile the name of the load file (i.e. component-load.xml)
      * @throws IOException
@@ -157,7 +153,6 @@ public class ComponentContainer implements Container {
      * Load all components in a directory because it does not contain
      * a load-components.xml file. The components are sorted alphabetically
      * for loading purposes
-     *
      * @param directoryPath a valid absolute path of a component directory
      * @throws IOException if an I/O error occurs when opening the directory
      */
@@ -173,7 +168,6 @@ public class ComponentContainer implements Container {
 
     /**
      * Fetch the <code>ComponentConfig</code> for a certain component
-     *
      * @param location directory location of the component which cannot be {@code null}
      * @return The component configuration
      */

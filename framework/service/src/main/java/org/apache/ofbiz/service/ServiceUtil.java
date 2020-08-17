@@ -356,7 +356,6 @@ public final class ServiceUtil {
      * Takes the result of an invocation and extracts any error messages
      * and adds them to the targetList or targetMap. This will handle both List and String
      * error messags.
-     *
      * @param targetList    The List to add the error messages to
      * @param targetMap The Map to add any Map error messages to
      * @param callResult The result from an invocation
@@ -442,7 +441,6 @@ public final class ServiceUtil {
      * Checks all incoming service attributes and look for fields with the same
      * name in the incoming map and copy those onto the outgoing map. Also
      * includes a userLogin if service requires one.
-     *
      * @param dispatcher
      * @param serviceName
      * @param fromMap

@@ -89,7 +89,6 @@ public final class UtilObject {
 
     /**
      * Deserializes a byte array back to an object.
-     *
      * @param bytes  the array of bytes
      * @return the deserialized object.
      * @throws ClassNotFoundException when the class can not be deserialized.

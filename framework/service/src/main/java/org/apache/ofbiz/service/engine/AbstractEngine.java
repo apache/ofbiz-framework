@@ -48,7 +48,6 @@ public abstract class AbstractEngine implements GenericEngine {
 
     /**
      * Instantiates the location map.
-     *
      * @return an immutable location map.
      */
     protected static Map<String, String> createLocationMap() {
@@ -69,7 +68,6 @@ public abstract class AbstractEngine implements GenericEngine {
     /**
      * Looks for location aliases which are set by {@code service-location} elements
      * inside the {@code serviceengine.xml} configuration file.
-     *
      * @param model  the object representing a service
      * @return the actual location where to find the service implementation
      */

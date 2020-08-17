@@ -374,8 +374,8 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
-    public static class NotAConverter_Helper {
-        protected NotAConverter_Helper() {
+    public static class NotAConverterHelper {
+        protected NotAConverterHelper() {
             throw new Error("Should not be loaded");
         }
     }

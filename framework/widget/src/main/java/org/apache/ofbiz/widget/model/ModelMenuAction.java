@@ -62,7 +62,6 @@ public abstract class ModelMenuAction {
 
     /**
      * Models the &lt;set&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     @SuppressWarnings("serial")

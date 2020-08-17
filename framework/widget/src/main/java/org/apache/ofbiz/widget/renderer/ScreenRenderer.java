@@ -92,7 +92,6 @@ public class ScreenRenderer {
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     *
      * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file, separated by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
      * @throws IOException
      * @throws SAXException
@@ -107,7 +106,6 @@ public class ScreenRenderer {
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     *
      * @param resourceName The name/location of the resource to use, can use "component://[component-name]/" and "ofbiz://" and other special OFBiz style URLs
      * @param screenName The name of the screen within the XML file specified by the resourceName.
      * @throws IOException
@@ -190,7 +188,6 @@ public class ScreenRenderer {
     /**
      * This method populates the context for this ScreenRenderer based on the HTTP Request and Response objects and the ServletContext.
      * It leverages various conventions used in other places, namely the ControlServlet and so on, of OFBiz to get the different resources needed.
-     *
      * @param request
      * @param response
      * @param servletContext

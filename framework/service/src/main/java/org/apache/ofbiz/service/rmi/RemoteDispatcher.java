@@ -88,7 +88,6 @@ public interface RemoteDispatcher extends Remote {
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
-     *
      * @param serviceName Name of the service to run.
      * @param context     Map of name, value pairs composing the context.
      * @param requester   Object implementing GenericRequester interface which will receive the result.
@@ -131,7 +130,6 @@ public interface RemoteDispatcher extends Remote {
 
     /**
      * Run the service asynchronously.
-     *
      * @param serviceName Name of the service to run.
      * @param context     Map of name, value pairs composing the context.
      * @param persist     True for store/run; False for run.

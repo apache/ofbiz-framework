@@ -199,7 +199,6 @@ public class UelFunctions {
 
     /**
      * Returns a <code>FunctionMapper</code> instance.
-     *
      * @return <code>FunctionMapper</code> instance
      */
     public static FunctionMapper getFunctionMapper() {

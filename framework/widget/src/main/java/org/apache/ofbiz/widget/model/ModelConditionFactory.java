@@ -27,7 +27,6 @@ import org.w3c.dom.Element;
 public interface ModelConditionFactory {
     /**
      * Returns a new <code>ModelCondition</code> instance built from <code>conditionElement</code>.
-     *
      * @param modelWidget The <code>ModelWidget</code> that contains the <code>Condition</code> instance.
      * @param conditionElement The XML element used to build the <code>Condition</code> instance.
      * @return A new <code>ModelCondition</code> instance built from <code>conditionElement</code>.

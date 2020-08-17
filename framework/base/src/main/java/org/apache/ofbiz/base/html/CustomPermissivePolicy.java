@@ -175,7 +175,6 @@ public class CustomPermissivePolicy implements SanitizerCustomPolicy {
 
     /**
      * Constructs a predicate checking if a string matches any of the two provided patterns.
-     *
      * @param a  the first pattern
      * @param b  the second pattern
      * @return a predicate checking if a string matches either {@code a} or {@code b}

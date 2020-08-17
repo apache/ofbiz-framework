@@ -52,7 +52,6 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
 
     /**
      * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order to avoid recursive initialization
-     *
      * @throws GeneralException
      */
     public void populateAll() throws GeneralException {

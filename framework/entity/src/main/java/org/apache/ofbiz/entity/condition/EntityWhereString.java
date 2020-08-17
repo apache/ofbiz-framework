@@ -48,7 +48,6 @@ public final class EntityWhereString implements EntityCondition {
 
     /**
      * Constructs a raw SQL string condition expression.
-     *
      * @param sqlString the raw SQL to embed in a condition expression
      */
     public EntityWhereString(String sqlString) {
@@ -81,7 +80,6 @@ public final class EntityWhereString implements EntityCondition {
 
     /**
      * Provides access to the embedded raw SQL string.
-     *
      * @return the corresponding SQL string
      */
     public String getWhereString() {

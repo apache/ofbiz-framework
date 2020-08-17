@@ -342,11 +342,9 @@ public final class EntityConfig {
 
     /**
      * Returns the configured JDBC password.
-     *
      * @param inlineJdbcElement
      * @return The configured JDBC password.
      * @throws GenericEntityConfException If the password was not found.
-     *
      * @see <code>entity-config.xsd</code>
      */
     public static String getJdbcPassword(InlineJdbc inlineJdbcElement) throws GenericEntityConfException {

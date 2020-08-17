@@ -38,9 +38,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpRequestFileUpload {
     private static final String MODULE = HttpRequestFileUpload.class.getName();
-    private int BUFFER_SIZE = 4096;
-    private int WAIT_INTERVAL = 200; // in milliseconds
-    private int MAX_WAITS = 20;
+    private static final int BUFFER_SIZE = 4096;
+    private static final int WAIT_INTERVAL = 200; // in milliseconds
+    private static final int MAX_WAITS = 20;
     private int waitCount = 0;
     private String savePath;
     private String filepath;

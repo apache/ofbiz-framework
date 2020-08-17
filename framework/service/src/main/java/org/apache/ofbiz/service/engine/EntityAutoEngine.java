@@ -369,7 +369,6 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         /*
          <auto-attributes include="pk" mode="IN" optional="false"/>
-         *
          <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
          <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
          <store-value value-name="lookedUpValue"/>
@@ -391,12 +390,10 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         /*
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
-         *
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
         OR
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldItemStatusId" type="String" mode="OUT" optional="false"/>
-         *
         <field-to-result field-name="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
          */
         for (String statusField: UtilMisc.toList("statusId", "itemStatusId")) {
@@ -489,7 +486,6 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         Locale locale = (Locale) parameters.get("locale");
         /*
         <auto-attributes include="pk" mode="IN" optional="false"/>
-         *
         <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
          */

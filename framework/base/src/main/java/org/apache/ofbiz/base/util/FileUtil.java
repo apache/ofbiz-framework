@@ -76,7 +76,6 @@ public final class FileUtil {
 
     /**
      * Converts a file path to one that is compatible with the host operating system.
-     *
      * @param path The file path to convert.
      * @return The converted file path.
      */
@@ -100,7 +99,6 @@ public final class FileUtil {
 
     /**
      * Writes a file from a string with a specified encoding.
-     *
      * @param path
      * @param name
      * @param encoding
@@ -276,7 +274,6 @@ public final class FileUtil {
     /**
      * Search for the specified <code>searchString</code> in the given
      * {@link Reader}.
-     *
      * @param reader       A Reader in which the String will be searched.
      * @param searchString The String to search for
      * @return <code>TRUE</code> if the <code>searchString</code> is found;
@@ -306,7 +303,6 @@ public final class FileUtil {
      * Search for the specified <code>searchString</code> in the given
      * filename. If the specified file doesn't exist, <code>FALSE</code>
      * returns.
-     *
      * @param fileName     A full path to a file in which the String will be searched.
      * @param searchString The String to search for
      * @return <code>TRUE</code> if the <code>searchString</code> is found;
@@ -326,7 +322,6 @@ public final class FileUtil {
     /**
      * Check if the specified <code>fileName</code> exists and is a file (not a directory)
      * If the specified file doesn't exist or is a directory <code>FALSE</code> returns.
-     *
      * @param fileName A full path to a file in which the String will be searched.
      * @return <code>TRUE</code> if the <code>fileName</code> exists and is a file (not a directory)
      * <code>FALSE</code> otherwise.
@@ -339,7 +334,6 @@ public final class FileUtil {
     /**
      * For an inputStream and a file name, create a zip stream containing only one entry with the inputStream set to fileName
      * If fileName is empty, generate a unique one.
-     *
      * @param fileStream
      * @param fileName
      * @return zipStream
@@ -377,7 +371,6 @@ public final class FileUtil {
 
     /**
      * Unzip file structure of the given zipFile to specified outputFolder
-     *
      * @param zipFile
      * @param outputFolder
      * @throws IOException
@@ -420,7 +413,6 @@ public final class FileUtil {
      * Creates a File with a normalized file path
      * This useful to prevent path traversal security issues
      * cf. OFBIZ-9973 for more details
-     *
      * @param filePath The file path to normalize
      * @return A File with a normalized file path
      */
@@ -431,7 +423,6 @@ public final class FileUtil {
     /**
      * Normalizes a file path
      * This useful to prevent path traversal security issues
-     *
      * @param filePath The file path to normalize
      * @return A normalized file path
      */

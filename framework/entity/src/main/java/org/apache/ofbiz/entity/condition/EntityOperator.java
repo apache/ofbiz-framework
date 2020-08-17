@@ -97,7 +97,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
         public boolean compare(Comparable<Object> lhs, Object rhs) {
             return EntityComparisonOperator.compareEqual(lhs, rhs); }
         @Override
-        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, Datasource datasourceInfo) {
+        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field,
+                                          Object rhs, Datasource datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 sb.append(" IS NULL");
             } else {
@@ -114,7 +115,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
         public boolean compare(Comparable<Object> lhs, Object rhs) {
             return EntityComparisonOperator.compareNotEqual(lhs, rhs); }
         @Override
-        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, Datasource datasourceInfo) {
+        protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field,
+                                          Object rhs, Datasource datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 sb.append(" IS NOT NULL");
             } else {
@@ -158,7 +160,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
         register("greaterThan", GREATER_THAN); }
     static {
         register(">", GREATER_THAN); }
-    public static final EntityComparisonOperator<?, ?> LESS_THAN_EQUAL_TO = new ComparableEntityComparisonOperator<Object>(ID_LESS_THAN_EQUAL_TO, "<=") {
+    public static final EntityComparisonOperator<?, ?> LESS_THAN_EQUAL_TO = new ComparableEntityComparisonOperator<Object>(ID_LESS_THAN_EQUAL_TO,
+            "<=") {
         @Override
         public boolean compare(Comparable<Object> lhs, Object rhs) {
             return EntityComparisonOperator.compareLessThanEqualTo(lhs, rhs); }
@@ -171,7 +174,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
         register("lessThanEqualTo", LESS_THAN_EQUAL_TO); }
     static {
         register("<=", LESS_THAN_EQUAL_TO); }
-    public static final EntityComparisonOperator<?, ?> GREATER_THAN_EQUAL_TO = new ComparableEntityComparisonOperator<Object>(ID_GREATER_THAN_EQUAL_TO, ">=") {
+    public static final EntityComparisonOperator<?, ?> GREATER_THAN_EQUAL_TO = new ComparableEntityComparisonOperator<Object>(ID_GREATER_THAN_EQUAL_TO,
+            ">=") {
         @Override
         public boolean compare(Comparable<Object> lhs, Object rhs) {
             return EntityComparisonOperator.compareGreaterThanEqualTo(lhs, rhs); }
@@ -189,7 +193,9 @@ public abstract class EntityOperator<L, R> implements Serializable {
         public boolean compare(Comparable<Object> lhs, Collection<Comparable<Object>> rhs) {
             return EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb,
+                ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) {
+            appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static {
         register("in", IN); }
@@ -198,7 +204,9 @@ public abstract class EntityOperator<L, R> implements Serializable {
         public boolean compare(Comparable<Object> lhs, Collection<Comparable<Object>> rhs) {
             return EntityComparisonOperator.compareIn(lhs, rhs); }
         @Override
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) { appendRHSBetweenList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb,
+                ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) {
+            appendRHSBetweenList(entityConditionParams, sb, field, rhs); }
     };
     static {
         register("between", BETWEEN); }
@@ -237,7 +245,9 @@ public abstract class EntityOperator<L, R> implements Serializable {
             return !EntityComparisonOperator.compareIn(lhs, rhs);
         }
         @Override
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb,
+                 ModelField field, Collection<Comparable<Object>> rhs, Datasource datasourceInfo) {
+            appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static {
         register("not-in", NOT_IN);
@@ -251,6 +261,10 @@ public abstract class EntityOperator<L, R> implements Serializable {
         codeString = code;
     }
 
+    /**
+     * Gets code.
+     * @return the code
+     */
     public String getCode() {
         if (codeString == null) {
             return "null";
@@ -258,6 +272,10 @@ public abstract class EntityOperator<L, R> implements Serializable {
         return codeString;
     }
 
+    /**
+     * Gets id.
+     * @return the id
+     */
     public int getId() {
         return idInt;
     }
@@ -285,10 +303,24 @@ public abstract class EntityOperator<L, R> implements Serializable {
         return false;
     }
 
+    /**
+     * Entity matches boolean.
+     * @param entity the entity
+     * @param lhs    the lhs
+     * @param rhs    the rhs
+     * @return the boolean
+     */
     public boolean entityMatches(GenericEntity entity, L lhs, R rhs) {
         return mapMatches(entity.getDelegator(), entity, lhs, rhs);
     }
 
+    /**
+     * Append rhs list.
+     * @param entityConditionParams the entity condition params
+     * @param whereStringBuilder    the where string builder
+     * @param field                 the field
+     * @param rhs                   the rhs
+     */
     protected void appendRHSList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder, ModelField field, R rhs) {
         whereStringBuilder.append('(');
 
@@ -309,7 +341,16 @@ public abstract class EntityOperator<L, R> implements Serializable {
         whereStringBuilder.append(')');
     }
 
-    protected <X> void appendRHSBetweenList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder, ModelField field, X rhs) {
+    /**
+     * Append rhs between list.
+     * @param <X>                   the type parameter
+     * @param entityConditionParams the entity condition params
+     * @param whereStringBuilder    the where string builder
+     * @param field                 the field
+     * @param rhs                   the rhs
+     */
+    protected <X> void appendRHSBetweenList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder,
+                                            ModelField field, X rhs) {
         if (rhs instanceof Collection<?>) {
             Iterator<R> rhsIter = UtilGenerics.<Collection<R>>cast(rhs).iterator();
 
@@ -334,11 +375,23 @@ public abstract class EntityOperator<L, R> implements Serializable {
     public abstract boolean isEmpty(L lhs, R rhs);
     public abstract boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs);
     public abstract void validateSql(ModelEntity entity, L lhs, R rhs) throws GenericModelException;
-    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, L lhs, R rhs, Datasource datasourceInfo) {
+
+    /**
+     * Add sql value.
+     * @param sql                   the sql
+     * @param entity                the entity
+     * @param entityConditionParams the entity condition params
+     * @param lhs                   the lhs
+     * @param rhs                   the rhs
+     * @param datasourceInfo        the datasource info
+     */
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, L lhs, R rhs,
+                            Datasource datasourceInfo) {
         addSqlValue(sql, entity, entityConditionParams, true, lhs, rhs, datasourceInfo);
     }
 
-    public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, Datasource datasourceInfo);
+    public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat,
+                                     L lhs, R rhs, Datasource datasourceInfo);
     public abstract EntityCondition freeze(L lhs, R rhs);
 
     public static final Comparable<?> WILDCARD = new Comparable<Object>() {
@@ -358,7 +411,6 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     /**
      * Comparison operator for <code>Collection</code> types.
-     *
      * @param <E>
      */
     public abstract static class CollectionEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, Collection<Comparable<E>>> {
@@ -369,7 +421,6 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     /**
      * Comparison operator for <code>Comparable</code> types.
-     *
      * @param <E>
      */
     public abstract static class ComparableEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, E> {

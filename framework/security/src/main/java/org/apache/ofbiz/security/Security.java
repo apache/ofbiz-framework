@@ -44,7 +44,6 @@ public interface Security {
 
     /**
      * Uses userLoginSecurityGroupByUserLoginId cache to speed up the finding of the userLogin's security group list.
-     *
      * @param userLoginId The userLoginId to find security groups by
      * @return An iterator made from the Collection either cached or retrieved from the database through the
      *            UserLoginSecurityGroup Delegator.
@@ -56,7 +55,6 @@ public interface Security {
      * Finds whether or not a SecurityGroupPermission row exists given a groupId and permission.
      * The groupId, permission pair is cached instead of the userLoginId, permission pair to keep the cache small and to
      * make it more changeable.
-     *
      * @param groupId The ID of the group
      * @param permission The name of the permission
      * @return boolean specifying whether or not a SecurityGroupPermission row exists
@@ -66,7 +64,6 @@ public interface Security {
 
     /**
      * Checks to see if the currently logged in userLogin has the passed permission.
-     *
      * @param permission Name of the permission to check.
      * @param session The current HTTP session, contains the logged in userLogin as an attribute.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
@@ -75,7 +72,6 @@ public interface Security {
 
     /**
      * Checks to see if the userLogin has the passed permission.
-     *
      * @param permission Name of the permission to check.
      * @param userLogin The userLogin object for user to check against.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
@@ -85,7 +81,6 @@ public interface Security {
     /**
      * Like hasPermission above, except it has functionality specific to Entity permissions. Checks the entity for the
      * specified action, as well as for "_ADMIN" to allow for simplified general administration permission.
-     *
      * @param entity The name of the Entity corresponding to the desired permission.
      * @param action The action on the Entity corresponding to the desired permission.
      * @param session The current HTTP session, contains the logged in userLogin as an attribute.
@@ -96,7 +91,6 @@ public interface Security {
     /**
      * Like hasPermission above, except it has functionality specific to Entity permissions. Checks the entity for the
      * specified action, as well as for "_ADMIN" to allow for simplified general administration permission.
-     *
      * @param entity The name of the Entity corresponding to the desired permission.
      * @param action The action on the Entity corresponding to the desired permission.
      * @param userLogin The userLogin object for user to check against.
@@ -108,7 +102,6 @@ public interface Security {
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
      * application.
-     *
      * @param application The name of the application corresponding to the desired permission.
      * @param action The action on the application corresponding to the desired permission.
      * @param primaryKey The primary key for the role check.
@@ -122,7 +115,6 @@ public interface Security {
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
      * application.
-     *
      * @param application The name of the application corresponding to the desired permission.
      * @param action The action on the application corresponding to the desired permission.
      * @param primaryKey The primary key for the role check.
@@ -136,7 +128,6 @@ public interface Security {
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
      * application.
-     *
      * @param application The name of the application corresponding to the desired permission.
      * @param action The action on the application corresponding to the desired permission.
      * @param primaryKey The primary key for the role check.
@@ -150,7 +141,6 @@ public interface Security {
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
      * application.
-     *
      * @param application The name of the application corresponding to the desired permission.
      * @param action The action on the application corresponding to the desired permission.
      * @param primaryKey The primary key for the role check.

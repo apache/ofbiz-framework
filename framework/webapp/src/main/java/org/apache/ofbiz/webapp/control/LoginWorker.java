@@ -220,7 +220,6 @@ public final class LoginWorker {
     /**
      * Return the active {@link GenericValue} of a current impersonation UserLoginHistory of current userLogin session,
      * only if not the impersonator himself.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return GenericValue
@@ -271,7 +270,6 @@ public final class LoginWorker {
      * outer view dispatch.  This event is called when the current request
      * needs to have a validly logged in user; it is a wrapper around {@link
      * #checkLogin}.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
@@ -295,7 +293,6 @@ public final class LoginWorker {
      * a non-null value gets that value returned to the caller.  Returning
      * "none" will abort processing, while anything else gets looked up in
      * outer view dispatch; for preprocessors, only "success" makes sense.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
@@ -316,7 +313,6 @@ public final class LoginWorker {
     /**
      * An HTTP WebEvent handler that checks to see is a userLogin is logged in.
      * If not, the user is forwarded to the login page.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
@@ -381,7 +377,6 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler that logs in a userLogin. This should run before the security check.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return Return a boolean which specifies whether or not the calling Servlet or
@@ -603,7 +598,6 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler to impersonate a given userLogin without using password. This should run before the security check.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return Return a boolean which specifies whether or not the calling Servlet or
@@ -709,7 +703,6 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler to reverse an impersonate login.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return Return a boolean which specifies whether or not the calling Servlet or
@@ -851,7 +844,6 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler that logs out a userLogin by clearing the session.
-     *
      * @param request The HTTP request object for the current request.
      * @param response The HTTP response object for the current request.
      * @return Return a boolean which specifies whether or not the calling request

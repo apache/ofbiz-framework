@@ -40,7 +40,6 @@ final class StartupControlPanel {
      * Initialize OFBiz by:
      * - setting high level JVM and OFBiz system properties
      * - creating a Config object holding startup configuration parameters
-     *
      * @param ofbizCommands commands passed by the user to OFBiz on start
      * @return config OFBiz configuration
      */
@@ -87,15 +86,12 @@ final class StartupControlPanel {
     /**
      * Properly exit from the system when a StartupException cannot or
      * should not be handled except by exiting the system.
-     *
      * A proper system exit is achieved by:
-     *
      * - Printing the stack trace for users to see what happened
      * - Executing the shutdown hooks (if existing) through System.exit
      * - Terminating any lingering threads (if existing) through System.exit
      * - Providing an exit code that is not 0 to signal to the build system
      *   or user of failure to execute.
-     *
      * @param e The startup exception that cannot / should not be handled
      *   except by terminating the system
      */

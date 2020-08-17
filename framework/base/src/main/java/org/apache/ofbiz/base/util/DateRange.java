@@ -34,7 +34,7 @@ public class DateRange extends ComparableRange<Date> implements Serializable {
     /** A <code>Date</code> instance initialized to the latest possible date.*/
     public static final Date MAX_DATE = UtilDateTime.unmodifiableDate(UtilDateTime.getLatestDate());
     /** A <code>DateRange</code> instance initialized to the widest possible range of dates.*/
-    public static final DateRange FullRange = new DateRange(MIN_DATE, MAX_DATE);
+    public static final DateRange FULL_RANGE = new DateRange(MIN_DATE, MAX_DATE);
 
     protected static Date timestampToDate(Date date) {
         // Testing for equality between a Date instance and a Timestamp instance

@@ -99,7 +99,6 @@ public class ModelScreen extends ModelWidget {
     /**
      * Renders this screen to a String, i.e. in a text format, as defined with the
      * ScreenStringRenderer implementation.
-     *
      * @param writer The Writer that the screen text will be written to
      * @param context Map containing the screen context; the following are
      *   reserved words in this context:

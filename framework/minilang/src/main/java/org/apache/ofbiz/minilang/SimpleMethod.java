@@ -279,7 +279,6 @@ public final class SimpleMethod extends MiniLangElement {
      * The ordering in the List is the same as the XML file.
      * <p>This method is used by unit test framework to run tests in the order they appear in the XML file.
      * Method caching is bypassed since the methods are executed only once.</p>
-     *
      * @param xmlResource
      * @param loader
      * @return
@@ -376,7 +375,6 @@ public final class SimpleMethod extends MiniLangElement {
 
     /**
      * Execs the given operations returning true if all return true, or returning false and stopping if any return false.
-     *
      * @throws MiniLangException
      */
     public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) throws MiniLangException {

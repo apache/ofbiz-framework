@@ -127,7 +127,6 @@ public final class UtilHttp {
      * Creates a canonicalized parameter map from a HTTP request.
      * <p>
      * If parameters are empty, the multi-part parameter map will be used.
-     *
      * @param request the HTTP request containing the parameters
      * @return a canonicalized parameter map.
      */
@@ -139,7 +138,6 @@ public final class UtilHttp {
      * Creates a canonicalized parameter map from a HTTP request.
      * <p>
      * If parameters are empty, the multi-part parameter map will be used.
-     *
      * @param req  the HTTP request containing the parameters
      * @param pred the predicate filtering the parameter names
      * @return a canonicalized parameter map.
@@ -169,7 +167,6 @@ public final class UtilHttp {
      * Transforms a string array into either a list of string or string.
      * <p>
      * This is meant to facilitate the work of request handlers.
-     *
      * @param value the array of string to prepare
      * @return the adapted value.
      * @throws NullPointerException when {@code value} is {@code null}.
@@ -354,7 +351,6 @@ public final class UtilHttp {
      * <p>
      * path parameters are denoted by "/~KEY0=VALUE0/~KEY1=VALUE1/".
      * This is an obsolete syntax for passing parameters to request handlers.
-     *
      * @param path the URI path part which can be {@code null}
      * @param pred the predicate filtering parameter names
      * @return a canonicalized parameter map.
@@ -414,7 +410,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a HttpRequest (attributes) object used in JSON requests
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getJSONAttributeMap(HttpServletRequest request) {
@@ -439,7 +434,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a HttpRequest (attributes) object
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getAttributeMap(HttpServletRequest request) {
@@ -448,7 +442,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a HttpRequest (attributes) object
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
@@ -476,7 +469,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a HttpSession object
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getSessionMap(HttpServletRequest request) {
@@ -485,7 +477,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a HttpSession object
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
@@ -514,7 +505,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a ServletContext object
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getServletContextMap(HttpServletRequest request) {
@@ -523,7 +513,6 @@ public final class UtilHttp {
 
     /**
      * Create a map from a ServletContext object
-     *
      * @return The resulting Map
      */
     public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
@@ -653,7 +642,6 @@ public final class UtilHttp {
 
     /**
      * Constructs a list of parameter values whose keys are matching a given prefix and suffix.
-     *
      * @param request the HTTP request containing the parameters
      * @param suffix  the suffix that must be matched which can be {@code null}
      * @param prefix  the prefix that must be matched which can be {@code null}
@@ -666,7 +654,6 @@ public final class UtilHttp {
 
     /**
      * Constructs a list of parameter values whose keys are matching a given prefix and suffix.
-     *
      * @param request          the HTTP request containing the parameters
      * @param additionalFields the additional parameters
      * @param suffix           the suffix that must be matched which can be {@code null}
@@ -695,7 +682,6 @@ public final class UtilHttp {
 
     /**
      * Given a request, returns the application name or "root" if deployed on root
-     *
      * @param request An HttpServletRequest to get the name info from
      * @return String
      */
@@ -756,7 +742,6 @@ public final class UtilHttp {
     /**
      * Resolve the method send with the request.
      * check first the parameter _method before return the request method
-     *
      * @param request
      * @return method
      */
@@ -796,7 +781,6 @@ public final class UtilHttp {
 
     /**
      * Get the Locale object from a session variable; if not found use the browser's default
-     *
      * @param request HttpServletRequest object to use for lookup
      * @return Locale The current Locale to use
      */
@@ -810,7 +794,6 @@ public final class UtilHttp {
     /**
      * Get the Locale object from a session variable; if not found use the system's default.
      * NOTE: This method is not recommended because it ignores the Locale from the browser not having the request object.
-     *
      * @param session HttpSession object to use for lookup
      * @return Locale The current Locale to use
      */
@@ -897,7 +880,6 @@ public final class UtilHttp {
 
     /**
      * Return the VisualTheme object from the user session
-     *
      * @param request
      * @return
      */
@@ -915,7 +897,6 @@ public final class UtilHttp {
 
     /**
      * Get the currency string from the session.
-     *
      * @param session HttpSession object to use for lookup
      * @return String The ISO currency code
      */
@@ -961,7 +942,6 @@ public final class UtilHttp {
 
     /**
      * Get the currency string from the session.
-     *
      * @param request HttpServletRequest object to use for lookup
      * @return String The ISO currency code
      */
@@ -1081,7 +1061,6 @@ public final class UtilHttp {
     /**
      * Returns the query string contained in a request target - basically everything
      * after and including the ? character.
-     *
      * @param target The request target
      * @return The query string
      */
@@ -1099,7 +1078,6 @@ public final class UtilHttp {
     /**
      * Removes the query string from a request target - basically everything
      * after and including the ? character.
-     *
      * @param target The request target
      * @return The request target string
      */
@@ -1233,7 +1211,6 @@ public final class UtilHttp {
     /**
      * Stream an array of bytes to the browser
      * This method will close the ServletOutputStream when finished
-     *
      * @param response    HttpServletResponse object to get OutputStream from
      * @param bytes       Byte array of content to stream
      * @param contentType The content type to pass to the browser
@@ -1273,7 +1250,6 @@ public final class UtilHttp {
      * Streams content from InputStream to the ServletOutputStream
      * This method will close the ServletOutputStream when finished
      * This method does not close the InputSteam passed
-     *
      * @param response    HttpServletResponse object to get OutputStream from
      * @param in          InputStream of the actual content
      * @param length      Size (in bytes) of the content
@@ -1310,7 +1286,6 @@ public final class UtilHttp {
     /**
      * Stream binary content from InputStream to OutputStream
      * This method does not close the streams passed
-     *
      * @param out    OutputStream content should go to
      * @param in     InputStream of the actual content
      * @param length Size (in bytes) of the content
@@ -1476,7 +1451,6 @@ public final class UtilHttp {
      * The prefix should be a regular parameter name such as meetingDate. The
      * suffix is the composite field, such as the hour of the meeting. The
      * result would be meetingDate_${COMPOSITE_DELIMITER}_hour.
-     *
      * @param prefix
      * @param suffix
      * @return the composite parameter
@@ -1501,7 +1475,6 @@ public final class UtilHttp {
      * {@code meetingDate_c_minutes}.  Additionally, there will be a field named {@code meetingDate_c_compositeType}
      * with a value of "Timestamp". where "_c_" is the {@link #COMPOSITE_DELIMITER}.  These parameters will then be
      * re-composed into a Timestamp object from the composite fields.
-     *
      * @param request the HTTP request containing the parameters
      * @param prefix  the string identifying the set of parameters that must be composed
      * @return a composite object from data or {@code null} if not supported or a parsing error occurred.
@@ -1565,7 +1538,6 @@ public final class UtilHttp {
 
     /**
      * Returns true if the user has JavaScript enabled.
-     *
      * @param request
      * @return whether javascript is enabled
      */
@@ -1649,7 +1621,6 @@ public final class UtilHttp {
 
     /**
      * Returns a unique Id for the current request
-     *
      * @param request An HttpServletRequest to get the name info from
      * @return String
      */

@@ -59,16 +59,15 @@ public final class ComponentConfig {
     private static final String MODULE = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
     // This map is not a UtilCache instance because there is no strategy or implementation for reloading components.
-    private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();
+    private static final ComponentConfigCache COMPONENT_CONFIG_CACHE = new ComponentConfigCache();
 
     public static Boolean componentExists(String componentName) {
         Assert.notEmpty("componentName", componentName);
-        return componentConfigCache.fromGlobalName(componentName) != null;
+        return COMPONENT_CONFIG_CACHE.fromGlobalName(componentName) != null;
     }
 
     /**
      * Constructs a component predicate checking if it corresponds to a specific name.
-     *
      * @param cname  the name of the component to match which can be {@code null}
      *               which means "any" component
      * @return a component predicate for matching a specific component name.
@@ -79,7 +78,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of all the classpath information available in components.
-     *
      * @return a list of classpath information
      */
     public static List<ClasspathInfo> getAllClasspathInfos() {
@@ -89,26 +87,24 @@ public final class ComponentConfig {
     }
 
     public static Collection<ComponentConfig> getAllComponents() {
-        return componentConfigCache.values();
+        return COMPONENT_CONFIG_CACHE.values();
     }
 
     /**
      * Sorts the cached component configurations.
-     *
      * @throws ComponentException when a component configuration contains an invalid dependency
      *         or if the dependency graph contains a cycle.
      */
     public static void sortDependencies() throws ComponentException {
-        componentConfigCache.sort();
+        COMPONENT_CONFIG_CACHE.sort();
     }
 
     public static Stream<ComponentConfig> components() {
-        return componentConfigCache.values().stream();
+        return COMPONENT_CONFIG_CACHE.values().stream();
     }
 
     /**
      * Provides the list of all the container configuration elements available in components.
-     *
      * @return a list of container configuration elements
      */
     public static List<ContainerConfig.Configuration> getAllConfigurations() {
@@ -123,7 +119,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of all the entity resource information matching a type.
-     *
      * @param type  the service resource type to match
      * @param name  the name of the component to match
      * @return a list of entity resource information
@@ -138,7 +133,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of all the keystore information available in components.
-     *
      * @return a list of keystore information
      */
     public static List<KeystoreInfo> getAllKeystoreInfos() {
@@ -149,7 +143,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of all the service resource information matching a type.
-     *
      * @param type  the service resource type to match
      * @return a list of service resource information
      */
@@ -162,7 +155,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of all the test-suite information matching a component name.
-     *
      * @param name  the name of the component to match where {@code null} means "any"
      * @return a list of test-suite information
      */
@@ -175,7 +167,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of all the web-app information in components
-     *
      * @return a list of web-app information
      */
     public static List<WebappInfo> getAllWebappResourceInfos() {
@@ -192,13 +183,13 @@ public final class ComponentConfig {
     public static ComponentConfig getComponentConfig(String globalName, String rootLocation) throws ComponentException {
         ComponentConfig componentConfig;
         if (globalName != null && !globalName.isEmpty()) {
-            componentConfig = componentConfigCache.fromGlobalName(globalName);
+            componentConfig = COMPONENT_CONFIG_CACHE.fromGlobalName(globalName);
             if (componentConfig != null) {
                 return componentConfig;
             }
         }
         if (rootLocation != null && !rootLocation.isEmpty()) {
-            componentConfig = componentConfigCache.fromRootLocation(rootLocation);
+            componentConfig = COMPONENT_CONFIG_CACHE.fromRootLocation(rootLocation);
             if (componentConfig != null) {
                 return componentConfig;
             }
@@ -209,7 +200,7 @@ public final class ComponentConfig {
         }
         componentConfig = new ComponentConfig(globalName, rootLocation);
         if (componentConfig.enabled()) {
-            componentConfigCache.put(componentConfig);
+            COMPONENT_CONFIG_CACHE.put(componentConfig);
         }
         return componentConfig;
     }
@@ -221,7 +212,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the first key-store matching a name from a specific component.
-     *
      * @param componentName  the name of the component to match which can be {@code null}
      * @param keystoreName  the name of the key-store to match which can be {@code null}
      * @return the first key-store matching both {@code componentName} and {@code keystoreName}.
@@ -283,10 +273,8 @@ public final class ComponentConfig {
 
     /**
      * Instantiates a component configuration from a {@link ComponentConfig.Builder builder} object.
-     *
      * This allows instantiating component configuration without an XML entity object,
      * which is useful for example when writing unit tests.
-     *
      * @param b the component configuration builder
      */
     private ComponentConfig(Builder b) {
@@ -390,13 +378,12 @@ public final class ComponentConfig {
         }
 
         public ComponentConfig create() {
-           return new ComponentConfig(this);
+            return new ComponentConfig(this);
         }
     }
 
     /**
      * Instantiates a component config from a component name and a root location.
-     *
      * @param globalName  the global name of the component which can be {@code null}
      * @param rootLocation  the root location of the component
      * @throws ComponentException when component directory does not exist or if the
@@ -447,7 +434,6 @@ public final class ComponentConfig {
 
     /**
      * Constructs an immutable list of objects from the the childs of an XML element.
-     *
      * @param ofbizComponentElement  the XML element containing the childs
      * @param elemName  the name of the child elements to collect
      * @param mapper  the constructor use to map child elements to objects
@@ -473,7 +459,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of class path information.
-     *
      * @return an immutable list containing the class path information.
      */
     public List<ClasspathInfo> getClasspathInfos() {
@@ -507,7 +492,8 @@ public final class ComponentConfig {
         if (UtilValidate.isNotEmpty(resourceLoaderInfo.prependEnv)) {
             String propValue = System.getProperty(resourceLoaderInfo.prependEnv);
             if (propValue == null) {
-                String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + resourceLoaderInfo.prependEnv + " is not set, cannot load resource.";
+                String errMsg = "The Java environment (-Dxxx=yyy) variable with name "
+                        + resourceLoaderInfo.prependEnv + " is not set, cannot load resource.";
                 Debug.logError(errMsg, MODULE);
                 throw new IllegalArgumentException(errMsg);
             }
@@ -526,7 +512,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the list of dependent components.
-     *
      * @return an immutable list containing the dependency information.
      */
     public List<String> getDependsOn() {
@@ -543,7 +528,6 @@ public final class ComponentConfig {
 
     /**
      * Provides the root location of the component definition.
-     *
      * @return a normalized absolute path
      */
     public Path rootLocation() {
@@ -621,9 +605,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;classpath&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class ClasspathInfo {
         private final ComponentConfig componentConfig;
@@ -716,9 +698,7 @@ public final class ComponentConfig {
 
         /**
          * Provides a sequence of cached component configurations.
-         *
          * <p>the order of the sequence is arbitrary unless the {@link #sort())} has been invoked beforehand.
-         *
          * @return the list of cached component configurations
          */
         synchronized List<ComponentConfig> values() {
@@ -731,9 +711,7 @@ public final class ComponentConfig {
 
         /**
          * Provides the stored dependencies as component configurations.
-         *
          * <p>Handle invalid dependencies by creating dummy component configurations.
-         *
          * @param the component configuration containing dependencies
          * @return a collection of component configurations dependencies.
          */
@@ -766,13 +744,15 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;entity-resource&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class EntityResourceInfo extends ResourceInfo {
-        public final String type;
-        public final String readerName;
+        private final String type;
+        private final String readerName;
+
+        public String getReaderName() {
+            return readerName;
+        }
 
         private EntityResourceInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
@@ -783,9 +763,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;keystore&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class KeystoreInfo extends ResourceInfo {
         private final String name;
@@ -845,14 +823,29 @@ public final class ComponentConfig {
             this.location = element.getAttribute("location");
         }
 
+        /**
+         * Create resource handler component resource handler.
+         *
+         * @return the component resource handler
+         */
         public ComponentResourceHandler createResourceHandler() {
             return new ComponentResourceHandler(componentConfig.getGlobalName(), loader, location);
         }
 
+        /**
+         * Gets component config.
+         *
+         * @return the component config
+         */
         public ComponentConfig getComponentConfig() {
             return componentConfig;
         }
 
+        /**
+         * Gets location.
+         *
+         * @return the location
+         */
         public String getLocation() {
             return location;
         }
@@ -860,15 +853,13 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;resource-loader&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class ResourceLoaderInfo {
-        public final String name;
-        public final String type;
-        public final String prependEnv;
-        public final String prefix;
+        private final String name;
+        private final String type;
+        private final String prependEnv;
+        private final String prefix;
 
         private ResourceLoaderInfo(Element element) {
             this.name = element.getAttribute("name");
@@ -880,12 +871,10 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;service-resource&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class ServiceResourceInfo extends ResourceInfo {
-        public final String type;
+        private final String type;
 
         private ServiceResourceInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
@@ -895,9 +884,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;test-suite&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class TestSuiteInfo extends ResourceInfo {
         public TestSuiteInfo(ComponentConfig componentConfig, Element element) {
@@ -907,38 +894,56 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;webapp&gt;</code> element.
-     *
      * @see <code>ofbiz-component.xsd</code>
-     *
      */
     public static final class WebappInfo {
-        // FIXME: These fields should be private - since we have accessors - but
-        // client code accesses the fields directly.
-        public final ComponentConfig componentConfig;
-        public final List<String> virtualHosts;
-        public final Map<String, String> initParameters;
-        public final String name;
-        public final String title;
-        public final String description;
-        public final String menuName;
-        public final String server;
-        public final String mountPoint;
-        public final String contextRoot;
-        public final String location;
-        public final String[] basePermission;
-        public final String position;
-        public final boolean privileged;
+        private final ComponentConfig componentConfig;
+        private final List<String> virtualHosts;
+        private final Map<String, String> initParameters;
+        private final String name;
+        private final String title;
+        private final String description;
+        private final String menuName;
+        private final String server;
+        private final String mountPoint;
+        private final String contextRoot;
+        private final String location;
+        private final String[] basePermission;
+        private final String position;
+        private final boolean privileged;
         // CatalinaContainer modifies this field.
         private volatile boolean appBarDisplay;
         private final String accessPermission;
         private final boolean useAutologinCookie;
 
+        public String getLocation() {
+            return location;
+        }
+
+        public String getMenuName() {
+            return menuName;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public ComponentConfig getComponentConfig() {
+            return componentConfig;
+        }
+
+        public String getServer() {
+            return server;
+        }
+
+        public boolean isPrivileged() {
+            return privileged;
+        }
+
         /**
          * Instantiates a webapp information from a {@link WebappInfo.Builder builder} object.
-         *
          * This allows instantiating webapp information without an XML entity object,
          * which is useful for example when writing unit tests.
-         *
          * @param b the webapp information builder
          */
         private WebappInfo(Builder b) {
@@ -983,91 +988,198 @@ public final class ComponentConfig {
             private String accessPermission;
             private boolean useAutologinCookie;
 
+            /**
+             * Component config builder.
+             *
+             * @param componentConfig the component config
+             * @return the builder
+             */
             public Builder componentConfig(ComponentConfig componentConfig) {
                 this.componentConfig = componentConfig;
                 return this;
             }
 
+            /**
+             * Virtual hosts builder.
+             *
+             * @param virtualHosts the virtual hosts
+             * @return the builder
+             */
             public Builder virtualHosts(List<String> virtualHosts) {
                 this.virtualHosts = virtualHosts;
                 return this;
             }
 
+            /**
+             * Init parameters builder.
+             *
+             * @param initParameters the init parameters
+             * @return the builder
+             */
             public Builder initParameters(Map<String, String> initParameters) {
                 this.initParameters = initParameters;
                 return this;
             }
 
+            /**
+             * Name builder.
+             *
+             * @param name the name
+             * @return the builder
+             */
             public Builder name(String name) {
                 this.name = name;
                 return this;
             }
 
+            /**
+             * Title builder.
+             *
+             * @param title the title
+             * @return the builder
+             */
             public Builder title(String title) {
                 this.title = title;
                 return this;
             }
 
+            /**
+             * Description builder.
+             *
+             * @param description the description
+             * @return the builder
+             */
             public Builder description(String description) {
                 this.description = description;
                 return this;
             }
 
+            /**
+             * Menu name builder.
+             *
+             * @param menuName the menu name
+             * @return the builder
+             */
             public Builder menuName(String menuName) {
                 this.menuName = menuName;
                 return this;
             }
 
+            /**
+             * Server builder.
+             *
+             * @param server the server
+             * @return the builder
+             */
             public Builder server(String server) {
                 this.server = server;
                 return this;
             }
 
+            /**
+             * Mount point builder.
+             *
+             * @param mountPoint the mount point
+             * @return the builder
+             */
             public Builder mountPoint(String mountPoint) {
                 this.mountPoint = mountPoint;
                 return this;
             }
 
+            /**
+             * Context root builder.
+             *
+             * @param contextRoot the context root
+             * @return the builder
+             */
             public Builder contextRoot(String contextRoot) {
                 this.contextRoot = contextRoot;
                 return this;
             }
 
+            /**
+             * Location builder.
+             *
+             * @param location the location
+             * @return the builder
+             */
             public Builder location(String location) {
                 this.location = location;
                 return this;
             }
 
+            /**
+             * Base permissions builder.
+             *
+             * @param basePermissions the base permissions
+             * @return the builder
+             */
             public Builder basePermissions(String[] basePermissions) {
                 this.basePermissions = basePermissions;
                 return this;
             }
 
+            /**
+             * Position builder.
+             *
+             * @param position the position
+             * @return the builder
+             */
             public Builder position(String position) {
                 this.position = position;
                 return this;
             }
 
+            /**
+             * Privileged builder.
+             *
+             * @param privileged the privileged
+             * @return the builder
+             */
             public Builder privileged(boolean privileged) {
                 this.privileged = privileged;
                 return this;
             }
 
+            /**
+             * App bar display builder.
+             *
+             * @param appBarDisplay the app bar display
+             * @return the builder
+             */
             public Builder appBarDisplay(boolean appBarDisplay) {
                 this.appBarDisplay = appBarDisplay;
                 return this;
             }
 
+            /**
+             * Access permission builder.
+             *
+             * @param accessPermission the access permission
+             * @return the builder
+             */
             public Builder accessPermission(String accessPermission) {
                 this.accessPermission = accessPermission;
                 return this;
             }
 
+            /**
+             * Use autologin cookie builder.
+             *
+             * @param useAutologinCookie the use autologin cookie
+             * @return the builder
+             */
             public Builder useAutologinCookie(boolean useAutologinCookie) {
                 this.useAutologinCookie = useAutologinCookie;
                 return this;
             }
 
+            /**
+             * Create webapp info.
+             *
+             * @return the webapp info
+             */
             public WebappInfo create() {
                 return new WebappInfo(this);
             }

@@ -53,7 +53,6 @@ public class ContainerLoader {
 
     /**
      * Starts the containers.
-     *
      * @param config Startup config
      * @param ofbizCommands Command-line arguments
      * @throws StartupException If an error was encountered. Throwing this exception
@@ -80,7 +79,6 @@ public class ContainerLoader {
 
     /**
      * Checks if two collections have an intersection or are both empty.
-     *
      * @param a the first collection which can be {@code null}
      * @param b the second collection which can be {@code null}
      * @return {@code true} if {@code a} and {@code b} have an intersection or are both empty.
@@ -92,7 +90,6 @@ public class ContainerLoader {
 
     /**
      * Loads the available containers which are matching the configured loaders.
-     *
      * @param loaders  the collection of loaders to match
      * @param ofbizCommands  the parsed commands line arguments used by the containers
      * @return a list of loaded containers.

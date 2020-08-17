@@ -37,7 +37,6 @@ public class EntityNotCondition implements EntityCondition {
 
     /**
      * Instantiates a negation condition expression.
-     *
      * @param cond the condition to negate
      */
     public EntityNotCondition(EntityCondition cond) {

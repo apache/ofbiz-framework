@@ -250,7 +250,6 @@ public final class UtilXml {
     // ----- Java Object Marshalling/Unmarshalling ----- //
 
     /** Deserialize an object from an <code>InputStream</code>.
-     *
      * @param input The <code>InputStream</code>
      * @return The deserialized <code>Object</code>
      */
@@ -259,7 +258,6 @@ public final class UtilXml {
     }
 
     /** Deserialize an object from a <code>Reader</code>.
-     *
      * @param reader The <code>Reader</code>
      * @return The deserialized <code>Object</code>
      */
@@ -268,7 +266,6 @@ public final class UtilXml {
     }
 
     /** Deserialize an object from a <code>String</code>.
-     *
      * @param str The <code>String</code>
      * @return The deserialized <code>Object</code>
      */
@@ -277,7 +274,6 @@ public final class UtilXml {
     }
 
     /** Serialize an object to an XML <code>String</code>.
-     *
      * @param obj The object to serialize
      * @return An XML <code>String</code>
      */
@@ -286,7 +282,6 @@ public final class UtilXml {
     }
 
     /** Serialize an object to an <code>OutputStream</code>.
-     *
      * @param obj The object to serialize
      * @param output The <code>OutputStream</code>
      */
@@ -295,7 +290,6 @@ public final class UtilXml {
     }
 
     /** Serialize an object to a <code>Writer</code>.
-     *
      * @param obj The object to serialize
      * @param writer The <code>Writer</code>
      */

@@ -51,7 +51,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Constructs an infix comparison expression.
-     *
      * @param lhs the left hand side of the expression
      * @param operator the comparison operator used to compare the two sides of the expression
      * @param rhs the right hand side of the expression
@@ -84,7 +83,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Constructs an simple combination of expression.
-     *
      * @param lhs the expression of the left hand side
      * @param operator the operator used to join the {@code lhs} and {@code rhs} expressions
      * @param rhs the expression of the right hand side
@@ -108,7 +106,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Gets the left hand side of the condition expression.
-     *
      * @return the left hand side of the condition expression
      */
     public Object getLhs() {
@@ -117,7 +114,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Gets the operator used to combine the two sides of the condition expression.
-     *
      * @return the operator used to combine the two sides of the condition expression.
      */
     public <L, R> EntityOperator<L, R> getOperator() {
@@ -126,7 +122,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Gets the right hand side of the condition expression.
-     *
      * @return the right hand side of the condition expression
      */
     public Object getRhs() {
@@ -173,7 +168,6 @@ public final class EntityExpr implements EntityCondition {
     // TODO: Expand the documentation to explain what is exactly checked.
     /**
      * Ensures that the right hand side of the condition expression is valid.
-     *
      * @param modelEntity the entity model used to check the condition expression
      * @param delegator the delegator used to check the condition expression
      */

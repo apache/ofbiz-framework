@@ -66,12 +66,10 @@ public class FormRenderer {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * An instance of this class is created by each thread for each form that
      * is rendered. If you need to keep track of things while rendering, then
      * this is the place to do it. In other words, feel free to modify this
      * object's state (except for the final fields of course).
-     *
      */
 
     private static final String MODULE = FormRenderer.class.getName();
@@ -219,7 +217,6 @@ public class FormRenderer {
     /**
      * Renders this form to a writer, as defined with the
      * FormStringRenderer implementation.
-     *
      * @param writer The Writer that the form text will be written to
      * @param context Map containing the form context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),

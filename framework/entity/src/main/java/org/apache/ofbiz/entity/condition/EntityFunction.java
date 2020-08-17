@@ -88,7 +88,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Length() entity function.
-     *
      */
     public static class LENGTH extends EntityFunctionSingle<Integer> {
         public static final Fetcher<Integer> FETCHER = value -> value.toString().length();
@@ -100,7 +99,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Trim() entity function.
-     *
      */
     public static class TRIM extends EntityFunctionSingle<String> {
         public static final Fetcher<String> FETCHER = value -> value.toString().trim();
@@ -112,7 +110,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Upper() entity function.
-     *
      */
     public static class UPPER extends EntityFunctionSingle<String> {
         public static final Fetcher<String> FETCHER = value -> value.toString().toUpperCase(Locale.getDefault());
@@ -124,7 +121,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Lower() entity function.
-     *
      */
     public static class LOWER extends EntityFunctionSingle<String> {
         public static final Fetcher<String> FETCHER = value -> value.toString().toLowerCase(Locale.getDefault());
@@ -146,11 +142,11 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         }
     }
 
-    protected final SQLFunction function;
-    protected final EntityConditionValue nested;
-    protected final Object value;
-    protected final Fetcher<T> fetcher;
-    protected ModelField field;
+    private final SQLFunction function;
+    private final EntityConditionValue nested;
+    private final Object value;
+    private ModelField field;
+    private final Fetcher<T> fetcher;
 
     protected EntityFunction(Fetcher<T> fetcher, SQLFunction function, EntityConditionValue nested) {
         this.fetcher = fetcher;
@@ -174,19 +170,31 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     @Override
     public EntityConditionValue freeze() {
         if (nested != null) {
-            return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) {};
+            return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) { };
         }
-        return new EntityFunctionSingle<T>(fetcher, function, value) {};
+        return new EntityFunctionSingle<T>(fetcher, function, value) { };
     }
 
+    /**
+     * Gets code.
+     * @return the code
+     */
     public String getCode() {
         return function.name();
     }
 
+    /**
+     * Gets original value.
+     * @return the original value
+     */
     public Object getOriginalValue() {
         return this.value;
     }
 
+    /**
+     * Gets id.
+     * @return the id
+     */
     public int getId() {
         return function.ordinal();
     }
@@ -208,7 +216,8 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
+    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity,
+                            List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
         sql.append(function.name()).append('(');
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);

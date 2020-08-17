@@ -122,7 +122,6 @@ public final class EntityTypeUtil {
     /**
      * A generic method to be used on Type enities, e.g. ProductType.  Recurse to the root level in the type hierarchy
      * and checks if the specified type childType has parentType as its parent somewhere in the hierarchy.
-     *
      * @param delegator       The Delegator object.
      * @param entityName      Name of the Type entity on which check is performed.
      * @param primaryKey      Primary Key field of the Type entity.

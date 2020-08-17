@@ -69,8 +69,10 @@ import freemarker.template.TransformControl;
 public class MenuWrapTransform implements TemplateTransformModel {
 
     private static final String MODULE = MenuWrapTransform.class.getName();
-    public static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    public static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
+    public static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail"};
+    public static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",
+            "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName",
+            "associatedContentId", "wrapperClassName"};
 
 
     @Override
@@ -88,18 +90,19 @@ public class MenuWrapTransform implements TemplateTransformModel {
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
 
         final Map<String, Object> savedValuesUp = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
+        FreeMarkerWorker.saveContextValues(templateCtx, UP_SAVE_KEY_NAMES, savedValuesUp);
 
         Map<String, Object> checkedArgs = UtilGenerics.cast(args);
         FreeMarkerWorker.overrideWithArgs(templateCtx, checkedArgs);
         List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String) templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String) templateCtx.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
         GenericValue val = null;
         try {
             if (WidgetContentWorker.getContentWorker() != null) {
-                val = WidgetContentWorker.getContentWorker().getCurrentContentExt(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
+                val = WidgetContentWorker.getContentWorker().getCurrentContentExt(delegator, trail, userLogin, templateCtx, nullThruDatesOnly,
+                        contentAssocPredicateId);
             } else {
                 Debug.logError("Not rendering content, not ContentWorker found.", MODULE);
             }
@@ -140,7 +143,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
         final Map<String, Object> savedValues = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
+        FreeMarkerWorker.saveContextValues(templateCtx, SAVE_KEY_NAMES, savedValues);
 
         final StringBuilder buf = new StringBuilder();
 
@@ -185,7 +188,8 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 HtmlMenuWrapper menuWrapper = HtmlMenuWrapper.getMenuWrapper(request, response, session, menuDefFile, menuName, menuWrapperClassName);
 
                 if (menuWrapper == null) {
-                    throw new IOException("HtmlMenuWrapper with def file:" + menuDefFile + " menuName:" + menuName + " and HtmlMenuWrapper class:" + menuWrapperClassName + " could not be instantiated.");
+                    throw new IOException("HtmlMenuWrapper with def file:" + menuDefFile + " menuName:" + menuName + " and HtmlMenuWrapper class:"
+                            + menuWrapperClassName + " could not be instantiated.");
                 }
 
                 String associatedContentId = (String) templateCtx.get("associatedContentId");

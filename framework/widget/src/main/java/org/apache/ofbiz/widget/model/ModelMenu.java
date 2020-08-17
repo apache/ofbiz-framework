@@ -46,14 +46,11 @@ public class ModelMenu extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
     private static final String MODULE = ModelMenu.class.getName();
@@ -81,7 +78,6 @@ public class ModelMenu extends ModelWidget {
      * they were encountered in the service, entity, or menu definition; item definitions
      * with constraints will also be in this list but may appear multiple times for the same
      * item name.
-     *
      * When rendering the menu the order in this list should be following and it should not be
      * necessary to use the Map. The Map is used when loading the menu definition to keep the
      * list clean and implement the override features for item definitions.
@@ -325,7 +321,6 @@ public class ModelMenu extends ModelWidget {
 
     /**
      * add/override modelMenuItem using the menuItemList and menuItemMap
-     *
      */
     private static void addUpdateMenuItem(ModelMenuItem modelMenuItem, List<ModelMenuItem> menuItemList,
             Map<String, ModelMenuItem> menuItemMap) {
@@ -517,7 +512,6 @@ public class ModelMenu extends ModelWidget {
     /**
      * Renders this menu to a String, i.e. in a text format, as defined with the
      * MenuStringRenderer implementation.
-     *
      * @param writer The Writer that the menu text will be written to
      * @param context Map containing the menu context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),

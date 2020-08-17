@@ -52,7 +52,6 @@ public final class WebSiteWorker {
 
     /**
      * returns a WebSite-GenericValue
-     *
      * @param delegator
      * @param webSiteId
      * @param useCache

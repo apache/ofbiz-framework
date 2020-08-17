@@ -28,7 +28,6 @@ public interface ModelAction {
 
     /**
      * Executes this action.
-     *
      * @param context
      * @throws GeneralException
      */

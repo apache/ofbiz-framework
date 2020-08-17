@@ -67,11 +67,9 @@ public class DispatchContext implements Serializable {
      * Creates new DispatchContext as an immutable object.
      * The "dispatcher" argument can be null if the "name" argument matches the name of a valid entity model reader.
      * The thread safety of a DispatchContext object is a consequence of its immutability.
-     *
      * @param name The immutable name of the DispatchContext
      * @param loader The immutable class loader
      * @param dispatcher The immutable dispatcher associated to the DispatchContext
-     *
      */
     public DispatchContext(String name, ClassLoader loader, LocalDispatcher dispatcher) {
         this.name = name;

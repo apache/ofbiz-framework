@@ -84,7 +84,6 @@ public final class MetricsFactory {
      *     <td>The metric threshold. The meaning of the threshold is determined by client code.</td>
      *     <td>Defaults to "0.0".</td></tr>
      * </table>
-     *
      * @param element The element whose attributes will be used to create the <code>Metrics</code> instance
      * @return A <code>Metrics</code> instance based on <code>element</code> attributes
      * @throws IllegalArgumentException if <code>element</code> is null or if the name attribute is empty

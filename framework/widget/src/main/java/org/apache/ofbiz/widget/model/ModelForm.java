@@ -67,18 +67,14 @@ public abstract class ModelForm extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors. All behavior should be contained in model visitors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      * BE VERY CAREFUL when implementing "extends" - parent form collections
      * must be added to child collections, not replace them. In other words,
      * do not assign parent collection fields to child collection fields.
-     *
      */
 
     private static final String MODULE = ModelForm.class.getName();
@@ -136,7 +132,6 @@ public abstract class ModelForm extends ModelWidget {
      * they were encountered in the service, entity, or form definition; field definitions
      * with constraints will also be in this list but may appear multiple times for the same
      * field name.
-     *
      * When rendering the form the order in this list should be following and it should not be
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
