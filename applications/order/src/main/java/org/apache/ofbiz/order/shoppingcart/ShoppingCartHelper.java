@@ -80,7 +80,6 @@ public class ShoppingCartHelper {
     /**
      * Changes will be made to the cart directly, as opposed
      * to a copy of the cart provided.
-     *
      * @param cart The cart to manipulate
      */
     public ShoppingCartHelper(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart) {
@@ -386,7 +385,6 @@ public class ShoppingCartHelper {
      * for each; if no parameter for a certain product in the category, or if
      * quantity is 0, do not add.
      * If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the request parameter in itemGroupNumber
-     *
      * There are 2 options for the syntax:
      *  - name="quantity_${productId}" value="${quantity}
      *  - name="product_${whatever}" value="${productId}" (note: quantity is always 1)
@@ -1039,7 +1037,6 @@ public class ShoppingCartHelper {
     }
     /**
      * Select an agreement
-     *
      * @param agreementId
      */
     public Map<String, Object> selectAgreement(String agreementId) {

@@ -1206,7 +1206,6 @@ public class ShoppingCartEvents {
      * <code>String</code> in the request object and indicate whether
      * the result was an error or not and whether the errors were
      * critical or not
-     *
      * @param result    The result returned from the
      * <code>ShoppingCartHelper</code>
      * @param request The servlet request instance to set the error messages
@@ -1274,7 +1273,6 @@ public class ShoppingCartEvents {
 
     /**
      * set the order name of the cart based on request.  right now will always return "success"
-     *
      */
     public static String setOrderName(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
@@ -1285,7 +1283,6 @@ public class ShoppingCartEvents {
 
     /**
      * set the PO number of the cart based on request.  right now will always return "success"
-     *
      */
     public static String setPoNumber(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);

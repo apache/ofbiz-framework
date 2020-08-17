@@ -62,10 +62,8 @@ public class BOMTree {
      * @param productId The product for which we want to get the bom.
      * @param bomTypeId The bill of materials type (e.g. manufacturing, engineering, ...)
      * @param inDate Validity date (if null, today is used).
-     *
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.
-     *
      */
     public BOMTree(String productId, String bomTypeId, Date inDate, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         this(productId, bomTypeId, inDate, EXPLOSION, delegator, dispatcher, userLogin);
@@ -78,15 +76,12 @@ public class BOMTree {
      * @param productId The product for which we want to get the bom.
      * @param bomTypeId The bill of materials type (e.g. manufacturing, engineering, ...)
      * @param inDate Validity date (if null, today is used).
-     *
      * @param type if equals to EXPLOSION, a downward visit is performed (explosion);
      * if equals to EXPLOSION_SINGLE_LEVEL, a single level explosion is performed;
      * if equals to EXPLOSION_MANUFACTURING, a downward visit is performed (explosion), including only the product that needs manufacturing;
      * if equals to IMPLOSION an upward visit is done (implosion);
-     *
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.
-     *
      */
     public BOMTree(String productId, String bomTypeId, Date inDate, int type, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         // If the parameters are not valid, return.
@@ -180,7 +175,6 @@ public class BOMTree {
      * a product's bill of materials is completely configured
      * or not.
      * @return true if no virtual nodes (products) are present in the tree.
-     *
      */
     public boolean isConfigured() {
         List<BOMNode> notConfiguredParts = new LinkedList<>();
@@ -190,7 +184,6 @@ public class BOMTree {
 
     /** Getter for property rootQuantity.
      * @return Value of property rootQuantity.
-     *
      */
     public BigDecimal getRootQuantity() {
         return rootQuantity;
@@ -198,7 +191,6 @@ public class BOMTree {
 
     /** Setter for property rootQuantity.
      * @param rootQuantity New value of property rootQuantity.
-     *
      */
     public void setRootQuantity(BigDecimal rootQuantity) {
         this.rootQuantity = rootQuantity;
@@ -206,7 +198,6 @@ public class BOMTree {
 
     /** Getter for property rootAmount.
      * @return Value of property rootAmount.
-     *
      */
     public BigDecimal getRootAmount() {
         return rootAmount;
@@ -214,7 +205,6 @@ public class BOMTree {
 
     /** Setter for property rootAmount.
      * @param rootAmount New value of property rootAmount.
-     *
      */
     public void setRootAmount(BigDecimal rootAmount) {
         this.rootAmount = rootAmount;
@@ -222,7 +212,6 @@ public class BOMTree {
 
     /** Getter for property root.
      * @return Value of property root.
-     *
      */
     public BOMNode getRoot() {
         return root;
@@ -230,7 +219,6 @@ public class BOMTree {
 
     /** Getter for property inDate.
      * @return Value of property inDate.
-     *
      */
     public Date getInDate() {
         return inDate;
@@ -238,7 +226,6 @@ public class BOMTree {
 
     /** Getter for property bomTypeId.
      * @return Value of property bomTypeId.
-     *
      */
     public String getBomTypeId() {
         return bomTypeId;

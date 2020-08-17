@@ -600,7 +600,6 @@ public final class ProductStoreWorker {
     /**
      * This method is used in the showcart pages to determine whether or not to show the inventory message and
      * in the productdetail pages to determine whether or not to show the item as out of stock.
-     *
      * @param request ServletRequest (or HttpServletRequest of course)
      * @param product GenericValue representing the product in question
      * @param quantity Quantity desired.

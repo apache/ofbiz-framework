@@ -105,7 +105,6 @@ public class GatewayRequest {
 
     /**
      * Constructor to be used with the CVN and Beagle payment methods.
-     *
      * @param method
      *            Logical combination of the REQUEST_METHOD_CVN and
      *            REQUEST_METHOD_BEAGLE constants.
@@ -116,7 +115,6 @@ public class GatewayRequest {
 
     /**
      * Gets the request method given when constructing the object.
-     *
      * @return the request method as a logical combination of the REQUEST_METHOD_CVN
      *         and REQUEST_METHOD_BEAGLE constants.
      */
@@ -337,7 +335,6 @@ public class GatewayRequest {
      * examine the xml content. The special fields of the CVN and Beagle requests
      * are added only if the request belongs to the CVN or Beagle types,
      * respectively.
-     *
      * @return The GatewayRequest object as an xml string.
      */
     public String toXml() {
@@ -400,7 +397,6 @@ public class GatewayRequest {
 
     /**
      * Helper method to build an XML node.
-     *
      * @param nodeName
      *            The name of the node being created.
      * @param nodeValue

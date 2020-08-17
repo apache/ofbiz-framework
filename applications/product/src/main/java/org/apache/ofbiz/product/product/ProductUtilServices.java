@@ -61,9 +61,12 @@ public final class ProductUtilServices {
     private static final String RESOURCE = "ProductUiLabels";
     private static final String RES_ERROR = "ProductErrorUiLabels";
 
-    private ProductUtilServices() { }
+    private ProductUtilServices() {
+    }
 
-    /** First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
+    /**
+     * First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs
+     */
     public static Map<String, Object> discVirtualsWithDiscVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -88,7 +91,7 @@ public final class ProductUtilServices {
                         .filterByDate()
                         .queryList();
                 if (passocList.size() > 0) {
-                    for (GenericValue passoc: passocList) {
+                    for (GenericValue passoc : passocList) {
                         passoc.set("thruDate", nowTimestamp);
                         passoc.store();
                     }
@@ -134,7 +137,9 @@ public final class ProductUtilServices {
         return ServiceUtil.returnSuccess();
     }
 
-    /** for all disc products, remove from category memberships */
+    /**
+     * for all disc products, remove from category memberships
+     */
     public static Map<String, Object> removeCategoryMembersOfDiscProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -151,7 +156,7 @@ public final class ProductUtilServices {
                 String productId = product.getString("productId");
                 List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", productId).queryList();
                 if (productCategoryMemberList.size() > 0) {
-                    for (GenericValue productCategoryMember: productCategoryMemberList) {
+                    for (GenericValue productCategoryMember : productCategoryMemberList) {
                         // coded this way rather than a removeByAnd so it can be easily changed...
                         productCategoryMember.remove();
                     }
@@ -190,15 +195,17 @@ public final class ProductUtilServices {
                 EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)), EntityOperator.AND);
         EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, 1L);
 
-        try (EntityListIterator eli = EntityQuery.use(delegator).select("productId", "productCategoryId", "productIdCount").from(dve).where(condition).having(havingCond).queryIterator()) {
+        try (EntityListIterator eli = EntityQuery.use(delegator).select("productId", "productCategoryId", "productIdCount").from(dve)
+                .where(condition).having(havingCond).queryIterator()) {
             GenericValue pcm = null;
             int numSoFar = 0;
             while ((pcm = eli.next()) != null) {
-                List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", pcm.get("productId"), "productCategoryId", pcm.get("productCategoryId")).queryList();
+                List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId",
+                        pcm.get("productId"), "productCategoryId", pcm.get("productCategoryId")).queryList();
                 if (productCategoryMemberList.size() > 1) {
                     // remove all except the first...
                     productCategoryMemberList.remove(0);
-                    for (GenericValue productCategoryMember: productCategoryMemberList) {
+                    for (GenericValue productCategoryMember : productCategoryMemberList) {
                         productCategoryMember.remove();
                     }
                     numSoFar++;
@@ -210,7 +217,8 @@ public final class ProductUtilServices {
             Debug.logInfo("Completed - Removed category members for " + numSoFar + " products with duplicate category members.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers", messageMap, locale);
+            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers",
+                    messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -256,7 +264,7 @@ public final class ProductUtilServices {
             Debug.logInfo("Found " + valueList.size() + " virtual products with one variant to turn into a stand alone product.", MODULE);
 
             int numWithOneOnly = 0;
-            for (GenericValue value: valueList) {
+            for (GenericValue value : valueList) {
                 // has only one variant period, is it valid? should already be discontinued if not
                 String productId = value.getString("productId");
                 List<GenericValue> paList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
@@ -288,7 +296,7 @@ public final class ProductUtilServices {
                 Debug.logInfo("Found " + valueMultiList.size() + " virtual products with one VALID variant to pull the variant from to make a stand alone product.", MODULE);
 
                 int numWithOneValid = 0;
-                for (GenericValue value: valueMultiList) {
+                for (GenericValue value : valueMultiList) {
                     // has only one valid variant
                     String productId = value.getString("productId");
 
@@ -307,7 +315,7 @@ public final class ProductUtilServices {
                         }
                     }
                 }
-            Debug.logInfo("Found virtual products with one valid variant: " + numWithOneValid + ", with one variant only: " + numWithOneOnly, MODULE);
+                Debug.logInfo("Found virtual products with one valid variant: " + numWithOneValid + ", with one variant only: " + numWithOneOnly, MODULE);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
                 errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals", messageMap, locale);
@@ -441,7 +449,7 @@ public final class ProductUtilServices {
 
     protected static void duplicateRelated(GenericValue product, String title, String relatedEntityName, String productIdField, String variantProductId, Timestamp nowTimestamp, boolean removeOld, Delegator delegator, boolean test) throws GenericEntityException {
         List<GenericValue> relatedList = EntityUtil.filterByDate(product.getRelated(title + relatedEntityName, null, null, false), nowTimestamp);
-        for (GenericValue relatedValue: relatedList) {
+        for (GenericValue relatedValue : relatedList) {
             GenericValue newRelatedValue = (GenericValue) relatedValue.clone();
             newRelatedValue.set(productIdField, variantProductId);
 
@@ -479,7 +487,8 @@ public final class ProductUtilServices {
     }
 
 
-    /** reset all product image names with a certain pattern, ex: /images/products/${size}/${productId}.jpg
+    /**
+     * reset all product image names with a certain pattern, ex: /images/products/${size}/${productId}.jpg
      * NOTE: only works on fields of Product right now
      */
     public static Map<String, Object> setAllProductImageNames(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -494,7 +503,7 @@ public final class ProductUtilServices {
             imageContext.put("tenantId", delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
             String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", delegator), imageContext);
-            imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
+            imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix;
             pattern = imageUrlPrefix + "/" + imageFilenameFormat;
         }
 
@@ -617,11 +626,12 @@ public final class ProductUtilServices {
         return ServiceUtil.returnSuccess();
     }
 
-    /** Get all features associated with products and associate them with a feature group attached to the category for each feature type;
+    /**
+     * Get all features associated with products and associate them with a feature group attached to the category for each feature type;
      * includes products associated with this category only, but will also associate all feature groups of sub-categories with this category, optionally calls this method for all sub-categories too
      */
     public static void attachProductFeaturesToCategory(String productCategoryId, Set<String> productFeatureTypeIdsToInclude, Set<String> productFeatureTypeIdsToExclude,
-            Delegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
+                                                       Delegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
         if (nowTimestamp == null) {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
@@ -629,7 +639,7 @@ public final class ProductUtilServices {
         // do sub-categories first so all feature groups will be in place
         List<GenericValue> subCategoryList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", productCategoryId).queryList();
         if (doSubCategories) {
-            for (GenericValue productCategoryRollup: subCategoryList) {
+            for (GenericValue productCategoryRollup : subCategoryList) {
                 attachProductFeaturesToCategory(productCategoryRollup.getString("productCategoryId"), productFeatureTypeIdsToInclude, productFeatureTypeIdsToExclude,
                         delegator, true, nowTimestamp);
             }
@@ -638,7 +648,7 @@ public final class ProductUtilServices {
         // now get all features for this category and make associated feature groups
         Map<String, Set<String>> productFeatureIdByTypeIdSetMap = new HashMap<>();
         List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId).queryList();
-        for (GenericValue productCategoryMember: productCategoryMemberList) {
+        for (GenericValue productCategoryMember : productCategoryMemberList) {
             String productId = productCategoryMember.getString("productId");
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
@@ -665,13 +675,16 @@ public final class ProductUtilServices {
                     productFeatureIdSet.add(productFeatureId);
                 }
 
-                for (Map.Entry<String, Set<String>> entry: productFeatureIdByTypeIdSetMap.entrySet()) {
+                for (Map.Entry<String, Set<String>> entry : productFeatureIdByTypeIdSetMap.entrySet()) {
                     String productFeatureTypeId = entry.getKey();
                     Set<String> productFeatureIdSet = entry.getValue();
 
                     String productFeatureGroupId = productCategoryId + "_" + productFeatureTypeId;
                     if (productFeatureGroupId.length() > 20) {
-                        Debug.logWarning("Manufactured productFeatureGroupId was greater than 20 characters, means that we had some long productCategoryId and/or productFeatureTypeId values, at the category part should be unique since it is first, so if the feature type isn't unique it just means more than one type of feature will go into the category...", MODULE);
+                        Debug.logWarning("Manufactured productFeatureGroupId was greater than 20 characters, means that we had some long" +
+                                "productCategoryId and/or productFeatureTypeId values, at the category part should be unique since it is first," +
+                                "so if the feature type isn't unique it just means more than one type of feature will go into the category...",
+                                MODULE);
                         productFeatureGroupId = productFeatureGroupId.substring(0, 20);
                     }
 
@@ -687,7 +700,7 @@ public final class ProductUtilServices {
                     }
 
                     // now put all of the features in the group, if there is not already a valid feature placement there...
-                    for (String productFeatureId: productFeatureIdSet) {
+                    for (String productFeatureId : productFeatureIdSet) {
                         condition = EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("productFeatureId", EntityOperator.EQUALS, productFeatureId),
                                 EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
@@ -702,13 +715,15 @@ public final class ProductUtilServices {
                 }
 
                 // now get all feature groups associated with sub-categories and associate them with this category
-                for (GenericValue productCategoryRollup: subCategoryList) {
+                for (GenericValue productCategoryRollup : subCategoryList) {
                     String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
                     condition = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, subProductCategoryId),
                             EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                            EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
-                    try (EntityListIterator productFeatureCatGrpApplEli = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where(condition).queryIterator()) {
+                            EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR,
+                                    EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
+                    try (EntityListIterator productFeatureCatGrpApplEli = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl")
+                            .where(condition).queryIterator()) {
                         GenericValue productFeatureCatGrpAppl = null;
                         while ((productFeatureCatGrpAppl = productFeatureCatGrpApplEli.next()) != null) {
                             String productFeatureGroupId = productFeatureCatGrpAppl.getString("productFeatureGroupId");
@@ -716,10 +731,14 @@ public final class ProductUtilServices {
                                     EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategoryId),
                                     EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
                                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))), EntityOperator.AND);
+                                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
+                                            EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO,
+                                                    nowTimestamp))), EntityOperator.AND);
                             if (EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where(checkCondition).queryCount() == 0) {
                                 // if no valid ones, create one
-                                GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureCatGrpAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productCategoryId", productCategoryId, "fromDate", nowTimestamp));
+                                GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureCatGrpAppl",
+                                        UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productCategoryId", productCategoryId,
+                                                "fromDate", nowTimestamp));
                                 productFeatureGroupAppl.create();
                             }
                         }

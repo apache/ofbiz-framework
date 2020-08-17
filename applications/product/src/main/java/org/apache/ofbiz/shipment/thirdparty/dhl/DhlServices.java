@@ -84,7 +84,6 @@ public class DhlServices {
 
     /**
      * Opens a URL to DHL and makes a request.
-     *
      * @param xmlString Name of the DHL service to invoke
      * @param delegator the delegator
      * @param shipmentGatewayConfigId the shipment gateway config id

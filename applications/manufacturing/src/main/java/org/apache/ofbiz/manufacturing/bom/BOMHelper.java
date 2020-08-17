@@ -52,7 +52,6 @@ public final class BOMHelper {
      * Returns the product's low level code (llc) i.e. the maximum depth
      * in which the productId can be found in any of the
      * bills of materials of bomType type.
-     *
      * @param productId The product id
      * @param bomType   The bill of materials type (e.g. manufacturing, engineering,...)
      * @param delegator Validity date (if null, today is used).
@@ -93,7 +92,6 @@ public final class BOMHelper {
      * ancestor if present, null otherwise.
      * Useful to avoid loops when adding new assocs (components)
      * to a bill of materials.
-     *
      * @param productId    The product to which we want to add a new child.
      * @param productIdKey The new component we want to add to the existing bom.
      * @param bomType      The bill of materials type (e.g. manufacturing, engineering).

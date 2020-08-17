@@ -1023,7 +1023,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     /**
      * getDataResourceStream - gets an InputStream and Content-Length of a DataResource
-     *
      * @param dataResource
      * @param https
      * @param webSiteId

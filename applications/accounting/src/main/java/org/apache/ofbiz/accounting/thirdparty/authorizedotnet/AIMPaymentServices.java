@@ -67,7 +67,7 @@ public class AIMPaymentServices {
     // transaction to be still valid
     private static final int TIME_LIMIT_VERIFICATION_DAYS = 120;
 
-    private static Properties AIMProperties = null;
+    private static Properties aimProperties = null;
 
     // A routine to check whether a given refund failure response code will cause the
     // ccRefund service to attempt to void the refund's associated authorization transaction
@@ -143,7 +143,7 @@ public class AIMPaymentServices {
         processCaptureTransResult(request, reply, results);
         // if there is no captureRefNum, then the capture failed
         if (results.get("captureRefNum") == null) {
-             return ServiceUtil.returnError((String) results.get("captureMessage"));
+            return ServiceUtil.returnError((String) results.get("captureMessage"));
         }
         return results;
     }
@@ -307,7 +307,7 @@ public class AIMPaymentServices {
         processAuthCaptureTransResult(request, reply, results);
         // if there is no captureRefNum, then the capture failed
         if (results.get("captureRefNum") == null) {
-             return ServiceUtil.returnError((String) results.get("captureMessage"));
+            return ServiceUtil.returnError((String) results.get("captureMessage"));
         }
         return results;
     }
@@ -338,9 +338,11 @@ public class AIMPaymentServices {
             if (ar.isApproved()) {
                 result.put("authResult", Boolean.TRUE);
             }
-            //When the transaction is already expired in Authorize.net, then the response is an error message with reason code 16 (i.e. "The transaction cannot be found");
+
+            // When the transaction is already expired in Authorize.net, then the response is an error message with reason code 16
+            // (i.e. "The transaction cannot be found");
             // in this case we proceed without generating an error in order to void/cancel the transaction record in OFBiz as well.
-            //This else if block takes care of the expired transaction.
+            // This else if block takes care of the expired transaction.
             else if ("VOID".equals(props.get("transType")) && "16".equals(ar.getReasonCode())) {
                 result.put("authResult", Boolean.TRUE);
             } else {
@@ -362,7 +364,7 @@ public class AIMPaymentServices {
     }
 
     private static boolean isTestMode() {
-        return "true".equalsIgnoreCase((String) AIMProperties.get("testReq"));
+        return "true".equalsIgnoreCase((String) aimProperties.get("testReq"));
     }
 
     private static Properties buildAIMProperties(Map<String, Object> context, Delegator delegator) {
@@ -372,24 +374,36 @@ public class AIMPaymentServices {
             configStr = "payment.properties";
         }
         GenericValue cc = (GenericValue) context.get("creditCard");
-        String url = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transactionUrl", configStr, "payment.authorizedotnet.url");
-        String certificateAlias = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certificateAlias", configStr, "payment.authorizedotnet.certificateAlias");
-        String ver = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "apiVersion", configStr, "payment.authorizedotnet.version");
-        String delimited = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "delimitedData", configStr, "payment.authorizedotnet.delimited");
-        String delimiter = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "delimiterChar", configStr, "payment.authorizedotnet.delimiter");
-        String cpVersion = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpVersion", configStr, "payment.authorizedotnet.cpVersion");
-        String cpMarketType = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpMarketType", configStr, "payment.authorizedotnet.cpMarketType");
-        String cpDeviceType = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpDeviceType", configStr, "payment.authorizedotnet.cpDeviceType");
+        String url = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transactionUrl", configStr,
+                "payment.authorizedotnet.url");
+        String certificateAlias = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certificateAlias", configStr,
+                "payment.authorizedotnet.certificateAlias");
+        String ver = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "apiVersion", configStr,
+                "payment.authorizedotnet.version");
+        String delimited = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "delimitedData", configStr,
+                "payment.authorizedotnet.delimited");
+        String delimiter = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "delimiterChar", configStr,
+                "payment.authorizedotnet.delimiter");
+        String cpVersion = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpVersion", configStr,
+                "payment.authorizedotnet.cpVersion");
+        String cpMarketType = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpMarketType", configStr,
+                "payment.authorizedotnet.cpMarketType");
+        String cpDeviceType = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpDeviceType", configStr,
+                "payment.authorizedotnet.cpDeviceType");
         String method = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "method", configStr, "payment.authorizedotnet.method");
-        String emailCustomer = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "emailCustomer", configStr, "payment.authorizedotnet.emailcustomer");
-        String emailMerchant = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "emailMerchant", configStr, "payment.authorizedotnet.emailmerchant");
+        String emailCustomer = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "emailCustomer", configStr,
+                "payment.authorizedotnet.emailcustomer");
+        String emailMerchant = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "emailMerchant", configStr,
+                "payment.authorizedotnet.emailmerchant");
         String testReq = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "testMode", configStr, "payment.authorizedotnet.test");
         String relay = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "relayResponse", configStr, "payment.authorizedotnet.relay");
         String tranKey = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "tranKey", configStr, "payment.authorizedotnet.trankey");
         String login = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "userId", configStr, "payment.authorizedotnet.login");
         String password = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", configStr, "payment.authorizedotnet.password");
-        String transDescription = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transDescription", configStr, "payment.authorizedotnet.transdescription");
-        String duplicateWindow = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "duplicateWindow", configStr, "payment.authorizedotnet.duplicateWindow");
+        String transDescription = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transDescription", configStr,
+                "payment.authorizedotnet.transdescription");
+        String duplicateWindow = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "duplicateWindow", configStr,
+                "payment.authorizedotnet.duplicateWindow");
         if (UtilValidate.isEmpty(ver)) {
             ver = "3.0";
         }
@@ -431,8 +445,8 @@ public class AIMPaymentServices {
         if (cc != null) {
             props.put("cardtype", cc.get("cardType"));
         }
-        if (AIMProperties == null) {
-            AIMProperties = props;
+        if (aimProperties == null) {
+            aimProperties = props;
         }
         if (isTestMode()) {
             Debug.logInfo("Created Authorize.Net properties file: " + props.toString(), MODULE);
@@ -440,58 +454,58 @@ public class AIMPaymentServices {
         return props;
     }
 
-    private static void buildMerchantInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
-        AIMRequest.put("x_Login", props.getProperty("login"));
+    private static void buildMerchantInfo(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
+        aimRequest.put("x_Login", props.getProperty("login"));
         String trankey = props.getProperty("trankey");
         if (UtilValidate.isNotEmpty(trankey)) {
-            AIMRequest.put("x_Tran_Key", props.getProperty("trankey"));
+            aimRequest.put("x_Tran_Key", props.getProperty("trankey"));
         } else {
             // only send password if no tran key
-            AIMRequest.put("x_Password", props.getProperty("password"));
+            aimRequest.put("x_Password", props.getProperty("password"));
         }
         // api version (non Card Present)
         String apiVersion = props.getProperty("ver");
         if (UtilValidate.isNotEmpty(apiVersion)) {
-            AIMRequest.put("x_Version", props.getProperty("ver"));
+            aimRequest.put("x_Version", props.getProperty("ver"));
         }
         // CP version
         String cpVersion = props.getProperty("cpver");
         if (UtilValidate.isNotEmpty(cpVersion)) {
-            AIMRequest.put("x_cpversion", cpVersion);
+            aimRequest.put("x_cpversion", cpVersion);
         }
 
         // Check duplicateWindow time frame. If same transaction happens in the predefined time frame then return error.
         String duplicateWindow = props.getProperty("duplicateWindow");
         if (UtilValidate.isNotEmpty(duplicateWindow)) {
-            AIMRequest.put("x_duplicate_window", props.getProperty("duplicateWindow"));
+            aimRequest.put("x_duplicate_window", props.getProperty("duplicateWindow"));
         }
         // CP market type
         String cpMarketType = props.getProperty("cpMarketType");
         if (UtilValidate.isNotEmpty(cpMarketType)) {
-            AIMRequest.put("x_market_type", cpMarketType);
+            aimRequest.put("x_market_type", cpMarketType);
             // CP test mode
             if ("true".equalsIgnoreCase(props.getProperty("testReq"))) {
-                AIMRequest.put("x_test_request", props.getProperty("testReq"));
+                aimRequest.put("x_test_request", props.getProperty("testReq"));
             }
         }
         // CP device typ
         String cpDeviceType = props.getProperty("cpDeviceType");
         if (UtilValidate.isNotEmpty(cpDeviceType)) {
-            AIMRequest.put("x_device_type", cpDeviceType);
+            aimRequest.put("x_device_type", cpDeviceType);
         }
     }
 
-    private static void buildGatewayResponeConfig(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
-        if (AIMRequest.get("x_market_type") != null) {
+    private static void buildGatewayResponeConfig(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
+        if (aimRequest.get("x_market_type") != null) {
             // card present transaction
-            AIMRequest.put("x_response_format", "true".equalsIgnoreCase(props.getProperty("delimited")) ? "1" : "0");
+            aimRequest.put("x_response_format", "true".equalsIgnoreCase(props.getProperty("delimited")) ? "1" : "0");
         } else {
-            AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));
+            aimRequest.put("x_Delim_Data", props.getProperty("delimited"));
         }
-        AIMRequest.put("x_Delim_Char", props.getProperty("delimiter"));
+        aimRequest.put("x_Delim_Char", props.getProperty("delimiter"));
     }
 
-    private static void buildCustomerBillingInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildCustomerBillingInfo(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         try {
             // this would be used in the case of a capture, where one of the parameters is an OrderPaymentPreference
             if (params.get("orderPaymentPreference") != null) {
@@ -502,17 +516,17 @@ public class AIMPaymentServices {
                     if (creditCard == null || !(opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
                         creditCard = opp.getRelatedOne("CreditCard", false);
                     }
-                    AIMRequest.put("x_First_Name", UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard")));
-                    AIMRequest.put("x_Last_Name", UtilFormatOut.checkNull(creditCard.getString("lastNameOnCard")));
-                    AIMRequest.put("x_Company", UtilFormatOut.checkNull(creditCard.getString("companyNameOnCard")));
+                    aimRequest.put("x_First_Name", UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard")));
+                    aimRequest.put("x_Last_Name", UtilFormatOut.checkNull(creditCard.getString("lastNameOnCard")));
+                    aimRequest.put("x_Company", UtilFormatOut.checkNull(creditCard.getString("companyNameOnCard")));
                     if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
                         GenericValue address = creditCard.getRelatedOne("PostalAddress", false);
                         if (address != null) {
-                            AIMRequest.put("x_Address", UtilFormatOut.checkNull(address.getString("address1")));
-                            AIMRequest.put("x_City", UtilFormatOut.checkNull(address.getString("city")));
-                            AIMRequest.put("x_State", UtilFormatOut.checkNull(address.getString("stateProvinceGeoId")));
-                            AIMRequest.put("x_Zip", UtilFormatOut.checkNull(address.getString("postalCode")));
-                            AIMRequest.put("x_Country", UtilFormatOut.checkNull(address.getString("countryGeoId")));
+                            aimRequest.put("x_Address", UtilFormatOut.checkNull(address.getString("address1")));
+                            aimRequest.put("x_City", UtilFormatOut.checkNull(address.getString("city")));
+                            aimRequest.put("x_State", UtilFormatOut.checkNull(address.getString("stateProvinceGeoId")));
+                            aimRequest.put("x_Zip", UtilFormatOut.checkNull(address.getString("postalCode")));
+                            aimRequest.put("x_Country", UtilFormatOut.checkNull(address.getString("countryGeoId")));
                         }
                     }
                 } else {
@@ -522,13 +536,13 @@ public class AIMPaymentServices {
                 // this would be the case for an authorization
                 GenericValue cp = (GenericValue) params.get("billToParty");
                 GenericValue ba = (GenericValue) params.get("billingAddress");
-                AIMRequest.put("x_First_Name", UtilFormatOut.checkNull(cp.getString("firstName")));
-                AIMRequest.put("x_Last_Name", UtilFormatOut.checkNull(cp.getString("lastName")));
-                AIMRequest.put("x_Address", UtilFormatOut.checkNull(ba.getString("address1")));
-                AIMRequest.put("x_City", UtilFormatOut.checkNull(ba.getString("city")));
-                AIMRequest.put("x_State", UtilFormatOut.checkNull(ba.getString("stateProvinceGeoId")));
-                AIMRequest.put("x_Zip", UtilFormatOut.checkNull(ba.getString("postalCode")));
-                AIMRequest.put("x_Country", UtilFormatOut.checkNull(ba.getString("countryGeoId")));
+                aimRequest.put("x_First_Name", UtilFormatOut.checkNull(cp.getString("firstName")));
+                aimRequest.put("x_Last_Name", UtilFormatOut.checkNull(cp.getString("lastName")));
+                aimRequest.put("x_Address", UtilFormatOut.checkNull(ba.getString("address1")));
+                aimRequest.put("x_City", UtilFormatOut.checkNull(ba.getString("city")));
+                aimRequest.put("x_State", UtilFormatOut.checkNull(ba.getString("stateProvinceGeoId")));
+                aimRequest.put("x_Zip", UtilFormatOut.checkNull(ba.getString("postalCode")));
+                aimRequest.put("x_Country", UtilFormatOut.checkNull(ba.getString("countryGeoId")));
             }
             return;
         } catch (GenericEntityException ex) {
@@ -537,16 +551,16 @@ public class AIMPaymentServices {
         }
     }
 
-    private static void buildEmailSettings(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildEmailSettings(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         GenericValue ea = (GenericValue) params.get("billToEmail");
-        AIMRequest.put("x_Email_Customer", props.getProperty("emailCustomer"));
-        AIMRequest.put("x_Email_Merchant", props.getProperty("emailMerchant"));
+        aimRequest.put("x_Email_Customer", props.getProperty("emailCustomer"));
+        aimRequest.put("x_Email_Merchant", props.getProperty("emailMerchant"));
         if (ea != null) {
-            AIMRequest.put("x_Email", UtilFormatOut.checkNull(ea.getString("infoString")));
+            aimRequest.put("x_Email", UtilFormatOut.checkNull(ea.getString("infoString")));
         }
     }
 
-    private static void buildInvoiceInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildInvoiceInfo(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         String description = UtilFormatOut.checkNull(props.getProperty("transDescription"));
         String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));
         if (UtilValidate.isEmpty(orderId)) {
@@ -555,87 +569,87 @@ public class AIMPaymentServices {
                 orderId = (String) orderPaymentPreference.get("orderId");
             }
         }
-        AIMRequest.put("x_Invoice_Num", "Order " + orderId);
-        AIMRequest.put("x_Description", description);
+        aimRequest.put("x_Invoice_Num", "Order " + orderId);
+        aimRequest.put("x_Description", description);
     }
 
-    private static void buildAuthTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildAuthTransaction(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((BigDecimal) params.get("processAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         String cardSecurityCode = (String) params.get("cardSecurityCode");
-        AIMRequest.put("x_Amount", amount);
-        AIMRequest.put("x_Currency_Code", currency);
-        AIMRequest.put("x_Method", props.getProperty("method"));
-        AIMRequest.put("x_Type", props.getProperty("transType"));
-        AIMRequest.put("x_Card_Num", number);
-        AIMRequest.put("x_Exp_Date", expDate);
+        aimRequest.put("x_Amount", amount);
+        aimRequest.put("x_Currency_Code", currency);
+        aimRequest.put("x_Method", props.getProperty("method"));
+        aimRequest.put("x_Type", props.getProperty("transType"));
+        aimRequest.put("x_Card_Num", number);
+        aimRequest.put("x_Exp_Date", expDate);
         if (UtilValidate.isNotEmpty(cardSecurityCode)) {
-            AIMRequest.put("x_card_code", cardSecurityCode);
+            aimRequest.put("x_card_code", cardSecurityCode);
         }
-        if (AIMRequest.get("x_market_type") != null) {
-            AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
+        if (aimRequest.get("x_market_type") != null) {
+            aimRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
         }
     }
 
-    private static void buildCaptureTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildCaptureTransaction(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         GenericValue at = (GenericValue) params.get("authTransaction");
         GenericValue cc = (GenericValue) params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((BigDecimal) params.get("captureAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
-        AIMRequest.put("x_Amount", amount);
-        AIMRequest.put("x_Currency_Code", currency);
-        AIMRequest.put("x_Method", props.getProperty("method"));
-        AIMRequest.put("x_Type", props.getProperty("transType"));
-        AIMRequest.put("x_Card_Num", number);
-        AIMRequest.put("x_Exp_Date", expDate);
-        AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
-        AIMRequest.put("x_ref_trans_id", at.get("referenceNum"));
-        AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
-        if (AIMRequest.get("x_market_type") != null) {
-            AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
+        aimRequest.put("x_Amount", amount);
+        aimRequest.put("x_Currency_Code", currency);
+        aimRequest.put("x_Method", props.getProperty("method"));
+        aimRequest.put("x_Type", props.getProperty("transType"));
+        aimRequest.put("x_Card_Num", number);
+        aimRequest.put("x_Exp_Date", expDate);
+        aimRequest.put("x_Trans_ID", at.get("referenceNum"));
+        aimRequest.put("x_ref_trans_id", at.get("referenceNum"));
+        aimRequest.put("x_Auth_Code", at.get("gatewayCode"));
+        if (aimRequest.get("x_market_type") != null) {
+            aimRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
         }
     }
 
-    private static void buildRefundTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildRefundTransaction(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         GenericValue at = (GenericValue) params.get("authTransaction");
         GenericValue cc = (GenericValue) params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((BigDecimal) params.get("refundAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
-        AIMRequest.put("x_Amount", amount);
-        AIMRequest.put("x_Currency_Code", currency);
-        AIMRequest.put("x_Method", props.getProperty("method"));
-        AIMRequest.put("x_Type", props.getProperty("transType"));
-        AIMRequest.put("x_Card_Num", number);
-        AIMRequest.put("x_Exp_Date", expDate);
-        AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
-        AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
-        AIMRequest.put("x_ref_trans_id", at.get("referenceNum"));
-        if (AIMRequest.get("x_market_type") != null) {
-            AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
+        aimRequest.put("x_Amount", amount);
+        aimRequest.put("x_Currency_Code", currency);
+        aimRequest.put("x_Method", props.getProperty("method"));
+        aimRequest.put("x_Type", props.getProperty("transType"));
+        aimRequest.put("x_Card_Num", number);
+        aimRequest.put("x_Exp_Date", expDate);
+        aimRequest.put("x_Trans_ID", at.get("referenceNum"));
+        aimRequest.put("x_Auth_Code", at.get("gatewayCode"));
+        aimRequest.put("x_ref_trans_id", at.get("referenceNum"));
+        if (aimRequest.get("x_market_type") != null) {
+            aimRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
         }
         Debug.logInfo("buildCaptureTransaction. " + at.toString(), MODULE);
     }
 
-    private static void buildVoidTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static void buildVoidTransaction(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         GenericValue at = (GenericValue) params.get("authTransaction");
         String currency = (String) params.get("currency");
-        AIMRequest.put("x_Currency_Code", currency);
-        AIMRequest.put("x_Method", props.getProperty("method"));
-        AIMRequest.put("x_Type", props.getProperty("transType"));
-        AIMRequest.put("x_ref_trans_id", at.get("referenceNum"));
-        AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
-        AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
+        aimRequest.put("x_Currency_Code", currency);
+        aimRequest.put("x_Method", props.getProperty("method"));
+        aimRequest.put("x_Type", props.getProperty("transType"));
+        aimRequest.put("x_ref_trans_id", at.get("referenceNum"));
+        aimRequest.put("x_Trans_ID", at.get("referenceNum"));
+        aimRequest.put("x_Auth_Code", at.get("gatewayCode"));
         Debug.logInfo("buildVoidTransaction. " + at.toString(), MODULE);
     }
 
-    private static Map<String, Object> validateRequest(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
+    private static Map<String, Object> validateRequest(Map<String, Object> params, Properties props, Map<String, Object> aimRequest) {
         Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;

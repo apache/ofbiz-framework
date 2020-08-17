@@ -689,7 +689,6 @@ public class ICalConverter {
 
     /**
      * Updates work efforts from an incoming iCalendar request.
-     *
      * @param is the input feeding the calendar parser
      * @param context parameters from the execution environment
      * @return the response from the ICalWorker

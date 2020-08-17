@@ -54,9 +54,7 @@ public class TechDataServices {
     private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**
-     *
      * Used to retrieve some RoutingTasks (WorkEffort) selected by Name or MachineGroup ordered by Name
-     *
      * @param ctx the dispatch context
      * @param context a map containing workEffortName (routingTaskName) and fixedAssetId (MachineGroup or ANY)
      * @return result a map containing lookupResult (list of RoutingTask &lt;=&gt; workEffortId with currentStatusId = "ROU_ACTIVE" and workEffortTypeId = "ROU_TASK"
@@ -101,9 +99,7 @@ public class TechDataServices {
     }
 
     /**
-     *
      * Used to check if there is not two routing task with the same SeqId valid at the same period
-     *
      * @param ctx            The DispatchContext that this service is operating in.
      * @param context    a map containing workEffortIdFrom (routing) and SeqId, fromDate thruDate
      * @return result      a map containing sequenceNumNotOk which is equal to "Y" if it's not Ok
@@ -166,7 +162,6 @@ public class TechDataServices {
     /**
      * Used to get the techDataCalendar for a routingTask, if there is a entity exception
      * or routingTask associated with no MachineGroup the DEFAULT TechDataCalendar is return.
-     *
      * @param routingTask    the routingTask for which we are looking for
      * @return the techDataCalendar associated
      */
@@ -209,7 +204,6 @@ public class TechDataServices {
     }
 
     /** Used to find the fisrt day in the TechDataCalendarWeek where capacity != 0, beginning at dayStart, dayStart included.
-     *
      * @param techDataCalendarWeek        The TechDataCalendarWeek cover
      * @param dayStart
      * @return a map with the  capacity (Double) available and moveDay (int): the number of day it's necessary to move to have capacity available
@@ -262,7 +256,6 @@ public class TechDataServices {
     }
     /** Used to to request the remain capacity available for dateFrom in a TechDataCalenda,
      * If the dateFrom (param in) is not  in an available TechDataCalendar period, the return value is zero.
-     *
      * @param techDataCalendar        The TechDataCalendar cover
      * @param dateFrom                        the date
      * @return  long capacityRemaining
@@ -292,7 +285,6 @@ public class TechDataServices {
     }
     /** Used to move in a TechDataCalenda, produce the Timestamp for the begining of the next day available and its associated capacity.
      * If the dateFrom (param in) is not  in an available TechDataCalendar period, the return value is the next day available
-     *
      * @param techDataCalendar        The TechDataCalendar cover
      * @param dateFrom                        the date
      * @return a map with Timestamp dateTo, Double nextCapacity
@@ -333,7 +325,6 @@ public class TechDataServices {
     }
     /** Used to move forward in a TechDataCalenda, start from the dateFrom and move forward only on available period.
      * If the dateFrom (param in) is not  a available TechDataCalendar period, the startDate is the begining of the next  day available
-     *
      * @param techDataCalendar        The TechDataCalendar cover
      * @param dateFrom                        the start date
      * @param amount                           the amount of millisecond to move forward
@@ -362,7 +353,6 @@ public class TechDataServices {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Used to find the last day in the TechDataCalendarWeek where capacity != 0, ending at dayEnd, dayEnd included.
-     *
      * @param techDataCalendarWeek        The TechDataCalendarWeek cover
      * @param dayEnd
      * @return a map with the  capacity (Double) available, the startTime and  moveDay (int): the number of day it's necessary to move to have capacity available
@@ -415,7 +405,6 @@ public class TechDataServices {
     }
     /** Used to request the remaining capacity available for dateFrom in a TechDataCalenda,
      * If the dateFrom (param in) is not  in an available TechDataCalendar period, the return value is zero.
-     *
      * @param techDataCalendar        The TechDataCalendar cover
      * @param dateFrom                        the date
      * @return  long capacityRemaining
@@ -445,7 +434,6 @@ public class TechDataServices {
     }
     /** Used to move in a TechDataCalenda, produce the Timestamp for the end of the previous day available and its associated capacity.
      * If the dateFrom (param in) is not  in an available TechDataCalendar period, the return value is the previous day available
-     *
      * @param techDataCalendar        The TechDataCalendar cover
      * @param dateFrom                        the date
      * @return a map with Timestamp dateTo, Double previousCapacity
@@ -488,7 +476,6 @@ public class TechDataServices {
     }
     /** Used to move backward in a TechDataCalendar, start from the dateFrom and move backward only on available period.
      * If the dateFrom (param in) is not  a available TechDataCalendar period, the startDate is the end of the previous day available
-     *
      * @param techDataCalendar        The TechDataCalendar cover
      * @param dateFrom                        the start date
      * @param amount                           the amount of millisecond to move backward

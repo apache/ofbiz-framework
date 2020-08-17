@@ -4772,7 +4772,6 @@ public class OrderServices {
 
     /**
      * Service to create a payment using an order payment preference.
-     *
      * @return Map
      */
     public static Map<String, Object> createPaymentFromPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -5298,7 +5297,6 @@ public class OrderServices {
 
     /**
      * Generates a product requirement for the total cancelled quantity over all order items for each product
-     *
      * @param dctx    the dispatch context
      * @param context the context
      * @return the result of the service execution
@@ -5607,7 +5605,6 @@ public class OrderServices {
      * any adjustments for that item (via OrderAdjustmentBilling), and the item's share of any order-level adjustments (that calculated
      * by applying the percentage of the items total that the item represents to the order-level adjustments total (also via
      * OrderAdjustmentBilling). Also returns the quantity invoiced for the item over all invoices, to aid in prorating.
-     *
      * @param dctx    DispatchContext
      * @param context Map
      * @return Map
@@ -5928,7 +5925,6 @@ public class OrderServices {
 
     /**
      * Create an OrderItemShipGroup record
-     *
      * @param dctx
      * @param context
      * @return
@@ -6024,7 +6020,6 @@ public class OrderServices {
 
     /**
      * Remove an OrderItemShipGroup record
-     *
      * @param ctx
      * @param context a map containing in paramaters
      * @return result: a map containing out parameters
@@ -6057,7 +6052,6 @@ public class OrderServices {
 
     /**
      * Create orderItem and shipGroup association
-     *
      * @param dctx
      * @param context
      * @return
@@ -6150,7 +6144,6 @@ public class OrderServices {
 
     /**
      * Update orderItem and shipgroup association
-     *
      * @param dctx
      * @param context
      * @return

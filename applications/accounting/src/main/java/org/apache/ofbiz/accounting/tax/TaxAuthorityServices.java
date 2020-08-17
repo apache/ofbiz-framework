@@ -661,7 +661,6 @@ public class TaxAuthorityServices {
     /**
      * Private helper method which determines, based on the state of the product,
      * how the ProdCondition should be set for the main condition.
-     *
      * @param delegator
      * @param product
      *            which may be null

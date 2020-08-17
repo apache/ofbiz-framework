@@ -217,7 +217,6 @@ public final class PaymentWorker {
 
     /**
      * Returns the total from a list of Payment entities
-     *
      * @param payments List of Payment GenericValue items
      * @return total payments as BigDecimal
      */

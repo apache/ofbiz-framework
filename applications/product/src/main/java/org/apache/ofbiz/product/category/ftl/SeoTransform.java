@@ -129,10 +129,8 @@ public class SeoTransform implements TemplateTransformModel {
 
     /**
      * Transform a url according to seo pattern regular expressions.
-     *
      * @param url, String to do the seo transform
      * @param isAnon, boolean to indicate whether it's an anonymous visit.
-     *
      * @return String, the transformed url.
      */
     public static String seoUrl(String url, boolean isAnon) {

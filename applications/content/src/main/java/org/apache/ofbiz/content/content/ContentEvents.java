@@ -47,7 +47,6 @@ public class ContentEvents {
 
     /**
      * Updates/adds keywords for all contents
-     *
      * @param request HTTPRequest object for the current request
      * @param response HTTPResponse object for the current request
      * @return String specifying the exit status of this event

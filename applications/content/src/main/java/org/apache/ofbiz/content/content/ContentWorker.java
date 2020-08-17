@@ -1509,7 +1509,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     /*
      * Tries to find the mime type of the associated content and parent content.
-     *
      * @param delegator
      * @param view SubContentDataResourceView
      * @param parentContent Content entity

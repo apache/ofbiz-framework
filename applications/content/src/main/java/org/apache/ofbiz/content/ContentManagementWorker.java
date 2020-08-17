@@ -92,7 +92,6 @@ public final class ContentManagementWorker {
     /**
      * Makes an entry in the "most recently used" cache. It picks the cache
      * by the entity name and builds a signature from the primary key values.
-     *
      * @param entityName
      * @param lookupCaches
      * @param pk           either a GenericValue or GenericPK - populated
@@ -125,7 +124,6 @@ public final class ContentManagementWorker {
 
     /**
      * Builds a string signature from a GenericValue or GenericPK.
-     *
      * @param pk     either a populated GenericValue or GenericPK.
      * @param suffix a string that can be used to distinguish the signature (probably not used).
      */
@@ -316,7 +314,6 @@ public final class ContentManagementWorker {
     /**
      * Returns a list of WebSitePublishPoint entities that are children of parentPubPt
      * The name should be "getAllTopLevelPublishPoints" or "getAllChildPublishPoints"
-     *
      * @param parentPubPt The parent publish point.
      */
     public static List<GenericValue> getAllPublishPoints(Delegator delegator, String parentPubPt) throws GeneralException {
@@ -596,7 +593,6 @@ public final class ContentManagementWorker {
     /**
      * Returns a list of "department" (having ContentAssoc of type "DEPARTMENT")
      * Content entities that are children of parentPubPt
-     *
      * @param parentPubPt The parent publish point.
      */
     public static List<GenericValue> getAllDepartmentContent(Delegator delegator, String parentPubPt) throws GeneralException {

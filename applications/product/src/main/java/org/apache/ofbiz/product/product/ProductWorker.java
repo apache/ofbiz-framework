@@ -164,7 +164,7 @@ public final class ProductWorker {
         return null;
     }
 
-    public static String getAggregatedInstanceId(Delegator delegator, String  aggregatedProductId, String configId) throws GenericEntityException {
+    public static String getAggregatedInstanceId(Delegator delegator, String aggregatedProductId, String configId) throws GenericEntityException {
         List<GenericValue> productAssocs = getAggregatedAssocs(delegator, aggregatedProductId);
         if (UtilValidate.isNotEmpty(productAssocs) && UtilValidate.isNotEmpty(configId)) {
             for (GenericValue productAssoc: productAssocs) {
@@ -177,7 +177,7 @@ public final class ProductWorker {
         return null;
     }
 
-    public static List<GenericValue> getAggregatedAssocs(Delegator delegator, String  aggregatedProductId) throws GenericEntityException {
+    public static List<GenericValue> getAggregatedAssocs(Delegator delegator, String aggregatedProductId) throws GenericEntityException {
         GenericValue aggregatedProduct = EntityQuery.use(delegator).from("Product").where("productId", aggregatedProductId).queryOne();
 
         if (aggregatedProduct != null && ("AGGREGATED".equals(aggregatedProduct.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId")))) {
@@ -413,7 +413,6 @@ public final class ProductWorker {
     }
 
     /**
-     *
      * @param product
      * @return list featureType and related featuresIds, description and feature price for this product ordered by type and sequence
      */

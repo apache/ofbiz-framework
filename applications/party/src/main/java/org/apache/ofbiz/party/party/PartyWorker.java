@@ -231,7 +231,6 @@ public class PartyWorker {
      * The matching process is as follows:
      * 1. Calls {@link #findMatchingPartyPostalAddress(Delegator, String, String, String, String, String, String, String, String)} to retrieve a list of address matched PartyAndPostalAddress records.  Results are limited to Parties of type PERSON.
      * 2. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
-     *
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
      * @param address2              Optional PostalAddress.address2 to match against.
@@ -301,7 +300,6 @@ public class PartyWorker {
      * Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
      * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId, postalCode, postalCodeExt and countryGeoId
      * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.  Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
-     *
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
      * @param address2              Optional PostalAddress.address2 to match against.

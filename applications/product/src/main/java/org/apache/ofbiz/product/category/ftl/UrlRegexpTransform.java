@@ -185,12 +185,10 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
     /**
      * Transform a url according to seo pattern regular expressions.
-     *
      * @param url
      *            String to do the seo transform
      * @param isAnon
      *            boolean to indicate whether it's an anonymous visit.
-     *
      * @return String the transformed url.
      */
     public static String seoUrl(String url, boolean isAnon) {
@@ -248,7 +246,6 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
-     *
      * @param uri
      *            String to reverse transform
      * @return String

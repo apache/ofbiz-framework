@@ -272,7 +272,6 @@ public class CommunicationEventServices {
     /**
      * Service to send all content associated to a FILE_TRANSFER_COMM CommunicationEvent,
      * with contactMechIdTo as a FtpAdress contactMech
-     *
      * @param ctx
      * @param context
      * @return
@@ -859,28 +858,21 @@ public class CommunicationEventServices {
 
     /**
      * This service is the main one for processing incoming emails.
-     *
      * Its only argument is a wrapper for the JavaMail MimeMessage object.
      * From this object, all the fields, headers and content of the message can be accessed.
-     *
      * The first thing this service does is try to discover the partyId of the message sender
      * by doing a reverse find on the email address. It uses the findPartyFromEmailAddress service to do this.
-     *
      * It then creates a CommunicationEvent entity by calling the createCommunicationEvent service using the appropriate fields from the email and the
      * discovered partyId, if it exists, as the partyIdFrom. Note that it sets the communicationEventTypeId
      * field to AUTO_EMAIL_COMM. This is useful for tracking email generated communications.
-     *
      * The service tries to find appropriate content for inclusion in the CommunicationEvent.content field.
      * If the contentType of the content starts with "text", the getContent() call returns a string and it is used.
      * If the contentType starts with "multipart", then the "parts" of the content are iterated thru and the first
      * one of mime type, "text/..." is used.
-     *
      * If the contentType has a value of "multipart" then the parts of the content (except the one used in the main
      * CommunicationEvent.content field) are cycled thru and attached to the CommunicationEvent entity using the
      * createCommContentDataResource service. This happens in the EmailWorker.addAttachmentsToCommEvent method.
-     *
      * However multiparts can contain multiparts. A recursive function has been added.
-     *
      * -Al Byers - Hans Bakker
      * @param dctx the dispatch context
      * @param context the context

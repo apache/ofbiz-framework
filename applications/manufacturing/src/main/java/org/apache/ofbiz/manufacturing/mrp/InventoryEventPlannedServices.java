@@ -39,10 +39,8 @@ public class InventoryEventPlannedServices {
     private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**
-     *
      *  Create an MrpEvent.
      *  Make an update if a record exist with same key, (adding the event quantity to the exiting record)
-     *
      * @param ctx the dispatch context
      * @param context a map containing the parameters used to create an MrpEvent
      * @return result a map with service status

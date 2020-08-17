@@ -48,7 +48,6 @@ public class GatewayConnector {
 
     /**
      * Get the timeout value set in the corresponding setter.
-     *
      * @return timeout value in seconds, 0 for infinite
      */
     public int getTimeout() {
@@ -59,7 +58,6 @@ public class GatewayConnector {
      * Set the timout value. Note that setting the timeout for an HttpURLConnection
      * is possible only since Java 1.5. This method has no effect on earlier
      * versions.
-     *
      * @param time timeout value in seconds, 0 for infinite
      */
     public void setTimeout(int time) {

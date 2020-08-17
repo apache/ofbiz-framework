@@ -62,7 +62,6 @@ public class LoginEvents {
     public static final String usernameCookieName = "OFBiz.Username";
     /**
      * Save USERNAME and PASSWORD for use by auth pages even if we start in non-auth pages.
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
@@ -105,7 +104,6 @@ public class LoginEvents {
     /**
      * The user forgot his/her password.  This will call showPasswordHint, emailPassword or simply returns "success" in case
      * no operation has been specified.
-     *
      * @param request The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -168,7 +166,6 @@ public class LoginEvents {
 
     /**
      * event to send an email with a link to change password
-     *
      * @param request The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event

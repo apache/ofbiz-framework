@@ -1194,7 +1194,6 @@ public class WorkEffortSearch {
          * [workEffortName]
          * [totalQuantityOrdered] for most popular or most purchased
          * [lastModifiedDate]
-         *
          *  You can also include any other field on the WorkEffort entity.
          */
         public SortWorkEffortField(String fieldName, boolean ascending) {

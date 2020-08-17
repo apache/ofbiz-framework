@@ -73,7 +73,6 @@ public class ProductEvents {
 
     /**
      * Updates/adds keywords for all products
-     *
      * @param request HTTPRequest object for the current request
      * @param response HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -189,7 +188,6 @@ public class ProductEvents {
 
     /**
      * Updates ProductAssoc information according to UPDATE_MODE parameter
-     *
      * @param request The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -938,7 +936,6 @@ public class ProductEvents {
     /**
      * If ProductStore.requireCustomerRole == Y then the loggedin user must be associated with the store in the customer role.
      * This event method is called from the ProductEvents.storeCheckLogin and ProductEvents.storeLogin
-     *
      * @param request
      * @param response
      * @return String with response, maybe "success" or "error" if logged in user is not associated with the ProductStore in the CUSTOMER role.

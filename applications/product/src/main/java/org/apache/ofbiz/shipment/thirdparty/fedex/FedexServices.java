@@ -83,7 +83,6 @@ public class FedexServices {
 
     /**
      * Opens a URL to Fedex and makes a request.
-     *
      * @param xmlString XML message to send
      * @param delegator the delegator
      * @param shipmentGatewayConfigId the shipmentGatewayConfigId
@@ -395,7 +394,6 @@ public class FedexServices {
     }
 
     /**
-     *
      * Send a FDXShipRequest via the Ship Manager Direct API
      */
     public static Map<String, Object> fedexShipRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
