@@ -20,36 +20,39 @@ under the License.
 <script type="application/javascript">
 jQuery(document).ready(function () {
     var libraryFiles = ["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
-        "/common/js/jquery/plugins/select2/css/select2-4.0.6.css",
-        "<@jsLangFilesMap>select2</@jsLangFilesMap>"];
+        "/common/js/jquery/plugins/select2/css/select2-4.0.6.css"];
     importLibrary(libraryFiles, function(){
 
-        multiple = jQuery("#${asm_multipleSelect!}");
+        var langFile = ["<@jsLangFilesMap>select2</@jsLangFilesMap>"];
+        importLibrary(langFile, function(){
 
-        <#if asm_title??>
-        // set the dropdown "title" if??
-        multiple.attr('title', '${asm_title}');
-        </#if>
+            multiple = jQuery("#${asm_multipleSelect!}");
 
-        multiple.select2({
-            tags: true,
-            multiple: true,
-            lang: <#if userLogin??>'${userLogin.lastLocale!"en"}'<#else>"en"</#if>,
-            width: "50%"
-        });
+            <#if asm_title??>
+            // set the dropdown "title" if??
+            multiple.attr('title', '${asm_title}');
+            </#if>
 
-        <#if asm_relatedField??> <#-- can be used without related field -->
-        // track possible relatedField changes
-        // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values.
-        typeValue = jQuery('#${asm_typeField}').val();
-        jQuery("#${asm_relatedField}").one('focus', function () {
+            multiple.select2({
+                tags: true,
+                multiple: true,
+                lang: <#if userLogin??>'${userLogin.lastLocale!"en"}'<#else>"en"</#if>,
+                width: "50%"
+            });
+
+            <#if asm_relatedField??> <#-- can be used without related field -->
+            // track possible relatedField changes
+            // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values.
+            typeValue = jQuery('#${asm_typeField}').val();
+            jQuery("#${asm_relatedField}").one('focus', function () {
+                selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
+            });
+            jQuery("#${asm_relatedField}").change(function () {
+                selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
+            });
             selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
+            </#if>
         });
-        jQuery("#${asm_relatedField}").change(function () {
-            selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
-        });
-        selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
-        </#if>
     });
 });
 </script>
