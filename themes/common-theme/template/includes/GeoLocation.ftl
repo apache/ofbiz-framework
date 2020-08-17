@@ -115,8 +115,8 @@ under the License.
     <#elseif "GEOPT_OSM" == geoChart.dataSourceId>
     <div id="${id}" class="map" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;"></div>
     <script type="application/javascript">
-        var importLibraryFiles = ["/common/js/plugins/OpenLayers-5.3.0.js", "/common/js/plugins/OpenLayers-5.3.0.css"];
-        importLibrary(importLibraryFiles, function() {
+        var libraryFiles = ["/common/js/plugins/OpenLayers-5.3.0.js", "/common/js/plugins/OpenLayers-5.3.0.css"];
+        importLibrary(libraryFiles, function() {
             var iconFeatures=[];
 
             <#if geoChart.points?has_content>

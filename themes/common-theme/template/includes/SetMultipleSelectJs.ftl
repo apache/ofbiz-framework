@@ -19,10 +19,10 @@ under the License.
 <#if asm_multipleSelect??> <#-- we check only this var and suppose the others are also present -->
 <script type="application/javascript">
 jQuery(document).ready(function () {
-    var importLibraryFiles = ["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
+    var libraryFiles = ["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
         "/common/js/jquery/plugins/select2/css/select2-4.0.6.css",
         "<@jsLangFilesMap>select2</@jsLangFilesMap>"];
-    importLibrary(importLibraryFiles, function(){
+    importLibrary(libraryFiles, function(){
 
         multiple = jQuery("#${asm_multipleSelect!}");
 

@@ -101,9 +101,9 @@ function bindObservers(bind_element) {
     });
     jQuery(bind_element).find(".visual-editor").each(function(){
         var self = this;
-        var importLibraryFiles = ["https://localhost:8443/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
-            "https://localhost:8443/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"];
-        importLibrary(importLibraryFiles, function() {
+        var libraryFiles = ["/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
+            "/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"];
+        importLibrary(libraryFiles, function() {
             var element = jQuery(self);
             var toolbar = element.data('toolbar');
             var language = element.data('language');
@@ -1463,8 +1463,8 @@ var importLibrary = function() {
                     return importLibraryFiles.get(url);
                 }
             })
-        ).then(onSuccessFn).catch(onErrorFn || function () {
-            alert('Error loading one of the files: \n' + urls.join('\n'))
+        ).then(onSuccessFn).catch(onErrorFn || function (err) {
+            alert('Error:\n'+err+'\n\nFile(s): \n' + urls.join('\n'))
         });
     }
 }();
