@@ -329,7 +329,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("alternate", encodedAlternate);
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
-        this.request.setAttribute("id", hyperlinkField.getId(context));
+        this.request.setAttribute("id", modelFormField.getCurrentContainerId(context));
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(),
@@ -1178,6 +1178,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderSubmitField(Appendable writer, Map<String, Object> context, SubmitField submitField) throws IOException {
         ModelFormField modelFormField = submitField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
+        String id = modelFormField.getCurrentContainerId(context);
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         String title = modelFormField.getTitle(context);
@@ -1225,6 +1226,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(encode(title, modelFormField, context));
         sr.append("\" name=\"");
         sr.append(name);
+        sr.append("\" id=\"");
+        sr.append(id);
         sr.append("\" event=\"");
         if (event != null) {
             sr.append(event);
