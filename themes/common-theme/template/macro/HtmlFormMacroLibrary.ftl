@@ -214,6 +214,7 @@ under the License.
     <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>/>
   <#else>
     <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert />
+    <#if id?has_content> id="${id}"</#if><#rt/>
     <#if name??> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
     <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"
       <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
