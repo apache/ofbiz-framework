@@ -62,18 +62,14 @@ function bindObservers(bind_element) {
         jQuery(".selectAll").removeAttr("checked").trigger("click");
     }
 
-    //Set default pattern for new plugin jQuery-Mask-Plugin same as Masked-Input-Plugin.
-    jQuery.jMaskGlobals = {
-        translation: {
-            '9': {pattern: /[0-9*]/},
-            '*': {pattern: /[a-zA-Z0-9]/},
-            'a': {pattern: /[a-zA-Z]/}
-        }
-    };
     jQuery(bind_element).find("[data-mask]").each(function(){
-        var element = jQuery(this);
-        var mask = element.data('mask');
-        element.mask(mask);
+        var self = this;
+        var libraryFiles = ["/common/js/jquery/plugins/inputmask/jquery.inputmask-5.0.6-beta.11.min.js"];
+        importLibrary(libraryFiles, function() {
+            var element = jQuery(self);
+            var mask = element.data('mask');
+            element.inputmask(mask);
+        });
     });
     jQuery(bind_element).find('.autoCompleteDropDown').each(function(){
         jQuery(this).combobox();
