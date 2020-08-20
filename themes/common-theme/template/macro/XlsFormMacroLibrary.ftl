@@ -46,7 +46,7 @@ under the License.
 
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled><@renderItemField currentValue "txf" className/></#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex></#macro>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title name event confirmation containerId tabindex></#macro>
 
 <#macro renderResetField className alert name title></#macro>
 
