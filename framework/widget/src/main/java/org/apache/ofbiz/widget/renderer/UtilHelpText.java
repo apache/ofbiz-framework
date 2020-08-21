@@ -39,7 +39,6 @@ public final class UtilHelpText {
 
     /**
      * Find the help text associated with an entity field.
-     *
      * @param entityName the entity name
      * @param fieldName the field name
      * @param delegator the delegator

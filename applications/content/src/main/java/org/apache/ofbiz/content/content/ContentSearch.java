@@ -881,7 +881,6 @@ public class ContentSearch {
          * [contentName]
          * [totalQuantityOrdered] for most popular or most purchased
          * [lastModifiedDate]
-         *
          *  You can also include any other field on the Content entity.
          */
         public SortContentField(String fieldName, boolean ascending) {

@@ -419,7 +419,6 @@ public class ShoppingListServices {
 
     /**
      * Create a new shoppingCart form a shoppingList
-     *
      * @param dispatcher   the local dispatcher
      * @param shoppingList a GenericValue object of the shopping list
      * @param locale       the locale in use
@@ -431,7 +430,6 @@ public class ShoppingListServices {
 
     /**
      * Add a shoppinglist to an existing shoppingcart
-     *
      * @param listCart     the shopping cart list
      * @param dispatcher   the local dispatcher
      * @param shoppingList a GenericValue object of the shopping list
@@ -551,7 +549,6 @@ public class ShoppingListServices {
      * Given an orderId, this service will look through all its OrderItems and for each shoppingListItemId
      * and shoppingListItemSeqId, update the quantity purchased in the ShoppingListItem entity.  Used for
      * tracking how many of shopping list items are purchased.  This service is mounted as a seca on storeOrder.
-     *
      * @param ctx     - The DispatchContext that this service is operating in
      * @param context - Map containing the input parameters
      * @return Map with the result of the service, the output parameters

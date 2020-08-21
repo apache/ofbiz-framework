@@ -449,7 +449,6 @@ public class LoginServices {
 
     /**
      * Login service to authenticate a username without password, storing history
-     *
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map<String, Object> userImpersonate(DispatchContext ctx, Map<String, ?> context) {
@@ -522,7 +521,6 @@ public class LoginServices {
     /**
      * Return error message if a needed control has failed : userLoginToImpersonate must exist Impersonation have to be enabled Check
      * userLoginIdToImpersonate is active, not Admin and not equals to userLogin Check userLogin has enough permission
-     *
      * @param delegator
      * @param userLogin
      * @param userLoginToImpersonate

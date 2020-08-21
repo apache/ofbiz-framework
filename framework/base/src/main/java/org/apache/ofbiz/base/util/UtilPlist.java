@@ -170,9 +170,7 @@ public final class UtilPlist {
 
     /**
      * Writes model information in the Apple EOModelBundle format.
-     *
      * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
-     *
      * @param eoModelMap
      * @param eomodeldFullPath
      * @param filename

@@ -91,7 +91,6 @@ public class FindServices {
 
     /**
      * prepareField, analyse inputFields to created normalizedFields a map with field name and operator.
-     *
      * This is use to the generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
      * @param inputFields     Input parameters run thru UtilHttp.getParameterMap
@@ -206,7 +205,6 @@ public class FindServices {
 
     /**
      * Parses input parameters and returns an <code>EntityCondition</code> list.
-     *
      * @param parameters
      * @param fieldList
      * @param queryStringMap
@@ -315,7 +313,6 @@ public class FindServices {
 
     /**
      * Creates a single <code>EntityCondition</code> based on a set of parameters.
-     *
      * @param modelField
      * @param operation
      * @param fieldValue
@@ -394,7 +391,6 @@ public class FindServices {
 
     /**
      * createCondition, comparing the normalizedFields with the list of keys, .
-     *
      * This is use to the generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
      * @param modelEntity the model entity object
@@ -451,13 +447,11 @@ public class FindServices {
     }
 
     /**
-     *
      *  same as performFind but now returning a list instead of an iterator
      *  Extra parameters viewIndex: startPage of the partial list (0 = first page)
      *                              viewSize: the length of the page (number of records)
      *  Extra output parameter: listSize: size of the totallist
      *                                         list : the list itself.
-     *
      * @param dctx
      * @param context
      * @return Map
@@ -494,7 +488,6 @@ public class FindServices {
 
     /**
      * performFind
-     *
      * This is a generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
      */
@@ -581,7 +574,6 @@ public class FindServices {
 
     /**
      * prepareFind
-     *
      * This is a generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
      */
@@ -662,7 +654,6 @@ public class FindServices {
 
     /**
      * executeFind
-     *
      * This is a generic method that returns an EntityListIterator.
      */
     public static Map<String, Object> executeFind(DispatchContext dctx, Map<String, ?> context) {
@@ -787,7 +778,6 @@ public class FindServices {
     /**
      * Returns the first generic item of the service 'performFind'
      * Same parameters as performFind service but returns a single GenericValue
-     *
      * @param dctx
      * @param context
      * @return returns the first item

@@ -31,7 +31,6 @@ final class EntityConditionUtils {
 
     /**
      * Calls {@link ModelEntity#getField(String)} if the entity model is not null.
-     *
      * @param modelEntity the entity model to query
      * @param fieldName the name of the field to get from {@code ModelEntity}
      * @return the field corresponding to {@code fieldName} in {@code ModelEntity}
@@ -43,7 +42,6 @@ final class EntityConditionUtils {
     /**
      * Calls {@link SqlJdbcUtil#addValue(StringBuilder, ModelField, Object, List)}
      * if the condition parameters are not null.
-     *
      * @param buffer the buffer that will receive the SQL dump
      * @param field the field to dump
      * @param value the value to dump

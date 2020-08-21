@@ -53,10 +53,8 @@ public class ImportProductServices {
      * "InventoryItem" entities into database. The method uses the
      * ImportProductHelper class to perform its operation. The method uses "Apache
      * POI" api for importing spreadsheet (xls files) data.
-     *
      * Note : Create the spreadsheet directory in the ofbiz home folder and keep
      * your xls files in this folder only.
-     *
      * @param dctx the dispatch context
      * @param context the context
      * @return the result of the service execution

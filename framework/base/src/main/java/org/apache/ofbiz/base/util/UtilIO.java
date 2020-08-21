@@ -39,7 +39,6 @@ public final class UtilIO {
     private UtilIO() { }
 
     /** Copy a Reader to an Appendable.
-     *
      * @param reader the Reader to copy from
      * @param out the Appendable to copy to
      * @throws IOException if an error occurs
@@ -55,7 +54,6 @@ public final class UtilIO {
 
     /** Convert a byte array to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param bytes the array of bytes to convert
      * @return the converted string, with platform line endings converted
      * to \n
@@ -67,7 +65,6 @@ public final class UtilIO {
     /** Convert a byte array to a string; consistently uses \n line endings
      * in java.  The conversion is limited to the specified offset/length
      * pair, and uses a default {@link Charset UTF-8} charset.
-     *
      * @param bytes the array of bytes to convert
      * @param offset the start of the conversion
      * @param length how many bytes to convert
@@ -81,7 +78,6 @@ public final class UtilIO {
     /** Convert a byte array to a string; consistently uses \n line endings
      * in java.  The conversion is limited to the specified offset/length
      * pair, and uses the requested charset to decode the bytes.
-     *
      * @param bytes the array of bytes to convert
      * @param charset the charset to use to convert the raw bytes
      * @return the converted string, with platform line endings converted
@@ -95,7 +91,6 @@ public final class UtilIO {
      * endings in java.  The conversion is limited to the specified
      * offset/length  pair, and uses the requested charset to decode the
      * bytes.
-     *
      * @param bytes the array of bytes to convert
      * @param offset the start of the conversion
      * @param length how many bytes to convert
@@ -123,7 +118,6 @@ public final class UtilIO {
      * endings in java.  The conversion is limited to the specified
      * offset/length  pair, and uses the requested {@link Charset
      * charset} to decode the bytes.
-     *
      * @param bytes the array of bytes to convert
      * @param offset the start of the conversion
      * @param length how many bytes to convert
@@ -140,7 +134,6 @@ public final class UtilIO {
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param stream the stream of bytes to convert
      * @return the converted string, with platform line endings converted
      * to \n
@@ -151,7 +144,6 @@ public final class UtilIO {
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param stream the stream of bytes to convert
      * @param charset the charset to use to convert the raw bytes
      * @return the converted string, with platform line endings converted
@@ -163,7 +155,6 @@ public final class UtilIO {
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param stream the stream of bytes to convert
      * @param charset the charset to use to convert the raw bytes
      * @return the converted string, with platform line endings converted
@@ -175,7 +166,6 @@ public final class UtilIO {
 
     /** Convert an {@link Reader} to a string; consistently uses \n line endings
      * in java.
-     *
      * @param reader the stream of characters convert
      * @return the converted string, with platform line endings converted
      * to \n
@@ -216,7 +206,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses a default
      * {@link Charset UTF-8} charset.
-     *
      * @param file where to write the converted bytes to
      * @param value the value to write
      */
@@ -226,7 +215,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses a default
      * {@link Charset UTF-8} charset.
-     *
      * @param out where to write the converted bytes to
      * @param value the value to write
      */
@@ -236,7 +224,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses the
      * specified charset to extract the raw bytes.
-     *
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write
@@ -247,7 +234,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses the
      * specified charset to extract the raw bytes.
-     *
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write

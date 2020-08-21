@@ -42,7 +42,6 @@ public interface ViewHandler {
     /**
      * Initializes the handler. Since handlers use the singleton pattern this method should only be called
      * the first time the handler is used.
-     *
      * @param context ServletContext This may be needed by the handler in order to lookup properties or XML
      * definition files for rendering pages or handler options.
      * @throws ViewHandlerException
@@ -51,7 +50,6 @@ public interface ViewHandler {
 
     /**
      * Render the page.
-     *
      * @param name The name of the view.
      * @param page The source of the view; could be a page, url, etc depending on the type of handler.
      * @param info An info string attached to this view

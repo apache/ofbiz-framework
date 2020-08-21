@@ -76,11 +76,16 @@ public final class ModelField extends ModelChild {
      * @param enableAuditLog <code>true</code> if this field is included in the entity audit log.
      * @param validators The validators for this field.
      */
-    public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
-        return create(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt ? EncryptMethod.TRUE : EncryptMethod.FALSE, isAutoCreatedInternal, enableAuditLog, validators);
+    public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue,
+                                    String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal,
+                                    boolean enableAuditLog, List<String> validators) {
+        return create(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt ? EncryptMethod.TRUE
+                : EncryptMethod.FALSE, isAutoCreatedInternal, enableAuditLog, validators);
     }
 
-    public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, EncryptMethod encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
+    public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue,
+                                    String fieldSet, boolean isNotNull, boolean isPk, EncryptMethod encrypt, boolean isAutoCreatedInternal,
+                                    boolean enableAuditLog, List<String> validators) {
         // TODO: Validate parameters.
         if (description == null) {
             description = "";
@@ -108,7 +113,8 @@ public final class ModelField extends ModelChild {
         if (isPk) {
             isNotNull = true;
         }
-        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, isAutoCreatedInternal, enableAuditLog, validators);
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, isAutoCreatedInternal,
+                enableAuditLog, validators);
     }
 
     /**
@@ -136,7 +142,7 @@ public final class ModelField extends ModelChild {
         }
         EncryptMethod encrypt = EncryptMethod.valueOf(fieldElement.getAttribute("encrypt").toUpperCase(Locale.getDefault()));
         boolean enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
-        List<String>validators = Collections.emptyList();
+        List<String> validators = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(fieldElement, "validate");
         if (!elementList.isEmpty()) {
             validators = new ArrayList<>(elementList.size());
@@ -145,7 +151,8 @@ public final class ModelField extends ModelChild {
             }
             validators = Collections.unmodifiableList(validators);
         }
-        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, validators);
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false,
+                enableAuditLog, validators);
     }
 
     /**
@@ -155,17 +162,18 @@ public final class ModelField extends ModelChild {
      * @param modelFieldTypeReader
      */
     public static ModelField create(ModelEntity modelEntity, DatabaseUtil.ColumnCheckInfo ccInfo, ModelFieldTypeReader modelFieldTypeReader) {
-        String colName = ccInfo.columnName;
+        String colName = ccInfo.getColumnName();
         String name = ModelUtil.dbNameToVarName(colName);
-        String type = ModelUtil.induceFieldType(ccInfo.typeName, ccInfo.columnSize, ccInfo.decimalDigits, modelFieldTypeReader);
-        boolean isPk = ccInfo.isPk;
-        boolean isNotNull = "NO".equals(ccInfo.isNullable.toUpperCase(Locale.getDefault()));
+        String type = ModelUtil.induceFieldType(ccInfo.getTypeName(), ccInfo.getColumnSize(), ccInfo.getDecimalDigits(), modelFieldTypeReader);
+        boolean isPk = ccInfo.isPk();
+        boolean isNotNull = "NO".equals(ccInfo.getIsNullable().toUpperCase(Locale.getDefault()));
         String description = "";
         String colValue = "";
         String fieldSet = "";
         EncryptMethod encrypt = EncryptMethod.FALSE;
         boolean enableAuditLog = false;
-        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, Collections.<String>emptyList());
+        return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false,
+                enableAuditLog, Collections.<String>emptyList());
     }
 
     /*
@@ -198,7 +206,9 @@ public final class ModelField extends ModelChild {
     /** validators to be called when an update is done */
     private final List<String> validators;
 
-    private ModelField(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, EncryptMethod encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
+    private ModelField(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet,
+                       boolean isNotNull, boolean isPk, EncryptMethod encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog,
+                       List<String> validators) {
         super(modelEntity, description);
         this.name = name;
         this.type = type;

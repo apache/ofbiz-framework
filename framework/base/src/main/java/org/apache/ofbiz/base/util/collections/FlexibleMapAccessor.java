@@ -43,9 +43,9 @@ import org.apache.ofbiz.base.util.string.UelUtil;
 @SuppressWarnings("serial")
 public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     private static final String MODULE = FlexibleMapAccessor.class.getName();
-    private static final UtilCache<String, FlexibleMapAccessor<Object>> fmaCache =
+    private static final UtilCache<String, FlexibleMapAccessor<Object>> FMA_CACHE =
             UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
-    private static final FlexibleMapAccessor<?> nullFma = new FlexibleMapAccessor<>("");
+    private static final FlexibleMapAccessor<?> NULL_FMA = new FlexibleMapAccessor<>("");
 
     private final boolean isEmpty;
     private final String original;
@@ -67,10 +67,11 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
                 isAscending = true;
                 name = name.substring(1);
             }
-            if (name.contains(FlexibleStringExpander.openBracket)) {
+            if (name.contains(FlexibleStringExpander.OPEN_BRACKET)) {
                 fse = FlexibleStringExpander.getInstance(name);
             } else {
-                bracketedOriginal = FlexibleStringExpander.openBracket.concat(UelUtil.prepareExpression(name).concat(FlexibleStringExpander.closeBracket));
+                bracketedOriginal = FlexibleStringExpander.OPEN_BRACKET.concat(UelUtil.prepareExpression(name)
+                        .concat(FlexibleStringExpander.CLOSE_BRACKET));
             }
         }
         this.bracketedOriginal = bracketedOriginal;
@@ -87,12 +88,12 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
      */
     public static <T> FlexibleMapAccessor<T> getInstance(String original) {
         if (UtilValidate.isEmpty(original) || "null".equals(original)) {
-            return UtilGenerics.cast(nullFma);
+            return UtilGenerics.cast(NULL_FMA);
         }
-        FlexibleMapAccessor<T> fma = UtilGenerics.cast(fmaCache.get(original));
+        FlexibleMapAccessor<T> fma = UtilGenerics.cast(FMA_CACHE.get(original));
         if (fma == null) {
-            fmaCache.putIfAbsent(original, new FlexibleMapAccessor<>(original));
-            fma = UtilGenerics.cast(fmaCache.get(original));
+            FMA_CACHE.putIfAbsent(original, new FlexibleMapAccessor<>(original));
+            fma = UtilGenerics.cast(FMA_CACHE.get(original));
         }
         return fma;
     }
@@ -205,7 +206,8 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     private String getExpression(Map<String, ? extends Object> base) {
         String expression = null;
         if (this.fse != null) {
-            expression = FlexibleStringExpander.openBracket.concat(UelUtil.prepareExpression(this.fse.expandString(base)).concat(FlexibleStringExpander.closeBracket));
+            expression = FlexibleStringExpander.OPEN_BRACKET.concat(UelUtil.prepareExpression(this.fse.expandString(base))
+                    .concat(FlexibleStringExpander.CLOSE_BRACKET));
         } else {
             expression = this.bracketedOriginal;
         }

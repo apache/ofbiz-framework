@@ -586,7 +586,6 @@ public final class CommonWidgetModels {
 
     /**
      * Models the &lt;parameter&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class Parameter {

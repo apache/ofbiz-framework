@@ -130,7 +130,6 @@ public abstract class ModelWidget implements Serializable {
      * rendering context. If <code>widget.verbose</code> is set to <code>false</code> in the
      * <code>widget.properties</code> file, then that setting will override all other settings and
      * disable all widget boundary comments.
-     *
      * @param context Optional context Map
      */
     public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> context) {

@@ -68,14 +68,11 @@ public class ModelTree extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
     private static final String MODULE = ModelTree.class.getName();
@@ -223,7 +220,6 @@ public class ModelTree extends ModelWidget {
 
     /**
      * Renders this model.
-     *
      * @param writer
      * @param context
      * @param treeStringRenderer
@@ -291,7 +287,6 @@ public class ModelTree extends ModelWidget {
 
     /**
      * Models the &lt;node&gt; element.
-     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class ModelNode extends ModelWidget {
@@ -696,7 +691,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;image&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class Image {
@@ -761,7 +755,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;label&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static final class Label {
@@ -820,7 +813,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;link&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class Link {
@@ -1034,7 +1026,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;sub-node&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class ModelSubNode extends ModelWidget {

@@ -249,8 +249,7 @@ public class CatalinaContainer implements Container {
         }
 
         virtualHosts.stream()
-            .filter(virtualHost -> virtualHost != hostName)
-            .forEach(virtualHost -> host.addAlias(virtualHost));
+            .filter(virtualHost -> virtualHost != hostName).forEach(virtualHost -> host.addAlias(virtualHost));
 
         return host;
     }
@@ -426,24 +425,24 @@ public class CatalinaContainer implements Container {
             Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", MODULE);
         }
         connectorProp.properties().values().stream()
-            .filter(prop -> {
-                String name = prop.name();
-                return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name);
-            })
-            .forEach(prop -> {
-                String name = prop.name();
-                String value = prop.value();
-                if (IntrospectionUtils.setProperty(connector, name, value)) {
-                    if (name.indexOf("Pass") != -1) {
-                        // this property may be a password, do not include its value in the logs
-                        Debug.logInfo("Tomcat " + connector + ": set " + name, MODULE);
+                .filter(prop -> {
+                    String name = prop.name();
+                    return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name);
+                })
+                .forEach(prop -> {
+                    String name = prop.name();
+                    String value = prop.value();
+                    if (IntrospectionUtils.setProperty(connector, name, value)) {
+                        if (name.indexOf("Pass") != -1) {
+                            // this property may be a password, do not include its value in the logs
+                            Debug.logInfo("Tomcat " + connector + ": set " + name, MODULE);
+                        } else {
+                            Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, MODULE);
+                        }
                     } else {
-                        Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, MODULE);
+                        Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
                     }
-                } else {
-                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
-                }
-            });
+                });
         return connector;
     }
 
@@ -461,7 +460,7 @@ public class CatalinaContainer implements Container {
         for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
             if (webappsMounts.removeAll(getWebappMounts(appInfo))) {
                 // webapp is not yet loaded
-                if (!appInfo.location.isEmpty()) {
+                if (!appInfo.getLocation().isEmpty()) {
                     futures.add(executor.submit(createCallableContext(tomcat, appInfo, clusterProp, configuration)));
                 }
             } else {
@@ -478,7 +477,7 @@ public class CatalinaContainer implements Container {
 
     private static List<String> getWebappMounts(ComponentConfig.WebappInfo webappInfo) {
         List<String> allAppsMounts = new ArrayList<>();
-        String engineName = webappInfo.server;
+        String engineName = webappInfo.getServer();
         String mount = webappInfo.getContextRoot();
         List<String> virtualHosts = webappInfo.getVirtualHosts();
         if (virtualHosts.isEmpty()) {
@@ -492,7 +491,7 @@ public class CatalinaContainer implements Container {
     private static Callable<Context> createCallableContext(Tomcat tomcat, ComponentConfig.WebappInfo appInfo,
             Configuration.Property clusterProp, ContainerConfig.Configuration configuration) {
 
-        Debug.logInfo("Creating context [" + appInfo.name + "]", MODULE);
+        Debug.logInfo("Creating context [" + appInfo.getName() + "]", MODULE);
         Host host = prepareHost(tomcat, appInfo.getVirtualHosts());
 
         return () -> {
@@ -514,7 +513,7 @@ public class CatalinaContainer implements Container {
 
         context.setParent(host);
         context.setDocBase(location);
-        context.setDisplayName(appInfo.name);
+        context.setDisplayName(appInfo.getName());
         context.setPath(getWebappMountPoint(appInfo));
         context.addLifecycleListener(new ContextConfig());
         context.setJ2EEApplication("OFBiz");
@@ -524,9 +523,9 @@ public class CatalinaContainer implements Container {
         context.setReloadable(ContainerConfig.getPropertyValue(configuration, "apps-context-reloadable", false));
         context.setDistributable(contextIsDistributable);
         context.setCrossContext(ContainerConfig.getPropertyValue(configuration, "apps-cross-context", true));
-        context.setPrivileged(appInfo.privileged);
-        context.getServletContext().setAttribute("_serverId", appInfo.server);
-        context.getServletContext().setAttribute("componentName", appInfo.componentConfig.getComponentName());
+        context.setPrivileged(appInfo.isPrivileged());
+        context.getServletContext().setAttribute("_serverId", appInfo.getServer());
+        context.getServletContext().setAttribute("componentName", appInfo.getComponentConfig().getComponentName());
 
         if (clusterProp != null && contextIsDistributable) {
             context.setManager(prepareClusterManager(clusterProp));
@@ -564,14 +563,14 @@ public class CatalinaContainer implements Container {
     }
 
     private static String getWebappRootLocation(ComponentConfig.WebappInfo appInfo) {
-        return appInfo.componentConfig.rootLocation()
-                .resolve(appInfo.location.replace('\\', '/'))
+        return appInfo.getComponentConfig().rootLocation()
+                .resolve(appInfo.getLocation().replace('\\', '/'))
                 .normalize()
                 .toString();
     }
 
     private static String getWebappMountPoint(ComponentConfig.WebappInfo appInfo) {
-        String mount = appInfo.mountPoint;
+        String mount = appInfo.getMountPoint();
         if (mount.endsWith("/*")) {
             mount = mount.substring(0, mount.length() - 2);
         }

@@ -27,26 +27,26 @@ import java.nio.charset.Charset;
 import java.util.Stack;
 
 /**
- *  Record Iterator for reading large files
- *  Note: this is a memory intensive and will not handle files that exceed memory.
- *
+ * Record Iterator for reading large files
+ * Note: this is a memory intensive and will not handle files that exceed memory.
  */
 public class RecordIterator {
 
     private static final String MODULE = RecordIterator.class.getName();
 
-    protected BufferedReader br;
-    protected ModelDataFile modelDataFile;
-    protected InputStream dataFileStream;
-    protected boolean closed = false;
-    protected String locationInfo;
+    private BufferedReader br;
+    private ModelDataFile modelDataFile;
+    private InputStream dataFileStream;
+    private boolean closed = false;
+    private String locationInfo;
 
-    protected int nextLineNum = 0;
-    protected String curLine = null;
-    protected Record curRecord = null;
-    protected String nextLine = null;
-    protected Record nextRecord = null;
-    protected String eof = "\u001A"; // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in some DOS file, specifically file extracted from zip archives.
+    private int nextLineNum = 0;
+    private String curLine = null;
+    private Record curRecord = null;
+    private String nextLine = null;
+    private Record nextRecord = null;
+    private String eof = "\u001A"; // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in
+    // some DOS file, specifically file extracted from zip archives.
 
     public RecordIterator(URL fileUrl, ModelDataFile modelDataFile) throws DataFileException {
         this.modelDataFile = modelDataFile;
@@ -65,6 +65,12 @@ public class RecordIterator {
         this.setupStream(dataFileStream, locationInfo);
     }
 
+    /**
+     * Sets stream.
+     * @param dataFileStream the data file stream
+     * @param locationInfo   the location info
+     * @throws DataFileException the data file exception
+     */
     protected void setupStream(InputStream dataFileStream, String locationInfo) throws DataFileException {
         this.locationInfo = locationInfo;
         this.dataFileStream = dataFileStream;
@@ -76,7 +82,7 @@ public class RecordIterator {
         }
         //move the cursor to the good start line
         try {
-            for (int i = 0; i < modelDataFile.startLine; i++) {
+            for (int i = 0; i < modelDataFile.getStartLine(); i++) {
                 br.readLine();
             }
         } catch (IOException e) {
@@ -86,29 +92,33 @@ public class RecordIterator {
         this.getNextLine();
     }
 
+    /**
+     * Gets next line.
+     * @return the next line
+     * @throws DataFileException the data file exception
+     */
     protected boolean getNextLine() throws DataFileException {
         this.nextLine = null;
         this.nextRecord = null;
 
-        boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
-        boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle);
+        boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.getSeparatorStyle());
+        boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.getSeparatorStyle());
 
         if (isFixedRecord) {
-            if (modelDataFile.recordLength <= 0) {
+            if (modelDataFile.getRecordLength() <= 0) {
                 throw new DataFileException("Cannot read a fixed record length file if no record length is specified");
             }
             try {
-                char[] charData = new char[modelDataFile.recordLength + 1];
+                char[] charData = new char[modelDataFile.getRecordLength() + 1];
 
-                if (br.read(charData, 0, modelDataFile.recordLength) == -1) {
+                if (br.read(charData, 0, modelDataFile.getRecordLength()) == -1) {
                     nextLine = null;
                 } else {
                     nextLine = new String(charData);
                 }
             } catch (IOException e) {
-                throw new DataFileException("Error reading line #" + nextLineNum + " (index " + (nextLineNum - 1) * modelDataFile.recordLength + " length "
-                                            + modelDataFile.recordLength + ") from location: " + locationInfo,
-                        e);
+                throw new DataFileException("Error reading line #" + nextLineNum + " (index " + (nextLineNum - 1) * modelDataFile.getRecordLength()
+                        + " length " + modelDataFile.getRecordLength() + ") from location: " + locationInfo, e);
             }
         } else {
             try {
@@ -122,7 +132,8 @@ public class RecordIterator {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
             if (isDelimited) {
-                this.nextRecord = Record.createDelimitedRecord(nextLine, nextLineNum, modelRecord, modelDataFile.delimiter, modelDataFile.textDelimiter);
+                this.nextRecord = Record.createDelimitedRecord(nextLine, nextLineNum, modelRecord, modelDataFile.getDelimiter(),
+                        modelDataFile.getTextDelimiter());
             } else {
                 this.nextRecord = Record.createRecord(nextLine, nextLineNum, modelRecord);
             }
@@ -133,22 +144,37 @@ public class RecordIterator {
         }
     }
 
+    /**
+     * Gets current line number.
+     * @return the current line number
+     */
     public int getCurrentLineNumber() {
         return this.nextLineNum - 1;
     }
 
+    /**
+     * Has next boolean.
+     * @return the boolean
+     */
     public boolean hasNext() {
         return nextLine != null && !((nextLine.contains(eof)));
     }
 
+    /**
+     * Next record.
+     * @return the record
+     * @throws DataFileException the data file exception
+     */
     public Record next() throws DataFileException {
+        int recordLength = modelDataFile.getRecordLength();
         if (!hasNext()) {
             return null;
         }
 
-        if (ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle) || ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle)
-            || ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle)) {
-            boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
+        if (ModelDataFile.SEP_DELIMITED.equals(modelDataFile.getSeparatorStyle())
+                || ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.getSeparatorStyle())
+                || ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.getSeparatorStyle())) {
+            boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.getSeparatorStyle());
             // advance the line (we have already checked to make sure there is a next line
             this.curLine = this.nextLine;
             this.curRecord = this.nextRecord;
@@ -157,23 +183,24 @@ public class RecordIterator {
             this.getNextLine();
 
             // first check to see if the file type has a line size, and if so if this line complies
-            if (!isFixedRecord && modelDataFile.recordLength > 0 && curLine.length() != modelDataFile.recordLength) {
+            if (!isFixedRecord && recordLength > 0 && curLine.length() != recordLength) {
                 throw new DataFileException(
-                        "Line number " + this.getCurrentLineNumber() + " was not the expected length; expected: " + modelDataFile.recordLength + ", got: " + curLine.length());
+                        "Line number " + this.getCurrentLineNumber() + " was not the expected length; expected: " + recordLength
+                                + ", got: " + curLine.length());
             }
 
             // if this record has children, put it on the parentStack and get/check the children now
-            if (this.curRecord.getModelRecord().childRecords.size() > 0) {
+            if (this.curRecord.getModelRecord().getChildRecords().size() > 0) {
                 Stack<Record> parentStack = new Stack<>();
                 parentStack.push(curRecord);
 
-                while (this.nextRecord != null && this.nextRecord.getModelRecord().parentRecord != null) {
+                while (this.nextRecord != null && this.nextRecord.getModelRecord().getParentRecord() != null) {
                     // if parent equals top parent on stack, add to that parents child list, otherwise pop off parent and try again
                     Record parentRecord = null;
 
                     while (parentStack.size() > 0) {
                         parentRecord = parentStack.peek();
-                        if (parentRecord.recordName.equals(this.nextRecord.getModelRecord().parentName)) {
+                        if (parentRecord.getRecordName().equals(this.nextRecord.getModelRecord().getParentName())) {
                             break;
                         } else {
                             parentStack.pop();
@@ -181,13 +208,13 @@ public class RecordIterator {
                         }
                     }
                     if (parentRecord == null) {
-                        throw new DataFileException("Expected Parent Record not found for line " + this.getCurrentLineNumber() + "; record name of expected parent is "
-                                                    + this.nextRecord.getModelRecord().parentName);
+                        throw new DataFileException("Expected Parent Record not found for line " + this.getCurrentLineNumber()
+                                + "; record name of expected parent is " + this.nextRecord.getModelRecord().getParentName());
                     }
                     parentRecord.addChildRecord(this.nextRecord);
 
                     // if the child record we just added is also a parent, push it onto the stack
-                    if (this.nextRecord.getModelRecord().childRecords.size() > 0) {
+                    if (this.nextRecord.getModelRecord().getChildRecords().size() > 0) {
                         parentStack.push(this.nextRecord);
                     }
                     // if it can't find a next line it will nextRecord will be null and the loop will break out
@@ -195,11 +222,15 @@ public class RecordIterator {
                 }
             }
         } else {
-            throw new DataFileException("Separator style " + modelDataFile.separatorStyle + " not recognized.");
+            throw new DataFileException("Separator style " + modelDataFile.getSeparatorStyle() + " not recognized.");
         }
         return curRecord;
     }
 
+    /**
+     * Close.
+     * @throws DataFileException the data file exception
+     */
     public void close() throws DataFileException {
         if (this.closed) {
             return;
@@ -212,7 +243,8 @@ public class RecordIterator {
         }
     }
 
-    /** Searches through the record models to find one with a matching type-code, if no type-code exists that model will always be used if it gets to it
+    /** Searches through the record models to find one with a matching type-code, if no type-code exists that model will always be used if
+     * it gets to it
      * @param line
      * @param lineNum
      * @param modelDataFile
@@ -222,29 +254,29 @@ public class RecordIterator {
     protected static ModelRecord findModelForLine(String line, int lineNum, ModelDataFile modelDataFile) throws DataFileException {
         ModelRecord modelRecord = null;
 
-        for (ModelRecord curModelRecord : modelDataFile.records) {
-            if (curModelRecord.tcPosition < 0) {
+        for (ModelRecord curModelRecord : modelDataFile.getRecords()) {
+            if (curModelRecord.getTcPosition() < 0) {
                 modelRecord = curModelRecord;
                 break;
             }
-            String typeCode = line.substring(curModelRecord.tcPosition, curModelRecord.tcPosition + curModelRecord.tcLength);
+            String typeCode = line.substring(curModelRecord.getTcPosition(), curModelRecord.getTcPosition() + curModelRecord.getTcLength());
 
             // try to match with a single typecode
-            if (curModelRecord.typeCode.length() > 0) {
-                if (!typeCode.isEmpty() && typeCode.equals(curModelRecord.typeCode)) {
+            if (curModelRecord.getTypeCode().length() > 0) {
+                if (!typeCode.isEmpty() && typeCode.equals(curModelRecord.getTypeCode())) {
                     modelRecord = curModelRecord;
                     break;
                 }
-            } // try to match a ranged typecode (tcMin <= typeCode <= tcMax)
-            else if (curModelRecord.tcMin.length() > 0 || curModelRecord.tcMax.length() > 0) {
-                if (curModelRecord.tcIsNum) {
+            } else if (curModelRecord.getTcMin().length() > 0 || curModelRecord.getTcMax().length() > 0) {
+                if (curModelRecord.isTcIsNum()) {
                     long typeCodeNum = Long.parseLong(typeCode);
-                    if ((curModelRecord.tcMinNum < 0 || typeCodeNum >= curModelRecord.tcMinNum) && (curModelRecord.tcMaxNum < 0 || typeCodeNum <= curModelRecord.tcMaxNum)) {
+                    if ((curModelRecord.getTcMinNum() < 0 || typeCodeNum >= curModelRecord.getTcMinNum()) && (curModelRecord.getTcMaxNum() < 0
+                            || typeCodeNum <= curModelRecord.getTcMaxNum())) {
                         modelRecord = curModelRecord;
                         break;
                     }
                 } else {
-                    if ((typeCode.compareTo(curModelRecord.tcMin) >= 0) && (typeCode.compareTo(curModelRecord.tcMax) <= 0)) {
+                    if ((typeCode.compareTo(curModelRecord.getTcMin()) >= 0) && (typeCode.compareTo(curModelRecord.getTcMax()) <= 0)) {
                         modelRecord = curModelRecord;
                         break;
                     }
@@ -253,7 +285,8 @@ public class RecordIterator {
         }
 
         if (modelRecord == null) {
-            throw new DataFileException("Could not find record definition for line " + lineNum + "; first bytes: " + line.substring(0, (line.length() > 5) ? 5 : line.length()));
+            throw new DataFileException("Could not find record definition for line " + lineNum + "; first bytes: "
+                    + line.substring(0, (line.length() > 5) ? 5 : line.length()));
         }
         return modelRecord;
     }

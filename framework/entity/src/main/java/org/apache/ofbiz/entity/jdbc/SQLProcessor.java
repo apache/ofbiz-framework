@@ -90,7 +90,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Construct an object based on the helper/datasource
-     *
      * @param helperInfo  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      */
     public SQLProcessor(Delegator delegator, GenericHelperInfo helperInfo) {
@@ -102,7 +101,6 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Construct an object with an connection given. The connection will not
      * be closed by this SQLProcessor, but may be by some other.
-     *
      * @param helperInfo  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      * @param connection  The connection to be used
      */
@@ -140,7 +138,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Commit all modifications
-     *
      * @throws GenericDataSourceException
      */
     public void commit() throws GenericDataSourceException {
@@ -207,7 +204,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Commit if required and remove all allocated resources
-     *
      * @throws GenericDataSourceException
      */
     @Override
@@ -263,15 +259,14 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Get a connection from the TransactionFactoryLoader
-     *
      * @return  The connection created
-     *
      * @throws GenericDataSourceException
      * @throws GenericEntityException
      */
     public Connection getConnection() throws GenericDataSourceException, GenericEntityException {
-        if (_connection != null)
+        if (_connection != null) {
             return _connection;
+        }
 
         _manualTX = true;
 
@@ -354,9 +349,7 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Prepare a statement. In case no connection has been given, allocate a
      * new one.
-     *
      * @param sql  The SQL statement to be executed
-     *
      * @throws GenericDataSourceException
      * @throws GenericEntityException
      */
@@ -367,9 +360,7 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Prepare a statement. In case no connection has been given, allocate a
      * new one.
-     *
      * @param sql  The SQL statement to be executed
-     *
      * @throws GenericDataSourceException
      * @throws GenericEntityException
      */
@@ -380,9 +371,7 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Prepare a statement. In case no connection has been given, allocate a
      * new one.
-     *
      * @param sql  The SQL statement to be executed
-     *
      * @throws GenericDataSourceException
      * @throws GenericEntityException
      */
@@ -423,7 +412,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Execute a query based on the prepared statement
-     *
      * @return The result set of the query
      * @throws GenericDataSourceException
      */
@@ -441,7 +429,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Execute a query based on the SQL string given
-     *
      * @param sql  The SQL string to be executed
      * @return  The result set of the query
      * @throws GenericEntityException
@@ -454,7 +441,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Execute updates
-     *
      * @return  The number of rows updated
      * @throws GenericDataSourceException
      */
@@ -472,7 +458,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Execute update based on the SQL statement given
-     *
      * @param sql  SQL statement to be executed
      * @throws GenericDataSourceException
      */
@@ -488,9 +473,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Test if there more records available
-     *
      * @return true, if there more records available
-     *
      * @throws GenericDataSourceException
      */
     public boolean next() throws GenericDataSourceException {
@@ -503,7 +486,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Getter: get the currently active ResultSet
-     *
      * @return ResultSet
      */
     public ResultSet getResultSet() {
@@ -512,7 +494,6 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Getter: get the prepared statement
-     *
      * @return PreparedStatement
      */
     public PreparedStatement getPreparedStatement() {
@@ -522,10 +503,8 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Execute a query based on the SQL string given. For each record
      * of the ResultSet return, execute a callback function
-     *
      * @param sql       The SQL string to be executed
      * @param aListener The callback function object
-     *
      * @throws GenericEntityException
      */
     public void execQuery(String sql, ExecQueryCallbackFunctionIF aListener) throws GenericEntityException {
@@ -563,10 +542,8 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param handler
      * @param field
-     *
      * @throws SQLException
      */
     public <T> void setValue(JdbcValueHandler<T> handler, T field) throws SQLException {
@@ -576,9 +553,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(String field) throws SQLException {
@@ -612,9 +587,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(java.sql.Timestamp field) throws SQLException {
@@ -628,9 +601,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(java.sql.Time field) throws SQLException {
@@ -644,9 +615,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(java.sql.Date field) throws SQLException {
@@ -660,9 +629,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Integer field) throws SQLException {
@@ -676,9 +643,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Long field) throws SQLException {
@@ -692,9 +657,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Float field) throws SQLException {
@@ -708,9 +671,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Double field) throws SQLException {
@@ -724,9 +685,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(BigDecimal field) throws SQLException {
@@ -740,9 +699,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Boolean field) throws SQLException {
@@ -756,9 +713,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Object field) throws SQLException {
@@ -772,9 +727,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Blob field) throws SQLException {
@@ -793,9 +746,7 @@ public class SQLProcessor implements AutoCloseable {
 
     /**
      * Set the next binding variable of the currently active prepared statement
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setValue(Clob field) throws SQLException {
@@ -810,9 +761,7 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Set the next binding variable of the currently active prepared statement
      * to write the serialized data of 'field' to a BLOB.
-     *
      * @param field
-     *
      * @throws SQLException
      */
     public void setBinaryStream(Object field) throws SQLException {
@@ -846,9 +795,7 @@ public class SQLProcessor implements AutoCloseable {
     /**
      * Set the next binding variable of the currently active prepared statement
      * to write the serialized data of 'field' to a Blob with the given bytes.
-     *
      * @param bytes
-     *
      * @throws SQLException
      */
     public void setBytes(byte[] bytes) throws SQLException {

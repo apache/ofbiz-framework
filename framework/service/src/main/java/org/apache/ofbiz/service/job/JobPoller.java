@@ -48,16 +48,16 @@ import org.apache.ofbiz.service.config.model.ThreadPool;
 public final class JobPoller implements ServiceConfigListener {
 
     private static final String MODULE = JobPoller.class.getName();
-    private static final AtomicInteger created = new AtomicInteger();
-    private static final ConcurrentHashMap<String, JobManager> jobManagers = new ConcurrentHashMap<>();
-    private static final ThreadPoolExecutor executor = createThreadPoolExecutor();
-    private static final JobPoller instance = new JobPoller();
+    private static final AtomicInteger CREATED = new AtomicInteger();
+    private static final ConcurrentHashMap<String, JobManager> JOB_MANAGERS = new ConcurrentHashMap<>();
+    private static final ThreadPoolExecutor EXECUTOR = createThreadPoolExecutor();
+    private static final JobPoller INSTANCE = new JobPoller();
 
     /**
      * Returns the <code>JobPoller</code> instance.
      */
     public static JobPoller getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private static ThreadPoolExecutor createThreadPoolExecutor() {
@@ -127,13 +127,12 @@ public final class JobPoller implements ServiceConfigListener {
 
     /**
      * Register a {@link JobManager} with the job poller.
-     *
      * @param jm The <code>JobManager</code> to register.
      * @throws IllegalArgumentException if <code>jm</code> is null
      */
     public static void registerJobManager(JobManager jm) {
         Assert.notNull("jm", jm);
-        jobManagers.putIfAbsent(jm.getDelegator().getDelegatorName(), jm);
+        JOB_MANAGERS.putIfAbsent(jm.getDelegator().getDelegatorName(), jm);
     }
 
     // -------------------------------------- //
@@ -156,14 +155,14 @@ public final class JobPoller implements ServiceConfigListener {
      */
     public Map<String, Object> getPoolState() {
         Map<String, Object> poolState = new HashMap<>();
-        poolState.put("keepAliveTimeInSeconds", executor.getKeepAliveTime(TimeUnit.SECONDS));
-        poolState.put("numberOfCoreInvokerThreads", executor.getCorePoolSize());
-        poolState.put("currentNumberOfInvokerThreads", executor.getPoolSize());
-        poolState.put("numberOfActiveInvokerThreads", executor.getActiveCount());
-        poolState.put("maxNumberOfInvokerThreads", executor.getMaximumPoolSize());
-        poolState.put("greatestNumberOfInvokerThreads", executor.getLargestPoolSize());
-        poolState.put("numberOfCompletedTasks", executor.getCompletedTaskCount());
-        BlockingQueue<Runnable> queue = executor.getQueue();
+        poolState.put("keepAliveTimeInSeconds", EXECUTOR.getKeepAliveTime(TimeUnit.SECONDS));
+        poolState.put("numberOfCoreInvokerThreads", EXECUTOR.getCorePoolSize());
+        poolState.put("currentNumberOfInvokerThreads", EXECUTOR.getPoolSize());
+        poolState.put("numberOfActiveInvokerThreads", EXECUTOR.getActiveCount());
+        poolState.put("maxNumberOfInvokerThreads", EXECUTOR.getMaximumPoolSize());
+        poolState.put("greatestNumberOfInvokerThreads", EXECUTOR.getLargestPoolSize());
+        poolState.put("numberOfCompletedTasks", EXECUTOR.getCompletedTaskCount());
+        BlockingQueue<Runnable> queue = EXECUTOR.getQueue();
         List<Map<String, Object>> taskList = new ArrayList<>();
         Map<String, Object> taskInfo = null;
         for (Runnable task : queue) {
@@ -186,11 +185,11 @@ public final class JobPoller implements ServiceConfigListener {
 
     @Override
     public void onServiceConfigChange(ServiceConfig serviceConfig) {
-        if (!executor.isShutdown()) {
+        if (!EXECUTOR.isShutdown()) {
             ThreadPool threadPool = serviceConfig.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
-            executor.setCorePoolSize(threadPool.getMinThreads());
-            executor.setMaximumPoolSize(threadPool.getMaxThreads());
-            executor.setKeepAliveTime(threadPool.getTtl(), TimeUnit.MILLISECONDS);
+            EXECUTOR.setCorePoolSize(threadPool.getMinThreads());
+            EXECUTOR.setMaximumPoolSize(threadPool.getMaxThreads());
+            EXECUTOR.setKeepAliveTime(threadPool.getTtl(), TimeUnit.MILLISECONDS);
         }
     }
 
@@ -210,7 +209,7 @@ public final class JobPoller implements ServiceConfigListener {
     public void queueNow(Job job) throws InvalidJobException {
         job.queue();
         try {
-            executor.execute(job);
+            EXECUTOR.execute(job);
         } catch (Exception e) {
             Debug.logError(e, MODULE);
             job.deQueue();
@@ -226,7 +225,7 @@ public final class JobPoller implements ServiceConfigListener {
         if (jobManagerPollerThread != null) {
             jobManagerPollerThread.interrupt();
         }
-        List<Runnable> queuedJobs = executor.shutdownNow();
+        List<Runnable> queuedJobs = EXECUTOR.shutdownNow();
         for (Runnable task : queuedJobs) {
             try {
                 Job queuedJob = (Job) task;
@@ -242,7 +241,7 @@ public final class JobPoller implements ServiceConfigListener {
 
         @Override
         public Thread newThread(Runnable runnable) {
-            return new Thread(runnable, "OFBiz-JobQueue-" + created.getAndIncrement());
+            return new Thread(runnable, "OFBiz-JobQueue-" + CREATED.getAndIncrement());
         }
     }
 
@@ -258,11 +257,11 @@ public final class JobPoller implements ServiceConfigListener {
                 while (Start.getInstance().getCurrentState() != Start.ServerState.RUNNING) {
                     Thread.sleep(1000);
                 }
-                while (!executor.isShutdown()) {
-                    int remainingCapacity = queueSize() - executor.getQueue().size();
+                while (!EXECUTOR.isShutdown()) {
+                    int remainingCapacity = queueSize() - EXECUTOR.getQueue().size();
                     if (remainingCapacity > 0) {
                         // Build "list of lists"
-                        Collection<JobManager> jmCollection = jobManagers.values();
+                        Collection<JobManager> jmCollection = JOB_MANAGERS.values();
                         List<Iterator<Job>> pollResults = new ArrayList<>();
                         for (JobManager jm : jmCollection) {
                             if (!jm.isAvailable()) {

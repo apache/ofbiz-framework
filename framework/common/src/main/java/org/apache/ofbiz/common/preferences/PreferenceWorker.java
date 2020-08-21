@@ -158,7 +158,6 @@ public final class PreferenceWorker {
      * found, the method attempts to get the current user's userLoginId. If the user
      * isn't logged in, then the method returns <a href="#DEFAULT_UID">DEFAULT_UID</a>
      * if returnDefault is set to true, otherwise the method returns a null or empty string.</p>
-     *
      * @param context Map containing the input arguments.
      * @param returnDefault return <a href="#DEFAULT_UID">DEFAULT_UID</a> if no userLoginId is found.
      * @return userLoginId String
@@ -190,7 +189,6 @@ public final class PreferenceWorker {
      * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a> permission then the
      *  method returns true.</li>
      * </ul>
-     *
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input arguments.
      * @return true if the userLoginId arguments are valid

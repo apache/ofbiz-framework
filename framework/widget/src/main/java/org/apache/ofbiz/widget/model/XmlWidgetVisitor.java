@@ -58,6 +58,7 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
     private final ModelFieldVisitor fieldVisitor;
     private final ModelActionVisitor actionVisitor;
     private final ModelConditionVisitor conditionVisitor;
+    private final Appendable writer = getWriter();
 
     public XmlWidgetVisitor(Appendable writer) {
         super(writer);

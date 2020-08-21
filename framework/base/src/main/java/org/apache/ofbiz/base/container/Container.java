@@ -42,7 +42,6 @@ public interface Container {
 
     /** Initialize the container. This method must not block - implementations
      * should initialize internal structures and then return.
-     *
      * @param ofbizCommands Command-line arguments.
      * @param name Unique name of the container's instance.
      * @param configFile  always {@code null} but used to be the location of the global
@@ -57,7 +56,6 @@ public interface Container {
     /**
      * Start the container process. This method must not block - implementations
      * that require thread blocking must create a separate thread and then return.
-     *
      * @return <code>true</code> if the process started.
      * @throws ContainerException If an error was encountered.
      */
@@ -65,14 +63,12 @@ public interface Container {
 
     /**
      * Stop the container process. This method must not block.
-     *
      * @throws ContainerException If an error was encountered.
      */
     void stop() throws ContainerException;
 
     /**
      * Return the container name.
-     *
      * @return Name of the container's instance.
      */
     String getName();

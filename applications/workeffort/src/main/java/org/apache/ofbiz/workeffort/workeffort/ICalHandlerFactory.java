@@ -41,7 +41,7 @@ import org.apache.ofbiz.webapp.webdav.RequestHandlerFactory;
 public class ICalHandlerFactory implements RequestHandlerFactory {
 
     private static final String MODULE = ICalHandlerFactory.class.getName();
-    protected final Map<String, RequestHandler> handlerMap;
+    private final Map<String, RequestHandler> handlerMap;
 
     public ICalHandlerFactory() {
         handlerMap = new HashMap<>();
@@ -68,7 +68,7 @@ public class ICalHandlerFactory implements RequestHandlerFactory {
         return handler;
     }
 
-    protected static void handleInvalidMethod (HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
+    protected static void handleInvalidMethod(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
             throws ServletException, IOException {
         Debug.logInfo("[InvalidMethodHandler] method = " + req.getMethod(), MODULE);
         resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);

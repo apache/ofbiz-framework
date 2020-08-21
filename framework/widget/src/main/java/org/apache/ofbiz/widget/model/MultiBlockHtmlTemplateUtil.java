@@ -343,14 +343,6 @@ public final class MultiBlockHtmlTemplateUtil {
                 // check url is not already in layoutSettings.javaScripts
                 if (!layoutSettingsJavaScripts.contains(url)) {
                     layoutSettingsJavaScripts.add(url);
-                    if (url.contains("select2")) {
-                        // find and add select2 language js
-                        String localeString = locale.toString();
-                        String langJsUrl = org.apache.ofbiz.common.JsLanguageFilesMapping.select2.getFilePath(localeString);
-                        if (!layoutSettingsJavaScripts.contains(langJsUrl)) {
-                            layoutSettingsJavaScripts.add(langJsUrl);
-                        }
-                    }
                 }
             } else if (link.startsWith("link:")) {
                 String url = link.substring(5);
@@ -418,8 +410,9 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param context
      * @param fileName
      * @param fileContent
+     * @return key used to store the script
      */
-    public static void putScriptInCache(Map<String, Object> context, String fileName, String fileContent) {
+    public static String putScriptInCache(Map<String, Object> context, String fileName, String fileContent) {
         HttpSession session = (HttpSession) context.get("session");
         String sessionId = session.getId();
         Map<String, String> scriptMap = UtilGenerics.cast(scriptCache.get(sessionId));
@@ -433,19 +426,29 @@ public final class MultiBlockHtmlTemplateUtil {
             };
             scriptCache.put(sessionId, scriptMap);
         }
-        scriptMap.put(fileName, fileContent);
+        String key = fileName;
+        if (scriptMap.containsKey(fileName)) {
+            int counter = 1;
+            key = fileName + "-" + counter;
+            while (scriptMap.containsKey(key)) {
+                counter++;
+                key = fileName + "-" + counter;
+            }
+        }
+        scriptMap.put(key, fileContent);
+        return key;
     }
 
     /**
-     * Get the script stored in cache.
+     * Remove script from cache after reading.
      * @param session
      * @param fileName
      * @return script to be sent back to browser
      */
     public static String getScriptFromCache(HttpSession session, final String fileName) {
         Map<String, String> scriptMap = UtilGenerics.cast(scriptCache.get(session.getId()));
-        if (scriptMap != null) {
-            return scriptMap.get(fileName);
+        if (scriptMap != null && scriptMap.containsKey(fileName)) {
+            return scriptMap.remove(fileName);
         }
         return "";
     }

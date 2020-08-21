@@ -35,39 +35,40 @@ public class JNDIContextFactory {
 
     private static final String MODULE = JNDIContextFactory.class.getName();
     // FIXME: InitialContext instances are not thread-safe! They should not be cached.
-    private static final UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
+    private static final UtilCache<String, InitialContext> CONTEXTS = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
 
     /**
      * Return the initial context according to the entityengine.xml parameters that correspond to the given prefix
      * @return the JNDI initial context
      */
     public static InitialContext getInitialContext(String jndiServerName) throws GenericConfigException {
-        InitialContext ic = contexts.get(jndiServerName);
+        InitialContext ic = CONTEXTS.get(jndiServerName);
 
         if (ic == null) {
             JNDIConfigUtil.JndiServerInfo jndiServerInfo = JNDIConfigUtil.getJndiServerInfo(jndiServerName);
 
             if (jndiServerInfo == null) {
-                throw new GenericConfigException("ERROR: no jndi-server definition was found with the name " + jndiServerName + " in jndiservers.xml");
+                throw new GenericConfigException("ERROR: no jndi-server definition was found with the name " + jndiServerName
+                        + " in jndiservers.xml");
             }
 
             try {
-                if (UtilValidate.isEmpty(jndiServerInfo.contextProviderUrl)) {
+                if (UtilValidate.isEmpty(jndiServerInfo.getContextProviderUrl())) {
                     ic = new InitialContext();
                 } else {
                     Hashtable<String, Object> h = new Hashtable<>();
 
-                    h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.initialContextFactory);
-                    h.put(Context.PROVIDER_URL, jndiServerInfo.contextProviderUrl);
-                    if (UtilValidate.isNotEmpty(jndiServerInfo.urlPkgPrefixes)) {
-                        h.put(Context.URL_PKG_PREFIXES, jndiServerInfo.urlPkgPrefixes);
+                    h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.getInitialContextFactory());
+                    h.put(Context.PROVIDER_URL, jndiServerInfo.getContextProviderUrl());
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.getUrlPkgPrefixes())) {
+                        h.put(Context.URL_PKG_PREFIXES, jndiServerInfo.getUrlPkgPrefixes());
                     }
 
-                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityPrincipal)) {
-                        h.put(Context.SECURITY_PRINCIPAL, jndiServerInfo.securityPrincipal);
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.getSecurityPrincipal())) {
+                        h.put(Context.SECURITY_PRINCIPAL, jndiServerInfo.getSecurityPrincipal());
                     }
-                    if (UtilValidate.isNotEmpty(jndiServerInfo.securityCredentials)) {
-                        h.put(Context.SECURITY_CREDENTIALS, jndiServerInfo.securityCredentials);
+                    if (UtilValidate.isNotEmpty(jndiServerInfo.getSecurityCredentials())) {
+                        h.put(Context.SECURITY_CREDENTIALS, jndiServerInfo.getSecurityCredentials());
                     }
 
                     ic = new InitialContext(h);
@@ -79,7 +80,7 @@ public class JNDIContextFactory {
                 throw new GenericConfigException(errorMsg, e);
             }
 
-            ic = contexts.putIfAbsentAndGet(jndiServerName, ic);
+            ic = CONTEXTS.putIfAbsentAndGet(jndiServerName, ic);
         }
 
         return ic;
@@ -89,6 +90,6 @@ public class JNDIContextFactory {
      * @param jndiServerName
      */
     public static void clearInitialContext(String jndiServerName) {
-        contexts.remove(jndiServerName);
+        CONTEXTS.remove(jndiServerName);
     }
 }

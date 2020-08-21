@@ -32,7 +32,7 @@ public final class JNDIConfigUtil {
 
     private static final String MODULE = JNDIConfigUtil.class.getName();
     private static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
-    private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, JndiServerInfo> JNDI_SERVER_INFOS = new ConcurrentHashMap<>();
     private JNDIConfigUtil() { }
 
     private static Element getXmlRootElement() throws GenericConfigException {
@@ -51,25 +51,45 @@ public final class JNDIConfigUtil {
         }
     }
     public static void initialize(Element rootElement) {
-        // jndi-server - jndiServerInfos
+        // jndi-server - JNDI_SERVER_INFOS
         for (Element curElement: UtilXml.childElementList(rootElement, "jndi-server")) {
             JndiServerInfo jndiServerInfo = new JndiServerInfo(curElement);
 
-            jndiServerInfos.putIfAbsent(jndiServerInfo.name, jndiServerInfo);
+            JNDI_SERVER_INFOS.putIfAbsent(jndiServerInfo.name, jndiServerInfo);
         }
     }
 
     public static JndiServerInfo getJndiServerInfo(String name) {
-        return jndiServerInfos.get(name);
+        return JNDI_SERVER_INFOS.get(name);
     }
 
     public static final class JndiServerInfo {
-        public final String name;
-        public final String contextProviderUrl;
-        public final String initialContextFactory;
-        public final String urlPkgPrefixes;
-        public final String securityPrincipal;
-        public final String securityCredentials;
+        private final String name;
+        private final String contextProviderUrl;
+        private final String initialContextFactory;
+        private final String urlPkgPrefixes;
+        private final String securityPrincipal;
+        private final String securityCredentials;
+
+        public String getContextProviderUrl() {
+            return contextProviderUrl;
+        }
+
+        public String getInitialContextFactory() {
+            return initialContextFactory;
+        }
+
+        public String getUrlPkgPrefixes() {
+            return urlPkgPrefixes;
+        }
+
+        public String getSecurityPrincipal() {
+            return securityPrincipal;
+        }
+
+        public String getSecurityCredentials() {
+            return securityCredentials;
+        }
 
         public JndiServerInfo(Element element) {
             this.name = element.getAttribute("name");

@@ -127,13 +127,9 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true" />
                 <!-- Jgrowl -->
-                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/Readmore.js-master/readmore.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.css" global="true" />
                 <!-- Set default user locale from browser -->
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/util/setUserTimeZone.js"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/plugins/moment-timezone/moment-timezone-with-data.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/plugins/moment-timezone/moment-with-locales.min.js" global="true"/>
             </actions>
             <widgets />
         </section>
@@ -452,7 +448,6 @@ under the License.
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css" global="true" />
 
-                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/OpenLayers-5.3.0.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/fieldlookup.js" global="true"/>
                 <!-- The default (global) shortcut icon -->

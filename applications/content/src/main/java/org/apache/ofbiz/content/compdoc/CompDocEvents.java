@@ -55,11 +55,9 @@ public class CompDocEvents {
     private static final String ERR_RESOURCE = "WebappUiLabels";
 
     /**
-     *
      * @param request
      * @param response
      * @return
-     *
      * Creates the topmost Content entity of a Composite Document tree.
      * Also creates an "empty" Composite Document Instance Content entity.
      * Creates ContentRevision/Item records for each, as well.

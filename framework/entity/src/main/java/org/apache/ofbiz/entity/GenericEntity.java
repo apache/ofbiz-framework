@@ -278,7 +278,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     /**
-     *
      * @deprecated Use hasChanged()
      */
     @Deprecated
@@ -678,7 +677,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * The field's Java data type can be either <code>String</code> or
      * <code>Number</code>. Invalid Java data types will throw
      * <code>IllegalArgumentException</code>.
-     *
      * @param name The name of the desired field
      * @return A <code>TimeDuration</code> instance or <code>null</code>
      */
@@ -785,12 +783,10 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      *    and a composite of the Primary Key field values as a key. If no value is found in the
      *    resource then the field value is returned. Uses the default-resource-name from the entity
      *    definition as the resource name. To specify a resource name manually, use the other getResource method.
-     *
      *  So, the key in the resource bundle (properties file) should be as follows:
      *    &lt;entity-name&gt;.&lt;field-name&gt;.&lt;pk-field-value-1&gt;.&lt;pk-field-value-2&gt;...&lt;pk-field-value-n&gt;
      *  For example:
      *    ProductType.description.FINISHED_GOOD
-     *
      * @param name The name of the field on the entity
      * @param locale The locale to use when finding the ResourceBundle, if null uses the default
      *    locale for the current instance of Java
@@ -1352,7 +1348,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     /**
      * Creates a String for the entity, overrides the default toString
      * This method is secure, it will not display encrypted fields
-     *
      *@return String corresponding to this entity
      */
     @Override
@@ -1388,7 +1383,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     /**
      * Creates a String for the entity, overrides the default toString
      * This method is NOT secure, it WILL display encrypted fields
-     *
      *@return String corresponding to this entity
      */
     public String toStringInsecure() {
@@ -1598,7 +1592,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     /**
      * Checks to see if all foreign key records exist in the database. Will create a dummy value for
      * those missing when specified.
-     *
      * @param insertDummy Create a dummy record using the provided fields
      * @return true if all FKs exist (or when all missing are created)
      * @throws GenericEntityException

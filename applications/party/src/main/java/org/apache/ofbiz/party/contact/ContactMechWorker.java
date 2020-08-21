@@ -1009,7 +1009,6 @@ public class ContactMechWorker {
 
     /**
      * Returns a <b>PostalAddress</b> <code>GenericValue</code> as a URL encoded <code>String</code>.
-     *
      * @param postalAddress A <b>PostalAddress</b> <code>GenericValue</code>.
      * @return A URL encoded <code>String</code>.
      * @throws GenericEntityException

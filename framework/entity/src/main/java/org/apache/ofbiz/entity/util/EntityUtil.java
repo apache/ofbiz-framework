@@ -151,7 +151,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that are currently active.
-     *
      * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
      * @return List of GenericValue's that are currently active
      */
@@ -161,7 +160,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that are currently active.
-     *
      * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
      * @param allAreSame  Specifies whether all values in the List are of the same entity; this can help speed things up a fair amount since we
      *                    only have to see if the from and thru date fields are valid once
@@ -173,7 +171,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that are active at the moment.
-     *
      * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
      * @param moment      the moment in question
      * @return List of GenericValue's that are active at the moment
@@ -184,7 +181,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that are active at the moment.
-     *
      * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
      * @param moment      the moment in question
      * @return List of GenericValue's that are active at the moment
@@ -195,7 +191,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that are active at the moment.
-     *
      * @param datedValues GenericValue's that have "fromDate" and "thruDate" fields
      * @param moment      the moment in question
      * @param allAreSame  Specifies whether all values in the List are of the same entity; this can help speed things up a fair amount since we
@@ -273,7 +268,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that match the values in fields
-     *
      * @param values List of GenericValues
      * @param fields the field-name/value pairs that must match
      * @return List of GenericValue's that match the values in fields
@@ -287,7 +281,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that match all of the exprs in list
-     *
      * @param values List of GenericValues
      * @param exprs  the expressions that must validate to true
      * @return List of GenericValue's that match the values in fields
@@ -304,7 +297,6 @@ public final class EntityUtil {
 
     /**
      * returns the values that match any of the exprs in list
-     *
      * @param values List of GenericValues
      * @param exprs  the expressions that must validate to true
      * @return List of GenericValue's that match the values in fields
@@ -321,7 +313,6 @@ public final class EntityUtil {
 
     /**
      * returns the values in the order specified after with localized value
-     *
      * @param values  List of GenericValues
      * @param orderBy The fields of the named entity to order the query by;
      *                optionally add a " ASC" for ascending or " DESC" for descending
@@ -353,7 +344,6 @@ public final class EntityUtil {
 
     /**
      * returns the values in the order specified
-     *
      * @param values  List of GenericValues
      * @param orderBy The fields of the named entity to order the query by;
      *                optionally add a " ASC" for ascending or " DESC" for descending
@@ -569,7 +559,6 @@ public final class EntityUtil {
     /**
      * For a entityName return the primary keys path that identify it
      * like entityName/pkValue1/pkValue2/../pkValueN
-     *
      * @param delegator
      * @param entityName
      * @param context
@@ -582,7 +571,6 @@ public final class EntityUtil {
     /**
      * For a entityName return the primary keys path that identify it
      * like entityName/pkValue1/pkValue2/../pkValueN
-     *
      * @param gv
      * @return
      */
@@ -602,7 +590,6 @@ public final class EntityUtil {
      * pkName2, pkValue2,
      * ...,
      * pkNameN: pkValueN]
-     *
      * @param modelEntity
      * @param path
      * @return

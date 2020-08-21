@@ -29,7 +29,6 @@ public interface ConverterLoader {
      * itself when an instance is created. Otherwise, call
      * {@link org.apache.ofbiz.base.conversion.Converters#registerConverter(Converter)}
      * with the <code>Converter</code> instance.
-     *
      */
     void loadConverters();
 }

@@ -51,7 +51,6 @@ public class ParametricSearch {
     /**
      * Gets all features associated with the specified category through:<br>
      * ProductCategory -&gt; ProductFeatureCategoryAppl -&gt; ProductFeatureCategory -&gt; ProductFeature.
-     *
      * @return a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
      */
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator) {

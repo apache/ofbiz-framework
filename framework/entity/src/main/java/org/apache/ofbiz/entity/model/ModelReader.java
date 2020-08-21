@@ -58,30 +58,30 @@ import org.w3c.dom.Node;
 public class ModelReader implements Serializable {
 
     private static final String MODULE = ModelReader.class.getName();
-    private static final UtilCache<String, ModelReader> readers = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
+    private static final UtilCache<String, ModelReader> READERS = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
 
-    protected volatile Map<String, ModelEntity> entityCache = null;
+    private volatile Map<String, ModelEntity> entityCache = null;
 
-    protected int numEntities = 0;
-    protected int numViewEntities = 0;
-    protected int numFields = 0;
-    protected int numRelations = 0;
-    protected int numAutoRelations = 0;
+    private int numEntities = 0;
+    private int numViewEntities = 0;
+    private int numFields = 0;
+    private int numRelations = 0;
+    private int numAutoRelations = 0;
 
-    protected String modelName;
+    private String modelName;
 
     /** collection of filenames for entity definitions */
-    protected Collection<ResourceHandler> entityResourceHandlers;
+    private Collection<ResourceHandler> entityResourceHandlers;
 
     /**
      * contains a collection of entity names for each ResourceHandler, populated as they are loaded
      */
-    protected Map<ResourceHandler, Collection<String>> resourceHandlerEntities;
+    private Map<ResourceHandler, Collection<String>> resourceHandlerEntities;
 
     /**
      * for each entity contains a map to the ResourceHandler that the entity came from
      */
-    protected Map<String, ResourceHandler> entityResourceHandlerMap;
+    private Map<String, ResourceHandler> entityResourceHandlerMap;
 
     public static ModelReader getModelReader(String delegatorName) throws GenericEntityException {
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
@@ -91,13 +91,13 @@ public class ModelReader implements Serializable {
         }
 
         String tempModelName = delegatorInfo.getEntityModelReader();
-        ModelReader reader = readers.get(tempModelName);
+        ModelReader reader = READERS.get(tempModelName);
 
         if (reader == null) {
             reader = new ModelReader(tempModelName);
             // preload caches...
             reader.getEntityCache();
-            reader = readers.putIfAbsentAndGet(tempModelName, reader);
+            reader = READERS.putIfAbsentAndGet(tempModelName, reader);
         }
         return reader;
     }
@@ -123,7 +123,7 @@ public class ModelReader implements Serializable {
 
         // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
         for (ComponentConfig.EntityResourceInfo componentResourceInfo : ComponentConfig.getAllEntityResourceInfos("model")) {
-            if (modelName.equals(componentResourceInfo.readerName)) {
+            if (modelName.equals(componentResourceInfo.getReaderName())) {
                 entityResourceHandlers.add(componentResourceInfo.createResourceHandler());
             }
         }
@@ -180,11 +180,11 @@ public class ModelReader implements Serializable {
             // utilTimer.timerString(" After entityCache.put -- " + i + " --");
             if (isEntity) {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, MODULE);
+                    Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, MODULE);
                 }
             } else {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, MODULE);
+                    Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, MODULE);
                 }
             }
         } else {
@@ -472,14 +472,16 @@ public class ModelReader implements Serializable {
     }
 
     public Iterator<ResourceHandler> getResourceHandlerEntitiesKeyIterator() {
-        if (resourceHandlerEntities == null)
+        if (resourceHandlerEntities == null) {
             return null;
+        }
         return resourceHandlerEntities.keySet().iterator();
     }
 
     public Collection<String> getResourceHandlerEntities(ResourceHandler resourceHandler) {
-        if (resourceHandlerEntities == null)
+        if (resourceHandlerEntities == null) {
             return null;
+        }
         return resourceHandlerEntities.get(resourceHandler);
     }
 
@@ -615,16 +617,18 @@ public class ModelReader implements Serializable {
     }
 
     ModelEntity createModelEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {
-        if (entityElement == null)
+        if (entityElement == null) {
             return null;
+        }
         this.numEntities++;
         ModelEntity entity = new ModelEntity(this, entityElement, utilTimer, def);
         return entity;
     }
 
     ModelEntity createModelViewEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {
-        if (entityElement == null)
+        if (entityElement == null) {
             return null;
+        }
         this.numViewEntities++;
         ModelViewEntity entity = new ModelViewEntity(this, entityElement, utilTimer, def);
         return entity;

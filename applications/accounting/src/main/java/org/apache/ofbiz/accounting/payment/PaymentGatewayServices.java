@@ -97,7 +97,6 @@ public class PaymentGatewayServices {
      * "errors" and "finished" which notify the user if there were any errors and if the authorization was finished.
      * There is also a List "messages" for the authorization response messages and a BigDecimal, "processAmount" as the
      * amount processed.
-     *
      * TODO: it might be nice to return the paymentGatewayResponseId
      */
     public static Map<String, Object> authOrderPaymentPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -710,7 +709,6 @@ public class PaymentGatewayServices {
     }
 
     /**
-     *
      * Releases authorizations through service calls to the defined processing service for the ProductStore/PaymentMethodType
      * @return COMPLETE|FAILED|ERROR for complete processing of ALL payments.
      */
@@ -879,7 +877,6 @@ public class PaymentGatewayServices {
     }
 
     /**
-     *
      * Releases authorization for a single OrderPaymentPreference through service calls to the defined processing service for the ProductStore/PaymentMethodType
      * @return SUCCESS|FAILED|ERROR for complete processing of payment.
      */

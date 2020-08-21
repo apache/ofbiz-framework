@@ -276,10 +276,8 @@ public class RequirementServices {
          * ProductFacility.minimumStock.  Because the minimumStock is an upper bound, the quantity to be required
          * is either that required to bring the ATP back up to the minimumStock level or the amount ordered,
          * whichever is less.
-         *
          * If there is a way to support reorderQuantity without losing the order item -> requirement association data,
          * then this service should be updated.
-         *
          * The result is that this service generates many small requirements when stock levels are low for a product,
          * which is perfectly fine since the system is capable of creating POs in bulk from aggregate requirements.
          * The only concern would be a UI to manage numerous requirements with ease, preferrably by aggregating

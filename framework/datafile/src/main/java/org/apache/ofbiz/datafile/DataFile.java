@@ -171,7 +171,6 @@ public class DataFile {
 
     /**
      * Writes the records in this DataFile object to a text data file
-     *
      * @param filename
      *            The filename to put the data into
      * @throws DataFileException

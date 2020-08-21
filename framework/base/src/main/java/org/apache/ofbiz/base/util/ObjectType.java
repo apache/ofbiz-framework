@@ -48,43 +48,43 @@ public class ObjectType {
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
 
-    private static final Map<String, String> classAlias = new HashMap<>();
-    private static final Map<String, Class<?>> primitives = new HashMap<>();
+    private static final Map<String, String> CLASS_ALIAS = new HashMap<>();
+    private static final Map<String, Class<?>> PRIMITIVES = new HashMap<>();
 
     static {
-        classAlias.put("Object", "java.lang.Object");
-        classAlias.put("String", "java.lang.String");
-        classAlias.put("Boolean", "java.lang.Boolean");
-        classAlias.put("BigDecimal", "java.math.BigDecimal");
-        classAlias.put("Double", "java.lang.Double");
-        classAlias.put("Float", "java.lang.Float");
-        classAlias.put("Long", "java.lang.Long");
-        classAlias.put("Integer", "java.lang.Integer");
-        classAlias.put("Short", "java.lang.Short");
-        classAlias.put("Byte", "java.lang.Byte");
-        classAlias.put("Character", "java.lang.Character");
-        classAlias.put("Timestamp", "java.sql.Timestamp");
-        classAlias.put("Time", "java.sql.Time");
-        classAlias.put("Date", "java.sql.Date");
-        classAlias.put("Locale", "java.util.Locale");
-        classAlias.put("Collection", "java.util.Collection");
-        classAlias.put("List", "java.util.List");
-        classAlias.put("Set", "java.util.Set");
-        classAlias.put("Map", "java.util.Map");
-        classAlias.put("HashMap", "java.util.HashMap");
-        classAlias.put("TimeZone", "java.util.TimeZone");
-        classAlias.put("TimeDuration", "org.apache.ofbiz.base.util.TimeDuration");
-        classAlias.put("GenericValue", "org.apache.ofbiz.entity.GenericValue");
-        classAlias.put("GenericPK", "org.apache.ofbiz.entity.GenericPK");
-        classAlias.put("GenericEntity", "org.apache.ofbiz.entity.GenericEntity");
-        primitives.put("boolean", Boolean.TYPE);
-        primitives.put("short", Short.TYPE);
-        primitives.put("int", Integer.TYPE);
-        primitives.put("long", Long.TYPE);
-        primitives.put("float", Float.TYPE);
-        primitives.put("double", Double.TYPE);
-        primitives.put("byte", Byte.TYPE);
-        primitives.put("char", Character.TYPE);
+        CLASS_ALIAS.put("Object", "java.lang.Object");
+        CLASS_ALIAS.put("String", "java.lang.String");
+        CLASS_ALIAS.put("Boolean", "java.lang.Boolean");
+        CLASS_ALIAS.put("BigDecimal", "java.math.BigDecimal");
+        CLASS_ALIAS.put("Double", "java.lang.Double");
+        CLASS_ALIAS.put("Float", "java.lang.Float");
+        CLASS_ALIAS.put("Long", "java.lang.Long");
+        CLASS_ALIAS.put("Integer", "java.lang.Integer");
+        CLASS_ALIAS.put("Short", "java.lang.Short");
+        CLASS_ALIAS.put("Byte", "java.lang.Byte");
+        CLASS_ALIAS.put("Character", "java.lang.Character");
+        CLASS_ALIAS.put("Timestamp", "java.sql.Timestamp");
+        CLASS_ALIAS.put("Time", "java.sql.Time");
+        CLASS_ALIAS.put("Date", "java.sql.Date");
+        CLASS_ALIAS.put("Locale", "java.util.Locale");
+        CLASS_ALIAS.put("Collection", "java.util.Collection");
+        CLASS_ALIAS.put("List", "java.util.List");
+        CLASS_ALIAS.put("Set", "java.util.Set");
+        CLASS_ALIAS.put("Map", "java.util.Map");
+        CLASS_ALIAS.put("HashMap", "java.util.HashMap");
+        CLASS_ALIAS.put("TimeZone", "java.util.TimeZone");
+        CLASS_ALIAS.put("TimeDuration", "org.apache.ofbiz.base.util.TimeDuration");
+        CLASS_ALIAS.put("GenericValue", "org.apache.ofbiz.entity.GenericValue");
+        CLASS_ALIAS.put("GenericPK", "org.apache.ofbiz.entity.GenericPK");
+        CLASS_ALIAS.put("GenericEntity", "org.apache.ofbiz.entity.GenericEntity");
+        PRIMITIVES.put("boolean", Boolean.TYPE);
+        PRIMITIVES.put("short", Short.TYPE);
+        PRIMITIVES.put("int", Integer.TYPE);
+        PRIMITIVES.put("long", Long.TYPE);
+        PRIMITIVES.put("float", Float.TYPE);
+        PRIMITIVES.put("double", Double.TYPE);
+        PRIMITIVES.put("byte", Byte.TYPE);
+        PRIMITIVES.put("char", Character.TYPE);
     }
 
     /**
@@ -106,9 +106,9 @@ public class ObjectType {
      */
     public static Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
         Class<?> theClass = null;
-        // if it is a primitive type, return the object from the "primitives" map
-        if (primitives.containsKey(className)) {
-            return primitives.get(className);
+        // if it is a primitive type, return the object from the "PRIMITIVES" map
+        if (PRIMITIVES.containsKey(className)) {
+            return PRIMITIVES.get(className);
         }
 
         int genericsStart = className.indexOf("<");
@@ -134,8 +134,8 @@ public class ObjectType {
         }
 
         // if className is an alias (e.g. "String") then replace it with the proper class name (e.g. "java.lang.String")
-        if (classAlias.containsKey(className)) {
-            className = classAlias.get(className);
+        if (CLASS_ALIAS.containsKey(className)) {
+            className = CLASS_ALIAS.get(className);
         }
 
         if (loader == null) {
@@ -260,7 +260,7 @@ public class ObjectType {
      * Initially created for only simple types but actually handle more types and not all simple types.
      * See ObjectTypeTests class for more, and (normally) up to date information
      * Supported types:
-     * - All primitives
+     * - All PRIMITIVES
      * - Simple types: String, Boolean, Double, Float, Long, Integer, BigDecimal.
      * - Other Objects: List, Map, Set, Calendar, Date (java.sql.Date), Time, Timestamp, TimeZone, Date (util.Date and sql.Date)
      * - Simple types (maybe) not handled: Short, BigInteger, Byte, Character, ObjectName and Void...

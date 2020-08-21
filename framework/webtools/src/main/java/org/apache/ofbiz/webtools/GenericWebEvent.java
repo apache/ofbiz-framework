@@ -52,7 +52,6 @@ public class GenericWebEvent {
     private static final String ERR_RESOURCE = "WebtoolsErrorUiLabels";
 
     /** An HTTP WebEvent handler that updates a Generic entity
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return Returns a String specifying the outcome state of the event. This is used to decide which event

@@ -193,7 +193,6 @@ public class EntityDataLoadContainer implements Container {
 
     /**
      * Checks if a key is associated with either the string {@code "true"} or {@code null}.
-     *
      * @param props  the map associating keys to values
      * @param key  the key to look for in {@code props}
      * @return {@code true} if {@code key} is associated with {@code "true"} or {@code null} in {@code props}.

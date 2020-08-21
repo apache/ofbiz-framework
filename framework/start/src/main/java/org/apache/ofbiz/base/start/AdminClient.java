@@ -39,7 +39,6 @@ class AdminClient {
     /**
      * Send a command through network to OFBiz server
      * to show its status (running, stopping, ...)
-     *
      * @param config OFBiz configuration
      * @return status OFBiz server status
      */
@@ -58,7 +57,6 @@ class AdminClient {
     /**
      * Send a command through network to OFBiz server
      * to shut itself down.
-     *
      * @param config OFBiz configuration
      * @return shutdownMessage message from server
      *   on receiving shutdown request

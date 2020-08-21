@@ -119,7 +119,6 @@ public class RequestHandler {
     /**
      * Finds a collection of request maps in {@code ccfg} matching {@code req}.
      * Otherwise fall back to matching the {@code defaultReq} field in {@code ccfg}.
-     *
      * @param ccfg The controller containing the current configuration
      * @param req  The HTTP request to match
      * @return a collection of request maps which might be empty
@@ -152,7 +151,6 @@ public class RequestHandler {
      * Find the request map matching {@code method}.
      * Otherwise fall back to the one matching the "all" and "" special methods
      * in that respective order.
-     *
      * @param method the HTTP method to match
      * @param rmaps  the collection of request map candidates
      * @return a request map {@code Optional}
@@ -174,10 +172,8 @@ public class RequestHandler {
 
     /**
      * Finds the request maps matching a segmented path.
-     *
      * <p>A segmented path can match request maps where the {@code uri} attribute
      * contains an URI template like in the {@code foo/bar/{baz}} example.
-     *
      * @param rMapMap the map associating URIs to a list of request maps corresponding to different HTTP methods
      * @param request the HTTP request to match
      * @return a collection of request maps which might be empty but not {@code null}
@@ -307,7 +303,6 @@ public class RequestHandler {
 
     /**
      * Checks that the request contains some valid certificates.
-     *
      * @param request   the request to verify
      * @param validator the predicate applied the certificates found
      * @return true if the request contains some valid certificates, otherwise false.
@@ -334,7 +329,6 @@ public class RequestHandler {
 
     /**
      * Retrieves the request handler which is stored inside an HTTP request.
-     *
      * @param request the HTTP request containing the request handler
      * @return a request handler or {@code null} when absent
      * @throws NullPointerException when {@code request} or the servlet context is {@code null}.
@@ -1006,7 +1000,6 @@ public class RequestHandler {
 
     /**
      * Returns the default error page for this request.
-     *
      * @throws MalformedURLException
      */
     public String getDefaultErrorPage(HttpServletRequest request) throws MalformedURLException {
@@ -1206,7 +1199,6 @@ public class RequestHandler {
     /**
      * Creates a query string based on the redirect parameters for a request response, if specified, or for all request parameters if no redirect
      * parameters are specified.
-     *
      * @param request         the Http request
      * @param requestResponse the RequestResponse Object
      * @return return the query string
@@ -1393,7 +1385,6 @@ public class RequestHandler {
 
     /**
      * Run all the "after-login" Web events defined in the controller configuration.
-     *
      * @param req  the request to run the events with
      * @param resp the response to run the events with
      */
@@ -1404,7 +1395,6 @@ public class RequestHandler {
 
     /**
      * Run all the "before-logout" Web events defined in the controller configuration.
-     *
      * @param req  the request to run the events with
      * @param resp the response to run the events with
      */
@@ -1415,7 +1405,6 @@ public class RequestHandler {
 
     /**
      * Checks if a request must be tracked according a global toggle and a request map predicate.
-     *
      * @param request      the request that can potentially be tracked
      * @param globalToggle the global configuration toggle
      * @param pred         the predicate checking if each individual request map must be tracked or not.

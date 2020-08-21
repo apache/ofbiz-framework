@@ -248,11 +248,11 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (fileName.endsWith(".ftl")) {
                     fileName = fileName.substring(0, fileName.length() - 4);
                 }
-                MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
+                String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
 
                 // construct script link
                 String webappName = (String) context.get("webappName");
-                String url = "/" + webappName + "/control/getJs?name=" + fileName;
+                String url = "/" + webappName + "/control/getJs?name=" + key;
 
                 // add csrf token to script link
                 HttpServletRequest request = (HttpServletRequest) context.get("request");

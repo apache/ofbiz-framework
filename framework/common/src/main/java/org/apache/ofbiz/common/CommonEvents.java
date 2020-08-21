@@ -190,6 +190,10 @@ public class CommonEvents {
             response.setContentType("application/javascript");
             // script.length is not reliable for unicode characters
             response.setContentLength(script.getBytes("UTF8").length);
+            // return 404 if script is empty
+            if (UtilValidate.isEmpty(script)) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            }
 
             out = response.getWriter();
             out.write(script);

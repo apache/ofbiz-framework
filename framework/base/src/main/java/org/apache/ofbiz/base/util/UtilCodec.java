@@ -47,13 +47,13 @@ import org.owasp.html.Sanitizers;
 @SuppressWarnings("rawtypes")
 public class UtilCodec {
     private static final String MODULE = UtilCodec.class.getName();
-    private static final HtmlEncoder htmlEncoder = new HtmlEncoder();
-    private static final XmlEncoder xmlEncoder = new XmlEncoder();
-    private static final StringEncoder stringEncoder = new StringEncoder();
-    private static final UrlCodec urlCodec = new UrlCodec();
-    private static final List<Codec> codecs;
+    private static final HtmlEncoder HTML_ENCODER = new HtmlEncoder();
+    private static final XmlEncoder XML_ENCODER = new XmlEncoder();
+    private static final StringEncoder STRING_ENCODER = new StringEncoder();
+    private static final UrlCodec URL_CODEC = new UrlCodec();
+    private static final List<Codec> CODECS;
     // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers
-    private static final List<String> jsEventList = Arrays.asList(new String[] {"onAbort", "onActivate",
+    private static final List<String> JS_EVENT_LIST = Arrays.asList(new String[] {"onAbort", "onActivate",
             "onAfterPrint", "onAfterUpdate", "onBeforeActivate", "onBeforeCopy", "onBeforeCut", "onBeforeDeactivate",
             "onBeforeEditFocus", "onBeforePaste", "onBeforePrint", "onBeforeUnload", "onBeforeUpdate", "onBegin",
             "onBlur", "onBounce", "onCellChange", "onChange", "onClick", "onContextMenu", "onControlSelect", "onCopy",
@@ -74,7 +74,7 @@ public class UtilCodec {
         List<Codec> tmpCodecs = new ArrayList<>();
         tmpCodecs.add(new HTMLEntityCodec());
         tmpCodecs.add(new PercentCodec());
-        codecs = Collections.unmodifiableList(tmpCodecs);
+        CODECS = Collections.unmodifiableList(tmpCodecs);
     }
 
     @SuppressWarnings("serial")
@@ -124,7 +124,6 @@ public class UtilCodec {
          * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class".
          * The custom policy has to implement
          * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
-         *
          * @param original
          * @param contentTypeId
          * @return sanitized HTML-Code if enabled, original HTML-Code when disabled
@@ -294,13 +293,13 @@ public class UtilCodec {
 
     public static SimpleEncoder getEncoder(String type) {
         if ("url".equals(type)) {
-            return urlCodec;
+            return URL_CODEC;
         } else if ("xml".equals(type)) {
-            return xmlEncoder;
+            return XML_ENCODER;
         } else if ("html".equals(type)) {
-            return htmlEncoder;
+            return HTML_ENCODER;
         } else if ("string".equals(type)) {
-            return stringEncoder;
+            return STRING_ENCODER;
         } else {
             return null;
         }
@@ -308,7 +307,7 @@ public class UtilCodec {
 
     public static SimpleDecoder getDecoder(String type) {
         if ("url".equals(type)) {
-            return urlCodec;
+            return URL_CODEC;
         }
         return null;
     }
@@ -335,7 +334,7 @@ public class UtilCodec {
             clean = true;
 
             // try each codec and keep track of which ones work
-            Iterator<Codec> i = codecs.iterator();
+            Iterator<Codec> i = CODECS.iterator();
             while (i.hasNext()) {
                 Codec codec = i.next();
                 String old = working;
@@ -378,7 +377,6 @@ public class UtilCodec {
      * Does not allow various characters (after canonicalization), including
      * "&lt;", "&gt;", "&amp;" and "%" (if not followed by a space).
      * Also does not allow js events as in OFBIZ-10054
-     *
      * @param valueName field name checked
      * @param value value checked
      * @param errorMessageList an empty list passed by and modified in case of issues
@@ -423,7 +421,7 @@ public class UtilCodec {
 
         // check for js events
         String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
-        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
+        if (JS_EVENT_LIST.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
             if (locale.equals(new Locale("test"))) {
@@ -451,7 +449,6 @@ public class UtilCodec {
      * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class".
      * The safe policy has to implement
      * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
-     *
      * @param valueName field name checked
      * @param value value checked
      * @param errorMessageList an empty list passed by and modified in case of issues

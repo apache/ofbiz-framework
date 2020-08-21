@@ -53,13 +53,13 @@ import org.w3c.dom.Node;
 public class ModelGroupReader implements Serializable {
 
     private static final String MODULE = ModelGroupReader.class.getName();
-    private static final UtilCache<String, ModelGroupReader> readers = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
+    private static final UtilCache<String, ModelGroupReader> READERS = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
 
     private volatile Map<String, String> groupCache = null;
     private Set<String> groupNames = null;
 
-    public String modelName;
-    public List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<>();
+    private String modelName;
+    private List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
@@ -69,10 +69,10 @@ public class ModelGroupReader implements Serializable {
         }
 
         String tempModelName = delegatorInfo.getEntityGroupReader();
-        ModelGroupReader reader = readers.get(tempModelName);
+        ModelGroupReader reader = READERS.get(tempModelName);
 
         if (reader == null) {
-            reader = readers.putIfAbsentAndGet(tempModelName, new ModelGroupReader(delegatorName, tempModelName));
+            reader = READERS.putIfAbsentAndGet(tempModelName, new ModelGroupReader(delegatorName, tempModelName));
         }
         return reader;
     }
@@ -85,12 +85,13 @@ public class ModelGroupReader implements Serializable {
             throw new GenericEntityConfException("Cound not find an entity-group-reader with the name " + modelName);
         }
         for (Resource resourceElement: entityGroupReaderInfo.getResourceList()) {
-            this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation()));
+            this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(),
+                    resourceElement.getLocation()));
         }
 
         // get all of the component resource group stuff, ie specified in each ofbiz-component.xml file
         for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("group")) {
-            if (modelName.equals(componentResourceInfo.readerName)) {
+            if (modelName.equals(componentResourceInfo.getReaderName())) {
                 this.entityGroupResourceHandlers.add(componentResourceInfo.createResourceHandler());
             }
         }
@@ -143,7 +144,8 @@ public class ModelGroupReader implements Serializable {
 
                                     try {
                                         if (null == EntityConfig.getInstance().getDelegator(delegatorName).getGroupDataSource(groupName)) {
-                                            Debug.logError("The declared group name " + groupName + " has no corresponding group-map in entityengine.xml: ", MODULE);
+                                            Debug.logError("The declared group name " + groupName
+                                                    + " has no corresponding group-map in entityengine.xml: ", MODULE);
                                         }
                                     } catch (GenericEntityConfException e) {
                                         Debug.logWarning(e, "Exception thrown while getting group name: ", MODULE);

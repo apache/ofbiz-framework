@@ -73,7 +73,6 @@ public class PdfSurveyServices {
     private static final String RESOURCE = "ContentUiLabels";
 
     /**
-     *
      */
     public static Map<String, Object> buildSurveyFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -218,7 +217,6 @@ public class PdfSurveyServices {
     }
 
     /**
-     *
      */
     public static Map<String, Object> buildSurveyResponseFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String surveyResponseId = null;

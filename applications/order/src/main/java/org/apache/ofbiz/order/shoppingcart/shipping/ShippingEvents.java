@@ -522,7 +522,6 @@ public class ShippingEvents {
 
     /**
      * Return the {@link GenericValue} ShipmentTimeEstimate matching the carrier shipment method
-     *
      * @param storeCarrierShipMethod ShipmentMethod used for estimation
      * @param shippingTimeEstimates  available configured estimation
      * @return
@@ -542,7 +541,6 @@ public class ShippingEvents {
 
     /**
      * Return the number of days estimated for shipping
-     *
      * @param dispatcher
      * @param storeCarrierShipMethod ShipmentMethod used for estimation
      * @param shippingTimeEstimates  available configured estimation

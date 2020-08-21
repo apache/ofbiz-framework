@@ -75,80 +75,82 @@ public final class UtilValidate {
     private UtilValidate() { }
 
     /** boolean specifying by default whether or not it is okay for a String to be empty */
-    private static final boolean defaultEmptyOK = true;
+    private static final boolean DEFAULT_EMPTY_OK = true;
 
     /** digit characters */
-    public static final String digits = "0123456789";
+    public static final String DIGITS = "0123456789";
 
     /** lower-case letter characters */
-    public static final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+    public static final String LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
 
     /** upper-case letter characters */
-    public static final String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String UPPER_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /** letter characters */
-    public static final String letters = lowercaseLetters + uppercaseLetters;
+    public static final String LETTERS = LOWER_CASE_LETTERS + UPPER_CASE_LETTERS;
 
     /** whitespace characters */
-    private static final String whitespace = " \t\n\r";
+    private static final String WHITESPACE = " \t\n\r";
 
     /** decimal point character differs by language and culture */
-    public static final String decimalPointDelimiter = ".";
+    public static final String DECIMAL_POINT_DELIMITER = ".";
 
     /** non-digit characters which are allowed in phone numbers */
-    public static final String phoneNumberDelimiters = "()- ";
+    public static final String PHONE_NUMBER_DELIMITERS = "()- ";
 
     /** characters which are allowed in US phone numbers */
-    public static final String validUSPhoneChars = digits + phoneNumberDelimiters;
+    public static final String VALID_US_PHONE_CHARS = DIGITS + PHONE_NUMBER_DELIMITERS;
 
     /** characters which are allowed in international phone numbers(a leading + is OK) */
-    public static final String validWorldPhoneChars = digits + phoneNumberDelimiters + "+";
+    public static final String VALID_WORLD_PHONE_CHARS = DIGITS + PHONE_NUMBER_DELIMITERS + "+";
 
     /** non-digit characters which are allowed in Social Security Numbers */
-    public static final String SSNDelimiters = "- ";
+    public static final String SSN_DELIMITERS = "- ";
 
     /** characters which are allowed in Social Security Numbers */
-    public static final String validSSNChars = digits + SSNDelimiters;
+    public static final String VALID_SSN_CHARS = DIGITS + SSN_DELIMITERS;
 
-    /** U.S. Social Security Numbers have 9 digits. They are formatted as 123-45-6789. */
-    public static final int digitsInSocialSecurityNumber = 9;
+    /** U.S. Social Security Numbers have 9 DIGITS. They are formatted as 123-45-6789. */
+    public static final int DIGITS_IN_SSN = 9;
 
-    /** U.S. phone numbers have 10 digits. They are formatted as 123 456 7890 or(123) 456-7890. */
-    public static final int digitsInUSPhoneNumber = 10;
-    public static final int digitsInUSPhoneAreaCode = 3;
-    public static final int digitsInUSPhoneMainNumber = 7;
+    /** U.S. phone numbers have 10 DIGITS. They are formatted as 123 456 7890 or(123) 456-7890. */
+    public static final int DIGITS_IN_US_PHONE = 10;
+    public static final int DIGITS_IN_US_PHONE_AREA = 3;
+    public static final int DIGITS_IN_US_PHONE_MAIN = 7;
 
     /** non-digit characters which are allowed in ZIP Codes */
-    public static final String ZipCodeDelimiters = "-";
+    public static final String ZIP_CODE_DELIMITERS = "-";
 
     /** our preferred delimiter for reformatting ZIP Codes */
-    public static final String ZipCodeDelimeter = "-";
+    public static final String ZIP_CODE_DELIMITER = "-";
 
     /** characters which are allowed in Social Security Numbers */
-    public static final String validZipCodeChars = digits + ZipCodeDelimiters;
+    public static final String VALID_ZIP_CODE_CHARS = DIGITS + ZIP_CODE_DELIMITERS;
 
     /** U.S. ZIP codes have 5 or 9 digits. They are formatted as 12345 or 12345-6789. */
-    public static final int digitsInZipCode1 = 5;
+    public static final int DIGITS_IN_ZIP_CODE_1 = 5;
 
     /** U.S. ZIP codes have 5 or 9 digits. They are formatted as 12345 or 12345-6789. */
-    public static final int digitsInZipCode2 = 9;
+    public static final int DIGITS_IN_ZIP_CODE_2 = 9;
 
     /** non-digit characters which are allowed in credit card numbers */
-    public static final String creditCardDelimiters = " -";
+    public static final String CREDIT_CARD_DELIMITERS = " -";
 
     /** An array of ints representing the number of days in each month of the year.
      *  Note: February varies depending on the year */
-    static final int[] daysInMonth = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    static final int[] DAYS_IN_MONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     /** Delimiter for USStateCodes String */
-    public static final String USStateCodeDelimiter = "|";
+    public static final String US_STATE_CODE_DELIMITER = "|";
 
     /** Valid U.S. Postal Codes for states, territories, armed forces, etc.
      * See http://www.usps.gov/ncsc/lookups/abbr_state.txt. */
-    public static final String USStateCodes = "AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY|AE|AA|AE|AE|AP";
+    public static final String US_STATE_CODES = "AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|"
+            + "NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY|AE|AA|AE|AE|AP";
 
     /** Valid contiguous U.S. postal codes */
-    public static final String ContiguousUSStateCodes = "AL|AZ|AR|CA|CO|CT|DE|DC|FL|GA|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
+    public static final String CONTIGUOUS_US_STATE_CODES = "AL|AZ|AR|CA|CO|CT|DE|DC|FL|GA|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|"
+            + "NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
 
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isEmpty(Object o) {
@@ -213,7 +215,7 @@ public final class UtilValidate {
             // Check that current character isn't whitespace.
             char c = s.charAt(i);
 
-            if (whitespace.indexOf(c) == -1) {
+            if (WHITESPACE.indexOf(c) == -1) {
                 return false;
             }
         }
@@ -239,13 +241,12 @@ public final class UtilValidate {
     }
 
     /** Returns true if all characters in string s are numbers.
-     *
      *  Accepts non-signed integers only. Does not accept floating
      *  point, exponential notation, etc.
      */
     public static boolean isInteger(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         // Search through string's characters one by one
@@ -266,12 +267,11 @@ public final class UtilValidate {
 
     /** Returns true if all characters are numbers;
      *  first character is allowed to be + or - as well.
-     *
      *  Does not accept floating point, exponential notation, etc.
      */
     private static boolean isSignedInteger(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         try {
             Integer.parseInt(s);
@@ -283,12 +283,11 @@ public final class UtilValidate {
 
     /** Returns true if all characters are numbers;
      *  first character is allowed to be + or - as well.
-     *
      *  Does not accept floating point, exponential notation, etc.
      */
     public static boolean isSignedLong(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         try {
             Long.parseLong(s);
@@ -304,7 +303,7 @@ public final class UtilValidate {
      */
     public static boolean isPositiveInteger(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         try {
@@ -320,7 +319,7 @@ public final class UtilValidate {
      */
     public static boolean isNonnegativeInteger(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         try {
@@ -336,7 +335,7 @@ public final class UtilValidate {
      */
     public static boolean isNegativeInteger(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         try {
@@ -352,7 +351,7 @@ public final class UtilValidate {
      */
     public static boolean isNonpositiveInteger(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         try {
@@ -364,21 +363,19 @@ public final class UtilValidate {
     }
 
     /** True if string s is an unsigned floating point(real) number.
-     *
      *  Also returns true for unsigned integers. If you wish
      *  to distinguish between integers and floating point numbers,
      *  first call isInteger, then call isFloat.
-     *
      *  Does not accept exponential notation.
      */
     public static boolean isFloat(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         boolean seenDecimalPoint = false;
 
-        if (s.startsWith(decimalPointDelimiter)) {
+        if (s.startsWith(DECIMAL_POINT_DELIMITER)) {
             return false;
         }
 
@@ -389,7 +386,7 @@ public final class UtilValidate {
             // Check that current character is number.
             char c = s.charAt(i);
 
-            if (c == decimalPointDelimiter.charAt(0)) {
+            if (c == DECIMAL_POINT_DELIMITER.charAt(0)) {
                 if (!seenDecimalPoint) {
                     seenDecimalPoint = true;
                 } else {
@@ -409,7 +406,7 @@ public final class UtilValidate {
      */
     public static boolean isFloat(String s, boolean allowNegative, boolean allowPositive, int minDecimal, int maxDecimal) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         try {
@@ -433,7 +430,7 @@ public final class UtilValidate {
      */
     public static boolean isDouble(String s, boolean allowNegative, boolean allowPositive, int minDecimal, int maxDecimal) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         try {
@@ -455,14 +452,13 @@ public final class UtilValidate {
 
     /** True if string s is a signed or unsigned floating point
      *  (real) number. First character is allowed to be + or -.
-     *
      *  Also returns true for unsigned integers. If you wish
      *  to distinguish between integers and floating point numbers,
      *  first call isSignedInteger, then call isSignedFloat.
      */
     public static boolean isSignedFloat(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         try {
             Float.parseFloat(s);
@@ -474,14 +470,13 @@ public final class UtilValidate {
 
     /** True if string s is a signed or unsigned floating point
      *  (real) number. First character is allowed to be + or -.
-     *
      *  Also returns true for unsigned integers. If you wish
      *  to distinguish between integers and floating point numbers,
      *  first call isSignedInteger, then call isSignedFloat.
      */
     public static boolean isSignedDouble(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         try {
             Double.parseDouble(s);
@@ -492,13 +487,12 @@ public final class UtilValidate {
     }
 
     /** Returns true if string s is letters only.
-     *
      *  NOTE: This should handle i18n version to support European characters, etc.
      *  since it now uses Character.isLetter()
      */
     public static boolean isAlphabetic(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         // Search through string's characters one by one
@@ -518,14 +512,13 @@ public final class UtilValidate {
     }
 
     /** Returns true if string s is English letters (A .. Z, a..z) and numbers only.
-     *
      *  NOTE: Need i18n version to support European characters.
      *  This could be tricky due to different character
      *  sets and orderings for various languages and platforms.
      */
     public static boolean isAlphanumeric(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         // Search through string's characters one by one
@@ -549,23 +542,23 @@ public final class UtilValidate {
     /** isSSN returns true if string s is a valid U.S. Social Security Number.  Must be 9 digits. */
     public static boolean isSSN(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
-        String normalizedSSN = stripCharsInBag(s, SSNDelimiters);
+        String normalizedSSN = stripCharsInBag(s, SSN_DELIMITERS);
 
-        return (isInteger(normalizedSSN) && normalizedSSN.length() == digitsInSocialSecurityNumber);
+        return (isInteger(normalizedSSN) && normalizedSSN.length() == DIGITS_IN_SSN);
     }
 
     /** isZIPCode returns true if string s is a valid U.S. ZIP code.  Must be 5 or 9 digits only. */
     public static boolean isZipCode(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
-        String normalizedZip = stripCharsInBag(s, ZipCodeDelimiters);
+        String normalizedZip = stripCharsInBag(s, ZIP_CODE_DELIMITERS);
 
-        return (isInteger(normalizedZip) && ((normalizedZip.length() == digitsInZipCode1) || (normalizedZip.length() == digitsInZipCode2)));
+        return (isInteger(normalizedZip) && ((normalizedZip.length() == DIGITS_IN_ZIP_CODE_1) || (normalizedZip.length() == DIGITS_IN_ZIP_CODE_2)));
     }
 
     /** Returns true if string s is a valid contiguous U.S. Zip code.  Must be 5 or 9 digits only. */
@@ -573,9 +566,9 @@ public final class UtilValidate {
         boolean retval = false;
         if (isZipCode(s)) {
             if (isEmpty(s)) {
-                retval = defaultEmptyOK;
+                retval = DEFAULT_EMPTY_OK;
             } else {
-                String normalizedZip = s.substring(0,5);
+                String normalizedZip = s.substring(0, 5);
                 int iZip = Integer.parseInt(normalizedZip);
                 if ((iZip >= 96701 && iZip <= 96898) || (iZip >= 99501 && iZip <= 99950)) {
                     retval = false;
@@ -590,22 +583,22 @@ public final class UtilValidate {
     /** Return true if s is a valid U.S. Postal Code (abbreviation for state). */
     public static boolean isStateCode(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        return ((USStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
+        return ((US_STATE_CODES.indexOf(s) != -1) && (s.indexOf(US_STATE_CODE_DELIMITER) == -1));
     }
 
     /** Return true if s is a valid contiguous U.S. Postal Code (abbreviation for state). */
     public static boolean isContiguousStateCode(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        return ((ContiguousUSStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
+        return ((CONTIGUOUS_US_STATE_CODES.indexOf(s) != -1) && (s.indexOf(US_STATE_CODE_DELIMITER) == -1));
     }
 
     public static boolean isEmail(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return EmailValidator.getInstance().isValid(s);
     }
@@ -615,7 +608,7 @@ public final class UtilValidate {
      */
     public static boolean isEmailList(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         String[] emails = s.split(",");
         for (String email : emails) {
@@ -632,20 +625,19 @@ public final class UtilValidate {
      */
     public static boolean isUrl(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return s.indexOf("://") != -1;
     }
 
     /** isYear returns true if string s is a valid
      *  Year number.  Must be 2 or 4 digits only.
-     *
      *  For Year 2000 compliance, you are advised
      *  to use 4-digit year numbers everywhere.
      */
     public static boolean isYear(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return isNonnegativeInteger(s) && ((s.length() == 2) || (s.length() == 4));
     }
@@ -655,7 +647,7 @@ public final class UtilValidate {
      */
     public static boolean isIntegerInRange(String s, int a, int b) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         // Catch non-integer strings to avoid creating a NaN below,
         // which isn't available on JavaScript 1.0 for Windows.
@@ -674,7 +666,7 @@ public final class UtilValidate {
     /** isMonth returns true if string s is a valid month number between 1 and 12. */
     public static boolean isMonth(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return isIntegerInRange(s, 1, 12);
     }
@@ -682,7 +674,7 @@ public final class UtilValidate {
     /** isDay returns true if string s is a valid day number between 1 and 31. */
     public static boolean isDay(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return isIntegerInRange(s, 1, 31);
     }
@@ -697,7 +689,7 @@ public final class UtilValidate {
     /** isHour returns true if string s is a valid number between 0 and 23. */
     public static boolean isHour(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return isIntegerInRange(s, 0, 23);
     }
@@ -705,7 +697,7 @@ public final class UtilValidate {
     /** isMinute returns true if string s is a valid number between 0 and 59. */
     public static boolean isMinute(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return isIntegerInRange(s, 0, 59);
     }
@@ -713,7 +705,7 @@ public final class UtilValidate {
     /** isSecond returns true if string s is a valid number between 0 and 59. */
     public static boolean isSecond(String s) {
         if (isEmpty(s)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         return isIntegerInRange(s, 0, 59);
     }
@@ -730,13 +722,13 @@ public final class UtilValidate {
         int intDay = Integer.parseInt(day);
 
         // catch invalid days, except for February, so intDay > daysInMonth[intMonth - 1]
-        return !(intDay > daysInMonth[intMonth - 1]) && !((intMonth == 2) && (intDay > daysInFebruary(intYear)));
+        return !(intDay > DAYS_IN_MONTH[intMonth - 1]) && !((intMonth == 2) && (intDay > daysInFebruary(intYear)));
     }
 
     /** isDate returns true if string argument date forms a valid date. */
     public static boolean isDate(String date) {
         if (isEmpty(date)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         String month;
         String day;
@@ -758,7 +750,7 @@ public final class UtilValidate {
     /** isDate returns true if string argument date forms a valid date and is after today. */
     public static boolean isDateAfterToday(String date) {
         if (isEmpty(date)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         int dateSlash1 = date.indexOf("/");
         int dateSlash2 = date.lastIndexOf("/");
@@ -807,14 +799,13 @@ public final class UtilValidate {
     /** isDate returns true if string argument date forms a valid date and is before today. */
     public static boolean isDateBeforeToday(String date) {
         if (isEmpty(date)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
         int dateSlash1 = date.indexOf("/");
         int dateSlash2 = date.lastIndexOf("/");
 
-        if (dateSlash1 <= 0)
-         {
-            return defaultEmptyOK; // In this case an issue number has been provided (requires a javascript check in template!)
+        if (dateSlash1 <= 0) {
+            return DEFAULT_EMPTY_OK; // In this case an issue number has been provided (requires a javascript check in template!)
         }
 
         java.util.Date passed = null;
@@ -854,7 +845,7 @@ public final class UtilValidate {
         return false;
     }
 
-    public static boolean isDateBeforeNow(Timestamp  date) {
+    public static boolean isDateBeforeNow(Timestamp date) {
         Timestamp now = UtilDateTime.nowTimestamp();
         if (date != null) {
             return date.before(now);
@@ -862,7 +853,7 @@ public final class UtilValidate {
         return false;
     }
 
-    public static boolean isDateAfterNow(Timestamp  date) {
+    public static boolean isDateAfterNow(Timestamp date) {
         Timestamp now = UtilDateTime.nowTimestamp();
         if (date != null) {
             return date.after(now);
@@ -878,7 +869,7 @@ public final class UtilValidate {
     /** isTime returns true if string argument time forms a valid time. */
     public static boolean isTime(String time) {
         if (isEmpty(time)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
 
         String hour;
@@ -903,33 +894,30 @@ public final class UtilValidate {
     }
 
     /** Check to see if a card number is a valid ValueLink Gift Card
-     *
      * @param stPassed a string representing a valuelink gift card
      * @return true, if the number passed simple checks
      */
     public static boolean isValueLinkCard(String stPassed) {
         if (isEmpty(stPassed)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        String st = stripCharsInBag(stPassed, creditCardDelimiters);
+        String st = stripCharsInBag(stPassed, CREDIT_CARD_DELIMITERS);
         return st.length() == 16 && (st.startsWith("7") || st.startsWith("6"));
     }
 
     /** Check to see if a card number is a valid OFB Gift Card (Certifiicate)
-     *
      * @param stPassed a string representing a gift card
      * @return tru, if the number passed simple checks
      */
     public static boolean isOFBGiftCard(String stPassed) {
         if (isEmpty(stPassed)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        String st = stripCharsInBag(stPassed, creditCardDelimiters);
+        String st = stripCharsInBag(stPassed, CREDIT_CARD_DELIMITERS);
         return st.length() == 15 && sumIsMod10(getLuhnSum(st));
     }
 
     /** Check to see if a card number is a supported Gift Card
-     *
      * @param stPassed a string representing a gift card
      * @return true, if the number passed simple checks
      */
@@ -968,22 +956,20 @@ public final class UtilValidate {
     }
 
     /** Checks credit card number with Luhn Mod-10 test
-     *
      * @param stPassed a string representing a credit card number
      * @return true, if the credit card number passes the Luhn Mod-10 test, false otherwise
      */
     public static boolean isCreditCard(String stPassed) {
         if (isEmpty(stPassed)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        String st = stripCharsInBag(stPassed, creditCardDelimiters);
+        String st = stripCharsInBag(stPassed, CREDIT_CARD_DELIMITERS);
 
         // encoding only works on cars with less the 19 digits, so st.length() > 19
         return isInteger(st) && !(st.length() > 19) && sumIsMod10(getLuhnSum(st));
     }
 
     /** Checks to see if the cc number is a valid Visa number
-     *
      * @param cc a string representing a credit card number; Sample number: 4111 1111 1111 1111(16 digits)
      * @return true, if the credit card number is a valid VISA number, false otherwise
      */
@@ -995,8 +981,8 @@ public final class UtilValidate {
     }
 
     /** Checks to see if the cc number is a valid Master Card number
-     *
-     * @param cc a string representing a credit card number; MasterCard numbers either start with the numbers 51 through 55 or with the numbers 2221 through 2720. All have 16 digits; Sample number: 5500 0000 0000 0004(16 digits)
+     * @param cc a string representing a credit card number; MasterCard numbers either start with the numbers 51 through 55 or with the numbers 2221
+     *           through 2720. All have 16 digits; Sample number: 5500 0000 0000 0004(16 digits)
      * @return true, if the credit card number is a valid MasterCard  number, false otherwise
      */
     public static boolean isMasterCard(String cc) {
@@ -1048,7 +1034,8 @@ public final class UtilValidate {
     }
 
     /** Checks to see if the cc number is a valid Discover number
-     *   @param    cc - a string representing a credit card number; Discover card numbers begin with 6011 or 65. All have 16 digits; Sample number: 6011000000000004(16 digits)
+     *   @param    cc - a string representing a credit card number; Discover card numbers begin with 6011 or 65. All have 16 digits;
+     *                Sample number: 6011000000000004(16 digits)
      *   @return  true, if the credit card number is a valid Discover card number, false otherwise
      */
     public static boolean isDiscover(String cc) {
@@ -1075,14 +1062,16 @@ public final class UtilValidate {
     }
 
     /** Checks to see if the cc number is a valid JCB number
-     *   @param     cc - a string representing a credit card number; JCB cards beginning with 2131 or 1800 have 15 digits. JCB cards beginning with 35 have 16 digits;Sample number: 3088000000000009(16 digits)
+     *   @param     cc - a string representing a credit card number; JCB cards beginning with 2131 or 1800 have 15 digits. JCB cards beginning
+     *                 with 35 have 16 digits;Sample number: 3088000000000009(16 digits)
      *   @return  true, if the credit card number is a valid JCB card number, false otherwise
      */
     public static boolean isJCB(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
 
-        if (((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0) && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
+        if (((Integer.compare(cc.length(), 16) == 0) && "35".equals(first2digs)) || ((Integer.compare(cc.length(), 15) == 0)
+                && ("2131".equals(first4digs) || "1800".equals(first4digs)))) {
             return isCreditCard(cc);
         }
         return false;
@@ -1148,9 +1137,9 @@ public final class UtilValidate {
      */
     public static boolean isAnyCard(String ccPassed) {
         if (isEmpty(ccPassed)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        String cc = stripCharsInBag(ccPassed, creditCardDelimiters);
+        String cc = stripCharsInBag(ccPassed, CREDIT_CARD_DELIMITERS);
         return isCreditCard(cc) && (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc)
                         || isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc) || isSwitch(cc) || isVisaElectron(cc));
     }
@@ -1163,7 +1152,7 @@ public final class UtilValidate {
         if (isEmpty(ccPassed)) {
             return "Unknown";
         }
-        String cc = stripCharsInBag(ccPassed, creditCardDelimiters);
+        String cc = stripCharsInBag(ccPassed, CREDIT_CARD_DELIMITERS);
 
         if (!isCreditCard(cc)) {
             return "Unknown";
@@ -1209,9 +1198,9 @@ public final class UtilValidate {
      */
     public static boolean isCardMatch(String cardType, String cardNumberPassed) {
         if (isEmpty(cardType) || isEmpty(cardNumberPassed)) {
-            return defaultEmptyOK;
+            return DEFAULT_EMPTY_OK;
         }
-        String cardNumber = stripCharsInBag(cardNumberPassed, creditCardDelimiters);
+        String cardNumber = stripCharsInBag(cardNumberPassed, CREDIT_CARD_DELIMITERS);
 
         if (("CCT_VISA".equalsIgnoreCase(cardType)) && (isVisa(cardNumber))) {
             return true;

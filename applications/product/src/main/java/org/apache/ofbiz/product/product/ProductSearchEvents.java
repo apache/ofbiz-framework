@@ -57,7 +57,6 @@ public class ProductSearchEvents {
 
     /**
      * Removes the results of a search from the specified category
-     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -110,7 +109,6 @@ public class ProductSearchEvents {
 
     /**
      * Sets the thru date of the results of a search to the specified date for the specified catogory
-     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -186,7 +184,6 @@ public class ProductSearchEvents {
 
     /**
      * Adds the results of a search to the specified catogory
-     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -259,7 +256,6 @@ public class ProductSearchEvents {
 
     /**
      * Adds a feature to search results
-     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -349,7 +345,6 @@ public class ProductSearchEvents {
 
     /**
      * Removes a feature from search results
-     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -401,7 +396,6 @@ public class ProductSearchEvents {
 
     /**
      * Formats the results of a search to the screen as a tab-delimited output
-     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event

@@ -31,13 +31,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ThreadSafe
 public final class JSON {
 
-    // TODO: Find a generic way to modify mapper options
-    private static final ObjectMapper mapper = new ObjectMapper();
+    // TODO: Find a generic way to modify MAPPER options
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     /**
      * Creates a <code>JSON</code> instance from an <code>InputStream</code>.
      * The method assumes the character set is UTF-8.
-     *
      * @param inStream
      * @return a <code>JSON</code> instance
      * @throws IOException
@@ -50,7 +49,6 @@ public final class JSON {
 
     /**
      * Creates a <code>JSON</code> instance from an unknown data type.
-     *
      * @param object
      * @return a <code>JSON</code> instance
      * @throws IOException
@@ -58,7 +56,7 @@ public final class JSON {
     public static JSON from(Object object) throws IOException {
         Assert.notNull("object", object);
         try {
-            return from(mapper.writeValueAsString(object));
+            return from(MAPPER.writeValueAsString(object));
         } catch (Exception e) {
             throw new IOException(e);
         }
@@ -66,7 +64,6 @@ public final class JSON {
 
     /**
      * Creates a <code>JSON</code> instance from a <code>Reader</code>.
-     *
      * @param reader
      * @return a <code>JSON</code> instance
      * @throws IOException
@@ -79,7 +76,6 @@ public final class JSON {
 
     /**
      * Creates a <code>JSON</code> instance from a <code>String</code>.
-     *
      * @param jsonString
      * @return a <code>JSON</code> instance
      */
@@ -113,7 +109,6 @@ public final class JSON {
 
     /**
      * Converts this <code>JSON</code> object to the specified type.
-     *
      * @param targetClass
      * @return an object of the specified type
      * @throws IOException
@@ -121,7 +116,7 @@ public final class JSON {
     public <T> T toObject(Class<T> targetClass) throws IOException {
         Assert.notNull("targetClass", targetClass);
         try {
-            return mapper.readValue(jsonString, targetClass);
+            return MAPPER.readValue(jsonString, targetClass);
         } catch (IOException e) {
             throw e;
         } catch (Exception e) {

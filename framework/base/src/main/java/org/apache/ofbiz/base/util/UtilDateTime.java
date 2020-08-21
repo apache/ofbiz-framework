@@ -41,7 +41,7 @@ public final class UtilDateTime {
 
     private static final String MODULE = UtilDateTime.class.getName();
 
-    private static final String[][] timevals = {
+    private static final String[][] TIMEVALS = {
         {"1000", "millisecond"},
         {"60", "second"},
         {"60", "minute"},
@@ -49,7 +49,7 @@ public final class UtilDateTime {
         {"168", "week"}
     };
 
-    private static final DecimalFormat df = new DecimalFormat("0.00;-0.00");
+    private static final DecimalFormat DF = new DecimalFormat("0.00;-0.00");
     /**
      * JDBC escape format for java.sql.Date conversions.
      */
@@ -114,8 +114,8 @@ public final class UtilDateTime {
     }
 
     public static String formatInterval(double interval, int count, Locale locale) {
-        List<Double> parts = new ArrayList<>(timevals.length);
-        for (String[] timeval: timevals) {
+        List<Double> parts = new ArrayList<>(TIMEVALS.length);
+        for (String[] timeval: TIMEVALS) {
             int value = Integer.parseInt(timeval[0]);
             double remainder = interval % value;
             interval = interval / value;
@@ -126,8 +126,8 @@ public final class UtilDateTime {
 
         StringBuilder sb = new StringBuilder();
         for (int i = parts.size() - 1; i >= 0 && count > 0; i--) {
-            Double D = parts.get(i);
-            double d = D;
+            Double doub = parts.get(i);
+            double d = doub;
             if (d < 1) {
                 continue;
             }
@@ -135,13 +135,13 @@ public final class UtilDateTime {
                 sb.append(", ");
             }
             count--;
-            sb.append(count == 0 ? df.format(d) : Integer.toString(D.intValue()));
+            sb.append(count == 0 ? DF.format(d) : Integer.toString(doub.intValue()));
             sb.append(' ');
             Object label;
-            if (D.intValue() == 1) {
-                label = uiDateTimeMap.get(timevals[i][1] + ".singular");
+            if (doub.intValue() == 1) {
+                label = uiDateTimeMap.get(TIMEVALS[i][1] + ".singular");
             } else {
-                label = uiDateTimeMap.get(timevals[i][1] + ".plural");
+                label = uiDateTimeMap.get(TIMEVALS[i][1] + ".plural");
             }
             sb.append(label);
         }
@@ -150,7 +150,6 @@ public final class UtilDateTime {
 
     /**
      * Return a Timestamp for right now
-     *
      * @return Timestamp for right now
      */
     public static java.sql.Timestamp nowTimestamp() {
@@ -177,7 +176,6 @@ public final class UtilDateTime {
 
     /**
      * Returns currentTimeMillis as String
-     *
      * @return String(currentTimeMillis)
      */
     public static String nowAsString() {
@@ -186,7 +184,6 @@ public final class UtilDateTime {
 
     /**
      * Return a string formatted as yyyyMMddHHmmss
-     *
      * @return String formatted for right now
      */
     public static String nowDateString() {
@@ -195,7 +192,6 @@ public final class UtilDateTime {
 
     /**
      * Return a string formatted as format
-     *
      * @return String formatted for right now
      */
     public static String nowDateString(String format) {
@@ -205,7 +201,6 @@ public final class UtilDateTime {
 
     /**
      * Return a Date for right now
-     *
      * @return Date for right now
      */
     public static java.util.Date nowDate() {
@@ -234,7 +229,6 @@ public final class UtilDateTime {
 
     /**
      * Return the date for the first day of the year
-     *
      * @param stamp
      * @return java.sql.Timestamp
      */
@@ -253,13 +247,12 @@ public final class UtilDateTime {
         return getYearStart(stamp, daysLater, monthsLater, yearsLater, TimeZone.getDefault(), Locale.getDefault());
     }
     public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater) {
-        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()),
-                (monthsLater == null ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()));
+        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), (monthsLater == null ? 0
+                : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()));
     }
 
     /**
      * Return the date for the first day of the month
-     *
      * @param stamp
      * @return java.sql.Timestamp
      */
@@ -277,7 +270,6 @@ public final class UtilDateTime {
 
     /**
      * Return the date for the first day of the week
-     *
      * @param stamp
      * @return java.sql.Timestamp
      */
@@ -307,7 +299,6 @@ public final class UtilDateTime {
 
     /**
      * Converts a date String into a java.sql.Date
-     *
      * @param date The date String: MM/DD/YYYY
      * @return A java.sql.Date made from the date String
      */
@@ -322,7 +313,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a java.sql.Date from separate Strings for month, day, year
-     *
      * @param monthStr The month String
      * @param dayStr   The day String
      * @param yearStr  The year String
@@ -339,7 +329,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a java.sql.Date from separate ints for month, day, year
-     *
      * @param month The month int
      * @param day   The day int
      * @param year  The year int
@@ -356,7 +345,6 @@ public final class UtilDateTime {
 
     /**
      * Converts a time String into a java.sql.Time
-     *
      * @param time The time String: either HH:MM or HH:MM:SS
      * @return A java.sql.Time made from the time String
      */
@@ -371,7 +359,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a java.sql.Time from separate Strings for hour, minute, and second.
-     *
      * @param hourStr   The hour String
      * @param minuteStr The minute String
      * @param secondStr The second String
@@ -388,7 +375,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a java.sql.Time from separate ints for hour, minute, and second.
-     *
      * @param hour   The hour int
      * @param minute The minute int
      * @param second The second int
@@ -405,7 +391,6 @@ public final class UtilDateTime {
 
     /**
      * Converts a date and time String into a Timestamp
-     *
      * @param dateTime A combined data and time string in the format "MM/DD/YYYY HH:MM:SS", the seconds are optional
      * @return The corresponding Timestamp
      */
@@ -420,7 +405,6 @@ public final class UtilDateTime {
 
     /**
      * Converts a date String and a time String into a Timestamp
-     *
      * @param date The date String: MM/DD/YYYY
      * @param time The time String: either HH:MM or HH:MM:SS
      * @return A Timestamp made from the date and time Strings
@@ -436,7 +420,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a Timestamp from separate Strings for month, day, year, hour, minute, and second.
-     *
      * @param monthStr  The month String
      * @param dayStr    The day String
      * @param yearStr   The year String
@@ -457,7 +440,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a Timestamp from separate ints for month, day, year, hour, minute, and second.
-     *
      * @param month  The month int
      * @param day    The day int
      * @param year   The year int
@@ -484,7 +466,6 @@ public final class UtilDateTime {
 
     /**
      * Converts a date and time String into a Date
-     *
      * @param dateTime A combined data and time string in the format "MM/DD/YYYY HH:MM:SS", the seconds are optional
      * @return The corresponding Date
      */
@@ -501,7 +482,6 @@ public final class UtilDateTime {
 
     /**
      * Converts a date String and a time String into a Date
-     *
      * @param date The date String: MM/DD/YYYY
      * @param time The time String: either HH:MM or HH:MM:SS
      * @return A Date made from the date and time Strings
@@ -547,7 +527,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a Date from separate Strings for month, day, year, hour, minute, and second.
-     *
      * @param monthStr  The month String
      * @param dayStr    The day String
      * @param yearStr   The year String
@@ -577,7 +556,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a Date from separate ints for month, day, year, hour, minute, and second.
-     *
      * @param month  The month int
      * @param day    The day int
      * @param year   The year int
@@ -600,7 +578,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a date String in the given from a Date
-     *
      * @param date The Date
      * @return A date String in the given format
      */
@@ -623,7 +600,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a date String in the format MM/DD/YYYY from a Date
-     *
      * @param date The Date
      * @return A date String in the format MM/DD/YYYY
      */
@@ -633,7 +609,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a time String in the format HH:MM:SS from a Date. If the seconds are 0, then the output is in HH:MM.
-     *
      * @param date The Date
      * @return A time String in the format HH:MM:SS or HH:MM
      */
@@ -649,7 +624,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a time String in the format HH:MM:SS from a separate ints for hour, minute, and second. If the seconds are 0, then the output is in HH:MM.
-     *
      * @param hour   The hour int
      * @param minute The minute int
      * @param second The second int
@@ -683,7 +657,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a combined data and time string in the format "MM/DD/YYYY HH:MM:SS" from a Date. If the seconds are 0 they are left off.
-     *
      * @param date The Date
      * @return A combined data and time string in the format "MM/DD/YYYY HH:MM:SS" where the seconds are left off if they are 0.
      */
@@ -709,7 +682,6 @@ public final class UtilDateTime {
 
     /**
      * Makes a Timestamp for the beginning of the month
-     *
      * @return A Timestamp of the beginning of the month
      */
     public static java.sql.Timestamp monthBegin() {
@@ -726,7 +698,6 @@ public final class UtilDateTime {
 
     /**
      * returns a week number in a year for a Timestamp input
-     *
      * @param input Timestamp date
      * @return A int containing the week number
      */
@@ -736,7 +707,6 @@ public final class UtilDateTime {
 
     /**
      * returns a day number in a week for a Timestamp input
-     *
      * @param stamp Timestamp date
      * @return A int containing the day number (sunday = 1, saturday = 7)
      */
@@ -768,7 +738,6 @@ public final class UtilDateTime {
     /**
      * Returns a Calendar object initialized to the specified date/time, time zone,
      * and locale.
-     *
      * @param date date/time to use
      * @param timeZone
      * @param locale
@@ -786,7 +755,6 @@ public final class UtilDateTime {
     /**
      * Perform date/time arithmetic on a Timestamp. This is the only accurate way to
      * perform date/time arithmetic across locales and time zones.
-     *
      * @param stamp date/time to perform arithmetic on
      * @param adjType the adjustment type to perform. Use one of the java.util.Calendar fields.
      * @param adjQuantity the adjustment quantity.
@@ -942,7 +910,6 @@ public final class UtilDateTime {
 
     /**
      * Returns a List of month name Strings - suitable for calendar headings.
-     *
      * @param locale
      * @return List of month name Strings
      */
@@ -960,7 +927,6 @@ public final class UtilDateTime {
 
     /**
      * Returns an initialized DateFormat object.
-     *
      * @param dateFormat
      *            optional format string
      * @param tz
@@ -1048,7 +1014,7 @@ public final class UtilDateTime {
 
     // Private lazy-initializer class
     private static class TimeZoneHolder {
-        private static final List<TimeZone> availableTimeZoneList = getTimeZones();
+        private static final List<TimeZone> AVAIL_TIME_ZONE_LIST = getTimeZones();
 
         private static List<TimeZone> getTimeZones() {
             ArrayList<TimeZone> availableTimeZoneList = new ArrayList<>();
@@ -1073,7 +1039,7 @@ public final class UtilDateTime {
      * @see java.util.TimeZone
      */
     public static List<TimeZone> availableTimeZones() {
-        return TimeZoneHolder.availableTimeZoneList;
+        return TimeZoneHolder.AVAIL_TIME_ZONE_LIST;
     }
 
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
@@ -1171,7 +1137,6 @@ public final class UtilDateTime {
      * Returns a copy of {@code date} that cannot be modified.
      * Attempts to modify the returned date will result in an
      * {@code UnsupportedOperationException}.
-     *
      * @param date  the date to copy
      * @return an immutable copy of {@code date}.
      */

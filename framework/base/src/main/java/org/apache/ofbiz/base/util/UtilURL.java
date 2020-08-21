@@ -53,7 +53,6 @@ public final class UtilURL {
      * <p>This method uses various ways to locate the resource, and in all
      * cases it tests to see if the resource exists - so it
      * is very inefficient.</p>
-     *
      * @param resourceName
      * @return
      */
@@ -74,7 +73,6 @@ public final class UtilURL {
      * <p>This method uses various ways to locate the resource, and in all
      * cases it tests to see if the resource exists - so it
      * is very inefficient.</p>
-     *
      * @param resourceName
      * @param loader
      * @return

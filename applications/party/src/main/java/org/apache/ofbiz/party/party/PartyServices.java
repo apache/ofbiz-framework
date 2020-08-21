@@ -1894,7 +1894,6 @@ public class PartyServices {
      * Changes the association of contact mechs, purposes, notes, orders and attributes from
      * one party to another for the purpose of merging records together. Flags the from party
      * as disabled so it no longer appears in a search.
-     *
      * @param dctx the dispatch context
      * @param context the context
      * @return the result of the service execution

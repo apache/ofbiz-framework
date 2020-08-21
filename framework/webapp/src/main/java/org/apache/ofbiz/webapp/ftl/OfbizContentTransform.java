@@ -44,7 +44,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
     private static final String MODULE = OfbizContentTransform.class.getName();
 
     private static String getArg(Map<String, Object> args, String key) {
-        String  result = "";
+        String result = "";
         Object obj = args.get(key);
         if (obj != null) {
             if (Debug.verboseOn()) {

@@ -55,21 +55,21 @@ public class ServerHitBin {
     public static final int ENTITY = 4;
     public static final int SERVICE = 5;
 
-    private static final String[] typeIds = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
+    private static final String[] TYPE_IDS = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
 
     // these Maps contain Lists of ServerHitBin objects by id, the most recent is first in the list
-    public static final ConcurrentMap<String, Deque<ServerHitBin>> requestHistory = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, Deque<ServerHitBin>> eventHistory = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, Deque<ServerHitBin>> viewHistory = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, Deque<ServerHitBin>> entityHistory = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, Deque<ServerHitBin>> serviceHistory = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Deque<ServerHitBin>> REQ_HISTORY = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Deque<ServerHitBin>> EVENT_HISTORY = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Deque<ServerHitBin>> VIEW_HISTORY = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Deque<ServerHitBin>> ENTITY_HISTORY = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Deque<ServerHitBin>> SERVICE_HISTORY = new ConcurrentHashMap<>();
 
     // these Maps contain ServerHitBin objects by id
-    public static final ConcurrentMap<String, ServerHitBin> requestSinceStarted = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, ServerHitBin> eventSinceStarted = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, ServerHitBin> viewSinceStarted = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, ServerHitBin> entitySinceStarted = new ConcurrentHashMap<>();
-    public static final ConcurrentMap<String, ServerHitBin> serviceSinceStarted = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, ServerHitBin> REQ_SINCE_STARTED = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, ServerHitBin> EVENT_SINCE_STARTED = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, ServerHitBin> VIEW_SINCE_STARTED = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, ServerHitBin> ENTITY_SINCE_STARTED = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, ServerHitBin> SERVICE_SINCE_STARTED = new ConcurrentHashMap<>();
 
     public static void countRequest(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         countHit(id, REQUEST, request, startTime, runningTime, userLogin);
@@ -93,7 +93,7 @@ public class ServerHitBin {
 
     private static void countHit(String id, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         // only count hits if enabled, if not specified defaults to false
-        if (!"true".equals(UtilProperties.getPropertyValue("serverstats", "stats.enable." + typeIds[type]))) return;
+        if (!"true".equals(UtilProperties.getPropertyValue("serverstats", "stats.enable." + TYPE_IDS[type]))) return;
         countHit(id, type, request, startTime, runningTime, userLogin, true);
     }
 
@@ -134,7 +134,8 @@ public class ServerHitBin {
         return cal.getTime().getTime();
     }
 
-    private static void countHit(String baseId, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin, boolean isOriginal) {
+    private static void countHit(String baseId, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
+                                 boolean isOriginal) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (delegator == null) {
             String delegatorName = (String) request.getSession().getAttribute("delegatorName");
@@ -151,23 +152,23 @@ public class ServerHitBin {
 
         switch (type) {
         case REQUEST:
-            binList = requestHistory.get(id);
+            binList = REQ_HISTORY.get(id);
             break;
 
         case EVENT:
-            binList = eventHistory.get(id);
+            binList = EVENT_HISTORY.get(id);
             break;
 
         case VIEW:
-            binList = viewHistory.get(id);
+            binList = VIEW_HISTORY.get(id);
             break;
 
         case ENTITY:
-            binList = entityHistory.get(id);
+            binList = ENTITY_HISTORY.get(id);
             break;
 
         case SERVICE:
-            binList = serviceHistory.get(id);
+            binList = SERVICE_HISTORY.get(id);
             break;
         }
 
@@ -176,23 +177,23 @@ public class ServerHitBin {
             Deque<ServerHitBin> listFromMap = null;
             switch (type) {
             case REQUEST:
-                listFromMap = requestHistory.putIfAbsent(id, binList);
+                listFromMap = REQ_HISTORY.putIfAbsent(id, binList);
                 break;
 
             case EVENT:
-                listFromMap = eventHistory.putIfAbsent(id, binList);
+                listFromMap = EVENT_HISTORY.putIfAbsent(id, binList);
                 break;
 
             case VIEW:
-                listFromMap = viewHistory.putIfAbsent(id, binList);
+                listFromMap = VIEW_HISTORY.putIfAbsent(id, binList);
                 break;
 
             case ENTITY:
-                listFromMap = entityHistory.putIfAbsent(id, binList);
+                listFromMap = ENTITY_HISTORY.putIfAbsent(id, binList);
                 break;
 
             case SERVICE:
-                listFromMap = serviceHistory.putIfAbsent(id, binList);
+                listFromMap = SERVICE_HISTORY.putIfAbsent(id, binList);
                 break;
             }
             binList = listFromMap != null ? listFromMap : binList;
@@ -213,10 +214,11 @@ public class ServerHitBin {
             // put the copy at the first of the list, then put this object back on
             if (bin.getNumberHits() > 0) {
                 // persist each bin when time ends if option turned on
-                if (EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true", delegator)) {
+                if (EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.TYPE_IDS[type]
+                        + ".bin", "true", delegator)) {
                     GenericValue serverHitBin = delegator.makeValue("ServerHitBin");
                     serverHitBin.set("contentId", bin.id);
-                    serverHitBin.set("hitTypeId", ServerHitBin.typeIds[bin.type]);
+                    serverHitBin.set("hitTypeId", ServerHitBin.TYPE_IDS[bin.type]);
                     serverHitBin.set("binStartDateTime", new java.sql.Timestamp(bin.startTime));
                     serverHitBin.set("binEndDateTime", new java.sql.Timestamp(bin.endTime));
                     serverHitBin.set("numberHits", bin.getNumberHits());
@@ -273,23 +275,23 @@ public class ServerHitBin {
 
         switch (type) {
         case REQUEST:
-            bin = requestSinceStarted.get(id);
+            bin = REQ_SINCE_STARTED.get(id);
             break;
 
         case EVENT:
-            bin = eventSinceStarted.get(id);
+            bin = EVENT_SINCE_STARTED.get(id);
             break;
 
         case VIEW:
-            bin = viewSinceStarted.get(id);
+            bin = VIEW_SINCE_STARTED.get(id);
             break;
 
         case ENTITY:
-            bin = entitySinceStarted.get(id);
+            bin = ENTITY_SINCE_STARTED.get(id);
             break;
 
         case SERVICE:
-            bin = serviceSinceStarted.get(id);
+            bin = SERVICE_SINCE_STARTED.get(id);
             break;
         }
 
@@ -298,23 +300,23 @@ public class ServerHitBin {
             ServerHitBin binFromMap = null;
             switch (type) {
             case REQUEST:
-                binFromMap = requestSinceStarted.putIfAbsent(id, bin);
+                binFromMap = REQ_SINCE_STARTED.putIfAbsent(id, bin);
                 break;
 
             case EVENT:
-                binFromMap = eventSinceStarted.putIfAbsent(id, bin);
+                binFromMap = EVENT_SINCE_STARTED.putIfAbsent(id, bin);
                 break;
 
             case VIEW:
-                binFromMap = viewSinceStarted.putIfAbsent(id, bin);
+                binFromMap = VIEW_SINCE_STARTED.putIfAbsent(id, bin);
                 break;
 
             case ENTITY:
-                binFromMap = entitySinceStarted.putIfAbsent(id, bin);
+                binFromMap = ENTITY_SINCE_STARTED.putIfAbsent(id, bin);
                 break;
 
             case SERVICE:
-                binFromMap = serviceSinceStarted.putIfAbsent(id, bin);
+                binFromMap = SERVICE_SINCE_STARTED.putIfAbsent(id, bin);
                 break;
             }
             bin = binFromMap != null ? binFromMap : bin;
@@ -457,16 +459,19 @@ public class ServerHitBin {
     private synchronized void addHit(long runningTime) {
         this.numberHits++;
         this.totalRunningTime += runningTime;
-        if (runningTime < this.minTime)
+        if (runningTime < this.minTime) {
             this.minTime = runningTime;
-        if (runningTime > this.maxTime)
+        }
+        if (runningTime > this.maxTime) {
             this.maxTime = runningTime;
+        }
     }
 
     private void saveHit(HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) throws GenericEntityException {
         // persist record of hit in ServerHit entity if option turned on
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".hit", "true", delegator)) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        if (EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.TYPE_IDS[type]
+                + ".hit", "true", delegator)) {
             // if the hit type is ENTITY and the name contains "ServerHit" don't
             // persist; avoids the infinite loop and a bunch of annoying data
             if (this.type == ENTITY && this.id.indexOf("ServerHit") > 0) {
@@ -476,17 +481,19 @@ public class ServerHitBin {
             // check for type data before running.
             GenericValue serverHitType = null;
 
-            serverHitType = EntityQuery.use(delegator).from("ServerHitType").where("hitTypeId", ServerHitBin.typeIds[this.type]).cache().queryOne();
+            serverHitType = EntityQuery.use(delegator).from("ServerHitType").where("hitTypeId", ServerHitBin.TYPE_IDS[this.type]).cache().queryOne();
             if (serverHitType == null) {
                 // datamodel data not loaded; not storing hit.
-                Debug.logWarning("The datamodel data has not been loaded; cannot find hitTypeId '" + ServerHitBin.typeIds[this.type] + " not storing ServerHit.", MODULE);
+                Debug.logWarning("The datamodel data has not been loaded; cannot find hitTypeId '" + ServerHitBin.TYPE_IDS[this.type]
+                        + " not storing ServerHit.", MODULE);
                 return;
             }
 
             GenericValue visit = VisitHandler.getVisit(request.getSession());
             if (visit == null) {
                 // no visit info stored, so don't store the ServerHit
-                Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off persistance of visits you should also turn off persistence of hits.", MODULE);
+                Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off"
+                        + "persistance of visits you should also turn off persistence of hits.", MODULE);
                 return;
             }
             String visitId = visit.getString("visitId");
@@ -497,13 +504,14 @@ public class ServerHitBin {
                 return;
             }
 
-            Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName=" + this.delegator.getDelegatorName(), MODULE);
+            Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName="
+                    + this.delegator.getDelegatorName(), MODULE);
 
             GenericValue serverHit = delegator.makeValue("ServerHit");
 
             serverHit.set("visitId", visitId);
             serverHit.set("hitStartDateTime", new java.sql.Timestamp(startTime));
-            serverHit.set("hitTypeId", ServerHitBin.typeIds[this.type]);
+            serverHit.set("hitTypeId", ServerHitBin.TYPE_IDS[this.type]);
             if (userLogin != null) {
                 serverHit.set("userLoginId", userLogin.get("userLoginId"));
                 ModelEntity modelUserLogin = userLogin.getModelEntity();

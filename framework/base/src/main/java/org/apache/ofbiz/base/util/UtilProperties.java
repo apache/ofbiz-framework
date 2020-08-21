@@ -290,7 +290,6 @@ public final class UtilProperties implements Serializable {
      * Returns a new <code>Properties</code> instance created from <code>fileName</code>.
      * <p>This method is intended for low-level framework classes that need to read
      * properties files before OFBiz has been fully initialized.</p>
-     *
      * @param fileName The full name of the properties file ("foo.properties")
      * @return A new <code>Properties</code> instance created from <code>fileName</code>, or
      * <code>null</code> if the file was not found
@@ -488,7 +487,6 @@ public final class UtilProperties implements Serializable {
 
     /**
      * Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
-     *
      * @param resource The name of the resource
      * @param name     The name of the property in the resource
      * @param value    The value of the property to set in memory
@@ -832,10 +830,8 @@ public final class UtilProperties implements Serializable {
      *     <code>resource and ends with the locale's string (MyProps_en)</code>
      *   </li>
      * </ul>
-     *
      * The <code>component://</code> protocol is supported in the
      * <code>resource</code> parameter.
-     *
      * @param resource The resource to resolve
      * @param locale The desired locale
      * @return A URL instance or null if not found.
@@ -912,7 +908,6 @@ public final class UtilProperties implements Serializable {
      * Convert XML property file to Properties instance. This method will convert
      * both the Java XML properties file format and the OFBiz custom XML
      * properties file format.
-     *
      * <p>The format of the custom XML properties file is:</p>
      * <pre>
      * {@code
@@ -927,7 +922,6 @@ public final class UtilProperties implements Serializable {
      * }
      * </pre>
      * where <em>"locale 1", "locale 2"</em> are valid xml:lang values..
-     *
      * @param in XML file InputStream
      * @param locale The desired locale
      * @param properties Optional Properties object to populate

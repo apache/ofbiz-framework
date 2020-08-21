@@ -360,7 +360,6 @@ public class BOMNode {
 
     /** Getter for property parentNode.
      * @return Value of property parentNode.
-     *
      */
     public BOMNode getParentNode() {
         return parentNode;
@@ -371,7 +370,6 @@ public class BOMNode {
     }
     /** Setter for property parentNode.
      * @param parentNode New value of property parentNode.
-     *
      */
     public void setParentNode(BOMNode parentNode) {
         this.parentNode = parentNode;
@@ -695,7 +693,6 @@ public class BOMNode {
 
     /** Getter for property quantity.
      * @return Value of property quantity.
-     *
      */
     public BigDecimal getQuantity() {
         return quantity;
@@ -707,7 +704,6 @@ public class BOMNode {
 
     /** Getter for property depth.
      * @return Value of property depth.
-     *
      */
 
     public int getDepth() {
@@ -720,7 +716,6 @@ public class BOMNode {
 
     /** Getter for property substitutedNode.
      * @return Value of property substitutedNode.
-     *
      */
     public BOMNode getSubstitutedNode() {
         return substitutedNode;
@@ -728,7 +723,6 @@ public class BOMNode {
 
     /** Setter for property substitutedNode.
      * @param substitutedNode New value of property substitutedNode.
-     *
      */
     public void setSubstitutedNode(BOMNode substitutedNode) {
         this.substitutedNode = substitutedNode;
@@ -740,7 +734,6 @@ public class BOMNode {
 
     /** Getter for property productForRules.
      * @return Value of property productForRules.
-     *
      */
     public String getProductForRules() {
         return productForRules;
@@ -748,7 +741,6 @@ public class BOMNode {
 
     /** Setter for property productForRules.
      * @param productForRules New value of property productForRules.
-     *
      */
     public void setProductForRules(String productForRules) {
         this.productForRules = productForRules;
@@ -756,7 +748,6 @@ public class BOMNode {
 
     /** Getter for property bomTypeId.
      * @return Value of property bomTypeId.
-     *
      */
     public java.lang.String getBomTypeId() {
         return bomTypeId;
@@ -764,7 +755,6 @@ public class BOMNode {
 
     /** Getter for property quantityMultiplier.
      * @return Value of property quantityMultiplier.
-     *
      */
     public BigDecimal getQuantityMultiplier() {
         return quantityMultiplier;
@@ -772,7 +762,6 @@ public class BOMNode {
 
     /** Setter for property quantityMultiplier.
      * @param quantityMultiplier New value of property quantityMultiplier.
-     *
      */
     public void setQuantityMultiplier(BigDecimal quantityMultiplier) {
         if (quantityMultiplier != null) {
@@ -782,7 +771,6 @@ public class BOMNode {
 
     /** Getter for property ruleApplied.
      * @return Value of property ruleApplied.
-     *
      */
     public org.apache.ofbiz.entity.GenericValue getRuleApplied() {
         return ruleApplied;
@@ -790,7 +778,6 @@ public class BOMNode {
 
     /** Setter for property ruleApplied.
      * @param ruleApplied New value of property ruleApplied.
-     *
      */
     public void setRuleApplied(org.apache.ofbiz.entity.GenericValue ruleApplied) {
         this.ruleApplied = ruleApplied;
@@ -798,7 +785,6 @@ public class BOMNode {
 
     /** Getter for property scrapFactor.
      * @return Value of property scrapFactor.
-     *
      */
     public BigDecimal getScrapFactor() {
         return scrapFactor;
@@ -806,7 +792,6 @@ public class BOMNode {
 
     /** Setter for property scrapFactor.
      * @param scrapFactor New value of property scrapFactor.
-     *
      */
     public void setScrapFactor(BigDecimal scrapFactor) {
         if (scrapFactor != null) {
@@ -816,7 +801,6 @@ public class BOMNode {
 
     /** Getter for property childrenNodes.
      * @return Value of property childrenNodes.
-     *
      */
     public List<BOMNode> getChildrenNodes() {
         return childrenNodes;
@@ -824,7 +808,6 @@ public class BOMNode {
 
     /** Setter for property childrenNodes.
      * @param childrenNodes New value of property childrenNodes.
-     *
      */
     public void setChildrenNodes(List<BOMNode> childrenNodes) {
         this.childrenNodes = childrenNodes;
@@ -832,7 +815,6 @@ public class BOMNode {
 
     /** Getter for property productAssoc.
      * @return Value of property productAssoc.
-     *
      */
     public org.apache.ofbiz.entity.GenericValue getProductAssoc() {
         return productAssoc;
@@ -840,7 +822,6 @@ public class BOMNode {
 
     /** Setter for property productAssoc.
      * @param productAssoc New value of property productAssoc.
-     *
      */
     public void setProductAssoc(org.apache.ofbiz.entity.GenericValue productAssoc) {
         this.productAssoc = productAssoc;

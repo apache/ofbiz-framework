@@ -356,7 +356,7 @@ public final class ProductConfigWorker {
                         List<GenericValue> components = oneOption.getComponents();
                         for (GenericValue component: components) {
                             if (oneOption.isVirtualComponent(component) && UtilValidate.isNotEmpty(componentOptions)) {
-                                String  componentOption = componentOptions.get(component.getString("productId"));
+                                String componentOption = componentOptions.get(component.getString("productId"));
                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
                                 configOptionProductOption.put("configId", configId);
                                 configOptionProductOption.put("configItemId", configItemId);

@@ -22,7 +22,6 @@ package org.apache.ofbiz.webapp.webdav;
 public interface RequestHandlerFactory {
     /**
      * Returns a {@link RequestHandler} instance appropriate for the WebDAV HTTP methods.
-     *
      * @param method the WebDAV HTTP method which can be PROPFIND, PROPPATCH,
      *        MKCOL, GET, HEAD, POST, DELETE, PUT, COPY, MOVE, LOCK, or UNLOCK.
      * @return a <code>RequestHandler</code> instance which can't be null.

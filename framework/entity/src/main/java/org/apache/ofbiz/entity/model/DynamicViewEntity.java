@@ -157,7 +157,6 @@ public class DynamicViewEntity {
 
     /** Getter for property entityName.
      * @return Value of property entityName.
-     *
      */
     public String getEntityName() {
         return entityName;
@@ -165,7 +164,6 @@ public class DynamicViewEntity {
 
     /** Setter for property entityName.
      * @param entityName New value of property entityName.
-     *
      */
     public void setEntityName(String entityName) {
         this.entityName = entityName;
@@ -173,7 +171,6 @@ public class DynamicViewEntity {
 
     /** Getter for property packageName.
      * @return Value of property packageName.
-     *
      */
     public String getPackageName() {
         return packageName;
@@ -181,7 +178,6 @@ public class DynamicViewEntity {
 
     /** Setter for property packageName.
      * @param packageName New value of property packageName.
-     *
      */
     public void setPackageName(String packageName) {
         this.packageName = packageName;
@@ -189,7 +185,6 @@ public class DynamicViewEntity {
 
     /** Getter for property defaultResourceName.
      * @return Value of property defaultResourceName.
-     *
      */
     public String getDefaultResourceName() {
         return defaultResourceName;
@@ -197,7 +192,6 @@ public class DynamicViewEntity {
 
     /** Setter for property defaultResourceName.
      * @param defaultResourceName New value of property defaultResourceName.
-     *
      */
     public void setDefaultResourceName(String defaultResourceName) {
         this.defaultResourceName = defaultResourceName;
@@ -205,7 +199,6 @@ public class DynamicViewEntity {
 
     /** Getter for property title.
      * @return Value of property title.
-     *
      */
     public String getTitle() {
         return title;
@@ -213,7 +206,6 @@ public class DynamicViewEntity {
 
     /** Setter for property title.
      * @param title New value of property title.
-     *
      */
     public void setTitle(String title) {
         this.title = title;

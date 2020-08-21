@@ -33,7 +33,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and can be cast to a specified class.
      * <p><code>Assert.isAssignableTo("foo", foo, Foo.class);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -49,7 +48,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is an instance of a specified class.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -65,7 +63,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is an instance of one of the specified classes.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClasses
@@ -92,7 +89,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not an instance of a specified class.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -108,7 +104,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not an instance of one of the specified classes.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClasses
@@ -127,7 +122,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -142,7 +136,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -157,7 +150,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -172,7 +164,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -187,7 +178,6 @@ public class Assert {
     /**
      * Tests a list of arguments for <code>null</code>.
      * <p><code>Assert.notNull("foo", foo, "bar", bar, ...);</code></p>
-     *
      * @param arguments
      * @throws IllegalArgumentException
      */
@@ -200,7 +190,6 @@ public class Assert {
     /**
      * Tests an argument for <code>null</code>.
      * <p><code>Assert.notNull("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param objectToTest
      * @throws IllegalArgumentException

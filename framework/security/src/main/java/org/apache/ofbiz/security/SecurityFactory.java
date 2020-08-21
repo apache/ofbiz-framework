@@ -57,7 +57,6 @@ public final class SecurityFactory {
      * <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html"><code>ServiceLoader</code></a>
      * to get a <code>Security</code> instance. If no instance is found, a default implementation is used.
      * The default implementation is based on/backed by the OFBiz entity engine.
-     *
      * @param delegator The delegator
      * @return A <code>Security</code> instance
      */
@@ -175,7 +174,6 @@ public final class SecurityFactory {
          * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
          * general administration permission, but also checks action_ROLE and validates the user is a member for the
          * application.
-         *
          * @param application The name of the application corresponding to the desired permission.
          * @param action The action on the application corresponding to the desired permission.
          * @param entityName The name of the role entity to use for validation.

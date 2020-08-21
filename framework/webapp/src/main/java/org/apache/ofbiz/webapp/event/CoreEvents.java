@@ -95,12 +95,10 @@ public class CoreEvents {
     /**
      * Schedule a service for a specific time or recurrence
      *  Request Parameters which are used for this service:
-     *
      *  SERVICE_NAME      - Name of the service to invoke
      *  SERVICE_TIME      - First time the service will occur
      *  SERVICE_FREQUENCY - The type of recurrence (SECONDLY, MINUTELY, DAILY,etc)
      *  SERVICE_INTERVAL  - The interval of the frequency (every 5 minutes, etc)
-     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @return Response code string
@@ -426,7 +424,6 @@ public class CoreEvents {
      * Run a service.
      *  Request Parameters which are used for this event:
      *  SERVICE_NAME      - Name of the service to invoke
-     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @return Response code string

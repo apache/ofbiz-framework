@@ -41,16 +41,16 @@ import org.w3c.dom.NodeList;
 public final class ModelDataFileReader {
 
     private static final String MODULE = ModelDataFileReader.class.getName();
-    private static final UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", true);
+    private static final UtilCache<URL, ModelDataFileReader> READERS = UtilCache.createUtilCache("ModelDataFile", true);
 
     public static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
-        ModelDataFileReader reader = readers.get(readerURL);
+        ModelDataFileReader reader = READERS.get(readerURL);
         if (reader == null) {
             if (Debug.infoOn()) {
                 Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader for " + readerURL, MODULE);
             }
             reader = new ModelDataFileReader(readerURL);
-            readers.putIfAbsent(readerURL, reader);
+            READERS.putIfAbsent(readerURL, reader);
         }
         if (Debug.infoOn()) {
             Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : returning reader for " + readerURL, MODULE);
@@ -70,28 +70,28 @@ public final class ModelDataFileReader {
         ModelDataFile dataFile = new ModelDataFile();
         String tempStr;
 
-        dataFile.name = UtilXml.checkEmpty(dataFileElement.getAttribute("name"));
-        dataFile.typeCode = UtilXml.checkEmpty(dataFileElement.getAttribute("type-code"));
-        dataFile.sender = UtilXml.checkEmpty(dataFileElement.getAttribute("sender"));
-        dataFile.receiver = UtilXml.checkEmpty(dataFileElement.getAttribute("receiver"));
+        dataFile.setName(UtilXml.checkEmpty(dataFileElement.getAttribute("name")));
+        dataFile.setTypeCode(UtilXml.checkEmpty(dataFileElement.getAttribute("type-code")));
+        dataFile.setSender(UtilXml.checkEmpty(dataFileElement.getAttribute("sender")));
+        dataFile.setReceiver(UtilXml.checkEmpty(dataFileElement.getAttribute("receiver")));
         dataFile.setEncodingType(UtilXml.checkEmpty(dataFileElement.getAttribute("encoding-type")));
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("record-length"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            dataFile.recordLength = Integer.parseInt(tempStr);
+            dataFile.setRecordLength(Integer.parseInt(tempStr));
         }
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("delimiter"));
         if (tempStr != null && tempStr.length() == 1) {
-            dataFile.delimiter = tempStr.charAt(0);
+            dataFile.setDelimiter(tempStr.charAt(0));
         }
         tempStr = dataFileElement.getAttribute("start-line");
         if (tempStr != null) {
-            dataFile.startLine = Integer.valueOf(tempStr);
+            dataFile.setStartLine(Integer.valueOf(tempStr));
         }
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("text-delimiter"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            dataFile.textDelimiter = tempStr;
+            dataFile.setTextDelimiter(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("eol-type"));
@@ -99,27 +99,28 @@ public final class ModelDataFileReader {
             dataFile.setEOLType(tempStr);
         }
 
-        dataFile.separatorStyle = UtilXml.checkEmpty(dataFileElement.getAttribute("separator-style"));
-        dataFile.description = UtilXml.checkEmpty(dataFileElement.getAttribute("description"));
+        dataFile.setSeparatorStyle(UtilXml.checkEmpty(dataFileElement.getAttribute("separator-style")));
+        dataFile.setDescription(UtilXml.checkEmpty(dataFileElement.getAttribute("description")));
 
         NodeList rList = dataFileElement.getElementsByTagName("record");
 
         for (int i = 0; i < rList.getLength(); i++) {
             Element recordElement = (Element) rList.item(i);
             ModelRecord modelRecord = createModelRecord(recordElement);
-            dataFile.records.add(modelRecord);
+            dataFile.getRecords().add(modelRecord);
         }
 
-        for (ModelRecord modelRecord : dataFile.records) {
+        for (ModelRecord modelRecord : dataFile.getRecords()) {
 
-            if (modelRecord.parentName.length() > 0) {
-                ModelRecord parentRecord = dataFile.getModelRecord(modelRecord.parentName);
+            if (modelRecord.getParentName().length() > 0) {
+                ModelRecord parentRecord = dataFile.getModelRecord(modelRecord.getParentName());
 
                 if (parentRecord != null) {
-                    parentRecord.childRecords.add(modelRecord);
-                    modelRecord.parentRecord = parentRecord;
+                    parentRecord.getChildRecords().add(modelRecord);
+                    modelRecord.setParentRecord(parentRecord);
                 } else {
-                    Debug.logError("[ModelDataFileReader.createModelDataFile] ERROR: Could not find parentRecord with name " + modelRecord.parentName, MODULE);
+                    Debug.logError("[ModelDataFileReader.createModelDataFile] ERROR: Could not find parentRecord with name "
+                            + modelRecord.getParentName(), MODULE);
                 }
             }
         }
@@ -153,7 +154,8 @@ public final class ModelDataFileReader {
         for (Element curDataFile : dataFileElements) {
             String dataFileName = UtilXml.checkEmpty(curDataFile.getAttribute("name"));
             if (result.containsKey(dataFileName)) {
-                Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)", MODULE);
+                Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)",
+                        MODULE);
             }
             ModelDataFile dataFile = createModelDataFile(curDataFile);
             result.put(dataFileName, dataFile);
@@ -168,37 +170,37 @@ public final class ModelDataFileReader {
         ModelField field = new ModelField();
         String tempStr;
 
-        field.name = UtilXml.checkEmpty(fieldElement.getAttribute("name"));
+        field.setName(UtilXml.checkEmpty(fieldElement.getAttribute("name")));
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("position"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            field.position = Integer.parseInt(tempStr);
+            field.setPosition(Integer.parseInt(tempStr));
         }
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("length"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            field.length = Integer.parseInt(tempStr);
+            field.setLength(Integer.parseInt(tempStr));
         }
 
-        field.type = UtilXml.checkEmpty(fieldElement.getAttribute("type"));
-        field.format = UtilXml.checkEmpty(fieldElement.getAttribute("format"));
-        field.validExp = UtilXml.checkEmpty(fieldElement.getAttribute("valid-exp"));
-        field.description = UtilXml.checkEmpty(fieldElement.getAttribute("description"));
-        field.defaultValue = UtilXml.checkEmpty(fieldElement.getAttribute("default-value"));
-        field.refField = UtilXml.checkEmpty(fieldElement.getAttribute("ref-field"));
+        field.setType(UtilXml.checkEmpty(fieldElement.getAttribute("type")));
+        field.setFormat(UtilXml.checkEmpty(fieldElement.getAttribute("format")));
+        field.setValidExp(UtilXml.checkEmpty(fieldElement.getAttribute("valid-exp")));
+        field.setDescription(UtilXml.checkEmpty(fieldElement.getAttribute("description")));
+        field.setDefaultValue(UtilXml.checkEmpty(fieldElement.getAttribute("default-value")));
+        field.setRefField(UtilXml.checkEmpty(fieldElement.getAttribute("ref-field")));
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("prim-key"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            field.isPk = Boolean.parseBoolean(tempStr);
+            field.setPk(Boolean.parseBoolean(tempStr));
         }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("ignored"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            field.ignored = Boolean.parseBoolean(tempStr);
+            field.setIgnored(Boolean.parseBoolean(tempStr));
         }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("expression"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            field.expression = Boolean.parseBoolean(tempStr);
+            field.setExpression(Boolean.parseBoolean(tempStr));
         }
 
         return field;
@@ -208,35 +210,35 @@ public final class ModelDataFileReader {
         ModelRecord record = new ModelRecord();
         String tempStr;
 
-        record.name = UtilXml.checkEmpty(recordElement.getAttribute("name"));
-        record.typeCode = UtilXml.checkEmpty(recordElement.getAttribute("type-code"));
+        record.setName(UtilXml.checkEmpty(recordElement.getAttribute("name")));
+        record.setTypeCode(UtilXml.checkEmpty(recordElement.getAttribute("type-code")));
 
-        record.tcMin = UtilXml.checkEmpty(recordElement.getAttribute("tc-min"));
-        if (record.tcMin.length() > 0) {
-            record.tcMinNum = Long.parseLong(record.tcMin);
+        record.setTcMin(UtilXml.checkEmpty(recordElement.getAttribute("tc-min")));
+        if (record.getTcMin().length() > 0) {
+            record.setTcMinNum(Long.parseLong(record.getTcMin()));
         }
-        record.tcMax = UtilXml.checkEmpty(recordElement.getAttribute("tc-max"));
-        if (record.tcMax.length() > 0) {
-            record.tcMaxNum = Long.parseLong(record.tcMax);
+        record.setTcMax(UtilXml.checkEmpty(recordElement.getAttribute("tc-max")));
+        if (record.getTcMax().length() > 0) {
+            record.setTcMaxNum(Long.parseLong(record.getTcMax()));
         }
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-isnum"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            record.tcIsNum = Boolean.parseBoolean(tempStr);
+            record.setTcIsNum(Boolean.parseBoolean(tempStr));
         }
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-position"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            record.tcPosition = Integer.parseInt(tempStr);
+            record.setTcPosition(Integer.parseInt(tempStr));
         }
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-length"));
         if (UtilValidate.isNotEmpty(tempStr)) {
-            record.tcLength = Integer.parseInt(tempStr);
+            record.setTcLength(Integer.parseInt(tempStr));
         }
 
-        record.description = UtilXml.checkEmpty(recordElement.getAttribute("description"));
-        record.parentName = UtilXml.checkEmpty(recordElement.getAttribute("parent-name"));
-        record.limit = UtilXml.checkEmpty(recordElement.getAttribute("limit"));
+        record.setDescription(UtilXml.checkEmpty(recordElement.getAttribute("description")));
+        record.setParentName(UtilXml.checkEmpty(recordElement.getAttribute("parent-name")));
+        record.setLimit(UtilXml.checkEmpty(recordElement.getAttribute("limit")));
 
         NodeList fList = recordElement.getElementsByTagName("field");
         int priorEnd = -1;
@@ -246,11 +248,11 @@ public final class ModelDataFileReader {
             ModelField modelField = createModelField(fieldElement);
 
             // if the position is not specified, assume the start position based on last entry
-            if ((i > 0) && (modelField.position == -1)) {
-                modelField.position = priorEnd;
+            if ((i > 0) && (modelField.getPosition() == -1)) {
+                modelField.setPosition(priorEnd);
             }
-            priorEnd = modelField.position + modelField.length;
-            record.fields.add(modelField);
+            priorEnd = modelField.getPosition() + modelField.getLength();
+            record.getFields().add(modelField);
         }
 
         return record;
@@ -259,7 +261,6 @@ public final class ModelDataFileReader {
     /**
      * Creates a Collection with the dataFileName of each DataFile defined in the
      * specified XML DataFile Descriptor file.
-     *
      * @return A Collection of dataFileName Strings
      */
     public Collection<String> getDataFileNames() {
@@ -269,7 +270,6 @@ public final class ModelDataFileReader {
     /**
      * Creates a Iterator with the dataFileName of each DataFile defined in the specified
      * XML DataFile Descriptor file.
-     *
      * @return A Iterator of dataFileName Strings
      */
     public Iterator<String> getDataFileNamesIterator() {
@@ -279,7 +279,6 @@ public final class ModelDataFileReader {
     /**
      * Gets an DataFile object based on a definition from the specified XML DataFile
      * descriptor file.
-     *
      * @param dataFileName
      *            The dataFileName of the DataFile definition to use.
      * @return An DataFile object describing the specified dataFile of the specified

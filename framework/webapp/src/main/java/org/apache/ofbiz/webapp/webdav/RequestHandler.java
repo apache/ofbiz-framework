@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 public interface RequestHandler {
     /**
      * Method called by the the WebDAV servlet to handle a WebDAV request.
-     *
      * @param req
      *            the HTTP request to handle which contains the delegator, dispatcher}, Security attributes
      * @param resp

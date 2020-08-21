@@ -95,21 +95,17 @@ public class ModelFormField {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors. All behavior should be contained in model visitors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
     private static final String MODULE = ModelFormField.class.getName();
 
     /**
      * Constructs a form field model from a builder specification.
-     *
      * @param spec  the specification of form field definition
      * @return the form field model corresponding to the specification.
      */
@@ -236,7 +232,6 @@ public class ModelFormField {
      * Gets the name of the Service Attribute (aka Parameter) that corresponds
      * with this field. This can be used to get additional information about the field.
      * Use the getServiceName() method to get the Entity name that the field is in.
-     *
      * @return returns the name of the Service Attribute
      */
     public String getAttributeName() {
@@ -284,7 +279,6 @@ public class ModelFormField {
      * form is being rendered in an error condition (ie isError in the context
      * is true) then the value will be retrieved from the parameters Map in
      * the context.
-     *
      * @param context the context
      * @return returns the entry from the context that corresponds to this field
      */
@@ -443,7 +437,6 @@ public class ModelFormField {
      * Gets the name of the Entity Field that corresponds
      * with this field. This can be used to get additional information about the field.
      * Use the getEntityName() method to get the Entity name that the field is in.
-     *
      * @return return the name of the Entity Field that corresponds with this field
      */
     public String getFieldName() {
@@ -518,7 +511,6 @@ public class ModelFormField {
      * pre-populate the field widget when not in an error condition. In an
      * error condition the parameter name is used to get the value from the
      * parameters Map.
-     *
      * @return returns the name of the Map in the form context that contains the entry
      */
     public String getMapName() {
@@ -551,7 +543,6 @@ public class ModelFormField {
     /**
      * Get the name to use for the parameter for this field in the form interpreter.
      * For HTML forms this is the request parameter name.
-     *
      * @return returns the name to use for the parameter for this field in the form interpreter
      */
     public String getParameterName(Map<String, ? extends Object> context) {
@@ -812,7 +803,6 @@ public class ModelFormField {
      *  before-now (for ex. thruDate), after-now (for ex. fromDate), or by-name (if the
      *  field's name or entry-name or fromDate or thruDate the corresponding
      *  action will be done); only applicable when the field is a timestamp
-     *
      * @param context the context
      * @return true if the field should be read otherwise false
      */
@@ -953,7 +943,6 @@ public class ModelFormField {
 
     /**
      * Provides a stateful predicate checking if a field must be used.
-     *
      * @param context the context determining if the field must be used
      * @return a stateful predicate checking if a field must be used.
      */
@@ -974,7 +963,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;auto-complete&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class AutoComplete {
@@ -1033,7 +1021,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;check&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class CheckField extends FieldInfoWithOptions {
@@ -1091,7 +1078,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;container&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ContainerField extends FieldInfo {
@@ -1127,7 +1113,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;date-find&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DateFindField extends DateTimeField {
@@ -1211,7 +1196,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;date-time&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DateTimeField extends FieldInfo {
@@ -1286,13 +1270,16 @@ public class ModelFormField {
             return new DateTimeField(this, modelFormField);
         }
 
+        /**
+         * Gets clock.
+         * @return the clock
+         */
         public String getClock() {
             return this.clock;
         }
 
         /**
          * Returns the default-value if specified, otherwise the current date, time or timestamp
-         *
          * @param context Context Map
          * @return Default value string for date-time
          */
@@ -1310,10 +1297,19 @@ public class ModelFormField {
             }
         }
 
+        /**
+         * Gets default value.
+         * @return the default value
+         */
         public FlexibleStringExpander getDefaultValue() {
             return defaultValue;
         }
 
+        /**
+         * Gets default value.
+         * @param context the context
+         * @return the default value
+         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -1321,18 +1317,34 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets input method.
+         * @return the input method
+         */
         public String getInputMethod() {
             return this.inputMethod;
         }
 
+        /**
+         * Gets mask.
+         * @return the mask
+         */
         public String getMask() {
             return this.mask;
         }
 
+        /**
+         * Gets step.
+         * @return the step
+         */
         public String getStep() {
             return this.step;
         }
 
+        /**
+         * Gets type.
+         * @return the type
+         */
         public String getType() {
             return type;
         }
@@ -1346,7 +1358,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;display-entity&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DisplayEntityField extends DisplayField {
@@ -1474,7 +1485,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;display&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DisplayField extends FieldInfo {
@@ -1740,7 +1750,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;drop-down&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DropDownField extends FieldInfoWithOptions {
@@ -1942,7 +1951,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;entity-options&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class EntityOptions extends OptionSource {
@@ -2214,7 +2222,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;file&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class FileField extends TextField {
@@ -2250,7 +2257,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;include-form&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class FormField extends FieldInfo {
@@ -2332,7 +2338,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;include-grid&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class GridField extends FieldInfo {
@@ -2414,7 +2419,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;hidden&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class HiddenField extends FieldInfo {
@@ -2475,7 +2479,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;hyperlink&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class HyperlinkField extends FieldInfo {
@@ -2697,7 +2700,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;ignored&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class IgnoredField extends FieldInfo {
@@ -2737,7 +2739,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;image&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ImageField extends FieldInfo {
@@ -2869,7 +2870,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;in-place-editor&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class InPlaceEditor {
@@ -3007,38 +3007,75 @@ public class ModelFormField {
             return this.rows;
         }
 
+        /**
+         * Gets saving class name.
+         * @return the saving class name
+         */
         public String getSavingClassName() {
             return this.savingClassName;
         }
 
+        /**
+         * Gets saving text.
+         * @return the saving text
+         */
         public String getSavingText() {
             return this.savingText;
         }
 
+        /**
+         * Gets submit on blur.
+         * @return the submit on blur
+         */
         public String getSubmitOnBlur() {
             return this.submitOnBlur;
         }
 
+        /**
+         * Gets text after controls.
+         * @return the text after controls
+         */
         public String getTextAfterControls() {
             return this.textAfterControls;
         }
 
+        /**
+         * Gets text before controls.
+         * @return the text before controls
+         */
         public String getTextBeforeControls() {
             return this.textBeforeControls;
         }
 
+        /**
+         * Gets text between controls.
+         * @return the text between controls
+         */
         public String getTextBetweenControls() {
             return this.textBetweenControls;
         }
 
+        /**
+         * Gets update after request call.
+         * @return the update after request call
+         */
         public String getUpdateAfterRequestCall() {
             return this.updateAfterRequestCall;
         }
 
+        /**
+         * Gets url.
+         * @return the url
+         */
         public FlexibleStringExpander getUrl() {
             return url;
         }
 
+        /**
+         * Gets url.
+         * @param context the context
+         * @return the url
+         */
         public String getUrl(Map<String, Object> context) {
             if (this.url != null) {
                 return this.url.expandString(context);
@@ -3049,7 +3086,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;list-options&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ListOptions extends OptionSource {
@@ -3119,18 +3155,34 @@ public class ModelFormField {
             return new ListOptions(this, modelFormField);
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets key acsr.
+         * @return the key acsr
+         */
         public FlexibleMapAccessor<Object> getKeyAcsr() {
             return keyAcsr;
         }
 
+        /**
+         * Gets list acsr.
+         * @return the list acsr
+         */
         public FlexibleMapAccessor<List<? extends Object>> getListAcsr() {
             return listAcsr;
         }
 
+        /**
+         * Gets list entry name.
+         * @return the list entry name
+         */
         public String getListEntryName() {
             return listEntryName;
         }
@@ -3138,7 +3190,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;lookup&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class LookupField extends TextField {
@@ -3205,51 +3256,100 @@ public class ModelFormField {
             return new LookupField(this, modelFormField);
         }
 
+        /**
+         * Gets description field name.
+         * @return the description field name
+         */
         public String getDescriptionFieldName() {
             return this.descriptionFieldName;
         }
 
+        /**
+         * Gets fade background.
+         * @return the fade background
+         */
         public String getFadeBackground() {
             return this.fadeBackground;
         }
 
+        /**
+         * Gets form name.
+         * @return the form name
+         */
         public FlexibleStringExpander getFormName() {
             return formName;
         }
 
+        /**
+         * Gets form name.
+         * @param context the context
+         * @return the form name
+         */
         public String getFormName(Map<String, Object> context) {
             return this.formName.expandString(context);
         }
 
-        //initially-collapsed status
+        /**
+         * Gets initially collapsed.
+         * @return the initially collapsed
+         */
         public boolean getInitiallyCollapsed() {
             return "true".equals(this.initiallyCollapsed);
         }
 
+        /**
+         * Gets lookup height.
+         * @return the lookup height
+         */
         public String getLookupHeight() {
             return this.lookupHeight;
         }
 
+        /**
+         * Gets lookup position.
+         * @return the lookup position
+         */
         public String getLookupPosition() {
             return this.lookupPosition;
         }
 
+        /**
+         * Gets lookup presentation.
+         * @return the lookup presentation
+         */
         public String getLookupPresentation() {
             return this.lookupPresentation;
         }
 
+        /**
+         * Gets lookup width.
+         * @return the lookup width
+         */
         public String getLookupWidth() {
             return this.lookupWidth;
         }
 
+        /**
+         * Gets show description.
+         * @return the show description
+         */
         public Boolean getShowDescription() {
             return UtilValidate.isEmpty(this.showDescription) ? null : "true".equals(this.showDescription);
         }
 
+        /**
+         * Gets target parameter.
+         * @return the target parameter
+         */
         public FlexibleStringExpander getTargetParameter() {
             return targetParameter;
         }
 
+        /**
+         * Gets target parameter.
+         * @param context the context
+         * @return the target parameter
+         */
         public String getTargetParameter(final Map<String, Object> context) {
             return targetParameter.expandString(context);
         }
@@ -3265,6 +3365,11 @@ public class ModelFormField {
             return getTargetParameterList(null);
         }
 
+        /**
+         * Gets target parameter list.
+         * @param context the context
+         * @return the target parameter list
+         */
         public List<String> getTargetParameterList(final Map<String, Object> context) {
             return Optional.ofNullable(getTargetParameter(context))
                     .map(x -> x.split(","))
@@ -3283,7 +3388,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;include-menu&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class MenuField extends FieldInfo {
@@ -3312,18 +3416,36 @@ public class ModelFormField {
             return new MenuField(this, modelFormField);
         }
 
+        /**
+         * Gets menu name.
+         * @param context the context
+         * @return the menu name
+         */
         public String getMenuName(Map<String, Object> context) {
             return this.menuName.expandString(context);
         }
 
+        /**
+         * Gets menu name.
+         * @return the menu name
+         */
         public FlexibleStringExpander getMenuName() {
             return menuName;
         }
 
+        /**
+         * Gets menu location.
+         * @param context the context
+         * @return the menu location
+         */
         public String getMenuLocation(Map<String, Object> context) {
             return this.menuLocation.expandString(context);
         }
 
+        /**
+         * Gets menu location.
+         * @return the menu location
+         */
         public FlexibleStringExpander getMenuLocation() {
             return menuLocation;
         }
@@ -3343,6 +3465,11 @@ public class ModelFormField {
             modelMenu.renderMenuString(writer, context, menuStringRenderer);
         }
 
+        /**
+         * Gets model menu.
+         * @param context the context
+         * @return the model menu
+         */
         public ModelMenu getModelMenu(Map<String, Object> context) {
             String name = this.getMenuName(context);
             String location = this.getMenuLocation(context);
@@ -3370,6 +3497,10 @@ public class ModelFormField {
 
         public abstract OptionSource copy(ModelFormField modelFormField);
 
+        /**
+         * Gets model form field.
+         * @return the model form field
+         */
         public ModelFormField getModelFormField() {
             return modelFormField;
         }
@@ -3384,10 +3515,18 @@ public class ModelFormField {
             this.description = description;
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public String getDescription() {
             return description;
         }
 
+        /**
+         * Gets key.
+         * @return the key
+         */
         public String getKey() {
             return key;
         }
@@ -3395,7 +3534,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;password&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class PasswordField extends TextField {
@@ -3431,7 +3569,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;radio&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class RadioField extends FieldInfoWithOptions {
@@ -3471,7 +3608,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;range-find&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class RangeFindField extends TextField {
@@ -3506,10 +3642,18 @@ public class ModelFormField {
             return new RangeFindField(this, modelFormField);
         }
 
+        /**
+         * Gets default option from.
+         * @return the default option from
+         */
         public String getDefaultOptionFrom() {
             return this.defaultOptionFrom;
         }
 
+        /**
+         * Gets default option thru.
+         * @return the default option thru
+         */
         public String getDefaultOptionThru() {
             return this.defaultOptionThru;
         }
@@ -3523,7 +3667,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;reset&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ResetField extends FieldInfo {
@@ -3563,7 +3706,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;include-screen&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class ScreenField extends FieldInfo {
@@ -3592,18 +3734,36 @@ public class ModelFormField {
             return new ScreenField(this, modelFormField);
         }
 
+        /**
+         * Gets screen name.
+         * @param context the context
+         * @return the screen name
+         */
         public String getScreenName(Map<String, Object> context) {
             return this.screenName.expandString(context);
         }
 
+        /**
+         * Gets screen name.
+         * @return the screen name
+         */
         public FlexibleStringExpander getScreenName() {
             return screenName;
         }
 
+        /**
+         * Gets screen location.
+         * @param context the context
+         * @return the screen location
+         */
         public String getScreenLocation(Map<String, Object> context) {
             return this.screenLocation.expandString(context);
         }
 
+        /**
+         * Gets screen location.
+         * @return the screen location
+         */
         public FlexibleStringExpander getScreenLocation() {
             return screenLocation;
         }
@@ -3632,7 +3792,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;option&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class SingleOption extends OptionSource {
@@ -3668,10 +3827,18 @@ public class ModelFormField {
             return new SingleOption(this, modelFormField);
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets key.
+         * @return the key
+         */
         public FlexibleStringExpander getKey() {
             return key;
         }
@@ -3679,7 +3846,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;sub-hyperlink&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class SubHyperlink {
@@ -3705,146 +3871,304 @@ public class ModelFormField {
             this.modelFormField = modelFormField;
         }
 
+        /**
+         * Gets auto entity parameters.
+         * @return the auto entity parameters
+         */
         public AutoEntityParameters getAutoEntityParameters() {
             return link.getAutoEntityParameters();
         }
 
+        /**
+         * Gets auto service parameters.
+         * @return the auto service parameters
+         */
         public AutoServiceParameters getAutoServiceParameters() {
             return link.getAutoServiceParameters();
         }
 
+        /**
+         * Gets encode.
+         * @return the encode
+         */
         public boolean getEncode() {
             return link.getEncode();
         }
 
+        /**
+         * Gets full path.
+         * @return the full path
+         */
         public boolean getFullPath() {
             return link.getFullPath();
         }
 
+        /**
+         * Gets height.
+         * @return the height
+         */
         public String getHeight() {
             return link.getHeight();
         }
 
+        /**
+         * Gets id.
+         * @param context the context
+         * @return the id
+         */
         public String getId(Map<String, Object> context) {
             return link.getId(context);
         }
 
+        /**
+         * Gets id exdr.
+         * @return the id exdr
+         */
         public FlexibleStringExpander getIdExdr() {
             return link.getIdExdr();
         }
 
+        /**
+         * Gets image.
+         * @return the image
+         */
         public Image getImage() {
             return link.getImage();
         }
 
+        /**
+         * Gets link type.
+         * @return the link type
+         */
         public String getLinkType() {
             return link.getLinkType();
         }
 
+        /**
+         * Gets name.
+         * @return the name
+         */
         public String getName() {
             return link.getName();
         }
 
+        /**
+         * Gets name.
+         * @param context the context
+         * @return the name
+         */
         public String getName(Map<String, Object> context) {
             return link.getName(context);
         }
 
+        /**
+         * Gets name exdr.
+         * @return the name exdr
+         */
         public FlexibleStringExpander getNameExdr() {
             return link.getNameExdr();
         }
 
+        /**
+         * Gets parameter list.
+         * @return the parameter list
+         */
         public List<Parameter> getParameterList() {
             return link.getParameterList();
         }
 
+        /**
+         * Gets parameter map.
+         * @param context            the context
+         * @param defaultEntityName  the default entity name
+         * @param defaultServiceName the default service name
+         * @return the parameter map
+         */
         public Map<String, String> getParameterMap(Map<String, Object> context, String defaultEntityName, String defaultServiceName) {
             return link.getParameterMap(context, defaultEntityName, defaultServiceName);
         }
 
+        /**
+         * Gets parameter map.
+         * @param context the context
+         * @return the parameter map
+         */
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             return link.getParameterMap(context);
         }
 
+        /**
+         * Gets prefix.
+         * @param context the context
+         * @return the prefix
+         */
         public String getPrefix(Map<String, Object> context) {
             return link.getPrefix(context);
         }
 
+        /**
+         * Gets prefix exdr.
+         * @return the prefix exdr
+         */
         public FlexibleStringExpander getPrefixExdr() {
             return link.getPrefixExdr();
         }
 
+        /**
+         * Gets secure.
+         * @return the secure
+         */
         public boolean getSecure() {
             return link.getSecure();
         }
 
+        /**
+         * Gets size.
+         * @return the size
+         */
         public Integer getSize() {
             return link.getSize();
         }
 
+        /**
+         * Gets style.
+         * @param context the context
+         * @return the style
+         */
         public String getStyle(Map<String, Object> context) {
             return link.getStyle(context);
         }
 
+        /**
+         * Gets style exdr.
+         * @return the style exdr
+         */
         public FlexibleStringExpander getStyleExdr() {
             return link.getStyleExdr();
         }
 
+        /**
+         * Gets target.
+         * @param context the context
+         * @return the target
+         */
         public String getTarget(Map<String, Object> context) {
             return link.getTarget(context);
         }
 
+        /**
+         * Gets target exdr.
+         * @return the target exdr
+         */
         public FlexibleStringExpander getTargetExdr() {
             return link.getTargetExdr();
         }
 
+        /**
+         * Gets target window.
+         * @param context the context
+         * @return the target window
+         */
         public String getTargetWindow(Map<String, Object> context) {
             return link.getTargetWindow(context);
         }
 
+        /**
+         * Gets target window exdr.
+         * @return the target window exdr
+         */
         public FlexibleStringExpander getTargetWindowExdr() {
             return link.getTargetWindowExdr();
         }
 
+        /**
+         * Gets text.
+         * @param context the context
+         * @return the text
+         */
         public String getText(Map<String, Object> context) {
             return link.getText(context);
         }
 
+        /**
+         * Gets text exdr.
+         * @return the text exdr
+         */
         public FlexibleStringExpander getTextExdr() {
             return link.getTextExdr();
         }
 
+        /**
+         * Gets url mode.
+         * @return the url mode
+         */
         public String getUrlMode() {
             return link.getUrlMode();
         }
 
+        /**
+         * Gets width.
+         * @return the width
+         */
         public String getWidth() {
             return link.getWidth();
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets description.
+         * @param context the context
+         * @return the description
+         */
         public String getDescription(Map<String, Object> context) {
             return description.expandString(context);
         }
 
+        /**
+         * Gets use when.
+         * @return the use when
+         */
         public FlexibleStringExpander getUseWhen() {
             return useWhen;
         }
 
+        /**
+         * Gets link.
+         * @return the link
+         */
         public Link getLink() {
             return link;
         }
 
+        /**
+         * Gets use when.
+         * @param context the context
+         * @return the use when
+         */
         public String getUseWhen(Map<String, Object> context) {
             return this.useWhen.expandString(context);
         }
 
+        /**
+         * Gets model form field.
+         * @return the model form field
+         */
         public ModelFormField getModelFormField() {
             return modelFormField;
         }
 
+        /**
+         * Should use boolean.
+         * @param context the context
+         * @return the boolean
+         */
         public boolean shouldUse(Map<String, Object> context) {
             boolean shouldUse = true;
             String useWhen = this.getUseWhen(context);
@@ -3884,12 +4208,14 @@ public class ModelFormField {
                 shouldIgnore = (Boolean) retVal;
             } else {
                 throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: " + (retVal != null
-                        ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
+                        ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form "
+                        + this.modelForm.getName());
             }
 
         } catch (CompilationFailedException e) {
             String errMsg =
-                    "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
+                    "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form "
+                            + this.modelForm.getName() + ": " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
@@ -3900,7 +4226,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;submit&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class SubmitField extends FieldInfo {
@@ -3952,18 +4277,36 @@ public class ModelFormField {
             return new SubmitField(this, modelFormField);
         }
 
+        /**
+         * Gets background submit refresh target.
+         * @param context the context
+         * @return the background submit refresh target
+         */
         public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
             return this.backgroundSubmitRefreshTargetExdr.expandString(context);
         }
 
+        /**
+         * Gets background submit refresh target exdr.
+         * @return the background submit refresh target exdr
+         */
         public FlexibleStringExpander getBackgroundSubmitRefreshTargetExdr() {
             return backgroundSubmitRefreshTargetExdr;
         }
 
+        /**
+         * Gets button type.
+         * @return the button type
+         */
         public String getButtonType() {
             return buttonType;
         }
 
+        /**
+         * Gets confirmation.
+         * @param context the context
+         * @return the confirmation
+         */
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
             if (UtilValidate.isNotEmpty(message)) {
@@ -3976,22 +4319,44 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets confirmation msg.
+         * @param context the context
+         * @return the confirmation msg
+         */
         public String getConfirmationMsg(Map<String, Object> context) {
             return this.confirmationMsgExdr.expandString(context);
         }
 
+        /**
+         * Gets confirmation msg exdr.
+         * @return the confirmation msg exdr
+         */
         public FlexibleStringExpander getConfirmationMsgExdr() {
             return confirmationMsgExdr;
         }
 
+        /**
+         * Gets image location.
+         * @return the image location
+         */
         public FlexibleStringExpander getImageLocation() {
             return imageLocation;
         }
 
+        /**
+         * Gets image location.
+         * @param context the context
+         * @return the image location
+         */
         public String getImageLocation(Map<String, Object> context) {
             return this.imageLocation.expandString(context);
         }
 
+        /**
+         * Gets request confirmation.
+         * @return the request confirmation
+         */
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
         }
@@ -4005,7 +4370,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;textarea&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class TextareaField extends FieldInfo {
@@ -4094,14 +4458,27 @@ public class ModelFormField {
             return new TextareaField(this, modelFormField);
         }
 
+        /**
+         * Gets cols.
+         * @return the cols
+         */
         public int getCols() {
             return cols;
         }
 
+        /**
+         * Gets default value.
+         * @return the default value
+         */
         public FlexibleStringExpander getDefaultValue() {
             return defaultValue;
         }
 
+        /**
+         * Gets default value.
+         * @param context the context
+         * @return the default value
+         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -4109,24 +4486,51 @@ public class ModelFormField {
             return "";
         }
 
-        public int getRows() { return rows; }
+        /**
+         * Gets rows.
+         * @return the rows
+         */
+        public int getRows() {
+            return rows;
+        }
 
+        /**
+         * Gets maxlength.
+         * @return the maxlength
+         */
         public Integer getMaxlength() {
             return maxlength;
         }
 
+        /**
+         * Gets visual editor buttons.
+         * @return the visual editor buttons
+         */
         public FlexibleStringExpander getVisualEditorButtons() {
             return visualEditorButtons;
         }
 
+        /**
+         * Gets visual editor buttons.
+         * @param context the context
+         * @return the visual editor buttons
+         */
         public String getVisualEditorButtons(Map<String, Object> context) {
             return this.visualEditorButtons.expandString(context);
         }
 
+        /**
+         * Gets visual editor enable.
+         * @return the visual editor enable
+         */
         public boolean getVisualEditorEnable() {
             return this.visualEditorEnable;
         }
 
+        /**
+         * Is read only boolean.
+         * @return the boolean
+         */
         public boolean isReadOnly() {
             return readOnly;
         }
@@ -4140,7 +4544,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;text&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class TextField extends FieldInfo {
@@ -4260,14 +4663,27 @@ public class ModelFormField {
             return new TextField(this, modelFormField);
         }
 
+        /**
+         * Gets client autocomplete field.
+         * @return the client autocomplete field
+         */
         public boolean getClientAutocompleteField() {
             return this.clientAutocompleteField;
         }
 
+        /**
+         * Gets default value.
+         * @return the default value
+         */
         public FlexibleStringExpander getDefaultValue() {
             return defaultValue;
         }
 
+        /**
+         * Gets default value.
+         * @param context the context
+         * @return the default value
+         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -4275,30 +4691,59 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets mask.
+         * @return the mask
+         */
         public String getMask() {
             return this.mask;
         }
 
+        /**
+         * Gets maxlength.
+         * @return the maxlength
+         */
         public Integer getMaxlength() {
             return maxlength;
         }
 
+        /**
+         * Gets placeholder.
+         * @return the placeholder
+         */
         public FlexibleStringExpander getPlaceholder() {
             return placeholder;
         }
 
+        /**
+         * Gets placeholder.
+         * @param context the context
+         * @return the placeholder
+         */
         public String getPlaceholder(Map<String, Object> context) {
             return this.placeholder.expandString(context);
         }
 
+        /**
+         * Gets readonly.
+         * @return the readonly
+         */
         public boolean getReadonly() {
             return this.readonly;
         }
 
+        /**
+         * Gets size.
+         * @return the size
+         */
         public int getSize() {
             return size;
         }
 
+        /**
+         * Gets sub hyperlink.
+         * @return the sub hyperlink
+         */
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
         }
@@ -4312,7 +4757,6 @@ public class ModelFormField {
 
     /**
      * Models the &lt;text-find&gt; element.
-     *
      * @see <code>widget-form.xsd</code>
      */
     public static class TextFindField extends TextField {
@@ -4369,10 +4813,19 @@ public class ModelFormField {
             return new TextFindField(this, modelFormField);
         }
 
+        /**
+         * Gets default option.
+         * @return the default option
+         */
         public String getDefaultOption() {
             return this.defaultOption;
         }
 
+        /**
+         * Gets default option.
+         * @param context the context
+         * @return the default option
+         */
         public String getDefaultOption(Map<String, Object> context) {
             String defaultOption = getDefaultOption();
 
@@ -4386,20 +4839,35 @@ public class ModelFormField {
             return defaultOption;
         }
 
+        /**
+         * Gets hide ignore case.
+         * @return the hide ignore case
+         */
         public boolean getHideIgnoreCase() {
             return this.hideIgnoreCase;
         }
 
+        /**
+         * Gets hide options.
+         * @return the hide options
+         */
         public boolean getHideOptions() {
             return this.hideOptions;
         }
-
+        /**
+         * Gets ignore case.
+         * @return the ignore case
+         */
         public boolean getIgnoreCase() {
             return this.ignoreCase;
         }
-
+        /**
+         * Gets ignore case.
+         * @param context the context
+         * @return the ignore case
+         */
         public boolean getIgnoreCase(Map<String, Object> context) {
-            Boolean ignoreCase = getIgnoreCase();
+            boolean ignoreCase = getIgnoreCase();
 
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {

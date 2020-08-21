@@ -55,7 +55,6 @@ public final class ModelUtil {
 
     /**
      * Changes the first letter of the passed String to lower case.
-     *
      * @param string The passed String
      * @return A String with a lower case first letter
      */
@@ -147,7 +146,6 @@ public final class ModelUtil {
     }
 
     /**  Start by removing all vowels, then pull 1 letter at a time off the end of each _ separated segment, go until it is less than or equal to the desired length
-     *
      * @param dbName
      * @param desiredLength
      * @return shortened String

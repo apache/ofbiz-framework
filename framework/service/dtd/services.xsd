@@ -67,18 +67,18 @@ under the License.
         <xs:attribute name="validate" type="xs:boolean" default="true"/>
         <xs:attribute name="default-entity-name" type="xs:string"/>
         <xs:attribute name="action">
-        	<xs:annotation>
+            <xs:annotation>
                 <xs:documentation>
                     Specifies the HTTP method name this service can be called using REST interface. For now only POST and GET are supported. 
                     Services that have export=true and have action attribute defined can be called using REST interface. 
                 </xs:documentation>
             </xs:annotation>
-      		<xs:simpleType>
-    			<xs:restriction base="xs:string">
-      				<xs:enumeration value="POST"/>
-      				<xs:enumeration value="GET"/>
-    			</xs:restriction>
-  			</xs:simpleType>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                      <xs:enumeration value="POST"/>
+                      <xs:enumeration value="GET"/>
+                </xs:restriction>
+              </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="use-transaction" type="xs:boolean" default="true">
             <xs:annotation>

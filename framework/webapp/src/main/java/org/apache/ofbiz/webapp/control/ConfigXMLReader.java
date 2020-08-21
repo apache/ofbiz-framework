@@ -181,7 +181,6 @@ public final class ConfigXMLReader {
 
     /**
      * Loads the XML file and returns the root element
-     *
      * @throws WebAppConfigurationException
      */
     private static Element loadDocument(URL location) throws WebAppConfigurationException {
@@ -326,7 +325,6 @@ public final class ConfigXMLReader {
 
         /**
          * Provides the status code that should be used when redirecting an HTTP client.
-         *
          * @return an HTTP response status code.
          */
         public String getStatusCode() {
@@ -344,7 +342,6 @@ public final class ConfigXMLReader {
 
         /**
          * Computes the name of an XML element.
-         *
          * @param el
          *            the element containing "type" and/or "name" attributes
          * @return the derived name.
@@ -360,7 +357,6 @@ public final class ConfigXMLReader {
 
         /**
          * Collects some events defined in an XML tree.
-         *
          * @param root
          *            the root of the XML tree
          * @param childName

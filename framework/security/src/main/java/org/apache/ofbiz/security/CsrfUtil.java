@@ -127,7 +127,6 @@ public final class CsrfUtil {
 
     /**
      * Reduce number of subfolder from request uri, if needed, before using it to generate CSRF token.
-     *
      * @param requestUri
      * @return
      */
@@ -170,7 +169,6 @@ public final class CsrfUtil {
      * size limit is reached, the eldest entry will be deleted each time a new entry is added. Token only generated for
      * up to 3 subfolders in the path so 'entity/find/Budget/0001' and 'entity/find/Budget/0002' should share the same
      * CSRF token.
-     *
      * @param request
      * @param pathOrRequestUri
      * @return csrf token
@@ -222,7 +220,7 @@ public final class CsrfUtil {
         String requestUri = getRequestUriFromPath(urlWithControlPath);
 
         List<ComponentConfig.WebappInfo> webappInfos = ComponentConfig.getAllWebappResourceInfos().stream()
-                .filter(line -> line.contextRoot.contains(RequestHandler.getRequestUri(urlWithControlPath)))
+                .filter(line -> line.getContextRoot().contains(RequestHandler.getRequestUri(urlWithControlPath)))
                 .collect(Collectors.toList());
 
         ConfigXMLReader.RequestMap requestMap = null;
@@ -269,7 +267,6 @@ public final class CsrfUtil {
 
     /**
      * generate csrf token for AJAX and add it as value to token cache
-     *
      * @param request
      * @return csrf token
      */
@@ -285,7 +282,6 @@ public final class CsrfUtil {
 
     /**
      * get csrf token for AJAX
-     *
      * @param session
      * @return csrf token
      */

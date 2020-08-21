@@ -51,7 +51,6 @@ public class ExternalLoginKeysManager {
      * Gets (and creates if necessary) an authentication token to be used for an external login parameter.
      * When a new token is created, it is persisted in the web session and in the web request and map entry keyed by the
      * token and valued by a userLogin object is added to a map that is looked up for subsequent requests.
-     *
      * @param request - the http request in which the authentication token is searched and stored
      * @return the authentication token as persisted in the session and request objects
      */
@@ -89,7 +88,6 @@ public class ExternalLoginKeysManager {
 
     /**
      * Removes the authentication token, if any, from the session.
-     *
      * @param session - the http session from which the authentication token is removed
      */
     static void cleanupExternalLoginKey(HttpSession session) {
@@ -104,7 +102,6 @@ public class ExternalLoginKeysManager {
      * The method is designed to be used in a chain of controller preprocessor event: it always return "success"
      * even when the authentication token is missing or the authentication fails in order to move the processing to the
      * next event in the chain.
-     *
      * @param request - the http request object
      * @param response - the http response object
      * @return "success" in all the cases

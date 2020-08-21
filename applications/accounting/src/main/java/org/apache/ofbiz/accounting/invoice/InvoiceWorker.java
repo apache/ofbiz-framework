@@ -201,7 +201,6 @@ public final class InvoiceWorker {
     }
 
      /**
-      *
       * Return the total amount of the invoice (including tax) using the the invoice GenericValue as input.
       * with the ability to specify if the actual currency is required.
       * @param invoice GenericValue object of the Invoice
@@ -448,7 +447,6 @@ public final class InvoiceWorker {
     }
     /**
      * Returns amount not applied (i.e., still outstanding) of an invoice at an asOfDate, based on Payment.effectiveDate &lt;= asOfDateTime
-     *
      * @param invoice GenericValue object of the invoice
      * @param asOfDateTime the date to use
      * @return Returns amount not applied of the invoice
@@ -470,7 +468,6 @@ public final class InvoiceWorker {
 
     /**
      * Returns amount applied to invoice before an asOfDateTime, based on Payment.effectiveDate &lt;= asOfDateTime
-     *
      * @param delegator the delegator
      * @param invoiceId the invoice id
      * @param asOfDateTime - a Timestamp

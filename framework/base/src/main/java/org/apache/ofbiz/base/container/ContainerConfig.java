@@ -45,7 +45,6 @@ public final class ContainerConfig {
 
     /**
      * Retrieves the container configuration element corresponding to a container name.
-     *
      * @param containerName the name of the container to retrieve
      * @param configFile    the file name corresponding to the global container configuration file
      * @return the corresponding configuration element.
@@ -60,7 +59,6 @@ public final class ContainerConfig {
 
     /**
      * Retrieves the container configuration element corresponding to a container name.
-     *
      * @param containerName the name of the container to retrieve
      * @return the corresponding configuration element.
      * @throws ContainerException when no configuration element are found.
@@ -75,7 +73,6 @@ public final class ContainerConfig {
 
     /**
      * Finds the {@code <container>} configuration elements in a XML element.
-     *
      * @param root the XML element which cannot be {@code null}
      * @return a list of container configuration
      */
@@ -120,7 +117,6 @@ public final class ContainerConfig {
     interface PropertyChildren {
         /**
          * Provides the child property corresponding to a specified identifier.
-         *
          * @param name the child property identifier
          * @return the property corresponding to {@code name} or {@code null} if the identifier is absent.
          */
@@ -156,7 +152,6 @@ public final class ContainerConfig {
 
         /**
          * Constructs a container configuration.
-         *
          * @param element the {@code <container>} XML element to parse
          */
         public Configuration(Element element) {
@@ -198,7 +193,6 @@ public final class ContainerConfig {
         }
         /**
          * Provides all the child properties whose values are equal a specified value.
-         *
          * @param value the value to match
          * @return a list of matching properties
          */

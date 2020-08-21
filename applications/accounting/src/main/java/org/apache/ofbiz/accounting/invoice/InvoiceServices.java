@@ -3489,7 +3489,6 @@ public class InvoiceServices {
     /**
      * Update/add to the paymentApplication table and making sure no duplicate
      * record exist
-     *
      * @param delegator
      * @param paymentApplication
      * @return map results

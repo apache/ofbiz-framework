@@ -52,11 +52,9 @@ public final class StartupCommandUtil {
     private StartupCommandUtil() { }
     /*
      * Make sure of defining the same set of values in:
-     *
      * - The StartupOptions in the StartupOption enum
      * - The commons-cli options (e.g. HELP, START, etc ...)
      * - The getOfbizStartupOptions method
-     *
      * Keeping these items in sync means that OFBiz behaves correctly
      * while being decoupled from the commons-cli library and the only
      * place where commons-cli is used is in this class

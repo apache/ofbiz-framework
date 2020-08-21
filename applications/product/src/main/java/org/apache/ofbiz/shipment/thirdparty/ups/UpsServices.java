@@ -1928,7 +1928,6 @@ public class UpsServices {
 
     /**
      * Opens a URL to UPS and makes a request.
-     *
      * @param upsService Name of the UPS service to invoke
      * @param xmlString  XML message to send
      * @return XML string response from UPS

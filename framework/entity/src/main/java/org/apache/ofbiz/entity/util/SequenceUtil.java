@@ -71,11 +71,25 @@ public class SequenceUtil {
         this.idColName = idField.getColName();
     }
 
+    /**
+     * Gets next seq id.
+     *
+     * @param seqName        the seq name
+     * @param staggerMax     the stagger max
+     * @param seqModelEntity the seq model entity
+     * @return the next seq id
+     */
     public Long getNextSeqId(String seqName, long staggerMax, ModelEntity seqModelEntity) {
         SequenceBank bank = this.getBank(seqName, seqModelEntity);
         return bank.getNextSeqId(staggerMax);
     }
 
+    /**
+     * Force bank refresh.
+     *
+     * @param seqName    the seq name
+     * @param staggerMax the stagger max
+     */
     public void forceBankRefresh(String seqName, long staggerMax) {
         // don't use the get method because we don't want to create if it fails
         SequenceBank bank = sequences.get(seqName);
@@ -90,10 +104,10 @@ public class SequenceUtil {
         SequenceBank bank = sequences.get(seqName);
 
         if (bank == null) {
-            long bankSize = SequenceBank.defaultBankSize;
+            long bankSize = SequenceBank.DEF_BANK_SIZE;
             if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
                 bankSize = seqModelEntity.getSequenceBankSize().longValue();
-                if (bankSize > SequenceBank.maxBankSize) bankSize = SequenceBank.maxBankSize;
+                if (bankSize > SequenceBank.MAX_BANK_SIZE) bankSize = SequenceBank.MAX_BANK_SIZE;
             }
             bank = new SequenceBank(seqName, bankSize);
             SequenceBank bankFromCache = sequences.putIfAbsent(seqName, bank);
@@ -104,9 +118,9 @@ public class SequenceUtil {
     }
 
     private class SequenceBank {
-        public static final long defaultBankSize = 10;
-        public static final long maxBankSize = 5000;
-        public static final long startSeqId = 10000;
+        public static final long DEF_BANK_SIZE = 10;
+        public static final long MAX_BANK_SIZE = 5000;
+        public static final long START_SEQ_ID = 10000;
 
         private final String seqName;
         private final long bankSize;
@@ -121,8 +135,10 @@ public class SequenceUtil {
             curSeqId = 0;
             maxSeqId = 0;
             this.bankSize = bankSize;
-            updateForLockStatement = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "=" + SequenceUtil.this.idColName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
-            selectSequenceStatement = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+            updateForLockStatement = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "="
+                    + SequenceUtil.this.idColName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+            selectSequenceStatement = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE "
+                    + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
         }
 
         private Long getNextSeqId(long staggerMax) {
@@ -172,11 +188,11 @@ public class SequenceUtil {
             long bankSize = this.bankSize;
             if (stagger > 1) {
                 // NOTE: could use staggerMax for this, but if that is done it would be easier to guess a valid next id without a brute force attack
-                bankSize = stagger * defaultBankSize;
+                bankSize = stagger * DEF_BANK_SIZE;
             }
 
-            if (bankSize > maxBankSize) {
-                bankSize = maxBankSize;
+            if (bankSize > MAX_BANK_SIZE) {
+                bankSize = MAX_BANK_SIZE;
             }
 
             Transaction suspendedTransaction = null;
@@ -210,11 +226,13 @@ public class SequenceUtil {
                         // 1 - run an update with no changes to get a lock on the record
                         if (stmt.executeUpdate(updateForLockStatement) <= 0) {
                             Debug.logWarning("Lock failed; no sequence row was found, will try to add a new one for sequence: " + seqName, MODULE);
-                            sql = "INSERT INTO " + SequenceUtil.this.tableName + " (" + SequenceUtil.this.nameColName + ", " + SequenceUtil.this.idColName + ") VALUES ('" + this.seqName + "', " + startSeqId + ")";
+                            sql = "INSERT INTO " + SequenceUtil.this.tableName + " (" + SequenceUtil.this.nameColName + ", "
+                                    + SequenceUtil.this.idColName + ") VALUES ('" + this.seqName + "', " + START_SEQ_ID + ")";
                             try {
                                 stmt.executeUpdate(sql);
                             } catch (SQLException sqle) {
-                                // insert failed: this means that another thread inserted the record; then retry to run an update with no changes to get a lock on the record
+                                // insert failed: this means that another thread inserted the record; then retry to run an update with no changes to
+                                // get a lock on the record
                                 if (stmt.executeUpdate(updateForLockStatement) <= 0) {
                                     // This should never happen
                                     throw new GenericEntityException("No rows changed when trying insert new sequence: " + seqName);
@@ -233,7 +251,8 @@ public class SequenceUtil {
                             throw new GenericEntityException("Failed to find the sequence record for sequence: " + seqName);
                         }
                         // 3 - increment the sequence
-                        sql = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "=" + SequenceUtil.this.idColName + "+" + bankSize + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+                        sql = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "=" + SequenceUtil.this.idColName
+                                + "+" + bankSize + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
                         if (stmt.executeUpdate(sql) <= 0) {
                             throw new GenericEntityException("Update failed, no rows changes for seqName: " + seqName);
                         }
@@ -255,7 +274,7 @@ public class SequenceUtil {
                             Debug.logWarning(sqle, "Error closing connection in sequence util", MODULE);
                         }
                     }
-                } catch (SQLException | GenericEntityException  e) {
+                } catch (SQLException | GenericEntityException e) {
                     // reset the sequence fields and return (note: it would be better to throw an exception)
                     curSeqId = 0;
                     maxSeqId = 0;
@@ -290,7 +309,8 @@ public class SequenceUtil {
 
             maxSeqId = curSeqId + bankSize;
             if (Debug.infoOn()) {
-                Debug.logInfo("Got bank of sequenced IDs for [" + this.seqName + "]; curSeqId=" + curSeqId + ", maxSeqId=" + maxSeqId + ", bankSize=" + bankSize, MODULE);
+                Debug.logInfo("Got bank of sequenced IDs for [" + this.seqName + "]; curSeqId=" + curSeqId + ", maxSeqId=" + maxSeqId + ", bankSize="
+                        + bankSize, MODULE);
             }
         }
     }

@@ -18,12 +18,6 @@
   -->
 <script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
 <script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js</@ofbizContentUrl>"></script>
-<#if language?has_content && language != "en">
-<script src="<@ofbizContentUrl>/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js</@ofbizContentUrl>" type="application/javascript"></script><#rt/>
-</#if>
-<link href="/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
-
 <script type="application/javascript">
     function modifyJstreeCookieToSelectNewPage() {
         // core.initally_load and ui.initially_select don't work with the cookies plugin,
@@ -444,8 +438,14 @@ var contextmenu = { 'items': {
      }
 
 <#-------------------------------------------------------------------------------------createEditor function-->
-    function createEditor() {
-        if($('#cmseditor').length) {
+function createEditor() {
+    if($('#cmseditor').length) {
+        var libraryFiles = ["/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
+                "/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"];
+        <#if language?has_content && language != "en">
+        libraryFiles.push("/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js")
+        </#if>
+        importLibrary(libraryFiles, function() {
             var opts = {
                 cssClass : 'el-rte',
                 lang     : '${language!"en"}',
@@ -455,8 +455,9 @@ var contextmenu = { 'items': {
                 cssfiles : ['/common/js/jquery/plugins/elrte-1.3/css/elrte-inner.css']
             }
             jQuery('#cmseditor').elrte(opts);
-        }
+        });
     }
+}
 <#-------------------------------------------------------------------------------------callMetaInfo function-->
 function callMetaInfo(contentId) {
         var ctx = {"contentId" : contentId, "webSiteId" : webSiteId};

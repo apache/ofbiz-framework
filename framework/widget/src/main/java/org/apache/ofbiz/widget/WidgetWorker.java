@@ -231,7 +231,6 @@ public final class WidgetWorker {
 
     /** Returns the script location based on a script combined name:
      * <code>location#methodName</code>.
-     *
      * @param combinedName The combined location/method name
      * @return The script location
      */
@@ -246,7 +245,6 @@ public final class WidgetWorker {
     /** Returns the script method name based on a script combined name:
      * <code>location#methodName</code>. Returns <code>null</code> if
      * no method name is found.
-     *
      * @param combinedName The combined location/method name
      * @return The method name or <code>null</code>
      */

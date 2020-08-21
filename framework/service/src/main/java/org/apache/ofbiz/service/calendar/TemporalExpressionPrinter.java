@@ -20,10 +20,10 @@ package org.apache.ofbiz.service.calendar;
 
 /** Temporal expression pretty printer. */
 public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
-    protected final TemporalExpression expression;
-    protected final StringBuilder sb = new StringBuilder();
-    protected int indentSize = 2;
-    protected int currentIndent = 0;
+    private final TemporalExpression expression;
+    private final StringBuilder sb = new StringBuilder();
+    private int indentSize = 2;
+    private int currentIndent = 0;
 
     public TemporalExpressionPrinter(TemporalExpression expression) {
         this.expression = expression;
@@ -36,18 +36,28 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
         }
     }
 
+    /**
+     * Append expression.
+     * @param expression the expression
+     */
     protected void appendExpression(TemporalExpression expression) {
         appendIndent();
         this.sb.append(expression);
         this.sb.append("\n");
     }
 
+    /**
+     * Append indent.
+     */
     protected void appendIndent() {
         for (int i = 0; i < this.currentIndent; i++) {
             this.sb.append(" ");
         }
     }
 
+    /**
+     * Indent.
+     */
     protected void indent() {
         this.currentIndent += this.indentSize;
     }
@@ -58,6 +68,9 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
         return this.sb.toString();
     }
 
+    /**
+     * Un indent.
+     */
     protected void unIndent() {
         this.currentIndent -= this.indentSize;
     }
@@ -92,12 +105,12 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
         appendIndent();
         this.sb.append("Include:\n");
         indent();
-        expr.included.accept(this);
+        expr.getIncluded().accept(this);
         unIndent();
         appendIndent();
         this.sb.append("Exclude:\n");
         indent();
-        expr.excluded.accept(this);
+        expr.getExcluded().accept(this);
         unIndent();
         unIndent();
     }
@@ -119,7 +132,7 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
         this.sb.append(expr.getId());
         this.sb.append("]:\n");
         indent();
-        for (TemporalExpression member: expr.expressionSet) {
+        for (TemporalExpression member: expr.getExpressionSet()) {
             member.accept(this);
         }
         unIndent();
@@ -150,17 +163,17 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
         appendIndent();
         this.sb.append("Include:\n");
         indent();
-        expr.included.accept(this);
+        expr.getIncluded().accept(this);
         unIndent();
         appendIndent();
         this.sb.append("Exclude:\n");
         indent();
-        expr.excluded.accept(this);
+        expr.getExcluded().accept(this);
         unIndent();
         appendIndent();
         this.sb.append("Substitute:\n");
         indent();
-        expr.substitute.accept(this);
+        expr.getSubstitute().accept(this);
         unIndent();
         unIndent();
     }
@@ -172,7 +185,7 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
         this.sb.append(expr.getId());
         this.sb.append("]:\n");
         indent();
-        for (TemporalExpression member: expr.expressionSet) {
+        for (TemporalExpression member: expr.getExpressionSet()) {
             member.accept(this);
         }
         unIndent();

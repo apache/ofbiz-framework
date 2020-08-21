@@ -542,7 +542,6 @@ public final class SqlJdbcUtil {
     /**
      * The elements (ModelFields) of the list are bound to an SQL statement
      * (SQL-Processor)
-     *
      * @param sqlP
      * @param list
      * @param entity
@@ -558,7 +557,6 @@ public final class SqlJdbcUtil {
     /**
      * The elements (ModelFields) of the list are bound to an SQL statement
      * (SQL-Processor), but values must not be null.
-     *
      * @param sqlP
      * @param list
      * @param dummyValue
@@ -579,7 +577,6 @@ public final class SqlJdbcUtil {
     /**
      * Get all primary keys from the model entity and bind their values
      * to the an SQL statement (SQL-Processor)
-     *
      * @param sqlP
      * @param modelEntity
      * @param entity

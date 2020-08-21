@@ -105,7 +105,6 @@ public final class GroovyUtil {
      * back to the caller. Any variables that are created in the script
      * are lost when the script ends unless they are copied to the
      * "context" <code>Map</code>.</p>
-     *
      * @param context A <code>Map</code> containing initial variables
      * @return A <code>Binding</code> instance
      */
@@ -171,7 +170,6 @@ public final class GroovyUtil {
      * <p>
      * This method is useful for parsing a Groovy script referenced by
      * a flexible location like {@code component://myComponent/script.groovy}.
-     *
      * @param in  the input stream containing the class source code
      * @param location  the file name to associate with this class
      * @return the corresponding class object
@@ -200,7 +198,6 @@ public final class GroovyUtil {
      * Runs a Groovy script with a context argument.
      * <p>
      * A Groovy script can be either a stand-alone script or a method embedded in a script.
-     *
      * @param location  the location of the script file
      * @param methodName  the name of the method inside the script to be run,
      *                    if it is {@code null} consider the script as stand-alone

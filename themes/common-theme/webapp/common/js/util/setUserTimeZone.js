@@ -19,16 +19,21 @@ under the License.
 
 // Only once by session (ref https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 if (sessionStorage.getItem("SetTimeZoneFromBrowser") === null || sessionStorage.getItem("SetTimeZoneFromBrowser") !== "done") {
-    var timezone = moment.tz.guess();
-    $.ajax({
-        url: "SetTimeZoneFromBrowser",
-        type: "POST",
-        async: false,
-        data: "localeName=" + timezone,
-        success: function(success) {
-            if (success._ERROR_MESSAGE_ === undefined && success._ERROR_MESSAGE_LIST_ === undefined) {
-                sessionStorage.setItem("SetTimeZoneFromBrowser", "done");
-            }
-        }
+    var libraryFiles = ["/common/js/plugins/moment-timezone/moment-with-locales.min.js"];
+    importLibrary(libraryFiles, function(){
+        importLibrary(["/common/js/plugins/moment-timezone/moment-timezone-with-data.min.js"], function(){
+            var timezone = moment.tz.guess();
+            $.ajax({
+                url: "SetTimeZoneFromBrowser",
+                type: "POST",
+                async: false,
+                data: "localeName=" + timezone,
+                success: function(success) {
+                    if (success._ERROR_MESSAGE_ === undefined && success._ERROR_MESSAGE_LIST_ === undefined) {
+                        sessionStorage.setItem("SetTimeZoneFromBrowser", "done");
+                    }
+                }
+            });
+        });
     });
 }

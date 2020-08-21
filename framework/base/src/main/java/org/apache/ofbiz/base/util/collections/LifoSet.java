@@ -47,7 +47,6 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
      * Constructs a set containing the elements of the specified
      * collection, in the order they are returned by the collection's
      * iterator.
-     *
      * @param capacity the collection whose elements are to be placed into this set.
      */
     public LifoSet(int capacity) {
@@ -101,7 +100,6 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     /**
      * @see java.util.Stack#empty()
-     *
      * @return true if and only if this stack contains no items; false otherwise
      */
     public boolean empty() {
@@ -110,7 +108,6 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     /**
      * @see java.util.Stack#push(java.lang.Object)
-     *
      * @param item The item to be pushed onto this stack
      */
     public void push(V item) {
@@ -119,7 +116,6 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     /**
      * @see java.util.Stack#pop()
-     *
      * @return The object at the top of this stack
      * @throws EmptyStackException If this stack is empty
      */
@@ -132,7 +128,6 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     /**
      * @see java.util.Stack#peek()
-     *
      * @return The object at the top of this stack
      * @throws EmptyStackException If this stack is empty
      */
@@ -145,7 +140,6 @@ public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     /**
      * @see java.util.Stack#search(java.lang.Object)
-     *
      * @param item The desired object
      * @return The 1-based position from the top of the stack where the object is located;
      * the return value -1  indicates that the object is not on the stack

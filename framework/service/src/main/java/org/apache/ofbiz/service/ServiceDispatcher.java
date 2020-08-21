@@ -205,7 +205,6 @@ public final class ServiceDispatcher {
 
     /**
      * Registers a callback by associating it to a service.
-     *
      * @param serviceName the name of the service to associate the callback with
      * @param cb the callback to register
      */
@@ -215,9 +214,7 @@ public final class ServiceDispatcher {
 
     /**
      * Provides a list of the enabled callbacks corresponding to a service.
-     *
      * As a side effect, disabled callbacks are removed.
-     *
      * @param serviceName the name of service whose callbacks should be called
      * @return a list of callbacks corresponding to {@code serviceName}
      */

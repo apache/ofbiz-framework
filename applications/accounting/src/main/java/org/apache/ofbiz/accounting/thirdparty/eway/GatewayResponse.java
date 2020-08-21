@@ -106,7 +106,6 @@ public class GatewayResponse {
     /**
      * Gets the beagle score. Defaults to -1 in case of non-Beagle payment methods
      * or if the response does not contain this field.
-     *
      * @return The beagle score or -1 if it was not defined in the response
      */
     public double getBeagleScore() {
@@ -117,7 +116,6 @@ public class GatewayResponse {
      * Creates the GatewayResponse object by parsing an xml from a stream. Fills in
      * the fields of the object that are available through getters after this method
      * returns.
-     *
      * @param xmlstream
      *            the stream to parse the response from
      * @throws Exception

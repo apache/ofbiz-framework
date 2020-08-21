@@ -94,7 +94,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Get the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      * @return List of GenericValue instances as specified in the relation definition
@@ -108,7 +107,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Get the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      * @param orderBy      The fields of the named entity to order the query by; may be null;
@@ -124,7 +122,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Get the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      * @param byAndFields  the fields that must equal in order to keep; may be null
@@ -142,7 +139,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Get the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      * @param byAndFields  the fields that must equal in order to keep; may be null
@@ -159,7 +155,6 @@ public class GenericValue extends GenericEntity {
     /**
      * Get the named Related Entity for the GenericValue from the persistent store across another Relation.
      * Helps to get related Values in a multi-to-multi relationship.
-     *
      * @param relationNameOne String containing the relation name which is the
      *                        combination of relation.title and relation.rel-entity-name as
      *                        specified in the entity XML definition file, for first relation
@@ -175,7 +170,6 @@ public class GenericValue extends GenericEntity {
     /**
      * Get the named Related Entity for the GenericValue from the persistent store across another Relation.
      * Helps to get related Values in a multi-to-multi relationship.
-     *
      * @param relationNameOne String containing the relation name which is the
      *                        combination of relation.title and relation.rel-entity-name as
      *                        specified in the entity XML definition file, for first relation
@@ -188,7 +182,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Get the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      * @return List of GenericValue instances as specified in the relation definition
@@ -202,7 +195,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Get the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      * @param useCache     Whether to cache the results
@@ -214,7 +206,6 @@ public class GenericValue extends GenericEntity {
 
     /**
      * Remove the named Related Entity for the GenericValue from the persistent store
-     *
      * @param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified
      *                    in the entity XML definition file
      */

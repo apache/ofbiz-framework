@@ -99,7 +99,7 @@ public class OrderEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         Map<String, Object> resultMap;
-        String  orderId = request.getParameter("orderId");
+        String orderId = request.getParameter("orderId");
         String[] selectedItems = request.getParameterValues("selectedItem");
 
         if (selectedItems != null) {

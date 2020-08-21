@@ -46,16 +46,15 @@ public final class UtilAccounting {
      * getProductOrgGlAccount. First it will look in ProductGlAccount using the primary keys productId and
      * productGlAccountTypeId. If none is found, it will look up GlAccountTypeDefault to find the default account for
      * organizationPartyId with type glAccountTypeId.
-     *
-     * @param   productId                  When searching for ProductGlAccounts, specify the productId
-     * @param   glAccountTypeId            The default glAccountTypeId to look for if no ProductGlAccount is found
-     * @param   organizationPartyId        The organization party of the default account
-     * @return  The account ID (glAccountId) found
-     * @throws  AccountingException        When the no accounts found or an entity exception occurs
+     * @param productId           When searching for ProductGlAccounts, specify the productId
+     * @param glAccountTypeId     The default glAccountTypeId to look for if no ProductGlAccount is found
+     * @param organizationPartyId The organization party of the default account
+     * @return The account ID (glAccountId) found
+     * @throws AccountingException When the no accounts found or an entity exception occurs
      */
     public static String getProductOrgGlAccountId(String productId,
-            String glAccountTypeId, String organizationPartyId, Delegator delegator)
-        throws AccountingException {
+                                                  String glAccountTypeId, String organizationPartyId, Delegator delegator)
+            throws AccountingException {
 
         GenericValue account = null;
         try {
@@ -64,21 +63,28 @@ public final class UtilAccounting {
                     .where("productId", productId, "glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId)
                     .cache().queryOne();
         } catch (GenericEntityException e) {
-            throw new AccountingException("Failed to find a ProductGLAccount for productId [" + productId + "], organization [" + organizationPartyId + "], and productGlAccountTypeId [" + glAccountTypeId + "].", e);
+            throw new AccountingException("Failed to find a ProductGLAccount for productId [" + productId + "], organization [" + organizationPartyId
+                    + "], and productGlAccountTypeId [" + glAccountTypeId + "].", e);
         }
 
         // otherwise try the default accounts
         if (account == null) {
             try {
-                account = EntityQuery.use(delegator).from("GlAccountTypeDefault").where("glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId).cache().queryOne();
+                account = EntityQuery.use(delegator).from("GlAccountTypeDefault").where("glAccountTypeId", glAccountTypeId, "organizationPartyId",
+                        organizationPartyId).cache().queryOne();
             } catch (GenericEntityException e) {
-                throw new AccountingException("Failed to find a GlAccountTypeDefault for glAccountTypeId [" + glAccountTypeId + "] and organizationPartyId [" + organizationPartyId+ "].", e);
+                throw new AccountingException("Failed to find a GlAccountTypeDefault for glAccountTypeId [" + glAccountTypeId
+                        + "] and organizationPartyId [" + organizationPartyId + "].", e);
             }
         }
 
         // if no results yet, serious problem
         if (account == null) {
-            throw new AccountingException("Failed to find any accounts for  productId [" + productId + "], organization [" + organizationPartyId + "], and productGlAccountTypeId [" + glAccountTypeId + "] or any accounts in GlAccountTypeDefault for glAccountTypeId [" + glAccountTypeId + "] and organizationPartyId [" + organizationPartyId+ "]. Please check your data to make sure that at least a GlAccountTypeDefault is defined for this account type and organization.");
+            throw new AccountingException("Failed to find any accounts for  productId [" + productId + "], organization [" + organizationPartyId
+                    + "], and productGlAccountTypeId [" + glAccountTypeId + "] or any accounts in GlAccountTypeDefault for glAccountTypeId ["
+                    + glAccountTypeId + "] and organizationPartyId [" + organizationPartyId
+                    + "]. Please check your data to make sure that at least a GlAccountTypeDefault is defined for this account type and"
+                    + "organization.");
         }
 
         // otherwise return the glAccountId
@@ -87,11 +93,10 @@ public final class UtilAccounting {
 
     /**
      * As above, but explicitly looking for default account for given type and organization
-     *
-     * @param   glAccountTypeId         The type of account
-     * @param   organizationPartyId     The organization of the account
-     * @return  The default account ID (glAccountId) for this type
-     * @throws  AccountingException     When the default is not configured
+     * @param glAccountTypeId     The type of account
+     * @param organizationPartyId The organization of the account
+     * @return The default account ID (glAccountId) for this type
+     * @throws AccountingException When the default is not configured
      */
     public static String getDefaultAccountId(String glAccountTypeId, String organizationPartyId, Delegator delegator) throws AccountingException {
         return getProductOrgGlAccountId(null, glAccountTypeId, organizationPartyId, delegator);
@@ -102,6 +107,7 @@ public final class UtilAccounting {
         getGlAccountClassChildren(glAccountClass, glAccountClassIds);
         return glAccountClassIds;
     }
+
     private static void getGlAccountClassChildren(GenericValue glAccountClass, List<String> glAccountClassIds) throws GenericEntityException {
         glAccountClassIds.add(glAccountClass.getString("glAccountClassId"));
         List<GenericValue> glAccountClassChildren = glAccountClass.getRelated("ChildGlAccountClass", null, null, true);
@@ -284,14 +290,17 @@ public final class UtilAccounting {
                 EntityCondition.makeCondition("acctgTransTypeId", "PURCHASE_INVOICE"),
                 EntityCondition.makeCondition("invoiceId", paymentApplication.getString("invoiceId")));
         EntityCondition whereCondition = EntityCondition.makeCondition(andConditions, EntityJoinOperator.AND);
-        GenericValue amounts = EntityQuery.use(delegator).select("origAmount", "amount").from("AcctgTransAndEntries").where(whereCondition).queryFirst();
+        GenericValue amounts = EntityQuery.use(delegator).select("origAmount", "amount").from("AcctgTransAndEntries")
+                .where(whereCondition).queryFirst();
         if (amounts == null) {
             return exchangeRate;
         }
         BigDecimal origAmount = amounts.getBigDecimal("origAmount");
         BigDecimal amount = amounts.getBigDecimal("amount");
-        if (origAmount != null && amount != null && BigDecimal.ZERO.compareTo(origAmount) != 0 && BigDecimal.ZERO.compareTo(amount) != 0 && amount.compareTo(origAmount) != 0) {
-            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"), UtilNumber.getRoundingMode("invoice.rounding"));
+        if (origAmount != null && amount != null && BigDecimal.ZERO.compareTo(origAmount) != 0 && BigDecimal.ZERO.compareTo(amount)
+                != 0 && amount.compareTo(origAmount) != 0) {
+            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"),
+                    UtilNumber.getRoundingMode("invoice.rounding"));
         }
         return exchangeRate;
     }
@@ -311,8 +320,10 @@ public final class UtilAccounting {
         }
         BigDecimal origAmount = amounts.getBigDecimal("origAmount");
         BigDecimal amount = amounts.getBigDecimal("amount");
-        if (origAmount != null && amount != null && BigDecimal.ZERO.compareTo(origAmount) != 0 && BigDecimal.ZERO.compareTo(amount) != 0 && amount.compareTo(origAmount) != 0) {
-            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"), UtilNumber.getRoundingMode("invoice.rounding"));
+        if (origAmount != null && amount != null && BigDecimal.ZERO.compareTo(origAmount) != 0 && BigDecimal.ZERO.compareTo(amount) != 0
+                && amount.compareTo(origAmount) != 0) {
+            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"),
+                    UtilNumber.getRoundingMode("invoice.rounding"));
         }
         return exchangeRate;
     }

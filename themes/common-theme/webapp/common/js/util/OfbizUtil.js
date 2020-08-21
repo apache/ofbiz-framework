@@ -62,18 +62,14 @@ function bindObservers(bind_element) {
         jQuery(".selectAll").removeAttr("checked").trigger("click");
     }
 
-    //Set default pattern for new plugin jQuery-Mask-Plugin same as Masked-Input-Plugin.
-    jQuery.jMaskGlobals = {
-        translation: {
-            '9': {pattern: /[0-9*]/},
-            '*': {pattern: /[a-zA-Z0-9]/},
-            'a': {pattern: /[a-zA-Z]/}
-        }
-    };
     jQuery(bind_element).find("[data-mask]").each(function(){
-        var element = jQuery(this);
-        var mask = element.data('mask');
-        element.mask(mask);
+        var self = this;
+        var libraryFiles = ["/common/js/jquery/plugins/inputmask/jquery.inputmask-5.0.6-beta.11.min.js"];
+        importLibrary(libraryFiles, function() {
+            var element = jQuery(self);
+            var mask = element.data('mask');
+            element.inputmask(mask);
+        });
     });
     jQuery(bind_element).find('.autoCompleteDropDown').each(function(){
         jQuery(this).combobox();
@@ -100,17 +96,22 @@ function bindObservers(bind_element) {
         })
     });
     jQuery(bind_element).find(".visual-editor").each(function(){
-        var element = jQuery(this);
-        var toolbar = element.data('toolbar');
-        var language = element.data('language');
-        var opts = {
-            cssClass : 'el-rte',
-            lang     : language,
-            toolbar  : toolbar,
-            doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
-            cssfiles : ['/images/jquery/plugins/elrte-1.3/css/elrte-inner.css']
-        }
-        element.elrte(opts);
+        var self = this;
+        var libraryFiles = ["/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
+            "/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"];
+        importLibrary(libraryFiles, function() {
+            var element = jQuery(self);
+            var toolbar = element.data('toolbar');
+            var language = element.data('language');
+            var opts = {
+                cssClass : 'el-rte',
+                lang     : language,
+                toolbar  : toolbar,
+                doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
+                cssfiles : ['/common/js/jquery/plugins/elrte-1.3/css/elrte-inner.css']
+            }
+            element.elrte(opts);
+        });
     });
     jQuery(bind_element).find(".ajaxAutoCompleter").each(function(){
         var element = jQuery(this);
@@ -1085,47 +1086,51 @@ function submitFormDisableSubmits(form) {
 }
 
 function showjGrowl(showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
-
-    var contentMessages = jQuery("#content-messages");
-    if (contentMessages.length) {
-        jQuery("#content-messages").hide();
-        var errMessage = jQuery("#content-messages").html();
-        var classEvent = "";
-        var classList = jQuery("#content-messages").attr('class').split(/\s+/);
-        var stickyValue = false;
-        jQuery(classList).each(function(index) {
-            var localClass = classList[index];
-            if(localClass == "eventMessage" || localClass == "errorMessage" ){
-                classEvent = localClass + "JGrowl";
+    var libraryFiles = ["/common/js/jquery/plugins/Readmore.js-master/readmore.js",
+        "/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js"];
+    importLibrary(libraryFiles, function() {
+        var contentMessages = jQuery("#content-messages");
+        if (contentMessages.length) {
+            jQuery("#content-messages").hide();
+            var errMessage = jQuery("#content-messages").html();
+            var classEvent = "";
+            var classList = jQuery("#content-messages").attr('class').split(/\s+/);
+            var stickyValue = false;
+            jQuery(classList).each(function (index) {
+                var localClass = classList[index];
+                if (localClass == "eventMessage" || localClass == "errorMessage") {
+                    classEvent = localClass + "JGrowl";
+                }
+            });
+            if (classEvent == "errorMessageJGrowl") {
+                stickyValue = true;
             }
-        });
-        if (classEvent == "errorMessageJGrowl") {
-            stickyValue = true;
-        }
 
-        if (errMessage == null || errMessage == "" || errMessage == undefined ) {
-            // No Error Message Information is set, Error Msg Box can't be created
-            return;
-        }
-        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">'+hideAllLabel+'</div>';
-        if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
-        $.jGrowl(errMessage, { theme: classEvent, sticky: stickyValue,
-            beforeOpen: function(e,m,o){
-                if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width( jGrowlWidth+'px' );
-                if (jGrowlHeight !== null  && jGrowlHeight !== undefined) $(e).height( jGrowlHeight+'px' );
-            },
-            afterOpen: function(e,m) {
-                jQuery(".jGrowl-message").readmore({
-                    moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">'+showAllLabel+'</a>',
-                    lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">'+collapseLabel+'</a>',
+            if (errMessage == null || errMessage == "" || errMessage == undefined) {
+                // No Error Message Information is set, Error Msg Box can't be created
+                return;
+            }
+            $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
+            if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
+            $.jGrowl(errMessage, {
+                theme: classEvent, sticky: stickyValue,
+                beforeOpen: function (e, m, o) {
+                    if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
+                    if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
+                },
+                afterOpen: function (e, m) {
+                    jQuery(".jGrowl-message").readmore({
+                        moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
+                        lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
 
-                    maxHeight: 75
-                });
-            },
-            speed:jGrowlSpeed
-        });
-        contentMessages.remove();
-    }
+                        maxHeight: 75
+                    });
+                },
+                speed: jGrowlSpeed
+            });
+            contentMessages.remove();
+        }
+    });
 }
 
 
@@ -1417,4 +1422,49 @@ function sendJWT(targetUrl) {
             }
         });
     }
+}
+
+var importLibrary = function() {
+    var importLibraryFiles = new Map();
+    return function (urls, onSuccessFn, onErrorFn) {
+        function cachedScript(url, options) {
+            // Allow user to set any option except for following
+            options = $.extend(options || {}, {
+                crossDomain: isLocalEnviron(), // when true, file is shown under browser's sources folder
+                dataType: "script",
+                cache: true,
+                url: url
+            });
+
+            // Use $.ajax() since it is more flexible than $.getScript
+            // Return the jqXHR object so we can chain callbacks
+            return jQuery.ajax(options);
+        };
+
+        jQuery.when.apply(jQuery,
+            jQuery.map(urls, function (url) {
+                if (!importLibraryFiles.has(url)) {
+                    var deferObj = (url.endsWith(".css") ?
+                        jQuery.get(url, function (css) {
+                            var folder = url.substring(0,url.lastIndexOf("/"))
+                            var parentFolder = folder.substring(0,folder.lastIndexOf("/"))
+                            // convert any relative path
+                            var updatedCss = css.replace(/\.\.\/(images|css|js)+/g, parentFolder+"/$1");
+                            jQuery("<style>" + updatedCss + "</style>").appendTo("head");
+                        }) :
+                        cachedScript(url));
+                    importLibraryFiles.set(url, deferObj);
+                    return deferObj;
+                } else {
+                    return importLibraryFiles.get(url);
+                }
+            })
+        ).then(onSuccessFn).catch(onErrorFn || function (err) {
+            alert('Error:\n'+err+'\n\nFile(s): \n' + urls.join('\n'))
+        });
+    }
+}();
+
+function isLocalEnviron(){
+    return ["localhost","127.0.0.1"].includes(window.location.hostname);
 }

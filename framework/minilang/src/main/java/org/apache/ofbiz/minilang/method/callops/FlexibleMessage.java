@@ -49,8 +49,8 @@ public final class FlexibleMessage implements Serializable {
             } else {
                 messageFse = null;
                 propertykey = MiniLangValidate.checkAttribute(element.getAttribute("property"), defaultProperty);
-                int exprStart = propertykey.indexOf(FlexibleStringExpander.openBracket);
-                int exprEnd = propertykey.indexOf(FlexibleStringExpander.closeBracket, exprStart);
+                int exprStart = propertykey.indexOf(FlexibleStringExpander.OPEN_BRACKET);
+                int exprEnd = propertykey.indexOf(FlexibleStringExpander.CLOSE_BRACKET, exprStart);
                 if (exprStart > -1 && exprStart < exprEnd) {
                     keyFse = FlexibleStringExpander.getInstance(propertykey);
                 } else {

@@ -60,7 +60,6 @@ public class ImageTransform {
      * getBufferedImage
      * <p>
      * Set a buffered image
-     *
      * @param   fileLocation    Full file Path or URL
      * @return  URL images for all different size types
      * @throws  IOException Error prevents the document from being fully parsed
@@ -98,7 +97,6 @@ public class ImageTransform {
      * scaleImage
      * <p>
      * scale original image related to the ImageProperties.xml dimensions
-     *
      * @param   bufImg          Buffered image to scale
      * @param   imgHeight       Original image height
      * @param   imgWidth        Original image width
@@ -208,7 +206,6 @@ public class ImageTransform {
      * getXMLValue
      * <p>
      * From a XML element, get a values map
-     *
      * @param fileFullPath      File path to parse
      * @return Map contains asked attribute values by attribute name
      */
@@ -273,7 +270,6 @@ public class ImageTransform {
      * toBufferedImage
      * <p>
      * Transform from an Image instance to a BufferedImage instance
-     *
      * @param image             Source image
      * @return BufferedImage
      */

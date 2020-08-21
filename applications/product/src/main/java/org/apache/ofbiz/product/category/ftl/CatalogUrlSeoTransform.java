@@ -150,7 +150,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Check whether the category map is initialed.
-     *
      * @return a boolean value to indicate whether the category map has been initialized.
      */
     public static boolean isCategoryMapInitialed() {
@@ -159,7 +158,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Get the category name/id map.
-     *
      * @return the category name/id map
      */
     public static Map<String, String> getCategoryNameIdMap() {
@@ -168,7 +166,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Get the category id/name map.
-     *
      * @return the category id/name map
      */
     public static Map<String, String> getCategoryIdNameMap() {
@@ -178,7 +175,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
     /**
      * Initial category-name/category-id map. Note: as a key, the category-name should be: 1. ascii 2. lower cased and
      * use hyphen between the words. If not, the category id will be used.
-     *
      */
     public static synchronized void initCategoryMap(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -244,7 +240,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Make product url according to the configurations.
-     *
      * @return String a catalog url
      */
     public static String makeProductUrl(HttpServletRequest request, String productId, String currentCategoryId,
@@ -335,7 +330,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Make category url according to the configurations.
-     *
      * @return String a category url
      */
     public static String makeCategoryUrl(HttpServletRequest request, String currentCategoryId,
@@ -411,7 +405,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Make product url according to the configurations.
-     *
      * @return String a catalog url
      */
     public static String makeProductUrl(String contextPath, List<String> trail, String productId, String productName,
@@ -473,7 +466,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Get a string lower cased and hyphen connected.
-     *
      * @param name
      *            a String to be transformed
      * @return String nice name
@@ -502,7 +494,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Forward a uri according to forward pattern regular expressions.
-     *
      * @param request
      * @param response
      * @param delegator
@@ -635,7 +626,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Forward a category uri according to forward pattern regular expressions.
-     *
      * @param request
      * @param response
      * @param delegator
@@ -698,7 +688,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * This is used when building product url in services.
-     *
      * @param delegator
      * @param wrapper
      * @param prefix
@@ -789,7 +778,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * This is used when building category url in services.
-     *
      * @param delegator
      * @param wrapper
      * @param prefix

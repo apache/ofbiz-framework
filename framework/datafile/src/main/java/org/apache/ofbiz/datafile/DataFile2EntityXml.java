@@ -56,26 +56,26 @@ public class DataFile2EntityXml {
             outFile.newLine();
             for (Record record : dataFile.getRecords()) {
                 ModelRecord modelRecord = record.getModelRecord();
-                outFile.write("<" + modelRecord.name + " ");
-                for (ModelField modelField : modelRecord.fields) {
-                    if (modelField.ignored) {
+                outFile.write("<" + modelRecord.getName() + " ");
+                for (ModelField modelField : modelRecord.getFields()) {
+                    if (modelField.isIgnored()) {
                         continue;
                     }
-                    Object value = record.get(modelField.name);
+                    Object value = record.get(modelField.getName());
                     if (value == null) {
-                        value = modelField.defaultValue;
+                        value = modelField.getDefaultValue();
                     }
                     if (value instanceof String) {
                         value = ((String) value).trim();
                         if (((String) value).length() == 0) {
-                            value = modelField.defaultValue;
+                            value = modelField.getDefaultValue();
                         }
                     }
                     if (value != null) {
                         if (value instanceof String) {
-                            outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String) value) + "\" ");
+                            outFile.write(modelField.getName() + "=\"" + UtilFormatOut.encodeXmlValue((String) value) + "\" ");
                         } else {
-                            outFile.write(modelField.name + "=\"" + value + "\" ");
+                            outFile.write(modelField.getName() + "=\"" + value + "\" ");
                         }
                     }
                 }
@@ -95,7 +95,8 @@ public class DataFile2EntityXml {
         String definitionLoc = args[1];
         String definitionName = args[2];
 
-        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dataFileLoc + ".xml"), StandardCharsets.UTF_8));) {
+        try (BufferedWriter outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dataFileLoc + ".xml"),
+                StandardCharsets.UTF_8));) {
             URL dataFileUrl = UtilURL.fromFilename(dataFileLoc);
             URL definitionUrl = UtilURL.fromFilename(definitionLoc);
 
@@ -111,14 +112,14 @@ public class DataFile2EntityXml {
             if (dataFile != null) {
                 for (Record record : dataFile.getRecords()) {
                     ModelRecord modelRecord = record.getModelRecord();
-                    outFile.write("<" + modelRecord.name + " ");
-                    for (ModelField modelField : modelRecord.fields) {
-                        Object value = record.get(modelField.name);
+                    outFile.write("<" + modelRecord.getName() + " ");
+                    for (ModelField modelField : modelRecord.getFields()) {
+                        Object value = record.get(modelField.getName());
                         if (value instanceof String) {
                             value = ((String) value).trim();
-                            outFile.write(modelField.name + "=\"" + UtilFormatOut.encodeXmlValue((String) value) + "\" ");
+                            outFile.write(modelField.getName() + "=\"" + UtilFormatOut.encodeXmlValue((String) value) + "\" ");
                         } else {
-                            outFile.write(modelField.name + "=\"" + value + "\" ");
+                            outFile.write(modelField.getName() + "=\"" + value + "\" ");
                         }
                     }
                     outFile.write("/>");

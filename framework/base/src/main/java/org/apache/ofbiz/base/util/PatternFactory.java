@@ -30,7 +30,8 @@ import org.apache.oro.text.regex.Perl5Compiler;
 public class PatternFactory {
 
     private static final String MODULE = PatternFactory.class.getName();
-    private static final UtilCache<String, Pattern> compiledPerl5Patterns = UtilCache.createUtilCache("regularExpression.compiledPerl5Patterns", false);
+    private static final UtilCache<String, Pattern> COMPILED_PERL5_PATTERNS = UtilCache.createUtilCache("regularExpression.compiledPerl5Patterns",
+            false);
 
     /**
      * Compiles and caches a Perl5 regexp pattern for the given string pattern.
@@ -42,7 +43,7 @@ public class PatternFactory {
      */
 
     public static Pattern createOrGetPerl5CompiledPattern(String stringPattern, boolean caseSensitive) throws MalformedPatternException {
-        Pattern pattern = compiledPerl5Patterns.get(stringPattern);
+        Pattern pattern = COMPILED_PERL5_PATTERNS.get(stringPattern);
         if (pattern == null) {
             Perl5Compiler compiler = new Perl5Compiler();
             if (caseSensitive) {
@@ -50,7 +51,7 @@ public class PatternFactory {
             } else {
                 pattern = compiler.compile(stringPattern, Perl5Compiler.CASE_INSENSITIVE_MASK | Perl5Compiler.READ_ONLY_MASK);
             }
-            pattern = compiledPerl5Patterns.putIfAbsentAndGet(stringPattern, pattern);
+            pattern = COMPILED_PERL5_PATTERNS.putIfAbsentAndGet(stringPattern, pattern);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Compiled and cached the pattern: '" + stringPattern, MODULE);
             }

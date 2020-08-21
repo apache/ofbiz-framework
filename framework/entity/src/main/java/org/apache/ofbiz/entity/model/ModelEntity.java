@@ -1541,13 +1541,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     /**
      * Writes entity model information in the Apple EOModelBundle format.
-     *
      * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
-     *
      * For examples see the JavaRealEstate.framework and JavaBusinessLogic.framework packages which are in the /Library/Frameworks directory after installing the WebObjects Examples package (get latest version of WebObjects download for this).
-     *
      * This is based on examples and documentation from WebObjects 5.4, downloaded 20080221.
-     *
      * @param writer
      * @param entityPrefix
      * @param helperName

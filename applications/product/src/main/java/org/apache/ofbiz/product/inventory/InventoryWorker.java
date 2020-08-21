@@ -104,7 +104,6 @@ public final class InventoryWorker {
     /**
      * Gets the quanitty of each product in the order that is outstanding across all orders of the given input type.
      * Uses the OrderItemQuantityReportGroupByProduct view entity.
-     *
      * @param   productIds  Collection of disticnt productIds in an order. Use OrderReadHelper.getOrderProductIds()
      * @param   orderTypeId Either "SALES_ORDER" or "PURCHASE_ORDER"
      * @param   delegator   The delegator to use

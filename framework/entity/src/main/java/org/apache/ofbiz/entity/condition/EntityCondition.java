@@ -49,7 +49,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a comparison between two elements.
-     *
      * @param lhs the left hand side element
      * @param operator the binary infix operator
      * @param rhs the right hand side element
@@ -61,7 +60,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a equality comparison between a field and a value.
-     *
      * @param fieldName the name of the field to compare
      * @param value the value to find in field
      * @return a condition expression representing a equality comparison
@@ -72,7 +70,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of two condition expressions.
-     *
      * @param lhs the left hand side condition
      * @param operator the binary infix operator used to combine {@code lhs} and {@code rhs} conditions
      * @param rhs the right hand side condition
@@ -84,7 +81,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of condition expressions.
-     *
      * @param operator the binary infix operator used to join every elements of {@code conditionList}
      * @param conditionList the list of condition expressions to join
      * @return a condition expression representing a combination of condition expressions.
@@ -97,7 +93,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a conjunction of condition expressions
-     *
      * @param conditionList the condition expressions to join with {@link EntityOperator#AND}
      * @return a condition expression representing a conjunction of condition expressions
      */
@@ -109,7 +104,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of condition expressions.
-     *
      * @param conditionList the list of condition expressions to join
      * @param operator the binary infix operator used to join every elements of {@code conditionList}
      * @return a condition expression representing a combination of condition expressions.
@@ -121,7 +115,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a conjunction of condition expressions
-     *
      * @param conditionList the condition expressions to join with {@link EntityOperator#AND}
      * @return a condition expression representing a conjunction of condition expressions
      */
@@ -131,7 +124,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of field/value comparisons.
-     *
      * @param fieldMap the map associating a field to the value to match
      * @param compOp the binary infix operator used to compare the field and the value
      * @param joinOp the binary infix operator used to join the field/value comparisons
@@ -144,7 +136,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of field/value equality comparisons.
-     *
      * @param fieldMap the map associating a field to the value to match with {@link EntityOperator#EQUALS}
      * @param joinOp the binary infix operator used to join the field/value equality comparisons
      * @return a condition expression representing a combination of field/value equality comparisons
@@ -155,7 +146,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a conjunction of field/value equality comparisons.
-     *
      * @param fieldMap the map associating a field to the value to match with {@link EntityOperator#EQUALS}
      * @return a condition expression representing a conjunction of field/value equality comparisons
      */
@@ -165,7 +155,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of field/value comparisons.
-     *
      * @param compOp the binary infix operator used to compare the field and the value
      * @param joinOp the binary infix operator used to join the field/value comparisons
      * @param keysValues the field/values pairs to match
@@ -178,7 +167,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a combination of field/value equality comparisons.
-     *
      * @param joinOp the binary infix operator used to join the field/value equality comparisons
      * @param keysValues the field/values pairs to match with {@link EntityOperator#EQUALS}
      * @return a condition expression representing a combination of field/value equality comparisons
@@ -189,7 +177,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to represent a conjunction of field/value equality comparisons.
-     *
      * @param keysValues the field/values pairs to match with {@link EntityOperator#EQUALS}
      * @return a condition expression representing a conjunction of field/value equality comparisons
      */
@@ -199,10 +186,8 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression to filter rows that are currently valid.
-     *
      * This means that we remove rows whose from/thru date range does not match the current date.
      * The <i>current date</i> is the one computed when the SQL query is generated.
-     *
      * @param fromDateName the name of the field corresponding to the from date
      * @param thruDateName the name of the field corresponding to the thru date
      * @return a condition expression filtering rows that are currently valid
@@ -213,7 +198,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Constructs a condition expression backed by a raw SQL string
-     *
      * @param sqlString the SQL string
      * @return a raw SQL string condition expression
      */
@@ -223,14 +207,12 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Applies a visitor to this condition.
-     *
      * @param visitor the visitor to be applied
      */
     void accept(EntityConditionVisitor visitor);
 
     /**
      * Dumps the corresponding SQL string.
-     *
      * @param modelEntity the model of the entity
      * @param entityConditionParams the effective parameters used to substitute '?' parameters
      * @param datasourceInfo the model of the data source interpreting the SQL
@@ -241,7 +223,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Verifies that this condition expression is valid.
-     *
      * @param modelEntity the model of the entity
      * @throws GenericModelException when this condition expression is not valid
      */
@@ -249,7 +230,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Checks that this condition expression matches a particular entity.
-     *
      * @param entity the entity to match
      * @return {@code true} if this condition expression matches {@code entity}
      */
@@ -259,7 +239,6 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Checks that this condition expression matches a particular entity.
-     *
      * @param delegator the delegator used to match
      * @param map the entity definition to match
      * @return {@code true} if this condition expression matches {@code map} when using {@code delegator}
@@ -268,14 +247,12 @@ public interface EntityCondition extends IsEmpty, Serializable {
 
     /**
      * Create a Frozen condition expression corresponding to this condition expression.
-     *
      * @return the frozen condition expression
      */
     EntityCondition freeze();
 
     /**
      * Dumps the corresponding SQL string without substituting '?' parameters.
-     *
      * @return the corresponding SQL string
      */
     default String makeWhereString() {

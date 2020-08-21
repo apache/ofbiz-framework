@@ -42,23 +42,23 @@ import org.apache.ofbiz.common.login.LoginServices;
 public class Record implements Serializable {
 
     /** Contains a map with field data by name */
-    protected Map<String, Object> fields;
+    private Map<String, Object> fields;
 
     /** Contains the name of the record definition */
-    protected String recordName;
+    private String recordName;
 
     /** Contains the definition for the record */
-    protected transient ModelRecord modelRecord;
+    private transient ModelRecord modelRecord;
 
-    protected Record parentRecord = null;
-    protected List<Record> childRecords = new ArrayList<>();
+    private Record parentRecord = null;
+    private List<Record> childRecords = new ArrayList<>();
 
     /** Creates new Record */
     protected Record(ModelRecord modelRecord) {
         if (modelRecord == null) {
             throw new IllegalArgumentException("Cannont create a Record with a null modelRecord parameter");
         }
-        this.recordName = modelRecord.name;
+        this.recordName = modelRecord.getName();
         this.modelRecord = modelRecord;
         this.fields = new HashMap<>();
     }
@@ -68,15 +68,23 @@ public class Record implements Serializable {
         if (modelRecord == null) {
             throw new IllegalArgumentException("Cannont create a Record with a null modelRecord parameter");
         }
-        this.recordName = modelRecord.name;
+        this.recordName = modelRecord.getName();
         this.modelRecord = modelRecord;
         this.fields = (fields == null ? new HashMap<>() : new HashMap<>(fields));
     }
 
+    /**
+     * Gets record name.
+     * @return the record name
+     */
     public String getRecordName() {
         return recordName;
     }
 
+    /**
+     * Gets model record.
+     * @return the model record
+     */
     public ModelRecord getModelRecord() {
         if (modelRecord == null) {
             throw new IllegalStateException("[Record.getModelRecord] could not find modelRecord for recordName " + recordName);
@@ -84,6 +92,11 @@ public class Record implements Serializable {
         return modelRecord;
     }
 
+    /**
+     * Get object.
+     * @param name the name
+     * @return the object
+     */
     public synchronized Object get(String name) {
         if (getModelRecord().getModelField(name) == null) {
             throw new IllegalArgumentException("[Record.get] \"" + name + "\" is not a field of " + recordName);
@@ -91,6 +104,11 @@ public class Record implements Serializable {
         return fields.get(name);
     }
 
+    /**
+     * Gets string.
+     * @param name the name
+     * @return the string
+     */
     public String getString(String name) {
         Object object = get(name);
 
@@ -103,6 +121,11 @@ public class Record implements Serializable {
         return object.toString();
     }
 
+    /**
+     * Gets string and empty.
+     * @param name the name
+     * @return the string and empty
+     */
     public String getStringAndEmpty(String name) {
         Object object = get(name);
 
@@ -115,30 +138,65 @@ public class Record implements Serializable {
         return object.toString();
     }
 
+    /**
+     * Gets timestamp.
+     * @param name the name
+     * @return the timestamp
+     */
     public java.sql.Timestamp getTimestamp(String name) {
         return (java.sql.Timestamp) get(name);
     }
 
+    /**
+     * Gets time.
+     * @param name the name
+     * @return the time
+     */
     public java.sql.Time getTime(String name) {
         return (java.sql.Time) get(name);
     }
 
+    /**
+     * Gets date.
+     * @param name the name
+     * @return the date
+     */
     public java.sql.Date getDate(String name) {
         return (java.sql.Date) get(name);
     }
 
+    /**
+     * Gets integer.
+     * @param name the name
+     * @return the integer
+     */
     public Integer getInteger(String name) {
         return (Integer) get(name);
     }
 
+    /**
+     * Gets long.
+     * @param name the name
+     * @return the long
+     */
     public Long getLong(String name) {
         return (Long) get(name);
     }
 
+    /**
+     * Gets float.
+     * @param name the name
+     * @return the float
+     */
     public Float getFloat(String name) {
         return (Float) get(name);
     }
 
+    /**
+     * Gets double.
+     * @param name the name
+     * @return the double
+     */
     public Double getDouble(String name) {
         return (Double) get(name);
     }
@@ -189,8 +247,8 @@ public class Record implements Serializable {
      */
     private static long readLELong(byte[] byteArray) {
         return (long) (byteArray[7]) << 56 | /* long cast needed or shift done modulo 32 */
-               (long) (byteArray[6] & 0xff) << 48 | (long) (byteArray[5] & 0xff) << 40 | (long) (byteArray[4] & 0xff) << 32 | (long) (byteArray[3] & 0xff) << 24
-               | (long) (byteArray[2] & 0xff) << 16 | (long) (byteArray[1] & 0xff) << 8 | (byteArray[0] & 0xff);
+               (long) (byteArray[6] & 0xff) << 48 | (long) (byteArray[5] & 0xff) << 40 | (long) (byteArray[4] & 0xff) << 32 | (long) (byteArray[3]
+                & 0xff) << 24 | (long) (byteArray[2] & 0xff) << 16 | (long) (byteArray[1] & 0xff) << 8 | (byteArray[0] & 0xff);
     }
 
     /** Sets the named field to the passed value, converting the value from a String to the current type using <code>Type.valueOf()</code>
@@ -220,28 +278,28 @@ public class Record implements Serializable {
             return;
         }
 
-        String fieldType = field.type;
+        String fieldType = field.getType();
 
         // first the custom types that need to be parsed
         if (fieldType.equals("CustomTimestamp")) {
             // this custom type will take a string a parse according to date formatting
             // string then put the result in a java.sql.Timestamp
             // a common timestamp format for flat files is with no separators: yyyyMMddHHmmss
-            SimpleDateFormat sdf = new SimpleDateFormat(field.format);
+            SimpleDateFormat sdf = new SimpleDateFormat(field.getFormat());
             java.util.Date tempDate = sdf.parse(value);
             java.sql.Timestamp timestamp = new java.sql.Timestamp(tempDate.getTime());
 
             set(name, timestamp);
         } else if (fieldType.equals("CustomDate")) {
             // a common date only format for flat files is with no separators: yyyyMMdd or MMddyyyy
-            SimpleDateFormat sdf = new SimpleDateFormat(field.format);
+            SimpleDateFormat sdf = new SimpleDateFormat(field.getFormat());
             java.util.Date tempDate = sdf.parse(value);
             java.sql.Date date = new java.sql.Date(tempDate.getTime());
 
             set(name, date);
         } else if (fieldType.equals("CustomTime")) {
             // a common time only format for flat files is with no separators: HHmmss
-            SimpleDateFormat sdf = new SimpleDateFormat(field.format);
+            SimpleDateFormat sdf = new SimpleDateFormat(field.getFormat());
             java.util.Date tempDate = sdf.parse(value);
             java.sql.Time time = new java.sql.Time(tempDate.getTime());
 
@@ -252,14 +310,13 @@ public class Record implements Serializable {
             NumberFormat nf = NumberFormat.getNumberInstance();
             Number tempNum = nf.parse(value);
             double number = tempNum.doubleValue();
-            double decimalPlaces = Double.parseDouble(field.format);
+            double decimalPlaces = Double.parseDouble(field.getFormat());
             double divisor = Math.pow(10.0, decimalPlaces);
 
             number = number / divisor;
             set(name, number);
-        } // standard types
-        else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
-            if (field.format.equals("EncryptedString")) {
+        } else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
+            if (field.getFormat().equals("EncryptedString")) {
                 String hashType = LoginServices.getHashType();
                 set(name, HashCrypt.digestHash(hashType, value.getBytes(StandardCharsets.UTF_8)));
             } else {
@@ -293,6 +350,11 @@ public class Record implements Serializable {
         }
     }
 
+    /**
+     * Gets fixed string.
+     * @param name the name
+     * @return the fixed string
+     */
     public String getFixedString(String name) {
         if (name == null) {
             return null;
@@ -309,39 +371,38 @@ public class Record implements Serializable {
             return null;
         }
 
-        String fieldType = field.type;
+        String fieldType = field.getType();
         String str = null;
 
         // first the custom types that need to be parsed
         if (fieldType.equals("CustomTimestamp")) {
             // a common timestamp format for flat files is with no separators: yyyyMMddHHmmss
-            SimpleDateFormat sdf = new SimpleDateFormat(field.format);
+            SimpleDateFormat sdf = new SimpleDateFormat(field.getFormat());
             java.sql.Timestamp timestamp = (java.sql.Timestamp) value;
 
             str = sdf.format(new Date(timestamp.getTime()));
         } else if (fieldType.equals("CustomDate")) {
             // a common date only format for flat files is with no separators: yyyyMMdd or MMddyyyy
-            SimpleDateFormat sdf = new SimpleDateFormat(field.format);
+            SimpleDateFormat sdf = new SimpleDateFormat(field.getFormat());
             java.sql.Date date = (java.sql.Date) value;
 
             str = sdf.format(new Date(date.getTime()));
         } else if (fieldType.equals("CustomTime")) {
             // a common time only format for flat files is with no separators: HHmmss
-            SimpleDateFormat sdf = new SimpleDateFormat(field.format);
+            SimpleDateFormat sdf = new SimpleDateFormat(field.getFormat());
             java.sql.Time time = (java.sql.Time) value;
 
             str = sdf.format(new Date(time.getTime()));
         } else if (fieldType.equals("FixedPointDouble")) {
             // this custom type will parse a fixed point number according to the number
             // of decimal places in the formatting string then place it in a Double
-            double decimalPlaces = Double.parseDouble(field.format);
+            double decimalPlaces = Double.parseDouble(field.getFormat());
             double multiplier = Math.pow(10.0, decimalPlaces);
             double dnum = multiplier * (Double) value;
             long number = Math.round(dnum);
 
-            str = padFrontZeros(Long.toString(number), field.length);
-        } // standard types
-        else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
+            str = padFrontZeros(Long.toString(number), field.getLength());
+        } else if (fieldType.equals("java.lang.String") || fieldType.equals("String")) {
             str = value.toString();
         } else if (fieldType.equals("java.sql.Timestamp") || fieldType.equals("Timestamp")) {
             str = value.toString();
@@ -350,22 +411,22 @@ public class Record implements Serializable {
         } else if (fieldType.equals("java.sql.Date") || fieldType.equals("Date")) {
             str = value.toString();
         } else if (fieldType.equals("java.lang.Integer") || fieldType.equals("Integer")) {
-            str = padFrontZeros(value.toString(), field.length);
+            str = padFrontZeros(value.toString(), field.getLength());
         } else if (fieldType.equals("java.lang.Long") || fieldType.equals("Long")) {
-            str = padFrontZeros(value.toString(), field.length);
+            str = padFrontZeros(value.toString(), field.getLength());
         } else if (fieldType.equals("java.lang.Float") || fieldType.equals("Float")) {
-            str = padFrontZeros(value.toString(), field.length);
+            str = padFrontZeros(value.toString(), field.getLength());
         } else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double")) {
-            str = padFrontZeros(value.toString(), field.length);
+            str = padFrontZeros(value.toString(), field.getLength());
         } else {
             throw new IllegalArgumentException("Field type " + fieldType + " not currently supported. Sorry.");
         }
 
-        if (str != null && field.length > 0 && str.length() < field.length) {
+        if (str != null && field.getLength() > 0 && str.length() < field.getLength()) {
             // pad the end with spaces
             StringBuilder strBuf = new StringBuilder(str);
 
-            while (strBuf.length() < field.length) {
+            while (strBuf.length() < field.getLength()) {
                 strBuf.append(' ');
             }
             str = strBuf.toString();
@@ -373,50 +434,56 @@ public class Record implements Serializable {
         return str;
     }
 
+    /**
+     * Write line string string.
+     * @param modelDataFile the model data file
+     * @return the string
+     * @throws DataFileException the data file exception
+     */
     public String writeLineString(ModelDataFile modelDataFile) throws DataFileException {
         ModelRecord modelRecord = getModelRecord();
-        boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
-        boolean isFixedLength = ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle);
-        boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle);
+        boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.getSeparatorStyle());
+        boolean isFixedLength = ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.getSeparatorStyle());
+        boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.getSeparatorStyle());
 
         StringBuilder lineBuf = new StringBuilder();
 
-        for (ModelField modelField : modelRecord.fields) {
-            String data = this.getFixedString(modelField.name);
+        for (ModelField modelField : modelRecord.getFields()) {
+            String data = this.getFixedString(modelField.getName());
 
-            if (isDelimited && null != modelDataFile.textDelimiter) {
-                lineBuf.append(modelDataFile.textDelimiter);
+            if (isDelimited && null != modelDataFile.getTextDelimiter()) {
+                lineBuf.append(modelDataFile.getTextDelimiter());
             }
 
             // if field is null (not set) then assume we want to pad the field
-            char PAD_CHAR = ' ';
+            char padChar = ' ';
 
             if (data == null) {
                 StringBuilder sb = new StringBuilder("");
 
-                for (int i = 0; i < modelField.length; i++) {
-                    sb.append(PAD_CHAR);
+                for (int i = 0; i < modelField.getLength(); i++) {
+                    sb.append(padChar);
                 }
                 data = sb.toString();
             }
 
             // Pad the record
             if (isFixedRecord) {
-                while (modelField.position > lineBuf.length()) {
+                while (modelField.getPosition() > lineBuf.length()) {
                     lineBuf.append(" ");
                 }
             }
-            if (modelField.length > 0 && data.length() != modelField.length) {
-                throw new DataFileException("Got field length " + data.length() + " but expected field length is " + modelField.length + " for field \"" + modelField.name
-                                            + "\" of record \"" + modelRecord.name + "\" data is: \"" + data + "\"");
+            if (modelField.getLength() > 0 && data.length() != modelField.getLength()) {
+                throw new DataFileException("Got field length " + data.length() + " but expected field length is " + modelField.getLength()
+                        + " for field \"" + modelField.getName() + "\" of record \"" + modelRecord.getName() + "\" data is: \"" + data + "\"");
             }
 
             lineBuf.append(data);
             if (isDelimited) {
-                if (null != modelDataFile.textDelimiter) {
-                    lineBuf.append(modelDataFile.textDelimiter);
+                if (null != modelDataFile.getTextDelimiter()) {
+                    lineBuf.append(modelDataFile.getTextDelimiter());
                 }
-                lineBuf.append(modelDataFile.delimiter);
+                lineBuf.append(modelDataFile.getDelimiter());
             }
         }
 
@@ -425,14 +492,14 @@ public class Record implements Serializable {
             lineBuf.setLength(lineBuf.length() - 1);
         }
 
-        if ((isFixedRecord || isFixedLength) && modelDataFile.recordLength > 0 && lineBuf.length() != modelDataFile.recordLength) {
-            throw new DataFileException("Got record length " + lineBuf.length() + " but expected record length is " + modelDataFile.recordLength + " for record \""
-                                        + modelRecord.name + "\" data line is: \"" + lineBuf + "\"");
+        if ((isFixedRecord || isFixedLength) && modelDataFile.getRecordLength() > 0 && lineBuf.length() != modelDataFile.getRecordLength()) {
+            throw new DataFileException("Got record length " + lineBuf.length() + " but expected record length is " + modelDataFile.getRecordLength()
+                    + " for record \"" + modelRecord.getName() + "\" data line is: \"" + lineBuf + "\"");
         }
 
         // for convenience, insert the type-code in where it is looked for, if exists
-        if (modelRecord.tcPosition > 0 && modelRecord.typeCode.length() > 0) {
-            lineBuf.replace(modelRecord.tcPosition, modelRecord.tcPosition + modelRecord.tcLength, modelRecord.typeCode);
+        if (modelRecord.getTcPosition() > 0 && modelRecord.getTypeCode().length() > 0) {
+            lineBuf.replace(modelRecord.getTcPosition(), modelRecord.getTcPosition() + modelRecord.getTcLength(), modelRecord.getTypeCode());
         }
 
         if (isFixedLength || isDelimited) {
@@ -446,6 +513,12 @@ public class Record implements Serializable {
         return lineBuf.toString();
     }
 
+    /**
+     * Pad front zeros string.
+     * @param str         the str
+     * @param totalLength the total length
+     * @return the string
+     */
     String padFrontZeros(String str, int totalLength) {
         if (totalLength > 0 && str.length() < totalLength) {
             // pad the front with zeros
@@ -461,14 +534,26 @@ public class Record implements Serializable {
         return str;
     }
 
+    /**
+     * Gets parent record.
+     * @return the parent record
+     */
     public Record getParentRecord() {
         return parentRecord;
     }
 
+    /**
+     * Gets child records.
+     * @return the child records
+     */
     public List<Record> getChildRecords() {
         return childRecords;
     }
 
+    /**
+     * Add child record.
+     * @param record the record
+     */
     public void addChildRecord(Record record) {
         childRecords.add(record);
     }
@@ -506,24 +591,25 @@ public class Record implements Serializable {
     public static Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
         Record record = new Record(modelRecord);
 
-        for (ModelField modelField : modelRecord.fields) {
+        for (ModelField modelField : modelRecord.getFields()) {
             String strVal = null;
 
             try {
-                strVal = line.substring(modelField.position, modelField.position + modelField.length);
+                strVal = line.substring(modelField.getPosition(), modelField.getPosition() + modelField.getLength());
             } catch (IndexOutOfBoundsException ioobe) {
-                throw new DataFileException("Field " + modelField.name + " from " + modelField.position + " for " + modelField.length + " chars could not be read from a line ("
-                                            + lineNum + ") with only " + line.length() + " chars.",
-                        ioobe);
+                throw new DataFileException("Field " + modelField.getName() + " from " + modelField.getPosition() + " for " + modelField.getLength()
+                        + " chars could not be read from a line (" + lineNum + ") with only " + line.length() + " chars.", ioobe);
             }
             try {
-                record.setString(modelField.name, strVal);
+                record.setString(modelField.getName(), strVal);
             } catch (java.text.ParseException e) {
                 throw new DataFileException(
-                        "Could not parse field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
+                        "Could not parse field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value " + strVal
+                                + " on line " + lineNum, e);
             } catch (java.lang.NumberFormatException e) {
                 throw new DataFileException(
-                        "Number not valid for field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
+                        "Number not valid for field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value "
+                                + strVal + " on line " + lineNum, e);
             }
         }
         return record;
@@ -537,7 +623,8 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return a Record Object
      */
-    public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter, String textDelimiter) throws DataFileException {
+    public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter, String textDelimiter)
+            throws DataFileException {
         Record record = new Record(modelRecord);
 
         StringTokenizer st = null;
@@ -546,15 +633,15 @@ public class Record implements Serializable {
         } else {
             st = new StringTokenizer(line, "" + delimiter, true);
         }
-        for (ModelField modelField : modelRecord.fields) {
+        for (ModelField modelField : modelRecord.getFields()) {
             String strVal = null;
 
-            if (modelField.expression) {
-                if (UtilValidate.isNotEmpty(modelField.refField)) {
-                    strVal = record.getString(modelField.refField);
+            if (modelField.isExpression()) {
+                if (UtilValidate.isNotEmpty(modelField.getRefField())) {
+                    strVal = record.getString(modelField.getRefField());
                 }
                 if (strVal == null) {
-                    strVal = (String) modelField.defaultValue;
+                    strVal = (String) modelField.getDefaultValue();
                 }
             } else {
                 //some input lines may be less than the header model.
@@ -567,12 +654,14 @@ public class Record implements Serializable {
                             st.nextToken();
                         }
                     } catch (NoSuchElementException nsee) {
-                        throw new DataFileException("Field " + modelField.name + " could not be read from a line (" + lineNum + ") with only " + line.length() + " chars.", nsee);
+                        throw new DataFileException("Field " + modelField.getName() + " could not be read from a line (" + lineNum
+                                + ") with only " + line.length() + " chars.", nsee);
                     }
                 }
             }
             try {
-                if (textDelimiter != null && strVal != null && (strVal.startsWith(textDelimiter) && (!strVal.endsWith(textDelimiter) || strVal.length() == 1))) {
+                if (textDelimiter != null && strVal != null && (strVal.startsWith(textDelimiter) && (!strVal.endsWith(textDelimiter)
+                        || strVal.length() == 1))) {
                     strVal = strVal.concat("" + delimiter);
                     while (!strVal.endsWith(textDelimiter)) {
                         strVal = strVal.concat(st.nextToken());
@@ -582,13 +671,15 @@ public class Record implements Serializable {
                 if (textDelimiter != null && strVal != null && (strVal.startsWith(textDelimiter) && strVal.endsWith(textDelimiter))) {
                     strVal = strVal.substring(textDelimiter.length(), strVal.length() - textDelimiter.length());
                 }
-                record.setString(modelField.name, strVal);
+                record.setString(modelField.getName(), strVal);
             } catch (java.text.ParseException e) {
                 throw new DataFileException(
-                        "Could not parse field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
+                        "Could not parse field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value " + strVal
+                                + " on line " + lineNum, e);
             } catch (java.lang.NumberFormatException e) {
                 throw new DataFileException(
-                        "Number not valid for field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal + " on line " + lineNum, e);
+                        "Number not valid for field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value "
+                                + strVal + " on line " + lineNum, e);
             }
         }
         return record;

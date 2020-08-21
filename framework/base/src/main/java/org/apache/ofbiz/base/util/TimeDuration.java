@@ -33,15 +33,15 @@ import com.ibm.icu.util.Calendar;
 public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
     private static final String MODULE = TimeDuration.class.getName();
-    public static final TimeDuration ZeroTimeDuration = new NullDuration();
+    public static final TimeDuration ZERO_TIME_DURATION = new NullDuration();
 
-    protected final int milliseconds;
-    protected final int seconds;
-    protected final int minutes;
-    protected final int hours;
-    protected final int days;
-    protected final int months;
-    protected final int years;
+    private final int milliseconds;
+    private final int seconds;
+    private final int minutes;
+    private final int hours;
+    private final int days;
+    private final int months;
+    private final int years;
 
     /**
      * @param years The number of years in this duration
@@ -233,7 +233,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     }
 
     /** Returns <code>true</code> if this duration is negative.
-     *
      * @return <code>true</code> if this duration is negative
      */
     public boolean isNegative() {
@@ -241,7 +240,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     }
 
     /** Returns <code>true</code> if this duration is zero.
-     *
      * @return <code>true</code> if this duration is zero
      */
     public boolean isZero() {
@@ -311,13 +309,12 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * <code>toLong</code> method. <b>Note:</b> this
      * method should not be used to calculate elapsed time - use the elapsed
      * time constructor instead.
-     *
      * @param duration An encoded duration
      * @return A <code>TimeDuration</code> instance
      */
     public static TimeDuration fromLong(long duration) {
         if (duration == 0) {
-            return ZeroTimeDuration;
+            return ZERO_TIME_DURATION;
         }
         long units = duration / 0x757B12C00L;
         int years = (int) units;
@@ -346,17 +343,16 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * intended to be used with entity engine fields. Some duration fields are
      * stored as a <code>Long</code>, while others are stored as a
      * <code>Double</code>. This method will decode both types.</p>
-     *
      * @param number A <code>Number</code> instance, can be <code>null</code>
      * @return A <code>TimeDuration</code> instance
      */
     public static TimeDuration fromNumber(Number number) {
-        return number == null ? ZeroTimeDuration : fromLong(number.longValue());
+        return number == null ? ZERO_TIME_DURATION : fromLong(number.longValue());
     }
 
     public static TimeDuration parseDuration(String duration) {
         if (UtilValidate.isEmpty(duration)) {
-            return ZeroTimeDuration;
+            return ZERO_TIME_DURATION;
         }
         boolean isZero = true;
         int[] intArray = {0, 0, 0, 0, 0, 0, 0};
@@ -372,7 +368,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
             i--;
         }
         if (isZero) {
-            return ZeroTimeDuration;
+            return ZERO_TIME_DURATION;
         }
         return new TimeDuration(intArray[0], intArray[1], intArray[2],
                 intArray[3], intArray[4], intArray[5], intArray[6]);
@@ -381,7 +377,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** Returns a <code>long</code> value derived from a <code>TimeDuration</code>
      * instance. This method is intended to be used in tandem with the
      * <code>fromLong</code> method.
-     *
      * @param duration
      * @return the duration encoded as a <code>long</code> value
      */

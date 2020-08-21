@@ -63,7 +63,6 @@ public class ScaleImage {
      * scaleImageInAllSize
      * <p>
      * Scale the original image into all different size Types (small, medium, large, detail)
-     *
      * @param   context                     Context
      * @param   filenameToUse               Filename of future image files
      * @param   viewType                    "Main" view or "additional" view

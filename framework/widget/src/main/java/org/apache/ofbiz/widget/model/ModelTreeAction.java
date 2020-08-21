@@ -58,14 +58,11 @@ public abstract class ModelTreeAction extends AbstractModelAction {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
     private static final String MODULE = ModelTreeAction.class.getName();
@@ -133,7 +130,6 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;entity-and&gt; element.
-     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class EntityAnd extends ModelTreeAction {
@@ -195,7 +191,6 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;entity-condition&gt; element.
-     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class EntityCondition extends ModelTreeAction {
@@ -257,7 +252,6 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;script&gt; element.
-     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class Script extends ModelTreeAction {
@@ -325,7 +319,6 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     /**
      * Models the &lt;service&gt; element.
-     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class Service extends ModelTreeAction {
