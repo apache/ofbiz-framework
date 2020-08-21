@@ -86,7 +86,8 @@ def genericContentPermission() {
             if (!parameters.contentOperationId) {
                 contentOperationId = "CONTENT_CREATE"
             }
-            Map serviceCCP = createContentPermission(hasPermission, ownerContentId, contentOperationId, statusId, contentPurposeTypeId, roleEntity, roleEntityField)
+            Map serviceCCP = createContentPermission(hasPermission, ownerContentId, contentOperationId, statusId, contentPurposeTypeId,
+                roleEntity, roleEntityField)
             if (serviceCCP.errorMessage != null) {
                 logError(serviceCCP.errorMessage)
             } else {
@@ -98,7 +99,8 @@ def genericContentPermission() {
             if (!parameters.contentOperationId) {
                 contentOperationId = "CONTENT_UPDATE"
             }
-            Map serviceUCP = updateContentPermission(hasPermission, contentId, ownerContentId, contentOperationId, contentPurposeTypeId, roleEntity, roleEntityField)
+            Map serviceUCP = updateContentPermission(hasPermission, contentId, ownerContentId, contentOperationId, contentPurposeTypeId,
+                roleEntity, roleEntityField)
             if (serviceUCP.errorMessage != null) {
                 logError(serviceUCP.errorMessage)
             } else {
@@ -125,7 +127,9 @@ def genericContentPermission() {
  * @param roleEntityField
  * @return
  */
-def viewContentPermission(Boolean hasPermission, String contentId, String contentOperationId, String contentPurposeTypeId, String roleEntity, String roleEntityField) {
+def viewContentPermission(Boolean hasPermission, String contentId, String contentOperationId, String contentPurposeTypeId, String roleEntity,
+    String roleEntityField) {
+
     // if called directly check the main permission
     Map result = success()
     if (!hasPermission) {
@@ -179,7 +183,9 @@ def viewContentPermission(Boolean hasPermission, String contentId, String conten
  * @param roleEntityField
  * @return
  */
-def createContentPermission(Boolean hasPermission, String ownerContentId, String contentOperationId, String statusId, String contentPurposeTypeId, String roleEntity, String roleEntityField) {
+def createContentPermission(Boolean hasPermission, String ownerContentId, String contentOperationId, String statusId, String contentPurposeTypeId,
+    String roleEntity, String roleEntityField) {
+
     Map result = success()
     parameters.roleEntity = roleEntity
     parameters.roleEntityField = roleEntityField
@@ -224,7 +230,8 @@ def createContentPermission(Boolean hasPermission, String ownerContentId, String
             hasPermission = serviceResultCCOS.hasPermission
         }
 
-        // check if there was no operation; or if the operation check failed, we are okay to create unless we are creating against a parent; check parent ownership
+        // check if there was no operation; or if the operation check failed, we are okay to create unless we are creating against a parent;
+        // check parent ownership
         if (!contentOperationId || hasPermission == false) {
             if (ownerContentId) {
                 logVerbose("No operation found; but ownerContentId [${ownerContentId}] was; checking ownership")
@@ -278,7 +285,9 @@ def createContentPermission(Boolean hasPermission, String ownerContentId, String
  * @param roleEntityField
  * @return
  */
-def updateContentPermission(Boolean hasPermission, String contentId, String ownerContentId, String contentOperationId, String contentPurposeTypeId, String roleEntity, String roleEntityField) {
+def updateContentPermission(Boolean hasPermission, String contentId, String ownerContentId, String contentOperationId, String contentPurposeTypeId,
+    String roleEntity, String roleEntityField) {
+
     String checkId
     Map result = success()
 
@@ -393,7 +402,9 @@ def updateContentPermission(Boolean hasPermission, String contentId, String owne
  * @param roleEntityField
  * @return
  */
-def checkContentOperationSecurity(String contentOperationId, String contentPurposeTypeId, String checkId, String roleEntity, String roleEntityField) {
+def checkContentOperationSecurity(String contentOperationId, String contentPurposeTypeId, String checkId, String roleEntity,
+    String roleEntityField) {
+
     Map result = success()
     roleEntityField = parameters.roleEntityField
     roleEntity = parameters.roleEntity

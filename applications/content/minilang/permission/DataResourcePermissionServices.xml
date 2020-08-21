@@ -155,7 +155,8 @@
 
                 <!-- check ownership of this record -->
                 <set field="checkId" from-field="dataResourceId"/>
-                <call-simple-method method-name="checkOwnership" xml-resource="component://content/groovyScripts/permission/ContentPermissionServices.groovy"/>
+                <call-simple-method method-name="checkOwnership" 
+                    xml-resource="component://content/groovyScripts/permission/ContentPermissionServices.groovy"/>
             </then>
         </if>
     </simple-method>
