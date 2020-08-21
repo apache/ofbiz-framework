@@ -205,7 +205,7 @@ under the License.
   </#list>
 </#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="">
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id="" title="" name="" event="" confirmation="" containerId="" tabindex="">
   <#if buttonType=="text-link">
     <a <@renderClass className alert /> href="javascript:document.${formName}.submit()" <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>><#if title?has_content>${title}</#if> </a>
   <#elseif buttonType=="image">
