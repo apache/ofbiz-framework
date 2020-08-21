@@ -150,7 +150,6 @@ under the License.
                         <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT" />
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" />
                         <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
-                        <set field="layoutSettings.styleSheets[+0]" value="/common/css/impersonate.css" global="true" />
                     </actions>
                     <widgets />
                 </section>
@@ -576,7 +575,7 @@ under the License.
                             <widgets />
                         </section>
                         <platform-specific>
-                            <html><html-template location="${impersonatedTemplateLocation}"/></html>
+                            <html><html-template multi-block="true" location="${impersonatedTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
