@@ -52,6 +52,11 @@ def createTextAndUploadedContent(){
     return result
 }
 
+def updateSingleContentPurpose() {
+    delegator.removeByAnd("ContentPurpose", ["contentId": parameters.contentId])
+    run service : "createContentPurpose", with: parameters
+}
+
 def createEmailContent() {
     Map result = success()
     Map createContentMap = dispatcher.getDispatchContext()

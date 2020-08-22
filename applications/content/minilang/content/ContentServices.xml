@@ -136,14 +136,6 @@
         <check-errors/>
     </simple-method>
 
-    <!-- Methods for ContentRole -->
-
-    <simple-method method-name="updateSingleContentPurpose" short-description="Updates the purpose making sure there is only one">
-        <set field="toRemove.contentId" from-field="parameters.contentId"/>
-        <remove-by-and entity-name="ContentPurpose" map="toRemove"/>
-        <call-service service-name="createContentPurpose" in-map-name="parameters"/>
-    </simple-method>
-
     <!-- Util -->
     <simple-method method-name="findAssocContent" short-description="Find associated content">
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
