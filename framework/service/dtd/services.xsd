@@ -69,8 +69,8 @@ under the License.
         <xs:attribute name="action">
             <xs:annotation>
                 <xs:documentation>
-                    Specifies the HTTP method name this service can be called using REST interface. For now only POST and GET are supported. 
-                    Services that have export=true and have action attribute defined can be called using REST interface. 
+                    Specifies the HTTP method name this service can be called using REST interface. For now only POST and GET are supported.
+                    Services that have export=true and have action attribute defined can be called using REST interface.
                 </xs:documentation>
             </xs:annotation>
               <xs:simpleType>
@@ -99,7 +99,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="hideResultInLog" type="xs:boolean" 
+        <xs:attribute name="hideResultInLog" type="xs:boolean"
                       default="false">
             <xs:annotation>
                 <xs:documentation>
@@ -187,7 +187,7 @@ under the License.
                       default="true">
             <xs:annotation>
                 <xs:documentation>
-                    If set to false, when the permissions failed return the failMessage as error, 
+                    If set to false, when the permissions failed return the failMessage as error,
                     else continue the service and give the hand to origin service to resolve the problem.
                 </xs:documentation>
             </xs:annotation>
@@ -237,7 +237,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.implements">
         <xs:attribute name="service" type="xs:string" use="required"/>
-        <xs:attribute name="optional" type="xs:boolean" 
+        <xs:attribute name="optional" type="xs:boolean"
                       default="false">
             <xs:annotation>
                 <xs:documentation>
@@ -251,7 +251,7 @@ under the License.
             <xs:documentation>
                 Calculate and maintain an average response time for this service. Service metrics can be used
                 for monitoring and reporting.
-                
+
                 The metric works by gathering statistics until a configurable maximum is reached (number of
                 requests or elapsed time), then the average is calculated. A smoothing factor is used to
                 smooth differences between calculations.
@@ -261,28 +261,28 @@ under the License.
             <xs:attribute name="name" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        Each metric must have a unique name. 
+                        Each metric must have a unique name.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="estimation-size" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Positive integer number of requests to include in the metrics calculation. Defaults to "100". 
+                        Positive integer number of requests to include in the metrics calculation. Defaults to "100".
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="estimation-time" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Positive integer number of milliseconds to include in the metrics calculation. Defaults to "1000". 
+                        Positive integer number of milliseconds to include in the metrics calculation. Defaults to "1000".
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="smoothing" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Positive decimal smoothing factor - used to smooth the differences between calculations. A value of "1" disables smoothing. Defaults to "0.7". 
+                        Positive decimal smoothing factor - used to smooth the differences between calculations. A value of "1" disables smoothing. Defaults to "0.7".
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -347,10 +347,10 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="type-validate"/>
                 <xs:element minOccurs="0" ref="description" />
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="attribute">
-                	<xs:annotation>
-						<xs:documentation>List, Map type attributes can have nested attributes.</xs:documentation>
-					</xs:annotation>
- 				</xs:element>
+                   <xs:annotation>
+                      <xs:documentation>List, Map type attributes can have nested attributes.</xs:documentation>
+                   </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.attribute"/>
         </xs:complexType>
@@ -370,9 +370,9 @@ under the License.
         <xs:attribute name="optional" type="xs:boolean" default="false"/>
         <xs:attribute name="default-value" type="xs:string">
             <xs:annotation>
-                <xs:documentation>The value specified will be used for the attribute if no value is passed in. 
-                    This will only happen if it is okay to not pass a value in, so if this is set then optional will be set to true. 
-                    If optional=false and this is set then the value will be overridden and with a value in default-value is will set 
+                <xs:documentation>The value specified will be used for the attribute if no value is passed in.
+                    This will only happen if it is okay to not pass a value in, so if this is set then optional will be set to true.
+                    If optional=false and this is set then the value will be overridden and with a value in default-value is will set
                     optional=true anyway.
                 </xs:documentation>
             </xs:annotation>
@@ -391,7 +391,7 @@ under the License.
                     Applies only to String fields.
                     Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
                     Defaults to "none" meaning no HTML is allowed (will result in an error message).
-                    If some HTML is desired then use "safe" which will follow the rules in the default custom safe policy file (CustomSafePolicy.java, see also owasp.properties). 
+                    If some HTML is desired then use "safe" which will follow the rules in the default custom safe policy file (CustomSafePolicy.java, see also owasp.properties).
                     This should be safe for both internal and public users. You may want to provide your own custom safe policy file to adapt to you needs.
                     In rare cases when users are trusted or it is not a sensitive field the "any" option may be used to not check the HTML content at all.
                 </xs:documentation>
@@ -455,7 +455,7 @@ under the License.
         <xs:attribute name="allow-html" use="optional">
             <xs:annotation>
                 <xs:documentation>
-                    See the documentation on the allow-html attribute of the "attribute" element. 
+                    See the documentation on the allow-html attribute of the "attribute" element.
                     Note that it is slightly different here as there is no default.
                 </xs:documentation>
             </xs:annotation>
