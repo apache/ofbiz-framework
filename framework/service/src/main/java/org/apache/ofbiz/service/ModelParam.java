@@ -515,14 +515,13 @@ public class ModelParam implements Serializable {
             Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", MODULE);
         }
     }
-    
-    
+
     /**
      * @return the children of the attribute
      */
     public ArrayList<ModelParam> getChildren() {
         if (children == null) {
-        	children = new ArrayList<>();
+            children = new ArrayList<>();
         }
         return children;
     }
