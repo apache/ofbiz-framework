@@ -17,7 +17,6 @@
  * under the License.
  */
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilProperties
@@ -30,7 +29,9 @@ import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 
 def createPayment() {
-    if (!security.hasEntityPermission("ACCOUNTING", "_CREATE", parameters.userLogin) && (!security.hasEntityPermission("PAY_INFO", "_CREATE", parameters.userLogin) && userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
+    if (!security.hasEntityPermission("ACCOUNTING", "_CREATE", parameters.userLogin) &&
+            (!security.hasEntityPermission("PAY_INFO", "_CREATE", parameters.userLogin) &&
+                    userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
         return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingCreatePaymentPermissionError)
     }
 
@@ -502,4 +503,125 @@ def cancelCheckRunPayments() {
         }
     }
     return success()
+}
+
+def createPaymentFromOrder() {
+    Map serviceResult = success()
+
+    GenericValue orderHeader = from("OrderHeader").where(parameters).queryOne()
+    if (orderHeader) {
+        if ("PURCHASE_ORDER" == orderHeader.orderTypeId) {
+            String purchaseAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.purchaseorder.autocreate', 'Y')
+            if (purchaseAutoCreate != "Y") {
+                return error('payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
+            }
+        } else if ("SALES_ORDER" == orderHeader.orderTypeId) {
+            String salesAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.salesorder.autocreate', 'Y')
+            if (salesAutoCreate != "Y") {
+                return error('payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
+            }
+        }
+
+        /* check if orderPaymentPreference with payment already exist, if yes do not re-create */
+        if (from("OrderPaymentPrefAndPayment")
+                .where([EntityCondition.makeCondition("orderId", orderHeader.orderId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")])
+                .queryCount() > 1) {
+            return error("Payment not created for order ${orderHeader.orderId}, at least a single payment already exists")
+        }
+
+        GenericValue orderRoleTo = from("OrderRole")
+                .where(orderId: orderHeader.orderId,
+                        roleTypeId: "BILL_FROM_VENDOR")
+                .queryFirst()
+        GenericValue orderRoleFrom = from("OrderRole")
+                .where(orderId: orderHeader.orderId,
+                        roleTypeId: "BILL_TO_CUSTOMER")
+                .queryFirst()
+
+        GenericValue agreement
+        if ("PURCHASE_ORDER" == orderHeader.orderTypeId) {
+            agreement = from("Agreement")
+                    .where(partyIdFrom: orderRoleFrom.partyId,
+                            partyIdTo: orderRoleTo.partyId,
+                            agreementTypeId: "PURCHASE_AGREEMENT")
+                    .filterByDate()
+                    .queryFirst()
+            parameters.paymentTypeId = "VENDOR_PAYMENT"
+            organizationPartyId = orderRoleFrom.partyId
+        } else {
+            agreement = from("Agreement")
+                    .where(partyIdFrom: orderRoleFrom.partyId,
+                            partyIdTo: orderRoleTo.partyId,
+                            agreementTypeId: "SALES_AGREEMENT")
+                    .filterByDate()
+                    .queryFirst()
+            parameters.paymentTypeId = "CUSTOMER_PAYMENT"
+            organizationPartyId = orderRoleTo.partyId
+        }
+
+        if (agreement) {
+            GenericValue orderTerm = from("OrderTerm")
+                    .where(orderId: orderHeader.orderId,
+                            termTypeId: "FIN_PAYMENT_TERM")
+                    .queryFirst()
+            if (orderTerm && orderTerm.termDays) {
+                parameters.effectiveDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), orderTerm.termDays)
+            }
+        }
+        parameters.effectiveDate = parameters.effectiveDate ?: UtilDateTime.nowTimestamp()
+
+        /* check currency and when required use invoice currency rate or convert when invoice not available */
+
+        Map result = run service: 'getPartyAccountingPreferences', with: [organizationPartyId: organizationPartyId]
+        GenericValue partyAcctgPreference = result.partyAccountingPreference
+        if (partyAcctgPreference.baseCurrencyUomId &&
+                orderHeader.currencyUom == partyAcctgPreference.baseCurrencyUomId) {
+            parameters.currencyUomId = orderHeader.currencyUom
+            parameters.amount = orderHeader.grandTotal
+
+            /* get conversion rate from related invoice when exists */
+            Map convertUomInMap = [originalValue: orderHeader.grandTotal,
+                                   uomId        : orderHeader.currencyUom,
+                                   uomIdTo      : partyAcctgPreference.baseCurrencyUomId]
+            List<GenericValue> invoices = from("OrderItemBillingAndInvoiceAndItem")
+                    .where(orderId: orderHeader.orderId)
+                    .queryList()
+            if (invoices) {
+                GenericValue invoice = from("Invoice").where("invoiceId", invoices[0].invoiceId).queryOne()
+                convertUomInMap.asOfDate = invoice.invoiceDate
+            }
+            logInfo("convertUomInMap = " + convertUomInMap)
+
+            result = run service: 'convertUom', with: convertUomInMap
+            parameters.amount = result.convertedValue
+
+            parameters.actualCurrencyAmount = orderHeader.grandTotal
+            parameters.actualCurrencyUomId = orderHeader.currencyUom
+            parameters.currencyUomId = partyAcctgPreference.baseCurrencyUomId
+        } else {
+            parameters.currencyUomId = orderHeader.currencyUom
+            parameters.amount = orderHeader.grandTotal
+        }
+
+        parameters.partyIdFrom = orderRoleFrom.partyId
+        parameters.partyIdTo = orderRoleTo.partyId
+        parameters.paymentMethodTypeId = "COMPANY_ACCOUNT"
+        parameters.statusId = "PMNT_NOT_PAID"
+
+        result = run service: 'createPayment', with: parameters
+        parameters.paymentId = result.paymentId
+
+        parameters.orderId = orderHeader.orderId
+        parameters.maxAmount = orderHeader.grandTotal
+
+        result = run service: 'createOrderPaymentPreference', with: parameters
+        parameters.paymentPreferenceId = result.orderPaymentPreferenceId
+
+        result = run service: 'updatePayment', with: parameters
+        result.paymentId = parameters.paymentId
+        logInfo('payment ' + parameters.paymentId + ' with the not-paid status automatically created from order: ' + parameters.orderId + ' (can be disabled in accounting.properties)')
+
+        return result
+    }
 }
