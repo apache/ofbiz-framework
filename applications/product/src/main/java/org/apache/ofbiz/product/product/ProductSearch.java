@@ -185,10 +185,18 @@ public class ProductSearch {
         private Set<String> excludeFeatureGroupIds = new HashSet<>();
         private Set<String> alwaysIncludeFeatureGroupIds = new HashSet<>();
 
+        /**
+         * Gets entity condition list.
+         * @return the entity condition list
+         */
         public List<EntityCondition> getEntityConditionList() {
             return entityConditionList;
         }
 
+        /**
+         * Gets dynamic view entity.
+         * @return the dynamic view entity
+         */
         public DynamicViewEntity getDynamicViewEntity() {
             return dynamicViewEntity;
         }
@@ -203,7 +211,6 @@ public class ProductSearch {
 
         /**
          * Sets keyword type ids.
-         *
          * @param keywordTypeIds the keyword type ids
          */
         public void setKeywordTypeIds(List<String> keywordTypeIds) {
@@ -214,7 +221,6 @@ public class ProductSearch {
 
         /**
          * Sets status id.
-         *
          * @param statusId the status id
          */
         public void setStatusId(String statusId) {
@@ -233,7 +239,6 @@ public class ProductSearch {
 
         /**
          * Gets delegator.
-         *
          * @return the delegator
          */
         public Delegator getDelegator() {
@@ -242,7 +247,6 @@ public class ProductSearch {
 
         /**
          * Add product search constraints.
-         *
          * @param productSearchConstraintList the product search constraint list
          */
         public void addProductSearchConstraints(List<ProductSearchConstraint> productSearchConstraintList) {
@@ -254,7 +258,6 @@ public class ProductSearch {
 
         /**
          * Sets result sort order.
-         *
          * @param resultSortOrder the result sort order
          */
         public void setResultSortOrder(ResultSortOrder resultSortOrder) {
@@ -263,7 +266,6 @@ public class ProductSearch {
 
         /**
          * Sets result offset.
-         *
          * @param resultOffset the result offset
          */
         public void setResultOffset(Integer resultOffset) {
@@ -1050,7 +1052,6 @@ public class ProductSearch {
 
         /**
          * Gets product category id.
-         *
          * @return the product category id
          */
         public String getProductCategoryId() {
@@ -1058,7 +1059,6 @@ public class ProductSearch {
         }
         /**
          * Is include sub categories boolean.
-         *
          * @return the boolean
          */
         public boolean isIncludeSubCategories() {
@@ -1066,7 +1066,6 @@ public class ProductSearch {
         }
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1219,7 +1218,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature id.
-         *
          * @return the product feature id
          */
         public String getProductFeatureId() {
@@ -1228,7 +1226,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1343,7 +1340,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature category id.
-         *
          * @return the product feature category id
          */
         public String getProductFeatureCategoryId() {
@@ -1352,7 +1348,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1469,7 +1464,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature group id.
-         *
          * @return the product feature group id
          */
         public String getProductFeatureGroupId() {
@@ -1478,7 +1472,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1716,7 +1709,6 @@ public class ProductSearch {
 
         /**
          * Gets keywords string.
-         *
          * @return the keywords string
          */
         public String getKeywordsString() {
@@ -1725,7 +1717,6 @@ public class ProductSearch {
 
         /**
          * Is any prefix boolean.
-         *
          * @return the boolean
          */
         public boolean isAnyPrefix() {
@@ -1734,7 +1725,6 @@ public class ProductSearch {
 
         /**
          * Is any suffix boolean.
-         *
          * @return the boolean
          */
         public boolean isAnySuffix() {
@@ -1743,7 +1733,6 @@ public class ProductSearch {
 
         /**
          * Is and boolean.
-         *
          * @return the boolean
          */
         public boolean isAnd() {
@@ -1956,9 +1945,9 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class StoreGroupPriceConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "StoreGroupPrice";
-        protected String productStoreGroupId;
-        protected String productPriceTypeId;
-        protected String currencyUomId;
+        private String productStoreGroupId;
+        private String productPriceTypeId;
+        private String currencyUomId;
 
         public StoreGroupPriceConstraint(String productStoreGroupId, String productPriceTypeId, String currencyUomId) {
             this.productStoreGroupId = productStoreGroupId;
@@ -2046,7 +2035,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2064,7 +2054,6 @@ public class ProductSearch {
 
         /**
          * Gets low price.
-         *
          * @return the low price
          */
         public BigDecimal getLowPrice() {
@@ -2073,7 +2062,6 @@ public class ProductSearch {
 
         /**
          * Gets high price.
-         *
          * @return the high price
          */
         public BigDecimal getHighPrice() {
@@ -2096,26 +2084,37 @@ public class ProductSearch {
             productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ProductPrice");
 
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPriceTypeId", "productPriceTypeId", null, null, null, null);
-            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId",
+                    null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "CurrencyUomId", "currencyUomId", null, null, null, null);
-            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null,
+                    null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "Price", "price", null, null, null, null);
 
             productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
 
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId", EntityOperator.EQUALS, "LIST_PRICE"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId", EntityOperator.EQUALS, "PURCHASE"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId", EntityOperator.EQUALS, currencyUomId));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId", EntityOperator.EQUALS, "_NA_"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId",
+                    EntityOperator.EQUALS, "LIST_PRICE"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId",
+                    EntityOperator.EQUALS, "PURCHASE"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId",
+                    EntityOperator.EQUALS, currencyUomId));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId",
+                    EntityOperator.EQUALS, "_NA_"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate",
+                    EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
             if (this.lowPrice != null) {
-                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price", EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
+                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price",
+                        EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
             }
             if (this.highPrice != null) {
-                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price", EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
+                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price",
+                        EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
@@ -2213,7 +2212,6 @@ public class ProductSearch {
 
         /**
          * Gets supplier party id.
-         *
          * @return the supplier party id
          */
         public String getSupplierPartyId() {
@@ -2329,7 +2327,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2392,9 +2391,9 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class GoodIdentificationConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "GoodIdentification";
-        protected String goodIdentificationTypeId;
-        protected String goodIdentificationValue;
-        protected Boolean include;
+        private String goodIdentificationTypeId;
+        private String goodIdentificationValue;
+        private Boolean include;
 
         public GoodIdentificationConstraint(String goodIdentificationTypeId, String goodIdentificationValue, Boolean include) {
             this.goodIdentificationTypeId = goodIdentificationTypeId;
@@ -2635,7 +2634,6 @@ public class ProductSearch {
 
         /**
          * Gets field name.
-         *
          * @return the field name
          */
         public String getFieldName() {
@@ -2702,7 +2700,6 @@ public class ProductSearch {
 
         /**
          * Gets product price type id.
-         *
          * @return the product price type id
          */
         public String getProductPriceTypeId() {
@@ -2801,7 +2798,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature type id.
-         *
          * @return the product feature type id
          */
         public String getProductFeatureTypeId() {

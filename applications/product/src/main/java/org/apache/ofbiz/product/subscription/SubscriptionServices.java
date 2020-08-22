@@ -305,7 +305,7 @@ public class SubscriptionServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> runServiceOnSubscriptionExpiry( DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> runServiceOnSubscriptionExpiry(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale =(Locale) context.get("locale");

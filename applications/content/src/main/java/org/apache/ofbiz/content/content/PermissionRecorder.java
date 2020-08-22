@@ -31,23 +31,23 @@ import org.apache.ofbiz.entity.GenericValue;
 
 /**
  * PermissionRecorder Class
- *
+ * <p>
  * Services for granting operation permissions on Content entities in a data-driven manner.
  */
 public class PermissionRecorder {
 
 
-    protected boolean isOn = false;
-    protected GenericValue userLogin;
-    protected List<Map<String, Object>> permCheckResults = new LinkedList<>();
-    protected boolean entityPermCheckResult = false;
-    protected String currentContentId = "";
-    protected Map<String, Object> currentContentMap;
-    protected String privilegeEnumId;
-    protected int currentCheckMode;
-    protected GenericValue[] contentPurposeOperations;
-    protected String[] statusTargets;
-    protected String[] targetOperations;
+    private boolean isOn = false;
+    private GenericValue userLogin;
+    private List<Map<String, Object>> permCheckResults = new LinkedList<>();
+    private boolean entityPermCheckResult = false;
+    private String currentContentId = "";
+    private Map<String, Object> currentContentMap;
+    private String privilegeEnumId;
+    private int currentCheckMode;
+    private GenericValue[] contentPurposeOperations;
+    private String[] statusTargets;
+    private String[] targetOperations;
 
     private static final String MODULE = PermissionRecorder.class.getName();
 
@@ -58,68 +58,124 @@ public class PermissionRecorder {
         isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");
     }
 
-    public void setCheckMode(int val) {
-        currentCheckMode = val;
-    }
-
+    /**
+     * Gets check mode.
+     * @return the check mode
+     */
     public int getCheckMode() {
         return currentCheckMode;
     }
 
+    /**
+     * Sets check mode.
+     * @param val the val
+     */
+    public void setCheckMode(int val) {
+        currentCheckMode = val;
+    }
+
+    /**
+     * Is on boolean.
+     * @return the boolean
+     */
     public boolean isOn() {
         return isOn;
     }
 
+    /**
+     * Sets on.
+     * @param b the b
+     */
     public void setOn(boolean b) {
         isOn = b;
     }
 
-    public void setUserLogin(GenericValue user) {
-        userLogin = user;
-    }
-
+    /**
+     * Gets user login.
+     * @return the user login
+     */
     public GenericValue getUserLogin() {
         return userLogin;
     }
 
+    /**
+     * Sets user login.
+     * @param user the user
+     */
+    public void setUserLogin(GenericValue user) {
+        userLogin = user;
+    }
+
+    /**
+     * Gets entity perm check result.
+     * @return the entity perm check result
+     */
     public boolean getEntityPermCheckResult() {
         return entityPermCheckResult;
     }
 
+    /**
+     * Sets entity perm check result.
+     * @param b the b
+     */
     public void setEntityPermCheckResult(boolean b) {
         entityPermCheckResult = b;
     }
 
+    /**
+     * Get content purpose operations generic value [ ].
+     * @return the generic value [ ]
+     */
     public GenericValue[] getContentPurposeOperations() {
-       return contentPurposeOperations != null ? contentPurposeOperations.clone() : null;
+        return contentPurposeOperations != null ? contentPurposeOperations.clone() : null;
     }
 
+    /**
+     * Sets content purpose operations.
+     * @param opList the op list
+     */
     public void setContentPurposeOperations(List<GenericValue> opList) {
-       contentPurposeOperations = opList.toArray(new GenericValue[opList.size()]);
+        contentPurposeOperations = opList.toArray(new GenericValue[opList.size()]);
     }
 
-    public void setPrivilegeEnumId(String id) {
-        privilegeEnumId = id;
-    }
-
+    /**
+     * Gets privilege enum id.
+     * @return the privilege enum id
+     */
     public String getPrivilegeEnumId() {
         return privilegeEnumId;
     }
 
-    public String[] getStatusTargets() {
-       return statusTargets != null ? statusTargets.clone() : null;
+    /**
+     * Sets privilege enum id.
+     * @param id the id
+     */
+    public void setPrivilegeEnumId(String id) {
+        privilegeEnumId = id;
     }
 
+    /**
+     * Get status targets string [ ].
+     * @return the string [ ]
+     */
+    public String[] getStatusTargets() {
+        return statusTargets != null ? statusTargets.clone() : null;
+    }
+
+    /**
+     * Sets status targets.
+     * @param opList the op list
+     */
     public void setStatusTargets(List<String> opList) {
-       statusTargets = opList.toArray(new String[opList.size()]);
+        statusTargets = opList.toArray(new String[opList.size()]);
     }
 
     public String[] getTargetOperations() {
-       return targetOperations != null ? targetOperations.clone() : null;
+        return targetOperations != null ? targetOperations.clone() : null;
     }
 
     public void setTargetOperations(List<String> opList) {
-       targetOperations = opList.toArray(new String[opList.size()]);
+        targetOperations = opList.toArray(new String[opList.size()]);
     }
 
     public void setCurrentContentId(String id) {
@@ -132,29 +188,53 @@ public class PermissionRecorder {
         currentContentId = id;
     }
 
+    /**
+     * Gets current content id.
+     * @return the current content id
+     */
     public String getCurrentContentId() {
         return currentContentId;
     }
 
+    /**
+     * Sets roles.
+     * @param roles the roles
+     */
     public void setRoles(List<String> roles) {
         if (currentContentMap != null) {
-            if (roles != null)
+            if (roles != null) {
                 currentContentMap.put("roles", roles.toArray());
-            else
+            } else {
                 currentContentMap.put("roles", null);
+            }
         }
     }
 
+    /**
+     * Sets purposes.
+     * @param purposes the purposes
+     */
     public void setPurposes(List<String> purposes) {
         if (currentContentMap != null) {
-            if (purposes != null)
+            if (purposes != null) {
                 currentContentMap.put("purposes", purposes.toArray());
-            else
+            } else {
                 currentContentMap.put("purposes", null);
+            }
         }
     }
 
-    public void startMatchGroup(List<String> targetOperations, List<String> purposes, List<String> roles, List<String> targStatusList, String targPrivilegeEnumId, String contentId) {
+    /**
+     * Start match group.
+     * @param targetOperations    the target operations
+     * @param purposes            the purposes
+     * @param roles               the roles
+     * @param targStatusList      the targ status list
+     * @param targPrivilegeEnumId the targ privilege enum id
+     * @param contentId           the content id
+     */
+    public void startMatchGroup(List<String> targetOperations, List<String> purposes, List<String> roles, List<String> targStatusList,
+                                String targPrivilegeEnumId, String contentId) {
         currentContentMap = new HashMap<>();
         permCheckResults.add(currentContentMap);
         String s = null;
@@ -194,6 +274,10 @@ public class PermissionRecorder {
         checkResultList.add(map);
     }
 
+    /**
+     * To html string.
+     * @return the string
+     */
     public String toHtml() {
         StringBuilder sb = new StringBuilder();
         sb.append("<style type=\"text/css\">");
@@ -226,6 +310,11 @@ public class PermissionRecorder {
         return sb.toString();
     }
 
+    /**
+     * Render current content map html string.
+     * @param cMap the c map
+     * @return the string
+     */
     public String renderCurrentContentMapHtml(Map<String, Object> cMap) {
         StringBuilder sb = new StringBuilder();
         List<Map<String, Object>> resultList = UtilGenerics.cast(cMap.get("checkResultList"));
@@ -236,7 +325,12 @@ public class PermissionRecorder {
         return sb.toString();
     }
 
-
+    /**
+     * Render result row html string.
+     * @param rMap                    the r map
+     * @param currentContentResultMap the current content result map
+     * @return the string
+     */
     public String renderResultRowHtml(Map<String, Object> rMap, Map<String, Object> currentContentResultMap) {
         StringBuilder sb = new StringBuilder();
 
@@ -253,10 +347,11 @@ public class PermissionRecorder {
         for (String opField : opFields) {
             sb.append("<td class=\"target\">");
             s = (String) currentContentResultMap.get(opField);
-            if (s != null)
+            if (s != null) {
                 str = s;
-            else
+            } else {
                 str = "&nbsp;";
+            }
             sb.append(str);
             sb.append("</td>");
         }
@@ -274,15 +369,16 @@ public class PermissionRecorder {
         for (String opField : opFields) {
             Boolean bool = (Boolean) rMap.get(opField + "Cond");
             String cls = (bool) ? "pass" : "fail";
-            if (!bool)
+            if (!bool) {
                 isPass = false;
+            }
             sb.append("<td class=\"" + cls + "\">");
             s = (String) rMap.get(opField);
             sb.append(s);
             sb.append("</td>");
         }
         String passFailCls = (isPass) ? "pass" : "fail";
-        sb.append("<td class=\"" + passFailCls +"\">" + passFailCls.toUpperCase(Locale.getDefault()) + "</td>");
+        sb.append("<td class=\"" + passFailCls + "\">" + passFailCls.toUpperCase(Locale.getDefault()) + "</td>");
         sb.append("</tr>");
 
         return sb.toString();

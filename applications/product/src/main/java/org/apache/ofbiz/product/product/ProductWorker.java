@@ -1234,7 +1234,7 @@ public final class ProductWorker {
                 product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache(true).queryOne();
                 Boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG");
 
-                if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
+                if (UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
                     Map<String, Object> resultOutput = new HashMap<>();
                     resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId", productId));
                     Debug.logWarning("Error getting available marketing package.", MODULE);

@@ -169,7 +169,7 @@ public class OrderServices {
                              UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                         } catch (GenericEntityException ex) {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId")
-                                   + " due to " + ex.getMessage(), MODULE);
+                                    + " due to " + ex.getMessage(), MODULE);
                         }
                         if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
                                 userLogin))) {
@@ -1333,7 +1333,7 @@ public class OrderServices {
                             // If the product is a marketing package auto, attempt to create enough packages to bring ATP back to 0, won't
                             // necessarily create enough to cover this order.
                             if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"),
-                            "parentTypeId", "MARKETING_PKG_AUTO")) {
+                                    "parentTypeId", "MARKETING_PKG_AUTO")) {
                                 // do something tricky here: run as the "system" user
                                 // that can actually create and run a production run
                                 GenericValue permUserLogin =
@@ -1427,7 +1427,7 @@ public class OrderServices {
                                             String invErrMsg = "The product ";
                                             invErrMsg += getProductName(product, orderItem);
                                             invErrMsg += " with ID " + orderItem.getString("productId") + " is no longer in stock. Please try "
-                                             + "reducing the quantity or removing the product from this order.";
+                                                    + "reducing the quantity or removing the product from this order.";
                                             resErrorMessages.add(invErrMsg);
                                         }
                                     }
@@ -2046,8 +2046,8 @@ public class OrderServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                        String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved"
-                        , UtilMisc.toMap("errorString", e.toString()), locale);
+                        String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved",
+                                UtilMisc.toMap("errorString", e.toString()), locale);
                         Debug.logError(e, errMsg, MODULE);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -2077,7 +2077,7 @@ public class OrderServices {
             // now set the new order status
             if (newStatus != null && !newStatus.equals(orderHeaderStatusId)) {
                 Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newStatus, "userLogin",
-                 userLogin);
+                        userLogin);
                 Map<String, Object> newSttsResult = null;
                 try {
                     newSttsResult = dispatcher.runSync("changeOrderStatus", serviceContext);
@@ -2283,14 +2283,14 @@ public class OrderServices {
                         if ("ITEM_COMPLETED".equals(itemStatus) && "SALES_ORDER".equals(orh.getOrderTypeId())) {
                             //If partial item shipped then release remaining inventory of SO item and marked SO item as completed.
                             Map<String, Object> cancelOrderItemInvResCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId",
-                             orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
+                                    orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
                                     shipGroupSeqId, "cancelQuantity", thisCancelQty, "userLogin", userLogin);
                             try {
                                 dispatcher.runSyncIgnore("cancelOrderItemInvResQty", cancelOrderItemInvResCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, MODULE);
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToUpdateInventoryReservations",
-                                 UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
+                                        UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                             }
                         }
                         // all items are cancelled -- mark the item as cancelled
@@ -3375,8 +3375,8 @@ public class OrderServices {
                 Map<String, Object> invoiceResult = null;
                 try {
                     GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-                    Map<String, Object> invoiceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin"
-                            , permUserLogin);
+                    Map<String, Object> invoiceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin",
+                            permUserLogin);
                     invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
                     if (ServiceUtil.isError(invoiceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
@@ -7097,7 +7097,7 @@ public class OrderServices {
                 exprs.add(EntityCondition.makeCondition("orderItemSeqId", orderItemSeqId));
             } else {
                 exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ALLOC_PLAN_ITEM_CMPL",
-                "ALLOC_PLAN_ITEM_CNCL")));
+                        "ALLOC_PLAN_ITEM_CNCL")));
             }
 
             List<GenericValue> allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(exprs).queryList();
@@ -7172,7 +7172,8 @@ public class OrderServices {
                     BigDecimal quantityChanged = orderItemChange.getBigDecimal("quantity");
                     if (quantityChanged.compareTo(BigDecimal.ZERO) < 0) {
                         GenericValue allocationPlanItem = EntityQuery.use(delegator).from("AllocationPlanItem").where("orderId", orderId,
-                        "orderItemSeqId", orderItemSeqId, "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId")).queryFirst();
+                                "orderItemSeqId", orderItemSeqId, "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId"))
+                                .queryFirst();
                         if (allocationPlanItem != null) {
                             BigDecimal revisedQuantity = orderItem.getBigDecimal("quantity");
                             BigDecimal allocatedQuantity = allocationPlanItem.getBigDecimal("allocatedQuantity");

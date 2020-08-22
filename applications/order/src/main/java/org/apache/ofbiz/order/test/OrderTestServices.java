@@ -59,7 +59,8 @@ public class OrderTestServices {
         for (int i = 1; i <= numberOfOrdersInt; i++) {
             try {
                 ModelService modelService = dctx.getModelService("createTestSalesOrderSingle");
-                Map<String, Object> outputMap = dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
+                Map<String, Object> outputMap = dispatcher.runSync("createTestSalesOrderSingle",
+                        modelService.makeValid(context, ModelService.IN_PARAM));
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
                 }

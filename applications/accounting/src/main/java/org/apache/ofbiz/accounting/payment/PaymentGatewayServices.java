@@ -981,7 +981,7 @@ public class PaymentGatewayServices {
                 releaseResult.put("orderPaymentPreference", paymentPref);
                 releaseResult.put("userLogin", userLogin);
                 Map<String, Object> resCtx = model.makeValid(releaseResult, ModelService.IN_PARAM);
-                releaseResRes = dispatcher.runSync(model.name, resCtx);
+                releaseResRes = dispatcher.runSync(model.getName(), resCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Trouble processing the release results", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
@@ -1815,12 +1815,12 @@ public class PaymentGatewayServices {
         Map<String, Object> context = model.makeValid(result, ModelService.IN_PARAM);
 
         // in case we rollback make sure this service gets called
-        dispatcher.addRollbackService(model.name, context, true);
+        dispatcher.addRollbackService(model.getName(), context, true);
 
         // invoke the service
         Map<String, Object> resResp;
         try {
-            resResp = dispatcher.runSync(model.name, context);
+            resResp = dispatcher.runSync(model.getName(), context);
         } catch (GenericServiceException e) {
             Debug.logError(e, MODULE);
             throw e;
@@ -2455,7 +2455,7 @@ public class PaymentGatewayServices {
                     if (actualRefundAmount != null && actualRefundAmount.compareTo(processAmount) != 0) {
                         refundResCtx.put("refundAmount", refundResponse.get("refundAmount"));
                     }
-                    refundResRes = dispatcher.runSync(model.name, refundResCtx);
+                    refundResRes = dispatcher.runSync(model.getName(), refundResCtx);
                     if (ServiceUtil.isError(refundResRes)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(refundResRes));
                     }
@@ -3211,7 +3211,7 @@ public class PaymentGatewayServices {
                 response.put("orderPaymentPreference", paymentPref);
                 response.put("userLogin", userLogin);
                 Map<String, Object> resCtx = model.makeValid(response, ModelService.IN_PARAM);
-                responseRes = dispatcher.runSync(model.name, resCtx);
+                responseRes = dispatcher.runSync(model.getName(), resCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -3512,7 +3512,7 @@ public class PaymentGatewayServices {
     /**
      * Fail/bad expire date when year is even processor
      */
-    public static Map<String, Object>badExpireEvenProcessor(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> badExpireEvenProcessor(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue creditCard = (GenericValue) context.get("creditCard");
         String expireDate = creditCard.getString("expireDate");
         String lastNumberStr = expireDate.substring(expireDate.length() - 1);

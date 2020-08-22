@@ -472,12 +472,12 @@ public class ICalConverter {
             ModelService modelService = null;
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
             for (ModelParam modelParam: modelService.getInModelParamList()) {
-                if (serviceMap.containsKey(modelParam.name)) {
-                    Object value = serviceMap.get(modelParam.name);
-                    if (UtilValidate.isNotEmpty(modelParam.type)) {
-                        value = ObjectType.simpleTypeOrObjectConvert(value, modelParam.type, null, null, null, true);
+                if (serviceMap.containsKey(modelParam.getName())) {
+                    Object value = serviceMap.get(modelParam.getName());
+                    if (UtilValidate.isNotEmpty(modelParam.getType())) {
+                        value = ObjectType.simpleTypeOrObjectConvert(value, modelParam.getType(), null, null, null, true);
                     }
-                    localMap.put(modelParam.name, value);
+                    localMap.put(modelParam.getName(), value);
                 }
             }
         } catch (GeneralException e) {
@@ -496,7 +496,8 @@ public class ICalConverter {
             }
             return result;
         } catch (GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService", UtilMisc.toMap("serviceName", serviceName), locale);
+            String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService",
+                    UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg + e);
         }
@@ -849,7 +850,8 @@ public class ICalConverter {
         return storePartyAssignments(workEffortId, component, context);
     }
 
-    protected static ResponseProperties toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
+    protected static ResponseProperties toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context)
+            throws GenericEntityException {
         Delegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
         String workEffortUid = workEffort.getString("universalId");

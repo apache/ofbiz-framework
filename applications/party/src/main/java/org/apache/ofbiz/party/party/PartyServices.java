@@ -126,7 +126,8 @@ public class PartyServices {
             if (statusId == null) {
                 statusId = "PARTY_ENABLED";
             }
-            Map<String, Object> newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description, "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
+            Map<String, Object> newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description,
+                    "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
             String preferredCurrencyUomId = (String) context.get("preferredCurrencyUomId");
             if (UtilValidate.isNotEmpty(preferredCurrencyUomId)) {
                 newPartyMap.put("preferredCurrencyUomId", preferredCurrencyUomId);
@@ -2309,24 +2310,29 @@ public class PartyServices {
                             .where("abbreviation", rec.get("preferredCurrencyUomId"), "uomTypeId", "CURRENCY_MEASURE")
                             .queryList();
                     if (UtilValidate.isNotEmpty(rec.get("preferredCurrencyUomId")) && currencyCheck.size() == 0) {
-                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "Currency code not found for: " + rec.get("preferredCurrencyUomId"));
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "Currency code not found for: "
+                                + rec.get("preferredCurrencyUomId"));
                     }
 
                     if (UtilValidate.isEmpty(rec.get("roleTypeId"))) {
-                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory roletype is missing, possible values: CUSTOMER, SUPPLIER, EMPLOYEE and more....");
+                        newErrMsgs.add("Line number " + rec.getRecordNumber()
+                                + ": Mandatory roletype is missing, possible values: CUSTOMER, SUPPLIER, EMPLOYEE and more....");
                     } else if (EntityQuery.use(delegator).from("RoleType").where("roleTypeId", rec.get("roleTypeId")).queryOne() == null) {
                         newErrMsgs.add("Line number " + rec.getRecordNumber() + ": RoletypeId is not valid: " + rec.get("roleTypeId"));
                     }
 
                     if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId"))
                             && EntityQuery.use(delegator).from("ContactMechType").where("contactMechTypeId", rec.get("contactMechTypeId")).cache().queryOne() == null) {
-                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + " contactMechTypeId code not found for: " + rec.get("contactMechTypeId"));
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId
+                                + " contactMechTypeId code not found for: "
+                                + rec.get("contactMechTypeId"));
                     }
 
                     if (UtilValidate.isNotEmpty(rec.get("contactMechPurposeTypeId"))
                             && EntityQuery.use(delegator).from("ContactMechPurposeType").where("contactMechPurposeTypeId",
                             rec.get("contactMechPurposeTypeId")).cache().queryOne() == null) {
-                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "contactMechPurposeTypeId code not found for: " + rec.get("contactMechPurposeTypeId"));
+                        newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId
+                                + "contactMechPurposeTypeId code not found for: " + rec.get("contactMechPurposeTypeId"));
                     }
 
                     if (UtilValidate.isNotEmpty(rec.get("contactMechTypeId")) && "POSTAL_ADDRESS".equals(rec.get("contactMechTypeId"))) {
@@ -2337,7 +2343,8 @@ public class PartyServices {
                                     .where("geoTypeId", "COUNTRY", "abbreviation", rec.get("countryGeoId"))
                                     .queryList();
                             if (countryCheck.size() == 0) {
-                                newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " Invalid Country code: " + rec.get("countryGeoId"));
+                                newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " Invalid Country code: "
+                                        + rec.get("countryGeoId"));
                             }
                         }
 
@@ -2350,7 +2357,8 @@ public class PartyServices {
                                     .where("geoTypeId", "STATE", "abbreviation", rec.get("stateProvinceGeoId"))
                                     .queryList();
                             if (stateCheck.size() == 0) {
-                                newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " Invalid stateProvinceGeoId code: " + rec.get("countryGeoId"));
+                                newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId
+                                        + " Invalid stateProvinceGeoId code: " + rec.get("countryGeoId"));
                             }
                         }
                     }
@@ -2426,7 +2434,7 @@ public class PartyServices {
                             newPartyId = (String) result.get("partyId");
 
                             Map<String, Object> partyIdentification = UtilMisc.toMap("partyId", newPartyId,
-                                "partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId"), "userLogin", userLogin);
+                                    "partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId"), "userLogin", userLogin);
 
                             result = dispatcher.runSync("createPartyIdentification", partyIdentification);
                             if (ServiceUtil.isError(result)) {
@@ -2447,7 +2455,7 @@ public class PartyServices {
                                 if (companyCheck.size() == 0) { // update party group
                                     // company does not exist so create
                                     Map<String, Object> companyPartyGroup = UtilMisc.toMap(
-                                        "partyId", newCompanyPartyId, "statusId", "PARTY_ENABLED", "userLogin", userLogin);
+                                            "partyId", newCompanyPartyId, "statusId", "PARTY_ENABLED", "userLogin", userLogin);
                                     result = dispatcher.runSync("createPartyGroup", companyPartyGroup);
                                     if (ServiceUtil.isError(result)) {
                                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
@@ -2466,14 +2474,14 @@ public class PartyServices {
 
                                 // company exist, so create link
                                 Map<String, Object> partyRelationship = UtilMisc.toMap("partyIdTo", newPartyId, "partyIdFrom", newCompanyPartyId,
-                                    "roleTypeIdFrom", "ACCOUNT", "partyRelationshipTypeId", "EMPLOYMENT", "userLogin", userLogin);
+                                        "roleTypeIdFrom", "ACCOUNT", "partyRelationshipTypeId", "EMPLOYMENT", "userLogin", userLogin);
                                 result = dispatcher.runSync("createPartyRelationship", partyRelationship);
                                 if (ServiceUtil.isError(result)) {
                                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                                 }
                             }
                         }
-                        Debug.logInfo(" =========================================================party created id: " + newPartyId, MODULE);
+                        Debug.logInfo(" New party created with id: " + newPartyId, MODULE);
                         partiesCreated++;
                     } else {
                         errMsgs.addAll(newErrMsgs);
@@ -2535,10 +2543,11 @@ public class PartyServices {
                     Map<String, Object> partyContactMechPurpose = UtilMisc.toMap("partyId", newPartyId, "userLogin", userLogin);
                     boolean partyContactMechPurposeChanged = false;
                     currentContactMechPurposeTypeId = rec.get("contactMechPurposeTypeId");
-                    if (currentContactMechPurposeTypeId != null && ("TELECOM_NUMBER".equals(currentContactMechTypeId) || "POSTAL_ADDRESS".equals(currentContactMechTypeId) || "EMAIL_ADDRESS".equals(currentContactMechTypeId))) {
+                    if (currentContactMechPurposeTypeId != null && ("TELECOM_NUMBER".equals(currentContactMechTypeId)
+                            || "POSTAL_ADDRESS".equals(currentContactMechTypeId) || "EMAIL_ADDRESS".equals(currentContactMechTypeId))) {
                         partyContactMechPurpose.put("contactMechPurposeTypeId", currentContactMechPurposeTypeId);
                         partyContactMechPurposeChanged = (lastContactMechPurposeTypeId == null || !lastContactMechPurposeTypeId.equals(currentContactMechPurposeTypeId)) && !telecomNumberChanged && !postalAddressChanged && !emailAddressChanged;
-                        Debug.logInfo("===================================last:" + lastContactMechPurposeTypeId + " current: " + currentContactMechPurposeTypeId + " t :" + telecomNumberChanged + " p: " + postalAddressChanged + " e: " + emailAddressChanged + " result: " + partyContactMechPurposeChanged, MODULE);
+                        Debug.logInfo("Last:" + lastContactMechPurposeTypeId + " current: " + currentContactMechPurposeTypeId + " t :" + telecomNumberChanged + " p: " + postalAddressChanged + " e: " + emailAddressChanged + " result: " + partyContactMechPurposeChanged, MODULE);
                     }
                     lastContactMechPurposeTypeId = currentContactMechPurposeTypeId;
 
@@ -2584,7 +2593,9 @@ public class PartyServices {
                             if (currentContactMechPurposeTypeId == null) {
                                 currentContactMechPurposeTypeId = "PRIMARY_EMAIL";
                             }
-                            Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
+                            Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId,
+                                    "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin",
+                                    userLogin));
                             if (ServiceUtil.isError(resultMap)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
@@ -2612,7 +2623,8 @@ public class PartyServices {
             return ServiceUtil.returnError(errMsgs);
         }
 
-        result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "PartyNewPartiesCreated", UtilMisc.toMap("partiesCreated", partiesCreated), locale));
+        result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "PartyNewPartiesCreated",
+                UtilMisc.toMap("partiesCreated", partiesCreated), locale));
         return result;
     }
 }

@@ -36,14 +36,14 @@ public class CCServicesTest extends OFBizTestCase {
     private static final String MODULE = CCServicesTest.class.getName();
 
     // test data
-    protected GenericValue emailAddr = null;
-    protected String orderId = null;
-    protected GenericValue creditCard = null;
-    protected GenericValue billingAddress = null;
-    protected GenericValue shippingAddress = null;
-    protected Map<String, Object> pbOrder = null;
-    protected BigDecimal creditAmount = null;
-    protected String configFile = null;
+    private GenericValue emailAddr = null;
+    private String orderId = null;
+    private GenericValue creditCard = null;
+    private GenericValue billingAddress = null;
+    private GenericValue shippingAddress = null;
+    private Map<String, Object> pbOrder = null;
+    private BigDecimal creditAmount = null;
+    private String configFile = null;
 
     public CCServicesTest(String name) {
         super(name);
@@ -75,7 +75,7 @@ public class CCServicesTest extends OFBizTestCase {
                 "TotalNumberPayments", "4");
     }
 
-    /*
+    /**
      * Check the authorisation
      */
     public void testAuth() throws Exception {
@@ -109,7 +109,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     }
 
-    /*
+    /**
      * Check the credit action: to deduct a certain amount of a credit card.
      */
     public void testCredit() throws Exception {
@@ -140,7 +140,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     }
 
-    /*
+    /**
      * Test Purchase subscription
      */
     public void testPurchaseSubscription() throws Exception {
@@ -196,7 +196,7 @@ public class CCServicesTest extends OFBizTestCase {
          */
     }
 
-    /*
+    /**
      * Test Query subscription transaction status
      */
     public void testCCReport() throws Exception {

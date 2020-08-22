@@ -1083,7 +1083,7 @@ public class ProductServices {
             /* store the imageUrl version of the image, for backwards compatibility with code that does not use scaled versions */
             Map<String, Object> result = addImageResource(dispatcher, delegator, context, imageUrl, productContentTypeId);
 
-            if ( ServiceUtil.isError(result)) {
+            if (ServiceUtil.isError(result)) {
                 return result;
             }
 
@@ -1092,7 +1092,7 @@ public class ProductServices {
             Map<String, String> imageUrlMap = UtilGenerics.cast(resultResize.get("imageUrlMap"));
             for (String sizeType : ScaleImage.sizeTypeList) {
                 imageUrl = imageUrlMap.get(sizeType);
-                if ( UtilValidate.isNotEmpty(imageUrl)) {
+                if (UtilValidate.isNotEmpty(imageUrl)) {
                     try {
                         GenericValue productContentType = EntityQuery.use(delegator)
                                 .from("ProductContentType")
@@ -1101,7 +1101,7 @@ public class ProductServices {
                                 .queryOne();
                         if (UtilValidate.isNotEmpty(productContentType)) {
                             result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()));
-                            if ( ServiceUtil.isError(result)) {
+                            if (ServiceUtil.isError(result)) {
                                 Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                                 return result;
                             }
@@ -1116,7 +1116,7 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Map<String, Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
+    private static Map<String, Object> addImageResource(LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
             String imageUrl, String productContentTypeId ) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");

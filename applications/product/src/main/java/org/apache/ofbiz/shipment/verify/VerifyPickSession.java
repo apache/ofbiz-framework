@@ -42,17 +42,20 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.ServiceUtil;
 
+/**
+ * The type Verify pick session.
+ */
 @SuppressWarnings("serial")
 public class VerifyPickSession implements Serializable {
 
     private static final String MODULE = VerifyPickSession.class.getName();
 
-    protected GenericValue userLogin = null;
-    protected String dispatcherName = null;
-    protected String delegatorName = null;
-    protected String picklistBinId = null;
-    protected String facilityId = null;
-    protected List<VerifyPickSessionRow> pickRows = null;
+    private GenericValue userLogin = null;
+    private String dispatcherName = null;
+    private String delegatorName = null;
+    private String picklistBinId = null;
+    private String facilityId = null;
+    private List<VerifyPickSessionRow> pickRows = null;
 
     private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
@@ -152,7 +155,8 @@ public class VerifyPickSession implements Serializable {
         }
     }
 
-    protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity, Locale locale) throws GeneralException {
+    protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity, Locale locale)
+            throws GeneralException {
 
         Map<String, Object> orderItemLookupMap = new HashMap<>();
         orderItemLookupMap.put("orderId", orderId);
@@ -188,7 +192,8 @@ public class VerifyPickSession implements Serializable {
         }
     }
 
-    protected int checkRowForAdd(GenericValue reservation, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, BigDecimal quantity) {
+    protected int checkRowForAdd(GenericValue reservation, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId,
+                                 BigDecimal quantity) {
         // check to see if the reservation can hold the requested quantity amount
         String inventoryItemId = reservation.getString("inventoryItemId");
         BigDecimal resQty = reservation.getBigDecimal("quantity");
@@ -211,7 +216,8 @@ public class VerifyPickSession implements Serializable {
         }
     }
 
-    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId, BigDecimal quantity, Locale locale) throws GeneralException {
+    protected void createVerifyPickRow(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId,
+                                       String productId, String originGeoId, BigDecimal quantity, Locale locale) throws GeneralException {
         // process the result; add new item if necessary
         switch (checkCode) {
         case 0:
@@ -231,30 +237,59 @@ public class VerifyPickSession implements Serializable {
         }
     }
 
+    /**
+     * Gets user login.
+     * @return the user login
+     */
     public GenericValue getUserLogin() {
         return this.userLogin;
     }
 
+    /**
+     * Sets facility id.
+     * @param facilityId the facility id
+     */
     public void setFacilityId(String facilityId) {
         this.facilityId = facilityId;
     }
 
+    /**
+     * Gets facility id.
+     * @return the facility id
+     */
     public String getFacilityId() {
         return this.facilityId;
     }
 
+    /**
+     * Sets picklist bin id.
+     * @param setPicklistBinId the set picklist bin id
+     */
     public void setPicklistBinId(String setPicklistBinId) {
         this.picklistBinId = setPicklistBinId;
     }
 
+    /**
+     * Gets picklist bin id.
+     * @return the picklist bin id
+     */
     public String getPicklistBinId() {
         return this.picklistBinId;
     }
 
+    /**
+     * Gets pick rows.
+     * @return the pick rows
+     */
     public List<VerifyPickSessionRow> getPickRows() {
         return this.pickRows;
     }
 
+    /**
+     * Gets pick rows.
+     * @param orderId the order id
+     * @return the pick rows
+     */
     public List<VerifyPickSessionRow> getPickRows(String orderId) {
         List<VerifyPickSessionRow> pickVerifyRows = new LinkedList<>();
         for (VerifyPickSessionRow line: this.getPickRows()) {
@@ -288,7 +323,8 @@ public class VerifyPickSession implements Serializable {
     public BigDecimal getVerifiedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId) {
         BigDecimal total = BigDecimal.ZERO;
         for (VerifyPickSessionRow pickRow : this.getPickRows(orderId)) {
-            if (orderItemSeqId.equals(pickRow.getOrderItemSeqId()) && shipGroupSeqId.equals(pickRow.getShipGroupSeqId()) && productId.equals(pickRow.getProductId())) {
+            if (orderItemSeqId.equals(pickRow.getOrderItemSeqId()) && shipGroupSeqId.equals(pickRow.getShipGroupSeqId())
+                    && productId.equals(pickRow.getProductId())) {
                 if (inventoryItemId == null || inventoryItemId.equals(pickRow.getInventoryItemId())) {
                     total = total.add(pickRow.getReadyToVerifyQty());
                 }
@@ -297,10 +333,20 @@ public class VerifyPickSession implements Serializable {
         return total;
     }
 
+    /**
+     * Clear all rows.
+     */
     public void clearAllRows() {
         this.pickRows.clear();
     }
 
+    /**
+     * Complete string.
+     * @param orderId the order id
+     * @param locale  the locale
+     * @return the string
+     * @throws GeneralException the general exception
+     */
     public String complete(String orderId, Locale locale) throws GeneralException {
         this.checkVerifiedQty(orderId, locale);
         // check reserved quantity, it should be equal to verified quantity

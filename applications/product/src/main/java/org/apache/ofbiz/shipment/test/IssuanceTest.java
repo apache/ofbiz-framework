@@ -61,7 +61,7 @@ public class IssuanceTest extends OFBizTestCase {
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
 
         assertFalse("No OrderShipment for order", UtilValidate.isEmpty(orderShipments));
-        assertEquals( "Incorrect number of OrderShipments for order", 1, orderShipments.size());
+        assertEquals("Incorrect number of OrderShipments for order", 1, orderShipments.size());
 
         GenericValue orderShipment = orderShipments.get(0);
         assertEquals(orderItemSeqId, orderShipment.getString("orderItemSeqId"));
@@ -74,7 +74,7 @@ public class IssuanceTest extends OFBizTestCase {
         // Test the ItemIssuances are correct
         List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("inventoryItemId"), false);
         assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
-        assertEquals( "Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
+        assertEquals("Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
 
         GenericValue itemIssuance = itemIssuances.get(0);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));

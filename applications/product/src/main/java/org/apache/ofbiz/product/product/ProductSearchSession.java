@@ -104,7 +104,6 @@ public class ProductSearchSession {
 
         /**
          * Gets constraint list.
-         *
          * @return the constraint list
          */
         public List<ProductSearchConstraint> getConstraintList() {
@@ -126,7 +125,6 @@ public class ProductSearchSession {
 
         /**
          * Gets result sort order.
-         *
          * @return the result sort order
          */
         public ResultSortOrder getResultSortOrder() {
@@ -270,7 +268,6 @@ public class ProductSearchSession {
 
         /**
          * Gets top product category id.
-         *
          * @return the top product category id
          */
         public String getTopProductCategoryId() {
@@ -284,7 +281,6 @@ public class ProductSearchSession {
 
         /**
          * Sets top product category id.
-         *
          * @param topProductCategoryId the top product category id
          */
         public void setTopProductCategoryId(String topProductCategoryId) {
@@ -303,7 +299,6 @@ public class ProductSearchSession {
 
         /**
          * Search get constraint strings list.
-         *
          * @param detailed  the detailed
          * @param delegator the delegator
          * @param locale    the locale
@@ -331,7 +326,6 @@ public class ProductSearchSession {
 
         /**
          * Search get constraint strings list.
-         *
          * @param detailed   the detailed
          * @param dispatcher the dispatcher
          * @param locale     the locale

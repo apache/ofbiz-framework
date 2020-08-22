@@ -365,7 +365,7 @@ public final class ProductPromoWorker {
                         EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", promoUse.getProductPromoId()).cache().queryOne();
                 GenericValue newProductPromo = (GenericValue) productPromo.clone();
                 if (!usesPerPromo.containsKey(promoUse.getProductPromoId())) {
-                    usesPerPromo.put(promoUse.getProductPromoId(), 0l);
+                    usesPerPromo.put(promoUse.getProductPromoId(), 0L);
                 }
                 long uses = usesPerPromo.get(promoUse.getProductPromoId());
                 uses = uses + 1;
@@ -474,8 +474,8 @@ public final class ProductPromoWorker {
                             Set<String> enteredCodes = cart.getProductPromoCodesEntered();
                             // Check whether any promotion code is applied on order.
                             if (cart.getOrderId() != null) {
-                                List<GenericValue> orderproductPromoCodes = EntityQuery.use(delegator).from("OrderProductPromoCode").where("orderId"
-                                        , cart.getOrderId()).queryList();
+                                List<GenericValue> orderproductPromoCodes = EntityQuery.use(delegator).from("OrderProductPromoCode").where("orderId",
+                                        cart.getOrderId()).queryList();
                                 Iterator<GenericValue> orderproductPromoCodesItr = UtilMisc.toIterator(orderproductPromoCodes);
                                 while (orderproductPromoCodesItr != null && orderproductPromoCodesItr.hasNext()) {
                                     GenericValue orderproductPromoCode = orderproductPromoCodesItr.next();
@@ -1053,8 +1053,8 @@ public final class ProductPromoWorker {
             try {
                 condResult = dispatcher.runSync(serviceName, serviceCtx);
             } catch (GenericServiceException e) {
-                Debug.logWarning("Failed to execute productPromoCond service " + serviceName + " for promo " + productPromoCond.getPkShortValueString()
-                        + " throw " + e.toString(), MODULE);
+                Debug.logWarning("Failed to execute productPromoCond service " + serviceName + " for promo "
+                        + productPromoCond.getPkShortValueString() + " throw " + e.toString(), MODULE);
                 return false;
             }
             compareBase = (Integer) condResult.get("compareBase");
@@ -1090,7 +1090,8 @@ public final class ProductPromoWorker {
     }
 
     public static boolean checkConditionsForItem(GenericValue productPromoActionOrCond, ShoppingCart cart, ShoppingCartItem cartItem,
-                                                 Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
+                                                 Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp)
+            throws GenericEntityException {
         GenericValue productPromoRule = productPromoActionOrCond.getRelatedOne("ProductPromoRule", true);
 
         List<GenericValue> productPromoConds = EntityQuery.use(delegator).from("ProductPromoCond").where("productPromoId", productPromoRule.get(
@@ -1131,7 +1132,8 @@ public final class ProductPromoWorker {
         BigDecimal amountOff = listPrice.subtract(basePrice);
         BigDecimal percentOff = amountOff.divide(listPrice, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100L));
 
-        if (!("PPIP_LPMUP_AMT".equals(inputParamEnumId) || "PPC_LPMUP_AMT".equals(customMethodId)) && !("PPIP_LPMUP_PER".equals(inputParamEnumId) || "PPC_LPMUP_PER".equals(customMethodId))) {
+        if (!("PPIP_LPMUP_AMT".equals(inputParamEnumId) || "PPC_LPMUP_AMT".equals(customMethodId)) && !("PPIP_LPMUP_PER".equals(inputParamEnumId)
+                || "PPC_LPMUP_PER".equals(customMethodId))) {
             // condition doesn't apply to individual item, always passes
             return true;
         }

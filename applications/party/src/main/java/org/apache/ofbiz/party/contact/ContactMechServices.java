@@ -969,7 +969,7 @@ public class ContactMechServices {
 
         SecureRandom secureRandom = new SecureRandom();
 
-        synchronized(ContactMechServices.class) {
+        synchronized (ContactMechServices.class) {
             while (true) {
                 Long random = secureRandom.nextLong();
                 verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(StandardCharsets.UTF_8));
