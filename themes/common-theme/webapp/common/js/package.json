@@ -1,0 +1,10 @@
+{
+  "name": "ofbiz-framework",
+  "description": "ofbiz-framework NPM dependencies configuration",
+  "repository": "https://github.com/apache/ofbiz-framework.git",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "jquery-migrate": "^3.3.1"
+  }
+}

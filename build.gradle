@@ -36,6 +36,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.29.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
+    id "com.github.node-gradle.node" version "2.2.4"
 }
 
 /* OWASP plugin
@@ -105,6 +106,18 @@ javadoc {
         )
     }
 }
+
+node {
+    download = true
+    version = "12.18.1"
+    // npmVersion will be the one that comes default with the node
+
+    // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
+    //// Set the work directory where node_modules should be located
+    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common/js")
+}
+
+
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -538,7 +551,7 @@ task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}"
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
-      }    
+      }
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
