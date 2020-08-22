@@ -235,6 +235,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEdit"/>
+                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="EditQuote"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -243,7 +244,7 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuoteDecorator">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteEdit}">
                             <include-form name="EditQuote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
