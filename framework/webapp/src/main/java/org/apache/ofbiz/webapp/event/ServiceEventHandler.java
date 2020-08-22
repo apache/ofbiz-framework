@@ -77,14 +77,14 @@ public class ServiceEventHandler implements EventHandler {
         String mode = SYNC;
         String serviceName = null;
 
-        if (UtilValidate.isEmpty(event.path)) {
+        if (UtilValidate.isEmpty(event.getPath())) {
             mode = SYNC;
         } else {
-            mode = event.path;
+            mode = event.getPath();
         }
 
         // make sure we have a defined service to call
-        serviceName = event.invoke;
+        serviceName = event.getInvoke();
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
@@ -123,7 +123,7 @@ public class ServiceEventHandler implements EventHandler {
         // we have a service and the model; build the context
         Map<String, Object> serviceContext = new HashMap<>();
         for (ModelParam modelParam: model.getInModelParamList()) {
-            String name = modelParam.name;
+            String name = modelParam.getName();
 
             // don't include userLogin, that's taken care of below
             if ("userLogin".equals(name)) {
@@ -143,16 +143,16 @@ public class ServiceEventHandler implements EventHandler {
             }
 
             Object value = null;
-            if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
+            if (UtilValidate.isNotEmpty(modelParam.getStringMapPrefix())) {
                 Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap,
-                        modelParam.stringMapPrefix, null);
+                        modelParam.getStringMapPrefix(), null);
                 value = paramMap;
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Set [" + modelParam.name + "]: " + paramMap, MODULE);
+                    Debug.logVerbose("Set [" + modelParam.getName() + "]: " + paramMap, MODULE);
                 }
-            } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
+            } else if (UtilValidate.isNotEmpty(modelParam.getStringListSuffix())) {
                 List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap,
-                        modelParam.stringListSuffix, null);
+                        modelParam.getStringListSuffix(), null);
                 value = paramList;
             } else {
                 // first check the multi-part map
@@ -161,8 +161,8 @@ public class ServiceEventHandler implements EventHandler {
                 // next check attributes; do this before parameters so that attribute which can
                 // be changed by code can override parameters which can't
                 if (UtilValidate.isEmpty(value)) {
-                    Object tempVal = request.getAttribute(UtilValidate.isEmpty(modelParam.requestAttributeName) ? name
-                            : modelParam.requestAttributeName);
+                    Object tempVal = request.getAttribute(UtilValidate.isEmpty(modelParam.getRequestAttributeName()) ? name
+                            : modelParam.getRequestAttributeName());
                     if (tempVal != null) {
                         value = tempVal;
                     }
@@ -173,7 +173,7 @@ public class ServiceEventHandler implements EventHandler {
                     // if the service modelParam has allow-html="any" then get this direct from the
                     // request instead of in the parameters Map so there will be no canonicalization
                     // possibly messing things up
-                    if ("any".equals(modelParam.allowHtml)) {
+                    if ("any".equals(modelParam.getAllowHtml())) {
                         value = request.getParameter(name);
                     } else {
                         // use the rawParametersMap from UtilHttp in order to also get pathInfo
@@ -191,8 +191,8 @@ public class ServiceEventHandler implements EventHandler {
                 // then session
                 if (UtilValidate.isEmpty(value)) {
                     Object tempVal = request.getSession()
-                            .getAttribute(UtilValidate.isEmpty(modelParam.sessionAttributeName) ? name
-                                    : modelParam.sessionAttributeName);
+                            .getAttribute(UtilValidate.isEmpty(modelParam.getSessionAttributeName()) ? name
+                                    : modelParam.getSessionAttributeName());
                     if (tempVal != null) {
                         value = tempVal;
                     }

@@ -465,7 +465,7 @@ public final class ServiceUtil {
         }
         outMap.putAll(modelService.makeValid(fromMap, ModelService.IN_PARAM, true, null, timeZone, locale));
 
-        if (userLogin != null && modelService.auth) {
+        if (userLogin != null && modelService.isAuth()) {
             outMap.put("userLogin", userLogin);
         }
 

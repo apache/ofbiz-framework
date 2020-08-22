@@ -56,17 +56,17 @@ import org.w3c.dom.Element;
 public abstract class ListFinder extends Finder {
     private static final String MODULE = ListFinder.class.getName();
 
-    protected String label;
+    private String label;
 
-    protected FlexibleStringExpander filterByDateStrExdr;
-    protected FlexibleStringExpander distinctStrExdr;
-    protected FlexibleStringExpander delegatorNameExdr;
-    protected FlexibleMapAccessor<Object> listAcsr;
-    protected FlexibleStringExpander resultSetTypeExdr;
+    private FlexibleStringExpander filterByDateStrExdr;
+    private FlexibleStringExpander distinctStrExdr;
+    private FlexibleStringExpander delegatorNameExdr;
+    private FlexibleMapAccessor<Object> listAcsr;
+    private FlexibleStringExpander resultSetTypeExdr;
 
-    protected List<FlexibleStringExpander> selectFieldExpanderList;
-    protected List<FlexibleStringExpander> orderByExpanderList;
-    protected OutputHandler outputHandler;
+    private List<FlexibleStringExpander> selectFieldExpanderList;
+    private List<FlexibleStringExpander> orderByExpanderList;
+    private OutputHandler outputHandler;
 
     protected ListFinder(Element element, String label) {
         super(element);
@@ -247,15 +247,34 @@ public abstract class ListFinder extends Finder {
         }
     }
 
+    /**
+     * Gets order by field list.
+     * @param context the context
+     * @return the order by field list
+     */
     public List<String> getOrderByFieldList(Map<String, Object> context) {
         List<String> orderByFields = EntityFinderUtil.makeOrderByFieldList(this.orderByExpanderList, context);
         return orderByFields;
     }
 
+    /**
+     * Gets where entity condition.
+     * @param context              the context
+     * @param modelEntity          the model entity
+     * @param modelFieldTypeReader the model field type reader
+     * @return the where entity condition
+     */
     public EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
         return null;
     }
 
+    /**
+     * Gets having entity condition.
+     * @param context              the context
+     * @param modelEntity          the model entity
+     * @param modelFieldTypeReader the model field type reader
+     * @return the having entity condition
+     */
     public EntityCondition getHavingEntityCondition(Map<String, Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
         return null;
     }

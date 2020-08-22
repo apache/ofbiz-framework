@@ -70,9 +70,9 @@ public final class UtilProperties implements Serializable {
     /**
      * A cache for storing Properties instances. Each Properties instance is keyed by its URL.
      */
-    private static final UtilCache<String, Properties> urlCache = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
+    private static final UtilCache<String, Properties> URL_CACHE = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
 
-    private static final Set<String> propertiesNotFound = new HashSet<>();
+    private static final Set<String> PROP_NOT_FOUND = new HashSet<>();
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
@@ -150,7 +150,7 @@ public final class UtilProperties implements Serializable {
         } catch (GeneralException e) {
             Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", MODULE);
         }
-            return defaultNumber;
+        return defaultNumber;
     }
 
     /**
@@ -234,7 +234,8 @@ public final class UtilProperties implements Serializable {
         try {
             result = new BigInteger(strValue);
         } catch (NumberFormatException nfe) {
-            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigInteger; using defaultNumber " + defaultNumber.toString() + ".", MODULE);
+            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigInteger; using defaultNumber "
+                    + defaultNumber.toString() + ".", MODULE);
         }
         return result;
     }
@@ -253,7 +254,8 @@ public final class UtilProperties implements Serializable {
         try {
             result = new BigDecimal(strValue);
         } catch (NumberFormatException nfe) {
-            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigDecimal; using defaultNumber " + defaultNumber.toString() + ".", MODULE);
+            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigDecimal; using defaultNumber "
+                    + defaultNumber.toString() + ".", MODULE);
         }
         return result;
     }
@@ -342,11 +344,11 @@ public final class UtilProperties implements Serializable {
             return null;
         }
         String cacheKey = url.toString();
-        Properties properties = urlCache.get(cacheKey);
+        Properties properties = URL_CACHE.get(cacheKey);
         if (properties == null) {
             try {
                 properties = new ExtendedProperties(url, null);
-                urlCache.put(cacheKey, properties);
+                URL_CACHE.put(cacheKey, properties);
             } catch (Exception e) {
                 Debug.logInfo(e, MODULE);
             }
@@ -700,7 +702,7 @@ public final class UtilProperties implements Serializable {
 
     // Private lazy-initializer class
     private static class FallbackLocaleHolder {
-        private static final Locale fallbackLocale = getFallbackLocale();
+        private static final Locale FALLBACK_LOCALE = getFallbackLocale();
 
         private static Locale getFallbackLocale() {
             Locale fallbackLocale = null;
@@ -722,7 +724,7 @@ public final class UtilProperties implements Serializable {
      * @return The configured fallback locale
      */
     public static Locale getFallbackLocale() {
-        return FallbackLocaleHolder.fallbackLocale;
+        return FallbackLocaleHolder.FALLBACK_LOCALE;
     }
 
     /** Converts a Locale instance to a candidate Locale list. The list
@@ -810,7 +812,7 @@ public final class UtilProperties implements Serializable {
     }
 
     public static boolean isPropertiesResourceNotFound(String resource, Locale locale, boolean removeExtension) {
-        return propertiesNotFound.contains(createResourceName(resource, locale, removeExtension));
+        return PROP_NOT_FOUND.contains(createResourceName(resource, locale, removeExtension));
     }
 
     /**
@@ -841,7 +843,7 @@ public final class UtilProperties implements Serializable {
             throw new IllegalArgumentException("resource cannot be null or empty");
         }
         String resourceName = createResourceName(resource, locale, false);
-        if (propertiesNotFound.contains(resourceName)) {
+        if (PROP_NOT_FOUND.contains(resourceName)) {
             return null;
         }
         boolean containsProtocol = resource.contains(":");
@@ -897,9 +899,9 @@ public final class UtilProperties implements Serializable {
         } catch (Exception e) {
             Debug.logInfo("Properties resolver: invalid URL - " + e.getMessage(), MODULE);
         }
-        if (propertiesNotFound.size() <= 300) {
+        if (PROP_NOT_FOUND.size() <= 300) {
             // Sanity check - list could get quite large
-            propertiesNotFound.add(resourceName);
+            PROP_NOT_FOUND.add(resourceName);
         }
         return null;
     }
@@ -927,7 +929,8 @@ public final class UtilProperties implements Serializable {
      * @param properties Optional Properties object to populate
      * @return Properties instance or null if not found
      */
-    public static Properties xmlToProperties(InputStream in, Locale locale, Properties properties) throws IOException, InvalidPropertiesFormatException {
+    public static Properties xmlToProperties(InputStream in, Locale locale, Properties properties)
+            throws IOException, InvalidPropertiesFormatException {
         if (in == null) {
             throw new IllegalArgumentException("InputStream cannot be null");
         }
@@ -948,12 +951,12 @@ public final class UtilProperties implements Serializable {
                 throw new IllegalArgumentException("locale cannot be null");
             }
             String localeString = locale.toString();
-            String correctedLocaleString = localeString.replace('_','-');
+            String correctedLocaleString = localeString.replace('_', '-');
             for (Element property : propertyList) {
                 // Support old way of specifying xml:lang value.
                 // Old way: en_AU, new way: en-AU
                 Element value = UtilXml.firstChildElement(property, "value", "xml:lang", correctedLocaleString);
-                if ( value == null) {
+                if (value == null) {
                     value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
                 }
                 if (value != null) {
@@ -990,10 +993,10 @@ public final class UtilProperties implements Serializable {
      * properties file format.
      */
     public static class UtilResourceBundle extends ResourceBundle {
-        private static final UtilCache<String, UtilResourceBundle> bundleCache = UtilCache.createUtilCache("properties.UtilPropertiesBundleCache");
-        protected Properties properties = null;
-        protected Locale locale = null;
-        protected int hashCode = hashCode();
+        private static final UtilCache<String, UtilResourceBundle> BUNDLE_CACHE = UtilCache.createUtilCache("properties.UtilPropertiesBundleCache");
+        private Properties properties = null;
+        private Locale locale = null;
+        private int hashCode = hashCode();
 
         protected UtilResourceBundle() { }
 
@@ -1010,7 +1013,7 @@ public final class UtilProperties implements Serializable {
 
         public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
             String resourceName = createResourceName(resource, locale, true);
-            UtilResourceBundle bundle = bundleCache.get(resourceName);
+            UtilResourceBundle bundle = BUNDLE_CACHE.get(resourceName);
             if (bundle == null) {
                 double startTime = System.currentTimeMillis();
                 List<Locale> candidateLocales = getCandidateLocales(locale);
@@ -1020,14 +1023,14 @@ public final class UtilProperties implements Serializable {
                     Locale candidateLocale = candidateLocales.remove(candidateLocales.size() - 1);
                     // ResourceBundles are connected together as a singly-linked list
                     String lookupName = createResourceName(resource, candidateLocale, true);
-                    UtilResourceBundle lookupBundle = bundleCache.get(lookupName);
+                    UtilResourceBundle lookupBundle = BUNDLE_CACHE.get(lookupName);
                     if (lookupBundle == null) {
                         Properties newProps = getProperties(resource, candidateLocale);
                         if (UtilValidate.isNotEmpty(newProps)) {
                             // The last bundle we found becomes the parent of the new bundle
                             parentBundle = bundle;
                             bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
-                            bundleCache.putIfAbsent(lookupName, bundle);
+                            BUNDLE_CACHE.putIfAbsent(lookupName, bundle);
                             numProperties = newProps.size();
                         }
                     } else {
@@ -1046,7 +1049,7 @@ public final class UtilProperties implements Serializable {
                     Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime / 1000.0 + "s with "
                             + numProperties + " properties", MODULE);
                 }
-                bundleCache.putIfAbsent(resourceName, bundle);
+                BUNDLE_CACHE.putIfAbsent(resourceName, bundle);
             }
             return bundle;
         }

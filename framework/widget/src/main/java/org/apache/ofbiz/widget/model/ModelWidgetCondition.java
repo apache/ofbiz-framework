@@ -474,7 +474,7 @@ public abstract class ModelWidgetCondition implements Serializable {
                 // invoke the service
                 Map<String, Object> resp;
                 try {
-                    resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
+                    resp = dispatcher.runSync(permService.getName(), svcCtx, 300, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, MODULE);
                     return false;

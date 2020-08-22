@@ -1033,7 +1033,6 @@ public final class UtilHttp {
 
     /**
      * Encodes a query parameter
-     * 
      * @throws UnsupportedEncodingException
      */
     public static String getEncodedParameter(String parameter) throws UnsupportedEncodingException {
@@ -1156,8 +1155,8 @@ public final class UtilHttp {
         // HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server.
         String strictTransportSecurity = null;
         if (viewMap != null) {
-            xFrameOption = viewMap.xFrameOption;
-            strictTransportSecurity = viewMap.strictTransportSecurity;
+            xFrameOption = viewMap.getxFrameOption();
+            strictTransportSecurity = viewMap.getStrictTransportSecurity();
         }
         // Default to sameorigin
         if (UtilValidate.isNotEmpty(xFrameOption)) {

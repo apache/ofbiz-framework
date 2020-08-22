@@ -220,7 +220,7 @@ public final class WidgetWorker {
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
                 ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
-                if (requestMap != null && requestMap.event != null) {
+                if (requestMap != null && requestMap.getEvent() != null) {
                     return "hidden-form";
                 }
             }

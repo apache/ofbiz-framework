@@ -172,7 +172,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Align day of week calendar.
-         *
          * @param cal the cal
          * @return the calendar
          */
@@ -781,7 +780,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Prepare cal calendar.
-         *
          * @param cal the cal
          * @return the calendar
          */
@@ -902,7 +900,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Gets hour range as set.
-         *
          * @return the hour range as set
          */
         public Set<Integer> getHourRangeAsSet() {
@@ -1193,7 +1190,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Gets minute range as set.
-         *
          * @return the minute range as set
          */
         public Set<Integer> getMinuteRangeAsSet() {

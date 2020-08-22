@@ -35,17 +35,17 @@ public class Convert extends SimpleMapOperation {
 
     private static final String MODULE = Convert.class.getName();
 
-    String format;
-    boolean replace = true;
-    boolean setIfNull = true;
-    String toField;
-    String type;
+    private String format;
+    private boolean replace = true;
+    private boolean setIfNull = true;
+    private String toField;
+    private String type;
 
     public Convert(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
         this.toField = element.getAttribute("to-field");
         if (UtilValidate.isEmpty(this.toField)) {
-            this.toField = this.fieldName;
+            this.toField = this.getFieldName();
         }
         type = element.getAttribute("type");
         // if anything but false it will be true
@@ -57,10 +57,11 @@ public class Convert extends SimpleMapOperation {
 
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        Object fieldObject = inMap.get(fieldName);
+        Object fieldObject = inMap.get(getFieldName());
         if (fieldObject == null) {
-            if (setIfNull && (replace || !results.containsKey(toField)))
+            if (setIfNull && (replace || !results.containsKey(toField))) {
                 results.put(toField, null);
+            }
             return;
         }
         // if an incoming string is empty,
@@ -80,15 +81,18 @@ public class Convert extends SimpleMapOperation {
             Debug.logError(e, "Error in convert simple-map-processor operation: " + e.toString(), MODULE);
             return;
         }
-        if (convertedObject == null)
+        if (convertedObject == null) {
             return;
+        }
         if (replace) {
             results.put(toField, convertedObject);
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \"" + toField + "\"", MODULE);
+            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \""
+            // + toField + "\"", MODULE);
         } else {
             if (!results.containsKey(toField)) {
                 results.put(toField, convertedObject);
-                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \"" + toField + "\"", MODULE);
+                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Converted.exec] Put converted value \"" + convertedObject + "\" in field \""
+                // + toField + "\"", MODULE);
             }
         }
     }

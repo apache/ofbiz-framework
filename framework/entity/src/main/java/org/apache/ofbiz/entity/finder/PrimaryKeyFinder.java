@@ -46,10 +46,10 @@ import org.w3c.dom.Element;
 public class PrimaryKeyFinder extends Finder {
     private static final String MODULE = PrimaryKeyFinder.class.getName();
 
-    protected FlexibleMapAccessor<Object> valueNameAcsr;
-    protected FlexibleStringExpander autoFieldMapExdr;
-    protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
-    protected List<FlexibleStringExpander> selectFieldExpanderList;
+    private FlexibleMapAccessor<Object> valueNameAcsr;
+    private FlexibleStringExpander autoFieldMapExdr;
+    private Map<FlexibleMapAccessor<Object>, Object> fieldMap;
+    private List<FlexibleStringExpander> selectFieldExpanderList;
 
     public PrimaryKeyFinder(Element entityOneElement) {
         super(entityOneElement);
@@ -95,8 +95,9 @@ public class PrimaryKeyFinder extends Finder {
         }
     }
 
-    public static GenericValue runFind(ModelEntity modelEntity, Map<String, Object> context, Delegator delegator, boolean useCache, boolean autoFieldMap,
-            Map<FlexibleMapAccessor<Object>, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
+    public static GenericValue runFind(ModelEntity modelEntity, Map<String, Object> context, Delegator delegator, boolean useCache,
+            boolean autoFieldMap, Map<FlexibleMapAccessor<Object>, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList)
+            throws GeneralException {
 
         // assemble the field map
         Map<String, Object> entityContext = new HashMap<>();

@@ -419,7 +419,7 @@ public class CatalinaContainer implements Container {
 
     private static Connector prepareConnector(Configuration.Property connectorProp) {
         Connector connector = new Connector(ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1"));
-        connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset);
+        connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().getPortOffset());
         if ("true".equals(ContainerConfig.getPropertyValue(connectorProp, "upgradeProtocol", "false"))) {
             connector.addUpgradeProtocol(new Http2Protocol());
             Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", MODULE);

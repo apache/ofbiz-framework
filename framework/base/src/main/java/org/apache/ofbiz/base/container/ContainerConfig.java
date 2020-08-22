@@ -222,7 +222,6 @@ public final class ContainerConfig {
             //FORBID PUBLIC FIELDS
             /**
              * Constructs a container configuration element.
-             *
              * @param element the {@code <property>} XML element containing the configuration.
              */
             public Property(Element element) {
@@ -236,7 +235,6 @@ public final class ContainerConfig {
             }
             /**
              * Aggregates the {@code <property>} XML elements in a Map.
-             *
              * @param root the root XML Element containing {@code <property>} children
              * @return a map of property elements
              */
@@ -250,7 +248,6 @@ public final class ContainerConfig {
             }
             /**
              * Provides all the child properties whose values are equal a specified value.
-             *
              * @param value the value to match
              * @return a list of matching properties
              */
@@ -287,7 +284,6 @@ public final class ContainerConfig {
             }
             /**
              * Provides all the child properties whose values are equal a specified value.
-             *
              * @param value the value to match
              * @return a list of matching properties
              */

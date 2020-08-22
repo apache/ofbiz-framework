@@ -38,11 +38,11 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 @SuppressWarnings("serial")
 public class FlexibleServletAccessor<T> implements Serializable {
 
-    protected String name;
-    protected String attributeName;
-    protected FlexibleMapAccessor<T> fma;
-    protected boolean needsExpand;
-    protected boolean empty;
+    private String name;
+    private String attributeName;
+    private FlexibleMapAccessor<T> fma;
+    private boolean needsExpand;
+    private boolean empty;
 
     public FlexibleServletAccessor(String name) {
         init(name);
@@ -56,6 +56,10 @@ public class FlexibleServletAccessor<T> implements Serializable {
         }
     }
 
+    /**
+     * Init.
+     * @param name the name
+     */
     protected void init(String name) {
         this.name = name;
         if (UtilValidate.isEmpty(name)) {
@@ -85,6 +89,10 @@ public class FlexibleServletAccessor<T> implements Serializable {
         }
     }
 
+    /**
+     * Is empty boolean.
+     * @return the boolean
+     */
     public boolean isEmpty() {
         return this.empty;
     }
@@ -196,17 +204,18 @@ public class FlexibleServletAccessor<T> implements Serializable {
     }
 
     protected static class AttributeAccessor<T> implements Serializable {
-        protected Map<String, Object> expandContext;
-        protected String attributeName;
-        protected FlexibleMapAccessor<T> fma;
-        protected boolean isListReference;
-        protected boolean isAddAtIndex;
-        protected boolean isAddAtEnd;
-        protected int listIndex;
-        protected int openBrace;
-        protected int closeBrace;
+        private Map<String, Object> expandContext;
+        private String attributeName;
+        private FlexibleMapAccessor<T> fma;
+        private boolean isListReference;
+        private boolean isAddAtIndex;
+        private boolean isAddAtEnd;
+        private int listIndex;
+        private int openBrace;
+        private int closeBrace;
 
-        public AttributeAccessor(String origName, Map<String, Object> expandContext, String defAttributeName, FlexibleMapAccessor<T> defFma, boolean needsExpand) {
+        public AttributeAccessor(String origName, Map<String, Object> expandContext, String defAttributeName,
+                                 FlexibleMapAccessor<T> defFma, boolean needsExpand) {
             attributeName = defAttributeName;
             fma = defFma;
 
@@ -248,6 +257,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
 
         }
 
+        /**
+         * Get t.
+         ** @param request the request
+         * @return the t
+         */
         public T get(ServletRequest request) {
             Object theValue = null;
             if (isListReference) {
@@ -263,6 +277,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
             return UtilGenerics.<T>cast(theValue);
         }
 
+        /**
+         * Get t.
+         * @param session the session
+         * @return the t
+         */
         public T get(HttpSession session) {
             Object theValue = null;
             if (isListReference) {
@@ -278,6 +297,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
             return UtilGenerics.<T>cast(theValue);
         }
 
+        /**
+         * Put in list.
+         * @param lst   the lst
+         * @param value the value
+         */
         protected void putInList(List<T> lst, T value) {
             //if brackets are empty, append to list
             if (isAddAtEnd) {
@@ -291,6 +315,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
             }
         }
 
+        /**
+         * Put.
+         * @param request the request
+         * @param value   the value
+         */
         public void put(ServletRequest request, T value) {
             if (fma == null) {
                 if (isListReference) {
@@ -310,6 +339,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
             }
         }
 
+        /**
+         * Put.
+         * @param session the session
+         * @param value   the value
+         */
         public void put(HttpSession session, T value) {
             if (fma == null) {
                 if (isListReference) {
@@ -329,6 +363,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
             }
         }
 
+        /**
+         * Remove t.
+         * @param request the request
+         * @return the t
+         */
         public T remove(ServletRequest request) {
             if (fma != null) {
                 Object theObj = request.getAttribute(attributeName);
@@ -347,6 +386,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
             return UtilGenerics.<T>cast(theValue);
         }
 
+        /**
+         * Remove t.
+         * @param session the session
+         * @return the t
+         */
         public T remove(HttpSession session) {
             if (fma != null) {
                 Object theObj = session.getAttribute(attributeName);

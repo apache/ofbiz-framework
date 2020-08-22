@@ -36,29 +36,36 @@ import org.apache.ofbiz.service.eca.ServiceEcaCondition;
 import org.apache.ofbiz.service.eca.ServiceEcaRule;
 
 /**
- *
+ * The type Service eca artifact info.
  */
 public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
-    protected ServiceEcaRule serviceEcaRule;
-    protected String displayPrefix = null;
-    protected int displaySuffixNum = 0;
+    private ServiceEcaRule serviceEcaRule;
+    private String displayPrefix = null;
+    private int displaySuffixNum = 0;
 
-    protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<>();
+    private Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<>();
 
+    /**
+     * Instantiates a new Service eca artifact info.
+     * @param serviceEcaRule the service eca rule
+     * @param aif            the aif
+     * @throws GeneralException the general exception
+     */
     public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.serviceEcaRule = serviceEcaRule;
     }
 
     /**
-     * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order to avoid recursive initialization
-     * @throws GeneralException
+     * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order
+     * to avoid recursive initialization
+     * @throws GeneralException the general exception
      */
     public void populateAll() throws GeneralException {
         // populate the services called Set
         for (ServiceEcaAction ecaAction: serviceEcaRule.getEcaActionList()) {
             servicesCalledByThisServiceEca.add(aif.getServiceArtifactInfo(ecaAction.getServiceName()));
-            UtilMisc.addToSortedSetInMap(this, aif.allServiceEcaInfosReferringToServiceName, ecaAction.getServiceName());
+            UtilMisc.addToSortedSetInMap(this, aif.getAllServiceEcaInfosReferringToServiceName(), ecaAction.getServiceName());
         }
     }
 
@@ -74,7 +81,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public String getType() {
-        return ArtifactInfoFactory.ServiceEcaInfoTypeId;
+        return ArtifactInfoFactory.SERVICE_ECA_INFO_TYPE_ID;
     }
 
     @Override
@@ -87,31 +94,64 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         return FlexibleLocation.resolveLocation(serviceEcaRule.getDefinitionLocation());
     }
 
+    /**
+     * Gets service eca rule.
+     * @return the service eca rule
+     */
     public ServiceEcaRule getServiceEcaRule() {
         return this.serviceEcaRule;
     }
 
+    /**
+     * Sets display prefix.
+     * @param displayPrefix the display prefix
+     */
     public void setDisplayPrefix(String displayPrefix) {
         this.displayPrefix = displayPrefix;
     }
 
+    /**
+     * Sets display suffix num.
+     * @param displaySuffixNum the display suffix num
+     */
     public void setDisplaySuffixNum(int displaySuffixNum) {
         this.displaySuffixNum = displaySuffixNum;
     }
 
+    /**
+     * Gets display prefixed name.
+     * @return the display prefixed name
+     */
     public String getDisplayPrefixedName() {
-        return (this.displayPrefix != null ? this.displayPrefix : "") + this.serviceEcaRule.getServiceName() + "_" + this.serviceEcaRule.getEventName() + "_" + displaySuffixNum;
+        return (this.displayPrefix != null ? this.displayPrefix : "") + this.serviceEcaRule.getServiceName() + "_"
+                + this.serviceEcaRule.getEventName() + "_" + displaySuffixNum;
     }
 
+    /**
+     * Gets services called by service eca actions.
+     * @return the services called by service eca actions
+     */
     public Set<ServiceArtifactInfo> getServicesCalledByServiceEcaActions() {
         return this.servicesCalledByThisServiceEca;
     }
 
+    /**
+     * Gets services triggering service eca.
+     * @return the services triggering service eca
+     */
     public Set<ServiceArtifactInfo> getServicesTriggeringServiceEca() {
-        return aif.allServiceInfosReferringToServiceEcaRule.get(this.serviceEcaRule);
+        return aif.getAllServiceInfosReferringToServiceEcaRule().get(this.serviceEcaRule);
     }
 
-    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> triggeringServiceSet, Set<ServiceArtifactInfo> triggeredServiceSet, boolean useMoreDetailedNames) {
+    /**
+     * Create eo model map map.
+     * @param triggeringServiceSet the triggering service set
+     * @param triggeredServiceSet  the triggered service set
+     * @param useMoreDetailedNames the use more detailed names
+     * @return the map
+     */
+    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> triggeringServiceSet, Set<ServiceArtifactInfo> triggeredServiceSet,
+                                                boolean useMoreDetailedNames) {
         if (triggeringServiceSet == null) triggeringServiceSet = new HashSet<>();
         if (triggeredServiceSet == null) triggeredServiceSet = new HashSet<>();
         Map<String, Object> topLevelMap = new HashMap<>();

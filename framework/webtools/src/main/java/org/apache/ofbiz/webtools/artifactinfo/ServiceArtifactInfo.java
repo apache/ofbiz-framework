@@ -56,12 +56,12 @@ import org.apache.ofbiz.service.group.ServiceGroupReader;
 public class ServiceArtifactInfo extends ArtifactInfoBase {
     private static final String MODULE = ServiceArtifactInfo.class.getName();
 
-    protected ModelService modelService;
-    protected String displayPrefix = null;
+    private ModelService modelService;
+    private String displayPrefix = null;
 
-    Set<EntityArtifactInfo> entitiesUsedByThisService = new TreeSet<>();
-    Set<ServiceArtifactInfo> servicesCalledByThisService = new TreeSet<>();
-    Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesUsedByThisService = new TreeSet<>();
+    private Set<ServiceArtifactInfo> servicesCalledByThisService = new TreeSet<>();
+    private Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = new TreeSet<>();
 
     public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -69,7 +69,8 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     }
 
     /**
-     * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order to avoid recursive initialization
+     * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order to avoid recursive
+     * initialization
      * @throws GeneralException
      */
     public void populateAll() throws GeneralException {
@@ -78,18 +79,24 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         this.populateTriggeredServiceEcas();
     }
 
+    /**
+     * Populate used entities.
+     * @throws GeneralException the general exception
+     */
     protected void populateUsedEntities() throws GeneralException {
         // populate entitiesUsedByThisService and for each the reverse-associate cache in the aif
-        if ("simple".equals(this.modelService.engineName)) {
+        if ("simple".equals(this.modelService.getEngineName())) {
             // we can do something with this!
             SimpleMethod simpleMethodToCall = null;
             try {
-                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke, null);
+                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.getLocation(), this.modelService.getInvoke(), null);
             } catch (MiniLangException e) {
-                Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), MODULE);
+                Debug.logWarning("Error getting Simple-method [" + this.modelService.getInvoke() + "] in [" + this.modelService.getLocation()
+                        + "] referenced in service [" + this.modelService.getName() + "]: " + e.toString(), MODULE);
             }
             if (simpleMethodToCall == null) {
-                Debug.logWarning("Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "] not found", MODULE);
+                Debug.logWarning("Simple-method [" + this.modelService.getInvoke() + "] in [" + this.modelService.getLocation()
+                        + "] referenced in service [" + this.modelService.getName() + "] not found", MODULE);
                 return;
             }
 
@@ -97,8 +104,8 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             simpleMethodToCall.gatherArtifactInfo(aic);
             populateEntitiesFromNameSet(aic.getEntityNames());
 
-        } else if ("java".equals(this.modelService.engineName)) {
-            String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.location);
+        } else if ("java".equals(this.modelService.getEngineName())) {
+            String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.getLocation());
             if (fullClassPathAndFile != null) {
                 String javaFile = null;
                 try {
@@ -109,15 +116,21 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 }
 
                 javaFile = UtilJavaParse.stripComments(javaFile);
-                int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.invoke, javaFile);
+                int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.getInvoke(), javaFile);
                 int methodBlockEnd = UtilJavaParse.findEndOfBlock(methodBlockStart, javaFile);
                 Set<String> allEntityNameSet = UtilJavaParse.findEntityUseInBlock(methodBlockStart, methodBlockEnd, javaFile);
                 populateEntitiesFromNameSet(allEntityNameSet);
             }
-        } else if ("group".equals(this.modelService.engineName)) {
+        //} else if ("group".equals(this.modelService.getEngineName())) {
             // nothing to do, there won't be entities referred to in these
         }
     }
+
+    /**
+     * Populate entities from name set.
+     * @param allEntityNameSet the all entity name set
+     * @throws GeneralException the general exception
+     */
     protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
         for (String entityName: allEntityNameSet) {
             if (UtilValidate.isEmpty(entityName) || entityName.contains("${")) {
@@ -126,29 +139,35 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             // attempt to convert relation names to entity names
             String validEntityName = aif.getEntityModelReader().validateEntityName(entityName);
             if (validEntityName == null) {
-                Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", MODULE);
+                Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.getName() + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
             this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(validEntityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allServiceInfosReferringToEntityName, validEntityName);
+            UtilMisc.addToSortedSetInMap(this, aif.getAllServiceInfosReferringToEntityName(), validEntityName);
         }
     }
 
+    /**
+     * Populate called services.
+     * @throws GeneralException the general exception
+     */
     protected void populateCalledServices() throws GeneralException {
         // populate servicesCalledByThisService and for each the reverse-associate cache in the aif
-        if ("simple".equals(this.modelService.engineName)) {
+        if ("simple".equals(this.modelService.getEngineName())) {
             // we can do something with this!
             SimpleMethod simpleMethodToCall = null;
             try {
-                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.location, this.modelService.invoke, null);
+                simpleMethodToCall = SimpleMethod.getSimpleMethod(this.modelService.getLocation(), this.modelService.getInvoke(), null);
             } catch (MiniLangException e) {
-                Debug.logWarning("Error getting Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "]: " + e.toString(), MODULE);
+                Debug.logWarning("Error getting Simple-method [" + this.modelService.getInvoke() + "] in [" + this.modelService.getLocation()
+                        + "] referenced in service [" + this.modelService.getName() + "]: " + e.toString(), MODULE);
             }
             if (simpleMethodToCall == null) {
-                Debug.logWarning("Simple-method [" + this.modelService.invoke + "] in [" + this.modelService.location + "] referenced in service [" + this.modelService.name + "] not found", MODULE);
+                Debug.logWarning("Simple-method [" + this.modelService.getInvoke() + "] in [" + this.modelService.getLocation()
+                        + "] referenced in service [" + this.modelService.getName() + "] not found", MODULE);
                 return;
             }
 
@@ -156,8 +175,8 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             simpleMethodToCall.gatherArtifactInfo(aic);
             populateServicesFromNameSet(aic.getServiceNames());
 
-        } else if ("java".equals(this.modelService.engineName)) {
-            String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.location);
+        } else if ("java".equals(this.modelService.getEngineName())) {
+            String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.getLocation());
             if (fullClassPathAndFile != null) {
                 String javaFile = null;
                 try {
@@ -168,17 +187,17 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 }
 
                 javaFile = UtilJavaParse.stripComments(javaFile);
-                int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.invoke, javaFile);
+                int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.getInvoke(), javaFile);
                 int methodBlockEnd = UtilJavaParse.findEndOfBlock(methodBlockStart, javaFile);
                 Set<String> allServiceNameSet = UtilJavaParse.findServiceCallsInBlock(methodBlockStart, methodBlockEnd, javaFile);
 
                 populateServicesFromNameSet(allServiceNameSet);
             }
-        } else if ("group".equals(this.modelService.engineName)) {
+        } else if ("group".equals(this.modelService.getEngineName())) {
             Set<String> allServiceNameSet = new HashSet<>();
-            GroupModel groupModel = modelService.internalGroup;
+            GroupModel groupModel = modelService.getInternalGroup();
             if (groupModel == null) {
-                groupModel = ServiceGroupReader.getGroupModel(this.modelService.location);
+                groupModel = ServiceGroupReader.getGroupModel(this.modelService.getLocation());
             }
 
             if (groupModel != null) {
@@ -192,40 +211,57 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    /**
+     * Populate services from name set.
+     * @param allServiceNameSet the all service name set
+     * @throws GeneralException the general exception
+     */
     protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
         for (String serviceName: allServiceNameSet) {
             if (serviceName.contains("${")) {
                 continue;
             }
             if (!aif.getDispatchContext().getAllServiceNames().contains(serviceName)) {
-                Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.name + "] does not exist!", MODULE);
+                Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.getName() + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
             this.servicesCalledByThisService.add(aif.getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allServiceInfosReferringToServiceName, serviceName);
+            UtilMisc.addToSortedSetInMap(this, aif.getAllServiceInfosReferringToServiceName(), serviceName);
         }
     }
 
+    /**
+     * Populate triggered service ecas.
+     * @throws GeneralException the general exception
+     */
     protected void populateTriggeredServiceEcas() throws GeneralException {
         // populate serviceEcasTriggeredByThisService and for each the reverse-associate cache in the aif
-        Map<String, List<ServiceEcaRule>> serviceEventMap = ServiceEcaUtil.getServiceEventMap(this.modelService.name);
+        Map<String, List<ServiceEcaRule>> serviceEventMap = ServiceEcaUtil.getServiceEventMap(this.modelService.getName());
         if (serviceEventMap == null) return;
         for (List<ServiceEcaRule> ecaRuleList: serviceEventMap.values()) {
             for (ServiceEcaRule ecaRule: ecaRuleList) {
                 this.serviceEcasTriggeredByThisService.add(aif.getServiceEcaArtifactInfo(ecaRule));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.allServiceInfosReferringToServiceEcaRule, ecaRule);
+                UtilMisc.addToSortedSetInMap(this, aif.getAllServiceInfosReferringToServiceEcaRule(), ecaRule);
             }
         }
     }
 
+    /**
+     * Gets model service.
+     * @return the model service
+     */
     public ModelService getModelService() {
         return this.modelService;
     }
 
+    /**
+     * Sets display prefix.
+     * @param displayPrefix the display prefix
+     */
     public void setDisplayPrefix(String displayPrefix) {
         this.displayPrefix = displayPrefix;
     }
@@ -234,8 +270,13 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     public String getDisplayName() {
         return this.getDisplayPrefixedName();
     }
+
+    /**
+     * Gets display prefixed name.
+     * @return the display prefixed name
+     */
     public String getDisplayPrefixedName() {
-        return (this.displayPrefix != null ? this.displayPrefix : "") + this.modelService.name;
+        return (this.displayPrefix != null ? this.displayPrefix : "") + this.modelService.getName();
     }
 
     @Override
@@ -245,73 +286,129 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public String getType() {
-        return ArtifactInfoFactory.ServiceInfoTypeId;
+        return ArtifactInfoFactory.SERVICE_INFO_TYPE_ID;
     }
 
     @Override
     public String getUniqueId() {
-        return this.modelService.name;
+        return this.modelService.getName();
     }
 
     @Override
     public URL getLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(modelService.definitionLocation);
+        return FlexibleLocation.resolveLocation(modelService.getDefinitionLocation());
     }
 
+    /**
+     * Gets implementation location url.
+     * @return the implementation location url
+     * @throws MalformedURLException the malformed url exception
+     */
     public URL getImplementationLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(modelService.location);
+        return FlexibleLocation.resolveLocation(modelService.getLocation());
     }
 
+    /**
+     * Gets entities used by service.
+     * @return the entities used by service
+     */
     public Set<EntityArtifactInfo> getEntitiesUsedByService() {
         return this.entitiesUsedByThisService;
     }
 
+    /**
+     * Gets services calling service.
+     * @return the services calling service
+     */
     public Set<ServiceArtifactInfo> getServicesCallingService() {
-        return aif.allServiceInfosReferringToServiceName.get(this.modelService.name);
+        return aif.getAllServiceInfosReferringToServiceName().get(this.modelService.getName());
     }
 
+    /**
+     * Gets services called by service.
+     * @return the services called by service
+     */
     public Set<ServiceArtifactInfo> getServicesCalledByService() {
         return this.servicesCalledByThisService;
     }
 
+    /**
+     * Gets services called by service ecas.
+     * @return the services called by service ecas
+     */
     public Set<ServiceArtifactInfo> getServicesCalledByServiceEcas() {
         // TODO: implement this sometime, not really necessary
         return new HashSet<>();
     }
 
+    /**
+     * Gets service eca rules triggered by service.
+     * @return the service eca rules triggered by service
+     */
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesTriggeredByService() {
         return this.serviceEcasTriggeredByThisService;
     }
 
+    /**
+     * Gets services calling service by ecas.
+     * @return the services calling service by ecas
+     */
     public Set<ServiceArtifactInfo> getServicesCallingServiceByEcas() {
         // TODO: implement this sometime, not really necessary
         return new HashSet<>();
     }
 
+    /**
+     * Gets service eca rules calling service.
+     * @return the service eca rules calling service
+     */
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesCallingService() {
-        return this.aif.allServiceEcaInfosReferringToServiceName.get(this.modelService.name);
+        return this.aif.getAllServiceEcaInfosReferringToServiceName().get(this.modelService.getName());
     }
 
+    /**
+     * Gets forms calling service.
+     * @return the forms calling service
+     */
     public Set<FormWidgetArtifactInfo> getFormsCallingService() {
-        return this.aif.allFormInfosReferringToServiceName.get(this.modelService.name);
+        return this.aif.getAllFormInfosReferringToServiceName().get(this.modelService.getName());
     }
 
+    /**
+     * Gets forms based on service.
+     * @return the forms based on service
+     */
     public Set<FormWidgetArtifactInfo> getFormsBasedOnService() {
-        return this.aif.allFormInfosBasedOnServiceName.get(this.modelService.name);
+        return this.aif.getAllFormInfosBasedOnServiceName().get(this.modelService.getName());
     }
 
+    /**
+     * Gets screens calling service.
+     * @return the screens calling service
+     */
     public Set<ScreenWidgetArtifactInfo> getScreensCallingService() {
-        return this.aif.allScreenInfosReferringToServiceName.get(this.modelService.name);
+        return this.aif.getAllScreenInfosReferringToServiceName().get(this.modelService.getName());
     }
 
+    /**
+     * Gets requests with event calling service.
+     * @return the requests with event calling service
+     */
     public Set<ControllerRequestArtifactInfo> getRequestsWithEventCallingService() {
-        return this.aif.allRequestInfosReferringToServiceName.get(this.modelService.name);
+        return this.aif.getAllRequestInfosReferringToServiceName().get(this.modelService.getName());
     }
 
+    /**
+     * Write service call graph eo model.
+     * @param eomodeldFullPath the eomodeld full path
+     * @throws GeneralException             the general exception
+     * @throws FileNotFoundException        the file not found exception
+     * @throws UnsupportedEncodingException the unsupported encoding exception
+     */
     public void writeServiceCallGraphEoModel(String eomodeldFullPath) throws GeneralException, FileNotFoundException, UnsupportedEncodingException {
         boolean useMoreDetailedNames = true;
 
-        Debug.logInfo("Writing Service Call Graph EO Model for service [" + this.modelService.name + "] to [" + eomodeldFullPath + "]", MODULE);
+        Debug.logInfo("Writing Service Call Graph EO Model for service [" + this.modelService.getName() + "] to [" + eomodeldFullPath + "]", MODULE);
 
         Set<String> allDiagramEntitiesWithPrefixes = new HashSet<>();
         List<ServiceArtifactInfo> allServiceList = new LinkedList<>();
@@ -321,7 +418,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         this.setDisplayPrefix("");
 
         // put this service in the master list
-        allDiagramEntitiesWithPrefixes.add(this.modelService.name);
+        allDiagramEntitiesWithPrefixes.add(this.modelService.getName());
 
         // all services that call this service
         Set<ServiceArtifactInfo> callingServiceSet = this.getServicesCallingService();
@@ -396,8 +493,9 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         UtilPlist.writePlistFile(indexEoModelMap, eomodeldFullPath, "index.eomodeld", true);
 
         // write this service description file
-        Map<String, Object> thisServiceEoModelMap = createEoModelMap(callingServiceSet, calledServiceSet, callingServiceEcaSet, calledServiceEcaSet, useMoreDetailedNames);
-        UtilPlist.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.modelService.name + ".plist", true);
+        Map<String, Object> thisServiceEoModelMap = createEoModelMap(callingServiceSet, calledServiceSet, callingServiceEcaSet, calledServiceEcaSet,
+                useMoreDetailedNames);
+        UtilPlist.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.modelService.getName() + ".plist", true);
 
         // write service description files
         if (callingServiceSet != null) {
@@ -442,7 +540,17 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> callingServiceSet, Set<ServiceArtifactInfo> calledServiceSet, Set<ServiceEcaArtifactInfo> callingServiceEcaSet, Set<ServiceEcaArtifactInfo> calledServiceEcaSet, boolean useMoreDetailedNames) {
+    /**
+     * Create eo model map map.
+     * @param callingServiceSet    the calling service set
+     * @param calledServiceSet     the called service set
+     * @param callingServiceEcaSet the calling service eca set
+     * @param calledServiceEcaSet  the called service eca set
+     * @param useMoreDetailedNames the use more detailed names
+     * @return the map
+     */
+    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> callingServiceSet, Set<ServiceArtifactInfo> calledServiceSet,
+            Set<ServiceEcaArtifactInfo> callingServiceEcaSet, Set<ServiceEcaArtifactInfo> calledServiceEcaSet, boolean useMoreDetailedNames) {
         if (callingServiceSet == null) callingServiceSet = new HashSet<>();
         if (calledServiceSet == null) calledServiceSet = new HashSet<>();
         if (callingServiceEcaSet == null) callingServiceEcaSet = new HashSet<>();
@@ -457,12 +565,12 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         topLevelMap.put("classProperties", classPropertiesList);
         for (ModelParam param: this.modelService.getModelParamList()) {
             // skip the internal parameters, very redundant in the diagrams
-            if (param.internal) continue;
+            if (param.getInternal()) continue;
 
             if (useMoreDetailedNames) {
                 classPropertiesList.add(param.getShortDisplayDescription());
             } else {
-                classPropertiesList.add(param.name);
+                classPropertiesList.add(param.getName());
             }
         }
         for (ServiceArtifactInfo sai: callingServiceSet) {
@@ -488,10 +596,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             if (useMoreDetailedNames) {
                 attributeMap.put("name", param.getShortDisplayDescription());
             } else {
-                attributeMap.put("name", param.name);
+                attributeMap.put("name", param.getName());
             }
-            attributeMap.put("valueClassName", param.type);
-            attributeMap.put("externalType", param.type);
+            attributeMap.put("valueClassName", param.getType());
+            attributeMap.put("externalType", param.getType());
         }
 
         // relationships
@@ -557,7 +665,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceArtifactInfo) {
-            return this.modelService.name.equals(((ServiceArtifactInfo) obj).modelService.name);
+            return this.modelService.getName().equals(((ServiceArtifactInfo) obj).modelService.getName());
         } else {
             return false;
         }

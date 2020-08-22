@@ -26,10 +26,10 @@ import org.apache.ofbiz.base.lang.SourceMonitored;
 
 @SourceMonitored
 public class IndentingWriter extends FilterWriter {
-    protected final StringBuilder indent = new StringBuilder();
-    protected final boolean doSpace;
-    protected final boolean doNewline;
-    protected boolean lastWasNewline;
+    private final StringBuilder indent = new StringBuilder();
+    private final boolean doSpace;
+    private final boolean doNewline;
+    private boolean lastWasNewline;
 
     public static IndentingWriter makeIndentingWriter(Writer writer) {
         return writer instanceof IndentingWriter ? (IndentingWriter) writer : new IndentingWriter(writer);

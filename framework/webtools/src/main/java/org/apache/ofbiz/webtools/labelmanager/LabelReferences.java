@@ -56,19 +56,19 @@ import org.xml.sax.SAXException;
 public class LabelReferences {
 
     private static final String MODULE = LabelReferences.class.getName();
-    private static final String bracketedUiLabelMap = "${uiLabelMap.";
-    private static final String uiLabelMap = "uiLabelMap.";
-    private static final String formFieldTitle = "FormFieldTitle_";
-    private static final String getMessage = "UtilProperties.getMessage(";
-    private static final String getResourceRegex = "ServiceUtil\\.getResource\\(\\)";
-    private static final String getResource = "ServiceUtil.getResource  ";
+    private static final String BRACKETED_UILABEL_MAP = "${uiLabelMap.";
+    private static final String UILABEL_MAP = "uiLabelMap.";
+    private static final String FORM_FIELD_TITLE = "FormFieldTitle_";
+    private static final String GET_MESSAGE = "UtilProperties.GET_MESSAGE(";
+    private static final String GET_RES_REGEX = "ServiceUtil\\.getResource\\(\\)";
+    private static final String GET_RESOURCE = "ServiceUtil.getResource  ";
 
-    protected Map<String, Map<String, Integer>> references = new TreeMap<>();
-    protected Delegator delegator;
-    protected DispatchContext dispatchContext;
-    protected Map<String, LabelInfo> labels;
-    protected Set<String> labelSet = new HashSet<>();
-    protected Set<Path> rootFolders = new HashSet<>();
+    private Map<String, Map<String, Integer>> references = new TreeMap<>();
+    private Delegator delegator;
+    private DispatchContext dispatchContext;
+    private Map<String, LabelInfo> labels;
+    private Set<String> labelSet = new HashSet<>();
+    private Set<Path> rootFolders = new HashSet<>();
 
     public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
@@ -99,7 +99,16 @@ public class LabelReferences {
         }
     }
 
-    public Map<String, Map<String, Integer>> getLabelReferences() throws IOException, SAXException, ParserConfigurationException, GenericServiceException {
+    /**
+     * Gets label references.
+     * @return the label references
+     * @throws IOException                  the io exception
+     * @throws SAXException                 the sax exception
+     * @throws ParserConfigurationException the parser configuration exception
+     * @throws GenericServiceException      the generic service exception
+     */
+    public Map<String, Map<String, Integer>> getLabelReferences() throws IOException, SAXException, ParserConfigurationException,
+                                                                         GenericServiceException {
         if (this.labels.size() == 0) {
             // Nothing to search for
             return references;
@@ -160,20 +169,20 @@ public class LabelReferences {
             List<File> ftlFiles = FileUtil.findFiles("ftl", rootFolder.toString(), null, null);
             for (File file : ftlFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
-                inFile = inFile.replaceAll(getResourceRegex, getResource);
-                int pos = inFile.indexOf(bracketedUiLabelMap);
+                inFile = inFile.replaceAll(GET_RES_REGEX, GET_RESOURCE);
+                int pos = inFile.indexOf(BRACKETED_UILABEL_MAP);
                 while (pos >= 0) {
                     int endPos = inFile.indexOf("}", pos);
                     if (endPos >= 0) {
-                        String labelKey = inFile.substring(pos + bracketedUiLabelMap.length(), endPos);
+                        String labelKey = inFile.substring(pos + BRACKETED_UILABEL_MAP.length(), endPos);
                         if (this.labelSet.contains(labelKey)) {
                             setLabelReference(labelKey, file.getPath());
                         }
                         pos = endPos;
                     } else {
-                        pos = pos + bracketedUiLabelMap.length();
+                        pos = pos + BRACKETED_UILABEL_MAP.length();
                     }
-                    pos = inFile.indexOf(bracketedUiLabelMap, pos);
+                    pos = inFile.indexOf(BRACKETED_UILABEL_MAP, pos);
                 }
             }
         }
@@ -182,10 +191,10 @@ public class LabelReferences {
         for (Path rootFolder : this.rootFolders) {
             List<File> javaFiles = FileUtil.findFiles("java", rootFolder.resolve("src").toString(), null, null);
             for (File javaFile : javaFiles) {
-                // do not parse this file, else issue with getResourceRegex
+                // do not parse this file, else issue with GET_RES_REGEX
                 if ("LabelReferences.java".equals(javaFile.getName())) continue;
                 String inFile = FileUtil.readString("UTF-8", javaFile);
-                inFile = inFile.replaceAll(getResourceRegex, getResource);
+                inFile = inFile.replaceAll(GET_RES_REGEX, GET_RESOURCE);
                 findUiLabelMapInMessage(inFile, javaFile.getPath());
                 findUiLabelMapInPattern(inFile, "uiLabelMap.get(\"", javaFile.getPath());
             }
@@ -197,18 +206,24 @@ public class LabelReferences {
                     FileUtil.findFiles("groovy", rootFolder.resolve("groovyScripts").toString(), null, null);
             for (File file : groovyFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
-                findUiLabelMapInPattern(inFile, uiLabelMap, file.getPath());
+                findUiLabelMapInPattern(inFile, UILABEL_MAP, file.getPath());
                 findUiLabelMapInPattern(inFile, "uiLabelMap.get(\"", file.getPath());
                 findUiLabelMapInMessage(inFile, file.getPath());
             }
         }
     }
+
+    /**
+     * Find ui label map in message.
+     * @param inFile   the in file
+     * @param filePath the file path
+     */
     protected void findUiLabelMapInMessage(String inFile, String filePath) {
-        int pos = inFile.indexOf(getMessage);
+        int pos = inFile.indexOf(GET_MESSAGE);
         while (pos >= 0) {
             int endLabel = inFile.indexOf(")", pos);
             if (endLabel >= 0) {
-                String[] args = inFile.substring(pos + getMessage.length(), endLabel).split(",");
+                String[] args = inFile.substring(pos + GET_MESSAGE.length(), endLabel).split(",");
                 for (String labelKey : this.labelSet) {
                     String searchString = "\"" + labelKey + "\"";
                     if (searchString.equals(args[1].trim())) {
@@ -217,11 +232,18 @@ public class LabelReferences {
                 }
                 pos = endLabel;
             } else {
-                pos = pos + getMessage.length();
+                pos = pos + GET_MESSAGE.length();
             }
-            pos = inFile.indexOf(getMessage, pos);
+            pos = inFile.indexOf(GET_MESSAGE, pos);
         }
     }
+
+    /**
+     * Find ui label map in pattern.
+     * @param inFile   the in file
+     * @param pattern  the pattern
+     * @param filePath the file path
+     */
     protected void findUiLabelMapInPattern(String inFile, String pattern, String filePath) {
         int pos = inFile.indexOf(pattern);
         while (pos >= 0) {
@@ -240,8 +262,14 @@ public class LabelReferences {
             pos = inFile.indexOf(pattern, pos);
         }
     }
+
+    /**
+     * Find ui label map in file.
+     * @param inFile   the in file
+     * @param filePath the file path
+     */
     protected void findUiLabelMapInFile(String inFile, String filePath) {
-        int pos = inFile.indexOf(uiLabelMap);
+        int pos = inFile.indexOf(UILABEL_MAP);
         while (pos >= 0) {
             String endStr = "}";
             if ("\"".equals(inFile.substring(pos - 1, pos))) {
@@ -249,18 +277,24 @@ public class LabelReferences {
             }
             int endPos = inFile.indexOf(endStr, pos);
             if (endPos >= 0) {
-                String labelKey = inFile.substring(pos + uiLabelMap.length(), endPos);
+                String labelKey = inFile.substring(pos + UILABEL_MAP.length(), endPos);
                 if (this.labelSet.contains(labelKey)) {
                     setLabelReference(labelKey, filePath);
                 }
                 pos = endPos;
             } else {
-                pos = pos + uiLabelMap.length();
+                pos = pos + UILABEL_MAP.length();
             }
-            pos = inFile.indexOf(uiLabelMap, pos);
+            pos = inFile.indexOf(UILABEL_MAP, pos);
         }
     }
 
+    /**
+     * Find label key in element.
+     * @param inFile      the in file
+     * @param filePath    the file path
+     * @param elementName the element name
+     */
     protected void findLabelKeyInElement(String inFile, String filePath, String elementName) {
         String searchString = "<" + elementName;
         int pos = inFile.indexOf(searchString);
@@ -297,7 +331,8 @@ public class LabelReferences {
         }
     }
 
-    private void getLabelsFromFormWidgets(String inFile, File file) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GenericServiceException {
+    private void getLabelsFromFormWidgets(String inFile, File file) throws MalformedURLException, SAXException, ParserConfigurationException,
+                                                                           IOException, GenericServiceException {
         Set<String> fieldNames = new HashSet<>();
         findUiLabelMapInFile(inFile, file.getPath());
         Document formDocument = UtilXml.readXmlDocument(file.toURI().toURL());
@@ -313,7 +348,7 @@ public class LabelReferences {
                 getAutoFieldsTag(elem, file.getPath());
             }
             for (String field : fieldNames) {
-                String labelKey = formFieldTitle.concat(field);
+                String labelKey = FORM_FIELD_TITLE.concat(field);
                 if (this.labelSet.contains(labelKey)) {
                     setLabelReference(labelKey, file.getPath());
                 }
@@ -322,7 +357,8 @@ public class LabelReferences {
     }
 
     private void getLabelsFromOfbizComponents() throws IOException, SAXException, ParserConfigurationException {
-        List<File> componentsFiles = FileUtil.findXmlFiles(null, null, "ofbiz-component", "http://ofbiz.apache.org/dtds/ofbiz-component.xsd");
+        List<File> componentsFiles = FileUtil.findXmlFiles(null, null,
+                "ofbiz-component", "http://ofbiz.apache.org/dtds/ofbiz-component.xsd");
         for (File componentFile : componentsFiles) {
             String filePath = componentFile.getPath();
             Document menuDocument = UtilXml.readXmlDocument(componentFile.toURI().toURL());
@@ -357,11 +393,11 @@ public class LabelReferences {
     private void getAutoFieldsTag(Element element, String filePath) {
         String tooltip = UtilFormatOut.checkNull(element.getAttribute("tooltip"));
         if (UtilValidate.isNotEmpty(tooltip)) {
-            int pos = tooltip.indexOf(getMessage);
+            int pos = tooltip.indexOf(GET_MESSAGE);
             while (pos >= 0) {
                 int endLabel = tooltip.indexOf(")", pos);
                 if (endLabel >= 0) {
-                    String[] args = tooltip.substring(pos + getMessage.length(), endLabel).split(",");
+                    String[] args = tooltip.substring(pos + GET_MESSAGE.length(), endLabel).split(",");
                     for (String labelKey : this.labelSet) {
                         String xmlSearchString = "\'" + labelKey + "\'";
                         if (xmlSearchString.equals(args[1].trim())) {
@@ -370,9 +406,9 @@ public class LabelReferences {
                     }
                     pos = endLabel;
                 } else {
-                    pos = pos + getMessage.length();
+                    pos = pos + GET_MESSAGE.length();
                 }
-                pos = tooltip.indexOf(getMessage, pos);
+                pos = tooltip.indexOf(GET_MESSAGE, pos);
             }
         }
     }
@@ -386,16 +422,16 @@ public class LabelReferences {
             while (modelParamIter.hasNext()) {
                 ModelParam modelParam = modelParamIter.next();
                 // skip auto params that the service engine populates...
-                if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name) || "timeZone".equals(modelParam.name)) {
+                if ("userLogin".equals(modelParam.getName()) || "locale".equals(modelParam.getName()) || "timeZone".equals(modelParam.getName())) {
                     continue;
                 }
-                if (modelParam.formDisplay) {
-                    if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
+                if (modelParam.isFormDisplay()) {
+                    if (UtilValidate.isNotEmpty(modelParam.getEntityName()) && UtilValidate.isNotEmpty(modelParam.getFieldName())) {
                         ModelEntity modelEntity;
-                        modelEntity = delegator.getModelEntity(modelParam.entityName);
+                        modelEntity = delegator.getModelEntity(modelParam.getEntityName());
 
                         if (modelEntity != null) {
-                            ModelField modelField = modelEntity.getField(modelParam.fieldName);
+                            ModelField modelField = modelEntity.getField(modelParam.getFieldName());
 
                             if (modelField != null) {
                                 fieldNames.add(modelField.getName());

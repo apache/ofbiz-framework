@@ -67,47 +67,47 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     private static final String MODULE = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
-    private static final ConcurrentHashMap<String, UtilCache<?, ?>> utilCacheTable = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, UtilCache<?, ?>> UTIL_CACHE_TABLE = new ConcurrentHashMap<>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
-    private static final ConcurrentHashMap<String, AtomicInteger> defaultIndices = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, AtomicInteger> DEFAULT_INDICES = new ConcurrentHashMap<>();
 
     /** The name of the UtilCache instance, is also the key for the instance in utilCacheTable. */
     private final String name;
 
     /** A count of the number of cache hits */
-    protected AtomicLong hitCount = new AtomicLong(0);
+    private AtomicLong hitCount = new AtomicLong(0);
 
     /** A count of the number of cache misses because it is not found in the cache */
-    protected AtomicLong missCountNotFound = new AtomicLong(0);
+    private AtomicLong missCountNotFound = new AtomicLong(0);
     /** A count of the number of cache misses because it expired */
-    protected AtomicLong missCountExpired = new AtomicLong(0);
+    private AtomicLong missCountExpired = new AtomicLong(0);
     /** A count of the number of cache misses because it was cleared from the Soft Reference (ie garbage collection, etc) */
-    protected AtomicLong missCountSoftRef = new AtomicLong(0);
+    private AtomicLong missCountSoftRef = new AtomicLong(0);
 
     /** A count of the number of cache hits on removes */
-    protected AtomicLong removeHitCount = new AtomicLong(0);
+    private AtomicLong removeHitCount = new AtomicLong(0);
     /** A count of the number of cache misses on removes */
-    protected AtomicLong removeMissCount = new AtomicLong(0);
+    private AtomicLong removeMissCount = new AtomicLong(0);
 
     /** The maximum number of elements in the cache.
      * If set to 0, there will be no limit on the number of elements in the cache.
      */
-    protected int sizeLimit = 0;
-    protected int maxInMemory = 0;
+    private int sizeLimit = 0;
+    private int maxInMemory = 0;
 
     /** Specifies the amount of time since initial loading before an element will be reported as expired.
      * If set to 0, elements will never expire.
      */
-    protected long expireTimeNanos = 0;
+    private long expireTimeNanos = 0;
 
     /** Specifies whether or not to use soft references for this cache, defaults to false */
-    protected boolean useSoftReference = false;
+    private boolean useSoftReference = false;
 
     /** The set of listeners to receive notifications when items are modified (either deliberately or because they were expired). */
-    protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<>();
+    private Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<>();
 
-    protected ConcurrentMap<Object, CacheLine<V>> memoryTable = null;
+    private ConcurrentMap<Object, CacheLine<V>> memoryTable = null;
 
     /** Constructor which specifies the cacheName as well as the sizeLimit, expireTime and useSoftReference.
      * The passed sizeLimit, expireTime and useSoftReference will be overridden by values from cache.properties if found.
@@ -116,7 +116,8 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */
-    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTimeMillis, boolean useSoftReference, String propName, String... propNames) {
+    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTimeMillis, boolean useSoftReference,
+                      String propName, String... propNames) {
         this.name = cacheName;
         this.sizeLimit = sizeLimit;
         this.maxInMemory = maxInMemory;
@@ -139,10 +140,10 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     private static String getNextDefaultIndex(String cacheName) {
-        AtomicInteger curInd = defaultIndices.get(cacheName);
+        AtomicInteger curInd = DEFAULT_INDICES.get(cacheName);
         if (curInd == null) {
-            defaultIndices.putIfAbsent(cacheName, new AtomicInteger(0));
-            curInd = defaultIndices.get(cacheName);
+            DEFAULT_INDICES.putIfAbsent(cacheName, new AtomicInteger(0));
+            curInd = DEFAULT_INDICES.get(cacheName);
         }
         int i = curInd.getAndIncrement();
         return i == 0 ? "" : Integer.toString(i);
@@ -374,14 +375,16 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
                 return UtilObject.getByteCount(o);
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Unable to compute memory size for non serializable object; returning 0 byte size for object of " + o.getClass(), MODULE);
+                Debug.logVerbose("Unable to compute memory size for non serializable object; returning 0 byte size for object of "
+                        + o.getClass(), MODULE);
             }
             return 0;
         } catch (NotSerializableException e) {
             // this happens when we try to get the byte count for an object which itself is
             // serializable, but fails to be serialized, such as a map holding unserializable objects
             if (Debug.warningOn()) {
-                Debug.logWarning("NotSerializableException while computing memory size; returning 0 byte size for object of " + e.getMessage(), MODULE);
+                Debug.logWarning("NotSerializableException while computing memory size; returning 0 byte size for object of " + e.getMessage(),
+                        MODULE);
             }
             return 0;
         } catch (Exception e) {
@@ -463,14 +466,14 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     /** Removes all elements from this cache */
     public static void clearAllCaches() {
         // We make a copy since clear may take time
-        for (UtilCache<?, ?> cache : utilCacheTable.values()) {
+        for (UtilCache<?, ?> cache : UTIL_CACHE_TABLE.values()) {
             cache.clear();
         }
     }
 
     public static Set<String> getUtilCacheTableKeySet() {
-        Set<String> set = new HashSet<>(utilCacheTable.size());
-        set.addAll(utilCacheTable.keySet());
+        Set<String> set = new HashSet<>(UTIL_CACHE_TABLE.size());
+        set.addAll(UTIL_CACHE_TABLE.keySet());
         return set;
     }
 
@@ -544,7 +547,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
                 ((ConcurrentLinkedHashMap<?, ?>) this.memoryTable).setCapacity(newInMemory);
                 return;
             }
-            this.memoryTable =new Builder<Object, CacheLine<V>>()
+            this.memoryTable = new Builder<Object, CacheLine<V>>()
                     .maximumWeightedCapacity(newInMemory)
                     .build();
         } else {
@@ -715,7 +718,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     public static void clearCachesThatStartWith(String startsWith) {
-        for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
+        for (Map.Entry<String, UtilCache<?, ?>> entry: UTIL_CACHE_TABLE.entrySet()) {
             String name = entry.getKey();
             if (name.startsWith(startsWith)) {
                 UtilCache<?, ?> cache = entry.getValue();
@@ -733,18 +736,20 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     @SuppressWarnings("unchecked")
-    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, String... names) {
-        UtilCache<K, V> existingCache = (UtilCache<K, V>) utilCacheTable.get(name);
+    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime,
+                                                              boolean useSoftReference, String... names) {
+        UtilCache<K, V> existingCache = (UtilCache<K, V>) UTIL_CACHE_TABLE.get(name);
         if (existingCache != null) {
             return existingCache;
         }
         String cacheName = name + getNextDefaultIndex(name);
         UtilCache<K, V> newCache = new UtilCache<>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name, names);
-        utilCacheTable.putIfAbsent(name, newCache);
-        return (UtilCache<K, V>) utilCacheTable.get(name);
+        UTIL_CACHE_TABLE.putIfAbsent(name, newCache);
+        return (UtilCache<K, V>) UTIL_CACHE_TABLE.get(name);
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, String... names) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime,
+                                                         boolean useSoftReference, String... names) {
         String cacheName = name + getNextDefaultIndex(name);
         return storeCache(new UtilCache<>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name, names));
     }
@@ -785,13 +790,13 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     private static <K, V> UtilCache<K, V> storeCache(UtilCache<K, V> cache) {
-        utilCacheTable.put(cache.getName(), cache);
+        UTIL_CACHE_TABLE.put(cache.getName(), cache);
         return cache;
     }
 
     @SuppressWarnings("unchecked")
     public static <K, V> UtilCache<K, V> findCache(String cacheName) {
-        return (UtilCache<K, V>) UtilCache.utilCacheTable.get(cacheName);
+        return (UtilCache<K, V>) UtilCache.UTIL_CACHE_TABLE.get(cacheName);
     }
 
     @Override

@@ -367,184 +367,366 @@ public class ModelFormFieldBuilder {
         this.disabled = builder.getDisabled();
     }
 
+    /**
+     * Add on change update area model form field builder.*
+     * @param onChangeUpdateArea the on change update area
+     * @return the model form field builder
+     */
     public ModelFormFieldBuilder addOnChangeUpdateArea(UpdateArea onChangeUpdateArea) {
         this.onChangeUpdateAreas.add(onChangeUpdateArea);
         return this;
     }
 
+    /**
+     * Add on click update area model form field builder.*
+     * @param onClickUpdateArea the on click update area
+     * @return the model form field builder
+     */
     public ModelFormFieldBuilder addOnClickUpdateArea(UpdateArea onClickUpdateArea) {
         this.onClickUpdateAreas.add(onClickUpdateArea);
         return this;
     }
 
+    /**
+     * Build model form field.*
+     * @return the model form field
+     */
     public ModelFormField build() {
         return ModelFormField.from(this);
     }
 
+    /**
+     * Gets action.*
+     * @return the action
+     */
     public FlexibleStringExpander getAction() {
         return action;
     }
 
+    /**
+     * Gets attribute name.*
+     * @return the attribute name
+     */
     public String getAttributeName() {
         return attributeName;
     }
 
+    /**
+     * Gets encode output.*
+     * @return the encode output
+     */
     public boolean getEncodeOutput() {
         return encodeOutput;
     }
 
+    /**
+     * Gets entity name.*
+     * @return the entity name
+     */
     public String getEntityName() {
         return entityName;
     }
 
+    /**
+     * Gets entry acsr.*
+     * @return the entry acsr
+     */
     public FlexibleMapAccessor<Object> getEntryAcsr() {
         return entryAcsr;
     }
 
+    /**
+     * Gets event.*
+     * @return the event
+     */
     public String getEvent() {
         return event;
     }
 
+    /**
+     * Gets field info.*
+     * @return the field info
+     */
     public FieldInfo getFieldInfo() {
         return fieldInfo;
     }
 
+    /**
+     * Gets field name.*
+     * @return the field name
+     */
     public String getFieldName() {
         return fieldName;
     }
 
+    /**
+     * Gets field type.*
+     * @return the field type
+     */
     public String getFieldType() {
         return fieldType;
     }
 
+    /**
+     * Gets header link.*
+     * @return the header link
+     */
     public String getHeaderLink() {
         return headerLink;
     }
 
+    /**
+     * Gets header link style.*
+     * @return the header link style
+     */
     public String getHeaderLinkStyle() {
         return headerLinkStyle;
     }
 
+    /**
+     * Gets id name.*
+     * @return the id name
+     */
     public String getIdName() {
         return idName;
     }
 
+    /**
+     * Gets map acsr.*
+     * @return the map acsr
+     */
     public FlexibleMapAccessor<Map<String, ? extends Object>> getMapAcsr() {
         return mapAcsr;
     }
 
+    /**
+     * Gets model form.*
+     * @return the model form
+     */
     public ModelForm getModelForm() {
         return modelForm;
     }
 
+    /**
+     * Gets name.*
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets on change update areas.*
+     * @return the on change update areas
+     */
     public List<UpdateArea> getOnChangeUpdateAreas() {
         return onChangeUpdateAreas;
     }
 
+    /**
+     * Gets on click update areas.*
+     * @return the on click update areas
+     */
     public List<UpdateArea> getOnClickUpdateAreas() {
         return onClickUpdateAreas;
     }
 
+    /**
+     * Gets parameter name.*
+     * @return the parameter name
+     */
     public FlexibleStringExpander getParameterName() {
         return parameterName;
     }
 
+    /**
+     * Gets position.*
+     * @return the position
+     */
     public Integer getPosition() {
         return position;
     }
 
+    /**
+     * Gets red when.*
+     * @return the red when
+     */
     public String getRedWhen() {
         return redWhen;
     }
 
+    /**
+     * Gets required field.*
+     * @return the required field
+     */
     public Boolean getRequiredField() {
         return requiredField;
     }
 
+    /**
+     * Gets required field style.*
+     * @return the required field style
+     */
     public String getRequiredFieldStyle() {
         return requiredFieldStyle;
     }
 
+    /**
+     * Gets separate column.*
+     * @return the separate column
+     */
     public boolean getSeparateColumn() {
         return separateColumn;
     }
 
+    /**
+     * Gets service name.*
+     * @return the service name
+     */
     public String getServiceName() {
         return serviceName;
     }
 
+    /**
+     * Gets sort field.*
+     * @return the sort field
+     */
     public Boolean getSortField() {
         return sortField;
     }
 
+    /**
+     * Gets sort field asc style.*
+     * @return the sort field asc style
+     */
     public String getSortFieldAscStyle() {
         return sortFieldAscStyle;
     }
 
+    /**
+     * Gets sort field desc style.*
+     * @return the sort field desc style
+     */
     public String getSortFieldDescStyle() {
         return sortFieldDescStyle;
     }
 
+    /**
+     * Gets sort field help text.*
+     * @return the sort field help text
+     */
     public String getSortFieldHelpText() {
         return sortFieldHelpText;
     }
 
+    /**
+     * Gets sort field style.*
+     * @return the sort field style
+     */
     public String getSortFieldStyle() {
         return sortFieldStyle;
     }
 
+    /**
+     * Gets title.*
+     * @return the title
+     */
     public FlexibleStringExpander getTitle() {
         return title;
     }
 
+    /**
+     * Gets title area style.*
+     * @return the title area style
+     */
     public String getTitleAreaStyle() {
         return titleAreaStyle;
     }
 
+    /**
+     * Gets title style.*
+     * @return the title style
+     */
     public String getTitleStyle() {
         return titleStyle;
     }
 
+    /**
+     * Gets tooltip.*
+     * @return the tooltip
+     */
     public FlexibleStringExpander getTooltip() {
         return tooltip;
     }
 
+    /**
+     * Gets tooltip style.*
+     * @return the tooltip style
+     */
     public String getTooltipStyle() {
         return tooltipStyle;
     }
 
+    /**
+     * Gets use when.*
+     * @return the use when
+     */
     public FlexibleStringExpander getUseWhen() {
         return useWhen;
     }
 
+    /**
+     * Gets ignore when.*
+     * @return the ignore when
+     */
     public FlexibleStringExpander getIgnoreWhen() {
         return ignoreWhen;
     }
 
+    /**
+     * Gets widget area style.*
+     * @return the widget area style
+     */
     public String getWidgetAreaStyle() {
         return widgetAreaStyle;
     }
 
+    /**
+     * Gets widget style.*
+     * @return the widget style
+     */
     public String getWidgetStyle() {
         return widgetStyle;
     }
 
+    /**
+     * Gets parent form name.*
+     * @return the parent form name
+     */
     public String getParentFormName() {
         return parentFormName;
     }
 
+    /**
+     * Gets tabindex.*
+     * @return the tabindex
+     */
     public String getTabindex() {
         return tabindex;
     }
 
+    /**
+     * Gets condition group.*
+     * @return the condition group
+     */
     public String getConditionGroup() {
         return conditionGroup;
     }
 
+    /**
+     * Gets disabled.*
+     * @return the disabled
+     */
     public boolean getDisabled() {
         return disabled;
     }
@@ -650,27 +832,34 @@ public class ModelFormFieldBuilder {
         return false;
     }
 
+    /**
+     * Induce field info from service param boolean.
+     * @param modelService     the model service
+     * @param modelParam       the model param
+     * @param defaultFieldType the default field type
+     * @return the boolean
+     */
     public boolean induceFieldInfoFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType) {
         if (modelService == null || modelParam == null) {
             return false;
         }
-        this.serviceName = modelService.name;
-        this.attributeName = modelParam.name;
+        this.serviceName = modelService.getName();
+        this.attributeName = modelParam.getName();
         if ("find".equals(defaultFieldType)) {
-            if (modelParam.type.indexOf("Double") != -1 || modelParam.type.indexOf("Float") != -1
-                    || modelParam.type.indexOf("Long") != -1 || modelParam.type.indexOf("Integer") != -1) {
+            if (modelParam.getType().indexOf("Double") != -1 || modelParam.getType().indexOf("Float") != -1
+                    || modelParam.getType().indexOf("Long") != -1 || modelParam.getType().indexOf("Integer") != -1) {
                 ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_SERVICE, 6,
                         null);
                 this.setFieldInfo(textField);
-            } else if (modelParam.type.indexOf("Timestamp") != -1) {
+            } else if (modelParam.getType().indexOf("Timestamp") != -1) {
                 ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE,
                         "timestamp");
                 this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Date") != -1) {
+            } else if (modelParam.getType().indexOf("Date") != -1) {
                 ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE,
                         "date");
                 this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Time") != -1) {
+            } else if (modelParam.getType().indexOf("Time") != -1) {
                 ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE,
                         "time");
                 this.setFieldInfo(dateTimeField);
@@ -683,19 +872,19 @@ public class ModelFormFieldBuilder {
             this.setFieldInfo(displayField);
         } else {
             // default to "edit"
-            if (modelParam.type.indexOf("Double") != -1 || modelParam.type.indexOf("Float") != -1
-                    || modelParam.type.indexOf("Long") != -1 || modelParam.type.indexOf("Integer") != -1) {
+            if (modelParam.getType().indexOf("Double") != -1 || modelParam.getType().indexOf("Float") != -1
+                    || modelParam.getType().indexOf("Long") != -1 || modelParam.getType().indexOf("Integer") != -1) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, 6, null, null);
                 this.setFieldInfo(textField);
-            } else if (modelParam.type.indexOf("Timestamp") != -1) {
+            } else if (modelParam.getType().indexOf("Timestamp") != -1) {
                 ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE,
                         "timestamp");
                 this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Date") != -1) {
+            } else if (modelParam.getType().indexOf("Date") != -1) {
                 ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE,
                         "date");
                 this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Time") != -1) {
+            } else if (modelParam.getType().indexOf("Time") != -1) {
                 ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE,
                         "time");
                 this.setFieldInfo(dateTimeField);
@@ -716,9 +905,9 @@ public class ModelFormFieldBuilder {
             ModelService modelService = dispatchContext.getModelService(this.getServiceName());
             ModelParam modelParam = modelService.getParam(this.getAttributeName());
             if (modelParam != null) {
-                if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
-                    this.entityName = modelParam.entityName;
-                    this.fieldName = modelParam.fieldName;
+                if (UtilValidate.isNotEmpty(modelParam.getEntityName()) && UtilValidate.isNotEmpty(modelParam.getFieldName())) {
+                    this.entityName = modelParam.getEntityName();
+                    this.fieldName = modelParam.getFieldName();
                     if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
                         return true;
                     }
@@ -735,6 +924,10 @@ public class ModelFormFieldBuilder {
         return false;
     }
 
+    /**
+     * Merge override model form field.
+     * @param builder the builder
+     */
     public void mergeOverrideModelFormField(ModelFormFieldBuilder builder) {
         if (builder == null) {
             return;
@@ -836,36 +1029,71 @@ public class ModelFormFieldBuilder {
         this.disabled = builder.getDisabled();
     }
 
+    /**
+     * Sets action.*
+     * @param action the action
+     * @return the action
+     */
     public ModelFormFieldBuilder setAction(String action) {
         this.action = FlexibleStringExpander.getInstance(action);
         return this;
     }
 
+    /**
+     * Sets attribute name.*
+     * @param attributeName the attribute name
+     * @return the attribute name
+     */
     public ModelFormFieldBuilder setAttributeName(String attributeName) {
         this.attributeName = attributeName;
         return this;
     }
 
+    /**
+     * Sets encode output.*
+     * @param encodeOutput the encode output
+     * @return the encode output
+     */
     public ModelFormFieldBuilder setEncodeOutput(boolean encodeOutput) {
         this.encodeOutput = encodeOutput;
         return this;
     }
 
+    /**
+     * Sets entity name.*
+     * @param entityName the entity name
+     * @return the entity name
+     */
     public ModelFormFieldBuilder setEntityName(String entityName) {
         this.entityName = entityName;
         return this;
     }
 
+    /**
+     * Sets entry name.*
+     * @param entryName the entry name
+     * @return the entry name
+     */
     public ModelFormFieldBuilder setEntryName(String entryName) {
         this.entryAcsr = FlexibleMapAccessor.getInstance(entryName);
         return this;
     }
 
+    /**
+     * Sets event.*
+     * @param event the event
+     * @return the event
+     */
     public ModelFormFieldBuilder setEvent(String event) {
         this.event = event;
         return this;
     }
 
+    /**
+     * Sets field info.*
+     * @param fieldInfo the field info
+     * @return the field info
+     */
     public ModelFormFieldBuilder setFieldInfo(FieldInfo fieldInfo) {
         if (fieldInfo != null && (this.fieldInfo == null || (fieldInfo.getFieldSource() <= this.fieldInfo.getFieldSource()))) {
             this.fieldInfo = fieldInfo;
@@ -873,153 +1101,311 @@ public class ModelFormFieldBuilder {
         return this;
     }
 
+    /**
+     * Sets field name.*
+     * @param fieldName the field name
+     * @return the field name
+     */
     public ModelFormFieldBuilder setFieldName(String fieldName) {
         this.fieldName = fieldName;
         return this;
     }
 
+    /**
+     * Sets field type.*
+     * @param fieldType the field type
+     * @return the field type
+     */
     public ModelFormFieldBuilder setFieldType(String fieldType) {
         this.fieldType = fieldType;
         return this;
     }
 
+    /**
+     * Sets header link.*
+     * @param headerLink the header link
+     * @return the header link
+     */
     public ModelFormFieldBuilder setHeaderLink(String headerLink) {
         this.headerLink = headerLink;
         return this;
     }
 
+    /**
+     * Sets header link style.*
+     * @param headerLinkStyle the header link style
+     * @return the header link style
+     */
     public ModelFormFieldBuilder setHeaderLinkStyle(String headerLinkStyle) {
         this.headerLinkStyle = headerLinkStyle;
         return this;
     }
 
+    /**
+     * Sets id name.*
+     * @param idName the id name
+     * @return the id name
+     */
     public ModelFormFieldBuilder setIdName(String idName) {
         this.idName = idName;
         return this;
     }
 
+    /**
+     * Sets map name.*
+     * @param mapName the map name
+     * @return the map name
+     */
     public ModelFormFieldBuilder setMapName(String mapName) {
         this.mapAcsr = FlexibleMapAccessor.getInstance(mapName);
         return this;
     }
 
+    /**
+     * Sets model form.*
+     * @param modelForm the model form
+     * @return the model form
+     */
     public ModelFormFieldBuilder setModelForm(ModelForm modelForm) {
         this.modelForm = modelForm;
         return this;
     }
 
+    /**
+     * Sets name.*
+     * @param name the name
+     * @return the name
+     */
     public ModelFormFieldBuilder setName(String name) {
         this.name = name;
         return this;
     }
 
+    /**
+     * Sets parameter name.*
+     * @param parameterName the parameter name
+     * @return the parameter name
+     */
     public ModelFormFieldBuilder setParameterName(String parameterName) {
         this.parameterName = FlexibleStringExpander.getInstance(parameterName);
         return this;
     }
 
+    /**
+     * Sets position.*
+     * @param position the position
+     * @return the position
+     */
     public ModelFormFieldBuilder setPosition(Integer position) {
         this.position = position;
         return this;
     }
 
+    /**
+     * Sets red when.*
+     * @param redWhen the red when
+     * @return the red when
+     */
     public ModelFormFieldBuilder setRedWhen(String redWhen) {
         this.redWhen = redWhen;
         return this;
     }
 
+    /**
+     * Sets required field.*
+     * @param requiredField the required field
+     * @return the required field
+     */
     public ModelFormFieldBuilder setRequiredField(Boolean requiredField) {
         this.requiredField = requiredField;
         return this;
     }
 
+    /**
+     * Sets required field style.*
+     * @param requiredFieldStyle the required field style
+     * @return the required field style
+     */
     public ModelFormFieldBuilder setRequiredFieldStyle(String requiredFieldStyle) {
         this.requiredFieldStyle = requiredFieldStyle;
         return this;
     }
 
+    /**
+     * Sets separate column.*
+     * @param separateColumn the separate column
+     * @return the separate column
+     */
     public ModelFormFieldBuilder setSeparateColumn(boolean separateColumn) {
         this.separateColumn = separateColumn;
         return this;
     }
 
+    /**
+     * Sets service name.*
+     * @param serviceName the service name
+     * @return the service name
+     */
     public ModelFormFieldBuilder setServiceName(String serviceName) {
         this.serviceName = serviceName;
         return this;
     }
 
+    /**
+     * Sets sort field.*
+     * @param sortField the sort field
+     * @return the sort field
+     */
     public ModelFormFieldBuilder setSortField(Boolean sortField) {
         this.sortField = sortField;
         return this;
     }
 
+    /**
+     * Sets sort field asc style.*
+     * @param sortFieldAscStyle the sort field asc style
+     * @return the sort field asc style
+     */
     public ModelFormFieldBuilder setSortFieldAscStyle(String sortFieldAscStyle) {
         this.sortFieldAscStyle = sortFieldAscStyle;
         return this;
     }
 
+    /**
+     * Sets sort field desc style.*
+     * @param sortFieldDescStyle the sort field desc style
+     * @return the sort field desc style
+     */
     public ModelFormFieldBuilder setSortFieldDescStyle(String sortFieldDescStyle) {
         this.sortFieldDescStyle = sortFieldDescStyle;
         return this;
     }
 
+    /**
+     * Sets sort field help text.*
+     * @param sortFieldHelpText the sort field help text
+     * @return the sort field help text
+     */
     public ModelFormFieldBuilder setSortFieldHelpText(String sortFieldHelpText) {
         this.sortFieldHelpText = sortFieldHelpText;
         return this;
     }
 
+    /**
+     * Sets sort field style.*
+     * @param sortFieldStyle the sort field style
+     * @return the sort field style
+     */
     public ModelFormFieldBuilder setSortFieldStyle(String sortFieldStyle) {
         this.sortFieldStyle = sortFieldStyle;
         return this;
     }
 
+    /**
+     * Sets title.*
+     * @param title the title
+     * @return the title
+     */
     public ModelFormFieldBuilder setTitle(String title) {
         this.title = FlexibleStringExpander.getInstance(title);
         return this;
     }
 
+    /**
+     * Sets title area style.*
+     * @param titleAreaStyle the title area style
+     * @return the title area style
+     */
     public ModelFormFieldBuilder setTitleAreaStyle(String titleAreaStyle) {
         this.titleAreaStyle = titleAreaStyle;
         return this;
     }
 
+    /**
+     * Sets title style.*
+     * @param titleStyle the title style
+     * @return the title style
+     */
     public ModelFormFieldBuilder setTitleStyle(String titleStyle) {
         this.titleStyle = titleStyle;
         return this;
     }
 
+    /**
+     * Sets tooltip.*
+     * @param tooltip the tooltip
+     * @return the tooltip
+     */
     public ModelFormFieldBuilder setTooltip(String tooltip) {
         this.tooltip = FlexibleStringExpander.getInstance(tooltip);
         return this;
     }
 
+    /**
+     * Sets tooltip style.*
+     * @param tooltipStyle the tooltip style
+     * @return the tooltip style
+     */
     public ModelFormFieldBuilder setTooltipStyle(String tooltipStyle) {
         this.tooltipStyle = tooltipStyle;
         return this;
     }
 
+    /**
+     * Sets use when.*
+     * @param useWhen the use when
+     * @return the use when
+     */
     public ModelFormFieldBuilder setUseWhen(String useWhen) {
         this.useWhen = FlexibleStringExpander.getInstance(useWhen);
         return this;
     }
 
+    /**
+     * Sets widget area style.*
+     * @param widgetAreaStyle the widget area style
+     * @return the widget area style
+     */
     public ModelFormFieldBuilder setWidgetAreaStyle(String widgetAreaStyle) {
         this.widgetAreaStyle = widgetAreaStyle;
         return this;
     }
 
+    /**
+     * Sets widget style.*
+     * @param widgetStyle the widget style
+     * @return the widget style
+     */
     public ModelFormFieldBuilder setWidgetStyle(String widgetStyle) {
         this.widgetStyle = widgetStyle;
         return this;
     }
+
+    /**
+     * Sets parent form name.*
+     * @param parentFormName the parent form name
+     * @return the parent form name
+     */
     public ModelFormFieldBuilder setParentFormName(String parentFormName) {
         this.parentFormName = parentFormName;
         return this;
     }
+
+    /**
+     * Sets tabindex.*
+     * @param tabindex the tabindex
+     * @return the tabindex
+     */
     public ModelFormFieldBuilder setTabindex(String tabindex) {
         this.tabindex = tabindex;
         return this;
     }
+
+    /**
+     * Sets condition group.*
+     * @param conditionGroup the condition group
+     * @return the condition group
+     */
     public ModelFormFieldBuilder setConditionGroup(String conditionGroup) {
         this.conditionGroup = conditionGroup;
         return this;

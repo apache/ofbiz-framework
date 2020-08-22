@@ -28,10 +28,10 @@ public class LabelInfo {
 
     private static final String MODULE = LabelInfo.class.getName();
 
-    protected String labelKey = "";
-    protected String labelKeyComment = "";
-    protected String fileName = "";
-    protected Map<String, LabelValue> labelValues = new LinkedHashMap<>();
+    private String labelKey = "";
+    private String labelKeyComment = "";
+    private String fileName = "";
+    private Map<String, LabelValue> labelValues = new LinkedHashMap<>();
 
     public LabelInfo(String labelKey, String labelKeyComment, String fileName, String localeStr, String labelValue, String labelComment) {
         this.labelKey = labelKey;
@@ -40,28 +40,53 @@ public class LabelInfo {
         setLabelValue(localeStr, labelValue, labelComment, false);
     }
 
+    /**
+     * Gets label key.
+     * @return the label key
+     */
     public String getLabelKey() {
         return labelKey;
     }
 
+    /**
+     * Gets label key comment.
+     * @return the label key comment
+     */
     public String getLabelKeyComment() {
         return labelKeyComment;
     }
 
+    /**
+     * Sets label key comment.
+     * @param labelKeyComment the label key comment
+     */
     public void setLabelKeyComment(String labelKeyComment) {
         this.labelKeyComment = labelKeyComment;
     }
 
+    /**
+     * Gets file name.
+     * @return the file name
+     */
     public String getFileName() {
         return fileName;
     }
 
+    /**
+     * Gets label value.
+     * @param localeStr the locale str
+     * @return the label value
+     */
     public LabelValue getLabelValue(String localeStr) {
-       return labelValues.get(localeStr);
+        return labelValues.get(localeStr);
     }
 
+    /**
+     * Gets label value size.
+     * @return the label value size
+     */
     public int getLabelValueSize() {
-       return labelValues.size();
+        return labelValues.size();
     }
 
     public boolean setLabelValue(String localeStr, String labelValue, String labelComment, boolean update) {

@@ -38,20 +38,20 @@ import org.apache.ofbiz.widget.model.ModelScreen;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * The type Screen widget artifact info.
  */
 public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     private static final String MODULE = ScreenWidgetArtifactInfo.class.getName();
 
-    protected ModelScreen modelScreen;
+    private ModelScreen modelScreen;
 
-    protected String screenName;
-    protected String screenLocation;
+    private String screenName;
+    private String screenLocation;
 
-    protected Set<EntityArtifactInfo> entitiesUsedInThisScreen = new TreeSet<>();
-    protected Set<ServiceArtifactInfo> servicesUsedInThisScreen = new TreeSet<>();
-    protected Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new TreeSet<>();
-    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesUsedInThisScreen = new TreeSet<>();
+    private Set<ServiceArtifactInfo> servicesUsedInThisScreen = new TreeSet<>();
+    private Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new TreeSet<>();
+    private Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new TreeSet<>();
 
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -87,14 +87,15 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             try {
                 aif.getModelService(serviceName);
             } catch (GeneralException e) {
-                Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", MODULE);
+                Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
+                        + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
             this.servicesUsedInThisScreen.add(aif.getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToServiceName, serviceName);
+            UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToServiceName(), serviceName);
         }
     }
 
@@ -106,14 +107,15 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             // attempt to convert relation names to entity names
             entityName = aif.getEntityModelReader().validateEntityName(entityName);
             if (entityName == null) {
-                Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", MODULE);
+                Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
+                        + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
             this.entitiesUsedInThisScreen.add(aif.getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToEntityName, entityName);
+            UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToEntityName(), entityName);
         }
     }
 
@@ -126,14 +128,15 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             try {
                 aif.getModelForm(formName);
             } catch (Exception e) {
-                Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", MODULE);
+                Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
+                        + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
             this.formsIncludedInThisScreen.add(aif.getFormWidgetArtifactInfo(formName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToForm, formName);
+            UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToForm(), formName);
         }
     }
 
@@ -150,7 +153,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 // the forward reference
                 this.requestsLinkedToInScreen.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToRequest, requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToRequest(), requestUniqueId);
             }
         }
     }
@@ -168,7 +171,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public String getType() {
-        return ArtifactInfoFactory.ScreenWidgetInfoTypeId;
+        return ArtifactInfoFactory.SCREEN_WIDGET_INFO_TYPE_ID;
     }
 
     @Override
@@ -191,31 +194,60 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    /**
+     * Gets views referring to screen.
+     *
+     * @return the views referring to screen
+     */
     public Set<ControllerViewArtifactInfo> getViewsReferringToScreen() {
-        return this.aif.allViewInfosReferringToScreen.get(this.getUniqueId());
+        return this.aif.getAllViewInfosReferringToScreen().get(this.getUniqueId());
     }
 
+    /**
+     * Gets entities used in screen.
+     * @return the entities used in screen
+     */
     public Set<EntityArtifactInfo> getEntitiesUsedInScreen() {
         return this.entitiesUsedInThisScreen;
     }
 
+    /**
+     * Gets services used in screen.
+     * @return the services used in screen
+     */
     public Set<ServiceArtifactInfo> getServicesUsedInScreen() {
         return this.servicesUsedInThisScreen;
     }
 
+    /**
+     * Gets forms included in screen.
+     * @return the forms included in screen
+     */
     public Set<FormWidgetArtifactInfo> getFormsIncludedInScreen() {
         return this.formsIncludedInThisScreen;
     }
 
+    /**
+     * Gets screens included in screen.
+     * @return the screens included in screen
+     */
     public Set<ScreenWidgetArtifactInfo> getScreensIncludedInScreen() {
         // TODO: implement this
         return new HashSet<>();
     }
 
+    /**
+     * Gets screens including this screen.
+     * @return the screens including this screen
+     */
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {
-        return this.aif.allScreenInfosReferringToScreen.get(this.getUniqueId());
+        return this.aif.getAllScreenInfosReferringToScreen().get(this.getUniqueId());
     }
 
+    /**
+     * Gets requests linked to in screen.
+     * @return the requests linked to in screen
+     */
     public Set<ControllerRequestArtifactInfo> getRequestsLinkedToInScreen() {
         return this.requestsLinkedToInScreen;
     }

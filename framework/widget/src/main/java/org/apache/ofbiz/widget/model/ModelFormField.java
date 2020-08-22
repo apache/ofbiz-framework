@@ -1180,7 +1180,7 @@ public class ModelFormField {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             if (UtilValidate.isNotEmpty(parameters)) {
                 String fieldName = this.getModelFormField().getName();
-                if ( parameters.containsKey(fieldName.concat("_fld1_value"))) {
+                if (parameters.containsKey(fieldName.concat("_fld1_value"))) {
                     defaultOption = (String) parameters.get(fieldName.concat("_fld1_op"));
                 }
             }
@@ -1470,14 +1470,26 @@ public class ModelFormField {
             return retVal;
         }
 
+        /**
+         * Gets entity name.
+         * @return the entity name
+         */
         public String getEntityName() {
             return entityName;
         }
 
+        /**
+         * Gets key field name.
+         * @return the key field name
+         */
         public String getKeyFieldName() {
             return keyFieldName;
         }
 
+        /**
+         * Gets sub hyperlink.
+         * @return the sub hyperlink
+         */
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
         }
@@ -1485,6 +1497,7 @@ public class ModelFormField {
 
     /**
      * Models the &lt;display&gt; element.
+     *
      * @see <code>widget-form.xsd</code>
      */
     public static class DisplayField extends FieldInfo {
@@ -1584,22 +1597,43 @@ public class ModelFormField {
             return new DisplayField(this, modelFormField);
         }
 
+        /**
+         * Gets also hidden.
+         * @return the also hidden
+         */
         public boolean getAlsoHidden() {
             return alsoHidden;
         }
 
+        /**
+         * Gets currency.
+         * @return the currency
+         */
         public FlexibleStringExpander getCurrency() {
             return currency;
         }
 
+        /**
+         * Gets date.
+         * @return the date
+         */
         public FlexibleStringExpander getDate() {
             return date;
         }
 
+        /**
+         * Gets default value.
+         * @return the default value
+         */
         public FlexibleStringExpander getDefaultValue() {
             return defaultValue;
         }
 
+        /**
+         * Gets default value.
+         * @param context the context
+         * @return the default value
+         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -1607,10 +1641,19 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets description.
+         * @param context the context
+         * @return the description
+         */
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
             if (UtilValidate.isNotEmpty(this.description)) {
@@ -1870,14 +1913,26 @@ public class ModelFormField {
             return new DropDownField(this, modelFormField);
         }
 
+        /**
+         * Gets allow multi.
+         * @return the allow multi
+         */
         public boolean getAllowMulti() {
             return allowMulti;
         }
 
+        /**
+         * Gets auto complete.
+         * @return the auto complete
+         */
         public AutoComplete getAutoComplete() {
             return this.autoComplete;
         }
 
+        /**
+         * Gets current.
+         * @return the current
+         */
         public String getCurrent() {
             if (UtilValidate.isEmpty(this.current)) {
                 return "first-in-list";
@@ -1885,10 +1940,19 @@ public class ModelFormField {
             return this.current;
         }
 
+        /**
+         * Gets current description.
+         * @return the current description
+         */
         public FlexibleStringExpander getCurrentDescription() {
             return currentDescription;
         }
 
+        /**
+         * Gets current description.
+         * @param context the context
+         * @return the current description
+         */
         public String getCurrentDescription(Map<String, Object> context) {
             if (this.currentDescription == null) {
                 return null;
@@ -1896,6 +1960,10 @@ public class ModelFormField {
             return this.currentDescription.expandString(context);
         }
 
+        /**
+         * Gets other field size.
+         * @return the other field size
+         */
         public int getOtherFieldSize() {
             return this.otherFieldSize;
         }
@@ -1922,22 +1990,42 @@ public class ModelFormField {
             return baseName;
         }
 
+        /**
+         * Gets size.
+         * @return the size
+         */
         public String getSize() {
             return this.size;
         }
 
+        /**
+         * Gets sub hyperlink.
+         * @return the sub hyperlink
+         */
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
         }
 
+        /**
+         * Gets text size.
+         * @return the text size
+         */
         public String getTextSize() {
             return this.textSize;
         }
 
+        /**
+         * Gets allow empty.
+         * @return the allow empty
+         */
         public boolean getAllowEmpty() {
             return this.allowEmpty;
         }
 
+        /**
+         * Gets allow multiple.
+         * @return the allow multiple
+         */
         public boolean getAllowMultiple() {
             return this.allowMulti;
         }
@@ -2091,26 +2179,50 @@ public class ModelFormField {
             return new EntityOptions(this, modelFormField);
         }
 
+        /**
+         * Gets cache.
+         * @return the cache
+         */
         public boolean getCache() {
             return cache;
         }
 
+        /**
+         * Gets constraint list.
+         * @return the constraint list
+         */
         public List<EntityFinderUtil.ConditionExpr> getConstraintList() {
             return constraintList;
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets entity name.
+         * @return the entity name
+         */
         public String getEntityName() {
             return entityName;
         }
 
+        /**
+         * Gets filter by date.
+         * @return the filter by date
+         */
         public String getFilterByDate() {
             return filterByDate;
         }
 
+        /**
+         * Gets key field name.
+         * @return the key field name
+         */
         public String getKeyFieldName() {
             if (UtilValidate.isNotEmpty(this.keyFieldName)) {
                 return this.keyFieldName;
@@ -2118,6 +2230,10 @@ public class ModelFormField {
             return getModelFormField().getFieldName(); // get the modelFormField fieldName
         }
 
+        /**
+         * Gets order by list.
+         * @return the order by list
+         */
         public List<String> getOrderByList() {
             return orderByList;
         }
@@ -2199,6 +2315,12 @@ public class ModelFormField {
             this.optionSources = Collections.emptyList();
         }
 
+        /**
+         * Gets all option values.
+         * @param context   the context
+         * @param delegator the delegator
+         * @return the all option values
+         */
         public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
             List<OptionValue> optionValues = new LinkedList<>();
             for (OptionSource optionSource : this.optionSources) {
@@ -2207,14 +2329,27 @@ public class ModelFormField {
             return optionValues;
         }
 
+        /**
+         * Gets no current selected key.
+         * @return the no current selected key
+         */
         public FlexibleStringExpander getNoCurrentSelectedKey() {
             return noCurrentSelectedKey;
         }
 
+        /**
+         * Gets no current selected key.
+         * @param context the context
+         * @return the no current selected key
+         */
         public String getNoCurrentSelectedKey(Map<String, Object> context) {
             return this.noCurrentSelectedKey.expandString(context);
         }
 
+        /**
+         * Gets option sources.
+         * @return the option sources
+         */
         public List<OptionSource> getOptionSources() {
             return optionSources;
         }
@@ -2310,7 +2445,8 @@ public class ModelFormField {
                 FormRenderer renderer = new FormRenderer(modelForm, formStringRenderer);
                 renderer.render(writer, context);
             } catch (Exception e) {
-                String errMsg = "Error rendering included form named [" + modelForm.getName() + "] at location [" + modelForm.getFormLocation() + "]: " + e.toString();
+                String errMsg = "Error rendering included form named [" + modelForm.getName() + "] at location [" + modelForm.getFormLocation()
+                        + "]: " + e.toString();
                 Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
@@ -2321,8 +2457,10 @@ public class ModelFormField {
             String location = this.getFormLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator"))
+                        .getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher"))
+                        .getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -2366,18 +2504,36 @@ public class ModelFormField {
             return new GridField(this, modelFormField);
         }
 
+        /**
+         * Gets grid name.
+         * @param context the context
+         * @return the grid name
+         */
         public String getGridName(Map<String, Object> context) {
             return this.gridName.expandString(context);
         }
 
+        /**
+         * Gets grid name.
+         * @return the grid name
+         */
         public FlexibleStringExpander getGridName() {
             return gridName;
         }
 
+        /**
+         * Gets grid location.
+         * @param context the context
+         * @return the grid location
+         */
         public String getGridLocation(Map<String, Object> context) {
             return this.gridLocation.expandString(context);
         }
 
+        /**
+         * Gets grid location.
+         * @return the grid location
+         */
         public FlexibleStringExpander getGridLocation() {
             return gridLocation;
         }
@@ -2391,7 +2547,8 @@ public class ModelFormField {
                 FormRenderer renderer = new FormRenderer(modelGrid, formStringRenderer);
                 renderer.render(writer, context);
             } catch (Exception e) {
-                String errMsg = "Error rendering included grid named [" + modelGrid.getName() + "] at location [" + modelGrid.getFormLocation() + "]: " + e.toString();
+                String errMsg = "Error rendering included grid named [" + modelGrid.getName() + "] at location [" + modelGrid.getFormLocation()
+                        + "]: " + e.toString();
                 Debug.logError(e, errMsg, MODULE);
                 throw new RuntimeException(errMsg + e);
             }
@@ -2402,8 +2559,10 @@ public class ModelFormField {
             String location = this.getGridLocation(context);
             ModelForm modelForm = null;
             try {
-                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator")).getModelReader();
-                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher")).getDispatchContext();
+                org.apache.ofbiz.entity.model.ModelReader entityModelReader = ((org.apache.ofbiz.entity.Delegator) context.get("delegator"))
+                        .getModelReader();
+                org.apache.ofbiz.service.DispatchContext dispatchContext = ((org.apache.ofbiz.service.LocalDispatcher) context.get("dispatcher"))
+                        .getDispatchContext();
                 VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
                 modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, visualTheme, dispatchContext);
             } catch (RuntimeException e) {
@@ -2513,10 +2672,19 @@ public class ModelFormField {
             return new HyperlinkField(this, modelFormField);
         }
 
+        /**
+         * Gets also hidden.
+         * @return the also hidden
+         */
         public boolean getAlsoHidden() {
             return this.alsoHidden;
         }
 
+        /**
+         * Gets confirmation.
+         * @param context the context
+         * @return the confirmation
+         */
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
             if (UtilValidate.isNotEmpty(message)) {
@@ -2530,6 +2698,11 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets alternate.
+         * @param context the context
+         * @return the alternate
+         */
         public String getAlternate(Map<String, Object> context) {
             if (link.getImage() != null) {
                 return link.getImage().getAlt(context);
@@ -2537,6 +2710,11 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets image title.
+         * @param context the context
+         * @return the image title
+         */
         public String getImageTitle(Map<String, Object> context) {
             if (link.getImage() != null) {
                 return link.getImage().getTitleExdr().expandString(context);
@@ -2544,6 +2722,11 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets image location.
+         * @param context the context
+         * @return the image location
+         */
         public String getImageLocation(Map<String, Object> context) {
             if (link.getImage() != null) {
                 return link.getImage().getSrc(context);
@@ -2551,142 +2734,296 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets confirmation msg.
+         * @param context the context
+         * @return the confirmation msg
+         */
         public String getConfirmationMsg(Map<String, Object> context) {
             return link.getConfirmationMsg(context);
         }
 
+        /**
+         * Gets confirmation msg exdr.
+         * @return the confirmation msg exdr
+         */
         public FlexibleStringExpander getConfirmationMsgExdr() {
             return link.getConfirmationMsgExdr();
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets description.
+         * @param context the context
+         * @return the description
+         */
         public String getDescription(Map<String, Object> context) {
             return this.description.expandString(context);
         }
 
+        /**
+         * Gets request confirmation.
+         * @return the request confirmation
+         */
         public boolean getRequestConfirmation() {
             return link.getRequestConfirmation();
         }
 
+        /**
+         * Gets link.
+         * @return the link
+         */
         public Link getLink() {
             return link;
         }
 
+        /**
+         * Gets auto entity parameters.
+         * @return the auto entity parameters
+         */
         public AutoEntityParameters getAutoEntityParameters() {
             return link.getAutoEntityParameters();
         }
 
+        /**
+         * Gets auto service parameters.
+         * @return the auto service parameters
+         */
         public AutoServiceParameters getAutoServiceParameters() {
             return link.getAutoServiceParameters();
         }
 
+        /**
+         * Gets encode.
+         * @return the encode
+         */
         public boolean getEncode() {
             return link.getEncode();
         }
 
+        /**
+         * Gets full path.
+         * @return the full path
+         */
         public boolean getFullPath() {
             return link.getFullPath();
         }
 
+        /**
+         * Gets height.
+         * @return the height
+         */
         public String getHeight() {
             return link.getHeight();
         }
 
+        /**
+         * Gets id.
+         * @param context the context
+         * @return the id
+         */
         public String getId(Map<String, Object> context) {
             return link.getId(context);
         }
 
+        /**
+         * Gets id exdr.
+         * @return the id exdr
+         */
         public FlexibleStringExpander getIdExdr() {
             return link.getIdExdr();
         }
 
+        /**
+         * Gets image.
+         * @return the image
+         */
         public Image getImage() {
             return link.getImage();
         }
 
+        /**
+         * Gets link type.
+         * @return the link type
+         */
         public String getLinkType() {
             return link.getLinkType();
         }
 
+        /**
+         * Gets name.
+         *
+         * @return the name
+         */
         public String getName() {
             return link.getName();
         }
 
+        /**
+         * Gets name.
+         * @param context the context
+         * @return the name
+         */
         public String getName(Map<String, Object> context) {
             return link.getName(context);
         }
 
+        /**
+         * Gets name exdr.
+         * @return the name exdr
+         */
         public FlexibleStringExpander getNameExdr() {
             return link.getNameExdr();
         }
 
+        /**
+         * Gets parameter list.
+         * @return the parameter list
+         */
         public List<Parameter> getParameterList() {
             return link.getParameterList();
         }
 
+        /**
+         * Gets parameter map.
+         * @param context            the context
+         * @param defaultEntityName  the default entity name
+         * @param defaultServiceName the default service name
+         * @return the parameter map
+         */
         public Map<String, String> getParameterMap(Map<String, Object> context, String defaultEntityName, String defaultServiceName) {
             return link.getParameterMap(context, defaultEntityName, defaultServiceName);
         }
 
+        /**
+         * Gets parameter map.
+         * @param context the context
+         * @return the parameter map
+         */
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             return link.getParameterMap(context);
         }
 
+        /**
+         * Gets prefix.
+         * @param context the context
+         * @return the prefix
+         */
         public String getPrefix(Map<String, Object> context) {
             return link.getPrefix(context);
         }
 
+        /**
+         * Gets prefix exdr.
+         * @return the prefix exdr
+         */
         public FlexibleStringExpander getPrefixExdr() {
             return link.getPrefixExdr();
         }
 
+        /**
+         * Gets secure.
+         * @return the secure
+         */
         public boolean getSecure() {
             return link.getSecure();
         }
 
+        /**
+         * Gets size.
+         * @return the size
+         */
         public Integer getSize() {
             return link.getSize();
         }
 
+        /**
+         * Gets style.
+         * @param context the context
+         * @return the style
+         */
         public String getStyle(Map<String, Object> context) {
             return link.getStyle(context);
         }
 
+        /**
+         * Gets style exdr.
+         * @return the style exdr
+         */
         public FlexibleStringExpander getStyleExdr() {
             return link.getStyleExdr();
         }
 
+        /**
+         * Gets target.
+         * @param context the context
+         * @return the target
+         */
         public String getTarget(Map<String, Object> context) {
             return link.getTarget(context);
         }
 
+        /**
+         * Gets target exdr.
+         * @return the target exdr
+         */
         public FlexibleStringExpander getTargetExdr() {
             return link.getTargetExdr();
         }
 
+        /**
+         * Gets target window.
+         * @param context the context
+         * @return the target window
+         */
         public String getTargetWindow(Map<String, Object> context) {
             return link.getTargetWindow(context);
         }
 
+        /**
+         * Gets target window exdr.
+         * @return the target window exdr
+         */
         public FlexibleStringExpander getTargetWindowExdr() {
             return link.getTargetWindowExdr();
         }
 
+        /**
+         * Gets text.
+         * @param context the context
+         * @return the text
+         */
         public String getText(Map<String, Object> context) {
             return link.getText(context);
         }
 
+        /**
+         * Gets text exdr.
+         * @return the text exdr
+         */
         public FlexibleStringExpander getTextExdr() {
             return link.getTextExdr();
         }
 
+        /**
+         * Gets url mode.
+         * @return the url mode
+         */
         public String getUrlMode() {
             return link.getUrlMode();
         }
 
+        /**
+         * Gets width.
+         * @return the width
+         */
         public String getWidth() {
             return link.getWidth();
         }
@@ -2802,10 +3139,19 @@ public class ModelFormField {
             return new ImageField(this, modelFormField);
         }
 
+        /**
+         * Gets alternate.
+         * @return the alternate
+         */
         public FlexibleStringExpander getAlternate() {
             return alternate;
         }
 
+        /**
+         * Gets alternate.
+         * @param context the context
+         * @return the alternate
+         */
         public String getAlternate(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.alternate)) {
                 return this.alternate.expandString(context);
@@ -2813,10 +3159,19 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets default value.
+         * @return the default value
+         */
         public FlexibleStringExpander getDefaultValue() {
             return defaultValue;
         }
 
+        /**
+         * Gets default value.
+         * @param context the context
+         * @return the default value
+         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -2824,10 +3179,19 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets description.
+         * @return the description
+         */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
+        /**
+         * Gets description.
+         * @param context the context
+         * @return the description
+         */
         public String getDescription(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.description)) {
                 return this.description.expandString(context);
@@ -2835,10 +3199,19 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets style.
+         * @return the style
+         */
         public FlexibleStringExpander getStyle() {
             return style;
         }
 
+        /**
+         * Gets style.
+         * @param context the context
+         * @return the style
+         */
         public String getStyle(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.style)) {
                 return this.style.expandString(context);
@@ -2846,14 +3219,27 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets sub hyperlink.
+         * @return the sub hyperlink
+         */
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
         }
 
+        /**
+         * Gets value.
+         * @return the value
+         */
         public FlexibleStringExpander getValue() {
             return value;
         }
 
+        /**
+         * Gets value.
+         * @param context the context
+         * @return the value
+         */
         public String getValue(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.value)) {
                 return this.value.expandString(context);
@@ -2933,76 +3319,149 @@ public class ModelFormField {
             this.url = FlexibleStringExpander.getInstance(element.getAttribute("url"));
         }
 
+        /**
+         * Gets cancel control.
+         * @return the cancel control
+         */
         public String getCancelControl() {
             return this.cancelControl;
         }
 
+        /**
+         * Gets cancel text.
+         * @return the cancel text
+         */
         public String getCancelText() {
             return this.cancelText;
         }
 
+        /**
+         * Gets click to edit text.
+         * @return the click to edit text
+         */
         public String getClickToEditText() {
             return this.clickToEditText;
         }
 
+        /**
+         * Gets cols.
+         * @return the cols
+         */
         public String getCols() {
             return this.cols;
         }
 
+        /**
+         * Gets field map.
+         * @return the field map
+         */
         public Map<FlexibleMapAccessor<Object>, Object> getFieldMap() {
             return fieldMap;
         }
 
+        /**
+         * Gets field map.
+         * @param context the context
+         * @return the field map
+         */
         public Map<String, Object> getFieldMap(Map<String, Object> context) {
             Map<String, Object> inPlaceEditorContext = new HashMap<>();
             EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, inPlaceEditorContext);
             return inPlaceEditorContext;
         }
 
+        /**
+         * Gets field post creation.
+         * @return the field post creation
+         */
         public String getFieldPostCreation() {
             return this.fieldPostCreation;
         }
 
+        /**
+         * Gets form class name.
+         * @return the form class name
+         */
         public String getFormClassName() {
             return this.formClassName;
         }
 
+        /**
+         * Gets highlight color.
+         * @return the highlight color
+         */
         public String getHighlightColor() {
             return this.highlightColor;
         }
 
+        /**
+         * Gets highlight end color.
+         * @return the highlight end color
+         */
         public String getHighlightEndColor() {
             return this.highlightEndColor;
         }
 
+        /**
+         * Gets hover class name.
+         * @return the hover class name
+         */
         public String getHoverClassName() {
             return this.hoverClassName;
         }
 
+        /**
+         * Gets html response.
+         * @return the html response
+         */
         public String getHtmlResponse() {
             return this.htmlResponse;
         }
 
+        /**
+         * Gets loading class name.
+         * @return the loading class name
+         */
         public String getLoadingClassName() {
             return this.loadingClassName;
         }
 
+        /**
+         * Gets loading text.
+         * @return the loading text
+         */
         public String getLoadingText() {
             return this.loadingText;
         }
 
+        /**
+         * Gets ok control.
+         * @return the ok control
+         */
         public String getOkControl() {
             return this.okControl;
         }
 
+        /**
+         * Gets ok text.
+         * @return the ok text
+         */
         public String getOkText() {
             return this.okText;
         }
 
+        /**
+         * Gets param name.
+         * @return the param name
+         */
         public String getParamName() {
             return this.paramName;
         }
 
+        /**
+         * Gets rows.
+         * @return the rows
+         */
         public String getRows() {
             return this.rows;
         }

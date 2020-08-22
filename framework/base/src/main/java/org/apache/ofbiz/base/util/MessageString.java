@@ -35,14 +35,14 @@ public class MessageString implements Serializable {
 
     private static final String MODULE = MessageString.class.getName();
 
-    protected String message;
-    protected String fieldName;
-    protected String toFieldName;
-    protected Throwable sourceError;
-    protected Locale locale;
-    protected String propertyResource;
-    protected String propertyName;
-    protected boolean isError = true;
+    private String message;
+    private String fieldName;
+    private String toFieldName;
+    private Throwable sourceError;
+    private Locale locale;
+    private String propertyResource;
+    private String propertyName;
+    private boolean isError = true;
 
     public static List<Object> getMessagesForField(String fieldName, boolean convertToStrings, List<Object> messageStringList) {
         if (fieldName == null) {

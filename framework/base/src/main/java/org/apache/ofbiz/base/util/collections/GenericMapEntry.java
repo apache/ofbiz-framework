@@ -24,9 +24,9 @@ import java.util.Objects;
 import org.apache.ofbiz.base.util.UtilObject;
 
 public class GenericMapEntry<K, V> implements Map.Entry<K, V> {
-    protected final GenericMap<K, V> map;
-    protected final K key;
-    protected final boolean noteAccess;
+    private final GenericMap<K, V> map;
+    private final K key;
+    private final boolean noteAccess;
 
     public GenericMapEntry(GenericMap<K, V> map, K key, boolean noteAccess) {
         this.map = map;

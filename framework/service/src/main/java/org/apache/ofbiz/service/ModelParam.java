@@ -43,57 +43,57 @@ public class ModelParam implements Serializable {
     private static final String MODULE = ModelParam.class.getName();
 
     /** Parameter name */
-    public String name;
+    private String name;
 
     /** The description of this parameter */
-    public String description;
+    private String description;
 
     /** Paramater type */
-    public String type;
+    private String type;
 
     /** Parameter mode (IN/OUT/INOUT) */
-    public String mode;
+    private String mode;
 
     /** The form label */
-    public String formLabel;
+    private String formLabel;
 
     /** The entity name */
-    public String entityName;
+    private String entityName;
 
     /** The entity field name */
-    public String fieldName;
+    private String fieldName;
 
     /** Request attribute to look for if not defined as a parameter */
-    public String requestAttributeName;
+    private String requestAttributeName;
 
     /** Session attribute to look for if not defined as a parameter */
-    public String sessionAttributeName;
+    private String sessionAttributeName;
 
     /** Parameter prefix for creating an attribute Map */
-    public String stringMapPrefix;
+    private String stringMapPrefix;
 
     /** Parameter suffix for creating an attribute List */
-    public String stringListSuffix;
+    private String stringListSuffix;
 
     /** Validation methods */
-    public List<ModelParamValidator> validators;
+    private List<ModelParamValidator> validators;
 
     /** Default value */
     private FlexibleStringExpander defaultValue = null;
 
     /** Is this Parameter required or optional? Default to false, or required */
-    public boolean optional = false;
-    public boolean overrideOptional = false;
+    private boolean optional = false;
+    private boolean overrideOptional = false;
 
     /** Is this parameter to be displayed via the form tool? */
-    public boolean formDisplay = true;
-    public boolean overrideFormDisplay = false;
+    private boolean formDisplay = true;
+    private boolean overrideFormDisplay = false;
 
     /** Default value */
-    public String allowHtml = null;
+    private String allowHtml = null;
 
     /** Is this Parameter set internally? */
-    public boolean internal = false;
+    private boolean internal = false;
 
     public ModelParam() { }
 
@@ -121,14 +121,32 @@ public class ModelParam implements Serializable {
         this.internal = param.internal;
     }
 
+    /**
+     * Add validator.
+     * @param className   the class name
+     * @param methodName  the method name
+     * @param failMessage the fail message
+     */
     public void addValidator(String className, String methodName, String failMessage) {
         validators.add(new ModelParamValidator(className, methodName, failMessage, null, null));
     }
 
+    /**
+     * Add validator.
+     * @param className    the class name
+     * @param methodName   the method name
+     * @param failResource the fail resource
+     * @param failProperty the fail property
+     */
     public void addValidator(String className, String methodName, String failResource, String failProperty) {
         validators.add(new ModelParamValidator(className, methodName, null, failResource, failProperty));
     }
 
+    /**
+     * Gets primary fail message.
+     * @param locale the locale
+     * @return the primary fail message
+     */
     public String getPrimaryFailMessage(Locale locale) {
         if (UtilValidate.isNotEmpty(validators)) {
             return validators.get(0).getFailMessage(locale);
@@ -136,61 +154,340 @@ public class ModelParam implements Serializable {
         return null;
     }
 
+    /**
+     * Gets short display description.
+     * @return the short display description
+     */
     public String getShortDisplayDescription() {
         return this.name + "[" + this.type + "-" + this.mode + "]" + (optional ? "" : "*");
     }
 
+    /**
+     * Gets name.
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
-    // Method to retrieve form-label from model parameter object in freemarker
+
+    /**
+     * Sets mode.
+     * @param mode the mode
+     */
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * Gets validators.
+     * @return the validators
+     */
+    public List<ModelParamValidator> getValidators() {
+        return validators;
+    }
+
+    /**
+     * Sets form display.
+     * @param formDisplay the form display
+     */
+    public void setFormDisplay(boolean formDisplay) {
+        this.formDisplay = formDisplay;
+    }
+
+    /**
+     * Sets description.
+     * @param description the description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Sets override optional.
+     * @param overrideOptional the override optional
+     */
+    public void setOverrideOptional(boolean overrideOptional) {
+        this.overrideOptional = overrideOptional;
+    }
+
+    /**
+     * Sets override form display.
+     * @param overrideFormDisplay the override form display
+     */
+    public void setOverrideFormDisplay(boolean overrideFormDisplay) {
+        this.overrideFormDisplay = overrideFormDisplay;
+    }
+
+    /**
+     * Sets validators.
+     * @param validators the validators
+     */
+    public void setValidators(List<ModelParamValidator> validators) {
+        this.validators = validators;
+    }
+
+    /**
+     * Sets internal.
+     * @param internal the internal
+     */
+    public void setInternal(boolean internal) {
+        this.internal = internal;
+    }
+
+    /**
+     * Sets request attribute name.
+     * @param requestAttributeName the request attribute name
+     */
+    public void setRequestAttributeName(String requestAttributeName) {
+        this.requestAttributeName = requestAttributeName;
+    }
+
+    /**
+     * Sets session attribute name.
+     * @param sessionAttributeName the session attribute name
+     */
+    public void setSessionAttributeName(String sessionAttributeName) {
+        this.sessionAttributeName = sessionAttributeName;
+    }
+
+    /**
+     * Sets string map prefix.
+     * @param stringMapPrefix the string map prefix
+     */
+    public void setStringMapPrefix(String stringMapPrefix) {
+        this.stringMapPrefix = stringMapPrefix;
+    }
+
+    /**
+     * Sets string list suffix.
+     * @param stringListSuffix the string list suffix
+     */
+    public void setStringListSuffix(String stringListSuffix) {
+        this.stringListSuffix = stringListSuffix;
+    }
+
+    /**
+     * Sets name.
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets allow html.
+     * @param allowHtml the allow html
+     */
+    public void setAllowHtml(String allowHtml) {
+        this.allowHtml = allowHtml;
+    }
+
+    /**
+     * Gets allow html.
+     * @return the allow html
+     */
+    public String getAllowHtml() {
+        return allowHtml;
+    }
+
+    /**
+     * Gets request attribute name.
+     * @return the request attribute name
+     */
+    public String getRequestAttributeName() {
+        return requestAttributeName;
+    }
+
+    /**
+     * Gets session attribute name.
+     * @return the session attribute name
+     */
+    public String getSessionAttributeName() {
+        return sessionAttributeName;
+    }
+
+    /**
+     * Is override optional boolean.
+     * @return the boolean
+     */
+    public boolean isOverrideOptional() {
+        return overrideOptional;
+    }
+
+    /**
+     * Is form display boolean.
+     * @return the boolean
+     */
+    public boolean isFormDisplay() {
+        return formDisplay;
+    }
+
+    /**
+     * Is override form display boolean.
+     * @return the boolean
+     */
+    public boolean isOverrideFormDisplay() {
+        return overrideFormDisplay;
+    }
+
+    /**
+     * Sets type.
+     * @param type the type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * Sets form label.
+     * @param formLabel the form label
+     */
+    public void setFormLabel(String formLabel) {
+        this.formLabel = formLabel;
+    }
+
+    /**
+     * Sets entity name.
+     * @param entityName the entity name
+     */
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
+
+    /**
+     * Sets field name.
+     * @param fieldName the field name
+     */
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    /**
+     * Is internal boolean.
+     * @return the boolean
+     */
+    public boolean isInternal() {
+        return internal;
+    }
+
+    /**
+     * Sets optional.
+     * @param optional the optional
+     */
+    public void setOptional(boolean optional) {
+        this.optional = optional;
+    }
+
+    /**
+     * Gets string map prefix.
+     * @return the string map prefix
+     */
+    public String getStringMapPrefix() {
+        return stringMapPrefix;
+    }
+
+    /**
+     * Gets string list suffix.
+     * @return the string list suffix
+     */
+    public String getStringListSuffix() {
+        return stringListSuffix;
+    }
+
+    /**
+     * Gets form label.
+     * @return the form label
+     */
+// Method to retrieve form-label from model parameter object in freemarker
     public String getFormLabel() {
         return this.formLabel;
     }
 
+    /**
+     * Gets type.
+     * @return the type
+     */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * Gets mode.
+     * @return the mode
+     */
     public String getMode() {
         return this.mode;
     }
 
+    /**
+     * Gets entity name.
+     * @return the entity name
+     */
     public String getEntityName() {
         return this.entityName;
     }
 
+    /**
+     * Gets field name.
+     * @return the field name
+     */
     public String getFieldName() {
         return this.fieldName;
     }
 
+    /**
+     * Gets internal.
+     * @return the internal
+     */
     public boolean getInternal() {
         return this.internal;
     }
 
+    /**
+     * Is in boolean.
+     * @return the boolean
+     */
     public boolean isIn() {
         return ModelService.IN_PARAM.equals(this.mode) || ModelService.IN_OUT_PARAM.equals(this.mode);
     }
 
+    /**
+     * Is out boolean.
+     * @return the boolean
+     */
     public boolean isOut() {
         return ModelService.OUT_PARAM.equals(this.mode) || ModelService.IN_OUT_PARAM.equals(this.mode);
     }
 
+    /**
+     * Is optional boolean.
+     * @return the boolean
+     */
     public boolean isOptional() {
         return this.optional;
     }
 
+    /**
+     * Gets default value.
+     * @return the default value
+     */
     public FlexibleStringExpander getDefaultValue() {
         return this.defaultValue;
     }
 
+    /**
+     * Gets default value.
+     * @param context the context
+     * @return the default value
+     */
     public Object getDefaultValue(Map<String, Object> context) {
         Object defaultValueObj = null;
         if (this.type != null) {
             try {
                 defaultValueObj = ObjectType.simpleTypeOrObjectConvert(this.defaultValue.expandString(context), this.type, null, null, false);
             } catch (Exception e) {
-                Debug.logWarning(e, "Service attribute [" + name + "] default value could not be converted to type [" + type + "]: " + e.toString(), MODULE);
+                Debug.logWarning(e, "Service attribute [" + name + "] default value could not be converted to type [" + type + "]: "
+                        + e.toString(), MODULE);
             }
             if (defaultValueObj == null) {
                 // uh-oh, conversion failed, set the String and see what happens
@@ -201,6 +498,11 @@ public class ModelParam implements Serializable {
         }
         return defaultValueObj;
     }
+
+    /**
+     * Sets default value.
+     * @param defaultValue the default value
+     */
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = FlexibleStringExpander.getInstance(defaultValue);
         if (this.defaultValue != null) {
@@ -210,10 +512,20 @@ public class ModelParam implements Serializable {
             Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", MODULE);
         }
     }
+
+    /**
+     * Copy default value.
+     * @param param the param
+     */
     public void copyDefaultValue(ModelParam param) {
         this.setDefaultValue(param.defaultValue.getOriginal());
     }
 
+    /**
+     * Equals boolean.
+     * @param model the model
+     * @return the boolean
+     */
     public boolean equals(ModelParam model) {
         return model.name.equals(this.name);
     }
@@ -257,6 +569,11 @@ public class ModelParam implements Serializable {
         return buf.toString();
     }
 
+    /**
+     * Gets wsdl part.
+     * @param def the def
+     * @return the wsdl part
+     */
     public Part getWSDLPart(Definition def) {
         Part part = def.createPart();
         part.setName(this.name);
@@ -264,6 +581,10 @@ public class ModelParam implements Serializable {
         return part;
     }
 
+    /**
+     * Java 2 wsdl type string.
+     * @return the string
+     */
     protected String java2wsdlType() {
         if (ObjectType.instanceOf(java.lang.Character.class, this.type)) {
             return "std-String";
@@ -311,11 +632,11 @@ public class ModelParam implements Serializable {
     }
 
     static class ModelParamValidator implements Serializable {
-        protected String className;
-        protected String methodName;
-        protected String failMessage;
-        protected String failResource;
-        protected String failProperty;
+        private String className;
+        private String methodName;
+        private String failMessage;
+        private String failResource;
+        private String failProperty;
 
         ModelParamValidator(String className, String methodName, String failMessage, String failResource, String failProperty) {
             this.className = className;

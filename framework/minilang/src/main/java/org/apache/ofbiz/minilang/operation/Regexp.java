@@ -39,7 +39,7 @@ public class Regexp extends SimpleMapOperation {
 
     private static final String MODULE = Regexp.class.getName();
     private Pattern pattern = null;
-    String expr;
+    private String expr;
 
     public Regexp(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
@@ -53,7 +53,7 @@ public class Regexp extends SimpleMapOperation {
 
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        Object obj = inMap.get(fieldName);
+        Object obj = inMap.get(getFieldName());
         String fieldValue = null;
         try {
             fieldValue = (String) ObjectType.simpleTypeOrObjectConvert(obj, "String", null, locale);

@@ -32,10 +32,10 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 public class CursorStatement extends AbstractCursorHandler {
 
     private static final String MODULE = CursorStatement.class.getName();
-    protected ResultSet currentResultSet;
-    protected Statement stmt;
-    protected boolean beganTransaction;
-    protected boolean autoCommit;
+    private ResultSet currentResultSet;
+    private Statement stmt;
+    private boolean beganTransaction;
+    private boolean autoCommit;
 
     protected CursorStatement(Statement stmt, String cursorName, int fetchSize) throws GenericTransactionException, SQLException {
         super(cursorName, fetchSize);
@@ -53,7 +53,7 @@ public class CursorStatement extends AbstractCursorHandler {
             TransactionUtil.commit(beganTransaction);
             stmt.close();
             return null;
-        } else if ("execute".equals(method.getName())) {
+        // } else if ("execute".equals(method.getName())) {
         } else if ("executeQuery".equals(method.getName()) && args == null) {
             PreparedStatement pstmt = (PreparedStatement) stmt;
             pstmt.executeUpdate();

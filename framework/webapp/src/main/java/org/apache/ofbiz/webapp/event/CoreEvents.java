@@ -222,7 +222,7 @@ public class CoreEvents {
             serviceContext.put("locale", locale);
         }
 
-        if (!modelService.export && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
+        if (!modelService.isExport() && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -310,10 +310,10 @@ public class CoreEvents {
             if (parsedValue > -2) {
                 maxRetry = parsedValue;
             } else {
-                maxRetry = modelService.maxRetry;
+                maxRetry = modelService.getMaxRetry();
             }
         } else {
-            maxRetry = modelService.maxRetry;
+            maxRetry = modelService.getMaxRetry();
         }
 
         // return the errors
@@ -418,7 +418,7 @@ public class CoreEvents {
         }
     }
 
-    public static ServiceEventHandler seh = new ServiceEventHandler();
+    private static ServiceEventHandler seh = new ServiceEventHandler();
 
     /**
      * Run a service.
@@ -464,7 +464,7 @@ public class CoreEvents {
             return "error";
         }
 
-        if (!modelService.export && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
+        if (!modelService.isExport() && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg + ".");
             return "error";
