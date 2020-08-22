@@ -40,19 +40,19 @@ public class NamingServiceContainer implements Container {
 
     private static final String MODULE = NamingServiceContainer.class.getName();
 
-    protected String configFileLocation = null;
-    protected boolean isRunning = false;
-    protected Registry registry = null;
-    protected int namingPort = 1099;
-    protected String namingHost = null;
+    private String configFileLocation = null;
+    private boolean isRunning = false;
+    private Registry registry = null;
+    private int namingPort = 1099;
+    private String namingHost = null;
 
-    protected RMIExtendedSocketFactory rmiSocketFactory;
+    private RMIExtendedSocketFactory rmiSocketFactory;
 
     private String name;
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
-        this.name =name;
+        this.name = name;
         this.configFileLocation = configFile;
 
         Configuration cfg = ContainerConfig.getConfiguration(name);
@@ -62,7 +62,7 @@ public class NamingServiceContainer implements Container {
         Configuration.Property port = cfg.getProperty("port");
         if (port.value() != null) {
             try {
-                this.namingPort = Integer.parseInt(port.value()) + Start.getInstance().getConfig().portOffset;
+                this.namingPort = Integer.parseInt(port.value()) + Start.getInstance().getConfig().getPortOffset();
             } catch (Exception e) {
                 throw new ContainerException("Invalid port defined in container [naming-container] configuration or as portOffset; not a valid int");
             }

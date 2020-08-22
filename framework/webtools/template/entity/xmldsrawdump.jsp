@@ -33,7 +33,7 @@ under the License.
           response.setContentType("text/xml; charset=UTF-8");
           //UtilXml.writeXmlDocument(, document);
 
-          if(passedEntityNames.size() > 0) {
+          if(!passedEntityNames.isEmpty()) {
             numberOfEntities = passedEntityNames.size();
 
             PrintWriter writer = null;

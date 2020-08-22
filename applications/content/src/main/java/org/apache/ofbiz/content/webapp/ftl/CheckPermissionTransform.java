@@ -152,7 +152,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     }
                 }
                 List<String> targetOperationList = StringUtil.split(targetOperation, "|");
-                if (targetOperationList.size() == 0) {
+                if (targetOperationList.isEmpty()) {
                     throw new IOException("targetOperationList has zero size.");
                 }
                 List<String> roleList = new LinkedList<>();

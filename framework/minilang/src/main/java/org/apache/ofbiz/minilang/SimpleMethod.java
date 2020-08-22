@@ -508,7 +508,7 @@ public final class SimpleMethod extends MiniLangElement {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             boolean forceError = false;
             String tempErrorMsg = (String) methodContext.getEnv(eventErrorMessageName);
-            if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
+            if (!errorMsg.isEmpty() || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
                 forceError = true;
@@ -547,7 +547,7 @@ public final class SimpleMethod extends MiniLangElement {
         } else {
             boolean forceError = false;
             String tempErrorMsg = (String) methodContext.getEnv(serviceErrorMessageName);
-            if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
+            if (!errorMsg.isEmpty() || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
                 methodContext.putResult(ModelService.ERROR_MESSAGE, errorMsg);
                 forceError = true;

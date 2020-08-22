@@ -166,9 +166,9 @@ public class ThemeFactory {
      */
     public static List<VisualTheme> getAvailableThemes(Delegator delegator, String visualThemeSetId)
     throws GenericEntityException {
-        if (themeVisualThemeIdCache.size() == 0) {
+        if (themeVisualThemeIdCache.isEmpty()) {
             synchronized (ThemeFactory.class) {
-                if (themeVisualThemeIdCache.size() == 0) {
+                if (themeVisualThemeIdCache.isEmpty()) {
                     pullModelThemesFromXmlToCache();
                 }
             }

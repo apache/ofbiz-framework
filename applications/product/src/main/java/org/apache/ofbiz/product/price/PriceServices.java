@@ -121,7 +121,7 @@ public class PriceServices {
                         // no ProductStore.primaryStoreGroupId, try ProductStoreGroupMember
                         List<GenericValue> productStoreGroupMemberList = EntityQuery.use(delegator).from("ProductStoreGroupMember").where("productStoreId", productStoreId).orderBy("sequenceNum", "-fromDate").cache(true).queryList();
                         productStoreGroupMemberList = EntityUtil.filterByDate(productStoreGroupMemberList, true);
-                        if (productStoreGroupMemberList.size() > 0) {
+                        if (!productStoreGroupMemberList.isEmpty()) {
                             GenericValue productStoreGroupMember = EntityUtil.getFirst(productStoreGroupMemberList);
                             productStoreGroupId = productStoreGroupMember.getString("productStoreGroupId");
                         }

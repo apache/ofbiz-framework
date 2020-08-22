@@ -185,7 +185,7 @@ public final class EntityExpr implements EntityCondition {
 
         if (value instanceof Collection<?>) {
             Collection<?> valueCol = UtilGenerics.cast(value);
-            if (valueCol.size() > 0) {
+            if (!valueCol.isEmpty()) {
                 value = valueCol.iterator().next();
             } else {
                 value = null;

@@ -318,7 +318,7 @@ public class ObjectType {
         if (sourceClass.equals(targetClass)) {
             return obj;
         }
-        if (obj instanceof String && ((String) obj).length() == 0) {
+        if (obj instanceof String && ((String) obj).isEmpty()) {
             return null;
         }
         Converter<Object, Object> converter = null;
@@ -461,13 +461,13 @@ public class ObjectType {
             if (convertedValue1 == null) {
                 return Boolean.TRUE;
             }
-            if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0) {
+            if (convertedValue1 instanceof String && ((String) convertedValue1).isEmpty()) {
                 return Boolean.TRUE;
             }
-            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).isEmpty()) {
                 return Boolean.TRUE;
             }
-            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).isEmpty()) {
                 return Boolean.TRUE;
             }
             return Boolean.FALSE;
@@ -475,13 +475,13 @@ public class ObjectType {
             if (convertedValue1 == null) {
                 return Boolean.FALSE;
             }
-            if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0) {
+            if (convertedValue1 instanceof String && ((String) convertedValue1).isEmpty()) {
                 return Boolean.FALSE;
             }
-            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).isEmpty()) {
                 return Boolean.FALSE;
             }
-            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).isEmpty()) {
                 return Boolean.FALSE;
             }
             return Boolean.TRUE;
@@ -491,11 +491,11 @@ public class ObjectType {
             String str1 = (String) convertedValue1;
             String str2 = (String) convertedValue2;
 
-            if (str1.length() == 0 || str2.length() == 0) {
+            if (str1.isEmpty() || str2.isEmpty()) {
                 if ("equals".equals(operator)) {
-                    return str1.length() == 0 && str2.length() == 0 ? Boolean.TRUE : Boolean.FALSE;
+                    return str1.isEmpty() && str2.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
                 } else if ("not-equals".equals(operator)) {
-                    return str1.length() == 0 && str2.length() == 0 ? Boolean.FALSE : Boolean.TRUE;
+                    return str1.isEmpty() && str2.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
                 } else {
                     messages.add("ERROR: Could not do a compare between strings with one empty string for the operator " + operator);
                     return Boolean.FALSE;
@@ -603,13 +603,13 @@ public class ObjectType {
         }
 
         if (value instanceof String) {
-            return ((String) value).length() == 0;
+            return ((String) value).isEmpty();
         }
         if (value instanceof Collection) {
-            return ((Collection<? extends Object>) value).size() == 0;
+            return ((Collection<? extends Object>) value).isEmpty();
         }
         if (value instanceof Map) {
-            return ((Map<? extends Object, ? extends Object>) value).size() == 0;
+            return ((Map<? extends Object, ? extends Object>) value).isEmpty();
         }
         if (value instanceof CharSequence) {
             return ((CharSequence) value).length() == 0;

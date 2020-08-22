@@ -64,17 +64,17 @@ public class ContentMapFacade implements Map<Object, Object> {
         mapKeySet.add("render");
     }
 
-    protected final LocalDispatcher dispatcher;
-    protected final Delegator delegator;
-    protected final String contentId;
-    protected final GenericValue value;
-    protected final Map<String, Object> context;
-    protected final Locale locale;
-    protected final String mimeType;
-    protected final boolean cache;
-    protected boolean allowRender = true;
-    protected boolean isDecorated = false;
-    protected ContentMapFacade decoratedContent = null;
+    private final LocalDispatcher dispatcher;
+    private final Delegator delegator;
+    private final String contentId;
+    private final GenericValue value;
+    private final Map<String, Object> context;
+    private final Locale locale;
+    private final String mimeType;
+    private final boolean cache;
+    private boolean allowRender = true;
+    private boolean isDecorated = false;
+    private ContentMapFacade decoratedContent = null;
 
     // internal objects
     private String sortOrder = "-fromDate";
@@ -200,7 +200,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             Debug.logWarning("sortOrder parameters must be a string", MODULE);
             return;
         }
-        this.sortOrder=(String) obj;
+        this.sortOrder = (String) obj;
         this.subContent.setSortOrder(obj);
     }
 
@@ -209,7 +209,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             Debug.logWarning("mapKeyFilter parameters must be a string", MODULE);
             return;
         }
-        this.mapKeyFilter=(String) obj;
+        this.mapKeyFilter = (String) obj;
     }
 
     public void setStatusFilter(Object obj) {
@@ -217,7 +217,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             Debug.logWarning("statusFilter parameters must be a string", MODULE);
             return;
         }
-        this.statusFilter=(String) obj;
+        this.statusFilter = (String) obj;
         this.subContent.setStatusFilter(obj);
     }
 

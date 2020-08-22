@@ -238,7 +238,7 @@ public class ShoppingCartEvents {
         } else if (paramMap.containsKey("add_category_id")) {
             productCategoryId = (String) paramMap.remove("add_category_id");
         }
-        if (productCategoryId != null && productCategoryId.length() == 0) {
+        if (productCategoryId != null && productCategoryId.isEmpty()) {
             productCategoryId = null;
         }
 
@@ -271,7 +271,7 @@ public class ShoppingCartEvents {
         } else if (paramMap.containsKey("add_item_description")) {
             itemDescription = (String) paramMap.remove("add_item_description");
         }
-        if (itemDescription != null && itemDescription.length() == 0) {
+        if (itemDescription != null && itemDescription.isEmpty()) {
             itemDescription = null;
         }
 
@@ -365,7 +365,7 @@ public class ShoppingCartEvents {
                  {
                     reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                 }
-                if (reservStartStr.length() > 0) {
+                if (!reservStartStr.isEmpty()) {
                     try {
                         reservStart = java.sql.Timestamp.valueOf(reservStartStr);
                     } catch (Exception e) {
@@ -386,7 +386,7 @@ public class ShoppingCartEvents {
                  {
                     reservEndStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                 }
-                if (reservEndStr.length() > 0) {
+                if (!reservEndStr.isEmpty()) {
                     try {
                         reservEnd = java.sql.Timestamp.valueOf(reservEndStr);
                     } catch (Exception e) {
@@ -1719,7 +1719,7 @@ public class ShoppingCartEvents {
                 if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                     cart.setBillFromVendorPartyId(partyId);
                 }
-            } else if (partyId != null && partyId.length() == 0) {
+            } else if (partyId != null && partyId.isEmpty()) {
                 cart.setOrderPartyId("_NA_");
                 partyId = null;
             }

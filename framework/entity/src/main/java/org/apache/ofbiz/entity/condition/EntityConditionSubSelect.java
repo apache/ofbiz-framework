@@ -39,10 +39,10 @@ import org.apache.ofbiz.entity.model.ModelViewEntity;
 public class EntityConditionSubSelect extends EntityConditionValue {
     private static final String MODULE = EntityConditionSubSelect.class.getName();
 
-    protected ModelEntity localModelEntity = null;
-    protected String keyFieldName = null;
-    protected EntityCondition whereCond = null;
-    protected Boolean requireAll = null;
+    private ModelEntity localModelEntity = null;
+    private String keyFieldName = null;
+    private EntityCondition whereCond = null;
+    private Boolean requireAll = null;
 
     protected EntityConditionSubSelect() { }
 
@@ -86,8 +86,8 @@ public class EntityConditionSubSelect extends EntityConditionValue {
             }
 
             String viewClause = SqlJdbcUtil.makeViewWhereClause(localModelEntity, (datasourceInfo != null ? datasourceInfo.getJoinStyle() : null));
-            if (viewClause.length() > 0) {
-                if (entityCondWhereString.length() > 0) {
+            if (!viewClause.isEmpty()) {
+                if (!entityCondWhereString.isEmpty()) {
                     whereString.append("(");
                     whereString.append(entityCondWhereString);
                     whereString.append(") AND ");

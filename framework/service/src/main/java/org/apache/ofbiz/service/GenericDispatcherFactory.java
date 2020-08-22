@@ -29,6 +29,8 @@ import org.apache.ofbiz.entity.Delegator;
  */
 public class GenericDispatcherFactory implements LocalDispatcherFactory {
 
+    private static final String MODULE = GenericDispatcherFactory.class.getName();
+
     private static boolean ecasDisabled = false;
 
     @Override
@@ -38,7 +40,8 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
         }
         // attempts to retrieve an already registered DispatchContext with the name "name"
         LocalDispatcher dispatcher = ServiceDispatcher.getLocalDispatcher(name, delegator);
-        // if not found then create a new GenericDispatcher object; the constructor will also register a new DispatchContext in the ServiceDispatcher with name "dispatcherName"
+        // if not found then create a new GenericDispatcher object; the constructor will also register a new DispatchContext in the
+        // ServiceDispatcher with name "dispatcherName"
         if (dispatcher == null) {
             dispatcher = new GenericDispatcher(name, delegator);
         }
@@ -47,7 +50,6 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
 
     // The default LocalDispatcher implementation.
     private static class GenericDispatcher extends GenericAbstractDispatcher {
-
         private GenericDispatcher(String name, Delegator delegator) {
             ClassLoader loader;
             try {
@@ -55,15 +57,15 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
             } catch (SecurityException e) {
                 loader = this.getClass().getClassLoader();
             }
-            this.name = name;
-            this.dispatcher = ServiceDispatcher.getInstance(delegator);
+            this.setName(name);
+            this.setDispatcher(ServiceDispatcher.getInstance(delegator));
             /*
              * FIXME: "this" reference escape. DispatchContext constructor uses
              * this object before it is fully constructed.
              */
             DispatchContext ctx = new DispatchContext(name, loader, this);
-            this.dispatcher.register(ctx);
-            this.ctx = ctx;
+            this.getDispatcher().register(ctx);
+            this.setCtx(ctx);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("[GenericDispatcher] : Created Dispatcher for: " + name, MODULE);
             }
@@ -85,128 +87,148 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
         }
 
         @Override
-        public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context) throws ServiceValidationException, GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
-            return dispatcher.runSync(this.name, service, context);
+        public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context)
+                throws ServiceValidationException, GenericServiceException {
+            ModelService service = getCtx().getModelService(serviceName);
+            return getDispatcher().runSync(this.getName(), service, context);
         }
 
         @Override
-        public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
+        public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context, int transactionTimeout,
+                                           boolean requireNewTransaction)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+            ModelService service = getCtx().getModelService(serviceName);
             // clone the model service for updates
             ModelService cloned = new ModelService(service);
-            cloned.requireNewTransaction = requireNewTransaction;
+            cloned.setRequireNewTransaction(requireNewTransaction);
             if (requireNewTransaction) {
-                cloned.useTransaction = true;
+                cloned.setUseTransaction(true);
             }
             if (transactionTimeout != -1) {
-                cloned.transactionTimeout = transactionTimeout;
+                cloned.setTransactionTimeout(transactionTimeout);
             }
-            return dispatcher.runSync(this.name, cloned, context);
+            return getDispatcher().runSync(this.getName(), cloned, context);
         }
 
         @Override
-        public Map<String, Object> runSync(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public Map<String, Object> runSync(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             return runSync(serviceName, ServiceUtil.makeContext(context), transactionTimeout, requireNewTransaction);
         }
 
         @Override
         public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
-            dispatcher.runSyncIgnore(this.name, service, context);
+            ModelService service = getCtx().getModelService(serviceName);
+            getDispatcher().runSyncIgnore(this.getName(), service, context);
         }
 
         @Override
-        public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
+        public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+            ModelService service = getCtx().getModelService(serviceName);
             // clone the model service for updates
             ModelService cloned = new ModelService(service);
-            cloned.requireNewTransaction = requireNewTransaction;
+            cloned.setRequireNewTransaction(requireNewTransaction);
             if (requireNewTransaction) {
-                cloned.useTransaction = true;
+                cloned.setUseTransaction(true);
             }
             if (transactionTimeout != -1) {
-                cloned.transactionTimeout = transactionTimeout;
+                cloned.setTransactionTimeout(transactionTimeout);
             }
-            dispatcher.runSyncIgnore(this.name, cloned, context);
+            getDispatcher().runSyncIgnore(this.getName(), cloned, context);
         }
 
         @Override
-        public void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runSyncIgnore(serviceName, ServiceUtil.makeContext(context), transactionTimeout, requireNewTransaction);
         }
 
         @Override
-        public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
+        public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist,
+                             int transactionTimeout, boolean requireNewTransaction)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+            ModelService service = getCtx().getModelService(serviceName);
             // clone the model service for updates
             ModelService cloned = new ModelService(service);
-            cloned.requireNewTransaction = requireNewTransaction;
+            cloned.setRequireNewTransaction(requireNewTransaction);
             if (requireNewTransaction) {
-                cloned.useTransaction = true;
+                cloned.setUseTransaction(true);
             }
             if (transactionTimeout != -1) {
-                cloned.transactionTimeout = transactionTimeout;
+                cloned.setTransactionTimeout(transactionTimeout);
             }
-            dispatcher.runAsync(this.name, cloned, context, requester, persist);
+            getDispatcher().runAsync(this.getName(), cloned, context, requester, persist);
         }
 
         @Override
-        public void runAsync(String serviceName, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runAsync(String serviceName, GenericRequester requester, boolean persist, int transactionTimeout,
+                             boolean requireNewTransaction, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, ServiceUtil.makeContext(context), requester, persist, transactionTimeout, requireNewTransaction);
         }
 
         @Override
-        public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
-            dispatcher.runAsync(this.name, service, context, requester, persist);
+        public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+            ModelService service = getCtx().getModelService(serviceName);
+            getDispatcher().runAsync(this.getName(), service, context, requester, persist);
         }
 
         @Override
-        public void runAsync(String serviceName, GenericRequester requester, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runAsync(String serviceName, GenericRequester requester, boolean persist, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, ServiceUtil.makeContext(context), requester, persist);
         }
 
         @Override
-        public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, context, requester, true);
         }
 
         @Override
-        public void runAsync(String serviceName, GenericRequester requester, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runAsync(String serviceName, GenericRequester requester, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, ServiceUtil.makeContext(context), requester);
         }
 
         @Override
-        public void runAsync(String serviceName, Map<String, ? extends Object> context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-            ModelService service = ctx.getModelService(serviceName);
-            dispatcher.runAsync(this.name, service, context, persist);
+        public void runAsync(String serviceName, Map<String, ? extends Object> context, boolean persist)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+            ModelService service = getCtx().getModelService(serviceName);
+            getDispatcher().runAsync(this.getName(), service, context, persist);
         }
 
         @Override
-        public void runAsync(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runAsync(String serviceName, boolean persist, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, ServiceUtil.makeContext(context), persist);
         }
 
         @Override
-        public void runAsync(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public void runAsync(String serviceName, Map<String, ? extends Object> context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, context, true);
         }
 
         @Override
-        public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context, boolean persist)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             GenericResultWaiter waiter = new GenericResultWaiter();
             this.runAsync(serviceName, context, waiter, persist);
             return waiter;
         }
 
         @Override
-        public GenericResultWaiter runAsyncWait(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public GenericResultWaiter runAsyncWait(String serviceName, boolean persist, Object... context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             return runAsyncWait(serviceName, ServiceUtil.makeContext(context), persist);
         }
 
         @Override
-        public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context)
+                throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             return runAsyncWait(serviceName, context, true);
         }
     }

@@ -100,7 +100,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     if ((newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/')
-                    && (requestUrl.length()> 0 && requestUrl.charAt(0) != '/')) {
+                    && (!requestUrl.isEmpty() && requestUrl.charAt(0) != '/')) {
                         newURL.append('/');
                     }
 

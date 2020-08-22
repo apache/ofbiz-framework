@@ -118,7 +118,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out
-        if (messages.size() > 0) {
+        if (!messages.isEmpty()) {
             for (Object message: messages) {
                 Debug.logWarning((String) message, MODULE);
             }

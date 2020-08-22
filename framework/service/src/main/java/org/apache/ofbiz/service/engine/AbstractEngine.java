@@ -38,9 +38,17 @@ public abstract class AbstractEngine implements GenericEngine {
 
     private static final String MODULE = AbstractEngine.class.getName();
     /** Map containing aliases for service implementation locations. */
-    protected static final Map<String, String> locationMap = createLocationMap();
+    private static final Map<String, String> LOCATION_MAP = createLocationMap();
 
-    protected ServiceDispatcher dispatcher;
+    /**
+     * Gets dispatcher.
+     * @return the dispatcher
+     */
+    public ServiceDispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    private ServiceDispatcher dispatcher;
 
     protected AbstractEngine(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;
@@ -72,14 +80,14 @@ public abstract class AbstractEngine implements GenericEngine {
      * @return the actual location where to find the service implementation
      */
     protected String getLocation(ModelService model) {
-        return locationMap.getOrDefault(model.location, model.location);
+        return LOCATION_MAP.getOrDefault(model.getLocation(), model.getLocation());
     }
 
     @Override
     public void sendCallbacks(ModelService model, Map<String, Object> context, int mode)
             throws GenericServiceException {
         if (allowCallbacks(model, context, mode)) {
-            dispatcher.getCallbacks(model.name).forEach(gsc -> gsc.receiveEvent(context));
+            dispatcher.getCallbacks(model.getName()).forEach(gsc -> gsc.receiveEvent(context));
         }
     }
 
@@ -87,7 +95,7 @@ public abstract class AbstractEngine implements GenericEngine {
     public void sendCallbacks(ModelService model, Map<String, Object> context, Throwable t, int mode)
             throws GenericServiceException {
         if (allowCallbacks(model, context, mode)) {
-            dispatcher.getCallbacks(model.name).forEach(gsc -> gsc.receiveEvent(context, t));
+            dispatcher.getCallbacks(model.getName()).forEach(gsc -> gsc.receiveEvent(context, t));
         }
     }
 
@@ -95,7 +103,7 @@ public abstract class AbstractEngine implements GenericEngine {
     public void sendCallbacks(ModelService model, Map<String, Object> context, Map<String, Object> result, int mode)
             throws GenericServiceException {
         if (allowCallbacks(model, context, mode)) {
-            dispatcher.getCallbacks(model.name).forEach(gsc -> gsc.receiveEvent(context, result));
+            dispatcher.getCallbacks(model.getName()).forEach(gsc -> gsc.receiveEvent(context, result));
         }
     }
 

@@ -537,7 +537,7 @@ public class EntitySyncContext {
 
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
-        if (logValues && valuesToCreate.size() > 0) {
+        if (logValues && !valuesToCreate.isEmpty()) {
             StringBuilder toCreateInfo = new StringBuilder();
             for (GenericValue valueToCreate: valuesToCreate) {
                 toCreateInfo.append("\n-->[");
@@ -552,7 +552,7 @@ public class EntitySyncContext {
 
         // As the this.nextCreateTxTime calculation is only based on entities without values to create, if there at least one value to create returned
         // this calculation is false, so it needs to be nullified
-        if (valuesToCreate.size() > 0) {
+        if (!valuesToCreate.isEmpty()) {
             this.nextCreateTxTime = null;
         }
 
@@ -704,7 +704,7 @@ public class EntitySyncContext {
 
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
-        if (logValues && valuesToStore.size() > 0) {
+        if (logValues && !valuesToStore.isEmpty()) {
             StringBuilder toStoreInfo = new StringBuilder();
             for (GenericValue valueToStore: valuesToStore) {
                 toStoreInfo.append("\n-->[");
@@ -719,7 +719,7 @@ public class EntitySyncContext {
 
         // As the this.nextUpdateTxTime calculation is only based on entities without values to store, if there at least one value to store returned
         // this calculation is false, so it needs to be nullified
-        if (valuesToStore.size() > 0) {
+        if (!valuesToStore.isEmpty()) {
             this.nextUpdateTxTime = null;
         }
 
@@ -788,7 +788,7 @@ public class EntitySyncContext {
             removeEli.close();
 
             // if we didn't find anything for this entity, find the next value's Timestamp and keep track of it
-            if (keysToRemove.size() == 0) {
+            if (keysToRemove.isEmpty()) {
                 EntityCondition findNextCondition = EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO,
                         currentRunEndTime);
                 EntityListIterator eliNext = EntityQuery.use(delegator)
@@ -830,7 +830,7 @@ public class EntitySyncContext {
 
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
-        if (logValues && keysToRemove.size() > 0) {
+        if (logValues && !keysToRemove.isEmpty()) {
             StringBuilder toRemoveInfo = new StringBuilder();
             for (GenericEntity keyToRemove: keysToRemove) {
                 toRemoveInfo.append("\n-->[");
@@ -845,7 +845,7 @@ public class EntitySyncContext {
 
         // As this.nextRemoveTxTime calculation is only based on entities without keys to remove, if there at least one key to remove returned
         // this calculation is false, so it needs to be nullified
-        if (keysToRemove.size() > 0) {
+        if (!keysToRemove.isEmpty()) {
             this.nextRemoveTxTime = null;
         }
         return keysToRemove;

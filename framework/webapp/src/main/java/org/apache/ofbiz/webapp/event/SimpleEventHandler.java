@@ -51,8 +51,8 @@ public class SimpleEventHandler implements EventHandler {
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         boolean beganTransaction = false;
 
-        String xmlResource = event.path;
-        String eventName = event.invoke;
+        String xmlResource = event.getPath();
+        String eventName = event.getInvoke();
         Locale locale = UtilHttp.getLocale(request);
 
         if (Debug.verboseOn()) {
@@ -70,7 +70,7 @@ public class SimpleEventHandler implements EventHandler {
             Debug.logVerbose("[Processing]: SIMPLE Event", MODULE);
         }
         try {
-            int timeout = Integer.max(event.transactionTimeout, 0);
+            int timeout = Integer.max(event.getTransactionTimeout(), 0);
             beganTransaction = TransactionUtil.begin(timeout);
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);
             if (Debug.verboseOn()) {
@@ -79,7 +79,8 @@ public class SimpleEventHandler implements EventHandler {
             return eventReturn;
         } catch (MiniLangException e) {
             Debug.logError(e, MODULE);
-            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleEventHandler.event_not_completed", (
+                    locale != null ? locale : Locale.getDefault())) + ": ";
             request.setAttribute("_ERROR_MESSAGE_", errMsg + e.getMessage());
             return "error";
         } catch (GenericTransactionException e) {

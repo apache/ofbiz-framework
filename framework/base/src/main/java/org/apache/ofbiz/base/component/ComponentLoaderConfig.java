@@ -92,9 +92,17 @@ public final class ComponentLoaderConfig {
      */
     public static class ComponentDef {
         /** The location of the component. */
-        public final Path location;
+        private final Path location;
         /** The type of component. */
-        public final ComponentType type;
+        private final ComponentType type;
+
+        public Path getLocation() {
+            return location;
+        }
+
+        public ComponentType getType() {
+            return type;
+        }
 
         /**
          * Constructs a component definition.

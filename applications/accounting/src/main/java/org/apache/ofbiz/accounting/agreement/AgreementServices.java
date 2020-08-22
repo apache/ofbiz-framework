@@ -92,7 +92,7 @@ public class AgreementServices {
                     .where("productId", productId, "agreementItemTypeId", "AGREEMENT_COMMISSION")
                     .cache().filterByDate().queryList();
             // Try the first available virtual product if this is a variant product
-            if (agreementItems.size() == 0) {
+            if (agreementItems.isEmpty()) {
                 GenericValue productAssoc = EntityQuery.use(delegator).from("ProductAssoc")
                         .where("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT")
                         .cache().filterByDate().queryFirst();
@@ -109,7 +109,7 @@ public class AgreementServices {
                                 "agreementItemSeqId", agreementItem.getString("agreementItemSeqId"),
                                 "invoiceItemTypeId", invoiceItemTypeId)
                                 .cache().queryList();
-                if (terms.size() > 0) {
+                if (!terms.isEmpty()) {
                     BigDecimal commission = ZERO;
                     BigDecimal min = new BigDecimal("-1e12");   // Limit to 1 trillion commission
                     BigDecimal max = new BigDecimal("1e12");

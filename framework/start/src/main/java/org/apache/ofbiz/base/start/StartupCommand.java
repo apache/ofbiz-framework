@@ -56,10 +56,23 @@ public final class StartupCommand {
         public Builder(String name) {
             this.name = name;
         }
+
+        /**
+         * Properties builder.
+         * @param properties the properties
+         * @return the builder
+         */
         public Builder properties(Map<String, String> properties) {
             this.properties = properties;
             return this;
         }
+
+        /**
+         * Add property builder.
+         * @param key   the key
+         * @param value the value
+         * @return the builder
+         */
         public Builder addProperty(String key, String value) {
             if (properties == null) {
                 properties = new HashMap<>();
@@ -68,6 +81,10 @@ public final class StartupCommand {
             return this;
         }
 
+        /**
+         * Build startup command.
+         * @return the startup command
+         */
         public StartupCommand build() {
             return new StartupCommand(this);
         }

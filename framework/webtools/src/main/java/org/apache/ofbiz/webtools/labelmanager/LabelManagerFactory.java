@@ -49,14 +49,14 @@ public class LabelManagerFactory {
 
     private static final String MODULE = LabelManagerFactory.class.getName();
     private static final String RESOURCE = "WebtoolsUiLabels";
-    public static final String keySeparator = "#";
+    public static final String KEY_SEPARATOR = "#";
 
-    protected static Set<String> componentNamesFound = null;
-    protected static Map<String, LabelFile> filesFound = null;
+    private static Set<String> componentNamesFound = null;
+    private static Map<String, LabelFile> filesFound = null;
 
-    protected Map<String, LabelInfo> labels = new TreeMap<>();
-    protected Set<String> localesFound = new TreeSet<>();
-    protected List<LabelInfo> duplicatedLocalesLabelsList = new LinkedList<>();
+    private Map<String, LabelInfo> labels = new TreeMap<>();
+    private Set<String> localesFound = new TreeSet<>();
+    private List<LabelInfo> duplicatedLocalesLabelsList = new LinkedList<>();
 
     public static synchronized LabelManagerFactory getInstance() throws IOException {
         if (componentNamesFound == null) {
@@ -68,8 +68,7 @@ public class LabelManagerFactory {
         return new LabelManagerFactory();
     }
 
-    protected LabelManagerFactory() {
-    }
+    private LabelManagerFactory() { }
 
     protected static void loadComponentNames() {
         componentNamesFound = new TreeSet<>();
@@ -145,16 +144,17 @@ public class LabelManagerFactory {
                             // No longer supporting old way of specifying xml:lang value.
                             // Old way: en_AU, new way: en-AU
                             String localeName = valueElem.getAttribute("xml:lang");
-                            if ( localeName.contains("_")) {
-                                GeneralException e = new GeneralException("Confusion in labels with the separator used between languages and countries. Please use a dash instead of an underscore.");
+                            if (localeName.contains("_")) {
+                                GeneralException e = new GeneralException("Confusion in labels with the separator used between languages and"
+                                        + "countries. Please use a dash instead of an underscore.");
                                 throw e;
                             }
                             String labelValue = UtilCodec.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
-                            LabelInfo label = labels.get(labelKey + keySeparator + fileInfo.getFileName());
+                            LabelInfo label = labels.get(labelKey + KEY_SEPARATOR + fileInfo.getFileName());
 
                             if (UtilValidate.isEmpty(label)) {
                                 label = new LabelInfo(labelKey, labelKeyComment, fileInfo.getFileName(), localeName, labelValue, labelComment);
-                                labels.put(labelKey + keySeparator + fileInfo.getFileName(), label);
+                                labels.put(labelKey + KEY_SEPARATOR + fileInfo.getFileName(), label);
                             } else {
                                 if (label.setLabelValue(localeName, labelValue, labelComment, false)) {
                                     duplicatedLocalesLabelsList.add(label);
@@ -206,7 +206,8 @@ public class LabelManagerFactory {
         return duplicatedLocalesLabelsList;
     }
 
-    public int updateLabelValue(List<String> localeNames, List<String> localeValues, List<String> localeComments, LabelInfo label, String key, String keyComment, String fileName) {
+    public int updateLabelValue(List<String> localeNames, List<String> localeValues, List<String> localeComments, LabelInfo label, String key,
+                                String keyComment, String fileName) {
         int notEmptyLabels = 0;
         for (int i = 0; i < localeNames.size(); i++) {
             String localeName = localeNames.get(i);
@@ -217,7 +218,7 @@ public class LabelManagerFactory {
                 if (label == null) {
                     try {
                         label = new LabelInfo(key, keyComment, fileName, localeName, localeValue, localeComment);
-                        labels.put(key + keySeparator + fileName, label);
+                        labels.put(key + KEY_SEPARATOR + fileName, label);
                     } catch (Exception e) {
                         Debug.logError(e, MODULE);
                     }

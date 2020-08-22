@@ -120,7 +120,7 @@ public class FtpServices {
                 Debug.logWarning(e, "[putFile] Problem with FTP disconnect: ", MODULE);
             }
         }
-        if (errorList.size() > 0) {
+        if (!errorList.isEmpty()) {
             Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, MODULE);
             return ServiceUtil.returnError(errorList);
         }
@@ -183,7 +183,7 @@ public class FtpServices {
                 Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", MODULE);
             }
         }
-        if (errorList.size() > 0) {
+        if (!errorList.isEmpty()) {
             Debug.logError("[getFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, MODULE);
             return ServiceUtil.returnError(errorList);
         }

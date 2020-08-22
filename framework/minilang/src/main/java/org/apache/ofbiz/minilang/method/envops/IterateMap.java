@@ -85,7 +85,7 @@ public final class IterateMap extends MethodOperation {
             }
             return true;
         }
-        if (theMap.size() == 0) {
+        if (theMap.isEmpty()) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Map with name " + mapFma + " has zero entries, doing nothing: " + this, MODULE);
             }

@@ -386,7 +386,7 @@ public class ContactMechWorker {
                     purposeTypes.add(contactMechPurposeType);
                 }
             }
-            if (purposeTypes.size() > 0) {
+            if (!purposeTypes.isEmpty()) {
                 target.put("purposeTypes", purposeTypes);
             }
         }
@@ -657,7 +657,7 @@ public class ContactMechWorker {
                     purposeTypes.add(contactMechPurposeType);
                 }
             }
-            if (purposeTypes.size() > 0) {
+            if (!purposeTypes.isEmpty()) {
                 target.put("purposeTypes", purposeTypes);
             }
         }

@@ -185,10 +185,18 @@ public class ProductSearch {
         private Set<String> excludeFeatureGroupIds = new HashSet<>();
         private Set<String> alwaysIncludeFeatureGroupIds = new HashSet<>();
 
+        /**
+         * Gets entity condition list.
+         * @return the entity condition list
+         */
         public List<EntityCondition> getEntityConditionList() {
             return entityConditionList;
         }
 
+        /**
+         * Gets dynamic view entity.
+         * @return the dynamic view entity
+         */
         public DynamicViewEntity getDynamicViewEntity() {
             return dynamicViewEntity;
         }
@@ -203,7 +211,6 @@ public class ProductSearch {
 
         /**
          * Sets keyword type ids.
-         *
          * @param keywordTypeIds the keyword type ids
          */
         public void setKeywordTypeIds(List<String> keywordTypeIds) {
@@ -214,7 +221,6 @@ public class ProductSearch {
 
         /**
          * Sets status id.
-         *
          * @param statusId the status id
          */
         public void setStatusId(String statusId) {
@@ -233,7 +239,6 @@ public class ProductSearch {
 
         /**
          * Gets delegator.
-         *
          * @return the delegator
          */
         public Delegator getDelegator() {
@@ -242,7 +247,6 @@ public class ProductSearch {
 
         /**
          * Add product search constraints.
-         *
          * @param productSearchConstraintList the product search constraint list
          */
         public void addProductSearchConstraints(List<ProductSearchConstraint> productSearchConstraintList) {
@@ -254,7 +258,6 @@ public class ProductSearch {
 
         /**
          * Sets result sort order.
-         *
          * @param resultSortOrder the result sort order
          */
         public void setResultSortOrder(ResultSortOrder resultSortOrder) {
@@ -263,7 +266,6 @@ public class ProductSearch {
 
         /**
          * Sets result offset.
-         *
          * @param resultOffset the result offset
          */
         public void setResultOffset(Integer resultOffset) {
@@ -300,7 +302,7 @@ public class ProductSearch {
         }
 
         public void finishKeywordConstraints() {
-            if (orKeywordFixedSet.size() == 0 && andKeywordFixedSet.size() == 0 && keywordFixedOrSetAndList.size() == 0) {
+            if (orKeywordFixedSet.isEmpty() && andKeywordFixedSet.isEmpty() && keywordFixedOrSetAndList.isEmpty()) {
                 return;
             }
 
@@ -308,7 +310,7 @@ public class ProductSearch {
             this.includedKeywordSearch = true;
 
             // if there is anything in the orKeywordFixedSet add it to the keywordFixedOrSetAndList
-            if (orKeywordFixedSet.size() > 0) {
+            if (!orKeywordFixedSet.isEmpty()) {
                 // put in keywordFixedOrSetAndList to process with other or lists where at least one is required
                 keywordFixedOrSetAndList.add(orKeywordFixedSet);
             }
@@ -317,7 +319,7 @@ public class ProductSearch {
             Iterator<Set<String>> keywordFixedOrSetAndTestIter = keywordFixedOrSetAndList.iterator();
             while (keywordFixedOrSetAndTestIter.hasNext()) {
                 Set<String> keywordFixedOrSet = keywordFixedOrSetAndTestIter.next();
-                if (keywordFixedOrSet.size() == 0) {
+                if (keywordFixedOrSet.isEmpty()) {
                     keywordFixedOrSetAndTestIter.remove();
                 } else if (keywordFixedOrSet.size() == 1) {
                     // treat it as just another and
@@ -326,12 +328,12 @@ public class ProductSearch {
                 }
             }
 
-            boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (keywordFixedOrSetAndList.size() > 0 && andKeywordFixedSet.size() > 0);
+            boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (!keywordFixedOrSetAndList.isEmpty() && !andKeywordFixedSet.isEmpty());
 
             Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
 
             ComplexAlias relevancyComplexAlias = new ComplexAlias("+");
-            if (andKeywordFixedSet.size() > 0) {
+            if (!andKeywordFixedSet.isEmpty()) {
                 // add up the relevancyWeight fields from all keyword member entities for a total to sort by
 
                 for (String keyword: andKeywordFixedSet) {
@@ -384,7 +386,7 @@ public class ProductSearch {
                     dynamicViewEntity.addAlias(null, "totalRelevancy", null, null, null, null, null, relevancyComplexAlias);
                 }
             }
-            if (keywordFixedOrSetAndList.size() > 0) {
+            if (!keywordFixedOrSetAndList.isEmpty()) {
                 for (Set<String> keywordFixedOrSet: keywordFixedOrSetAndList) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
@@ -414,12 +416,12 @@ public class ProductSearch {
         }
 
         public void finishCategoryAndFeatureConstraints() {
-            if (includeCategoryIds.size() == 0 && excludeCategoryIds.size() == 0 && alwaysIncludeCategoryIds.size() == 0
-                    && includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0
-                    && includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0
-                    && includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0
-                    && includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0
-                    && includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
+            if (includeCategoryIds.isEmpty() && excludeCategoryIds.isEmpty() && alwaysIncludeCategoryIds.isEmpty()
+                    && includeCategoryIdOrSetAndList.isEmpty() && alwaysIncludeCategoryIdOrSetAndList.isEmpty()
+                    && includeFeatureIds.isEmpty() && excludeFeatureIds.isEmpty() && alwaysIncludeFeatureIds.isEmpty()
+                    && includeFeatureIdOrSetAndList.isEmpty() && alwaysIncludeFeatureIdOrSetAndList.isEmpty()
+                    && includeFeatureCategoryIds.isEmpty() && excludeFeatureCategoryIds.isEmpty() && alwaysIncludeFeatureCategoryIds.isEmpty()
+                    && includeFeatureGroupIds.isEmpty() && excludeFeatureGroupIds.isEmpty() && alwaysIncludeFeatureGroupIds.isEmpty()) {
                 return;
             }
 
@@ -434,7 +436,7 @@ public class ProductSearch {
 
             EntityCondition topCond = null;
 
-            if (includeCategoryIds.size() > 0) {
+            if (!includeCategoryIds.isEmpty()) {
                 for (String includeCategoryId: includeCategoryIds) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
@@ -452,7 +454,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.EQUALS, includeCategoryId));
                 }
             }
-            if (includeFeatureIds.size() > 0) {
+            if (!includeFeatureIds.isEmpty()) {
                 for (String includeFeatureId: includeFeatureIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -470,7 +472,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.EQUALS, includeFeatureId));
                 }
             }
-            if (includeFeatureCategoryIds.size() > 0) {
+            if (!includeFeatureCategoryIds.isEmpty()) {
                 for (String includeFeatureCategoryId: includeFeatureCategoryIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -494,7 +496,7 @@ public class ProductSearch {
                             includeFeatureCategoryId));
                 }
             }
-            if (includeFeatureGroupIds.size() > 0) {
+            if (!includeFeatureGroupIds.isEmpty()) {
                 for (String includeFeatureGroupId: includeFeatureGroupIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -525,7 +527,7 @@ public class ProductSearch {
                 }
             }
 
-            if (excludeCategoryIds.size() > 0) {
+            if (!excludeCategoryIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -535,7 +537,7 @@ public class ProductSearch {
                         EntityCondition.makeCondition(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
-            if (excludeFeatureIds.size() > 0) {
+            if (!excludeFeatureIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -545,7 +547,7 @@ public class ProductSearch {
                         EntityCondition.makeCondition(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
-            if (excludeFeatureCategoryIds.size() > 0) {
+            if (!excludeFeatureCategoryIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -555,7 +557,7 @@ public class ProductSearch {
                         EntityCondition.makeCondition(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
-            if (excludeFeatureGroupIds.size() > 0) {
+            if (!excludeFeatureGroupIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -569,7 +571,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
 
-            if (alwaysIncludeCategoryIds.size() > 0) {
+            if (!alwaysIncludeCategoryIds.isEmpty()) {
                 String categoryPrefix = "pcm" + this.index;
                 String entityAlias = "PCM" + this.index;
                 this.index++;
@@ -585,7 +587,7 @@ public class ProductSearch {
                 alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN, alwaysIncludeCategoryIds));
             }
-            if (alwaysIncludeFeatureIds.size() > 0) {
+            if (!alwaysIncludeFeatureIds.isEmpty()) {
                 String featurePrefix = "pfa" + this.index;
                 String entityAlias = "PFA" + this.index;
                 this.index++;
@@ -601,7 +603,7 @@ public class ProductSearch {
                 alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN, alwaysIncludeFeatureIds));
             }
-            if (alwaysIncludeFeatureCategoryIds.size() > 0) {
+            if (!alwaysIncludeFeatureCategoryIds.isEmpty()) {
                 for (String alwaysIncludeFeatureCategoryId: alwaysIncludeFeatureCategoryIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -624,7 +626,7 @@ public class ProductSearch {
                             alwaysIncludeFeatureCategoryId));
                 }
             }
-            if (alwaysIncludeFeatureGroupIds.size() > 0) {
+            if (!alwaysIncludeFeatureGroupIds.isEmpty()) {
                 for (String alwaysIncludeFeatureGroupId: alwaysIncludeFeatureGroupIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -655,7 +657,7 @@ public class ProductSearch {
             }
 
             // handle includeFeatureIdOrSetAndList and alwaysIncludeFeatureIdOrSetAndList
-            if (includeFeatureIdOrSetAndList.size() > 0) {
+            if (!includeFeatureIdOrSetAndList.isEmpty()) {
                 for (Set<String> includeFeatureIdOrSet: includeFeatureIdOrSetAndList) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -673,7 +675,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN, includeFeatureIdOrSet));
                 }
             }
-            if (alwaysIncludeFeatureIdOrSetAndList.size() > 0) {
+            if (!alwaysIncludeFeatureIdOrSetAndList.isEmpty()) {
                 for (Set<String> alwaysIncludeFeatureIdOrSet: alwaysIncludeFeatureIdOrSetAndList) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -691,7 +693,7 @@ public class ProductSearch {
             }
 
             // handle includeCategoryIdOrSetAndList and alwaysIncludeCategoryIdOrSetAndList
-            if (includeCategoryIdOrSetAndList.size() > 0) {
+            if (!includeCategoryIdOrSetAndList.isEmpty()) {
                 for (Set<String> includeCategoryIdOrSet: includeCategoryIdOrSetAndList) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
@@ -707,7 +709,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN, includeCategoryIdOrSet));
                 }
             }
-            if (alwaysIncludeCategoryIdOrSetAndList.size() > 0) {
+            if (!alwaysIncludeCategoryIdOrSetAndList.isEmpty()) {
                 for (Set<String> alwaysIncludeCategoryIdOrSet: alwaysIncludeCategoryIdOrSetAndList) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
@@ -724,10 +726,10 @@ public class ProductSearch {
                 }
             }
 
-            if (incExcCondList.size() > 0) {
+            if (!incExcCondList.isEmpty()) {
                 incExcCond = EntityCondition.makeCondition(incExcCondList, EntityOperator.AND);
             }
-            if (alwIncCondList.size() > 0) {
+            if (!alwIncCondList.isEmpty()) {
                 alwIncCond = EntityCondition.makeCondition(alwIncCondList, EntityOperator.AND);
             }
 
@@ -1050,7 +1052,6 @@ public class ProductSearch {
 
         /**
          * Gets product category id.
-         *
          * @return the product category id
          */
         public String getProductCategoryId() {
@@ -1058,7 +1059,6 @@ public class ProductSearch {
         }
         /**
          * Is include sub categories boolean.
-         *
          * @return the boolean
          */
         public boolean isIncludeSubCategories() {
@@ -1066,7 +1066,6 @@ public class ProductSearch {
         }
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1219,7 +1218,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature id.
-         *
          * @return the product feature id
          */
         public String getProductFeatureId() {
@@ -1228,7 +1226,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1343,7 +1340,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature category id.
-         *
          * @return the product feature category id
          */
         public String getProductFeatureCategoryId() {
@@ -1352,7 +1348,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1469,7 +1464,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature group id.
-         *
          * @return the product feature group id
          */
         public String getProductFeatureGroupId() {
@@ -1478,7 +1472,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1716,7 +1709,6 @@ public class ProductSearch {
 
         /**
          * Gets keywords string.
-         *
          * @return the keywords string
          */
         public String getKeywordsString() {
@@ -1725,7 +1717,6 @@ public class ProductSearch {
 
         /**
          * Is any prefix boolean.
-         *
          * @return the boolean
          */
         public boolean isAnyPrefix() {
@@ -1734,7 +1725,6 @@ public class ProductSearch {
 
         /**
          * Is any suffix boolean.
-         *
          * @return the boolean
          */
         public boolean isAnySuffix() {
@@ -1743,7 +1733,6 @@ public class ProductSearch {
 
         /**
          * Is and boolean.
-         *
          * @return the boolean
          */
         public boolean isAnd() {
@@ -1956,9 +1945,9 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class StoreGroupPriceConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "StoreGroupPrice";
-        protected String productStoreGroupId;
-        protected String productPriceTypeId;
-        protected String currencyUomId;
+        private String productStoreGroupId;
+        private String productPriceTypeId;
+        private String currencyUomId;
 
         public StoreGroupPriceConstraint(String productStoreGroupId, String productPriceTypeId, String currencyUomId) {
             this.productStoreGroupId = productStoreGroupId;
@@ -2046,7 +2035,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2064,7 +2054,6 @@ public class ProductSearch {
 
         /**
          * Gets low price.
-         *
          * @return the low price
          */
         public BigDecimal getLowPrice() {
@@ -2073,7 +2062,6 @@ public class ProductSearch {
 
         /**
          * Gets high price.
-         *
          * @return the high price
          */
         public BigDecimal getHighPrice() {
@@ -2096,26 +2084,37 @@ public class ProductSearch {
             productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ProductPrice");
 
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPriceTypeId", "productPriceTypeId", null, null, null, null);
-            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId",
+                    null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "CurrencyUomId", "currencyUomId", null, null, null, null);
-            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null,
+                    null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "Price", "price", null, null, null, null);
 
             productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
 
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId", EntityOperator.EQUALS, "LIST_PRICE"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId", EntityOperator.EQUALS, "PURCHASE"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId", EntityOperator.EQUALS, currencyUomId));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId", EntityOperator.EQUALS, "_NA_"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId",
+                    EntityOperator.EQUALS, "LIST_PRICE"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId",
+                    EntityOperator.EQUALS, "PURCHASE"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId",
+                    EntityOperator.EQUALS, currencyUomId));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId",
+                    EntityOperator.EQUALS, "_NA_"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate",
+                    EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
             if (this.lowPrice != null) {
-                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price", EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
+                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price",
+                        EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
             }
             if (this.highPrice != null) {
-                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price", EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
+                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price",
+                        EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
@@ -2213,7 +2212,6 @@ public class ProductSearch {
 
         /**
          * Gets supplier party id.
-         *
          * @return the supplier party id
          */
         public String getSupplierPartyId() {
@@ -2329,7 +2327,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2392,9 +2391,9 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class GoodIdentificationConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "GoodIdentification";
-        protected String goodIdentificationTypeId;
-        protected String goodIdentificationValue;
-        protected Boolean include;
+        private String goodIdentificationTypeId;
+        private String goodIdentificationValue;
+        private Boolean include;
 
         public GoodIdentificationConstraint(String goodIdentificationTypeId, String goodIdentificationValue, Boolean include) {
             this.goodIdentificationTypeId = goodIdentificationTypeId;
@@ -2602,11 +2601,11 @@ public class ProductSearch {
         public void setSortOrder(ProductSearchContext productSearchContext) {
             if (productSearchContext.includedKeywordSearch) {
                 // we have to check this in order to be sure that there is a totalRelevancy to sort by...
-                if (productSearchContext.keywordFixedOrSetAndList.size() > 0 || productSearchContext.andKeywordFixedSet.size() > 0) {
+                if (!productSearchContext.keywordFixedOrSetAndList.isEmpty() || !productSearchContext.andKeywordFixedSet.isEmpty()) {
                     productSearchContext.orderByList.add("-totalRelevancy");
                     productSearchContext.fieldsToSelect.add("totalRelevancy");
                 }
-                if (productSearchContext.keywordFixedOrSetAndList.size() > 0) {
+                if (!productSearchContext.keywordFixedOrSetAndList.isEmpty()) {
                     productSearchContext.productIdGroupBy = true;
                 }
             }
@@ -2635,7 +2634,6 @@ public class ProductSearch {
 
         /**
          * Gets field name.
-         *
          * @return the field name
          */
         public String getFieldName() {
@@ -2702,7 +2700,6 @@ public class ProductSearch {
 
         /**
          * Gets product price type id.
-         *
          * @return the product price type id
          */
         public String getProductPriceTypeId() {
@@ -2801,7 +2798,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature type id.
-         *
          * @return the product feature type id
          */
         public String getProductFeatureTypeId() {

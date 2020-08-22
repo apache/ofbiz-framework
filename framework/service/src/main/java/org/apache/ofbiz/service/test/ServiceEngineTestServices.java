@@ -61,7 +61,7 @@ public class ServiceEngineTestServices {
                 errorList.add(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockThreadB", UtilMisc.toMap("errorString",
                         ServiceUtil.getErrorMessage(threadBResult)), locale));
             }
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockRetry", locale), errorList, null, null);
             }
         } catch (Exception e) {
@@ -164,7 +164,7 @@ public class ServiceEngineTestServices {
             if (ServiceUtil.isError(waiterResult)) {
                 errorList.add("Error running testServiceLockWaitTimeoutRetryWaiter: " + ServiceUtil.getErrorMessage(waiterResult));
             }
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetry", locale), errorList, null, null);
             }
         } catch (Exception e) {

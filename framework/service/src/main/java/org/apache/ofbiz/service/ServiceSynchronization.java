@@ -50,12 +50,14 @@ public class ServiceSynchronization implements Synchronization {
     private static Map<Transaction, ServiceSynchronization> syncingleton = new WeakHashMap<>();
     private List<ServiceExecution> services = new ArrayList<>();
 
-    public static void registerCommitService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) throws GenericServiceException {
+    public static void registerCommitService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context,
+                                             boolean async, boolean persist) throws GenericServiceException {
         ServiceSynchronization sync = ServiceSynchronization.getInstance();
         sync.services.add(new ServiceExecution(dctx, serviceName, runAsUser, context, async, persist, false));
     }
 
-    public static void registerRollbackService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) throws GenericServiceException {
+    public static void registerRollbackService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context,
+                                               boolean async, boolean persist) throws GenericServiceException {
         ServiceSynchronization sync = ServiceSynchronization.getInstance();
         sync.services.add(new ServiceExecution(dctx, serviceName, runAsUser, context, async, persist, true));
     }
@@ -81,17 +83,20 @@ public class ServiceSynchronization implements Synchronization {
     @Override
     public void afterCompletion(int status) {
         long start = System.currentTimeMillis();
-        if (Debug.verboseOn())
+        if (Debug.verboseOn()) {
             Debug.logVerbose("Running " + this.services.size() + " services on commit/rollback", MODULE);
+        }
         for (ServiceExecution serviceExec : this.services) {
             serviceExec.runService(status);
-            if (Debug.verboseOn())
+            if (Debug.verboseOn()) {
                 Debug.logVerbose("Completed service [" + serviceExec.serviceName + "] async [" + serviceExec.async
                         + "] persisted [" + serviceExec.persist + "]", MODULE);
+            }
         }
-        if (Debug.verboseOn())
+        if (Debug.verboseOn()) {
             Debug.logVerbose("Commit/rollback services complete in "
-                                            + (System.currentTimeMillis() - start) + "ms", MODULE);
+                    + (System.currentTimeMillis() - start) + "ms", MODULE);
+        }
     }
 
     @Override
@@ -100,15 +105,16 @@ public class ServiceSynchronization implements Synchronization {
     }
 
     static class ServiceExecution {
-        protected DispatchContext dctx = null;
-        protected String serviceName;
-        protected String runAsUser = null;
-        protected Map<String, ? extends Object> context = null;
-        protected boolean rollback = false;
-        protected boolean persist = true;
-        protected boolean async = false;
+        private DispatchContext dctx = null;
+        private String serviceName;
+        private String runAsUser = null;
+        private Map<String, ? extends Object> context = null;
+        private boolean rollback = false;
+        private boolean persist = true;
+        private boolean async = false;
 
-        ServiceExecution(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist, boolean rollback) {
+        ServiceExecution(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async,
+                         boolean persist, boolean rollback) {
             this.dctx = dctx;
             this.serviceName = serviceName;
             this.runAsUser = runAsUser;
@@ -139,7 +145,7 @@ public class ServiceSynchronization implements Synchronization {
                                 // obtain the model and get the valid context
                                 ModelService model = dctx.getModelService(serviceName);
                                 Map<String, Object> thisContext;
-                                if (model.validate) {
+                                if (model.isValidate()) {
                                     thisContext = model.makeValid(context, ModelService.IN_PARAM);
                                 } else {
                                     thisContext = new HashMap<>();
@@ -174,12 +180,10 @@ public class ServiceSynchronization implements Synchronization {
                         } catch (GenericTransactionException e) {
                             Debug.logError(e, MODULE);
                         }
-
                     }
                 };
                 thread.start();
             }
         }
     }
-
 }

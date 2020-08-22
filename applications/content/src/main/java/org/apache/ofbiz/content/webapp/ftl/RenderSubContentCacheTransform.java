@@ -139,7 +139,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 GenericValue thisView = null;
                 if (view != null) {
                     thisView = view;
-                } else if (passedGlobalNodeTrail.size() > 0) {
+                } else if (!passedGlobalNodeTrail.isEmpty()) {
                     Map<String, ? extends Object> map = UtilGenerics.cast(passedGlobalNodeTrail.get(passedGlobalNodeTrail.size() - 1));
                     if (Debug.infoOn()) {
                         Debug.logInfo("in Render(3), map ." + map, MODULE);

@@ -769,7 +769,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             for (int i = trailList.size(); i >= 0; i--) {
                 List<String> subTrail = trailList.subList(0, i);
                 String newKey = null;
-                if (subTrail.size() > 0) {
+                if (!subTrail.isEmpty()) {
                     newKey = StringUtil.join(subTrail, "|") + "|" + originalName;
                 } else {
                     newKey = originalName;

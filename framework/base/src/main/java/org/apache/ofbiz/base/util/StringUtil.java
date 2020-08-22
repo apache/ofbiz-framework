@@ -399,7 +399,7 @@ public class StringUtil {
         if (theString == null) {
             return null;
         }
-        if (theString.length() == 0) {
+        if (theString.isEmpty()) {
             return StringWrapper.EMPTY_STRING_WRAPPER;
         }
         return new StringWrapper(theString);

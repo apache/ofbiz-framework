@@ -172,7 +172,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Align day of week calendar.
-         *
          * @param cal the cal
          * @return the calendar
          */
@@ -781,7 +780,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Prepare cal calendar.
-         *
          * @param cal the cal
          * @return the calendar
          */
@@ -902,7 +900,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Gets hour range as set.
-         *
          * @return the hour range as set
          */
         public Set<Integer> getHourRangeAsSet() {
@@ -998,7 +995,7 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            if (this.expressionSet.size() > 0) {
+            if (!this.expressionSet.isEmpty()) {
                 // Aggregate member expression sequences in a way that will
                 // ensure the proper evaluation sequence for the entire collection
                 int result = 0;
@@ -1193,7 +1190,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Gets minute range as set.
-         *
          * @return the minute range as set
          */
         public Set<Integer> getMinuteRangeAsSet() {
@@ -1567,7 +1563,7 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            if (this.expressionSet.size() > 0) {
+            if (!this.expressionSet.isEmpty()) {
                 TemporalExpression that = this.expressionSet.iterator().next();
                 this.sequence = that.sequence;
             }

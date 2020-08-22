@@ -736,7 +736,7 @@ public class RecurrenceRule {
         }
         String numberStr = numberBuf.toString();
 
-        if (numberStr.length() > 0 && (numberStr.length() > 1 || (numberStr.charAt(0) != '+' && numberStr.charAt(0) != '-'))) {
+        if (!numberStr.isEmpty() && (numberStr.length() > 1 || (numberStr.charAt(0) != '+' && numberStr.charAt(0) != '-'))) {
             try {
                 number = Integer.parseInt(numberStr);
             } catch (NumberFormatException nfe) {

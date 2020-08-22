@@ -79,11 +79,15 @@ public final class CallService extends MethodOperation {
     public CallService(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "service-name", "in-map-name", "include-user-login", "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
-            MiniLangValidate.constantAttributes(simpleMethod, element, "include-user-login", "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
+            MiniLangValidate.attributeNames(simpleMethod, element, "service-name", "in-map-name", "include-user-login",
+                    "break-on-error", "error-code", "require-new-transaction", "transaction-timeout", "success-code");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "include-user-login", "break-on-error", "error-code",
+                    "require-new-transaction", "transaction-timeout", "success-code");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "service-name", "in-map-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "service-name");
-            MiniLangValidate.childElements(simpleMethod, element, "error-prefix", "error-suffix", "success-prefix", "success-suffix", "message-prefix", "message-suffix", "default-message", "results-to-map", "result-to-field", "result-to-request", "result-to-session", "result-to-result");
+            MiniLangValidate.childElements(simpleMethod, element, "error-prefix", "error-suffix", "success-prefix",
+                    "success-suffix", "message-prefix", "message-suffix", "default-message", "results-to-map", "result-to-field",
+                    "result-to-request", "result-to-session", "result-to-result");
         }
         serviceNameFse = FlexibleStringExpander.getInstance(element.getAttribute("service-name"));
         inMapFma = FlexibleMapAccessor.getInstance(element.getAttribute("in-map-name"));
@@ -97,7 +101,8 @@ public final class CallService extends MethodOperation {
             try {
                 timeout = Integer.parseInt(timeoutStr);
             } catch (NumberFormatException e) {
-                MiniLangValidate.handleError("Exception thrown while parsing transaction-timeout attribute: " + e.getMessage(), simpleMethod, element);
+                MiniLangValidate.handleError("Exception thrown while parsing transaction-timeout attribute: " + e.getMessage(),
+                        simpleMethod, element);
                 timeout = 0;
             }
         }
@@ -109,7 +114,7 @@ public final class CallService extends MethodOperation {
         successSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "success-suffix"), "service.success.suffix");
         messagePrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-prefix"), "service.message.prefix");
         messageSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-suffix"), "service.message.suffix");
-        defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);// "service.default.message"
+        defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);
         List<? extends Element> resultsToMapElements = UtilXml.childElementList(element, "results-to-map");
         if (UtilValidate.isNotEmpty(resultsToMapElements)) {
             List<String> resultsToMapList = new ArrayList<>(resultsToMapElements.size());
@@ -206,19 +211,21 @@ public final class CallService extends MethodOperation {
         Map<String, Object> result = null;
         try {
             ModelService modelService = methodContext.getDispatcher().getDispatchContext().getModelService(serviceName);
-            int timeout = modelService.transactionTimeout;
+            int timeout = modelService.getTransactionTimeout();
             if (this.transactionTimeout >= 0) {
                 timeout = this.transactionTimeout;
             }
             if (methodContext.isTraceOn()) {
-                outputTraceMessage(methodContext, "Invoking service \"" + serviceName + "\", require-new-transaction = " + requireNewTransaction + ", transaction-timeout = " + timeout + ", IN attributes:", inMap.toString());
+                outputTraceMessage(methodContext, "Invoking service \"" + serviceName + "\", require-new-transaction = " + requireNewTransaction
+                        + ", transaction-timeout = " + timeout + ", IN attributes:", inMap.toString());
             }
             result = methodContext.getDispatcher().runSync(serviceName, inMap, timeout, requireNewTransaction);
         } catch (GenericServiceException e) {
             if (methodContext.isTraceOn()) {
                 outputTraceMessage(methodContext, "Service engine threw an exception: " + e.getMessage());
             }
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the [" + serviceName + "] service with the map named [" + inMapFma + "] containing [" + inMap + "]: " + e.getMessage() + "]";
+            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the [" + serviceName
+                    + "] service with the map named [" + inMapFma + "] containing [" + inMap + "]: " + e.getMessage() + "]";
             Debug.logError(e, errMsg, MODULE);
             if (breakOnError) {
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -299,17 +306,22 @@ public final class CallService extends MethodOperation {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 if (UtilValidate.isNotEmpty(errorMessage)) {
                     if (Debug.verboseOn()) {
-                        errorMessage += UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
+                        errorMessage += UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name",
+                                UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
                 } else {
                     if (Debug.verboseOn()) {
-                        errorMessageList.add(UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
+                        errorMessageList.add(UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name",
+                                UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), errorMessageList);
                 }
             } else {
-                ServiceUtil.addErrors(UtilMisc.<String, String> getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()), UtilMisc.<String, String, Object> getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
+                ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(),
+                        this.simpleMethod.getServiceErrorMessageListName()),
+                        UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()),
+                        result);
                 Debug.logError(new Exception(errorMessage), MODULE);
             }
         }
@@ -322,7 +334,8 @@ public final class CallService extends MethodOperation {
             }
         }
         String defaultMessageStr = defaultMessage.getMessage(methodContext.getLoader(), methodContext);
-        if (UtilValidate.isEmpty(errorMessage) && UtilValidate.isEmpty(errorMessageList) && UtilValidate.isEmpty(successMessage) && UtilValidate.isNotEmpty(defaultMessageStr)) {
+        if (UtilValidate.isEmpty(errorMessage) && UtilValidate.isEmpty(errorMessageList) && UtilValidate.isEmpty(successMessage)
+                && UtilValidate.isNotEmpty(defaultMessageStr)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventEventMessageName(), defaultMessageStr);
             } else {
@@ -419,7 +432,7 @@ public final class CallService extends MethodOperation {
 
         private ResultToRequest(Element element) {
             requestFsa = new FlexibleServletAccessor<>(element.getAttribute("request-name"), element.getAttribute("result-name"));
-            resultFma =FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
+            resultFma = FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
         }
 
         private void exec(MethodContext methodContext, Map<String, Object> resultMap) {
@@ -452,7 +465,7 @@ public final class CallService extends MethodOperation {
 
         private ResultToSession(Element element) {
             requestFsa = new FlexibleServletAccessor<>(element.getAttribute("session-name"), element.getAttribute("result-name"));
-            resultFma =FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
+            resultFma = FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
         }
 
         private void exec(MethodContext methodContext, Map<String, Object> resultMap) {

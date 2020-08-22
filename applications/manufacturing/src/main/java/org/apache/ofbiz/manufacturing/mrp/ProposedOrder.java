@@ -131,7 +131,7 @@ public class ProposedOrder {
                             tree = new BOMTree(product.getString("productId"), "MANUF_COMPONENT", requiredByDate, BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
                             tree.setRootQuantity(quantity);
                             tree.print(components, true);
-                            if (components.size() > 0) components.remove(0);
+                            if (!components.isEmpty()) components.remove(0);
                         } catch (Exception exc) {
                             Debug.logWarning(exc.getMessage(), MODULE);
                             tree = null;

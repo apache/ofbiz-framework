@@ -238,7 +238,7 @@ public class UpsServices {
                     odBuf.append(orderId);
                 }
                 ordersDescription = odBuf.toString();
-            } else if (orderIdSet.size() > 0) {
+            } else if (!orderIdSet.isEmpty()) {
                 ordersDescription = UtilProperties.getMessage(RES_ORDER, "OrderOrder", locale) + " " + orderIdSet.iterator().next();
             }
 
@@ -530,7 +530,7 @@ public class UpsServices {
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"),
                         null, false);
                 GenericValue carrierShipmentBoxType = null;
-                if (carrierShipmentBoxTypes.size() > 0) {
+                if (!carrierShipmentBoxTypes.isEmpty()) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 
@@ -848,7 +848,7 @@ public class UpsServices {
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUpsShipmentConfirmSucceeded", locale));
 
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentConfirmError", locale));
                 Iterator<Object> errorListIter = errorList.iterator();
@@ -1255,7 +1255,7 @@ public class UpsServices {
             // -=-=-=- Okay, now done with that, just return any extra info...
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUpsShipmentAcceptSucceeded", locale));
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentUpsShipmentAcceptError", locale));
@@ -1449,7 +1449,7 @@ public class UpsServices {
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentVoidSucceeded",
                     UtilMisc.toMap("statusTypeCode", statusTypeCode, "statusTypeDescription", statusTypeDescription,
                             "statusCodeCode", statusCodeCode, "statusCodeDescription", statusCodeDescription), locale));
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentVoidError", locale));
                 Iterator<Object> errorListIter = errorList.iterator();
@@ -1668,7 +1668,7 @@ public class UpsServices {
             // -=-=-=- Okay, now done with that, just return any extra info...
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentTrackSucceeded",
                     locale));
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentTrackError", locale));
                 Iterator<Object> errorListIter = errorList.iterator();
@@ -2978,7 +2978,7 @@ public class UpsServices {
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"),
                         null, false);
                 GenericValue carrierShipmentBoxType = null;
-                if (carrierShipmentBoxTypes.size() > 0) {
+                if (!carrierShipmentBoxTypes.isEmpty()) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 

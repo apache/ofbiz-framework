@@ -43,41 +43,44 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.ServiceUtil;
 
+/**
+ * The type Weight package session.
+ */
 @SuppressWarnings("serial")
 public class WeightPackageSession implements Serializable {
 
     private static final String MODULE = WeightPackageSession.class.getName();
 
-    protected GenericValue userLogin = null;
-    protected String dispatcherName = null;
-    protected String delegatorName = null;
-    protected String primaryOrderId = null;
-    protected String primaryShipGrpSeqId = null;
-    protected String picklistBinId = null;
-    protected String shipmentId = null;
-    protected String invoiceId = null;
-    protected String facilityId = null;
-    protected String carrierPartyId = null;
-    protected String dimensionUomId = null;
-    protected String weightUomId = null;
-    protected BigDecimal estimatedShipCost = null;
-    protected BigDecimal actualShipCost = null;
-    protected int weightPackageSeqId = 1;
-    protected List<WeightPackageSessionLine> weightPackageLines = null;
+    private GenericValue userLogin = null;
+    private String dispatcherName = null;
+    private String delegatorName = null;
+    private String primaryOrderId = null;
+    private String primaryShipGrpSeqId = null;
+    private String picklistBinId = null;
+    private String shipmentId = null;
+    private String invoiceId = null;
+    private String facilityId = null;
+    private String carrierPartyId = null;
+    private String dimensionUomId = null;
+    private String weightUomId = null;
+    private BigDecimal estimatedShipCost = null;
+    private BigDecimal actualShipCost = null;
+    private int weightPackageSeqId = 1;
+    private List<WeightPackageSessionLine> weightPackageLines = null;
 
-    private transient Delegator _delegator = null;
-    private transient LocalDispatcher _dispatcher = null;
+    private transient Delegator delegator = null;
+    private transient LocalDispatcher dispatcher = null;
     private static final RoundingMode ROUNDING_MODE = UtilNumber.getRoundingMode("invoice.rounding");
 
     public WeightPackageSession() {
     }
 
     public WeightPackageSession(LocalDispatcher dispatcher, GenericValue userLogin, String facilityId, String picklistBinId, String orderId, String shipGrpSeqId) {
-        this._dispatcher = dispatcher;
+        this.dispatcher = dispatcher;
         this.dispatcherName = dispatcher.getName();
 
-        this._delegator = _dispatcher.getDelegator();
-        this.delegatorName = _delegator.getDelegatorName();
+        this.delegator = dispatcher.getDelegator();
+        this.delegatorName = delegator.getDelegatorName();
 
         this.primaryOrderId = orderId;
         this.primaryShipGrpSeqId = shipGrpSeqId;
@@ -95,18 +98,26 @@ public class WeightPackageSession implements Serializable {
         this(dispatcher, userLogin, null, null, null, null);
     }
 
+    /**
+     * Gets dispatcher.
+     * @return the dispatcher
+     */
     public LocalDispatcher getDispatcher() {
-        if (_dispatcher == null) {
-            _dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, this.getDelegator());
+        if (dispatcher == null) {
+            dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, this.getDelegator());
         }
-        return _dispatcher;
+        return dispatcher;
     }
 
+    /**
+     * Gets delegator.
+     * @return the delegator
+     */
     public Delegator getDelegator() {
-        if (_delegator == null) {
-            _delegator = DelegatorFactory.getDelegator(delegatorName);
+        if (delegator == null) {
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
-        return _delegator;
+        return delegator;
     }
 
     public void createWeightPackageLine(String orderId, BigDecimal packageWeight, BigDecimal packageLength, BigDecimal packageWidth, BigDecimal packageHeight, String shipmentBoxTypeId) throws GeneralException {
@@ -114,94 +125,187 @@ public class WeightPackageSession implements Serializable {
         this.weightPackageSeqId++;
     }
 
+    /**
+     * Gets weight package seq id.
+     * @return the weight package seq id
+     */
     public int getWeightPackageSeqId() {
         return this.weightPackageSeqId;
     }
 
+    /**
+     * Gets facility id.
+     * @return the facility id
+     */
     public String getFacilityId() {
         return this.facilityId;
     }
 
+    /**
+     * Sets facility id.
+     * @param facilityId the facility id
+     */
     public void setFacilityId(String facilityId) {
         this.facilityId = facilityId;
     }
 
+    /**
+     * Gets primary order id.
+     * @return the primary order id
+     */
     public String getPrimaryOrderId() {
         return this.primaryOrderId;
     }
 
+    /**
+     * Sets primary order id.
+     * @param primaryOrderId the primary order id
+     */
     public void setPrimaryOrderId(String primaryOrderId) {
         this.primaryOrderId = primaryOrderId;
     }
 
+    /**
+     * Gets primary ship group seq id.
+     * @return the primary ship group seq id
+     */
     public String getPrimaryShipGroupSeqId() {
         return this.primaryShipGrpSeqId;
     }
 
+    /**
+     * Sets primary ship group seq id.
+     * @param primaryShipGrpSeqId the primary ship grp seq id
+     */
     public void setPrimaryShipGroupSeqId(String primaryShipGrpSeqId) {
         this.primaryShipGrpSeqId = primaryShipGrpSeqId;
     }
 
+    /**
+     * Sets picklist bin id.
+     * @param picklistBinId the picklist bin id
+     */
     public void setPicklistBinId(String picklistBinId) {
         this.picklistBinId = picklistBinId;
     }
 
+    /**
+     * Gets picklist bin id.
+     * @return the picklist bin id
+     */
     public String getPicklistBinId() {
         return this.picklistBinId;
     }
 
+    /**
+     * Sets estimated ship cost.
+     * @param estimatedShipCost the estimated ship cost
+     */
     public void setEstimatedShipCost(BigDecimal estimatedShipCost) {
         this.estimatedShipCost = estimatedShipCost;
     }
 
+    /**
+     * Gets estimated ship cost.
+     * @return the estimated ship cost
+     */
     public BigDecimal getEstimatedShipCost() {
         return this.estimatedShipCost;
     }
 
+    /**
+     * Sets actual ship cost.
+     * @param actualShipCost the actual ship cost
+     */
     public void setActualShipCost(BigDecimal actualShipCost) {
         this.actualShipCost = actualShipCost;
     }
 
+    /**
+     * Gets actual ship cost.
+     * @return the actual ship cost
+     */
     public BigDecimal getActualShipCost() {
         return this.actualShipCost;
     }
 
+    /**
+     * Gets shipment id.
+     * @return the shipment id
+     */
     public String getShipmentId() {
         return this.shipmentId;
     }
 
+    /**
+     * Sets shipment id.
+     * @param shipmentId the shipment id
+     */
     public void setShipmentId(String shipmentId) {
         this.shipmentId = shipmentId;
     }
 
+    /**
+     * Gets invoice id.
+     * @return the invoice id
+     */
     public String getInvoiceId() {
         return this.invoiceId;
     }
 
+    /**
+     * Sets invoice id.
+     * @param invoiceId the invoice id
+     */
     public void setInvoiceId(String invoiceId) {
         this.invoiceId = invoiceId;
     }
 
+    /**
+     * Gets weight uom id.
+     * @return the weight uom id
+     */
     public String getWeightUomId() {
         return weightUomId;
     }
 
+    /**
+     * Sets weight uom id.
+     * @param weightUomId the weight uom id
+     */
     public void setWeightUomId(String weightUomId) {
         this.weightUomId = weightUomId;
     }
 
+    /**
+     * Gets dimension uom id.
+     * @return the dimension uom id
+     */
     public String getDimensionUomId() {
         return dimensionUomId;
     }
 
+    /**
+     * Sets carrier party id.
+     * @param carrierPartyId the carrier party id
+     */
     public void setCarrierPartyId(String carrierPartyId) {
         this.carrierPartyId = carrierPartyId;
     }
 
+    /**
+     * Sets dimension uom id.
+     * @param dimensionUomId the dimension uom id
+     */
     public void setDimensionUomId(String dimensionUomId) {
         this.dimensionUomId = dimensionUomId;
     }
 
+    /**
+     * Gets shippable weight.
+     * @param orderId the order id
+     * @return the shippable weight
+     */
     public BigDecimal getShippableWeight(String orderId) {
         BigDecimal shippableWeight = BigDecimal.ZERO;
         for (WeightPackageSessionLine packedLine : this.getPackedLines(orderId)) {
@@ -487,13 +591,16 @@ public class WeightPackageSession implements Serializable {
         }
     }
 
-    public BigDecimal getShipmentCostEstimate(GenericValue orderItemShipGroup, String orderId, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
+    public BigDecimal getShipmentCostEstimate(GenericValue orderItemShipGroup, String orderId, String productStoreId, List<GenericValue>
+            shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
         return getShipmentCostEstimate(orderItemShipGroup.getString("contactMechId"), orderItemShipGroup.getString("shipmentMethodTypeId"),
                                        orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"),
                                        orderId, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
     }
 
-    public BigDecimal getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String orderId, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
+    public BigDecimal getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId,
+            String carrierRoleTypeId, String orderId, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal,
+                                              BigDecimal shippableWeight, BigDecimal shippableQuantity) {
         BigDecimal shipmentCostEstimate = BigDecimal.ZERO;
         Map<String, Object> shipCostEstimateResult = null;
         try {

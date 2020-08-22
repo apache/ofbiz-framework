@@ -76,10 +76,10 @@ public class ScreenRenderer {
 
     private static final String MODULE = ScreenRenderer.class.getName();
 
-    protected Appendable writer;
-    protected MapStack<String> context;
-    protected ScreenStringRenderer screenStringRenderer;
-    protected int renderFormSeqNumber = 0;
+    private Appendable writer;
+    private MapStack<String> context;
+    private ScreenStringRenderer screenStringRenderer;
+    private int renderFormSeqNumber = 0;
 
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
@@ -147,14 +147,31 @@ public class ScreenRenderer {
         return "";
     }
 
-    public void setRenderFormUniqueSeq (int renderFormSeqNumber) {
+    /**
+     * Sets render form unique seq.
+     * @param renderFormSeqNumber the render form seq number
+     */
+    public void setRenderFormUniqueSeq(int renderFormSeqNumber) {
         this.renderFormSeqNumber = renderFormSeqNumber;
     }
 
+    /**
+     * Gets screen string renderer.
+     * @return the screen string renderer
+     */
     public ScreenStringRenderer getScreenStringRenderer() {
         return this.screenStringRenderer;
     }
 
+    /**
+     * Populate basic context.
+     * @param parameters the parameters
+     * @param delegator  the delegator
+     * @param dispatcher the dispatcher
+     * @param security   the security
+     * @param locale     the locale
+     * @param userLogin  the user login
+     */
     public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
     }
@@ -323,7 +340,7 @@ public class ScreenRenderer {
         }
 
         // if there was an error message, this is an error
-        context.put("isError", errorMessageList.size() > 0 ? Boolean.TRUE : Boolean.FALSE);
+        context.put("isError", !errorMessageList.isEmpty() ? Boolean.TRUE : Boolean.FALSE);
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);

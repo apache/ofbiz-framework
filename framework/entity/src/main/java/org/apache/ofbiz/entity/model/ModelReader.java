@@ -427,7 +427,7 @@ public class ModelReader implements Serializable {
                                 }
                             }
 
-                            if (newSameEntityRelations.size() > 0) {
+                            if (!newSameEntityRelations.isEmpty()) {
                                 for (ModelRelation newRel : newSameEntityRelations) {
                                     curModelEntity.addRelation(newRel);
                                 }
@@ -610,10 +610,10 @@ public class ModelReader implements Serializable {
             return null;
         }
         Set<String> allEntities = this.getEntityNames();
-        while (!allEntities.contains(entityName) && entityName.length() > 0) {
+        while (!allEntities.contains(entityName) && !entityName.isEmpty()) {
             entityName = entityName.substring(1);
         }
-        return (entityName.length() > 0 ? entityName : null);
+        return (!entityName.isEmpty() ? entityName : null);
     }
 
     ModelEntity createModelEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {

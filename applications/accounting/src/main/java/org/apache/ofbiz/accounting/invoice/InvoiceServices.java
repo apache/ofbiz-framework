@@ -124,7 +124,7 @@ public class InvoiceServices {
         try {
             List<GenericValue> orderItems = EntityQuery.use(delegator).from("OrderItem")
                     .where("orderId", context.get("orderId")).orderBy("orderItemSeqId").queryList();
-            if (orderItems.size() > 0) {
+            if (!orderItems.isEmpty()) {
                 context.put("billItems", orderItems);
             }
             // get the system userid and store in context otherwise the invoice add service does not work
@@ -1297,7 +1297,7 @@ public class InvoiceServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingProblemGettingItemsFromShipments", locale));
         }
-        if (itemIssuances.size() == 0) {
+        if (itemIssuances.isEmpty()) {
             Debug.logInfo("No items issued for shipments", MODULE);
             return ServiceUtil.returnSuccess();
         }
@@ -1476,7 +1476,7 @@ public class InvoiceServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingProblemGettingItemsFromShipments", locale));
         }
-        if (items.size() == 0) {
+        if (items.isEmpty()) {
             Debug.logInfo("No items issued for shipments", MODULE);
             return ServiceUtil.returnSuccess();
         }
@@ -1519,7 +1519,7 @@ public class InvoiceServices {
             }
 
             // if none found, then okay to bill
-            if (itemBillings.size() == 0) {
+            if (itemBillings.isEmpty()) {
                 itemsByOrder.add(item);
             }
 
@@ -1583,7 +1583,7 @@ public class InvoiceServices {
 
 
                     // add up the already billed total
-                    if (billed.size() > 0) {
+                    if (!billed.isEmpty()) {
                         BigDecimal billedQuantity = BigDecimal.ZERO;
                         for (GenericValue oib : billed) {
                             BigDecimal qty = oib.getBigDecimal("quantity");
@@ -3254,7 +3254,7 @@ public class InvoiceServices {
                 toMessage = UtilProperties.getMessage(RESOURCE,
                         "AccountingApplicationToInvoice",
                         UtilMisc.toMap("invoiceId", invoiceId), locale);
-                if (extra.length() > 0) {
+                if (!extra.isEmpty()) {
                     toMessage = UtilProperties.getMessage(RESOURCE,
                             "AccountingApplicationToInvoiceItem",
                             UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId), locale);
@@ -3303,7 +3303,7 @@ public class InvoiceServices {
                             "toMessage", toMessage), locale);
         }
         // report error messages if any
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 
@@ -3357,7 +3357,7 @@ public class InvoiceServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
-            if (invoiceItems.size() == 0) {
+            if (invoiceItems.isEmpty()) {
                 errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingNoInvoiceItemsFoundForInvoice", UtilMisc.toMap("invoiceId",
                         invoiceId), locale));
                 return ServiceUtil.returnError(errorMessageList);
@@ -3440,7 +3440,7 @@ public class InvoiceServices {
 
             }
 
-            if (errorMessageList.size() > 0) {
+            if (!errorMessageList.isEmpty()) {
                 return ServiceUtil.returnError(errorMessageList);
             }
             if (successMessage != null) {
@@ -3520,7 +3520,7 @@ public class InvoiceServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (checkAppls.size() > 0) {
+        if (!checkAppls.isEmpty()) {
             if (debug) {
                 Debug.logInfo(checkAppls.size() + " records already exist", MODULE);
             }
@@ -3729,7 +3729,7 @@ public class InvoiceServices {
                         Debug.logError("Valication checking problem against database. due to " + e.getMessage(), MODULE);
                     }
 
-                    if (newErrMsgs.size() > 0) {
+                    if (!newErrMsgs.isEmpty()) {
                         errMsgs.addAll(newErrMsgs);
                     } else {
                         Map<String, Object> invoiceResult = null;
@@ -3794,7 +3794,7 @@ public class InvoiceServices {
                         Debug.logError("Validation checking problem against database. due to " + e.getMessage(), MODULE);
                     }
 
-                    if (newErrMsgs.size() > 0) {
+                    if (!newErrMsgs.isEmpty()) {
                         errMsgs.addAll(newErrMsgs);
                     } else {
                         try {
@@ -3816,7 +3816,7 @@ public class InvoiceServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (errMsgs.size() > 0) {
+        if (!errMsgs.isEmpty()) {
             return ServiceUtil.returnError(errMsgs);
         }
 

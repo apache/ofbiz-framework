@@ -960,7 +960,7 @@ public final class LoginWorker {
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(request), userLogin.getString("userLoginId"));
             securedLoginIdCookie.setMaxAge(-1);
             securedLoginIdCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            securedLoginIdCookie.setPath( applicationName.equals("root") ? "/" : request.getContextPath());
+            securedLoginIdCookie.setPath(applicationName.equals("root") ? "/" : request.getContextPath());
             securedLoginIdCookie.setSecure(true);
             securedLoginIdCookie.setHttpOnly(true);
             response.addCookie(securedLoginIdCookie);
@@ -1059,7 +1059,7 @@ public final class LoginWorker {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(0);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            autoLoginCookie.setPath( applicationName.equals("root") ? "/" : request.getContextPath());
+            autoLoginCookie.setPath(applicationName.equals("root") ? "/" : request.getContextPath());
             response.addCookie(autoLoginCookie);
         }
         // remove the session attributes

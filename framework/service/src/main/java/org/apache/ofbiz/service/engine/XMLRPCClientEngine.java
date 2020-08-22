@@ -77,14 +77,14 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
      */
     private static Map<String, Object> serviceInvoker(ModelService modelService, Map<String, Object> context)
             throws GenericServiceException {
-        if (modelService.location == null || modelService.invoke == null) {
+        if (modelService.getLocation() == null || modelService.getInvoke() == null) {
             throw new GenericServiceException("Cannot locate service to invoke");
         }
 
         XmlRpcClientConfigImpl config = null;
         XmlRpcClient client = null;
-        String serviceName = modelService.invoke;
-        String engine = modelService.engineName;
+        String serviceName = modelService.getInvoke();
+        String engine = modelService.getEngineName();
         String url = null;
         String login = null;
         String password = null;
@@ -93,10 +93,10 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         String keyAlias = null;
         try {
             url = ServiceConfigUtil.getEngineParameter(engine, "url");
-            if (Start.getInstance().getConfig().portOffset != 0) {
+            if (Start.getInstance().getConfig().getPortOffset() != 0) {
                 String s = url.substring(url.lastIndexOf(":") + 1);
                 Integer rpcPort = Integer.valueOf(s.substring(0, s.indexOf("/")));
-                Integer port = rpcPort + Start.getInstance().getConfig().portOffset;
+                Integer port = rpcPort + Start.getInstance().getConfig().getPortOffset();
                 url = url.replace(rpcPort.toString(), port.toString());
             }
             // Necessary for "service-xml-rpc-local-engine" test
@@ -125,7 +125,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         if (Debug.verboseOn()) {
             Debug.logVerbose("[XMLRPCClientEngine.invoke] : Parameter length - " + inModelParamList.size(), MODULE);
             for (ModelParam p: inModelParamList) {
-                Debug.logVerbose("[XMLRPCClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ")", MODULE);
+                Debug.logVerbose("[XMLRPCClientEngine.invoke} : Parameter: " + p.getName() + " (" + p.getMode() + ")", MODULE);
             }
         }
 
@@ -133,13 +133,13 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         Map<String, Object> params = new HashMap<>();
         for (ModelParam modelParam: modelService.getModelParamList()) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (ModelService.OUT_PARAM.equals(modelParam.mode) || modelParam.internal) {
+            if (ModelService.OUT_PARAM.equals(modelParam.getMode()) || modelParam.getInternal()) {
                 continue;
             }
 
-            Object paramValue = context.get(modelParam.name);
+            Object paramValue = context.get(modelParam.getName());
             if (paramValue != null) {
-                params.put(modelParam.name, paramValue);
+                params.put(modelParam.getName(), paramValue);
             }
         }
 

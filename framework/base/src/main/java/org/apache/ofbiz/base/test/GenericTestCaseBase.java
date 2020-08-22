@@ -293,7 +293,7 @@ OUTER:
         while (wantedIt.hasNext() && gotIt.hasNext()) {
             assertEquals(label + ":iterate", wantedIt.next(), gotIt.next());
         }
-        while (wantedExtra.size() > 0) {
+        while (!wantedExtra.isEmpty()) {
             assertTrue(label + ":wanted-extra(" + wantedExtra + ")-hasNext", wantedIt.hasNext());
             assertEquals(label + ":wanted-extra(" + wantedExtra + ")", wantedExtra.remove(0), wantedIt.next());
             if (removeWanted) {
@@ -301,7 +301,7 @@ OUTER:
             }
         }
         assertFalse(label + ":wanted-done", wantedIt.hasNext());
-        while (gotExtra.size() > 0) {
+        while (!gotExtra.isEmpty()) {
             assertTrue(label + ":got-extra(" + gotExtra + ")-hasNext", gotIt.hasNext());
             assertEquals(label + ":got-extra(" + gotExtra + ")", gotExtra.remove(0), gotIt.next());
             if (removeGot) {

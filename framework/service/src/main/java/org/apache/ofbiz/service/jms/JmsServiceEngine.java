@@ -76,6 +76,12 @@ public class JmsServiceEngine extends AbstractEngine {
         super(dispatcher);
     }
 
+    /**
+     * Gets service element.
+     * @param modelService the model service
+     * @return the service element
+     * @throws GenericServiceException the generic service exception
+     */
     protected JmsService getServiceElement(ModelService modelService) throws GenericServiceException {
         String location = this.getLocation(modelService);
         try {
@@ -85,12 +91,22 @@ public class JmsServiceEngine extends AbstractEngine {
         }
     }
 
+    /**
+     * Make message message.
+     * @param session      the session
+     * @param modelService the model service
+     * @param context      the context
+     * @return the message
+     * @throws GenericServiceException the generic service exception
+     * @throws JMSException            the jms exception
+     */
     protected Message makeMessage(Session session, ModelService modelService, Map<String, Object> context)
         throws GenericServiceException, JMSException {
         List<String> outParams = modelService.getParameterNames(ModelService.OUT_PARAM, false);
 
-        if (UtilValidate.isNotEmpty(outParams))
+        if (UtilValidate.isNotEmpty(outParams)) {
             throw new GenericServiceException("JMS service cannot have required OUT parameters; no parameters will be returned.");
+        }
         String xmlContext = null;
 
         try {
@@ -103,11 +119,17 @@ public class JmsServiceEngine extends AbstractEngine {
         }
         MapMessage message = session.createMapMessage();
 
-        message.setString("serviceName", modelService.invoke);
+        message.setString("serviceName", modelService.getInvoke());
         message.setString("serviceContext", xmlContext);
         return message;
     }
 
+    /**
+     * Server list list.
+     * @param serviceElement the service element
+     * @return the list
+     * @throws GenericServiceException the generic service exception
+     */
     protected List<? extends Element> serverList(Element serviceElement) throws GenericServiceException {
         String sendMode = serviceElement.getAttribute("send-mode");
         List<? extends Element> serverList = UtilXml.childElementList(serviceElement, "server");
@@ -121,6 +143,14 @@ public class JmsServiceEngine extends AbstractEngine {
         }
     }
 
+    /**
+     * Run topic map.
+     * @param modelService the model service
+     * @param context      the context
+     * @param server       the server
+     * @return the map
+     * @throws GenericServiceException the generic service exception
+     */
     protected Map<String, Object> runTopic(ModelService modelService, Map<String, Object> context, Server server) throws GenericServiceException {
         String serverName = server.getJndiServerName();
         String jndiName = server.getJndiName();
@@ -152,9 +182,9 @@ public class JmsServiceEngine extends AbstractEngine {
 
         try {
             con = factory.createTopicConnection(userName, password);
-
-            if (clientId != null && clientId.length() > 1)
+            if (clientId != null && clientId.length() > 1) {
                 con.setClientID(clientId);
+            }
             con.start();
 
             TopicSession session = con.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -182,6 +212,14 @@ public class JmsServiceEngine extends AbstractEngine {
 
     }
 
+    /**
+     * Run queue map.
+     * @param modelService the model service
+     * @param context      the context
+     * @param server       the server
+     * @return the map
+     * @throws GenericServiceException the generic service exception
+     */
     protected Map<String, Object> runQueue(ModelService modelService, Map<String, Object> context, Server server) throws GenericServiceException {
         String serverName = server.getJndiServerName();
         String jndiName = server.getJndiName();
@@ -214,8 +252,9 @@ public class JmsServiceEngine extends AbstractEngine {
         try {
             con = factory.createQueueConnection(userName, password);
 
-            if (clientId != null && clientId.length() > 1)
+            if (clientId != null && clientId.length() > 1) {
                 con.setClientID(clientId);
+            }
             con.start();
 
             QueueSession session = con.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -242,6 +281,14 @@ public class JmsServiceEngine extends AbstractEngine {
         return ServiceUtil.returnSuccess();
     }
 
+    /**
+     * Run xa queue map.
+     * @param modelService the model service
+     * @param context      the context
+     * @param server       the server
+     * @return the map
+     * @throws GenericServiceException the generic service exception
+     */
     protected Map<String, Object> runXaQueue(ModelService modelService, Map<String, Object> context, Element server) throws GenericServiceException {
         String serverName = server.getAttribute("jndi-server-name");
         String jndiName = server.getAttribute("jndi-name");
@@ -274,16 +321,18 @@ public class JmsServiceEngine extends AbstractEngine {
         try {
             con = factory.createXAQueueConnection(userName, password);
 
-            if (clientId.length() > 1)
+            if (clientId.length() > 1) {
                 con.setClientID(userName);
+            }
             con.start();
 
             // enlist the XAResource
             XAQueueSession session = con.createXAQueueSession();
             XAResource resource = session.getXAResource();
 
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE)
+            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
                 TransactionUtil.enlistResource(resource);
+            }
 
             Queue queue = (Queue) jndi.lookup(queueName);
             QueueSession qSession = session.getQueueSession();
@@ -294,8 +343,9 @@ public class JmsServiceEngine extends AbstractEngine {
 
             sender.send(message);
 
-            if (TransactionUtil.getStatus() != TransactionUtil.STATUS_ACTIVE)
+            if (TransactionUtil.getStatus() != TransactionUtil.STATUS_ACTIVE) {
                 session.commit();
+            }
 
             Debug.logInfo("Message sent.", MODULE);
 
@@ -313,6 +363,13 @@ public class JmsServiceEngine extends AbstractEngine {
         return ServiceUtil.returnSuccess();
     }
 
+    /**
+     * Run map.
+     * @param modelService the model service
+     * @param context      the context
+     * @return the map
+     * @throws GenericServiceException the generic service exception
+     */
     protected Map<String, Object> run(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         JmsService serviceElement = getServiceElement(modelService);
         List<Server> serverList = serviceElement.getServers();
@@ -320,12 +377,13 @@ public class JmsServiceEngine extends AbstractEngine {
         Map<String, Object> result = new HashMap<>();
         for (Server server: serverList) {
             String serverType = server.getType();
-            if ("topic".equals(serverType))
+            if ("topic".equals(serverType)) {
                 result.putAll(runTopic(modelService, context, server));
-            else if ("queue".equals(serverType))
+            } else if ("queue".equals(serverType)) {
                 result.putAll(runQueue(modelService, context, server));
-            else
+            } else {
                 throw new GenericServiceException("Illegal server messaging type.");
+            }
         }
         return result;
     }
@@ -341,7 +399,8 @@ public class JmsServiceEngine extends AbstractEngine {
     }
 
     @Override
-    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist)
+            throws GenericServiceException {
         Map<String, Object> result = run(modelService, context);
 
         requester.receiveResult(result);

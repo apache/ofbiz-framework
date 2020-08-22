@@ -71,7 +71,7 @@ public class ContainerLoader {
 
         // Load containers defined in components.
         Debug.logInfo("[Startup] Loading containers...", MODULE);
-        loadedContainers.addAll(loadContainersFromConfigurations(config.loaders, ofbizCommands));
+        loadedContainers.addAll(loadContainersFromConfigurations(config.getLoaders(), ofbizCommands));
 
         // Start all containers loaded from above steps
         startLoadedContainers();

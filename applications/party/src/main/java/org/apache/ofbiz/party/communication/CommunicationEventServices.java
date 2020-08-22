@@ -263,7 +263,7 @@ public class CommunicationEventServices {
         }
 
         // If there were errors, then the result of this service should be error with the full list of messages
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         }
         return result;
@@ -374,7 +374,7 @@ public class CommunicationEventServices {
                 errorMessages.add(UtilProperties.getMessage(RESOURCE, "commeventservices.communication_event_not_without_content", locale));
             }
 
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 communicationEvent.set("statusId", "COM_BOUNCED");
                 communicationEvent.set("note", errorMessages.toString());
                 communicationEvent.store();
@@ -395,7 +395,7 @@ public class CommunicationEventServices {
         } catch (GenericEntityException | GenericServiceException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             return ServiceUtil.returnFailure(errorMessages);
         }
         return ServiceUtil.returnSuccess();
@@ -631,7 +631,7 @@ public class CommunicationEventServices {
             return ServiceUtil.returnError(fatalGEE.getMessage());
         }
 
-        return errorMessages.size() == 0 ? ServiceUtil.returnSuccess() : ServiceUtil.returnError(errorMessages);
+        return errorMessages.isEmpty() ? ServiceUtil.returnSuccess() : ServiceUtil.returnError(errorMessages);
     }
 
     public static Map<String, Object> setCommEventComplete(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -1198,7 +1198,7 @@ public class CommunicationEventServices {
         List<String> attachmentIndexes = wrapper.getAttachmentIndexes();
         List<String> currentAttachmentNames = getCommEventAttachmentNames(delegator, communicationEventId);
 
-        if (attachmentIndexes.size() > 0) {
+        if (!attachmentIndexes.isEmpty()) {
             Debug.logInfo("=== message has attachments [" + attachmentIndexes.size() + "] =====", MODULE);
             for (String attachmentIdx : attachmentIndexes) {
                 String attFileName = wrapper.getPartFilename(attachmentIdx);
@@ -1544,7 +1544,7 @@ public class CommunicationEventServices {
         Debug.logInfo("### MESSAGE ###\n\n" + wrapper.getMessageBody(), MODULE);
 
         List<String> attachmentIndexes = wrapper.getAttachmentIndexes();
-        if (attachmentIndexes.size() > 0) {
+        if (!attachmentIndexes.isEmpty()) {
             Debug.logInfo("### ATTACHMENTS ###", MODULE);
             for (String idx : attachmentIndexes) {
                 Debug.logInfo("### -- Filename          : " + wrapper.getPartFilename(idx), MODULE);

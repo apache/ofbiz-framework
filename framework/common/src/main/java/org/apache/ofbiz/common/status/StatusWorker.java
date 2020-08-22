@@ -84,7 +84,7 @@ public final class StatusWorker {
             Debug.logError(e, MODULE);
         }
 
-        if (statusItems.size() > 0)
+        if (!statusItems.isEmpty())
             pageContext.setAttribute(attributeName, statusItems);
     }
 

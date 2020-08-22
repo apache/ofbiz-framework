@@ -137,7 +137,6 @@ public final class ExecutionPool {
 
         /**
          * Gets load time nanos.
-         *
          * @return the load time nanos
          */
         public long getLoadTimeNanos() {
@@ -146,7 +145,6 @@ public final class ExecutionPool {
 
         /**
          * Gets expire time nanos.
-         *
          * @return the expire time nanos
          */
         public long getExpireTimeNanos() {

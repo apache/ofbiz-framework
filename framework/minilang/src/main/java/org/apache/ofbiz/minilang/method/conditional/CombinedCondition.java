@@ -69,7 +69,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
             return new CombinedCondition(element, simpleMethod) {
                 @Override
                 public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
-                    if (subConditions.size() == 0)
+                    if (subConditions.isEmpty())
                         return true;
                     for (Conditional subCond : subConditions) {
                         if (!subCond.checkCondition(methodContext)) {
@@ -100,7 +100,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
             return new CombinedCondition(element, simpleMethod) {
                 @Override
                 public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
-                    if (subConditions.size() == 0)
+                    if (subConditions.isEmpty())
                         return true;
                     Conditional subCond = subConditions.get(0);
                     return !subCond.checkCondition(methodContext);
@@ -108,7 +108,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
                 @Override
                 public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
                     messageBuffer.append("( NOT ");
-                    if (subConditions.size() > 0) {
+                    if (!subConditions.isEmpty()) {
                         Conditional subCond = subConditions.get(0);
                         subCond.prettyPrint(messageBuffer, methodContext);
                     }
@@ -132,7 +132,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
             return new CombinedCondition(element, simpleMethod) {
                 @Override
                 public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
-                    if (subConditions.size() == 0)
+                    if (subConditions.isEmpty())
                         return true;
                     for (Conditional subCond : subConditions) {
                         if (subCond.checkCondition(methodContext)) {
@@ -163,7 +163,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
             return new CombinedCondition(element, simpleMethod) {
                 @Override
                 public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
-                    if (subConditions.size() == 0)
+                    if (subConditions.isEmpty())
                         return true;
                     boolean trueFound = false;
                     for (Conditional subCond : subConditions) {

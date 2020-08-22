@@ -367,7 +367,7 @@ public final class SqlJdbcUtil {
 
         String viewClause = makeViewWhereClause(modelEntity, joinStyle);
 
-        if (viewClause.length() > 0) {
+        if (!viewClause.isEmpty()) {
             if (whereString.length() > 0) {
                 whereString.append(' ');
                 whereString.append(operator);

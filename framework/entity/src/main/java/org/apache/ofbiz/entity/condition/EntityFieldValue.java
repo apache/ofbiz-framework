@@ -45,10 +45,10 @@ public class EntityFieldValue extends EntityConditionValue {
 
     private static final String MODULE = EntityFieldValue.class.getName();
 
-    protected String fieldName = null;
-    protected String entityAlias = null;
-    protected List<String> entityAliasStack = null;
-    protected ModelViewEntity modelViewEntity = null;
+    private String fieldName = null;
+    private String entityAlias = null;
+    private List<String> entityAliasStack = null;
+    private ModelViewEntity modelViewEntity = null;
 
     public static EntityFieldValue makeFieldValue(String fieldName) {
         EntityFieldValue efv = new EntityFieldValue();
@@ -62,6 +62,13 @@ public class EntityFieldValue extends EntityConditionValue {
         return efv;
     }
 
+    /**
+     * Init.
+     * @param fieldName        the field name
+     * @param entityAlias      the entity alias
+     * @param entityAliasStack the entity alias stack
+     * @param modelViewEntity  the model view entity
+     */
     public void init(String fieldName, String entityAlias, List<String> entityAliasStack, ModelViewEntity modelViewEntity) {
         this.fieldName = fieldName;
         this.entityAlias = entityAlias;
@@ -81,6 +88,9 @@ public class EntityFieldValue extends EntityConditionValue {
         }
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         this.fieldName = null;
         this.entityAlias = null;
@@ -88,6 +98,10 @@ public class EntityFieldValue extends EntityConditionValue {
         this.modelViewEntity = null;
     }
 
+    /**
+     * Gets field name.
+     * @return the field name
+     */
     public String getFieldName() {
         return fieldName;
     }
@@ -136,7 +150,8 @@ public class EntityFieldValue extends EntityConditionValue {
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity,
+                            List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceInfo) {
         if (this.modelViewEntity != null) {
             // NOTE: this section is a bit of a hack; the other code is terribly complex and really needs to be refactored to incorporate support for this
 

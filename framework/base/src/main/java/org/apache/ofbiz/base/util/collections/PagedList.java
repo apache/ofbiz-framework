@@ -28,12 +28,12 @@ import java.util.List;
  */
 public class PagedList<E> implements Iterable<E> {
 
-    protected int startIndex;
-    protected int endIndex;
-    protected int size;
-    protected int viewIndex;
-    protected int viewSize;
-    protected List<E> data;
+    private int startIndex;
+    private int endIndex;
+    private int size;
+    private int viewIndex;
+    private int viewSize;
+    private List<E> data;
 
     /**
      * Default constructor - populates all fields in this class

@@ -116,107 +116,667 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     private static final String RESOURCE = "ServiceErrorUiLabels";
 
     /** The name of this service */
-    public String name;
+    private String name;
 
     /** The location of the definition this service */
-    public String definitionLocation;
+    private String definitionLocation;
 
     /** The description of this service */
-    public String description;
+    private String description;
 
     /** The name of the service engine */
-    public String engineName;
+    private String engineName;
 
     /** The namespace of this service */
-    public String nameSpace;
+    private String nameSpace;
 
     /** The corresponding REST verb behaviour for this service */
-    public String action;
+    private String action;
 
     /** The package name or location of this service */
-    public String location;
+    private String location;
 
     /** The method or function to invoke for this service */
-    public String invoke;
+    private String invoke;
 
     /** The default Entity to use for auto-attributes */
-    public String defaultEntityName;
+    private String defaultEntityName;
 
     /** The loader which loaded this definition */
-    public String fromLoader;
+    private String fromLoader;
 
     /** Does this service require authorization */
-    public boolean auth;
+    private boolean auth;
 
     /** Can this service be exported via RPC, RMI, SOAP, etc */
-    public boolean export;
+    private boolean export;
 
     /** Enable verbose debugging when calling this service */
-    public boolean debug;
+    private boolean debug;
 
     /** Validate the context info for this service */
-    public boolean validate;
+    private boolean validate;
 
     /** Create a transaction for this service (if one is not already in place...)? */
-    public boolean useTransaction;
+    private boolean useTransaction;
 
     /** Require a new transaction for this service */
-    public boolean requireNewTransaction;
+    private boolean requireNewTransaction;
 
     /** Override the default transaction timeout, only works if we start the transaction */
-    public int transactionTimeout;
+    private int transactionTimeout;
 
     /** Sets the max number of times this service will retry when failed (persisted async only) */
-    public int maxRetry = 0;
+    private int maxRetry = 0;
 
     /** Permission service*/
-    ModelPermission modelPermission = null;
+    private ModelPermission modelPermission = null;
 
     /** Semaphore setting (wait, fail, none) */
-    public String semaphore;
+    private String semaphore;
 
     /** Semaphore wait time (in milliseconds) */
-    public int semaphoreWait;
+    private int semaphoreWait;
 
     /** Semaphore sleep time (in milliseconds) */
-    public int semaphoreSleep;
+    private int semaphoreSleep;
 
     /** Require a new transaction for this service */
-    public boolean hideResultInLog;
+    private boolean hideResultInLog;
 
     /** Set of services this service implements */
-    public Set<ModelServiceIface> implServices = new LinkedHashSet<>();
+    private Set<ModelServiceIface> implServices = new LinkedHashSet<>();
 
     /** Set of override parameters */
-    public Set<ModelParam> overrideParameters = new LinkedHashSet<>();
+    private Set<ModelParam> overrideParameters = new LinkedHashSet<>();
 
     /** List of permission groups for service invocation */
-    public List<ModelPermGroup> permissionGroups = new LinkedList<>();
+    private List<ModelPermGroup> permissionGroups = new LinkedList<>();
 
     /** List of email-notifications for this service */
-    public List<ModelNotification> notifications = new LinkedList<>();
+    private List<ModelNotification> notifications = new LinkedList<>();
 
     /** Internal Service Group */
-    public GroupModel internalGroup = null;
+    private GroupModel internalGroup = null;
 
     /**Deprecated information*/
-    public String deprecatedUseInstead = null;
-    public String deprecatedSince = null;
-    public String deprecatedReason = null;
+    private String deprecatedUseInstead = null;
+    private String deprecatedSince = null;
+    private String deprecatedReason = null;
 
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
-    protected Map<String, ModelParam> contextInfo = new LinkedHashMap<>();
+    private Map<String, ModelParam> contextInfo = new LinkedHashMap<>();
 
     /** Context Information, a List of parameters used by the service, contains ModelParam objects */
-    protected List<ModelParam> contextParamList = new LinkedList<>();
+    private List<ModelParam> contextParamList = new LinkedList<>();
 
     /** Flag to say if we have pulled in our addition parameters from our implemented service(s) */
-    protected boolean inheritedParameters = false;
+    private boolean inheritedParameters = false;
 
     /**
      * Service metrics.
      */
-    public Metrics metrics = null;
+    private Metrics metrics = null;
+
+    /**
+     * Sets name.
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets definition location.
+     * @param definitionLocation the definition location
+     */
+    public void setDefinitionLocation(String definitionLocation) {
+        this.definitionLocation = definitionLocation;
+    }
+
+    /**
+     * Sets description.
+     * @param description the description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Sets engine name.
+     * @param engineName the engine name
+     */
+    public void setEngineName(String engineName) {
+        this.engineName = engineName;
+    }
+
+    /**
+     * Sets name space.
+     * @param nameSpace the name space
+     */
+    public void setNameSpace(String nameSpace) {
+        this.nameSpace = nameSpace;
+    }
+
+    /**
+     * Sets action.
+     * @param action the action
+     */
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    /**
+     * Sets location.
+     * @param location the location
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * Sets invoke.
+     * @param invoke the invoke
+     */
+    public void setInvoke(String invoke) {
+        this.invoke = invoke;
+    }
+
+    /**
+     * Sets default entity name.
+     * @param defaultEntityName the default entity name
+     */
+    public void setDefaultEntityName(String defaultEntityName) {
+        this.defaultEntityName = defaultEntityName;
+    }
+
+    /**
+     * Sets from loader.
+     * @param fromLoader the from loader
+     */
+    public void setFromLoader(String fromLoader) {
+        this.fromLoader = fromLoader;
+    }
+
+    /**
+     * Sets auth.
+     * @param auth the auth
+     */
+    public void setAuth(boolean auth) {
+        this.auth = auth;
+    }
+
+    /**
+     * Sets export.
+     * @param export the export
+     */
+    public void setExport(boolean export) {
+        this.export = export;
+    }
+
+    /**
+     * Sets debug.
+     * @param debug the debug
+     */
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    /**
+     * Sets validate.
+     * @param validate the validate
+     */
+    public void setValidate(boolean validate) {
+        this.validate = validate;
+    }
+
+    /**
+     * Sets use transaction.
+     * @param useTransaction the use transaction
+     */
+    public void setUseTransaction(boolean useTransaction) {
+        this.useTransaction = useTransaction;
+    }
+
+    /**
+     * Sets require new transaction.
+     * @param requireNewTransaction the require new transaction
+     */
+    public void setRequireNewTransaction(boolean requireNewTransaction) {
+        this.requireNewTransaction = requireNewTransaction;
+    }
+
+    /**
+     * Sets transaction timeout.
+     * @param transactionTimeout the transaction timeout
+     */
+    public void setTransactionTimeout(int transactionTimeout) {
+        this.transactionTimeout = transactionTimeout;
+    }
+
+    /**
+     * Sets max retry.
+     * @param maxRetry the max retry
+     */
+    public void setMaxRetry(int maxRetry) {
+        this.maxRetry = maxRetry;
+    }
+
+    /**
+     * Sets model permission.
+     * @param modelPermission the model permission
+     */
+    public void setModelPermission(ModelPermission modelPermission) {
+        this.modelPermission = modelPermission;
+    }
+
+    /**
+     * Sets semaphore.
+     * @param semaphore the semaphore
+     */
+    public void setSemaphore(String semaphore) {
+        this.semaphore = semaphore;
+    }
+
+    /**
+     * Sets semaphore wait.
+     * @param semaphoreWait the semaphore wait
+     */
+    public void setSemaphoreWait(int semaphoreWait) {
+        this.semaphoreWait = semaphoreWait;
+    }
+
+    /**
+     * Sets semaphore sleep.
+     * @param semaphoreSleep the semaphore sleep
+     */
+    public void setSemaphoreSleep(int semaphoreSleep) {
+        this.semaphoreSleep = semaphoreSleep;
+    }
+
+    /**
+     * Sets hide result in log.
+     * @param hideResultInLog the hide result in log
+     */
+    public void setHideResultInLog(boolean hideResultInLog) {
+        this.hideResultInLog = hideResultInLog;
+    }
+
+    /**
+     * Gets definition location.
+     * @return the definition location
+     */
+    public String getDefinitionLocation() {
+        return definitionLocation;
+    }
+
+    /**
+     * Sets impl services.
+     * @param implServices the impl services
+     */
+    public void setImplServices(Set<ModelServiceIface> implServices) {
+        this.implServices = implServices;
+    }
+
+    /**
+     * Sets override parameters.
+     * @param overrideParameters the override parameters
+     */
+    public void setOverrideParameters(Set<ModelParam> overrideParameters) {
+        this.overrideParameters = overrideParameters;
+    }
+
+    /**
+     * Sets permission groups.
+     * @param permissionGroups the permission groups
+     */
+    public void setPermissionGroups(List<ModelPermGroup> permissionGroups) {
+        this.permissionGroups = permissionGroups;
+    }
+
+    /**
+     * Sets notifications.
+     * @param notifications the notifications
+     */
+    public void setNotifications(List<ModelNotification> notifications) {
+        this.notifications = notifications;
+    }
+
+    /**
+     * Sets internal group.
+     * @param internalGroup the internal group
+     */
+    public void setInternalGroup(GroupModel internalGroup) {
+        this.internalGroup = internalGroup;
+    }
+
+    /**
+     * Sets deprecated use instead.
+     * @param deprecatedUseInstead the deprecated use instead
+     */
+    public void setDeprecatedUseInstead(String deprecatedUseInstead) {
+        this.deprecatedUseInstead = deprecatedUseInstead;
+    }
+
+    /**
+     * Sets deprecated since.
+     * @param deprecatedSince the deprecated since
+     */
+    public void setDeprecatedSince(String deprecatedSince) {
+        this.deprecatedSince = deprecatedSince;
+    }
+
+    /**
+     * Sets deprecated reason.
+     * @param deprecatedReason the deprecated reason
+     */
+    public void setDeprecatedReason(String deprecatedReason) {
+        this.deprecatedReason = deprecatedReason;
+    }
+
+    /**
+     * Sets context info.
+     * @param contextInfo the context info
+     */
+    public void setContextInfo(Map<String, ModelParam> contextInfo) {
+        this.contextInfo = contextInfo;
+    }
+
+    /**
+     * Sets context param list.
+     * @param contextParamList the context param list
+     */
+    public void setContextParamList(List<ModelParam> contextParamList) {
+        this.contextParamList = contextParamList;
+    }
+
+    /**
+     * Sets inherited parameters.
+     * @param inheritedParameters the inherited parameters
+     */
+    public void setInheritedParameters(boolean inheritedParameters) {
+        this.inheritedParameters = inheritedParameters;
+    }
+
+    /**
+     * Sets metrics.
+     * @param metrics the metrics
+     */
+    public void setMetrics(Metrics metrics) {
+        this.metrics = metrics;
+    }
+
+    /**
+     * Gets description.
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Gets name space.
+     * @return the name space
+     */
+    public String getNameSpace() {
+        return nameSpace;
+    }
+
+    /**
+     * Gets action.
+     * @return the action
+     */
+    public String getAction() {
+        return action;
+    }
+
+    /**
+     * Gets default entity name.
+     * @return the default entity name
+     */
+    public String getDefaultEntityName() {
+        return defaultEntityName;
+    }
+
+    /**
+     * Gets from loader.
+     * @return the from loader
+     */
+    public String getFromLoader() {
+        return fromLoader;
+    }
+
+    /**
+     * Is export boolean.
+     * @return the boolean
+     */
+    public boolean isExport() {
+        return export;
+    }
+
+    /**
+     * Gets semaphore wait.
+     * @return the semaphore wait
+     */
+    public int getSemaphoreWait() {
+        return semaphoreWait;
+    }
+
+    /**
+     * Gets semaphore sleep.
+     * @return the semaphore sleep
+     */
+    public int getSemaphoreSleep() {
+        return semaphoreSleep;
+    }
+
+    /**
+     * Gets impl services.
+     * @return the impl services
+     */
+    public Set<ModelServiceIface> getImplServices() {
+        return implServices;
+    }
+
+    /**
+     * Gets override parameters.
+     * @return the override parameters
+     */
+    public Set<ModelParam> getOverrideParameters() {
+        return overrideParameters;
+    }
+
+    /**
+     * Gets permission groups.
+     * @return the permission groups
+     */
+    public List<ModelPermGroup> getPermissionGroups() {
+        return permissionGroups;
+    }
+
+    /**
+     * Gets notifications.
+     * @return the notifications
+     */
+    public List<ModelNotification> getNotifications() {
+        return notifications;
+    }
+
+    /**
+     * Gets internal group.
+     * @return the internal group
+     */
+    public GroupModel getInternalGroup() {
+        return internalGroup;
+    }
+
+    /**
+     * Gets deprecated use instead.
+     * @return the deprecated use instead
+     */
+    public String getDeprecatedUseInstead() {
+        return deprecatedUseInstead;
+    }
+
+    /**
+     * Gets deprecated since.
+     * @return the deprecated since
+     */
+    public String getDeprecatedSince() {
+        return deprecatedSince;
+    }
+
+    /**
+     * Gets deprecated reason.
+     * @return the deprecated reason
+     */
+    public String getDeprecatedReason() {
+        return deprecatedReason;
+    }
+
+    /**
+     * Gets context info.
+     * @return the context info
+     */
+    public Map<String, ModelParam> getContextInfo() {
+        return contextInfo;
+    }
+
+    /**
+     * Gets context param list.
+     * @return the context param list
+     */
+    public List<ModelParam> getContextParamList() {
+        return contextParamList;
+    }
+
+    /**
+     * Is inherited parameters boolean.
+     * @return the boolean
+     */
+    public boolean isInheritedParameters() {
+        return inheritedParameters;
+    }
+
+    /**
+     * Gets name.
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets invoke.
+     * @return the invoke
+     */
+    public String getInvoke() {
+        return invoke;
+    }
+
+    /**
+     * Is hide result in log boolean.
+     * @return the boolean
+     */
+    public boolean isHideResultInLog() {
+        return hideResultInLog;
+    }
+
+    /**
+     * Gets metrics.
+     * @return the metrics
+     */
+    public Metrics getMetrics() {
+        return metrics;
+    }
+
+    /**
+     * Is auth boolean.
+     * @return the boolean
+     */
+    public boolean isAuth() {
+        return auth;
+    }
+
+    /**
+     * Is validate boolean.
+     * @return the boolean
+     */
+    public boolean isValidate() {
+        return validate;
+    }
+
+    /**
+     * Gets model permission.
+     * @return the model permission
+     */
+    public ModelPermission getModelPermission() {
+        return modelPermission;
+    }
+
+    /**
+     * Is use transaction boolean.
+     * @return the boolean
+     */
+    public boolean isUseTransaction() {
+        return useTransaction;
+    }
+
+    /**
+     * Is require new transaction boolean.
+     * @return the boolean
+     */
+    public boolean isRequireNewTransaction() {
+        return requireNewTransaction;
+    }
+
+    /**
+     * Gets transaction timeout.
+     * @return the transaction timeout
+     */
+    public int getTransactionTimeout() {
+        return transactionTimeout;
+    }
+
+    /**
+     * Gets max retry.
+     * @return the max retry
+     */
+    public int getMaxRetry() {
+        return maxRetry;
+    }
+
+    /**
+     * Gets engine name.
+     * @return the engine name
+     */
+    public String getEngineName() {
+        return engineName;
+    }
+
+    /**
+     * Gets location.
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Is debug boolean.
+     * @return the boolean
+     */
+    public boolean isDebug() {
+        return debug;
+    }
+
+    /**
+     * Gets semaphore.
+     * @return the semaphore
+     */
+    public String getSemaphore() {
+        return semaphore;
+    }
 
     public ModelService() { }
 
@@ -387,6 +947,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return buf.toString();
     }
 
+    /**
+     * Debug info string.
+     * @return the string
+     */
     public String debugInfo() {
         if (debug || Debug.verboseOn()) {
             return " [" + this.toString() + "]";
@@ -417,7 +981,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public void addParam(ModelParam param) {
         if (param != null) {
-            contextInfo.put(param.name, param);
+            contextInfo.put(param.getName(), param);
             contextParamList.add(param);
         }
     }
@@ -447,7 +1011,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public Set<String> getAllParamNames() {
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
-            nameList.add(p.name);
+            nameList.add(p.getName());
         }
         return nameList;
     }
@@ -457,7 +1021,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if (p.isIn()) {
-                nameList.add(p.name);
+                nameList.add(p.getName());
             }
         }
         return nameList;
@@ -469,7 +1033,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public Map<String, String> getInParamNamesMap() {
         // TODO : Does not yet support getting nested parameters
-        return getInModelParamList().stream().filter(param -> !param.internal)
+        return getInModelParamList().stream().filter(param -> !param.getInternal())
                 .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
     }
 
@@ -480,7 +1044,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public Map<String, String> getOutParamNamesMap() {
         // TODO : Does not yet support getting nested parameters
-        return getModelParamList().stream().filter(param -> param.isOut() && !param.internal)
+        return getModelParamList().stream().filter(param -> param.isOut() && !param.getInternal())
                 .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
     }
 
@@ -490,7 +1054,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (p.isIn() && !p.internal) {
+            if (p.isIn() && !p.getInternal()) {
                 count++;
             }
         }
@@ -498,24 +1062,28 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return count;
     }
 
+    /**
+     * Gets out param names.
+     * @return the out param names
+     */
     public Set<String> getOutParamNames() {
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
             if (p.isOut()) {
-                nameList.add(p.name);
+                nameList.add(p.getName());
             }
         }
         return nameList;
     }
 
-    // only returns number of defined parameters (not internal)
+    /** only returns number of defined parameters (not internal) */
     public int getDefinedOutCount() {
         int count = 0;
 
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
-            if (p.isOut() && !p.internal) {
+            if (p.isOut() && !p.getInternal()) {
                 count++;
             }
         }
@@ -523,15 +1091,20 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return count;
     }
 
+    /**
+     * Update default values.
+     * @param context the context
+     * @param mode    the mode
+     */
     public void updateDefaultValues(Map<String, Object> context, String mode) {
         List<ModelParam> params = this.getModelParamList();
         for (ModelParam param: params) {
             if (param.getDefaultValue() != null
-                    && (IN_OUT_PARAM.equals(param.mode) || mode.equals(param.mode))) {
+                    && (IN_OUT_PARAM.equals(param.getMode()) || mode.equals(param.getMode()))) {
                 Object defaultValueObj = param.getDefaultValue(context);
-                if (defaultValueObj != null && context.get(param.name) == null) {
-                    context.put(param.name, defaultValueObj);
-                    Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", MODULE);
+                if (defaultValueObj != null && context.get(param.getName()) == null) {
+                    context.put(param.getName(), defaultValueObj);
+                    Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.getName() + "]", MODULE);
                 }
             }
         }
@@ -563,11 +1136,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         // get the info values
         for (ModelParam modelParam: this.contextParamList) {
-            if (IN_OUT_PARAM.equals(modelParam.mode) || mode.equals(modelParam.mode)) {
-                if (modelParam.optional) {
-                    optionalInfo.put(modelParam.name, modelParam.type);
+            if (IN_OUT_PARAM.equals(modelParam.getMode()) || mode.equals(modelParam.getMode())) {
+                if (modelParam.isOptional()) {
+                    optionalInfo.put(modelParam.getName(), modelParam.getType());
                 } else {
-                    requiredInfo.put(modelParam.name, modelParam.type);
+                    requiredInfo.put(modelParam.getName(), modelParam.getType());
                 }
             }
         }
@@ -596,7 +1169,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
 
         // check for requiredButNull fields and return an error since null values are not allowed for required fields
-        if (requiredButNull.size() > 0) {
+        if (!requiredButNull.isEmpty()) {
             List<String> missingMsg = new LinkedList<>();
             for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
@@ -643,19 +1216,19 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             List<String> errorMessageList = new LinkedList<>();
             for (ModelParam modelParam : this.contextInfo.values()) {
                 // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
-                if (context.get(modelParam.name) != null && ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type))
-                        && !"any".equals(modelParam.allowHtml) && (IN_OUT_PARAM.equals(modelParam.mode) || IN_PARAM.equals(modelParam.mode))) {
-                    String value = (String) context.get(modelParam.name);
-                    if ("none".equals(modelParam.allowHtml)) {
-                        UtilCodec.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList, (Locale) context.get("locale"));
-                    } else if ("safe".equals(modelParam.allowHtml)) {
-                        UtilCodec.checkStringForHtmlSafe(modelParam.name, value, errorMessageList,
+                if (context.get(modelParam.getName()) != null && ("String".equals(modelParam.getType()) || "java.lang.String".equals(modelParam.getType()))
+                        && !"any".equals(modelParam.getAllowHtml()) && (IN_OUT_PARAM.equals(modelParam.getMode()) || IN_PARAM.equals(modelParam.getMode()))) {
+                    String value = (String) context.get(modelParam.getName());
+                    if ("none".equals(modelParam.getAllowHtml())) {
+                        UtilCodec.checkStringForHtmlStrictNone(modelParam.getName(), value, errorMessageList, (Locale) context.get("locale"));
+                    } else if ("safe".equals(modelParam.getAllowHtml())) {
+                        UtilCodec.checkStringForHtmlSafe(modelParam.getName(), value, errorMessageList,
                                 (Locale) context.get("locale"),
                                 EntityUtilProperties.getPropertyAsBoolean("owasp", "sanitizer.enable", true));
                     }
                 }
             }
-            if (errorMessageList.size() > 0) {
+            if (!errorMessageList.isEmpty()) {
                 throw new ServiceValidationException(errorMessageList, this, mode);
             }
         }
@@ -693,7 +1266,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Set<String> keySet = info.keySet();
 
         // Quick check for sizes
-        if (info.size() == 0 && test.size() == 0) {
+        if (info.isEmpty() && test.isEmpty()) {
             return;
         }
         // This is to see if the test set contains all from the info set (reverse)
@@ -747,8 +1320,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             Object testObject = test.get(key);
             String infoType = info.get(key);
 
-            if (UtilValidate.isNotEmpty(param.validators)) {
-                for (ModelParam.ModelParamValidator val: param.validators) {
+            if (UtilValidate.isNotEmpty(param.getValidators())) {
+                for (ModelParam.ModelParamValidator val: param.getValidators()) {
                     if (UtilValidate.isNotEmpty(val.getMethodName())) {
                         try {
                             if (!typeValidate(val, testObject)) {
@@ -779,13 +1352,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             } else {
                 if (!ObjectType.instanceOf(testObject, infoType, null)) {
                     String testType = testObject == null ? "null" : testObject.getClass().getName();
-                    String msg = "Type check failed for field [" + model.name + "." + key + "]; expected type is [" + infoType + "]; actual type is [" + testType + "]";
+                    String msg = "Type check failed for field [" + model.name + "." + key + "]; expected type is [" + infoType
+                            + "]; actual type is [" + testType + "]";
                     typeFailMsgs.add(msg);
                 }
             }
         }
 
-        if (typeFailMsgs.size() > 0) {
+        if (!typeFailMsgs.isEmpty()) {
             throw new ServiceValidationException(typeFailMsgs, model, mode);
         }
     }
@@ -843,7 +1417,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         try {
             resultBool = (Boolean) validatorMethod.invoke(null, param);
         } catch (ClassCastException e) {
-            throw new GeneralException("Validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName() + "] did not return expected Boolean");
+            throw new GeneralException("Validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName()
+                    + "] did not return expected Boolean");
         } catch (Exception e) {
             throw new GeneralException("Unable to run validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName() + "]");
         }
@@ -866,14 +1441,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (!IN_PARAM.equals(mode) && !OUT_PARAM.equals(mode) && !IN_OUT_PARAM.equals(mode)) {
             return names;
         }
-        if (contextInfo.size() == 0) {
+        if (contextInfo.isEmpty()) {
             return names;
         }
         for (ModelParam param: contextParamList) {
-            if (param.mode.equals(IN_OUT_PARAM) || param.mode.equals(mode)) {
-                if (optional || !param.optional) {
-                    if (internal || !param.internal) {
-                        names.add(param.name);
+            if (param.getMode().equals(IN_OUT_PARAM) || param.getMode().equals(mode)) {
+                if (optional || !param.isOptional()) {
+                    if (internal || !param.getInternal()) {
+                        names.add(param.getName());
                     }
                 }
             }
@@ -881,6 +1456,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return names;
     }
 
+    /**
+     * Gets parameter names.
+     * @param mode     the mode
+     * @param optional the optional
+     * @return the parameter names
+     */
     public List<String> getParameterNames(String mode, boolean optional) {
         return this.getParameterNames(mode, optional, true);
     }
@@ -914,7 +1495,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param includeInternal When false will exclude internal fields
      * @param locale Locale to use to do some type conversion
      */
-    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages, Locale locale) {
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages,
+                                         Locale locale) {
         return makeValid(source, mode, includeInternal, errorMessages, null, locale);
     }
 
@@ -928,7 +1510,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param timeZone TimeZone to use to do some type conversion
      * @param locale Locale to use to do some type conversion
      */
-    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages, TimeZone timeZone, Locale locale) {
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages,
+                                         TimeZone timeZone, Locale locale) {
         Map<String, Object> target = new HashMap<>();
 
         if (source == null) {
@@ -937,12 +1520,13 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (!IN_PARAM.equals(mode) && !OUT_PARAM.equals(mode) && !IN_OUT_PARAM.equals(mode)) {
             return target;
         }
-        if (contextInfo.size() == 0) {
+        if (contextInfo.isEmpty()) {
             return target;
         }
 
         if (locale == null) {
-            // if statement here to avoid warning messages for Entity ECA service input validation, even though less efficient that doing a straight get
+            // if statement here to avoid warning messages for Entity ECA service input validation,
+            // even though less efficient that doing a straight get
             if (source.containsKey("locale")) {
                 locale = (Locale) source.get("locale");
             }
@@ -952,7 +1536,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
 
         if (timeZone == null) {
-            // if statement here to avoid warning messages for Entity ECA service input validation, even though less efficient that doing a straight get
+            // if statement here to avoid warning messages for Entity ECA service input validation,
+            // even though less efficient that doing a straight get
             if (source.containsKey("timeZone")) {
                 timeZone = (TimeZone) source.get("timeZone");
             }
@@ -962,17 +1547,17 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
 
         for (ModelParam param: contextParamList) {
-            if (param.mode.equals(IN_OUT_PARAM) || param.mode.equals(mode)) {
-                String key = param.name;
+            if (param.getMode().equals(IN_OUT_PARAM) || param.getMode().equals(mode)) {
+                String key = param.getName();
 
                 // internal map of strings
-                if (UtilValidate.isNotEmpty(param.stringMapPrefix) && !source.containsKey(key)) {
+                if (UtilValidate.isNotEmpty(param.getStringMapPrefix()) && !source.containsKey(key)) {
                     Map<String, Object> paramMap = makePrefixMap(source, param);
                     if (UtilValidate.isNotEmpty(paramMap)) {
                         target.put(key, paramMap);
                     }
                 // internal list of strings
-                } else if (UtilValidate.isNotEmpty(param.stringListSuffix) && !source.containsKey(key)) {
+                } else if (UtilValidate.isNotEmpty(param.getStringListSuffix()) && !source.containsKey(key)) {
                     List<Object> paramList = makeSuffixList(source, param);
                     if (UtilValidate.isNotEmpty(paramList)) {
                         target.put(key, paramList);
@@ -980,14 +1565,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 // other attributes
                 } else {
                     if (source.containsKey(key)) {
-                        if ((param.internal && includeInternal) || (!param.internal)) {
+                        if ((param.getInternal() && includeInternal) || (!param.getInternal())) {
                             Object value = source.get(key);
 
                             try {
                                 // no need to fail on type conversion; the validator will catch this
-                                value = ObjectType.simpleTypeOrObjectConvert(value, param.type, null, timeZone, locale, false);
+                                value = ObjectType.simpleTypeOrObjectConvert(value, param.getType(), null, timeZone, locale, false);
                             } catch (GeneralException e) {
-                                String errMsg = "Type conversion of field [" + key + "] to type [" + param.type + "] failed for value \"" + value + "\": " + e.toString();
+                                String errMsg = "Type conversion of field [" + key + "] to type [" + param.getType() + "] failed for value \"" + value + "\": " + e.toString();
                                 Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
                                 if (errorMessages != null) {
                                     errorMessages.add(errMsg);
@@ -1006,8 +1591,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Map<String, Object> paramMap = new HashMap<>();
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
-            if (key.startsWith(param.stringMapPrefix)) {
-                key = key.replace(param.stringMapPrefix, "");
+            if (key.startsWith(param.getStringMapPrefix())) {
+                key = key.replace(param.getStringMapPrefix(), "");
                 paramMap.put(key, entry.getValue());
             }
         }
@@ -1018,7 +1603,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         List<Object> paramList = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
-            if (key.endsWith(param.stringListSuffix)) {
+            if (key.endsWith(param.getStringListSuffix())) {
                 paramList.add(entry.getValue());
             }
         }
@@ -1096,11 +1681,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (OUT_PARAM.equals(modelParam.mode)) {
+            if (OUT_PARAM.equals(modelParam.getMode())) {
                 continue;
             }
 
-            Object srcObject = source.get(modelParam.name);
+            Object srcObject = source.get(modelParam.getName());
             if (srcObject != null) {
                 target.add(srcObject);
             }
@@ -1126,7 +1711,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         List<ModelParam> inList = new LinkedList<>();
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if (OUT_PARAM.equals(modelParam.mode)) {
+            if (OUT_PARAM.equals(modelParam.getMode())) {
                 continue;
             }
 
@@ -1142,7 +1727,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public synchronized void interfaceUpdate(DispatchContext dctx) throws GenericServiceException {
         if (!inheritedParameters) {
             // services w/ engine 'group' auto-implement the grouped services
-            if ("group".equals(this.engineName) && implServices.size() == 0) {
+            if ("group".equals(this.engineName) && implServices.isEmpty()) {
                 GroupModel group = internalGroup;
                 if (group == null) {
                     group = ServiceGroupReader.getGroupModel(this.location);
@@ -1166,14 +1751,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     ModelService model = dctx.getModelService(serviceName);
                     if (model != null) {
                         for (ModelParam newParam: model.contextParamList) {
-                            ModelParam existingParam = this.contextInfo.get(newParam.name);
+                            ModelParam existingParam = this.contextInfo.get(newParam.getName());
                             if (existingParam != null) {
                                 // if the existing param is not INOUT and the newParam.mode is different from existingParam.mode, make the existing param optional and INOUT
                                 // TODO: this is another case where having different optional/required settings for IN and OUT would be quite valuable...
-                                if (!IN_OUT_PARAM.equals(existingParam.mode) && !existingParam.mode.equals(newParam.mode)) {
-                                    existingParam.mode = IN_OUT_PARAM;
-                                    if (existingParam.optional || newParam.optional) {
-                                        existingParam.optional = true;
+                                if (!IN_OUT_PARAM.equals(existingParam.getMode()) && !existingParam.getMode().equals(newParam.getMode())) {
+                                    existingParam.setMode(IN_OUT_PARAM);
+                                    if (existingParam.isOptional() || newParam.isOptional()) {
+                                        existingParam.setOptional(true);
                                     }
                                 }
                             } else {
@@ -1181,7 +1766,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                                 if (optional) {
                                     // default option is to make this optional, however the service can override and
                                     // force the clone to use the parents setting.
-                                    newParamClone.optional = true;
+                                    newParamClone.setOptional(true);
                                 }
                                 this.addParam(newParamClone);
                             }
@@ -1195,43 +1780,43 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             // handle any override parameters
             if (UtilValidate.isNotEmpty(overrideParameters)) {
                 for (ModelParam overrideParam: overrideParameters) {
-                    ModelParam existingParam = contextInfo.get(overrideParam.name);
+                    ModelParam existingParam = contextInfo.get(overrideParam.getName());
 
                     // keep the list clean, remove it then add it back
                     contextParamList.remove(existingParam);
 
                     if (existingParam != null) {
                         // now re-write the parameters
-                        if (UtilValidate.isNotEmpty(overrideParam.type)) {
-                            existingParam.type = overrideParam.type;
+                        if (UtilValidate.isNotEmpty(overrideParam.getType())) {
+                            existingParam.setType(overrideParam.getType());
                         }
-                        if (UtilValidate.isNotEmpty(overrideParam.mode)) {
-                            existingParam.mode = overrideParam.mode;
+                        if (UtilValidate.isNotEmpty(overrideParam.getMode())) {
+                            existingParam.setMode(overrideParam.getMode());
                         }
-                        if (UtilValidate.isNotEmpty(overrideParam.entityName)) {
-                            existingParam.entityName = overrideParam.entityName;
+                        if (UtilValidate.isNotEmpty(overrideParam.getEntityName())) {
+                            existingParam.setEntityName(overrideParam.getEntityName());
                         }
-                        if (UtilValidate.isNotEmpty(overrideParam.fieldName)) {
-                            existingParam.fieldName = overrideParam.fieldName;
+                        if (UtilValidate.isNotEmpty(overrideParam.getFieldName())) {
+                            existingParam.setFieldName(overrideParam.getFieldName());
                         }
-                        if (UtilValidate.isNotEmpty(overrideParam.formLabel)) {
-                            existingParam.formLabel = overrideParam.formLabel;
+                        if (UtilValidate.isNotEmpty(overrideParam.getFormLabel())) {
+                            existingParam.setFormLabel(overrideParam.getFormLabel());
                         }
                         if (overrideParam.getDefaultValue() != null) {
                             existingParam.copyDefaultValue(overrideParam);
                         }
-                        if (overrideParam.overrideFormDisplay) {
-                            existingParam.formDisplay = overrideParam.formDisplay;
+                        if (overrideParam.isOverrideFormDisplay()) {
+                            existingParam.setFormDisplay(overrideParam.isFormDisplay());
                         }
-                        if (overrideParam.overrideOptional) {
-                            existingParam.optional = overrideParam.optional;
+                        if (overrideParam.isOverrideOptional()) {
+                            existingParam.setOptional(overrideParam.isOptional());
                         }
-                        if (UtilValidate.isNotEmpty(overrideParam.allowHtml)) {
-                            existingParam.allowHtml = overrideParam.allowHtml;
+                        if (UtilValidate.isNotEmpty(overrideParam.getAllowHtml())) {
+                            existingParam.setAllowHtml(overrideParam.getAllowHtml());
                         }
                         addParam(existingParam);
                     } else {
-                        Debug.logWarning("Override param found but no parameter existing; ignoring: " + overrideParam.name, MODULE);
+                        Debug.logWarning("Override param found but no parameter existing; ignoring: " + overrideParam.getName(), MODULE);
                     }
                 }
             }
@@ -1258,6 +1843,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
+    /**
+     * To wsdl document.
+     * @param locationURI the location uri
+     * @return the document
+     * @throws WSDLException the wsdl exception
+     */
     public Document toWSDL(String locationURI) throws WSDLException {
         WSDLFactory factory = WSDLFactory.newInstance();
         Definition def = factory.newDefinition();
@@ -1269,6 +1860,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return factory.newWSDLWriter().getDocument(def);
     }
 
+    /**
+     * Gets wsdl.
+     * @param def         the def
+     * @param locationURI the location uri
+     * @throws WSDLException the wsdl exception
+     */
     public void getWSDL(Definition def, String locationURI) throws WSDLException {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -1295,14 +1892,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Element documentation = document.createElement("wsdl:documentation");
         for (String paramName : inParam) {
             ModelParam param = this.getParam(paramName);
-            if (!param.internal) {
+            if (!param.getInternal()) {
                 Part part = param.getWSDLPart(def);
                 Element attribute = document.createElement("attribute");
                 attribute.setAttribute("name", paramName);
                 attribute.setAttribute("type", part.getTypeName().getLocalPart());
                 attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
-                attribute.setAttribute("java-class", param.type);
-                attribute.setAttribute("optional", Boolean.toString(param.optional));
+                attribute.setAttribute("java-class", param.getType());
+                attribute.setAttribute("optional", Boolean.toString(param.isOptional()));
                 documentation.appendChild(attribute);
             }
         }
@@ -1339,14 +1936,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         documentation = document.createElement("wsdl:documentation");
         for (String paramName : outParam) {
             ModelParam param = this.getParam(paramName);
-            if (!param.internal) {
+            if (!param.getInternal()) {
                 Part part = param.getWSDLPart(def);
                 Element attribute = document.createElement("attribute");
                 attribute.setAttribute("name", paramName);
                 attribute.setAttribute("type", part.getTypeName().getLocalPart());
                 attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
-                attribute.setAttribute("java-class", param.type);
-                attribute.setAttribute("optional", Boolean.toString(param.optional));
+                attribute.setAttribute("java-class", param.getType());
+                attribute.setAttribute("optional", Boolean.toString(param.isOptional()));
                 documentation.appendChild(attribute);
             }
         }

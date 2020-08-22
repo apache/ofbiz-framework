@@ -59,7 +59,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="SearchInventoryItemsParams" type="single" target="EditFacilityInventoryItems"
+    <form name="SearchInventoryItemsParams" type="single" target="EditFacilityInventoryItems" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId">
             <drop-down allow-empty="false">
@@ -73,14 +73,14 @@ under the License.
         <field name="internalName"><text-find/></field>
         <field name="inventoryItemId"><text-find/></field>
         <field name="statusId">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="serialNumber"><text-find/></field>
         <field name="softIdentifier"><text/></field>

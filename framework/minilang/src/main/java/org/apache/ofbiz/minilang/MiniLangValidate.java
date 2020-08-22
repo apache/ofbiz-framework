@@ -136,7 +136,7 @@ public final class MiniLangValidate {
      */
     public static void deprecatedAttribute(SimpleMethod method, Element element, String attributeName, String fixInstruction) throws ValidationException {
         String attributeValue = element.getAttribute(attributeName);
-        if (attributeValue.length() > 0) {
+        if (!attributeValue.isEmpty()) {
             handleError("Attribute \"" + attributeName + "\" is deprecated (" + fixInstruction + ")", method, element);
         }
     }
@@ -151,7 +151,7 @@ public final class MiniLangValidate {
     public static void expressionAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
-            if (attributeValue.length() > 0) {
+            if (!attributeValue.isEmpty()) {
                 if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                     attributeValue = attributeValue.substring(2, attributeValue.length() - 1);
                 }
@@ -214,7 +214,7 @@ public final class MiniLangValidate {
         StringBuilder sb = new StringBuilder();
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
-            if (attributeValue.length() > 0) {
+            if (!attributeValue.isEmpty()) {
                 return;
             }
             if (sb.length() > 0) {
@@ -265,7 +265,7 @@ public final class MiniLangValidate {
     public static void requiredAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
-            if (attributeValue.length() == 0) {
+            if (attributeValue.isEmpty()) {
                 handleError("Required attribute \"" + name + "\" is missing.", method, element);
             }
         }
@@ -305,7 +305,7 @@ public final class MiniLangValidate {
     public static void scriptAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name).trim();
-            if (attributeValue.length() > 0) {
+            if (!attributeValue.isEmpty()) {
                 if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                     handleError("Script attribute \"" + name + "\" enclosed in \"${}\" (remove enclosing ${}).", method, element);
                 }

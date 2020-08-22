@@ -201,7 +201,7 @@ public class KeywordIndex {
                 toBeStored.add(productKeyword);
             }
         }
-        if (toBeStored.size() > 0) {
+        if (!toBeStored.isEmpty()) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), MODULE);
             }

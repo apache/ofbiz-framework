@@ -818,7 +818,7 @@ public class ShipmentServices {
         try {
 
             List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).from("ShipmentReceipt").where("shipmentId", shipmentId).queryList();
-            if (shipmentReceipts.size() == 0) return ServiceUtil.returnSuccess();
+            if (shipmentReceipts.isEmpty()) return ServiceUtil.returnSuccess();
 
             // If there are shipment receipts, the shipment must have been shipped, so set the shipment status to PURCH_SHIP_SHIPPED if it's only PURCH_SHIP_CREATED
             GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
@@ -830,7 +830,7 @@ public class ShipmentServices {
             }
 
             List<GenericValue> shipmentAndItems = EntityQuery.use(delegator).from("ShipmentAndItem").where("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED").queryList();
-            if (shipmentAndItems.size() == 0) {
+            if (shipmentAndItems.isEmpty()) {
                 return ServiceUtil.returnSuccess();
             }
 

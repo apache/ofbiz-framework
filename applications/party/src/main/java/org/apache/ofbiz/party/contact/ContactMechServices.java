@@ -79,7 +79,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -144,7 +144,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -279,7 +279,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_DELETE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -340,7 +340,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -414,7 +414,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -585,7 +585,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -641,7 +641,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -822,7 +822,7 @@ public class ContactMechServices {
         String errMsg = null;
         Locale locale = (Locale) context.get("locale");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -969,7 +969,7 @@ public class ContactMechServices {
 
         SecureRandom secureRandom = new SecureRandom();
 
-        synchronized(ContactMechServices.class) {
+        synchronized (ContactMechServices.class) {
             while (true) {
                 Long random = secureRandom.nextLong();
                 verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(StandardCharsets.UTF_8));

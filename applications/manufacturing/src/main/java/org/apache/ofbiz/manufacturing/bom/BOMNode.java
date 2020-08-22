@@ -48,9 +48,9 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class BOMNode {
     private static final String MODULE = BOMNode.class.getName();
 
-    protected LocalDispatcher dispatcher = null;
-    protected Delegator delegator = null;
-    protected GenericValue userLogin = null;
+    private LocalDispatcher dispatcher = null;
+    private Delegator delegator = null;
+    private GenericValue userLogin = null;
 
     private BOMTree tree; // the tree to which this node belongs
     private BOMNode parentNode; // the parent node (null if it's not present)
@@ -89,6 +89,14 @@ public class BOMNode {
         this(EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne(), dispatcher, userLogin);
     }
 
+    /**
+     * Load children.
+     * @param partBomTypeId   the part bom type id
+     * @param inDate          the in date
+     * @param productFeatures the product features
+     * @param type            the type
+     * @throws GenericEntityException the generic entity exception
+     */
     protected void loadChildren(String partBomTypeId, Date inDate, List<GenericValue> productFeatures, int type) throws GenericEntityException {
         if (product == null) {
             throw new GenericEntityException("product is null");
@@ -123,13 +131,14 @@ public class BOMNode {
                 switch (type) {
                 case BOMTree.EXPLOSION:
                     oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
-                break;
+                    break;
                 case BOMTree.EXPLOSION_MANUFACTURING:
-                    // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item
+                    // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse
+                    // stocking of this node item
                     if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
                         oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
                     }
-                break;
+                    break;
                 }
             }
             childrenNodes.add(oneChildNode);
@@ -264,10 +273,10 @@ public class BOMNode {
                     if (newNode.equals(oneChildNode)) {
                         // If no substitution has been done (no valid rule applied),
                         // we try to set the default (first) node-substitution
-                        if (UtilValidate.isNotEmpty(genericNodeRules)) {
+                        // if (UtilValidate.isNotEmpty(genericNodeRules)) {
                             // FIXME
                             //...
-                        }
+                        // }
                         // -----------------------------------------------------------
                         // We try to apply directly the selected features
                         if (newNode.equals(oneChildNode)) {
@@ -280,7 +289,7 @@ public class BOMNode {
                                 }
                             }
 
-                            if (selectedFeatures.size() > 0) {
+                            if (!selectedFeatures.isEmpty()) {
                                 Map<String, Object> context = new HashMap<>();
                                 context.put("productId", node.get("productIdTo"));
                                 context.put("selectedFeatures", selectedFeatures);
@@ -319,6 +328,13 @@ public class BOMNode {
         return newNode;
     }
 
+    /**
+     * Load parents.
+     * @param partBomTypeId   the part bom type id
+     * @param inDate          the in date
+     * @param productFeatures the product features
+     * @throws GenericEntityException the generic entity exception
+     */
     protected void loadParents(String partBomTypeId, Date inDate, List<GenericValue> productFeatures) throws GenericEntityException {
         if (product == null) {
             throw new GenericEntityException("product is null");
@@ -365,6 +381,10 @@ public class BOMNode {
         return parentNode;
     }
 
+    /**
+     * Gets root node.
+     * @return the root node
+     */
     public BOMNode getRootNode() {
         return (parentNode != null ? getParentNode() : this);
     }
@@ -375,7 +395,7 @@ public class BOMNode {
         this.parentNode = parentNode;
     }
     // ------------------------------------
-    // Method used for TEST and DEBUG purposes
+    /** Method used for TEST and DEBUG purposes */
     public void print(StringBuffer sb, BigDecimal quantity, int depth) {
         for (int i = 0; i < depth; i++) {
             sb.append("<b>&nbsp;*&nbsp;</b>");
@@ -402,6 +422,13 @@ public class BOMNode {
         }
     }
 
+    /**
+     * Print.
+     * @param arr         the arr
+     * @param quantity    the quantity
+     * @param depth       the depth
+     * @param excludeWIPs the exclude wi ps
+     */
     public void print(List<BOMNode> arr, BigDecimal quantity, int depth, boolean excludeWIPs) {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
@@ -418,7 +445,8 @@ public class BOMNode {
         }
         if (serviceName != null) {
             Map<String, Object> resultContext = null;
-            Map<String, Object> arguments = UtilMisc.<String, Object>toMap("neededQuantity", quantity.multiply(quantityMultiplier), "amount", tree != null ? tree.getRootAmount() : BigDecimal.ZERO);
+            Map<String, Object> arguments = UtilMisc.<String, Object>toMap("neededQuantity", quantity.multiply(quantityMultiplier), "amount", tree != null
+                    ? tree.getRootAmount() : BigDecimal.ZERO);
             BigDecimal width = null;
             if (getProduct().get("productWidth") != null) {
                 width = getProduct().getBigDecimal("productWidth");
@@ -460,6 +488,13 @@ public class BOMNode {
         }
     }
 
+    /**
+     * Gets products in packages.
+     * @param arr         the arr
+     * @param quantity    the quantity
+     * @param depth       the depth
+     * @param excludeWIPs the exclude wi ps
+     */
     public void getProductsInPackages(List<BOMNode> arr, BigDecimal quantity, int depth, boolean excludeWIPs) {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
@@ -483,6 +518,10 @@ public class BOMNode {
         }
     }
 
+    /**
+     * Sum quantity.
+     * @param nodes the nodes
+     */
     public void sumQuantity(Map<String, BOMNode> nodes) {
         // First of all, we try to fetch a node with the same partId
         BOMNode sameNode = nodes.get(product.getString("productId"));
@@ -630,7 +669,8 @@ public class BOMNode {
                     if (UtilValidate.isEmpty(facilityId)) {
                         pfs = getSubstitutedNode().getProduct().getRelated("ProductFacility", null, null, true);
                     } else {
-                        pfs = getSubstitutedNode().getProduct().getRelated("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null, true);
+                        pfs = getSubstitutedNode().getProduct().getRelated("ProductFacility",
+                                UtilMisc.toMap("facilityId", facilityId), null, true);
                     }
                 }
             }
@@ -645,7 +685,7 @@ public class BOMNode {
         } catch (GenericEntityException gee) {
             Debug.logError("Problem in BOMNode.isWarehouseManaged()", MODULE);
         }
-    return isWarehouseManaged;
+        return isWarehouseManaged;
     }
 
     /**
@@ -656,12 +696,13 @@ public class BOMNode {
     public boolean isManufactured(boolean ignoreSupplierProducts) {
         List<GenericValue> supplierProducts = null;
         try {
-            supplierProducts = product.getRelated("SupplierProduct", UtilMisc.toMap("supplierPrefOrderId", "10_MAIN_SUPPL"), UtilMisc.toList("minimumOrderQuantity"), false);
+            supplierProducts = product.getRelated("SupplierProduct", UtilMisc.toMap("supplierPrefOrderId", "10_MAIN_SUPPL"),
+                    UtilMisc.toList("minimumOrderQuantity"), false);
         } catch (GenericEntityException gee) {
             Debug.logError("Problem in BOMNode.isManufactured()", MODULE);
         }
         supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
-        return childrenNodes.size() > 0 && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));
+        return !childrenNodes.isEmpty() && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));
     }
 
     /**
@@ -672,10 +713,18 @@ public class BOMNode {
         return isManufactured(false);
     }
 
+    /**
+     * Is virtual boolean.
+     * @return the boolean
+     */
     public boolean isVirtual() {
         return (product.get("isVirtual") != null ? "Y".equals(product.get("isVirtual")) : false);
     }
 
+    /**
+     * Is configured.
+     * @param arr the arr
+     */
     public void isConfigured(List<BOMNode> arr) {
         // First of all we visit the current node.
         if (isVirtual()) {
@@ -698,6 +747,10 @@ public class BOMNode {
         return quantity;
     }
 
+    /**
+     * Sets quantity.
+     * @param quantity the quantity
+     */
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
@@ -710,6 +763,10 @@ public class BOMNode {
         return depth;
     }
 
+    /**
+     * Gets product.
+     * @return the product
+     */
     public GenericValue getProduct() {
         return product;
     }
@@ -728,6 +785,10 @@ public class BOMNode {
         this.substitutedNode = substitutedNode;
     }
 
+    /**
+     * Gets root product for rules.
+     * @return the root product for rules
+     */
     public String getRootProductForRules() {
         return getParentNode().getProductForRules();
     }
@@ -827,10 +888,18 @@ public class BOMNode {
         this.productAssoc = productAssoc;
     }
 
+    /**
+     * Sets tree.
+     * @param tree the tree
+     */
     public void setTree(BOMTree tree) {
         this.tree = tree;
     }
 
+    /**
+     * Gets tree.
+     * @return the tree
+     */
     public BOMTree getTree() {
         return tree;
     }

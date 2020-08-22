@@ -256,7 +256,7 @@ public class WebToolsServices {
                 int initialListSize = files.size();
                 int lastUnprocessedFilesCount = 0;
                 List<File> unprocessedFiles = new LinkedList<>();
-                while (files.size() > 0
+                while (!files.isEmpty()
                         && files.size() != lastUnprocessedFilesCount) {
                     lastUnprocessedFilesCount = files.size();
                     unprocessedFiles = new LinkedList<>();
@@ -416,12 +416,12 @@ public class WebToolsServices {
             messages.add("=-=-=-=-=-=-= No data " + (checkDataOnly ? "check" : "load") + " files found.");
         }
 
-        if (infoMessages.size() > 0) {
+        if (!infoMessages.isEmpty()) {
             messages.add("=-=-=-=-=-=-= Here is a summary of the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(infoMessages);
         }
 
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             messages.add("=-=-=-=-=-=-= The following errors occurred in the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(errorMessages);
         }

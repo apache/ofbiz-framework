@@ -412,7 +412,7 @@ public class WorldPayEvents {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, MODULE);
             return false;
         }
-        if (paymentPrefs.size() > 0) {
+        if (!paymentPrefs.isEmpty()) {
             for (GenericValue pref : paymentPrefs) {
                 boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
                 if (!okay) {

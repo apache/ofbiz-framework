@@ -31,7 +31,8 @@ import org.apache.ofbiz.entity.GenericValue;
 public final class TaskWorker {
 
     private static final String MODULE = TaskWorker.class.getName();
-    private static final Map<String, String> statusMapping = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE", "Complete", "WF_SUSPENDED", "Hold");
+    private static final Map<String, String> STATUS_MAPPING = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE",
+            "Complete", "WF_SUSPENDED", "Hold");
 
     private TaskWorker() { }
 
@@ -39,21 +40,23 @@ public final class TaskWorker {
         String lastName = orderTaskList.getString("customerLastName");
         String firstName = orderTaskList.getString("customerFirstName");
         if (lastName != null) {
-        String name = lastName;
-        if (firstName != null)
-            name = name + ", " + firstName;
-        return name;
-      } else {
-        return "";
-      }
+            String name = lastName;
+            if (firstName != null) {
+                name = name + ", " + firstName;
+            }
+            return name;
+        } else {
+            return "";
+        }
     }
 
 
     public static String getPrettyStatus(GenericValue orderTaskList) {
         String statusId = orderTaskList.getString("currentStatusId");
-        String prettyStatus = statusMapping.get(statusId);
-        if (prettyStatus == null)
+        String prettyStatus = STATUS_MAPPING.get(statusId);
+        if (prettyStatus == null) {
             prettyStatus = "?";
+        }
         return prettyStatus;
     }
 

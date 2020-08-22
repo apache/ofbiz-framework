@@ -129,7 +129,7 @@ public class ModelTree extends ModelWidget {
         }
         this.postTrailOpenDepth = postTrailOpenDepth;
         List<? extends Element> nodeElements = UtilXml.childElementList(treeElement, "node");
-        if (nodeElements.size() == 0) {
+        if (nodeElements.isEmpty()) {
             throw new IllegalArgumentException("No node elements found for the tree definition with name: " + getName());
         }
         Map<String, ModelNode> nodeMap = new HashMap<>();

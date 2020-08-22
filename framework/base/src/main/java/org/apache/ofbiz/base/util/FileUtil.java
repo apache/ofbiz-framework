@@ -431,9 +431,9 @@ public final class FileUtil {
     }
 
     private static class SearchTextFilesFilter implements FilenameFilter {
-        String fileExtension;
-        Set<String> stringsToFindInFile = new HashSet<>();
-        Set<String> stringsToFindInPath = new HashSet<>();
+        private String fileExtension;
+        private Set<String> stringsToFindInFile = new HashSet<>();
+        private Set<String> stringsToFindInPath = new HashSet<>();
 
         SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
             this.fileExtension = fileExtension;
@@ -465,7 +465,7 @@ public final class FileUtil {
             }
 
             if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
-                if (stringsToFindInFile.size() == 0) {
+                if (stringsToFindInFile.isEmpty()) {
                     return true;
                 }
                 StringBuffer xmlFileBuffer = null;

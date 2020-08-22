@@ -17,8 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script src="/common/js/jquery/plugins/jsTree/jquery.jstree.js" type="application/javascript" data-import="head"></script>
-
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manualy -->
 function unescapeHtmlText(text) {
@@ -54,43 +52,53 @@ var rawdata = [
 
  <#-- create Tree-->
   function createTree() {
-    jQuery(function () {
-        $.cookie('jstree_select', null);
-        $.cookie('jstree_open', null);
-        
-        jQuery("#tree").jstree({
-        "core" : { "initially_open" : [ "${partyId}" ] },
-        "plugins" : [ "themes", "json_data","ui" ,"cookies", "types", "crrm", "contextmenu"],
-            "json_data" : {
-                "data" : rawdata,
-                "ajax" : { "url" : "<@ofbizUrl>getHRChild</@ofbizUrl>", "type" : "POST",
-                    "data" : function (n) {
-                            return {
-                                "partyId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
-                                "additionParam" : "','category" ,
-                                "hrefString" : "viewprofile?partyId=" ,
-                                "onclickFunction" : "callDocument"
-                        };
-                    },
-                    success : function(data) {
-                        return data.hrTree;
+      jQuery(function () {
+        var libraryFiles = ["/common/js/jquery/ui/js/jquery.cookie-1.4.0.js",
+            "/common/js/jquery/plugins/jsTree/jquery.jstree.js"];
+        importLibrary(libraryFiles, function(){
+
+            $.cookie('jstree_select', null);
+            $.cookie('jstree_open', null);
+
+            jQuery("#tree").jstree({
+            "core" : { "initially_open" : [ "${partyId}" ] },
+            "plugins" : [ "themes", "json_data","ui" ,"cookies", "types", "crrm", "contextmenu"],
+                "json_data" : {
+                    "data" : rawdata,
+                    "ajax" : { "url" : "<@ofbizUrl>getHRChild</@ofbizUrl>", "type" : "POST",
+                        "data" : function (n) {
+                                return {
+                                    "partyId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
+                                    "additionParam" : "','category" ,
+                                    "hrefString" : "viewprofile?partyId=" ,
+                                    "onclickFunction" : "callDocument"
+                            };
+                        },
+                        success : function(data) {
+                            return data.hrTree;
+                        }
                     }
-                }
-            },
-            "types" : {
-             "valid_children" : [ "root" ],
-             "types" : {
-                 "CATEGORY" : {
-                     "icon" : { 
-                         "image" : "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
-                         "position" : "10px40px"
+                },
+                "types" : {
+                 "valid_children" : [ "root" ],
+                 "types" : {
+                     "CATEGORY" : {
+                         "icon" : {
+                             "image" : "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
+                             "position" : "10px40px"
+                         }
                      }
                  }
-             }
-            },
-            "contextmenu": {items: customMenu}
+                },
+                "contextmenu": {items: customMenu},
+                "themes": {
+                    "theme":"default",
+                    "url":"/common/js/jquery/plugins/jsTree/themes/default/style.css"
+                }
+
+          });
         });
-    });
+      });
   }
   
   function callDocument(id,type) {

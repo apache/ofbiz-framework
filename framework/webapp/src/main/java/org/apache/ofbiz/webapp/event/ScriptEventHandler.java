@@ -100,12 +100,12 @@ public final class ScriptEventHandler implements EventHandler {
             Object result = null;
             try {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
-                result = ScriptUtil.executeScript(event.path, event.invoke, scriptContext, null);
+                result = ScriptUtil.executeScript(event.getPath(), event.getInvoke(), scriptContext, null);
                 if (result == null) {
                     result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "Error running event " + event.path + ": ", MODULE);
+                Debug.logWarning(e, "Error running event " + event.getPath() + ": ", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -126,7 +126,7 @@ public final class ScriptEventHandler implements EventHandler {
             }
             return (String) result;
         } catch (Exception e) {
-            throw new EventHandlerException("Error running event " + event.path, e);
+            throw new EventHandlerException("Error running event " + event.getPath(), e);
         }
     }
 }

@@ -240,7 +240,7 @@ public class TrackingCodeEvents {
             Cookie trackableCookie = new Cookie("TKCDT_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
             if (trackableLifetime > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
             trackableCookie.setPath("/");
-            if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
+            if (!cookieDomain.isEmpty()) trackableCookie.setDomain(cookieDomain);
             trackableCookie.setSecure(true);
             trackableCookie.setHttpOnly(true);
             response.addCookie(trackableCookie);
@@ -253,7 +253,7 @@ public class TrackingCodeEvents {
             Cookie billableCookie = new Cookie("TKCDB_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
             if (billableLifetime > 0) billableCookie.setMaxAge(billableLifetime.intValue());
             billableCookie.setPath("/");
-            if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
+            if (!cookieDomain.isEmpty()) billableCookie.setDomain(cookieDomain);
             billableCookie.setSecure(true);
             billableCookie.setHttpOnly(true);
             response.addCookie(billableCookie);
@@ -295,7 +295,7 @@ public class TrackingCodeEvents {
                 Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteIdEnc);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
-                if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
+                if (!cookieDomain.isEmpty()) siteIdCookie.setDomain(cookieDomain);
                 siteIdCookie.setSecure(true);
                 siteIdCookie.setHttpOnly(true);
                 response.addCookie(siteIdCookie);
@@ -304,7 +304,7 @@ public class TrackingCodeEvents {
                 Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp", UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
                 updatedTimeStampCookie.setPath("/");
-                if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
+                if (!cookieDomain.isEmpty()) updatedTimeStampCookie.setDomain(cookieDomain);
                 updatedTimeStampCookie.setSecure(true);
                 updatedTimeStampCookie.setHttpOnly(true);
                 response.addCookie(updatedTimeStampCookie);

@@ -159,7 +159,8 @@ public class OrderListState implements Serializable {
             viewSize = Integer.parseInt(viewSizeParam);
             viewIndex = Integer.parseInt(viewIndexParam);
         } catch (NumberFormatException e) {
-            Debug.logWarning("Values of " + VIEW_SIZE_PARAM + " ["+viewSizeParam+"] and " + VIEW_INDEX_PARAM + " ["+viewIndexParam+"] must both be Integers. Not paginating order list.", MODULE);
+            Debug.logWarning("Values of " + VIEW_SIZE_PARAM + " [" + viewSizeParam + "] and " + VIEW_INDEX_PARAM + " [" + viewIndexParam
+                    + "] must both be Integers. Not paginating order list.", MODULE);
         }
     }
 
@@ -190,22 +191,80 @@ public class OrderListState implements Serializable {
         }
         viewIndex = 0;
     }
-
-
     //==============   Get and Set methods   =================//
+    /**
+     * Gets order status state.
+     * @return the order status state
+     */
+    public Map<String, String> getOrderStatusState() {
+        return orderStatusState;
+    }
 
+    /**
+     * Gets order type state.
+     * @return the order type state
+     */
+    public Map<String, String> getOrderTypeState() {
+        return orderTypeState;
+    }
 
-    public Map<String, String> getOrderStatusState() { return orderStatusState; }
-    public Map<String, String> getOrderTypeState() { return orderTypeState; }
-    public Map<String, String> getorderFilterState() { return orderFilterState; }
+    /**
+     * Gets filter state.
+     * @return the filter state
+     */
+    public Map<String, String> getorderFilterState() {
+        return orderFilterState;
+    }
 
-    public void setStatus(String param, boolean b) { orderStatusState.put(param, (b ? "Y" : "N")); }
-    public void setType(String param, boolean b) { orderTypeState.put(param, (b ? "Y" : "N")); }
+    /**
+     * Sets status.
+     * @param param the param
+     * @param b     the b
+     */
+    public void setStatus(String param, boolean b) {
+        orderStatusState.put(param, (b ? "Y" : "N"));
+    }
 
-    public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
-    public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
-    public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
+    /**
+     * Sets type.
+     * @param param the param
+     * @param b     the b
+     */
+    public void setType(String param, boolean b) {
+        orderTypeState.put(param, (b ? "Y" : "N"));
+    }
 
+    /**
+     * Has status boolean.
+     * @param param the param
+     * @return the boolean
+     */
+    public boolean hasStatus(String param) {
+        return ("Y".equals(orderStatusState.get(param)));
+    }
+
+    /**
+     * Has type boolean.
+     * @param param the param
+     * @return the boolean
+     */
+    public boolean hasType(String param) {
+        return ("Y".equals(orderTypeState.get(param)));
+    }
+
+    /**
+     * Has filter boolean.
+     * @param param the param
+     * @return the boolean
+     */
+    public boolean hasFilter(String param) {
+        return ("Y".equals(orderFilterState.get(param)));
+    }
+
+    /**
+     * Has all status boolean.
+     * @return the boolean
+     */
     public boolean hasAllStatus() {
         for (String string : orderStatusState.values()) {
             if (!"Y".equals(string)) {
@@ -215,12 +274,45 @@ public class OrderListState implements Serializable {
         return true;
     }
 
-    public int getViewSize() { return viewSize; }
-    public int getViewIndex() { return viewIndex; }
-    public int getSize() { return orderListSize; }
+    /**
+     * Gets view size.
+     * @return the view size
+     */
+    public int getViewSize() {
+        return viewSize;
+    }
 
-    public boolean hasPrevious() { return (viewIndex > 0); }
-    public boolean hasNext() { return (viewIndex < getSize() / viewSize); }
+    /**
+     * Gets view index.
+     * @return the view index
+     */
+    public int getViewIndex() {
+        return viewIndex;
+    }
+
+    /**
+     * Gets size.
+     * @return the size
+     */
+    public int getSize() {
+        return orderListSize;
+    }
+
+    /**
+     * Has previous boolean.
+     * @return the boolean
+     */
+    public boolean hasPrevious() {
+        return (viewIndex > 0);
+    }
+
+    /**
+     * Has next boolean.
+     * @return the boolean
+     */
+    public boolean hasNext() {
+        return (viewIndex < getSize() / viewSize);
+    }
 
     /**
      * Get the OrderHeaders corresponding to the state.
@@ -256,10 +348,10 @@ public class OrderListState implements Serializable {
 
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions, EntityOperator.OR);
         EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
-        if (statusConditions.size() > 0) {
+        if (!statusConditions.isEmpty()) {
             allConditions.add(statusConditionsList);
         }
-        if (typeConditions.size() > 0) {
+        if (!typeConditions.isEmpty()) {
             allConditions.add(typeConditionsList);
         }
 

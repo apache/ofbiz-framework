@@ -128,10 +128,10 @@ public final class ServiceUtil {
             }
         }
 
-        if (errorList.size() > 0) {
+        if (!errorList.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_LIST, errorList);
         }
-        if (errorMap.size() > 0) {
+        if (!errorMap.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_MAP, errorMap);
         }
         Debug.logError(result.toString(), MODULE);
@@ -465,7 +465,7 @@ public final class ServiceUtil {
         }
         outMap.putAll(modelService.makeValid(fromMap, ModelService.IN_PARAM, true, null, timeZone, locale));
 
-        if (userLogin != null && modelService.auth) {
+        if (userLogin != null && modelService.isAuth()) {
             outMap.put("userLogin", userLogin);
         }
 

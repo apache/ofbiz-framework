@@ -206,7 +206,7 @@ public class ProductFeatureServices {
                 List<Map<String, Object>> combinations;
 
                 // start with either existing combinations or from scratch
-                if (oldCombinations.size() > 0) {
+                if (!oldCombinations.isEmpty()) {
                     combinations = oldCombinations;
                 } else {
                     combinations = new LinkedList<>();
@@ -216,7 +216,7 @@ public class ProductFeatureServices {
                 // product feature and add it to the id code and product feature applications
                 // of the next variant.  just a matter of whether we're starting with an
                 // existing list of features and id code or from scratch.
-                if (combinations.size() == 0) {
+                if (combinations.isEmpty()) {
                     for (GenericValue currentFeature: currentFeatures) {
                         if ("SELECTABLE_FEATURE".equals(currentFeature.getString("productFeatureApplTypeId"))) {
                             Map<String, Object> newCombination = new HashMap<>();
@@ -310,7 +310,7 @@ public class ProductFeatureServices {
         }
 
         List<GenericValue> memberProducts = UtilGenerics.cast(result.get("categoryMembers"));
-        if ((memberProducts != null) && (memberProducts.size() > 0)) {
+        if ((memberProducts != null) && (!memberProducts.isEmpty())) {
             // construct a Map of productFeatureTypeId -> productFeatureId from the productFeatures List
             Map<String, String> featuresByType = new HashMap<>();
             for (GenericValue nextFeature: productFeatures) {
@@ -329,14 +329,14 @@ public class ProductFeatureServices {
                 }
 
                 List<GenericValue> variantProducts = UtilGenerics.cast(result.get("products"));
-                if ((variantProducts != null) && (variantProducts.size() > 0)) {
+                if ((variantProducts != null) && (!variantProducts.isEmpty())) {
                     products.addAll(variantProducts);
                 } else {
                     Debug.logWarning("Product " + memberProduct.getString("productId") + " did not have any variants for the given features", MODULE);
                 }
             }
 
-            if (products.size() == 0) {
+            if (products.isEmpty()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductCategoryNoVariants", locale));
             } else {
                 results = ServiceUtil.returnSuccess();

@@ -310,7 +310,7 @@ public class EntityDataServices {
                     value = value.trim();
                 }
 
-                if (value != null && value.length() == 0) {
+                if (value != null && value.isEmpty()) {
                     value = null;
                 }
             } else {
@@ -378,7 +378,7 @@ public class EntityDataServices {
             Debug.logImportant("Updating column field size changes", MODULE);
             List<String> fieldsWrongSize = new LinkedList<>();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);
-            if (fieldsWrongSize.size() > 0) {
+            if (!fieldsWrongSize.isEmpty()) {
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsWrongSize, messages);
             } else {
                 String thisMsg = "No field sizes to update";
