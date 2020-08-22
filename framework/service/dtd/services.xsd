@@ -346,6 +346,11 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="type-validate"/>
                 <xs:element minOccurs="0" ref="description" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="attribute">
+                	<xs:annotation>
+						<xs:documentation>List, Map type attributes can have nested attributes.</xs:documentation>
+					</xs:annotation>
+ 				</xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.attribute"/>
         </xs:complexType>

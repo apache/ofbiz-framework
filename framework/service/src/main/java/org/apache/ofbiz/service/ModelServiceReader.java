@@ -467,45 +467,7 @@ public class ModelServiceReader implements Serializable {
     private static void createAttrDefs(Element baseElement, ModelService service) {
         // Add in the defined attributes (override the above defaults if specified)
         for (Element attribute: UtilXml.childElementList(baseElement, "attribute")) {
-            ModelParam param = new ModelParam();
-
-            param.setName(UtilXml.checkEmpty(attribute.getAttribute("name")).intern());
-            param.setDescription(getCDATADef(attribute, "description"));
-            param.setType(UtilXml.checkEmpty(attribute.getAttribute("type")).intern());
-            param.setMode(UtilXml.checkEmpty(attribute.getAttribute("mode")).intern());
-            param.setEntityName(UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern());
-            param.setFieldName(UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern());
-            param.setRequestAttributeName(UtilXml.checkEmpty(attribute.getAttribute("request-attribute-name")).intern());
-            param.setSessionAttributeName(UtilXml.checkEmpty(attribute.getAttribute("session-attribute-name")).intern());
-            param.setStringMapPrefix(UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix")).intern());
-            param.setStringListSuffix(UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix")).intern());
-            param.setFormLabel(attribute.hasAttribute("form-label") ? attribute.getAttribute("form-label").intern() : null);
-            param.setOptional("true".equalsIgnoreCase(attribute.getAttribute("optional"))); // default to true
-            param.setFormDisplay(!"false".equalsIgnoreCase(attribute.getAttribute("form-display"))); // default to false
-            param.setAllowHtml(UtilXml.checkEmpty(attribute.getAttribute("allow-html"), "none").intern()); // default to none
-
-            // default value
-            String defValue = attribute.getAttribute("default-value");
-            if (UtilValidate.isNotEmpty(defValue)) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.getName() + "."
-                            + param.getName() + "]", MODULE);
-                }
-                param.setDefaultValue(defValue.intern());
-            }
-
-            // set the entity name to the default if not specified
-            if (param.getEntityName().length() == 0) {
-                param.setEntityName(service.getDefaultEntityName());
-            }
-
-            // set the field-name to the name if entity name is specified but no field-name
-            if (param.getFieldName().length() == 0 && param.getEntityName().length() > 0) {
-                param.setFieldName(param.getName());
-            }
-
-            // set the validators
-            addValidators(attribute, param);
+        	ModelParam param = createAttrDef(attribute, null, service);
             service.addParam(param);
         }
 
@@ -600,6 +562,54 @@ public class ModelServiceReader implements Serializable {
         def.setOptional(true);
         def.setInternal(true);
         service.addParam(def);
+    }
+    
+    private static ModelParam createAttrDef(Element attribute, ModelParam parentParam, ModelService service) {
+    	 boolean hasParent = parentParam != null;
+    	 ModelParam param = new ModelParam();
+
+         param.setName(UtilXml.checkEmpty(attribute.getAttribute("name")).intern());
+         param.setDescription(getCDATADef(attribute, "description"));
+         param.setType(UtilXml.checkEmpty(attribute.getAttribute("type")).intern());
+         param.setMode(hasParent ? parentParam.getMode() : UtilXml.checkEmpty(attribute.getAttribute("mode")).intern()); //inherit mode from parent
+         param.setEntityName(UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern());
+         param.setFieldName(UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern());
+         param.setRequestAttributeName(UtilXml.checkEmpty(attribute.getAttribute("request-attribute-name")).intern());
+         param.setSessionAttributeName(UtilXml.checkEmpty(attribute.getAttribute("session-attribute-name")).intern());
+         param.setStringMapPrefix(UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix")).intern());
+         param.setStringListSuffix(UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix")).intern());
+         param.setFormLabel(attribute.hasAttribute("form-label") ? attribute.getAttribute("form-label").intern() : null);
+         param.setOptional("true".equalsIgnoreCase(attribute.getAttribute("optional"))); // default to true
+         param.setFormDisplay(!"false".equalsIgnoreCase(attribute.getAttribute("form-display"))); // default to false
+         param.setAllowHtml(UtilXml.checkEmpty(attribute.getAttribute("allow-html"), "none").intern()); // default to none
+
+         // default value
+         String defValue = attribute.getAttribute("default-value");
+         if (UtilValidate.isNotEmpty(defValue)) {
+             if (Debug.verboseOn()) {
+                 Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.getName() + "."
+                         + param.getName() + "]", MODULE);
+             }
+             param.setDefaultValue(defValue.intern());
+         }
+
+         // set the entity name to the default if not specified
+         if (param.getEntityName().length() == 0) {
+             param.setEntityName(service.getDefaultEntityName());
+         }
+
+         // set the field-name to the name if entity name is specified but no field-name
+         if (param.getFieldName().length() == 0 && param.getEntityName().length() > 0) {
+             param.setFieldName(param.getName());
+         }
+
+         // set the validators
+         addValidators(attribute, param);
+         for (Element child: UtilXml.childElementList(attribute, "attribute")) {
+             ModelParam childParam = createAttrDef(child, param, service);
+             param.getChildren().add(childParam);
+         }
+         return param;
     }
 
     private static void createOverrideDefs(Element baseElement, ModelService service) {

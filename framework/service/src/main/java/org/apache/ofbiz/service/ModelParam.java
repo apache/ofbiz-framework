@@ -19,6 +19,7 @@
 package org.apache.ofbiz.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -94,6 +95,8 @@ public class ModelParam implements Serializable {
 
     /** Is this Parameter set internally? */
     private boolean internal = false;
+    /** Children attributes*/
+    private ArrayList<ModelParam> children = null;
 
     public ModelParam() { }
 
@@ -511,6 +514,17 @@ public class ModelParam implements Serializable {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Default value for attribute [" + this.name + "] set to [" + this.defaultValue + "]", MODULE);
         }
+    }
+    
+    
+    /**
+     * @return the children of the attribute
+     */
+    public ArrayList<ModelParam> getChildren() {
+        if (children == null) {
+        	children = new ArrayList<>();
+        }
+        return children;
     }
 
     /**
