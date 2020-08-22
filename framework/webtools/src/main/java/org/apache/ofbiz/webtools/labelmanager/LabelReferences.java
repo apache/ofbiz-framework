@@ -109,7 +109,7 @@ public class LabelReferences {
      */
     public Map<String, Map<String, Integer>> getLabelReferences() throws IOException, SAXException, ParserConfigurationException,
                                                                          GenericServiceException {
-        if (this.labels.size() == 0) {
+        if (this.labels.isEmpty()) {
             // Nothing to search for
             return references;
         }

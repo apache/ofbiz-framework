@@ -215,7 +215,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             relationshipMap.put("isMandatory", "Y");
         }
 
-        if (relationshipsMapList.size() > 0) {
+        if (!relationshipsMapList.isEmpty()) {
             topLevelMap.put("relationships", relationshipsMapList);
         }
 

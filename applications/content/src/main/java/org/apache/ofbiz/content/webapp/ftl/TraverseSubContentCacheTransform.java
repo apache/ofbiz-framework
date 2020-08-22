@@ -150,7 +150,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 List<Map<String, ? extends Object>> nodeTrail = null;
                 Map<String, Object> node = null;
                 List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
-                if (globalNodeTrail.size() > 0) {
+                if (!globalNodeTrail.isEmpty()) {
                     int sz = globalNodeTrail.size();
                     nodeTrail = new LinkedList<>();
                     node = UtilGenerics.cast(globalNodeTrail.get(sz - 1));

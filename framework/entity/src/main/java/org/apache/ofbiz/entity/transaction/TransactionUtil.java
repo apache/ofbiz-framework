@@ -872,7 +872,7 @@ public final class TransactionUtil implements Status {
     */
     private static void popTransactionStartStamp(Transaction t) {
         Map<Transaction, Timestamp> map = suspendedTxStartStamps.get();
-        if (map.size() > 0) {
+        if (!map.isEmpty()) {
             Timestamp stamp = map.remove(t);
             if (stamp != null) {
                 transactionStartStamp.set(stamp);

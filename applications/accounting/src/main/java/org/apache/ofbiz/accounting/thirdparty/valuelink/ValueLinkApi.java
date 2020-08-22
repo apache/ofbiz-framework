@@ -1000,7 +1000,7 @@ public class ValueLinkApi {
         testResponse = StringUtil.replaceString(testResponse, "</tr>", "");
         testResponse = StringUtil.replaceString(testResponse, "|", "");
         testResponse = testResponse.trim();
-        if (testResponse.length() == 0) {
+        if (testResponse.isEmpty()) {
             if (debug) {
                 Debug.logInfo("History did not contain any fields, returning null", MODULE);
             }

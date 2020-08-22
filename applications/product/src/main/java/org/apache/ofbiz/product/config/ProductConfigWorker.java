@@ -218,7 +218,7 @@ public final class ProductConfigWorker {
                 }
             }
 
-            if (selectedOptions.size() > 0) {
+            if (!selectedOptions.isEmpty()) {
                 selectedOptionSize += selectedOptions.size();
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
@@ -340,7 +340,7 @@ public final class ProductConfigWorker {
                 }
             }
 
-            if (selectedOptions.size() > 0) {
+            if (!selectedOptions.isEmpty()) {
                 if (nextId) {
                     configId = delegator.getNextSeqId("ProductConfigConfig");
                     //get next configId only once and only if there are selectedOptions

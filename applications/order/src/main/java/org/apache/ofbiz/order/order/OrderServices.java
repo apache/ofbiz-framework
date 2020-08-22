@@ -158,7 +158,7 @@ public class OrderServices {
                         Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due"
                                 + " to " + ex.getMessage(), MODULE);
                     }
-                    if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
+                    if ((repsCustomers != null) && (!repsCustomers.isEmpty()) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
                             userLogin))) {
                         hasPermission = true;
                     }
@@ -171,7 +171,7 @@ public class OrderServices {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId")
                                     + " due to " + ex.getMessage(), MODULE);
                         }
-                        if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
+                        if ((repsCustomers != null) && (!repsCustomers.isEmpty()) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
                                 userLogin))) {
                             hasPermission = true;
                         }
@@ -211,7 +211,7 @@ public class OrderServices {
         // jacopoc: what is the meaning of this code block? FIXME
         if (!hasPermission) {
             partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, resultSecurity, "ORDERMGR", "_CREATE");
-            if (resultSecurity.size() > 0) {
+            if (!resultSecurity.isEmpty()) {
                 return resultSecurity;
             }
         }
@@ -435,7 +435,7 @@ public class OrderServices {
             }
         }
 
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             return ServiceUtil.returnError(errorMessages);
         }
 
@@ -804,11 +804,11 @@ public class OrderServices {
                     tempList.add(techDataCalendarExcDay);
                 }
             }
-            if (tempList.size() > 0) {
+            if (!tempList.isEmpty()) {
                 toBeStored.addAll(tempList);
             }
         }
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             return ServiceUtil.returnError(errorMessages);
         }
 
@@ -1143,7 +1143,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
 
-            if (resErrorMessages.size() > 0) {
+            if (!resErrorMessages.isEmpty()) {
                 return ServiceUtil.returnError(resErrorMessages);
             }
             // END inventory reservation
@@ -1719,7 +1719,7 @@ public class OrderServices {
                     // no shipping address, try the billing address
                     if (shippingAddress == null) {
                         List<GenericValue> billingAddressList = orh.getBillingLocations();
-                        if (billingAddressList.size() > 0) {
+                        if (!billingAddressList.isEmpty()) {
                             shippingAddress = billingAddressList.get(0);
                         }
                     }
@@ -2425,7 +2425,7 @@ public class OrderServices {
             }
 
             // store the changes
-            if (toBeStored.size() > 0) {
+            if (!toBeStored.isEmpty()) {
                 try {
                     delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
@@ -3356,7 +3356,7 @@ public class OrderServices {
         }
 
         // now process the digital items
-        if (digitalItems.size() > 0 || nonProductItems.size() > 0) {
+        if (!digitalItems.isEmpty() || !nonProductItems.isEmpty()) {
             GenericValue productStore = OrderReadHelper.getProductStoreFromOrder(dispatcher.getDelegator(), orderId);
             boolean invoiceItems = true;
             if (productStore != null && productStore.get("autoInvoiceDigitalItems") != null) {
@@ -4700,7 +4700,7 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
 
-        if (resErrorMessages.size() > 0) {
+        if (!resErrorMessages.isEmpty()) {
             throw new GeneralException(ServiceUtil.getErrorMessage(ServiceUtil.returnError(resErrorMessages)));
         }
     }
@@ -6856,7 +6856,7 @@ public class OrderServices {
             itemConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ALLOC_PLAN_ITEM_APRV"));
             allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(itemConditions).queryList();
 
-            if (allocationPlanItems.size() > 0) {
+            if (!allocationPlanItems.isEmpty()) {
                 //Rereserve the inventory
                 serviceCtx.put("productId", productId);
                 serviceCtx.put("facilityId", facilityId);
@@ -7378,7 +7378,7 @@ public class OrderServices {
             itemConditions.add(EntityCondition.makeCondition("planItemSeqId", EntityOperator.IN, reReservePlanItemSeqIdList));
             List<GenericValue> allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(itemConditions).queryList();
 
-            if (allocationPlanItems.size() > 0) {
+            if (!allocationPlanItems.isEmpty()) {
                 //Rereserve the inventory
                 serviceCtx.put("productId", productId);
                 serviceCtx.put("facilityId", facilityId);

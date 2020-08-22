@@ -272,7 +272,7 @@ public class TaxwareUTL {
             throw new TaxwareException("Shipping amount has not been set.");
         if (shipToAddress == null)
             throw new TaxwareException("Shipping address has not been set.");
-        if (records.size() == 0)
+        if (records.isEmpty())
             throw new TaxwareException("No items have been defined.");
     }
 
@@ -391,7 +391,7 @@ public class TaxwareUTL {
                 // add a list of adjustments to the adjustment list
                 itemAdjustments.add(currentItem);
 
-            } else if (orderAdjustments.size() == 0) {
+            } else if (orderAdjustments.isEmpty()) {
                 if (rec.getBigDecimal("TAX_AMT_COUNTRY").compareTo(BigDecimal.ZERO) > 0) {
                     BigDecimal rate = rec.getBigDecimal("TAX_RATE_COUNTRY").movePointRight(2);
                     String type = "S".equals(rec.getString("TAX_TYPE_COUNTRY")) ? "SALES TAX" : "USE TAX";

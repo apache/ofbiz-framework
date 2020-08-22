@@ -100,7 +100,7 @@ public class CheckOutHelper {
         }
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -154,7 +154,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -255,7 +255,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -418,7 +418,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -468,7 +468,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -574,7 +574,7 @@ public class CheckOutHelper {
                 if (gcResult != null) {
                     ServiceUtil.addErrors(errorMessages, errorMaps, gcResult);
 
-                    if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+                    if (errorMessages.isEmpty() && errorMaps.isEmpty()) {
                         // set the GC payment method
                         BigDecimal giftCardAmount = null;
                         if (gcAmount.compareTo(BigDecimal.ZERO) > 0) {
@@ -595,11 +595,11 @@ public class CheckOutHelper {
         }
 
         // see whether we need to return an error or not
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         }
-        if (errorMaps.size() > 0) {
+        if (!errorMaps.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         }
@@ -823,7 +823,7 @@ public class CheckOutHelper {
             toBeStored.add(orderContactMech);
         }
 
-        if (toBeStored.size() > 0) {
+        if (!toBeStored.isEmpty()) {
             try {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("To Be Stored: " + toBeStored, MODULE);
@@ -1211,7 +1211,7 @@ public class CheckOutHelper {
                         List<GenericValue> productStorePaymentSettingList = EntityQuery.use(delegator).from("ProductStorePaymentSetting")
                                 .where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD", "paymentService", "cyberSourceCCAuth")
                                 .queryList();
-                        if (productStorePaymentSettingList.size() > 0) {
+                        if (!productStorePaymentSettingList.isEmpty()) {
                             String decision = (String) paymentResult.get("authCode");
                             if (UtilValidate.isNotEmpty(decision)) {
                                 if ("ACCEPT".equalsIgnoreCase(decision)) {
@@ -1402,7 +1402,7 @@ public class CheckOutHelper {
         }
 
         List<GenericValue> blacklistFound = null;
-        if (exprs.size() > 0) {
+        if (!exprs.isEmpty()) {
             try {
                 blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
             } catch (GenericEntityException e) {
@@ -1773,7 +1773,7 @@ public class CheckOutHelper {
         // payment by billing account only requires more checking
         List<String> paymentMethods = cart.getPaymentMethodIds();
         List<String> paymentTypes = cart.getPaymentMethodTypeIds();
-        if (paymentTypes.contains("EXT_BILLACT") && paymentTypes.size() == 1 && paymentMethods.size() == 0) {
+        if (paymentTypes.contains("EXT_BILLACT") && paymentTypes.size() == 1 && paymentMethods.isEmpty()) {
             if (cart.getGrandTotal().compareTo(availableAmount) > 0) {
                 errMsg = UtilProperties.getMessage(RES_ERROR, "checkevents.insufficient_credit_available_on_account", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);

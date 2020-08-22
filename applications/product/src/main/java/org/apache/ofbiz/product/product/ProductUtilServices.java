@@ -90,7 +90,7 @@ public final class ProductUtilServices {
                         .where("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT")
                         .filterByDate()
                         .queryList();
-                if (passocList.size() > 0) {
+                if (!passocList.isEmpty()) {
                     for (GenericValue passoc : passocList) {
                         passoc.set("thruDate", nowTimestamp);
                         passoc.store();
@@ -111,7 +111,7 @@ public final class ProductUtilServices {
                 int numSoFar = 0;
                 while ((product = eli.next()) != null) {
                     List<GenericValue> passocList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
-                    if (passocList.size() == 0) {
+                    if (passocList.isEmpty()) {
                         product.set("salesDiscontinuationDate", nowTimestamp);
                         delegator.store(product);
 
@@ -155,7 +155,7 @@ public final class ProductUtilServices {
             while ((product = eli.next()) != null) {
                 String productId = product.getString("productId");
                 List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", productId).queryList();
-                if (productCategoryMemberList.size() > 0) {
+                if (!productCategoryMemberList.isEmpty()) {
                     for (GenericValue productCategoryMember : productCategoryMemberList) {
                         // coded this way rather than a removeByAnd so it can be easily changed...
                         productCategoryMember.remove();
@@ -360,7 +360,7 @@ public final class ProductUtilServices {
                 return ServiceUtil.returnError(errMsg);
             }
 
-            if (paList.size() == 0) {
+            if (paList.isEmpty()) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.did_not_find_any_valid_variants_for_virtual_ID", messageMap, locale);
                 Debug.logInfo(errMsg, MODULE);
@@ -460,7 +460,7 @@ public final class ProductUtilServices {
                 // can't just set to null, need to remove the value so it isn't a constraint in the query
                 findValue.remove("fromDate");
                 List<GenericValue> existingValueList = EntityQuery.use(delegator).from(relatedEntityName).where(findValue).filterByDate(nowTimestamp).queryList();
-                if (existingValueList.size() > 0) {
+                if (!existingValueList.isEmpty()) {
                     if (test) {
                         Debug.logInfo("Found " + existingValueList.size() + " existing values for related entity name: " + relatedEntityName + ", not copying, findValue is: " + findValue, MODULE);
                     }
@@ -520,7 +520,7 @@ public final class ProductUtilServices {
                 if ("Y".equals(product.getString("isVirtual"))) {
                     // find the first variant, use it's ID for the names...
                     List<GenericValue> productAssocList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
-                    if (productAssocList.size() > 0) {
+                    if (!productAssocList.isEmpty()) {
                         GenericValue productAssoc = EntityUtil.getFirst(productAssocList);
                         smallMap.put("productId", productAssoc.getString("productIdTo"));
                         mediumMap.put("productId", productAssoc.getString("productIdTo"));
@@ -609,7 +609,7 @@ public final class ProductUtilServices {
         String includeProp = EntityUtilProperties.getPropertyValue("prodsearch", "attach.feature.type.include", delegator);
         if (UtilValidate.isNotEmpty(includeProp)) {
             List<String> typeList = StringUtil.split(includeProp, ",");
-            if (typeList.size() > 0) {
+            if (!typeList.isEmpty()) {
                 productFeatureTypeIdsToInclude = new LinkedHashSet<>(typeList);
             }
         }

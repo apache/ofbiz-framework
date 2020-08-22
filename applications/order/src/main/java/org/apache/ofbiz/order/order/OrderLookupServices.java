@@ -579,7 +579,7 @@ public class OrderLookupServices {
 
         // create the main condition
         EntityCondition cond = null;
-        if (conditions.size() > 0 || "Y".equalsIgnoreCase(showAll)) {
+        if (!conditions.isEmpty() || "Y".equalsIgnoreCase(showAll)) {
             cond = EntityCondition.makeCondition(conditions, EntityOperator.AND);
         }
 
@@ -647,7 +647,7 @@ public class OrderLookupServices {
             doFilter = "N";
         }
 
-        if ("Y".equals(doFilter) && orderList.size() > 0) {
+        if ("Y".equals(doFilter) && !orderList.isEmpty()) {
             paramList.add("filterInventoryProblems=Y");
             for (GenericValue orderHeader : orderList) {
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
@@ -689,7 +689,7 @@ public class OrderLookupServices {
             doPoFilter = true;
         }
 
-        if (doPoFilter && orderList.size() > 0) {
+        if (doPoFilter && !orderList.isEmpty()) {
             for (GenericValue orderHeader : orderList) {
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
                 String orderType = orh.getOrderTypeId();

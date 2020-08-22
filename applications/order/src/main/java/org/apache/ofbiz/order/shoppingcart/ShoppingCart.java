@@ -516,7 +516,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 return null;
             }
             List<GenericValue> productSuppliers = UtilGenerics.cast(result.get("supplierProducts"));
-            if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
+            if ((productSuppliers != null) && (!productSuppliers.isEmpty())) {
                 supplierProduct = productSuppliers.get(0);
             }
         } catch (GenericServiceException e) {
@@ -2650,7 +2650,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         while (csi.hasNext()) {
             CartShipInfo info = csi.next();
             info.shipItemInfo.keySet().removeIf(item -> item.getQuantity().compareTo(BigDecimal.ZERO) == 0);
-            if (info.shipItemInfo.size() == 0) {
+            if (info.shipItemInfo.isEmpty()) {
                 csi.remove();
             }
         }
@@ -5540,7 +5540,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
             }
             Timestamp estimatedShipDate = null;
-            if (estimatedShipDates.size() > 0) {
+            if (!estimatedShipDates.isEmpty()) {
                 estimatedShipDates.sort(null);
                 estimatedShipDate = estimatedShipDates.getLast();
                 shipGroup.set("estimatedShipDate", estimatedShipDate);

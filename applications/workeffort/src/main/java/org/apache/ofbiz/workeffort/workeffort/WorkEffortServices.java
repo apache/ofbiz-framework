@@ -433,7 +433,7 @@ public class WorkEffortServices {
                             EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK")), EntityJoinOperator.OR));
         }
         EntityCondition typesCondition = null;
-        if (typesList.size() == 0) {
+        if (typesList.isEmpty()) {
             return entityExprList;
         } else if (typesList.size() == 1) {
             typesCondition = typesList.get(0);

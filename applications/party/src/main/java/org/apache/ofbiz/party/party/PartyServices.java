@@ -716,7 +716,7 @@ public class PartyServices {
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
 
-        if (email.length() == 0) {
+        if (email.isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "partyservices.required_parameter_email_cannot_be_empty", locale));
         }
@@ -746,7 +746,7 @@ public class PartyServices {
                     "partyservices.cannot_get_party_entities_read",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
-        if (parties.size() > 0) {
+        if (!parties.isEmpty()) {
             result.put("parties", parties);
         }
         return result;
@@ -759,7 +759,7 @@ public class PartyServices {
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
 
-        if (email.length() == 0) {
+        if (email.isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "partyservices.required_parameter_email_cannot_be_empty", locale));
         }
@@ -789,7 +789,7 @@ public class PartyServices {
                     "partyservices.cannot_get_party_entities_read",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
-        if (parties.size() > 0) {
+        if (!parties.isEmpty()) {
             result.put("parties", parties);
         }
         return result;
@@ -809,7 +809,7 @@ public class PartyServices {
         String userLoginId = (String) context.get("userLoginId");
         Locale locale = (Locale) context.get("locale");
 
-        if (userLoginId.length() == 0) {
+        if (userLoginId.isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "PartyCannotGetUserLoginFromParty", locale));
         }
@@ -864,7 +864,7 @@ public class PartyServices {
         if (lastName == null) {
             lastName = "";
         }
-        if (firstName.length() == 0 && lastName.length() == 0) {
+        if (firstName.isEmpty() && lastName.isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "partyservices.both_names_cannot_be_empty", locale));
         }
@@ -892,7 +892,7 @@ public class PartyServices {
                     "partyservices.cannot_get_party_entities_read",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
-        if (parties.size() > 0) {
+        if (!parties.isEmpty()) {
             result.put("parties", parties);
         }
         return result;
@@ -911,7 +911,7 @@ public class PartyServices {
         String groupName = (String) context.get("groupName");
         Locale locale = (Locale) context.get("locale");
 
-        if (groupName.length() == 0) {
+        if (groupName.isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "PartyCannotgetPartiesFromPartyGroup", locale));
         }
@@ -937,7 +937,7 @@ public class PartyServices {
                     "partyservices.cannot_get_party_entities_read",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
-        if (parties.size() > 0) {
+        if (!parties.isEmpty()) {
             result.put("parties", parties);
         }
         return result;
@@ -1429,7 +1429,7 @@ public class PartyServices {
                 // ---- End of Dynamic View Creation
 
                 // build the main condition
-                if (andExprs.size() > 0) {
+                if (!andExprs.isEmpty()) {
                     mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
                 }
             }
@@ -2309,7 +2309,7 @@ public class PartyServices {
                     List<GenericValue> currencyCheck = EntityQuery.use(delegator).from("Uom")
                             .where("abbreviation", rec.get("preferredCurrencyUomId"), "uomTypeId", "CURRENCY_MEASURE")
                             .queryList();
-                    if (UtilValidate.isNotEmpty(rec.get("preferredCurrencyUomId")) && currencyCheck.size() == 0) {
+                    if (UtilValidate.isNotEmpty(rec.get("preferredCurrencyUomId")) && currencyCheck.isEmpty()) {
                         newErrMsgs.add("Line number " + rec.getRecordNumber() + ": partyId: " + currentPartyId + "Currency code not found for: "
                                 + rec.get("preferredCurrencyUomId"));
                     }
@@ -2342,7 +2342,7 @@ public class PartyServices {
                             List<GenericValue> countryCheck = EntityQuery.use(delegator).from("Geo")
                                     .where("geoTypeId", "COUNTRY", "abbreviation", rec.get("countryGeoId"))
                                     .queryList();
-                            if (countryCheck.size() == 0) {
+                            if (countryCheck.isEmpty()) {
                                 newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId + " Invalid Country code: "
                                         + rec.get("countryGeoId"));
                             }
@@ -2356,7 +2356,7 @@ public class PartyServices {
                             List<GenericValue> stateCheck = EntityQuery.use(delegator).from("Geo")
                                     .where("geoTypeId", "STATE", "abbreviation", rec.get("stateProvinceGeoId"))
                                     .queryList();
-                            if (stateCheck.size() == 0) {
+                            if (stateCheck.isEmpty()) {
                                 newErrMsgs.add("Line number " + rec.getRecordNumber() + " partyId: " + currentPartyId
                                         + " Invalid stateProvinceGeoId code: " + rec.get("countryGeoId"));
                             }
@@ -2375,11 +2375,11 @@ public class PartyServices {
                         }
                     }
 
-                    if (errMsgs.size() == 0) {
+                    if (errMsgs.isEmpty()) {
                         List<GenericValue> partyCheck = EntityQuery.use(delegator).from("PartyIdentification")
                                 .where("partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId"))
                                 .queryList();
-                        addParty = partyCheck.size() == 0;
+                        addParty = partyCheck.isEmpty();
                         if (!addParty) { // update party
                             newPartyId = EntityUtil.getFirst(partyCheck).getString("partyId");
 
@@ -2452,7 +2452,7 @@ public class PartyServices {
                                 List<GenericValue> companyCheck = EntityQuery.use(delegator).from("PartyIdentification")
                                         .where("partyIdentificationTypeId", "PARTY_IMPORT", "idValue", rec.get("partyId"))
                                         .queryList();
-                                if (companyCheck.size() == 0) { // update party group
+                                if (companyCheck.isEmpty()) { // update party group
                                     // company does not exist so create
                                     Map<String, Object> companyPartyGroup = UtilMisc.toMap(
                                             "partyId", newCompanyPartyId, "statusId", "PARTY_ENABLED", "userLogin", userLogin);
@@ -2552,7 +2552,7 @@ public class PartyServices {
                     lastContactMechPurposeTypeId = currentContactMechPurposeTypeId;
 
                     // update
-                    if (errMsgs.size() == 0) {
+                    if (errMsgs.isEmpty()) {
 
                         if (postalAddressChanged) {
                             result = dispatcher.runSync("createPostalAddress", postalAddress);
@@ -2619,7 +2619,7 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (errMsgs.size() > 0) {
+        if (!errMsgs.isEmpty()) {
             return ServiceUtil.returnError(errMsgs);
         }
 

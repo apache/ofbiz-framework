@@ -140,7 +140,7 @@ public final class KeywordSearchUtil {
             }
 
             // get rid of all length 0 tokens now
-            if (token.length() == 0) {
+            if (token.isEmpty()) {
                 continue;
             }
 
@@ -182,7 +182,7 @@ public final class KeywordSearchUtil {
         }
 
         Set<String> keywords = new TreeSet<>();
-        if (str.length() > 0) {
+        if (!str.isEmpty()) {
             // strip off weird characters
             str = str.replaceAll("\\\302\\\240|\\\240", " ");
 

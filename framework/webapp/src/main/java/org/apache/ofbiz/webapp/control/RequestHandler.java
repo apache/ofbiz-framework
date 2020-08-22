@@ -252,7 +252,7 @@ public class RequestHandler {
                 reqAttrMap.put(name, obj);
             }
         }
-        if (reqAttrMap.size() > 0) {
+        if (!reqAttrMap.isEmpty()) {
             byte[] reqAttrMapBytes = UtilObject.getBytes(reqAttrMap);
             if (reqAttrMapBytes != null) {
                 req.getSession().setAttribute("_REQ_ATTR_MAP_", StringUtil.toHexString(reqAttrMapBytes));
@@ -558,7 +558,7 @@ public class RequestHandler {
                             throw new EventHandlerException("Pre-Processor event [" + event.getInvoke() + "] did not return 'success'.");
                         } else { // protect the view normally rendered and redirect to error response view
                             returnString = returnString.replace(":_protect_:", "");
-                            if (returnString.length() > 0) {
+                            if (!returnString.isEmpty()) {
                                 request.setAttribute("_ERROR_MESSAGE_", returnString);
                             }
                             eventReturn = null;

@@ -159,7 +159,7 @@ public class ProductServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        if (featureSet.size() == 0) {
+        if (featureSet.isEmpty()) {
             errMsg = UtilProperties.getMessage(RES_ERROR, "productservices.problem_reading_product_features", locale);
             // ToDo DO 2004-02-23 Where should the errMsg go?
             Debug.logWarning(errMsg + " for product " + productId, MODULE);
@@ -318,7 +318,7 @@ public class ProductServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        if (outOfStockItems.size() > 0) {
+        if (!outOfStockItems.isEmpty()) {
             result.put("unavailableVariants", outOfStockItems);
         }
         result.put("variantSample", sample);
@@ -389,7 +389,7 @@ public class ProductServices {
             if (product.get("isVariant") != null && "Y".equalsIgnoreCase(product.getString("isVariant"))) {
                 List<GenericValue> c = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, true);
                 c = EntityUtil.filterByDate(c);
-                if (c.size() > 0) {
+                if (!c.isEmpty()) {
                     GenericValue asV = c.iterator().next();
                     mainProduct = asV.getRelatedOne("MainProduct", true);
                 }
@@ -602,7 +602,7 @@ public class ProductServices {
         }
 
         // no groups; no tree
-        if (group.size() == 0) {
+        if (group.isEmpty()) {
             return group;
         }
 
@@ -1121,7 +1121,7 @@ public class ProductServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
 
-        if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
+        if (UtilValidate.isNotEmpty(imageUrl) && !imageUrl.isEmpty()) {
             String contentId = (String) context.get("contentId");
 
             Map<String, Object> dataResourceCtx = new HashMap<>();
@@ -1361,7 +1361,7 @@ public class ProductServices {
 
             String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
 
-            if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
+            if (UtilValidate.isNotEmpty(imageUrl) && !imageUrl.isEmpty()) {
                 Map<String, Object> dataResourceCtx = new HashMap<>();
                 dataResourceCtx.put("objectInfo", imageUrl);
                 dataResourceCtx.put("dataResourceName", context.get("_uploadedFile_fileName"));

@@ -695,7 +695,7 @@ public class PayflowPro {
         Map<String, String> parameters = new HashMap<>();
         List<String> params = StringUtil.split(resp, "&");
         for (String str : params) {
-            if (str.length() > 0) {
+            if (!str.isEmpty()) {
                 List<String> kv = StringUtil.split(str, "=");
                 String k = kv.get(0);
                 String v = kv.get(1);
@@ -880,7 +880,7 @@ public class PayflowPro {
             String name = (String) i.next();
             Object valueObj = context.get(name);
 
-            if (valueObj == null || (valueObj instanceof String) && ((String) valueObj).length() == 0) {
+            if (valueObj == null || (valueObj instanceof String) && ((String) valueObj).isEmpty()) {
                 // not valid; do nothing
             } else {
                 String value = valueObj.toString();

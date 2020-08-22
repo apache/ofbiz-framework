@@ -300,7 +300,7 @@ public final class ProductDisplayWorker {
         if (values == null) {
             return null;
         }
-        if (values.size() == 0) {
+        if (values.isEmpty()) {
             return values;
         }
 

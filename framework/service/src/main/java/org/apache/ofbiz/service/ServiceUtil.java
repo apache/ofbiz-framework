@@ -128,10 +128,10 @@ public final class ServiceUtil {
             }
         }
 
-        if (errorList.size() > 0) {
+        if (!errorList.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_LIST, errorList);
         }
-        if (errorMap.size() > 0) {
+        if (!errorMap.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_MAP, errorMap);
         }
         Debug.logError(result.toString(), MODULE);

@@ -374,7 +374,7 @@ public class ShoppingCartHelper {
                     }
                 }
             }
-            if (errorMsgs.size() > 0) {
+            if (!errorMsgs.isEmpty()) {
                 result = ServiceUtil.returnError(errorMsgs);
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
                 return result; // don't return error because this is a non-critical error and should go back to the same page
@@ -652,7 +652,7 @@ public class ShoppingCartHelper {
                 }
             }
         }
-        if (errorMsgs.size() > 0) {
+        if (!errorMsgs.isEmpty()) {
             result = ServiceUtil.returnError(errorMsgs);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             return result; // don't return error because this is a non-critical error and should go back to the same page
@@ -684,7 +684,7 @@ public class ShoppingCartHelper {
             }
         }
 
-        if (errorMsgs.size() > 0) {
+        if (!errorMsgs.isEmpty()) {
             result = ServiceUtil.returnError(errorMsgs);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             return result; // don't return error because this is a non-critical error and should go back to the same page
@@ -756,7 +756,7 @@ public class ShoppingCartHelper {
                     } else if (parameterName.toUpperCase(Locale.getDefault()).startsWith("COMMENT")) {
                         itemComment = quantString;  // the quantString is actually the comment if the field name starts with COMMENT
                     } else if (parameterName.startsWith("reservStart")) {
-                        if (quantString.length() == 0) {
+                        if (quantString.isEmpty()) {
                             // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                             quantString += " 00:00:00.000000000";
                         }
@@ -1004,7 +1004,7 @@ public class ShoppingCartHelper {
         // Promotions are run again.
         ProductPromoWorker.doPromotions(this.cart, dispatcher);
 
-        if (errorMsgs.size() > 0) {
+        if (!errorMsgs.isEmpty()) {
             result = ServiceUtil.returnError(errorMsgs);
             return result;
         }
@@ -1106,7 +1106,7 @@ public class ShoppingCartHelper {
                 // set the currency based on the pricing agreement
                 List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId",
                         "AGREEMENT_PRICING_PR"), null, false);
-                if (agreementItems.size() > 0) {
+                if (!agreementItems.isEmpty()) {
                     GenericValue agreementItem = agreementItems.get(0);
                     String currencyUomId = (String) agreementItem.get("currencyUomId");
                     if (UtilValidate.isNotEmpty(currencyUomId)) {
@@ -1132,7 +1132,7 @@ public class ShoppingCartHelper {
                 cart.removeOrderTerms();
                 // set order terms based on agreement terms
                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
-                if (agreementTerms.size() > 0) {
+                if (!agreementTerms.isEmpty()) {
                     for (int i = 0; agreementTerms.size() > i; i++) {
                         GenericValue agreementTerm = agreementTerms.get(i);
                         String termTypeId = (String) agreementTerm.get("termTypeId");

@@ -141,7 +141,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -163,7 +163,7 @@ public class PaymentMethodServices {
                             UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
         }
 
-        if (messages.size() > 0) {
+        if (!messages.isEmpty()) {
             return ServiceUtil.returnError(messages);
         }
 
@@ -266,7 +266,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE", "ACCOUNTING", "_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -334,7 +334,7 @@ public class PaymentMethodServices {
                             UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
         }
 
-        if (messages.size() > 0) {
+        if (!messages.isEmpty()) {
             return ServiceUtil.returnError(messages);
         }
 
@@ -499,7 +499,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -557,7 +557,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE", "ACCOUNTING", "_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -692,7 +692,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -794,7 +794,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE", "ACCOUNTING", "_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -931,7 +931,7 @@ public class PaymentMethodServices {
         Timestamp now = UtilDateTime.nowTimestamp();
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -1021,7 +1021,7 @@ public class PaymentMethodServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE", "ACCOUNTING", "_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 

@@ -1169,7 +1169,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
 
         // check for requiredButNull fields and return an error since null values are not allowed for required fields
-        if (requiredButNull.size() > 0) {
+        if (!requiredButNull.isEmpty()) {
             List<String> missingMsg = new LinkedList<>();
             for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
@@ -1228,7 +1228,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     }
                 }
             }
-            if (errorMessageList.size() > 0) {
+            if (!errorMessageList.isEmpty()) {
                 throw new ServiceValidationException(errorMessageList, this, mode);
             }
         }
@@ -1266,7 +1266,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Set<String> keySet = info.keySet();
 
         // Quick check for sizes
-        if (info.size() == 0 && test.size() == 0) {
+        if (info.isEmpty() && test.isEmpty()) {
             return;
         }
         // This is to see if the test set contains all from the info set (reverse)
@@ -1359,7 +1359,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             }
         }
 
-        if (typeFailMsgs.size() > 0) {
+        if (!typeFailMsgs.isEmpty()) {
             throw new ServiceValidationException(typeFailMsgs, model, mode);
         }
     }
@@ -1441,7 +1441,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (!IN_PARAM.equals(mode) && !OUT_PARAM.equals(mode) && !IN_OUT_PARAM.equals(mode)) {
             return names;
         }
-        if (contextInfo.size() == 0) {
+        if (contextInfo.isEmpty()) {
             return names;
         }
         for (ModelParam param: contextParamList) {
@@ -1520,7 +1520,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (!IN_PARAM.equals(mode) && !OUT_PARAM.equals(mode) && !IN_OUT_PARAM.equals(mode)) {
             return target;
         }
-        if (contextInfo.size() == 0) {
+        if (contextInfo.isEmpty()) {
             return target;
         }
 
@@ -1727,7 +1727,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public synchronized void interfaceUpdate(DispatchContext dctx) throws GenericServiceException {
         if (!inheritedParameters) {
             // services w/ engine 'group' auto-implement the grouped services
-            if ("group".equals(this.engineName) && implServices.size() == 0) {
+            if ("group".equals(this.engineName) && implServices.isEmpty()) {
                 GroupModel group = internalGroup;
                 if (group == null) {
                     group = ServiceGroupReader.getGroupModel(this.location);

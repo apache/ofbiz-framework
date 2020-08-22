@@ -246,7 +246,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             }
             List<Object> messages = new LinkedList<>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
-            if (messages.size() > 0) {
+            if (!messages.isEmpty()) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value ["
                         + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
@@ -326,7 +326,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             List<Object> messages = new LinkedList<>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null,
                     false);
-            if (messages.size() > 0) {
+            if (!messages.isEmpty()) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString()
                         + "] with value [" + fieldVal + "] and to-field [" + toFieldAcsr.toString() + "] with value ["
                         + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");

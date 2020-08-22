@@ -758,7 +758,7 @@ public class PaymentGatewayServices {
         }
 
         // return complete if no payment prefs were found
-        if (paymentPrefs.size() == 0) {
+        if (paymentPrefs.isEmpty()) {
             Debug.logWarning("No OrderPaymentPreference records available for release", MODULE);
             result.put("processResult", "COMPLETE");
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);

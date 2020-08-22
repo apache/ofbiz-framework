@@ -75,7 +75,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             dateStart = converter.dateStart;
             eventProps.add(dateStart);
         }
-        if (dateStart != null && converter.exRuleList.size() > 0) {
+        if (dateStart != null && !converter.exRuleList.isEmpty()) {
             // iCalendar quirk - if exclusions exist, then the start date must be excluded also
             ExDate exdate = new ExDate();
             exdate.getDates().add(dateStart.getDate());
@@ -118,13 +118,13 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
                 freqCount = recur.getInterval();
             }
         }
-        if (freq == null && monthList.size() > 0) {
+        if (freq == null && !monthList.isEmpty()) {
             freq = Recur.MONTHLY;
-        } else if (freq == null && (monthDayList.size() > 0 || weekDayList.size() > 0)) {
+        } else if (freq == null && (!monthDayList.isEmpty() || !weekDayList.isEmpty())) {
             freq = Recur.DAILY;
-        } else if (freq == null && hourList.size() > 0) {
+        } else if (freq == null && !hourList.isEmpty()) {
             freq = Recur.HOURLY;
-        } else if (freq == null && minuteList.size() > 0) {
+        } else if (freq == null && !minuteList.isEmpty()) {
             freq = Recur.MINUTELY;
         }
         if (freq == null) {
@@ -181,10 +181,10 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             childExpr.accept(this);
         }
         this.state = this.stateStack.pop();
-        if (newState.inclRecurList.size() > 0) {
+        if (!newState.inclRecurList.isEmpty()) {
             this.incRuleList.add(new RRule(this.consolidateRecurs(newState.inclRecurList)));
         }
-        if (newState.exRecurList.size() > 0) {
+        if (!newState.exRecurList.isEmpty()) {
             this.exRuleList.add(new ExRule(this.consolidateRecurs(newState.exRecurList)));
         }
     }

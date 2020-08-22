@@ -452,7 +452,7 @@ public class ProductSearchSession {
                 }
             }
 
-            if (keywords.size() > 0) {
+            if (!keywords.isEmpty()) {
                 List<GenericValue> productStoreKeywordOvrdList = null;
                 try {
                     productStoreKeywordOvrdList = EntityQuery.use(delegator).from("ProductStoreKeywordOvrd").where("productStoreId", productStoreId)
@@ -759,7 +759,7 @@ public class ProductSearchSession {
 
         // if features were selected add a constraint for each
         Map<String, String> featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(parameters);
-        if (featureIdByType.size() > 0) {
+        if (!featureIdByType.isEmpty()) {
             constraintsChanged = true;
             searchAddFeatureIdConstraints(featureIdByType.values(), null, request);
         }

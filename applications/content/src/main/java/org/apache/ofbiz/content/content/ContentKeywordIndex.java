@@ -194,7 +194,7 @@ public class ContentKeywordIndex {
                 toBeStored.add(contentKeyword);
             }
         }
-        if (toBeStored.size() > 0) {
+        if (!toBeStored.isEmpty()) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), MODULE);
             }

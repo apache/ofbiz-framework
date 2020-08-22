@@ -168,7 +168,7 @@ public class DynamicViewEntity {
      */
     public String getOneRealEntityName() {
         // return first entity name for memberModelMemberEntities Map
-        if (this.memberModelMemberEntities.size() == 0) {
+        if (this.memberModelMemberEntities.isEmpty()) {
             return null;
         }
 

@@ -180,7 +180,7 @@ public class GenericWebEvent {
             }
         }
 
-        if (errMsgPk.length() > 0) {
+        if (!errMsgPk.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_", errMsgPk);
             return "error";
         }
@@ -238,7 +238,7 @@ public class GenericWebEvent {
             }
         }
 
-        if (errMsgNonPk.length() > 0) {
+        if (!errMsgNonPk.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_", errMsgNonPk);
             return "error";
         }
@@ -336,7 +336,7 @@ public class GenericWebEvent {
             }
         }
 
-        if (errMsgParam.length() > 0) {
+        if (!errMsgParam.isEmpty()) {
             errMsgParam = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.following_error_occurred", locale) + errMsgParam;
             request.setAttribute("_ERROR_MESSAGE_", errMsgParam);

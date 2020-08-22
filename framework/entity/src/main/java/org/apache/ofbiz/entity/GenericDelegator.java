@@ -152,7 +152,7 @@ public class GenericDelegator implements Delegator {
 
     public static String popUserIdentifier() {
         List<String> curValList = getUserIdentifierStack();
-        if (curValList.size() == 0) {
+        if (curValList.isEmpty()) {
             return null;
         }
         return curValList.remove(0);
@@ -182,7 +182,7 @@ public class GenericDelegator implements Delegator {
 
     public static String popSessionIdentifier() {
         List<String> curValList = getSessionIdentifierStack();
-        if (curValList.size() == 0) {
+        if (curValList.isEmpty()) {
             return null;
         }
         return curValList.remove(0);
@@ -237,7 +237,7 @@ public class GenericDelegator implements Delegator {
         List<String> warningList = new LinkedList<>();
         Debug.logInfo("Doing entity definition check...", MODULE);
         ModelEntityChecker.checkEntities(this, warningList);
-        if (warningList.size() > 0) {
+        if (!warningList.isEmpty()) {
             Debug.logWarning("=-=-=-=-= Found " + warningList.size() + " warnings when checking the entity definitions:", MODULE);
             for (String warning: warningList) {
                 Debug.logWarning(warning, MODULE);
@@ -2813,12 +2813,12 @@ public class GenericDelegator implements Delegator {
     @Override
     public String getCurrentSessionIdentifier() {
         List<String> curValList = getSessionIdentifierStack();
-        return curValList.size() > 0 ? curValList.get(0) : null;
+        return !curValList.isEmpty() ? curValList.get(0) : null;
     }
 
     @Override
     public String getCurrentUserIdentifier() {
         List<String> curValList = getUserIdentifierStack();
-        return curValList.size() > 0 ? curValList.get(0) : null;
+        return !curValList.isEmpty() ? curValList.get(0) : null;
     }
 }

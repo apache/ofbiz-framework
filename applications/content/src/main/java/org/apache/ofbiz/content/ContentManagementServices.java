@@ -1395,9 +1395,9 @@ public class ContentManagementServices {
                     .cache().queryList();
             List<GenericValue> listThrusOnly = EntityUtil.filterOutByCondition(lst, EntityCondition.makeCondition("purchaseThruDate",
                     EntityOperator.EQUALS, null));
-            if (listThrusOnly.size() > 0) {
+            if (!listThrusOnly.isEmpty()) {
                 productContent = listThrusOnly.get(0);
-            } else if (lst.size() > 0) {
+            } else if (!lst.isEmpty()) {
                 productContent = lst.get(0);
             }
         } catch (GenericEntityException e) {
@@ -1499,7 +1499,7 @@ public class ContentManagementServices {
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
             contentAssocTypeIdList = StringUtil.split(contentAssocTypeId, "|");
         }
-        if (contentAssocTypeIdList.size() == 0) {
+        if (contentAssocTypeIdList.isEmpty()) {
             contentAssocTypeIdList.add("SUB_CONTENT");
         }
         Map<String, Object> ctx = new HashMap<>();

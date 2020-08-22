@@ -114,7 +114,7 @@ public class OrderTestServices {
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError(gse.getMessage());
         }
-        if (productsList.size() == 0) {
+        if (productsList.isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage("OrderUiLabels",
                     "OrderCreateTestSalesOrderSingleError",
                     UtilMisc.toMap("productCategoryId", productCategoryId), locale));

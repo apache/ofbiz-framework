@@ -186,7 +186,7 @@ In order to make this service active add the following to the service definition
                                                 "contentAssocTypeId", "TREE_CHILD")
                                         .queryList();
 
-                                if (contentAssocs.size() == 0) {
+                                if (contentAssocs.isEmpty()) {
                                     contentAssoc = new HashMap<>();
                                     contentAssoc.put("contentId", contentId);
                                     contentAssoc.put("contentAssocTypeId", "TREE_CHILD");
@@ -257,7 +257,7 @@ In order to make this service active add the following to the service definition
                                 List<GenericValue> contentAssocsChecks = EntityQuery.use(delegator).from("ContentAssoc")
                                         .where("contentId", contentch.get("contentId"), "contentIdTo", rootContent)
                                         .queryList();
-                                if (contentAssocsChecks.size() > 0) {
+                                if (!contentAssocsChecks.isEmpty()) {
                                     contentNameMatch = true;
                                 }
                             }

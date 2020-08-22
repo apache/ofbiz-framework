@@ -86,8 +86,8 @@ public class EntityConditionSubSelect extends EntityConditionValue {
             }
 
             String viewClause = SqlJdbcUtil.makeViewWhereClause(localModelEntity, (datasourceInfo != null ? datasourceInfo.getJoinStyle() : null));
-            if (viewClause.length() > 0) {
-                if (entityCondWhereString.length() > 0) {
+            if (!viewClause.isEmpty()) {
+                if (!entityCondWhereString.isEmpty()) {
                     whereString.append("(");
                     whereString.append(entityCondWhereString);
                     whereString.append(") AND ");

@@ -87,7 +87,7 @@ public abstract class ListFinder extends Finder {
 
         // process order-by
         List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
-        if (orderByElementList.size() > 0) {
+        if (!orderByElementList.isEmpty()) {
             orderByExpanderList = new ArrayList<>(orderByElementList.size());
             for (Element orderByElement : orderByElementList) {
                 orderByExpanderList.add(FlexibleStringExpander.getInstance(orderByElement.getAttribute("field-name")));

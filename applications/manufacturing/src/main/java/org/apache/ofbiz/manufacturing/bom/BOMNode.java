@@ -289,7 +289,7 @@ public class BOMNode {
                                 }
                             }
 
-                            if (selectedFeatures.size() > 0) {
+                            if (!selectedFeatures.isEmpty()) {
                                 Map<String, Object> context = new HashMap<>();
                                 context.put("productId", node.get("productIdTo"));
                                 context.put("selectedFeatures", selectedFeatures);
@@ -702,7 +702,7 @@ public class BOMNode {
             Debug.logError("Problem in BOMNode.isManufactured()", MODULE);
         }
         supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
-        return childrenNodes.size() > 0 && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));
+        return !childrenNodes.isEmpty() && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));
     }
 
     /**

@@ -281,7 +281,7 @@ public class CatalogUrlFilter implements Filter {
 
                 // adjust trail
                 String previousCategoryId = null;
-                if (trail.size() > 0) {
+                if (!trail.isEmpty()) {
                     previousCategoryId = trail.get(trail.size() - 1);
                 }
                 trail = CategoryWorker.adjustTrail(trail, productCategoryId, previousCategoryId);

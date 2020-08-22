@@ -198,7 +198,7 @@ public class RecordIterator {
                     // if parent equals top parent on stack, add to that parents child list, otherwise pop off parent and try again
                     Record parentRecord = null;
 
-                    while (parentStack.size() > 0) {
+                    while (!parentStack.isEmpty()) {
                         parentRecord = parentStack.peek();
                         if (parentRecord.getRecordName().equals(this.nextRecord.getModelRecord().getParentName())) {
                             break;

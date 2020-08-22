@@ -62,7 +62,7 @@ public class GroupModel {
         }
 
         List<? extends Element> oldServiceTags = UtilXml.childElementList(group, "service");
-        if (oldServiceTags.size() > 0) {
+        if (!oldServiceTags.isEmpty()) {
             for (Element service : oldServiceTags) {
                 services.add(new GroupServiceModel(service));
             }

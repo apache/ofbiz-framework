@@ -176,13 +176,13 @@ public final class CallSimpleMethod extends MethodOperation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<call-simple-method ");
-        if (this.methodName.length() > 0) {
+        if (!this.methodName.isEmpty()) {
             sb.append("method-name=\"").append(this.methodName).append("\" ");
         }
-        if (this.xmlResource.length() > 0) {
+        if (!this.xmlResource.isEmpty()) {
             sb.append("xml-resource=\"").append(this.xmlResource).append("\" ");
         }
-        if (this.scope.length() > 0) {
+        if (!this.scope.isEmpty()) {
             sb.append("scope=\"").append(this.scope).append("\" ");
         }
         sb.append("/>");
@@ -218,7 +218,7 @@ public final class CallSimpleMethod extends MethodOperation {
             }
             this.resultNameFma = FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
             String fieldAttribute = element.getAttribute("field");
-            if (fieldAttribute.length() == 0) {
+            if (fieldAttribute.isEmpty()) {
                 this.fieldFma = this.resultNameFma;
             } else {
                 this.fieldFma = FlexibleMapAccessor.getInstance(fieldAttribute);

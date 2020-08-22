@@ -53,7 +53,7 @@ public class Copy extends SimpleMapOperation {
             return;
         }
         if (fieldValue instanceof java.lang.String) {
-            if (((String) fieldValue).length() == 0) {
+            if (((String) fieldValue).isEmpty()) {
                 if (setIfNull && (replace || !results.containsKey(toField))) {
                     results.put(toField, null);
                 }

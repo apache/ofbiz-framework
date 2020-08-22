@@ -204,7 +204,7 @@ public class ServiceEventHandler implements EventHandler {
                     continue;
                 }
 
-                if (value instanceof String && ((String) value).length() == 0) {
+                if (value instanceof String && ((String) value).isEmpty()) {
                     // interpreting empty fields as null values for each in back end handling...
                     value = null;
                 }
@@ -218,7 +218,7 @@ public class ServiceEventHandler implements EventHandler {
         // proper X, return immediately with messages if there are any
         List<Object> errorMessages = new LinkedList<>();
         serviceContext = model.makeValid(serviceContext, ModelService.IN_PARAM, true, errorMessages, timeZone, locale);
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             // uh-oh, had some problems...
             request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessages);
             return "error";

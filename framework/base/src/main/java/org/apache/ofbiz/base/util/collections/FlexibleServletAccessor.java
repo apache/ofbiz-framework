@@ -240,7 +240,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             if (openBrace != -1 && closeBrace != -1) {
                 String liStr = attributeName.substring(openBrace + 1, closeBrace);
                 //if brackets are empty, append to list
-                if (liStr.length() == 0) {
+                if (liStr.isEmpty()) {
                     isAddAtEnd = true;
                 } else {
                     if (liStr.charAt(0) == '+') {

@@ -2269,7 +2269,7 @@ public class ModelFormField {
             // read all option and entity-options sub-elements, maintaining order
             ArrayList<OptionSource> optionSources = new ArrayList<>();
             List<? extends Element> childElements = UtilXml.childElementList(element);
-            if (childElements.size() > 0) {
+            if (!childElements.isEmpty()) {
                 for (Element childElement : childElements) {
                     String childName = childElement.getLocalName();
                     if ("option".equals(childName)) {
@@ -3581,7 +3581,7 @@ public class ModelFormField {
         @Override
         public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
             List<? extends Object> dataList = UtilGenerics.cast(this.listAcsr.get(context));
-            if (dataList != null && dataList.size() != 0) {
+            if (dataList != null && !dataList.isEmpty()) {
                 for (Object data : dataList) {
                     Map<String, Object> localContext = new HashMap<>();
                     localContext.putAll(context);

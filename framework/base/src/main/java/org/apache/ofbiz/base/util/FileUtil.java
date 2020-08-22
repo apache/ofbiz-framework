@@ -465,7 +465,7 @@ public final class FileUtil {
             }
 
             if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
-                if (stringsToFindInFile.size() == 0) {
+                if (stringsToFindInFile.isEmpty()) {
                     return true;
                 }
                 StringBuffer xmlFileBuffer = null;

@@ -377,7 +377,7 @@ public class EntityPermissionChecker {
                     statusId = entity.getString("statusId");
                 }
 
-                if (purposeList.size() > 0) {
+                if (!purposeList.isEmpty()) {
                     passed = hasMatch(entityName, targetOperationEntityList, roleList, hasPurposeOp, purposeList, hasStatusOp, statusId);
                 }
                 if (passed) {
@@ -924,7 +924,7 @@ public class EntityPermissionChecker {
             Debug.logError(e, "Problem finding PartyRelationships. ", MODULE);
             return false;
         }
-        if (partyRelationships.size() > 0) {
+        if (!partyRelationships.isEmpty()) {
             isMember = true;
         }
 
@@ -1317,7 +1317,7 @@ public class EntityPermissionChecker {
 
             List<String> ownedContentIdList = new LinkedList<>();
             getEntityOwners(delegator, entity, ownedContentIdList, this.entityName, this.ownerEntityFieldName);
-            if (ownedContentIdList.size() > 0) {
+            if (!ownedContentIdList.isEmpty()) {
                 List<String> lst = getUserRolesFromList(delegator, ownedContentIdList, partyId, this.roleEntityIdName, this.partyFieldName,
                         this.roleTypeFieldName, this.roleEntityName);
                 this.roleIdList.addAll(lst);

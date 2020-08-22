@@ -225,7 +225,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             if (isMapInitialized) {
                 return topLevelMap.isEmpty();
             }
-            return resourceBundle.keySet().size() == 0;
+            return resourceBundle.keySet().isEmpty();
         }
 
         @Override

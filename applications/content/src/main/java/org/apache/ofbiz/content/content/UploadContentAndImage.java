@@ -91,7 +91,7 @@ public class UploadContentAndImage {
                 return "error";
             }
 
-            if (lst.size() == 0) {
+            if (lst.isEmpty()) {
                 String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "uploadContentAndImage.no_files_uploaded", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
@@ -361,7 +361,7 @@ public class UploadContentAndImage {
                 return "error";
             }
 
-            if (lst.size() == 0) {
+            if (lst.isEmpty()) {
                 request.setAttribute("_ERROR_MESSAGE_", "No files uploaded");
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
                 return "error";

@@ -1112,7 +1112,7 @@ public class ModelViewEntity extends ModelEntity {
 
         @Override
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
-            if (complexAliasMembers.size() == 0) {
+            if (complexAliasMembers.isEmpty()) {
                 return;
             } else if (complexAliasMembers.size() == 1) {
                 ComplexAliasMember complexAliasMember = complexAliasMembers.iterator().next();
@@ -1375,7 +1375,7 @@ public class ModelViewEntity extends ModelEntity {
             this.distinct = "true".equals(element.getAttribute("distinct"));
             // process order-by
             List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
-            if (orderByElementList.size() > 0) {
+            if (!orderByElementList.isEmpty()) {
                 orderByList = new ArrayList<>(orderByElementList.size());
                 for (Element orderByElement: orderByElementList) {
                     orderByList.add(orderByElement.getAttribute("field-name"));
@@ -1608,7 +1608,7 @@ public class ModelViewEntity extends ModelEntity {
 
         @Override
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
-            if (this.conditionList.size() == 0) {
+            if (this.conditionList.isEmpty()) {
                 return null;
             }
             if (this.conditionList.size() == 1) {

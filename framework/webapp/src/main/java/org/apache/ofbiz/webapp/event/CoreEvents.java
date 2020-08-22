@@ -193,7 +193,7 @@ public class CoreEvents {
                 continue;
             }
 
-            if (value instanceof String && ((String) value).length() == 0) {
+            if (value instanceof String && ((String) value).isEmpty()) {
                 // interpreting empty fields as null values for each in back end handling...
                 value = null;
             }

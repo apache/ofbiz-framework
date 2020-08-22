@@ -579,7 +579,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                                     EntityCondition.makeCondition(exprs, EntityOperator.OR),
                                     UtilMisc.toSet("productId", "productName"), null, null, true);
 
-                            if (products != null && products.size() > 0) {
+                            if (products != null && !products.isEmpty()) {
                                 if (products.size() == 1) {
                                     productId = products.get(0).getString("productId");
                                     break;

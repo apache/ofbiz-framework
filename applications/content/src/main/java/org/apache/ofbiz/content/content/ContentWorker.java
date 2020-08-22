@@ -831,10 +831,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         EntityExpr expr = EntityCondition.makeCondition(contentIdName, EntityOperator.EQUALS, origContentId);
         exprListAnd.add(expr);
 
-        if (contentTypes.size() > 0) {
+        if (!contentTypes.isEmpty()) {
             exprListAnd.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.IN, contentTypes));
         }
-        if (assocTypes.size() > 0) {
+        if (!assocTypes.isEmpty()) {
             exprListAnd.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, assocTypes));
         }
 
@@ -1436,7 +1436,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<GenericValue> filteredList = getContentAssocViewList(delegator, contentIdTo, contentId, contentAssocTypeId, statusId, privilegeEnumId);
 
         GenericValue val = null;
-        if (filteredList.size() > 0) {
+        if (!filteredList.isEmpty()) {
             val = filteredList.get(0);
         }
         return val;

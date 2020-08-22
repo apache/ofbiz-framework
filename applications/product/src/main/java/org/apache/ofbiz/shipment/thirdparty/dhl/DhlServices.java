@@ -192,7 +192,7 @@ public class DhlServices {
         String password = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessPassword", RESOURCE, "shipment.dhl.access.password");
         String shippingKey = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessShippingKey", RESOURCE, "shipment.dhl.access.shippingKey");
         String accountNbr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessAccountNbr", RESOURCE, "shipment.dhl.access.accountNbr");
-        if ((shippingKey.length() == 0) || (accountNbr.length() == 0)) {
+        if ((shippingKey.isEmpty()) || (accountNbr.isEmpty())) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentDhlGatewayNotAvailable", locale));
         }
@@ -236,7 +236,7 @@ public class DhlServices {
 
         // create AccessRequest XML doc using FreeMarker template
         String templateName = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "rateEstimateTemplate", RESOURCE, "shipment.dhl.template.rate.estimate");
-        if (templateName.trim().length() == 0) {
+        if (templateName.trim().isEmpty()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentDhlShipmentTemplateLocationNotFound", locale));
         }
@@ -678,7 +678,7 @@ public class DhlServices {
             String password = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessPassword", RESOURCE, "shipment.dhl.access.password");
             String shippingKey = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessShippingKey", RESOURCE, "shipment.dhl.access.shippingKey");
             String accountNbr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "accessAccountNbr", RESOURCE, "shipment.dhl.access.accountNbr");
-            if ((shippingKey.length() == 0) || (accountNbr.length() == 0)) {
+            if ((shippingKey.isEmpty()) || (accountNbr.isEmpty())) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentDhlGatewayNotAvailable", locale));
             }
@@ -697,7 +697,7 @@ public class DhlServices {
 
             // create AccessRequest XML doc using FreeMarker template
             String templateName = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "rateEstimateTemplate", RESOURCE, "shipment.dhl.template.rate.estimate");
-            if ((templateName.trim().length() == 0)) {
+            if ((templateName.trim().isEmpty())) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentDhlRateEstimateTemplateNotConfigured", locale));
             }

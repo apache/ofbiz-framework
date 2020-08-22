@@ -189,7 +189,7 @@ public class PromoServices {
         try {
             while ((line = reader.readLine()) != null) {
                 // check to see if we should ignore this line
-                if (line.length() > 0 && !line.startsWith("#")) {
+                if (!line.isEmpty() && !line.startsWith("#")) {
                     if (line.length() <= 20) {
                         // valid promo code
                         Map<String, Object> inContext = new HashMap<>();
@@ -218,7 +218,7 @@ public class PromoServices {
         }
 
         // return errors or success
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -251,7 +251,7 @@ public class PromoServices {
         // read the uploaded file and process each line
         try {
             while ((line = reader.readLine()) != null) {
-                if (line.length() > 0 && !line.startsWith("#")) {
+                if (!line.isEmpty() && !line.startsWith("#")) {
                     if (UtilValidate.isEmail(line)) {
                         // valid email address
                         GenericValue contactMech;
@@ -306,7 +306,7 @@ public class PromoServices {
         }
 
         // return errors or success
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,

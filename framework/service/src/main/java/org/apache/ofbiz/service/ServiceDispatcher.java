@@ -195,7 +195,7 @@ public final class ServiceDispatcher {
     public void deregister(LocalDispatcher local) {
         Debug.logInfo("De-Registering dispatcher: " + local.getName(), MODULE);
         localContext.remove(local.getName());
-        if (localContext.size() == 0) {
+        if (localContext.isEmpty()) {
             try {
                 this.shutdown();
             } catch (GenericServiceException e) {

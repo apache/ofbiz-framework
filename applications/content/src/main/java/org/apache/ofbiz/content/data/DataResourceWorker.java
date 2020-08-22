@@ -216,7 +216,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             return "error";
         }
 
-        if (lst.size() == 0) {
+        if (lst.isEmpty()) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "dataResourceWorker.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);

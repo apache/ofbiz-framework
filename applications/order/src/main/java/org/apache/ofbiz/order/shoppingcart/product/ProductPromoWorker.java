@@ -482,7 +482,7 @@ public final class ProductPromoWorker {
                                     enteredCodes.add(orderproductPromoCode.getString("productPromoCodeId"));
                                 }
                             }
-                            if (enteredCodes.size() > 0) {
+                            if (!enteredCodes.isEmpty()) {
                                 // get all promo codes entered, do a query with an IN condition to see if any of those are related
                                 EntityCondition codeCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("productPromoId",
                                         EntityOperator.EQUALS, productPromoId), EntityOperator.AND, EntityCondition.makeCondition(
@@ -1120,7 +1120,7 @@ public final class ProductPromoWorker {
                 .where("productId", cartItem.getProductId(), "productPriceTypeId", "LIST_PRICE", "productPricePurposeId", "PURCHASE")
                 .orderBy("-fromDate")
                 .filterByDate().queryList();
-        GenericValue listProductPrice = (listProductPriceList != null && listProductPriceList.size() > 0) ? listProductPriceList.get(0) : null;
+        GenericValue listProductPrice = (listProductPriceList != null && !listProductPriceList.isEmpty()) ? listProductPriceList.get(0) : null;
         BigDecimal listPrice = (listProductPrice != null) ? listProductPrice.getBigDecimal("price") : null;
 
         if (listPrice == null) {
@@ -1553,11 +1553,11 @@ public final class ProductPromoWorker {
         while (pcgslmeIter.hasNext()) {
             Map.Entry<String, List<Set<String>>> entry = pcgslmeIter.next();
             List<Set<String>> catIdSetList = entry.getValue();
-            if (catIdSetList.size() == 0) {
+            if (catIdSetList.isEmpty()) {
                 pcgslmeIter.remove();
             } else if (catIdSetList.size() == 1) {
                 Set<String> catIdSet = catIdSetList.iterator().next();
-                if (catIdSet.size() == 0) {
+                if (catIdSet.isEmpty()) {
                     pcgslmeIter.remove();
                 } else {
                     // if there is only one set in the list since the set will be or'ed anyway, just add them all to the productCategoryIds Set

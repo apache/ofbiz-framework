@@ -370,7 +370,7 @@ public class FormRenderer {
 
                 innerFormFields.add(modelFormField);
             }
-            if (innerFormFields.size() > 0) {
+            if (!innerFormFields.isEmpty()) {
                 numOfColumns++;
             }
 
@@ -394,7 +394,7 @@ public class FormRenderer {
             List<ModelFormField> mainFieldList = listsMap.get("mainFieldList");
 
             int numOfCells = innerDisplayHyperlinkFieldsBegin.size() + innerDisplayHyperlinkFieldsEnd.size()
-                    + (innerFormFields.size() > 0 ? 1 : 0);
+                    + (!innerFormFields.isEmpty() ? 1 : 0);
             int numOfColumnsToSpan = maxNumOfColumns - numOfCells + 1;
             if (numOfColumnsToSpan < 1) {
                 numOfColumnsToSpan = 1;
@@ -417,7 +417,7 @@ public class FormRenderer {
                         formStringRenderer.renderFieldTitle(writer, context, modelFormField);
                         formStringRenderer.renderFormatHeaderRowCellClose(writer, context, modelForm, modelFormField);
                     }
-                    if (innerFormFields.size() > 0) {
+                    if (!innerFormFields.isEmpty()) {
                         // TODO: manage colspan
                         formStringRenderer.renderFormatHeaderRowFormCellOpen(writer, context, modelForm);
                         Iterator<ModelFormField> innerFormFieldsIt = innerFormFields.iterator();
@@ -522,7 +522,7 @@ public class FormRenderer {
             List<ModelFormField> innerDisplayHyperlinkFieldsEnd, List<ModelFormField> mainFieldList, int position,
             int numOfColumns) throws IOException {
         int numOfCells = innerDisplayHyperlinkFieldsBegin.size() + innerDisplayHyperlinkFieldsEnd.size()
-                + (innerFormFields.size() > 0 ? 1 : 0);
+                + (!innerFormFields.isEmpty() ? 1 : 0);
         int numOfColumnsToSpan = numOfColumns - numOfCells + 1;
         if (numOfColumnsToSpan < 1) {
             numOfColumnsToSpan = 1;
@@ -581,7 +581,7 @@ public class FormRenderer {
             }
 
             // The form cell is rendered only if there is at least an input field
-            if (innerFormFields.size() > 0) {
+            if (!innerFormFields.isEmpty()) {
                 // render the "form" cell
                 formStringRenderer.renderFormatItemRowFormCellOpen(writer, localContext, modelForm); // TODO: colspan
 
@@ -865,8 +865,8 @@ public class FormRenderer {
                     // the fields in the three lists created in the preprocessing phase
                     // are now rendered: this will create a visual representation
                     // of one row (for the current position).
-                    if (innerDisplayHyperlinkFieldsBegin.size() > 0 || innerFormFields.size() > 0
-                            || innerDisplayHyperlinkFieldsEnd.size() > 0) {
+                    if (!innerDisplayHyperlinkFieldsBegin.isEmpty() || !innerFormFields.isEmpty()
+                            || !innerDisplayHyperlinkFieldsEnd.isEmpty()) {
                         this.renderItemRow(writer, localContext, formStringRenderer, formPerItem, hiddenIgnoredFieldList,
                                 innerDisplayHyperlinkFieldsBegin, innerFormFields, innerDisplayHyperlinkFieldsEnd,
                                 fieldListByPosition, currentPosition, numOfColumns);

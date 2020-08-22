@@ -427,7 +427,7 @@ public class GenericDAO {
             // Got results 0 -> INSERT, 1 -> UPDATE, >1 -> View is nor updatable
             GenericValue meGenericValue = null;
 
-            if (meResult.size() == 0) {
+            if (meResult.isEmpty()) {
                 // Create new value to insert
                 try {
                     // Create new value to store
@@ -472,10 +472,10 @@ public class GenericDAO {
              * This avoids partial creation of member entities, which would mean data inconsistency:
              * If not all member entities can be updated, then none should be updated
              */
-            if (meResult.size() == 0) {
+            if (meResult.isEmpty()) {
                 retVal += singleInsert(meGenericValue, memberModelEntity, memberModelEntity.getFieldsUnmodifiable(), sqlP);
             } else {
-                if (meFieldsToSave.size() > 0) {
+                if (!meFieldsToSave.isEmpty()) {
                     retVal += singleUpdate(meGenericValue, memberModelEntity, meFieldsToSave, sqlP);
                 } else {
                     if (Debug.verboseOn()) {
@@ -557,13 +557,13 @@ public class GenericDAO {
             }
         }
 
-        if (tempKeys.size() > 0) {
+        if (!tempKeys.isEmpty()) {
             throw new GenericModelException("In partialSelect invalid field names specified: " + tempKeys.toString());
         }
 
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
-        if (partialFields.size() > 0) {
+        if (!partialFields.isEmpty()) {
             modelEntity.colNameString(partialFields, sqlBuffer, "", ", ", "", datasource.getAliasViewColumns());
         } else {
             sqlBuffer.append("*");
@@ -652,7 +652,7 @@ public class GenericDAO {
                 }
             }
 
-            if (tempKeys.size() > 0) {
+            if (!tempKeys.isEmpty()) {
                 throw new GenericModelException("In selectListIteratorByCondition invalid field names specified: " + tempKeys.toString());
             }
             fieldSetsToInclude.remove("");
@@ -696,7 +696,7 @@ public class GenericDAO {
             sqlBuffer.append("DISTINCT ");
         }
 
-        if (selectFields.size() > 0) {
+        if (!selectFields.isEmpty()) {
             modelEntity.colNameString(selectFields, sqlBuffer, "", ", ", "", datasource.getAliasViewColumns());
         } else {
             sqlBuffer.append("*");
@@ -821,7 +821,7 @@ public class GenericDAO {
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasource.getJoinStyle());
 
-        if (viewClause.length() > 0) {
+        if (!viewClause.isEmpty()) {
             conditions.add(EntityCondition.makeConditionWhere(viewClause));
         }
 
@@ -1056,7 +1056,7 @@ public class GenericDAO {
              * cause the "COUNT(DISTINCT " to appear twice, causing an attempt to try to count a count (function="count-distinct", distinct=true in
               * find options)
              */
-            if (selectFields != null && selectFields.size() > 0) {
+            if (selectFields != null && !selectFields.isEmpty()) {
                 ModelField firstSelectField = selectFields.get(0);
                 ModelViewEntity.ModelAlias firstModelAlias = modelViewEntity != null ? modelViewEntity.getAlias(firstSelectField.getName()) : null;
                 if (firstModelAlias != null && UtilValidate.isNotEmpty(firstModelAlias.getFunction())) {

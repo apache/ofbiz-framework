@@ -1098,7 +1098,7 @@ public class DatabaseUtil {
     private Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages,
                                                                     ExecutorService executor) {
         // if there are no tableNames, don't even try to get the columns
-        if (tableNames.size() == 0) {
+        if (tableNames.isEmpty()) {
             return new HashMap<>();
         }
 

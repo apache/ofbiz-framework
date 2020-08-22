@@ -201,7 +201,7 @@ public final class CatalogWorker {
         if (partyCatalogs != null) allCatalogLinks.addAll(partyCatalogs);
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
 
-        if (allCatalogLinks.size() > 0) {
+        if (!allCatalogLinks.isEmpty()) {
             for (GenericValue catalogLink: allCatalogLinks) {
                 categoryIds.add(catalogLink.getString("prodCatalogId"));
             }

@@ -1977,7 +1977,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 }
             }
         }
-        if (relationshipsMapList.size() > 0) {
+        if (!relationshipsMapList.isEmpty()) {
             topLevelMap.put("relationships", relationshipsMapList);
         }
 

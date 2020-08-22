@@ -82,7 +82,7 @@ public class CommonServices {
     public static Map<String, Object> testService(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        if (context.size() > 0) {
+        if (!context.isEmpty()) {
             for (Map.Entry<String, ?> entry: context.entrySet()) {
                 Object cKey = entry.getKey();
                 Object value = entry.getValue();

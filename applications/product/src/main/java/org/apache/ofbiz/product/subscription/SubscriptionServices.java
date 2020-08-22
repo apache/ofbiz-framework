@@ -82,7 +82,7 @@ public class SubscriptionServices {
             List<GenericValue> subscriptionList = EntityQuery.use(delegator).from("Subscription").where(subscriptionFindMap).queryList();
             // DEJ20070718 DON'T filter by date, we want to consider all subscriptions: List listFiltered = EntityUtil.filterByDate(subscriptionList, true);
             List<GenericValue> listOrdered = EntityUtil.orderBy(subscriptionList, UtilMisc.toList("-fromDate"));
-            if (listOrdered.size() > 0) {
+            if (!listOrdered.isEmpty()) {
                 lastSubscription = listOrdered.get(0);
             }
         } catch (GenericEntityException e) {
@@ -203,7 +203,7 @@ public class SubscriptionServices {
                     .filterByDate(orderCreatedDate, "fromDate", "thruDate", "purchaseFromDate", "purchaseThruDate")
                     .queryList();
 
-            if (productSubscriptionResourceList.size() == 0) {
+            if (productSubscriptionResourceList.isEmpty()) {
                 Debug.logError("No ProductSubscriptionResource found for productId: " + productId, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductSubscriptionResourceNotFound",
@@ -256,7 +256,7 @@ public class SubscriptionServices {
         GenericValue orderHeader = null;
         try {
             List<GenericValue> orderRoleList = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER").queryList();
-            if (orderRoleList.size() > 0) {
+            if (!orderRoleList.isEmpty()) {
                 GenericValue orderRole = orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
                 subContext.put("partyId", partyId);
@@ -281,7 +281,7 @@ public class SubscriptionServices {
                     continue;
                 }
                 List<GenericValue> productSubscriptionResourceListFiltered = EntityQuery.use(delegator).from("ProductSubscriptionResource").where("productId", productId).cache(true).filterByDate().queryList();
-                if (productSubscriptionResourceListFiltered.size() > 0) {
+                if (!productSubscriptionResourceListFiltered.isEmpty()) {
                     subContext.put("subscriptionTypeId", "PRODUCT_SUBSCR");
                     subContext.put("productId", productId);
                     subContext.put("orderId", orderId);

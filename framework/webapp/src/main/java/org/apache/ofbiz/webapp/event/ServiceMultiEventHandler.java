@@ -275,7 +275,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                             continue;
                         }
 
-                        if (value instanceof String && ((String) value).length() == 0) {
+                        if (value instanceof String && ((String) value).isEmpty()) {
                             // interpreting empty fields as null values for each in back end handling...
                             value = null;
                         }
@@ -374,7 +374,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
             }
         } finally {
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 if (eventGlobalTransaction) {
                     // rollback the global transaction
                     try {
@@ -401,7 +401,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         throw new EventHandlerException("Commit multi-service global transaction failed");
                     }
                 }
-                if (successMessages.size() > 0) {
+                if (!successMessages.isEmpty()) {
                     request.setAttribute("_EVENT_MESSAGE_LIST_", successMessages);
                 }
                 returnString = "success";

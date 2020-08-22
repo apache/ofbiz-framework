@@ -183,7 +183,7 @@ public class TechDataServices {
             } else {
                 try {
                     List<GenericValue> machines = machineGroup.getRelated("ChildFixedAsset", null, null, true);
-                    if (machines != null && machines.size() > 0) {
+                    if (machines != null && !machines.isEmpty()) {
                         GenericValue machine = EntityUtil.getFirst(machines);
                         techDataCalendar = machine.getRelatedOne("TechDataCalendar", true);
                     }

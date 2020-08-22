@@ -938,7 +938,7 @@ public class PackingSession implements java.io.Serializable {
      */
     public String complete(boolean force) throws GeneralException {
         // check to see if there is anything to process
-        if (this.getLines().size() == 0) {
+        if (this.getLines().isEmpty()) {
             return "EMPTY";
         }
 
@@ -986,7 +986,7 @@ public class PackingSession implements java.io.Serializable {
             }
         }
 
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             if (!ignore) {
                 throw new GeneralException("Attempt to pack order failed.", errors);
             } else {
@@ -1014,7 +1014,7 @@ public class PackingSession implements java.io.Serializable {
      * @param eventCode the event code
      */
     protected void runEvents(int eventCode) {
-        if (this.packEvents.size() > 0) {
+        if (!this.packEvents.isEmpty()) {
             for (PackingEvent event: this.packEvents) {
                 event.runEvent(this, eventCode);
             }

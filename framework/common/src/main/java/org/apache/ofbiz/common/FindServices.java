@@ -306,7 +306,7 @@ public class FindServices {
         for (String groupedConditions : savedGroups.keySet()) {
             orConditions.add(EntityCondition.makeCondition(savedGroups.get(groupedConditions)));
         }
-        if (orConditions.size() > 0) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
+        if (!orConditions.isEmpty()) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
 
         return result;
     }
@@ -608,7 +608,7 @@ public class FindServices {
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become
          * its own condition.
          */
-        if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
+        if (!tmpList.isEmpty() || "Y".equals(noConditionFind)) {
             if ("Y".equals(filterByDate)) {
                 queryStringMap.put("filterByDate", filterByDate);
                 if (UtilValidate.isEmpty(fromDateName)) {
@@ -633,7 +633,7 @@ public class FindServices {
         }
 
         EntityConditionList<EntityCondition> exprList = null;
-        if (tmpList.size() > 0) {
+        if (!tmpList.isEmpty()) {
             exprList = EntityCondition.makeCondition(tmpList);
         }
 

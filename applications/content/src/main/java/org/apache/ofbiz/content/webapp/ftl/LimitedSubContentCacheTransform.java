@@ -262,7 +262,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                     Debug.logVerbose("in limited, lst:" + lst, "");
                 }
 
-                while (pickEntity == null && lst.size() > 0) {
+                while (pickEntity == null && !lst.isEmpty()) {
                     double randomValue = Math.random();
                     int idx = (int) (lst.size() * randomValue);
                     pickEntity = lst.get(idx);

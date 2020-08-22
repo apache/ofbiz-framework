@@ -190,11 +190,11 @@ public final class ICalWorker {
                 }
                 Element responseElement = helper.createResponseElement();
                 responseElement.appendChild(helper.createHrefElement("/" + workEffortId + "/"));
-                if (supportedProps.size() > 0) {
+                if (!supportedProps.isEmpty()) {
                     Element propElement = helper.createPropElement(supportedProps);
                     responseElement.appendChild(helper.createPropStatElement(propElement, ResponseHelper.STATUS_200));
                 }
-                if (unSupportedProps.size() > 0) {
+                if (!unSupportedProps.isEmpty()) {
                     Element propElement = helper.createPropElement(unSupportedProps);
                     responseElement.appendChild(helper.createPropStatElement(propElement, ResponseHelper.STATUS_404));
                 }

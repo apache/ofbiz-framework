@@ -819,7 +819,7 @@ public class ICalConverter {
             List<GenericValue> assignments = null;
             try {
                 assignments = EntityQuery.use(delegator).from("WorkEffortPartyAssignment").where(serviceMap).filterByDate().queryList();
-                if (assignments.size() == 0) {
+                if (assignments.isEmpty()) {
                     serviceMap.put("statusId", "PRTYASGN_OFFERED");
                     serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
                     invokeService("assignPartyToWorkEffort", serviceMap, context);
@@ -918,7 +918,7 @@ public class ICalConverter {
             replaceProperty(componentProps, toDuration(workEffort.getDouble("estimatedMilliSeconds")));
         }
         List<GenericValue> relatedParties = EntityQuery.use(delegator).from("WorkEffortPartyAssignView").where("workEffortId", workEffortId).cache(true).filterByDate().queryList();
-        if (relatedParties.size() > 0) {
+        if (!relatedParties.isEmpty()) {
             loadRelatedParties(relatedParties, componentProps, context);
         }
         if (newComponent) {

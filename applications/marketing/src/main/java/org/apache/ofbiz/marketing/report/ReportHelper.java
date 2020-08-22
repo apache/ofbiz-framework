@@ -59,7 +59,7 @@ public final class ReportHelper {
             List<GenericValue> ordersForThisKey = EntityUtil.filterByAnd(orders, UtilMisc.toMap(keyFieldName, visit.getString(keyFieldName)));
 
             // if there are matching orders, then calculate orders, order amount, and conversion rate
-            if ((ordersForThisKey != null) && (ordersForThisKey.size() > 0)) {
+            if ((ordersForThisKey != null) && (!ordersForThisKey.isEmpty())) {
                 // note: there should be only one line of order stats per key, so .get(0) should work
                 GenericValue orderValue = ordersForThisKey.get(0);
 

@@ -82,7 +82,7 @@ public final class ServiceMcaUtil {
     }
 
     public static Collection<ServiceMcaRule> getServiceMcaRules() {
-        if (mcaCache.size() == 0) {
+        if (mcaCache.isEmpty()) {
             readConfig();
         }
         return mcaCache.values();

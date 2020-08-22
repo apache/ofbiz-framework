@@ -698,7 +698,7 @@ public class OrderReadHelper {
     public Timestamp getEarliestShipByDate() {
         try {
             List<GenericValue> groups = orderHeader.getRelated("OrderItemShipGroup", null, UtilMisc.toList("shipByDate"), false);
-            if (groups.size() > 0) {
+            if (!groups.isEmpty()) {
                 GenericValue group = groups.get(0);
                 return group.getTimestamp("shipByDate");
             }
@@ -715,7 +715,7 @@ public class OrderReadHelper {
     public Timestamp getLatestShipAfterDate() {
         try {
             List<GenericValue> groups = orderHeader.getRelated("OrderItemShipGroup", null, UtilMisc.toList("shipAfterDate DESC"), false);
-            if (groups.size() > 0) {
+            if (!groups.isEmpty()) {
                 GenericValue group = groups.get(0);
                 return group.getTimestamp("shipAfterDate");
             }

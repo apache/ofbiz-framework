@@ -51,7 +51,7 @@ public class NumberConverters implements ConverterLoader {
         @Override
         public N convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             return convert(fromString(trimStr, locale));

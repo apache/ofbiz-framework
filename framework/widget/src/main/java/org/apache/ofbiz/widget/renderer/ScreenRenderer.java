@@ -340,7 +340,7 @@ public class ScreenRenderer {
         }
 
         // if there was an error message, this is an error
-        context.put("isError", errorMessageList.size() > 0 ? Boolean.TRUE : Boolean.FALSE);
+        context.put("isError", !errorMessageList.isEmpty() ? Boolean.TRUE : Boolean.FALSE);
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);

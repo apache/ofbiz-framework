@@ -995,7 +995,7 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            if (this.expressionSet.size() > 0) {
+            if (!this.expressionSet.isEmpty()) {
                 // Aggregate member expression sequences in a way that will
                 // ensure the proper evaluation sequence for the entire collection
                 int result = 0;
@@ -1563,7 +1563,7 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            if (this.expressionSet.size() > 0) {
+            if (!this.expressionSet.isEmpty()) {
                 TemporalExpression that = this.expressionSet.iterator().next();
                 this.sequence = that.sequence;
             }

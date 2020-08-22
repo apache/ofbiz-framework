@@ -379,7 +379,7 @@ public class VerifyPickSession implements Serializable {
             }
         }
 
-        if (errorList.size() > 0) {
+        if (!errorList.isEmpty()) {
             throw new GeneralException(UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorAttemptToVerifyOrderFailed", UtilMisc.toMap("orderId", orderId), locale), errorList);
         }
     }

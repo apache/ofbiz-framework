@@ -664,7 +664,7 @@ public abstract class ModelForm extends ModelWidget {
                 }
             }
         }
-        if (sortOrderFields.size() > 0) {
+        if (!sortOrderFields.isEmpty()) {
             List<ModelFormFieldBuilder> sortedFields = new ArrayList<>();
             for (SortField sortField : sortOrderFields) {
                 String fieldName = sortField.getFieldName();

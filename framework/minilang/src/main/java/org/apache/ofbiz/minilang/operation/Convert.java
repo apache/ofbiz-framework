@@ -67,7 +67,7 @@ public class Convert extends SimpleMapOperation {
         // if an incoming string is empty,
         // set to null if setIfNull is true, otherwise do nothing, ie treat as if null
         if (fieldObject instanceof java.lang.String) {
-            if (((String) fieldObject).length() == 0) {
+            if (((String) fieldObject).isEmpty()) {
                 if (setIfNull && (replace || !results.containsKey(toField)))
                     results.put(toField, null);
                 return;

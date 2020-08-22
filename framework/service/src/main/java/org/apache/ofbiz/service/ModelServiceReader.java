@@ -381,7 +381,7 @@ public class ModelServiceReader implements Serializable {
         for (Element implement: UtilXml.childElementList(baseElement, "implements")) {
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
             boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
-            if (serviceName.length() > 0) {
+            if (!serviceName.isEmpty()) {
                 service.getImplServices().add(new ModelServiceIface(serviceName, optional));
             }
         }

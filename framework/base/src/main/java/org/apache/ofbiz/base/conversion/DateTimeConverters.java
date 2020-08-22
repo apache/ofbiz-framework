@@ -515,7 +515,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public Calendar convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -541,7 +541,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.util.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -603,7 +603,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -637,7 +637,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Time convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -667,18 +667,18 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String str = obj.trim();
-            if (str.length() == 0) {
+            if (str.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
                 // These hacks are a bad idea, but they are included
                 // for backward compatibility.
-                if (str.length() > 0 && !str.contains(":")) {
+                if (!str.isEmpty() && !str.contains(":")) {
                     str = str + " 00:00:00.00";
                 }
                 // hack to mimic Timestamp.valueOf() method
-                if (str.length() > 0 && !str.contains(".")) {
+                if (!str.isEmpty() && !str.contains(".")) {
                     str = str + ".0";
                 } else {
                     // DateFormat has a funny way of parsing milliseconds:
