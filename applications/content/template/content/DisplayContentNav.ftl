@@ -16,9 +16,7 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script data-import="head" type="application/javascript" src="/common/js/util/OfbizUtil.js"></script>
-<script data-import="head" type="application/javascript" src="/common/js/jquery/plugins/jsTree/jquery.jstree.js"></script>
-
+<script type="application/javascript" src="/common/js/util/OfbizUtil.js"/>
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
 function unescapeHtmlText(text) {
@@ -66,12 +64,18 @@ var rawdata = [
  <#-------------------------------------------------------------------------------------create Tree-->
   function createTree() {
     jQuery(function () {
-        jQuery("#tree").jstree({
-            "plugins" : [ "themes", "json_data", "ui", "crrm"],
-            "json_data" : {
-                "data" : rawdata,
-                "progressive_render" : false
-            },
+        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function() {
+            jQuery("#tree").jstree({
+                "plugins": ["themes", "json_data", "ui", "crrm"],
+                "json_data": {
+                    "data": rawdata,
+                    "progressive_render": false
+                },
+                "themes": {
+                    "theme": "default",
+                    "url": "/common/js/jquery/plugins/jsTree/themes/default/style.css"
+                }
+            });
         });
     });
   }
