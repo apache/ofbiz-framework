@@ -232,12 +232,6 @@ public class HtmlWidget extends ModelScreenWidget {
                         scripts.append(script.data());
                         script.remove();
                     }
-                } else {
-                    String dataImport = script.attr("data-import");
-                    if ("head".equals(dataImport)) {
-                        // remove external script in the template that is meant to be imported in the html header
-                        script.remove();
-                    }
                 }
             }
 
@@ -263,17 +257,6 @@ public class HtmlWidget extends ModelScreenWidget {
                 MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
             }
         }
-        // extract css link tags
-        Elements csslinkElements = doc.select("link");
-        if (csslinkElements != null && csslinkElements.size() > 0) {
-            for (org.jsoup.nodes.Element link : csslinkElements) {
-                String src = link.attr("href");
-                if (UtilValidate.isNotEmpty(src)) {
-                    // remove external style sheet in the template that will be added to the html header
-                    link.remove();
-                }
-            }
-        }
 
         // the 'template' block
         String body = doc.body().html();
@@ -296,23 +279,6 @@ public class HtmlWidget extends ModelScreenWidget {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
-
-            if (this.isMultiBlock()) {
-                String origLoc = this.locationExdr.getOriginal();
-                Set<String> urls = null;
-                if (origLoc.contains("${")) {
-                    urls = new LinkedHashSet<>();
-                    urls.add(origLoc);
-                } else {
-                    try {
-                        urls = MultiBlockHtmlTemplateUtil.extractHtmlLinksFromRawHtmlTemplate(origLoc);
-                    } catch (IOException e) {
-                        String errMsg = "Error getting html imports from template at location [" + origLoc + "]: " + e.toString();
-                        Debug.logError(e, errMsg, MODULE);
-                    }
-                }
-                MultiBlockHtmlTemplateUtil.addHtmlLinksToHtmlLinksForScreenCache(modelScreen.getSourceLocation(), modelScreen.getName(), urls);
-            }
         }
 
         public String getLocation(Map<String, Object> context) {
