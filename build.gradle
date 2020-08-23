@@ -598,6 +598,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
                             doLast { println "Documentation generated for plugin ${component.name}" }
                         }
                     mustRunAfter deleteAllPluginsDocumentation
+                    doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
                     }
 
                     dependsOn pluginAsciidoc
