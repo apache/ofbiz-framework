@@ -18,27 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import org.apache.ofbiz.base.util.UtilGenerics;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.apache.ofbiz.base.util.FileUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Utility to support different handling of code blocks in an html template:
@@ -64,18 +51,6 @@ public final class MultiBlockHtmlTemplateUtil {
                 private static final long serialVersionUID = 1L;
                 protected boolean removeEldestEntry(Map.Entry<String, Map<String, String>> eldest) {
                     return size() > estimatedConcurrentUserSessions;
-                }
-            };
-    /**
-     * For each screen containing html-template, store a set of html imports headerized from html-template.
-     * The set may contain entry of an expression of the the html-template's location.
-     * In this case, we need to expand the location expression before reading the html-template for any html imports.
-     */
-    private static LinkedHashMap<String, Set<String>> htmlLinksForScreenCache =
-            new LinkedHashMap<String, Set<String>>() {
-                private static final long serialVersionUID = 1L;
-                protected boolean removeEldestEntry(Map.Entry<String, Set<String>> eldest) {
-                    return size() > estimatedScreensWithMultiBlockHtmlTemplate;
                 }
             };
 

@@ -18,20 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-
-import javax.servlet.http.HttpServletRequest;
-
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.ext.beans.StringModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -51,15 +46,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.Version;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -190,9 +186,7 @@ public class HtmlWidget extends ModelScreenWidget {
     /**
      * Render html template when multi-block=true. We use stack to store the string writer because a freemarker template may also render a sub screen
      * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
-     * existence of the stack and retrieve the correct string writer. The following tags are removed from the final rendering: 1. External and inline
-     * javascript tags 2. Css link tags
-     * 
+     * existence of the stack and retrieve the correct string writer. Inline script tags are removed from the final rendering.
      * @param writer
      * @param locationExdr
      * @param context
@@ -273,7 +267,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplate extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected boolean multiBlock;
+        private boolean multiBlock;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
