@@ -17,8 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script src="/common/js/jquery/plugins/jsTree/jquery.jstree.js" type="application/javascript" data-import="head"></script>
-
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manualy -->
 function unescapeHtmlText(text) {
@@ -55,46 +53,53 @@ var rawdata = [
  <#-- create Tree-->
   function createTree() {
     jQuery(function () {
-        <#-- reset the tree when user browsing out of scope of catalog manager -->
-        <#if stillInCatalogManager>
+        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function() {
+            <#-- reset the tree when user browsing out of scope of catalog manager -->
+            <#if stillInCatalogManager>
             $.cookie('jstree_select', null);
             $.cookie('jstree_open', null);
-        <#else>
-        <#-- Coloring the category when type the product categoryId manualy at the url bar -->
+            <#else>
+            <#-- Coloring the category when type the product categoryId manualy at the url bar -->
             $.cookie('jstree_select', "<#if productCategoryId??>${productCategoryId}<#elseif prodCatalogId??>${prodCatalogId}<#elseif showProductCategoryId??>${showProductCategoryId}</#if>");
-        </#if>
-        jQuery("#tree").jstree({
-            "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],
-            "json_data" : {
-                "data" : rawdata,
-                "ajax" : { "url" : "getChild",
-                           "type" : "POST",
-                           "data" : function (n) {
-                                        return {
-                                            "isCategoryType" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
-                                            "isCatalog" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
-                                            "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
-                                            "additionParam" : "','category" ,
-                                            "hrefString" : "EditCategory?productCategoryId=" ,
-                                            "onclickFunction" : "callDocument"
-                                        };
-                                    },
-                           success : function(data) {
-                               return data.treeData;
-                           }
+            </#if>
+            jQuery("#tree").jstree({
+                "plugins": ["themes", "json_data", "ui", "cookies", "types"],
+                "json_data": {
+                    "data": rawdata,
+                    "ajax": {
+                        "url": "getChild",
+                        "type": "POST",
+                        "data": function (n) {
+                            return {
+                                "isCategoryType": n.attr ? n.attr("isCatalog").replace("node_", "") : 1,
+                                "isCatalog": n.attr ? n.attr("isCatalog").replace("node_", "") : 1,
+                                "productCategoryId": n.attr ? n.attr("id").replace("node_", "") : 1,
+                                "additionParam": "','category",
+                                "hrefString": "EditCategory?productCategoryId=",
+                                "onclickFunction": "callDocument"
+                            };
+                        },
+                        success: function (data) {
+                            return data.treeData;
+                        }
+                    }
+                },
+                "types": {
+                    "valid_children": ["root"],
+                    "types": {
+                        "CATEGORY": {
+                            "icon": {
+                                "image": "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
+                                "position": "10px40px"
+                            }
+                        }
+                    }
+                },
+                "themes": {
+                    "theme": "default",
+                    "url": "/common/js/jquery/plugins/jsTree/themes/default/style.css"
                 }
-            },
-            "types" : {
-             "valid_children" : [ "root" ],
-             "types" : {
-                 "CATEGORY" : {
-                     "icon" : { 
-                         "image" : "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
-                         "position" : "10px40px"
-                     }
-                 }
-             }
-         }
+            });
         });
     });
   }
