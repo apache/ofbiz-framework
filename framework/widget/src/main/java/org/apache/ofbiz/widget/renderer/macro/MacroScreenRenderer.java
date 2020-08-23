@@ -695,12 +695,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 globalCtx.put("NO_PAGINATOR", true);
                 FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");
-                MacroFormRenderer renderer = null;
-                try {
-                    renderer = new MacroFormRenderer(modelTheme.getFormRendererLocation("screen"), request, response);
-                } catch (TemplateException e) {
-                    Debug.logError("Not rendering content, error on MacroFormRenderer creation.", MODULE);
-                }
+                MacroFormRenderer renderer = new MacroFormRenderer(
+                        modelTheme.getFormRendererLocation("screen"), request, response);
                 renderer.setRenderPagination(false);
                 context.put("formStringRenderer", renderer);
                 subWidget.renderWidgetString(writer, context, this);

@@ -36,6 +36,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.29.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
+    id "io.freefair.lombok" version "5.1.0"
 }
 
 /* OWASP plugin
@@ -296,6 +297,9 @@ checkstyle {
 gitHooks {
     hooks = ['pre-push': 'checkstyleMain']
 }
+
+// Don't generate lombok configuration files.
+generateLombokConfig.enabled = false
 
 // Eclipse plugin settings
 eclipse.classpath.file.whenMerged { classpath ->

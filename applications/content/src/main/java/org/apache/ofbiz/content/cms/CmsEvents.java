@@ -323,8 +323,6 @@ public class CmsEvents {
                             ContentWorker.renderSubContentAsText(dispatcher, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                         }
 
-                    } catch (TemplateException e) {
-                        throw new GeneralRuntimeException(String.format("Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                     } catch (IOException e) {
                         throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                     } catch (GeneralException e) {
