@@ -38,9 +38,8 @@ public final class MultiBlockHtmlTemplateUtil {
     private static final String MODULE = MultiBlockHtmlTemplateUtil.class.getName();
     public static final String MULTI_BLOCK_WRITER = "multiBlockWriter";
     private static final String SCRIPT_LINKS_FOR_FOOT = "ScriptLinksForFoot";
-    private static int maxScriptCacheSizePerUserSession = 10;
+    private static int maxScriptCacheSizePerUserSession = 15;
     private static int estimatedConcurrentUserSessions = 250;
-    private static int estimatedScreensWithMultiBlockHtmlTemplate = 200;
     /**
      * Store inline script extracted from freemarker template for a user session.
      * Number of inline scripts for a user session will be constraint by {@link MultiBlockHtmlTemplateUtil#maxScriptCacheSizePerUserSession}
