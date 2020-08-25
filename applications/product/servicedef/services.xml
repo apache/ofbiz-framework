@@ -1387,8 +1387,8 @@ under the License.
         <override name="productId" optional="false"/>
     </service>
 
-    <service name="multipleUploadProductImages" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="uploadProductImages" auth="true">
+    <service name="multipleUploadProductImages" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="uploadProductImages" auth="true">
         <description>Multiple upload Images For Product</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="INOUT" optional="false"/>
@@ -1425,15 +1425,15 @@ under the License.
         <attribute name="_additionalImageTen_contentType" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="removeProductContentAndImageFile" default-entity-name="ProductContent" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="removeProductContentAndImageFile" auth="true">
+    <service name="removeProductContentAndImageFile" default-entity-name="ProductContent" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeProductContentAndImageFile" auth="true">
         <description>Remove Content From Product and File Image</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="removeProductContentForImageManagement" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="removeProductContentForImageManagement" auth="true">
+    <service name="removeProductContentForImageManagement" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeProductContentForImageManagement" auth="true">
         <description>Delete Product Content Relationship Entity</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
@@ -1484,8 +1484,8 @@ under the License.
         <attribute mode="IN" name="angle" optional="false" type="String"/>
     </service>
 
-    <service name="setImageDetail" engine="simple" default-entity-name="ProductContent"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="setImageDetail" auth="true">
+    <service name="setImageDetail" engine="groovy" default-entity-name="ProductContent"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="setImageDetail" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="sequenceNum" mode="IN" type="Integer" optional="true"/>
@@ -1493,30 +1493,30 @@ under the License.
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
 
-    <service name="updateStatusImageManagement" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="updateStatusImageManagement" auth="true">
+    <service name="updateStatusImageManagement" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="updateStatusImageManagement" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="checkStatusId" mode="IN" type="String" optional="true"/>
     </service>
 
-    <service name="addRejectedReasonImageManagement" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="addRejectedReasonImageManagement" auth="true">
+    <service name="addRejectedReasonImageManagement" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="addRejectedReasonImageManagement" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
 
-    <service name="createImageContentApproval" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="createImageContentApproval" auth="true">
+    <service name="createImageContentApproval" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="createImageContentApproval" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
     </service>
 
-    <service name="removeImageContentApproval" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="removeImageContentApproval" auth="true">
+    <service name="removeImageContentApproval" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeImageContentApproval" auth="true">
         <attribute name="partyId" mode="IN" type="String" optional="false"/>
     </service>
 
-    <service name="resizeImages" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="resizeImages" auth="true">
+    <service name="resizeImages" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="resizeImages" auth="true">
         <description>Resize Images.</description>
         <attribute name="resizeOption" mode="IN" type="String" optional="false"/>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
@@ -1541,8 +1541,8 @@ under the License.
         <attribute name="sizeWidth" mode="IN" type="String" optional="false"/>
     </service>
 
-    <service name="removeImageBySize" engine="simple"
-        location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="removeImageBySize" auth="true">
+    <service name="removeImageBySize" engine="groovy"
+        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeImageBySize" auth="true">
         <description>Remove Image By Size.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="mapKey" mode="IN" type="String" optional="false"/>
