@@ -71,9 +71,10 @@ public class SeoControlServlet extends ControlServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
+        String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
         if (request.getAttribute(REQUEST_IN_ALLOW_LIST) != null || request.getAttribute("_jsp_" + uri) != null) {
-            if (request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jsp") || request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jspx") ) {
+            if (request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jsp")
+                    || request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jspx")) {
                 JspServlet jspServlet = new JspServlet();
                 jspServlet.init(this.getServletConfig());
                 jspServlet.service(request, response);

@@ -210,7 +210,9 @@ public final class SeoConfigUtil {
                                         userExceptionPatterns.add(pattern);
                                         Debug.logInfo("    " + ELEMENT_URLPATTERN + ": " + urlpattern, MODULE);
                                     } catch (MalformedPatternException e) {
-                                        Debug.logWarning("Can NOT parse " + urlpattern + " in element " + ELEMENT_URLPATTERN + " of " + ELEMENT_EXCEPTIONS + ". Error: " + e.getMessage(), MODULE);
+                                        Debug.logWarning("Can NOT parse " + urlpattern + " in element "
+                                                + ELEMENT_URLPATTERN + " of " + ELEMENT_EXCEPTIONS + ". Error: "
+                                                + e.getMessage(), MODULE);
                                     }
                                 }
                             }
