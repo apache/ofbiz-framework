@@ -573,6 +573,7 @@ task generatePluginDocumentation(group: docsGroup) {
                 } else {
                       println "No documentation found for plugin ${component.name}"
                   }
+            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
             mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
