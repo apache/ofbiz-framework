@@ -49,8 +49,9 @@ import freemarker.template.TransformControl;
 public class TraverseSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = TraverseSubContentCacheTransform.class.getName();
-    static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail"};
+    static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap",
+            "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -84,7 +85,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         final Map<String, Object> savedValuesUp = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
+        FreeMarkerWorker.saveContextValues(templateRoot, UP_SAVE_KEY_NAMES, savedValuesUp);
         final Map<String, Object> savedValues = new HashMap<>();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         String startContentAssocTypeId = (String) templateRoot.get("contentAssocTypeId");
@@ -95,7 +96,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
         try {
             // getCurrentContent puts the "current" node on the end of globalNodeTrail.
             // It may have already been there, but getCurrentContent will compare its contentId
@@ -166,7 +167,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 Boolean isReturnBeforePickBool = (Boolean) node.get("isReturnBeforePick");
                 if (isReturnBeforePickBool != null && isReturnBeforePickBool) {
                     return TransformControl.SKIP_BODY;
-                }   
+                }
 
                 ContentWorker.selectKids(node, traverseContext);
                 nodeTrail.add(node);
@@ -174,13 +175,12 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 Boolean isPickBool = (Boolean) node.get("isPick");
                 Boolean isFollowBool = (Boolean) node.get("isFollow");
                 boolean isPick = true;
-                if ((isPickBool == null || !isPickBool)
-                   && (isFollowBool != null && isFollowBool)) {
+                if ((isPickBool == null || !isPickBool) && (isFollowBool != null && isFollowBool)) {
                     isPick = ContentWorker.traverseSubContent(traverseContext);
                 }
                 if (isPick) {
                     populateContext(traverseContext, templateRoot);
-                    FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
+                    FreeMarkerWorker.saveContextValues(templateRoot, SAVE_KEY_NAMES, savedValues);
                     return TransformControl.EVALUATE_BODY;
                 } else {
                     return TransformControl.SKIP_BODY;
@@ -193,7 +193,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 boolean inProgress = ContentWorker.traverseSubContent(traverseContext);
                 if (inProgress) {
                     populateContext(traverseContext, templateRoot);
-                    FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
+                    FreeMarkerWorker.saveContextValues(templateRoot, SAVE_KEY_NAMES, savedValues);
                     return TransformControl.REPEAT_EVALUATION;
                 } else {
                     return TransformControl.END_EVALUATION;

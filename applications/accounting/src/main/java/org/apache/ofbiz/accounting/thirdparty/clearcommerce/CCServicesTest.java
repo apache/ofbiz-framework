@@ -90,7 +90,7 @@ public class CCServicesTest extends OFBizTestCase {
             serviceInput.put("processAmount", new BigDecimal("200.00"));
 
             // run the service (make sure in payment
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCAuth", serviceInput);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCAuth", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -122,7 +122,7 @@ public class CCServicesTest extends OFBizTestCase {
                     "creditCard", creditCard,
                     "creditAmount", new BigDecimal("200.00"));
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCCredit", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCCredit", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -156,7 +156,7 @@ public class CCServicesTest extends OFBizTestCase {
             serviceMap.put("creditAmount", new BigDecimal("200.00"));
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCCredit", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCCredit", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -208,7 +208,7 @@ public class CCServicesTest extends OFBizTestCase {
                     "paymentConfig", configFile);
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCReport", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCReport", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);

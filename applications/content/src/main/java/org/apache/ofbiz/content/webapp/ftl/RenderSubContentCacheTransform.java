@@ -52,7 +52,7 @@ import freemarker.template.TemplateTransformModel;
 public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = RenderSubContentCacheTransform.class.getName();
-    static final String[] upSaveKeyNames = {"globalNodeTrail" };
+    static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail" };
 
     @Override
     @SuppressWarnings("unchecked")
@@ -65,13 +65,13 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map<String, Object> savedValuesUp = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
+        FreeMarkerWorker.saveContextValues(templateRoot, UP_SAVE_KEY_NAMES, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
         String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
         String thisSubContentId = (String) templateRoot.get("subContentId");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisSubContentId) ? true : false;
         GenericValue val = null;
@@ -151,8 +151,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
                 String mimeTypeId = (String) templateRoot.get("mimeTypeId");
                 Locale locale = (Locale) templateRoot.get("locale");
-                if (locale == null)
+                if (locale == null) {
                     locale = Locale.getDefault();
+                }
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
                     String editStyle = getEditStyle();
@@ -199,26 +200,36 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     }
                     if (view != null) {
                         ModelEntity modelEntity = view.getModelEntity();
-                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null)
+                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("caContentId") != null) {
                             contentId = view.getString("caContentId");
-                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("contentId") != null)
+                        }
+                        if (UtilValidate.isEmpty(contentId) && modelEntity.getField("contentId") != null) {
                             contentId = view.getString("contentId");
-                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("caContentIdTo") != null)
+                        }
+                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("caContentIdTo") != null) {
                             contentIdTo = view.getString("caContentIdTo");
-                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("contentIdTo") != null)
+                        }
+                        if (UtilValidate.isEmpty(contentIdTo) && modelEntity.getField("contentIdTo") != null) {
                             contentIdTo = view.getString("contentIdTo");
-                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("caContentAssocTypeId") != null)
+                        }
+                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("caContentAssocTypeId") != null) {
                             contentAssocTypeId = view.getString("caContentAssocTypeId");
-                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("contentAssocTypeId") != null)
+                        }
+                        if (UtilValidate.isEmpty(contentAssocTypeId) && modelEntity.getField("contentAssocTypeId") != null) {
                             contentAssocTypeId = view.getString("contentAssocTypeId");
-                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("caMapKey") != null)
+                        }
+                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("caMapKey") != null) {
                             mapKey = view.getString("caMapKey");
-                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("mapKey") != null)
+                        }
+                        if (UtilValidate.isEmpty(mapKey) && modelEntity.getField("mapKey") != null) {
                             mapKey = view.getString("mapKey");
-                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("caFromDate") != null)
+                        }
+                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("caFromDate") != null) {
                             fromDate = view.getString("caFromDate");
-                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("fromDate") != null)
+                        }
+                        if (UtilValidate.isEmpty(fromDate) && modelEntity.getField("fromDate") != null) {
                             fromDate = view.getString("fromDate");
+                        }
                     }
                 } else {
                     contentId = (String) templateRoot.get("subContentId");

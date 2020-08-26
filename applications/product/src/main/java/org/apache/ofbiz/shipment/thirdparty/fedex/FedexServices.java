@@ -78,7 +78,7 @@ import org.xml.sax.SAXException;
 public class FedexServices {
 
     private static final String MODULE = FedexServices.class.getName();
-    public static final String shipmentPropertiesFile = "shipment.properties";
+    public static final String SHIPMENT_PROPERTIES_FILE = "shipment.properties";
     private static final String RES_ERROR = "ProductUiLabels";
 
     /**
@@ -435,7 +435,7 @@ public class FedexServices {
         }
 
         // Get the weight units to be used in the request
-        String weightUomId = EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.uom", delegator);
+        String weightUomId = EntityUtilProperties.getPropertyValue(SHIPMENT_PROPERTIES_FILE, "shipment.default.weight.uom", delegator);
         if (UtilValidate.isEmpty(weightUomId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentDefaultWeightUomIdNotFound", locale));
@@ -445,7 +445,7 @@ public class FedexServices {
         }
 
         // Get the dimension units to be used in the request
-        String dimensionsUomId = EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.dimension.uom", delegator);
+        String dimensionsUomId = EntityUtilProperties.getPropertyValue(SHIPMENT_PROPERTIES_FILE, "shipment.default.dimension.uom", delegator);
         if (UtilValidate.isEmpty(dimensionsUomId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentDefaultDimensionUomIdNotFound", locale));
@@ -761,7 +761,7 @@ public class FedexServices {
             if ((billingWeight != null) && (billingWeight.compareTo(BigDecimal.ZERO) > 0)) {
                 hasBillingWeight = true;
                 if (billingWeightUomId == null) {
-                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile, MODULE);
+                    Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + SHIPMENT_PROPERTIES_FILE, MODULE);
                     billingWeightUomId = weightUomId;
                 }
 
@@ -828,7 +828,7 @@ public class FedexServices {
                     if (!UtilValidate.isEmpty(boxDimensionsUom)) {
                         boxDimensionsUomId = boxDimensionsUom.getString("uomId");
                     } else {
-                        Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + shipmentPropertiesFile, MODULE);
+                        Debug.logWarning("Packaging type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId + " is missing dimensionUomId, assuming default shipment.default.dimension.uom of " + dimensionsUomId + " from " + SHIPMENT_PROPERTIES_FILE, MODULE);
                         boxDimensionsUomId = dimensionsUomId;
                     }
                     if (dimensionsLength != null && dimensionsLength.compareTo(BigDecimal.ZERO) > 0) {
@@ -878,7 +878,7 @@ public class FedexServices {
 
                         // Use default weight if available
                         try {
-                            packageWeight = EntityUtilProperties.getPropertyAsBigDecimal(shipmentPropertiesFile, "shipment.default.weight.value", BigDecimal.ZERO);
+                            packageWeight = EntityUtilProperties.getPropertyAsBigDecimal(SHIPMENT_PROPERTIES_FILE, "shipment.default.weight.value", BigDecimal.ZERO);
                         } catch (NumberFormatException ne) {
                             Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId, MODULE);
                             packageWeight = BigDecimal.ONE;
@@ -888,7 +888,8 @@ public class FedexServices {
                     // Convert weight if necessary
                     String packageWeightUomId = shipmentPackage.getString("weightUomId");
                     if (UtilValidate.isEmpty(packageWeightUomId)) {
-                        Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId + ", assuming shipment.default.weight.uom of " + weightUomId + " from " + shipmentPropertiesFile, MODULE);
+                        Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId
+                                + ", assuming shipment.default.weight.uom of " + weightUomId + " from " + SHIPMENT_PROPERTIES_FILE, MODULE);
                         packageWeightUomId = weightUomId;
                     }
                     if (!packageWeightUomId.equals(weightUomId)) {

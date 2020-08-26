@@ -84,7 +84,7 @@ public class OutputServices {
 
     private static final String MODULE = OutputServices.class.getName();
 
-    protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
+    protected static final FoFormRenderer FO_FORM_RENDERED = new FoFormRenderer();
     private static final String RESOURCE = "ContentUiLabels";
 
     public static Map<String, Object> sendPrintFromScreen(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
@@ -122,7 +122,7 @@ public class OutputServices {
             ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenStringRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
-            screensAtt.getContext().put("formStringRenderer", foFormRenderer);
+            screensAtt.getContext().put("formStringRenderer", FO_FORM_RENDERED);
             screensAtt.render(screenLocation);
 
             // create the input stream for the generation
@@ -166,11 +166,13 @@ public class OutputServices {
                     printer = printServices[0];
                     Debug.logInfo("Using printer: " + printer.getName(), MODULE);
                     if (!printer.isDocFlavorSupported(psInFormat)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotSupportDocFlavorFormat", UtilMisc.toMap("psInFormat", psInFormat, "printerName", printer.getName()), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotSupportDocFlavorFormat",
+                                UtilMisc.toMap("psInFormat", psInFormat, "printerName", printer.getName()), locale));
                     }
                 }
                 if (printer == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotFound", UtilMisc.toMap("printerName", printerName), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotFound",
+                            UtilMisc.toMap("printerName", printerName), locale));
                 }
 
             } else {
@@ -198,7 +200,8 @@ public class OutputServices {
             job.print(myDoc, praset);
         } catch (PrintException | IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError", UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError",
+                    UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -236,7 +239,7 @@ public class OutputServices {
             ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenStringRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
-            screensAtt.getContext().put("formStringRenderer", foFormRenderer);
+            screensAtt.getContext().put("formStringRenderer", FO_FORM_RENDERED);
             screensAtt.render(screenLocation);
 
             // create the input stream for the generation

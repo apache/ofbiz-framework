@@ -37,8 +37,8 @@ public class CatalogUrlSeoFilter extends CatalogUrlFilter {
 
     private static final String MODULE = CatalogUrlSeoFilter.class.getName();
 
-    protected String defaultLocaleString = null;
-    protected String redirectUrl = null;
+    private String defaultLocaleString = null;
+    private String redirectUrl = null;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -47,19 +47,19 @@ public class CatalogUrlSeoFilter extends CatalogUrlFilter {
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
 
         // Get ServletContext
-        ServletContext servletContext = config.getServletContext();
+        ServletContext servletContext = getConfig().getServletContext();
 
         // Set request attribute and session
         UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
 
         // set initial parameters
-        String initDefaultLocalesString = config.getInitParameter("defaultLocaleString");
-        String initRedirectUrl = config.getInitParameter("redirectUrl");
+        String initDefaultLocalesString = getConfig().getInitParameter("defaultLocaleString");
+        String initRedirectUrl = getConfig().getInitParameter("redirectUrl");
         defaultLocaleString = UtilValidate.isNotEmpty(initDefaultLocalesString) ? initDefaultLocalesString : "";
         redirectUrl = UtilValidate.isNotEmpty(initRedirectUrl) ? initRedirectUrl : "";
 
         // set the ServletContext in the request for future use
-        httpRequest.setAttribute("servletContext", config.getServletContext());
+        httpRequest.setAttribute("servletContext", getConfig().getServletContext());
         if (CatalogUrlSeoTransform.forwardUri(httpRequest, httpResponse, delegator, ControlServlet.getControlServlet())) {
             return;
         }

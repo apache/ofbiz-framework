@@ -51,17 +51,17 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     private static final String MODULE = ContentMapFacade.class.getName();
 
-    private static final Set<String> mapKeySet = new HashSet<>();
+    private static final Set<String> MAP_KEY_SET = new HashSet<>();
     static {
-        mapKeySet.add("fields");
-        mapKeySet.add("link");
-        mapKeySet.add("data");
-        mapKeySet.add("dataresource");
-        mapKeySet.add("subcontent");
-        mapKeySet.add("subcontent_all");
-        mapKeySet.add("metadata");
-        mapKeySet.add("content");
-        mapKeySet.add("render");
+        MAP_KEY_SET.add("fields");
+        MAP_KEY_SET.add("link");
+        MAP_KEY_SET.add("data");
+        MAP_KEY_SET.add("dataresource");
+        MAP_KEY_SET.add("subcontent");
+        MAP_KEY_SET.add("subcontent_all");
+        MAP_KEY_SET.add("metadata");
+        MAP_KEY_SET.add("content");
+        MAP_KEY_SET.add("render");
     }
 
     private final LocalDispatcher dispatcher;
@@ -86,7 +86,8 @@ public class ContentMapFacade implements Map<Object, Object> {
     private Content content;
     private GenericValue fields = null;
 
-    public ContentMapFacade(LocalDispatcher dispatcher, GenericValue content, Map<String, Object> context, Locale locale, String mimeTypeId, boolean cache) {
+    public ContentMapFacade(LocalDispatcher dispatcher, GenericValue content, Map<String, Object> context, Locale locale,
+                            String mimeTypeId, boolean cache) {
         this.dispatcher = dispatcher;
         this.value = content;
         this.context = context;
@@ -99,7 +100,8 @@ public class ContentMapFacade implements Map<Object, Object> {
         init();
     }
 
-    private ContentMapFacade(LocalDispatcher dispatcher, String contentId, Map<String, Object> context, Locale locale, String mimeTypeId, boolean cache) {
+    private ContentMapFacade(LocalDispatcher dispatcher, String contentId, Map<String, Object> context, Locale locale,
+                             String mimeTypeId, boolean cache) {
         this.dispatcher = dispatcher;
         this.delegator = dispatcher.getDelegator();
         this.contentId = contentId;
@@ -127,10 +129,18 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.content = new Content();
     }
 
+    /**
+     * Sets render flag.
+     * @param render the render
+     */
     public void setRenderFlag(boolean render) {
         this.allowRender = render;
     }
 
+    /**
+     * Sets is decorated.
+     * @param isDecorated the is decorated
+     */
     public void setIsDecorated(boolean isDecorated) {
         this.isDecorated = isDecorated;
     }
@@ -180,7 +190,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     @Override
     public Set<Object> keySet() {
-        return UtilGenerics.cast(mapKeySet);
+        return UtilGenerics.cast(MAP_KEY_SET);
     }
 
     @Override
@@ -195,6 +205,10 @@ public class ContentMapFacade implements Map<Object, Object> {
         return null;
     }
 
+    /**
+     * Sets sort order.
+     * @param obj the obj
+     */
     public void setSortOrder(Object obj) {
         if (!(obj instanceof String)) {
             Debug.logWarning("sortOrder parameters must be a string", MODULE);
@@ -204,6 +218,10 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.subContent.setSortOrder(obj);
     }
 
+    /**
+     * Sets map key filter.
+     * @param obj the obj
+     */
     public void setMapKeyFilter(Object obj) {
         if (!(obj instanceof String)) {
             Debug.logWarning("mapKeyFilter parameters must be a string", MODULE);
@@ -212,6 +230,10 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.mapKeyFilter = (String) obj;
     }
 
+    /**
+     * Sets status filter.
+     * @param obj the obj
+     */
     public void setStatusFilter(Object obj) {
         if (!(obj instanceof String)) {
             Debug.logWarning("statusFilter parameters must be a string", MODULE);
@@ -221,6 +243,10 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.subContent.setStatusFilter(obj);
     }
 
+    /**
+     * Sets decorated content.
+     * @param decoratedContent the decorated content
+     */
     public void setDecoratedContent(ContentMapFacade decoratedContent) {
         this.decoratedContent = decoratedContent;
     }
@@ -332,6 +358,10 @@ public class ContentMapFacade implements Map<Object, Object> {
         return null;
     }
 
+    /**
+     * Render this string.
+     * @return the string
+     */
     protected String renderThis() {
         if (!this.allowRender && !this.isDecorated) {
             String errorMsg = "WARNING: Cannot render content being rendered! (Infinite Recursion NOT allowed!)";
@@ -549,7 +579,8 @@ public class ContentMapFacade implements Map<Object, Object> {
             } else if ("render".equalsIgnoreCase(name)) {
                 // render just the dataresource
                 try {
-                    return DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
+                    return DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, value.getString("dataResourceId"),
+                            context, locale, mimeType, cache);
                 } catch (GeneralException | IOException e) {
                     Debug.logError(e, MODULE);
                     return e.toString();

@@ -32,10 +32,14 @@ public class OrderTest extends OFBizTestCase {
         super(name);
     }
 
+    /**
+     * Test admin get next order seq id.
+     * @throws Exception the exception
+     */
     public void testAdminGetNextOrderSeqId() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "admin"); //party with no AcctgPref prefix
-        Map<String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
+        Map<String, Object> resp = getDispatcher().runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
@@ -45,10 +49,14 @@ public class OrderTest extends OFBizTestCase {
         assertTrue(orderId.matches("\\d{5,}"));
     }
 
+    /**
+     * Test company get next order seq id.
+     * @throws Exception the exception
+     */
     public void testCompanyGetNextOrderSeqId() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO
-        Map<String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
+        Map<String, Object> resp = getDispatcher().runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;
@@ -58,11 +66,15 @@ public class OrderTest extends OFBizTestCase {
         assertTrue(orderId.startsWith("CO"));
     }
 
+    /**
+     * Test complete get next order seq id.
+     * @throws Exception the exception
+     */
     public void testCompleteGetNextOrderSeqId() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO
         ctx.put("productStoreId", "9000"); // prefix WS
-        Map<String, Object> resp = dispatcher.runSync("getNextOrderId", ctx);
+        Map<String, Object> resp = getDispatcher().runSync("getNextOrderId", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;

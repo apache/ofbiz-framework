@@ -62,17 +62,17 @@ public class OrderListState implements Serializable {
     public static final String VIEW_INDEX_PARAM = "viewIndex";
 
     // state variables
-    protected int viewSize;
-    protected int viewIndex;
-    protected Map<String, String> orderStatusState;
-    protected Map<String, String> orderTypeState;
-    protected Map<String, String> orderFilterState;
-    protected int orderListSize;
+    private int viewSize;
+    private int viewIndex;
+    private Map<String, String> orderStatusState;
+    private Map<String, String> orderTypeState;
+    private Map<String, String> orderFilterState;
+    private int orderListSize;
 
     // parameter to ID maps
-    protected static final Map<String, String> parameterToOrderStatusId;
-    protected static final Map<String, String> parameterToOrderTypeId;
-    protected static final Map<String, String> parameterToFilterId;
+    protected static final Map<String, String> PARAM_TO_ORDER_STATUS_ID;
+    protected static final Map<String, String> PARAM_TO_ORDER_TYPE_ID;
+    protected static final Map<String, String> PARAM_TO_FILTER_ID;
     static {
         Map<String, String> map = new HashMap<>();
         map.put("viewcompleted", "ORDER_COMPLETED");
@@ -82,12 +82,12 @@ public class OrderListState implements Serializable {
         map.put("viewcreated", "ORDER_CREATED");
         map.put("viewprocessing", "ORDER_PROCESSING");
         map.put("viewhold", "ORDER_HOLD");
-        parameterToOrderStatusId = map;
+        PARAM_TO_ORDER_STATUS_ID = map;
 
         map = new HashMap<>();
         map.put("view_SALES_ORDER", "SALES_ORDER");
         map.put("view_PURCHASE_ORDER", "PURCHASE_ORDER");
-        parameterToOrderTypeId = map;
+        PARAM_TO_ORDER_TYPE_ID = map;
 
         map = new HashMap<>();
         map.put("filterInventoryProblems", "filterInventoryProblems");
@@ -95,7 +95,7 @@ public class OrderListState implements Serializable {
         map.put("filterPartiallyReceivedPOs", "filterPartiallyReceivedPOs");
         map.put("filterPOsOpenPastTheirETA", "filterPOsOpenPastTheirETA");
         map.put("filterPOsWithRejectedItems", "filterPOsWithRejectedItems");
-        parameterToFilterId = map;
+        PARAM_TO_FILTER_ID = map;
     }
 
     //=============   Initialization and Request methods   ===================//
@@ -165,7 +165,7 @@ public class OrderListState implements Serializable {
     }
 
     private void changeOrderListStates(HttpServletRequest request) {
-        for (String param : parameterToOrderStatusId.keySet()) {
+        for (String param : PARAM_TO_ORDER_STATUS_ID.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderStatusState.put(param, "Y");
@@ -173,7 +173,7 @@ public class OrderListState implements Serializable {
                 orderStatusState.put(param, "N");
             }
         }
-        for (String param : parameterToOrderTypeId.keySet()) {
+        for (String param : PARAM_TO_ORDER_TYPE_ID.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderTypeState.put(param, "Y");
@@ -181,7 +181,7 @@ public class OrderListState implements Serializable {
                 orderTypeState.put(param, "N");
             }
         }
-        for (String param : parameterToFilterId.keySet()) {
+        for (String param : PARAM_TO_FILTER_ID.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderFilterState.put(param, "Y");
@@ -336,14 +336,14 @@ public class OrderListState implements Serializable {
             if (!hasStatus(status)) {
                 continue;
             }
-            statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
+            statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, PARAM_TO_ORDER_STATUS_ID.get(status)));
         }
         List<EntityCondition> typeConditions = new LinkedList<>();
         for (String type : orderTypeState.keySet()) {
             if (!hasType(type)) {
                 continue;
             }
-            typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
+            typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, PARAM_TO_ORDER_TYPE_ID.get(type)));
         }
 
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions, EntityOperator.OR);

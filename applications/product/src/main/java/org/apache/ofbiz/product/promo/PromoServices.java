@@ -57,8 +57,8 @@ public class PromoServices {
 
     private static final String MODULE = PromoServices.class.getName();
     private static final String RESOURCE = "ProductUiLabels";
-    private static final char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
-            'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
+    private static final char[] SMART_CHARS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+            'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
@@ -87,13 +87,14 @@ public class PromoServices {
 
             while (!foundUniqueNewCode) {
                 if (useSmartLayout) {
-                    newPromoCodeId = RandomStringUtils.random(codeLength, smartChars);
+                    newPromoCodeId = RandomStringUtils.random(codeLength, SMART_CHARS);
                 } else if (useNormalLayout) {
                     newPromoCodeId = RandomStringUtils.randomAlphanumeric(codeLength);
                 }
                 GenericValue existingPromoCode = null;
                 try {
-                    existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", newPromoCodeId).cache().queryOne();
+                    existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId",
+                            newPromoCodeId).cache().queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, MODULE);
                 }
@@ -115,7 +116,8 @@ public class PromoServices {
             }
             if (ServiceUtil.isError(createProductPromoCodeMap)) {
                 // what to do here? try again?
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeCannotBeCreated", locale), null, null, createProductPromoCodeMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeCannotBeCreated", locale), null,
+                        null, createProductPromoCodeMap);
             }
             bankOfNumbers.append((String) createProductPromoCodeMap.get("productPromoCodeId"));
             bankOfNumbers.append(",");

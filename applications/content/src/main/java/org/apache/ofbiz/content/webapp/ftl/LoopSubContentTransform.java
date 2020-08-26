@@ -53,8 +53,10 @@ public class LoopSubContentTransform implements TemplateTransformModel {
 
     private static final String MODULE = LoopSubContentTransform.class.getName();
 
-    static final String[] saveKeyNames = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId", "contentTemplateId"};
-    static final String[] removeKeyNames = {"wrapTemplateId", "entityList", "entityIndex", "textData", "dataResourceId", "drDataResourceId", "subContentIdSub", "parentContent", "wrappedFTL"};
+    static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "mimeType", "subContentDataResourceView", "wrapTemplateId",
+            "contentTemplateId"};
+    static final String[] REMOVE_KEY_NAMES = {"wrapTemplateId", "entityList", "entityIndex", "textData", "dataResourceId", "drDataResourceId",
+            "subContentIdSub", "parentContent", "wrappedFTL"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -155,7 +157,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         final Map<String, Object> templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
-        final Map<String, Object> savedValues = FreeMarkerWorker.saveValues(templateCtx, saveKeyNames);
+        final Map<String, Object> savedValues = FreeMarkerWorker.saveValues(templateCtx, SAVE_KEY_NAMES);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
 
         String contentAssocTypeId = (String) templateCtx.get("contentAssocTypeId");
@@ -185,7 +187,8 @@ public class LoopSubContentTransform implements TemplateTransformModel {
 
         //DEJ20080730 Should always use contentId, not subContentId since we're searching for that and it is confusing
         String thisMapKey = (String) templateCtx.get("mapKey");
-        Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, thisContentId, thisMapKey, null, fromDate, null, null, null, assocTypes, null);
+        Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, thisContentId,
+                thisMapKey, null, fromDate, null, null, null, assocTypes, null);
         List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
         templateCtx.put("entityList", entityList);
 
@@ -254,7 +257,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                         out.write(wrappedFTL);
                     }
                 }
-                FreeMarkerWorker.removeValues(templateCtx, removeKeyNames);
+                FreeMarkerWorker.removeValues(templateCtx, REMOVE_KEY_NAMES);
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
             }
         };

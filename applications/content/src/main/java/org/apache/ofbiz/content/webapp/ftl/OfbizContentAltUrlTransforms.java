@@ -47,8 +47,14 @@ import freemarker.template.TemplateTransformModel;
 
 public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
     private static final String MODULE = OfbizContentAltUrlTransforms.class.getName();
-    private static final String defaultViewRequest = "contentViewInfo";
+    private static final String DEF_VIEW_REQUEST = "contentViewInfo";
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<String, Object> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -136,7 +142,7 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
 
         if (UtilValidate.isEmpty(url)) {
             if (UtilValidate.isEmpty(viewContent)) {
-                viewContent = defaultViewRequest;
+                viewContent = DEF_VIEW_REQUEST;
             }
             url = makeContentUrl(request, response, contentId, viewContent);
         }
@@ -157,7 +163,7 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
         if (UtilValidate.isNotEmpty(viewContent)) {
             urlBuilder.append("/" + viewContent);
         } else {
-            urlBuilder.append("/" + defaultViewRequest);
+            urlBuilder.append("/" + DEF_VIEW_REQUEST);
         }
         urlBuilder.append("?contentId=" + contentId);
         return urlBuilder.toString();

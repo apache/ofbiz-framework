@@ -51,8 +51,8 @@ public class PermissionRecorder {
 
     private static final String MODULE = PermissionRecorder.class.getName();
 
-    private static final String[] opFields = {"contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
-    private static final String[] fieldTitles = {"Purpose", "Operation", "Role", "Status", "Privilege"};
+    private static final String[] OP_FIELDS = {"contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
+    private static final String[] FIELD_TITLES = {"Purpose", "Operation", "Role", "Status", "Privilege"};
 
     public PermissionRecorder() {
         isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");
@@ -170,14 +170,26 @@ public class PermissionRecorder {
         statusTargets = opList.toArray(new String[opList.size()]);
     }
 
+    /**
+     * Get target operations string [ ].
+     * @return the string [ ]
+     */
     public String[] getTargetOperations() {
         return targetOperations != null ? targetOperations.clone() : null;
     }
 
+    /**
+     * Sets target operations.
+     * @param opList the op list
+     */
     public void setTargetOperations(List<String> opList) {
         targetOperations = opList.toArray(new String[opList.size()]);
     }
 
+    /**
+     * Sets current content id.
+     * @param id the id
+     */
     public void setCurrentContentId(String id) {
         if (!currentContentId.equals(id)) {
             currentContentMap = new HashMap<>();
@@ -262,7 +274,17 @@ public class PermissionRecorder {
         currentContentId = contentId;
     }
 
-    public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond, boolean roleCond) {
+    /**
+     * Record.
+     * @param purposeOp the purpose op
+     * @param targetOpCond the target op cond
+     * @param purposeCond the purpose cond
+     * @param statusCond the status cond
+     * @param privilegeCond the privilege cond
+     * @param roleCond the role cond
+     */
+    public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond,
+                       boolean roleCond) {
         Map<String, Object> map = UtilMisc.makeMapWritable(purposeOp);
         map.put("contentOperationIdCond", targetOpCond);
         map.put("contentPurposeTypeIdCond", purposeCond);
@@ -295,7 +317,7 @@ public class PermissionRecorder {
         sb.append("Content Id");
         sb.append("</td>");
 
-        for (String opField : fieldTitles) {
+        for (String opField : FIELD_TITLES) {
             sb.append("<td class=\"headr\">");
             sb.append(opField);
             sb.append("</td>");
@@ -344,7 +366,7 @@ public class PermissionRecorder {
         //if (Debug.infoOn()) Debug.logInfo("renderResultRowHtml, (1):" + sb.toString(), MODULE);
         String str = null;
         String s = null;
-        for (String opField : opFields) {
+        for (String opField : OP_FIELDS) {
             sb.append("<td class=\"target\">");
             s = (String) currentContentResultMap.get(opField);
             if (s != null) {
@@ -366,7 +388,7 @@ public class PermissionRecorder {
         sb.append("</td>");
 
         boolean isPass = true;
-        for (String opField : opFields) {
+        for (String opField : OP_FIELDS) {
             Boolean bool = (Boolean) rMap.get(opField + "Cond");
             String cls = (bool) ? "pass" : "fail";
             if (!bool) {

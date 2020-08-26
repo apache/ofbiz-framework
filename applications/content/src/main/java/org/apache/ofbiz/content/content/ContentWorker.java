@@ -73,7 +73,7 @@ import freemarker.ext.dom.NodeModel;
 public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWorkerInterface {
 
     private static final String MODULE = ContentWorker.class.getName();
-    static final UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder("html");
+    static final UtilCodec.SimpleEncoder ENCODER = UtilCodec.getEncoder("html");
 
     public ContentWorker() { }
 
@@ -360,7 +360,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 || rendered.contains("<input")
                 || rendered.contains("<iframe")
                 || rendered.contains("<a")) {
-            rendered = encoder.sanitize(rendered, contentTypeId);
+            rendered = ENCODER.sanitize(rendered, contentTypeId);
         }
         return rendered;
     }
@@ -1158,6 +1158,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
         List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
         if (UtilValidate.isEmpty(entityList)) {
+            Debug.log("No subcontent found.");
             //throw new IOException("No subcontent found.");
         } else {
             view = entityList.get(0);
@@ -1630,7 +1631,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     GenericValue gv = (GenericValue) obj;
                     GenericPK pk = gv.getPrimaryKey();
                     indent.append(' ');
-                    logMap(s, "GMAP[" + key + " name:" + pk.getEntityName()+ "]", pk, indent);
+                    logMap(s, "GMAP[" + key + " name:" + pk.getEntityName() + "]", pk, indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof List<?>) {
                     indent.append(' ');
