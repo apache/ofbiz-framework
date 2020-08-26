@@ -999,7 +999,7 @@ public class FinAccountPaymentServices {
             partyIdFrom = partyId;
             partyIdTo = coParty;
             paymentAmount = amount;
-        } else if ("withdrawal".equals(txType)) {
+        } else if ("WITHDRAWAL".equals(txType)) {
             paymentType = "DISBURSEMENT";
             partyIdFrom = coParty;
             partyIdTo = partyId;
