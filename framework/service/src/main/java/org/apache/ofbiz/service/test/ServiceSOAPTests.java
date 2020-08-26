@@ -35,13 +35,21 @@ public class ServiceSOAPTests extends OFBizTestCase {
         super(name);
     }
 
+    /**
+     * Test soap simple service.
+     * @throws Exception the exception
+     */
     public void testSOAPSimpleService() throws Exception {
         Map<String, Object> serviceContext = new HashMap<>();
         serviceContext.put("defaultValue", Double.valueOf("123.4567"));
         serviceContext.put("message", "Test Message !!!");
-        dispatcher.runSync("testSoapSimple", serviceContext);
+        getDispatcher().runSync("testSoapSimple", serviceContext);
     }
 
+    /**
+     * Test soap service.
+     * @throws Exception the exception
+     */
     public void testSOAPService() throws Exception {
         Map<String, Object> serviceContext = new HashMap<>();
         GenericValue testing = delegator.makeValue("Testing");
@@ -50,7 +58,7 @@ public class ServiceSOAPTests extends OFBizTestCase {
         testing.put("testingName", "Complex Type Test");
         testing.put("createdStamp", UtilDateTime.nowTimestamp());
         serviceContext.put("testing", testing);
-        Map<String, Object> results = dispatcher.runSync("testSoap", serviceContext);
+        Map<String, Object> results = getDispatcher().runSync("testSoap", serviceContext);
         List<GenericValue> testingNodes = UtilGenerics.cast(results.get("testingNodes"));
         assertNotNull(testingNodes);
     }

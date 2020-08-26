@@ -33,7 +33,8 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 public class SameSiteFilter implements javax.servlet.Filter {
 
-    private static final String SameSiteCookieAttribute = EntityUtilProperties.getPropertyValueFromDelegatorName("security.properties", "SameSiteCookieAttribute", "strict", "default");
+    private static final String SAME_SITE_COOKIE_ATTRIBUTE =
+            EntityUtilProperties.getPropertyValueFromDelegatorName("security.properties", "SameSiteCookieAttribute", "strict", "default");
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -50,11 +51,11 @@ public class SameSiteFilter implements javax.servlet.Filter {
         boolean firstHeader = true;
         for (String header : headers) { // there can be multiple Set-Cookie attributes
             if (firstHeader) {
-                response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=" + SameSiteCookieAttribute));
+                response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=" + SAME_SITE_COOKIE_ATTRIBUTE));
                 firstHeader = false;
                 continue;
             }
-            response.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=" + SameSiteCookieAttribute));
+            response.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=" + SAME_SITE_COOKIE_ATTRIBUTE));
         }
     }
 

@@ -28,7 +28,7 @@ import org.apache.ofbiz.entity.config.model.EntityConfig;
 public class TransactionFactoryLoader {
 
     private static final String MODULE = TransactionFactoryLoader.class.getName();
-    private static final TransactionFactory txFactory = createTransactionFactory();
+    private static final TransactionFactory TX_FACTORY = createTransactionFactory();
 
     private static TransactionFactory createTransactionFactory() {
         TransactionFactory instance = null;
@@ -51,9 +51,9 @@ public class TransactionFactoryLoader {
     }
 
     public static TransactionFactory getInstance() {
-        if (txFactory == null) {
+        if (TX_FACTORY == null) {
             throw new IllegalStateException("The Transaction Factory is not initialized.");
         }
-        return txFactory;
+        return TX_FACTORY;
     }
 }

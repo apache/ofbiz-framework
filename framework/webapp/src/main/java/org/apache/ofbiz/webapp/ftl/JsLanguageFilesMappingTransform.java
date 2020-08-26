@@ -34,19 +34,19 @@ public class JsLanguageFilesMappingTransform implements TemplateTransformModel {
                         String localeString = UtilHttp.getLocale(request).toString();
                         switch (libraryName) {
                             case "datejs":
-                                out.write(JsLanguageFilesMapping.datejs.getFilePath(localeString));
+                                out.write(JsLanguageFilesMapping.DateJs.getFilePath(localeString));
                                 break;
                             case "dateTime":
-                                out.write(JsLanguageFilesMapping.dateTime.getFilePath(localeString));
+                                out.write(JsLanguageFilesMapping.DateTime.getFilePath(localeString));
                                 break;
                             case "jquery":
-                                out.write(JsLanguageFilesMapping.jquery.getFilePath(localeString));
+                                out.write(JsLanguageFilesMapping.JQuery.getFilePath(localeString));
                                 break;
                             case "select2":
-                                out.write(JsLanguageFilesMapping.select2.getFilePath(localeString));
+                                out.write(JsLanguageFilesMapping.Select2.getFilePath(localeString));
                                 break;
                             case "validation":
-                                out.write(JsLanguageFilesMapping.validation.getFilePath(localeString));
+                                out.write(JsLanguageFilesMapping.Validation.getFilePath(localeString));
                                 break;
                             default:
                         }

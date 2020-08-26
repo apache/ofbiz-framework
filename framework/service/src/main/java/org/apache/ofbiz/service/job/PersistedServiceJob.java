@@ -99,7 +99,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         } catch (GenericEntityException e) {
             throw new InvalidJobException("Unable to refresh JobSandbox value", e);
         }
-        if (!JobManager.instanceId.equals(jobValue.getString("runByInstanceId"))) {
+        if (!JobManager.INSTANCE_ID.equals(jobValue.getString("runByInstanceId"))) {
             throw new InvalidJobException("Job has been accepted by a different instance");
         }
         Timestamp cancelTime = jobValue.getTimestamp("cancelDateTime");
@@ -127,7 +127,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         } catch (GenericEntityException e) {
             throw new InvalidJobException("Unable to refresh JobSandbox value", e);
         }
-        if (!JobManager.instanceId.equals(jobValue.getString("runByInstanceId"))) {
+        if (!JobManager.INSTANCE_ID.equals(jobValue.getString("runByInstanceId"))) {
             throw new InvalidJobException("Job has been accepted by a different instance");
         }
         if (jobValue.getTimestamp("cancelDateTime") != null) {
@@ -176,7 +176,8 @@ public class PersistedServiceJob extends GenericServiceJob {
                 if (recurrence != null) {
                     recurrence.incrementCurrentCount();
                 }
-                TimeZone timeZone = jobValue.get("recurrenceTimeZone") != null ? TimeZone.getTimeZone(jobValue.getString("recurrenceTimeZone")) : TimeZone.getDefault();
+                TimeZone timeZone = jobValue.get("recurrenceTimeZone") != null ? TimeZone.getTimeZone(jobValue.getString("recurrenceTimeZone"))
+                        : TimeZone.getDefault();
                 Calendar next = expr.next(Calendar.getInstance(timeZone));
 
                 if (next != null) {
@@ -187,7 +188,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             throw new InvalidJobException(e);
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("Job  [" + getJobName() + "] Id ["  + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), MODULE);
+            Debug.logInfo("Job  [" + getJobName() + "] Id [" + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), MODULE);
         }
     }
 
@@ -297,7 +298,8 @@ public class PersistedServiceJob extends GenericServiceJob {
             if (UtilValidate.isNotEmpty(jobValue.getString("runtimeDataId"))) {
                 GenericValue contextObj = jobValue.getRelatedOne("RuntimeData", false);
                 if (contextObj != null) {
-                    context = UtilGenerics.checkMap(XmlSerializer.deserialize(contextObj.getString("runtimeInfo"), delegator), String.class, Object.class);
+                    context = UtilGenerics.checkMap(XmlSerializer.deserialize(contextObj.getString("runtimeInfo"),
+                            delegator), String.class, Object.class);
                 }
             }
             if (context == null) {

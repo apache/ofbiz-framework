@@ -64,9 +64,9 @@ import java.util.Stack;
 public class HtmlWidget extends ModelScreenWidget {
     private static final String MODULE = HtmlWidget.class.getName();
 
-    private static final UtilCache<String, Template> specialTemplateCache =
+    private static final UtilCache<String, Template> SPECIAL_TEMPLATE_CACHE =
             UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
+    protected static final Configuration SPECIAL_CONFIG = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
@@ -136,6 +136,10 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    /**
+     * Gets sub widgets.
+     * @return the sub widgets
+     */
     public List<ModelScreenWidget> getSubWidgets() {
         return subWidgets;
     }
@@ -166,7 +170,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
                     template = FreeMarkerWorker.getTemplate(location);
                 } else {
-                    template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                    template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG);
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
@@ -266,7 +270,7 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     public static class HtmlTemplate extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
+        private FlexibleStringExpander locationExdr;
         private boolean multiBlock;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
@@ -275,10 +279,19 @@ public class HtmlWidget extends ModelScreenWidget {
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
         }
 
+        /**
+         * Gets location.
+         * @param context the context
+         * @return the location
+         */
         public String getLocation(Map<String, Object> context) {
             return locationExdr.expandString(context);
         }
 
+        /**
+         * Is multi block boolean.
+         * @return the boolean
+         */
         public boolean isMultiBlock() {
             return this.multiBlock;
         }
@@ -298,14 +311,18 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location exdr.
+         * @return the location exdr
+         */
         public FlexibleStringExpander getLocationExdr() {
             return locationExdr;
         }
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
-        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
+        private FlexibleStringExpander locationExdr;
+        private Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
@@ -349,17 +366,25 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location exdr.
+         * @return the location exdr
+         */
         public FlexibleStringExpander getLocationExdr() {
             return locationExdr;
         }
 
+        /**
+         * Gets section map.
+         * @return the section map
+         */
         public Map<String, ModelScreenWidget> getSectionMap() {
             return sectionMap;
         }
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
-        protected List<ModelScreenWidget> subWidgets;
+        private List<ModelScreenWidget> subWidgets;
 
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);

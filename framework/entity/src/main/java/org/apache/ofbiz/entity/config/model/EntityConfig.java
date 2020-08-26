@@ -44,7 +44,7 @@ public final class EntityConfig {
 
     private static final String MODULE = EntityConfig.class.getName();
 
-    private static final EntityConfig instance = createNewInstance();
+    private static final EntityConfig INSTANCE = createNewInstance();
     private final List<ResourceLoader> resourceLoaderList; // <resource-loader>
     private final Map<String, ResourceLoader> resourceLoaderMap; // <resource-loader>
     private final TransactionFactory transactionFactory; // <transaction-factory>
@@ -222,10 +222,10 @@ public final class EntityConfig {
     }
 
     public static EntityConfig getInstance() throws GenericEntityConfException {
-        if (instance == null) {
+        if (INSTANCE == null) {
             throw new GenericEntityConfException("EntityConfig is not initialized.");
         }
-        return instance;
+        return INSTANCE;
     }
 
     public static String createConfigFileLineNumberText(Element element) {
@@ -354,12 +354,14 @@ public final class EntityConfig {
         }
         String jdbcPasswordLookup = inlineJdbcElement.getJdbcPasswordLookup();
         if (jdbcPasswordLookup.isEmpty()) {
-            throw new GenericEntityConfException("No jdbc-password or jdbc-password-lookup specified for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
+            throw new GenericEntityConfException("No jdbc-password or jdbc-password-lookup specified for inline-jdbc element, line: "
+                    + inlineJdbcElement.getLineNumber());
         }
         String key = "jdbc-password.".concat(jdbcPasswordLookup);
         jdbcPassword = UtilProperties.getPropertyValue("passwords", key);
         if (jdbcPassword.isEmpty()) {
-            throw new GenericEntityConfException("'" + key + "' property not found in passwords.properties file for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
+            throw new GenericEntityConfException("'" + key + "' property not found in passwords.properties file for inline-jdbc element, line: "
+                    + inlineJdbcElement.getLineNumber());
         }
         return jdbcPassword;
     }

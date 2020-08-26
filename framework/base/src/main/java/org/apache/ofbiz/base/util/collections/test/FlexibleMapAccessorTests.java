@@ -33,7 +33,7 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 
 @SourceMonitored
 public class FlexibleMapAccessorTests extends GenericTestCaseBase {
-    private static final Locale localeToTest = new Locale("en", "US");
+    private static final Locale LOCALE_TO_TEST = new Locale("en", "US");
     private static FlexibleMapAccessor<?> fmaEmpty = FlexibleMapAccessor.getInstance("");
     private static FlexibleMapAccessor<?> fmaNull = FlexibleMapAccessor.getInstance(null);
 
@@ -138,16 +138,26 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         fmaTest("UEL auto-vivify Map", "parameters.var", "Hello ${parameters.var}!", "World", "Hello World!");
         fmaTest("UEL auto-vivify List", "parameters.someList[0]", "parameters.someList[+0]", "Hello ${parameters.someList[0]}!", null, "World", "Hello World!");
         fmaTest("fse", "para${'meter'}s.var", "Hello ${parameters.var}!", "World", "Hello World!");
-        fmaTest("foo", "'The total is ${total?currency(USD)}.'", "total", "The total is ${total?currency(USD)}.", localeToTest, new BigDecimal("12345678.90"), "The total is $12,345,678.90.");
+        fmaTest("foo", "'The total is ${total?currency(USD)}.'", "total", "The total is ${total?currency(USD)}.", LOCALE_TO_TEST, new BigDecimal("12345678.90"), "The total is $12,345,678.90.");
         assertTrue("containsNestedExpression method returns true", FlexibleMapAccessor.getInstance("Hello ${parameters.var}!").containsNestedExpression());
         assertFalse("containsNestedExpression method returns false", FlexibleMapAccessor.getInstance("Hello World!").containsNestedExpression());
     }
 
     public static class ThrowException {
+        /**
+         * Gets value.
+         * @return the value
+         * @throws Exception the exception
+         */
         public Object getValue() throws Exception {
             throw new Exception();
         }
 
+        /**
+         * Sets value.
+         * @param value the value
+         * @throws Exception the exception
+         */
         public void setValue(Object value) throws Exception {
             throw new Exception();
         }
@@ -169,6 +179,9 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         }
     }
 
+    /**
+     * Test verbosity and errors.
+     */
     public void testVerbosityAndErrors() {
         boolean isVerbose = Debug.isOn(Debug.VERBOSE);
         try {

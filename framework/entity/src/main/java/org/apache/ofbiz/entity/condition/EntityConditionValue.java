@@ -39,8 +39,10 @@ import org.apache.ofbiz.entity.model.ModelField;
 @SuppressWarnings("serial")
 public abstract class EntityConditionValue implements Serializable {
 
-    private static final Map<String, String> emptyAliases = Collections.unmodifiableMap(new HashMap<>());
-    public static EntityConditionValue CONSTANT_NUMBER(Number value) { return new ConstantNumberValue(value); }
+    private static final Map<String, String> EMPTY_ALIASES = Collections.unmodifiableMap(new HashMap<>());
+    public static EntityConditionValue constantNumber(Number value) {
+        return new ConstantNumberValue(value);
+    }
     public static final class ConstantNumberValue extends EntityConditionValue {
         private Number value;
 
@@ -82,9 +84,17 @@ public abstract class EntityConditionValue implements Serializable {
 
     public abstract void setModelField(ModelField modelEntity);
 
+    /**
+     * Add sql value.
+     * @param sql the sql
+     * @param modelEntity the model entity
+     * @param entityConditionParams the entity condition params
+     * @param includeTableNamePrefix the include table name prefix
+     * @param datasourceinfo the datasourceinfo
+     */
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix,
             Datasource datasourceinfo) {
-        addSqlValue(sql, emptyAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
+        addSqlValue(sql, EMPTY_ALIASES, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
     public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,

@@ -46,8 +46,10 @@ import org.xml.sax.SAXException;
 public class FormFactory {
 
     private static final String MODULE = FormFactory.class.getName();
-    private static final UtilCache<String, ModelForm> formLocationCache = UtilCache.createUtilCache("widget.form.locationResource", 0, 0, false);
-    private static final UtilCache<String, ModelForm> formWebappCache = UtilCache.createUtilCache("widget.form.webappResource", 0, 0, false);
+    private static final UtilCache<String, ModelForm> FORM_LOCATION_CACHE =
+            UtilCache.createUtilCache("widget.form.locationResource", 0, 0, false);
+    private static final UtilCache<String, ModelForm> FORM_WEBAPP_CACHE =
+            UtilCache.createUtilCache("widget.form.webappResource", 0, 0, false);
 
     public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader,
                                                 VisualTheme visualTheme, DispatchContext dispatchContext)
@@ -63,7 +65,7 @@ public class FormFactory {
         StringBuilder sb = new StringBuilder(dispatchContext.getDelegator().getDelegatorName());
         sb.append(":").append(resourceName).append("#").append(formName).append(visualTheme.getVisualThemeId());
         String cacheKey = sb.toString();
-        ModelForm modelForm = formLocationCache.get(cacheKey);
+        ModelForm modelForm = FORM_LOCATION_CACHE.get(cacheKey);
         if (modelForm == null) {
             URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
@@ -71,7 +73,7 @@ public class FormFactory {
                 throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
             }
             modelForm = createModelForm(formFileDoc, entityModelReader, visualTheme, dispatchContext, resourceName, formName);
-            modelForm = formLocationCache.putIfAbsentAndGet(cacheKey, modelForm);
+            modelForm = FORM_LOCATION_CACHE.putIfAbsentAndGet(cacheKey, modelForm);
         }
         if (modelForm == null) {
             throw new IllegalArgumentException("Could not find form with name [" + formName + "] in class resource [" + resourceName + "]");
@@ -91,18 +93,20 @@ public class FormFactory {
                 .append("::")
                 .append(visualTheme.getVisualThemeId())
                 .toString();
-        ModelForm modelForm = formWebappCache.get(cacheKey);
+        ModelForm modelForm = FORM_WEBAPP_CACHE.get(cacheKey);
         if (modelForm == null) {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             URL formFileUrl = request.getServletContext().getResource(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
-            modelForm = createModelForm(formElement, delegator.getModelReader(), visualTheme, dispatcher.getDispatchContext(), resourceName, formName);
-            modelForm = formWebappCache.putIfAbsentAndGet(cacheKey, modelForm);
+            modelForm = createModelForm(formElement, delegator.getModelReader(), visualTheme, dispatcher.getDispatchContext(),
+                    resourceName, formName);
+            modelForm = FORM_WEBAPP_CACHE.putIfAbsentAndGet(cacheKey, modelForm);
         }
         if (modelForm == null) {
-            throw new IllegalArgumentException("Could not find form with name [" + formName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
+            throw new IllegalArgumentException("Could not find form with name [" + formName + "] in webapp resource [" + resourceName
+                    + "] in the webapp [" + webappName + "]");
         }
         return modelForm;
     }
@@ -124,10 +128,10 @@ public class FormFactory {
                         .append(formName)
                         .append(visualTheme.getVisualThemeId())
                         .toString();
-                ModelForm modelForm = formLocationCache.get(cacheKey);
+                ModelForm modelForm = FORM_LOCATION_CACHE.get(cacheKey);
                 if (modelForm == null) {
                     modelForm = createModelForm(formElement, entityModelReader, visualTheme, dispatchContext, formLocation, formName);
-                    modelForm = formLocationCache.putIfAbsentAndGet(cacheKey, modelForm);
+                    modelForm = FORM_LOCATION_CACHE.putIfAbsentAndGet(cacheKey, modelForm);
                 }
                 modelFormMap.put(formName, modelForm);
             }

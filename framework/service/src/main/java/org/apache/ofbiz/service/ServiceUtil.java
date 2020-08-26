@@ -47,7 +47,7 @@ import org.apache.ofbiz.security.Security;
 public final class ServiceUtil {
 
     private static final String MODULE = ServiceUtil.class.getName();
-    private static final String resource = "ServiceErrorUiLabels";
+    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     private ServiceUtil() { }
 
@@ -94,12 +94,15 @@ public final class ServiceUtil {
         return returnProblem(ModelService.RESPOND_FAIL, null, null, null, null);
     }
 
-    /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code, also forwards any error messages from the nestedResult */
-    public static Map<String, Object> returnError(String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map<String, ? extends Object> nestedResult) {
+    /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code,
+     * also forwards any error messages from the nestedResult */
+    public static Map<String, Object> returnError(String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object>
+            errorMessageMap, Map<String, ? extends Object> nestedResult) {
         return returnProblem(ModelService.RESPOND_ERROR, errorMessage, errorMessageList, errorMessageMap, nestedResult);
     }
 
-    public static Map<String, Object> returnProblem(String returnType, String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map<String, ? extends Object> nestedResult) {
+    public static Map<String, Object> returnProblem(String returnType, String errorMessage, List<? extends Object> errorMessageList,
+                                                    Map<String, ? extends Object> errorMessageMap, Map<String, ? extends Object> nestedResult) {
         Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, returnType);
         if (errorMessage != null) {
@@ -173,10 +176,12 @@ public final class ServiceUtil {
     /** A small routine used all over to improve code efficiency, get the partyId and does a security check
      *<b>security check</b>: userLogin partyId must equal partyId, or must have [secEntity][secOperation] permission
      */
-    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context, Map<String, Object> result, String secEntity, String secOperation) {
+    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
+                                                 Map<String, Object> result, String secEntity, String secOperation) {
         return getPartyIdCheckSecurity(userLogin, security, context, result, secEntity, secOperation, null, null);
     }
-    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context, Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity, String adminSecOperation) {
+    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
+                                                 Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity, String adminSecOperation) {
         String partyId = (String) context.get("partyId");
         Locale locale = getLocale(context);
         if (UtilValidate.isEmpty(partyId)) {
@@ -186,16 +191,17 @@ public final class ServiceUtil {
         // partyId might be null, so check it
         if (UtilValidate.isEmpty(partyId)) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale) + ".";
+            String errMsg = UtilProperties.getMessage(ServiceUtil.RESOURCE, "serviceUtil.party_id_missing", locale) + ".";
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return partyId;
         }
 
         // <b>security check</b>: userLogin partyId must equal partyId, or must have either of the two permissions
         if (!partyId.equals(userLogin.getString("partyId"))) {
-            if (!security.hasEntityPermission(secEntity, secOperation, userLogin) && !(adminSecEntity != null && adminSecOperation != null && security.hasEntityPermission(adminSecEntity, adminSecOperation, userLogin))) {
+            if (!security.hasEntityPermission(secEntity, secOperation, userLogin) && !(adminSecEntity != null && adminSecOperation != null
+                    && security.hasEntityPermission(adminSecEntity, adminSecOperation, userLogin))) {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-                String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.no_permission_to_operation", locale) + ".";
+                String errMsg = UtilProperties.getMessage(ServiceUtil.RESOURCE, "serviceUtil.no_permission_to_operation", locale) + ".";
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return partyId;
             }
@@ -223,7 +229,7 @@ public final class ServiceUtil {
     }
 
     public static void getMessages(HttpServletRequest request, Map<String, ? extends Object> result, String defaultMessage,
-                                   String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix, String successPrefix, String successSuffix) {
+            String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix, String successPrefix, String successSuffix) {
         String errorMessage = ServiceUtil.makeErrorMessage(result, msgPrefix, msgSuffix, errorPrefix, errorSuffix);
         String successMessage = ServiceUtil.makeSuccessMessage(result, msgPrefix, msgSuffix, successPrefix, successSuffix);
         setMessages(request, errorMessage, successMessage, defaultMessage);
@@ -251,7 +257,8 @@ public final class ServiceUtil {
         return errorMessage.toString();
     }
 
-    public static String makeErrorMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix) {
+    public static String makeErrorMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix,
+                                          String errorPrefix, String errorSuffix) {
         if (result == null) {
             Debug.logWarning("A null result map was passed", MODULE);
             return null;
@@ -298,7 +305,8 @@ public final class ServiceUtil {
         return null;
     }
 
-    public static String makeSuccessMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix, String successPrefix, String successSuffix) {
+    public static String makeSuccessMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix,
+                                            String successPrefix, String successSuffix) {
         if (result == null) {
             return "";
         }
@@ -473,6 +481,6 @@ public final class ServiceUtil {
     }
 
     public static String getResource() {
-        return resource;
+        return RESOURCE;
     }
 }

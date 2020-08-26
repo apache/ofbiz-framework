@@ -45,7 +45,7 @@ import freemarker.template.TemplateException;
 public class FreeMarkerViewHandler extends AbstractViewHandler {
 
     private static final String MODULE = FreeMarkerViewHandler.class.getName();
-    protected Configuration config = (Configuration) FreeMarkerWorker.getDefaultOfbizConfig().clone();
+    private Configuration config = (Configuration) FreeMarkerWorker.getDefaultOfbizConfig().clone();
 
     @Override
     public void init(ServletContext context) throws ViewHandlerException {
@@ -56,8 +56,9 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
     @Override
     public void render(String name, String page, String info, String contentType, String encoding,
             HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-        if (UtilValidate.isEmpty(page))
+        if (UtilValidate.isEmpty(page)) {
             throw new ViewHandlerException("Invalid template source");
+        }
 
         // make the root context (data model) for freemarker
         MapStack<String> context = MapStack.create();
@@ -116,8 +117,8 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         root.put("requestParameters", requestParameters);
 
         // add the TabLibFactory
-        TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
-        root.put("JspTaglibs", JspTaglibs);
+        TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
+        root.put("JspTaglibs", jspTaglibs);
 
     }
 }

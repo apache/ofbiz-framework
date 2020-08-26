@@ -56,25 +56,25 @@ import org.w3c.dom.NodeList;
 public class ModelViewEntity extends ModelEntity {
     private static final String MODULE = ModelViewEntity.class.getName();
 
-    private static final Map<String, String> functionPrefixMap = new HashMap<>();
-    private static final Set<String> numericFunctionsSet = new HashSet<>(); // names of functions that return a numeric type
+    private static final Map<String, String> FUNCTION_PREFIX_MAP = new HashMap<>();
+    private static final Set<String> NUMERIC_FUNCTION_SET = new HashSet<>(); // names of functions that return a numeric type
     static {
-        functionPrefixMap.put("min", "MIN(");
-        functionPrefixMap.put("max", "MAX(");
-        functionPrefixMap.put("sum", "SUM(");
-        functionPrefixMap.put("avg", "AVG(");
-        functionPrefixMap.put("count", "COUNT(");
-        functionPrefixMap.put("count-distinct", "COUNT(DISTINCT ");
-        functionPrefixMap.put("upper", "UPPER(");
-        functionPrefixMap.put("lower", "LOWER(");
-        functionPrefixMap.put("extract-year", "EXTRACT(YEAR FROM ");
-        functionPrefixMap.put("extract-month", "EXTRACT(MONTH FROM ");
-        functionPrefixMap.put("extract-day", "EXTRACT(DAY FROM ");
-        numericFunctionsSet.add("count");
-        numericFunctionsSet.add("count-distinct");
-        numericFunctionsSet.add("extract-year");
-        numericFunctionsSet.add("extract-month");
-        numericFunctionsSet.add("extract-day");
+        FUNCTION_PREFIX_MAP.put("min", "MIN(");
+        FUNCTION_PREFIX_MAP.put("max", "MAX(");
+        FUNCTION_PREFIX_MAP.put("sum", "SUM(");
+        FUNCTION_PREFIX_MAP.put("avg", "AVG(");
+        FUNCTION_PREFIX_MAP.put("count", "COUNT(");
+        FUNCTION_PREFIX_MAP.put("count-distinct", "COUNT(DISTINCT ");
+        FUNCTION_PREFIX_MAP.put("upper", "UPPER(");
+        FUNCTION_PREFIX_MAP.put("lower", "LOWER(");
+        FUNCTION_PREFIX_MAP.put("extract-year", "EXTRACT(YEAR FROM ");
+        FUNCTION_PREFIX_MAP.put("extract-month", "EXTRACT(MONTH FROM ");
+        FUNCTION_PREFIX_MAP.put("extract-day", "EXTRACT(DAY FROM ");
+        NUMERIC_FUNCTION_SET.add("count");
+        NUMERIC_FUNCTION_SET.add("count-distinct");
+        NUMERIC_FUNCTION_SET.add("extract-year");
+        NUMERIC_FUNCTION_SET.add("extract-month");
+        NUMERIC_FUNCTION_SET.add("extract-day");
     }
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
@@ -595,12 +595,12 @@ public class ModelViewEntity extends ModelEntity {
                     fieldSet = alias.getFieldSet();
                 }
             }
-            if (numericFunctionsSet.contains(alias.function)) {
+            if (NUMERIC_FUNCTION_SET.contains(alias.function)) {
                 // if we have a numeric function we have to change the type
                 type = "numeric";
             }
             if (UtilValidate.isNotEmpty(alias.function)) {
-                String prefix = functionPrefixMap.get(alias.function);
+                String prefix = FUNCTION_PREFIX_MAP.get(alias.function);
                 if (prefix == null) {
                     Debug.logWarning("[" + this.getEntityName() + "]: Specified alias function [" + alias.function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", MODULE);
                 } else {
@@ -643,6 +643,9 @@ public class ModelViewEntity extends ModelEntity {
         return conversion;
     }
 
+    /**
+     * Populate reverse links.
+     */
     public void populateReverseLinks() {
         Map<String, List<String>> containedModelFields = new HashMap<>();
         Iterator<ModelAlias> it = getAliasesIterator();
@@ -715,6 +718,12 @@ public class ModelViewEntity extends ModelEntity {
         Debug.logVerbose(this + ":" + conversions, MODULE);
     }
 
+    /**
+     * Convert list.
+     * @param fromEntityName the from entity name
+     * @param data the data
+     * @return the list
+     */
     public List<Map<String, Object>> convert(String fromEntityName, Map<String, ? extends Object> data) {
         ModelConversion[] conversions = this.conversions.get(fromEntityName);
         if (conversions == null) return null;
@@ -1183,7 +1192,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
 
                 if (UtilValidate.isNotEmpty(function)) {
-                    String prefix = functionPrefixMap.get(function);
+                    String prefix = FUNCTION_PREFIX_MAP.get(function);
                     if (prefix == null) {
                         Debug.logWarning("[" + modelViewEntity.getEntityName() + "]: Specified alias function [" + function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", MODULE);
                     } else {

@@ -226,9 +226,9 @@ public class ServerHitBin {
                     serverHitBin.set("minTimeMillis", bin.getMinTime());
                     serverHitBin.set("maxTimeMillis", bin.getMaxTime());
                     // get localhost ip address and hostname to store
-                    if (VisitHandler.address != null) {
-                        serverHitBin.set("serverIpAddress", VisitHandler.address.getHostAddress());
-                        serverHitBin.set("serverHostName", VisitHandler.address.getHostName());
+                    if (VisitHandler.ADDRESS != null) {
+                        serverHitBin.set("serverIpAddress", VisitHandler.ADDRESS.getHostAddress());
+                        serverHitBin.set("serverHostName", VisitHandler.ADDRESS.getHostName());
                     }
                     try {
                         delegator.createSetNextSeqId(serverHitBin);
@@ -530,9 +530,9 @@ public class ServerHitBin {
             serverHit.set("referrerUrl", referrerUrl);
 
             // get localhost ip address and hostname to store
-            if (VisitHandler.address != null) {
-                serverHit.set("serverIpAddress", VisitHandler.address.getHostAddress());
-                serverHit.set("serverHostName", VisitHandler.address.getHostName());
+            if (VisitHandler.ADDRESS != null) {
+                serverHit.set("serverIpAddress", VisitHandler.ADDRESS.getHostAddress());
+                serverHit.set("serverHostName", VisitHandler.ADDRESS.getHostName());
             }
 
             serverHit.create();

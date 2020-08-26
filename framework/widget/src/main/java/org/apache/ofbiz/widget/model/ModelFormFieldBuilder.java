@@ -114,17 +114,17 @@ public class ModelFormFieldBuilder {
     private String parentFormName = "";
     private String tabindex = "";
     private String conditionGroup = "";
-    private boolean disabled= false;
+    private boolean disabled = false;
 
-    protected static final List<String> numericFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
+    protected static final List<String> NUMERIC_FIELD_TYPES = Collections.unmodifiableList(UtilMisc.toList(
             "floating-point", "numeric", "fixed-point",
             "currency-amount", "currency-precise"));
-    protected static final List<String> textFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
+    protected static final List<String> TEXT_FIELD_TYPES = Collections.unmodifiableList(UtilMisc.toList(
             "id", "id-long", "id-vlong",
             "very-short", "name", "short-varchar",
             "value", "comment", "description",
             "long-varchar", "url", "email"));
-    protected static final Map<String, Integer> textSizeByFieldTypes = Collections.unmodifiableMap(UtilMisc.toMap(
+    protected static final Map<String, Integer> TEXT_SIZE_BY_FIELD_TYPES = Collections.unmodifiableMap(UtilMisc.toMap(
             "id", 20,
             "id-long", 40,
             "id-vlong", 60,
@@ -137,7 +137,7 @@ public class ModelFormFieldBuilder {
             "long-varchar", 60,
             "url", 60,
             "email", 60));
-    protected static final Map<String, Integer> textMaxSizeByFieldTypes = Collections.unmodifiableMap(UtilMisc.toMap(
+    protected static final Map<String, Integer> TEXT_MAX_SIZE_BY_FIELD_TYPES = Collections.unmodifiableMap(UtilMisc.toMap(
             "id", 20,
             "id-long", 60,
             "id-vlong", 250,
@@ -150,7 +150,7 @@ public class ModelFormFieldBuilder {
             "long-varchar", 250,
             "url", 250,
             "email", 250));
-    protected static final List<String> dateFieldTypes = Collections.unmodifiableList(UtilMisc.toList(
+    protected static final List<String> DATA_FIELD_TYPES = Collections.unmodifiableList(UtilMisc.toList(
             "date-time", "date", "time"));
 
     public ModelFormFieldBuilder() {
@@ -741,6 +741,13 @@ public class ModelFormFieldBuilder {
         return false;
     }
 
+    /**
+     * Induce field info from entity field boolean.
+     * @param modelEntity the model entity
+     * @param modelField the model field
+     * @param defaultFieldType the default field type
+     * @return the boolean
+     */
     public boolean induceFieldInfoFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType) {
         if (modelEntity == null || modelField == null) {
             return false;
@@ -757,14 +764,14 @@ public class ModelFormFieldBuilder {
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
                         optionSources);
                 this.setFieldInfo(dropDownField);
-            } else if (textFieldTypes.contains(fieldType)) {
+            } else if (TEXT_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY,
-                        textSizeByFieldTypes.get(fieldType), textMaxSizeByFieldTypes.get(fieldType), null);
+                        TEXT_SIZE_BY_FIELD_TYPES.get(fieldType), TEXT_MAX_SIZE_BY_FIELD_TYPES.get(fieldType), null);
                 this.setFieldInfo(textField);
-            } else if (numericFieldTypes.contains(fieldType)) {
+            } else if (NUMERIC_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null);
                 this.setFieldInfo(textField);
-            } else if (dateFieldTypes.contains(fieldType)) {
+            } else if (DATA_FIELD_TYPES.contains(fieldType)) {
                 String type = fieldType;
                 if ("date-time".equals(fieldType)) {
                     type = "timestamp";
@@ -792,14 +799,14 @@ public class ModelFormFieldBuilder {
             } else if ("very-long".equals(fieldType)) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, null);
                 this.setFieldInfo(textareaField);
-            } else if (textFieldTypes.contains(fieldType)) {
+            } else if (TEXT_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY,
-                        textSizeByFieldTypes.get(fieldType), textMaxSizeByFieldTypes.get(fieldType), null);
+                        TEXT_SIZE_BY_FIELD_TYPES.get(fieldType), TEXT_MAX_SIZE_BY_FIELD_TYPES.get(fieldType), null);
                 this.setFieldInfo(textField);
-            } else if (numericFieldTypes.contains(fieldType)) {
+            } else if (NUMERIC_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null, null);
                 this.setFieldInfo(textField);
-            } else if (dateFieldTypes.contains(fieldType)) {
+            } else if (DATA_FIELD_TYPES.contains(fieldType)) {
                 String type = fieldType;
                 if ("date-time".equals(fieldType)) {
                     type = "timestamp";

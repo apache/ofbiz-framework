@@ -51,7 +51,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
     private static final String MODULE = EntityAutoEngine.class.getName();
     private static final String RESOURCE = "ServiceErrorUiLabels";
-    private static final List<String> availableInvokeActionNames = UtilMisc.toList("create", "update", "delete", "expire");
+    private static final List<String> AVAIL_INVOKE_ACTION_NAMES = UtilMisc.toList("create", "update", "delete", "expire");
 
     public EntityAutoEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -76,7 +76,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         // check the package and method names
-        if (modelService.getInvoke() == null || !availableInvokeActionNames.contains(modelService.getInvoke())) {
+        if (modelService.getInvoke() == null || !AVAIL_INVOKE_ACTION_NAMES.contains(modelService.getInvoke())) {
             throw new GenericServiceException("In Service [" + modelService.getName()
                     + "] the invoke value must be create, update, or delete for entity-auto engine");
         }

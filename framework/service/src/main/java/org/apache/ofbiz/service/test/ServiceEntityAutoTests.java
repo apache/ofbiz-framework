@@ -29,6 +29,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
@@ -37,6 +38,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
     public ServiceEntityAutoTests(String name) {
         super(name);
     }
+    private final LocalDispatcher dispatcher = getDispatcher();
 
     @Override
     protected void setUp() throws Exception {
@@ -46,6 +48,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test entity auto create singl pk entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoCreateSinglPkEntity() throws Exception {
         //test create with given pk
         Map<String, Object> testingPkPresentMap = new HashMap<>();
@@ -69,6 +75,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertTrue(ServiceUtil.isError(results));
     }
 
+    /**
+     * Test entity auto create double pk entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoCreateDoublePkEntity() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_2");
 
@@ -99,6 +109,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //assertEquals("", ServiceUtil.getErrorMessage(results));
     }
 
+    /**
+     * Test entity auto create multi pk entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoCreateMultiPkEntity() throws Exception {
         delegator.create("TestingNode", "testingNodeId", "NODE_1");
         delegator.create("Testing", "testingId", "TESTING_3");
@@ -122,6 +136,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertTrue(ServiceUtil.isSuccess(results));
     }
 
+    /**
+     * Test entity auto update entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoUpdateEntity() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_4", "testingName", "entity auto testing");
 
@@ -139,6 +157,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
     }
 
+    /**
+     * Test entity auto delete entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoDeleteEntity() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_5");
 
@@ -156,6 +178,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFoundForRemove", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
     }
 
+    /**
+     * Test entity auto expire entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoExpireEntity() throws Exception {
         Timestamp now = UtilDateTime.nowTimestamp();
         delegator.create("Testing", "testingId", "TESTING_6");
@@ -195,6 +221,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
     }
 
 
+    /**
+     * Test entity auto entity status concept.
+     * @throws Exception the exception
+     */
     public void testEntityAutoEntityStatusConcept() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_7");
         delegator.create("StatusType", "statusTypeId", "TESTINGSTATUS");

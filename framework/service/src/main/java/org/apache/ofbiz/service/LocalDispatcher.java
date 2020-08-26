@@ -72,8 +72,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    Map<String, Object> runSync(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    Map<String, Object> runSync(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service synchronously and IGNORE the result.
@@ -95,8 +97,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
@@ -110,8 +114,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    void runAsync(String serviceName, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist, int transactionTimeout,
+                  boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction,
+                  Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
@@ -123,8 +129,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    void runAsync(String serviceName, GenericRequester requester, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, GenericRequester requester, boolean persist, Object... context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
@@ -136,8 +144,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    void runAsync(String serviceName, GenericRequester requester, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, GenericRequester requester, Object... context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously and IGNORE the result.
@@ -148,8 +158,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void runAsync(String serviceName, Map<String, ? extends Object> context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    void runAsync(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, Map<String, ? extends Object> context, boolean persist)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, boolean persist, Object... context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously and IGNORE the result. This method WILL persist the job.
@@ -159,7 +171,8 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void runAsync(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    void runAsync(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException,
+            ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously.
@@ -171,8 +184,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    GenericResultWaiter runAsyncWait(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context, boolean persist)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    GenericResultWaiter runAsyncWait(String serviceName, boolean persist, Object... context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously. This method WILL persist the job.
@@ -183,7 +198,8 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
+    GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Register a callback listener on a specific service.
@@ -207,8 +223,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException;
-    void schedule(String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, Object... context) throws GenericServiceException;
+    void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency,
+                  int interval, int count, long endTime, int maxRetry) throws GenericServiceException;
+    void schedule(String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime,
+                  int maxRetry, Object... context) throws GenericServiceException;
 
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -226,8 +244,10 @@ public interface LocalDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException;
-    void schedule(String jobName, String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, Object... context) throws GenericServiceException;
+    void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime,
+                  int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException;
+    void schedule(String jobName, String poolName, String serviceName, long startTime, int frequency, int interval, int count,
+                  long endTime, int maxRetry, Object... context) throws GenericServiceException;
 
 
     /**
@@ -241,8 +261,10 @@ public interface LocalDispatcher {
      * @param endTime The time in milliseconds the service should expire
      * @throws GenericServiceException
      */
-    void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException;
-    void schedule(String serviceName, long startTime, int frequency, int interval, int count, long endTime, Object... context) throws GenericServiceException;
+    void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval,
+                  int count, long endTime) throws GenericServiceException;
+    void schedule(String serviceName, long startTime, int frequency, int interval, int count, long endTime, Object... context)
+            throws GenericServiceException;
 
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -254,8 +276,10 @@ public interface LocalDispatcher {
      * @param count The number of times to repeat.
      * @throws GenericServiceException
      */
-    void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws GenericServiceException;
-    void schedule(String serviceName, long startTime, int frequency, int interval, int count, Object... context) throws GenericServiceException;
+    void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval,
+                  int count) throws GenericServiceException;
+    void schedule(String serviceName, long startTime, int frequency, int interval, int count, Object... context)
+            throws GenericServiceException;
 
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -267,8 +291,9 @@ public interface LocalDispatcher {
      * @param endTime The time in milliseconds the service should expire
      * @throws GenericServiceException
      */
-    void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException;
-    void schedule(String serviceName, long startTime, int frequency, int interval, long endTime, Object... context) throws GenericServiceException;
+    void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval,
+                  long endTime) throws GenericServiceException;
+    void schedule(String serviceName, long startTime, int frequency, int interval, long endTime, Object... context)throws GenericServiceException;
 
     /**
      * Schedule a service to run asynchronously at a specific start time.

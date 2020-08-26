@@ -42,16 +42,17 @@ public class TreeFactory {
 
     private static final String MODULE = TreeFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelTree>> treeLocationCache = UtilCache.createUtilCache("widget.tree.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelTree>> TREE_LOCATION_CACHE =
+            UtilCache.createUtilCache("widget.tree.locationResource", 0, 0, false);
 
     public static ModelTree getTreeFromLocation(String resourceName, String treeName, Delegator delegator, LocalDispatcher dispatcher)
             throws IOException, SAXException, ParserConfigurationException {
-        Map<String, ModelTree> modelTreeMap = treeLocationCache.get(resourceName);
+        Map<String, ModelTree> modelTreeMap = TREE_LOCATION_CACHE.get(resourceName);
         if (modelTreeMap == null) {
             URL treeFileUrl = FlexibleLocation.resolveLocation(resourceName);
             Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true, true);
             modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, resourceName);
-            modelTreeMap = treeLocationCache.putIfAbsentAndGet(resourceName, modelTreeMap);
+            modelTreeMap = TREE_LOCATION_CACHE.putIfAbsentAndGet(resourceName, modelTreeMap);
         }
         ModelTree modelTree = modelTreeMap.get(treeName);
         if (modelTree == null) {
@@ -61,7 +62,8 @@ public class TreeFactory {
         return modelTree;
     }
 
-    public static Map<String, ModelTree> readTreeDocument(Document treeFileDoc, Delegator delegator, LocalDispatcher dispatcher, String treeLocation) {
+    public static Map<String, ModelTree> readTreeDocument(Document treeFileDoc, Delegator delegator,
+                                                          LocalDispatcher dispatcher, String treeLocation) {
         Map<String, ModelTree> modelTreeMap = new HashMap<>();
         if (treeFileDoc != null) {
             // read document and construct ModelTree for each tree element

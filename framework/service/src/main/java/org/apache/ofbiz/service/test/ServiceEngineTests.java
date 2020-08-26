@@ -38,8 +38,12 @@ public class ServiceEngineTests extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test basic java invocation.
+     * @throws Exception the exception
+     */
     public void testBasicJavaInvocation() throws Exception {
-        Map<String, Object> result = dispatcher.runSync("testScv", UtilMisc.toMap("message", "Unit Test"));
+        Map<String, Object> result = getDispatcher().runSync("testScv", UtilMisc.toMap("message", "Unit Test"));
         assertEquals("Service result success", ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE));
     }
 }

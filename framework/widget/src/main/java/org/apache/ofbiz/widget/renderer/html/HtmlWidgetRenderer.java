@@ -34,16 +34,32 @@ public class HtmlWidgetRenderer {
      * Characters that are appended to the end of each rendered element. Currently set to
      * CR/LF.
      */
-    public static final String whiteSpace = "\r\n";
+    public static final String WHITE_SPACE = "\r\n";
 
-    protected boolean widgetCommentsEnabled = false;
+    /**
+     * Sets widget comments enabled.
+     * @param widgetCommentsEnabled the widget comments enabled
+     */
+    public void setWidgetCommentsEnabled(boolean widgetCommentsEnabled) {
+        this.widgetCommentsEnabled = widgetCommentsEnabled;
+    }
+
+    private boolean widgetCommentsEnabled = false;
+
+    /**
+     * Is widget comments enabled boolean.
+     * @return the boolean
+     */
+    public boolean isWidgetCommentsEnabled() {
+        return widgetCommentsEnabled;
+    }
 
     /**
      * Helper method used to append whitespace characters to the end of each rendered element.
      * @param writer The writer to write to
      */
     public void appendWhitespace(Appendable writer) throws IOException {
-        writer.append(whiteSpace);
+        writer.append(WHITE_SPACE);
     }
 
     /**
@@ -57,11 +73,11 @@ public class HtmlWidgetRenderer {
     }
 
     public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
-        return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + whiteSpace;
+        return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
     }
 
     public static String formatBoundaryJsComment(String boundaryType, String widgetType, String widgetName) {
-        return "// " + boundaryType + " " + widgetType + " " + widgetName + whiteSpace;
+        return "// " + boundaryType + " " + widgetType + " " + widgetName + WHITE_SPACE;
     }
 
     /**
