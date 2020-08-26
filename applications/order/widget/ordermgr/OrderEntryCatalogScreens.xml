@@ -166,6 +166,7 @@ under the License.
                 <set field="showPriceDetails" value="Y"/>
                 <!-- Warning: this groovy file in the order component is slightly different from that of the ecommerce one (the currency is taken from the cart) -->
                 <script location="component://order/groovyScripts/entry/catalog/ProductDetail.groovy"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>

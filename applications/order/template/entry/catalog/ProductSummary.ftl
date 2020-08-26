@@ -89,6 +89,11 @@ ${virtualJavaScript!}
             <tr>
               <th>${uiLabelMap.CommonDescription}</th><td>${productContentWrapper.get("DESCRIPTION", "html")!}</td>
             </tr>
+            <#if request.getAttribute("highlightLabel")??>
+            <tr>
+              <th>${request.getAttribute("highlightLabelTitle")}</th><td>${request.getAttribute("highlightLabel")}</td>
+            </tr>
+            </#if>
           </table>
         </div>
         <script type="application/javascript">

@@ -654,12 +654,10 @@ ${virtualJavaScript!}
     <div class="productsummary-container">
     <div class="row">
     <#list assocProducts as productAssoc>
-        <div>
-          <a href="<@ofbizUrl>${targetRequest}/<#if categoryId??>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo!}</@ofbizUrl>" class="buttontext">
-            ${productAssoc.productIdTo!}
-          </a>
-          - <b>${productAssoc.reason!}</b>
-        </div>
+        <#if productAssoc.reason?has_content>
+          ${setRequestAttribute("highlightLabelTitle", uiLabelMap.FormFieldTitle_reason)}
+          ${setRequestAttribute("highlightLabel", productAssoc.reason)}
+        </#if>
       ${setRequestAttribute("optProductId", productAssoc.productIdTo)}
       ${setRequestAttribute("listIndex", listIndex)}
       ${setRequestAttribute("formNamePrefix", formNamePrefix)}
