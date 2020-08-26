@@ -740,7 +740,7 @@ under the License.
         </entity-and>
 
         <first-from-list list="curUserPartyAndContactMechs" entry="curUserPartyAndContactMech"/>
-        <string-append field="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
+        <string-append field="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}"/>
 
         <!-- find email addresses of partyIdFrom, set as sendTo -->
         <set from-field="shipment.partyIdFrom" field="sendToPartyIdMap.${shipment.partyIdFrom}"/>
