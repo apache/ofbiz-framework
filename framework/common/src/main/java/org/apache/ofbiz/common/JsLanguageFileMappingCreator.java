@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,7 +40,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 import freemarker.template.TemplateException;
 
-// Use the createJsLanguageFileMapping service to create or update the JsLanguageFilesMapping.java. You will still need to compile thereafter
+// Use the createJsLanguageFileMapping service to create or update JsLanguageFilesMapping.java and JsLanguageFilesMapping.ftl files. 
+// You will still need to compile thereafter
 
 public class JsLanguageFileMappingCreator {
 
