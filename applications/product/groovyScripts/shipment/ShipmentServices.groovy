@@ -470,7 +470,7 @@ def sendShipmentScheduledNotification() {
         sendTos << from("PartyAndContactMech")
                 .where(partyId: entry.getKey(),
                         contactMechTypeId: "EMAIL_ADDRESS")
-                .getFieldList("sendTo")
+                .getFieldList("infoString")
     }
     sendEmailMap.sendTo = sendTos.join(',')
 
