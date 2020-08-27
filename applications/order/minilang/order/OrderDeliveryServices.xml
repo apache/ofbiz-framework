@@ -88,7 +88,7 @@ under the License.
         <set field="curUserPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <find-by-and entity-name="PartyAndContactMech" map="curUserPcmFindMap" list="curUserPartyAndContactMechs"/>
         <first-from-list list="curUserPartyAndContactMechs" entry="curUserPartyAndContactMech"/>
-        <string-append field="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
+        <set field="sendEmailMap.sendFrom" from-field="curUserPartyAndContactMech.infoString"/>
 
         <!-- find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo -->
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>

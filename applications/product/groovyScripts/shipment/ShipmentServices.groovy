@@ -448,7 +448,7 @@ def sendShipmentScheduledNotification() {
             .where(partyId: userLogin.partyId,
                     contactMechTypeId: "EMAIL_ADDRESS")
             .queryFirst()
-    Map sendEmailMap = [sendFrom: ("," + curUserPartyAndContactMech.infoString)]
+    Map sendEmailMap = [sendFrom: curUserPartyAndContactMech.infoString]
 
     // find email addresses of partyIdFrom, set as sendTo
     Map sendToPartyIdMap = [:]
@@ -467,12 +467,15 @@ def sendShipmentScheduledNotification() {
     // go through all send to parties and get email addresses
     List sendTos = []
     for (Map.Entry entry : sendToPartyIdMap) {
-        sendTos << from("PartyAndContactMech")
+        List sendToPartyAndContactMechs = from("PartyAndContactMech")
                 .where(partyId: entry.getKey(),
                         contactMechTypeId: "EMAIL_ADDRESS")
                 .getFieldList("infoString")
+        sendToPartyAndContactMechs.each {
+            sendTos << it
+        }
     }
-    sendEmailMap.sendTo = sendTos.join(',')
+    sendEmailMap.sendTo = sendTos.join(",")
 
     // set subject, contentType, templateName, templateData
     sendEmailMap.subject = "Scheduled Notification for Shipment " + shipment.shipmentId
