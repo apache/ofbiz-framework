@@ -40,7 +40,7 @@ under the License.
             <actions>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/node_modules/jquery/dist/jquery.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js" global="true"/>
             </actions>
             <widgets>

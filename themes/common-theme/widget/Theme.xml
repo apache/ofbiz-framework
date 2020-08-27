@@ -59,7 +59,7 @@ under the License.
         <!--javascript libs-->
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery/dist/jquery.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"/>
