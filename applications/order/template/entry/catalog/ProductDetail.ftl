@@ -433,9 +433,11 @@ ${virtualJavaScript!}
       <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform"  style="margin: 0;">
         <#if requestAttributes.paramMap?has_content>
           <input type="hidden" name="itemComment" value="${requestAttributes.paramMap.itemComment!}" />
+          <input type="hidden" name="useAsDefaultComment" value="${requestAttributes.paramMap.useAsDefaultComment!}" />
           <input type="hidden" name="shipBeforeDate" value="${requestAttributes.paramMap.shipBeforeDate!}" />
           <input type="hidden" name="shipAfterDate" value="${requestAttributes.paramMap.shipAfterDate!}" />
           <input type="hidden" name="itemDesiredDeliveryDate" value="${requestAttributes.paramMap.itemDesiredDeliveryDate!}" />
+          <input type="hidden" name="useAsDefaultDesiredDeliveryDate" value="${requestAttributes.paramMap.useAsDefaultDesiredDeliveryDate!}" />
         </#if>
         <#assign inStock = true>
         <#-- Variant Selection -->
