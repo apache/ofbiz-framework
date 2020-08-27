@@ -64,7 +64,7 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.format-1.2.3-min.js"/>

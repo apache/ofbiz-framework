@@ -74,7 +74,8 @@ public final class JsLanguageFilesMapping {
 
     public static class validation {
         private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultValidation = "/common/js/jquery/plugins/validate/localization/messages_en.js";
+        <#--TODO Handle defaultValidation as messages_en is missing with the default distribution-->
+        private static String defaultValidation = "/common/js/node_modules/jquery-validation/dist/localization/messages_en.js";
 
         static {
             <#list validation.keySet() as validationFiles>
