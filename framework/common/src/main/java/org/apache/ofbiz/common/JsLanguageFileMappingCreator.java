@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 import freemarker.template.TemplateException;
 
-// Use the createJsLanguageFileMapping service to create or update JsLanguageFilesMapping.java and JsLanguageFilesMapping.ftl files. 
+// Use the createJsLanguageFileMapping service to create or update JsLanguageFilesMapping.java and JsLanguageFilesMapping.ftl files.
 // You will still need to compile thereafter
 
 public class JsLanguageFileMappingCreator {
@@ -224,7 +224,8 @@ public class JsLanguageFileMappingCreator {
             FileUtils.writeStringToFile(file, writer.toString(), encoding);
         } catch (IOException | TemplateException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale) context.get("locale")));
+            return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated",
+                    UtilMisc.toMap("errorString", e.getMessage()), (Locale) context.get("locale")));
         }
 
         return result;
