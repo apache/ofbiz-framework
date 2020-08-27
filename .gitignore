@@ -37,3 +37,4 @@ desktop.ini
 .*.swp
 .*.swo
 *.patch
+node_modules/
