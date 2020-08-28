@@ -987,7 +987,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
                 if (setIfEmpty) {
                     // if empty string, set to null
-                    if (field != null && field instanceof String && ((String) field).length() == 0) {
+                    if (field != null && field instanceof String && ((String) field).isEmpty()) {
                         this.set(curField.getName(), null);
                     } else {
                         this.set(curField.getName(), field);
@@ -999,7 +999,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                         if (field instanceof String) {
                             String fieldStr = (String) field;
 
-                            if (fieldStr.length() > 0) {
+                            if (!fieldStr.isEmpty()) {
                                 this.set(curField.getName(), fieldStr);
                             }
                         } else {
@@ -1287,7 +1287,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             }
         }
 
-        if (cdataMap.size() == 0) {
+        if (cdataMap.isEmpty()) {
             writer.println("/>");
         } else {
             writer.println('>');

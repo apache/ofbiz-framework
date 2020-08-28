@@ -47,13 +47,20 @@ public class RmiServiceEngine extends GenericAsyncEngine {
         run(modelService, context);
     }
 
+    /**
+     * Run map.
+     * @param service the service
+     * @param context the context
+     * @return the map
+     * @throws GenericServiceException the generic service exception
+     */
     protected Map<String, Object> run(ModelService service, Map<String, Object> context) throws GenericServiceException {
         // locate the remote dispatcher
         RemoteDispatcher rd = null;
         try {
             rd = (RemoteDispatcher) Naming.lookup(this.getLocation(service));
         } catch (NotBoundException e) {
-            throw new GenericServiceException("RemoteDispatcher not bound to : " + service.location, e);
+            throw new GenericServiceException("RemoteDispatcher not bound to : " + service.getLocation(), e);
         } catch (java.net.MalformedURLException e) {
             throw new GenericServiceException("Invalid format for location");
         } catch (RemoteException e) {
@@ -63,7 +70,7 @@ public class RmiServiceEngine extends GenericAsyncEngine {
         Map<String, Object> result = null;
         if (rd != null) {
             try {
-                result = rd.runSync(service.invoke, context);
+                result = rd.runSync(service.getInvoke(), context);
             } catch (RemoteException e) {
                 throw new GenericServiceException("RMI Invocation Error", e);
             }

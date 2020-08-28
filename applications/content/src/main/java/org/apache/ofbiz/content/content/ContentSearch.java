@@ -111,25 +111,28 @@ public class ContentSearch {
         }
     }
 
+    /**
+     * The type Content search context.
+     */
     public static class ContentSearchContext {
-        public int index = 1;
-        public List<EntityCondition> entityConditionList = new LinkedList<>();
-        public List<String> orderByList = new LinkedList<>();
-        public Set<String> fieldsToSelect = UtilMisc.toSet("contentId");
-        public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
-        public boolean contentIdGroupBy = false;
-        public boolean includedKeywordSearch = false;
-        public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<>();
-        public Set<String> orKeywordFixedSet = new HashSet<>();
-        public Set<String> andKeywordFixedSet = new HashSet<>();
-        public List<GenericValue> contentSearchConstraintList = new LinkedList<>();
-        public ResultSortOrder resultSortOrder = null;
-        public Integer resultOffset = null;
-        public Integer maxResults = null;
-        protected Delegator delegator = null;
-        protected String visitId = null;
-        protected Integer totalResults = null;
+        private int index = 1;
+        private List<EntityCondition> entityConditionList = new LinkedList<>();
+        private List<String> orderByList = new LinkedList<>();
+        private Set<String> fieldsToSelect = UtilMisc.toSet("contentId");
+        private DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
+        private boolean contentIdGroupBy = false;
+        private boolean includedKeywordSearch = false;
+        private Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+        private List<Set<String>> keywordFixedOrSetAndList = new LinkedList<>();
+        private Set<String> orKeywordFixedSet = new HashSet<>();
+        private Set<String> andKeywordFixedSet = new HashSet<>();
+        private List<GenericValue> contentSearchConstraintList = new LinkedList<>();
+        private ResultSortOrder resultSortOrder = null;
+        private Integer resultOffset = null;
+        private Integer maxResults = null;
+        private Delegator delegator = null;
+        private String visitId = null;
+        private Integer totalResults = null;
 
         public ContentSearchContext(Delegator delegator, String visitId) {
             this.delegator = delegator;
@@ -137,10 +140,18 @@ public class ContentSearch {
             dynamicViewEntity.addMemberEntity("CNT", "Content");
         }
 
+        /**
+         * Gets delegator.
+         * @return the delegator
+         */
         public Delegator getDelegator() {
             return this.delegator;
         }
 
+        /**
+         * Add content search constraints.
+         * @param contentSearchConstraintList the content search constraint list
+         */
         public void addContentSearchConstraints(List<? extends ContentSearchConstraint> contentSearchConstraintList) {
             // Go through the constraints and add them in
             for (ContentSearchConstraint constraint: contentSearchConstraintList) {
@@ -148,22 +159,42 @@ public class ContentSearch {
             }
         }
 
+        /**
+         * Sets result sort order.
+         * @param resultSortOrder the result sort order
+         */
         public void setResultSortOrder(ResultSortOrder resultSortOrder) {
             this.resultSortOrder = resultSortOrder;
         }
 
+        /**
+         * Sets result offset.
+         * @param resultOffset the result offset
+         */
         public void setResultOffset(Integer resultOffset) {
             this.resultOffset = resultOffset;
         }
 
+        /**
+         * Sets max results.
+         * @param maxResults the max results
+         */
         public void setMaxResults(Integer maxResults) {
             this.maxResults = maxResults;
         }
 
+        /**
+         * Gets total results.
+         * @return the total results
+         */
         public Integer getTotalResults() {
             return this.totalResults;
         }
 
+        /**
+         * Do search array list.
+         * @return the array list
+         */
         public ArrayList<String> doSearch() {
             long startMillis = System.currentTimeMillis();
 
@@ -185,7 +216,7 @@ public class ContentSearch {
         }
 
         public void finishKeywordConstraints() {
-            if (orKeywordFixedSet.size() == 0 && andKeywordFixedSet.size() == 0 && keywordFixedOrSetAndList.size() == 0) {
+            if (orKeywordFixedSet.isEmpty() && andKeywordFixedSet.isEmpty() && keywordFixedOrSetAndList.isEmpty()) {
                 return;
             }
 
@@ -193,7 +224,7 @@ public class ContentSearch {
             this.includedKeywordSearch = true;
 
             // if there is anything in the orKeywordFixedSet add it to the keywordFixedOrSetAndList
-            if (orKeywordFixedSet.size() > 0) {
+            if (!orKeywordFixedSet.isEmpty()) {
                 // put in keywordFixedOrSetAndList to process with other or lists where at least one is required
                 keywordFixedOrSetAndList.add(orKeywordFixedSet);
             }
@@ -202,7 +233,7 @@ public class ContentSearch {
             Iterator<Set<String>> keywordFixedOrSetAndTestIter = keywordFixedOrSetAndList.iterator();
             while (keywordFixedOrSetAndTestIter.hasNext()) {
                 Set<String> keywordFixedOrSet = keywordFixedOrSetAndTestIter.next();
-                if (keywordFixedOrSet.size() == 0) {
+                if (keywordFixedOrSet.isEmpty()) {
                     keywordFixedOrSetAndTestIter.remove();
                 } else if (keywordFixedOrSet.size() == 1) {
                     // treat it as just another and
@@ -211,12 +242,12 @@ public class ContentSearch {
                 }
             }
 
-            boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (keywordFixedOrSetAndList.size() > 0 && andKeywordFixedSet.size() > 0);
+            boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (!keywordFixedOrSetAndList.isEmpty() && !andKeywordFixedSet.isEmpty());
 
             Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
 
             ComplexAlias relevancyComplexAlias = new ComplexAlias("+");
-            if (andKeywordFixedSet.size() > 0) {
+            if (!andKeywordFixedSet.isEmpty()) {
                 // add up the relevancyWeight fields from all keyword member entities for a total to sort by
 
                 for (String keyword: andKeywordFixedSet) {
@@ -240,7 +271,7 @@ public class ContentSearch {
                     dynamicViewEntity.addAlias(null, "totalRelevancy", null, null, null, null, null, relevancyComplexAlias);
                 }
             }
-            if (keywordFixedOrSetAndList.size() > 0) {
+            if (!keywordFixedOrSetAndList.isEmpty()) {
                 for (Set<String> keywordFixedOrSet: keywordFixedOrSetAndList) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
@@ -445,10 +476,10 @@ public class ContentSearch {
 
     @SuppressWarnings("serial")
     public static class ContentAssocConstraint extends ContentSearchConstraint {
-        public static final String constraintName = "ContentAssoc";
-        protected String contentId;
-        protected String contentAssocTypeId;
-        protected boolean includeSubContents;
+        public static final String CONSTRAINT_NAME = "ContentAssoc";
+        private String contentId;
+        private String contentAssocTypeId;
+        private boolean includeSubContents;
 
         public ContentAssocConstraint(String contentId, String contentAssocTypeId, boolean includeSubContents) {
             this.contentId = contentId;
@@ -519,7 +550,7 @@ public class ContentSearch {
 
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.contentId + "," + this.contentAssocTypeId)));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.contentId + "," + this.contentAssocTypeId)));
         }
 
 
@@ -607,12 +638,12 @@ public class ContentSearch {
 
     @SuppressWarnings("serial")
     public static class KeywordConstraint extends ContentSearchConstraint {
-        public static final String constraintName = "Keyword";
-        protected String keywordsString;
-        protected boolean anyPrefix;
-        protected boolean anySuffix;
-        protected boolean isAnd;
-        protected boolean removeStems;
+        public static final String CONSTRAINT_NAME = "Keyword";
+        private String keywordsString;
+        private boolean anyPrefix;
+        private boolean anySuffix;
+        private boolean isAnd;
+        private boolean removeStems;
 
         public KeywordConstraint(String keywordsString, boolean anyPrefix, boolean anySuffix, Boolean removeStems, boolean isAnd) {
             this.keywordsString = keywordsString;
@@ -675,7 +706,7 @@ public class ContentSearch {
             }
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            Map<String, String> valueMap = UtilMisc.toMap("constraintName", constraintName, "infoString", this.keywordsString);
+            Map<String, String> valueMap = UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.keywordsString);
             valueMap.put("anyPrefix", this.anyPrefix ? "Y" : "N");
             valueMap.put("anySuffix", this.anySuffix ? "Y" : "N");
             valueMap.put("isAnd", this.isAnd ? "Y" : "N");
@@ -735,9 +766,9 @@ public class ContentSearch {
 
     @SuppressWarnings("serial")
     public static class LastUpdatedRangeConstraint extends ContentSearchConstraint {
-        public static final String constraintName = "LastUpdatedRange";
-        protected Timestamp fromDate;
-        protected Timestamp thruDate;
+        public static final String CONSTRAINT_NAME = "LastUpdatedRange";
+        private Timestamp fromDate;
+        private Timestamp thruDate;
 
         public LastUpdatedRangeConstraint(Timestamp fromDate, Timestamp thruDate) {
             this.fromDate = fromDate != null ? (Timestamp) fromDate.clone() : null;
@@ -749,24 +780,25 @@ public class ContentSearch {
             contentSearchContext.dynamicViewEntity.addAlias("CNT", "lastModifiedDate", "lastModifiedDate", null, null, null, null);
 
             EntityConditionList<EntityExpr> dateConditions = null;
-            EntityExpr dateCondition=null;
-            if (fromDate !=null && thruDate!=null) {
-            dateConditions= EntityCondition.makeCondition(UtilMisc.toList(
+            EntityExpr dateCondition = null;
+            if (fromDate != null && thruDate != null) {
+            dateConditions = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
                     EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate)), EntityOperator.AND);
-            } if (fromDate !=null) {
-                dateCondition=EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
+            }
+            if (fromDate != null) {
+                dateCondition = EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
             } else if (thruDate != null) {
                 dateCondition = EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate);
             }
             EntityConditionList<? extends EntityCondition> conditions = null;
-            if (fromDate !=null && thruDate!=null) {
-                conditions=EntityCondition.makeCondition(UtilMisc.toList(
+            if (fromDate != null && thruDate != null) {
+                conditions = EntityCondition.makeCondition(UtilMisc.toList(
                     dateConditions,
                     EntityCondition.makeCondition("lastModifiedDate", EntityOperator.EQUALS, null)),
                     EntityOperator.OR);
             } else {
-                conditions=EntityCondition.makeCondition(UtilMisc.toList(
+                conditions = EntityCondition.makeCondition(UtilMisc.toList(
                         dateCondition,
                         EntityCondition.makeCondition("lastModifiedDate", EntityOperator.EQUALS, null)),
                         EntityOperator.OR);
@@ -775,7 +807,7 @@ public class ContentSearch {
             contentSearchContext.entityConditionList.add(conditions);
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
         }
 
         /** pretty print for log messages and even UI stuff */
@@ -874,8 +906,8 @@ public class ContentSearch {
 
     @SuppressWarnings("serial")
     public static class SortContentField extends ResultSortOrder {
-        protected String fieldName;
-        protected boolean ascending;
+        private String fieldName;
+        private boolean ascending;
 
         /** Some good field names to try might include:
          * [contentName]

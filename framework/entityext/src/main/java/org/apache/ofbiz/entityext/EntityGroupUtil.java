@@ -69,7 +69,7 @@ public final class EntityGroupUtil {
             }
 
             // if there are no includes records, always include; otherwise check each one to make sure at least one matches
-            if (entityGroupEntryValues.size() == 0) {
+            if (entityGroupEntryValues.isEmpty()) {
                 entityModelToUseList.add(modelEntity);
             } else {
                 // we have different types of include applications: ESIA_INCLUDE, ESIA_EXCLUDE, ESIA_ALWAYS

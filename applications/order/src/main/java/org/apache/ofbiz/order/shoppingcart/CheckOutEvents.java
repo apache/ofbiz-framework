@@ -901,11 +901,11 @@ public class CheckOutEvents {
             }
             //See whether we need to return an error or not
             callResult = ServiceUtil.returnSuccess();
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
-            if (errorMaps.size() > 0) {
+            if (!errorMaps.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
@@ -968,7 +968,7 @@ public class CheckOutEvents {
             // Verify if a gift card has been selected during order entry
             callResult = checkOutHelper.checkGiftCard(paramMap, selectedPaymentMethods);
             ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
-            if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+            if (errorMessages.isEmpty() && errorMaps.isEmpty()) {
                 String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
                 BigDecimal giftCardAmount = (BigDecimal) callResult.get("amount");
                 // WARNING: if gcPaymentMethodId is not empty, all the previously set payment methods will be removed
@@ -977,11 +977,11 @@ public class CheckOutEvents {
             }
             //See whether we need to return an error or not
             callResult = ServiceUtil.returnSuccess();
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
-            if (errorMaps.size() > 0) {
+            if (!errorMaps.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }

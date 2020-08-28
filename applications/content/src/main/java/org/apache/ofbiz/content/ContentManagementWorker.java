@@ -386,7 +386,7 @@ public final class ContentManagementWorker {
                 String publishPointId = publishPointArray[0];
                 List<GenericValue> contentAssocList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentId", publishPointId), null, false);
                 List<GenericValue> filteredList = EntityUtil.filterByDate(contentAssocList);
-                if (filteredList.size() > 0) {
+                if (!filteredList.isEmpty()) {
                     map.put(publishPointId, "Y");
                     GenericValue assoc = filteredList.get(0);
                     Timestamp fromDate = (Timestamp) assoc.get("fromDate");
@@ -543,7 +543,7 @@ public final class ContentManagementWorker {
             Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To",
                     null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.cast(results.get("entityList"));
-            if (valueList.size() > 0) {
+            if (!valueList.isEmpty()) {
                 GenericValue value = valueList.get(0);
                 authorContent = delegator.makeValue("Content");
                 authorContent.setPKFields(value);
@@ -632,7 +632,7 @@ public final class ContentManagementWorker {
 
         List<EntityCondition> conditionMain = new ArrayList<>();
         conditionMain.add(EntityCondition.makeCondition("contentIdTo", contentId));
-        if (typeList.size() > 0) {
+        if (!typeList.isEmpty()) {
             conditionMain.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList));
         }
         List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc").where(conditionMain)

@@ -76,7 +76,7 @@ public final class MiniLangUtil {
      * @return <code>true</code> if <code>str</code> contains a script
      */
     public static boolean containsScript(String str) {
-        if (str.length() > 0) {
+        if (!str.isEmpty()) {
             for (String scriptPrefix : SCRIPT_PREFIXES) {
                 if (str.contains(scriptPrefix)) {
                     return true;
@@ -230,7 +230,7 @@ public final class MiniLangUtil {
      * constant value
      */
     public static boolean isConstantAttribute(String attributeValue) {
-        if (attributeValue.length() > 0) {
+        if (!attributeValue.isEmpty()) {
             return !FlexibleStringExpander.containsExpression(FlexibleStringExpander.getInstance(attributeValue));
         }
         return true;
@@ -245,7 +245,7 @@ public final class MiniLangUtil {
      * constant value or a constant plus expression value
      */
     public static boolean isConstantPlusExpressionAttribute(String attributeValue) {
-        if (attributeValue.length() > 0) {
+        if (!attributeValue.isEmpty()) {
             if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                 // A lot of existing code uses concatenated expressions, and they can be difficult
                 // to convert to a single expression, so we will allow them for now.

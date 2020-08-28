@@ -100,7 +100,7 @@ public final class Iterate extends MethodOperation {
             }
         } else if (objList instanceof Collection<?>) {
             Collection<Object> theCollection = UtilGenerics.cast(objList);
-            if (theCollection.size() == 0) {
+            if (theCollection.isEmpty()) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Collection has zero entries, doing nothing: " + this, MODULE);
                 }

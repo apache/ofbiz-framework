@@ -36,12 +36,12 @@ import org.w3c.dom.Element;
 public final class ServiceMcaUtil {
 
     private static final String MODULE = ServiceMcaUtil.class.getName();
-    private static final UtilCache<String, ServiceMcaRule> mcaCache = UtilCache.createUtilCache("service.ServiceMCAs", 0, 0, false);
+    private static final UtilCache<String, ServiceMcaRule> MCA_CACHE = UtilCache.createUtilCache("service.ServiceMCAs", 0, 0, false);
 
     private ServiceMcaUtil() { }
 
     public static void reloadConfig() {
-        mcaCache.clear();
+        MCA_CACHE.clear();
         readConfig();
     }
 
@@ -66,7 +66,7 @@ public final class ServiceMcaUtil {
         int numDefs = 0;
         for (Element e: UtilXml.childElementList(rootElement, "mca")) {
             String ruleName = e.getAttribute("mail-rule-name");
-            mcaCache.put(ruleName, new ServiceMcaRule(e));
+            MCA_CACHE.put(ruleName, new ServiceMcaRule(e));
             numDefs++;
         }
 
@@ -82,10 +82,10 @@ public final class ServiceMcaUtil {
     }
 
     public static Collection<ServiceMcaRule> getServiceMcaRules() {
-        if (mcaCache.size() == 0) {
+        if (MCA_CACHE.isEmpty()) {
             readConfig();
         }
-        return mcaCache.values();
+        return MCA_CACHE.values();
     }
 
     public static void evalRules(LocalDispatcher dispatcher, MimeMessageWrapper wrapper, GenericValue userLogin) throws GenericServiceException {

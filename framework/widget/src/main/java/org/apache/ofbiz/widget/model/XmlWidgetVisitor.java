@@ -540,6 +540,11 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         }
     }
 
+    /**
+     * Visit model form.
+     * @param modelForm the model form
+     * @throws Exception the exception
+     */
     public void visitModelForm(ModelForm modelForm) throws Exception {
         visitModelWidget(modelForm);
         if (modelForm.getParentModelForm() != null) {
@@ -617,24 +622,24 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         }
         for (ModelForm.AltTarget target : modelForm.getAltTargets()) {
             writer.append("<alt-target");
-            visitAttribute("use-when", target.useWhen);
-            visitAttribute("target", target.targetExdr);
+            visitAttribute("use-when", target.getUseWhen());
+            visitAttribute("target", target.getTargetExdr());
             writer.append("/>");
         }
         for (ModelForm.AutoFieldsService service : modelForm.getAutoFieldsServices()) {
             writer.append("<auto-fields-service");
-            visitAttribute("service-name", service.serviceName);
-            visitAttribute("map-name", service.mapName);
-            visitAttribute("default-field-type", service.defaultFieldType);
-            visitAttribute("default-position", service.defaultPosition);
+            visitAttribute("service-name", service.getServiceName());
+            visitAttribute("map-name", service.getMapName());
+            visitAttribute("default-field-type", service.getDefaultFieldType());
+            visitAttribute("default-position", service.getDefaultPosition());
             writer.append("/>");
         }
         for (ModelForm.AutoFieldsEntity entity : modelForm.getAutoFieldsEntities()) {
             writer.append("<auto-fields-entity");
-            visitAttribute("entity-name", entity.entityName);
-            visitAttribute("map-name", entity.mapName);
-            visitAttribute("default-field-type", entity.defaultFieldType);
-            visitAttribute("default-position", entity.defaultPosition);
+            visitAttribute("entity-name", entity.getEntityName());
+            visitAttribute("map-name", entity.getMapName());
+            visitAttribute("default-field-type", entity.getDefaultFieldType());
+            visitAttribute("default-position", entity.getDefaultPosition());
             writer.append("/>");
         }
         for (ModelFormField field : modelForm.getFieldList()) {

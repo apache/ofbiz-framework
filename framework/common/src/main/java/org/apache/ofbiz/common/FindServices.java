@@ -69,22 +69,22 @@ public class FindServices {
 
     private static final String MODULE = FindServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
-    public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
+    public static final Map<String, EntityComparisonOperator<?, ?>> ENTITY_OPERATORS;
 
     static {
-        entityOperators = new LinkedHashMap<>();
-        entityOperators.put("between", EntityOperator.BETWEEN);
-        entityOperators.put("equals", EntityOperator.EQUALS);
-        entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
-        entityOperators.put("greaterThanEqualTo", EntityOperator.GREATER_THAN_EQUAL_TO);
-        entityOperators.put("in", EntityOperator.IN);
-        entityOperators.put("not-in", EntityOperator.NOT_IN);
-        entityOperators.put("lessThan", EntityOperator.LESS_THAN);
-        entityOperators.put("lessThanEqualTo", EntityOperator.LESS_THAN_EQUAL_TO);
-        entityOperators.put("like", EntityOperator.LIKE);
-        entityOperators.put("notLike", EntityOperator.NOT_LIKE);
-        entityOperators.put("not", EntityOperator.NOT);
-        entityOperators.put("notEqual", EntityOperator.NOT_EQUAL);
+        ENTITY_OPERATORS = new LinkedHashMap<>();
+        ENTITY_OPERATORS.put("between", EntityOperator.BETWEEN);
+        ENTITY_OPERATORS.put("equals", EntityOperator.EQUALS);
+        ENTITY_OPERATORS.put("greaterThan", EntityOperator.GREATER_THAN);
+        ENTITY_OPERATORS.put("greaterThanEqualTo", EntityOperator.GREATER_THAN_EQUAL_TO);
+        ENTITY_OPERATORS.put("in", EntityOperator.IN);
+        ENTITY_OPERATORS.put("not-in", EntityOperator.NOT_IN);
+        ENTITY_OPERATORS.put("lessThan", EntityOperator.LESS_THAN);
+        ENTITY_OPERATORS.put("lessThanEqualTo", EntityOperator.LESS_THAN_EQUAL_TO);
+        ENTITY_OPERATORS.put("like", EntityOperator.LIKE);
+        ENTITY_OPERATORS.put("notLike", EntityOperator.NOT_LIKE);
+        ENTITY_OPERATORS.put("not", EntityOperator.NOT);
+        ENTITY_OPERATORS.put("notEqual", EntityOperator.NOT_EQUAL);
     }
 
     public FindServices() { }
@@ -306,7 +306,7 @@ public class FindServices {
         for (String groupedConditions : savedGroups.keySet()) {
             orConditions.add(EntityCondition.makeCondition(savedGroups.get(groupedConditions)));
         }
-        if (orConditions.size() > 0) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
+        if (!orConditions.isEmpty()) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
 
         return result;
     }
@@ -360,7 +360,7 @@ public class FindServices {
                 EntityCondition endCond = EntityCondition.makeCondition(fieldName, EntityOperator.LESS_THAN, endValue);
                 return EntityCondition.makeCondition(startCond, endCond);
             } else {
-                fieldOp = entityOperators.get(operation);
+                fieldOp = ENTITY_OPERATORS.get(operation);
             }
         } else {
             List<Object> fieldList = (fieldValue instanceof List) ? UtilGenerics.cast(fieldValue) : null;
@@ -608,7 +608,7 @@ public class FindServices {
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become
          * its own condition.
          */
-        if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
+        if (!tmpList.isEmpty() || "Y".equals(noConditionFind)) {
             if ("Y".equals(filterByDate)) {
                 queryStringMap.put("filterByDate", filterByDate);
                 if (UtilValidate.isEmpty(fromDateName)) {
@@ -633,7 +633,7 @@ public class FindServices {
         }
 
         EntityConditionList<EntityCondition> exprList = null;
-        if (tmpList.size() > 0) {
+        if (!tmpList.isEmpty()) {
             exprList = EntityCondition.makeCondition(tmpList);
         }
 

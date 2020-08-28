@@ -56,13 +56,13 @@ public final class AdminServerContainer implements Container {
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
         try {
-            serverSocket = new ServerSocket(cfg.adminPort, 1, cfg.adminAddress);
+            serverSocket = new ServerSocket(cfg.getAdminPort(), 1, cfg.getAdminAddress());
         } catch (IOException e) {
-            String msg = "Couldn't create server socket(" + cfg.adminAddress + ":" + cfg.adminPort + ")";
+            String msg = "Couldn't create server socket(" + cfg.getAdminAddress() + ":" + cfg.getAdminPort() + ")";
             throw new ContainerException(msg, e);
         }
 
-        if (cfg.adminPort > 0) {
+        if (cfg.getAdminPort() > 0) {
             serverThread = new Thread(this::run, "OFBiz-AdminServer");
         } else {
             serverThread = new Thread("OFBiz-AdminServer"); // Dummy thread
@@ -73,7 +73,7 @@ public final class AdminServerContainer implements Container {
 
     // Listens for administration commands.
     private void run() {
-        System.out.println("Admin socket configured on - " + cfg.adminAddress + ":" + cfg.adminPort);
+        System.out.println("Admin socket configured on - " + cfg.getAdminAddress() + ":" + cfg.getAdminPort());
         while (!Thread.interrupted()) {
             try (Socket client = serverSocket.accept()) {
                 System.out.println("Received connection from - " + client.getInetAddress() + " : " + client.getPort());
@@ -104,7 +104,7 @@ public final class AdminServerContainer implements Container {
 
     private void processClientRequest(Socket client) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream(), StandardCharsets.UTF_8));
-             PrintWriter writer = new PrintWriter(new OutputStreamWriter(client.getOutputStream(), StandardCharsets.UTF_8), true)) {
+                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(client.getOutputStream(), StandardCharsets.UTF_8), true)) {
 
             // read client request and prepare response
             String clientRequest = reader.readLine();
@@ -136,7 +136,7 @@ public final class AdminServerContainer implements Container {
     private boolean isValidRequest(String request) {
         return UtilValidate.isNotEmpty(request)
                 && request.contains(":")
-                && request.substring(0, request.indexOf(':')).equals(cfg.adminKey)
+                && request.substring(0, request.indexOf(':')).equals(cfg.getAdminKey())
                 && !request.substring(request.indexOf(':') + 1).isEmpty();
     }
     private static String prepareResponseToClient(OfbizSocketCommand control) {

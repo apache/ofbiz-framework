@@ -61,7 +61,7 @@ import net.fortuna.ical4j.model.property.RRule;
  * when conversion is not possible.
  */
 public class ICalRecurConverter implements TemporalExpressionVisitor {
-    protected static final WeekDay dayOfWeekArray[] = {WeekDay.SU, WeekDay.MO, WeekDay.TU, WeekDay.WE, WeekDay.TH, WeekDay.FR, WeekDay.SA};
+    protected static final WeekDay DAY_OF_WEEK_ARRAY[] = {WeekDay.SU, WeekDay.MO, WeekDay.TU, WeekDay.WE, WeekDay.TH, WeekDay.FR, WeekDay.SA};
 
     @SuppressWarnings("unchecked")
     public static void convert(TemporalExpression expr, PropertyList eventProps) {
@@ -75,7 +75,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             dateStart = converter.dateStart;
             eventProps.add(dateStart);
         }
-        if (dateStart != null && converter.exRuleList.size() > 0) {
+        if (dateStart != null && !converter.exRuleList.isEmpty()) {
             // iCalendar quirk - if exclusions exist, then the start date must be excluded also
             ExDate exdate = new ExDate();
             exdate.getDates().add(dateStart.getDate());
@@ -87,13 +87,13 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         eventProps.addAll(converter.exRuleList);
     }
 
-    protected DtStart dateStart = null;
-    protected List<DateListProperty> incDateList = new LinkedList<>();
-    protected List<DateListProperty> exDateList = new LinkedList<>();
-    protected List<RRule> incRuleList = new LinkedList<>();
-    protected List<ExRule> exRuleList = new LinkedList<>();
-    protected VisitorState state = new VisitorState();
-    protected Stack<VisitorState> stateStack = new Stack<>();
+    private DtStart dateStart = null;
+    private List<DateListProperty> incDateList = new LinkedList<>();
+    private List<DateListProperty> exDateList = new LinkedList<>();
+    private List<RRule> incRuleList = new LinkedList<>();
+    private List<ExRule> exRuleList = new LinkedList<>();
+    private VisitorState state = new VisitorState();
+    private Stack<VisitorState> stateStack = new Stack<>();
 
     protected ICalRecurConverter() { }
 
@@ -118,13 +118,13 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
                 freqCount = recur.getInterval();
             }
         }
-        if (freq == null && monthList.size() > 0) {
+        if (freq == null && !monthList.isEmpty()) {
             freq = Recur.MONTHLY;
-        } else if (freq == null && (monthDayList.size() > 0 || weekDayList.size() > 0)) {
+        } else if (freq == null && (!monthDayList.isEmpty() || !weekDayList.isEmpty())) {
             freq = Recur.DAILY;
-        } else if (freq == null && hourList.size() > 0) {
+        } else if (freq == null && !hourList.isEmpty()) {
             freq = Recur.HOURLY;
-        } else if (freq == null && minuteList.size() > 0) {
+        } else if (freq == null && !minuteList.isEmpty()) {
             freq = Recur.MINUTELY;
         }
         if (freq == null) {
@@ -181,10 +181,10 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             childExpr.accept(this);
         }
         this.state = this.stateStack.pop();
-        if (newState.inclRecurList.size() > 0) {
+        if (!newState.inclRecurList.isEmpty()) {
             this.incRuleList.add(new RRule(this.consolidateRecurs(newState.inclRecurList)));
         }
-        if (newState.exRecurList.size() > 0) {
+        if (!newState.exRecurList.isEmpty()) {
             this.exRuleList.add(new ExRule(this.consolidateRecurs(newState.exRecurList)));
         }
     }
@@ -200,7 +200,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     }
 
     @Override
-    public void visit(Null expr) {}
+    public void visit(Null expr) { }
 
     @Override
     public void visit(Substitution expr) {
@@ -221,7 +221,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     @Override
     public void visit(TemporalExpressions.DayInMonth expr) {
         Recur recur = new Recur(Recur.MONTHLY, 0);
-        recur.getDayList().add(new WeekDay(dayOfWeekArray[expr.getDayOfWeek() - 1], expr.getOccurrence()));
+        recur.getDayList().add(new WeekDay(DAY_OF_WEEK_ARRAY[expr.getDayOfWeek() - 1], expr.getOccurrence()));
         this.state.addRecur(recur);
     }
 
@@ -247,13 +247,13 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         int startDay = expr.getStartDay();
         int endDay = expr.getEndDay();
         WeekDayList dayList = new WeekDayList();
-        dayList.add(dayOfWeekArray[startDay - 1]);
+        dayList.add(DAY_OF_WEEK_ARRAY[startDay - 1]);
         while (startDay != endDay) {
             startDay++;
             if (startDay > Calendar.SATURDAY) {
                 startDay = Calendar.SUNDAY;
             }
-            dayList.add(dayOfWeekArray[startDay - 1]);
+            dayList.add(DAY_OF_WEEK_ARRAY[startDay - 1]);
         }
         Recur recur = new Recur(Recur.DAILY, 0);
         recur.getDayList().addAll(dayList);
@@ -320,10 +320,15 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     }
 
     protected class VisitorState {
-        public boolean isExcluded = false;
-        public boolean isIntersection = false;
-        public List<Recur> inclRecurList = new LinkedList<>();
-        public List<Recur> exRecurList = new LinkedList<>();
+        private boolean isExcluded = false;
+        private boolean isIntersection = false;
+        private List<Recur> inclRecurList = new LinkedList<>();
+        private List<Recur> exRecurList = new LinkedList<>();
+
+        /**
+         * Add recur.
+         * @param recur the recur
+         */
         public void addRecur(Recur recur) {
             if (this.isIntersection) {
                 if (this.isExcluded) {

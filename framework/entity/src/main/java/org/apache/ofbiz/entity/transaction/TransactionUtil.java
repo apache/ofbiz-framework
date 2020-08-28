@@ -72,8 +72,8 @@ public final class TransactionUtil implements Status {
     private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<>();
     private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<>();
 
-    private static final boolean debugResources = readDebugResources();
-    public static final Map<Xid, DebugXaResource> debugResMap = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
+    private static final boolean DEBUG_RESOURCES = readDebugResources();
+    public static final Map<Xid, DebugXaResource> DEBUG_RES_MAP = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
     // in order to improve performance allThreadsTransactionBeginStack and allThreadsTransactionBeginStackSave are only maintained when logging level INFO is on
     private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<>());
     private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<>());
@@ -525,13 +525,13 @@ public final class TransactionUtil implements Status {
     }
 
     public static boolean debugResources() {
-        return debugResources;
+        return DEBUG_RESOURCES;
     }
 
     public static void logRunningTx() {
         if (debugResources()) {
-            if (UtilValidate.isNotEmpty(debugResMap)) {
-                for (DebugXaResource dxa: debugResMap.values()) {
+            if (UtilValidate.isNotEmpty(DEBUG_RES_MAP)) {
+                for (DebugXaResource dxa: DEBUG_RES_MAP.values()) {
                     dxa.log();
                 }
             }
@@ -872,7 +872,7 @@ public final class TransactionUtil implements Status {
     */
     private static void popTransactionStartStamp(Transaction t) {
         Map<Transaction, Timestamp> map = suspendedTxStartStamps.get();
-        if (map.size() > 0) {
+        if (!map.isEmpty()) {
             Timestamp stamp = map.remove(t);
             if (stamp != null) {
                 transactionStartStamp.set(stamp);

@@ -1098,7 +1098,7 @@ public class DatabaseUtil {
     private Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages,
                                                                     ExecutorService executor) {
         // if there are no tableNames, don't even try to get the columns
-        if (tableNames.size() == 0) {
+        if (tableNames.isEmpty()) {
             return new HashMap<>();
         }
 
@@ -3069,7 +3069,6 @@ public class DatabaseUtil {
 
         /**
          * Gets decimal digits.
-         *
          * @return the decimal digits
          */
         public int getDecimalDigits() {
@@ -3078,7 +3077,6 @@ public class DatabaseUtil {
 
         /**
          * Is pk boolean.
-         *
          * @return the boolean
          */
         public boolean isPk() {
@@ -3087,7 +3085,6 @@ public class DatabaseUtil {
 
         /**
          * Gets column name.
-         *
          * @return the column name
          */
         public String getColumnName() {
@@ -3096,7 +3093,6 @@ public class DatabaseUtil {
 
         /**
          * Gets type name.
-         *
          * @return the type name
          */
         public String getTypeName() {
@@ -3105,7 +3101,6 @@ public class DatabaseUtil {
 
         /**
          * Gets column size.
-         *
          * @return the column size
          */
         public int getColumnSize() {
@@ -3114,7 +3109,6 @@ public class DatabaseUtil {
 
         /**
          * Gets is nullable.
-         *
          * @return the is nullable
          */
         public String getIsNullable() {
@@ -3208,7 +3202,6 @@ public class DatabaseUtil {
 
         /**
          * Gets entity.
-         *
          * @return the entity
          */
         public ModelEntity getEntity() {
@@ -3217,7 +3210,6 @@ public class DatabaseUtil {
 
         /**
          * Sets count.
-         *
          * @param count the count
          */
         public void setCount(int count) {

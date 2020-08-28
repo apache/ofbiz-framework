@@ -48,8 +48,10 @@ import org.xml.sax.SAXException;
 public class GridFactory {
 
     private static final String MODULE = GridFactory.class.getName();
-    private static final UtilCache<String, ModelGrid> gridLocationCache = UtilCache.createUtilCache("widget.grid.locationResource", 0, 0, false);
-    private static final UtilCache<String, ModelGrid> gridWebappCache = UtilCache.createUtilCache("widget.grid.webappResource", 0, 0, false);
+    private static final UtilCache<String, ModelGrid> GRID_LOCATION_CACHE =
+            UtilCache.createUtilCache("widget.grid.locationResource", 0, 0, false);
+    private static final UtilCache<String, ModelGrid> GRID_WEBAPP_CACHE =
+            UtilCache.createUtilCache("widget.grid.webappResource", 0, 0, false);
 
     public static Map<String, ModelGrid> getGridsFromLocation(String resourceName, ModelReader entityModelReader,
                                                               VisualTheme visualTheme, DispatchContext dispatchContext)
@@ -65,7 +67,7 @@ public class GridFactory {
         StringBuilder sb = new StringBuilder(dispatchContext.getDelegator().getDelegatorName());
         sb.append(":").append(resourceName).append("#").append(gridName).append(visualTheme.getVisualThemeId());
         String cacheKey = sb.toString();
-        ModelGrid modelGrid = gridLocationCache.get(cacheKey);
+        ModelGrid modelGrid = GRID_LOCATION_CACHE.get(cacheKey);
         if (modelGrid == null) {
             URL gridFileUrl = FlexibleLocation.resolveLocation(resourceName);
             Document gridFileDoc = UtilXml.readXmlDocument(gridFileUrl, true, true);
@@ -74,7 +76,7 @@ public class GridFactory {
             }
             modelGrid = createModelGrid(gridFileDoc, entityModelReader, visualTheme,
                     dispatchContext, resourceName, gridName);
-            modelGrid = gridLocationCache.putIfAbsentAndGet(cacheKey, modelGrid);
+            modelGrid = GRID_LOCATION_CACHE.putIfAbsentAndGet(cacheKey, modelGrid);
         }
         if (modelGrid == null) {
             throw new IllegalArgumentException("Could not find grid with name [" + gridName + "] in class resource [" + resourceName + "]");
@@ -94,7 +96,7 @@ public class GridFactory {
                 .append("::")
                 .append(visualTheme.getVisualThemeId())
                 .toString();
-        ModelGrid modelGrid = gridWebappCache.get(cacheKey);
+        ModelGrid modelGrid = GRID_WEBAPP_CACHE.get(cacheKey);
         if (modelGrid == null) {
             ServletContext servletContext = request.getServletContext();
             Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -104,10 +106,11 @@ public class GridFactory {
             Element gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "grid", "name", gridName);
             modelGrid = createModelGrid(gridElement, delegator.getModelReader(), visualTheme,
                     dispatcher.getDispatchContext(), resourceName, gridName);
-            modelGrid = gridWebappCache.putIfAbsentAndGet(cacheKey, modelGrid);
+            modelGrid = GRID_WEBAPP_CACHE.putIfAbsentAndGet(cacheKey, modelGrid);
         }
         if (modelGrid == null) {
-            throw new IllegalArgumentException("Could not find grid with name [" + gridName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
+            throw new IllegalArgumentException("Could not find grid with name [" + gridName + "] in webapp resource [" + resourceName
+                    + "] in the webapp [" + webappName + "]");
         }
         return modelGrid;
     }
@@ -129,11 +132,11 @@ public class GridFactory {
                         .append(gridName)
                         .append(visualTheme.getVisualThemeId())
                         .toString();
-                ModelGrid modelGrid = gridLocationCache.get(cacheKey);
+                ModelGrid modelGrid = GRID_LOCATION_CACHE.get(cacheKey);
                 if (modelGrid == null) {
                     modelGrid = createModelGrid(gridElement, entityModelReader, visualTheme,
                             dispatchContext, gridLocation, gridName);
-                    modelGrid = gridLocationCache.putIfAbsentAndGet(cacheKey, modelGrid);
+                    modelGrid = GRID_LOCATION_CACHE.putIfAbsentAndGet(cacheKey, modelGrid);
                 }
                 modelGridMap.put(gridName, modelGrid);
             }

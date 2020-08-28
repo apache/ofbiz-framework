@@ -30,15 +30,15 @@ import org.w3c.dom.Element;
  */
 public class Copy extends SimpleMapOperation {
 
-    boolean replace = true;
-    boolean setIfNull = true;
-    String toField;
+    private boolean replace = true;
+    private boolean setIfNull = true;
+    private String toField;
 
     public Copy(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
         toField = element.getAttribute("to-field");
         if (UtilValidate.isEmpty(this.toField)) {
-            this.toField = this.fieldName;
+            this.toField = this.getFieldName();
         }
         // if anything but false it will be true
         replace = !"false".equals(element.getAttribute("replace"));
@@ -48,11 +48,12 @@ public class Copy extends SimpleMapOperation {
 
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        Object fieldValue = inMap.get(fieldName);
-        if (fieldValue == null && !setIfNull)
+        Object fieldValue = inMap.get(getFieldName());
+        if (fieldValue == null && !setIfNull) {
             return;
+        }
         if (fieldValue instanceof java.lang.String) {
-            if (((String) fieldValue).length() == 0) {
+            if (((String) fieldValue).isEmpty()) {
                 if (setIfNull && (replace || !results.containsKey(toField))) {
                     results.put(toField, null);
                 }
@@ -65,7 +66,8 @@ public class Copy extends SimpleMapOperation {
         } else {
             if (!results.containsKey(toField)) {
                 results.put(toField, fieldValue);
-                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", MODULE);
+                // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField
+                // + "\"", MODULE);
             }
         }
     }

@@ -522,9 +522,7 @@ under the License.
         <xs:attribute type="xs:boolean" name="multi-block" use="optional" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    Multi-block processing of template targeted for the html body.
-                    Inline script will be rendered as external script after html body tag.
-                    External script tag with attribute data-import='head' will be rendered within html head tag.
+                    Inline script will be rendered as external script at bottom of body tag.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

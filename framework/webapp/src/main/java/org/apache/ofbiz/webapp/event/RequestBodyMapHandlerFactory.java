@@ -26,9 +26,9 @@ import javax.servlet.ServletRequest;
 
 /** Factory class that provides the proper <code>RequestBodyMapHandler</code> based on the content type of the <code>ServletRequest</code> */
 public class RequestBodyMapHandlerFactory {
-    private static final Map<String, RequestBodyMapHandler> requestBodyMapHandlers = new HashMap<>();
+    private static final Map<String, RequestBodyMapHandler> REQ_BODY_MAP_HANDLERS = new HashMap<>();
     static {
-        requestBodyMapHandlers.put("application/json", new JSONRequestBodyMapHandler());
+        REQ_BODY_MAP_HANDLERS.put("application/json", new JSONRequestBodyMapHandler());
     }
 
     public static RequestBodyMapHandler getRequestBodyMapHandler(ServletRequest request) {
@@ -36,7 +36,7 @@ public class RequestBodyMapHandlerFactory {
         if (contentType != null && contentType.indexOf(";") != -1) {
             contentType = contentType.substring(0, contentType.indexOf(";"));
         }
-        return requestBodyMapHandlers.get(contentType);
+        return REQ_BODY_MAP_HANDLERS.get(contentType);
     }
 
     public static Map<String, Object> extractMapFromRequestBody(ServletRequest request) throws IOException {

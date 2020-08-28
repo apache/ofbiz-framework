@@ -5949,7 +5949,7 @@
         <value xml:lang="zh-TW">預訂</value>
     </property>
     <property key="OrderManager">
-        <value xml:lang="ar">مدير أمر البيع\الشراء</value>
+        <value xml:lang="ar">مدير أمر</value>
         <value xml:lang="de">Auftragsverwaltung Anwendung</value>
         <value xml:lang="en">Order Manager</value>
         <value xml:lang="es">Gestión de pedidos</value>

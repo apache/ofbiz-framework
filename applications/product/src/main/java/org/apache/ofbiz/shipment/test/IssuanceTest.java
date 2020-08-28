@@ -42,17 +42,21 @@ public class IssuanceTest extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test multiple inventory item issuance.
+     * @throws Exception the exception
+     */
     public void testMultipleInventoryItemIssuance() throws Exception {
         String facilityId = "WebStoreWarehouse";
-        String productId="GZ-2644";
-        String orderId="DEMO81015";
-        String orderItemSeqId="00001";
-        String shipGroupSeqId="00001";
+        String productId = "GZ-2644";
+        String orderId = "DEMO81015";
+        String orderItemSeqId = "00001";
+        String shipGroupSeqId = "00001";
         String shipmentItemSeqId = "00001";
 
-        PackingSession packSession = new PackingSession(dispatcher, getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
+        PackingSession packSession = new PackingSession(getDispatcher(), getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
         packSession.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, productId, BigDecimal.valueOf(6L), 1,
-            BigDecimal.valueOf(1000L), false);
+                BigDecimal.valueOf(1000L), false);
         String shipmentId = packSession.complete(false);
 
         GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
@@ -61,7 +65,7 @@ public class IssuanceTest extends OFBizTestCase {
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
 
         assertFalse("No OrderShipment for order", UtilValidate.isEmpty(orderShipments));
-        assertEquals( "Incorrect number of OrderShipments for order", 1, orderShipments.size());
+        assertEquals("Incorrect number of OrderShipments for order", 1, orderShipments.size());
 
         GenericValue orderShipment = orderShipments.get(0);
         assertEquals(orderItemSeqId, orderShipment.getString("orderItemSeqId"));
@@ -74,7 +78,7 @@ public class IssuanceTest extends OFBizTestCase {
         // Test the ItemIssuances are correct
         List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("inventoryItemId"), false);
         assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
-        assertEquals( "Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
+        assertEquals("Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
 
         GenericValue itemIssuance = itemIssuances.get(0);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));

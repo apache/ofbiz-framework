@@ -304,7 +304,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                     // obtain the model and get the valid context
                     ModelService model = dctx.getModelService(service);
                     Map<String, Object> thisContext;
-                    if (model.validate) {
+                    if (model.isValidate()) {
                         thisContext = model.makeValid(context, ModelService.IN_PARAM);
                     } else {
                         thisContext = new HashMap<>();

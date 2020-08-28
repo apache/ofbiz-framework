@@ -59,7 +59,7 @@ public class LoginEvents {
 
     private static final String MODULE = LoginEvents.class.getName();
     private static final String RESOURCE = "SecurityextUiLabels";
-    public static final String usernameCookieName = "OFBiz.Username";
+    public static final String USERNAME_COOKIE_NAME = "OFBiz.Username";
     /**
      * Save USERNAME and PASSWORD for use by auth pages even if we start in non-auth pages.
      * @param request The HTTP request object for the current JSP or Servlet request.
@@ -109,9 +109,11 @@ public class LoginEvents {
      * @return String specifying the exit status of this event
      */
     public static String forgotPassword(HttpServletRequest request, HttpServletResponse response) {
-        if (UtilValidate.isNotEmpty(request.getParameter("GET_PASSWORD_HINT")) || UtilValidate.isNotEmpty(request.getParameter("GET_PASSWORD_HINT.x"))) {
+        if (UtilValidate.isNotEmpty(request.getParameter("GET_PASSWORD_HINT"))
+                || UtilValidate.isNotEmpty(request.getParameter("GET_PASSWORD_HINT.x"))) {
             return showPasswordHint(request, response);
-        } else if ((UtilValidate.isNotEmpty(request.getParameter("EMAIL_PASSWORD"))) || (UtilValidate.isNotEmpty(request.getParameter("EMAIL_PASSWORD.x")))) {
+        } else if ((UtilValidate.isNotEmpty(request.getParameter("EMAIL_PASSWORD")))
+                || (UtilValidate.isNotEmpty(request.getParameter("EMAIL_PASSWORD.x")))) {
             return emailPasswordRequest(request, response);
         }
 
@@ -207,9 +209,8 @@ public class LoginEvents {
             // check login is associated to a party
             GenericValue userParty = userLogin.getRelatedOne("Party", false);
             if (userParty == null) {
-                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.username_not_found_reenter",
-                       UtilHttp.getLocale(request));
-               request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.username_not_found_reenter", UtilHttp.getLocale(request));
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
 
@@ -233,7 +234,8 @@ public class LoginEvents {
             // get the ProductStore email settings
             GenericValue productStoreEmail = null;
             try {
-                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", "PRDS_PWD_RETRIEVE").queryOne();
+                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId",
+                        productStoreId, "emailType", "PRDS_PWD_RETRIEVE").queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem getting ProductStoreEmailSetting", MODULE);
             }
@@ -266,7 +268,8 @@ public class LoginEvents {
             } else {
                 GenericValue emailTemplateSetting = null;
                 try {
-                    emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId", "EMAIL_PASSWORD").cache().queryOne();
+                    emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId",
+                            "EMAIL_PASSWORD").cache().queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
                 }
@@ -276,7 +279,8 @@ public class LoginEvents {
                     serviceContext.put("subject", subject);
                     serviceContext.put("sendFrom", emailTemplateSetting.get("fromAddress"));
                 } else {
-                    serviceContext.put("subject", UtilProperties.getMessage(RESOURCE, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
+                    serviceContext.put("subject", UtilProperties.getMessage(RESOURCE, "loginservices.password_reminder_subject",
+                            UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
                     serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general", "defaultFromEmailAddress", delegator));
                 }
             }
@@ -293,13 +297,15 @@ public class LoginEvents {
 
             if (ServiceUtil.isError(result)) {
                 Map<String, Object> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
-                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.error_unable_email_password_contact_customer_service_errorwas", messageMap, UtilHttp.getLocale(request));
+                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.error_unable_email_password_contact_customer_service_errorwas",
+                        messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         } catch (GeneralException e) {
             Debug.logWarning(e, "", MODULE);
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.error_unable_email_password_contact_customer_service", UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.error_unable_email_password_contact_customer_service",
+                    UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

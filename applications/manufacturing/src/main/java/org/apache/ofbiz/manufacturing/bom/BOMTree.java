@@ -179,7 +179,7 @@ public class BOMTree {
     public boolean isConfigured() {
         List<BOMNode> notConfiguredParts = new LinkedList<>();
         root.isConfigured(notConfiguredParts);
-        return (notConfiguredParts.size() == 0);
+        return (notConfiguredParts.isEmpty());
     }
 
     /** Getter for property rootQuantity.

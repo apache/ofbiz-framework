@@ -30,16 +30,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UtilTimer {
 
     private static final String MODULE = UtilTimer.class.getName();
-    protected static final ConcurrentHashMap<String, UtilTimer> staticTimers = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, UtilTimer> STATIC_TIMERS = new ConcurrentHashMap<>();
 
-    protected String timerName = null;
-    protected String lastMessage = null;
+    private String timerName = null;
+    private String lastMessage = null;
 
-    protected long realStartTime;
-    protected long startTime;
-    protected long lastMessageTime;
-    protected boolean running = false;
-    protected boolean log = false;
+    private long realStartTime;
+    private long startTime;
+    private long lastMessageTime;
+    private boolean running = false;
+    private boolean log = false;
 
     public static UtilTimer makeTimer() {
         return new UtilTimer();
@@ -62,21 +62,33 @@ public class UtilTimer {
         }
     }
 
+    /**
+     * Start timer.
+     */
     public void startTimer() {
         this.lastMessageTime = realStartTime = startTime = System.currentTimeMillis();
         this.lastMessage = "Begin";
         this.running = true;
     }
 
+    /**
+     * Gets name.
+     * @return the name
+     */
     public String getName() {
         return this.timerName;
     }
 
+    /**
+     * Is running boolean.
+     * @return the boolean
+     */
     public boolean isRunning() {
         return this.running;
     }
 
-    /** Creates a string with information including the passed message, the last passed message and the time since the last call, and the time since the beginning
+    /** Creates a string with information including the passed message, the last passed message and the time since the last call,
+     * and the time since the beginning
      * @param message A message to put into the timer String
      * @return A String with the timing information, the timer String
      */
@@ -100,7 +112,8 @@ public class UtilTimer {
         StringBuilder retBuf = new StringBuilder();
         retBuf.append("[[").append(message).append("- total:").append(secondsSinceStart());
         if (lastMessage != null) {
-            retBuf.append(",since last(").append(((lastMessage.length() > 20) ? (lastMessage.substring(0, 17) + "...") : lastMessage)).append("):").append(secondsSinceLast());
+            retBuf.append(",since last(").append(((lastMessage.length() > 20) ? (lastMessage.substring(0, 17) + "...")
+                    : lastMessage)).append("):").append(secondsSinceLast());
         }
         retBuf.append("]]");
 
@@ -177,7 +190,8 @@ public class UtilTimer {
      * @return A String with the timing information, the timer String
      */
     public String timerString(int level, String message) {
-        // String retString = "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):" + secondsSinceLast() + "]]";
+        // String retString = "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):"
+        // + secondsSinceLast() + "]]";
 
         StringBuilder retStringBuf = new StringBuilder();
 
@@ -216,12 +230,12 @@ public class UtilTimer {
     }
 
     public static UtilTimer getTimer(String timerName, boolean log) {
-        UtilTimer timer = staticTimers.get(timerName);
+        UtilTimer timer = STATIC_TIMERS.get(timerName);
         if (timer == null) {
             timer = new UtilTimer(timerName, false);
             timer.setLog(log);
-            staticTimers.putIfAbsent(timerName, timer);
-            timer = staticTimers.get(timerName);
+            STATIC_TIMERS.putIfAbsent(timerName, timer);
+            timer = STATIC_TIMERS.get(timerName);
         }
         return timer;
     }
@@ -252,6 +266,6 @@ public class UtilTimer {
         if (message != null) {
             UtilTimer.timerLog(timerName, message, className);
         }
-        staticTimers.remove(timerName);
+        STATIC_TIMERS.remove(timerName);
     }
 }

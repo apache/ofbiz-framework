@@ -52,10 +52,15 @@ public class UspsServicesTests extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test usps track confirm.
+     * @throws Exception the exception
+     */
     public void testUspsTrackConfirm() throws Exception {
 
         // run the service
-        Map<String, Object> result = dispatcher.runSync("uspsTrackConfirm", UtilMisc.toMap("trackingId", "EJ958083578US", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
+        Map<String, Object> result = getDispatcher().runSync("uspsTrackConfirm",
+                UtilMisc.toMap("trackingId", "EJ958083578US", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             throw new GeneralException(errorMessage);
@@ -87,13 +92,17 @@ public class UspsServicesTests extends OFBizTestCase {
                 "May 29 9:55 am ACCEPT OR PICKUP EDGEWATER NJ 07020.", trackingDetailList.get(2));
     }
 
+    /**
+     * Test usps address validation.
+     * @throws Exception the exception
+     */
     public void testUspsAddressValidation() throws Exception {
 
         // run the service
         Map<String, String> paramInp = UtilMisc.toMap("address1", "6406 Ivy Lane", "city", "Greenbelt", "state", "MD");
         paramInp.put("shipmentGatewayConfigId", "USPS_CONFIG");
         paramInp.put("configProps", "shipment");
-        Map<String, Object> result = dispatcher.runSync("uspsAddressValidation", paramInp);
+        Map<String, Object> result = getDispatcher().runSync("uspsAddressValidation", paramInp);
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             throw new GeneralException(errorMessage);
@@ -125,10 +134,15 @@ public class UspsServicesTests extends OFBizTestCase {
         assertEquals("zip4 is correct", "1440", zip4);
     }
 
+    /**
+     * Test usps city state lookup.
+     * @throws Exception the exception
+     */
     public void testUspsCityStateLookup() throws Exception {
 
         // run the service
-        Map<String, Object> result = dispatcher.runSync("uspsCityStateLookup", UtilMisc.toMap("zip5", "90210", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
+        Map<String, Object> result = getDispatcher().runSync("uspsCityStateLookup",
+                UtilMisc.toMap("zip5", "90210", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             throw new GeneralException(errorMessage);
@@ -147,10 +161,15 @@ public class UspsServicesTests extends OFBizTestCase {
         assertEquals("state is correct", "CA", state);
     }
 
+    /**
+     * Test usps priority mail standard.
+     * @throws Exception the exception
+     */
     public void testUspsPriorityMailStandard() throws Exception {
 
         // run the service
-        Map<String, Object> result = dispatcher.runSync("uspsPriorityMailStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
+        Map<String, Object> result = getDispatcher().runSync("uspsPriorityMailStandard",
+                UtilMisc.toMap("originZip", "4", "destinationZip", "4", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             throw new GeneralException(errorMessage);
@@ -165,10 +184,15 @@ public class UspsServicesTests extends OFBizTestCase {
         assertEquals("days is correct", "1", days);
     }
 
+    /**
+     * Test usps package services standard.
+     * @throws Exception the exception
+     */
     public void testUspsPackageServicesStandard() throws Exception {
 
         // run the service
-        Map<String, Object> result = dispatcher.runSync("uspsPackageServicesStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
+        Map<String, Object> result = getDispatcher().runSync("uspsPackageServicesStandard",
+                UtilMisc.toMap("originZip", "4", "destinationZip", "4", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             throw new GeneralException(errorMessage);
@@ -183,6 +207,10 @@ public class UspsServicesTests extends OFBizTestCase {
         assertEquals("days is correct", "2", days);
     }
 
+    /**
+     * Test usps domestic rate.
+     * @throws Exception the exception
+     */
     public void testUspsDomesticRate() throws Exception {
 
         // prepare the context
@@ -200,7 +228,7 @@ public class UspsServicesTests extends OFBizTestCase {
         context.put("configProps", "shipment");
 
         // run the service
-        Map<String, Object> result = dispatcher.runSync("uspsDomesticRate", context);
+        Map<String, Object> result = getDispatcher().runSync("uspsDomesticRate", context);
         if (ServiceUtil.isError(result)) {
             String errorMessage = ServiceUtil.getErrorMessage(result);
             throw new GeneralException(errorMessage);
@@ -220,6 +248,6 @@ public class UspsServicesTests extends OFBizTestCase {
 
         String restrictionDesc = (String) result.get("restrictionDesc");
         Debug.logInfo("[testUspsDomesticRate] restrictionDesc: " + restrictionDesc, MODULE);
-        assertEquals("restrictionDesc is correct", "B. Form 2976-A", restrictionDesc.substring(0,14));
+        assertEquals("restrictionDesc is correct", "B. Form 2976-A", restrictionDesc.substring(0, 14));
     }
 }

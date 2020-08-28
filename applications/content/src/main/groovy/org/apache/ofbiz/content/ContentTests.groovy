@@ -176,4 +176,13 @@ class ContentTests extends OFBizTestCase {
                 .queryFirst()
         assert !dataResourceRole
     }
+
+    void testGetContent() {
+        Map serviceCtx = [:]
+        serviceCtx.contentId = 'TEST_CONTENT4'
+        serviceCtx.userLogin = userLogin
+        Map serviceResult = dispatcher.runSync('getContent', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.view
+    }
 }

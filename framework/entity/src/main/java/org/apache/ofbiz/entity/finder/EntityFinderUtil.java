@@ -64,7 +64,7 @@ public final class EntityFinderUtil {
     public static Map<FlexibleMapAccessor<Object>, Object> makeFieldMap(Element element) {
         Map<FlexibleMapAccessor<Object>, Object> fieldMap = null;
         List<? extends Element> fieldMapElementList = UtilXml.childElementList(element, "field-map");
-        if (fieldMapElementList.size() > 0) {
+        if (!fieldMapElementList.isEmpty()) {
             fieldMap = new HashMap<>(fieldMapElementList.size());
             for (Element fieldMapElement: fieldMapElementList) {
                 // set the env-name for each field-name, noting that if no field-name is specified it defaults to the env-name
@@ -117,7 +117,7 @@ public final class EntityFinderUtil {
     public static List<FlexibleStringExpander> makeSelectFieldExpanderList(Element element) {
         List<FlexibleStringExpander> selectFieldExpanderList = null;
         List<? extends Element> selectFieldElementList = UtilXml.childElementList(element, "select-field");
-        if (selectFieldElementList.size() > 0) {
+        if (!selectFieldElementList.isEmpty()) {
             selectFieldExpanderList = new ArrayList<>(selectFieldElementList.size());
             for (Element selectFieldElement: selectFieldElementList) {
                 selectFieldExpanderList.add(FlexibleStringExpander.getInstance(selectFieldElement.getAttribute("field-name")));

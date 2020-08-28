@@ -167,7 +167,7 @@ public class ImportProductServices {
                 }
             }
             int uploadedProducts = products.size() + 1;
-            if (products.size() > 0) {
+            if (!products.isEmpty()) {
                 Debug.logInfo("Uploaded " + uploadedProducts + " products from file " + item.getName(), MODULE);
             }
         }

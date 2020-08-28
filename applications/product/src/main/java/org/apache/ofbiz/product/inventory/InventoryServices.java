@@ -655,7 +655,7 @@ public class InventoryServices {
                         }
                         toBeStored.add(orderItem);
                     }
-                    if (toBeStored.size() > 0) {
+                    if (!toBeStored.isEmpty()) {
                         try {
                             delegator.storeAll(toBeStored);
                         } catch (GenericEntityException e) {

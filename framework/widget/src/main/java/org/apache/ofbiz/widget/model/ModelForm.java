@@ -123,11 +123,11 @@ public abstract class ModelForm extends ModelWidget {
     /** This is a list of FieldGroups in the order they were created.
      * Can also include Banner objects.
      */
-    protected final List<FieldGroupBase> fieldGroupList;
+    private final List<FieldGroupBase> fieldGroupList;
     /** This Map is keyed with the field name and has a FieldGroup for the value.
      * Can also include Banner objects.
      */
-    protected final Map<String, FieldGroupBase> fieldGroupMap;
+    private final Map<String, FieldGroupBase> fieldGroupMap;
     /** This List will contain one copy of each field for each field name in the order
      * they were encountered in the service, entity, or form definition; field definitions
      * with constraints will also be in this list but may appear multiple times for the same
@@ -136,7 +136,7 @@ public abstract class ModelForm extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
      */
-    protected final List<ModelFormField> fieldList;
+    private final List<ModelFormField> fieldList;
     private final String focusFieldName;
     private final String formLocation;
     private final String formTitleAreaStyle;
@@ -496,9 +496,9 @@ public abstract class ModelForm extends ModelWidget {
         String sortFieldParameterName = formElement.getAttribute("sort-field-parameter-name");
         if (!sortFieldParameterName.isEmpty()) {
             this.sortFieldParameterName = sortFieldParameterName;
-       } else {
+        } else {
             this.sortFieldParameterName = (parentModel != null) ? parentModel.getSortFieldParameterName() : "sortField";
-       }
+        }
         String defaultRequiredFieldStyle = formElement.getAttribute("default-required-field-style");
         if (defaultRequiredFieldStyle.isEmpty() && parentModel != null) {
             defaultRequiredFieldStyle = parentModel.defaultRequiredFieldStyle;
@@ -664,7 +664,7 @@ public abstract class ModelForm extends ModelWidget {
                 }
             }
         }
-        if (sortOrderFields.size() > 0) {
+        if (!sortOrderFields.isEmpty()) {
             List<ModelFormFieldBuilder> sortedFields = new ArrayList<>();
             for (SortField sortField : sortOrderFields) {
                 String fieldName = sortField.getFieldName();
@@ -788,16 +788,16 @@ public abstract class ModelForm extends ModelWidget {
             throw new IllegalArgumentException(errmsg);
         }
         for (ModelParam modelParam : modelService.getInModelParamList()) {
-            if (modelParam.internal) {
+            if (modelParam.getInternal()) {
                 // skip auto params that the service engine populates...
                 continue;
             }
-            if (modelParam.formDisplay) {
-                if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
+            if (modelParam.isFormDisplay()) {
+                if (UtilValidate.isNotEmpty(modelParam.getEntityName()) && UtilValidate.isNotEmpty(modelParam.getFieldName())) {
                     ModelEntity modelEntity;
                     try {
-                        modelEntity = entityModelReader.getModelEntity(modelParam.entityName);
-                        ModelField modelField = modelEntity.getField(modelParam.fieldName);
+                        modelEntity = entityModelReader.getModelEntity(modelParam.getEntityName());
+                        ModelField modelField = modelEntity.getField(modelParam.getFieldName());
                         if (modelField != null) {
                             // okay, populate using the entity field info...
                             ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
@@ -809,7 +809,7 @@ public abstract class ModelForm extends ModelWidget {
                             if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
                                 builder.setMapName(autoFieldsService.mapName);
                             }
-                            builder.setRequiredField(!modelParam.optional);
+                            builder.setRequiredField(!modelParam.isOptional());
                             addUpdateField(builder, useWhenFields, fieldBuilderList, fieldBuilderMap);
                             // continue to skip creating based on service param
                             continue;
@@ -820,11 +820,11 @@ public abstract class ModelForm extends ModelWidget {
                 }
                 ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
                 builder.setModelForm(this);
-                builder.setName(modelParam.name);
-                builder.setServiceName(modelService.name);
-                builder.setAttributeName(modelParam.name);
-                builder.setTitle(modelParam.formLabel);
-                builder.setRequiredField(!modelParam.optional);
+                builder.setName(modelParam.getName());
+                builder.setServiceName(modelService.getName());
+                builder.setAttributeName(modelParam.getName());
+                builder.setTitle(modelParam.getFormLabel());
+                builder.setRequiredField(!modelParam.isOptional());
                 builder.induceFieldInfoFromServiceParam(modelService, modelParam, autoFieldsService.defaultFieldType);
                 builder.setPosition(autoFieldsService.defaultPosition);
                 if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
@@ -867,22 +867,42 @@ public abstract class ModelForm extends ModelWidget {
         }
     }
 
+    /**
+     * Gets actions.
+     * @return the actions
+     */
     public List<ModelAction> getActions() {
         return actions;
     }
 
+    /**
+     * Gets alt row styles.
+     * @return the alt row styles
+     */
     public List<AltRowStyle> getAltRowStyles() {
         return altRowStyles;
     }
 
+    /**
+     * Gets alt targets.
+     * @return the alt targets
+     */
     public List<AltTarget> getAltTargets() {
         return altTargets;
     }
 
+    /**
+     * Gets auto fields entities.
+     * @return the auto fields entities
+     */
     public List<AutoFieldsEntity> getAutoFieldsEntities() {
         return autoFieldsEntities;
     }
 
+    /**
+     * Gets auto fields services.
+     * @return the auto fields services
+     */
     public List<AutoFieldsService> getAutoFieldsServices() {
         return autoFieldsServices;
     }
@@ -892,10 +912,18 @@ public abstract class ModelForm extends ModelWidget {
         return formLocation + "#" + getName();
     }
 
+    /**
+     * Gets client autocomplete fields.
+     * @return the client autocomplete fields
+     */
     public boolean getClientAutocompleteFields() {
         return this.clientAutocompleteFields;
     }
 
+    /**
+     * Gets container id.
+     * @return the container id
+     */
     public String getContainerId() {
         // use the name if there is no id
         if (UtilValidate.isNotEmpty(this.containerId)) {
@@ -904,114 +932,227 @@ public abstract class ModelForm extends ModelWidget {
         return this.getName();
     }
 
+    /**
+     * Gets container style.
+     * @return the container style
+     */
     public String getContainerStyle() {
         return this.containerStyle;
     }
 
+    /**
+     * Gets default entity name.
+     * @return the default entity name
+     */
     public String getDefaultEntityName() {
         return this.defaultEntityName;
     }
 
+    /**
+     * Gets default field group.
+     * @return the default field group
+     */
     public FieldGroup getDefaultFieldGroup() {
         return defaultFieldGroup;
     }
 
+    /**
+     * Gets default map.
+     * @param context the context
+     * @return the default map
+     */
     public Map<String, ? extends Object> getDefaultMap(Map<String, ? extends Object> context) {
         return this.defaultMapName.get(context);
     }
 
+    /**
+     * Gets default map name.
+     * @return the default map name
+     */
     public String getDefaultMapName() {
         return this.defaultMapName.getOriginalName();
     }
 
+    /**
+     * Gets default required field style.
+     * @return the default required field style
+     */
     public String getDefaultRequiredFieldStyle() {
         return this.defaultRequiredFieldStyle;
     }
 
+    /**
+     * Gets default service name.
+     * @return the default service name
+     */
     public String getDefaultServiceName() {
         return this.defaultServiceName;
     }
 
+    /**
+     * Gets default sort field asc style.
+     * @return the default sort field asc style
+     */
     public String getDefaultSortFieldAscStyle() {
         return this.defaultSortFieldAscStyle;
     }
 
+    /**
+     * Gets default sort field desc style.
+     * @return the default sort field desc style
+     */
     public String getDefaultSortFieldDescStyle() {
         return this.defaultSortFieldDescStyle;
     }
 
+    /**
+     * Gets default sort field style.
+     * @return the default sort field style
+     */
     public String getDefaultSortFieldStyle() {
         return this.defaultSortFieldStyle;
     }
 
+    /**
+     * Gets default table style.
+     * @return the default table style
+     */
     public String getDefaultTableStyle() {
         return this.defaultTableStyle;
     }
 
+    /**
+     * Gets default title area style.
+     * @return the default title area style
+     */
     public String getDefaultTitleAreaStyle() {
         return this.defaultTitleAreaStyle;
     }
 
+    /**
+     * Gets default title style.
+     * @return the default title style
+     */
     public String getDefaultTitleStyle() {
         return this.defaultTitleStyle;
     }
 
+    /**
+     * Gets default tooltip style.
+     * @return the default tooltip style
+     */
     public String getDefaultTooltipStyle() {
         return this.defaultTooltipStyle;
     }
 
+    /**
+     * Gets default view size.
+     * @return the default view size
+     */
     public int getDefaultViewSize() {
         return defaultViewSize;
     }
 
+    /**
+     * Gets default widget area style.
+     * @return the default widget area style
+     */
     public String getDefaultWidgetAreaStyle() {
         return this.defaultWidgetAreaStyle;
     }
 
+    /**
+     * Gets default widget style.
+     * @return the default widget style
+     */
     public String getDefaultWidgetStyle() {
         return this.defaultWidgetStyle;
     }
 
+    /**
+     * Gets even row style.
+     * @return the even row style
+     */
     public String getEvenRowStyle() {
         return this.evenRowStyle;
     }
 
+    /**
+     * Gets field group list.
+     * @return the field group list
+     */
     public List<FieldGroupBase> getFieldGroupList() {
         return fieldGroupList;
     }
 
+    /**
+     * Gets field group map.
+     * @return the field group map
+     */
     public Map<String, FieldGroupBase> getFieldGroupMap() {
         return fieldGroupMap;
     }
 
+    /**
+     * Gets field list.
+     * @return the field list
+     */
     public List<ModelFormField> getFieldList() {
         return fieldList;
     }
 
+    /**
+     * Gets focus field name.
+     * @return the focus field name
+     */
     public String getFocusFieldName() {
         return focusFieldName;
     }
 
+    /**
+     * Gets form location.
+     * @return the form location
+     */
     public String getFormLocation() {
         return this.formLocation;
     }
 
+    /**
+     * Gets form title area style.
+     * @return the form title area style
+     */
     public String getFormTitleAreaStyle() {
         return this.formTitleAreaStyle;
     }
 
+    /**
+     * Gets form widget area style.
+     * @return the form widget area style
+     */
     public String getFormWidgetAreaStyle() {
         return this.formWidgetAreaStyle;
     }
 
+    /**
+     * Gets header row style.
+     * @return the header row style
+     */
     public String getHeaderRowStyle() {
         return this.headerRowStyle;
     }
 
+    /**
+     * Gets hide header.
+     * @return the hide header
+     */
     public boolean getHideHeader() {
         return this.hideHeader;
     }
 
+    /**
+     * Gets item index separator.
+     * @return the item index separator
+     */
     public String getItemIndexSeparator() {
         if (UtilValidate.isNotEmpty(this.itemIndexSeparator)) {
             return this.itemIndexSeparator;
@@ -1019,18 +1160,35 @@ public abstract class ModelForm extends ModelWidget {
         return "_o_";
     }
 
+    /**
+     * Gets last order fields.
+     * @return the last order fields
+     */
     public List<String> getLastOrderFields() {
         return lastOrderFields;
     }
 
+    /**
+     * Gets list entry name.
+     * @return the list entry name
+     */
     public String getListEntryName() {
         return this.listEntryName;
     }
 
+    /**
+     * Gets list name.
+     * @return the list name
+     */
     public String getListName() {
         return this.listName;
     }
 
+    /**
+     * Gets multi paginate index field.
+     * @param context the context
+     * @return the multi paginate index field
+     */
     public String getMultiPaginateIndexField(Map<String, Object> context) {
         String field = this.paginateIndexField.expandString(context);
         if (UtilValidate.isEmpty(field)) {
@@ -1041,6 +1199,11 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets multi paginate size field.
+     * @param context the context
+     * @return the multi paginate size field
+     */
     public String getMultiPaginateSizeField(Map<String, Object> context) {
         String field = this.paginateSizeField.expandString(context);
         if (UtilValidate.isEmpty(field)) {
@@ -1051,32 +1214,57 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets multi submit fields.
+     * @return the multi submit fields
+     */
     public List<ModelFormField> getMultiSubmitFields() {
         return this.multiSubmitFields;
     }
 
+    /**
+     * Gets odd row style.
+     * @return the odd row style
+     */
     public String getOddRowStyle() {
         return this.oddRowStyle;
     }
 
+    /**
+     * Gets on paginate update areas.
+     * @return the on paginate update areas
+     */
     public List<UpdateArea> getOnPaginateUpdateAreas() {
         return this.onPaginateUpdateAreas;
     }
 
+    /**
+     * Gets on sort column update areas.
+     * @return the on sort column update areas
+     */
     public List<UpdateArea> getOnSortColumnUpdateAreas() {
         return this.onSortColumnUpdateAreas;
     }
 
-    /* Returns the list of ModelForm.UpdateArea objects.
+    /** Returns the list of ModelForm.UpdateArea objects.
      */
     public List<UpdateArea> getOnSubmitUpdateAreas() {
         return this.onSubmitUpdateAreas;
     }
 
+    /**
+     * Gets override list size.
+     * @return the override list size
+     */
     public String getOverrideListSize() {
         return overrideListSize.getOriginal();
     }
 
+    /**
+     * Gets override list size.
+     * @param context the context
+     * @return the override list size
+     */
     public int getOverrideListSize(Map<String, Object> context) {
         int listSize = 0;
         if (!this.overrideListSize.isEmpty()) {
@@ -1093,10 +1281,19 @@ public abstract class ModelForm extends ModelWidget {
         return listSize;
     }
 
+    /**
+     * Gets paginate.
+     * @return the paginate
+     */
     public String getPaginate() {
         return paginate.getOriginal();
     }
 
+    /**
+     * Gets paginate.
+     * @param context the context
+     * @return the paginate
+     */
     public boolean getPaginate(Map<String, Object> context) {
         String paginate = this.paginate.expandString(context);
         if (!paginate.isEmpty()) {
@@ -1105,10 +1302,19 @@ public abstract class ModelForm extends ModelWidget {
         return true;
     }
 
+    /**
+     * Gets paginate first label.
+     * @return the paginate first label
+     */
     public String getPaginateFirstLabel() {
         return paginateFirstLabel.getOriginal();
     }
 
+    /**
+     * Gets paginate first label.
+     * @param context the context
+     * @return the paginate first label
+     */
     public String getPaginateFirstLabel(Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         String field = this.paginateFirstLabel.expandString(context);
@@ -1118,14 +1324,27 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets paginate first style.
+     * @return the paginate first style
+     */
     public String getPaginateFirstStyle() {
         return DEFAULT_PAG_FIRST_STYLE;
     }
 
+    /**
+     * Gets paginate index field.
+     * @return the paginate index field
+     */
     public String getPaginateIndexField() {
         return paginateIndexField.getOriginal();
     }
 
+    /**
+     * Gets paginate index field.
+     * @param context the context
+     * @return the paginate index field
+     */
     public String getPaginateIndexField(Map<String, Object> context) {
         String field = this.paginateIndexField.expandString(context);
         if (field.isEmpty()) {
@@ -1134,10 +1353,19 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets paginate last label.
+     * @return the paginate last label
+     */
     public String getPaginateLastLabel() {
         return paginateLastLabel.getOriginal();
     }
 
+    /**
+     * Gets paginate last label.
+     * @param context the context
+     * @return the paginate last label
+     */
     public String getPaginateLastLabel(Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         String field = this.paginateLastLabel.expandString(context);
@@ -1147,14 +1375,27 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets paginate last style.
+     * @return the paginate last style
+     */
     public String getPaginateLastStyle() {
         return DEFAULT_PAG_LAST_STYLE;
     }
 
+    /**
+     * Gets paginate next label.
+     * @return the paginate next label
+     */
     public String getPaginateNextLabel() {
         return paginateNextLabel.getOriginal();
     }
 
+    /**
+     * Gets paginate next label.
+     * @param context the context
+     * @return the paginate next label
+     */
     public String getPaginateNextLabel(Map<String, Object> context) {
         String field = this.paginateNextLabel.expandString(context);
         if (field.isEmpty()) {
@@ -1164,14 +1405,27 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets paginate next style.
+     * @return the paginate next style
+     */
     public String getPaginateNextStyle() {
         return DEFAULT_PAG_NEXT_STYLE;
     }
 
+    /**
+     * Gets paginate previous label.
+     * @return the paginate previous label
+     */
     public String getPaginatePreviousLabel() {
         return paginatePreviousLabel.getOriginal();
     }
 
+    /**
+     * Gets paginate previous label.
+     * @param context the context
+     * @return the paginate previous label
+     */
     public String getPaginatePreviousLabel(Map<String, Object> context) {
         String field = this.paginatePreviousLabel.expandString(context);
         if (field.isEmpty()) {
@@ -1181,14 +1435,27 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets paginate previous style.
+     * @return the paginate previous style
+     */
     public String getPaginatePreviousStyle() {
         return DEFAULT_PAG_PREV_STYLE;
     }
 
+    /**
+     * Gets paginate size field.
+     * @return the paginate size field
+     */
     public String getPaginateSizeField() {
         return paginateSizeField.getOriginal();
     }
 
+    /**
+     * Gets paginate size field.
+     * @param context the context
+     * @return the paginate size field
+     */
     public String getPaginateSizeField(Map<String, Object> context) {
         String field = this.paginateSizeField.expandString(context);
         if (field.isEmpty()) {
@@ -1197,14 +1464,27 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
+    /**
+     * Gets paginate style.
+     * @return the paginate style
+     */
     public String getPaginateStyle() {
         return this.paginateStyle;
     }
 
+    /**
+     * Gets paginate target.
+     * @return the paginate target
+     */
     public String getPaginateTarget() {
         return paginateTarget.getOriginal();
     }
 
+    /**
+     * Gets paginate target.
+     * @param context the context
+     * @return the paginate target
+     */
     public String getPaginateTarget(Map<String, Object> context) {
         String targ = this.paginateTarget.expandString(context);
         if (targ.isEmpty()) {
@@ -1216,14 +1496,27 @@ public abstract class ModelForm extends ModelWidget {
         return targ;
     }
 
+    /**
+     * Gets paginate target anchor.
+     * @return the paginate target anchor
+     */
     public String getPaginateTargetAnchor() {
         return this.paginateTargetAnchor;
     }
 
+    /**
+     * Gets paginate view size label.
+     * @return the paginate view size label
+     */
     public String getPaginateViewSizeLabel() {
         return paginateViewSizeLabel.getOriginal();
     }
 
+    /**
+     * Gets paginate view size label.
+     * @param context the context
+     * @return the paginate view size label
+     */
     public String getPaginateViewSizeLabel(Map<String, Object> context) {
         String field = this.paginateViewSizeLabel.expandString(context);
         if (field.isEmpty()) {
@@ -1236,42 +1529,84 @@ public abstract class ModelForm extends ModelWidget {
     protected abstract ModelForm getParentModel(Element formElement, ModelReader entityModelReader,
                                                 VisualTheme visualTheme, DispatchContext dispatchContext);
 
+    /**
+     * Gets parent form location.
+     * @return the parent form location
+     */
     public String getParentFormLocation() {
         return this.parentModel == null ? null : this.parentModel.getFormLocation();
     }
 
+    /**
+     * Gets parent form name.
+     * @return the parent form name
+     */
     public String getParentFormName() {
         return this.parentModel == null ? null : this.parentModel.getName();
     }
 
+    /**
+     * Gets parent model form.
+     * @return the parent model form
+     */
     public ModelForm getParentModelForm() {
         return parentModel;
     }
 
+    /**
+     * Gets passed row count.
+     * @param context the context
+     * @return the passed row count
+     */
     public String getPassedRowCount(Map<String, Object> context) {
         return rowCountExdr.expandString(context);
     }
 
+    /**
+     * Gets row actions.
+     * @return the row actions
+     */
     public List<ModelAction> getRowActions() {
         return rowActions;
     }
 
+    /**
+     * Gets row count.
+     * @return the row count
+     */
     public String getRowCount() {
         return rowCountExdr.getOriginal();
     }
 
+    /**
+     * Gets separate columns.
+     * @return the separate columns
+     */
     public boolean getSeparateColumns() {
         return this.separateColumns;
     }
 
+    /**
+     * Gets skip end.
+     * @return the skip end
+     */
     public boolean getSkipEnd() {
         return this.skipEnd;
     }
 
+    /**
+     * Gets skip start.
+     * @return the skip start
+     */
     public boolean getSkipStart() {
         return this.skipStart;
     }
 
+    /**
+     * Gets sort field.
+     * @param context the context
+     * @return the sort field
+     */
     public String getSortField(Map<String, Object> context) {
         String value = null;
         try {
@@ -1288,10 +1623,18 @@ public abstract class ModelForm extends ModelWidget {
         return value;
     }
 
+    /**
+     * Gets sort field parameter name.
+     * @return the sort field parameter name
+     */
     public String getSortFieldParameterName() {
         return this.sortFieldParameterName;
     }
 
+    /**
+     * Gets sort order fields.
+     * @return the sort order fields
+     */
     public List<SortField> getSortOrderFields() {
         return sortOrderFields;
     }
@@ -1324,6 +1667,10 @@ public abstract class ModelForm extends ModelWidget {
         return styles;
     }
 
+    /**
+     * Gets target.
+     * @return the target
+     */
     public String getTarget() {
         return target != null ? target.getOriginal() : null;
     }
@@ -1363,49 +1710,100 @@ public abstract class ModelForm extends ModelWidget {
         return target.expandString(expanderContext);
     }
 
+    /**
+     * Gets target type.
+     * @return the target type
+     */
     public String getTargetType() {
         return this.targetType;
     }
 
+    /**
+     * Gets target window.
+     * @return the target window
+     */
     public String getTargetWindow() {
         return targetWindowExdr.getOriginal();
     }
 
+    /**
+     * Gets target window.
+     * @param context the context
+     * @return the target window
+     */
     public String getTargetWindow(Map<String, Object> context) {
         return this.targetWindowExdr.expandString(context);
     }
 
+    /**
+     * Gets title.
+     * @return the title
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * Gets empty form data message.
+     * @param context the context
+     * @return the empty form data message
+     */
     public String getEmptyFormDataMessage(Map<String, Object> context) {
         return this.emptyFormDataMessage.expandString(context);
     }
 
+    /**
+     * Gets tooltip.
+     * @return the tooltip
+     */
     public String getTooltip() {
         return this.tooltip;
     }
 
+    /**
+     * Gets type.
+     * @return the type
+     */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * Gets use row submit.
+     * @return the use row submit
+     */
     public boolean getUseRowSubmit() {
         return this.useRowSubmit;
     }
 
+    /**
+     * Gets use when fields.
+     * @return the use when fields
+     */
     public Set<String> getUseWhenFields() {
         return useWhenFields;
     }
+
+    /**
+     * Gets group columns.
+     * @return the group columns
+     */
     public boolean getGroupColumns() {
         return groupColumns;
     }
 
+    /**
+     * Is overriden list size boolean.
+     * @return the boolean
+     */
     public boolean isOverridenListSize() {
         return !this.overrideListSize.isEmpty();
     }
 
+    /**
+     * Run form actions.
+     * @param context the context
+     */
     public void runFormActions(Map<String, Object> context) {
         AbstractModelAction.runSubActions(this.actions, context);
     }
@@ -1421,8 +1819,24 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public static class AltTarget {
-        public final String useWhen;
-        public final FlexibleStringExpander targetExdr;
+        private final String useWhen;
+        private final FlexibleStringExpander targetExdr;
+
+        /**
+         * Gets use when.
+         * @return the use when
+         */
+        public String getUseWhen() {
+            return useWhen;
+        }
+
+        /**
+         * Gets target exdr.
+         * @return the target exdr
+         */
+        public FlexibleStringExpander getTargetExdr() {
+            return targetExdr;
+        }
 
         public AltTarget(Element altTargetElement) {
             this.useWhen = altTargetElement.getAttribute("use-when");
@@ -1441,11 +1855,51 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public static class AutoFieldsEntity {
-        public final String entityName;
-        public final String mapName;
-        public final String defaultFieldType;
-        public final int defaultPosition;
-        public final boolean includeInternal;
+        private final String entityName;
+        private final String mapName;
+        private final String defaultFieldType;
+        private final int defaultPosition;
+        private final boolean includeInternal;
+
+        /**
+         * Gets entity name.
+         * @return the entity name
+         */
+        public String getEntityName() {
+            return entityName;
+        }
+
+        /**
+         * Gets map name.
+         * @return the map name
+         */
+        public String getMapName() {
+            return mapName;
+        }
+
+        /**
+         * Gets default field type.
+         * @return the default field type
+         */
+        public String getDefaultFieldType() {
+            return defaultFieldType;
+        }
+
+        /**
+         * Gets default position.
+         * @return the default position
+         */
+        public int getDefaultPosition() {
+            return defaultPosition;
+        }
+
+        /**
+         * Is include internal boolean.
+         * @return the boolean
+         */
+        public boolean isIncludeInternal() {
+            return includeInternal;
+        }
 
         public AutoFieldsEntity(Element element) {
             this.entityName = element.getAttribute("entity-name");
@@ -1467,10 +1921,42 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public static class AutoFieldsService {
-        public final String serviceName;
-        public final String mapName;
-        public final String defaultFieldType;
-        public final int defaultPosition;
+        private final String serviceName;
+        private final String mapName;
+        private final String defaultFieldType;
+        private final int defaultPosition;
+
+        /**
+         * Gets service name.
+         * @return the service name
+         */
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        /**
+         * Gets map name.
+         * @return the map name
+         */
+        public String getMapName() {
+            return mapName;
+        }
+
+        /**
+         * Gets default field type.
+         * @return the default field type
+         */
+        public String getDefaultFieldType() {
+            return defaultFieldType;
+        }
+
+        /**
+         * Gets default position.
+         * @return the default position
+         */
+        public int getDefaultPosition() {
+            return defaultPosition;
+        }
 
         public AutoFieldsService(Element element) {
             this.serviceName = element.getAttribute("service-name");
@@ -1491,13 +1977,13 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public static class Banner implements FieldGroupBase {
-        public final FlexibleStringExpander style;
-        public final FlexibleStringExpander text;
-        public final FlexibleStringExpander textStyle;
-        public final FlexibleStringExpander leftText;
-        public final FlexibleStringExpander leftTextStyle;
-        public final FlexibleStringExpander rightText;
-        public final FlexibleStringExpander rightTextStyle;
+        private final FlexibleStringExpander style;
+        private final FlexibleStringExpander text;
+        private final FlexibleStringExpander textStyle;
+        private final FlexibleStringExpander leftText;
+        private final FlexibleStringExpander leftTextStyle;
+        private final FlexibleStringExpander rightText;
+        private final FlexibleStringExpander rightTextStyle;
 
         public Banner(Element sortOrderElement) {
             this.style = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("style"));
@@ -1509,34 +1995,76 @@ public abstract class ModelForm extends ModelWidget {
             this.rightTextStyle = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("right-text-style"));
         }
 
+        /**
+         * Gets left text.
+         * @param context the context
+         * @return the left text
+         */
         public String getLeftText(Map<String, Object> context) {
             return this.leftText.expandString(context);
         }
 
+        /**
+         * Gets left text style.
+         * @param context the context
+         * @return the left text style
+         */
         public String getLeftTextStyle(Map<String, Object> context) {
             return this.leftTextStyle.expandString(context);
         }
 
+        /**
+         * Gets right text.
+         * @param context the context
+         * @return the right text
+         */
         public String getRightText(Map<String, Object> context) {
             return this.rightText.expandString(context);
         }
 
+        /**
+         * Gets right text style.
+         * @param context the context
+         * @return the right text style
+         */
         public String getRightTextStyle(Map<String, Object> context) {
             return this.rightTextStyle.expandString(context);
         }
 
+        /**
+         * Gets style.
+         * @param context the context
+         * @return the style
+         */
         public String getStyle(Map<String, Object> context) {
             return this.style.expandString(context);
         }
 
+        /**
+         * Gets text.
+         * @param context the context
+         * @return the text
+         */
         public String getText(Map<String, Object> context) {
             return this.text.expandString(context);
         }
 
+        /**
+         * Gets text style.
+         * @param context the context
+         * @return the text style
+         */
         public String getTextStyle(Map<String, Object> context) {
             return this.textStyle.expandString(context);
         }
 
+        /**
+         * Render string.
+         * @param writer             the writer
+         * @param context            the context
+         * @param formStringRenderer the form string renderer
+         * @throws IOException the io exception
+         */
         public void renderString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
             formStringRenderer.renderBanner(writer, context, this);
@@ -1545,7 +2073,7 @@ public abstract class ModelForm extends ModelWidget {
 
     public static class FieldGroup implements FieldGroupBase {
         private static AtomicInteger baseSeqNo = new AtomicInteger(0);
-        private static final String baseId = "_G";
+        private static final String BASE_ID = "_G";
         private final String id;
         private final String style;
         private final String title;
@@ -1564,7 +2092,7 @@ public abstract class ModelForm extends ModelWidget {
             if (sortOrderElement != null) {
                 id = sortOrderElement.getAttribute("id");
                 if (id.isEmpty()) {
-                    String lastGroupId = baseId + baseSeqNo.getAndIncrement() + "_";
+                    String lastGroupId = BASE_ID + baseSeqNo.getAndIncrement() + "_";
                     id = lastGroupId;
                 }
                 style = sortOrderElement.getAttribute("style");
@@ -1580,7 +2108,7 @@ public abstract class ModelForm extends ModelWidget {
                     fieldGroupMap.put(sortFieldElement.getAttribute("name"), this);
                 }
             } else {
-                String lastGroupId = baseId + baseSeqNo.getAndIncrement() + "_";
+                String lastGroupId = BASE_ID + baseSeqNo.getAndIncrement() + "_";
                 id = lastGroupId;
             }
             this.id = id;
@@ -1590,26 +2118,53 @@ public abstract class ModelForm extends ModelWidget {
             this.initiallyCollapsed = initiallyCollapsed;
         }
 
+        /**
+         * Collapsible boolean.
+         * @return the boolean
+         */
         public Boolean collapsible() {
             return this.collapsible;
         }
 
+        /**
+         * Gets id.
+         * @return the id
+         */
         public String getId() {
             return this.id;
         }
 
+        /**
+         * Gets style.
+         * @return the style
+         */
         public String getStyle() {
             return this.style;
         }
 
+        /**
+         * Gets title.
+         * @return the title
+         */
         public String getTitle() {
             return this.title;
         }
 
+        /**
+         * Initially collapsed boolean.
+         * @return the boolean
+         */
         public Boolean initiallyCollapsed() {
             return this.initiallyCollapsed;
         }
 
+        /**
+         * Render end string.
+         * @param writer             the writer
+         * @param context            the context
+         * @param formStringRenderer the form string renderer
+         * @throws IOException the io exception
+         */
         public void renderEndString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
             formStringRenderer.renderFormatSingleWrapperClose(writer, context, modelForm);
@@ -1620,6 +2175,13 @@ public abstract class ModelForm extends ModelWidget {
             }
         }
 
+        /**
+         * Render start string.
+         * @param writer             the writer
+         * @param context            the context
+         * @param formStringRenderer the form string renderer
+         * @throws IOException the io exception
+         */
         public void renderStartString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
             if (!modelForm.fieldGroupList.isEmpty()) {
@@ -1630,6 +2192,11 @@ public abstract class ModelForm extends ModelWidget {
             formStringRenderer.renderFormatSingleWrapperOpen(writer, context, modelForm);
         }
 
+        /**
+         * Should use boolean.
+         * @param context the context
+         * @return the boolean
+         */
         public boolean shouldUse(Map<String, Object> context) {
             for (String fieldName : modelForm.fieldGroupMap.keySet()) {
                 FieldGroupBase group = modelForm.fieldGroupMap.get(fieldName);
@@ -1674,10 +2241,18 @@ public abstract class ModelForm extends ModelWidget {
             }
         }
 
+        /**
+         * Gets field name.
+         * @return the field name
+         */
         public String getFieldName() {
             return this.fieldName;
         }
 
+        /**
+         * Gets position.
+         * @return the position
+         */
         public Integer getPosition() {
             return this.position;
         }
@@ -1754,18 +2329,36 @@ public abstract class ModelForm extends ModelWidget {
             return obj instanceof UpdateArea && obj.hashCode() == this.hashCode();
         }
 
+        /**
+         * Gets area id.
+         * @return the area id
+         */
         public String getAreaId() {
             return areaId;
         }
 
+        /**
+         * Gets area target.
+         * @param context the context
+         * @return the area target
+         */
         public String getAreaTarget(Map<String, ? extends Object> context) {
             return FlexibleStringExpander.expandString(areaTarget, context);
         }
 
+        /**
+         * Gets event type.
+         * @return the event type
+         */
         public String getEventType() {
             return eventType;
         }
 
+        /**
+         * Gets parameter map.
+         * @param context the context
+         * @return the parameter map
+         */
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             Map<String, String> fullParameterMap = new HashMap<>();
             if (autoServiceParameters != null) {
@@ -1786,26 +2379,50 @@ public abstract class ModelForm extends ModelWidget {
             return areaId.hashCode();
         }
 
+        /**
+         * Gets area target.
+         * @return the area target
+         */
         public String getAreaTarget() {
             return areaTarget;
         }
 
+        /**
+         * Gets default service name.
+         * @return the default service name
+         */
         public String getDefaultServiceName() {
             return defaultServiceName;
         }
 
+        /**
+         * Gets default entity name.
+         * @return the default entity name
+         */
         public String getDefaultEntityName() {
             return defaultEntityName;
         }
 
+        /**
+         * Gets auto entity parameters.
+         * @return the auto entity parameters
+         */
         public CommonWidgetModels.AutoEntityParameters getAutoEntityParameters() {
             return autoEntityParameters;
         }
 
+        /**
+         * Gets auto service parameters.
+         * @return the auto service parameters
+         */
         public CommonWidgetModels.AutoServiceParameters getAutoServiceParameters() {
             return autoServiceParameters;
         }
 
+        /**
+         * Gets parameter list.
+         * @return the parameter list
+         */
         public List<CommonWidgetModels.Parameter> getParameterList() {
             return parameterList;
         }

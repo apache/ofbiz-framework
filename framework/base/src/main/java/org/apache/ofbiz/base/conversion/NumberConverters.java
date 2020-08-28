@@ -51,7 +51,7 @@ public class NumberConverters implements ConverterLoader {
         @Override
         public N convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             return convert(fromString(trimStr, locale));
@@ -174,6 +174,17 @@ public class NumberConverters implements ConverterLoader {
         @Override
         protected String format(BigInteger obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
+        }
+    }
+
+    public static class IntegerToBigInteger extends AbstractConverter<Integer, BigInteger> {
+        public IntegerToBigInteger() {
+            super(Integer.class, BigInteger.class);
+        }
+
+        @Override
+        public BigInteger convert(Integer obj) throws ConversionException {
+            return BigInteger.valueOf(obj.intValue());
         }
     }
 

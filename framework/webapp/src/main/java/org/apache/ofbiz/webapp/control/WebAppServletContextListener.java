@@ -44,7 +44,7 @@ public class WebAppServletContextListener implements ServletContextListener {
         sessionCookieConfig.setSecure(true);
         sessionCookieConfig.setComment("Created by Apache OFBiz WebAppServletContextListener");
         String cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
-        if (cookieDomain.length() > 0) sessionCookieConfig.setDomain(cookieDomain);
+        if (!cookieDomain.isEmpty()) sessionCookieConfig.setDomain(cookieDomain);
         sessionCookieConfig.setMaxAge(60 * 60 * 24 * 365);
         sessionCookieConfig.setPath(servletContext.getContextPath());
     }

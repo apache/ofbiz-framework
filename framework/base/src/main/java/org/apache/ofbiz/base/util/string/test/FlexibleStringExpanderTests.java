@@ -37,10 +37,10 @@ import junit.framework.TestCase;
 
 @SourceMonitored
 public class FlexibleStringExpanderTests extends TestCase {
-    private static final Locale localeToTest = new Locale("en", "US");
-    private static final Locale badLocale = new Locale("fr");
-    private static final TimeZone timeZoneToTest = TimeZone.getTimeZone("PST");
-    private static final TimeZone badTimeZone = TimeZone.getTimeZone("GMT");
+    private static final Locale LOCALE_TO_TEST = new Locale("en", "US");
+    private static final Locale BAD_LOCALE = new Locale("fr");
+    private static final TimeZone TIME_ZONE_TO_TEST = TimeZone.getTimeZone("PST");
+    private static final TimeZone BAD_TIME_ZONE = TimeZone.getTimeZone("GMT");
 
     private boolean wasVerbose;
 
@@ -58,9 +58,14 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
+    /**
+     * Test parsing.
+     */
     public void testParsing() {
         parserTest("visible nested replacement", "${'Hello ${var}'}!", true, "${'Hello ${var}'}!");
-        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".staticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".staticReturnNull()}}World!");
+        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName()
+                + ".staticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName()
+                + ".staticReturnNull()}}World!");
         parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", true, "${${throwException.value}}");
         parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "${a${}${}");
         parserTest("null", null, true, "");
@@ -102,7 +107,8 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest(label, input, context, null, null, compare, isEmpty);
     }
 
-    private static void doFseTest(String label, String input, FlexibleStringExpander fse, Map<String, Object> context, TimeZone timeZone, Locale locale, String compare, Object expand, boolean isEmpty) {
+    private static void doFseTest(String label, String input, FlexibleStringExpander fse, Map<String, Object> context, TimeZone timeZone,
+                                  Locale locale, String compare, Object expand, boolean isEmpty) {
         assertEquals("isEmpty:" + label, isEmpty, fse.isEmpty());
         if (input == null) {
             assertEquals("getOriginal():" + label, "", fse.getOriginal());
@@ -140,8 +146,8 @@ public class FlexibleStringExpanderTests extends TestCase {
                 TimeZone.setDefault(timeZone);
                 assertEquals(label, compare, fse.expandString(context, null, null));
                 assertEquals(label, expand, fse.expand(context, null, null));
-                Locale.setDefault(badLocale);
-                TimeZone.setDefault(badTimeZone);
+                Locale.setDefault(BAD_LOCALE);
+                TimeZone.setDefault(BAD_TIME_ZONE);
                 assertNotSame(label, compare, fse.expandString(context, null, null));
                 if (input != null) {
                     assertNotSame(label, expand, fse.expand(context, null, null));
@@ -152,8 +158,8 @@ public class FlexibleStringExpanderTests extends TestCase {
                 context.put("autoUserLogin", autoUserLogin);
                 assertEquals(label, compare, fse.expandString(context, null, null));
                 assertEquals(label, expand, fse.expand(context, null, null));
-                autoUserLogin.put("lastLocale", badLocale.toString());
-                autoUserLogin.put("lastTimeZone", badTimeZone.getID());
+                autoUserLogin.put("lastLocale", BAD_LOCALE.toString());
+                autoUserLogin.put("lastTimeZone", BAD_TIME_ZONE.getID());
                 assertNotSame(label, compare, fse.expandString(context, null, null));
                 if (input != null) {
                     assertNotSame(label, expand, fse.expand(context, null, null));
@@ -163,8 +169,8 @@ public class FlexibleStringExpanderTests extends TestCase {
                 context.put("timeZone", timeZone);
                 assertEquals(label, compare, fse.expandString(context, null, null));
                 assertEquals(label, expand, fse.expand(context, null, null));
-                context.put("locale", badLocale);
-                context.put("timeZone", badTimeZone);
+                context.put("locale", BAD_LOCALE);
+                context.put("timeZone", BAD_TIME_ZONE);
                 assertNotSame(label, compare, fse.expandString(context, null, null));
                 if (input != null) {
                     assertNotSame(label, expand, fse.expand(context, null, null));
@@ -173,9 +179,9 @@ public class FlexibleStringExpanderTests extends TestCase {
                 context.remove("timeZone");
                 assertEquals(label, compare, fse.expandString(context, timeZone, locale));
                 assertEquals(label, expand, fse.expand(context, timeZone, locale));
-                assertNotSame(label, compare, fse.expandString(context, badTimeZone, badLocale));
+                assertNotSame(label, compare, fse.expandString(context, BAD_TIME_ZONE, BAD_LOCALE));
                 if (input != null) {
-                    assertNotSame(label, expand, fse.expand(context, badTimeZone, badLocale));
+                    assertNotSame(label, expand, fse.expand(context, BAD_TIME_ZONE, BAD_LOCALE));
                 }
             } finally {
                 Locale.setDefault(defaultLocale);
@@ -184,11 +190,13 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
-    private static void fseTest(String label, String input, Map<String, Object> context, TimeZone timeZone, Locale locale, String compare, boolean isEmpty) {
+    private static void fseTest(String label, String input, Map<String, Object> context, TimeZone timeZone, Locale locale,
+                                String compare, boolean isEmpty) {
         fseTest(label, input, context, timeZone, locale, compare, compare, isEmpty);
     }
 
-    private static void fseTest(String label, String input, Map<String, Object> context, TimeZone timeZone, Locale locale, String compare, Object expand, boolean isEmpty) {
+    private static void fseTest(String label, String input, Map<String, Object> context, TimeZone timeZone, Locale locale, String compare,
+                                Object expand, boolean isEmpty) {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input);
         doFseTest(label, input, fse, context, timeZone, locale, compare, expand, isEmpty);
         assertEquals("static expandString:" + label, compare, FlexibleStringExpander.expandString(input, context, timeZone, locale));
@@ -225,12 +233,21 @@ public class FlexibleStringExpanderTests extends TestCase {
 
     @SuppressWarnings("serial")
     public static class ThrowException extends Exception {
+        /**
+         * Gets value.
+         * @return the value
+         * @throws Exception the exception
+         */
         public Object getValue() throws Exception {
             throw new Exception();
         }
     }
 
     public static class ThrowNPE {
+        /**
+         * Gets value.
+         * @return the value
+         */
         public Object getValue() {
             throw new NullPointerException();
         }
@@ -259,10 +276,16 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
+    /**
+     * Test with verbosity.
+     */
     public void testWithVerbosity() {
         everythingTest();
     }
 
+    /**
+     * Test quietly.
+     */
     public void testQuietly() {
         everythingTest();
     }
@@ -290,7 +313,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("null context", "Hello World!", null, null, null, "Hello World!", null, false);
         fseTest("plain string", "Hello World!", testMap, null, null, "Hello World!", "Hello World!", false);
         fseTest("simple replacement", "Hello ${var}!", testMap, "Hello World!", false);
-        fseTest("null FlexibleStringExpander with timeZone/locale", null, testMap, timeZoneToTest, localeToTest, "", null, true);
+        fseTest("null FlexibleStringExpander with timeZone/locale", null, testMap, TIME_ZONE_TO_TEST, LOCALE_TO_TEST, "", null, true);
         fseTest("empty FlexibleStringExpander", "", testMap, null, null, "", null, true);
         fseTest("UEL integration(nested): throw Exception", "${${throwException.value}}", testMap, "", false);
         fseTest("UEL integration: throw Exception", "${throwException.value}", testMap, null, null, "", null, false);
@@ -301,15 +324,17 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("UEL integration(nested): null", "${${nu${nullVar}ll}}", testMap, "", false);
         fseTest("UEL integration(nested): NPE", "${${nullVar.noProp}}", testMap, "", false);
         fseTest("UEL integration(nested): missing", "${${noL${nullVar}ist[0]}}", testMap, "", false);
-        fseTest("date w/ timezone", "The date is ${date}.", testMap, timeZoneToTest, localeToTest, "The date is 1970-01-14 22:56:07.890.", "The date is 1970-01-14 22:56:07.890.", false);
+        fseTest("date w/ timezone", "The date is ${date}.", testMap, TIME_ZONE_TO_TEST, LOCALE_TO_TEST, "The date is 1970-01-14 22:56:07.890.",
+                "The date is 1970-01-14 22:56:07.890.", false);
         fseTest("just bad", "${foobar", testMap, "${foobar", false);
         fseTest("constant and bad", "Hello${foobar", testMap, "Hello${foobar", false);
         fseTest("good and bad", "Hello ${var}${foobar", testMap, "Hello World${foobar", false);
-        fseTest("plain-currency(USD)", "${amount?currency(${usd})}", testMap, null, localeToTest, "$1,234,567.89", false);
-        fseTest("currency(USD)", "The total is ${amount?currency(${usd})}.", testMap, null, localeToTest, "The total is $1,234,567.89.", false);
-        fseTest("currency(USD): null", "The total is ${testMap.missing?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
-        fseTest("currency(USD): missing", "The total is ${noList[0]?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
-        fseTest("currency(USD): exception", "The total is ${throwException.value?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
+        fseTest("plain-currency(USD)", "${amount?currency(${usd})}", testMap, null, LOCALE_TO_TEST, "$1,234,567.89", false);
+        fseTest("currency(USD)", "The total is ${amount?currency(${usd})}.", testMap, null, LOCALE_TO_TEST, "The total is $1,234,567.89.", false);
+        fseTest("currency(USD): null", "The total is ${testMap.missing?currency(${usd})}.", testMap, null, LOCALE_TO_TEST, "The total is .", false);
+        fseTest("currency(USD): missing", "The total is ${noList[0]?currency(${usd})}.", testMap, null, LOCALE_TO_TEST, "The total is .", false);
+        fseTest("currency(USD): exception", "The total is ${throwException.value?currency(${usd})}.", testMap, null, LOCALE_TO_TEST,
+                "The total is .", false);
         fseTest("null nested", "${${nullVar}}!", testMap, "!", false);
         fseTest("groovy: script", "${groovy:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
         fseTest("groovy: null", "${groovy:return null;}!", testMap, "!", false);
@@ -321,7 +346,8 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("UEL integration: List", "Hello ${testList[0]}!", testMap, "Hello World!", false);
         fseTest("UEL integration: null", "${null}", testMap, null, null, "", null, false);
         fseTest("UEL integration: null dereference", "${nullVar.noProp}", testMap, null, null, "", null, false);
-        fseTest("UEL integration: throw NPE", "${" + FlexibleStringExpanderTests.class.getName() + ".ThrowNPE.noProp}", testMap, null, null, "", null, false);
+        fseTest("UEL integration: throw NPE", "${" + FlexibleStringExpanderTests.class.getName() + ".ThrowNPE.noProp}", testMap, null, null, "",
+                null, false);
         fseTest("UEL integration: missing", "${noList[0]}", testMap, null, null, "", null, false);
         fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression", false);
         fseTest("Escaped(groovy) expression", "This is an \\${groovy:escaped} expression", testMap, "This is an ${groovy:escaped} expression", false);

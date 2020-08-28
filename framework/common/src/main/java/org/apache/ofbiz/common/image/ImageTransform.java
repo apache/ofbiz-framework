@@ -247,7 +247,7 @@ public class ImageTransform {
         for (Element currentElt : children) {
             Map<String, String> eltMap = new LinkedHashMap<>();
             List<? extends Element> children2 = UtilXml.childElementList(currentElt);
-            if (children2.size() > 0) {
+            if (!children2.isEmpty()) {
                 Map<String, String> childMap = new LinkedHashMap<>();
                 // loop over Children 1st level
                 for (Element currentChild : children2) {

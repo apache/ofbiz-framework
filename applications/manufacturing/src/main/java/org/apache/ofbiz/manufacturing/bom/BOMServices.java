@@ -383,7 +383,7 @@ public class BOMServices {
             tree.setRootQuantity(quantity);
             tree.setRootAmount(amount);
             tree.print(components, excludeWIPs);
-            if (components.size() > 0) components.remove(0);
+            if (!components.isEmpty()) components.remove(0);
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
@@ -566,7 +566,7 @@ public class BOMServices {
                         productsInPackages = null;
                     }
                 }
-                if (productsInPackages != null && productsInPackages.size() == 0) {
+                if (productsInPackages != null && productsInPackages.isEmpty()) {
                     productsInPackages = null;
                 }
                 if (UtilValidate.isNotEmpty(productsInPackages)) {

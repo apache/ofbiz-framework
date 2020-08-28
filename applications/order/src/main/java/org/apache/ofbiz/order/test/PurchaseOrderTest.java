@@ -33,8 +33,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class PurchaseOrderTest extends OFBizTestCase {
     private static final String MODULE = OFBizTestCase.class.getName();
 
-    protected String orderId = null;
-    protected String statusId = null;
+    private String orderId = null;
+    private String statusId = null;
 
     public PurchaseOrderTest(String name) {
         super(name);
@@ -44,6 +44,10 @@ public class PurchaseOrderTest extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test create purchase order.
+     * @throws Exception the exception
+     */
     public void testCreatePurchaseOrder() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company");
@@ -51,7 +55,8 @@ public class PurchaseOrderTest extends OFBizTestCase {
         ctx.put("currencyUom", "USD");
         ctx.put("productStoreId", "9000");
 
-        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-1000", "quantity", new BigDecimal("2"), "isPromo", "N"));
+        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId",
+                "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-1000", "quantity", new BigDecimal("2"), "isPromo", "N"));
         orderItem.set("unitPrice", new BigDecimal("1399.5"));
         orderItem.set("unitListPrice", BigDecimal.ZERO);
         orderItem.set("isModifiedPrice", "N");
@@ -60,17 +65,20 @@ public class PurchaseOrderTest extends OFBizTestCase {
         orderItems.add(orderItem);
         ctx.put("orderItems", orderItems);
 
-        GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", "9000"));
+        GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId",
+                "SHIPPING_LOCATION", "contactMechId", "9000"));
         List<GenericValue> orderContactMechs = new LinkedList<>();
         orderContactMechs.add(orderContactMech);
         ctx.put("orderContactMechs", orderContactMechs);
 
-        GenericValue orderItemContactMech = delegator.makeValue("OrderItemContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", "9000", "orderItemSeqId", "00001"));
+        GenericValue orderItemContactMech = delegator.makeValue("OrderItemContactMech", UtilMisc.toMap("contactMechPurposeTypeId",
+                "SHIPPING_LOCATION", "contactMechId", "9000", "orderItemSeqId", "00001"));
         List<GenericValue> orderItemContactMechs = new LinkedList<>();
         orderItemContactMechs.add(orderItemContactMech);
         ctx.put("orderItemContactMechs", orderItemContactMechs);
 
-        GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9000", "isGift", "N", "maySplit", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
+        GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS",
+                "contactMechId", "9000", "isGift", "N", "maySplit", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
         orderItemShipGroup.set("carrierRoleTypeId", "CARRIER");
         List<GenericValue> orderItemShipGroupInfo = new LinkedList<>();
         orderItemShipGroupInfo.add(orderItemShipGroup);
@@ -88,7 +96,7 @@ public class PurchaseOrderTest extends OFBizTestCase {
         ctx.put("supplierAgentPartyId", "DemoSupplier");
         ctx.put("userLogin", getUserLogin("system"));
 
-        Map<String, Object> resp = dispatcher.runSync("storeOrder", ctx);
+        Map<String, Object> resp = getDispatcher().runSync("storeOrder", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;

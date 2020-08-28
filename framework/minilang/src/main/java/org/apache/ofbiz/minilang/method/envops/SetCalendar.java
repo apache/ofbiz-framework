@@ -53,14 +53,14 @@ public final class SetCalendar extends MethodOperation {
         boolean elementModified = false;
         // Correct deprecated default-value attribute
         String defaultAttr = element.getAttribute("default-value");
-        if (defaultAttr.length() > 0) {
+        if (!defaultAttr.isEmpty()) {
             element.setAttribute("default", defaultAttr);
             element.removeAttribute("default-value");
             elementModified = true;
         }
         // Correct deprecated from-field attribute
         String fromAttr = element.getAttribute("from-field");
-        if (fromAttr.length() > 0) {
+        if (!fromAttr.isEmpty()) {
             element.setAttribute("from", fromAttr);
             element.removeAttribute("from-field");
             elementModified = true;

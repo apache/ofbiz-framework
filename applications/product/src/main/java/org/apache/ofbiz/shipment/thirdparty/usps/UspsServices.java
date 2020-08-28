@@ -1093,7 +1093,7 @@ public class UspsServices {
                 List<GenericValue> carrierShipmentBoxTypes = null;
                 carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null, false);
 
-                if (carrierShipmentBoxTypes.size() > 0) {
+                if (!carrierShipmentBoxTypes.isEmpty()) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 

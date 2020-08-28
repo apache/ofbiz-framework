@@ -82,7 +82,7 @@ public class CommonServices {
     public static Map<String, Object> testService(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        if (context.size() > 0) {
+        if (!context.isEmpty()) {
             for (Map.Entry<String, ?> entry: context.entrySet()) {
                 Object cKey = entry.getKey();
                 Object value = entry.getValue();
@@ -126,7 +126,7 @@ public class CommonServices {
     public static Map<String, Object> blockingTestService(DispatchContext dctx, Map<String, ?> context) {
         Long duration = (Long) context.get("duration");
         if (duration == null) {
-            duration = 30000l;
+            duration = 30000L;
         }
         Debug.logInfo("-----SERVICE BLOCKING----- : " + duration / 1000d + " seconds", MODULE);
         try {
@@ -190,7 +190,8 @@ public class CommonServices {
 
             delegator.create(newValue);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNoteCannotBeUpdated", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNoteCannotBeUpdated",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
@@ -336,7 +337,7 @@ public class CommonServices {
 
     public static Map<String, Object> displayXaDebugInfo(DispatchContext dctx, Map<String, ?> context) {
         if (TransactionUtil.debugResources()) {
-            if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
+            if (UtilValidate.isNotEmpty(TransactionUtil.DEBUG_RES_MAP)) {
                 TransactionUtil.logRunningTx();
             } else {
                 Debug.logInfo("No running transaction to display.", MODULE);
@@ -356,7 +357,8 @@ public class CommonServices {
         String ofbizHome = System.getProperty("ofbiz.home");
         String outputPath1 = ofbizHome + (fileName1.startsWith("/") ? fileName1 : "/" + fileName1);
         String outputPath2 = ofbizHome + (fileName2.startsWith("/") ? fileName2 : "/" + fileName2);
-        RandomAccessFile file1 = null, file2 = null;
+        RandomAccessFile file1 = null;
+        RandomAccessFile file2 = null;
 
         try {
             file1 = new RandomAccessFile(outputPath1, "rw");
@@ -533,7 +535,8 @@ public class CommonServices {
         Locale locale = (Locale) context.get("locale");
         String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric", UtilMisc.toMap("originalName", originalName), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric",
+                    UtilMisc.toMap("originalName", originalName), locale));
         }
         Metrics metric = MetricsFactory.getMetric(name);
         if (metric != null) {

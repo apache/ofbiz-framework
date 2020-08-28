@@ -43,7 +43,7 @@ public class CdyneServices {
 
     private static final String MODULE = CdyneServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
-    public static final String licenseKey = UtilProperties.getPropertyValue("cdyne", "LicenseKey", "0");
+    public static final String LICENSE_KEY = UtilProperties.getPropertyValue("cdyne", "LicenseKey", "0");
 
     /**
      * CDyne ReturnCityState Service
@@ -54,7 +54,7 @@ public class CdyneServices {
     public static Map<String, Object> cdyneReturnCityState(DispatchContext dctx, Map<String, ?> context) {
         String zipcode = (String) context.get("zipcode");
         Locale locale = (Locale) context.get("locale");
-        String serviceUrl = "http://ws.cdyne.com/psaddress/addresslookup.asmx/ReturnCityState?zipcode=" + zipcode + "&LicenseKey=" + licenseKey;
+        String serviceUrl = "http://ws.cdyne.com/psaddress/addresslookup.asmx/ReturnCityState?zipcode=" + zipcode + "&LicenseKey=" + LICENSE_KEY;
         try {
             String httpResponse = HttpClient.getUrlContent(serviceUrl);
 
@@ -65,19 +65,23 @@ public class CdyneServices {
             populateCdyneAddress(addressRootElement, response);
 
             if ("true".equals(response.get("ServiceError"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneServiceError", UtilMisc.toMap("zipcode", zipcode), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneServiceError",
+                        UtilMisc.toMap("zipcode", zipcode), locale));
             }
             if ("true".equals(response.get("AddressError"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneAddressError", UtilMisc.toMap("zipcode", zipcode), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneAddressError",
+                        UtilMisc.toMap("zipcode", zipcode), locale));
             }
 
             return response;
         } catch (HttpClientException e) {
             Debug.logError(e, "Error calling CDyne service at URL [" + serviceUrl + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneCallingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneCallingError",
+                    UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         } catch (SAXException | ParserConfigurationException | IOException e) {
             Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneParsingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneParsingError",
+                    UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         }
     }
 

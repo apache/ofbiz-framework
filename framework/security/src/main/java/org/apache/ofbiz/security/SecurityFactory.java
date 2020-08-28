@@ -50,7 +50,7 @@ public final class SecurityFactory {
     // The default implementation stores a Delegator reference, so we will cache by delegator name.
     // The goal is to remove Delegator references in the Security interface, then we can use a singleton
     // and eliminate the cache.
-    private static final UtilCache<String, Security> authorizationCache = UtilCache.createUtilCache("security.AuthorizationCache");
+    private static final UtilCache<String, Security> AUTHORIZATION_CACHE = UtilCache.createUtilCache("security.AuthorizationCache");
 
     /**
      * Returns a <code>Security</code> instance. The method uses Java's
@@ -63,7 +63,7 @@ public final class SecurityFactory {
     @SuppressWarnings("deprecation")
     public static Security getInstance(Delegator delegator) throws SecurityConfigurationException {
         Assert.notNull("delegator", delegator);
-        Security security = authorizationCache.get(delegator.getDelegatorName());
+        Security security = AUTHORIZATION_CACHE.get(delegator.getDelegatorName());
         if (security == null) {
             Iterator<Security> iterator = ServiceLoader.load(Security.class).iterator();
             if (iterator.hasNext()) {
@@ -72,9 +72,10 @@ public final class SecurityFactory {
                 security = new OFBizSecurity();
             }
             security.setDelegator(delegator);
-            security = authorizationCache.putIfAbsentAndGet(delegator.getDelegatorName(), security);
+            security = AUTHORIZATION_CACHE.putIfAbsentAndGet(delegator.getDelegatorName(), security);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator " + delegator.getDelegatorName(), MODULE);
+                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator "
+                        + delegator.getDelegatorName(), MODULE);
             }
         }
         return security;
@@ -96,7 +97,8 @@ public final class SecurityFactory {
         @Override
         public void clearUserData(GenericValue userLogin) {
             if (userLogin != null) {
-                delegator.getCache().remove("UserLoginSecurityGroup", EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
+                delegator.getCache().remove("UserLoginSecurityGroup", EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS,
+                        userLogin.getString("userLoginId")));
             }
         }
 
@@ -104,7 +106,8 @@ public final class SecurityFactory {
         @Deprecated
         public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
             try {
-                List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup").where("userLoginId", userLoginId).cache(true).queryList());
+                List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup")
+                        .where("userLoginId", userLoginId).cache(true).queryList());
                 return collection.iterator();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
@@ -126,10 +129,12 @@ public final class SecurityFactory {
             Iterator<GenericValue> iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
             while (iterator.hasNext()) {
                 GenericValue userLoginSecurityGroup = iterator.next();
-                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), permission))
+                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), permission)) {
                     return true;
-                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), adminPermission))
+                }
+                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), adminPermission)) {
                     return true;
+                }
             }
 
             return false;
@@ -264,7 +269,8 @@ public final class SecurityFactory {
         @Deprecated
         public boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
-                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
+                return EntityQuery.use(delegator).from("SecurityGroupPermission")
+                        .where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
                 return false;

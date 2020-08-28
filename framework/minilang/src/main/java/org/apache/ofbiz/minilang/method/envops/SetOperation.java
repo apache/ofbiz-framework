@@ -49,14 +49,14 @@ public final class SetOperation extends MethodOperation {
         boolean elementModified = false;
         // Correct deprecated default-value attribute
         String defaultAttr = element.getAttribute("default-value");
-        if (defaultAttr.length() > 0) {
+        if (!defaultAttr.isEmpty()) {
             element.setAttribute("default", defaultAttr);
             element.removeAttribute("default-value");
             elementModified = true;
         }
         // Correct deprecated from-field attribute
         String fromAttr = element.getAttribute("from-field");
-        if (fromAttr.length() > 0) {
+        if (!fromAttr.isEmpty()) {
             element.setAttribute("from", fromAttr);
             element.removeAttribute("from-field");
             elementModified = true;
@@ -169,7 +169,7 @@ public final class SetOperation extends MethodOperation {
             }
             return true;
         }
-        if (this.type.length() > 0) {
+        if (!this.type.isEmpty()) {
             if ("NewMap".equals(this.type)) {
                 newValue = new HashMap<String, Object>();
             } else if ("NewList".equals(this.type)) {
@@ -224,7 +224,7 @@ public final class SetOperation extends MethodOperation {
         if (!this.defaultFse.isEmpty()) {
             sb.append("default=\"").append(this.defaultFse).append("\" ");
         }
-        if (this.type.length() > 0) {
+        if (!this.type.isEmpty()) {
             sb.append("type=\"").append(this.type).append("\" ");
         }
         if (this.setIfNull) {

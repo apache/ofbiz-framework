@@ -249,7 +249,8 @@ public class FinAccountPaymentServices {
             // make sure to round and scale it to the same as availableBalance
             amount = amount.setScale(FinAccountHelper.getDecimals(), FinAccountHelper.getRounding());
 
-            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amount, MODULE);
+            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: "
+                    + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amount, MODULE);
             // check the available balance to see if we can auth this tx
             if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
                     || (availableBalance.compareTo(amount) > -1)) {
@@ -261,8 +262,8 @@ public class FinAccountPaymentServices {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), 30L); // default 30 days for an auth
                 }
 
-                Map<String, Object> tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId,
-                        "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
+                Map<String, Object> tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId",
+                        finAccountId, "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
 
                 if (ServiceUtil.isError(tmpResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
@@ -283,7 +284,6 @@ public class FinAccountPaymentServices {
             result.put("processAmount", amount);
             result.put("authMessage", authMessage);
             result.put("authResult", processResult);
-            result.put("processAmount", amount);
             result.put("authFlag", "1");
             result.put("authCode", "A");
             result.put("authRefNum", refNum);
@@ -410,10 +410,12 @@ public class FinAccountPaymentServices {
         // BIG NOTE: make sure the expireFinAccountAuth and finAccountWithdraw services are done in the SAME TRANSACTION
         //(i.e. no require-new-transaction in either of them AND no running async)
 
-        // cancel the authorization before doing the withdraw to avoid problems with way negative available amount on account; should happen in same transaction to avoid conflict problems
+        // cancel the authorization before doing the withdraw to avoid problems with way negative available amount on account;
+        // should happen in same transaction to avoid conflict problems
         Map<String, Object> releaseResult;
         try {
-            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
+            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId",
+                    finAccountAuthId));
             if (ServiceUtil.isError(releaseResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
             }
@@ -551,7 +553,7 @@ public class FinAccountPaymentServices {
             requireBalance = Boolean.TRUE;
         }
 
-        final String WITHDRAWAL = "WITHDRAWAL";
+        final String withdrawal = "WITHDRAWAL";
 
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -608,7 +610,7 @@ public class FinAccountPaymentServices {
             try {
                 refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin,
                         amount,
-                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, WITHDRAWAL, finAccountId,
+                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, withdrawal, finAccountId,
                         reasonEnumId);
                 finAccount.refresh();
                 balance = finAccount.getBigDecimal("actualBalance");
@@ -648,7 +650,7 @@ public class FinAccountPaymentServices {
         Boolean isRefund = (Boolean) context.get("isRefund");
         BigDecimal amount = (BigDecimal) context.get("amount");
 
-        final String DEPOSIT = isRefund == null || !isRefund ? "DEPOSIT" : "ADJUSTMENT";
+        final String deposit = isRefund == null || !isRefund ? "DEPOSIT" : "ADJUSTMENT";
 
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -694,7 +696,7 @@ public class FinAccountPaymentServices {
         String refNum;
         try {
             refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
-                    productStoreId, partyId, orderId, orderItemSeqId, currencyUom, DEPOSIT, finAccountId, reasonEnumId);
+                    productStoreId, partyId, orderId, orderItemSeqId, currencyUom, deposit, finAccountId, reasonEnumId);
             finAccount.refresh();
             actualBalance = finAccount.getBigDecimal("actualBalance");
         } catch (GeneralException e) {
@@ -928,7 +930,8 @@ public class FinAccountPaymentServices {
         // say we are in good standing again
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
-                Map<String, Object> ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
+                Map<String, Object> ufaResp = dispatcher.runSync("updateFinAccount",
+                        UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
                 if (ServiceUtil.isError(ufaResp)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(ufaResp));
                 }

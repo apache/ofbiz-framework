@@ -30,10 +30,10 @@ public class FileUploadProgressListener implements ProgressListener, Serializabl
 
     private static final String MODULE = FileUploadProgressListener.class.getName();
 
-    protected long contentLength = -1;
-    protected long bytesRead = -1;
-    protected int items = -1;
-    protected boolean hasStarted = false;
+    private long contentLength = -1;
+    private long bytesRead = -1;
+    private int items = -1;
+    private boolean hasStarted = false;
 
     @Override
     public void update(long bytesRead, long contentLength, int items) {
@@ -45,18 +45,34 @@ public class FileUploadProgressListener implements ProgressListener, Serializabl
         }
     }
 
+    /**
+     * Gets content length.
+     * @return the content length
+     */
     public long getContentLength() {
         return contentLength;
     }
 
+    /**
+     * Gets bytes read.
+     * @return the bytes read
+     */
     public long getBytesRead() {
         return bytesRead;
     }
 
+    /**
+     * Gets items.
+     * @return the items
+     */
     public int getItems() {
         return items;
     }
 
+    /**
+     * Has started boolean.
+     * @return the boolean
+     */
     public boolean hasStarted() {
         return hasStarted;
     }

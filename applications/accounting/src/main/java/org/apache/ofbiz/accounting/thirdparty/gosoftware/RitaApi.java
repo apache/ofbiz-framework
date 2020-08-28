@@ -31,9 +31,9 @@ import org.apache.ofbiz.base.util.ObjectType;
 public class RitaApi {
 
     private static final String MODULE = RitaApi.class.getName();
-    public static final String xschema = "x-schema:..\\dtd\\stnd.xdr";
-    public static final String rootElement = "XML_FILE";
-    public static final String reqElement = "XML_REQUEST";
+    public static final String XSCHEMA = "x-schema:..\\dtd\\stnd.xdr";
+    public static final String ROOT_ELEMENT = "XML_FILE";
+    public static final String REQ_ELEMENT = "XML_REQUEST";
 
     // request fields
     public static final String FUNCTION_TYPE = "FUNCTION_TYPE";
@@ -76,11 +76,11 @@ public class RitaApi {
     public static final String ORIG_TRANS_AMOUNT = "ORIG_TRANS_AMOUNT";
 
     // IN/OUT validation array
-    private static final String[] validOut = {TERMINATION_STATUS, INTRN_SEQ_NUM, RESULT, RESULT_CODE, RESPONSE_TEXT,
+    private static final String[] VALID_OUT = {TERMINATION_STATUS, INTRN_SEQ_NUM, RESULT, RESULT_CODE, RESPONSE_TEXT,
             AUTH_CODE, AVS_CODE, CVV2_CODE, REFERENCE, TRANS_DATE, TRANS_TIME,
             ORIG_TRANS_AMOUNT };
 
-    private static final String[] validIn = {FUNCTION_TYPE, PAYMENT_TYPE, USER_ID, USER_PW, COMMAND, CLIENT_ID,
+    private static final String[] VALID_IN = {FUNCTION_TYPE, PAYMENT_TYPE, USER_ID, USER_PW, COMMAND, CLIENT_ID,
             ACCT_NUM, EXP_MONTH, EXP_YEAR, TRANS_AMOUNT, CARDHOLDER, TRACK_DATA,
             INVOICE, PRESENT_FLAG, CUSTOMER_STREET, CUSTOMER_ZIP, CVV2, TAX_AMOUNT,
             PURCHASE_ID, FORCE_FLAG, ORIG_TRANS_AMOUNT, ORIG_SEQ_NUM };
@@ -90,11 +90,11 @@ public class RitaApi {
     protected static final int MODE_IN = 10;
 
     // instance variables
-    protected Map<String, String> document = null;
-    protected String host = null;
-    protected boolean ssl = false;
-    protected int port = 0;
-    protected int mode = 0;
+    private Map<String, String> document = null;
+    private String host = null;
+    private boolean ssl = false;
+    private int port = 0;
+    private int mode = 0;
 
     public RitaApi(Map<String, String> document) {
         this.document = new HashMap<>();
@@ -114,6 +114,11 @@ public class RitaApi {
         this.ssl = ssl;
     }
 
+    /**
+     * Set.
+     * @param name  the name
+     * @param value the value
+     */
     public void set(String name, Object value) {
         if (!checkIn(name)) {
             throw new IllegalArgumentException("Field [" + name + "] is not a valid IN parameter");
@@ -136,6 +141,11 @@ public class RitaApi {
         document.put(name, objString);
     }
 
+    /**
+     * Get string.
+     * @param name the name
+     * @return the string
+     */
     public String get(String name) {
         if (!checkOut(name)) {
             throw new IllegalArgumentException("Field [" + name + "] is not a valid OUT parameter");
@@ -159,10 +169,20 @@ public class RitaApi {
         return buf.toString();
     }
 
+    /**
+     * Gets document.
+     * @return the document
+     */
     public Map<String, String> getDocument() {
         return this.document;
     }
 
+    /**
+     * Send rita api.
+     * @return the rita api
+     * @throws IOException      the io exception
+     * @throws GeneralException the general exception
+     */
     public RitaApi send() throws IOException, GeneralException {
         if (host == null || port == 0) {
             throw new GeneralException("TCP transaction not supported without valid host/port configuration");
@@ -205,7 +225,7 @@ public class RitaApi {
     }
 
     private static boolean checkIn(String name) {
-        for (String element : validOut) {
+        for (String element : VALID_OUT) {
             if (name.equals(element)) {
                 return false;
             }
@@ -214,7 +234,7 @@ public class RitaApi {
     }
 
     private static boolean checkOut(String name) {
-        for (String element : validIn) {
+        for (String element : VALID_IN) {
             if (name.equals(element)) {
                 return false;
             }

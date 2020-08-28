@@ -85,9 +85,9 @@ public class RmiServiceContainer implements Container {
         String useCtx = initialCtxProp == null || initialCtxProp.value() == null ? "false" : initialCtxProp.value();
         String host = lookupHostProp == null || lookupHostProp.value() == null ? "localhost" : lookupHostProp.value();
         String port = lookupPortProp == null || lookupPortProp.value() == null ? "1099" : lookupPortProp.value();
-        if (Start.getInstance().getConfig().portOffset != 0) {
+        if (Start.getInstance().getConfig().getPortOffset() != 0) {
             Integer portValue = Integer.valueOf(port);
-            portValue += Start.getInstance().getConfig().portOffset;
+            portValue += Start.getInstance().getConfig().getPortOffset();
             port = portValue.toString();
         }
         String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);

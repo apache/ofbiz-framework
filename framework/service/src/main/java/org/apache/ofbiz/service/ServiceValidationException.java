@@ -29,11 +29,11 @@ import org.apache.ofbiz.base.util.UtilValidate;
 @SuppressWarnings("serial")
 public class ServiceValidationException extends GenericServiceException {
 
-    protected List<String> messages = new ArrayList<>();
-    protected List<String> missingFields = new ArrayList<>();
-    protected List<String> extraFields = new ArrayList<>();
-    protected String errorMode = null;
-    protected ModelService service = null;
+    private List<String> messages = new ArrayList<>();
+    private List<String> missingFields = new ArrayList<>();
+    private List<String> extraFields = new ArrayList<>();
+    private String errorMode = null;
+    private ModelService service = null;
 
     public ServiceValidationException(ModelService service, List<String> missingFields, List<String> extraFields, String errorMode) {
         super();
@@ -98,10 +98,18 @@ public class ServiceValidationException extends GenericServiceException {
         this(messages, service, null, null, errorMode);
     }
 
+    /**
+     * Gets extra fields.
+     * @return the extra fields
+     */
     public List<String> getExtraFields() {
         return extraFields;
     }
 
+    /**
+     * Gets missing fields.
+     * @return the missing fields
+     */
     public List<String> getMissingFields() {
         return missingFields;
     }
@@ -114,17 +122,29 @@ public class ServiceValidationException extends GenericServiceException {
         return this.messages;
     }
 
+    /**
+     * Gets model service.
+     * @return the model service
+     */
     public ModelService getModelService() {
         return service;
     }
 
+    /**
+     * Gets mode.
+     * @return the mode
+     */
     public String getMode() {
         return errorMode;
     }
 
+    /**
+     * Gets service name.
+     * @return the service name
+     */
     public String getServiceName() {
         if (service != null) {
-            return service.name;
+            return service.getName();
         }
         return null;
     }

@@ -31,8 +31,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
-public class OFBizRealm extends RealmBase
-{
+public class OFBizRealm extends RealmBase {
     private static final String MODULE = OFBizRealm.class.getName();
 
     @Override
@@ -40,7 +39,7 @@ public class OFBizRealm extends RealmBase
         Delegator delegator = DelegatorFactory.getDelegator(null);
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).queryOne();
-            if (userLogin!=null) {
+            if (userLogin != null) {
                 return userLogin.getString("currentPassword");
             }
         } catch (GenericEntityException e) {
@@ -56,5 +55,4 @@ public class OFBizRealm extends RealmBase
                 getPassword(username),
                 roles);
     }
-
 }

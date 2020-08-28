@@ -59,10 +59,10 @@ public class ModelServiceReader implements Serializable {
     private static final String MODULE = ModelServiceReader.class.getName();
 
     /** is either from a URL or from a ResourceLoader (through the ResourceHandler) */
-    protected boolean isFromURL;
-    protected URL readerURL = null;
-    protected ResourceHandler handler = null;
-    protected Delegator delegator = null;
+    private boolean isFromURL;
+    private URL readerURL = null;
+    private ResourceHandler handler = null;
+    private Delegator delegator = null;
 
     public static Map<String, ModelService> getModelServiceMap(URL readerURL, Delegator delegator) {
         if (readerURL == null) {
@@ -143,8 +143,9 @@ public class ModelServiceReader implements Serializable {
                     ModelService service = createModelService(curServiceElement, resourceLocation);
 
                     modelServices.put(serviceName, service);
-                    }
-            } while ((curChild = curChild.getNextSibling()) != null);
+                }
+                curChild = curChild.getNextSibling();
+            } while (curChild != null);
         } else {
             Debug.logWarning("No child nodes found.", MODULE);
         }
@@ -161,31 +162,32 @@ public class ModelServiceReader implements Serializable {
     private ModelService createModelService(Element serviceElement, String resourceLocation) {
         ModelService service = new ModelService();
 
-        service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
-        service.definitionLocation = resourceLocation;
-        service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
-        service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
-        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke")).intern();
-        service.semaphore = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern();
-        service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern();
-        service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();
-        service.action = UtilXml.checkEmpty(serviceElement.getAttribute("action")).intern();
+        service.setName(UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern());
+        service.setDefinitionLocation(resourceLocation);
+        service.setEngineName(UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern());
+        service.setLocation(UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern());
+        service.setInvoke(UtilXml.checkEmpty(serviceElement.getAttribute("invoke")).intern());
+        service.setSemaphore(UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern());
+        service.setDefaultEntityName(UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern());
+        service.setFromLoader(isFromURL ? readerURL.toExternalForm() : handler.getLoaderName());
+        service.setAction(UtilXml.checkEmpty(serviceElement.getAttribute("action")).intern());
 
         // these default to true; if anything but true, make false
-        service.auth = "true".equalsIgnoreCase(serviceElement.getAttribute("auth"));
-        service.export = "true".equalsIgnoreCase(serviceElement.getAttribute("export"));
-        service.debug = "true".equalsIgnoreCase(serviceElement.getAttribute("debug"));
+        service.setAuth("true".equalsIgnoreCase(serviceElement.getAttribute("auth")));
+        service.setExport("true".equalsIgnoreCase(serviceElement.getAttribute("export")));
+        service.setDebug("true".equalsIgnoreCase(serviceElement.getAttribute("debug")));
 
         // these defaults to false; if anything but false, make it true
-        service.validate = !"false".equalsIgnoreCase(serviceElement.getAttribute("validate"));
-        service.useTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("use-transaction"));
-        service.requireNewTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("require-new-transaction"));
-        if (service.requireNewTransaction && !service.useTransaction) {
+        service.setValidate(!"false".equalsIgnoreCase(serviceElement.getAttribute("validate")));
+        service.setUseTransaction(!"false".equalsIgnoreCase(serviceElement.getAttribute("use-transaction")));
+        service.setRequireNewTransaction(!"false".equalsIgnoreCase(serviceElement.getAttribute("require-new-transaction")));
+        if (service.isRequireNewTransaction() && !service.isUseTransaction()) {
             // requireNewTransaction implies that a transaction is used
-            service.useTransaction = true;
-            Debug.logWarning("In service definition [" + service.name + "] the value use-transaction has been changed from false to true as required when require-new-transaction is set to true", MODULE);
+            service.setUseTransaction(true);
+            Debug.logWarning("In service definition [" + service.getName() + "] the value use-transaction has been changed from false to true as"
+                    + "required when require-new-transaction is set to true", MODULE);
         }
-        service.hideResultInLog = !"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog"));
+        service.setHideResultInLog(!"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog")));
 
         // set the semaphore sleep/wait times
         String semaphoreWaitStr = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-wait-seconds"));
@@ -198,7 +200,7 @@ public class ModelServiceReader implements Serializable {
                 semaphoreWait = 300;
             }
         }
-        service.semaphoreWait = semaphoreWait;
+        service.setSemaphoreWait(semaphoreWait);
 
         String semaphoreSleepStr = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-sleep"));
         int semaphoreSleep = 500;
@@ -210,7 +212,7 @@ public class ModelServiceReader implements Serializable {
                 semaphoreSleep = 500;
             }
         }
-        service.semaphoreSleep = semaphoreSleep;
+        service.setSemaphoreSleep(semaphoreSleep);
 
         // set the max retry field
         String maxRetryStr = UtilXml.checkEmpty(serviceElement.getAttribute("max-retry"));
@@ -223,7 +225,7 @@ public class ModelServiceReader implements Serializable {
                 maxRetry = 0;
             }
         }
-        service.maxRetry = maxRetry;
+        service.setMaxRetry(maxRetry);
 
         // get the timeout and convert to int
         String timeoutStr = UtilXml.checkEmpty(serviceElement.getAttribute("transaction-timeout"), serviceElement.getAttribute("transaction-timout"));
@@ -236,13 +238,13 @@ public class ModelServiceReader implements Serializable {
                 timeout = 0;
             }
         }
-        service.transactionTimeout = timeout;
+        service.setTransactionTimeout(timeout);
 
-        service.description = getCDATADef(serviceElement, "description");
-        service.nameSpace = getCDATADef(serviceElement, "namespace");
+        service.setDescription(getCDATADef(serviceElement, "description"));
+        service.setNameSpace(getCDATADef(serviceElement, "namespace"));
 
         // construct the context
-        service.contextInfo = new HashMap<>();
+        service.setContextInfo(new HashMap<>());
         createNotification(serviceElement, service);
         createAloneServicePermission(serviceElement, service);
         createPermGroups(serviceElement, service);
@@ -255,7 +257,7 @@ public class ModelServiceReader implements Serializable {
         // Get metrics.
         Element metricsElement = UtilXml.firstChildElement(serviceElement, "metric");
         if (metricsElement != null) {
-            service.metrics = MetricsFactory.getInstance(metricsElement);
+            service.setMetrics(MetricsFactory.getInstance(metricsElement));
         }
         return service;
     }
@@ -283,37 +285,37 @@ public class ModelServiceReader implements Serializable {
         // default notification groups
         ModelNotification nSuccess = new ModelNotification();
         nSuccess.notificationEvent = "success";
-        nSuccess.notificationGroupName = "default.success." + model.fromLoader;
-        model.notifications.add(nSuccess);
+        nSuccess.notificationGroupName = "default.success." + model.getFromLoader();
+        model.getNotifications().add(nSuccess);
 
         ModelNotification nFail = new ModelNotification();
         nFail.notificationEvent = "fail";
-        nFail.notificationGroupName = "default.fail." + model.fromLoader;
-        model.notifications.add(nFail);
+        nFail.notificationGroupName = "default.fail." + model.getFromLoader();
+        model.getNotifications().add(nFail);
 
         ModelNotification nError = new ModelNotification();
         nError.notificationEvent = "error";
-        nError.notificationGroupName = "default.error." + model.fromLoader;
-        model.notifications.add(nError);
+        nError.notificationGroupName = "default.error." + model.getFromLoader();
+        model.getNotifications().add(nError);
 
         if (n != null) {
             for (Element e: n) {
                 ModelNotification notify = new ModelNotification();
                 notify.notificationEvent = e.getAttribute("event");
                 notify.notificationGroupName = e.getAttribute("group");
-                model.notifications.add(notify);
+                model.getNotifications().add(notify);
             }
         }
     }
 
     private static ModelPermission createServicePermission(Element e, ModelService model) {
         ModelPermission modelPermission = new ModelPermission();
-        modelPermission.permissionType = ModelPermission.PERMISSION_SERVICE;
-        modelPermission.permissionServiceName = e.getAttribute("service-name");
-        modelPermission.permissionMainAction = e.getAttribute("main-action");
-        modelPermission.permissionResourceDesc = e.getAttribute("resource-description");
-        modelPermission.permissionRequireNewTransaction = !"false".equalsIgnoreCase(e.getAttribute("require-new-transaction"));
-        modelPermission.serviceModel = model;
+        modelPermission.setPermissionType(ModelPermission.getPermissionService());
+        modelPermission.setPermissionServiceName(e.getAttribute("service-name"));
+        modelPermission.setPermissionMainAction(e.getAttribute("main-action"));
+        modelPermission.setPermissionResourceDesc(e.getAttribute("resource-description"));
+        modelPermission.setPermissionRequireNewTransaction(!"false".equalsIgnoreCase(e.getAttribute("require-new-transaction")));
+        modelPermission.setServiceModel(model);
         return modelPermission;
     }
 
@@ -321,10 +323,10 @@ public class ModelServiceReader implements Serializable {
         Element e = UtilXml.firstChildElement(baseElement, "permission-service");
         if (e != null) {
             ModelPermission modelPermission = createServicePermission(e, model);
-            model.modelPermission = modelPermission;
+            model.setModelPermission(modelPermission);
 
             // auth is always required when permissions are set
-            model.auth = true;
+            model.setAuth(true);
         }
     }
 
@@ -333,7 +335,7 @@ public class ModelServiceReader implements Serializable {
             ModelPermGroup group = new ModelPermGroup();
             group.joinType = element.getAttribute("join-type");
             createGroupPermissions(element, group, model);
-            model.permissionGroups.add(group);
+            model.getPermissionGroups().add(group);
         }
     }
 
@@ -341,14 +343,14 @@ public class ModelServiceReader implements Serializable {
         // create the simple permissions
         for (Element element: UtilXml.childElementList(baseElement, "check-permission")) {
             ModelPermission perm = new ModelPermission();
-            perm.nameOrRole = element.getAttribute("permission").intern();
-            perm.action = element.getAttribute("action").intern();
-            if (UtilValidate.isNotEmpty(perm.action)) {
-                perm.permissionType = ModelPermission.ENTITY_PERMISSION;
+            perm.setNameOrRole(element.getAttribute("permission").intern());
+            perm.setAction(element.getAttribute("action").intern());
+            if (UtilValidate.isNotEmpty(perm.getAction())) {
+                perm.setPermissionType(ModelPermission.getEntityPermission());
             } else {
-                perm.permissionType = ModelPermission.PERMISSION;
+                perm.setPermissionType(ModelPermission.getPERMISSION());
             }
-            perm.serviceModel = service;
+            perm.setServiceModel(service);
             group.permissions.add(perm);
         }
 
@@ -358,7 +360,7 @@ public class ModelServiceReader implements Serializable {
         }
         if (UtilValidate.isNotEmpty(group.permissions)) {
             // auth is always required when permissions are set
-            service.auth = true;
+            service.setAuth(true);
         }
     }
 
@@ -366,11 +368,11 @@ public class ModelServiceReader implements Serializable {
         List<? extends Element> group = UtilXml.childElementList(baseElement, "group");
         if (UtilValidate.isNotEmpty(group)) {
             Element groupElement = group.get(0);
-            groupElement.setAttribute("name", "_" + service.name + ".group");
-            service.internalGroup = new GroupModel(groupElement);
-            service.invoke = service.internalGroup.getGroupName();
+            groupElement.setAttribute("name", "_" + service.getName() + ".group");
+            service.setInternalGroup(new GroupModel(groupElement));
+            service.setInvoke(service.getInternalGroup().getGroupName());
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", MODULE);
+                Debug.logVerbose("Created INTERNAL GROUP model [" + service.getInternalGroup() + "]", MODULE);
             }
         }
     }
@@ -379,8 +381,8 @@ public class ModelServiceReader implements Serializable {
         for (Element implement: UtilXml.childElementList(baseElement, "implements")) {
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
             boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
-            if (serviceName.length() > 0) {
-                service.implServices.add(new ModelServiceIface(serviceName, optional));
+            if (!serviceName.isEmpty()) {
+                service.getImplServices().add(new ModelServiceIface(serviceName, optional));
             }
         }
     }
@@ -395,7 +397,7 @@ public class ModelServiceReader implements Serializable {
         // get the entity name; first from the auto-attributes then from the service def
         String entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));
         if (UtilValidate.isEmpty(entityName)) {
-            entityName = service.defaultEntityName;
+            entityName = service.getDefaultEntityName();
             if (UtilValidate.isEmpty(entityName)) {
                 Debug.logWarning("Auto-Attribute does not specify an entity-name; not default-entity on service definition", MODULE);
             }
@@ -426,18 +428,18 @@ public class ModelServiceReader implements Serializable {
                             throw new GeneralException("Null field type from delegator for entity [" + entityName + "]");
                         }
                         ModelParam param = new ModelParam();
-                        param.entityName = entityName;
-                        param.fieldName = field.getName();
-                        param.name = field.getName();
-                        param.type = fieldType.getJavaType();
+                        param.setEntityName(entityName);
+                        param.setFieldName(field.getName());
+                        param.setName(field.getName());
+                        param.setType(fieldType.getJavaType());
                         // this is a special case where we use something different in the service layer than we do in the entity/data layer
-                        if ("java.sql.Blob".equals(param.type)) {
-                            param.type = "java.nio.ByteBuffer";
+                        if ("java.sql.Blob".equals(param.getType())) {
+                            param.setType("java.nio.ByteBuffer");
                         }
-                        param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
-                        param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
-                        param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false
-                        param.allowHtml = UtilXml.checkEmpty(autoElement.getAttribute("allow-html"), "none").intern(); // default to none
+                        param.setMode(UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern());
+                        param.setOptional("true".equalsIgnoreCase(autoElement.getAttribute("optional"))); // default to true
+                        param.setFormDisplay(!"false".equalsIgnoreCase(autoElement.getAttribute("form-display"))); // default to false
+                        param.setAllowHtml(UtilXml.checkEmpty(autoElement.getAttribute("allow-html"), "none").intern()); // default to none
                         modelParamMap.put(field.getName(), param);
                     }
                 }
@@ -455,9 +457,9 @@ public class ModelServiceReader implements Serializable {
                     service.addParam(thisParam);
                 }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.name, MODULE);
+                Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.getName(), MODULE);
             } catch (GeneralException e) {
-                Debug.logError(e, "Cannot load auto-attributes : " + e.getMessage() + " for " + service.name, MODULE);
+                Debug.logError(e, "Cannot load auto-attributes : " + e.getMessage() + " for " + service.getName(), MODULE);
             }
         }
     }
@@ -465,44 +467,7 @@ public class ModelServiceReader implements Serializable {
     private static void createAttrDefs(Element baseElement, ModelService service) {
         // Add in the defined attributes (override the above defaults if specified)
         for (Element attribute: UtilXml.childElementList(baseElement, "attribute")) {
-            ModelParam param = new ModelParam();
-
-            param.name = UtilXml.checkEmpty(attribute.getAttribute("name")).intern();
-            param.description = getCDATADef(attribute, "description");
-            param.type = UtilXml.checkEmpty(attribute.getAttribute("type")).intern();
-            param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode")).intern();
-            param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern();
-            param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern();
-            param.requestAttributeName = UtilXml.checkEmpty(attribute.getAttribute("request-attribute-name")).intern();
-            param.sessionAttributeName = UtilXml.checkEmpty(attribute.getAttribute("session-attribute-name")).intern();
-            param.stringMapPrefix = UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix")).intern();
-            param.stringListSuffix = UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix")).intern();
-            param.formLabel = attribute.hasAttribute("form-label")?attribute.getAttribute("form-label").intern():null;
-            param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
-            param.formDisplay = !"false".equalsIgnoreCase(attribute.getAttribute("form-display")); // default to false
-            param.allowHtml = UtilXml.checkEmpty(attribute.getAttribute("allow-html"), "none").intern(); // default to none
-
-            // default value
-            String defValue = attribute.getAttribute("default-value");
-            if (UtilValidate.isNotEmpty(defValue)) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", MODULE);
-                }
-                param.setDefaultValue(defValue.intern());
-            }
-
-            // set the entity name to the default if not specified
-            if (param.entityName.length() == 0) {
-                param.entityName = service.defaultEntityName;
-            }
-
-            // set the field-name to the name if entity name is specified but no field-name
-            if (param.fieldName.length() == 0 && param.entityName.length() > 0) {
-                param.fieldName = param.name;
-            }
-
-            // set the validators
-            addValidators(attribute, param);
+            ModelParam param = createAttrDef(attribute, null, service);
             service.addParam(param);
         }
 
@@ -511,92 +476,140 @@ public class ModelServiceReader implements Serializable {
 
         // responseMessage
         def = new ModelParam();
-        def.name = ModelService.RESPONSE_MESSAGE;
-        def.type = "String";
-        def.mode = ModelService.OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName(ModelService.RESPONSE_MESSAGE);
+        def.setType("String");
+        def.setMode(ModelService.OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // errorMessage
         def = new ModelParam();
-        def.name = ModelService.ERROR_MESSAGE;
-        def.type = "String";
-        def.mode = ModelService.OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName(ModelService.ERROR_MESSAGE);
+        def.setType("String");
+        def.setMode(ModelService.OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // errorMessageList
         def = new ModelParam();
-        def.name = ModelService.ERROR_MESSAGE_LIST;
-        def.type = "java.util.List";
-        def.mode = ModelService.OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName(ModelService.ERROR_MESSAGE_LIST);
+        def.setType("java.util.List");
+        def.setMode(ModelService.OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // successMessage
         def = new ModelParam();
-        def.name = ModelService.SUCCESS_MESSAGE;
-        def.type = "String";
-        def.mode = ModelService.OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName(ModelService.SUCCESS_MESSAGE);
+        def.setType("String");
+        def.setMode(ModelService.OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // successMessageList
         def = new ModelParam();
-        def.name = ModelService.SUCCESS_MESSAGE_LIST;
-        def.type = "java.util.List";
-        def.mode = ModelService.OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName(ModelService.SUCCESS_MESSAGE_LIST);
+        def.setType("java.util.List");
+        def.setMode(ModelService.OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // userLogin
         def = new ModelParam();
-        def.name = "userLogin";
-        def.type = "org.apache.ofbiz.entity.GenericValue";
-        def.mode = ModelService.IN_OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName("userLogin");
+        def.setType("org.apache.ofbiz.entity.GenericValue");
+        def.setMode(ModelService.IN_OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // login.username
         def = new ModelParam();
-        def.name = "login.username";
-        def.type = "String";
-        def.mode = ModelService.IN_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName("login.username");
+        def.setType("String");
+        def.setMode(ModelService.IN_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // login.password
         def = new ModelParam();
-        def.name = "login.password";
-        def.type = "String";
-        def.mode = ModelService.IN_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName("login.password");
+        def.setType("String");
+        def.setMode(ModelService.IN_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // Locale
         def = new ModelParam();
-        def.name = "locale";
-        def.type = "java.util.Locale";
-        def.mode = ModelService.IN_OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName("locale");
+        def.setType("java.util.Locale");
+        def.setMode(ModelService.IN_OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // timeZone
         def = new ModelParam();
-        def.name = "timeZone";
-        def.type = "java.util.TimeZone";
-        def.mode = ModelService.IN_OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName("timeZone");
+        def.setType("java.util.TimeZone");
+        def.setMode(ModelService.IN_OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
         // visualTheme
         def = new ModelParam();
-        def.name = "visualTheme";
-        def.type = "org.apache.ofbiz.widget.renderer.VisualTheme";
-        def.mode = ModelService.IN_OUT_PARAM;
-        def.optional = true;
-        def.internal = true;
+        def.setName("visualTheme");
+        def.setType("org.apache.ofbiz.widget.renderer.VisualTheme");
+        def.setMode(ModelService.IN_OUT_PARAM);
+        def.setOptional(true);
+        def.setInternal(true);
         service.addParam(def);
+    }
+
+    private static ModelParam createAttrDef(Element attribute, ModelParam parentParam, ModelService service) {
+        boolean hasParent = parentParam != null;
+        ModelParam param = new ModelParam();
+
+        param.setName(UtilXml.checkEmpty(attribute.getAttribute("name")).intern());
+        param.setDescription(getCDATADef(attribute, "description"));
+        param.setType(UtilXml.checkEmpty(attribute.getAttribute("type")).intern());
+        param.setMode(hasParent ? parentParam.getMode() : UtilXml.checkEmpty(attribute.getAttribute("mode")).intern()); //inherit mode from parent
+        param.setEntityName(UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern());
+        param.setFieldName(UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern());
+        param.setRequestAttributeName(UtilXml.checkEmpty(attribute.getAttribute("request-attribute-name")).intern());
+        param.setSessionAttributeName(UtilXml.checkEmpty(attribute.getAttribute("session-attribute-name")).intern());
+        param.setStringMapPrefix(UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix")).intern());
+        param.setStringListSuffix(UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix")).intern());
+        param.setFormLabel(attribute.hasAttribute("form-label") ? attribute.getAttribute("form-label").intern() : null);
+        param.setOptional("true".equalsIgnoreCase(attribute.getAttribute("optional"))); // default to true
+        param.setFormDisplay(!"false".equalsIgnoreCase(attribute.getAttribute("form-display"))); // default to false
+        param.setAllowHtml(UtilXml.checkEmpty(attribute.getAttribute("allow-html"), "none").intern()); // default to none
+
+         // default value
+        String defValue = attribute.getAttribute("default-value");
+        if (UtilValidate.isNotEmpty(defValue)) {
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.getName() + "."
+                         + param.getName() + "]", MODULE);
+            }
+            param.setDefaultValue(defValue.intern());
+        }
+
+        // set the entity name to the default if not specified
+        if (param.getEntityName().length() == 0) {
+            param.setEntityName(service.getDefaultEntityName());
+        }
+
+        // set the field-name to the name if entity name is specified but no field-name
+        if (param.getFieldName().length() == 0 && param.getEntityName().length() > 0) {
+            param.setFieldName(param.getName());
+        }
+
+        // set the validators
+        addValidators(attribute, param);
+        for (Element child: UtilXml.childElementList(attribute, "attribute")) {
+            ModelParam childParam = createAttrDef(child, param, service);
+            param.getChildren().add(childParam);
+        }
+        return param;
     }
 
     private static void createOverrideDefs(Element baseElement, ModelService service) {
@@ -605,45 +618,45 @@ public class ModelServiceReader implements Serializable {
             ModelParam param = service.getParam(name);
             boolean directToParams = true;
             if (param == null) {
-                if (!service.inheritedParameters && (service.implServices.size() > 0 || "group".equals(service.engineName))) {
+                if (!service.isInheritedParameters() && (service.getInModelParamList().size() > 0 || "group".equals(service.getEngineName()))) {
                     // create a temp def to place in the ModelService
                     // this will get read when we read implemented services
                     directToParams = false;
                     param = new ModelParam();
-                    param.name = name;
+                    param.setName(name);
                 } else {
-                    Debug.logWarning("No parameter found for override parameter named: " + name + " in service " + service.name, MODULE);
+                    Debug.logWarning("No parameter found for override parameter named: " + name + " in service " + service.getName(), MODULE);
                 }
             }
 
             if (param != null) {
                 // set only modified values
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("type"))) {
-                    param.type = UtilXml.checkEmpty(overrideElement.getAttribute("type")).intern();
+                    param.setType(UtilXml.checkEmpty(overrideElement.getAttribute("type")).intern());
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("mode"))) {
-                    param.mode = UtilXml.checkEmpty(overrideElement.getAttribute("mode")).intern();
+                    param.setMode(UtilXml.checkEmpty(overrideElement.getAttribute("mode")).intern());
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("entity-name"))) {
-                   param.entityName = UtilXml.checkEmpty(overrideElement.getAttribute("entity-name")).intern();
+                    param.setEntityName(UtilXml.checkEmpty(overrideElement.getAttribute("entity-name")).intern());
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("field-name"))) {
-                    param.fieldName = UtilXml.checkEmpty(overrideElement.getAttribute("field-name")).intern();
+                    param.setFieldName(UtilXml.checkEmpty(overrideElement.getAttribute("field-name")).intern());
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-label"))) {
-                    param.formLabel = UtilXml.checkEmpty(overrideElement.getAttribute("form-label")).intern();
+                    param.setFormLabel(UtilXml.checkEmpty(overrideElement.getAttribute("form-label")).intern());
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("optional"))) {
-                    param.optional = "true".equalsIgnoreCase(overrideElement.getAttribute("optional")); // default to true
-                    param.overrideOptional = true;
+                    param.setOptional("true".equalsIgnoreCase(overrideElement.getAttribute("optional"))); // default to true
+                    param.setOverrideOptional(true);
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-display"))) {
-                    param.formDisplay = !"false".equalsIgnoreCase(overrideElement.getAttribute("form-display")); // default to false
-                    param.overrideFormDisplay = true;
+                    param.setFormDisplay(!"false".equalsIgnoreCase(overrideElement.getAttribute("form-display"))); // default to false
+                    param.setOverrideFormDisplay(true);
                 }
 
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("allow-html"))) {
-                    param.allowHtml = UtilXml.checkEmpty(overrideElement.getAttribute("allow-html")).intern();
+                    param.setAllowHtml(UtilXml.checkEmpty(overrideElement.getAttribute("allow-html")).intern());
                 }
 
                 // default value
@@ -658,7 +671,7 @@ public class ModelServiceReader implements Serializable {
                 if (directToParams) {
                     service.addParam(param);
                 } else {
-                    service.overrideParameters.add(param);
+                    service.getOverrideParameters().add(param);
                 }
             }
         }
@@ -667,9 +680,9 @@ public class ModelServiceReader implements Serializable {
     private static void createDeprecated(Element baseElement, ModelService service) {
         Element deprecated = UtilXml.firstChildElement(baseElement, "deprecated");
         if (deprecated != null) {
-            service.deprecatedUseInstead = deprecated.getAttribute("use-instead");
-            service.deprecatedSince = deprecated.getAttribute("since");
-            service.deprecatedReason = UtilXml.elementValue(deprecated);
+            service.setDeprecatedUseInstead(deprecated.getAttribute("use-instead"));
+            service.setDeprecatedSince(deprecated.getAttribute("since"));
+            service.setDeprecatedReason(UtilXml.elementValue(deprecated));
             service.informIfDeprecated();
         }
     }
@@ -678,7 +691,7 @@ public class ModelServiceReader implements Serializable {
         List<? extends Element> validateElements = UtilXml.childElementList(attribute, "type-validate");
         if (UtilValidate.isNotEmpty(validateElements)) {
             // always clear out old ones; never append
-            param.validators = new LinkedList<>();
+            param.setValidators(new LinkedList<>());
 
             Element validate = validateElements.get(0);
             String methodName = validate.getAttribute("method").intern();

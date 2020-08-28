@@ -825,7 +825,6 @@ public final class ComponentConfig {
 
         /**
          * Create resource handler component resource handler.
-         *
          * @return the component resource handler
          */
         public ComponentResourceHandler createResourceHandler() {
@@ -834,7 +833,6 @@ public final class ComponentConfig {
 
         /**
          * Gets component config.
-         *
          * @return the component config
          */
         public ComponentConfig getComponentConfig() {
@@ -843,7 +841,6 @@ public final class ComponentConfig {
 
         /**
          * Gets location.
-         *
          * @return the location
          */
         public String getLocation() {
@@ -990,7 +987,6 @@ public final class ComponentConfig {
 
             /**
              * Component config builder.
-             *
              * @param componentConfig the component config
              * @return the builder
              */
@@ -1001,7 +997,6 @@ public final class ComponentConfig {
 
             /**
              * Virtual hosts builder.
-             *
              * @param virtualHosts the virtual hosts
              * @return the builder
              */
@@ -1012,7 +1007,6 @@ public final class ComponentConfig {
 
             /**
              * Init parameters builder.
-             *
              * @param initParameters the init parameters
              * @return the builder
              */
@@ -1023,7 +1017,6 @@ public final class ComponentConfig {
 
             /**
              * Name builder.
-             *
              * @param name the name
              * @return the builder
              */
@@ -1034,7 +1027,6 @@ public final class ComponentConfig {
 
             /**
              * Title builder.
-             *
              * @param title the title
              * @return the builder
              */
@@ -1045,7 +1037,6 @@ public final class ComponentConfig {
 
             /**
              * Description builder.
-             *
              * @param description the description
              * @return the builder
              */
@@ -1056,7 +1047,6 @@ public final class ComponentConfig {
 
             /**
              * Menu name builder.
-             *
              * @param menuName the menu name
              * @return the builder
              */
@@ -1067,7 +1057,6 @@ public final class ComponentConfig {
 
             /**
              * Server builder.
-             *
              * @param server the server
              * @return the builder
              */
@@ -1078,7 +1067,6 @@ public final class ComponentConfig {
 
             /**
              * Mount point builder.
-             *
              * @param mountPoint the mount point
              * @return the builder
              */
@@ -1089,7 +1077,6 @@ public final class ComponentConfig {
 
             /**
              * Context root builder.
-             *
              * @param contextRoot the context root
              * @return the builder
              */
@@ -1100,7 +1087,6 @@ public final class ComponentConfig {
 
             /**
              * Location builder.
-             *
              * @param location the location
              * @return the builder
              */
@@ -1111,7 +1097,6 @@ public final class ComponentConfig {
 
             /**
              * Base permissions builder.
-             *
              * @param basePermissions the base permissions
              * @return the builder
              */
@@ -1122,7 +1107,6 @@ public final class ComponentConfig {
 
             /**
              * Position builder.
-             *
              * @param position the position
              * @return the builder
              */
@@ -1133,7 +1117,6 @@ public final class ComponentConfig {
 
             /**
              * Privileged builder.
-             *
              * @param privileged the privileged
              * @return the builder
              */
@@ -1144,7 +1127,6 @@ public final class ComponentConfig {
 
             /**
              * App bar display builder.
-             *
              * @param appBarDisplay the app bar display
              * @return the builder
              */
@@ -1155,7 +1137,6 @@ public final class ComponentConfig {
 
             /**
              * Access permission builder.
-             *
              * @param accessPermission the access permission
              * @return the builder
              */
@@ -1166,7 +1147,6 @@ public final class ComponentConfig {
 
             /**
              * Use autologin cookie builder.
-             *
              * @param useAutologinCookie the use autologin cookie
              * @return the builder
              */
@@ -1177,7 +1157,6 @@ public final class ComponentConfig {
 
             /**
              * Create webapp info.
-             *
              * @return the webapp info
              */
             public WebappInfo create() {

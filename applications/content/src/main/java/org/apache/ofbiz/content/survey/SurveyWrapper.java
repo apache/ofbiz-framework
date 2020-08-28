@@ -62,18 +62,43 @@ public class SurveyWrapper {
 
     private static final String MODULE = SurveyWrapper.class.getName();
 
-    protected Delegator delegator = null;
-    protected String responseId = null;
-    protected String partyId = null;
-    protected String surveyId = null;
-    protected Map<String, Object> templateContext = null;
-    protected Map<String, Object> passThru = null;
-    protected Map<String, Object> defaultValues = null;
-    protected boolean edit = false;
+    private Delegator delegator = null;
+    private String responseId = null;
+    private String partyId = null;
+    private String surveyId = null;
+    private Map<String, Object> templateContext = null;
+    private Map<String, Object> passThru = null;
+    private Map<String, Object> defaultValues = null;
+    private boolean edit = false;
 
     protected SurveyWrapper() { }
 
-    public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
+    /**
+     * Sets delegator.
+     * @param delegator the delegator
+     */
+    public void setDelegator(Delegator delegator) {
+        this.delegator = delegator;
+    }
+
+    /**
+     * Sets party id.
+     * @param partyId the party id
+     */
+    public void setPartyId(String partyId) {
+        this.partyId = partyId;
+    }
+
+    /**
+     * Sets survey id.
+     * @param surveyId the survey id
+     */
+    public void setSurveyId(String surveyId) {
+        this.surveyId = surveyId;
+    }
+
+    public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru,
+                         Map<String, Object> defaultValues) {
         this.delegator = delegator;
         this.responseId = responseId;
         this.partyId = partyId;
@@ -91,6 +116,9 @@ public class SurveyWrapper {
         this(delegator, null, null, surveyId, null);
     }
 
+    /**
+     * Check parameters.
+     */
     protected void checkParameters() {
         if (delegator == null || surveyId == null) {
             throw new IllegalArgumentException("Missing one or more required parameters (delegator, surveyId)");
@@ -217,8 +245,11 @@ public class SurveyWrapper {
         }
     }
 
-    // returns the FTL Template object
-    // Note: the template will not be cached
+    /**
+     * Gets template.
+     * @param templateUrl the template url
+     * @return the template
+     */
     protected Template getTemplate(URL templateUrl) {
         Configuration config = FreeMarkerWorker.getDefaultOfbizConfig();
 
@@ -232,11 +263,15 @@ public class SurveyWrapper {
         return template;
     }
 
+    /**
+     * Sets edit.
+     * @param edit the edit
+     */
     public void setEdit(boolean edit) {
         this.edit = edit;
     }
 
-    // returns the GenericValue object for the current Survey
+    /** returns the GenericValue object for the current Survey */
     public GenericValue getSurvey() {
         GenericValue survey = null;
         try {
@@ -247,6 +282,10 @@ public class SurveyWrapper {
         return survey;
     }
 
+    /**
+     * Gets survey name.
+     * @return the survey name
+     */
     public String getSurveyName() {
         GenericValue survey = this.getSurvey();
         if (survey != null) {
@@ -255,7 +294,10 @@ public class SurveyWrapper {
         return "";
     }
 
-    // true if we can update this survey
+    /**
+     * Can update boolean.
+     * @return the boolean
+     */
     public boolean canUpdate() {
         if (this.edit) {
             return true;
@@ -265,6 +307,10 @@ public class SurveyWrapper {
         return !(!"Y".equals(survey.getString("allowMultiple")) && !"Y".equals(survey.getString("allowUpdate")));
     }
 
+    /**
+     * Can respond boolean.
+     * @return the boolean
+     */
     public boolean canRespond() {
         String responseId = this.getThisResponseId();
         if (responseId == null) {
@@ -274,7 +320,7 @@ public class SurveyWrapper {
         return "Y".equals(survey.getString("allowMultiple"));
     }
 
-    // returns a list of SurveyQuestions (in order by sequence number) for the current Survey
+    /** returns a list of SurveyQuestions (in order by sequence number) for the current Survey */
     public List<GenericValue> getSurveyQuestionAndAppls() {
         List<GenericValue> questions = new LinkedList<>();
 
@@ -290,7 +336,7 @@ public class SurveyWrapper {
         return questions;
     }
 
-    // returns the most current SurveyResponse ID for a survey; null if no party is found
+    /** returns the most current SurveyResponse ID for a survey; null if no party is found */
     protected String getThisResponseId() {
         if (responseId != null) {
             return responseId;
@@ -322,10 +368,19 @@ public class SurveyWrapper {
         return responseId;
     }
 
+    /**
+     * Sets this response id.
+     * @param responseId the response id
+     */
     protected void setThisResponseId(String responseId) {
         this.responseId = responseId;
     }
 
+    /**
+     * Gets number responses.
+     * @return the number responses
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public long getNumberResponses() throws SurveyWrapperException {
         long responses = 0;
         try {
@@ -336,6 +391,12 @@ public class SurveyWrapper {
         return responses;
     }
 
+    /**
+     * Gets survey responses.
+     * @param question the question
+     * @return the survey responses
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public List<GenericValue> getSurveyResponses(GenericValue question) throws SurveyWrapperException {
         List<GenericValue> responses = null;
         try {
@@ -346,7 +407,7 @@ public class SurveyWrapper {
         return responses;
     }
 
-    // returns a Map of answers keyed on SurveyQuestion ID from the most current SurveyResponse ID
+    /** returns a Map of answers keyed on SurveyQuestion ID from the most current SurveyResponse ID */
     public Map<String, Object> getResponseAnswers(String responseId) throws SurveyWrapperException {
         Map<String, Object> answerMap = new HashMap<>();
 
@@ -388,6 +449,14 @@ public class SurveyWrapper {
         return answerMap;
     }
 
+    /**
+     * Gets question responses.
+     * @param question   the question
+     * @param startIndex the start index
+     * @param number     the number
+     * @return the question responses
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public List<GenericValue> getQuestionResponses(GenericValue question, int startIndex, int number) throws SurveyWrapperException {
         List<GenericValue> resp = null;
         boolean beganTransaction = false;
@@ -423,6 +492,12 @@ public class SurveyWrapper {
         return resp;
     }
 
+    /**
+     * Gets results.
+     * @param questions the questions
+     * @return the results
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public Map<String, Object> getResults(List<GenericValue> questions) throws SurveyWrapperException {
         Map<String, Object> questionResults = new HashMap<>();
         if (questions != null) {
@@ -436,7 +511,12 @@ public class SurveyWrapper {
         return questionResults;
     }
 
-    // returns a map of question reqsults
+    /**
+     * Gets result info.
+     * @param question the question
+     * @return the result info
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public Map<String, Object> getResultInfo(GenericValue question) throws SurveyWrapperException {
         Map<String, Object> resultMap = new HashMap<>();
 

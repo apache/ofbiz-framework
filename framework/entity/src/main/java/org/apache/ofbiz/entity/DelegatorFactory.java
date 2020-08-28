@@ -33,9 +33,10 @@ import org.apache.ofbiz.base.util.UtilObject;
 /** <code>Delegator</code> factory abstract class. */
 public abstract class DelegatorFactory implements Factory<Delegator, String> {
     private static final String MODULE = DelegatorFactory.class.getName();
-    private static final ConcurrentHashMap<String, Future<Delegator>> delegators = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Future<Delegator>> DELEGATORS = new ConcurrentHashMap<>();
     private static final ThreadGroup DELEGATOR_THREAD_GROUP = new ThreadGroup("DelegatorFactory");
-    private static final ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup", Runtime.getRuntime().availableProcessors(), 10, true);
+    private static final ScheduledExecutorService EXECUTOR = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup",
+            Runtime.getRuntime().availableProcessors(), 10, true);
 
     public static Delegator getDelegator(String delegatorName) {
         Future<Delegator> future = getDelegatorFuture(delegatorName);
@@ -52,15 +53,15 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
             delegatorName = "default";
         }
         do {
-            Future<Delegator> future = delegators.get(delegatorName);
+            Future<Delegator> future = DELEGATORS.get(delegatorName);
             if (future != null) {
                 return future;
             }
             FutureTask<Delegator> futureTask = new FutureTask<>(new DelegatorConfigurable(delegatorName));
-            if (delegators.putIfAbsent(delegatorName, futureTask) != null) {
+            if (DELEGATORS.putIfAbsent(delegatorName, futureTask) != null) {
                 continue;
             }
-            executor.submit(futureTask);
+            EXECUTOR.submit(futureTask);
         } while (true);
     }
 

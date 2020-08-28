@@ -40,11 +40,11 @@ public final class UtilPlist {
     private UtilPlist() { }
 
     /** simple 4 char indentation */
-    private static final String indentFourString = "    ";
+    private static final String INDENT_FOUR_STRING = "    ";
 
     public static void writePlistProperty(String name, Object value, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.print(name);
         writer.print(" = ");
@@ -62,14 +62,14 @@ public final class UtilPlist {
     }
     public static void writePlistPropertyMap(Map<String, Object> propertyMap, int indentLevel, PrintWriter writer, boolean appendComma) {
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.println("{");
         for (Map.Entry<String, Object> property: propertyMap.entrySet()) {
             writePlistProperty(property.getKey(), property.getValue(), indentLevel + 1, writer);
         }
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         if (appendComma) {
             writer.println("},");
@@ -79,7 +79,7 @@ public final class UtilPlist {
     }
     public static void writePlistPropertyValueList(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.print("(");
 
@@ -98,14 +98,14 @@ public final class UtilPlist {
         }
 
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.println(");");
     }
 
     public static void writePlistPropertyXml(String name, Object value, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.print("<key>");
         writer.print(name);
@@ -118,7 +118,7 @@ public final class UtilPlist {
             writePlistPropertyValueListXml(list, indentLevel, writer);
         } else {
             for (int i = 0; i < indentLevel; i++) {
-                writer.print(indentFourString);
+                writer.print(INDENT_FOUR_STRING);
             }
             writer.print("<string>");
             writer.print(value);
@@ -127,20 +127,20 @@ public final class UtilPlist {
     }
     public static void writePlistPropertyMapXml(Map<String, Object> propertyMap, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.println("<dict>");
         for (Map.Entry<String, Object> property: propertyMap.entrySet()) {
             writePlistPropertyXml(property.getKey(), property.getValue(), indentLevel + 1, writer);
         }
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.println("</dict>");
     }
     public static void writePlistPropertyValueListXml(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.println("<array>");
 
@@ -153,7 +153,7 @@ public final class UtilPlist {
                 writePlistPropertyMapXml(propertyMap, indentLevel, writer);
             } else {
                 for (int i = 0; i < indentLevel; i++) {
-                    writer.print(indentFourString);
+                    writer.print(INDENT_FOUR_STRING);
                 }
                 writer.print("<string>");
                 writer.print(propertyValue);
@@ -163,25 +163,29 @@ public final class UtilPlist {
         indentLevel--;
 
         for (int i = 0; i < indentLevel; i++) {
-            writer.print(indentFourString);
+            writer.print(INDENT_FOUR_STRING);
         }
         writer.println("</array>");
     }
 
     /**
      * Writes model information in the Apple EOModelBundle format.
-     * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
+     * For document structure and definition see:
+     * http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
      * @param eoModelMap
      * @param eomodeldFullPath
      * @param filename
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException
      */
-    public static void writePlistFile(Map<String, Object> eoModelMap, String eomodeldFullPath, String filename, boolean useXml) throws FileNotFoundException, UnsupportedEncodingException {
-        try (PrintWriter plistWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, filename)), "UTF-8")))) {
+    public static void writePlistFile(Map<String, Object> eoModelMap, String eomodeldFullPath, String filename, boolean useXml)
+            throws FileNotFoundException, UnsupportedEncodingException {
+        try (PrintWriter plistWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                new File(eomodeldFullPath, filename)), "UTF-8")))) {
             if (useXml) {
                 plistWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                plistWriter.println("<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">");
+                plistWriter.println("<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/"
+                        + "PropertyList-1.0.dtd\">");
                 plistWriter.println("<plist version=\"1.0\">");
                 writePlistPropertyMapXml(eoModelMap, 0, plistWriter);
                 plistWriter.println("</plist>");

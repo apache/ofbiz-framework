@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
  */
 public class CompareField extends BaseCompare {
 
-    String compareName;
+    private String compareName;
 
     public CompareField(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
@@ -39,7 +39,7 @@ public class CompareField extends BaseCompare {
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object compareValue = inMap.get(compareName);
-        Object fieldValue = inMap.get(fieldName);
+        Object fieldValue = inMap.get(getFieldName());
 
         doCompare(fieldValue, compareValue, messages, locale, loader, false);
     }

@@ -73,7 +73,7 @@ public final class BillingAccountWorker {
                 .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
                         EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")).filterByDate().queryList();
 
-        if (billingAccountRoleList.size() > 0) {
+        if (!billingAccountRoleList.isEmpty()) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
             for (GenericValue billingAccountRole : billingAccountRoleList) {
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount", false);

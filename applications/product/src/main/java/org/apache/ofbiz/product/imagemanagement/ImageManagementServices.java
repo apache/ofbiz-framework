@@ -839,7 +839,7 @@ public class ImageManagementServices {
                 }
 
                 List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL").queryList();
-                if (contentAssocList.size() > 0) {
+                if (!contentAssocList.isEmpty()) {
                     for (int i = 0; i < contentAssocList.size(); i++) {
                         GenericValue contentAssoc = contentAssocList.get(i);
 

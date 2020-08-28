@@ -60,67 +60,222 @@ import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
+/**
+ * The type Artifact info factory.
+ */
 public class ArtifactInfoFactory {
 
     private static final String MODULE = ArtifactInfoFactory.class.getName();
 
-    private static final UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = UtilCache.createUtilCache("ArtifactInfoFactory");
+    private static final UtilCache<String, ArtifactInfoFactory> ARTIFACT_INFO_FACTORY_CACHE = UtilCache.createUtilCache("ArtifactInfoFactory");
 
-    public static final String EntityInfoTypeId = "entity";
-    public static final String ServiceInfoTypeId = "service";
-    public static final String ServiceEcaInfoTypeId = "serviceEca";
-    public static final String FormWidgetInfoTypeId = "form";
-    public static final String ScreenWidgetInfoTypeId = "screen";
-    public static final String ControllerRequestInfoTypeId = "request";
-    public static final String ControllerViewInfoTypeId = "view";
+    public static final String ENTITY_INFO_TYPE_ID = "entity";
+    public static final String SERVICE_INFO_TYPE_ID = "service";
+    public static final String SERVICE_ECA_INFO_TYPE_ID = "serviceEca";
+    public static final String FORM_WIDGET_INFO_TYPE_ID = "form";
+    public static final String SCREEN_WIDGET_INFO_TYPE_ID = "screen";
+    public static final String CONTROLLER_REQ_INFO_TYPE_ID = "request";
+    public static final String CONTROLLER_VIEW_INFO_TYPE_ID = "view";
 
-    protected final String delegatorName;
-    protected final ModelReader entityModelReader;
-    protected final DispatchContext dispatchContext;
+    private final String delegatorName;
+    private final ModelReader entityModelReader;
+    private final DispatchContext dispatchContext;
 
-    public Map<String, EntityArtifactInfo> allEntityInfos = new ConcurrentHashMap<>();
-    public Map<String, ServiceArtifactInfo> allServiceInfos = new ConcurrentHashMap<>();
-    public Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = new ConcurrentHashMap<>();
-    public Map<String, FormWidgetArtifactInfo> allFormInfos = new ConcurrentHashMap<>();
-    public Map<String, ScreenWidgetArtifactInfo> allScreenInfos = new ConcurrentHashMap<>();
-    public Map<String, ControllerRequestArtifactInfo> allControllerRequestInfos = new ConcurrentHashMap<>();
-    public Map<String, ControllerViewArtifactInfo> allControllerViewInfos = new ConcurrentHashMap<>();
+    private Map<String, EntityArtifactInfo> allEntityInfos = new ConcurrentHashMap<>();
+    private Map<String, ServiceArtifactInfo> allServiceInfos = new ConcurrentHashMap<>();
+    private Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = new ConcurrentHashMap<>();
+    private Map<String, FormWidgetArtifactInfo> allFormInfos = new ConcurrentHashMap<>();
+    private Map<String, ScreenWidgetArtifactInfo> allScreenInfos = new ConcurrentHashMap<>();
+    private Map<String, ControllerRequestArtifactInfo> allControllerRequestInfos = new ConcurrentHashMap<>();
+    private Map<String, ControllerViewArtifactInfo> allControllerViewInfos = new ConcurrentHashMap<>();
 
     // reverse-associative caches for walking backward in the diagram
-    public Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = new ConcurrentHashMap<>();
-    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = new ConcurrentHashMap<>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = new ConcurrentHashMap<>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosBasedOnServiceName = new ConcurrentHashMap<>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = new ConcurrentHashMap<>();
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = new ConcurrentHashMap<>();
+    private Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = new ConcurrentHashMap<>();
+    private Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = new ConcurrentHashMap<>();
+    private Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = new ConcurrentHashMap<>();
+    private Map<String, Set<FormWidgetArtifactInfo>> allFormInfosBasedOnServiceName = new ConcurrentHashMap<>();
+    private Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = new ConcurrentHashMap<>();
+    private Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = new ConcurrentHashMap<>();
 
-    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = new ConcurrentHashMap<>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = new ConcurrentHashMap<>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = new ConcurrentHashMap<>();
+    private Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = new ConcurrentHashMap<>();
+    private Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = new ConcurrentHashMap<>();
+    private Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = new ConcurrentHashMap<>();
 
-    public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = new ConcurrentHashMap<>();
+    private Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = new ConcurrentHashMap<>();
 
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosExtendingForm = new ConcurrentHashMap<>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToForm = new ConcurrentHashMap<>();
+    private Map<String, Set<FormWidgetArtifactInfo>> allFormInfosExtendingForm = new ConcurrentHashMap<>();
+    private Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToForm = new ConcurrentHashMap<>();
 
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = new ConcurrentHashMap<>();
-    public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = new ConcurrentHashMap<>();
+    private Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = new ConcurrentHashMap<>();
+    private Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = new ConcurrentHashMap<>();
 
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = new ConcurrentHashMap<>();
+    private Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = new ConcurrentHashMap<>();
 
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosTargetingRequest = new ConcurrentHashMap<>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToRequest = new ConcurrentHashMap<>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToRequest = new ConcurrentHashMap<>();
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = new ConcurrentHashMap<>();
+    private Map<String, Set<FormWidgetArtifactInfo>> allFormInfosTargetingRequest = new ConcurrentHashMap<>();
+    private Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToRequest = new ConcurrentHashMap<>();
+    private Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToRequest = new ConcurrentHashMap<>();
+    private Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = new ConcurrentHashMap<>();
+
+    /**
+     * Gets all service eca infos referring to service name.
+     * @return the all service eca infos referring to service name
+     */
+    public Map<String, Set<ServiceEcaArtifactInfo>> getAllServiceEcaInfosReferringToServiceName() {
+        return allServiceEcaInfosReferringToServiceName;
+    }
+
+    /**
+     * Gets all service infos referring to service name.
+     * @return the all service infos referring to service name
+     */
+    public Map<String, Set<ServiceArtifactInfo>> getAllServiceInfosReferringToServiceName() {
+        return allServiceInfosReferringToServiceName;
+    }
+
+    /**
+     * Gets all form infos referring to service name.
+     * @return the all form infos referring to service name
+     */
+    public Map<String, Set<FormWidgetArtifactInfo>> getAllFormInfosReferringToServiceName() {
+        return allFormInfosReferringToServiceName;
+    }
+
+    /**
+     * Gets all form infos based on service name.
+     * @return the all form infos based on service name
+     */
+    public Map<String, Set<FormWidgetArtifactInfo>> getAllFormInfosBasedOnServiceName() {
+        return allFormInfosBasedOnServiceName;
+    }
+
+    /**
+     * Gets all screen infos referring to service name.
+     * @return the all screen infos referring to service name
+     */
+    public Map<String, Set<ScreenWidgetArtifactInfo>> getAllScreenInfosReferringToServiceName() {
+        return allScreenInfosReferringToServiceName;
+    }
+
+    /**
+     * Gets all request infos referring to service name.
+     * @return the all request infos referring to service name
+     */
+    public Map<String, Set<ControllerRequestArtifactInfo>> getAllRequestInfosReferringToServiceName() {
+        return allRequestInfosReferringToServiceName;
+    }
+
+    /**
+     * Gets all service infos referring to entity name.
+     * @return the all service infos referring to entity name
+     */
+    public Map<String, Set<ServiceArtifactInfo>> getAllServiceInfosReferringToEntityName() {
+        return allServiceInfosReferringToEntityName;
+    }
+
+    /**
+     * Gets all form infos referring to entity name.
+     * @return the all form infos referring to entity name
+     */
+    public Map<String, Set<FormWidgetArtifactInfo>> getAllFormInfosReferringToEntityName() {
+        return allFormInfosReferringToEntityName;
+    }
+
+    /**
+     * Gets all screen infos referring to entity name.
+     * @return the all screen infos referring to entity name
+     */
+    public Map<String, Set<ScreenWidgetArtifactInfo>> getAllScreenInfosReferringToEntityName() {
+        return allScreenInfosReferringToEntityName;
+    }
+
+    /**
+     * Gets all service infos referring to service eca rule.
+     * @return the all service infos referring to service eca rule
+     */
+    public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> getAllServiceInfosReferringToServiceEcaRule() {
+        return allServiceInfosReferringToServiceEcaRule;
+    }
+
+    /**
+     * Gets all form infos extending form.
+     * @return the all form infos extending form
+     */
+    public Map<String, Set<FormWidgetArtifactInfo>> getAllFormInfosExtendingForm() {
+        return allFormInfosExtendingForm;
+    }
+
+    /**
+     * Gets all screen infos referring to form.
+     * @return the all screen infos referring to form
+     */
+    public Map<String, Set<ScreenWidgetArtifactInfo>> getAllScreenInfosReferringToForm() {
+        return allScreenInfosReferringToForm;
+    }
+
+    /**
+     * Gets all screen infos referring to screen.
+     * @return the all screen infos referring to screen
+     */
+    public Map<String, Set<ScreenWidgetArtifactInfo>> getAllScreenInfosReferringToScreen() {
+        return allScreenInfosReferringToScreen;
+    }
+
+    /**
+     * Gets all view infos referring to screen.
+     * @return the all view infos referring to screen
+     */
+    public Map<String, Set<ControllerViewArtifactInfo>> getAllViewInfosReferringToScreen() {
+        return allViewInfosReferringToScreen;
+    }
+
+    /**
+     * Gets all request infos referring to view.
+     * @return the all request infos referring to view
+     */
+    public Map<String, Set<ControllerRequestArtifactInfo>> getAllRequestInfosReferringToView() {
+        return allRequestInfosReferringToView;
+    }
+
+    /**
+     * Gets all form infos targeting request.
+     * @return the all form infos targeting request
+     */
+    public Map<String, Set<FormWidgetArtifactInfo>> getAllFormInfosTargetingRequest() {
+        return allFormInfosTargetingRequest;
+    }
+
+    /**
+     * Gets all form infos referring to request.
+     * @return the all form infos referring to request
+     */
+    public Map<String, Set<FormWidgetArtifactInfo>> getAllFormInfosReferringToRequest() {
+        return allFormInfosReferringToRequest;
+    }
+
+    /**
+     * Gets all screen infos referring to request.
+     * @return the all screen infos referring to request
+     */
+    public Map<String, Set<ScreenWidgetArtifactInfo>> getAllScreenInfosReferringToRequest() {
+        return allScreenInfosReferringToRequest;
+    }
+
+    /**
+     * Gets all request infos referring to request.
+     * @return the all request infos referring to request
+     */
+    public Map<String, Set<ControllerRequestArtifactInfo>> getAllRequestInfosReferringToRequest() {
+        return allRequestInfosReferringToRequest;
+    }
 
     public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
             delegatorName = "default";
         }
 
-        ArtifactInfoFactory aif = artifactInfoFactoryCache.get(delegatorName);
+        ArtifactInfoFactory aif = ARTIFACT_INFO_FACTORY_CACHE.get(delegatorName);
         if (aif == null) {
-            aif = artifactInfoFactoryCache.putIfAbsentAndGet(delegatorName, new ArtifactInfoFactory(delegatorName));
+            aif = ARTIFACT_INFO_FACTORY_CACHE.putIfAbsentAndGet(delegatorName, new ArtifactInfoFactory(delegatorName));
         }
         return aif;
     }
@@ -142,6 +297,10 @@ public class ArtifactInfoFactory {
         this.prepareAll();
     }
 
+    /**
+     * Prepare all.
+     * @throws GeneralException the general exception
+     */
     public void prepareAll() throws GeneralException {
         Debug.logInfo("Loading artifact info objects...", MODULE);
         List<Future<Void>> futures = new ArrayList<>();
@@ -166,30 +325,78 @@ public class ArtifactInfoFactory {
         Debug.logInfo("Artifact info objects loaded.", MODULE);
     }
 
+    /**
+     * Gets entity model reader.
+     * @return the entity model reader
+     */
     public ModelReader getEntityModelReader() {
         return this.entityModelReader;
     }
 
+    /**
+     * Gets dispatch context.
+     * @return the dispatch context
+     */
     public DispatchContext getDispatchContext() {
         return this.dispatchContext;
     }
 
+    /**
+     * Gets model entity.
+     * @param entityName the entity name
+     * @return the model entity
+     * @throws GenericEntityException the generic entity exception
+     */
     public ModelEntity getModelEntity(String entityName) throws GenericEntityException {
         return this.getEntityModelReader().getModelEntity(entityName);
     }
 
+    /**
+     * Gets model service.
+     * @param serviceName the service name
+     * @return the model service
+     * @throws GenericServiceException the generic service exception
+     */
     public ModelService getModelService(String serviceName) throws GenericServiceException {
         return this.getDispatchContext().getModelService(serviceName);
     }
 
+    /**
+     * Gets model form.
+     * @param formNameAndLocation the form name and location
+     * @return the model form
+     * @throws ParserConfigurationException the parser configuration exception
+     * @throws SAXException                 the sax exception
+     * @throws IOException                  the io exception
+     */
     public ModelForm getModelForm(String formNameAndLocation) throws ParserConfigurationException, SAXException, IOException {
-        return getModelForm(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")));
+        return getModelForm(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0,
+                formNameAndLocation.indexOf("#")));
     }
+
+    /**
+     * Gets model form.
+     * @param formName     the form name
+     * @param formLocation the form location
+     * @return the model form
+     * @throws ParserConfigurationException the parser configuration exception
+     * @throws SAXException                 the sax exception
+     * @throws IOException                  the io exception
+     */
     public ModelForm getModelForm(String formName, String formLocation) throws ParserConfigurationException, SAXException, IOException {
         return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader,
                 ThemeFactory.getVisualThemeFromId("COMMON"), this.dispatchContext);
     }
 
+    /**
+     * Gets model screen.
+     * @param screenName     the screen name
+     * @param screenLocation the screen location
+     * @return the model screen
+     * @throws ParserConfigurationException the parser configuration exception
+     * @throws SAXException                 the sax exception
+     * @throws IOException                  the io exception
+     */
     public ModelScreen getModelScreen(String screenName, String screenLocation) throws ParserConfigurationException, SAXException, IOException {
         return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
     }
@@ -245,8 +452,17 @@ public class ArtifactInfoFactory {
     }
 
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formNameAndLocation) throws GeneralException {
-        return getFormWidgetArtifactInfo(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")));
+        return getFormWidgetArtifactInfo(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0,
+                formNameAndLocation.indexOf("#")));
     }
+
+    /**
+     * Gets form widget artifact info.
+     * @param formName     the form name
+     * @param formLocation the form location
+     * @return the form widget artifact info
+     * @throws GeneralException the general exception
+     */
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formName, String formLocation) throws GeneralException {
         FormWidgetArtifactInfo curInfo = this.allFormInfos.get(formLocation + "#" + formName);
         if (curInfo == null) {
@@ -257,6 +473,12 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets screen widget artifact info.
+     * @param screenName     the screen name
+     * @param screenLocation the screen location
+     * @return the screen widget artifact info
+     */
     public ScreenWidgetArtifactInfo getScreenWidgetArtifactInfo(String screenName, String screenLocation) {
         ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenLocation + "#" + screenName);
         if (curInfo == null) {
@@ -272,6 +494,13 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets controller request artifact info.
+     * @param controllerXmlUrl the controller xml url
+     * @param requestUri       the request uri
+     * @return the controller request artifact info
+     * @throws GeneralException the general exception
+     */
     public ControllerRequestArtifactInfo getControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri) throws GeneralException {
         if (controllerXmlUrl == null) {
             throw new GeneralException("Got a null URL controller");
@@ -288,6 +517,13 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets controller view artifact info.
+     * @param controllerXmlUrl the controller xml url
+     * @param viewUri          the view uri
+     * @return the controller view artifact info
+     * @throws GeneralException the general exception
+     */
     public ControllerViewArtifactInfo getControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri) throws GeneralException {
         ControllerViewArtifactInfo curInfo = this.allControllerViewInfos.get(controllerXmlUrl.toExternalForm() + "#" + viewUri);
         if (curInfo == null) {
@@ -297,6 +533,12 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets artifact info by unique id and type.
+     * @param uniqueId the unique id
+     * @param type     the type
+     * @return the artifact info by unique id and type
+     */
     public ArtifactInfoBase getArtifactInfoByUniqueIdAndType(String uniqueId, String type) {
         if (uniqueId.contains("#")) {
             int poundIndex = uniqueId.indexOf('#');

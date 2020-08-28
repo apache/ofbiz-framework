@@ -31,16 +31,17 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class WeightPackageSessionLine implements java.io.Serializable {
 
-    protected String orderId = null;
-    protected BigDecimal packageWeight = BigDecimal.ZERO;
-    protected BigDecimal packageLength = null;
-    protected BigDecimal packageWidth = null;
-    protected BigDecimal packageHeight = null;
-    protected String shipmentBoxTypeId = null;
-    protected String shipmentItemSeqId = null;
-    protected int weightPackageSeqId = 0;
+    private String orderId = null;
+    private BigDecimal packageWeight = BigDecimal.ZERO;
+    private BigDecimal packageLength = null;
+    private BigDecimal packageWidth = null;
+    private BigDecimal packageHeight = null;
+    private String shipmentBoxTypeId = null;
+    private String shipmentItemSeqId = null;
+    private int weightPackageSeqId = 0;
 
-    public WeightPackageSessionLine(String orderId, BigDecimal packageWeight, BigDecimal packageLength, BigDecimal packageWidth, BigDecimal packageHeight, String shipmentBoxTypeId, int weightPackageSeqId) throws GeneralException {
+    public WeightPackageSessionLine(String orderId, BigDecimal packageWeight, BigDecimal packageLength, BigDecimal packageWidth,
+                                    BigDecimal packageHeight, String shipmentBoxTypeId, int weightPackageSeqId) throws GeneralException {
         this.orderId = orderId;
         this.packageWeight = packageWeight;
         this.packageLength = packageLength;
@@ -50,71 +51,144 @@ public class WeightPackageSessionLine implements java.io.Serializable {
         this.weightPackageSeqId = weightPackageSeqId;
     }
 
+    /**
+     * Gets order id.
+     * @return the order id
+     */
     public String getOrderId() {
         return this.orderId;
     }
 
+    /**
+     * Sets order id.
+     * @param orderId the order id
+     */
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
+    /**
+     * Gets package weight.
+     * @return the package weight
+     */
     public BigDecimal getPackageWeight() {
         return this.packageWeight;
     }
 
+    /**
+     * Sets package weight.
+     * @param packageWeight the package weight
+     */
     public void setPackageWeight(BigDecimal packageWeight) {
         this.packageWeight = packageWeight;
     }
 
+    /**
+     * Gets package length.
+     * @return the package length
+     */
     public BigDecimal getPackageLength() {
         return this.packageLength;
     }
 
+    /**
+     * Sets package length.
+     * @param packageLength the package length
+     */
     public void setPackageLength(BigDecimal packageLength) {
         this.packageLength = packageLength;
     }
 
+    /**
+     * Gets package width.
+     * @return the package width
+     */
     public BigDecimal getPackageWidth() {
-       return this.packageWidth;
+        return this.packageWidth;
     }
 
+    /**
+     * Sets package width.
+     * @param packageWidth the package width
+     */
     public void setPackageWidth(BigDecimal packageWidth) {
         this.packageWidth = packageWidth;
     }
 
+    /**
+     * Gets package height.
+     * @return the package height
+     */
     public BigDecimal getPackageHeight() {
         return this.packageHeight;
     }
 
+    /**
+     * Sets package height.
+     * @param packageHeight the package height
+     */
     public void setPackageHeight(BigDecimal packageHeight) {
         this.packageHeight = packageHeight;
     }
 
+    /**
+     * Gets shipment box type id.
+     * @return the shipment box type id
+     */
     public String getShipmentBoxTypeId() {
         return this.shipmentBoxTypeId;
     }
 
+    /**
+     * Sets shipment box type id.
+     * @param shipmentBoxTypeId the shipment box type id
+     */
     public void setShipmentBoxTypeId(String shipmentBoxTypeId) {
         this.shipmentBoxTypeId = shipmentBoxTypeId;
     }
 
+    /**
+     * Gets weight package seq id.
+     * @return the weight package seq id
+     */
     public int getWeightPackageSeqId() {
         return this.weightPackageSeqId;
     }
 
+    /**
+     * Sets weight package seq id.
+     * @param weightPackageSeqId the weight package seq id
+     */
     public void setWeightPackageSeqId(int weightPackageSeqId) {
         this.weightPackageSeqId = weightPackageSeqId;
     }
 
+    /**
+     * Gets shipment item seq id.
+     * @return the shipment item seq id
+     */
     public String getShipmentItemSeqId() {
         return this.shipmentItemSeqId;
     }
 
+    /**
+     * Sets shipment item seq id.
+     * @param shipmentItemSeqId the shipment item seq id
+     */
     public void setShipmentItemSeqId(String shipmentItemSeqId) {
         this.shipmentItemSeqId = shipmentItemSeqId;
     }
 
-    protected void applyLineToPackage(String shipmentId, GenericValue userLogin, LocalDispatcher dispatcher, int shipPackSeqId) throws GeneralException {
+    /**
+     * Apply line to package.
+     * @param shipmentId    the shipment id
+     * @param userLogin     the user login
+     * @param dispatcher    the dispatcher
+     * @param shipPackSeqId the ship pack seq id
+     * @throws GeneralException the general exception
+     */
+    protected void applyLineToPackage(String shipmentId, GenericValue userLogin, LocalDispatcher dispatcher, int shipPackSeqId)
+            throws GeneralException {
         String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(shipPackSeqId, 5);
 
         Map<String, Object> packageMap = new HashMap<>();

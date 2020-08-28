@@ -86,7 +86,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
         try {
             ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
-            if (!model.export) {
+            if (!model.isExport()) {
                 Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
                 return null;
             }

@@ -50,7 +50,8 @@ import freemarker.template.TemplateTransformModel;
 public class EditRenderSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = EditRenderSubContentCacheTransform.class.getName();
-    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    static final String[] SAVED_KEY_NAMES = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",
+            "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -92,7 +93,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String) templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String) templateCtx.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
         GenericValue val = null;
         try {
             val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
@@ -128,7 +129,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
         final Map<String, Object> savedValues = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
+        FreeMarkerWorker.saveContextValues(templateCtx, SAVED_KEY_NAMES, savedValues);
 
         return new Writer(out) {
 

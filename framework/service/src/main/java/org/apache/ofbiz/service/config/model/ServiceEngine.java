@@ -88,10 +88,10 @@ public final class ServiceEngine {
             List<ServiceLocation> serviceLocations = new ArrayList<>(serviceLocationElementList.size());
             for (Element serviceLocationElement : serviceLocationElementList) {
                 String location = serviceLocationElement.getAttribute("location").intern();
-                if (location.contains("localhost") && Start.getInstance().getConfig().portOffset != 0) {
+                if (location.contains("localhost") && Start.getInstance().getConfig().getPortOffset() != 0) {
                     String s = location.substring(location.lastIndexOf(":") + 1);
                     Integer locationPort = Integer.valueOf(s.substring(0, s.indexOf("/")));
-                    Integer port = locationPort + Start.getInstance().getConfig().portOffset;
+                    Integer port = locationPort + Start.getInstance().getConfig().getPortOffset();
                     location = location.replace(locationPort.toString(), port.toString());
                 }
                 serviceLocations.add(new ServiceLocation(serviceLocationElement, location));

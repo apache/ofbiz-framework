@@ -54,20 +54,19 @@ import org.xml.sax.XMLReader;
 public final class XslTransform {
 
     private static final String MODULE = XslTransform.class.getName();
-    private static final UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
+    private static final UtilCache<String, Templates> XSL_TEMPLATE_CACHE = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
      * @param template the content or url of the xsl template
      * @param data the content or url of the xml data file
      * @throws TransformerException
      */
-    public static String renderTemplate(String template, String data)
-    throws TransformerException {
+    public static String renderTemplate(String template, String data) throws TransformerException {
         String result = null;
         TransformerFactory tfactory = TransformerFactory.newInstance();
         if (tfactory.getFeature(SAXSource.FEATURE)) {
             // setup for xml data file preprocessing to be able to xinclude
-            SAXParserFactory pfactory= SAXParserFactory.newInstance();
+            SAXParserFactory pfactory = SAXParserFactory.newInstance();
             pfactory.setNamespaceAware(true);
             pfactory.setValidating(false);
             pfactory.setXIncludeAware(true);
@@ -107,7 +106,7 @@ public final class XslTransform {
         Templates translet = null;
         String templateName = (String) context.get("templateName");
         if (UtilValidate.isNotEmpty(templateName)) {
-            translet = xslTemplatesCache.get(templateName);
+            translet = XSL_TEMPLATE_CACHE.get(templateName);
         }
 
         if (translet == null) {
@@ -117,7 +116,7 @@ public final class XslTransform {
             Source templateSource = getSource(templateDocument, templateUrl, templateString);
             translet = tFactory.newTemplates(templateSource);
             if (UtilValidate.isNotEmpty(templateName)) {
-                translet = xslTemplatesCache.putIfAbsentAndGet(templateName, translet);
+                translet = XSL_TEMPLATE_CACHE.putIfAbsentAndGet(templateName, translet);
             }
         }
         if (translet != null) {
@@ -160,7 +159,7 @@ public final class XslTransform {
             URL url = FlexibleLocation.resolveLocation(inputUrl);
             URLConnection conn = URLConnector.openConnection(url);
             try (InputStream in = conn.getInputStream()) {
-            source = new StreamSource(in);
+                source = new StreamSource(in);
             }
         }
         return source;

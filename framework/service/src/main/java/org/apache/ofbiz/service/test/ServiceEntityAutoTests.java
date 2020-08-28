@@ -46,12 +46,16 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test entity auto create singl pk entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoCreateSinglPkEntity() throws Exception {
         //test create with given pk
         Map<String, Object> testingPkPresentMap = new HashMap<>();
         testingPkPresentMap.put("testingId", "TESTING_1");
         testingPkPresentMap.put("testingName", "entity auto testing");
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingPkPresent", testingPkPresentMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoCreateTestingPkPresent", testingPkPresentMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testing = EntityQuery.use(delegator).from("Testing").where("testingId", "TESTING_1").queryOne();
         assertNotNull(testing);
@@ -59,22 +63,26 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test create with auto sequence
         Map<String, Object> testingPkMissingMap = new HashMap<>();
         testingPkPresentMap.put("testingName", "entity auto testing without pk part in");
-        results = dispatcher.runSync("testEntityAutoCreateTestingPkMissing", testingPkMissingMap);
+        results = getDispatcher().runSync("testEntityAutoCreateTestingPkMissing", testingPkMissingMap);
         assertTrue(ServiceUtil.isSuccess(results));
         testing = EntityQuery.use(delegator).from("Testing").where("testingId", results.get("testingId")).queryOne();
         assertNotNull(testing);
 
         //test collision
-        results = dispatcher.runSync("testEntityAutoCreateTestingPkPresent", testingPkPresentMap, 10, true);
+        results = getDispatcher().runSync("testEntityAutoCreateTestingPkPresent", testingPkPresentMap, 10, true);
         assertTrue(ServiceUtil.isError(results));
     }
 
+    /**
+     * Test entity auto create double pk entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoCreateDoublePkEntity() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_2");
 
         //test create with given pk
         Map<String, Object> testingItemPkPresentMap = UtilMisc.toMap("testingId", "TESTING_2", "testingSeqId", "00001");
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingItemPkPresent", testingItemPkPresentMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoCreateTestingItemPkPresent", testingItemPkPresentMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testingItem = EntityQuery.use(delegator)
                                               .from("TestingItem")
@@ -84,7 +92,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
 
         //test create with auto sub-sequence
         Map<String, Object> testingItemPkMissingMap = UtilMisc.toMap("testingId", "TESTING_2");
-        results = dispatcher.runSync("testEntityAutoCreateTestingItemPkMissing", testingItemPkMissingMap);
+        results = getDispatcher().runSync("testEntityAutoCreateTestingItemPkMissing", testingItemPkMissingMap);
         assertTrue(ServiceUtil.isSuccess(results));
         testingItem = EntityQuery.use(delegator)
                                  .from("TestingItem")
@@ -94,11 +102,15 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertEquals("00002", testingItem.get("testingSeqId"));
 
         //test collision
-        results = dispatcher.runSync("testEntityAutoCreateTestingItemPkPresent", testingItemPkPresentMap, 10, true);
+        results = getDispatcher().runSync("testEntityAutoCreateTestingItemPkPresent", testingItemPkPresentMap, 10, true);
         assertTrue(ServiceUtil.isError(results));
         //assertEquals("", ServiceUtil.getErrorMessage(results));
     }
 
+    /**
+     * Test entity auto create multi pk entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoCreateMultiPkEntity() throws Exception {
         delegator.create("TestingNode", "testingNodeId", "NODE_1");
         delegator.create("Testing", "testingId", "TESTING_3");
@@ -106,7 +118,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test create given pk
         Map<String, Object> testingNodeMemberPkPresentMap = UtilMisc.toMap("testingId", "TESTING_3",
                 "testingNodeId", "NODE_1", "fromDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"));
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingNodeMemberPkPresent", testingNodeMemberPkPresentMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoCreateTestingNodeMemberPkPresent", testingNodeMemberPkPresentMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testingNodeMember = EntityQuery.use(delegator)
                                                     .from("TestingNodeMember")
@@ -118,44 +130,57 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test create auto sub-sequence
         //test missing pk fromDate
         Map<String, Object> testingNodeMemberPkMissingMap = UtilMisc.toMap("testingId", "TESTING_3", "testingNodeId", "NODE_1");
-        results = dispatcher.runSync("testEntityAutoCreateTestingNodeMemberPkMissing", testingNodeMemberPkMissingMap, 10, true);
+        results = getDispatcher().runSync("testEntityAutoCreateTestingNodeMemberPkMissing", testingNodeMemberPkMissingMap, 10, true);
         assertTrue(ServiceUtil.isSuccess(results));
     }
 
+    /**
+     * Test entity auto update entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoUpdateEntity() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_4", "testingName", "entity auto testing");
 
         //test update with exist pk
         Map<String, Object> testingUpdateMap = UtilMisc.toMap("testingId", "TESTING_4", "testingName", "entity auto testing updated");
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoUpdateTesting", testingUpdateMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoUpdateTesting", testingUpdateMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testing = EntityQuery.use(delegator).from("Testing").where("testingId", "TESTING_4").queryOne();
         assertEquals("entity auto testing updated", testing.getString("testingName"));
 
         //test update with bad pk
         Map<String, Object> testingUpdateFailedMap = UtilMisc.toMap("testingId", "TESTING_4_FAILED", "testingName", "entity auto testing updated");
-        results = dispatcher.runSync("testEntityAutoUpdateTesting", testingUpdateFailedMap, 10, true);
+        results = getDispatcher().runSync("testEntityAutoUpdateTesting", testingUpdateFailedMap, 10, true);
         assertTrue(ServiceUtil.isError(results));
         assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
     }
 
+    /**
+     * Test entity auto delete entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoDeleteEntity() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_5");
 
         //test delete with exist pk
         Map<String, Object> testingDeleteMap = UtilMisc.toMap("testingId", "TESTING_5");
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoRemoveTesting", testingDeleteMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoRemoveTesting", testingDeleteMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testing = EntityQuery.use(delegator).from("Testing").where("testingId", "TESTING_5").queryOne();
         assertNull(testing);
 
         //test create with bad pk
         Map<String, Object> testingDeleteFailedMap = UtilMisc.toMap("testingId", "TESTING_5_FAILED");
-        results = dispatcher.runSync("testEntityAutoRemoveTesting", testingDeleteFailedMap);
+        results = getDispatcher().runSync("testEntityAutoRemoveTesting", testingDeleteFailedMap);
         assertTrue(ServiceUtil.isError(results));
-        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFoundForRemove", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFoundForRemove", Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(results));
     }
 
+    /**
+     * Test entity auto expire entity.
+     * @throws Exception the exception
+     */
     public void testEntityAutoExpireEntity() throws Exception {
         Timestamp now = UtilDateTime.nowTimestamp();
         delegator.create("Testing", "testingId", "TESTING_6");
@@ -164,14 +189,14 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         delegator.create("TestingNodeMember", testingNodeMemberPkMap);
 
         //test expire the thruDate
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testingNodeMember = EntityQuery.use(delegator).from("TestingNodeMember").where(testingNodeMemberPkMap).queryOne();
         Timestamp expireDate = testingNodeMember.getTimestamp("thruDate");
         assertNotNull("Expire thruDate set ", expireDate);
 
         //test expire to ensure the thruDate isn't update but extendThruDate is
-        results = dispatcher.runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
+        results = getDispatcher().runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
         assertTrue(ServiceUtil.isSuccess(results));
         testingNodeMember = EntityQuery.use(delegator).from("TestingNodeMember").where(testingNodeMemberPkMap).queryOne();
         assertTrue(expireDate.compareTo(testingNodeMember.getTimestamp("thruDate")) == 0);
@@ -180,7 +205,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test expire a specific field
         delegator.create("TestFieldType", "testFieldTypeId", "TESTING_6");
         Map<String, Object> testingExpireMap = UtilMisc.toMap("testFieldTypeId", "TESTING_6");
-        results = dispatcher.runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
+        results = getDispatcher().runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testFieldType = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", "TESTING_6").queryOne();
         assertNotNull("Expire dateTimeField set", testFieldType.getTimestamp("dateTimeField"));
@@ -188,13 +213,17 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test expire a specific field with in value
         delegator.create("TestFieldType", "testFieldTypeId", "TESTING_6bis");
         testingExpireMap = UtilMisc.toMap("testFieldTypeId", "TESTING_6bis", "dateTimeField", now);
-        results = dispatcher.runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
+        results = getDispatcher().runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
         assertTrue(ServiceUtil.isSuccess(results));
         testFieldType = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", "TESTING_6bis").queryOne();
         assertTrue(now.compareTo(testFieldType.getTimestamp("dateTimeField")) == 0);
     }
 
 
+    /**
+     * Test entity auto entity status concept.
+     * @throws Exception the exception
+     */
     public void testEntityAutoEntityStatusConcept() throws Exception {
         delegator.create("Testing", "testingId", "TESTING_7");
         delegator.create("StatusType", "statusTypeId", "TESTINGSTATUS");
@@ -204,7 +233,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
 
         //test create testingStatus with userlogin
         Map<String, Object> testingStatusCreateMap = UtilMisc.toMap("testingId", "TESTING_7", "statusId", "TESTING_CREATE", "userLogin", userLogin);
-        Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap);
+        Map<String, Object> results = getDispatcher().runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testing = EntityQuery.use(delegator).from("TestingStatus").where("testingId", "TESTING_7").queryFirst();
         assertNotNull(testing.getTimestamp("statusDate"));
@@ -213,28 +242,32 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test create testingStatus without userLogin
         try {
             testingStatusCreateMap = UtilMisc.toMap("testingId", "TESTING_7", "statusId", "TESTING_CREATE");
-            results = dispatcher.runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap, 10, true);
+            results = getDispatcher().runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap, 10, true);
             assertTrue(ServiceUtil.isError(results));
         } catch (GenericServiceException e) {
-            assertEquals(e.toString(), "You call a creation on entity that require the userLogin to track the activity, please controle that your service definition has auth='true'");
+            assertEquals(e.toString(), "You call a creation on entity that require the userLogin to track the activity, "
+                    + "please control that your service definition has auth='true'");
         }
 
         //test update testingStatus
         try {
-            Map<String, Object> testingStatusUpdateMap = UtilMisc.toMap("testingStatusId", testing.get("testingStatusId"), "statusId", "TESTING_UPDATE", "userLogin", userLogin);
-            results = dispatcher.runSync("testEntityAutoUpdateTestingStatus", testingStatusUpdateMap, 10, true);
+            Map<String, Object> testingStatusUpdateMap = UtilMisc.toMap("testingStatusId", testing.get("testingStatusId"),
+                    "statusId", "TESTING_UPDATE", "userLogin", userLogin);
+            results = getDispatcher().runSync("testEntityAutoUpdateTestingStatus", testingStatusUpdateMap, 10, true);
             assertTrue(ServiceUtil.isError(results));
         } catch (GenericServiceException e) {
-            assertEquals(e.toString(), "You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
+            assertEquals(e.toString(), "You call a updating operation on entity that track the activity, sorry I can't do that,"
+                    + "please amazing developer check your service definition;)");
         }
 
         //test delete testingStatus
         try {
             Map<String, Object> testingStatusDeleteMap = UtilMisc.toMap("testingStatusId", testing.get("testingStatusId"), "userLogin", userLogin);
-            results = dispatcher.runSync("testEntityAutoDeleteTestingStatus", testingStatusDeleteMap, 10, true);
+            results = getDispatcher().runSync("testEntityAutoDeleteTestingStatus", testingStatusDeleteMap, 10, true);
             assertTrue(ServiceUtil.isError(results));
         } catch (GenericServiceException e) {
-            assertEquals(e.toString(), "You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition;)");
+            assertEquals(e.toString(), "You call a deleting operation on entity that track the activity, sorry I can't do that, "
+                    + "please amazing developer check your service definition;)");
         }
     }
 }

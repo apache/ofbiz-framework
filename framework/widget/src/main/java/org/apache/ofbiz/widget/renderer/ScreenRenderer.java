@@ -76,10 +76,10 @@ public class ScreenRenderer {
 
     private static final String MODULE = ScreenRenderer.class.getName();
 
-    protected Appendable writer;
-    protected MapStack<String> context;
-    protected ScreenStringRenderer screenStringRenderer;
-    protected int renderFormSeqNumber = 0;
+    private Appendable writer;
+    private MapStack<String> context;
+    private ScreenStringRenderer screenStringRenderer;
+    private int renderFormSeqNumber = 0;
 
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
@@ -92,7 +92,8 @@ public class ScreenRenderer {
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file, separated by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
+     * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file,
+     * separated by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
@@ -106,7 +107,8 @@ public class ScreenRenderer {
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     * @param resourceName The name/location of the resource to use, can use "component://[component-name]/" and "ofbiz://" and other special OFBiz style URLs
+     * @param resourceName The name/location of the resource to use, can use "component://[component-name]/" and "ofbiz://"
+     * and other special OFBiz style URLs
      * @param screenName The name of the screen within the XML file specified by the resourceName.
      * @throws IOException
      * @throws SAXException
@@ -147,19 +149,38 @@ public class ScreenRenderer {
         return "";
     }
 
-    public void setRenderFormUniqueSeq (int renderFormSeqNumber) {
+    /**
+     * Sets render form unique seq.
+     * @param renderFormSeqNumber the render form seq number
+     */
+    public void setRenderFormUniqueSeq(int renderFormSeqNumber) {
         this.renderFormSeqNumber = renderFormSeqNumber;
     }
 
+    /**
+     * Gets screen string renderer.
+     * @return the screen string renderer
+     */
     public ScreenStringRenderer getScreenStringRenderer() {
         return this.screenStringRenderer;
     }
 
-    public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+    /**
+     * Populate basic context.
+     * @param parameters the parameters
+     * @param delegator  the delegator
+     * @param dispatcher the dispatcher
+     * @param security   the security
+     * @param locale     the locale
+     * @param userLogin  the user login
+     */
+    public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher,
+                                     Security security, Locale locale, GenericValue userLogin) {
         populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
     }
 
-    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters,
+                Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
@@ -167,7 +188,8 @@ public class ScreenRenderer {
         // make a reference for high level variables, a global context
         context.put("globalContext", context.standAloneStack());
 
-        // make sure the "nullField" object is in there for entity ops; note this is nullField and not null because as null causes problems in FreeMarker and such...
+        // make sure the "nullField" object is in there for entity ops; note this is nullField and not null because as null
+        // causes problems in FreeMarker and such...
         context.put("nullField", GenericEntity.NULL_FIELD);
 
         context.put("parameters", parameters);
@@ -178,7 +200,8 @@ public class ScreenRenderer {
         context.put("userLogin", userLogin);
         context.put("nowTimestamp", UtilDateTime.nowTimestamp());
         try {
-            Map<String, Object> result = dispatcher.runSync("getUserPreferenceGroup", UtilMisc.toMap("userLogin", userLogin, "userPrefGroupTypeId", "GLOBAL_PREFERENCES"));
+            Map<String, Object> result = dispatcher.runSync("getUserPreferenceGroup",
+                    UtilMisc.toMap("userLogin", userLogin, "userPrefGroupTypeId", "GLOBAL_PREFERENCES"));
             context.put("userPreferences", result.get("userPrefMap"));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error while getting user preferences: ", MODULE);
@@ -196,10 +219,12 @@ public class ScreenRenderer {
         populateContextForRequest(context, this, request, response, servletContext);
     }
 
-    public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
+    public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request,
+                                                 HttpServletResponse response, ServletContext servletContext) {
         HttpSession session = request.getSession();
 
-        // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
+        // attribute names to skip for session and application attributes; these are all handled as special cases,
+        // duplicating results and causing undesired messages
         Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "security", "webSiteId",
                 "org.apache.catalina.jsp_classpath");
         Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
@@ -223,7 +248,8 @@ public class ScreenRenderer {
         // ========== setup values that are specific to OFBiz webapps
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         if (visualTheme == null) {
-            String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", (Delegator) request.getAttribute("delegator"));
+            String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general",
+                    "VISUAL_THEME", (Delegator) request.getAttribute("delegator"));
             visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
         }
         context.put("visualTheme", visualTheme);
@@ -256,8 +282,8 @@ public class ScreenRenderer {
         // these ones are FreeMarker specific and will only work in FTL templates, mainly here for backward compatibility
         context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
         context.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
-        TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
-        context.put("JspTaglibs", JspTaglibs);
+        TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
+        context.put("JspTaglibs", jspTaglibs);
         context.put("requestParameters", UtilHttp.getParameterMap(request));
 
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
@@ -323,7 +349,7 @@ public class ScreenRenderer {
         }
 
         // if there was an error message, this is an error
-        context.put("isError", errorMessageList.size() > 0 ? Boolean.TRUE : Boolean.FALSE);
+        context.put("isError", !errorMessageList.isEmpty() ? Boolean.TRUE : Boolean.FALSE);
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
@@ -333,10 +359,19 @@ public class ScreenRenderer {
         context.push();
     }
 
+    /**
+     * Gets context.
+     * @return the context
+     */
     public Map<String, Object> getContext() {
         return context;
     }
 
+    /**
+     * Populate context for service.
+     * @param dctx the dctx
+     * @param serviceContext the service context
+     */
     public void populateContextForService(DispatchContext dctx, Map<String, Object> serviceContext) {
         this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(),
                 dctx.getSecurity(), (Locale) serviceContext.get("locale"), (GenericValue) serviceContext.get("userLogin"));

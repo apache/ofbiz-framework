@@ -62,8 +62,8 @@ public final class EntityCrypto {
         handlers = new StorageHandler[] {
             new ShiroStorageHandler(kek),
             new SaltedBase64StorageHandler(kek),
-            NormalHashStorageHandler,
-            OldFunnyHashStorageHandler,
+            NORMAL_HASH_STORAGE_HANDLER,
+            OLD_FUNNY_HASH_STORAGE_HANDLER,
         };
     }
 
@@ -325,7 +325,7 @@ public final class EntityCrypto {
         }
     }
 
-    protected static final StorageHandler OldFunnyHashStorageHandler = new LegacyStorageHandler() {
+    protected static final StorageHandler OLD_FUNNY_HASH_STORAGE_HANDLER = new LegacyStorageHandler() {
         @Override
         protected String getHashedKeyName(String originalKeyName) {
             return HashCrypt.digestHashOldFunnyHex(null, originalKeyName);
@@ -337,7 +337,7 @@ public final class EntityCrypto {
         }
     };
 
-    protected static final StorageHandler NormalHashStorageHandler = new LegacyStorageHandler() {
+    protected static final StorageHandler NORMAL_HASH_STORAGE_HANDLER = new LegacyStorageHandler() {
         @Override
         protected String getHashedKeyName(String originalKeyName) {
             return HashCrypt.digestHash("SHA", originalKeyName.getBytes());

@@ -133,7 +133,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://content/template/content/ContentNav.ftl"/>
+                        <html-template multi-block="true" location="component://content/template/content/ContentNav.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>

@@ -18,20 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-
-import javax.servlet.http.HttpServletRequest;
-
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.ext.beans.StringModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -51,15 +46,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.Version;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -68,9 +64,9 @@ import freemarker.template.Version;
 public class HtmlWidget extends ModelScreenWidget {
     private static final String MODULE = HtmlWidget.class.getName();
 
-    private static final UtilCache<String, Template> specialTemplateCache =
+    private static final UtilCache<String, Template> SPECIAL_TEMPLATE_CACHE =
             UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
+    protected static final Configuration SPECIAL_CONFIG = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
@@ -140,6 +136,10 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    /**
+     * Gets sub widgets.
+     * @return the sub widgets
+     */
     public List<ModelScreenWidget> getSubWidgets() {
         return subWidgets;
     }
@@ -170,7 +170,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
                     template = FreeMarkerWorker.getTemplate(location);
                 } else {
-                    template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                    template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG);
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
@@ -190,9 +190,7 @@ public class HtmlWidget extends ModelScreenWidget {
     /**
      * Render html template when multi-block=true. We use stack to store the string writer because a freemarker template may also render a sub screen
      * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
-     * existence of the stack and retrieve the correct string writer. The following tags are removed from the final rendering: 1. External and inline
-     * javascript tags 2. Css link tags
-     * 
+     * existence of the stack and retrieve the correct string writer. Inline script tags are removed from the final rendering.
      * @param writer
      * @param locationExdr
      * @param context
@@ -232,12 +230,6 @@ public class HtmlWidget extends ModelScreenWidget {
                         scripts.append(script.data());
                         script.remove();
                     }
-                } else {
-                    String dataImport = script.attr("data-import");
-                    if ("head".equals(dataImport)) {
-                        // remove external script in the template that is meant to be imported in the html header
-                        script.remove();
-                    }
                 }
             }
 
@@ -263,17 +255,6 @@ public class HtmlWidget extends ModelScreenWidget {
                 MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
             }
         }
-        // extract css link tags
-        Elements csslinkElements = doc.select("link");
-        if (csslinkElements != null && csslinkElements.size() > 0) {
-            for (org.jsoup.nodes.Element link : csslinkElements) {
-                String src = link.attr("href");
-                if (UtilValidate.isNotEmpty(src)) {
-                    // remove external style sheet in the template that will be added to the html header
-                    link.remove();
-                }
-            }
-        }
 
         // the 'template' block
         String body = doc.body().html();
@@ -289,36 +270,28 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     public static class HtmlTemplate extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
-        protected boolean multiBlock;
+        private FlexibleStringExpander locationExdr;
+        private boolean multiBlock;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
-
-            if (this.isMultiBlock()) {
-                String origLoc = this.locationExdr.getOriginal();
-                Set<String> urls = null;
-                if (origLoc.contains("${")) {
-                    urls = new LinkedHashSet<>();
-                    urls.add(origLoc);
-                } else {
-                    try {
-                        urls = MultiBlockHtmlTemplateUtil.extractHtmlLinksFromRawHtmlTemplate(origLoc);
-                    } catch (IOException e) {
-                        String errMsg = "Error getting html imports from template at location [" + origLoc + "]: " + e.toString();
-                        Debug.logError(e, errMsg, MODULE);
-                    }
-                }
-                MultiBlockHtmlTemplateUtil.addHtmlLinksToHtmlLinksForScreenCache(modelScreen.getSourceLocation(), modelScreen.getName(), urls);
-            }
         }
 
+        /**
+         * Gets location.
+         * @param context the context
+         * @return the location
+         */
         public String getLocation(Map<String, Object> context) {
             return locationExdr.expandString(context);
         }
 
+        /**
+         * Is multi block boolean.
+         * @return the boolean
+         */
         public boolean isMultiBlock() {
             return this.multiBlock;
         }
@@ -338,14 +311,18 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location exdr.
+         * @return the location exdr
+         */
         public FlexibleStringExpander getLocationExdr() {
             return locationExdr;
         }
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
-        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
+        private FlexibleStringExpander locationExdr;
+        private Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
@@ -389,17 +366,25 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location exdr.
+         * @return the location exdr
+         */
         public FlexibleStringExpander getLocationExdr() {
             return locationExdr;
         }
 
+        /**
+         * Gets section map.
+         * @return the section map
+         */
         public Map<String, ModelScreenWidget> getSectionMap() {
             return sectionMap;
         }
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
-        protected List<ModelScreenWidget> subWidgets;
+        private List<ModelScreenWidget> subWidgets;
 
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);

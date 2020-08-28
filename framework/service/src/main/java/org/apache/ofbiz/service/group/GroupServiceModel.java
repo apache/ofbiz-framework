@@ -109,7 +109,7 @@ public class GroupServiceModel {
         Debug.logInfo("Running grouped service [" + serviceName + "]", MODULE);
         if ("async".equals(getMode())) {
             List<String> requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);
-            if (requiredOut.size() > 0) {
+            if (!requiredOut.isEmpty()) {
                 Debug.logWarning("Grouped service (" + getName() + ") requested 'async' invocation; running sync because of required OUT parameters.", MODULE);
                 return dispatcher.runSync(localName, model, thisContext);
             }

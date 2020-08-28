@@ -44,10 +44,10 @@ public class SimpleMethodTest extends OFBizTestCase {
 
     private static final String MODULE = ServiceTest.class.getName();
 
-    protected String methodLocation;
-    protected String methodName;
-    public static MockHttpServletRequest request = new MockHttpServletRequest();
-    public static MockHttpServletResponse response = new MockHttpServletResponse();
+    private String methodLocation;
+    private String methodName;
+    private static MockHttpServletRequest request = new MockHttpServletRequest();
+    private static MockHttpServletResponse response = new MockHttpServletResponse();
 
     /**
      * Tests of Simple Method
@@ -79,8 +79,8 @@ public class SimpleMethodTest extends OFBizTestCase {
             request.setAttribute("security", security);
             request.setAttribute("servletContext", servletContext);
             request.setAttribute("delegator", delegator);
-            request.setAttribute("dispatcher", dispatcher);
-            Map<String, Object> serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(),
+            request.setAttribute("dispatcher", getDispatcher());
+            Map<String, Object> serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, getDispatcher().getDispatchContext(),
                     UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault(), "request", request, "response", response));
 
             // do something with the errorMessage

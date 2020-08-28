@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 public abstract class ConditionalFactory<C extends Conditional> {
 
     private static final String MODULE = ConditionalFactory.class.getName();
-    private static final Map<String, ConditionalFactory<?>> conditionalFactories;
+    private static final Map<String, ConditionalFactory<?>> CONDITIONAL_FACTORIES;
 
     static {
         Map<String, ConditionalFactory<?>> factories = new HashMap<>();
@@ -48,12 +48,12 @@ public abstract class ConditionalFactory<C extends Conditional> {
             ConditionalFactory<?> factory = it.next();
             factories.put(factory.getName(), factory);
         }
-        conditionalFactories = Collections.unmodifiableMap(factories);
+        CONDITIONAL_FACTORIES = Collections.unmodifiableMap(factories);
     }
 
     public static Conditional makeConditional(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         String tagName = element.getTagName();
-        ConditionalFactory<?> factory = conditionalFactories.get(tagName);
+        ConditionalFactory<?> factory = CONDITIONAL_FACTORIES.get(tagName);
         if (factory != null) {
             return factory.createCondition(element, simpleMethod);
         } else {

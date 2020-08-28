@@ -440,7 +440,7 @@ public class LoginServices {
             }
         }
 
-        if (errMsg.length() > 0) {
+        if (!errMsg.isEmpty()) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
         }
@@ -693,7 +693,7 @@ public class LoginServices {
             errorMessageList.add(errMsg);
         }
 
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 
@@ -812,7 +812,7 @@ public class LoginServices {
             checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify, passwordHint, errorMessageList, adminUser, locale);
         }
 
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 
@@ -920,7 +920,7 @@ public class LoginServices {
         newUserLogin.set("enabled", "Y");
         newUserLogin.set("disabledDateTime", null);
 
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 

@@ -209,15 +209,16 @@ public final class UtilFormatOut {
 
     }
 
-    /** Formats a BigDecimal value 1:1 into a percentage string (e.g. 10 to 10% instead of 0,1 to 10%)
+    /**
+     * Formats a BigDecimal value 1:1 into a percentage string (e.g. 10 to 10% instead of 0,1 to 10%)
      * @param percentage The percentage Decimal to be formatted
      * @return A String with the formatted percentage
      */
-        public static String formatPercentageRate(BigDecimal percentage, boolean negate) {
+    public static String formatPercentageRate(BigDecimal percentage, boolean negate) {
         if (percentage == null) {
             return "";
         }
-        BigDecimal hundred = BigDecimal.valueOf(negate? -100: 100);
+        BigDecimal hundred = BigDecimal.valueOf(negate ? -100 : 100);
         return formatNumber(percentage.divide(hundred), PERCENTAGE_FORMAT, null, null);
     }
 
@@ -376,11 +377,13 @@ public final class UtilFormatOut {
         }
     }
 
-    /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise an empty but non-null String.
+    /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null,
+     * otherwise an empty but non-null String.
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @param string3 The third passed String
-     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise an empty but non-null String
+     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null,
+     * otherwise an empty but non-null String
      */
     public static String checkNull(String string1, String string2, String string3) {
         if (string1 != null) {
@@ -394,12 +397,14 @@ public final class UtilFormatOut {
         }
     }
 
-    /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise the fourth if not null, otherwise an empty but non-null String.
+    /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null,
+     * otherwise the fourth if not null, otherwise an empty but non-null String.
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @param string3 The third passed String
      * @param string4 The fourth passed String
-     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise the fourth if not null, otherwise an empty but non-null String
+     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null,
+     * otherwise the fourth if not null, otherwise an empty but non-null String
      */
     public static String checkNull(String string1, String string2, String string3, String string4) {
         if (string1 != null) {
@@ -443,11 +448,13 @@ public final class UtilFormatOut {
         }
     }
 
-    /** Returns the first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty, otherwise an empty but non-null String.
+    /** Returns the first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty,
+     * otherwise an empty but non-null String.
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @param string3 The third passed String
-     * @return The first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty, otherwise an empty but non-null String
+     * @return The first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty,
+     * otherwise an empty but non-null String
      */
     public static String checkEmpty(String string1, String string2, String string3) {
         if (UtilValidate.isNotEmpty(string1)) {
@@ -559,7 +566,7 @@ public final class UtilFormatOut {
         return newString.toString();
     }
     public static String makeSqlSafe(String unsafeString) {
-        return unsafeString.replaceAll("'","''");
+        return unsafeString.replaceAll("'", "''");
     }
 
     public static String formatPrintableCreditCard(String original) {
@@ -571,10 +578,10 @@ public final class UtilFormatOut {
         }
 
         StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < original.length()-4; i++) {
+        for (int i = 0; i < original.length() - 4; i++) {
             buffer.append('*');
         }
-        buffer.append(original.substring(original.length()-4));
+        buffer.append(original.substring(original.length() - 4));
         return buffer.toString();
     }
 }

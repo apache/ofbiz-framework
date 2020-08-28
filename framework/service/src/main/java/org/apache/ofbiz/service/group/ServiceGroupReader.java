@@ -96,7 +96,7 @@ public final class ServiceGroupReader {
     }
 
     public static GroupModel getGroupModel(String serviceName) {
-        if (GROUPS_CACHE.size() == 0) {
+        if (GROUPS_CACHE.isEmpty()) {
             ServiceGroupReader.readConfig();
         }
         return GROUPS_CACHE.get(serviceName);

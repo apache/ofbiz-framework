@@ -84,10 +84,10 @@ public final class SimpleMethod extends MiniLangElement {
     private static final String ERR_RESOURCE = "MiniLangErrorUiLabels";
     private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name",
             "dispatcher-name", "user-login-name"};
-    private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
-    private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache =
+    private static final Map<String, MethodOperation.Factory<MethodOperation>> METHOD_OPER_FACTORIES;
+    private static final UtilCache<String, Map<String, SimpleMethod>> SIMPLE_METHOD_DIRECT_CACHE =
             UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
-    private static final UtilCache<String, SimpleMethod> simpleMethodsResourceCache =
+    private static final UtilCache<String, SimpleMethod> SIMPLE_METHODS_RES_CACHE =
             UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
 
     static {
@@ -98,7 +98,7 @@ public final class SimpleMethod extends MiniLangElement {
             MethodOperation.Factory<MethodOperation> factory = it.next();
             mapFactories.put(factory.getName(), factory);
         }
-        methodOperationFactories = Collections.unmodifiableMap(mapFactories);
+        METHOD_OPER_FACTORIES = Collections.unmodifiableMap(mapFactories);
     }
 
     private final String defaultErrorCode;
@@ -177,7 +177,8 @@ public final class SimpleMethod extends MiniLangElement {
         return elementModified;
     }
 
-    private static void compileAllSimpleMethods(Element rootElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
+    private static void compileAllSimpleMethods(Element rootElement, Map<String, SimpleMethod> simpleMethods, String location)
+            throws MiniLangException {
         for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
             SimpleMethod simpleMethod = new SimpleMethod(simpleMethodElement, location);
             if (simpleMethods.containsKey(simpleMethod.getMethodName())) {
@@ -223,10 +224,10 @@ public final class SimpleMethod extends MiniLangElement {
 
     public static Map<String, SimpleMethod> getDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
         Assert.notNull("name", name, "content", content);
-        Map<String, SimpleMethod> simpleMethods = simpleMethodsDirectCache.get(name);
+        Map<String, SimpleMethod> simpleMethods = SIMPLE_METHOD_DIRECT_CACHE.get(name);
         if (simpleMethods == null) {
             simpleMethods = getAllDirectSimpleMethods(name, content, fromLocation);
-            simpleMethods = simpleMethodsDirectCache.putIfAbsentAndGet(name, simpleMethods);
+            simpleMethods = SIMPLE_METHOD_DIRECT_CACHE.putIfAbsentAndGet(name, simpleMethods);
         }
         return simpleMethods;
     }
@@ -234,30 +235,30 @@ public final class SimpleMethod extends MiniLangElement {
     public static SimpleMethod getSimpleMethod(String xmlResource, String methodName, ClassLoader loader) throws MiniLangException {
         Assert.notNull("methodName", methodName);
         String key = xmlResource.concat("#").concat(methodName);
-        SimpleMethod method = simpleMethodsResourceCache.get(key);
+        SimpleMethod method = SIMPLE_METHODS_RES_CACHE.get(key);
         if (method == null) {
             Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, loader);
             for (Map.Entry<String, SimpleMethod> entry : simpleMethods.entrySet()) {
                 String putKey = xmlResource.concat("#").concat(entry.getKey());
-                simpleMethodsResourceCache.putIfAbsent(putKey, entry.getValue());
+                SIMPLE_METHODS_RES_CACHE.putIfAbsent(putKey, entry.getValue());
             }
         }
-        return simpleMethodsResourceCache.get(key);
+        return SIMPLE_METHODS_RES_CACHE.get(key);
     }
 
     public static SimpleMethod getSimpleMethod(URL xmlUrl, String methodName) throws MiniLangException {
         Assert.notNull("methodName", methodName);
         String xmlResource = xmlUrl.toString();
         String key = xmlResource.concat("#").concat(methodName);
-        SimpleMethod method = simpleMethodsResourceCache.get(key);
+        SimpleMethod method = SIMPLE_METHODS_RES_CACHE.get(key);
         if (method == null) {
             Map<String, SimpleMethod> simpleMethods = getAllSimpleMethods(xmlUrl);
             for (Map.Entry<String, SimpleMethod> entry : simpleMethods.entrySet()) {
                 String putKey = xmlResource.concat("#").concat(entry.getKey());
-                simpleMethodsResourceCache.putIfAbsent(putKey, entry.getValue());
+                SIMPLE_METHODS_RES_CACHE.putIfAbsent(putKey, entry.getValue());
             }
         }
-        return simpleMethodsResourceCache.get(key);
+        return SIMPLE_METHODS_RES_CACHE.get(key);
     }
 
     private static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
@@ -297,10 +298,10 @@ public final class SimpleMethod extends MiniLangElement {
             for (Element curOperElem : operationElements) {
                 String nodeName = UtilXml.getNodeNameIgnorePrefix(curOperElem);
                 MethodOperation methodOp = null;
-                MethodOperation.Factory<MethodOperation> factory = methodOperationFactories.get(nodeName);
+                MethodOperation.Factory<MethodOperation> factory = METHOD_OPER_FACTORIES.get(nodeName);
                 if (factory != null) {
                     methodOp = factory.createMethodOperation(curOperElem, simpleMethod);
-                } else if ("else".equals(nodeName)) {
+                //} else if ("else".equals(nodeName)) {
                     // don't add anything, but don't complain either, this one is handled in the individual operations
                 } else {
                     MiniLangValidate.handleError("Invalid element found", simpleMethod, curOperElem);
@@ -508,7 +509,7 @@ public final class SimpleMethod extends MiniLangElement {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             boolean forceError = false;
             String tempErrorMsg = (String) methodContext.getEnv(eventErrorMessageName);
-            if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
+            if (!errorMsg.isEmpty() || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
                 forceError = true;
@@ -547,7 +548,7 @@ public final class SimpleMethod extends MiniLangElement {
         } else {
             boolean forceError = false;
             String tempErrorMsg = (String) methodContext.getEnv(serviceErrorMessageName);
-            if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
+            if (!errorMsg.isEmpty() || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
                 methodContext.putResult(ModelService.ERROR_MESSAGE, errorMsg);
                 forceError = true;

@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class MarketingServices {
 
     private static final String MODULE = MarketingServices.class.getName();
-    public static final String resourceMarketing = "MarketingUiLabels";
+    public static final String RESOURCE = "MarketingUiLabels";
     private static final String RES_ORDER = "OrderUiLabels";
 
     public static Map<String, Object> signUpForContactList(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -58,7 +58,7 @@ public class MarketingServices {
         String partyId = (String) context.get("partyId");
 
         if (!UtilValidate.isEmail(email)) {
-            String error = UtilProperties.getMessage(resourceMarketing, "MarketingCampaignInvalidEmailInput", locale);
+            String error = UtilProperties.getMessage(RESOURCE, "MarketingCampaignInvalidEmailInput", locale);
             return ServiceUtil.returnError(error);
         }
 
@@ -66,7 +66,8 @@ public class MarketingServices {
             // locate the contact list
             GenericValue contactList = EntityQuery.use(delegator).from("ContactList").where("contactListId", contactListId).queryOne();
             if (contactList == null) {
-                String error = UtilProperties.getMessage(resourceMarketing, "MarketingContactListNotFound", UtilMisc.<String, Object>toMap("contactListId", contactListId), locale);
+                String error = UtilProperties.getMessage(RESOURCE, "MarketingContactListNotFound", UtilMisc.<String, Object>toMap("contactListId",
+                        contactListId), locale);
                 return ServiceUtil.returnError(error);
             }
 
@@ -89,7 +90,8 @@ public class MarketingServices {
                     partyId = "_NA_";
                 }
             }
-            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", partyId, "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
+            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", partyId,
+                    "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
             Map<String, Object> serviceResults = dispatcher.runSync("createPartyEmailAddress", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
@@ -97,7 +99,8 @@ public class MarketingServices {
             String contactMechId = (String) serviceResults.get("contactMechId");
             // create a new association at this fromDate to the anonymous party with status accepted
             input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"),
-                    "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baseLocation", context.get("baseLocation"));
+                    "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baseLocation",
+                    context.get("baseLocation"));
             serviceResults = dispatcher.runSync("createContactListParty", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
@@ -107,7 +110,7 @@ public class MarketingServices {
             Debug.logInfo(e, error + e.getMessage(), MODULE);
             return ServiceUtil.returnError(error);
         } catch (GenericServiceException e) {
-            String error = UtilProperties.getMessage(resourceMarketing, "MarketingServiceError", locale);
+            String error = UtilProperties.getMessage(RESOURCE, "MarketingServiceError", locale);
             Debug.logInfo(e, error + e.getMessage(), MODULE);
             return ServiceUtil.returnError(error);
         }

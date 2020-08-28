@@ -86,14 +86,14 @@ public final class ScriptUtil {
                 Debug.logInfo("  Version: " + engine.getEngineVersion(), MODULE);
                 Debug.logInfo("  Language: " + engine.getLanguageName(), MODULE);
                 List<String> extensions = engine.getExtensions();
-                if (extensions.size() > 0) {
+                if (!extensions.isEmpty()) {
                     Debug.logInfo("  Engine supports the following extensions:", MODULE);
                     for (String e : extensions) {
                         Debug.logInfo("    " + e, MODULE);
                     }
                 }
                 List<String> shortNames = engine.getNames();
-                if (shortNames.size() > 0) {
+                if (!shortNames.isEmpty()) {
                     Debug.logInfo("  Engine has the following short names:", MODULE);
                     for (String name : engine.getNames()) {
                         writableScriptNames.add(name);

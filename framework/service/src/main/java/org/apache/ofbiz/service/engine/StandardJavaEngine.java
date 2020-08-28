@@ -57,7 +57,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         Object result = serviceInvoker(localName, modelService, context);
 
         if (result == null || !(result instanceof Map<?, ?>)) {
-            throw new GenericServiceException("Service [" + modelService.name + "] did not return a Map object");
+            throw new GenericServiceException("Service [" + modelService.getName() + "] did not return a Map object");
         }
         return UtilGenerics.cast(result);
     }
@@ -65,7 +65,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
     // Invoke the static java method service.
     private Object serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         // static java service methods should be: public Map<String, Object> methodName(DispatchContext dctx, Map<String, Object> context)
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
 
         if (modelService == null) {
             Debug.logError("ERROR: Null Model Service.", MODULE);
@@ -80,8 +80,9 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         Object result = null;
 
         // check the package and method names
-        if (modelService.location == null || modelService.invoke == null) {
-            throw new GenericServiceException("Service [" + modelService.name + "] is missing location and/or invoke values which are required for execution.");
+        if (modelService.getLocation() == null || modelService.getInvoke() == null) {
+            throw new GenericServiceException("Service [" + modelService.getName()
+                    + "] is missing location and/or invoke values which are required for execution.");
         }
 
         // get the classloader to use
@@ -95,30 +96,32 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
 
         try {
             Class<?> c = cl.loadClass(this.getLocation(modelService));
-            Method m = c.getMethod(modelService.invoke, DispatchContext.class, Map.class);
+            Method m = c.getMethod(modelService.getInvoke(), DispatchContext.class, Map.class);
             if (Modifier.isStatic(m.getModifiers())) {
                 result = m.invoke(null, dctx, context);
             } else {
                 result = m.invoke(c.getDeclaredConstructor().newInstance(), dctx, context);
             }
         } catch (ClassNotFoundException cnfe) {
-            throw new GenericServiceException("Cannot find service [" + modelService.name + "] location class", cnfe);
+            throw new GenericServiceException("Cannot find service [" + modelService.getName() + "] location class", cnfe);
         } catch (NoSuchMethodException nsme) {
-            throw new GenericServiceException("Service [" + modelService.name + "] specified Java method (invoke attribute) does not exist", nsme);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] specified Java method (invoke attribute) does not exist",
+                    nsme);
         } catch (SecurityException se) {
-            throw new GenericServiceException("Service [" + modelService.name + "] Access denied", se);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] Access denied", se);
         } catch (IllegalAccessException iae) {
-            throw new GenericServiceException("Service [" + modelService.name + "] Method not accessible", iae);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] Method not accessible", iae);
         } catch (IllegalArgumentException iarge) {
-            throw new GenericServiceException("Service [" + modelService.name + "] Invalid parameter match", iarge);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] Invalid parameter match", iarge);
         } catch (InvocationTargetException ite) {
-            throw new GenericServiceException("Service [" + modelService.name + "] target threw an unexpected exception", ite.getTargetException());
+            throw new GenericServiceException("Service [" + modelService.getName() + "] target threw an unexpected exception",
+                    ite.getTargetException());
         } catch (NullPointerException npe) {
-            throw new GenericServiceException("Service [" + modelService.name + "] ran into an unexpected null object", npe);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] ran into an unexpected null object", npe);
         } catch (ExceptionInInitializerError eie) {
-            throw new GenericServiceException("Service [" + modelService.name + "] Initialization failed", eie);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] Initialization failed", eie);
         } catch (Throwable th) {
-            throw new GenericServiceException("Service [" + modelService.name + "] Error or unknown exception", th);
+            throw new GenericServiceException("Service [" + modelService.getName() + "] Error or unknown exception", th);
         }
 
         return result;

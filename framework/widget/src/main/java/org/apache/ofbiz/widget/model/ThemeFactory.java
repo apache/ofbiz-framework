@@ -56,8 +56,10 @@ public class ThemeFactory {
 
     private static final String MODULE = ThemeFactory.class.getName();
 
-    private static final UtilCache<String, ModelTheme> themeLocationCache = UtilCache.createUtilCache("widget.theme.locationResource", 0, 0, false);
-    private static final UtilCache<String, VisualTheme> themeVisualThemeIdCache = UtilCache.createUtilCache("widget.theme.idAndVisualTheme", 0, 0, false);
+    private static final UtilCache<String, ModelTheme> THEME_LOCATION_CACHE =
+            UtilCache.createUtilCache("widget.theme.locationResource", 0, 0, false);
+    private static final UtilCache<String, VisualTheme> THEME_VISUAL_THEME_ID_CACHE =
+            UtilCache.createUtilCache("widget.theme.idAndVisualTheme", 0, 0, false);
 
     /**
      * From a w3c Document return the modelTheme instantiated
@@ -90,7 +92,7 @@ public class ThemeFactory {
                 ModelTheme modelTheme = getModelThemeFromLocation(xmlTheme.toURI().toURL().toString());
                 if (modelTheme != null) {
                     for (String containsVisualThemeId : modelTheme.getVisualThemeIds()) {
-                        themeVisualThemeIdCache.put(containsVisualThemeId, modelTheme.getVisualTheme(containsVisualThemeId));
+                        THEME_VISUAL_THEME_ID_CACHE.put(containsVisualThemeId, modelTheme.getVisualTheme(containsVisualThemeId));
                     }
                 }
             }
@@ -109,17 +111,17 @@ public class ThemeFactory {
         if (visualThemeId == null) {
             return null;
         }
-        VisualTheme visualTheme = themeVisualThemeIdCache.get(visualThemeId);
+        VisualTheme visualTheme = THEME_VISUAL_THEME_ID_CACHE.get(visualThemeId);
         if (visualTheme == null) {
             synchronized (ThemeFactory.class) {
-                visualTheme = themeVisualThemeIdCache.get(visualThemeId);
+                visualTheme = THEME_VISUAL_THEME_ID_CACHE.get(visualThemeId);
                 if (visualTheme == null) {
                     pullModelThemesFromXmlToCache();
                 }
-                visualTheme = themeVisualThemeIdCache.get(visualThemeId);
+                visualTheme = THEME_VISUAL_THEME_ID_CACHE.get(visualThemeId);
                 if (visualTheme == null) {
                     Debug.logError("Impossible to resolve the modelTheme for the visualThemeId " + visualThemeId + ", Common is returned", MODULE);
-                    return themeVisualThemeIdCache.get("COMMON");
+                    return THEME_VISUAL_THEME_ID_CACHE.get("COMMON");
                 }
 
             }
@@ -134,11 +136,11 @@ public class ThemeFactory {
      * @return
      */
     public static ModelTheme getModelThemeFromLocation(String resourceName) {
-        ModelTheme modelTheme = themeLocationCache.get(resourceName);
+        ModelTheme modelTheme = THEME_LOCATION_CACHE.get(resourceName);
         if (modelTheme == null) {
             synchronized (ThemeFactory.class) {
                 try {
-                    modelTheme = themeLocationCache.get(resourceName);
+                    modelTheme = THEME_LOCATION_CACHE.get(resourceName);
                     if (modelTheme == null) {
                         URL themeFileUrl = null;
                         themeFileUrl = FlexibleLocation.resolveLocation(resourceName);
@@ -147,7 +149,7 @@ public class ThemeFactory {
                         }
                         Document themeFileDoc = UtilXml.readXmlDocument(themeFileUrl, true, true);
                         modelTheme = readThemeDocument(themeFileDoc);
-                        themeLocationCache.put(resourceName, modelTheme);
+                        THEME_LOCATION_CACHE.put(resourceName, modelTheme);
                     }
                 } catch (IOException | ParserConfigurationException | SAXException e) {
                     Debug.logError("Impossible to resolve the theme from the resourceName " + resourceName, MODULE);
@@ -164,11 +166,10 @@ public class ThemeFactory {
      * @return
      * @throws GenericEntityException
      */
-    public static List<VisualTheme> getAvailableThemes(Delegator delegator, String visualThemeSetId)
-    throws GenericEntityException {
-        if (themeVisualThemeIdCache.size() == 0) {
+    public static List<VisualTheme> getAvailableThemes(Delegator delegator, String visualThemeSetId) throws GenericEntityException {
+        if (THEME_VISUAL_THEME_ID_CACHE.isEmpty()) {
             synchronized (ThemeFactory.class) {
-                if (themeVisualThemeIdCache.size() == 0) {
+                if (THEME_VISUAL_THEME_ID_CACHE.isEmpty()) {
                     pullModelThemesFromXmlToCache();
                 }
             }
@@ -178,7 +179,7 @@ public class ThemeFactory {
                 EntityCondition.makeCondition("visualThemeSetId", visualThemeSetId), null, UtilMisc.toList("visualThemeId"), null, true);
         List<String> visualThemeIds = EntityUtil.getFieldListFromEntityList(visualThemesInDataBase, "visualThemeId", true);
         for (String visualThemeId : visualThemeIds) {
-            visualThemesMap.put(visualThemeId, themeVisualThemeIdCache.get(visualThemeId));
+            visualThemesMap.put(visualThemeId, THEME_VISUAL_THEME_ID_CACHE.get(visualThemeId));
         }
         return new ArrayList<>(visualThemesMap.values());
     }

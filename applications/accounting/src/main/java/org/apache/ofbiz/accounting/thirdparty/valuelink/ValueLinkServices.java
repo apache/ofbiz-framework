@@ -358,7 +358,7 @@ public class ValueLinkServices {
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                 "AccountingValueLinkPinDisabled", locale));
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("balance", vl.getAmount((String) response.get("currbal")));
         result.put("expireDate", response.get("expiredate"));
@@ -417,7 +417,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -480,7 +480,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -534,7 +534,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("balance", vl.getAmount((String) response.get("currbal")));
         result.put("expireDate", response.get("expiredate"));
@@ -645,7 +645,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -1171,7 +1171,7 @@ public class ValueLinkServices {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo",
-                        UtilMisc.toMap("errorString", e.toString() ), locale));
+                        UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
             if (failure) {

@@ -169,7 +169,7 @@ public class CategoryServices {
         if (orderByFields == null) {
             return entityName;
         }
-        if (orderByFields.size() == 0) {
+        if (orderByFields.isEmpty()) {
             orderByFields.add("sequenceNum");
             orderByFields.add("productId");
         }

@@ -133,7 +133,7 @@ public final class ShipmentWorker {
                             packages.add(newPackage);
                         } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
                             // create the first package
-                            if (packages.size() == 0) {
+                            if (packages.isEmpty()) {
                                 packages.add(new HashMap<>());
                             }
 

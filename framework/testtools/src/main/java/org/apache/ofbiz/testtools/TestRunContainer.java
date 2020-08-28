@@ -50,7 +50,7 @@ import junit.framework.TestSuite;
 public class TestRunContainer implements Container {
 
     private static final String MODULE = TestRunContainer.class.getName();
-    public static final String logDir = "runtime/logs/test-results/";
+    public static final String LOG_DIR = "runtime/logs/test-results/";
 
     private String name;
     private JunitSuiteWrapper jsWrapper;
@@ -58,7 +58,7 @@ public class TestRunContainer implements Container {
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
-        new File(logDir).mkdir();
+        new File(LOG_DIR).mkdir();
 
         // get the test properties passed by the user in the command line
         Map<String, String> testProps = ofbizCommands.stream()
@@ -80,7 +80,7 @@ public class TestRunContainer implements Container {
             // prepare
             TestSuite suite = modelSuite.makeTestSuite();
             JUnitTest test = new JUnitTest(suite.getName());
-            JunitXmlListener xml = createJunitXmlListener(suite, logDir);
+            JunitXmlListener xml = createJunitXmlListener(suite, LOG_DIR);
             TestResult results = new TestResult();
             results.addListener(new JunitListener());
             results.addListener(xml);
@@ -173,7 +173,7 @@ public class TestRunContainer implements Container {
 
     class JunitXmlListener extends XMLJUnitResultFormatter {
 
-        Map<String, Long> startTimes = new HashMap<>();
+        private Map<String, Long> startTimes = new HashMap<>();
 
         JunitXmlListener(OutputStream out) {
             this.setOutput(out);
@@ -212,7 +212,7 @@ public class TestRunContainer implements Container {
 
         @Override
         public void startTest(Test test) {
-           Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", MODULE);
+            Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", MODULE);
         }
 
         private String getTestName(Test test) {

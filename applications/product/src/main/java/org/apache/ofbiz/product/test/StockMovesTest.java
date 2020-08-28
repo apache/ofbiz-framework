@@ -41,6 +41,10 @@ public class StockMovesTest extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test stock moves.
+     * @throws Exception the exception
+     */
     public void testStockMoves() throws Exception {
         GenericValue userLogin = getUserLogin("system");
         Map<String, Object> fsmnCtx = new HashMap<>();
@@ -49,7 +53,7 @@ public class StockMovesTest extends OFBizTestCase {
 
         fsmnCtx.put("facilityId", "WebStoreWarehouse");
         fsmnCtx.put("userLogin", userLogin);
-        Map<String, Object> respMap1 = dispatcher.runSync("findStockMovesNeeded", fsmnCtx);
+        Map<String, Object> respMap1 = getDispatcher().runSync("findStockMovesNeeded", fsmnCtx);
         stockMoveHandled = UtilGenerics.cast(respMap1.get("stockMoveHandled"));
         warningList = UtilGenerics.cast(respMap1.get("warningMessageList"));
         assertNull(warningList);
@@ -57,7 +61,7 @@ public class StockMovesTest extends OFBizTestCase {
         if (stockMoveHandled != null) {
             fsmnCtx.put("stockMoveHandled", stockMoveHandled);
         }
-        Map<String, Object> respMap2 = dispatcher.runSync("findStockMovesRecommended", fsmnCtx);
+        Map<String, Object> respMap2 = getDispatcher().runSync("findStockMovesRecommended", fsmnCtx);
         warningList = UtilGenerics.cast(respMap2.get("warningMessageList"));
         assertNull(warningList);
 
@@ -68,6 +72,6 @@ public class StockMovesTest extends OFBizTestCase {
         ppsmCtx.put("targetLocationSeqId", "TLTLTLLL01");
         ppsmCtx.put("quantityMoved", new BigDecimal("5"));
         ppsmCtx.put("userLogin", userLogin);
-        dispatcher.runSync("processPhysicalStockMove", ppsmCtx);
+        getDispatcher().runSync("processPhysicalStockMove", ppsmCtx);
     }
 }

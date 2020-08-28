@@ -51,7 +51,7 @@ public final class Log extends MethodOperation {
         }
         this.messageFse = FlexibleStringExpander.getInstance(element.getAttribute("message"));
         String levelAttribute = UtilXml.getAttributeValueIgnorePrefix(element, "level");
-        if (levelAttribute.length() == 0) {
+        if (levelAttribute.isEmpty()) {
             levelAttribute = "info";
         }
         Integer levelInt = Debug.getLevelFromString(levelAttribute);

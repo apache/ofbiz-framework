@@ -68,19 +68,19 @@ public class DateRange extends ComparableRange<Date> implements Serializable {
      * @return Range duration in milliseconds
      */
     public long durationInMillis() {
-        return this.end.getTime() - this.start.getTime();
+        return this.getEnd().getTime() - this.getStart().getTime();
     }
 
     @Override
     public Date end() {
-        return (Date) this.end.clone();
+        return (Date) this.getEnd().clone();
     }
 
     /** Returns the ending date of this range as a <code>Timestamp</code> instance.
      * @return Range ending date <code>Timestamp</code>
      */
     public Timestamp endStamp() {
-        return new Timestamp(this.end.getTime());
+        return new Timestamp(this.getEnd().getTime());
     }
 
     /** Returns <code>true</code> if <code>date</code> occurs within this range.
@@ -107,18 +107,18 @@ public class DateRange extends ComparableRange<Date> implements Serializable {
      * @return <code>true</code> if <code>range</code> intersects this range
      */
     public boolean intersectsRange(DateRange range) {
-        return (isPoint() && range.isPoint() && this.start.equals(range.start)) || (!before(range) && !after(range));
+        return (isPoint() && range.isPoint() && this.getStart().equals(range.getStart())) || (!before(range) && !after(range));
     }
 
     @Override
     public Date start() {
-        return (Date) this.start.clone();
+        return (Date) this.getStart().clone();
     }
 
     /** Returns the starting date of this range as a <code>Timestamp</code> instance.
      * @return Range starting date <code>Timestamp</code>
      */
     public Timestamp startStamp() {
-        return new Timestamp(this.start.getTime());
+        return new Timestamp(this.getStart().getTime());
     }
 }
