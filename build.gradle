@@ -565,7 +565,6 @@ task generatePluginDocumentation(group: docsGroup) {
                     sourceDir file("${component}/src/docs/asciidoc")
                     outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                     doLast { println "Documentation generated for plugin ${component.name}" }
-
                 } else {
                       println "No documentation found for plugin ${component.name}"
                   }
@@ -601,7 +600,6 @@ task generateAllPluginsDocumentation(group: docsGroup,
                     mustRunAfter deleteAllPluginsDocumentation
                     doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
                     }
-
                     dependsOn pluginAsciidoc
                 }
                 doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
