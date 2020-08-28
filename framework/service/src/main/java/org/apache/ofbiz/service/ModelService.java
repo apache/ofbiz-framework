@@ -1008,6 +1008,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
+    /**
+     * Gets all param names.
+     * @return the all param names
+     */
     public Set<String> getAllParamNames() {
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
@@ -1016,6 +1020,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return nameList;
     }
 
+    /**
+     * Gets in param names.
+     * @return the in param names
+     */
     public Set<String> getInParamNames() {
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
@@ -1048,7 +1056,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
     }
 
-    // only returns number of defined parameters (not internal)
+    /**
+     * Gets defined in count.
+     * @return the defined in count
+     */
     public int getDefinedInCount() {
         int count = 0;
 
@@ -1174,7 +1185,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
                 if (message == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale);
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(),
+                            "ModelService.following_required_parameter_missing", locale);
                     message = errMsg + " [" + this.name + "." + missingKey + "]";
                 }
                 missingMsg.add(message);
@@ -1216,8 +1228,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             List<String> errorMessageList = new LinkedList<>();
             for (ModelParam modelParam : this.contextInfo.values()) {
                 // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
-                if (context.get(modelParam.getName()) != null && ("String".equals(modelParam.getType()) || "java.lang.String".equals(modelParam.getType()))
-                        && !"any".equals(modelParam.getAllowHtml()) && (IN_OUT_PARAM.equals(modelParam.getMode()) || IN_PARAM.equals(modelParam.getMode()))) {
+                if (context.get(modelParam.getName()) != null && ("String".equals(modelParam.getType())
+                        || "java.lang.String".equals(modelParam.getType()))
+                        && !"any".equals(modelParam.getAllowHtml()) && (IN_OUT_PARAM.equals(modelParam.getMode())
+                        || IN_PARAM.equals(modelParam.getMode()))) {
                     String value = (String) context.get(modelParam.getName());
                     if ("none".equals(modelParam.getAllowHtml())) {
                         UtilCodec.checkStringForHtmlStrictNone(modelParam.getName(), value, errorMessageList, (Locale) context.get("locale"));

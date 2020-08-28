@@ -107,7 +107,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             Template template = new Template((new java.util.Date()).toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
             environment.include(template);
-        } catch (TemplateException |IOException e) {
+        } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", MODULE);
         }
     }
@@ -226,7 +226,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
+    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator)
+            throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", separator.getId(context));
         parameters.put("style", separator.getStyle(context));
@@ -242,7 +243,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String targetWindow = link.getTargetWindow(context);
         String target = link.getTarget(context);
 
-        String uniqueItemName = link.getModelScreen().getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
+        String uniqueItemName = link.getModelScreen().getName() + "_LF_"
+                + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         String linkUrl = "";
@@ -263,7 +265,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             actionUrl = actionUri.toString();
             parameters.append("[");
             for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
-                if (parameters.length() >1) {
+                if (parameters.length() > 1) {
                     parameters.append(",");
                 }
                 parameters.append("{'name':'");
@@ -353,7 +355,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             } else {
                 urlString = src;
             }
-        } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+        } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
             if (request != null && response != null) {
                 StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(request, newURL);
@@ -413,19 +415,22 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         try {
             if (UtilValidate.isNotEmpty(dataResourceId)) {
                 if (WidgetDataResourceWorker.getDataresourceWorker() != null) {
-                    renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, dataResourceId, contentContext, locale, mimeTypeId, false);
+                    renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, dataResourceId,
+                            contentContext, locale, mimeTypeId, false);
                 } else {
                     Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", MODULE);
                 }
             } else if (UtilValidate.isNotEmpty(expandedContentId)) {
                 if (WidgetContentWorker.getContentWorker() != null) {
-                    renderedContent = WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, expandedContentId, contentContext, locale, mimeTypeId, true);
+                    renderedContent = WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, expandedContentId, contentContext,
+                            locale, mimeTypeId, true);
                 } else {
                     Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
                 }
             } else if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
                 if (WidgetDataResourceWorker.getDataresourceWorker() != null) {
-                    renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
+                    renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator,
+                            expandedDataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
                     Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", MODULE);
                 }
@@ -434,7 +439,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 String editRequest = content.getEditRequest(context);
                 if (UtilValidate.isNotEmpty(editRequest)) {
                     if (WidgetContentWorker.getContentWorker() != null) {
-                        WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
+                        WidgetContentWorker.getContentWorker().renderContentAsTextExt(dispatcher, "NOCONTENTFOUND", writer,
+                                contentContext, locale, mimeTypeId, true);
                     } else {
                         Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", MODULE);
                     }
@@ -447,7 +453,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 writer.append(renderedContent);
             }
 
-        } catch (GeneralException |IOException e) {
+        } catch (GeneralException | IOException e) {
             String errMsg = "Error rendering included content with id [" + expandedContentId + "] : " + e.toString();
             Debug.logError(e, errMsg, MODULE);
         }
@@ -606,7 +612,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
 
     @Override
-    public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet)
+            throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
@@ -685,7 +692,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException  {
+    public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget,
+                                         ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException  {
         if (subWidget.equals(screenlet.getNavigationForm())) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             HttpServletResponse response = (HttpServletResponse) context.get("response");
@@ -715,6 +723,13 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderScreenletEnd", null);
     }
 
+    /**
+     * Render screenlet paginate menu.
+     * @param writer the writer
+     * @param context the context
+     * @param form the form
+     * @throws IOException the io exception
+     */
     protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, ModelScreenWidget.Form form) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -852,7 +867,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage)
+            throws GeneralException, IOException {
         String portalPageId = portalPage.getActualPortalPageId(context);
         String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
         String confMode = portalPage.getConfMode(context);
@@ -884,14 +900,16 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage)
+            throws GeneralException, IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPageEnd/>");
         executeMacro(writer, sr.toString());
     }
 
     @Override
-    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage,
+                                            GenericValue portalPageColumn) throws GeneralException, IOException {
         String portalPageId = portalPage.getActualPortalPageId(context);
         String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
         String columnSeqId = portalPageColumn.getString("columnSeqId");
@@ -956,14 +974,16 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage,
+                                          GenericValue portalPageColumn) throws GeneralException, IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPageColumnEnd/>");
         executeMacro(writer, sr.toString());
     }
 
     @Override
-    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage,
+                                             GenericValue portalPortlet) throws GeneralException, IOException {
         String portalPageId = portalPage.getActualPortalPageId(context);
         String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
         String portalPortletId = portalPortlet.getString("portalPortletId");

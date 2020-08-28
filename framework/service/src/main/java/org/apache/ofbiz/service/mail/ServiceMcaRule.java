@@ -34,10 +34,10 @@ public class ServiceMcaRule implements java.io.Serializable {
 
     private static final String MODULE = ServiceMcaRule.class.getName();
 
-    protected String ruleName = null;
-    protected List<ServiceMcaCondition> conditions = new LinkedList<>();
-    protected List<ServiceMcaAction> actions = new LinkedList<>();
-    protected boolean enabled = true;
+    private String ruleName = null;
+    private List<ServiceMcaCondition> conditions = new LinkedList<>();
+    private List<ServiceMcaAction> actions = new LinkedList<>();
+    private boolean enabled = true;
 
     public ServiceMcaRule(Element mca) {
         this.ruleName = mca.getAttribute("mail-rule-name");
@@ -59,6 +59,14 @@ public class ServiceMcaRule implements java.io.Serializable {
         }
     }
 
+    /**
+     * Eval.
+     * @param dispatcher the dispatcher
+     * @param messageWrapper the message wrapper
+     * @param actionsRun the actions run
+     * @param userLogin the user login
+     * @throws GenericServiceException the generic service exception
+     */
     public void eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, Set<String> actionsRun, GenericValue userLogin) throws GenericServiceException {
         if (!enabled) {
             Debug.logInfo("Service MCA [" + ruleName + "] is disabled; not running.", MODULE);
@@ -86,10 +94,18 @@ public class ServiceMcaRule implements java.io.Serializable {
         }
     }
 
+    /**
+     * Sets enabled.
+     * @param enabled the enabled
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     * Is enabled boolean.
+     * @return the boolean
+     */
     public boolean isEnabled() {
         return this.enabled;
     }

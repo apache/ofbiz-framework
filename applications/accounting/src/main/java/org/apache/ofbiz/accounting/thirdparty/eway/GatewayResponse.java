@@ -61,51 +61,91 @@ public class GatewayResponse {
 
     // getter methods for the response fields
 
+    /**
+     * Gets trxn number.
+     * @return the trxn number
+     */
     public String getTrxnNumber() {
         return txTrxnNumber;
     }
 
+    /**
+     * Gets trxn reference.
+     * @return the trxn reference
+     */
     public String getTrxnReference() {
         return txTrxnReference;
     }
 
+    /**
+     * Gets trxn option 1.
+     * @return the trxn option 1
+     */
     public String getTrxnOption1() {
         return txTrxnOption1;
     }
 
+    /**
+     * Gets trxn option 2.
+     * @return the trxn option 2
+     */
     public String getTrxnOption2() {
         return txTrxnOption2;
     }
 
+    /**
+     * Gets trxn option 3.
+     * @return the trxn option 3
+     */
     public String getTrxnOption3() {
         return txTrxnOption3;
     }
 
+    /**
+     * Gets auth code.
+     * @return the auth code
+     */
     public String getAuthCode() {
         return txAuthCode;
     }
 
+    /**
+     * Gets trxn error.
+     * @return the trxn error
+     */
     public String getTrxnError() {
         return txTrxnError;
     }
 
+    /**
+     * Gets return amount.
+     * @return the return amount
+     */
     public int getReturnAmount() {
         return txReturnAmount;
     }
 
+    /**
+     * Gets transaction amount.
+     * @return the transaction amount
+     */
     public BigDecimal getTransactionAmount() {
         BigDecimal amt = new BigDecimal(getReturnAmount());
         amt = amt.divide(new BigDecimal(100));
         return amt.setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * Gets trxn status.
+     * @return the trxn status
+     */
     public boolean getTrxnStatus() {
         return txTrxnStatus;
     }
 
     /**
-     * Gets the beagle score. Defaults to -1 in case of non-Beagle payment methods
-     * or if the response does not contain this field.
+     * Gets the beagle score. Defaults to -1 in case of non-Beagle payment methods or if the response does not contain
+     * this field.
      * @return The beagle score or -1 if it was not defined in the response
      */
     public double getBeagleScore() {

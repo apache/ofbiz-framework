@@ -22,32 +22,60 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 
 public abstract class AbstractCache {
 
-    protected String id;
+    private String id;
 
     protected AbstractCache(String id) {
         this.id = id;
     }
 
+    /**
+     * Remove.
+     * @param widgetName the widget name
+     */
     public void remove(String widgetName) {
         UtilCache.clearCache(getCacheName(widgetName));
     }
 
+    /**
+     * Clear.
+     */
     public void clear() {
         UtilCache.clearCachesThatStartWith(getCacheNamePrefix());
     }
 
+    /**
+     * Gets cache name prefix.
+     * @return the cache name prefix
+     */
     public String getCacheNamePrefix() {
         return "widgetcache." + id + ".";
     }
 
+    /**
+     * Gets cache name.
+     * @param widgetName the widget name
+     * @return the cache name
+     */
     public String getCacheName(String widgetName) {
         return getCacheNamePrefix() + widgetName;
     }
 
+    /**
+     * Gets cache.
+     * @param <K> the type parameter
+     * @param <V> the type parameter
+     * @param widgetName the widget name
+     * @return the cache
+     */
     protected <K, V> UtilCache<K, V> getCache(String widgetName) {
         return UtilCache.findCache(getCacheName(widgetName));
     }
 
+    /**
+     * Gets or create cache.
+     * @param widgetName the widget name
+     * @return the or create cache
+     */
     protected UtilCache<WidgetContextCacheKey, GenericWidgetOutput> getOrCreateCache(String widgetName) {
         String name = getCacheName(widgetName);
         return UtilCache.getOrCreateUtilCache(name, 0, 0, 0, true, name);

@@ -900,6 +900,12 @@ public class DatabaseUtil {
         return isCaseSensitive;
     }
 
+    /**
+     * Gets database meta data.
+     * @param connection the connection
+     * @param messages the messages
+     * @return the database meta data
+     */
     public DatabaseMetaData getDatabaseMetaData(Connection connection, Collection<String> messages) {
         DatabaseMetaData dbData = null;
         try {
@@ -977,6 +983,11 @@ public class DatabaseUtil {
         }
     }
 
+    /**
+     * Gets table names.
+     * @param messages the messages
+     * @return the table names
+     */
     public TreeSet<String> getTableNames(Collection<String> messages) {
         Connection connection = getConnectionLogged(messages);
 
@@ -1261,6 +1272,16 @@ public class DatabaseUtil {
         }
     }
 
+    /**
+     * Check primary key info int.
+     * @param rsPks the rs pks
+     * @param lookupSchemaName the lookup schema name
+     * @param needsUpperCase the needs upper case
+     * @param colInfo the col info
+     * @param messages the messages
+     * @return the int
+     * @throws SQLException the sql exception
+     */
     public int checkPrimaryKeyInfo(ResultSet rsPks, String lookupSchemaName, boolean needsUpperCase,
                                    Map<String, Map<String, ColumnCheckInfo>> colInfo, Collection<String> messages) throws SQLException {
         int pkCount = 0;
@@ -1302,6 +1323,12 @@ public class DatabaseUtil {
         return pkCount;
     }
 
+    /**
+     * Gets reference info.
+     * @param tableNames the table names
+     * @param messages the messages
+     * @return the reference info
+     */
     public Map<String, Map<String, ReferenceCheckInfo>> getReferenceInfo(Set<String> tableNames, Collection<String> messages) {
         Connection connection = getConnectionLogged(messages);
         if (connection == null) {
@@ -1595,6 +1622,13 @@ public class DatabaseUtil {
         return indexInfo;
     }
 
+    /**
+     * Create table string.
+     * @param entity the entity
+     * @param modelEntities the model entities
+     * @param addFks the add fks
+     * @return the string
+     */
     public String createTable(ModelEntity entity, Map<String, ModelEntity> modelEntities, boolean addFks) {
         if (entity == null) {
             return "ModelEntity was null and is required to create a table";
@@ -1667,7 +1701,8 @@ public class DatabaseUtil {
                         continue;
                     }
                     if (relModelEntity instanceof ModelViewEntity) {
-                        Debug.logError("Error adding foreign key: related entity is a view entity for related entity name " + modelRelation.getRelEntityName(), MODULE);
+                        Debug.logError("Error adding foreign key: related entity is a view entity for related entity name "
+                                + modelRelation.getRelEntityName(), MODULE);
                         continue;
                     }
 
@@ -1727,6 +1762,11 @@ public class DatabaseUtil {
         return null;
     }
 
+    /**
+     * Delete table.
+     * @param entity the entity
+     * @param messages the messages
+     */
     public void deleteTable(ModelEntity entity, List<String> messages) {
         if (entity == null) {
             String errMsg = "ModelEntity was null and is required to delete a table";
@@ -1766,8 +1806,9 @@ public class DatabaseUtil {
      * @return the string
      */
     public String addColumn(ModelEntity entity, ModelField field) {
-        if (entity == null || field == null)
+        if (entity == null || field == null) {
             return "ModelEntity or ModelField where null, cannot add column";
+        }
         if (entity instanceof ModelViewEntity) {
             return "ERROR: Cannot add column for a view entity";
         }
@@ -1853,6 +1894,13 @@ public class DatabaseUtil {
         return null;
     }
 
+    /**
+     * Rename column string.
+     * @param entity the entity
+     * @param field the field
+     * @param newName the new name
+     * @return the string
+     */
     public String renameColumn(ModelEntity entity, ModelField field, String newName) {
         if (entity == null || field == null) {
             return "ModelEntity or ModelField where null, cannot rename column";
@@ -1894,6 +1942,12 @@ public class DatabaseUtil {
         return null;
     }
 
+    /**
+     * Repair column size.
+     * @param entity the entity
+     * @param field the field
+     * @param messages the messages
+     */
     public void repairColumnSize(ModelEntity entity, ModelField field, List<String> messages) {
         // first rename the column
         String tempName = makeTempFieldName(field);
@@ -1931,8 +1985,9 @@ public class DatabaseUtil {
             }
         } catch (SQLException e) {
             String thisMsg = "SQL Exception while executing the following:\n" + sql1 + "\nError was: " + e.toString();
-            if (messages != null)
+            if (messages != null) {
                 messages.add(thisMsg);
+            }
             Debug.logError(thisMsg, MODULE);
             return;
         }
@@ -1951,8 +2006,9 @@ public class DatabaseUtil {
             stmt.executeUpdate(sql2);
         } catch (SQLException e) {
             String thisMsg = "SQL Exception while executing the following:\n" + sql2 + "\nError was: " + e.toString();
-            if (messages != null)
+            if (messages != null) {
                 messages.add(thisMsg);
+            }
             Debug.logError(thisMsg, MODULE);
             return;
         }
@@ -2190,7 +2246,8 @@ public class DatabaseUtil {
 
             ModelField relField = relModelEntity.getField(keyMap.getRelFieldName());
             if (relField == null) {
-                Debug.logError("The field '" + keyMap.getRelFieldName() + "' was not found at related entity - check relations at entity '" + entity.getEntityName() + "'!", MODULE);
+                Debug.logError("The field '" + keyMap.getRelFieldName() + "' was not found at related entity - check relations at entity '"
+                        + entity.getEntityName() + "'!", MODULE);
             }
 
             if (relCols.length() > 0) {
@@ -2308,6 +2365,14 @@ public class DatabaseUtil {
         }
     }
 
+    /**
+     * Delete foreign key string.
+     * @param entity the entity
+     * @param modelRelation the model relation
+     * @param relModelEntity the rel model entity
+     * @param constraintNameClipLength the constraint name clip length
+     * @return the string
+     */
     public String deleteForeignKey(ModelEntity entity, ModelRelation modelRelation, ModelEntity relModelEntity, int constraintNameClipLength) {
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
@@ -2353,14 +2418,32 @@ public class DatabaseUtil {
         }
     }
 
+    /**
+     * Create primary key.
+     * @param entity the entity
+     * @param usePkConstraintNames the use pk constraint names
+     * @param messages the messages
+     */
     public void createPrimaryKey(ModelEntity entity, boolean usePkConstraintNames, List<String> messages) {
         createPrimaryKey(entity, usePkConstraintNames, datasourceInfo.getConstraintNameClipLength(), messages);
     }
 
+    /**
+     * Create primary key.
+     * @param entity the entity
+     * @param messages the messages
+     */
     public void createPrimaryKey(ModelEntity entity, List<String> messages) {
         createPrimaryKey(entity, datasourceInfo.getUsePkConstraintNames(), messages);
     }
 
+    /**
+     * Create primary key string.
+     * @param entity the entity
+     * @param usePkConstraintNames the use pk constraint names
+     * @param constraintNameClipLength the constraint name clip length
+     * @return the string
+     */
     public String createPrimaryKey(ModelEntity entity, boolean usePkConstraintNames, int constraintNameClipLength) {
         if (entity == null) {
             return "ModelEntity was null and is required to create the primary key for a table";

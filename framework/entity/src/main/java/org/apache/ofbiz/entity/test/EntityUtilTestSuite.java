@@ -43,11 +43,15 @@ public class EntityUtilTestSuite extends EntityTestCase {
     private List<GenericValue> prepareGenericValueList() {
         List<GenericValue> newValues = new ArrayList<>();
         for (int i = 0; i < TEST_COUNT; i++) {
-            newValues.add(delegator.makeValue("Testing", "testingId", StringUtil.padNumberString(String.valueOf(i), 5), "description", "Description " + i % 10));
+            newValues.add(delegator.makeValue("Testing", "testingId", StringUtil.padNumberString(String.valueOf(i), 5),
+                    "description", "Description " + i % 10));
         }
         return newValues;
     }
 
+    /**
+     * Test get field list from entity list.
+     */
     public void testGetFieldListFromEntityList() {
         List<GenericValue> newValues = prepareGenericValueList();
         List<String> descriptionList = EntityUtil.getFieldListFromEntityList(newValues, "description", false);
@@ -60,6 +64,9 @@ public class EntityUtilTestSuite extends EntityTestCase {
         assertEquals("Get first description value", "Description 0", descriptionList.get(0));
     }
 
+    /**
+     * Test filter by condition.
+     */
     public void testFilterByCondition() {
         List<GenericValue> newValues = prepareGenericValueList();
         EntityExpr condition = EntityCondition.makeCondition("description", "Description 0");
@@ -72,6 +79,9 @@ public class EntityUtilTestSuite extends EntityTestCase {
         assertEquals("Get first description value", "Description 1", filteredValues.get(0).get("description"));
     }
 
+    /**
+     * Test filter by and.
+     */
     public void testFilterByAnd() {
         List<GenericValue> newValues = prepareGenericValueList();
         List<EntityExpr> condition = UtilMisc.toList(EntityCondition.makeCondition("description", "Description 0"),
@@ -89,6 +99,9 @@ public class EntityUtilTestSuite extends EntityTestCase {
                         "Description 0", genericValue.get("description")));
     }
 
+    /**
+     * Test filter by or.
+     */
     public void testFilterByOr() {
         List<GenericValue> newValues = prepareGenericValueList();
         List<EntityExpr> condition = UtilMisc.toList(EntityCondition.makeCondition("description", "Description 0"),

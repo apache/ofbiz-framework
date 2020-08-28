@@ -33,7 +33,7 @@ public class CursorConnection extends AbstractCursorHandler {
         return newHandler(new CursorConnection(con, cursorName, pageSize), Connection.class);
     }
 
-    protected Connection con;
+    private Connection con;
 
     protected CursorConnection(Connection con, String cursorName, int fetchSize) {
         super(cursorName, fetchSize);
@@ -44,13 +44,13 @@ public class CursorConnection extends AbstractCursorHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if ("prepareStatement".equals(method.getName())) {
             Debug.logInfo("prepareStatement", MODULE);
-            args[0] = "DECLARE " + cursorName + " CURSOR FOR " + args[0];
+            args[0] = "DECLARE " + getCursorName() + " CURSOR FOR " + args[0];
             PreparedStatement pstmt = (PreparedStatement) method.invoke(con, args);
-            return CursorStatement.newCursorPreparedStatement(pstmt, cursorName, fetchSize);
+            return CursorStatement.newCursorPreparedStatement(pstmt, getCursorName(), getFetchSize());
         } else if ("createStatement".equals(method.getName())) {
             Debug.logInfo("createStatement", MODULE);
             Statement stmt = (Statement) method.invoke(con, args);
-            return CursorStatement.newCursorStatement(stmt, cursorName, fetchSize);
+            return CursorStatement.newCursorStatement(stmt, getCursorName(), getFetchSize());
         }
         return super.invoke(con, proxy, method, args);
     }

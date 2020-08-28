@@ -196,11 +196,13 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
         // if applicable automatically add the CREATE_STAMP_FIELD and CREATE_STAMP_TX_FIELD fields
         if ((this.doLock || !this.noAutoStamp) && !fieldsMap.containsKey(CREATE_STAMP_FIELD)) {
-            ModelField newField = ModelField.create(this, "", CREATE_STAMP_FIELD, "date-time", null, null, null, false, false, false, true, false, null);
+            ModelField newField = ModelField.create(this, "", CREATE_STAMP_FIELD, "date-time", null, null, null, false, false, false, true,
+                    false, null);
             internalAddField(newField, pkFieldNames);
         }
         if (!this.noAutoStamp && !fieldsMap.containsKey(CREATE_STAMP_TX_FIELD)) {
-            ModelField newField = ModelField.create(this, "", CREATE_STAMP_TX_FIELD, "date-time", null, null, null, false, false, false, true, false, null);
+            ModelField newField = ModelField.create(this, "", CREATE_STAMP_TX_FIELD, "date-time", null, null, null, false, false, false, true,
+                    false, null);
             internalAddField(newField, pkFieldNames);
             // also add an index for this field
             String indexName = ModelUtil.shortenDbName(this.tableName + "_TXCRTS", 18);
@@ -227,7 +229,8 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
     /** DB Names Constructor */
-    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap, ModelFieldTypeReader modelFieldTypeReader, boolean isCaseSensitive) {
+    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap, ModelFieldTypeReader modelFieldTypeReader,
+                       boolean isCaseSensitive) {
         // if there is a dot in the name, remove it and everything before it, should be the schema name
         this.modelReader = null;
         this.modelInfo = ModelInfo.DEFAULT;
@@ -244,6 +247,10 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    /**
+     * Populate basic info.
+     * @param entityElement the entity element
+     */
     protected void populateBasicInfo(Element entityElement) {
         this.entityName = UtilXml.checkEmpty(entityElement.getAttribute("entity-name")).intern();
         this.tableName = UtilXml.checkEmpty(entityElement.getAttribute("table-name"), ModelUtil.javaNameToDbName(this.entityName)).intern();
@@ -273,6 +280,11 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         this.fieldsMap.put(newField.getName(), newField);
     }
 
+    /**
+     * Populate related.
+     * @param reader the reader
+     * @param entityElement the entity element
+     */
     protected void populateRelated(ModelReader reader, Element entityElement) {
         List<ModelRelation> tempList = new ArrayList<>(this.relations);
         for (Element relationElement: UtilXml.childElementList(entityElement, "relation")) {
@@ -285,6 +297,10 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
 
+    /**
+     * Populate indexes.
+     * @param entityElement the entity element
+     */
     protected void populateIndexes(Element entityElement) {
         List<ModelIndex> tempList = new ArrayList<>(this.indexes);
         for (Element indexElement: UtilXml.childElementList(entityElement, "index")) {
@@ -294,6 +310,11 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         this.indexes = new CopyOnWriteArrayList<>(tempList);
     }
 
+    /**
+     * Contains all pk field names boolean.
+     * @param fieldNames the field names
+     * @return the boolean
+     */
     public boolean containsAllPkFieldNames(Set<String> fieldNames) {
         Iterator<ModelField> pksIter = this.getPksIterator();
         while (pksIter.hasNext()) {
@@ -306,6 +327,11 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
 
+    /**
+     * Add extend entity.
+     * @param reader the reader
+     * @param extendEntityElement the extend entity element
+     */
     public void addExtendEntity(ModelReader reader, Element extendEntityElement) {
         if (extendEntityElement.hasAttribute("enable-lock")) {
             this.doLock = UtilXml.checkBoolean(extendEntityElement.getAttribute("enable-lock"), false);
@@ -329,7 +355,8 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 try {
                     this.sequenceBankSize = Integer.valueOf(sequenceBankSizeStr);
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", MODULE);
+                    Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName
+                            + "]", MODULE);
                 }
             }
         }
@@ -356,9 +383,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 if (UtilValidate.isNotEmpty(fieldElement.getAttribute("enable-audit-log"))) {
                     enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
                 }
-                newField = ModelField.create(this, description, existingField.getName(), type, colName, existingField.getColValue(), existingField.getFieldSet(),
-                        existingField.getIsNotNull(), existingField.getIsPk(), existingField.getEncryptMethod(), existingField.getIsAutoCreatedInternal(),
-                        enableAuditLog, existingField.getValidators());
+                newField = ModelField.create(this, description, existingField.getName(), type, colName, existingField.getColValue(),
+                        existingField.getFieldSet(), existingField.getIsNotNull(), existingField.getIsPk(), existingField.getEncryptMethod(),
+                        existingField.getIsAutoCreatedInternal(), enableAuditLog, existingField.getValidators());
             }
             // add to the entity as a new field
             synchronized (fieldsLock) {
@@ -675,18 +702,30 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return getNopksCopy().iterator();
     }
 
+    /**
+     * Gets nopks copy.
+     * @return the nopks copy
+     */
     public List<ModelField> getNopksCopy() {
         synchronized (fieldsLock) {
             return new ArrayList<>(this.nopks);
         }
     }
 
+    /**
+     * Gets fields size.
+     * @return the fields size
+     */
     public int getFieldsSize() {
         synchronized (fieldsLock) {
             return this.fieldsList.size();
         }
     }
 
+    /**
+     * Gets fields iterator.
+     * @return the fields iterator
+     */
     public Iterator<ModelField> getFieldsIterator() {
         synchronized (fieldsLock) {
             List<ModelField> newList = new ArrayList<>(this.fieldsList);
@@ -694,6 +733,10 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    /**
+     * Gets fields unmodifiable.
+     * @return the fields unmodifiable
+     */
     public List<ModelField> getFieldsUnmodifiable() {
         synchronized (fieldsLock) {
             List<ModelField> newList = new ArrayList<>(this.fieldsList);
@@ -701,13 +744,21 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
-    /** The col-name of the Field, the alias of the field if this is on a view-entity */
+    /**
+     * The col-name of the Field, the alias of the field if this is on a view-entity  @param fieldName the field name
+     * @return the col name or alias
+     */
     public String getColNameOrAlias(String fieldName) {
         ModelField modelField = this.getField(fieldName);
         String fieldString = modelField.getColName();
         return fieldString;
     }
 
+    /**
+     * Gets field.
+     * @param fieldName the field name
+     * @return the field
+     */
     public ModelField getField(String fieldName) {
         if (fieldName == null) return null;
         synchronized (fieldsLock) {
@@ -715,9 +766,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    /**
+     * Add field.
+     * @param field the field
+     */
     public void addField(ModelField field) {
-        if (field == null)
+        if (field == null) {
             return;
+        }
         synchronized (fieldsLock) {
             this.fieldsList.add(field);
             fieldsMap.put(field.getName(), field);
@@ -732,9 +788,15 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    /**
+     * Remove field model field.
+     * @param fieldName the field name
+     * @return the model field
+     */
     public ModelField removeField(String fieldName) {
-        if (fieldName == null)
+        if (fieldName == null) {
             return null;
+        }
         synchronized (fieldsLock) {
             ModelField field = fieldsMap.remove(fieldName);
             if (field != null) {
@@ -750,18 +812,30 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    /**
+     * Gets all field names.
+     * @return the all field names
+     */
     public List<String> getAllFieldNames() {
         synchronized (fieldsLock) {
             return new ArrayList<>(this.fieldsMap.keySet());
         }
     }
 
+    /**
+     * Gets pk field names.
+     * @return the pk field names
+     */
     public List<String> getPkFieldNames() {
         synchronized (fieldsLock) {
             return new ArrayList<>(pkFieldNames);
         }
     }
 
+    /**
+     * Gets no pk field names.
+     * @return the no pk field names
+     */
     public List<String> getNoPkFieldNames() {
         return getFieldNamesFromFieldVector(getNopksCopy());
     }
@@ -788,10 +862,18 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return nameList;
     }
 
+    /**
+     * Gets relations size.
+     * @return the relations size
+     */
     public int getRelationsSize() {
         return this.relations.size();
     }
 
+    /**
+     * Gets relations one size.
+     * @return the relations one size
+     */
     public int getRelationsOneSize() {
         int numRels = 0;
         Iterator<ModelRelation> relationsIter = this.getRelationsIterator();
@@ -804,14 +886,30 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return numRels;
     }
 
+    /**
+     * Gets relation.
+     * @param index the index
+     * @return the relation
+     */
     public ModelRelation getRelation(int index) {
         return this.relations.get(index);
     }
 
+    /**
+     * Gets relations iterator.
+     * @return the relations iterator
+     */
     public Iterator<ModelRelation> getRelationsIterator() {
         return this.relations.iterator();
     }
 
+    /**
+     * Gets relations list.
+     * @param includeOne the include one
+     * @param includeOneNoFk the include one no fk
+     * @param includeMany the include many
+     * @return the relations list
+     */
     public List<ModelRelation> getRelationsList(boolean includeOne, boolean includeOneNoFk, boolean includeMany) {
         List<ModelRelation> relationsList = new LinkedList<>();
         Iterator<ModelRelation> allIter = this.getRelationsIterator();
@@ -828,14 +926,27 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return relationsList;
     }
 
+    /**
+     * Gets relations one list.
+     * @return the relations one list
+     */
     public List<ModelRelation> getRelationsOneList() {
         return getRelationsList(true, true, false);
     }
 
+    /**
+     * Gets relations many list.
+     * @return the relations many list
+     */
     public List<ModelRelation> getRelationsManyList() {
         return getRelationsList(false, false, true);
     }
 
+    /**
+     * Gets relation.
+     * @param relationName the relation name
+     * @return the relation
+     */
     public ModelRelation getRelation(String relationName) {
         if (relationName == null) return null;
         for (ModelRelation relation: relations) {
@@ -844,26 +955,53 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return null;
     }
 
+    /**
+     * Add relation.
+     * @param relation the relation
+     */
     public void addRelation(ModelRelation relation) {
         this.relations.add(relation);
     }
 
+    /**
+     * Remove relation model relation.
+     * @param index the index
+     * @return the model relation
+     */
     public ModelRelation removeRelation(int index) {
         return this.relations.remove(index);
     }
 
+    /**
+     * Gets indexes size.
+     * @return the indexes size
+     */
     public int getIndexesSize() {
         return this.indexes.size();
     }
 
+    /**
+     * Gets index.
+     * @param index the index
+     * @return the index
+     */
     public ModelIndex getIndex(int index) {
         return this.indexes.get(index);
     }
 
+    /**
+     * Gets indexes iterator.
+     * @return the indexes iterator
+     */
     public Iterator<ModelIndex> getIndexesIterator() {
         return this.indexes.iterator();
     }
 
+    /**
+     * Gets index.
+     * @param indexName the index name
+     * @return the index
+     */
     public ModelIndex getIndex(String indexName) {
         if (indexName == null) return null;
         for (ModelIndex index: indexes) {
@@ -872,26 +1010,47 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return null;
     }
 
+    /**
+     * Add index.
+     * @param index the index
+     */
     public void addIndex(ModelIndex index) {
         this.indexes.add(index);
     }
 
+    /**
+     * Remove index model index.
+     * @param index the index
+     * @return the model index
+     */
     public ModelIndex removeIndex(int index) {
         return this.indexes.remove(index);
     }
 
+    /**
+     * Gets view entities size.
+     * @return the view entities size
+     */
     public int getViewEntitiesSize() {
         synchronized (viewEntities) {
             return this.viewEntities.size();
         }
     }
 
+    /**
+     * Gets view convertors iterator.
+     * @return the view convertors iterator
+     */
     public Iterator<String> getViewConvertorsIterator() {
         synchronized (viewEntities) {
             return new HashSet<>(this.viewEntities).iterator();
         }
     }
 
+    /**
+     * Add view entity.
+     * @param view the view
+     */
     public void addViewEntity(ModelViewEntity view) {
         synchronized (viewEntities) {
             this.viewEntities.add(view.getEntityName());
@@ -964,10 +1123,20 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Type name string string.
+     * @param flds the flds
+     * @return the string
+     */
     public String typeNameString(ModelField... flds) {
         return typeNameString(Arrays.asList(flds));
     }
 
+    /**
+     * Type name string string.
+     * @param flds the flds
+     * @return the string
+     */
     public String typeNameString(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1051,6 +1220,13 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return fieldsStringList(getFieldsUnmodifiable(), "null", ", ", false, true);
     }
 
+    /**
+     * Fields string list string.
+     * @param eachString the each string
+     * @param separator the separator
+     * @param flds the flds
+     * @return the string
+     */
     @Deprecated
     public String fieldsStringList(String eachString, String separator, ModelField... flds) {
         return fieldsStringList(Arrays.asList(flds), eachString, separator, false, false);
@@ -1158,16 +1334,47 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, onlyNonPK);
     }
 
-    public StringBuilder fieldsStringList(StringBuilder sb, String eachString, String separator, boolean appendIndex, boolean onlyNonPK, ModelField... flds) {
+    /**
+     * Fields string list string builder.
+     * @param sb the sb
+     * @param eachString the each string
+     * @param separator the separator
+     * @param appendIndex the append index
+     * @param onlyNonPK the only non pk
+     * @param flds the flds
+     * @return the string builder
+     */
+    public StringBuilder fieldsStringList(StringBuilder sb, String eachString, String separator, boolean appendIndex, boolean onlyNonPK,
+                                          ModelField... flds) {
         return fieldsStringList(Arrays.asList(flds), sb, eachString, separator, appendIndex, onlyNonPK);
     }
 
+    /**
+     * Fields string list string.
+     * @param flds the flds
+     * @param eachString the each string
+     * @param separator the separator
+     * @param appendIndex the append index
+     * @param onlyNonPK the only non pk
+     * @return the string
+     */
     @Deprecated
     public String fieldsStringList(List<ModelField> flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
         return fieldsStringList(flds, new StringBuilder(), eachString, separator, appendIndex, onlyNonPK).toString();
     }
 
-    public StringBuilder fieldsStringList(List<ModelField> flds, StringBuilder sb, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
+    /**
+     * Fields string list string builder.
+     * @param flds the flds
+     * @param sb the sb
+     * @param eachString the each string
+     * @param separator the separator
+     * @param appendIndex the append index
+     * @param onlyNonPK the only non pk
+     * @return the string builder
+     */
+    public StringBuilder fieldsStringList(List<ModelField> flds, StringBuilder sb, String eachString, String separator, boolean appendIndex,
+                                          boolean onlyNonPK) {
         if (flds.size() < 1) {
             return sb;
         }
@@ -1294,18 +1501,42 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return sb;
     }
 
+    /**
+     * Class name string string.
+     * @param flds the flds
+     * @return the string
+     */
     public String classNameString(ModelField... flds) {
         return classNameString(Arrays.asList(flds));
     }
 
+    /**
+     * Class name string string.
+     * @param flds the flds
+     * @return the string
+     */
     public String classNameString(List<ModelField> flds) {
         return classNameString(flds, ", ", "");
     }
 
+    /**
+     * Class name string string.
+     * @param separator the separator
+     * @param afterLast the after last
+     * @param flds the flds
+     * @return the string
+     */
     public String classNameString(String separator, String afterLast, ModelField... flds) {
         return classNameString(Arrays.asList(flds), separator, afterLast);
     }
 
+    /**
+     * Class name string string.
+     * @param flds the flds
+     * @param separator the separator
+     * @param afterLast the after last
+     * @return the string
+     */
     public String classNameString(List<ModelField> flds, String separator, String afterLast) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1324,10 +1555,20 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Finder query string string.
+     * @param flds the flds
+     * @return the string
+     */
     public String finderQueryString(ModelField... flds) {
         return finderQueryString(Arrays.asList(flds));
     }
 
+    /**
+     * Finder query string string.
+     * @param flds the flds
+     * @return the string
+     */
     public String finderQueryString(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1349,10 +1590,20 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Http arg list string.
+     * @param flds the flds
+     * @return the string
+     */
     public String httpArgList(ModelField... flds) {
         return httpArgList(Arrays.asList(flds));
     }
 
+    /**
+     * Http arg list string.
+     * @param flds the flds
+     * @return the string
+     */
     public String httpArgList(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1379,10 +1630,20 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Http arg list from class string.
+     * @param flds the flds
+     * @return the string
+     */
     public String httpArgListFromClass(ModelField... flds) {
         return httpArgListFromClass(Arrays.asList(flds));
     }
 
+    /**
+     * Http arg list from class string.
+     * @param flds the flds
+     * @return the string
+     */
     public String httpArgListFromClass(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1415,10 +1676,22 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Http arg list from class string.
+     * @param entityNameSuffix the entity name suffix
+     * @param flds the flds
+     * @return the string
+     */
     public String httpArgListFromClass(String entityNameSuffix, ModelField... flds) {
         return httpArgListFromClass(Arrays.asList(flds), entityNameSuffix);
     }
 
+    /**
+     * Http arg list from class string.
+     * @param flds the flds
+     * @param entityNameSuffix the entity name suffix
+     * @return the string
+     */
     public String httpArgListFromClass(List<ModelField> flds, String entityNameSuffix) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1453,10 +1726,22 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Http relation arg list string.
+     * @param relation the relation
+     * @param flds the flds
+     * @return the string
+     */
     public String httpRelationArgList(ModelRelation relation, ModelField... flds) {
         return httpRelationArgList(Arrays.asList(flds), relation);
     }
 
+    /**
+     * Http relation arg list string.
+     * @param flds the flds
+     * @param relation the relation
+     * @return the string
+     */
     public String httpRelationArgList(List<ModelField> flds, ModelRelation relation) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1480,7 +1765,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 returnString.append(ModelUtil.upperFirstChar(keyMap.getFieldName()));
                 returnString.append("() + \"&\" + ");
             } else {
-                Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: " + relation.getType(), MODULE);
+                Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: "
+                        + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: "
+                        + relation.getModelEntity().entityName + " type: " + relation.getType(), MODULE);
             }
         }
         ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).getName());
@@ -1496,7 +1783,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             returnString.append(ModelUtil.upperFirstChar(keyMap.getFieldName()));
             returnString.append("()");
         } else {
-            Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName() + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: " + relation.getType(), MODULE);
+            Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).getName()
+                    + " related entity: " + relation.getRelEntityName() + " main entity: " + relation.getModelEntity().entityName + " type: "
+                    + relation.getType(), MODULE);
         }
         return returnString.toString();
     }
@@ -1510,17 +1799,32 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      for (; i < relation.keyMaps.size() - 1; i++) {
      ModelKeyMap keyMap = (ModelKeyMap)relation.keyMaps.get(i);
      if (keyMap != null)
-     returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName) + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "() + \"&\" + ";
+     returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName)
+     + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "() + \"&\" + ";
      }
      ModelKeyMap keyMap = (ModelKeyMap)relation.keyMaps.get(i);
-     returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName) + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "()";
+     returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName)
+     + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "()";
      return returnString;
      }
+     */
+
+    /**
+     * Type name string related no mapped string.
+     * @param relation the relation
+     * @param flds the flds
+     * @return the string
      */
     public String typeNameStringRelatedNoMapped(ModelRelation relation, ModelField... flds) {
         return typeNameStringRelatedNoMapped(Arrays.asList(flds), relation);
     }
 
+    /**
+     * Type name string related no mapped string.
+     * @param flds the flds
+     * @param relation the relation
+     * @return the string
+     */
     public String typeNameStringRelatedNoMapped(List<ModelField> flds, ModelRelation relation) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1547,10 +1851,22 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    /**
+     * Type name string related and main string.
+     * @param relation the relation
+     * @param flds the flds
+     * @return the string
+     */
     public String typeNameStringRelatedAndMain(ModelRelation relation, ModelField... flds) {
         return typeNameStringRelatedAndMain(Arrays.asList(flds), relation);
     }
 
+    /**
+     * Type name string related and main string.
+     * @param flds the flds
+     * @param relation the relation
+     * @return the string
+     */
     public String typeNameStringRelatedAndMain(List<ModelField> flds, ModelRelation relation) {
         StringBuilder returnString = new StringBuilder();
 
@@ -1652,7 +1968,8 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     public Object convertFieldValue(String fieldName, Object value, Delegator delegator) {
         ModelField modelField = this.getField(fieldName);
         if (modelField == null) {
-            String errMsg = "Could not convert field value: could not find an entity field for the name: [" + fieldName + "] on the [" + this.getEntityName() + "] entity.";
+            String errMsg = "Could not convert field value: could not find an entity field for the name: [" + fieldName + "] on the ["
+                    + this.getEntityName() + "] entity.";
             throw new IllegalArgumentException(errMsg);
         }
         return convertFieldValue(modelField, value, delegator);
@@ -1673,14 +1990,16 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         try {
             fieldJavaType = delegator.getEntityFieldType(this, modelField.getType()).getJavaType();
         } catch (GenericEntityException e) {
-            String errMsg = "Could not convert field value: could not find Java type for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity: " + e.toString();
+            String errMsg = "Could not convert field value: could not find Java type for the field: [" + modelField.getName() + "] on the ["
+                    + this.getEntityName() + "] entity: " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
         try {
             return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, null, false);
         } catch (GeneralException e) {
-            String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
+            String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName()
+                    + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
@@ -1700,15 +2019,18 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      * require them).
      * @return the converted value
      */
-    public Object convertFieldValue(ModelField modelField, Object value, ModelFieldTypeReader modelFieldTypeReader, Map<String, ? extends Object> context) {
+    public Object convertFieldValue(ModelField modelField, Object value, ModelFieldTypeReader modelFieldTypeReader,
+                                    Map<String, ? extends Object> context) {
         if (value == null || value == GenericEntity.NULL_FIELD) {
             return null;
         }
         String fieldJavaType = modelFieldTypeReader.getModelFieldType(modelField.getType()).getJavaType();
         try {
-            return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
+            return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale)
+                    context.get("locale"), true);
         } catch (GeneralException e) {
-            String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
+            String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName()
+                    + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
@@ -1733,6 +2055,12 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return "ModelEntity[" + getEntityName() + "]";
     }
 
+    /**
+     * To xml element element.
+     * @param document the document
+     * @param packageName the package name
+     * @return the element
+     */
     public Element toXmlElement(Document document, String packageName) {
         if (UtilValidate.isNotEmpty(this.getPackageName()) && !packageName.equals(this.getPackageName())) {
             Debug.logWarning("Export EntityModel XML Element [" + this.getEntityName() + "] with a NEW package - " + packageName, MODULE);
@@ -1742,7 +2070,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         root.setAttribute("entity-name", this.getEntityName());
         if (!this.getEntityName().equals(ModelUtil.dbNameToClassName(this.getPlainTableName()))
                 || !ModelUtil.javaNameToDbName(this.getEntityName()).equals(this.getPlainTableName())) {
-                root.setAttribute("table-name", this.getPlainTableName());
+            root.setAttribute("table-name", this.getPlainTableName());
         }
         root.setAttribute("package-name", packageName);
 
@@ -1836,20 +2164,28 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return root;
     }
 
+    /**
+     * To xml element element.
+     * @param document the document
+     * @return the element
+     */
     public Element toXmlElement(Document document) {
         return this.toXmlElement(document, this.getPackageName());
     }
 
     /**
      * Writes entity model information in the Apple EOModelBundle format.
-     * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
-     * For examples see the JavaRealEstate.framework and JavaBusinessLogic.framework packages which are in the /Library/Frameworks directory after installing the WebObjects Examples package (get latest version of WebObjects download for this).
+     * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/
+     * Articles/EOModelBundle.html
+     * For examples see the JavaRealEstate.framework and JavaBusinessLogic.framework packages which are in the /Library/Frameworks
+     * directory after installing the WebObjects Examples package (get latest version of WebObjects download for this).
      * This is based on examples and documentation from WebObjects 5.4, downloaded 20080221.
      * @param writer
      * @param entityPrefix
      * @param helperName
      */
-    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet, ModelReader entityModelReader) throws GenericEntityException {
+    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet,
+                                 ModelReader entityModelReader) throws GenericEntityException {
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
 
@@ -1857,7 +2193,17 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
 
-    public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet, ModelReader entityModelReader) throws GenericEntityException {
+    /**
+     * Create eo model map map.
+     * @param entityPrefix the entity prefix
+     * @param helperName the helper name
+     * @param entityNameIncludeSet the entity name include set
+     * @param entityModelReader the entity model reader
+     * @return the map
+     * @throws GenericEntityException the generic entity exception
+     */
+    public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet,
+                                                ModelReader entityModelReader) throws GenericEntityException {
         final boolean useRelationshipNames = false;
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
 

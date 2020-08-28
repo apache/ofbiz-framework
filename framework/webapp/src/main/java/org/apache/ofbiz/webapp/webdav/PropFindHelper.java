@@ -31,14 +31,19 @@ import org.w3c.dom.NodeList;
  * working with WebDAV PROPFIND requests and responses.*/
 public class PropFindHelper extends ResponseHelper {
 
-    protected final Document requestDocument;
+    private final Document requestDocument;
 
     public PropFindHelper(Document requestDocument) {
         this.requestDocument = requestDocument;
     }
 
+    /**
+     * Create prop element element.
+     * @param propList the prop list
+     * @return the element
+     */
     public Element createPropElement(List<Element> propList) {
-        Element element = this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:prop");
+        Element element = this.getResponseDocument().createElementNS(DAV_NAMESPACE_URI, "D:prop");
         if (UtilValidate.isNotEmpty(propList)) {
             for (Element propElement : propList) {
                 element.appendChild(propElement);
@@ -47,13 +52,24 @@ public class PropFindHelper extends ResponseHelper {
         return element;
     }
 
+    /**
+     * Create prop stat element element.
+     * @param prop the prop
+     * @param stat the stat
+     * @return the element
+     */
     public Element createPropStatElement(Element prop, String stat) {
-        Element element = this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:propstat");
+        Element element = this.getResponseDocument().createElementNS(DAV_NAMESPACE_URI, "D:propstat");
         element.appendChild(prop);
         element.appendChild(createStatusElement(stat));
         return element;
     }
 
+    /**
+     * Gets find props list.
+     * @param nameSpaceUri the name space uri
+     * @return the find props list
+     */
     public List<Element> getFindPropsList(String nameSpaceUri) {
         List<Element> result = new LinkedList<>();
         NodeList nodeList = this.requestDocument.getElementsByTagNameNS(nameSpaceUri == null ? "*" : nameSpaceUri, "prop");
@@ -69,11 +85,19 @@ public class PropFindHelper extends ResponseHelper {
         return result;
     }
 
+    /**
+     * Is all prop boolean.
+     * @return the boolean
+     */
     public boolean isAllProp() {
         NodeList nodeList = this.requestDocument.getElementsByTagNameNS(DAV_NAMESPACE_URI, "allprop");
         return nodeList.getLength() > 0;
     }
 
+    /**
+     * Is prop name boolean.
+     * @return the boolean
+     */
     public boolean isPropName() {
         NodeList nodeList = this.requestDocument.getElementsByTagNameNS(DAV_NAMESPACE_URI, "propname");
         return nodeList.getLength() > 0;

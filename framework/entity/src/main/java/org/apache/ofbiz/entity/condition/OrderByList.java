@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class OrderByList implements Comparator<GenericEntity> {
-    protected List<OrderByItem> orderByList = new ArrayList<>();
+    private List<OrderByItem> orderByList = new ArrayList<>();
 
     public OrderByList() {
     }
@@ -43,46 +43,90 @@ public class OrderByList implements Comparator<GenericEntity> {
         addOrderBy(orderByList);
     }
 
+    /**
+     * Add order by.
+     * @param orderByList the order by list
+     */
     public void addOrderBy(String... orderByList) {
         for (String orderByItem: orderByList) {
             addOrderBy(orderByItem);
         }
     }
 
+    /**
+     * Add order by.
+     * @param orderByList the order by list
+     */
     public void addOrderBy(Collection<String> orderByList) {
         for (String orderByItem: orderByList) {
             addOrderBy(orderByItem);
         }
     }
 
+    /**
+     * Add order by.
+     * @param text the text
+     */
     public void addOrderBy(String text) {
         addOrderBy(OrderByItem.parse(text));
     }
 
+    /**
+     * Add order by.
+     * @param value the value
+     */
     public void addOrderBy(EntityConditionValue value) {
         addOrderBy(value, false);
     }
 
+    /**
+     * Add order by.
+     * @param value the value
+     * @param descending the descending
+     */
     public void addOrderBy(EntityConditionValue value, boolean descending) {
         addOrderBy(new OrderByItem(value, descending));
     }
 
+    /**
+     * Add order by.
+     * @param orderByItem the order by item
+     */
     public void addOrderBy(OrderByItem orderByItem) {
         orderByList.add(orderByItem);
     }
 
+    /**
+     * Check order by.
+     * @param modelEntity the model entity
+     * @throws GenericModelException the generic model exception
+     */
     public void checkOrderBy(ModelEntity modelEntity) throws GenericModelException {
         for (OrderByItem orderByItem: orderByList) {
             orderByItem.checkOrderBy(modelEntity);
         }
     }
 
+    /**
+     * Make order by string string.
+     * @param modelEntity the model entity
+     * @param includeTablenamePrefix the include tablename prefix
+     * @param datasourceInfo the datasource info
+     * @return the string
+     */
     public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         return sb.toString();
     }
 
+    /**
+     * Make order by string.
+     * @param sb the sb
+     * @param modelEntity the model entity
+     * @param includeTablenamePrefix the include tablename prefix
+     * @param datasourceInfo the datasource info
+     */
     public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         if (!orderByList.isEmpty()) {
             sb.append(" ORDER BY ");

@@ -70,10 +70,18 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    /**
+     * Gets controller xml url.
+     * @return the controller xml url
+     */
     public URL getControllerXmlUrl() {
         return this.controllerXmlUrl;
     }
 
+    /**
+     * Gets view uri.
+     * @return the view uri
+     */
     public String getViewUri() {
         return this.viewUri;
     }
@@ -118,10 +126,18 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    /**
+     * Gets requests that this view is response to.
+     * @return the requests that this view is response to
+     */
     public Set<ControllerRequestArtifactInfo> getRequestsThatThisViewIsResponseTo() {
         return this.aif.getAllRequestInfosReferringToView().get(this.getUniqueId());
     }
 
+    /**
+     * Gets screen called by this view.
+     * @return the screen called by this view
+     */
     public ScreenWidgetArtifactInfo getScreenCalledByThisView() {
         return screenCalledByThisView;
     }

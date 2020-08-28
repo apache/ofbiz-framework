@@ -71,7 +71,8 @@ public class ProductSearch {
     private static final String RESOURCE = "ProductUiLabels";
     private static final String RES_COMMON = "CommonUiLabels";
 
-    public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator,
+            String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         Set<String> featureIdSet = new HashSet<>();
         if (featureIdByType != null) {
             featureIdSet.addAll(featureIdByType.values());
@@ -80,7 +81,8 @@ public class ProductSearch {
         return parametricKeywordSearch(featureIdSet, keywordsString, delegator, productCategoryId, true, visitId, anyPrefix, anySuffix, isAnd);
     }
 
-    public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String
+            productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         List<ProductSearchConstraint> productSearchConstraintList = new LinkedList<>();
 
         if (UtilValidate.isNotEmpty(productCategoryId)) {
@@ -201,10 +203,18 @@ public class ProductSearch {
             return dynamicViewEntity;
         }
 
+        /**
+         * Gets order by list.
+         * @return the order by list
+         */
         public List<String> getOrderByList() {
             return orderByList;
         }
 
+        /**
+         * Gets now timestamp.
+         * @return the now timestamp
+         */
         public Timestamp getNowTimestamp() {
             return nowTimestamp;
         }
@@ -272,14 +282,26 @@ public class ProductSearch {
             this.resultOffset = resultOffset;
         }
 
+        /**
+         * Sets max results.
+         * @param maxResults the max results
+         */
         public void setMaxResults(Integer maxResults) {
             this.maxResults = maxResults;
         }
 
+        /**
+         * Gets total results.
+         * @return the total results
+         */
         public Integer getTotalResults() {
             return this.totalResults;
         }
 
+        /**
+         * Do search array list.
+         * @return the array list
+         */
         public ArrayList<String> doSearch() {
             long startMillis = System.currentTimeMillis();
 
@@ -301,6 +323,9 @@ public class ProductSearch {
             return productIds;
         }
 
+        /**
+         * Finish keyword constraints.
+         */
         public void finishKeywordConstraints() {
             if (orKeywordFixedSet.isEmpty() && andKeywordFixedSet.isEmpty() && keywordFixedOrSetAndList.isEmpty()) {
                 return;
@@ -415,6 +440,9 @@ public class ProductSearch {
             }
         }
 
+        /**
+         * Finish category and feature constraints.
+         */
         public void finishCategoryAndFeatureConstraints() {
             if (includeCategoryIds.isEmpty() && excludeCategoryIds.isEmpty() && alwaysIncludeCategoryIds.isEmpty()
                     && includeCategoryIdOrSetAndList.isEmpty() && alwaysIncludeCategoryIdOrSetAndList.isEmpty()

@@ -63,16 +63,16 @@ public class JavaMailContainer implements Container {
     private static final String MODULE = JavaMailContainer.class.getName();
     public static final String INBOX = "INBOX";
 
-    protected Delegator delegator = null;
-    protected LocalDispatcher dispatcher = null;
-    protected GenericValue userLogin = null;
-    protected long timerDelay = 300000;
-    protected long maxSize = 1000000;
-    protected ScheduledExecutorService pollTimer = null;
-    protected boolean deleteMail = false;    // whether to delete emails after fetching them.
+    private Delegator delegator = null;
+    private LocalDispatcher dispatcher = null;
+    private GenericValue userLogin = null;
+    private long timerDelay = 300000;
+    private long maxSize = 1000000;
+    private ScheduledExecutorService pollTimer = null;
+    private boolean deleteMail = false;    // whether to delete emails after fetching them.
 
-    protected String configFile = null;
-    protected Map<Store, Session> stores = null;
+    private String configFile = null;
+    private Map<Store, Session> stores = null;
     private String name;
 
     @Override
@@ -137,7 +137,11 @@ public class JavaMailContainer implements Container {
         return name;
     }
 
-    // java-mail methods
+    /**
+     * Make session session.
+     * @param client the client
+     * @return the session
+     */
     protected Session makeSession(Configuration.Property client) {
         Properties props = new Properties();
         Map<String, Configuration.Property> clientProps = client.properties();
@@ -149,6 +153,12 @@ public class JavaMailContainer implements Container {
         return Session.getInstance(props);
     }
 
+    /**
+     * Gets store.
+     * @param session the session
+     * @return the store
+     * @throws ContainerException the container exception
+     */
     protected Store getStore(Session session) throws ContainerException {
         // create the store object
         Store store;
@@ -186,6 +196,12 @@ public class JavaMailContainer implements Container {
         return store;
     }
 
+    /**
+     * Update url name url name.
+     * @param urlName the url name
+     * @param props the props
+     * @return the url name
+     */
     protected URLName updateUrlName(URLName urlName, Properties props) {
         String protocol = urlName.getProtocol();
         String userName = urlName.getUsername();
@@ -273,8 +289,8 @@ public class JavaMailContainer implements Container {
 
     class PollerTask implements Runnable {
 
-        LocalDispatcher dispatcher;
-        GenericValue userLogin;
+        private LocalDispatcher dispatcher;
+        private GenericValue userLogin;
 
         PollerTask(LocalDispatcher dispatcher, GenericValue userLogin) {
             this.dispatcher = dispatcher;
@@ -343,14 +359,16 @@ public class JavaMailContainer implements Container {
                 if (!message.isSet(Flags.Flag.SEEN)) {
                     long messageSize = message.getSize();
                     if (message instanceof MimeMessage && messageSize >= maxSize) {
-                        Debug.logWarning("Message from: " + message.getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", MODULE);
+                        Debug.logWarning("Message from: " + message.getFrom()[0] + "not received, too big, size:" + messageSize
+                                + " cannot be more than " + maxSize + " bytes", MODULE);
 
                         // set the message as read so it doesn't continue to try to process; but don't delete it
                         message.setFlag(Flags.Flag.SEEN, true);
                     } else {
                         this.processMessage(message, session);
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed.", MODULE);
+                            Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject()
+                                    + "]  has been processed.", MODULE);
                         }
                         message.setFlag(Flags.Flag.SEEN, true);
                         if (Debug.verboseOn()) {

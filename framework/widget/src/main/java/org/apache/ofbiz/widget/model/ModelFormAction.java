@@ -173,6 +173,10 @@ public abstract class ModelFormAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets service name.
+         * @return the service name
+         */
         public String getServiceName() {
             return serviceNameExdr.getOriginal();
         }
@@ -230,26 +234,50 @@ public abstract class ModelFormAction {
             }
         }
 
+        /**
+         * Gets auto field map exdr.
+         * @return the auto field map exdr
+         */
         public FlexibleStringExpander getAutoFieldMapExdr() {
             return autoFieldMapExdr;
         }
 
+        /**
+         * Gets field map.
+         * @return the field map
+         */
         public Map<FlexibleMapAccessor<Object>, Object> getFieldMap() {
             return fieldMap;
         }
 
+        /**
+         * Gets ignore error.
+         * @return the ignore error
+         */
         public boolean getIgnoreError() {
             return ignoreError;
         }
 
+        /**
+         * Gets result map list name exdr.
+         * @return the result map list name exdr
+         */
         public FlexibleStringExpander getResultMapListNameExdr() {
             return resultMapListNameExdr;
         }
 
+        /**
+         * Gets result map name acsr.
+         * @return the result map name acsr
+         */
         public FlexibleMapAccessor<Map<String, Object>> getResultMapNameAcsr() {
             return resultMapNameAcsr;
         }
 
+        /**
+         * Gets service name exdr.
+         * @return the service name exdr
+         */
         public FlexibleStringExpander getServiceNameExdr() {
             return serviceNameExdr;
         }

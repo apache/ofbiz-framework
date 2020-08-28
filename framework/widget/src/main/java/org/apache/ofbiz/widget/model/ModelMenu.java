@@ -338,6 +338,10 @@ public class ModelMenu extends ModelWidget {
         }
     }
 
+    /**
+     * Gets actions.
+     * @return the actions
+     */
     public List<ModelAction> getActions() {
         return actions;
     }
@@ -347,74 +351,149 @@ public class ModelMenu extends ModelWidget {
         return menuLocation + "#" + getName();
     }
 
+    /**
+     * Gets current menu name.
+     * @param context the context
+     * @return the current menu name
+     */
     public String getCurrentMenuName(Map<String, Object> context) {
         return getName();
     }
 
+    /**
+     * Gets default align.
+     * @return the default align
+     */
     public String getDefaultAlign() {
         return this.defaultAlign;
     }
 
+    /**
+     * Gets default align style.
+     * @return the default align style
+     */
     public String getDefaultAlignStyle() {
         return this.defaultAlignStyle;
     }
 
+    /**
+     * Gets default associated content id.
+     * @return the default associated content id
+     */
     public FlexibleStringExpander getDefaultAssociatedContentId() {
         return defaultAssociatedContentId;
     }
 
+    /**
+     * Gets default associated content id.
+     * @param context the context
+     * @return the default associated content id
+     */
     public String getDefaultAssociatedContentId(Map<String, Object> context) {
         return defaultAssociatedContentId.expandString(context);
     }
 
+    /**
+     * Gets default cell width.
+     * @return the default cell width
+     */
     public String getDefaultCellWidth() {
         return this.defaultCellWidth;
     }
 
+    /**
+     * Gets default disabled title style.
+     * @return the default disabled title style
+     */
     public String getDefaultDisabledTitleStyle() {
         return this.defaultDisabledTitleStyle;
     }
 
+    /**
+     * Gets default entity name.
+     * @return the default entity name
+     */
     public String getDefaultEntityName() {
         return this.defaultEntityName;
     }
 
+    /**
+     * Gets default hide if selected.
+     * @return the default hide if selected
+     */
     public Boolean getDefaultHideIfSelected() {
         return this.defaultHideIfSelected;
     }
 
+    /**
+     * Gets default menu item name.
+     * @return the default menu item name
+     */
     public String getDefaultMenuItemName() {
         return this.defaultMenuItemName;
     }
 
+    /**
+     * Gets default permission entity action.
+     * @return the default permission entity action
+     */
     public String getDefaultPermissionEntityAction() {
         return this.defaultPermissionEntityAction;
     }
 
+    /**
+     * Gets default permission operation.
+     * @return the default permission operation
+     */
     public String getDefaultPermissionOperation() {
         return this.defaultPermissionOperation;
     }
 
+    /**
+     * Gets default selected style.
+     * @return the default selected style
+     */
     public String getDefaultSelectedStyle() {
         return this.defaultSelectedStyle;
     }
 
+    /**
+     * Gets default title style.
+     * @return the default title style
+     */
     public String getDefaultTitleStyle() {
         return this.defaultTitleStyle;
     }
 
+    /**
+     * Gets default tooltip style.
+     * @return the default tooltip style
+     */
     public String getDefaultTooltipStyle() {
         return this.defaultTooltipStyle;
     }
 
+    /**
+     * Gets default widget style.
+     * @return the default widget style
+     */
     public String getDefaultWidgetStyle() {
         return this.defaultWidgetStyle;
     }
 
+    /**
+     * Gets extra index.
+     * @return the extra index
+     */
     public FlexibleStringExpander getExtraIndex() {
         return extraIndex;
     }
 
+    /**
+     * Gets extra index.
+     * @param context the context
+     * @return the extra index
+     */
     public String getExtraIndex(Map<String, Object> context) {
         try {
             return extraIndex.expandString(context);
@@ -423,54 +502,109 @@ public class ModelMenu extends ModelWidget {
         }
     }
 
+    /**
+     * Gets fill style.
+     * @return the fill style
+     */
     public String getFillStyle() {
         return this.fillStyle;
     }
 
+    /**
+     * Gets id.
+     * @return the id
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Gets menu container style.
+     * @param context the context
+     * @return the menu container style
+     */
     public String getMenuContainerStyle(Map<String, Object> context) {
         return menuContainerStyleExdr.expandString(context);
     }
 
+    /**
+     * Gets menu container style exdr.
+     * @return the menu container style exdr
+     */
     public FlexibleStringExpander getMenuContainerStyleExdr() {
         return menuContainerStyleExdr;
     }
 
+    /**
+     * Gets menu item list.
+     * @return the menu item list
+     */
     public List<ModelMenuItem> getMenuItemList() {
         return menuItemList;
     }
 
+    /**
+     * Gets menu item map.
+     * @return the menu item map
+     */
     public Map<String, ModelMenuItem> getMenuItemMap() {
         return menuItemMap;
     }
 
+    /**
+     * Gets menu location.
+     * @return the menu location
+     */
     public String getMenuLocation() {
         return menuLocation;
     }
 
+    /**
+     * Gets menu width.
+     * @return the menu width
+     */
     public String getMenuWidth() {
         return this.menuWidth;
     }
 
+    /**
+     * Gets model menu item by name.
+     * @param name the name
+     * @return the model menu item by name
+     */
     public ModelMenuItem getModelMenuItemByName(String name) {
         return this.menuItemMap.get(name);
     }
 
+    /**
+     * Gets orientation.
+     * @return the orientation
+     */
     public String getOrientation() {
         return this.orientation;
     }
 
+    /**
+     * Gets parent menu.
+     * @return the parent menu
+     */
     public ModelMenu getParentMenu() {
         return parentMenu;
     }
 
+    /**
+     * Gets selected menu item context field name.
+     * @return the selected menu item context field name
+     */
     public FlexibleMapAccessor<String> getSelectedMenuItemContextFieldName() {
         return selectedMenuItemContextFieldName;
     }
 
+    /**
+     * Gets selected menu item context field name.
+     * @param context the context
+     * @return the selected menu item context field name
+     */
     public String getSelectedMenuItemContextFieldName(Map<String, Object> context) {
         String menuItemName = this.selectedMenuItemContextFieldName.get(context);
         if (UtilValidate.isEmpty(menuItemName)) {
@@ -479,26 +613,52 @@ public class ModelMenu extends ModelWidget {
         return menuItemName;
     }
 
+    /**
+     * Gets target.
+     * @return the target
+     */
     public String getTarget() {
         return target;
     }
 
+    /**
+     * Gets title.
+     * @return the title
+     */
     public FlexibleStringExpander getTitle() {
         return title;
     }
 
+    /**
+     * Gets title.
+     * @param context the context
+     * @return the title
+     */
     public String getTitle(Map<String, Object> context) {
         return title.expandString(context);
     }
 
+    /**
+     * Gets tooltip.
+     * @return the tooltip
+     */
     public String getTooltip() {
         return this.tooltip;
     }
 
+    /**
+     * Gets type.
+     * @return the type
+     */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * Rendered menu item count int.
+     * @param context the context
+     * @return the int
+     */
     public int renderedMenuItemCount(Map<String, Object> context) {
         int count = 0;
         for (ModelMenuItem item : this.menuItemList) {
@@ -534,6 +694,13 @@ public class ModelMenu extends ModelWidget {
         }
     }
 
+    /**
+     * Render simple menu string.
+     * @param writer the writer
+     * @param context the context
+     * @param menuStringRenderer the menu string renderer
+     * @throws IOException the io exception
+     */
     public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
             throws IOException {
         // render menu open
@@ -553,6 +720,10 @@ public class ModelMenu extends ModelWidget {
         menuStringRenderer.renderMenuClose(writer, context, this);
     }
 
+    /**
+     * Run actions.
+     * @param context the context
+     */
     public void runActions(Map<String, Object> context) {
         AbstractModelAction.runSubActions(this.actions, context);
     }

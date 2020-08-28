@@ -256,20 +256,38 @@ public class EntityQuery {
         return this;
     }
 
+    /**
+     * Offset entity query.
+     * @param offset the offset
+     * @return the entity query
+     */
     public EntityQuery offset(int offset) {
         this.offset = offset;
         return this;
     }
 
+    /**
+     * Gets offset.
+     * @return the offset
+     */
     public Integer getOffset() {
         return this.offset;
     }
 
+    /**
+     * Limit entity query.
+     * @param limit the limit
+     * @return the entity query
+     */
     public EntityQuery limit(int limit) {
         this.limit = limit;
         return this;
     }
 
+    /**
+     * Gets limit.
+     * @return the limit
+     */
     public Integer getLimit() {
         return this.limit;
     }
@@ -346,23 +364,27 @@ public class EntityQuery {
     }
 
     /** Specifies whether the query should return only values that are currently active using the specified from/thru field name pairs.
-     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate",
+     * "contactFromDate", "contactThruDate"
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(String... filterByFieldName) {
         return this.filterByDate(null, filterByFieldName);
     }
 
-    /** Specifies whether the query should return only values that are active during the specified moment using the specified from/thru field name pairs.
+    /** Specifies whether the query should return only values that are active during the specified moment using the specified
+     * from/thru field name pairs.
      * @param moment - Timestamp representing the moment in time that the values should be active during
-     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate",
+     * "contactFromDate", "contactThruDate"
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(Timestamp moment, String... filterByFieldName) {
         this.filterByDate = true;
         this.filterByDateMoment = moment;
         if (filterByFieldName.length % 2 != 0) {
-            throw new IllegalArgumentException("You must pass an even sized array to this method, each pair should represent a from date field name and a thru date field name");
+            throw new IllegalArgumentException("You must pass an even sized array to this method, "
+                    + "each pair should represent a from date field name and a thru date field name");
         }
         this.filterByFieldNames = Arrays.asList(filterByFieldName);
         return this;
@@ -443,7 +465,8 @@ public class EntityQuery {
         }
         List<GenericValue> result = null;
         if (dynamicViewEntity == null) {
-            result = delegator.findList(entityName, makeWhereCondition(useCache), havingEntityCondition, fieldsToSelect, orderBy, findOptions, useCache);
+            result = delegator.findList(entityName, makeWhereCondition(useCache), havingEntityCondition, fieldsToSelect, orderBy,
+                    findOptions, useCache);
         } else {
             try (EntityListIterator it = queryIterator()) {
                 result = it.getCompleteList();
@@ -528,7 +551,7 @@ public class EntityQuery {
      * @return list with field values
      * @throws GenericEntityException
      */
-    public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {select(fieldName);
+    public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {
         select(fieldName);
         cache(false);
         try (EntityListIterator genericValueEli = queryIterator()) {

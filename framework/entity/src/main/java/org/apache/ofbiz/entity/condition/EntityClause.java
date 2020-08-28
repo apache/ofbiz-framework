@@ -43,7 +43,8 @@ public class EntityClause {
     private Object value = null;
     public EntityClause() { }
 
-    public EntityClause(String firstEntity, String secondEntity, String firstField, String secondField, EntityOperator<?, ?> interFieldOperation, EntityOperator<?, ?> intraFieldOperation) {
+    public EntityClause(String firstEntity, String secondEntity, String firstField, String secondField, EntityOperator<?, ?> interFieldOperation,
+                        EntityOperator<?, ?> intraFieldOperation) {
         this.firstEntity = firstEntity;
         this.secondEntity = secondEntity;
         this.firstField = firstField;
@@ -52,7 +53,8 @@ public class EntityClause {
         this.intraFieldOperation = intraFieldOperation;
     }
 
-    public EntityClause(String firstEntity, String firstField, Object value, EntityOperator<?, ?> interFieldOperation, EntityOperator<?, ?> intraFieldOperation) {
+    public EntityClause(String firstEntity, String firstField, Object value, EntityOperator<?, ?> interFieldOperation,
+                        EntityOperator<?, ?> intraFieldOperation) {
         this.firstEntity = firstEntity;
         this.firstField = firstField;
         this.value = value;
@@ -60,22 +62,42 @@ public class EntityClause {
         this.intraFieldOperation = intraFieldOperation;
     }
 
+    /**
+     * Gets first entity.
+     * @return the first entity
+     */
     public String getFirstEntity() {
         return firstEntity;
     }
 
+    /**
+     * Gets second entity.
+     * @return the second entity
+     */
     public String getSecondEntity() {
         return secondEntity;
     }
 
+    /**
+     * Gets first field.
+     * @return the first field
+     */
     public String getFirstField() {
         return firstField;
     }
 
+    /**
+     * Gets second field.
+     * @return the second field
+     */
     public String getSecondField() {
         return secondField;
     }
 
+    /**
+     * Gets value.
+     * @return the value
+     */
     public Object getValue() {
         if (value == null) {
             value = new Object();
@@ -83,39 +105,83 @@ public class EntityClause {
         return value;
     }
 
+    /**
+     * Gets inter field operation.
+     * @param <L> the type parameter
+     * @param <R> the type parameter
+     * @return the inter field operation
+     */
     public <L, R> EntityOperator<L, R> getInterFieldOperation() {
         return UtilGenerics.cast(interFieldOperation);
     }
 
+    /**
+     * Gets intra field operation.
+     * @param <L> the type parameter
+     * @param <R> the type parameter
+     * @return the intra field operation
+     */
     public <L, R> EntityOperator<L, R> getIntraFieldOperation() {
         return UtilGenerics.cast(intraFieldOperation);
     }
 
+    /**
+     * Sets first entity.
+     * @param firstEntity the first entity
+     */
     public void setFirstEntity(String firstEntity) {
         this.firstEntity = firstEntity;
     }
 
+    /**
+     * Sets second entity.
+     * @param secondEntity the second entity
+     */
     public void setSecondEntity(String secondEntity) {
         this.secondEntity = secondEntity;
     }
 
+    /**
+     * Sets first field.
+     * @param firstField the first field
+     */
     public void setFirstField(String firstField) {
         this.firstField = firstField;
     }
 
+    /**
+     * Sets second field.
+     * @param secondField the second field
+     */
     public void setSecondField(String secondField) {
         this.secondField = secondField;
     }
 
+    /**
+     * Sets inter field operation.
+     * @param <L> the type parameter
+     * @param <R> the type parameter
+     * @param interFieldOperation the inter field operation
+     */
     public <L, R> void setInterFieldOperation(EntityOperator<L, R> interFieldOperation) {
         this.interFieldOperation = interFieldOperation;
     }
 
+    /**
+     * Sets intra field operation.
+     * @param <L> the type parameter
+     * @param <R> the type parameter
+     * @param intraFieldOperation the intra field operation
+     */
     public <L, R> void setIntraFieldOperation(EntityOperator<L, R> intraFieldOperation) {
         this.intraFieldOperation = intraFieldOperation;
     }
 
-    // --  Protected Methods  - for internal use only --//
+    /**
+     * Sets model entities.
+     * @param modelReader the model reader
+     * @throws GenericEntityException the generic entity exception
+     */
     protected void setModelEntities(ModelReader modelReader) throws GenericEntityException {
         firstModelEntity = modelReader.getModelEntity(firstEntity);
         if (secondEntity != null && !secondEntity.equals("")) {
@@ -123,10 +189,18 @@ public class EntityClause {
         }
     }
 
+    /**
+     * Gets first model entity.
+     * @return the first model entity
+     */
     protected ModelEntity getFirstModelEntity() {
         return firstModelEntity;
     }
 
+    /**
+     * Gets second model entity.
+     * @return the second model entity
+     */
     protected ModelEntity getSecondModelEntity() {
         return secondModelEntity;
     }
@@ -139,12 +213,14 @@ public class EntityClause {
         outputBuffer.append("[secondEntity,").append(secondEntity == null ? "null" : secondEntity).append("]");
         outputBuffer.append("[firstField,").append(firstField == null ? "null" : firstField).append("]");
         outputBuffer.append("[secondField,").append(secondField == null ? "null" : secondField).append("]");
-        outputBuffer.append("[firstModelEntity,").append(firstModelEntity == null ? "null" : (firstModelEntity.getEntityName() == null ? "null" : firstModelEntity.getEntityName())).append("]");
-        outputBuffer.append("[secondModelEntity,").append(secondModelEntity == null ? "null" : (secondModelEntity.getEntityName() == null ? "null" : secondModelEntity.getEntityName())).append("]");
+        outputBuffer.append("[firstModelEntity,").append(firstModelEntity == null ? "null" : (firstModelEntity.getEntityName() == null ? "null"
+                : firstModelEntity.getEntityName())).append("]");
+        outputBuffer.append("[secondModelEntity,").append(secondModelEntity == null ? "null" : (secondModelEntity.getEntityName() == null ? "null"
+                : secondModelEntity.getEntityName())).append("]");
         outputBuffer.append("[interFieldOperation,").append(interFieldOperation == null ? "null" : (interFieldOperation.getCode())).append("]");
-        outputBuffer.append("[intraFieldOperation,").append(intraFieldOperation == null ? "null" : (intraFieldOperation.getCode() == null ? "null" : intraFieldOperation.getCode())).append("]");
+        outputBuffer.append("[intraFieldOperation,").append(intraFieldOperation == null ? "null" : (intraFieldOperation.getCode() == null ? "null"
+                : intraFieldOperation.getCode())).append("]");
         outputBuffer.append("[value,").append(getValue().toString()).append("]");
         return outputBuffer.toString();
     }
-
 }

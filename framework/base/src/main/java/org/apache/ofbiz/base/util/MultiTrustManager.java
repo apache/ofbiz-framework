@@ -36,8 +36,7 @@ import javax.net.ssl.X509TrustManager;
 public class MultiTrustManager implements X509TrustManager {
 
     private static final String MODULE = MultiTrustManager.class.getName();
-
-    protected List<KeyStore> keystores;
+    private List<KeyStore> keystores;
 
     public MultiTrustManager(KeyStore ks) {
         this();
@@ -48,12 +47,20 @@ public class MultiTrustManager implements X509TrustManager {
         keystores = new LinkedList<>();
     }
 
+    /**
+     * Add.
+     * @param ks the ks
+     */
     public void add(KeyStore ks) {
         if (ks != null) {
             keystores.add(ks);
         }
     }
 
+    /**
+     * Gets number of key stores.
+     * @return the number of key stores
+     */
     public int getNumberOfKeyStores() {
         return keystores.size();
     }
@@ -91,7 +98,8 @@ public class MultiTrustManager implements X509TrustManager {
                         for (Certificate cert: chain) {
                             if (cert instanceof X509Certificate) {
                                 if (Debug.verboseOn()) {
-                                    Debug.logVerbose("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), MODULE);
+                                    Debug.logVerbose("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(),
+                                            MODULE);
                                 }
                                 issuers.add((X509Certificate) cert);
                             }
@@ -114,6 +122,11 @@ public class MultiTrustManager implements X509TrustManager {
         return issuers.toArray(new X509Certificate[issuers.size()]);
     }
 
+    /**
+     * Is trusted boolean.
+     * @param cert the cert
+     * @return the boolean
+     */
     protected boolean isTrusted(X509Certificate[] cert) {
         if (cert != null) {
             X509Certificate[] issuers = this.getAcceptedIssuers();
@@ -124,7 +137,8 @@ public class MultiTrustManager implements X509TrustManager {
                     }
                     if (issuer.equals(c)) {
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), MODULE);
+                            Debug.logVerbose("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : "
+                                    + issuer.getSubjectX500Principal(), MODULE);
                         }
                         return true;
                     }

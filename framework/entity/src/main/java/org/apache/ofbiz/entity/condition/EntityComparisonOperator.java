@@ -79,9 +79,11 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, Datasource datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams,
+                            boolean compat, L lhs, R rhs, Datasource datasourceInfo) {
 
-        // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.  Note that "FALSE" does not work with all databases.
+        // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.
+        // Note that "FALSE" does not work with all databases.
         if (this.idInt == EntityOperator.ID_IN && UtilValidate.isEmpty(rhs)) {
             sql.append("1=0");
             return;
@@ -112,12 +114,32 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         return false;
     }
 
-    protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, R rhs, Datasource datasourceInfo) {
+    /**
+     * Make rhs where string.
+     * @param entity the entity
+     * @param entityConditionParams the entity condition params
+     * @param sql the sql
+     * @param field the field
+     * @param rhs the rhs
+     * @param datasourceInfo the datasource info
+     */
+    protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql,
+                                      ModelField field, R rhs, Datasource datasourceInfo) {
         sql.append(' ').append(getCode()).append(' ');
         makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, R rhs, Datasource datasourceInfo) {
+    /**
+     * Make rhs where string value.
+     * @param entity the entity
+     * @param entityConditionParams the entity condition params
+     * @param sql the sql
+     * @param field the field
+     * @param rhs the rhs
+     * @param datasourceInfo the datasource info
+     */
+    protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql,
+                                           ModelField field, R rhs, Datasource datasourceInfo) {
         if (rhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) rhs;
             if (ecv.getModelField(entity) == null) {
@@ -131,6 +153,14 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
 
     public abstract boolean compare(L lhs, R rhs);
 
+    /**
+     * Eval boolean.
+     * @param delegator the delegator
+     * @param map the map
+     * @param lhs the lhs
+     * @param rhs the rhs
+     * @return the boolean
+     */
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs) {
         return mapMatches(delegator, map, lhs, rhs);
     }
@@ -163,6 +193,11 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
 
+    /**
+     * Freeze object.
+     * @param item the item
+     * @return the object
+     */
     protected Object freeze(Object item) {
         if (item instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) item;

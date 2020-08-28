@@ -72,26 +72,50 @@ public class ModelScreen extends ModelWidget {
         visitor.visit(this);
     }
 
+    /**
+     * Gets transaction timeout.
+     * @return the transaction timeout
+     */
     public String getTransactionTimeout() {
         return transactionTimeoutExdr.getOriginal();
     }
 
+    /**
+     * Gets model screen map.
+     * @return the model screen map
+     */
     public Map<String, ModelScreen> getModelScreenMap() {
         return modelScreenMap;
     }
 
+    /**
+     * Gets use transaction.
+     * @return the use transaction
+     */
     public boolean getUseTransaction() {
         return useTransaction;
     }
 
+    /**
+     * Gets use cache.
+     * @return the use cache
+     */
     public boolean getUseCache() {
         return useCache;
     }
 
+    /**
+     * Gets section.
+     * @return the section
+     */
     public ModelScreenWidget.Section getSection() {
         return section;
     }
 
+    /**
+     * Gets source location.
+     * @return the source location
+     */
     public String getSourceLocation() {
         return sourceLocation;
     }
@@ -115,7 +139,8 @@ public class ModelScreen extends ModelWidget {
      *   different screen elements; implementing your own makes it possible to
      *   use the same screen definitions for many types of screen UIs
      */
-    public void renderScreenString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws ScreenRenderException {
+    public void renderScreenString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer)
+            throws ScreenRenderException {
         // make sure the "nullField" object is in there for entity ops
         context.put("nullField", GenericEntity.NULL_FIELD);
 
@@ -150,11 +175,21 @@ public class ModelScreen extends ModelWidget {
         }
     }
 
+    /**
+     * Gets dispatcher.
+     * @param context the context
+     * @return the dispatcher
+     */
     public LocalDispatcher getDispatcher(Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         return dispatcher;
     }
 
+    /**
+     * Gets delegator.
+     * @param context the context
+     * @return the delegator
+     */
     public Delegator getDelegator(Map<String, Object> context) {
         Delegator delegator = (Delegator) context.get("delegator");
         return delegator;
@@ -178,7 +213,8 @@ public class ModelScreen extends ModelWidget {
                 try {
                     transactionTimeout = Integer.parseInt(transactionTimeoutPar);
                 } catch (NumberFormatException nfe) {
-                    String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + getName() + "] is invalid and it will be ignored: " + nfe.toString();
+                    String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + getName()
+                            + "] is invalid and it will be ignored: " + nfe.toString();
                     Debug.logWarning(msg, MODULE);
                 }
             }
@@ -191,12 +227,13 @@ public class ModelScreen extends ModelWidget {
                 try {
                     transactionTimeout = Integer.parseInt(transactionTimeoutStr);
                 } catch (NumberFormatException e) {
-                    Debug.logWarning(e, "Could not parse transaction-timeout value, original=[" + transactionTimeoutExdr + "], expanded=[" + transactionTimeoutStr + "]", MODULE);
+                    Debug.logWarning(e, "Could not parse transaction-timeout value, original=[" + transactionTimeoutExdr
+                            + "], expanded=[" + transactionTimeoutStr + "]", MODULE);
                 }
             }
         }
-        return transactionTimeout > 0 ? transactionTimeout:
-                UtilProperties.getPropertyAsInteger("widget", "widget.screen.transaction.defaultTimeout", 60);
+        return transactionTimeout > 0 ? transactionTimeout
+                : UtilProperties.getPropertyAsInteger("widget", "widget.screen.transaction.defaultTimeout", 60);
     }
 }
 

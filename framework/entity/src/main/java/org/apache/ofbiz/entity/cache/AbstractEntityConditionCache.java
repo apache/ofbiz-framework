@@ -33,6 +33,11 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
+/**
+ * The type AbstractEntityConditionCache.
+ * @param <K> the type parameter
+ * @param <V> the type parameter
+ */
 public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<EntityCondition, ConcurrentMap<K, V>> {
 
     private static final String MODULE = AbstractEntityConditionCache.class.getName();
@@ -41,6 +46,13 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         super(delegatorName, id);
     }
 
+    /**
+     * Get v.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param key the key
+     * @return the v
+     */
     protected V get(String entityName, EntityCondition condition, K key) {
         ConcurrentMap<K, V> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) {
@@ -49,10 +61,19 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return conditionCache.get(key);
     }
 
+    /**
+     * Put v.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param key the key
+     * @param value the value
+     * @return the v
+     */
     protected V put(String entityName, EntityCondition condition, K key, V value) {
         ModelEntity entity = this.getDelegator().getModelEntity(entityName);
         if (entity.getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", MODULE);
+            Debug.logWarning("Tried to put a value of the " + entityName
+                    + " entity in the cache but this entity has never-cache set to true, not caching.", MODULE);
             return null;
         }
 
@@ -73,6 +94,11 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         }
     }
 
+    /**
+     * Remove.
+     * @param entityName the entity name
+     * @param condition the condition
+     */
     public void remove(String entityName, EntityCondition condition) {
         UtilCache<EntityCondition, ConcurrentMap<K, V>> cache = getCache(entityName);
         if (cache == null) {
@@ -81,6 +107,13 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         cache.remove(condition);
     }
 
+    /**
+     * Remove v.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param key the key
+     * @return the v
+     */
     protected V remove(String entityName, EntityCondition condition, K key) {
         ConcurrentMap<K, V> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) {
@@ -98,6 +131,12 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return frozenCondition;
     }
 
+    /**
+     * Gets condition cache.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @return the condition cache
+     */
     protected ConcurrentMap<K, V> getConditionCache(String entityName, EntityCondition condition) {
         UtilCache<EntityCondition, ConcurrentMap<K, V>> cache = getCache(entityName);
         if (cache == null) {
@@ -106,6 +145,12 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return cache.get(getConditionKey(condition));
     }
 
+    /**
+     * Gets or create condition cache.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @return the or create condition cache
+     */
     protected Map<K, V> getOrCreateConditionCache(String entityName, EntityCondition condition) {
         UtilCache<EntityCondition, ConcurrentMap<K, V>> utilCache = getOrCreateCache(entityName);
         EntityCondition conditionKey = getConditionKey(condition);
@@ -121,13 +166,20 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return value == null || value == GenericEntity.NULL_ENTITY || value == GenericValue.NULL_VALUE;
     }
 
+    /**
+     * Gets model check valid.
+     * @param oldEntity the old entity
+     * @param newEntity the new entity
+     * @return the model check valid
+     */
     protected ModelEntity getModelCheckValid(GenericEntity oldEntity, GenericEntity newEntity) {
         ModelEntity model;
         if (!isNull(newEntity)) {
             model = newEntity.getModelEntity();
             String entityName = model.getEntityName();
             if (oldEntity != null && !entityName.equals(oldEntity.getEntityName())) {
-                throw new IllegalArgumentException("internal error: storeHook called with 2 different entities(old=" + oldEntity.getEntityName() + ", new=" + entityName + ")");
+                throw new IllegalArgumentException("internal error: storeHook called with 2 different entities(old=" + oldEntity.getEntityName()
+                        + ", new=" + entityName + ")");
             }
         } else {
             if (!isNull(oldEntity)) {
@@ -139,22 +191,42 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return model;
     }
 
+    /**
+     * Store hook.
+     * @param newEntity the new entity
+     */
     public void storeHook(GenericEntity newEntity) {
         storeHook(null, newEntity);
     }
 
-    // if oldValue == null, then this is a new entity
-    // if newValue == null, then
+    /**
+     * Store hook.
+     * @param oldEntity the old entity
+     * @param newEntity the new entity
+     * if oldValue == null, then this is a new entity
+     * if newValue == null, then
+     */
     public void storeHook(GenericEntity oldEntity, GenericEntity newEntity) {
         storeHook(false, oldEntity, newEntity);
     }
 
-    // if oldValue == null, then this is a new entity
-    // if newValue == null, then
+    /**
+     * Store hook.
+     * @param oldPK the old pk
+     * @param newEntity the new entity
+     * if oldValue == null, then this is a new entity
+     * if newValue == null, then
+     */
     public void storeHook(GenericPK oldPK, GenericEntity newEntity) {
         storeHook(true, oldPK, newEntity);
     }
 
+    /**
+     * Convert list.
+     * @param targetEntityName the target entity name
+     * @param entity the entity
+     * @return the list
+     */
     protected List<? extends Map<String, Object>> convert(String targetEntityName, GenericEntity entity) {
         if (isNull(entity)) {
             return null;
@@ -162,6 +234,12 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
     }
 
+    /**
+     * Store hook.
+     * @param isPK the is pk
+     * @param oldEntity the old entity
+     * @param newEntity the new entity
+     */
     public void storeHook(boolean isPK, GenericEntity oldEntity, GenericEntity newEntity) {
         ModelEntity model = getModelCheckValid(oldEntity, newEntity);
         String entityName = model.getEntityName();
@@ -174,7 +252,17 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         }
     }
 
-    protected <T1 extends Map<String, Object>, T2 extends Map<String, Object>> void storeHook(String entityName, boolean isPK, List<T1> oldValues, List<T2> newValues) {
+    /**
+     * Store hook.
+     * @param <T1> the type parameter
+     * @param <T2> the type parameter
+     * @param entityName the entity name
+     * @param isPK the is pk
+     * @param oldValues the old values
+     * @param newValues the new values
+     */
+    protected <T1 extends Map<String, Object>, T2 extends Map<String, Object>> void storeHook(String entityName, boolean isPK,
+                                                                                              List<T1> oldValues, List<T2> newValues) {
         UtilCache<EntityCondition, Map<K, V>> entityCache = UtilCache.findCache(getCacheName(entityName));
         // for info about cache clearing
         if (entityCache == null) {
@@ -215,9 +303,11 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
             }
             if (shouldRemove) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("In storeHook, matched condition, removing from cache for entityName [" + entityName + "] in cache with name [" + entityCache.getName() + "] entry with condition: " + condition, MODULE);
+                    Debug.logVerbose("In storeHook, matched condition, removing from cache for entityName [" + entityName
+                            + "] in cache with name [" + entityCache.getName() + "] entry with condition: " + condition, MODULE);
                 }
-                // doesn't work anymore since this is a copy of the cache keySet, can call remove directly though with a concurrent mod exception: cacheKeyIter.remove();
+                // doesn't work anymore since this is a copy of the cache keySet, can call remove directly though with a concurrent mod
+                // exception: cacheKeyIter.remove();
                 entityCache.remove(condition);
             }
         }

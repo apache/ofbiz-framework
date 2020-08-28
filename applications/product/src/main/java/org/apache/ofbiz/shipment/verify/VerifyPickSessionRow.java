@@ -37,21 +37,22 @@ import org.apache.ofbiz.service.ServiceUtil;
 @SuppressWarnings("serial")
 public class VerifyPickSessionRow implements Serializable {
 
-    protected String orderId = null;
-    protected String orderItemSeqId = null;
-    protected String shipGroupSeqId = null;
-    protected String productId = null;
-    protected String originGeoId = null;
-    protected String inventoryItemId = null;
-    protected BigDecimal readyToVerifyQty = BigDecimal.ZERO;
-    protected GenericValue orderItem = null;
-    protected String shipmentItemSeqId = null;
-    protected String invoiceItemSeqId = null;
+    private String orderId = null;
+    private String orderItemSeqId = null;
+    private String shipGroupSeqId = null;
+    private String productId = null;
+    private String originGeoId = null;
+    private String inventoryItemId = null;
+    private BigDecimal readyToVerifyQty = BigDecimal.ZERO;
+    private GenericValue orderItem = null;
+    private String shipmentItemSeqId = null;
+    private String invoiceItemSeqId = null;
 
     public VerifyPickSessionRow() {
     }
 
-    public VerifyPickSessionRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId, String inventoryItemId, BigDecimal quantity) {
+    public VerifyPickSessionRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String originGeoId,
+                                String inventoryItemId, BigDecimal quantity) {
         this.orderId = orderId;
         this.orderItemSeqId = orderItemSeqId;
         this.shipGroupSeqId = shipGroupSeqId;
@@ -63,64 +64,132 @@ public class VerifyPickSessionRow implements Serializable {
         this.invoiceItemSeqId = null;
     }
 
+    /**
+     * Gets order id.
+     * @return the order id
+     */
     public String getOrderId() {
         return this.orderId;
     }
 
+    /**
+     * Gets order item seq id.
+     * @return the order item seq id
+     */
     public String getOrderItemSeqId() {
         return this.orderItemSeqId;
     }
 
+    /**
+     * Gets ship group seq id.
+     * @return the ship group seq id
+     */
     public String getShipGroupSeqId() {
         return this.shipGroupSeqId;
     }
 
+    /**
+     * Gets product id.
+     * @return the product id
+     */
     public String getProductId() {
         return this.productId;
     }
 
+    /**
+     * Gets origin geo id.
+     * @return the origin geo id
+     */
     public String getOriginGeoId() {
         return this.originGeoId;
     }
 
+    /**
+     * Gets inventory item id.
+     * @return the inventory item id
+     */
     public String getInventoryItemId() {
         return this.inventoryItemId;
     }
 
+    /**
+     * Gets ready to verify qty.
+     * @return the ready to verify qty
+     */
     public BigDecimal getReadyToVerifyQty() {
         return this.readyToVerifyQty;
     }
 
+    /**
+     * Sets ready to verify qty.
+     * @param readyToVerifyQty the ready to verify qty
+     */
     public void setReadyToVerifyQty(BigDecimal readyToVerifyQty) {
         this.readyToVerifyQty = readyToVerifyQty;
     }
 
+    /**
+     * Sets shipment item seq id.
+     * @param shipmentItemSeqId the shipment item seq id
+     */
     public void setShipmentItemSeqId(String shipmentItemSeqId) {
         this.shipmentItemSeqId = shipmentItemSeqId;
     }
 
+    /**
+     * Gets shipment item seq id.
+     * @return the shipment item seq id
+     */
     public String getShipmentItemSeqId() {
         return this.shipmentItemSeqId;
     }
 
+    /**
+     * Sets invoice item seq id.
+     * @param invoiceItemSeqId the invoice item seq id
+     */
     public void setInvoiceItemSeqId(String invoiceItemSeqId) {
         this.invoiceItemSeqId = invoiceItemSeqId;
     }
 
+    /**
+     * Gets invoice item seq id.
+     * @return the invoice item seq id
+     */
     public String getInvoiceItemSeqId() {
         return this.invoiceItemSeqId;
     }
 
+    /**
+     * Gets order item.
+     * @return the order item
+     */
     public GenericValue getOrderItem() {
         return this.orderItem;
     }
 
+    /**
+     * Is same item boolean.
+     * @param line the line
+     * @return the boolean
+     */
     public boolean isSameItem(VerifyPickSessionRow line) {
         return this.getInventoryItemId().equals(line.getInventoryItemId()) && this.getOrderItemSeqId().equals(line.getOrderItemSeqId())
                 && this.getOrderId().equals(line.getOrderId()) && this.getShipGroupSeqId().equals(line.getShipGroupSeqId());
     }
 
-    protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, BigDecimal quantity, LocalDispatcher dispatcher, Locale locale) throws GeneralException {
+    /**
+     * Issue item to shipment.
+     * @param shipmentId the shipment id
+     * @param picklistBinId the picklist bin id
+     * @param userLogin the user login
+     * @param quantity the quantity
+     * @param dispatcher the dispatcher
+     * @param locale the locale
+     * @throws GeneralException the general exception
+     */
+    protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, BigDecimal quantity,
+                                       LocalDispatcher dispatcher, Locale locale) throws GeneralException {
 
         if (quantity == null) {
             quantity = this.getReadyToVerifyQty();
@@ -142,7 +211,8 @@ public class VerifyPickSessionRow implements Serializable {
 
         String shipmentItemSeqId = (String) issueOrderItemResp.get("shipmentItemSeqId");
         if (shipmentItemSeqId == null) {
-            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorIssueItemDidNotReturnAValidShipmentItemSeqId", locale));
+            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels",
+                    "ProductErrorIssueItemDidNotReturnAValidShipmentItemSeqId", locale));
         } else {
             this.setShipmentItemSeqId(shipmentItemSeqId);
         }
@@ -174,5 +244,4 @@ public class VerifyPickSessionRow implements Serializable {
             }
         }
     }
-
 }

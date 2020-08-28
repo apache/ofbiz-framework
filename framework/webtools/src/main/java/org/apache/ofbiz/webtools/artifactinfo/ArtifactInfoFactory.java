@@ -401,6 +401,12 @@ public class ArtifactInfoFactory {
         return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
     }
 
+    /**
+     * Gets controller request map.
+     * @param controllerXmlUrl the controller xml url
+     * @param requestUri the request uri
+     * @return the controller request map
+     */
     public ConfigXMLReader.RequestMap getControllerRequestMap(URL controllerXmlUrl, String requestUri) {
         try {
             return ConfigXMLReader.getControllerConfig(controllerXmlUrl).getRequestMapMap().get(requestUri);
@@ -410,6 +416,12 @@ public class ArtifactInfoFactory {
         return null;
     }
 
+    /**
+     * Gets controller view map.
+     * @param controllerXmlUrl the controller xml url
+     * @param viewUri the view uri
+     * @return the controller view map
+     */
     public ConfigXMLReader.ViewMap getControllerViewMap(URL controllerXmlUrl, String viewUri) {
         ControllerConfig cc;
         try {
@@ -421,6 +433,12 @@ public class ArtifactInfoFactory {
         return null;
     }
 
+    /**
+     * Gets entity artifact info.
+     * @param entityName the entity name
+     * @return the entity artifact info
+     * @throws GeneralException the general exception
+     */
     public EntityArtifactInfo getEntityArtifactInfo(String entityName) throws GeneralException {
         EntityArtifactInfo curInfo = this.allEntityInfos.get(entityName);
         if (curInfo == null) {
@@ -431,6 +449,12 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets service artifact info.
+     * @param serviceName the service name
+     * @return the service artifact info
+     * @throws GeneralException the general exception
+     */
     public ServiceArtifactInfo getServiceArtifactInfo(String serviceName) throws GeneralException {
         ServiceArtifactInfo curInfo = this.allServiceInfos.get(serviceName);
         if (curInfo == null) {
@@ -441,6 +465,12 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets service eca artifact info.
+     * @param ecaRule the eca rule
+     * @return the service eca artifact info
+     * @throws GeneralException the general exception
+     */
     public ServiceEcaArtifactInfo getServiceEcaArtifactInfo(ServiceEcaRule ecaRule) throws GeneralException {
         ServiceEcaArtifactInfo curInfo = this.allServiceEcaInfos.get(ecaRule);
         if (curInfo == null) {
@@ -451,6 +481,12 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
 
+    /**
+     * Gets form widget artifact info.
+     * @param formNameAndLocation the form name and location
+     * @return the form widget artifact info
+     * @throws GeneralException the general exception
+     */
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formNameAndLocation) throws GeneralException {
         return getFormWidgetArtifactInfo(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0,
                 formNameAndLocation.indexOf("#")));
@@ -548,6 +584,13 @@ public class ArtifactInfoFactory {
         }
     }
 
+    /**
+     * Gets artifact info by name and type.
+     * @param artifactName the artifact name
+     * @param artifactLocation the artifact location
+     * @param type the type
+     * @return the artifact info by name and type
+     */
     public ArtifactInfoBase getArtifactInfoByNameAndType(String artifactName, String artifactLocation, String type) {
         try {
             if ("entity".equals(type)) {
@@ -569,6 +612,12 @@ public class ArtifactInfoFactory {
         return null;
     }
 
+    /**
+     * Gets all artifact infos by name partial.
+     * @param artifactNamePartial the artifact name partial
+     * @param type the type
+     * @return the all artifact infos by name partial
+     */
     public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial, String type) {
         Set<ArtifactInfoBase> aiBaseSet = new HashSet<>();
 

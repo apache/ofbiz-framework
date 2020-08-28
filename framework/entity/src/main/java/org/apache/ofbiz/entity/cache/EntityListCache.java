@@ -38,10 +38,23 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
         super(delegatorName, "entity-list");
     }
 
+    /**
+     * Get list.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @return the list
+     */
     public List<GenericValue> get(String entityName, EntityCondition condition) {
         return this.get(entityName, condition, null);
     }
 
+    /**
+     * Get list.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param orderBy the order by
+     * @return the list
+     */
     public List<GenericValue> get(String entityName, EntityCondition condition, List<String> orderBy) {
         ConcurrentMap<Object, List<GenericValue>> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) {
@@ -67,14 +80,29 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
         return valueList;
     }
 
+    /**
+     * Put.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param entities the entities
+     */
     public void put(String entityName, EntityCondition condition, List<GenericValue> entities) {
         this.put(entityName, condition, null, entities);
     }
 
+    /**
+     * Put list.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param orderBy the order by
+     * @param entities the entities
+     * @return the list
+     */
     public List<GenericValue> put(String entityName, EntityCondition condition, List<String> orderBy, List<GenericValue> entities) {
         ModelEntity entity = this.getDelegator().getModelEntity(entityName);
         if (entity.getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", MODULE);
+            Debug.logWarning("Tried to put a value of the " + entityName
+                    + " entity in the cache but this entity has never-cache set to true, not caching.", MODULE);
             return null;
         }
         for (GenericValue memberValue : entities) {
@@ -84,6 +112,13 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
         return conditionCache.put(getOrderByKey(orderBy), entities);
     }
 
+    /**
+     * Remove list.
+     * @param entityName the entity name
+     * @param condition the condition
+     * @param orderBy the order by
+     * @return the list
+     */
     public List<GenericValue> remove(String entityName, EntityCondition condition, List<String> orderBy) {
         return super.remove(entityName, condition, getOrderByKey(orderBy));
     }

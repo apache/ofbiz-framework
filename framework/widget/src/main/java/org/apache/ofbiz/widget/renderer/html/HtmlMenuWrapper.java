@@ -62,6 +62,16 @@ public class HtmlMenuWrapper {
         init(resourceName, menuName, request, response);
     }
 
+    /**
+     * Init.
+     * @param resourceName the resource name
+     * @param menuName the menu name
+     * @param request the request
+     * @param response the response
+     * @throws IOException the io exception
+     * @throws SAXException the sax exception
+     * @throws ParserConfigurationException the parser configuration exception
+     */
     public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
         this.resourceName = resourceName;
@@ -97,10 +107,19 @@ public class HtmlMenuWrapper {
         }
     }
 
+    /**
+     * Gets menu renderer.
+     * @return the menu renderer
+     */
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRenderer(request, response);
     }
 
+    /**
+     * Render menu string string.
+     * @return the string
+     * @throws IOException the io exception
+     */
     public String renderMenuString() throws IOException {
         HttpServletRequest req = ((HtmlMenuRenderer) renderer).getRequest();
         if (req.getServletContext() == null) {
@@ -133,6 +152,10 @@ public class HtmlMenuWrapper {
         this.context.put("isError", isError);
     }
 
+    /**
+     * Gets is error.
+     * @return the is error
+     */
     public boolean getIsError() {
         Boolean isErrorBoolean = (Boolean) this.context.get("isError");
         if (isErrorBoolean == null) {
@@ -258,13 +281,14 @@ public class HtmlMenuWrapper {
         return ((HtmlMenuRenderer) renderer).getResponse();
     }
 
-    public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName) {
+    public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                                 String menuDefFile, String menuName, String menuWrapperClassName) {
 
         HtmlMenuWrapper menuWrapper = null;
 
         String menuSig = menuDefFile + "__" + menuName;
         if (session != null) {
-             menuWrapper = (HtmlMenuWrapper) session.getAttribute(menuSig);
+            menuWrapper = (HtmlMenuWrapper) session.getAttribute(menuSig);
         }
 
         if (menuWrapper == null) {
@@ -294,6 +318,10 @@ public class HtmlMenuWrapper {
         return menuWrapper;
     }
 
+    /**
+     * Sets parameters.
+     * @param paramMap the param map
+     */
     public void setParameters(Map<String, Object> paramMap) {
         context.put("parameters", paramMap);
     }

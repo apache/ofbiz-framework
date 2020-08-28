@@ -49,30 +49,59 @@ public class HttpRequestFileUpload {
     private String overrideFilename = null;
     private Map<String, String> fields;
 
+    /**
+     * Gets override filename.
+     * @return the override filename
+     */
     public String getOverrideFilename() {
         return overrideFilename;
     }
 
+    /**
+     * Sets override filename.
+     * @param ofName the of name
+     */
     public void setOverrideFilename(String ofName) {
         overrideFilename = ofName;
     }
 
+    /**
+     * Gets filename.
+     * @return the filename
+     */
     public String getFilename() {
         return filename;
     }
 
+    /**
+     * Gets filepath.
+     * @return the filepath
+     */
     public String getFilepath() {
         return filepath;
     }
 
+    /**
+     * Sets save path.
+     * @param savePath the save path
+     */
     public void setSavePath(String savePath) {
         this.savePath = savePath;
     }
 
+    /**
+     * Gets content type.
+     * @return the content type
+     */
     public String getContentType() {
         return contentType;
     }
 
+    /**
+     * Gets field value.
+     * @param fieldName the field name
+     * @return the field value
+     */
     public String getFieldValue(String fieldName) {
         if (fields == null || fieldName == null) {
             return null;
@@ -113,6 +142,11 @@ public class HttpRequestFileUpload {
         }
     }
 
+    /**
+     * Do upload.
+     * @param request the request
+     * @throws IOException the io exception
+     */
     public void doUpload(HttpServletRequest request) throws IOException {
         ServletInputStream in = request.getInputStream();
 

@@ -55,14 +55,14 @@ public class DebugXaResource extends GenericXaResource {
     @Override
     public void enlist() throws XAException {
         super.enlist();
-        TransactionUtil.DEBUG_RES_MAP.put(xid, this);
+        TransactionUtil.DEBUG_RES_MAP.put(getXid(), this);
     }
 
     /**
      * Log.
      */
     public void log() {
-        Debug.logInfo("Xid : " + xid, MODULE);
+        Debug.logInfo("Xid : " + getXid(), MODULE);
         Debug.logInfo(ex, MODULE);
     }
 }

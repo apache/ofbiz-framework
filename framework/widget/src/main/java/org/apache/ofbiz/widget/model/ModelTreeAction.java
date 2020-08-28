@@ -106,7 +106,7 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     protected ModelTreeAction(ModelNode modelNode, Element actionElement) {
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), MODULE);
+            Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), MODULE);
         }
         this.modelTree = modelNode.getModelTree();
         this.modelSubNode = null;
@@ -114,16 +114,24 @@ public abstract class ModelTreeAction extends AbstractModelAction {
 
     protected ModelTreeAction(ModelNode.ModelSubNode modelSubNode, Element actionElement) {
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), MODULE);
+            Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), MODULE);
         }
         this.modelSubNode = modelSubNode;
         this.modelTree = modelSubNode.getNode().getModelTree();
     }
 
+    /**
+     * Gets model sub node.
+     * @return the model sub node
+     */
     public ModelNode.ModelSubNode getModelSubNode() {
         return modelSubNode;
     }
 
+    /**
+     * Gets model tree.
+     * @return the model tree
+     */
     public ModelTree getModelTree() {
         return modelTree;
     }
@@ -158,10 +166,18 @@ public abstract class ModelTreeAction extends AbstractModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets finder.
+         * @return the finder
+         */
         public ByAndFinder getFinder() {
             return finder;
         }
 
+        /**
+         * Gets list name.
+         * @return the list name
+         */
         public String getListName() {
             return listName;
         }
@@ -219,10 +235,18 @@ public abstract class ModelTreeAction extends AbstractModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets finder.
+         * @return the finder
+         */
         public ByConditionFinder getFinder() {
             return finder;
         }
 
+        /**
+         * Gets list name.
+         * @return the list name
+         */
         public String getListName() {
             return listName;
         }
@@ -277,10 +301,18 @@ public abstract class ModelTreeAction extends AbstractModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location.
+         * @return the location
+         */
         public String getLocation() {
             return location;
         }
 
+        /**
+         * Gets method.
+         * @return the method
+         */
         public String getMethod() {
             return method;
         }
@@ -357,30 +389,58 @@ public abstract class ModelTreeAction extends AbstractModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets auto field map exdr.
+         * @return the auto field map exdr
+         */
         public FlexibleStringExpander getAutoFieldMapExdr() {
             return autoFieldMapExdr;
         }
 
+        /**
+         * Gets field map.
+         * @return the field map
+         */
         public Map<FlexibleMapAccessor<Object>, Object> getFieldMap() {
             return fieldMap;
         }
 
+        /**
+         * Gets result map list name exdr.
+         * @return the result map list name exdr
+         */
         public FlexibleStringExpander getResultMapListNameExdr() {
             return resultMapListNameExdr;
         }
 
+        /**
+         * Gets result map name acsr.
+         * @return the result map name acsr
+         */
         public FlexibleMapAccessor<Map<String, Object>> getResultMapNameAcsr() {
             return resultMapNameAcsr;
         }
 
+        /**
+         * Gets result map value name exdr.
+         * @return the result map value name exdr
+         */
         public FlexibleStringExpander getResultMapValueNameExdr() {
             return resultMapValueNameExdr;
         }
 
+        /**
+         * Gets service name exdr.
+         * @return the service name exdr
+         */
         public FlexibleStringExpander getServiceNameExdr() {
             return serviceNameExdr;
         }
 
+        /**
+         * Gets value name exdr.
+         * @return the value name exdr
+         */
         public FlexibleStringExpander getValueNameExdr() {
             return valueNameExdr;
         }

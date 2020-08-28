@@ -57,15 +57,15 @@ public class CursorStatement extends AbstractCursorHandler {
         } else if ("executeQuery".equals(method.getName()) && args == null) {
             PreparedStatement pstmt = (PreparedStatement) stmt;
             pstmt.executeUpdate();
-            currentResultSet = CursorResultSet.newCursorResultSet(stmt, cursorName, fetchSize);
+            currentResultSet = CursorResultSet.newCursorResultSet(stmt, getCursorName(), getFetchSize());
             return currentResultSet;
         } else if ("executeQuery".equals(method.getName()) && args != null) {
-            args[0] = "DECLARE " + cursorName + " CURSOR FOR " + args[0];
+            args[0] = "DECLARE " + getCursorName() + " CURSOR FOR " + args[0];
             Debug.logInfo("query=" + args[0], MODULE);
             if (stmt.execute((String) args[0])) {
                 throw new SQLException("DECLARE returned a ResultSet");
             }
-            currentResultSet = CursorResultSet.newCursorResultSet(stmt, cursorName, fetchSize);
+            currentResultSet = CursorResultSet.newCursorResultSet(stmt, getCursorName(), getFetchSize());
             return currentResultSet;
         } else if ("getMoreResults".equals(method.getName())) {
             boolean hasMoreResults = stmt.getMoreResults();

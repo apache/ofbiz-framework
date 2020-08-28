@@ -38,11 +38,11 @@ public class ServiceEcaSetField {
 
     private static final String MODULE = ServiceEcaSetField.class.getName();
 
-    protected String fieldName = null;
-    protected String mapName = null;
-    protected String envName = null;
-    protected String value = null;
-    protected String format = null;
+    private String fieldName = null;
+    private String mapName = null;
+    private String envName = null;
+    private String value = null;
+    private String format = null;
 
     public ServiceEcaSetField(Element set) {
         this.fieldName = set.getAttribute("field-name");
@@ -55,6 +55,10 @@ public class ServiceEcaSetField {
         this.format = set.getAttribute("format");
     }
 
+    /**
+     * Eval.
+     * @param context the context
+     */
     public void eval(Map<String, Object> context) {
         if (fieldName != null) {
             // try to expand the envName
@@ -93,6 +97,12 @@ public class ServiceEcaSetField {
         }
     }
 
+    /**
+     * Format object.
+     * @param s the s
+     * @param c the c
+     * @return the object
+     */
     protected Object format(String s, Map<String, ? extends Object> c) {
         if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {
             return s;

@@ -45,16 +45,16 @@ public class ServiceXaWrapper extends GenericXaResource {
     public static final int MODE_ASYNC = 100;
     public static final int MODE_SYNC = 200;
 
-    protected DispatchContext dctx = null;
-    protected String rollbackService = null;
-    protected String commitService = null;
-    protected String runAsUser = null;
-    protected Map<String, ? extends Object> rollbackContext = null;
-    protected Map<String, ? extends Object> commitContext = null;
-    protected boolean rollbackAsync = true;
-    protected boolean rollbackAsyncPersist = true;
-    protected boolean commitAsync = false;
-    protected boolean commitAsyncPersist = false;
+    private DispatchContext dctx = null;
+    private String rollbackService = null;
+    private String commitService = null;
+    private String runAsUser = null;
+    private Map<String, ? extends Object> rollbackContext = null;
+    private Map<String, ? extends Object> commitContext = null;
+    private boolean rollbackAsync = true;
+    private boolean rollbackAsyncPersist = true;
+    private boolean commitAsync = false;
+    private boolean commitAsyncPersist = false;
 
     protected ServiceXaWrapper() { }
     public ServiceXaWrapper(DispatchContext dctx) {
@@ -176,10 +176,10 @@ public class ServiceXaWrapper extends GenericXaResource {
             Debug.logVerbose("ServiceXaWrapper#commit() : " + onePhase + " / " + xid.toString(), MODULE);
         }
         // the commit listener
-        if (this.active) {
+        if (this.isActive()) {
             Debug.logWarning("commit() called without end()", MODULE);
         }
-        if (this.xid == null || !this.xid.equals(xid)) {
+        if (this.getXid() == null || !this.getXid().equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
         }
 
@@ -200,8 +200,8 @@ public class ServiceXaWrapper extends GenericXaResource {
         };
         thread.start();
 
-        this.xid = null;
-        this.active = false;
+        this.setXid(null);
+        this.setActive(false);
     }
 
     /**
@@ -213,10 +213,10 @@ public class ServiceXaWrapper extends GenericXaResource {
             Debug.logVerbose("ServiceXaWrapper#rollback() : " + xid.toString(), MODULE);
         }
         // the rollback listener
-        if (this.active) {
+        if (this.isActive()) {
             Debug.logWarning("rollback() called without end()", MODULE);
         }
-        if (this.xid == null || !this.xid.equals(xid)) {
+        if (this.getXid() == null || !this.getXid().equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
         }
 
@@ -237,8 +237,8 @@ public class ServiceXaWrapper extends GenericXaResource {
         };
         thread.start();
 
-        this.xid = null;
-        this.active = false;
+        this.setXid(null);
+        this.setActive(false);
     }
 
     @Override
@@ -364,7 +364,7 @@ public class ServiceXaWrapper extends GenericXaResource {
             }
         }
 
-        this.xid = null;
-        this.active = false;
+        this.setXid(null);
+        this.setActive(false);
     }
 }

@@ -43,22 +43,36 @@ import org.apache.ofbiz.base.util.SSLUtil;
 public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializable {
 
     private static final String MODULE = SSLServerSocketFactory.class.getName();
-    protected boolean clientAuth = false;
-    protected String keystore = null;
-    protected String ksType = null;
-    protected String ksPass = null;
-    protected String alias = null;
+    private boolean clientAuth = false;
+    private String keystore = null;
+    private String ksType = null;
+    private String ksPass = null;
+    private String alias = null;
 
+    /**
+     * Sets need client auth.
+     * @param clientAuth the client auth
+     */
     public void setNeedClientAuth(boolean clientAuth) {
         this.clientAuth = clientAuth;
     }
 
+    /**
+     * Sets key store.
+     * @param location the location
+     * @param type the type
+     * @param password the password
+     */
     public void setKeyStore(String location, String type, String password) {
         this.keystore = location;
         this.ksType = type;
         this.ksPass = password;
     }
 
+    /**
+     * Sets key store alias.
+     * @param alias the alias
+     */
     public void setKeyStoreAlias(String alias) {
         this.alias = alias;
     }
