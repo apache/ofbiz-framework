@@ -301,8 +301,11 @@ public final class SimpleMethod extends MiniLangElement {
                 MethodOperation.Factory<MethodOperation> factory = METHOD_OPER_FACTORIES.get(nodeName);
                 if (factory != null) {
                     methodOp = factory.createMethodOperation(curOperElem, simpleMethod);
-                //} else if ("else".equals(nodeName)) {
-                    // don't add anything, but don't complain either, this one is handled in the individual operations
+                } else if ("else".equals(nodeName)) {
+                    // Prevents false warnings like reported at https://s.apache.org/o7tmu, eg:
+                    // MiniLangValidate|W| Invalid element found Method = facilityGenericPermission, File =
+                    // file:/C:/projectsASF/Git/ofbiz-framework/applications/product/minilang/product/inventory/InventoryServices.xml,
+                    // Element = <else>, Line 71
                 } else {
                     MiniLangValidate.handleError("Invalid element found", simpleMethod, curOperElem);
                 }
