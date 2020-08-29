@@ -20,17 +20,6 @@ under the License.
 The Apache OFBiz® Project
 Release trunk
 
-This OFBiz component contains all entity definitions used in the various components in the base and plugins stack.
+This is the core component in the OFBiz Base Application stack as it holds all entity definitions used by OFBiz in the various base and special purpose components. Entity definitions define the tables required in the RDBMS to create, read, update and delete records.
 
-== more information
-For more information about this component visit the product page in the OFBiz WIKI,
-which can be found at https://cwiki.apache.org/confluence/display/OFBIZ/Datamodel
-
-For information about datamodel change read documentation DATAMODEL_CHANGES.adoc.
-It's included in Developer manual > chapter Entity Engine
-
-== issues
-JIRA issues related to this component can be found at https://issues.apache.org/jira/browse/OFBIZ/component/12330107
-
-== commits
-Committed revisions can be viewed at https://svn.apache.org/viewvc/ofbiz/trunk/applications/datamodel/
+For an overview of the data models included, take a look at the code (look into \*code*.xml files).
