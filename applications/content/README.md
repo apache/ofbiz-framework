@@ -1,4 +1,4 @@
-<img src="http://ofbiz.apache.org/images/OFBiz-logo.png" alt="Apache OFBiz" />
+<img src="https://ofbiz.apache.org/images/ofbiz_logo.png" alt="Apache OFBiz" />
 
 # Content component
 This OFBiz component enables organisations to manage various kinds of content. Content is used in many of the other components in OFBiz.
