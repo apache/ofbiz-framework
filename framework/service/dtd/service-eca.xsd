@@ -18,14 +18,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-    <xs:element name="service-eca">
+
+    <xs:element name="service-ECA">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="eca"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ECA"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="eca">
+    
+    <xs:element name="ECA">
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -38,29 +40,99 @@ under the License.
                     <xs:element ref="action"/>
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.eca"/>
+            <xs:attributeGroup ref="attlist.ECA"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.eca">
-        <xs:attribute type="xs:string" name="service" use="required"/>
+    
+    <xs:attributeGroup name="attlist.ECA">
+        <xs:attribute type="xs:string" name="service" use="required" />
         <xs:attribute name="event" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
-                    <xs:enumeration value="global-commit"><xs:annotation><xs:documentation>Runs when the transaction the service is running in is successfully committed.</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="global-commit-post-run"><xs:annotation><xs:documentation>Like global-commit, but gets its context post/after the run of the service and all non-global ECA rules.</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="global-rollback"><xs:annotation><xs:documentation>Runs when the transaction the service is running in is rolled back.</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="auth"><xs:annotation><xs:documentation>Runs before the user is authenticated. Note that when the service to which the eca is associated is executed asynchronously this event occurs at least two times (at the time of the call and at the time of the execution). For this reason it is only safe to use this event to call services that don't change the status of any system.</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="in-validate"><xs:annotation><xs:documentation>Runs before the input parameters are validated. Note that when the service to which the eca is associated is executed asynchronously this event occurs at least two times (at the time of the call and at the time of the execution). For this reason it is only safe to use this event to call services that don't change the status of any system.</xs:documentation></xs:annotation></xs:enumeration>
-                    <xs:enumeration value="out-validate"/>
-                    <xs:enumeration value="invoke"/>
-                    <xs:enumeration value="commit"/>
-                    <xs:enumeration value="return"/>
+                    <xs:enumeration value="global-commit">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs when the transaction the service is running in is successfully committed.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="global-commit-post-run">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Like global-commit, but gets its context post/after the run of the service and all non-global ECA rules.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="global-rollback">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs when the transaction the service is running in is rolled back.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="auth">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs before the user is authenticated. Note that when the service to which the ECA is associated is
+                                executed asynchronously this event occurs at least two times (at the time of the call and at the time of the
+                                execution).
+                                For this reason it is only safe to use this event to call services that don't change the status of any
+                                system.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="in-validate">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs before the input parameters are validated. Note that when the service to which the ECA is
+                                associated is executed asynchronously this event occurs at least two times (at the time of the call and at the time of
+                                the execution).
+                                For this reason it is only safe to use this event to call services that don't change the status of any
+                                system.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="out-validate">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs after the output parameters are validated. Note that when the service to which the ECA is
+                                associated is executed asynchronously this event occurs at least two times (at the time of the call and at the time of the execution).
+                                For this reason it is only safe to use this event to call services that don't change the status of any system.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="invoke">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs just before the service is actually invoked by the service engine.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="commit">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Depends whether you have use-transaction set to true or false on the service, so whether it actually has a
+                                transaction in place or not.
+                                Also if the transaction was already in place so it didn't start a new transaction, it won't
+                                actually commit.
+                                But this phase will still be crossed in the life cycle of a service execution and so the rules will be
+                                run.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="return">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Runs just before the service returns
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="run-on-failure" type="xs:boolean" default="false"/>
-        <xs:attribute name="run-on-error" type="xs:boolean" default="false"/>
-        <xs:attribute name="enabled" type="xs:boolean" default="true"/>
+        <xs:attribute name="run-on-failure" type="xs:boolean" default="false" />
+        <xs:attribute name="run-on-error" type="xs:boolean" default="false" />
+        <xs:attribute name="enabled" type="xs:boolean" default="true" />
     </xs:attributeGroup>
     <xs:element name="condition">
         <xs:complexType>
@@ -177,7 +249,14 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="condition-service">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.condition-service"/>
+            <xs:attributeGroup ref="attlist.condition-service" />
+            <xs:annotation>
+                <xs:documentation>
+                    Specify the name of a service. 
+                    It will call that service and pass it the context.
+                    The service returns a boolean, that's the condition.
+                </xs:documentation>
+            </xs:annotation>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-service">
@@ -198,15 +277,51 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="run-as-user"/>
-        <xs:attribute type="xs:string" name="result-map-name"/>
-        <xs:attribute name="new-transaction" type="xs:boolean" default="false"/>
-        <xs:attribute name="result-to-context" type="xs:boolean" default="true"/>
-        <xs:attribute name="result-to-result" type="xs:boolean" default="false">
-            <xs:annotation><xs:documentation>If true, copies the action's result Map into the service's result Map.</xs:documentation></xs:annotation>
+        <xs:attribute type="xs:string" name="run-as-user">
+            <xs:annotation>
+                <xs:documentation>
+                    The user to run the action.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="ignore-failure" type="xs:boolean" default="true"/>
-        <xs:attribute name="ignore-error" type="xs:boolean" default="true"/>
-        <xs:attribute name="persist" type="xs:boolean" default="false"/>
+        <xs:attribute type="xs:string" name="result-map-name"/>
+        <xs:attribute name="new-transaction" type="xs:boolean" default="false">
+            <xs:annotation>
+                <xs:documentation>If true, the action service is run in a new transaction.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="result-to-context" type="xs:boolean" default="true">
+            <xs:annotation>
+                <xs:documentation>If true, copies the action's result Map into the context.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="result-to-result" type="xs:boolean" default="false">
+            <xs:annotation>
+                <xs:documentation>If true, copies the action's result Map into the service's result Map.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ignore-failure" type="xs:boolean" default="true">
+            <xs:annotation>
+                <xs:documentation>Don't use false this if resultToResult is already be copied over, nothing would happen anyway.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ignore-error" type="xs:boolean" default="true">
+            <xs:annotation>
+                <xs:documentation>Don't use false this if resultToResult is already be copied over, nothing would happen anyway.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="persist" type="xs:boolean" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                It goes along with the mode.
+                If the mode is asynchronous then you can tell to persist it. 
+                By default it is false, which means it will be put it the memory asynchronous pool to run. 
+                If equals true then when it runs it asynchronously, or when it sets it up to run asynchronously, 
+                it will save the information to the database rather than just keeping it in memory. 
+                So you're more assured that it will successfully run because the data will remain in the database
+                until it's successful, or you can see if there's an error with it by the status in the database
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
