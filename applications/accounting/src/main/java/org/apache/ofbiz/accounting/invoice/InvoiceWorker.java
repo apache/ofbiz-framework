@@ -377,11 +377,17 @@ public final class InvoiceWorker {
             // if no locations found get it from the PartyAndContactMech using the from and to party on the invoice
             String destinationPartyId = null;
             Timestamp now = UtilDateTime.nowTimestamp();
-            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
+            GenericValue invoiceType = null;
+            try {
+                EntityQuery.use(delegator).from("InvoiceType").where("invoiceTypeId", invoice.getString("invoiceTypeId")).queryFirst();
+            } catch (GenericEntityException e) {
+                Debug.logError("Trouble getting invoice type", MODULE);
+            }
+            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId")) || "SALES_INVOICE".equals(invoiceType.getString("parentTypeId"))) {
                 destinationPartyId = invoice.getString("partyId");
             }
-            if ("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
-                destinationPartyId = invoice.getString("partyId");
+            if ("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoiceType.getString("parentTypeId"))) {
+                destinationPartyId = invoice.getString("partyIdFrom");
             }
             try {
                 locations = EntityQuery.use(delegator).from("PartyContactWithPurpose")
