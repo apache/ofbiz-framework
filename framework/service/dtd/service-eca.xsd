@@ -18,6 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="service-eca">
     <xs:element name="service-eca">
         <xs:complexType>
             <xs:sequence>
@@ -25,6 +27,8 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    
+    <xs:element name="eca">
     <xs:element name="eca">
         <xs:complexType>
             <xs:sequence>
@@ -41,6 +45,9 @@ under the License.
             <xs:attributeGroup ref="attlist.eca"/>
         </xs:complexType>
     </xs:element>
+    
+    <xs:attributeGroup name="attlist.eca">
+        <xs:attribute type="xs:string" name="service" use="required" />
     <xs:attributeGroup name="attlist.eca">
         <xs:attribute type="xs:string" name="service" use="required"/>
         <xs:attribute name="event" use="required">
@@ -177,6 +184,15 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="condition-service">
         <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-service">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specify the name of a service.
+                        It will call that service and pass it the context.
+                        The service returns a boolean, that's the condition.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attributeGroup>
             <xs:attributeGroup ref="attlist.condition-service"/>
         </xs:complexType>
     </xs:element>
