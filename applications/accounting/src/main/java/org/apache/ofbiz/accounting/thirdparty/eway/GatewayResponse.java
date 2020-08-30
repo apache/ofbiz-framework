@@ -214,7 +214,7 @@ public class GatewayResponse {
                 txTrxnOption3 = value;
                 break;
             case "ewayReturnAmount":
-                if (!value.equals("")) {
+                if (!"".equals(value)) {
                     txReturnAmount = Integer.parseInt(value);
                 }
                 break;
@@ -225,7 +225,7 @@ public class GatewayResponse {
                 txTrxnReference = value;
                 break;
             case "ewayBeagleScore":
-                if (!value.equals("")) {
+                if (!"".equals(value)) {
                     txBeagleScore = Double.parseDouble(value);
                 }
                 break;

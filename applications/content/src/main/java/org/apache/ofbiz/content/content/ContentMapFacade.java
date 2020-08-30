@@ -320,10 +320,10 @@ public class ContentMapFacade implements Map<Object, Object> {
             try {
                 Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
-                if (!this.mapKeyFilter.equals("")) {
+                if (!"".equals(this.mapKeyFilter)) {
                     expressions.put("caMapKey", this.mapKeyFilter);
                 }
-                if (!this.statusFilter.equals("")) {
+                if (!"".equals(this.statusFilter)) {
                     expressions.put("statusId", this.statusFilter);
                 }
 
@@ -505,7 +505,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
                 expressions.put("caMapKey", name);
-                if (!this.statusFilter.equals("")) {
+                if (!"".equals(this.statusFilter)) {
                     expressions.put("statusId", this.statusFilter);
                 }
                 sub = EntityQuery.use(delegator).from("ContentAssocViewTo")

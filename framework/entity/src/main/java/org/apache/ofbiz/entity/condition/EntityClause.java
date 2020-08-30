@@ -184,7 +184,7 @@ public class EntityClause {
      */
     protected void setModelEntities(ModelReader modelReader) throws GenericEntityException {
         firstModelEntity = modelReader.getModelEntity(firstEntity);
-        if (secondEntity != null && !secondEntity.equals("")) {
+        if (secondEntity != null && !"".equals(secondEntity)) {
             secondModelEntity = modelReader.getModelEntity(secondEntity);
         }
     }

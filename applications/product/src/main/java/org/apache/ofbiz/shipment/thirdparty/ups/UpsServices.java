@@ -2108,7 +2108,7 @@ public class UpsServices {
         Element shiptoElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
         Element shiptoAddrElement = UtilXml.addChildElement(shiptoElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shiptoAddrElement, "PostalCode", shippingPostalCode, rateRequestDoc);
-        if (shippingCountryCode != null && !shippingCountryCode.equals("")) {
+        if (shippingCountryCode != null && !"".equals(shippingCountryCode)) {
             UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", shippingCountryCode, rateRequestDoc);
         }
 

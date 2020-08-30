@@ -697,10 +697,10 @@ public class EntityPermissionChecker {
                 //testPrivilegeEnumId = (String) targetOp.get("privilegeEnumId");
             //int testPrivilegeSeq = 0;
 
-            boolean purposesCond = (!hasPurposeOp || (purposes != null && purposes.contains(testContentPurposeTypeId)) || testContentPurposeTypeId.equals("_NA_"));
-            boolean statusCond = (!hasStatusOp || testStatusId.equals("_NA_") || (targStatusId != null && targStatusId.equals(testStatusId)));
+            boolean purposesCond = (!hasPurposeOp || (purposes != null && purposes.contains(testContentPurposeTypeId)) || "_NA_".equals(testContentPurposeTypeId));
+            boolean statusCond = (!hasStatusOp || "_NA_".equals(testStatusId) || (targStatusId != null && targStatusId.equals(testStatusId)));
             //boolean privilegeCond = (!hasPrivilegeOp || testPrivilegeEnumId.equals("_NA_") || testPrivilegeSeq <= targPrivilegeSeq || testPrivilegeEnumId.equals(targPrivilegeEnumId));
-            boolean roleCond = (testRoleTypeId.equals("_NA_") || (roles != null && roles.contains(testRoleTypeId)));
+            boolean roleCond = ("_NA_".equals(testRoleTypeId) || (roles != null && roles.contains(testRoleTypeId)));
 
 
             if (purposesCond && statusCond && roleCond) {
@@ -764,9 +764,9 @@ public class EntityPermissionChecker {
             String auxiliaryConditionId = permissionConditionGetter.getAuxiliaryValue();
             String statusConditionId = permissionConditionGetter.getStatusValue();
 
-            boolean auxiliaryCond = (auxiliaryConditionId == null ||  auxiliaryConditionId.equals("_NA_") || (auxiliaryValueList != null && auxiliaryValueList.contains(auxiliaryConditionId)) );
-            boolean statusCond = (statusConditionId == null || statusConditionId.equals("_NA_") || (targStatusId != null && targStatusId.equals(statusConditionId)));
-            boolean roleCond = (roleConditionId == null || roleConditionId.equals("_NA_") || (roleValueList != null && roleValueList.contains(roleConditionId)));
+            boolean auxiliaryCond = (auxiliaryConditionId == null ||  "_NA_".equals(auxiliaryConditionId) || (auxiliaryValueList != null && auxiliaryValueList.contains(auxiliaryConditionId)) );
+            boolean statusCond = (statusConditionId == null || "_NA_".equals(statusConditionId) || (targStatusId != null && targStatusId.equals(statusConditionId)));
+            boolean roleCond = (roleConditionId == null || "_NA_".equals(roleConditionId) || (roleValueList != null && roleValueList.contains(roleConditionId)));
 
             if (auxiliaryCond && statusCond && roleCond) {
                 if (Debug.verboseOn()) {
@@ -851,7 +851,7 @@ public class EntityPermissionChecker {
                     if (!roles.contains(roleTypeId)) {
                         roles.add(roleTypeId);
                     }
-                    if (roleTypeId.equals("AUTHOR") && !roles.contains("OWNER")) {
+                    if ("AUTHOR".equals(roleTypeId) && !roles.contains("OWNER")) {
                         roles.add("OWNER");
                     }
                 } else { // Party may be of "PARTY_GROUP" type, in which case the userLogin may still possess this role
@@ -860,7 +860,7 @@ public class EntityPermissionChecker {
                     try {
                         party = contentRole.getRelatedOne("Party", false);
                         partyTypeId = (String) party.get("partyTypeId");
-                        if (partyTypeId != null && partyTypeId.equals("PARTY_GROUP")) {
+                        if (partyTypeId != null && "PARTY_GROUP".equals(partyTypeId)) {
                             Map<String, Object> map = new HashMap<>();
 
                             // At some point from/thru date will need to be added

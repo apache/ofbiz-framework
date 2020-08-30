@@ -638,7 +638,7 @@ public class ProductSearchSession {
         // if there is any category selected try to use catalog and add a constraint for it
         if (UtilValidate.isNotEmpty(parameters.get("SEARCH_CATALOG_ID"))) {
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
-            if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
+            if (searchCatalogId != null && !"".equalsIgnoreCase(searchCatalogId)) {
                 String topCategory = CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId);
                 if (UtilValidate.isEmpty(topCategory)) {
                     topCategory = CatalogWorker.getCatalogTopEbayCategoryId(request, searchCatalogId);

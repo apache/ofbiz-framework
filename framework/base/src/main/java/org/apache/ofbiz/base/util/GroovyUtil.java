@@ -71,7 +71,7 @@ public final class GroovyUtil {
     @SuppressWarnings("unchecked")
     public static Object eval(String expression, Map<String, Object> context) throws CompilationFailedException {
         Object o;
-        if (expression == null || expression.equals("")) {
+        if (expression == null || "".equals(expression)) {
             Debug.logError("Groovy Evaluation error. Empty expression", MODULE);
             return null;
         }

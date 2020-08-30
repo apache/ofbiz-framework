@@ -67,9 +67,9 @@ public class ModelTestSuite {
             String caseName = testCaseElement.getAttribute("case-name");
             String nodeName = testCaseElement.getNodeName();
             if (testCase == null || caseName.equals(testCase)) {
-                if (nodeName.equals("test-case")) {
+                if ("test-case".equals(nodeName)) {
                     parseTestElement(caseName, UtilXml.firstChildElement(testCaseElement));
-                } else if (nodeName.equals("test-group")) {
+                } else if ("test-group".equals(nodeName)) {
                     int i = 0;
                     for (Element childElement: UtilXml.childElementList(testCaseElement)) {
                         parseTestElement(caseName + '-' + i, childElement);

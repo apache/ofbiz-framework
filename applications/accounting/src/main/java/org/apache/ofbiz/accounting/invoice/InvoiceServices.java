@@ -2782,7 +2782,7 @@ public class InvoiceServices {
         // amount available on the payment reduced by the already applied amounts
         GenericValue payment = null;
         String currencyUomId = null;
-        if (paymentId == null || paymentId.equals("")) {
+        if (paymentId == null || "".equals(paymentId)) {
             errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingPaymentIdBlankNotSupplied", locale));
         } else {
             try {
@@ -2813,7 +2813,7 @@ public class InvoiceServices {
         // the "TO" Payment.....
         BigDecimal toPaymentApplyAvailable = BigDecimal.ZERO;
         GenericValue toPayment = null;
-        if (toPaymentId != null && !toPaymentId.equals("")) {
+        if (toPaymentId != null && !"".equals(toPaymentId)) {
             try {
                 toPayment = EntityQuery.use(delegator).from("Payment").where("paymentId", toPaymentId).queryOne();
             } catch (GenericEntityException e) {
@@ -2887,7 +2887,7 @@ public class InvoiceServices {
 
         // billing account
         GenericValue billingAccount = null;
-        if (billingAccountId != null && !billingAccountId.equals("")) {
+        if (billingAccountId != null && !"".equals(billingAccountId)) {
             try {
                 billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
             } catch (GenericEntityException e) {

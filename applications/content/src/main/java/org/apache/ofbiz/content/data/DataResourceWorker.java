@@ -191,7 +191,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         spcBuilder.append(nm);
         map.put("dataCategoryId", id);
         map.put("categoryName", spcBuilder.toString());
-        if (id != null && !"ROOT".equals(id) && !id.equals("")) {
+        if (id != null && !"ROOT".equals(id) && !"".equals(id)) {
             lst.add(map);
         }
         List<Map<String, Object>> kids = UtilGenerics.cast(nd.get("kids"));

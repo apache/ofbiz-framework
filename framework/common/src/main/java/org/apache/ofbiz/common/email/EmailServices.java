@@ -179,7 +179,7 @@ public class EmailServices {
         boolean useSmtpAuth = false;
 
         // define some default
-        if (sendType == null || sendType.equals("mail.smtp.host")) {
+        if (sendType == null || "mail.smtp.host".equals(sendType)) {
             sendType = "mail.smtp.host";
             if (UtilValidate.isEmpty(sendVia)) {
                 sendVia = EntityUtilProperties.getPropertyValue("general", "mail.smtp.relay.host", "localhost", delegator);
@@ -589,7 +589,7 @@ public class EmailServices {
 
             // Only override the default contentType in case of plaintext, since other contentTypes may be multipart
             //    and would require specific handling.
-            if (contentType != null && contentType.equalsIgnoreCase("text/plain")) {
+            if (contentType != null && "text/plain".equalsIgnoreCase(contentType)) {
                 serviceContext.put("contentType", "text/plain");
             } else {
                 serviceContext.put("contentType", "text/html");

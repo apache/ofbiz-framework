@@ -163,7 +163,7 @@ public class BOMNode {
 
                 GenericValue feature = null;
                 boolean ruleSatisfied = false;
-                if (ruleCondition == null || ruleCondition.equals("")) {
+                if (ruleCondition == null || "".equals(ruleCondition)) {
                     ruleSatisfied = true;
                 } else {
                     if (productFeatures != null) {
@@ -178,7 +178,7 @@ public class BOMNode {
                 }
                 if (ruleSatisfied && "OR".equals(ruleOperator)) {
                     BOMNode tmpNode = oneChildNode;
-                    if (newPart == null || newPart.equals("")) {
+                    if (newPart == null || "".equals(newPart)) {
                         oneChildNode = null;
                     } else {
                         BOMNode origNode = oneChildNode;

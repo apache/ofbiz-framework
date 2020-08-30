@@ -1822,7 +1822,7 @@ public class ShoppingCartEvents {
                 if (paramMap.containsKey("quantity" + thisSuffix)) {
                     quantityStr = (String) paramMap.remove("quantity" + thisSuffix);
                 }
-                if ((quantityStr == null) || (quantityStr.equals(""))) {    // otherwise, every empty value causes an exception and makes the log ugly
+                if ((quantityStr == null) || ("".equals(quantityStr))) {    // otherwise, every empty value causes an exception and makes the log ugly
                     quantityStr = "0";  // default quantity is 0, so without a quantity input, this field will not be added
                 }
 
@@ -2041,7 +2041,7 @@ public class ShoppingCartEvents {
                 if (paramMap.containsKey("quantity" + thisSuffix)) {
                     quantityStr = (String) paramMap.remove("quantity" + thisSuffix);
                 }
-                if ((quantityStr == null) || (quantityStr.equals(""))) {
+                if ((quantityStr == null) || ("".equals(quantityStr))) {
                     quantityStr = "0";
                 }
                 try {

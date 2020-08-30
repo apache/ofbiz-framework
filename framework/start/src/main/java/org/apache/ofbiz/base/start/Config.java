@@ -98,8 +98,8 @@ public final class Config {
         adminPort = getAdminPort(props, 0, portOffset);
         loaders = Arrays.asList(getProperty(props, "ofbiz.start.loaders", "").split(","));
         logDir = getAbsolutePath(props, "ofbiz.log.dir", DEFAULT_LOG_DIRECTORY, ofbizHome);
-        shutdownAfterLoad = getProperty(props, "ofbiz.auto.shutdown", "false").equalsIgnoreCase("true");
-        useShutdownHook = getProperty(props, "ofbiz.enable.hook", "true").equalsIgnoreCase("true");
+        shutdownAfterLoad = "true".equalsIgnoreCase(getProperty(props, "ofbiz.auto.shutdown", "false"));
+        useShutdownHook = "true".equalsIgnoreCase(getProperty(props, "ofbiz.enable.hook", "true"));
 
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 

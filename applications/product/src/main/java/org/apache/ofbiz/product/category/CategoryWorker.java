@@ -109,7 +109,7 @@ public final class CategoryWorker {
         requestId = UtilFormatOut.checkNull((String) requestParameters.get("catalog_id"), (String) requestParameters.get("CATALOG_ID"),
                 (String) requestParameters.get("category_id"), (String) requestParameters.get("CATEGORY_ID"));
 
-        if (requestId.equals(""))
+        if ("".equals(requestId))
             return;
         if (Debug.infoOn()) {
             Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, MODULE);

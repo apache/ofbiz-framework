@@ -163,7 +163,7 @@ public class RequestHandler {
         }
         if (method.isEmpty()) {
             return Optional.empty();
-        } else if (method.equals("all")) {
+        } else if ("all".equals(method)) {
             return resolveMethod("", rmaps);
         } else {
             return resolveMethod("all", rmaps);
