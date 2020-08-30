@@ -19,15 +19,15 @@ under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-    <xs:element name="service-ECA">
+    <xs:element name="service-eca">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="ECA"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="eca"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     
-    <xs:element name="ECA">
+    <xs:element name="eca">
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -40,11 +40,11 @@ under the License.
                     <xs:element ref="action"/>
                 </xs:choice>
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.ECA"/>
+            <xs:attributeGroup ref="attlist.eca"/>
         </xs:complexType>
     </xs:element>
     
-    <xs:attributeGroup name="attlist.ECA">
+    <xs:attributeGroup name="attlist.eca">
         <xs:attribute type="xs:string" name="service" use="required" />
         <xs:attribute name="event" use="required">
             <xs:simpleType>
@@ -249,14 +249,15 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="condition-service">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.condition-service" />
-            <xs:annotation>
-                <xs:documentation>
-                    Specify the name of a service. 
-                    It will call that service and pass it the context.
-                    The service returns a boolean, that's the condition.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:attributeGroup ref="attlist.condition-service">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specify the name of a service.
+                        It will call that service and pass it the context.
+                        The service returns a boolean, that's the condition.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attributeGroup>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-service">
