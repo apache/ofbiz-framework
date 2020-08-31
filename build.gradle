@@ -179,6 +179,7 @@ dependencies {
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.12'
     implementation 'org.apache.logging.log4j:log4j-api:2.13.3' // the API of log4j 2
+    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
     implementation 'org.apache.poi:poi:4.1.2'
     implementation 'org.apache.shiro:shiro-core:1.4.1' // So far we did not update from 1.4.1 because of a compile issue. You may try w/ a newer version than  1.5.2
     implementation 'org.apache.sshd:sshd-core:1.7.0' // So far we did not update from 1.7.0 because of a compile issue. You may try w/ a newer version than  2.4.0
