@@ -479,13 +479,13 @@ ${variantInfoJavaScript!}
                 </select>
               </div>
             </#list>
-            <span id="product_uom"></span>
+            <span id="product_uom"></span><br/>
+            <div class="variant-price" style="display: none;">
+                <strong><span class="product_id_display"> </span></strong>
+                <strong><span class="variant_price_display"> </span></strong>
+            </div>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div>
-              <b><span id="product_id_display"> </span></b>
-              <b><div id="variant_price_display"> </div></b>
-            </div>
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
