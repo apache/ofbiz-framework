@@ -379,7 +379,7 @@ public final class InvoiceWorker {
             Timestamp now = UtilDateTime.nowTimestamp();
             GenericValue invoiceType = null;
             try {
-                EntityQuery.use(delegator).from("InvoiceType").where("invoiceTypeId", invoice.getString("invoiceTypeId")).queryFirst();
+                invoiceType = EntityQuery.use(delegator).from("InvoiceType").where("invoiceTypeId", invoice.getString("invoiceTypeId")).queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError("Trouble getting invoice type", MODULE);
             }
