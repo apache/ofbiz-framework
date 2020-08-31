@@ -139,7 +139,8 @@ public class CheckOutHelper {
      * @return the check out shipping options
      */
     public Map<String, Object> setCheckOutShippingOptions(String shippingMethod, String shippingInstructions,
-            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
+            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate,
+                                                          String shipAfterDate) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result;
         String errMsg = null;
@@ -427,9 +428,27 @@ public class CheckOutHelper {
     }
 
 
-    public Map<String, Object> setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map<String, Map<String, Object>> selectedPaymentMethods,
-            List<String> singleUsePayments, String billingAccountId, String shippingInstructions,
-            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
+    /**
+     * Sets check out options.
+     * @param shippingMethod the shipping method
+     * @param shippingContactMechId the shipping contact mech id
+     * @param selectedPaymentMethods the selected payment methods
+     * @param singleUsePayments the single use payments
+     * @param billingAccountId the billing account id
+     * @param shippingInstructions the shipping instructions
+     * @param orderAdditionalEmails the order additional emails
+     * @param maySplit the may split
+     * @param giftMessage the gift message
+     * @param isGift the is gift
+     * @param internalCode the internal code
+     * @param shipBeforeDate the ship before date
+     * @param shipAfterDate the ship after date
+     * @return the check out options
+     */
+    public Map<String, Object> setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map<String,
+            Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments, String billingAccountId, String shippingInstructions,
+            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String
+            shipAfterDate) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result = null;
         String errMsg = null;
@@ -497,7 +516,8 @@ public class CheckOutHelper {
 
             boolean gcFieldsOkay = true;
             if (UtilValidate.isEmpty(gcNum)) {
-                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale()
+                        : Locale.getDefault()));
                 errorMessages.add(errMsg);
                 gcFieldsOkay = false;
             }
@@ -831,7 +851,8 @@ public class CheckOutHelper {
                 this.delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 // not a fatal error; so just print a message
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
+                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()),
+                        MODULE);
             }
         }
 
@@ -1143,7 +1164,8 @@ public class CheckOutHelper {
         List<GenericValue> payPalPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, payPalExprs);
         if (UtilValidate.isNotEmpty(payPalPaymentPrefs)) {
             GenericValue payPalPaymentPref = EntityUtil.getFirst(payPalPaymentPrefs);
-            ExpressCheckoutEvents.doExpressCheckout(productStore.getString("productStoreId"), orderId, payPalPaymentPref, userLogin, delegator, dispatcher);
+            ExpressCheckoutEvents.doExpressCheckout(productStore.getString("productStoreId"), orderId, payPalPaymentPref, userLogin,
+                    delegator, dispatcher);
         }
 
         // check for online payment methods needing authorization
@@ -1153,7 +1175,8 @@ public class CheckOutHelper {
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         // Invoke payment processing.
         if (UtilValidate.isNotEmpty(onlinePaymentPrefs)) {
-            boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
+            boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore
+                    .getString("autoApproveOrder"));
             if (orderTotal.compareTo(BigDecimal.ZERO) == 0 && autoApproveOrder) {
                 // if there is nothing to authorize; don't bother
                 boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
@@ -1209,8 +1232,8 @@ public class CheckOutHelper {
                     // set the order and item status to approved
                     if (autoApproveOrder) {
                         List<GenericValue> productStorePaymentSettingList = EntityQuery.use(delegator).from("ProductStorePaymentSetting")
-                                .where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD", "paymentService", "cyberSourceCCAuth")
-                                .queryList();
+                                .where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD",
+                                        "paymentService", "cyberSourceCCAuth").queryList();
                         if (!productStorePaymentSettingList.isEmpty()) {
                             String decision = (String) paymentResult.get("authCode");
                             if (UtilValidate.isNotEmpty(decision)) {
@@ -1252,7 +1275,8 @@ public class CheckOutHelper {
                     return ServiceUtil.returnError(messages);
                 } else {
                     // should never happen
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderPleaseContactCustomerServicePaymentReturnCodeUnknown",
+                            Locale.getDefault()));
                 }
             } else {
                 // result returned null == service failed
@@ -1616,7 +1640,8 @@ public class CheckOutHelper {
      * @return the map
      */
     public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes, String shippingNotes) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes,
+            String shippingNotes) {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
 

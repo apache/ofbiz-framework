@@ -56,7 +56,7 @@ public class ContentEvents {
         Security security = (Security) request.getAttribute("security");
 
         String updateMode = "CREATE";
-        String errMsg=null;
+        String errMsg = null;
 
         String doAll = request.getParameter("doAll");
 

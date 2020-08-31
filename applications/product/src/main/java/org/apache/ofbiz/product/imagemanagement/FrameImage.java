@@ -71,9 +71,12 @@ public class FrameImage {
         Map<String, Object> result;
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
-        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.nameofthumbnail", delegator), context);
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
@@ -98,7 +101,8 @@ public class FrameImage {
 
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
+            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView")
+                    .where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (GenericEntityException gee) {
             Debug.logError(gee, MODULE);
@@ -120,7 +124,7 @@ public class FrameImage {
             }
 
             int width = Integer.parseInt(imageWidth);
-            int height= Integer.parseInt(imageHeight);
+            int height = Integer.parseInt(imageHeight);
 
             Map<String, Object> contentCtx = new HashMap<>();
             contentCtx.put("contentTypeId", "DOCUMENT");
@@ -167,7 +171,8 @@ public class FrameImage {
             double imgWidth = bufNewImg.getWidth();
 
             Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
-            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/"
+                    + productId + "/" + filenameTouseThumb));
 
             String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
             String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
@@ -241,18 +246,20 @@ public class FrameImage {
 
         // New BufferedImage creation
         BufferedImage bufferedImage = new BufferedImage(image1.getWidth(null), image1.getHeight(null), bufImgType);
-        Graphics2D g = bufferedImage.createGraphics( );
+        Graphics2D g = bufferedImage.createGraphics();
         g.drawImage(image1, null, null);
 
         // Draw Image combine
         Point2D center = new Point2D.Float(bufferedImage.getHeight() / 2f, bufferedImage.getWidth() / 2f);
-        AffineTransform at = AffineTransform.getTranslateInstance(center.getX( ) - (image2.getWidth(null) / 2f), center.getY( ) - (image2.getHeight(null) / 2f));
+        AffineTransform at = AffineTransform.getTranslateInstance(center.getX() - (image2.getWidth(null) / 2f), center.getY()
+                - (image2.getHeight(null) / 2f));
         g.transform(at);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawImage(image2, 0, 0, null);
         Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .35f);
         g.setComposite(c);
-        at = AffineTransform.getTranslateInstance(center.getX( ) - (bufferedImage.getWidth(null) / 2f), center.getY( ) - (bufferedImage.getHeight(null) / 2f));
+        at = AffineTransform.getTranslateInstance(center.getX() - (bufferedImage.getWidth(null) / 2f), center.getY()
+                - (bufferedImage.getHeight(null) / 2f));
         g.setTransform(at);
         g.drawImage(bufferedImage, 0, 0, null);
         g.dispose();
@@ -267,8 +274,10 @@ public class FrameImage {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
         Map<String, Object> tempFile = LayoutWorker.uploadImageAndParameters(request, "uploadedFile");
         String imageName = tempFile.get("imageFileName").toString();
         String mimType = tempFile.get("uploadMimeType").toString();
@@ -353,7 +362,8 @@ public class FrameImage {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         HttpSession session = request.getSession();
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
 
         String productId = request.getParameter("productId");
         String imageName = request.getParameter("imageName");
@@ -369,7 +379,8 @@ public class FrameImage {
         }
 
         if (UtilValidate.isEmpty(request.getParameter("frameContentId")) || UtilValidate.isEmpty(request.getParameter("frameDataResourceId"))) {
-            request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID or dataResource ID parameters. Please upload new frame image or choose the exist frame.");
+            request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID or dataResource ID parameters. "
+                    + "Please upload new frame image or choose the exist frame.");
             return "error";
         }
         String frameContentId = request.getParameter("frameContentId");
@@ -385,7 +396,8 @@ public class FrameImage {
 
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
+            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId,
+                    "drDataResourceId", frameDataResourceId).queryOne();
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -393,12 +405,13 @@ public class FrameImage {
         }
 
         if (UtilValidate.isNotEmpty(imageName)) {
-            File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
+            File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
             if (!file.delete()) {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", MODULE);
             }
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(FileUtil.createFileWithNormalizedPath(imageServerPath + "/" + productId + "/" + imageName)); // cf. OFBIZ-9973
+            BufferedImage bufImg1 = ImageIO.read(FileUtil.createFileWithNormalizedPath(imageServerPath + "/" + productId + "/"
+                    + imageName)); // cf. OFBIZ-9973
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
 
             int bufImgType;
@@ -428,7 +441,8 @@ public class FrameImage {
     public static String chooseFrameImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         if (UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
-            if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request.getParameter("frameExistDataResourceId"))) {
+            if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request
+                    .getParameter("frameExistDataResourceId"))) {
                 session.setAttribute("frameExistContentId", request.getParameter("frameExistContentId"));
                 session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
             }
@@ -441,7 +455,8 @@ public class FrameImage {
 
         String frameDataResourceId = null;
         try {
-            GenericValue contentDataResource = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId).queryFirst();
+            GenericValue contentDataResource = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId",
+                    frameContentId).queryFirst();
             frameDataResourceId = contentDataResource.getString("dataResourceId");
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -454,7 +469,8 @@ public class FrameImage {
 
     public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", (Delegator) context.get("delegator")), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", (Delegator) context.get("delegator")), context);
         File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
         if (file.exists()) {
             if (!file.delete()) {

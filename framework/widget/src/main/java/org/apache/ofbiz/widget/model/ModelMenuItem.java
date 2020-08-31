@@ -71,7 +71,7 @@ public class ModelMenuItem extends ModelWidget {
     private final String disableIfEmpty;
     private final String entityName;
     private final Boolean hideIfSelected;
-    protected final MenuLink link;
+    private final MenuLink link;
     private final List<ModelMenuItem> menuItemList;
     private final ModelMenu modelMenu;
     private final String overrideName;
@@ -286,10 +286,18 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets actions.
+     * @return the actions
+     */
     public List<ModelAction> getActions() {
         return actions;
     }
 
+    /**
+     * Gets align.
+     * @return the align
+     */
     public String getAlign() {
         if (!this.align.isEmpty()) {
             return this.align;
@@ -300,6 +308,10 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets align style.
+     * @return the align style
+     */
     public String getAlignStyle() {
         if (!this.alignStyle.isEmpty()) {
             return this.alignStyle;
@@ -310,10 +322,19 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets associated content id.
+     * @return the associated content id
+     */
     public FlexibleStringExpander getAssociatedContentId() {
         return associatedContentId;
     }
 
+    /**
+     * Gets associated content id.
+     * @param context the context
+     * @return the associated content id
+     */
     public String getAssociatedContentId(Map<String, Object> context) {
         String retStr = null;
         if (this.associatedContentId != null) {
@@ -325,6 +346,10 @@ public class ModelMenuItem extends ModelWidget {
         return retStr;
     }
 
+    /**
+     * Gets cell width.
+     * @return the cell width
+     */
     public String getCellWidth() {
         if (!this.cellWidth.isEmpty()) {
             return this.cellWidth;
@@ -332,10 +357,18 @@ public class ModelMenuItem extends ModelWidget {
         return this.modelMenu.getDefaultCellWidth();
     }
 
+    /**
+     * Gets condition.
+     * @return the condition
+     */
     public ModelMenuCondition getCondition() {
         return condition;
     }
 
+    /**
+     * Gets disabled title style.
+     * @return the disabled title style
+     */
     public String getDisabledTitleStyle() {
         if (!this.disabledTitleStyle.isEmpty()) {
             return this.disabledTitleStyle;
@@ -346,10 +379,18 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets disable if empty.
+     * @return the disable if empty
+     */
     public String getDisableIfEmpty() {
         return this.disableIfEmpty;
     }
 
+    /**
+     * Gets entity name.
+     * @return the entity name
+     */
     public String getEntityName() {
         if (!this.entityName.isEmpty()) {
             return this.entityName;
@@ -360,6 +401,10 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets hide if selected.
+     * @return the hide if selected
+     */
     public Boolean getHideIfSelected() {
         if (hideIfSelected != null) {
             return this.hideIfSelected;
@@ -367,14 +412,26 @@ public class ModelMenuItem extends ModelWidget {
         return this.modelMenu.getDefaultHideIfSelected();
     }
 
+    /**
+     * Gets link.
+     * @return the link
+     */
     public MenuLink getLink() {
         return this.link;
     }
 
+    /**
+     * Gets menu item list.
+     * @return the menu item list
+     */
     public List<ModelMenuItem> getMenuItemList() {
         return menuItemList;
     }
 
+    /**
+     * Gets model menu.
+     * @return the model menu
+     */
     public ModelMenu getModelMenu() {
         return modelMenu;
     }
@@ -387,22 +444,43 @@ public class ModelMenuItem extends ModelWidget {
         return super.getName();
     }
 
+    /**
+     * Gets override name.
+     * @return the override name
+     */
     public String getOverrideName() {
         return overrideName;
     }
 
+    /**
+     * Gets parent menu item.
+     * @return the parent menu item
+     */
     public ModelMenuItem getParentMenuItem() {
         return parentMenuItem;
     }
 
+    /**
+     * Gets parent portal page id.
+     * @return the parent portal page id
+     */
     public FlexibleStringExpander getParentPortalPageId() {
         return parentPortalPageId;
     }
 
+    /**
+     * Gets parent portal page id.
+     * @param context the context
+     * @return the parent portal page id
+     */
     public String getParentPortalPageId(Map<String, Object> context) {
         return this.parentPortalPageId.expandString(context);
     }
 
+    /**
+     * Gets position.
+     * @return the position
+     */
     public int getPosition() {
         if (this.position == null) {
             return 1;
@@ -410,6 +488,10 @@ public class ModelMenuItem extends ModelWidget {
         return position;
     }
 
+    /**
+     * Gets selected style.
+     * @return the selected style
+     */
     public String getSelectedStyle() {
         if (!this.selectedStyle.isEmpty()) {
             return this.selectedStyle;
@@ -420,18 +502,35 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets sub menu.
+     * @return the sub menu
+     */
     public String getSubMenu() {
         return subMenu;
     }
 
+    /**
+     * Gets title.
+     * @return the title
+     */
     public FlexibleStringExpander getTitle() {
         return title;
     }
 
+    /**
+     * Gets title.
+     * @param context the context
+     * @return the title
+     */
     public String getTitle(Map<String, Object> context) {
         return title.expandString(context);
     }
 
+    /**
+     * Gets title style.
+     * @return the title style
+     */
     public String getTitleStyle() {
         if (!this.titleStyle.isEmpty()) {
             return this.titleStyle;
@@ -442,10 +541,19 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets tooltip.
+     * @return the tooltip
+     */
     public FlexibleStringExpander getTooltip() {
         return tooltip;
     }
 
+    /**
+     * Gets tooltip.
+     * @param context the context
+     * @return the tooltip
+     */
     public String getTooltip(Map<String, Object> context) {
         if (UtilValidate.isNotEmpty(tooltip)) {
             return tooltip.expandString(context);
@@ -453,6 +561,10 @@ public class ModelMenuItem extends ModelWidget {
         return "";
     }
 
+    /**
+     * Gets tooltip style.
+     * @return the tooltip style
+     */
     public String getTooltipStyle() {
         if (!this.tooltipStyle.isEmpty()) {
             return this.tooltipStyle;
@@ -463,6 +575,10 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Gets widget style.
+     * @return the widget style
+     */
     public String getWidgetStyle() {
         if (!this.widgetStyle.isEmpty()) {
             return this.widgetStyle;
@@ -473,14 +589,31 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Is selected boolean.
+     * @param context the context
+     * @return the boolean
+     */
     public boolean isSelected(Map<String, Object> context) {
         return getName().equals(modelMenu.getSelectedMenuItemContextFieldName(context));
     }
 
+    /**
+     * Merge override model menu item model menu item.
+     * @param overrideMenuItem the override menu item
+     * @return the model menu item
+     */
     public ModelMenuItem mergeOverrideModelMenuItem(ModelMenuItem overrideMenuItem) {
         return new ModelMenuItem(this, overrideMenuItem);
     }
 
+    /**
+     * Render menu item string.
+     * @param writer the writer
+     * @param context the context
+     * @param menuStringRenderer the menu string renderer
+     * @throws IOException the io exception
+     */
     public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
             throws IOException {
         if (shouldBeRendered(context)) {
@@ -503,6 +636,11 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
+    /**
+     * Should be rendered boolean.
+     * @param context the context
+     * @return the boolean
+     */
     public boolean shouldBeRendered(Map<String, Object> context) {
         if (this.condition != null) {
             return this.condition.getCondition().eval(context);
@@ -537,122 +675,253 @@ public class ModelMenuItem extends ModelWidget {
             this.link = new Link(portalPage, parameterList, target, locale);
         }
 
+        /**
+         * Gets auto entity parameters.
+         * @return the auto entity parameters
+         */
         public AutoEntityParameters getAutoEntityParameters() {
             return link.getAutoEntityParameters();
         }
 
+        /**
+         * Gets auto service parameters.
+         * @return the auto service parameters
+         */
         public AutoServiceParameters getAutoServiceParameters() {
             return link.getAutoServiceParameters();
         }
 
+        /**
+         * Gets encode.
+         * @return the encode
+         */
         public boolean getEncode() {
             return link.getEncode();
         }
 
+        /**
+         * Gets full path.
+         * @return the full path
+         */
         public boolean getFullPath() {
             return link.getFullPath();
         }
 
+        /**
+         * Gets height.
+         * @return the height
+         */
         public String getHeight() {
             return link.getHeight();
         }
 
+        /**
+         * Gets id.
+         * @param context the context
+         * @return the id
+         */
         public String getId(Map<String, Object> context) {
             return link.getId(context);
         }
 
+        /**
+         * Gets id exdr.
+         * @return the id exdr
+         */
         public FlexibleStringExpander getIdExdr() {
             return link.getIdExdr();
         }
 
+        /**
+         * Gets image.
+         * @return the image
+         */
         public Image getImage() {
             return link.getImage();
         }
 
+        /**
+         * Gets link type.
+         * @return the link type
+         */
         public String getLinkType() {
             return link.getLinkType();
         }
 
+        /**
+         * Gets name.
+         * @return the name
+         */
         public String getName() {
             return link.getName();
         }
 
+        /**
+         * Gets name.
+         * @param context the context
+         * @return the name
+         */
         public String getName(Map<String, Object> context) {
             return link.getName(context);
         }
 
+        /**
+         * Gets name exdr.
+         * @return the name exdr
+         */
         public FlexibleStringExpander getNameExdr() {
             return link.getNameExdr();
         }
 
+        /**
+         * Gets parameter list.
+         * @return the parameter list
+         */
         public List<Parameter> getParameterList() {
             return link.getParameterList();
         }
 
+        /**
+         * Gets parameter map.
+         * @param context the context
+         * @return the parameter map
+         */
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             return link.getParameterMap(context);
         }
 
+        /**
+         * Gets prefix.
+         * @param context the context
+         * @return the prefix
+         */
         public String getPrefix(Map<String, Object> context) {
             return link.getPrefix(context);
         }
 
+        /**
+         * Gets prefix exdr.
+         * @return the prefix exdr
+         */
         public FlexibleStringExpander getPrefixExdr() {
             return link.getPrefixExdr();
         }
 
+        /**
+         * Gets secure.
+         * @return the secure
+         */
         public boolean getSecure() {
             return link.getSecure();
         }
 
+        /**
+         * Gets style.
+         * @param context the context
+         * @return the style
+         */
         public String getStyle(Map<String, Object> context) {
             return link.getStyle(context);
         }
 
+        /**
+         * Gets style exdr.
+         * @return the style exdr
+         */
         public FlexibleStringExpander getStyleExdr() {
             return link.getStyleExdr();
         }
 
+        /**
+         * Gets target.
+         * @param context the context
+         * @return the target
+         */
         public String getTarget(Map<String, Object> context) {
             return link.getTarget(context);
         }
 
+        /**
+         * Gets target exdr.
+         * @return the target exdr
+         */
         public FlexibleStringExpander getTargetExdr() {
             return link.getTargetExdr();
         }
 
+        /**
+         * Gets target window.
+         * @param context the context
+         * @return the target window
+         */
         public String getTargetWindow(Map<String, Object> context) {
             return link.getTargetWindow(context);
         }
 
+        /**
+         * Gets target window exdr.
+         * @return the target window exdr
+         */
         public FlexibleStringExpander getTargetWindowExdr() {
             return link.getTargetWindowExdr();
         }
 
+        /**
+         * Gets text.
+         * @param context the context
+         * @return the text
+         */
         public String getText(Map<String, Object> context) {
             return link.getText(context);
         }
 
+        /**
+         * Gets text exdr.
+         * @return the text exdr
+         */
         public FlexibleStringExpander getTextExdr() {
             return link.getTextExdr();
         }
 
+        /**
+         * Gets url mode.
+         * @return the url mode
+         */
         public String getUrlMode() {
             return link.getUrlMode();
         }
 
+        /**
+         * Gets width.
+         * @return the width
+         */
         public String getWidth() {
             return link.getWidth();
         }
 
+        /**
+         * Gets link menu item.
+         * @return the link menu item
+         */
         public ModelMenuItem getLinkMenuItem() {
             return linkMenuItem;
         }
 
+        /**
+         * Gets link.
+         * @return the link
+         */
         public Link getLink() {
             return link;
         }
 
+        /**
+         * Render link string.
+         * @param writer the writer
+         * @param context the context
+         * @param menuStringRenderer the menu string renderer
+         * @throws IOException the io exception
+         */
         public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
                 throws IOException {
             menuStringRenderer.renderLink(writer, context, this);

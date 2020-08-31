@@ -561,7 +561,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice,
                 reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate,
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
-                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
+                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks,
+                skipProductChecks);
     }
 
     /**
@@ -1658,6 +1659,9 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
+    /**
+     * Clear promo rule use info.
+     */
     public synchronized void clearPromoRuleUseInfo() {
         this.quantityUsedPerPromoActual.clear();
         this.quantityUsedPerPromoCandidate.clear();
@@ -2399,6 +2403,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.recurringBasePrice = recurringBasePrice;
     }
 
+    /**
+     * Gets recurring display price.
+     * @return the recurring display price
+     */
     public BigDecimal getRecurringDisplayPrice() {
         if (this.recurringDisplayPrice == null) {
             return this.getRecurringBasePrice();
@@ -2762,6 +2770,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.orderItemAttributes.get(name);
     }
 
+    /**
+     * Gets order item attributes.
+     * @return the order item attributes
+     */
     public Map<String, String> getOrderItemAttributes() {
         Map<String, String> attrs = new HashMap<>();
         if (orderItemAttributes != null) {

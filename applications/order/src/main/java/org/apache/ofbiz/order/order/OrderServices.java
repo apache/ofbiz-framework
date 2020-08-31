@@ -133,7 +133,7 @@ public class OrderServices {
             GenericValue placingCustomer = null;
             try {
                 placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "partyId", userLogin.getString("partyId"),
-                 "roleTypeId", "PLACING_CUSTOMER").queryOne();
+                        "roleTypeId", "PLACING_CUSTOMER").queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError("Could not select OrderRoles for order " + orderId + " due to " + e.getMessage(), MODULE);
             }
@@ -153,7 +153,7 @@ public class OrderServices {
                     List<GenericValue> repsCustomers = new LinkedList<>();
                     try {
                         repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship",
-                         UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
+                                UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                     } catch (GenericEntityException ex) {
                         Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due"
                                 + " to " + ex.getMessage(), MODULE);
@@ -166,7 +166,7 @@ public class OrderServices {
                         // check sales sales rep/customer relationship
                         try {
                             repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship",
-                             UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
+                                    UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                         } catch (GenericEntityException ex) {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId")
                                     + " due to " + ex.getMessage(), MODULE);
@@ -409,7 +409,8 @@ public class OrderServices {
                         List<GenericValue> selFixedAssetProduct = null;
                         try {
                             selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", orderItem.getString(
-                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate", "thruDate").queryList();
+                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate",
+                                    "thruDate").queryList();
                         } catch (GenericEntityException e) {
                             String excMsg = "Could not find related Fixed Asset for the product: " + orderItem.getString("productId");
                             Debug.logError(excMsg, MODULE);
@@ -717,13 +718,15 @@ public class OrderServices {
                 }
                 if (techDataCalendar == null) {
                     for (GenericValue currentValue : tempList) {
-                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId").equals(workEffort.getString("fixedAssetId"))) {
+                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId")
+                                .equals(workEffort.getString("fixedAssetId"))) {
                             fixedAsset = currentValue;
                             break;
                         }
                     }
                     for (GenericValue currentValue : tempList) {
-                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))) {
+                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId")
+                                .equals(fixedAsset.getString("calendarId"))) {
                             techDataCalendar = currentValue;
                             break;
                         }
@@ -2037,7 +2040,7 @@ public class OrderServices {
                             if (UtilValidate.isNotEmpty(headerApprovedStatus)) {
                                 if (headerApprovedStatus.equals(orderHeaderStatusId)) {
                                     List<GenericValue> orderStatusList = EntityQuery.use(delegator).from("OrderStatus").where("orderId", orderId,
-                                    "statusId", headerApprovedStatus, "orderItemSeqId", null).queryList();
+                                            "statusId", headerApprovedStatus, "orderItemSeqId", null).queryList();
                                     // should be 1 in the history, but just in case accept 0 too
                                     if (orderStatusList.size() <= 1) {
                                         changeToApprove = false;
@@ -2486,7 +2489,7 @@ public class OrderServices {
             }
             try {
                 GenericValue statusChange = EntityQuery.use(delegator).from("StatusValidChange").where("statusId",
-                 orderHeader.getString("statusId"), "statusIdTo", statusId).cache(true).queryOne();
+                        orderHeader.getString("statusId"), "statusIdTo", statusId).cache(true).queryOne();
                 if (statusChange == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderErrorCouldNotChangeOrderStatusStatusIsNotAValidChange", locale) + ": [" + orderHeader.getString("statusId") + "] "
@@ -2740,7 +2743,7 @@ public class OrderServices {
                     orderHeader.get("productStoreId"), "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + orderHeader.get("productStoreId") + " and "
-            + "emailType=" + emailType, MODULE);
+                    + "emailType=" + emailType, MODULE);
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
@@ -2761,7 +2764,7 @@ public class OrderServices {
             sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
             // add attachmentName param to get an attachment namend "[oderId].pdf" instead of default "Details.pdf"
             sendMap.put("attachmentName", (UtilValidate.isNotEmpty(shipGroupSeqId) ? orderId + "-" + StringUtils.stripStart(shipGroupSeqId, "0")
-            : orderId) + ".pdf");
+                    : orderId) + ".pdf");
             sendMap.put("attachmentType", MimeConstants.MIME_PDF);
         } else {
             sendMap.put("bodyScreenUri", screenUri);
@@ -3562,7 +3565,8 @@ public class OrderServices {
                         } else if ("DIGITAL_DOWNLOAD".equals(fulfillmentType)) {
                             // digital download fulfillment
                             // Nothing to do for here. Downloads are made available to the user
-                            // though a query of OrderItems with related ProductContent.
+                            // though a query of OrderItems with related ProductContent. Adding log to avoid checkstyle issue
+                            Debug.logInfo("Fulfillment type : " + fulfillmentType, MODULE);
                         } else {
                             Debug.logError("Invalid fulfillment type : " + fulfillmentType + " not supported.", MODULE);
                         }
@@ -3734,7 +3738,8 @@ public class OrderServices {
                             null, dispatcher, cart, supplierProduct, itemDesiredDeliveryDate, itemDesiredDeliveryDate, null);
                     cart.addItem(0, item);
                 } else {
-                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity [" + quantity + "], cannot add to cart.");
+                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity ["
+                            + quantity + "], cannot add to cart.");
                 }
 
                 if (basePrice != null) {
