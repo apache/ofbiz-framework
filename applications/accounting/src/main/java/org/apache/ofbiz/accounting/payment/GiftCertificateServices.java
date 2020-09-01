@@ -899,11 +899,7 @@ public class GiftCertificateServices {
                     }
                 }
                 Map<String, Object> emailCtx = new HashMap<>();
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-                }
-                emailCtx.put("bodyScreenUri", bodyScreenLocation);
+                emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
                 emailCtx.put("bodyParameters", answerMap);
                 emailCtx.put("sendTo", sendToEmail);
                 emailCtx.put("contentType", productStoreEmail.get("contentType"));
@@ -1122,11 +1118,7 @@ public class GiftCertificateServices {
             answerMap.put("locale", locale);
 
             Map<String, Object> emailCtx = new HashMap<>();
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            emailCtx.put("bodyScreenUri", bodyScreenLocation);
+            emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
             emailCtx.put("bodyParameters", answerMap);
             emailCtx.put("sendTo", orh.getOrderEmailString());
             emailCtx.put("contentType", productStoreEmail.get("contentType"));

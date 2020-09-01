@@ -2754,11 +2754,7 @@ public class OrderServices {
 
         // the override screenUri
         if (UtilValidate.isEmpty(screenUri)) {
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            sendMap.put("bodyScreenUri", bodyScreenLocation);
+            sendMap.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
 
             String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
             sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
