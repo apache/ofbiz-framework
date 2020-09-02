@@ -107,7 +107,7 @@ if (product) {
     featureOrder = []
 
     variantInfoJS = new StringBuffer()
-    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    \$(document).ready(function(\$) {\n")
+    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
 
     // set this as a last viewed
     LAST_VIEWED_TO_KEEP = 10 // modify this to change the number of last viewed to keep
