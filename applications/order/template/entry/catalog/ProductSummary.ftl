@@ -146,7 +146,8 @@ ${variantInfoJavaScript!}
                         <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
                     </#list>
                 </select>
-                <div class="variant-price" style="display: none;">
+                <input type="hidden" name="product_id_bak" value="${product.productId}"/>
+                <div class="variant-price" style="display: inline-block;">
                     <strong><span class="product_id_display"> </span></strong>
                     <strong><span class="variant_price_display"> </span></strong>
                 </div>
