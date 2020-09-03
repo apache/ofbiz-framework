@@ -99,6 +99,7 @@ ${variantInfoJavaScript!}
           </table>
         </div>
         <script type="application/javascript">
+          /*
           jQuery(document).ready(function(jQuery) {
           jQuery("#${productInfoLinkId}").attr('title', jQuery("#${productDetailId}").remove().html());
           jQuery("#${productInfoLinkId}").tooltip({
@@ -109,6 +110,7 @@ ${variantInfoJavaScript!}
               track: true
           }); 
           }); 
+          */
         </script>
         <div class="productbuy">
           <#-- check to see if introductionDate hasn't passed yet -->

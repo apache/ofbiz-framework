@@ -50,5 +50,20 @@ if (typeof(checkAmtReq2) == 'undefined') {
 //        }
     }
 
+          jQuery(document).ready(function(jQuery) {
+          jQuery('.popup_link').each(
+            function(index) {
+              var $this = jQuery(this);
+              var popup = $('.popup', $this.closest('.productsummary'));
+              $this.attr('title', popup.remove().html());
+              $this.tooltip({
+                content: function(){
+                  return this.getAttribute("title");
+                },
+                tooltipClass: "popup",
+                track: true
+              });
+            });
+          }); 
 }
 </script>
