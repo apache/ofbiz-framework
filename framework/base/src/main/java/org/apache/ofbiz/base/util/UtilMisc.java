@@ -255,7 +255,8 @@ public final class UtilMisc {
         } else if (currentNumberObj instanceof Long) {
             currentNumber = new BigDecimal((Long) currentNumberObj);
         } else {
-            throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
+            throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: "
+                    + currentNumberObj.getClass().getName());
         }
 
         if (addNumber == null || ZERO_BD.compareTo(addNumber) == 0) {
@@ -613,7 +614,7 @@ public final class UtilMisc {
             throw new IOException("File is a directory, not a file, cannot copy");
         }
         try (InputStream in = new FileInputStream(sourceLocation);
-             OutputStream out = new FileOutputStream(targetLocation);) {
+                OutputStream out = new FileOutputStream(targetLocation);) {
             // Copy the bits from instream to outstream
             byte[] buf = new byte[1024];
             int len;

@@ -1,3 +1,4 @@
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -197,7 +198,7 @@ class ProductPromoActionTests extends OFBizTestCase {
                 GenericValue product = from("Product").where("productId", item.getProductId()).queryOne()
                 if (product != null) {
                     product.put("includeInPromotions", "N")
-                    item._product = product
+                    item.product = product
                 }
             }
         }

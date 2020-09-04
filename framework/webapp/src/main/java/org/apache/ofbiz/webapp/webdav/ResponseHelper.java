@@ -56,12 +56,18 @@ public class ResponseHelper {
         }
     }
 
-    protected final Document responseDocument;
+    private final Document responseDocument;
 
     public ResponseHelper() {
         this.responseDocument = UtilXml.makeEmptyXmlDocument();
     }
 
+    /**
+     * Create element set value element.
+     * @param elementName the element name
+     * @param value the value
+     * @return the element
+     */
     public Element createElementSetValue(String elementName, String value) {
         Element element = this.responseDocument.createElementNS(DAV_NAMESPACE_URI, elementName);
         element.appendChild(element.getOwnerDocument().createTextNode(value));
@@ -69,14 +75,29 @@ public class ResponseHelper {
         return element;
     }
 
+    /**
+     * Create href element element.
+     * @param hrefUrl the href url
+     * @return the element
+     */
     public Element createHrefElement(String hrefUrl) {
         return createElementSetValue("D:href", hrefUrl);
     }
 
+    /**
+     * Create multi status element element.
+     * @return the element
+     */
     public Element createMultiStatusElement() {
         return this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:multistatus");
     }
 
+    /**
+     * Create response description element element.
+     * @param description the description
+     * @param lang the lang
+     * @return the element
+     */
     public Element createResponseDescriptionElement(String description, String lang) {
         Element element = createElementSetValue("D:responsedescription", description);
         if (lang != null) {
@@ -85,23 +106,42 @@ public class ResponseHelper {
         return element;
     }
 
+    /**
+     * Create response element element.
+     * @return the element
+     */
     public Element createResponseElement() {
         return this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:response");
     }
 
+    /**
+     * Create status element element.
+     * @param statusText the status text
+     * @return the element
+     */
     public Element createStatusElement(String statusText) {
         return createElementSetValue("D:status", statusText);
     }
 
+    /**
+     * Gets response document.
+     * @return the response document
+     */
     public Document getResponseDocument() {
         return this.responseDocument;
     }
 
+    /**
+     * Write response.
+     * @param response the response
+     * @param writer the writer
+     * @throws IOException the io exception
+     */
     public void writeResponse(HttpServletResponse response, Writer writer) throws IOException {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             UtilXml.writeXmlDocument(os, this.responseDocument, "UTF-8", true, true);
-        response.setContentLength(os.size());
-        writer.write(os.toString("UTF-8"));
+            response.setContentLength(os.size());
+            writer.write(os.toString("UTF-8"));
         } catch (Exception e) {
             throw new IOException(e.getMessage());
         }

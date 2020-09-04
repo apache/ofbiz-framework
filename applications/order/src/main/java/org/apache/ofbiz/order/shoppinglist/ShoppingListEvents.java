@@ -126,7 +126,7 @@ public class ShoppingListEvents {
             }
 
             // if no list was created throw an error
-            if (shoppingListId == null || shoppingListId.equals("")) {
+            if (shoppingListId == null || "".equals(shoppingListId)) {
                 errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.shoppingListId_is_required_parameter", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }

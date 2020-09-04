@@ -233,7 +233,7 @@ public class QRCodeServices {
         BufferedImage image = null;
         String osName = System.getProperty("os.name").toLowerCase(locale);
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        if (osName.startsWith("mac os") && format.equals("png")) {
+        if (osName.startsWith("mac os") && "png".equals(format)) {
             image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         }
         for (int x = 0; x < width; x++) {

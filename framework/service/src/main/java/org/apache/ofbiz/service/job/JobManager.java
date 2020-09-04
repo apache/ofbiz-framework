@@ -69,8 +69,8 @@ import org.apache.ofbiz.service.config.model.RunFromPool;
 public final class JobManager {
 
     private static final String MODULE = JobManager.class.getName();
-    public static final String instanceId = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
-    private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<>();
+    public static final String INSTANCE_ID = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
+    private static final ConcurrentHashMap<String, JobManager> REG_MANAGERS = new ConcurrentHashMap<>();
     private static boolean isShutDown = false;
 
     private static void assertIsRunning() {
@@ -81,18 +81,19 @@ public final class JobManager {
 
     /**
      * Returns a <code>JobManager</code> instance.
-     * @param delegator
+     * @param delegator the delegator
      * @param enablePoller Enables polling of the JobSandbox entity.
+     * @return the instance
      * @throws IllegalStateException if the Job Manager is shut down.
      */
     public static JobManager getInstance(Delegator delegator, boolean enablePoller) {
         assertIsRunning();
         Assert.notNull("delegator", delegator);
-        JobManager jm = registeredManagers.get(delegator.getDelegatorName());
+        JobManager jm = REG_MANAGERS.get(delegator.getDelegatorName());
         if (jm == null) {
             jm = new JobManager(delegator);
-            registeredManagers.putIfAbsent(delegator.getDelegatorName(), jm);
-            jm = registeredManagers.get(delegator.getDelegatorName());
+            REG_MANAGERS.putIfAbsent(delegator.getDelegatorName(), jm);
+            jm = REG_MANAGERS.get(delegator.getDelegatorName());
             if (enablePoller) {
                 JobPoller.registerJobManager(jm);
             }
@@ -144,11 +145,11 @@ public final class JobManager {
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeConditionDate("fromDate", "thruDate"),
                     EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("instanceId", instanceId),
+                            EntityCondition.makeCondition("instanceId", INSTANCE_ID),
                             EntityCondition.makeCondition("instanceId", "_NA_")), EntityJoinOperator.OR)), EntityJoinOperator.AND);
             return delegator.findCountByCondition("JobManagerLock", condition, null, null) == 0;
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + instanceId, MODULE);
+            Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + INSTANCE_ID, MODULE);
             return false;
         }
     }
@@ -178,7 +179,8 @@ public final class JobManager {
             return Collections.emptyList();
         }
         // basic query
-        List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
+        List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime",
+                EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
                 EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
@@ -215,8 +217,10 @@ public final class JobManager {
                 GenericValue jobValue = jobsIterator.next();
                 while (jobValue != null) {
                     // Claim ownership of this value. Using storeByCondition to avoid a race condition.
-                    List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS, jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
-                    int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", instanceId), EntityCondition.makeCondition(updateExpression));
+                    List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS,
+                            jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
+                    int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", INSTANCE_ID),
+                            EntityCondition.makeCondition(updateExpression));
                     if (rowsUpdated == 1) {
                         poll.add(new PersistedServiceJob(dctx, jobValue, null));
                         if (poll.size() == limit) {
@@ -250,7 +254,7 @@ public final class JobManager {
                 return Collections.emptyList();
             }
             List<EntityCondition> purgeCondition = UtilMisc.toList(
-                    EntityCondition.makeCondition("runByInstanceId", instanceId),
+                    EntityCondition.makeCondition("runByInstanceId", INSTANCE_ID),
                     EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition(UtilMisc.toList(
                                     EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null),
@@ -297,7 +301,8 @@ public final class JobManager {
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
         EntityCondition statusCondition = EntityCondition.makeCondition(statusExprList, EntityOperator.OR);
-        EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), statusCondition));
+        EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId",
+                INSTANCE_ID), statusCondition));
         try {
             crashed = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("startDateTime").queryList();
         } catch (GenericEntityException e) {
@@ -323,7 +328,8 @@ public final class JobManager {
                     newJob.set("startDateTime", null);
                     newJob.set("runByInstanceId", null);
 
-                    // if Queued Job is crashed then its corresponding new Job should have TempExprId and recurrenceInfoId to continue further scheduling.
+                    // if Queued Job is crashed then its corresponding new Job should have TempExprId and
+                    // recurrenceInfoId to continue further scheduling.
                     if ("SERVICE_QUEUED".equals(job.getString("statusId"))) {
                         newJob.set("tempExprId", job.getString("tempExprId"));
                         newJob.set("recurrenceInfoId", job.getString("recurrenceInfoId"));
@@ -365,81 +371,61 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param serviceName
-     *            The name of the service to invoke
-     *@param context
-     *            The context for the service
-     *@param startTime
-     *            The time in milliseconds the service should run
-     *@param frequency
-     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
-     *@param interval
-     *            The interval of the frequency recurrence
-     *@param count
-     *            The number of times to repeat
+     * @param serviceName The name of the service to invoke
+     * @param context The context for the service
+     * @param startTime The time in milliseconds the service should run
+     * @param frequency The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
+     * @param interval The interval of the frequency recurrence
+     * @param count The number of times to repeat
+     * @throws JobManagerException the job manager exception
      */
-    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws JobManagerException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count)
+            throws JobManagerException {
         schedule(serviceName, context, startTime, frequency, interval, count, 0);
     }
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param serviceName
-     *            The name of the service to invoke
-     *@param context
-     *            The context for the service
-     *@param startTime
-     *            The time in milliseconds the service should run
-     *@param frequency
-     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
-     *@param interval
-     *            The interval of the frequency recurrence
-     *@param count
-     *            The number of times to repeat
-     *@param endTime
-     *            The time in milliseconds the service should expire
+     * @param serviceName The name of the service to invoke
+     * @param context The context for the service
+     * @param startTime The time in milliseconds the service should run
+     * @param frequency The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
+     * @param interval The interval of the frequency recurrence
+     * @param count The number of times to repeat
+     * @param endTime The time in milliseconds the service should expire
+     * @throws JobManagerException the job manager exception
      */
-    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count,
+                         long endTime) throws JobManagerException {
         schedule(null, serviceName, context, startTime, frequency, interval, count, endTime);
     }
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param serviceName
-     *            The name of the service to invoke
-     *@param context
-     *            The context for the service
-     *@param startTime
-     *            The time in milliseconds the service should run
-     *@param frequency
-     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
-     *@param interval
-     *            The interval of the frequency recurrence
-     *@param endTime
-     *            The time in milliseconds the service should expire
+     * @param serviceName The name of the service to invoke
+     * @param context The context for the service
+     * @param startTime The time in milliseconds the service should run
+     * @param frequency The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
+     * @param interval The interval of the frequency recurrence
+     * @param endTime The time in milliseconds the service should expire
+     * @throws JobManagerException the job manager exception
      */
-    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws JobManagerException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval,
+                         long endTime) throws JobManagerException {
         schedule(serviceName, context, startTime, frequency, interval, -1, endTime);
     }
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param poolName
-     *            The name of the pool to run the service from
-     *@param serviceName
-     *            The name of the service to invoke
-     *@param context
-     *            The context for the service
-     *@param startTime
-     *            The time in milliseconds the service should run
-     *@param frequency
-     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
-     *@param interval
-     *            The interval of the frequency recurrence
-     *@param count
-     *            The number of times to repeat
-     *@param endTime
-     *            The time in milliseconds the service should expire
+     * @param poolName The name of the pool to run the service from
+     * @param serviceName The name of the service to invoke
+     * @param context The context for the service
+     * @param startTime The time in milliseconds the service should run
+     * @param frequency The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
+     * @param interval The interval of the frequency recurrence
+     * @param count The number of times to repeat
+     * @param endTime The time in milliseconds the service should expire
+     * @throws JobManagerException the job manager exception
      */
     public void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency,
             int interval, int count, long endTime) throws JobManagerException {
@@ -448,14 +434,11 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param poolName
-     *            The name of the pool to run the service from
-     *@param serviceName
-     *            The name of the service to invoke
-     *@param dataId
-     *            The persisted context (RuntimeData.runtimeDataId)
-     *@param startTime
-     *            The time in milliseconds the service should run
+     * @param poolName The name of the pool to run the service from
+     * @param serviceName The name of the service to invoke
+     * @param dataId The persisted context (RuntimeData.runtimeDataId)
+     * @param startTime The time in milliseconds the service should run
+     * @throws JobManagerException the job manager exception
      */
     public void schedule(String poolName, String serviceName, String dataId, long startTime) throws JobManagerException {
         schedule(null, poolName, serviceName, dataId, startTime, -1, 0, 1, 0, -1);
@@ -463,26 +446,17 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param jobName
-     *            The name of the job
-     *@param poolName
-     *            The name of the pool to run the service from
-     *@param serviceName
-     *            The name of the service to invoke
-     *@param context
-     *            The context for the service
-     *@param startTime
-     *            The time in milliseconds the service should run
-     *@param frequency
-     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
-     *@param interval
-     *            The interval of the frequency recurrence
-     *@param count
-     *            The number of times to repeat
-     *@param endTime
-     *            The time in milliseconds the service should expire
-     *@param maxRetry
-     *            The max number of retries on failure (-1 for no max)
+     * @param jobName The name of the job
+     * @param poolName The name of the pool to run the service from
+     * @param serviceName The name of the service to invoke
+     * @param context The context for the service
+     * @param startTime The time in milliseconds the service should run
+     * @param frequency The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
+     * @param interval The interval of the frequency recurrence
+     * @param count The number of times to repeat
+     * @param endTime The time in milliseconds the service should expire
+     * @param maxRetry The max number of retries on failure (-1 for no max)
+     * @throws JobManagerException the job manager exception
      */
     public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime,
             int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
@@ -502,27 +476,17 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     * @param jobName
-     *            The name of the job
-     *@param poolName
-     *            The name of the pool to run the service from
-     *@param serviceName
-     *            The name of the service to invoke
-     *@param dataId
-     *            The persisted context (RuntimeData.runtimeDataId)
-     *@param startTime
-     *            The time in milliseconds the service should run
-     *@param frequency
-     *            The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
-     *@param interval
-     *            The interval of the frequency recurrence
-     *@param count
-     *            The number of times to repeat
-     *@param endTime
-     *            The time in milliseconds the service should expire
-     *@param maxRetry
-     *            The max number of retries on failure (-1 for no max)
-     * @throws IllegalStateException if the Job Manager is shut down.
+     * @param jobName The name of the job
+     * @param poolName The name of the pool to run the service from
+     * @param serviceName The name of the service to invoke
+     * @param dataId The persisted context (RuntimeData.runtimeDataId)
+     * @param startTime The time in milliseconds the service should run
+     * @param frequency The frequency of the recurrence (HOURLY, DAILY, MONTHLY etc)
+     * @param interval The interval of the frequency recurrence
+     * @param count The number of times to repeat
+     * @param endTime The time in milliseconds the service should expire
+     * @param maxRetry The max number of retries on failure (-1 for no max)
+     * @throws JobManagerException the job manager exception
      */
     public void schedule(String jobName, String poolName, String serviceName, String dataId, long startTime, int frequency, int interval,
             int count, long endTime, int maxRetry) throws JobManagerException {
@@ -541,7 +505,7 @@ public final class JobManager {
         if (UtilValidate.isEmpty(jobName)) {
             jobName = Long.toString((new Date().getTime()));
         }
-        Map<String, Object> jFields = UtilMisc.<String, Object> toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
+        Map<String, Object> jFields = UtilMisc.<String, Object>toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
                 "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId,
                 "priority", JobPriority.NORMAL);
         // set the pool ID

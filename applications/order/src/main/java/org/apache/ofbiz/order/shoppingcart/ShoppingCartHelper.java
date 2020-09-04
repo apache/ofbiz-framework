@@ -194,7 +194,7 @@ public class ShoppingCartHelper {
         }
 
         // Create a HashMap of product attributes - From ShoppingCartItem.attributeNames[]
-        for (String attributeName : ShoppingCartItem.attributeNames) {
+        for (String attributeName : Arrays.asList(ShoppingCartItem.ATTRIBUTE_NAMES)) {
             if (attributes == null) {
                 attributes = new HashMap<>();
             }

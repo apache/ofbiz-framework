@@ -42,7 +42,7 @@ public class ExternalLoginKeysManager {
     private static final String MODULE = ExternalLoginKeysManager.class.getName();
     private static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     // This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object
-    private static final Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<>();
+    private static final Map<String, GenericValue> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
 
     // This variable is set to empty so we know need to read from the properties file.
     private static String isExternalLoginKeyEnabled = "";
@@ -66,7 +66,7 @@ public class ExternalLoginKeysManager {
             if (sesExtKey != null) {
                 if (isAjax(request)) return sesExtKey;
 
-                externalLoginKeys.remove(sesExtKey);
+                EXTERNAL_LOGIN_KEYS.remove(sesExtKey);
             }
 
             GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
@@ -74,14 +74,14 @@ public class ExternalLoginKeysManager {
             if (userLogin == null) return "";
 
             //no key made yet for this request, create one
-            while (externalKey == null || externalLoginKeys.containsKey(externalKey)) {
+            while (externalKey == null || EXTERNAL_LOGIN_KEYS.containsKey(externalKey)) {
                 UUID uuid = UUID.randomUUID();
                 externalKey = "EL" + uuid.toString();
             }
 
             request.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
             session.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
-            externalLoginKeys.put(externalKey, userLogin);
+            EXTERNAL_LOGIN_KEYS.put(externalKey, userLogin);
             return externalKey;
         }
     }
@@ -93,7 +93,7 @@ public class ExternalLoginKeysManager {
     static void cleanupExternalLoginKey(HttpSession session) {
         String sesExtKey = (String) session.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
         if (sesExtKey != null) {
-            externalLoginKeys.remove(sesExtKey);
+            EXTERNAL_LOGIN_KEYS.remove(sesExtKey);
         }
     }
 
@@ -110,7 +110,7 @@ public class ExternalLoginKeysManager {
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
-        GenericValue userLogin = externalLoginKeys.get(externalKey);
+        GenericValue userLogin = EXTERNAL_LOGIN_KEYS.get(externalKey);
         if (userLogin != null) {
             //to check it's the right tenant
             //in case username and password are the same in different tenants

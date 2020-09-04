@@ -32,6 +32,10 @@ public class FinAccountTest extends OFBizTestCase {
         super(name);
     }
 
+    /**
+     * Test create fin account basic.
+     * @throws Exception the exception
+     */
     public void testCreateFinAccountBasic() throws Exception {
         String finAccountCode;
         GenericValue account;

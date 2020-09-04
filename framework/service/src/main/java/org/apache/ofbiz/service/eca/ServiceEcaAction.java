@@ -43,18 +43,18 @@ public class ServiceEcaAction implements java.io.Serializable {
 
     private static final String MODULE = ServiceEcaAction.class.getName();
 
-    protected String eventName = null;
-    protected String serviceName = null;
-    protected String serviceMode = null;
-    protected String resultMapName = null;
-    protected String runAsUser = null;
+    private String eventName = null;
+    private String serviceName = null;
+    private String serviceMode = null;
+    private String resultMapName = null;
+    private String runAsUser = null;
 
-    protected boolean newTransaction = false;
-    protected boolean resultToContext = true;
-    protected boolean resultToResult = false;
-    protected boolean ignoreFailure = false;
-    protected boolean ignoreError = false;
-    protected boolean persist = false;
+    private boolean newTransaction = false;
+    private boolean resultToContext = true;
+    private boolean resultToResult = false;
+    private boolean ignoreFailure = false;
+    private boolean ignoreError = false;
+    private boolean persist = false;
 
     protected ServiceEcaAction() { }
 
@@ -77,23 +77,49 @@ public class ServiceEcaAction implements java.io.Serializable {
         this.persist = "true".equals(action.getAttribute("persist"));
     }
 
+    /**
+     * Gets service name.
+     * @return the service name
+     */
     public String getServiceName() {
         return this.serviceName;
     }
 
+    /**
+     * Gets service mode.
+     * @return the service mode
+     */
     public String getServiceMode() {
         return this.serviceMode;
     }
 
+    /**
+     * Is persist boolean.
+     * @return the boolean
+     */
     public boolean isPersist() {
         return this.persist;
     }
 
+    /**
+     * Gets short display description.
+     * @return the short display description
+     */
     public String getShortDisplayDescription() {
         return this.serviceName + "[" + this.serviceMode + (this.persist ? "-persist" : "") + "]";
     }
 
-    public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result) throws GenericServiceException {
+    /**
+     * Run action boolean.
+     * @param selfService the self service
+     * @param dctx the dctx
+     * @param context the context
+     * @param result the result
+     * @return the boolean
+     * @throws GenericServiceException the generic service exception
+     */
+    public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result)
+            throws GenericServiceException {
         if (serviceName.equals(selfService)) {
             throw new GenericServiceException("Cannot invoke self on ECA.");
         }
@@ -114,11 +140,14 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         if (eventName.startsWith("global-")) {
             if ("global-rollback".equals(eventName)) {
-                ServiceSynchronization.registerRollbackService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
+                ServiceSynchronization.registerRollbackService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist);
+                // using the actual context so we get updates
             } else if ("global-commit".equals(eventName)) {
-                ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
+                ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist);
+                // using the actual context so we get updates
             } else if ("global-commit-post-run".equals(eventName)) {
-                ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
+                ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist);
+                // using the actual context so we get updates
             }
         } else {
             // standard ECA
@@ -150,7 +179,8 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         // use the result to update the result fields
         if (resultToResult) {
-            Map<String, Object> normalizedActionResult = dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM, false, null);
+            Map<String, Object> normalizedActionResult = dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM,
+                    false, null);
             // don't copy over the error messages, use the combining code to do that later
             normalizedActionResult.remove(ModelService.ERROR_MESSAGE);
             normalizedActionResult.remove(ModelService.ERROR_MESSAGE_LIST);
@@ -181,7 +211,8 @@ public class ServiceEcaAction implements java.io.Serializable {
             }
         }
 
-        // copy/combine error messages on error/failure (!success) or on resultToResult to combine any error info coming out, regardless of success status
+        // copy/combine error messages on error/failure (!success) or on resultToResult to combine
+        // any error info coming out, regardless of success status
         if ((!success || resultToResult) && UtilValidate.isNotEmpty(actionResult)) {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
             String failMessage = (String) actionResult.get("failMessage");

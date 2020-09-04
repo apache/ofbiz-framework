@@ -324,7 +324,7 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
 
-    <request-map uri="getJs" method="get">
+    <request-map uri="getJs" method="get" track-serverhit="false">
         <security https="false" auth="false"/>
         <response name="success" type="request" value="js"/>
         <response name="error" type="request" value="js"/>

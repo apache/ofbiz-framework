@@ -62,7 +62,8 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  *      WorkEffort fields: workEffortTypeId, workEffortPurposeTypeId, scopeEnumId, ??others
  *      WorkEffortKeyword - keyword search
  *      WorkEffortAssoc.workEffortIdTo, workEffortIdFrom, workEffortAssocTypeId
- *          Sub-tasks: WorkEffortAssoc.workEffortIdTo, workEffortIdFrom, workEffortAssocTypeId=WORK_EFF_BREAKDOWN for sub-tasks OR: (specific assoc and all sub-tasks)
+ *          Sub-tasks: WorkEffortAssoc.workEffortIdTo, workEffortIdFrom, workEffortAssocTypeId=WORK_EFF_BREAKDOWN for sub-tasks
+ *          OR: (specific assoc and all sub-tasks)
  *          Sub-tasks: WorkEffort.workEffortParentId tree
  *      WorkEffortGoodStandard.productId
  *      WorkEffortPartyAssignment.partyId, roleTypeId
@@ -78,7 +79,8 @@ public class WorkEffortSearch {
     private static final String MODULE = WorkEffortSearch.class.getName();
     private static final String RESOURCE = "WorkEffortUiLabels";
 
-    public static ArrayList<String> searchWorkEfforts(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
+    public static ArrayList<String> searchWorkEfforts(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList,
+                                                      ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
         WorkEffortSearchContext workEffortSearchContext = new WorkEffortSearchContext(delegator, visitId);
 
         workEffortSearchContext.addWorkEffortSearchConstraints(workEffortSearchConstraintList);
@@ -99,7 +101,8 @@ public class WorkEffortSearch {
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
             // Find WorkEffortAssoc, workEffortAssocTypeId=WORK_EFF_BREAKDOWN
-            List<GenericValue> workEffortAssocList = EntityQuery.use(delegator).from("WorkEffortAssoc").where("workEffortIdFrom", workEffortId, "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN").cache(true).queryList();
+            List<GenericValue> workEffortAssocList = EntityQuery.use(delegator).from("WorkEffortAssoc").where("workEffortIdFrom", workEffortId,
+                    "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN").cache(true).queryList();
             for (GenericValue workEffortAssoc: workEffortAssocList) {
                 String subWorkEffortId = workEffortAssoc.getString("workEffortIdTo");
                 if (workEffortIdSet.contains(subWorkEffortId)) {
@@ -114,7 +117,8 @@ public class WorkEffortSearch {
             }
 
             // Find WorkEffort where current workEffortId = workEffortParentId; only select minimal fields to keep the size low
-            List<GenericValue> childWorkEffortList = EntityQuery.use(delegator).select("workEffortId", "workEffortParentId").from("WorkEffort").where("workEffortParentId", workEffortId).cache(true).queryList();
+            List<GenericValue> childWorkEffortList = EntityQuery.use(delegator).select("workEffortId", "workEffortParentId").from("WorkEffort")
+                    .where("workEffortParentId", workEffortId).cache(true).queryList();
             for (GenericValue childWorkEffort: childWorkEffortList) {
                 String subWorkEffortId = childWorkEffort.getString("workEffortId");
                 if (workEffortIdSet.contains(subWorkEffortId)) {
@@ -229,6 +233,9 @@ public class WorkEffortSearch {
             }
         }
 
+        /**
+         * Finish keyword constraints.
+         */
         public void finishKeywordConstraints() {
             if (orKeywordFixedSet.isEmpty() && andKeywordFixedSet.isEmpty() && keywordFixedOrSetAndList.isEmpty()) {
                 return;
@@ -444,6 +451,11 @@ public class WorkEffortSearch {
             return workEffortIds;
         }
 
+        /**
+         * Save search result info.
+         * @param numResults the num results
+         * @param secondsTotal the seconds total
+         */
         public void saveSearchResultInfo(Long numResults, Double secondsTotal) {
             // uses entities: WorkEffortSearchResult and WorkEffortSearchConstraint
 
@@ -697,9 +709,11 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortReview");
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ReviewText", "reviewText", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(prefix + "ReviewText"), EntityOperator.LIKE, EntityFunction.UPPER("%" + reviewTextString + "%")));
+            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(prefix + "ReviewText"),
+                    EntityOperator.LIKE, EntityFunction.UPPER("%" + reviewTextString + "%")));
             Map<String, String> valueMap = UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.reviewTextString);
-            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", valueMap));
+            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator()
+                    .makeValue("WorkEffortSearchConstraint", valueMap));
         }
 
 
@@ -708,7 +722,8 @@ public class WorkEffortSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortReviews", locale) + ": \"");
-            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordWhere", locale)).append(" ");
+            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordWhere", locale))
+                    .append(" ");
             return ppBuf.toString();
         }
 
@@ -769,14 +784,19 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
 
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "PartyId", EntityOperator.EQUALS, partyId));
-            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
-            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
+            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN,
+                    workEffortSearchContext.nowTimestamp)));
+            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN,
+                    workEffortSearchContext.nowTimestamp));
             if (UtilValidate.isNotEmpty(this.roleTypeId)) {
-                workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "RoleTypeId", EntityOperator.EQUALS, roleTypeId));
+                workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "RoleTypeId", EntityOperator.EQUALS,
+                        roleTypeId));
             }
 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
-            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.partyId + "," + this.roleTypeId)));
+            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.partyId + "," + this.roleTypeId)));
         }
 
         @Override
@@ -886,8 +906,11 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
 
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductId", EntityOperator.IN, productIdSet));
-            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
-            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
+            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN,
+                    workEffortSearchContext.nowTimestamp)));
+            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN,
+                    workEffortSearchContext.nowTimestamp));
 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
             StringBuilder productIdInfo = new StringBuilder();
@@ -900,7 +923,8 @@ public class WorkEffortSearch {
                 }
             }
 
-            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", productIdInfo.toString())));
+            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", productIdInfo.toString())));
         }
 
         @Override
@@ -982,6 +1006,11 @@ public class WorkEffortSearch {
             }
         }
 
+        /**
+         * Make full keyword set set.
+         * @param delegator the delegator
+         * @return the set
+         */
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set<String> fullKeywordSet = new TreeSet<>();
@@ -1045,8 +1074,10 @@ public class WorkEffortSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywords", locale)).append(": \"");
-            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordAllWordsMatch", locale) : UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordAnyWordMatches", locale));
+            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordWhere",
+                    locale)).append(" ");
+            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordAllWordsMatch", locale)
+                    : UtilProperties.getMessage(RESOURCE, "WorkEffortKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -1110,10 +1141,11 @@ public class WorkEffortSearch {
 
         @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
-            workEffortSearchContext.dynamicViewEntity.addAlias("WEFF", "lastModifiedDate", "lastModifiedDate", null, null, null, null);
+            workEffortSearchContext.dynamicViewEntity.addAlias("WEFF", "lastModifiedDate", "lastModifiedDate",
+                    null, null, null, null);
 
             EntityConditionList<EntityExpr> dateConditions = null;
-            EntityExpr dateCondition=null;
+            EntityExpr dateCondition = null;
             if (fromDate != null && thruDate != null) {
                 dateConditions = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
@@ -1140,7 +1172,9 @@ public class WorkEffortSearch {
             workEffortSearchContext.entityConditionList.add(conditions);
 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
-            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
+            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator()
+                    .makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString",
+                            "fromDate : " + fromDate + " thruDate : " + thruDate)));
         }
 
         /** pretty print for log messages and even UI stuff */
@@ -1148,7 +1182,8 @@ public class WorkEffortSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(RESOURCE, "WorkEffortLastModified", locale)).append(": \"");
-            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortLastModified", locale)).append(" ");
+            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(RESOURCE, "WorkEffortLastModified",
+                    locale)).append(" ");
             return ppBuf.toString();
         }
 

@@ -102,6 +102,9 @@ if (inlineProduct) {
     featureTypes = [:]
     featureOrder = []
 
+    variantInfoJS = new StringBuffer()
+    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    \$(document).ready(function(\$) {\n")
+
     // make the productContentWrapper
     productContentWrapper = new ProductContentWrapper(inlineProduct, request)
     context.productContentWrapper = productContentWrapper
@@ -284,7 +287,9 @@ if (inlineProduct) {
                                 variantPriceMap = runService('calculateProductPrice', priceContext)
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
+                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: "N") + "';\n")
                             variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ")
+                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + numberFormat.format(variantPriceMap.basePrice) + "';\n")
                         }
                         amt.append(" } ")
                         variantPriceJS.append(" } ")
@@ -298,4 +303,6 @@ if (inlineProduct) {
             }
         }
     }
+    variantInfoJS.append("    });\n</script>\n")
+    context.variantInfoJavaScript = variantInfoJS
 }

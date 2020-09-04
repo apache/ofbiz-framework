@@ -28,11 +28,18 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.testtools.EntityTestCase;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
+/**
+ * The type EntityCryptoTestSuite.
+ */
 public class EntityCryptoTestSuite extends EntityTestCase {
     public EntityCryptoTestSuite(String name) {
         super(name);
     }
 
+    /**
+     * Test crypto.
+     * @throws Exception the exception
+     */
     public void testCrypto() throws Exception {
         String nanoTime = "" + System.nanoTime();
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
@@ -53,6 +60,10 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         assertEquals(nanoTime, entity.getString("saltedEncryptedValue"));
     }
 
+    /**
+     * Test crypto encryption.
+     * @throws Exception the exception
+     */
     public void testCryptoEncryption() throws Exception {
         // clear out all values
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
@@ -110,22 +121,37 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         assertFalse(initialSaltedValue.equals(updatedSaltedValue));
     }
 
+    /**
+     * Test crypto lookup.
+     * @throws Exception the exception
+     */
     public void testCryptoLookup() throws Exception {
         String nanoTime = "" + System.nanoTime();
 
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP"));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-null", "testingCryptoTypeId", "LOOKUP"));
-        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-value", "testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime, "saltedEncryptedValue", nanoTime));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-value", "testingCryptoTypeId", "LOOKUP",
+                "encryptedValue", nanoTime, "saltedEncryptedValue", nanoTime));
 
         // This ends up using EntityExpr contained in EntityConditionList
-        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "encryptedValue", null).queryList()).size());
-        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "saltedEncryptedValue", null).queryList()).size());
-        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime).queryList()).size());
-        assertEquals(0, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "saltedEncryptedValue", nanoTime).queryList()).size());
+        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
+                "encryptedValue", null).queryList()).size());
+        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
+                "saltedEncryptedValue", null).queryList()).size());
+        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
+                "encryptedValue", nanoTime).queryList()).size());
+        assertEquals(0, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
+                "saltedEncryptedValue", nanoTime).queryList()).size());
 
-        assertEquals(1, EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime).queryList().size());
+        assertEquals(1, EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
+                "encryptedValue", nanoTime).queryList().size());
     }
 
+    /**
+     * Make sub select condition entity condition.
+     * @param nanoTime the nano time
+     * @return the entity condition
+     */
     protected EntityCondition makeSubSelectCondition(String nanoTime) {
         return EntityCondition.makeCondition(
             EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3")),
@@ -133,11 +159,20 @@ public class EntityCryptoTestSuite extends EntityTestCase {
             EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime));
     }
 
+    /**
+     * Make sub select entity condition sub select.
+     * @param nanoTime the nano time
+     * @return the entity condition sub select
+     */
     protected EntityConditionSubSelect makeSubSelect(String nanoTime) {
         EntityCondition subCondition = makeSubSelectCondition(nanoTime);
         return new EntityConditionSubSelect("TestingCrypto", "testingCryptoId", subCondition, true, delegator);
     }
 
+    /**
+     * Test crypto sub select.
+     * @throws Exception the exception
+     */
     public void testCryptoSubSelect() throws Exception {
         String nanoTime = "" + System.nanoTime();
         EntityCondition condition;
@@ -147,16 +182,20 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "SUB_SELECT_2"));
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "SUB_SELECT_3"));
 
-        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_1", "testingCryptoTypeId", "SUB_SELECT_1", "encryptedValue", nanoTime));
-        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_2", "testingCryptoTypeId", "SUB_SELECT_2", "encryptedValue", nanoTime));
-        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_3", "testingCryptoTypeId", "SUB_SELECT_3", "encryptedValue", "constant"));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_1", "testingCryptoTypeId", "SUB_SELECT_1",
+                "encryptedValue", nanoTime));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_2", "testingCryptoTypeId", "SUB_SELECT_2",
+                "encryptedValue", nanoTime));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_3", "testingCryptoTypeId", "SUB_SELECT_3",
+                "encryptedValue", "constant"));
 
         results = EntityQuery.use(delegator).from("TestingCrypto").where("encryptedValue", nanoTime).orderBy("testingCryptoId").queryList();
         assertEquals(2, results.size());
         assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
         assertEquals("SUB_2", results.get(1).get("testingCryptoId"));
 
-        results = EntityQuery.use(delegator).from("TestingCrypto").where(EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3"))).orderBy("testingCryptoId").queryList();
+        results = EntityQuery.use(delegator).from("TestingCrypto").where(EntityCondition.makeCondition("testingCryptoTypeId",
+                EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3"))).orderBy("testingCryptoId").queryList();
         assertEquals(2, results.size());
         assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
         assertEquals("SUB_3", results.get(1).get("testingCryptoId"));

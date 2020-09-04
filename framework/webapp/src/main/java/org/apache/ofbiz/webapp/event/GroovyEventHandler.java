@@ -91,7 +91,8 @@ public class GroovyEventHandler implements EventHandler {
             context.put("locale", UtilHttp.getLocale(request));
             context.put("timeZone", UtilHttp.getTimeZone(request));
             context.put("userLogin", session.getAttribute("userLogin"));
-            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
+            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security",
+                    "locale", "timeZone", "userLogin")));
             Object result = null;
             try {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context, PROTECTED_KEYS);

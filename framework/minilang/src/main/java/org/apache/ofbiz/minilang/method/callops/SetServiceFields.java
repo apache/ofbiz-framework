@@ -103,7 +103,8 @@ public final class SetServiceFields extends MethodOperation {
             toMapFma.put(methodContext.getEnvMap(), toMap);
         }
         List<Object> errorMessages = new LinkedList<>();
-        Map<String, Object> validAttributes = modelService.makeValid(fromMap, mode, true, errorMessages, methodContext.getTimeZone(), methodContext.getLocale());
+        Map<String, Object> validAttributes = modelService.makeValid(fromMap, mode, true, errorMessages,
+                methodContext.getTimeZone(), methodContext.getLocale());
         if (!errorMessages.isEmpty()) {
             for (Object obj : errorMessages) {
                 simpleMethod.addErrorMessage(methodContext, (String) obj);

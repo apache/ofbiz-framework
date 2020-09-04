@@ -175,7 +175,8 @@ public class CatalogUrlServlet extends HttpServlet {
         return urlBuilder.toString();
     }
 
-    public static String makeCatalogUrl(String contextPath, List<String> crumb, String productId, String currentCategoryId, String previousCategoryId) {
+    public static String makeCatalogUrl(String contextPath, List<String> crumb, String productId, String currentCategoryId,
+                                        String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(contextPath);
         if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {

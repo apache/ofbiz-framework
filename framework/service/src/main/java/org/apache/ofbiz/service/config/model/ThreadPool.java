@@ -38,7 +38,8 @@ public final class ThreadPool {
 
     public static final int FAILED_RETRY_MIN = 30;
     public static final int MIN_THREADS = 1; // Must be no less than one or the executor will shut down.
-    public static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() + 1; // See https://stackoverflow.com/questions/13834692/threads-configuration-based-on-no-of-cpu-cores for more
+    public static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() + 1;
+    // See https://stackoverflow.com/questions/13834692/threads-configuration-based-on-no-of-cpu-cores for more
     public static final int POLL_WAIT = 30000; // Database polling interval - 30 seconds.
     public static final int PURGE_JOBS_DAYS = 30;
     public static final int QUEUE_SIZE = 100;

@@ -149,7 +149,7 @@ public final class ServiceSemaphore {
             if (EntityQuery.use(delegator).from("ServiceSemaphore")
                     .where("serviceName", model.getName()).queryCount() == 0) {
                 semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.getName(),
-                        "lockedByInstanceId", JobManager.instanceId, "lockThread", threadName, "lockTime", lockTime);
+                        "lockedByInstanceId", JobManager.INSTANCE_ID, "lockThread", threadName, "lockTime", lockTime);
 
                 // use the special method below so we can reuse the unique tx functions
                 // if semaphore successfully owned no need to wait anymore.

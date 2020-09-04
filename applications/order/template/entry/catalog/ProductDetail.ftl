@@ -279,6 +279,8 @@ ${virtualJavaScript!}
     }
  </script>
 
+${screens.render("component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productvariantjs")}
+${variantInfoJavaScript!}
 <div id="productdetail">
 
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
@@ -433,9 +435,11 @@ ${virtualJavaScript!}
       <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform"  style="margin: 0;">
         <#if requestAttributes.paramMap?has_content>
           <input type="hidden" name="itemComment" value="${requestAttributes.paramMap.itemComment!}" />
+          <input type="hidden" name="useAsDefaultComment" value="${requestAttributes.paramMap.useAsDefaultComment!}" />
           <input type="hidden" name="shipBeforeDate" value="${requestAttributes.paramMap.shipBeforeDate!}" />
           <input type="hidden" name="shipAfterDate" value="${requestAttributes.paramMap.shipAfterDate!}" />
           <input type="hidden" name="itemDesiredDeliveryDate" value="${requestAttributes.paramMap.itemDesiredDeliveryDate!}" />
+          <input type="hidden" name="useAsDefaultDesiredDeliveryDate" value="${requestAttributes.paramMap.useAsDefaultDesiredDeliveryDate!}" />
         </#if>
         <#assign inStock = true>
         <#-- Variant Selection -->
@@ -477,13 +481,13 @@ ${virtualJavaScript!}
                 </select>
               </div>
             </#list>
-            <span id="product_uom"></span>
+            <span id="product_uom"></span><br/>
+            <div class="variant-price" style="display: none;">
+                <strong><span class="product_id_display"> </span></strong>
+                <strong><span class="variant_price_display"> </span></strong>
+            </div>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div>
-              <b><span id="product_id_display"> </span></b>
-              <b><div id="variant_price_display"> </div></b>
-            </div>
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
@@ -494,6 +498,18 @@ ${virtualJavaScript!}
         <#else>
           <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
+          <#if mainProducts?has_content>
+            <select name="productVariantId" class="form-control" onchange="javascript:variantUomSelection(this);">
+              <option value="">${uiLabelMap.CommonSelect} ${uiLabelMap.ProductUnitOfMeasure}</option>
+              <#list mainProducts as mainProduct>
+                <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
+              </#list>
+            </select><br/>
+            <div class="variant-price" style="display: none;">
+                <strong><span class="product_id_display"> </span></strong>
+                <strong><span class="variant_price_display"> </span></strong>
+            </div>
+          </#if>
           <#if productStoreId??>
             <#assign isStoreInventoryNotAvailable = !(Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
             <#assign isStoreInventoryRequired = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>

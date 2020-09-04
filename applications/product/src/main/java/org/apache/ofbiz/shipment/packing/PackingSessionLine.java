@@ -51,7 +51,8 @@ public class PackingSessionLine implements java.io.Serializable {
     private String weightPackageSeqId = null;
     private int packageSeq = 0;
 
-    public PackingSessionLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, BigDecimal quantity, BigDecimal weight, int packageSeq) {
+    public PackingSessionLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId,
+                              BigDecimal quantity, BigDecimal weight, int packageSeq) {
         this.orderId = orderId;
         this.orderItemSeqId = orderItemSeqId;
         this.shipGroupSeqId = shipGroupSeqId;

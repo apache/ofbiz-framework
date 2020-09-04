@@ -54,7 +54,7 @@ public class JNDITransactionFactory implements TransactionFactory {
     volatile TransactionManager transactionManager = null;
     volatile UserTransaction userTransaction = null;
 
-    protected static final ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<>();
+    protected static final ConcurrentHashMap<String, DataSource> DS_CACHE = new ConcurrentHashMap<>();
 
     @Override
     public TransactionManager getTransactionManager() {
@@ -144,7 +144,6 @@ public class JNDITransactionFactory implements TransactionFactory {
             if (con != null) {
                 return TransactionUtil.getCursorConnection(helperInfo, con);
             }
-        } else {
         }
 
         if (datasourceInfo.getInlineJdbc() != null) {
@@ -156,7 +155,7 @@ public class JNDITransactionFactory implements TransactionFactory {
     }
 
     public static Connection getJndiConnection(String jndiName, String jndiServerName) throws SQLException, GenericEntityException {
-        DataSource ds = dsCache.get(jndiName);
+        DataSource ds = DS_CACHE.get(jndiName);
         if (ds != null) {
             if (ds instanceof XADataSource) {
                 XADataSource xads = (XADataSource) ds;
@@ -179,10 +178,10 @@ public class JNDITransactionFactory implements TransactionFactory {
 
             if (ds != null) {
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("Got a Datasource object.", MODULE);
+                    Debug.logVerbose("Got a Datasource object.", MODULE);
                 }
-                dsCache.putIfAbsent(jndiName, ds);
-                ds = dsCache.get(jndiName);
+                DS_CACHE.putIfAbsent(jndiName, ds);
+                ds = DS_CACHE.get(jndiName);
                 Connection con;
 
                 if (ds instanceof XADataSource) {
@@ -204,7 +203,8 @@ public class JNDITransactionFactory implements TransactionFactory {
             }
             Debug.logError("Datasource returned was NULL.", MODULE);
         } catch (NamingException ne) {
-            Debug.logWarning(ne, "Failed to find DataSource named " + jndiName + " in JNDI server with name " + jndiServerName + ". Trying normal database.", MODULE);
+            Debug.logWarning(ne, "Failed to find DataSource named " + jndiName + " in JNDI server with name "
+                    + jndiServerName + ". Trying normal database.", MODULE);
         } catch (GenericConfigException gce) {
             throw new GenericEntityException("Problems with the JNDI configuration.", gce.getNested());
         }

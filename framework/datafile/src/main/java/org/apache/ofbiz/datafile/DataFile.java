@@ -94,18 +94,35 @@ public class DataFile {
     protected DataFile() {
     }
 
+    /**
+     * Gets model data file.
+     * @return the model data file
+     */
     public ModelDataFile getModelDataFile() {
         return modelDataFile;
     }
 
+    /**
+     * Gets records.
+     * @return the records
+     */
     public List<Record> getRecords() {
         return records;
     }
 
+    /**
+     * Add record.
+     * @param record the record
+     */
     public void addRecord(Record record) {
         records.add(record);
     }
 
+    /**
+     * Make record record.
+     * @param recordName the record name
+     * @return the record
+     */
     public Record makeRecord(String recordName) {
         ModelRecord modelRecord = getModelDataFile().getModelRecord(recordName);
         return new Record(modelRecord);
@@ -161,10 +178,23 @@ public class DataFile {
         // no need to manually close the stream since we are reading to the end of the file: recordIterator.close();
     }
 
+    /**
+     * Make record iterator record iterator.
+     * @param fileUrl the file url
+     * @return the record iterator
+     * @throws DataFileException the data file exception
+     */
     public RecordIterator makeRecordIterator(URL fileUrl) throws DataFileException {
         return new RecordIterator(fileUrl, this.modelDataFile);
     }
 
+    /**
+     * Make record iterator record iterator.
+     * @param dataFileStream the data file stream
+     * @param locationInfo the location info
+     * @return the record iterator
+     * @throws DataFileException the data file exception
+     */
     public RecordIterator makeRecordIterator(InputStream dataFileStream, String locationInfo) throws DataFileException {
         return new RecordIterator(dataFileStream, this.modelDataFile, locationInfo);
     }
@@ -211,6 +241,12 @@ public class DataFile {
         writeRecords(outStream, this.records);
     }
 
+    /**
+     * Write records.
+     * @param outStream the out stream
+     * @param records the records
+     * @throws DataFileException the data file exception
+     */
     protected void writeRecords(OutputStream outStream, List<Record> records) throws DataFileException {
         for (Record record : records) {
             String line = record.writeLineString(modelDataFile);

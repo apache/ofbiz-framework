@@ -196,7 +196,8 @@ public final class UtilNumber {
             Debug.logWarning(e, e.getMessage(), MODULE);
         }
         if (scale == -1) {
-            Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", MODULE);
+            Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of "
+                    + DEFAULT_BD_SCALE + ".", MODULE);
             scale = DEFAULT_BD_SCALE;
         }
         return scale;
@@ -248,7 +249,8 @@ public final class UtilNumber {
         String value = UtilProperties.getPropertyValue(file, property);
         RoundingMode mode = roundingModeFromString(value);
         if (mode == null) {
-            Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of " + DEFAULT_BD_SCALE + ".", MODULE);
+            Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of "
+                    + DEFAULT_BD_SCALE + ".", MODULE);
             return DEFAULT_BD_ROUNDING_MODE;
         }
         return mode;
@@ -302,7 +304,8 @@ public final class UtilNumber {
     public static String formatRuleBasedAmount(double amount, Locale locale) {
         String ruleSet = rbnfRuleSets.get(locale);
         if (ruleSet == null) {
-            Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", MODULE);
+            Debug.logWarning("Cannot format rule based amount for locale " + locale.toString()
+                    + " because rule set for that locale does not exist", MODULE);
             return "";
         }
         return formatRuleBasedAmount(amount, ruleSet, null, locale);

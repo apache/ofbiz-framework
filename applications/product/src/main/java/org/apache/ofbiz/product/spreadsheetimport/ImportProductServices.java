@@ -134,7 +134,7 @@ public class ImportProductServices {
                     // too.
                     boolean productExists = ImportProductHelper.checkProductExists(productId, delegator);
 
-                    if (!productId.trim().equalsIgnoreCase("") && !productExists) {
+                    if (!"".equalsIgnoreCase(productId.trim()) && !productExists) {
                         products.add(ImportProductHelper.prepareProduct(productId));
                         if (quantityOnHand.compareTo(BigDecimal.ZERO) >= 0) {
                             inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, quantityOnHand,

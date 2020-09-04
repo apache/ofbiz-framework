@@ -68,7 +68,7 @@ public class UpgradeServices {
      * @param context
      * @return Map with the success result of the service,
      */
-    public static Map<String, Object> generateMySqlFileWithAlterTableForTimestamps (DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> generateMySqlFileWithAlterTableForTimestamps(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
@@ -109,7 +109,8 @@ public class UpgradeServices {
             dataWriter.println("SET FOREIGN_KEY_CHECKS=1;");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             Debug.logError(e, e.getMessage(), MODULE);
             return ServiceUtil.returnError(e.getMessage());

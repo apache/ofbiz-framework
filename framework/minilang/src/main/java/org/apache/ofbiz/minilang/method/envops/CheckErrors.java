@@ -44,7 +44,8 @@ public final class CheckErrors extends MethodOperation {
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         this.errorCodeFse = FlexibleStringExpander.getInstance(element.getAttribute("error-code"));
-        this.errorListNameFse = FlexibleStringExpander.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
+        this.errorListNameFse = FlexibleStringExpander.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"),
+                "error_list"));
     }
 
     @Override

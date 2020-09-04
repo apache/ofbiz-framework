@@ -24,12 +24,11 @@ import org.apache.ofbiz.entity.connection.ConnectionFactory;
 
 /**
  * ConnectionFactoryLoader - utility class that loads the connection manager and provides to client code a reference to it (ConnectionFactory)
- *
  */
 public class ConnectionFactoryLoader {
     // Debug MODULE name
     private static final String MODULE = ConnectionFactoryLoader.class.getName();
-    private static final ConnectionFactory connFactory = createConnectionFactory();
+    private static final ConnectionFactory CONN_FACTORY = createConnectionFactory();
 
     private static ConnectionFactory createConnectionFactory() {
         ConnectionFactory instance = null;
@@ -53,9 +52,9 @@ public class ConnectionFactoryLoader {
     }
 
     public static ConnectionFactory getInstance() {
-        if (connFactory == null) {
+        if (CONN_FACTORY == null) {
             throw new IllegalStateException("The Connection Factory is not initialized.");
         }
-        return connFactory;
+        return CONN_FACTORY;
     }
 }

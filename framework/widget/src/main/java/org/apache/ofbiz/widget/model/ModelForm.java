@@ -1623,10 +1623,18 @@ public abstract class ModelForm extends ModelWidget {
         return value;
     }
 
+    /**
+     * Gets sort field parameter name.
+     * @return the sort field parameter name
+     */
     public String getSortFieldParameterName() {
         return this.sortFieldParameterName;
     }
 
+    /**
+     * Gets sort order fields.
+     * @return the sort order fields
+     */
     public List<SortField> getSortOrderFields() {
         return sortOrderFields;
     }
@@ -1659,6 +1667,10 @@ public abstract class ModelForm extends ModelWidget {
         return styles;
     }
 
+    /**
+     * Gets target.
+     * @return the target
+     */
     public String getTarget() {
         return target != null ? target.getOriginal() : null;
     }
@@ -2061,7 +2073,7 @@ public abstract class ModelForm extends ModelWidget {
 
     public static class FieldGroup implements FieldGroupBase {
         private static AtomicInteger baseSeqNo = new AtomicInteger(0);
-        private static final String baseId = "_G";
+        private static final String BASE_ID = "_G";
         private final String id;
         private final String style;
         private final String title;
@@ -2080,7 +2092,7 @@ public abstract class ModelForm extends ModelWidget {
             if (sortOrderElement != null) {
                 id = sortOrderElement.getAttribute("id");
                 if (id.isEmpty()) {
-                    String lastGroupId = baseId + baseSeqNo.getAndIncrement() + "_";
+                    String lastGroupId = BASE_ID + baseSeqNo.getAndIncrement() + "_";
                     id = lastGroupId;
                 }
                 style = sortOrderElement.getAttribute("style");
@@ -2096,7 +2108,7 @@ public abstract class ModelForm extends ModelWidget {
                     fieldGroupMap.put(sortFieldElement.getAttribute("name"), this);
                 }
             } else {
-                String lastGroupId = baseId + baseSeqNo.getAndIncrement() + "_";
+                String lastGroupId = BASE_ID + baseSeqNo.getAndIncrement() + "_";
                 id = lastGroupId;
             }
             this.id = id;
@@ -2229,10 +2241,18 @@ public abstract class ModelForm extends ModelWidget {
             }
         }
 
+        /**
+         * Gets field name.
+         * @return the field name
+         */
         public String getFieldName() {
             return this.fieldName;
         }
 
+        /**
+         * Gets position.
+         * @return the position
+         */
         public Integer getPosition() {
             return this.position;
         }

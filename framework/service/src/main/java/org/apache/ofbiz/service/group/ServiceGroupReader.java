@@ -54,7 +54,8 @@ public final class ServiceGroupReader {
             throw new RuntimeException(e.getMessage());
         }
         for (ServiceGroups serviceGroup : serviceGroupsList) {
-            ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), serviceGroup.getLoader(), serviceGroup.getLocation());
+            ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), serviceGroup.getLoader(),
+                    serviceGroup.getLocation());
             addGroupDefinitions(handler);
         }
 

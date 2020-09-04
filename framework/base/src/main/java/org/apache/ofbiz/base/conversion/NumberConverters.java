@@ -177,6 +177,17 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static class IntegerToBigInteger extends AbstractConverter<Integer, BigInteger> {
+        public IntegerToBigInteger() {
+            super(Integer.class, BigInteger.class);
+        }
+
+        @Override
+        public BigInteger convert(Integer obj) throws ConversionException {
+            return BigInteger.valueOf(obj.intValue());
+        }
+    }
+
     public static class ByteToString extends AbstractNumberToStringConverter<Byte> {
         public ByteToString() {
             super(Byte.class);

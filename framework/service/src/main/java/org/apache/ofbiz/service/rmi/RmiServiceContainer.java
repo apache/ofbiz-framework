@@ -46,9 +46,9 @@ public class RmiServiceContainer implements Container {
 
     private static final String MODULE = RmiServiceContainer.class.getName();
 
-    protected RemoteDispatcherImpl remote = null;
-    protected String configFile = null;
-    protected String name = null;
+    private RemoteDispatcherImpl remote = null;
+    private String configFile = null;
+    private String name = null;
     private String containerName;
     // Container methods
 
@@ -148,7 +148,8 @@ public class RmiServiceContainer implements Container {
             try {
                 Naming.rebind("//" + host + ":" + port + "/" + name, remote);
             } catch (RemoteException e) {
-                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name[" + name + "] - with remote=" + remote, e);
+                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name["
+                        + name + "] - with remote=" + remote, e);
             } catch (java.net.MalformedURLException e) {
                 throw new ContainerException("Invalid URL for binding", e);
             }

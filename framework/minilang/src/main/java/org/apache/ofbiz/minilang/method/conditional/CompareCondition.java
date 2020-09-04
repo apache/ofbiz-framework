@@ -74,7 +74,8 @@ public final class CompareCondition extends MethodOperation implements Condition
         Class<?> targetClass = null;
         if (!this.type.isEmpty()) {
             if ("contains".equals(this.operator)) {
-                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).", simpleMethod, element);
+                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).",
+                        simpleMethod, element);
                 targetClass = Object.class;
             } else {
                 try {

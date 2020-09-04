@@ -607,23 +607,27 @@ function ajaxUpdateAreas(areaCsvString) {
   * @param interval The update interval, in seconds.
 */
 function ajaxUpdateAreaPeriodic(areaId, target, targetParams, interval) {
-    var intervalMillis = interval * 1000;
-    jQuery.fjTimer({
-        interval: intervalMillis,
-        repeat: true,
-        tick: function(container, timerId){
-            jQuery.ajax({
-                url: target,
-                type: "POST",
-                data: targetParams,
-                success: function(data) {
-                    jQuery("#" + areaId).html(data);
-                    waitSpinnerHide();
-                },
-                error: function(data) {waitSpinnerHide()}
-            });
+    importLibrary(["/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"], function() {
+        var intervalMillis = interval * 1000;
+        jQuery.fjTimer({
+            interval: intervalMillis,
+            repeat: true,
+            tick: function (container, timerId) {
+                jQuery.ajax({
+                    url: target,
+                    type: "POST",
+                    data: targetParams,
+                    success: function (data) {
+                        jQuery("#" + areaId).html(data);
+                        waitSpinnerHide();
+                    },
+                    error: function (data) {
+                        waitSpinnerHide()
+                    }
+                });
 
-        }
+            }
+        });
     });
 }
 
@@ -1034,24 +1038,26 @@ function ajaxInPlaceEditDisplayField(element, url, options) {
         jQuery(this).css('background-color', 'transparent');
     });
 
-    jElement.editable(function(value, settings){
-        // removes all line breaks from the value param, because the parseJSON Function can't work with line breaks
-        value = value.replace(/\n/g, " ");
-        value = value.replace(/\"/g,"&quot;");
+    importLibrary(["/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"], function() {
+        jElement.editable(function (value, settings) {
+            // removes all line breaks from the value param, because the parseJSON Function can't work with line breaks
+            value = value.replace(/\n/g, " ");
+            value = value.replace(/\"/g, "&quot;");
 
-        var resultField = jQuery.parseJSON('{"' + settings.name + '":"' + value + '"}');
-        // merge both parameter objects together
-        jQuery.extend(settings.submitdata, resultField);
-        jQuery.ajax({
-            type : settings.method,
-            url : url,
-            data : settings.submitdata,
-            success : function(data) {
-                // adding the new value to the field and make the modified field 'blink' a little bit to show the user that somethink have changed
-                jElement.text(value).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).css('background-color', 'transparent');
-            }
-        });
-    }, options);
+            var resultField = jQuery.parseJSON('{"' + settings.name + '":"' + value + '"}');
+            // merge both parameter objects together
+            jQuery.extend(settings.submitdata, resultField);
+            jQuery.ajax({
+                type: settings.method,
+                url: url,
+                data: settings.submitdata,
+                success: function (data) {
+                    // adding the new value to the field and make the modified field 'blink' a little bit to show the user that somethink have changed
+                    jElement.text(value).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).css('background-color', 'transparent');
+                }
+            });
+        }, options);
+    });
 }
 
 // ===== End of Ajax Functions ===== //

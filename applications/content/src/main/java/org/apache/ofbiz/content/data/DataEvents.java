@@ -80,7 +80,8 @@ public class DataEvents {
         }
 
         // get the permission service required for streaming data; default is always the genericContentPermission
-        String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service", "genericContentPermission", delegator);
+        String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service",
+                "genericContentPermission", delegator);
 
         // This is counterintuitive but it works, for OFBIZ-11840
         // It could be improved by checking for possible events associated with svg
@@ -143,7 +144,8 @@ public class DataEvents {
         // not public check security
         if (!"Y".equalsIgnoreCase(isPublic)) {
             // do security check
-            Map<String, ? extends Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "VIEW", "contentId", contentId);
+            Map<String, ? extends Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction",
+                    "VIEW", "contentId", contentId);
             Map<String, Object> permSvcResp;
             try {
                 permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
@@ -217,7 +219,8 @@ public class DataEvents {
             } catch (IOException e) {
                 Debug.logError(e, "Unable to write content to browser", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                // this must be handled with a special error string because the output stream has been already used and we will not be able to return the error page;
+                // this must be handled with a special error string because the output stream has been already used and we will not be able
+                // to return the error page;
                 // the "io-error" should be associated to a response of type "none"
                 return "io-error";
             }
@@ -233,7 +236,8 @@ public class DataEvents {
 
     /**
      * Streams ImageDataResource data to the output.
-     * <p>Superseded by {@link org.apache.ofbiz.content.data.DataEvents#serveObjectData(HttpServletRequest, HttpServletResponse) DataEvents#serveObjectData}</p>
+     * <p>Superseded by {@link org.apache.ofbiz.content.data.DataEvents#serveObjectData(HttpServletRequest, HttpServletResponse)
+     * DataEvents#serveObjectData}</p>
      */
     @Deprecated
     public static String serveImage(HttpServletRequest request, HttpServletResponse response) {
@@ -272,7 +276,8 @@ public class DataEvents {
                                 "dataResourceId", dataResourceId)
                         .queryCount();
                 if (contentAndRoleCount == 0) {
-                    String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
+                    String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId
+                            + "], ie you are not associated with it.";
                     Debug.logError(errorMsg, MODULE);
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                     return "error";
@@ -292,7 +297,8 @@ public class DataEvents {
                 response.setContentType(mimeType);
             }
             OutputStream os = response.getOutputStream();
-            Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
+            Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "",
+                    application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
             os.write(IOUtils.toByteArray((InputStream) resourceData.get("stream")));
             os.flush();
         } catch (GeneralException | IOException e) {

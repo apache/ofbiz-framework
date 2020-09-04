@@ -56,8 +56,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = LimitedSubContentCacheTransform.class.getName();
 
-    static final String[] upSaveKeyNames = {"globalNodeTrail" };
-    static final String[] saveKeyNames = {"contentId", "subContentId", "entityList", "entityIndex",
+    static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail" };
+    static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "entityList", "entityIndex",
             "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "entityList", "viewSize", "viewIndex",
             "highIndex", "lowIndex", "listSize", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly",
             "globalNodeTrail", "outputIndex" };
@@ -97,7 +97,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map<String, Object> savedValuesUp = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
+        FreeMarkerWorker.saveContextValues(templateRoot, UP_SAVE_KEY_NAMES, savedValuesUp);
         final Map<String, Object> savedValues = new HashMap<>();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
 
@@ -148,7 +148,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         Map<String, Object> results = null;
         String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
         try {
-            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "From", fromDate, null, assocTypes, null, Boolean.TRUE, contentAssocPredicateId, orderBy);
+            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "From",
+                    fromDate, null, assocTypes, null, Boolean.TRUE, contentAssocPredicateId, orderBy);
         } catch (MiniLangException | GenericEntityException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -173,7 +174,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 if (pickedEntityIds.size() < returnLimit) {
                     inProgress = getNextMatchingEntity(templateRoot, delegator, env);
                 }
-                FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
+                FreeMarkerWorker.saveContextValues(templateRoot, SAVE_KEY_NAMES, savedValues);
                 if (inProgress) {
                     return TransformControl.EVALUATE_BODY;
                 }
@@ -193,7 +194,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                     inProgress = getNextMatchingEntity(templateRoot, delegator, env);
                 }
 
-                FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
+                FreeMarkerWorker.saveContextValues(templateRoot, SAVE_KEY_NAMES, savedValues);
                 if (inProgress) {
                     return TransformControl.REPEAT_EVALUATION;
                 }

@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class UtilURL {
 
     private static final String MODULE = UtilURL.class.getName();
-    private static final Map<String, URL> urlMap = new ConcurrentHashMap<>();
+    private static final Map<String, URL> URL_MAP = new ConcurrentHashMap<>();
 
     private UtilURL() { }
 
@@ -78,7 +78,7 @@ public final class UtilURL {
      * @return
      */
     public static URL fromResource(String resourceName, ClassLoader loader) {
-        URL url = urlMap.get(resourceName);
+        URL url = URL_MAP.get(resourceName);
         if (url != null) {
             try {
                 return new URL(url.toString());
@@ -96,27 +96,27 @@ public final class UtilURL {
         }
         url = loader.getResource(resourceName);
         if (url != null) {
-            urlMap.put(resourceName, url);
+            URL_MAP.put(resourceName, url);
             return url;
         }
         url = ClassLoader.getSystemResource(resourceName);
         if (url != null) {
-            urlMap.put(resourceName, url);
+            URL_MAP.put(resourceName, url);
             return url;
         }
         url = fromFilename(resourceName);
         if (url != null) {
-            urlMap.put(resourceName, url);
+            URL_MAP.put(resourceName, url);
             return url;
         }
         url = fromOfbizHomePath(resourceName);
         if (url != null) {
-            urlMap.put(resourceName, url);
+            URL_MAP.put(resourceName, url);
             return url;
         }
         url = fromUrlString(resourceName);
         if (url != null) {
-            urlMap.put(resourceName, url);
+            URL_MAP.put(resourceName, url);
         }
         return url;
     }

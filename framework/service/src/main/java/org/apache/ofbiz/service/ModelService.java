@@ -1008,6 +1008,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
+    /**
+     * Gets all param names.
+     * @return the all param names
+     */
     public Set<String> getAllParamNames() {
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
@@ -1016,6 +1020,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return nameList;
     }
 
+    /**
+     * Gets in param names.
+     * @return the in param names
+     */
     public Set<String> getInParamNames() {
         Set<String> nameList = new TreeSet<>();
         for (ModelParam p: this.contextParamList) {
@@ -1048,7 +1056,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
     }
 
-    // only returns number of defined parameters (not internal)
+    /**
+     * Gets defined in count.
+     * @return the defined in count
+     */
     public int getDefinedInCount() {
         int count = 0;
 
@@ -1174,7 +1185,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
                 if (message == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale);
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(),
+                            "ModelService.following_required_parameter_missing", locale);
                     message = errMsg + " [" + this.name + "." + missingKey + "]";
                 }
                 missingMsg.add(message);
@@ -1216,8 +1228,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             List<String> errorMessageList = new LinkedList<>();
             for (ModelParam modelParam : this.contextInfo.values()) {
                 // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
-                if (context.get(modelParam.getName()) != null && ("String".equals(modelParam.getType()) || "java.lang.String".equals(modelParam.getType()))
-                        && !"any".equals(modelParam.getAllowHtml()) && (IN_OUT_PARAM.equals(modelParam.getMode()) || IN_PARAM.equals(modelParam.getMode()))) {
+                if (context.get(modelParam.getName()) != null && ("String".equals(modelParam.getType())
+                        || "java.lang.String".equals(modelParam.getType()))
+                        && !"any".equals(modelParam.getAllowHtml()) && (IN_OUT_PARAM.equals(modelParam.getMode())
+                        || IN_PARAM.equals(modelParam.getMode()))) {
                     String value = (String) context.get(modelParam.getName());
                     if ("none".equals(modelParam.getAllowHtml())) {
                         UtilCodec.checkStringForHtmlStrictNone(modelParam.getName(), value, errorMessageList, (Locale) context.get("locale"));
@@ -1256,7 +1270,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param test The map to test its value types.
      * @param reverse Test the maps in reverse.
      */
-    public static void validate(Map<String, String> info, Map<String, ? extends Object> test, boolean reverse, ModelService model, String mode, Locale locale) throws ServiceValidationException {
+    public static void validate(Map<String, String> info, Map<String, ? extends Object> test, boolean reverse, ModelService model,
+                                String mode, Locale locale) throws ServiceValidationException {
         if (info == null || test == null) {
             throw new ServiceValidationException("Cannot validate NULL maps", model);
         }
@@ -1278,7 +1293,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String key: missing) {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale);
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing",
+                            locale);
                     msg = errMsg + " [" + mode + "] [" + model.name + "." + key + "]";
                 }
                 missingMsgs.add(msg);
@@ -1572,7 +1588,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                                 // no need to fail on type conversion; the validator will catch this
                                 value = ObjectType.simpleTypeOrObjectConvert(value, param.getType(), null, timeZone, locale, false);
                             } catch (GeneralException e) {
-                                String errMsg = "Type conversion of field [" + key + "] to type [" + param.getType() + "] failed for value \"" + value + "\": " + e.toString();
+                                String errMsg = "Type conversion of field [" + key + "] to type [" + param.getType() + "] failed for value \""
+                                        + value + "\": " + e.toString();
                                 Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
                                 if (errorMessages != null) {
                                     errorMessages.add(errMsg);
@@ -1610,6 +1627,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return paramList;
     }
 
+    /**
+     * Contains permissions boolean.
+     * @return the boolean
+     */
     public boolean containsPermissions() {
         return (UtilValidate.isNotEmpty(this.permissionGroups));
     }
@@ -1753,8 +1774,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                         for (ModelParam newParam: model.contextParamList) {
                             ModelParam existingParam = this.contextInfo.get(newParam.getName());
                             if (existingParam != null) {
-                                // if the existing param is not INOUT and the newParam.mode is different from existingParam.mode, make the existing param optional and INOUT
-                                // TODO: this is another case where having different optional/required settings for IN and OUT would be quite valuable...
+                                // if the existing param is not INOUT and the newParam.mode is different from existingParam.mode,
+                                // make the existing param optional and INOUT
+                                // TODO: this is another case where having different optional/required settings for IN and OUT
+                                //  would be quite valuable...
                                 if (!IN_OUT_PARAM.equals(existingParam.getMode()) && !existingParam.getMode().equals(newParam.getMode())) {
                                     existingParam.setMode(IN_OUT_PARAM);
                                     if (existingParam.isOptional() || newParam.isOptional()) {
@@ -2020,6 +2043,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         def.addService(service);
     }
 
+    /**
+     * Gets types.
+     * @param document the document
+     * @param def the def
+     * @return the types
+     */
     public Types getTypes(Document document, Definition def) {
         Types types = def.createTypes();
         /* Schema */

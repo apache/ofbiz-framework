@@ -163,7 +163,7 @@ public class RequestHandler {
         }
         if (method.isEmpty()) {
             return Optional.empty();
-        } else if (method.equals("all")) {
+        } else if ("all".equals(method)) {
             return resolveMethod("", rmaps);
         } else {
             return resolveMethod("all", rmaps);
@@ -698,7 +698,8 @@ public class RequestHandler {
         if (eventReturnBasedRequestResponse != null) {
             //String eventReturnBasedResponse = requestResponse.value;
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[Response Qualified]: " + eventReturnBasedRequestResponse.getName() + ", " + eventReturnBasedRequestResponse.getType()
+                Debug.logVerbose("[Response Qualified]: " + eventReturnBasedRequestResponse.getName() + ", "
+                        + eventReturnBasedRequestResponse.getType()
                         + ":" + eventReturnBasedRequestResponse.getValue() + showSessionId(request), MODULE);
             }
 
@@ -1050,7 +1051,8 @@ public class RequestHandler {
         return eventFactory;
     }
 
-    private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName) throws RequestHandlerException {
+    private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName)
+            throws RequestHandlerException {
         GenericValue userLogin = (GenericValue) req.getSession().getAttribute("userLogin");
         // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(req);

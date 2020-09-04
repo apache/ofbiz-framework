@@ -55,31 +55,6 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 public final class ProductStoreWorker {
 
     private static final String MODULE = ProductStoreWorker.class.getName();
-    private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<>();
-
-    static {
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CONFIRM", "component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice");
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_COMPLETE", "component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice");
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_BACKORDER", "component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice");
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CHANGE", "component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_PAYRETRY", "component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_ACCEPT", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept");
-        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_COMPLETE", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete");
-        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_CANCEL", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_GC_PURCHASE", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase");
-        defaultProductStoreEmailScreenLocation.put("PRDS_GC_RELOAD", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_QUO_CONFIRM", "component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_PWD_RETRIEVE", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_TELL_FRIEND", "component://ecommerce/widget/EmailProductScreens.xml#TellFriend");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
-    }
 
     private ProductStoreWorker() { }
 
@@ -185,14 +160,18 @@ public final class ProductStoreWorker {
         return payToPartyId;
     }
 
-    public static String getProductStorePaymentProperties(ServletRequest request, String paymentMethodTypeId, String paymentServiceTypeEnumId, boolean anyServiceType) {
+    public static String getProductStorePaymentProperties(ServletRequest request, String paymentMethodTypeId, String paymentServiceTypeEnumId,
+                                                          boolean anyServiceType) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
-        return ProductStoreWorker.getProductStorePaymentProperties(delegator, productStoreId, paymentMethodTypeId, paymentServiceTypeEnumId, anyServiceType);
+        return ProductStoreWorker.getProductStorePaymentProperties(delegator, productStoreId, paymentMethodTypeId, paymentServiceTypeEnumId,
+                anyServiceType);
     }
 
-    public static String getProductStorePaymentProperties(Delegator delegator, String productStoreId, String paymentMethodTypeId, String paymentServiceTypeEnumId, boolean anyServiceType) {
-        GenericValue setting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, paymentMethodTypeId, paymentServiceTypeEnumId, anyServiceType);
+    public static String getProductStorePaymentProperties(Delegator delegator, String productStoreId, String paymentMethodTypeId,
+                                                          String paymentServiceTypeEnumId, boolean anyServiceType) {
+        GenericValue setting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, paymentMethodTypeId,
+                paymentServiceTypeEnumId, anyServiceType);
 
         String payProps = "payment.properties";
         if (setting != null && setting.get("paymentPropertiesPath") != null) {
@@ -201,10 +180,12 @@ public final class ProductStoreWorker {
         return payProps;
     }
 
-    public static GenericValue getProductStorePaymentSetting(Delegator delegator, String productStoreId, String paymentMethodTypeId, String paymentServiceTypeEnumId, boolean anyServiceType) {
+    public static GenericValue getProductStorePaymentSetting(Delegator delegator, String productStoreId, String paymentMethodTypeId,
+                                                             String paymentServiceTypeEnumId, boolean anyServiceType) {
         GenericValue storePayment = null;
         try {
-            storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId).cache().queryOne();
+            storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId,
+                    "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up store payment settings", MODULE);
         }
@@ -212,7 +193,8 @@ public final class ProductStoreWorker {
         if (anyServiceType) {
             if (storePayment == null) {
                 try {
-                    storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId).queryFirst();
+                    storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId,
+                            "paymentMethodTypeId", paymentMethodTypeId).queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems looking up store payment settings", MODULE);
                 }
@@ -252,16 +234,19 @@ public final class ProductStoreWorker {
                                                              String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId) {
         // TODO: selecting the first record is a far from optimal solution but, since the productStoreShipmentMethod
         //       is currently used to get the service name to get the online estimate, this should not be a huge deal for now.
-        return EntityUtil.getFirst(getProductStoreShipmentMethods(delegator, productStoreId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId));
+        return EntityUtil.getFirst(getProductStoreShipmentMethods(delegator, productStoreId, shipmentMethodTypeId, carrierPartyId,
+                carrierRoleTypeId));
     }
 
-    public static List<GenericValue> getAvailableStoreShippingMethods(Delegator delegator, String productStoreId, GenericValue shippingAddress, List<BigDecimal> itemSizes, Map<String, BigDecimal> featureIdMap, BigDecimal weight, BigDecimal orderTotal) {
+    public static List<GenericValue> getAvailableStoreShippingMethods(Delegator delegator, String productStoreId, GenericValue shippingAddress,
+            List<BigDecimal> itemSizes, Map<String, BigDecimal> featureIdMap, BigDecimal weight, BigDecimal orderTotal) {
         if (featureIdMap == null) {
             featureIdMap = new HashMap<>();
         }
         List<GenericValue> shippingMethods = null;
         try {
-            shippingMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId", productStoreId).orderBy("sequenceNumber").cache(true).queryList();
+            shippingMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId",
+                    productStoreId).orderBy("sequenceNumber").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get ProductStore shipping methods", MODULE);
             return null;
@@ -403,7 +388,8 @@ public final class ProductStoreWorker {
                 if (UtilValidate.isNotEmpty(includeFeatures)) {
                     List<GenericValue> includedFeatures = null;
                     try {
-                        includedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", includeFeatures).cache(true).queryList();
+                        includedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId",
+                                includeFeatures).cache(true).queryList();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + includeFeatures, MODULE);
                     }
@@ -424,7 +410,8 @@ public final class ProductStoreWorker {
                 if (UtilValidate.isNotEmpty(excludeFeatures)) {
                     List<GenericValue> excludedFeatures = null;
                     try {
-                        excludedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", excludeFeatures).cache(true).queryList();
+                        excludedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId",
+                                excludeFeatures).cache(true).queryList();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, MODULE);
                     }
@@ -462,7 +449,8 @@ public final class ProductStoreWorker {
         return getRandomSurveyWrapper(productStore.getDelegator(), productStore.getString("productStoreId"), groupName, partyId, passThruFields);
     }
 
-    public static ProductStoreSurveyWrapper getRandomSurveyWrapper(Delegator delegator, String productStoreId, String groupName, String partyId, Map<String, Object> passThruFields) {
+    public static ProductStoreSurveyWrapper getRandomSurveyWrapper(Delegator delegator, String productStoreId, String groupName, String
+            partyId, Map<String, Object> passThruFields) {
         List<GenericValue> randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
         if (UtilValidate.isNotEmpty(randomSurveys)) {
             Random rand = new Random();
@@ -478,15 +466,18 @@ public final class ProductStoreWorker {
         return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, null);
     }
 
-    public static List<GenericValue> getProductSurveys(Delegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
+    public static List<GenericValue> getProductSurveys(Delegator delegator, String productStoreId, String productId, String surveyApplTypeId,
+                                                       String parentProductId) {
         return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, parentProductId);
     }
 
-    public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
+    public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String
+            surveyApplTypeId, String parentProductId) {
         List<GenericValue> surveys = new LinkedList<>();
         List<GenericValue> storeSurveys = null;
         try {
-            storeSurveys = EntityQuery.use(delegator).from("ProductStoreSurveyAppl").where("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId).orderBy("sequenceNum").cache(true).queryList();
+            storeSurveys = EntityQuery.use(delegator).from("ProductStoreSurveyAppl").where("productStoreId", productStoreId, "surveyApplTypeId",
+                    surveyApplTypeId).orderBy("sequenceNum").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get ProductStoreSurveyAppl for store : " + productStoreId, MODULE);
             return surveys;
@@ -500,7 +491,7 @@ public final class ProductStoreWorker {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
-         Debug.logInfo("getSurvey for product " + productId, MODULE);
+        Debug.logInfo("getSurvey for product " + productId, MODULE);
         // limit by product
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(storeSurveys)) {
             for (GenericValue surveyAppl: storeSurveys) {
@@ -532,7 +523,8 @@ public final class ProductStoreWorker {
                 } else if (surveyAppl.get("productCategoryId") != null) {
                     List<GenericValue> categoryMembers = null;
                     try {
-                        categoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", surveyAppl.get("productCategoryId")).cache(true).queryList();
+                        categoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId",
+                                surveyAppl.get("productCategoryId")).cache(true).queryList();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductCategoryMember records for survey application : " + surveyAppl, MODULE);
                     }
@@ -541,7 +533,8 @@ public final class ProductStoreWorker {
                             if (productId != null && productId.equals(member.getString("productId"))) {
                                 surveys.add(surveyAppl);
                                 break;
-                            } else if ((virtualProductId != null) && (virtualProductId.equals(member.getString("productId")))) { // similarly, check if virtual productId is in category
+                            } else if ((virtualProductId != null) && (virtualProductId.equals(member.getString("productId")))) {
+                                // similarly, check if virtual productId is in category
                                 surveys.add(surveyAppl);
                                 break;
                             }
@@ -606,7 +599,8 @@ public final class ProductStoreWorker {
      * @param wantRequired If true then inventory required must be true for the result to be true, if false must be false; if null don't care
      * @param wantAvailable If true then inventory avilable must be true for the result to be true, if false must be false; if null don't care
      */
-    public static boolean isStoreInventoryRequiredAndAvailable(ServletRequest request, GenericValue product, BigDecimal quantity, Boolean wantRequired, Boolean wantAvailable) {
+    public static boolean isStoreInventoryRequiredAndAvailable(ServletRequest request, GenericValue product, BigDecimal quantity, Boolean
+            wantRequired, Boolean wantAvailable) {
         GenericValue productStore = getProductStore(request);
         if (productStore == null) {
             Debug.logWarning("No ProductStore found, return false for inventory check", MODULE);
@@ -625,7 +619,9 @@ public final class ProductStoreWorker {
         try {
             Boolean requiredOkay = null;
             if (wantRequired != null) {
-                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore));
+                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryRequired",
+                        UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product,
+                                "productStore", productStore));
                 if (ServiceUtil.isError(invReqResult)) {
                     Debug.logError("Error calling isStoreInventoryRequired service, result is: " + invReqResult, MODULE);
                     return false;
@@ -635,7 +631,9 @@ public final class ProductStoreWorker {
 
             Boolean availableOkay = null;
             if (wantAvailable != null) {
-                Map<String, Object> invAvailResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore, "quantity", quantity));
+                Map<String, Object> invAvailResult = dispatcher.runSync("isStoreInventoryAvailable",
+                        UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product,
+                                "productStore", productStore, "quantity", quantity));
                 if (ServiceUtil.isError(invAvailResult)) {
                     Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invAvailResult, MODULE);
                     return false;
@@ -666,7 +664,8 @@ public final class ProductStoreWorker {
     }
 
     /** check inventory availability for the given catalog, product, quantity, etc */
-    public static boolean isStoreInventoryAvailable(String productStoreId, ProductConfigWrapper productConfig, BigDecimal quantity, Delegator delegator, LocalDispatcher dispatcher) {
+    public static boolean isStoreInventoryAvailable(String productStoreId, ProductConfigWrapper productConfig, BigDecimal quantity,
+                                                    Delegator delegator, LocalDispatcher dispatcher) {
         GenericValue productStore = getProductStore(productStoreId, delegator);
 
         if (productStore == null) {
@@ -678,7 +677,8 @@ public final class ProductStoreWorker {
         if ("N".equals(productStore.getString("checkInventory"))) {
             // note: if not set, defaults to yes, check inventory
             if (Debug.verboseOn()) {
-                Debug.logVerbose("ProductStore with id " + productStoreId + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
+                Debug.logVerbose("ProductStore with id " + productStoreId
+                        + ", is set to NOT check inventory, returning true for inventory available check", MODULE);
             }
             return true;
         }
@@ -688,7 +688,8 @@ public final class ProductStoreWorker {
             String inventoryFacilityId = productStore.getString("inventoryFacilityId");
 
             if (UtilValidate.isEmpty(inventoryFacilityId)) {
-                Debug.logWarning("ProductStore with id " + productStoreId + " has Y for oneInventoryFacility but inventoryFacilityId is empty, returning false for inventory check", MODULE);
+                Debug.logWarning("ProductStore with id " + productStoreId
+                        + " has Y for oneInventoryFacility but inventoryFacilityId is empty, returning false for inventory check", MODULE);
                 return false;
             }
 
@@ -707,17 +708,14 @@ public final class ProductStoreWorker {
 
             if (UtilValidate.isNotEmpty(productFacilities)) {
                 for (GenericValue pfValue: productFacilities) {
-                    isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig, pfValue.getString("facilityId"), quantity, dispatcher);
-                    if (isInventoryAvailable == true) {
+                    isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig,
+                            pfValue.getString("facilityId"), quantity, dispatcher);
+                    if (isInventoryAvailable) {
                         return isInventoryAvailable;
                     }
                 }
             }
             return false;
         }
-    }
-
-    public static String getDefaultProductStoreEmailScreenLocation(String emailType) {
-        return defaultProductStoreEmailScreenLocation.get(emailType);
     }
 }

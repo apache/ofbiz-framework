@@ -121,6 +121,10 @@ public class FormRenderer {
     private static Collector<ModelFormField, ?, Map<Integer, List<ModelFormField>>> groupingByPosition =
             Collectors.groupingBy(ModelFormField::getPosition, TreeMap::new, Collectors.toList());
 
+    /**
+     * Gets focus field name.
+     * @return the focus field name
+     */
     public String getFocusFieldName() {
         return focusFieldName;
     }
@@ -275,7 +279,7 @@ public class FormRenderer {
     }
 
     // Return a stateful predicate that satisfies only the first time a field name is encountered.
-    static private Predicate<ModelFormField> filteringDuplicateNames() {
+    private static Predicate<ModelFormField> filteringDuplicateNames() {
         Set<String> seenFieldNames = new HashSet<>();
         return field -> seenFieldNames.add(field.getName());
     }
@@ -677,7 +681,7 @@ public class FormRenderer {
         Object obj = context.get(lookupName);
         if (obj == null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", MODULE);
+                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", MODULE);
             }
             return;
         }
@@ -803,7 +807,8 @@ public class FormRenderer {
                             break;
                         }
 
-                        // if this is a list or multi form don't skip here because we don't want to skip the table cell, will skip the actual field later
+                        // if this is a list or multi form don't skip here because we don't want to skip the table cell,
+                        // will skip the actual field later
                         if (!"list".equals(modelForm.getType()) && !"multi".equals(modelForm.getType())
                                 && !modelFormField.shouldUse(localContext)) {
                             continue;
@@ -827,7 +832,8 @@ public class FormRenderer {
                             continue;
                         }
 
-                        // if this is a list or multi form don't skip here because we don't want to skip the table cell, will skip the actual field later
+                        // if this is a list or multi form don't skip here because we don't want to skip the table cell,
+                        // will skip the actual field later
                         if (!"list".equals(modelForm.getType()) && !"multi".equals(modelForm.getType())
                                 && !modelFormField.shouldUse(localContext)) {
                             continue;
@@ -850,7 +856,8 @@ public class FormRenderer {
                             continue;
                         }
 
-                        // if this is a list or multi form don't skip here because we don't want to skip the table cell, will skip the actual field later
+                        // if this is a list or multi form don't skip here because we don't want to skip the table cell,
+                        // will skip the actual field later
                         if (!"list".equals(modelForm.getType()) && !"multi".equals(modelForm.getType())
                                 && !modelFormField.shouldUse(localContext)) {
                             continue;
@@ -965,8 +972,7 @@ public class FormRenderer {
         }
 
         // render all hidden & ignored fields
-        List<ModelFormField> hiddenIgnoredFieldList =
-        getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
+        List<ModelFormField> hiddenIgnoredFieldList = getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
         renderHiddenIgnoredFields(writer, context, formStringRenderer, hiddenIgnoredFieldList);
 
         // render formatting wrapper open
@@ -1186,8 +1192,9 @@ public class FormRenderer {
         String lookupName = modelForm.getListName();
         Object obj = context.get(lookupName);
         if (obj == null) {
-            if (Debug.verboseOn())
+            if (Debug.verboseOn()) {
                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", MODULE);
+            }
             return true;
         }
         // if list is empty, do not render rows

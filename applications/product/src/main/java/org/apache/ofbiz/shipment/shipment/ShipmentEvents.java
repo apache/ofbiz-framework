@@ -53,7 +53,8 @@ public class ShipmentEvents {
 
         GenericValue shipmentPackageRouteSeg = null;
         try {
-            shipmentPackageRouteSeg = EntityQuery.use(delegator).from("ShipmentPackageRouteSeg").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackageSeqId).queryOne();
+            shipmentPackageRouteSeg = EntityQuery.use(delegator).from("ShipmentPackageRouteSeg").where("shipmentId", shipmentId,
+                    "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackageSeqId).queryOne();
         } catch (GenericEntityException e) {
             String errorMsg = "Error looking up ShipmentPackageRouteSeg: " + e.toString();
             Debug.logError(e, errorMsg, MODULE);
@@ -62,17 +63,21 @@ public class ShipmentEvents {
         }
 
         if (shipmentPackageRouteSeg == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not find ShipmentPackageRouteSeg where shipmentId=[" + shipmentId + "], shipmentRouteSegmentId=[" + shipmentRouteSegmentId + "], shipmentPackageSeqId=[" + shipmentPackageSeqId + "]");
+            request.setAttribute("_ERROR_MESSAGE_", "Could not find ShipmentPackageRouteSeg where shipmentId=[" + shipmentId
+                    + "], shipmentRouteSegmentId=[" + shipmentRouteSegmentId + "], shipmentPackageSeqId=[" + shipmentPackageSeqId + "]");
             return "error";
         }
 
         byte[] bytes = shipmentPackageRouteSeg.getBytes("labelImage");
         if (bytes == null || bytes.length == 0) {
-            request.setAttribute("_ERROR_MESSAGE_", "The ShipmentPackageRouteSeg was found where shipmentId=[" + shipmentId + "], shipmentRouteSegmentId=[" + shipmentRouteSegmentId + "], shipmentPackageSeqId=[" + shipmentPackageSeqId + "], but there was no labelImage on the value.");
+            request.setAttribute("_ERROR_MESSAGE_", "The ShipmentPackageRouteSeg was found where shipmentId=[" + shipmentId
+                    + "], shipmentRouteSegmentId=[" + shipmentRouteSegmentId + "], shipmentPackageSeqId=[" + shipmentPackageSeqId
+                    + "], but there was no labelImage on the value.");
             return "error";
         }
 
-        // TODO: record the image format somehow to make this block nicer.  Right now we're just trying GIF first as a default, then if it doesn't work, trying PNG.
+        // TODO: record the image format somehow to make this block nicer.  Right now we're just trying GIF first as a default,
+        //  then if it doesn't work, trying PNG.
         // It would be nice to store the actual type of the image alongside the image data.
         try {
             UtilHttp.streamContentToBrowser(response, bytes, "image/gif");

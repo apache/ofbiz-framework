@@ -76,17 +76,19 @@ public abstract class ModelMenuAction {
         private final String fromScope;
 
         public SetField(ModelMenu modelMenu, Element setElement) {
-            super (modelMenu, setElement);
+            super(modelMenu, setElement);
             this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
             this.fromField = FlexibleMapAccessor.getInstance(setElement.getAttribute("from-field"));
             this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
-            this.defaultExdr = UtilValidate.isNotEmpty(setElement.getAttribute("default-value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("default-value")) : null;
+            this.defaultExdr = UtilValidate.isNotEmpty(setElement.getAttribute("default-value"))
+                    ? FlexibleStringExpander.getInstance(setElement.getAttribute("default-value")) : null;
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
             if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
-                throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
+                throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field")
+                        + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
             }
         }
 
@@ -120,7 +122,8 @@ public abstract class ModelMenuAction {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = servletContext.getAttribute(newKey);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: "
+                                + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
@@ -151,9 +154,11 @@ public abstract class ModelMenuAction {
                     newValue = new LinkedList();
                 } else {
                     try {
-                        newValue = ObjectType.simpleTypeOrObjectConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
+                        newValue = ObjectType.simpleTypeOrObjectConvert(newValue, this.type, null,
+                                (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                     } catch (GeneralException e) {
-                        String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
+                        String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName()
+                                + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                         Debug.logError(e, errMsg, MODULE);
                         throw new IllegalArgumentException(errMsg);
                     }
@@ -199,34 +204,66 @@ public abstract class ModelMenuAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets field.
+         * @return the field
+         */
         public FlexibleMapAccessor<Object> getField() {
             return field;
         }
 
+        /**
+         * Gets from field.
+         * @return the from field
+         */
         public FlexibleMapAccessor<Object> getFromField() {
             return fromField;
         }
 
+        /**
+         * Gets value exdr.
+         * @return the value exdr
+         */
         public FlexibleStringExpander getValueExdr() {
             return valueExdr;
         }
 
+        /**
+         * Gets default exdr.
+         * @return the default exdr
+         */
         public FlexibleStringExpander getDefaultExdr() {
             return defaultExdr;
         }
 
+        /**
+         * Gets global exdr.
+         * @return the global exdr
+         */
         public FlexibleStringExpander getGlobalExdr() {
             return globalExdr;
         }
 
+        /**
+         * Gets type.
+         * @return the type
+         */
         public String getType() {
             return type;
         }
 
+        /**
+         * Gets to scope.
+         * @return the to scope
+         */
         public String getToScope() {
             return toScope;
         }
 
+        /**
+         * Gets from scope.
+         * @return the from scope
+         */
         public String getFromScope() {
             return fromScope;
         }

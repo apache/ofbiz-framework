@@ -63,7 +63,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     private final HttpServletResponse response;
     private final VisualTheme visualTheme;
 
-    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
+            throws TemplateException, IOException {
         this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
@@ -212,7 +213,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("width", link.getWidth());
         parameters.put("targetWindow", link.getTargetWindow(context));
         StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
-        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE));
+        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
+                "menuUniqueItemIndex", BigDecimal.ONE));
         if (menuItem.getModelMenu().getExtraIndex(context) != null) {
             uniqueItemName.append("_").append(menuItem.getModelMenu().getExtraIndex(context));
         }

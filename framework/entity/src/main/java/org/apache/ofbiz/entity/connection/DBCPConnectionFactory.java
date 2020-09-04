@@ -54,14 +54,15 @@ public class DBCPConnectionFactory implements ConnectionFactory {
 
     private static final String MODULE = DBCPConnectionFactory.class.getName();
     // ManagedDataSource is useful to debug the usage of connections in the pool (must be verbose)
-    // In case you don't want to be disturbed in the log (focusing on something else), it's still easy to comment out the line from DebugManagedDataSource
-    protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> dsCache =
+    // In case you don't want to be disturbed in the log (focusing on something else), it's still easy to comment out the line
+    // from DebugManagedDataSource
+    protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> DS_CACHE =
             new ConcurrentHashMap<>();
 
     @Override
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
         String cacheKey = helperInfo.getHelperFullName();
-        DebugManagedDataSource<? extends Connection> mds = dsCache.get(cacheKey);
+        DebugManagedDataSource<? extends Connection> mds = DS_CACHE.get(cacheKey);
         if (mds != null) {
             return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
         }
@@ -88,7 +89,8 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         synchronized (DBCPConnectionFactory.class) {
             // Sync needed for MS SQL JDBC driver. See OFBIZ-5216.
             try {
-                jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).getDeclaredConstructor().newInstance();
+                jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader())
+                        .getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 Debug.logError(e, MODULE);
                 throw new GenericEntityException(e.getMessage(), e);
@@ -139,7 +141,8 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         poolConfig.setNumTestsPerEvictionRun(maxSize); // test all the idle connections
         // settings for when the pool is exhausted
         poolConfig.setBlockWhenExhausted(true); // the thread requesting the connection waits if no connection is available
-        poolConfig.setMaxWaitMillis(jdbcElement.getPoolSleeptime()); // throw an exception if, after getPoolSleeptime() ms, no connection is available for the requesting thread
+        poolConfig.setMaxWaitMillis(jdbcElement.getPoolSleeptime()); // throw an exception if, after getPoolSleeptime() ms,
+        // no connection is available for the requesting thread
         // settings for the execution of the validation query
         poolConfig.setTestOnCreate(jdbcElement.getTestOnCreate());
         poolConfig.setTestOnBorrow(jdbcElement.getTestOnBorrow());
@@ -153,8 +156,8 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         mds.setAccessToUnderlyingConnectionAllowed(true);
 
         // cache the pool
-        dsCache.putIfAbsent(cacheKey, mds);
-        mds = dsCache.get(cacheKey);
+        DS_CACHE.putIfAbsent(cacheKey, mds);
+        mds = DS_CACHE.get(cacheKey);
 
         return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
     }
@@ -162,12 +165,12 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     @Override
     public void closeAll() {
         // no methods on the pool to shutdown; so just clearing for GC
-        dsCache.clear();
+        DS_CACHE.clear();
     }
 
     public static Map<String, Object> getDataSourceInfo(String helperName) {
         Map<String, Object> dataSourceInfo = new HashMap<>();
-        DebugManagedDataSource<? extends Connection> mds = dsCache.get(helperName);
+        DebugManagedDataSource<? extends Connection> mds = DS_CACHE.get(helperName);
         if (mds != null) {
             dataSourceInfo = mds.getInfo();
         }

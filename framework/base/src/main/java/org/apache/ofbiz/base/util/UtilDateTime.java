@@ -538,7 +538,12 @@ public final class UtilDateTime {
     public static java.util.Date toDate(String monthStr, String dayStr, String yearStr, String hourStr,
             String minuteStr, String secondStr) {
 
-        int month, day, year, hour, minute, second;
+        int month;
+        int day;
+        int year;
+        int hour;
+        int minute;
+        int second;
         try {
             month = Integer.parseInt(monthStr);
             day = Integer.parseInt(dayStr);
@@ -623,7 +628,8 @@ public final class UtilDateTime {
     }
 
     /**
-     * Makes a time String in the format HH:MM:SS from a separate ints for hour, minute, and second. If the seconds are 0, then the output is in HH:MM.
+     * Makes a time String in the format HH:MM:SS from a separate ints for hour, minute, and second. If the seconds are 0,
+     * then the output is in HH:MM.
      * @param hour   The hour int
      * @param minute The minute int
      * @param second The second int
@@ -720,9 +726,9 @@ public final class UtilDateTime {
         calendar.setFirstDayOfWeek(startOfWeek);
 
         if (startOfWeek == Calendar.MONDAY) {
-           calendar.setMinimalDaysInFirstWeek(4);
+            calendar.setMinimalDaysInFirstWeek(4);
         } else if (startOfWeek == Calendar.SUNDAY) {
-           calendar.setMinimalDaysInFirstWeek(3);
+            calendar.setMinimalDaysInFirstWeek(3);
         }
 
         calendar.setTime(new java.util.Date(input.getTime()));
@@ -865,8 +871,8 @@ public final class UtilDateTime {
     }
 
     public static Timestamp getYearStart(Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater, TimeZone timeZone, Locale locale) {
-        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()),
-                (monthsLater == null ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()), timeZone, locale);
+        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), (monthsLater == null
+                ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()), timeZone, locale);
     }
 
     public static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater, TimeZone timeZone, Locale locale) {

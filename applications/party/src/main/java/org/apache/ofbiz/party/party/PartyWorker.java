@@ -54,7 +54,8 @@ public class PartyWorker {
 
     private PartyWorker() { }
 
-    public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
+    public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr,
+                                                                String personAttr, String partyGroupAttr) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, GenericValue> result = new HashMap<>();
         try {
@@ -119,7 +120,8 @@ public class PartyWorker {
                     .filterByDate()
                     .queryFirst();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest ContactMech for party with ID [" + partyId + "] TYPE [" + contactMechTypeId + "]: " + e.toString(), MODULE);
+            Debug.logError(e, "Error while finding latest ContactMech for party with ID [" + partyId + "] TYPE [" + contactMechTypeId
+                    + "]: " + e.toString(), MODULE);
             return null;
         }
     }
@@ -227,17 +229,24 @@ public class PartyWorker {
         return null;
     }
 
-    /** Finds all matching PartyAndPostalAddress records based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
+    /** Finds all matching PartyAndPostalAddress records based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.
+     * Results are ordered by descending PartyContactMech.fromDate.
      * The matching process is as follows:
-     * 1. Calls {@link #findMatchingPartyPostalAddress(Delegator, String, String, String, String, String, String, String, String)} to retrieve a list of address matched PartyAndPostalAddress records.  Results are limited to Parties of type PERSON.
-     * 2. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
+     * 1. Calls {@link #findMatchingPartyPostalAddress(Delegator, String, String, String, String, String, String, String, String)}
+     * to retrieve a list of address matched PartyAndPostalAddress records.  Results are limited to Parties of type PERSON.
+     * 2. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison
+     * is performed against the supplied firstName, lastName and if provided, middleName.
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
      * @param address2              Optional PostalAddress.address2 to match against.
      * @param city                  PostalAddress.city value to match against (Required).
-     * @param stateProvinceGeoId    Optional PostalAddress.stateProvinceGeoId value to match against.  If null or "**" is passed then the value will be ignored during matching.  "NA" can be passed in place of "_NA_".
-     * @param postalCode            PostalAddress.postalCode value to match against.  Cannot be null but can be skipped by passing a value starting with an "*".  If the length of the supplied string is 10 characters and the string contains a "-" then the postal code will be split at the "-" and the second half will be used as the postalCodeExt.
-     * @param postalCodeExt         Optional PostalAddress.postalCodeExt value to match against.  Will be overridden if a postalCodeExt value is retrieved from postalCode as described above.
+     * @param stateProvinceGeoId    Optional PostalAddress.stateProvinceGeoId value to match against.  If null or "**" is passed then
+     * the value will be ignored during matching.  "NA" can be passed in place of "_NA_".
+     * @param postalCode            PostalAddress.postalCode value to match against.  Cannot be null but can be skipped by passing a
+     * value starting with an "*".  If the length of the supplied string is 10 characters and the string contains a "-" then the postal
+     * code will be split at the "-" and the second half will be used as the postalCodeExt.
+     * @param postalCodeExt         Optional PostalAddress.postalCodeExt value to match against.  Will be overridden if a postalCodeExt
+     * value is retrieved from postalCode as described above.
      * @param countryGeoId          Optional PostalAddress.countryGeoId value to match against.
      * @param firstName             Person.firstName to match against (Required).
      * @param middleName            Optional Person.middleName to match against.
@@ -256,7 +265,8 @@ public class PartyWorker {
             throw new IllegalArgumentException();
         }
 
-        List<GenericValue> validFound = findMatchingPartyPostalAddress(delegator, address1, address2, city, stateProvinceGeoId, postalCode, postalCodeExt, countryGeoId, "PERSON");
+        List<GenericValue> validFound = findMatchingPartyPostalAddress(delegator, address1, address2, city, stateProvinceGeoId, postalCode,
+                postalCodeExt, countryGeoId, "PERSON");
 
         if (UtilValidate.isNotEmpty(validFound)) {
             for (GenericValue partyAndAddr: validFound) {
@@ -287,33 +297,43 @@ public class PartyWorker {
     }
 
     /**
-     * @deprecated Renamed to {@link #findMatchingPersonPostalAddresses(Delegator, String, String, String, String, String, String, String, String, String, String)}
+     * @deprecated Renamed to {@link #findMatchingPersonPostalAddresses(Delegator, String, String, String, String, String, String,
+     * String, String, String, String)}
      */
     @Deprecated
     public static List<GenericValue> findMatchingPartyAndPostalAddress(Delegator delegator, String address1, String address2, String city,
                             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
                             String firstName, String middleName, String lastName) throws GeneralException {
-        return PartyWorker.findMatchingPersonPostalAddresses(delegator, address1, address2, city, stateProvinceGeoId, postalCode, postalCodeExt, countryGeoId, firstName, middleName, lastName);
+        return PartyWorker.findMatchingPersonPostalAddresses(delegator, address1, address2, city, stateProvinceGeoId, postalCode,
+                postalCodeExt, countryGeoId, firstName, middleName, lastName);
     }
 
     /**
-     * Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
-     * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId, postalCode, postalCodeExt and countryGeoId
-     * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.  Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
+     * Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.
+     * Results are ordered by descending PartyContactMech.fromDate.
+     * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId,
+     * postalCode, postalCodeExt and countryGeoId
+     * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.
+     * Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
      * @param address2              Optional PostalAddress.address2 to match against.
      * @param city                  PostalAddress.city value to match against (Required).
-     * @param stateProvinceGeoId    Optional PostalAddress.stateProvinceGeoId value to match against.  If null or "**" is passed then the value will be ignored during matching.  "NA" can be passed in place of "_NA_".
-     * @param postalCode            PostalAddress.postalCode value to match against.  Cannot be null but can be skipped by passing a value starting with an "*".  If the length of the supplied string is 10 characters and the string contains a "-" then the postal code will be split at the "-" and the second half will be used as the postalCodeExt.
-     * @param postalCodeExt         Optional PostalAddress.postalCodeExt value to match against.  Will be overridden if a postalCodeExt value is retrieved from postalCode as described above.
+     * @param stateProvinceGeoId    Optional PostalAddress.stateProvinceGeoId value to match against.  If null or "**" is passed
+     * then the value will be ignored during matching.  "NA" can be passed in place of "_NA_".
+     * @param postalCode            PostalAddress.postalCode value to match against.  Cannot be null but can be skipped by passing
+     * a value starting with an "*".  If the length of the supplied string is 10 characters and the string contains a "-" then the postal
+     * code will be split at the "-" and the second half will be used as the postalCodeExt.
+     * @param postalCodeExt         Optional PostalAddress.postalCodeExt value to match against.  Will be overridden if a postalCodeExt
+     * value is retrieved from postalCode as described above.
      * @param countryGeoId          Optional PostalAddress.countryGeoId value to match against.
      * @param partyTypeId           Optional Party.partyTypeId to match against.
      * @return List of PartyAndPostalAddress GenericValue objects that match the supplied criteria.
      * @throws GenericEntityException
      */
     public static List<GenericValue> findMatchingPartyPostalAddress(Delegator delegator, String address1, String address2, String city,
-                            String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId, String partyTypeId) throws GenericEntityException {
+                            String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId, String partyTypeId)
+            throws GenericEntityException {
 
         if (address1 == null || city == null || postalCode == null) {
             throw new IllegalArgumentException();
@@ -326,7 +346,8 @@ public class PartyWorker {
             } else if ("NA".equals(stateProvinceGeoId)) {
                 addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
             } else {
-                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase(Locale.getDefault())));
+                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS,
+                        stateProvinceGeoId.toUpperCase(Locale.getDefault())));
             }
         }
 
@@ -407,7 +428,8 @@ public class PartyWorker {
      * Converts the supplied String into a String suitable for address line matching.
      * Performs the following transformations on the supplied String:
      * - Converts to upper case
-     * - Retrieves all records from the AddressMatchMap table and replaces all occurrences of addressMatchMap.mapKey with addressMatchMap.mapValue using upper case matching.
+     * - Retrieves all records from the AddressMatchMap table and replaces all occurrences of addressMatchMap.mapKey with
+     * addressMatchMap.mapValue using upper case matching.
      * - Removes all non-word characters from the String i.e. everything except A-Z, 0-9 and _
      * @param delegator     A Delegator instance
      * @param address       The address String to convert
@@ -431,7 +453,8 @@ public class PartyWorker {
 
         if (addressMap != null) {
             for (GenericValue v: addressMap) {
-                str = str.replaceAll(v.getString("mapKey").toUpperCase(Locale.getDefault()), v.getString("mapValue").toUpperCase(Locale.getDefault()));
+                str = str.replaceAll(v.getString("mapKey").toUpperCase(Locale.getDefault()), v.getString("mapValue")
+                        .toUpperCase(Locale.getDefault()));
             }
         }
 
@@ -454,7 +477,8 @@ public class PartyWorker {
                     EntityConditionList<EntityExpr> innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),
                             EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
-                    List<GenericValue> associatedPartiesChilds = EntityQuery.use(delegator).from("PartyRelationship").where(innerExprs).cache(true).queryList();
+                    List<GenericValue> associatedPartiesChilds = EntityQuery.use(delegator).from("PartyRelationship")
+                            .where(innerExprs).cache(true).queryList();
                     if (UtilValidate.isNotEmpty(associatedPartiesChilds)) {
                         currentAssociatedParties.addAll(associatedPartiesChilds);
                     }
@@ -487,7 +511,8 @@ public class PartyWorker {
             boolean searchPartyFirst, boolean searchAllId) throws GenericEntityException {
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = " + partyIdentificationTypeId, MODULE);
+            Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = "
+                    + partyIdentificationTypeId, MODULE);
         }
 
         GenericValue party = null;
@@ -504,7 +529,8 @@ public class PartyWorker {
             if (UtilValidate.isNotEmpty(partyIdentificationTypeId)) {
                 conditions.put("partyIdentificationTypeId", partyIdentificationTypeId);
             }
-            partiesFound = EntityQuery.use(delegator).from("PartyIdentificationAndParty").where(conditions).orderBy("partyId").cache(true).queryList();
+            partiesFound = EntityQuery.use(delegator).from("PartyIdentificationAndParty").where(conditions)
+                    .orderBy("partyId").cache(true).queryList();
         }
 
         if (!searchPartyFirst) {
@@ -548,7 +574,8 @@ public class PartyWorker {
         return party;
     }
 
-    public static List<GenericValue> findParties(Delegator delegator, String idToFind, String partyIdentificationTypeId) throws GenericEntityException {
+    public static List<GenericValue> findParties(Delegator delegator, String idToFind, String partyIdentificationTypeId)
+            throws GenericEntityException {
         List<GenericValue> partiesByIds = findPartiesById(delegator, idToFind, partyIdentificationTypeId);
         List<GenericValue> parties = null;
         if (UtilValidate.isNotEmpty(partiesByIds)) {

@@ -100,7 +100,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             try {
-                aif.getModelForm(formName);
+                getAif().getModelForm(formName);
             } catch (Exception e) {
                 Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
                         + "] does not exist!", MODULE);
@@ -108,9 +108,9 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             // the forward reference
-            this.formThisFormExtends = aif.getFormWidgetArtifactInfo(formName);
+            this.formThisFormExtends = getAif().getFormWidgetArtifactInfo(formName);
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllFormInfosExtendingForm(), formName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosExtendingForm(), formName);
         }
     }
 
@@ -124,16 +124,16 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             if (entityName.contains("${")) {
                 continue;
             }
-            if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
+            if (!getAif().getEntityModelReader().getEntityNames().contains(entityName)) {
                 Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
                         + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
-            this.entitiesUsedInThisForm.add(aif.getEntityArtifactInfo(entityName));
+            this.entitiesUsedInThisForm.add(getAif().getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllFormInfosReferringToEntityName(), entityName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToEntityName(), entityName);
         }
     }
 
@@ -148,7 +148,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 continue;
             }
             try {
-                aif.getModelService(serviceName);
+                getAif().getModelService(serviceName);
             } catch (GeneralException e) {
                 Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
                         + "] does not exist!", MODULE);
@@ -156,9 +156,9 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             // the forward reference
-            this.servicesUsedInThisForm.add(aif.getServiceArtifactInfo(serviceName));
+            this.servicesUsedInThisForm.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllFormInfosReferringToServiceName(), serviceName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToServiceName(), serviceName);
         }
     }
 
@@ -176,9 +176,9 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
                 // the forward reference
-                this.requestsLinkedToInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                this.requestsLinkedToInForm.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.getAllFormInfosReferringToRequest(), requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToRequest(), requestUniqueId);
             }
         }
     }
@@ -199,9 +199,9 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
                 // the forward reference
-                this.requestsTargetedByInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                this.requestsTargetedByInForm.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.getAllFormInfosTargetingRequest(), requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosTargetingRequest(), requestUniqueId);
             }
         }
     }
@@ -271,7 +271,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
      * @return the forms extending this form
      */
     public Set<FormWidgetArtifactInfo> getFormsExtendingThisForm() {
-        return this.aif.getAllFormInfosExtendingForm().get(this.getUniqueId());
+        return this.getAif().getAllFormInfosExtendingForm().get(this.getUniqueId());
     }
 
     /**
@@ -279,7 +279,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
      * @return the screens including this form
      */
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisForm() {
-        return this.aif.getAllScreenInfosReferringToForm().get(this.getUniqueId());
+        return this.getAif().getAllScreenInfosReferringToForm().get(this.getUniqueId());
     }
 
     /**

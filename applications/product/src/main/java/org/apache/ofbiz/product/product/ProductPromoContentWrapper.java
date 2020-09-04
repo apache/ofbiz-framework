@@ -59,7 +59,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
     private static final String MODULE = ProductPromoContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
-    private static final UtilCache<String, String> PRODUCT_PROMO_CONTENT_CACHE = UtilCache.createUtilCache("product.promo.content.rendered", true);
+    private static final UtilCache<String, String> PRODUCT_PROMO_CONTENT_CACHE =
+            UtilCache.createUtilCache("product.promo.content.rendered", true);
 
     public static ProductPromoContentWrapper makeProductPromoContentWrapper(GenericValue productPromo, HttpServletRequest request) {
         return new ProductPromoContentWrapper(productPromo, request);
@@ -81,7 +82,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productPromo = productPromo;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
+        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8",
+                (Delegator) request.getAttribute("delegator"));
     }
 
     @Override
@@ -176,7 +178,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         exprs.add(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId));
         exprs.add(EntityCondition.makeCondition("productPromoContentTypeId", EntityOperator.EQUALS, productPromoContentTypeId));
 
-        List<GenericValue> productPromoContentList = EntityQuery.use(delegator).from("ProductPromoContent").where(EntityCondition.makeCondition(exprs, EntityOperator.AND)).orderBy("-fromDate").cache(cache).queryList();
+        List<GenericValue> productPromoContentList = EntityQuery.use(delegator).from("ProductPromoContent").where(EntityCondition
+                .makeCondition(exprs, EntityOperator.AND)).orderBy("-fromDate").cache(cache).queryList();
         GenericValue productPromoContent = null;
         if (UtilValidate.isNotEmpty(productPromoContentList)) {
             productPromoContent = EntityUtil.getFirst(EntityUtil.filterByDate(productPromoContentList));
@@ -187,7 +190,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<>();
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
-            ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
+            ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter,
+                    inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
             return;
         }
 

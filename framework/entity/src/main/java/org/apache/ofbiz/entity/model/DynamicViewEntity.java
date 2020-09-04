@@ -302,7 +302,8 @@ public class DynamicViewEntity {
      * @param function           the function
      * @param complexAliasMember the complex alias member
      */
-    public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function, ComplexAliasMember complexAliasMember) {
+    public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function,
+                         ComplexAliasMember complexAliasMember) {
         addAlias(entityAlias, name, field, colAlias, primKey, groupBy, function, null, complexAliasMember);
     }
 
@@ -318,7 +319,8 @@ public class DynamicViewEntity {
      * @param fieldSet           the field set
      * @param complexAliasMember the complex alias member
      */
-    public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function, String fieldSet, ComplexAliasMember complexAliasMember) {
+    public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function,
+                         String fieldSet, ComplexAliasMember complexAliasMember) {
         if (entityAlias == null && complexAliasMember == null) {
             throw new IllegalArgumentException("entityAlias cannot be null if this is not a complex alias in call to DynamicViewEntity.addAlias");
         }

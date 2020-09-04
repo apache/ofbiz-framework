@@ -42,17 +42,21 @@ public class IssuanceTest extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test multiple inventory item issuance.
+     * @throws Exception the exception
+     */
     public void testMultipleInventoryItemIssuance() throws Exception {
         String facilityId = "WebStoreWarehouse";
-        String productId="GZ-2644";
-        String orderId="DEMO81015";
-        String orderItemSeqId="00001";
-        String shipGroupSeqId="00001";
+        String productId = "GZ-2644";
+        String orderId = "DEMO81015";
+        String orderItemSeqId = "00001";
+        String shipGroupSeqId = "00001";
         String shipmentItemSeqId = "00001";
 
-        PackingSession packSession = new PackingSession(dispatcher, getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
+        PackingSession packSession = new PackingSession(getDispatcher(), getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
         packSession.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, productId, BigDecimal.valueOf(6L), 1,
-            BigDecimal.valueOf(1000L), false);
+                BigDecimal.valueOf(1000L), false);
         String shipmentId = packSession.complete(false);
 
         GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();

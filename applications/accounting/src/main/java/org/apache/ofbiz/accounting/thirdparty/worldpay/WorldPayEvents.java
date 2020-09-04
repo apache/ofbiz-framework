@@ -57,7 +57,7 @@ public class WorldPayEvents {
 
     private static final String RESOURCE = "AccountingUiLabels";
     private static final String RES_ERROR = "AccountingErrorUiLabels";
-    public static final String commonResource = "CommonUiLabels";
+    public static final String COMMON_RES = "CommonUiLabels";
     private static final String MODULE = WorldPayEvents.class.getName();
 
     public static String worldPayRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -80,11 +80,13 @@ public class WorldPayEvents {
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore == null) {
             Debug.logError("ProductStore is null", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingMerchantConfiguration", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingMerchantConfiguration",
+                    locale));
             return "error";
         }
         // get the payment properties file
-        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_WORLDPAY", null, true);
+        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"),
+                "EXT_WORLDPAY", null, true);
         String configString = null;
         String paymentGatewayConfigId = null;
         if (paymentConfig != null) {
@@ -94,28 +96,41 @@ public class WorldPayEvents {
         if (configString == null) {
             configString = "payment.properties";
         }
-        String redirectURL = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl", configString, "payment.worldpay.redirectUrl", "");
-        String instId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "instId", configString, "payment.worldpay.instId", "NONE");
-        String authMode = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "authMode", configString, "payment.worldpay.authMode", "A");
-        String fixContact = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "fixContact", configString, "payment.worldpay.fixContact", "N");
-        String hideContact = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hideContact", configString, "payment.worldpay.hideContact", "N");
-        String hideCurrency = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hideCurrency", configString, "payment.worldpay.hideCurrency", "N");
-        String langId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "langId", configString, "payment.worldpay.langId", "");
-        String noLanguageMenu = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "noLanguageMenu", configString, "payment.worldpay.noLanguageMenu", "N");
-        String withDelivery = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "withDelivery", configString, "payment.worldpay.withDelivery", "N");
-        String testMode = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "testMode", configString, "payment.worldpay.testMode", "100");
+        String redirectURL = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl",
+                configString, "payment.worldpay.redirectUrl", "");
+        String instId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "instId",
+                configString, "payment.worldpay.instId", "NONE");
+        String authMode = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "authMode",
+                configString, "payment.worldpay.authMode", "A");
+        String fixContact = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "fixContact",
+                configString, "payment.worldpay.fixContact", "N");
+        String hideContact = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hideContact",
+                configString, "payment.worldpay.hideContact", "N");
+        String hideCurrency = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hideCurrency",
+                configString, "payment.worldpay.hideCurrency", "N");
+        String langId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "langId",
+                configString, "payment.worldpay.langId", "");
+        String noLanguageMenu = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "noLanguageMenu",
+                configString, "payment.worldpay.noLanguageMenu", "N");
+        String withDelivery = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "withDelivery",
+                configString, "payment.worldpay.withDelivery", "N");
+        String testMode = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "testMode",
+                configString, "payment.worldpay.testMode", "100");
         // get the contact address to pass over
         GenericValue contactAddress = null;
         GenericValue contactAddressShip = null;
         GenericValue addressOcm = null;
         GenericValue shippingAddress = null;
         try {
-            addressOcm = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION").queryFirst();
-            shippingAddress = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION").queryFirst();
+            addressOcm = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId,
+                    "contactMechPurposeTypeId", "BILLING_LOCATION").queryFirst();
+            shippingAddress = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId",
+                    "SHIPPING_LOCATION").queryFirst();
             if (addressOcm == null) {
                 addressOcm = shippingAddress;
             }
-            contactAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", addressOcm.getString("contactMechId")).queryOne();
+            contactAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
+                    addressOcm.getString("contactMechId")).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order contact information", MODULE);
         }
@@ -135,10 +150,11 @@ public class WorldPayEvents {
         // string of customer's name
         String name = "";
         if (contactAddress != null) {
-            if (UtilValidate.isNotEmpty(contactAddress.getString("attnName")))
+            if (UtilValidate.isNotEmpty(contactAddress.getString("attnName"))) {
                 name = contactAddress.getString("attnName");
-            else if (UtilValidate.isNotEmpty(contactAddress.getString("toName")))
+            } else if (UtilValidate.isNotEmpty(contactAddress.getString("toName"))) {
                 name = contactAddress.getString("toName");
+            }
         }
         // build an address string
         StringBuilder address = new StringBuilder();
@@ -173,7 +189,8 @@ public class WorldPayEvents {
         String emailAddress = null;
         GenericValue emailContact = null;
         try {
-            GenericValue emailOcm = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL").queryFirst();
+            GenericValue emailOcm = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId,
+                    "contactMechPurposeTypeId", "ORDER_EMAIL").queryFirst();
             emailContact = emailOcm.getRelatedOne("ContactMech", false);
             emailAddress = emailContact.getString("infoString");
         } catch (GenericEntityException e) {
@@ -185,7 +202,8 @@ public class WorldPayEvents {
         String shipName = "";
         if (shippingAddress != null) {
             try {
-                contactAddressShip = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingAddress.get("contactMechId")).queryOne();
+                contactAddressShip = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingAddress.get("contactMechId"))
+                        .queryOne();
                 if (UtilValidate.isNotEmpty(contactAddressShip)) {
                     if (UtilValidate.isNotEmpty(contactAddressShip.getString("attnName"))) {
                         shipName = contactAddressShip.getString("attnName");
@@ -227,7 +245,7 @@ public class WorldPayEvents {
         String defCur = UtilFormatOut.checkEmpty(productStore.getString("defaultCurrencyUomId"), "USD");
         // order description
         String description = UtilProperties.getMessage(RESOURCE, "AccountingOrderNr", locale) + orderId + " "
-                                 + (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " " + company : "");
+                                 + (company != null ? UtilProperties.getMessage(COMMON_RES, "CommonFrom", locale) + " " + company : "");
         // check the instId - very important
         if (instId == null || "NONE".equals(instId)) {
             Debug.logError("Worldpay InstId not found, cannot continue", MODULE);
@@ -323,7 +341,8 @@ public class WorldPayEvents {
                 userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get UserLogin for: " + userLoginId + "; cannot continue", MODULE);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingAuthenticationUser", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingAuthenticationUser",
+                        locale));
                 return "error";
             }
         }
@@ -400,7 +419,8 @@ public class WorldPayEvents {
         return "success";
     }
 
-    private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
+    private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId,
+                                                 HttpServletRequest request) {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Setting payment preferences..", MODULE);
         }
@@ -423,7 +443,8 @@ public class WorldPayEvents {
         return true;
     }
 
-    private static boolean setPaymentPreference(LocalDispatcher dispatcher, GenericValue userLogin, GenericValue paymentPreference, HttpServletRequest request) {
+    private static boolean setPaymentPreference(LocalDispatcher dispatcher, GenericValue userLogin, GenericValue paymentPreference,
+                                                HttpServletRequest request) {
         Locale locale = UtilHttp.getLocale(request);
         String paymentStatus = request.getParameter("transStatus");
         String paymentAmount = request.getParameter("authAmount");
@@ -481,7 +502,8 @@ public class WorldPayEvents {
                     "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "comments", comment));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Failed to execute service createPaymentFromPreference", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,
+                    "worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
             return false;
         }
 
@@ -498,7 +520,8 @@ public class WorldPayEvents {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue worldPay = EntityQuery.use(delegator).from("PaymentGatewayWorldPay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
+                GenericValue worldPay = EntityQuery.use(delegator).from("PaymentGatewayWorldPay").where("paymentGatewayConfigId",
+                        paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(worldPay)) {
                     Object worldPayField = worldPay.get(paymentGatewayConfigParameterName);
                     if (worldPayField != null) {
@@ -518,7 +541,8 @@ public class WorldPayEvents {
     }
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
+        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName,
+                resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

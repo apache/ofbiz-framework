@@ -41,14 +41,17 @@ public class HttpViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
+    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse
+            response) throws ViewHandlerException {
         // some containers call filters on EVERY request, even forwarded ones,
         // so let it know that it came from the control servlet
 
-        if (request == null)
+        if (request == null) {
             throw new ViewHandlerException("Null HttpServletRequest object");
-        if (UtilValidate.isEmpty(page))
+        }
+        if (UtilValidate.isEmpty(page)) {
             throw new ViewHandlerException("Null or empty source");
+        }
 
         if (Debug.infoOn()) {
             Debug.logInfo("Retreiving HTTP resource at: " + page, MODULE);

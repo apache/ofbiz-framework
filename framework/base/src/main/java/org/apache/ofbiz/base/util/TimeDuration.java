@@ -92,7 +92,13 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
 
         // shortcut for equal dates
         if (deltaMillis == 0) {
-            this.years = this.months = this.days = this.hours = this.minutes = this.seconds = this.milliseconds = 0;
+            this.years = 0;
+            this.months = 0;
+            this.days = 0;
+            this.hours = 0;
+            this.minutes = 0;
+            this.seconds = 0;
+            this.milliseconds = 0;
             return;
         }
 
@@ -197,7 +203,8 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      */
     @Override
     public String toString() {
-        return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.milliseconds;
+        return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":"
+                + this.milliseconds;
     }
 
     @Override
@@ -236,7 +243,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return <code>true</code> if this duration is negative
      */
     public boolean isNegative() {
-        return years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || milliseconds < 0;
+        return years < 0 || months < 0 || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || milliseconds < 0;
     }
 
     /** Returns <code>true</code> if this duration is zero.
@@ -244,7 +251,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      */
     public boolean isZero() {
         return this.milliseconds == 0 && this.seconds == 0
-                &&  this.minutes == 0 && this.hours == 0 && this.days == 0
+                && this.minutes == 0 && this.hours == 0 && this.days == 0
                 && this.months == 0 && this.years == 0;
     }
 
@@ -381,8 +388,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return the duration encoded as a <code>long</code> value
      */
     public static long toLong(TimeDuration duration) {
-        return
-                (0x757B12C00L * duration.years)
+        return (0x757B12C00L * duration.years)
                 + (0x9CA41900L * duration.months)
                 + (86400000 * (long) duration.days)
                 + (3600000 * (long) duration.hours)

@@ -79,7 +79,13 @@ public class PartyContentWrapper implements ContentWrapper {
                 (Delegator) request.getAttribute("delegator"));
     }
 
-    // interface implementation
+    /**
+     * Get string.
+     * @param contentTypeId the content type id
+     * @param useCache the use cache
+     * @param encoderType the encoder type
+     * @return the string
+     */
     public String get(String contentTypeId, boolean useCache, String encoderType) {
         return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache, encoderType);
     }
@@ -89,6 +95,11 @@ public class PartyContentWrapper implements ContentWrapper {
         return StringUtil.makeStringWrapper(get(contentTypeId, true, encoderType));
     }
 
+    /**
+     * Gets id.
+     * @param contentTypeId the content type id
+     * @return the id
+     */
     public String getId(String contentTypeId) {
         GenericValue partyContent = getFirstPartyContentByType(null, party, contentTypeId, party.getDelegator());
         if (partyContent != null) {
@@ -112,10 +123,23 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
 
+    /**
+     * Gets content.
+     * @param contentId the content id
+     * @param useCache the use cache
+     * @param encoderType the encoder type
+     * @return the content
+     */
     public String getContent(String contentId, boolean useCache, String encoderType) {
         return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache, encoderType);
     }
 
+    /**
+     * Gets content.
+     * @param contentId the content id
+     * @param encoderType the encoder type
+     * @return the content
+     */
     public String getContent(String contentId, String encoderType) {
         return getContent(contentId, true, encoderType);
     }
