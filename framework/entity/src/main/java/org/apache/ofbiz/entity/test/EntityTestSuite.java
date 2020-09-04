@@ -90,7 +90,8 @@ public class EntityTestSuite extends EntityTestCase {
         assertNotNull("TestingType entity model not null", modelEntity);
         ModelField modelField = modelEntity.getField("description");
         assertNotNull("TestingType.description field model not null", modelField);
-        modelField = ModelField.create(modelEntity, null, "newDesc", modelField.getType(), "NEW_DESC", null, null, false, false, false, false, false, null);
+        modelField = ModelField.create(modelEntity, null, "newDesc", modelField.getType(), "NEW_DESC", null,
+                null, false, false, false, false, false, null);
         modelEntity.addField(modelField);
         modelField = modelEntity.getField("newDesc");
         assertNotNull("TestingType.newDesc field model not null", modelField);
@@ -1007,13 +1008,15 @@ public class EntityTestSuite extends EntityTestCase {
                 findOptions.setOffset((page - 1) * rowsPerPage);
                 EntityListIterator iterator = null;
                 try {
-                    iterator = delegator.getEntityHelper(entityName).findListIteratorByCondition(modelEntity, null, null, null, UtilMisc.toList("lastUpdatedStamp DESC"), findOptions);
+                    iterator = delegator.getEntityHelper(entityName).findListIteratorByCondition(modelEntity, null,
+                    null, null, UtilMisc.toList("lastUpdatedStamp DESC"), findOptions);
                     while (iterator != null) {
                         GenericValue gv = iterator.next();
                         if (gv == null) {
                             break;
                         }
-                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "       (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
+                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "
+                        (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
@@ -1032,7 +1035,8 @@ public class EntityTestSuite extends EntityTestCase {
                 Debug.logInfo("Page " + page + ":", MODULE);
                 EntityListIterator iterator = null;
                 try {
-                    iterator = ((GenericHelperDAO) delegator.getEntityHelper(entityName)).findListIteratorByCondition(modelEntity, null, null, null, UtilMisc.toList("lastUpdatedStamp DESC"), null);
+                    iterator = ((GenericHelperDAO) delegator.getEntityHelper(entityName))
+                    .findListIteratorByCondition(modelEntity, null, null, null, UtilMisc.toList("lastUpdatedStamp DESC"), null);
                     if (iterator == null) {
                         continue;
                     }
@@ -1045,7 +1049,8 @@ public class EntityTestSuite extends EntityTestCase {
                     }
                     gvs = gvs.subList(fromIndex, toIndex);
                     for (GenericValue gv : gvs) {
-                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "       (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
+                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "
+                        (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
@@ -1073,9 +1078,11 @@ public class EntityTestSuite extends EntityTestCase {
                 + "<TestingType testingTypeId=\"JUNIT-TEST\" description=\"junit test\"/>"
                 + "<create>"
                 + "    <TestingType testingTypeId=\"JUNIT-TEST2\" description=\"junit test\"/>"
-                + "    <Testing testingId=\"T1\" testingTypeId=\"JUNIT-TEST\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "    <Testing testingId=\"T1\" testingTypeId=\"JUNIT-TEST\" testingName=\"First test\" testingSize=\"10\" "
+                        + "testingDate=\"2010-01-01 00:00:00\"/>"
                 + "</create>"
-                + "<Testing testingId=\"T2\" testingTypeId=\"JUNIT-TEST2\" testingName=\"Second test\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>"
+                + "<Testing testingId=\"T2\" testingTypeId=\"JUNIT-TEST2\" testingName=\"Second test\" testingSize=\"20\" "
+                        + "testingDate=\"2010-02-01 00:00:00\"/>"
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
@@ -1103,13 +1110,15 @@ public class EntityTestSuite extends EntityTestCase {
         String xmlContentLoad =
                 "<entity-engine-xml>"
                 + "<TestingType testingTypeId=\"reader-create-skip\" description=\"reader create skip\"/>"
-                + "<Testing testingId=\"reader-create-skip\" testingTypeId=\"reader-create-skip\" testingName=\"reader create skip\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "<Testing testingId=\"reader-create-skip\" testingTypeId=\"reader-create-skip\" testingName=\"reader "
+                        + "create skip\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
         xmlContentLoad =
                 "<create>"
-                + "    <Testing testingId=\"reader-create-skip\" testingName=\"reader create skip updated\" testingSize=\"20\" testingDate=\"2012-02-02 02:02:02\"/>"
+                + "    <Testing testingId=\"reader-create-skip\" testingName=\"reader create skip updated\" testingSize=\"20\" "
+                        + "testingDate=\"2012-02-02 02:02:02\"/>"
                 + "</create>";
         reader = new EntitySaxReader(delegator);
         numberLoaded += reader.parse(xmlContentLoad);
@@ -1131,10 +1140,13 @@ public class EntityTestSuite extends EntityTestCase {
                 "<entity-engine-xml>"
                 + "<TestingType testingTypeId=\"create-update\" description=\"create update\"/>"
                 + "<TestingType testingTypeId=\"create-updated\" description=\"create update updated\"/>"
-                + "<Testing testingId=\"create-update-T3\" testingTypeId=\"create-update\" testingName=\"Test 3\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "<Testing testingId=\"create-update-T3\" testingTypeId=\"create-update\" testingName=\"Test 3\" testingSize=\"10\" "
+                        + "testingDate=\"2010-01-01 00:00:00\"/>"
                 + "<create-update>"
-                + "    <Testing testingId=\"create-update-T1\" testingTypeId=\"create-update\" testingName=\"First test update\" testingSize=\"20\" testingDate=\"2010-01-01 00:00:00\"/>"
-                + "    <Testing testingId=\"create-update-T3\" testingTypeId=\"create-updated\" testingName=\"Third test\" testingSize=\"30\" testingDate=\"2010-03-01 00:00:00\"/>"
+                + "    <Testing testingId=\"create-update-T1\" testingTypeId=\"create-update\" testingName=\"First test update\" testingSize=\"20\" "
+                        + "testingDate=\"2010-01-01 00:00:00\"/>"
+                + "    <Testing testingId=\"create-update-T3\" testingTypeId=\"create-updated\" testingName=\"Third test\" testingSize=\"30\" "
+                        + "testingDate=\"2010-03-01 00:00:00\"/>"
                 + "</create-update>"
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
@@ -1163,11 +1175,13 @@ public class EntityTestSuite extends EntityTestCase {
         String xmlContentLoad =
                 "<entity-engine-xml>"
                 + "<TestingType testingTypeId=\"create-replace\" description=\"reader create skip\"/>"
-                + "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test\" testingSize=\"10\" testingDate=\"2010-01-01 00:00:00\"/>"
+                + "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test\" testingSize=\"10\" "
+                        + "testingDate=\"2010-01-01 00:00:00\"/>"
                 + "<create-replace>"
                 + "    <Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T1\" testingName=\"First test replace\" />"
                 + "</create-replace>"
-                + "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T2\" testingName=\"Second test update\" testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>"
+                + "<Testing testingTypeId=\"create-replace\" testingId=\"create-replace-T2\" testingName=\"Second test update\" "
+                        + "testingSize=\"20\" testingDate=\"2010-02-01 00:00:00\"/>"
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);

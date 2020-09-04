@@ -451,7 +451,8 @@ public class EntitySyncContext {
                         // sort by the tx stamp and then the record stamp
                         // find first value in valuesToCreate list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD
                         // after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
-                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD)
+                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore)
+                                .getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD)
                                 .before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD))) {
                             insertBefore++;
                         }
@@ -888,7 +889,7 @@ public class EntitySyncContext {
 
             // store latest result on EntitySync, ie update lastSuccessfulSynchTime, should run in own tx
             Map<String, Object> updateEsRunResult = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
-                    "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin),60, true);
+                    "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin), 60, true);
 
             GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("startDate", startDate, "entitySyncId",
                     entitySyncId).queryOne();

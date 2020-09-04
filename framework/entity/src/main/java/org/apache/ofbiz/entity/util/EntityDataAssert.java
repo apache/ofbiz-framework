@@ -39,7 +39,8 @@ public class EntityDataAssert {
 
     private static final String MODULE = EntityDataAssert.class.getName();
 
-    public static int assertData(URL dataUrl, Delegator delegator, List<Object> errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
+    public static int assertData(URL dataUrl, Delegator delegator, List<Object> errorMessages) throws GenericEntityException,
+            SAXException, ParserConfigurationException, IOException {
         int rowsChecked = 0;
 
         if (dataUrl == null) {

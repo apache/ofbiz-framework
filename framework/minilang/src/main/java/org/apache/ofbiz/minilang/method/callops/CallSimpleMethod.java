@@ -72,7 +72,8 @@ public final class CallSimpleMethod extends MethodOperation {
         try {
             xmlURL = FlexibleLocation.resolveLocation(this.xmlResource);
         } catch (MalformedURLException e) {
-            MiniLangValidate.handleError("Could not find SimpleMethod XML document in resource: " + this.xmlResource + "; error was: " + e.toString(), simpleMethod, element);
+            MiniLangValidate.handleError("Could not find SimpleMethod XML document in resource: " + this.xmlResource
+                    + "; error was: " + e.toString(), simpleMethod, element);
         }
         this.xmlURL = xmlURL;
         this.scope = element.getAttribute("scope");
@@ -98,7 +99,8 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         SimpleMethod simpleMethodToCall = SimpleMethod.getSimpleMethod(this.xmlURL, this.methodName);
         if (simpleMethodToCall == null) {
-            throw new MiniLangRuntimeException("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource, this);
+            throw new MiniLangRuntimeException("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document "
+                    + this.xmlResource, this);
         }
         MethodContext localContext = methodContext;
         if ("function".equals(this.scope)) {
@@ -110,7 +112,8 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         String returnVal = simpleMethodToCall.exec(localContext);
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", MODULE);
+            Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is ["
+                     + returnVal + "]", MODULE);
         }
         if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -125,7 +128,8 @@ public final class CallSimpleMethod extends MethodOperation {
             // response code. Since response codes are configurable per method, this code will fail.
             String responseCode = (String) localContext.getEnv(this.simpleMethod.getEventResponseCodeName());
             if (this.simpleMethod.getDefaultErrorCode().equals(responseCode)) {
-                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), MODULE);
+                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource ["
+                        + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), MODULE);
                 return false;
             }
         } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
@@ -133,7 +137,9 @@ public final class CallSimpleMethod extends MethodOperation {
             // response message. Since response messages are configurable per method, this code will fail.
             String responseMessage = (String) localContext.getEnv(this.simpleMethod.getServiceResponseMessageName());
             if (this.simpleMethod.getDefaultErrorCode().equals(responseMessage)) {
-                Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageName()) + ", and the error message list is: "
+                Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource ["
+                        + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageName())
+                        + ", and the error message list is: "
                         + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName()), MODULE);
                 return false;
             }
@@ -161,7 +167,8 @@ public final class CallSimpleMethod extends MethodOperation {
                 }
             }
         } catch (MiniLangException e) {
-            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": " + e.toString(), MODULE);
+            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": "
+                    + e.toString(), MODULE);
         }
     }
 

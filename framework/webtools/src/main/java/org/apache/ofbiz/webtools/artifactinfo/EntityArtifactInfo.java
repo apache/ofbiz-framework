@@ -42,7 +42,7 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
 
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);
-        this.modelEntity = this.aif.getModelEntity(entityName);
+        this.modelEntity = this.getAif().getModelEntity(entityName);
     }
 
     /**
@@ -52,12 +52,12 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         List<ModelRelation> relationOneList = modelEntity.getRelationsOneList();
         for (ModelRelation relationOne: relationOneList) {
-            this.entitiesRelatedOne.add(this.aif.getEntityArtifactInfo(relationOne.getRelEntityName()));
+            this.entitiesRelatedOne.add(this.getAif().getEntityArtifactInfo(relationOne.getRelEntityName()));
         }
 
         List<ModelRelation> relationManyList = modelEntity.getRelationsManyList();
         for (ModelRelation relationMany: relationManyList) {
-            this.entitiesRelatedMany.add(this.aif.getEntityArtifactInfo(relationMany.getRelEntityName()));
+            this.entitiesRelatedMany.add(this.getAif().getEntityArtifactInfo(relationMany.getRelEntityName()));
         }
     }
 
@@ -121,7 +121,7 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
 
     /** Get the Services that use this Entity */
     public Set<ServiceArtifactInfo> getServicesUsingEntity() {
-        return this.aif.getAllServiceInfosReferringToEntityName().get(this.modelEntity.getEntityName());
+        return this.getAif().getAllServiceInfosReferringToEntityName().get(this.modelEntity.getEntityName());
     }
 
     /** Get the Services called by Entity ECA */
@@ -146,7 +146,7 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
      * @return the forms using entity
      */
     public Set<FormWidgetArtifactInfo> getFormsUsingEntity() {
-        return this.aif.getAllFormInfosReferringToEntityName().get(this.modelEntity.getEntityName());
+        return this.getAif().getAllFormInfosReferringToEntityName().get(this.modelEntity.getEntityName());
     }
 
     /**
@@ -154,6 +154,6 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
      * @return the screens using entity
      */
     public Set<ScreenWidgetArtifactInfo> getScreensUsingEntity() {
-        return this.aif.getAllScreenInfosReferringToEntityName().get(this.modelEntity.getEntityName());
+        return this.getAif().getAllScreenInfosReferringToEntityName().get(this.modelEntity.getEntityName());
     }
 }

@@ -67,7 +67,8 @@ public class ServiceMcaRule implements java.io.Serializable {
      * @param userLogin the user login
      * @throws GenericServiceException the generic service exception
      */
-    public void eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, Set<String> actionsRun, GenericValue userLogin) throws GenericServiceException {
+    public void eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, Set<String> actionsRun, GenericValue userLogin)
+            throws GenericServiceException {
         if (!enabled) {
             Debug.logInfo("Service MCA [" + ruleName + "] is disabled; not running.", MODULE);
             return;

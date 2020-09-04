@@ -51,7 +51,8 @@ public class GeneralServiceException extends org.apache.ofbiz.base.util.GeneralE
         super(nested);
     }
 
-    public GeneralServiceException(String str, List<? extends Object> errorMsgList, Map<String, ? extends Object> errorMsgMap, Map<String, ? extends Object> nestedServiceResult, Throwable nested) {
+    public GeneralServiceException(String str, List<? extends Object> errorMsgList, Map<String, ? extends Object> errorMsgMap,
+                                   Map<String, ? extends Object> nestedServiceResult, Throwable nested) {
         super(str, nested);
         this.errorMsgList = UtilMisc.makeListWritable(errorMsgList);
         this.errorMsgMap = errorMsgMap;

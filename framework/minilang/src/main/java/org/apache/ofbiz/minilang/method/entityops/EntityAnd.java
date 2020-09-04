@@ -42,7 +42,8 @@ public final class EntityAnd extends EntityOperation {
     public EntityAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date", "list", "distinct", "delegator-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date",
+                    "list", "distinct", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "list");
             MiniLangValidate.childElements(simpleMethod, element, "field-map", "order-by", "limit-range", "limit-view", "use-iterator");

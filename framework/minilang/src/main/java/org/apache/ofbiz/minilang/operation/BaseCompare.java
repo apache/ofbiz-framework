@@ -30,13 +30,14 @@ import org.w3c.dom.Element;
  */
 public abstract class BaseCompare extends SimpleMapOperation {
 
-    public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format, List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
+    public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format, List<Object>
+            messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
         return ObjectType.doRealCompare(value1, value2, operator, type, format, messages, locale, loader, value2InlineConstant);
     }
 
-    String format;
-    String operator;
-    String type;
+    private String format;
+    private String operator;
+    private String type;
 
     public BaseCompare(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
@@ -45,9 +46,19 @@ public abstract class BaseCompare extends SimpleMapOperation {
         this.format = element.getAttribute("format");
     }
 
+    /**
+     * Do compare.
+     * @param value1 the value 1
+     * @param value2 the value 2
+     * @param messages the messages
+     * @param locale the locale
+     * @param loader the loader
+     * @param value2InlineConstant the value 2 inline constant
+     */
     public void doCompare(Object value1, Object value2, List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
-        Boolean success = BaseCompare.doRealCompare(value1, value2, this.operator, this.type, this.format, messages, locale, loader, value2InlineConstant);
-        if (success != null && success == false) {
+        Boolean success = BaseCompare.doRealCompare(value1, value2, this.operator, this.type, this.format, messages, locale,
+                loader, value2InlineConstant);
+        if (success != null && !success) {
             addMessage(messages, loader, locale);
         }
     }

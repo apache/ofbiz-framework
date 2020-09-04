@@ -636,9 +636,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String classString = "";
         boolean isTwelveHour = false;
         String timeHourName = "";
-        int hour2 = 0, hour1 = 0, minutes = 0;
+        int hour2 = 0;
+        int hour1 = 0;
+        int minutes = 0;
         String timeMinutesName = "";
-        String amSelected = "", pmSelected = "", ampmName = "";
+        String amSelected = "";
+        String pmSelected = "";
+        String ampmName = "";
         String compositeType = "";
         // search for a localized label for the icon
         if (uiLabelMap != null) {
@@ -927,7 +931,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         options.append("]");
         String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
-        String otherValue = "", fieldName = "";
+        String otherValue = "";
+        String fieldName = "";
         // Adapted from work by Yucca Korpela
         // http://www.cs.tut.fi/~jkorpela/forms/combo.html
         if (otherFieldSize > 0) {
@@ -1206,7 +1211,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
         }
-        boolean ajaxEnabled = (UtilValidate.isNotEmpty(updateAreas) || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
+        boolean ajaxEnabled = (UtilValidate.isNotEmpty(updateAreas) || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget))
+                && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
             ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
@@ -3212,8 +3218,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, Map<String,
-            String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField, HttpServletRequest request,
-                                    HttpServletResponse response, Map<String, Object> context) throws IOException {
+            String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
+            HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
         String encodedDescription = encode(description, modelFormField, context);
         // get the parameterized pagination index and size fields

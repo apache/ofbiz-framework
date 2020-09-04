@@ -51,7 +51,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
 
     private static final String MODULE = MacroScreenViewHandler.class.getName();
 
-    protected ServletContext servletContext = null;
+    private ServletContext servletContext = null;
 
     @Override
     public void init(ServletContext context) throws ViewHandlerException {
@@ -84,7 +84,8 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
+    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
+                       HttpServletResponse response) throws ViewHandlerException {
         try {
             Writer writer = response.getWriter();
             VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
@@ -111,7 +112,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             ScreenRenderer screens = new ScreenRenderer(writer, context, screenStringRenderer);
             context.put("screens", screens);
             context.put("simpleEncoder", UtilCodec.getEncoder(visualTheme.getModelTheme().getEncoder(getName())));
-             screenStringRenderer.renderScreenBegin(writer, context);
+            screenStringRenderer.renderScreenBegin(writer, context);
             screens.render(page);
             screenStringRenderer.renderScreenEnd(writer, context);
             writer.flush();

@@ -38,13 +38,14 @@ import org.w3c.dom.Element;
 public class ByConditionFinder extends ListFinder {
     private static final String MODULE = ByConditionFinder.class.getName();
 
-    protected Condition whereCondition;
-    protected Condition havingCondition;
+    private Condition whereCondition;
+    private Condition havingCondition;
 
     public ByConditionFinder(Element element) {
         super(element, "condition");
 
-        // NOTE: the whereCondition can be null, ie (condition-expr | condition-list) is optional; if left out, means find all, or with no condition in essense
+        // NOTE: the whereCondition can be null, ie (condition-expr | condition-list) is optional; if left out, means find all,
+        // or with no condition in essense
         // process condition-expr | condition-list
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
         Element conditionListElement = UtilXml.firstChildElement(element, "condition-list");

@@ -371,14 +371,16 @@ public final class UelUtil {
                 String str = property.toString();
                 if ("add".equals(str)) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("ExtendedListResolver.setValue adding List element: base = " + base + ", property = " + property + ", value = " + val, MODULE);
+                        Debug.logVerbose("ExtendedListResolver.setValue adding List element: base = " + base + ", property = "
+                                + property + ", value = " + val, MODULE);
                     }
                     context.setPropertyResolved(true);
                     List<Object> list = UtilGenerics.cast(base);
                     list.add(val);
                 } else if (str.startsWith("insert@")) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("ExtendedListResolver.setValue inserting List element: base = " + base + ", property = " + property + ", value = " + val, MODULE);
+                        Debug.logVerbose("ExtendedListResolver.setValue inserting List element: base = " + base + ", property = "
+                                + property + ", value = " + val, MODULE);
                     }
                     context.setPropertyResolved(true);
                     String indexStr = str.replace("insert@", "");
@@ -432,7 +434,8 @@ public final class UelUtil {
                 }
                 if (locale == null) {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("ExtendedMapResolver.getValue: unable to find Locale for LocalizedMap element, using default locale", MODULE);
+                        Debug.logVerbose("ExtendedMapResolver.getValue: unable to find Locale for LocalizedMap element, using default locale",
+                                MODULE);
                     }
                     locale = Locale.getDefault();
                 }

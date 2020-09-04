@@ -143,7 +143,8 @@ public interface ScriptHelper {
      * @return
      * @throws ScriptException
      */
-    Map<String, ? extends Object> runService(String serviceName, Map<String, ? extends Object> inputMap, Map<String, ? extends Object> args) throws ScriptException;
+    Map<String, ? extends Object> runService(String serviceName, Map<String, ? extends Object> inputMap, Map<String, ? extends Object> args)
+            throws ScriptException;
 
     /**
      * Sets the event/service status to success status.

@@ -46,7 +46,8 @@ public final class TransactionCommit extends MethodOperation {
             MiniLangValidate.expressionAttributes(simpleMethod, element, "began-transaction-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"), "beganTransaction"));
+        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"),
+                "beganTransaction"));
     }
 
     @Override

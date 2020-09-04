@@ -66,10 +66,11 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         if (this.requestInfoMap.getEvent() != null && this.requestInfoMap.getEvent().getType() != null
                 && (this.requestInfoMap.getEvent().getType().indexOf("service") >= 0)) {
             String serviceName = this.requestInfoMap.getEvent().getInvoke();
-            this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
+            this.serviceCalledByRequestEvent = this.getAif().getServiceArtifactInfo(serviceName);
             if (this.serviceCalledByRequestEvent != null) {
                 // add the reverse association
-                UtilMisc.addToSortedSetInMap(this, aif.getAllRequestInfosReferringToServiceName(), this.serviceCalledByRequestEvent.getUniqueId());
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllRequestInfosReferringToServiceName(),
+                        this.serviceCalledByRequestEvent.getUniqueId());
             }
         }
 
@@ -81,10 +82,10 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                     viewUri = viewUri.substring(1);
                 }
                 try {
-                    ControllerViewArtifactInfo artInfo = this.aif.getControllerViewArtifactInfo(controllerXmlUrl, viewUri);
+                    ControllerViewArtifactInfo artInfo = this.getAif().getControllerViewArtifactInfo(controllerXmlUrl, viewUri);
                     this.viewsThatAreResponsesToThisRequest.add(artInfo);
                     // add the reverse association
-                    UtilMisc.addToSortedSetInMap(this, this.aif.getAllRequestInfosReferringToView(), artInfo.getUniqueId());
+                    UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToView(), artInfo.getUniqueId());
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), MODULE);
                 }
@@ -94,22 +95,22 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                     otherRequestUri = otherRequestUri.substring(1);
                 }
                 try {
-                    ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                    ControllerRequestArtifactInfo artInfo = this.getAif().getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                     this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                    UtilMisc.addToSortedSetInMap(this, this.aif.getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
+                    UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), MODULE);
                 }
             } else if ("request-redirect".equals(response.getType())) {
                 String otherRequestUri = response.getValue();
-                ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                ControllerRequestArtifactInfo artInfo = this.getAif().getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                 this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                UtilMisc.addToSortedSetInMap(this, this.aif.getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
+                UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
             } else if ("request-redirect-noparam".equals(response.getType())) {
                 String otherRequestUri = response.getValue();
-                ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                ControllerRequestArtifactInfo artInfo = this.getAif().getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                 this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                UtilMisc.addToSortedSetInMap(this, this.aif.getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
+                UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
             }
         }
     }
@@ -122,6 +123,10 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         return this.controllerXmlUrl;
     }
 
+    /**
+     * Gets request uri.
+     * @return the request uri
+     */
     public String getRequestUri() {
         return this.requestUri;
     }
@@ -175,7 +180,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
      * @return the form infos referring to request
      */
     public Set<FormWidgetArtifactInfo> getFormInfosReferringToRequest() {
-        return this.aif.getAllFormInfosReferringToRequest().get(this.getUniqueId());
+        return this.getAif().getAllFormInfosReferringToRequest().get(this.getUniqueId());
     }
 
     /**
@@ -183,7 +188,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
      * @return the form infos targeting request
      */
     public Set<FormWidgetArtifactInfo> getFormInfosTargetingRequest() {
-        return this.aif.getAllFormInfosTargetingRequest().get(this.getUniqueId());
+        return this.getAif().getAllFormInfosTargetingRequest().get(this.getUniqueId());
     }
 
     /**
@@ -191,7 +196,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
      * @return the screen infos referring to request
      */
     public Set<ScreenWidgetArtifactInfo> getScreenInfosReferringToRequest() {
-        return this.aif.getAllScreenInfosReferringToRequest().get(this.getUniqueId());
+        return this.getAif().getAllScreenInfosReferringToRequest().get(this.getUniqueId());
     }
 
     /**
@@ -207,7 +212,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
      * @return the requests that this request is respons to
      */
     public Set<ControllerRequestArtifactInfo> getRequestsThatThisRequestIsResponsTo() {
-        return this.aif.getAllRequestInfosReferringToRequest().get(this.getUniqueId());
+        return this.getAif().getAllRequestInfosReferringToRequest().get(this.getUniqueId());
     }
 
     /**

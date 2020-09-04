@@ -201,7 +201,8 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;calcop&gt; element.
-     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">
+     *     Mini-language Reference</a>
      */
     public final class CalcOp extends MiniLangElement implements SubCalc {
         private static final int OPERATOR_ADD = 1;
@@ -270,15 +271,17 @@ public final class Calculate extends MethodOperation {
                 } else if (fieldObj instanceof BigDecimal) {
                     resultValue = (BigDecimal) fieldObj;
                 }
-                if (operator == OPERATOR_NEGATIVE)
+                if (operator == OPERATOR_NEGATIVE) {
                     resultValue = resultValue.negate();
+                }
                 isFirst = false;
             }
             for (SubCalc calcop : calcops) {
                 if (isFirst) {
                     resultValue = calcop.calcValue(methodContext, scale, roundingMode);
-                    if (operator == OPERATOR_NEGATIVE)
+                    if (operator == OPERATOR_NEGATIVE) {
                         resultValue = resultValue.negate();
+                    }
                     isFirst = false;
                 } else {
                     switch (operator) {
@@ -304,7 +307,8 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;number&gt; element.
-     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">
+     *     Mini-language Reference</a>
      */
     public final class NumberOp extends MiniLangElement implements SubCalc {
 
@@ -324,8 +328,9 @@ public final class Calculate extends MethodOperation {
         public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
             String valueStr = valueFse.expandString(methodContext.getEnvMap());
             Locale locale = methodContext.getLocale();
-            if (locale == null)
+            if (locale == null) {
                 locale = Locale.getDefault();
+            }
             try {
                 BigDecimal parsedVal = (BigDecimal) MiniLangUtil.convertType(valueStr, java.math.BigDecimal.class, locale, null, null);
                 return parsedVal.setScale(scale, roundingMode);

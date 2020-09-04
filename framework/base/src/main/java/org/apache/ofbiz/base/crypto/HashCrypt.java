@@ -51,7 +51,8 @@ public class HashCrypt {
     private static final String PBKDF2_SHA256 = "PBKDF2-SHA256";
     private static final String PBKDF2_SHA384 = "PBKDF2-SHA384";
     private static final String PBKDF2_SHA512 = "PBKDF2-SHA512";
-    private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties", "password.encrypt.pbkdf2.iterations", 10000);
+    private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties",
+            "password.encrypt.pbkdf2.iterations", 10000);
 
     public static MessageDigest getMessageDigest(String type) {
         try {
@@ -87,7 +88,8 @@ public class HashCrypt {
         }
         // This next block should be removed when all {prefix}oldFunnyHex are fixed.
         if (hashed.equals(oldFunnyHex(digestBytes))) {
-            Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", MODULE, hashType, checkCrypted);
+            Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value "
+                    + "in the database with ({%s}%s)", MODULE, hashType, checkCrypted);
             return true;
         }
         return false;
@@ -207,7 +209,8 @@ public class HashCrypt {
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
             int iterations = Integer.parseInt(parts[0].substring(typeEnd + 1));
-            byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8))).getBytes(StandardCharsets.UTF_8);
+            byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8)))
+                    .getBytes(StandardCharsets.UTF_8);
             byte[] hash = Base64.decodeBase64(parts[2].getBytes(StandardCharsets.UTF_8));
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);

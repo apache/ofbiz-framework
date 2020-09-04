@@ -158,7 +158,8 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
     /**
      * A &lt;if-validate-method&gt; element factory.
      */
-    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> implements Factory<ValidateMethodCondition> {
+    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition>
+            implements Factory<ValidateMethodCondition> {
         @Override
         public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ValidateMethodCondition(element, simpleMethod);

@@ -51,7 +51,8 @@ public abstract class EntityConditionValue implements Serializable {
         }
 
         @Override
-        public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
+        public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam>
+                entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
             sql.append(value);
         }
 
@@ -92,16 +93,21 @@ public abstract class EntityConditionValue implements Serializable {
      * @param includeTableNamePrefix the include table name prefix
      * @param datasourceinfo the datasourceinfo
      */
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix,
-            Datasource datasourceinfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+                            boolean includeTableNamePrefix, Datasource datasourceinfo) {
         addSqlValue(sql, EMPTY_ALIASES, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
-    public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
-            boolean includeTableNamePrefix, Datasource datasourceinfo);
+    public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam>
+            entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo);
 
     public abstract void validateSql(ModelEntity modelEntity) throws GenericModelException;
 
+    /**
+     * Gets value.
+     * @param entity the entity
+     * @return the value
+     */
     public Object getValue(GenericEntity entity) {
         if (entity == null) {
             return null;
@@ -113,6 +119,10 @@ public abstract class EntityConditionValue implements Serializable {
 
     public abstract EntityConditionValue freeze();
 
+    /**
+     * To string.
+     * @param sb the sb
+     */
     public void toString(StringBuilder sb) {
         addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);
     }

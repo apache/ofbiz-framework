@@ -181,7 +181,8 @@ public final class ServiceUtil {
         return getPartyIdCheckSecurity(userLogin, security, context, result, secEntity, secOperation, null, null);
     }
     public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
-                                                 Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity, String adminSecOperation) {
+                                                 Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity,
+                                                 String adminSecOperation) {
         String partyId = (String) context.get("partyId");
         Locale locale = getLocale(context);
         if (UtilValidate.isEmpty(partyId)) {
@@ -459,8 +460,8 @@ public final class ServiceUtil {
      * @return filled Map or null on error
      * @throws GeneralServiceException
      */
-    public static Map<String, Object> setServiceFields(LocalDispatcher dispatcher, String serviceName, Map<String, Object> fromMap, GenericValue userLogin,
-            TimeZone timeZone, Locale locale) throws GeneralServiceException {
+    public static Map<String, Object> setServiceFields(LocalDispatcher dispatcher, String serviceName, Map<String, Object> fromMap,
+            GenericValue userLogin, TimeZone timeZone, Locale locale) throws GeneralServiceException {
         Map<String, Object> outMap = new HashMap<>();
 
         ModelService modelService = null;

@@ -247,7 +247,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
              **** secondary sequenced primary key ****
              *
             <auto-attributes include="pk" mode="IN" optional="false"/>
-            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the
+            * next sub-sequence ID -->
              *
             <make-value entity-name="ExampleItem" value-name="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>

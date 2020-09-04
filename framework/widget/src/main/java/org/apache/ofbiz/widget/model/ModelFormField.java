@@ -126,16 +126,16 @@ public class ModelFormField {
     private final FlexibleMapAccessor<Object> entryAcsr;
     private final String event;
     private final FieldInfo fieldInfo;
-    protected final String fieldName;
+    private final String fieldName;
     private final String headerLink;
     private final String headerLinkStyle;
     private final String idName;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr;
-    protected final ModelForm modelForm;
-    protected final String name;
+    private final ModelForm modelForm;
+    private final String name;
     private final List<UpdateArea> onChangeUpdateAreas;
     private final List<UpdateArea> onClickUpdateAreas;
-    protected final FlexibleStringExpander parameterName;
+    private final FlexibleStringExpander parameterName;
     private final Integer position;
     private final String redWhen;
     private final Boolean requiredField;
@@ -336,7 +336,8 @@ public class ModelFormField {
                     if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
                         retVal = genEnt.get(this.entryAcsr.getOriginalName(), locale);
                     // } else {
-                        //TODO: this may never come up, but if necessary use the FlexibleStringExander to eval the name first:String evaled = this.entryAcsr
+                        //TODO: this may never come up, but if necessary use the FlexibleStringExander
+                        // to eval the name first:String evaled = this.entryAcsr
                     }
                 } else {
                     retVal = this.entryAcsr.get(dataMap, locale);
@@ -1194,10 +1195,19 @@ public class ModelFormField {
             return new DateFindField(this, modelFormField);
         }
 
+        /**
+         * Gets default option from.
+         * @return the default option from
+         */
         public String getDefaultOptionFrom() {
             return this.defaultOptionFrom;
         }
 
+        /**
+         * Gets default option from.
+         * @param context the context
+         * @return the default option from
+         */
         public String getDefaultOptionFrom(Map<String, Object> context) {
             String defaultOption = getDefaultOptionFrom();
 
@@ -1467,6 +1477,10 @@ public class ModelFormField {
             return new DisplayEntityField(this, modelFormField);
         }
 
+        /**
+         * Gets cache.
+         * @return the cache
+         */
         public boolean getCache() {
             return cache;
         }
@@ -1715,7 +1729,8 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
-                retVal = retVal.replaceAll("&nbsp;", " "); // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
+                retVal = retVal.replaceAll("&nbsp;", " ");
+                // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {
                     locale = Locale.getDefault();
@@ -1728,7 +1743,8 @@ public class ModelFormField {
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(retVal, "BigDecimal", null, null, locale,
                             true);
-                    retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
+                    retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10);
+                    // we set the max to 10 digits as an hack to not round numbers in the ui
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, MODULE);
@@ -2220,7 +2236,8 @@ public class ModelFormField {
                 }
 
                 for (GenericValue value : values) {
-                    // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
+                    // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to
+                    // expand value string because it won't be found in the Entity
                     MapStack<String> localContext = MapStack.create(context);
                     // Rendering code might try to modify the GenericEntity instance,
                     // so we make a copy of it.
@@ -2707,10 +2724,19 @@ public class ModelFormField {
             return new HiddenField(this, modelFormField);
         }
 
+        /**
+         * Gets value.
+         * @return the value
+         */
         public FlexibleStringExpander getValue() {
             return value;
         }
 
+        /**
+         * Gets value.
+         * @param context the context
+         * @return the value
+         */
         public String getValue(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.value)) {
                 String valueEnc = this.value.expandString(context);

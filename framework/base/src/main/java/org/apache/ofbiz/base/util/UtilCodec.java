@@ -181,7 +181,8 @@ public class UtilCodec {
         // You might even want to adapt the PERMISSIVE_POLICY to your needs...
         // Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
         // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
-        // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
+        // If you want another example:
+        // https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
                 .allowAttributes("id", "class").globally()
@@ -387,8 +388,6 @@ public class UtilCodec {
         if (UtilValidate.isEmpty(value)) {
             return value;
         }
-        
-
         // canonicalize, strict (error on double-encoding)
         try {
             value = canonicalize(value, true);
@@ -465,8 +464,7 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) {
                 customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
             } else {
-            customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
-                    "sanitizer.custom.safe.policy.class"));
+                customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
             }
             Object obj = customPolicyClass.getConstructor().newInstance();
             if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
@@ -513,14 +511,23 @@ public class UtilCodec {
             return mapWrapper;
         }
 
-        protected Map<K, Object> internalMap = null;
-        protected SimpleEncoder encoder = null;
+        private Map<K, Object> internalMap = null;
+        private SimpleEncoder encoder = null;
         protected HtmlEncodingMapWrapper() { }
 
+        /**
+         * Sets .
+         * @param mapToWrap the map to wrap
+         * @param encoder the encoder
+         */
         public void setup(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
             this.internalMap = mapToWrap;
             this.encoder = encoder;
         }
+
+        /**
+         * Reset.
+         */
         public void reset() {
             this.internalMap = null;
             this.encoder = null;

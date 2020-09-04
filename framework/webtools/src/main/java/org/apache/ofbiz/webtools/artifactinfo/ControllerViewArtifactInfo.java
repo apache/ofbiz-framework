@@ -60,7 +60,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             String fullScreenName = this.viewInfoMap.getPage();
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
-                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex + 1),
+                this.screenCalledByThisView = this.getAif().getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex + 1),
                         fullScreenName.substring(0, poundIndex));
                 if (this.screenCalledByThisView != null) {
                     // add the reverse association
@@ -131,7 +131,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
      * @return the requests that this view is response to
      */
     public Set<ControllerRequestArtifactInfo> getRequestsThatThisViewIsResponseTo() {
-        return this.aif.getAllRequestInfosReferringToView().get(this.getUniqueId());
+        return this.getAif().getAllRequestInfosReferringToView().get(this.getUniqueId());
     }
 
     /**

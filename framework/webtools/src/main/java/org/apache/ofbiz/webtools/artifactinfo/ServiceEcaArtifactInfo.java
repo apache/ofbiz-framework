@@ -64,8 +64,8 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         // populate the services called Set
         for (ServiceEcaAction ecaAction: serviceEcaRule.getEcaActionList()) {
-            servicesCalledByThisServiceEca.add(aif.getServiceArtifactInfo(ecaAction.getServiceName()));
-            UtilMisc.addToSortedSetInMap(this, aif.getAllServiceEcaInfosReferringToServiceName(), ecaAction.getServiceName());
+            servicesCalledByThisServiceEca.add(getAif().getServiceArtifactInfo(ecaAction.getServiceName()));
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceEcaInfosReferringToServiceName(), ecaAction.getServiceName());
         }
     }
 
@@ -140,7 +140,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
      * @return the services triggering service eca
      */
     public Set<ServiceArtifactInfo> getServicesTriggeringServiceEca() {
-        return aif.getAllServiceInfosReferringToServiceEcaRule().get(this.serviceEcaRule);
+        return getAif().getAllServiceInfosReferringToServiceEcaRule().get(this.serviceEcaRule);
     }
 
     /**

@@ -43,8 +43,8 @@ public class ReadOnlyHelperDAO implements GenericHelper {
 
     private static final String MODULE = ReadOnlyHelperDAO.class.getName();
 
-    protected GenericDAO genericDAO;
-    protected GenericHelperInfo helperInfo;
+    private GenericDAO genericDAO;
+    private GenericHelperInfo helperInfo;
 
     public ReadOnlyHelperDAO(GenericHelperInfo helperInfo) {
         this.helperInfo = helperInfo;
@@ -124,8 +124,10 @@ public class ReadOnlyHelperDAO implements GenericHelper {
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
      *@param modelEntity The ModelEntity of the Entity as defined in the entity XML file
-     *@param whereEntityCondition The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is a view entity with group-by aliases)
-     *@param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done (if this is a view entity with group-by aliases)
+     *@param whereEntityCondition The EntityCondition object that specifies how to constrain this query before any groupings are done
+     * (if this is a view entity with group-by aliases)
+     *@param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done
+     * (if this is a view entity with group-by aliases)
      *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retreived
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
      *@param findOptions An instance of EntityFindOptions that specifies advanced query options. See the EntityFindOptions JavaDoc for more details.
@@ -134,19 +136,21 @@ public class ReadOnlyHelperDAO implements GenericHelper {
      */
     @Override
     public EntityListIterator findListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
-        EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
+            EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException {
-        return genericDAO.selectListIteratorByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
+        return genericDAO.selectListIteratorByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect,
+                orderBy, findOptions);
     }
 
     @Override
     public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
-        ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
+            ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
         return genericDAO.selectByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
     }
 
     @Override
-    public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+    public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition
+            havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return genericDAO.selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
     }
 
@@ -177,7 +181,8 @@ public class ReadOnlyHelperDAO implements GenericHelper {
      *@return 0
      */
     @Override
-    public int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
+    public int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition)
+            throws GenericEntityException {
         return 0;
     }
 

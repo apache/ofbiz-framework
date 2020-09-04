@@ -43,7 +43,8 @@ public abstract class ConditionalFactory<C extends Conditional> {
 
     static {
         Map<String, ConditionalFactory<?>> factories = new HashMap<>();
-        Iterator<ConditionalFactory<?>> it = UtilGenerics.cast(ServiceLoader.load(ConditionalFactory.class, ConditionalFactory.class.getClassLoader()).iterator());
+        Iterator<ConditionalFactory<?>> it = UtilGenerics.cast(ServiceLoader.load(ConditionalFactory.class,
+                ConditionalFactory.class.getClassLoader()).iterator());
         while (it.hasNext()) {
             ConditionalFactory<?> factory = it.next();
             factories.put(factory.getName(), factory);

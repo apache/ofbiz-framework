@@ -84,7 +84,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
 
         // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.
         // Note that "FALSE" does not work with all databases.
-        if (this.idInt == EntityOperator.ID_IN && UtilValidate.isEmpty(rhs)) {
+        if (this.getId() == EntityOperator.ID_IN && UtilValidate.isEmpty(rhs)) {
             sql.append("1=0");
             return;
         }

@@ -107,7 +107,8 @@ public final class MiniLangUtil {
      * @param retFieldFma
      * @throws MiniLangRuntimeException
      */
-    public static void callMethod(MethodOperation operation, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?> methodClass, Object methodObject, String methodName, FlexibleMapAccessor<Object> retFieldFma) throws MiniLangRuntimeException {
+    public static void callMethod(MethodOperation operation, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?>
+            methodClass, Object methodObject, String methodName, FlexibleMapAccessor<Object> retFieldFma) throws MiniLangRuntimeException {
         Object[] args = null;
         Class<?>[] parameterTypes = null;
         if (parameters != null) {
@@ -282,7 +283,7 @@ public final class MiniLangUtil {
             styleSheetURL = FlexibleLocation.resolveLocation("component://minilang/config/MiniLang.xslt");
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             try (InputStream styleSheetInStream = styleSheetURL.openStream()) {
-            transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
+                transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
             }
         } catch (Exception e) {
             Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", MODULE);

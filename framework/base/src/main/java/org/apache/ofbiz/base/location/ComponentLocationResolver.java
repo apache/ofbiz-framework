@@ -59,7 +59,8 @@ public class ComponentLocationResolver implements LocationResolver {
         int firstSlash = baseLocation.indexOf("/");
         int secondSlash = baseLocation.indexOf("/", firstSlash + 1);
         if (firstSlash != 0 || secondSlash == -1) {
-            throw new MalformedURLException("Bad component location [" + location + "]: base location missing slashes [" + baseLocation + "], first = " + firstSlash + ", second = " + secondSlash + "; should be like: component://{component-name}/relative/path");
+            throw new MalformedURLException("Bad component location [" + location + "]: base location missing slashes [" + baseLocation
+                    + "], first = " + firstSlash + ", second = " + secondSlash + "; should be like: component://{component-name}/relative/path");
         }
         String componentName = baseLocation.substring(firstSlash + 1, secondSlash);
         // got the componentName, now remove it from the baseLocation, removing the second slash too (just in case the rootLocation has one)

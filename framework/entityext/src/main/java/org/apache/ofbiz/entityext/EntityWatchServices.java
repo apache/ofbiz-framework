@@ -70,13 +70,15 @@ public class EntityWatchServices {
                 }
 
                 if (changed) {
-                    String errMsg = "Watching entity [" + currentValue.getEntityName() + "] field [" + fieldName + "] value changed from [" + currentFieldValue + "] to [" + newFieldValue + "] for pk [" + newValue.getPrimaryKey() + "]";
+                    String errMsg = "Watching entity [" + currentValue.getEntityName() + "] field [" + fieldName + "] value changed from ["
+                            + currentFieldValue + "] to [" + newFieldValue + "] for pk [" + newValue.getPrimaryKey() + "]";
                     Debug.logInfo(new Exception(errMsg), errMsg, MODULE);
                 }
             } else {
                 // watch the whole entity
                 if (!currentValue.equals(newValue)) {
-                    String errMsg = "Watching entity [" + currentValue.getEntityName() + "] values changed from [" + currentValue + "] to [" + newValue + "] for pk [" + newValue.getPrimaryKey() + "]";
+                    String errMsg = "Watching entity [" + currentValue.getEntityName() + "] values changed from [" + currentValue + "] to ["
+                            + newValue + "] for pk [" + newValue.getPrimaryKey() + "]";
                     Debug.logInfo(new Exception(errMsg), errMsg, MODULE);
                 }
             }
@@ -84,11 +86,13 @@ public class EntityWatchServices {
             if (UtilValidate.isNotEmpty(fieldName)) {
                 // just watch the field
                 Object newFieldValue = newValue.get(fieldName);
-                String errMsg = "Watching entity [" + newValue.getEntityName() + "] field [" + fieldName + "] value changed from [null] to [" + newFieldValue + "] for pk [" + newValue.getPrimaryKey() + "]";
+                String errMsg = "Watching entity [" + newValue.getEntityName() + "] field [" + fieldName + "] value changed from [null] to ["
+                        + newFieldValue + "] for pk [" + newValue.getPrimaryKey() + "]";
                 Debug.logInfo(new Exception(errMsg), errMsg, MODULE);
             } else {
                 // watch the whole entity
-                String errMsg = "Watching entity [" + newValue.getEntityName() + "] values changed from [null] to [" + newValue + "] for pk [" + newValue.getPrimaryKey() + "]";
+                String errMsg = "Watching entity [" + newValue.getEntityName() + "] values changed from [null] to [" + newValue + "] for pk ["
+                        + newValue.getPrimaryKey() + "]";
                 Debug.logInfo(new Exception(errMsg), errMsg, MODULE);
             }
         }
