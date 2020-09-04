@@ -49,16 +49,19 @@ public class ProductStoreEvents {
         List<String> sortList = org.apache.ofbiz.base.util.UtilMisc.toList("sequenceNum");
 
         try {
-            GenericValue productStoreGroup = EntityQuery.use(delegator).from("ProductStoreGroup").where("productStoreGroupId", parentGroupId).cache(true).queryOne();
+            GenericValue productStoreGroup = EntityQuery.use(delegator).from("ProductStoreGroup").where("productStoreGroupId",
+                    parentGroupId).cache(true).queryOne();
             if (productStoreGroup != null) {
-                children = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", parentGroupId).cache(true).filterByDate().queryList();
+                children = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId",
+                        parentGroupId).cache(true).filterByDate().queryList();
                 if (UtilValidate.isNotEmpty(children)) {
                     for (GenericValue child : children) {
                         String productStoreGroupId = child.getString("productStoreGroupId");
                         Map<Object, Object> josonMap = new HashMap<>();
                         List<GenericValue> childList = null;
                         // Get the child list of chosen category
-                        childList = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", productStoreGroupId).cache(true).filterByDate().queryList();
+                        childList = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId",
+                                productStoreGroupId).cache(true).filterByDate().queryList();
 
                         if (UtilValidate.isNotEmpty(childList)) {
                             josonMap.put("state", "closed");

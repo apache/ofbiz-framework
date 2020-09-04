@@ -926,7 +926,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Ensure item total quantity */
-    public void ensureItemsQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
+    public void ensureItemsQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity)
+            throws CartItemModifyException {
         for (ShoppingCartItem item : cartItems) {
             if (item.getQuantity() != quantity) {
                 item.setQuantity(quantity, dispatcher, this);
@@ -935,7 +936,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Ensure item total quantity */
-    public BigDecimal ensureItemsTotalQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
+    public BigDecimal ensureItemsTotalQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity)
+            throws CartItemModifyException {
         BigDecimal quantityRemoved = BigDecimal.ZERO;
         // go through the items and reduce quantityToKeep by the item quantities until it is 0, then remove the remaining...
         BigDecimal quantityToKeep = quantity;
@@ -950,7 +952,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     quantityRemoved = quantityRemoved.add(item.getQuantity());
                     this.removeCartItem(item, dispatcher);
                 } else {
-                    // there is some to keep, so reduce quantity to quantityToKeep, at this point we know we'll take up all of the rest of the quantityToKeep
+                    // there is some to keep, so reduce quantity to quantityToKeep, at this point we know we'll take up all of the
+                    // rest of the quantityToKeep
                     quantityRemoved = quantityRemoved.add(item.getQuantity().subtract(quantityToKeep));
                     item.setQuantity(quantityToKeep, dispatcher, this);
                     quantityToKeep = BigDecimal.ZERO;
@@ -1067,7 +1070,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Remove an item from the cart object. */
     public void removeCartItem(int index, LocalDispatcher dispatcher) throws CartItemModifyException {
         if (isReadOnlyCart()) {
-           throw new CartItemModifyException("Cart items cannot be changed");
+            throw new CartItemModifyException("Cart items cannot be changed");
         }
         if (index < 0) {
             return;
@@ -1295,7 +1298,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator(), locale);
                 if (checkResult != null) {
                     promoCodeIter.remove();
-                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult", checkResult), locale), MODULE);
+                    Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderOnUserChangePromoCodeWasRemovedBecause",
+                            UtilMisc.toMap("checkResult", checkResult), locale), MODULE);
                 }
             }
 
@@ -2034,7 +2038,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** adds a payment method/payment method type */
-    public CartPaymentInfo addPaymentAmount(String id, BigDecimal amount, String refNum, String authCode, boolean isSingleUse, boolean isPresent, boolean replace) {
+    public CartPaymentInfo addPaymentAmount(String id, BigDecimal amount, String refNum, String authCode, boolean isSingleUse,
+                                            boolean isPresent, boolean replace) {
         CartPaymentInfo inf = this.getPaymentInfo(id, refNum, authCode, amount, replace);
         if (isSalesOrder()) {
             GenericValue billingAddress = inf.getBillingAddress(this.getDelegator());

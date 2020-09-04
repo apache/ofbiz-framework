@@ -3328,7 +3328,8 @@ public class OrderReadHelper {
      * @return the order item statuses
      */
     public static List<GenericValue> getOrderItemStatuses(GenericValue orderItem, List<GenericValue> orderStatuses) {
-        List<EntityExpr> contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItem.get("orderItemSeqId")));
+        List<EntityExpr> contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS,
+                orderItem.get("orderItemSeqId")));
         List<EntityExpr> contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
@@ -3710,7 +3711,7 @@ public class OrderReadHelper {
                     EntityUtil.filterByAnd(orderItemAttributes,
                             UtilMisc.toMap("orderItemSeqId", orderItemSeqId, "attrName", attributeName)));
         }
-        return orderItemAttribute != null ? orderItemAttribute.getString("attrValue"): null;
+        return orderItemAttribute != null ? orderItemAttribute.getString("attrValue") : null;
     }
 
     /**
@@ -3764,7 +3765,7 @@ public class OrderReadHelper {
                 orderAttribute = orderAttributeMap.get(attributeName);
             }
         }
-        return orderAttribute != null ? orderAttribute.getString("attrValue"): null;
+        return orderAttribute != null ? orderAttribute.getString("attrValue") : null;
     }
 
     /**
@@ -3998,7 +3999,8 @@ public class OrderReadHelper {
                         EntityCondition.makeCondition("quantityAccepted", EntityOperator.GREATER_THAN, BigDecimal.ZERO),
                         EntityCondition.makeCondition("orderItemSeqId", orderItem.getString("orderItemSeqId"))));
                 Delegator delegator = orderItem.getDelegator();
-                List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).select("quantityAccepted", "quantityRejected").from("ShipmentReceiptAndItem").where(cond).queryList();
+                List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).select("quantityAccepted", "quantityRejected")
+                        .from("ShipmentReceiptAndItem").where(cond).queryList();
                 for (GenericValue shipmentReceipt : shipmentReceipts) {
                     if (shipmentReceipt.getBigDecimal("quantityAccepted") != null) {
                         totalReceived = totalReceived.add(shipmentReceipt.getBigDecimal("quantityAccepted"));

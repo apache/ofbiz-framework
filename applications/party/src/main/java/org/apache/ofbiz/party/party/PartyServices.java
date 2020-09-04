@@ -1296,9 +1296,7 @@ public class PartyServices {
                 String inventoryItemId = (String) context.get("inventoryItemId");
                 String serialNumber = (String) context.get("serialNumber");
                 String softIdentifier = (String) context.get("softIdentifier");
-                if (UtilValidate.isNotEmpty(inventoryItemId)
-                    || UtilValidate.isNotEmpty(serialNumber)
-                    || UtilValidate.isNotEmpty(softIdentifier)) {
+                if (UtilValidate.isNotEmpty(inventoryItemId) || UtilValidate.isNotEmpty(serialNumber) || UtilValidate.isNotEmpty(softIdentifier)) {
                     // add role to view
                     dynamicView.addMemberEntity("II", "InventoryItem");
                     dynamicView.addAlias("II", "ownerPartyId");
@@ -1707,7 +1705,7 @@ public class PartyServices {
         // PartyClassificationGroup Fields
         // ----
 
-        List<String> partyClassificationGroupIds = (List) context.get("partyClassificationGroupId");
+        List<String> partyClassificationGroupIds = UtilGenerics.cast(context.get("partyClassificationGroupId"));
         if (UtilValidate.isNotEmpty(partyClassificationGroupIds)) {
             // add PartyClassification to view
             dynamicView.addMemberEntity("PC", "PartyClassification");
@@ -2272,7 +2270,7 @@ public class PartyServices {
         String searchAllIdContext = (String) context.get("searchAllId");
 
         boolean searchPartyFirst = UtilValidate.isNotEmpty(searchPartyFirstContext) && "N".equals(searchPartyFirstContext) ? false : true;
-        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext)&& "Y".equals(searchAllIdContext) ? true : false;
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext) ? true : false;
 
         GenericValue party = null;
         List<GenericValue> partiesFound = null;
@@ -2574,7 +2572,8 @@ public class PartyServices {
                         lastCountryGeoId = (String) postalAddress.get("countryGeoId");
                     }
 
-                    Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", (Object) userLogin); // casting is here necessary for some compiler versions
+                    Map<String, Object> telecomNumber = UtilMisc.toMap("userLogin", (Object) userLogin);
+                    // casting is here necessary for some compiler versions
 
                     boolean telecomNumberChanged = false;
                     if ("TELECOM_NUMBER".equals(currentContactMechTypeId)) {

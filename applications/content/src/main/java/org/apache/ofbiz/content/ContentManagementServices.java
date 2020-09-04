@@ -1213,7 +1213,8 @@ public class ContentManagementServices {
         return retVal;
     }
 
-    public static Map<String, Object> initContentChildCounts(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
+    public static Map<String, Object> initContentChildCounts(DispatchContext dctx, Map<String, ? extends Object> context)
+            throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         Locale locale = (Locale) context.get("locale");
         GenericValue content = (GenericValue) context.get("content");

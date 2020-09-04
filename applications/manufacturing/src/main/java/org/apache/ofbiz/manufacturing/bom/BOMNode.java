@@ -445,8 +445,8 @@ public class BOMNode {
         }
         if (serviceName != null) {
             Map<String, Object> resultContext = null;
-            Map<String, Object> arguments = UtilMisc.<String, Object>toMap("neededQuantity", quantity.multiply(quantityMultiplier), "amount", tree != null
-                    ? tree.getRootAmount() : BigDecimal.ZERO);
+            Map<String, Object> arguments = UtilMisc.<String, Object>toMap("neededQuantity", quantity.multiply(quantityMultiplier),
+                    "amount", tree != null ? tree.getRootAmount() : BigDecimal.ZERO);
             BigDecimal width = null;
             if (getProduct().get("productWidth") != null) {
                 width = getProduct().getBigDecimal("productWidth");
@@ -542,7 +542,25 @@ public class BOMNode {
         }
     }
 
-    public Map<String, Object> createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipGroupSeqId, String shipmentId, boolean useSubstitute, boolean ignoreSupplierProducts) throws GenericEntityException {
+    /**
+     * Create manufacturing order map.
+     * @param facilityId the facility id
+     * @param date the date
+     * @param workEffortName the work effort name
+     * @param description the description
+     * @param routingId the routing id
+     * @param orderId the order id
+     * @param orderItemSeqId the order item seq id
+     * @param shipGroupSeqId the ship group seq id
+     * @param shipmentId the shipment id
+     * @param useSubstitute the use substitute
+     * @param ignoreSupplierProducts the ignore supplier products
+     * @return the map
+     * @throws GenericEntityException the generic entity exception
+     */
+    public Map<String, Object> createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId,
+            String orderId, String orderItemSeqId, String shipGroupSeqId, String shipmentId, boolean useSubstitute, boolean ignoreSupplierProducts)
+            throws GenericEntityException {
         String productionRunId = null;
         Timestamp endDate = null;
         if (isManufactured(ignoreSupplierProducts)) {
@@ -552,7 +570,8 @@ public class BOMNode {
             for (BOMNode childrenNode : childrenNodes) {
                 oneChildNode = childrenNode;
                 if (oneChildNode != null) {
-                    Map<String, Object> tmpResult = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipGroupSeqId, shipmentId, false, false);
+                    Map<String, Object> tmpResult = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null,
+                            null, null, shipGroupSeqId, shipmentId, false, false);
                     String childProductionRunId = (String) tmpResult.get("productionRunId");
                     Timestamp childEndDate = (Timestamp) tmpResult.get("endDate");
                     if (maxEndDate == null) {
@@ -615,7 +634,8 @@ public class BOMNode {
             try {
                 if (productionRunId != null) {
                     if (orderId != null && orderItemSeqId != null) {
-                        delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
+                        delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId,
+                                "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
                     }
                     for (String childProductionRun : childProductionRuns) {
                         delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", childProductionRun,
@@ -629,6 +649,13 @@ public class BOMNode {
         return UtilMisc.toMap("productionRunId", productionRunId, "endDate", endDate);
     }
 
+    /**
+     * Gets start date.
+     * @param facilityId the facility id
+     * @param requiredBydate the required bydate
+     * @param allNodes the all nodes
+     * @return the start date
+     */
     public Timestamp getStartDate(String facilityId, Timestamp requiredBydate, boolean allNodes) {
         Timestamp minStartDate = requiredBydate;
         if ("WIP".equals(getProduct().getString("productTypeId")) || allNodes) {
@@ -689,7 +716,8 @@ public class BOMNode {
     }
 
     /**
-     * A part is considered manufactured if it has child nodes AND unless ignoreSupplierProducts is set, if it also has no unexpired SupplierProducts defined
+     * A part is considered manufactured if it has child nodes AND unless ignoreSupplierProducts is set, if it also has no unexpired
+     * SupplierProducts defined
      * @param ignoreSupplierProducts
      * @return return if a part is considered manufactured
      */

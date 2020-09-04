@@ -1636,9 +1636,9 @@ public final class ProductPromoWorker {
     }
 
     public static class ActionResultInfo {
-        public boolean ranAction = false;
-        public BigDecimal totalDiscountAmount = BigDecimal.ZERO;
-        public BigDecimal quantityLeftInAction = BigDecimal.ZERO;
+        private boolean ranAction = false;
+        private BigDecimal totalDiscountAmount = BigDecimal.ZERO;
+        private BigDecimal quantityLeftInAction = BigDecimal.ZERO;
     }
 
     @SuppressWarnings("serial")

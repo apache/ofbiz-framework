@@ -79,7 +79,7 @@ public class PartyRelationshipServices {
                     partyToRole.create();
                 }
 
-                GenericValue partyFromRole= null;
+                GenericValue partyFromRole = null;
                 partyFromRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom).queryOne();
                 if (partyFromRole == null) {
                     partyFromRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom));
@@ -87,15 +87,14 @@ public class PartyRelationshipServices {
                 }
 
                 // Check if there is already a partyRelationship of that type with another party from the side indicated
-                String sideChecked = partyIdFrom.equals(partyId)? "partyIdFrom" : "partyIdTo";
+                String sideChecked = partyIdFrom.equals(partyId) ? "partyIdFrom" : "partyIdTo";
                 // We consider the last one (in time) as sole active (we try to maintain a unique relationship and keep changes history)
                 GenericValue oldPartyRelationShip = EntityQuery.use(delegator).from("PartyRelationship")
-                        .where(sideChecked, partyId, "roleTypeIdFrom", roleTypeIdFrom, "roleTypeIdTo", roleTypeIdTo, "partyRelationshipTypeId", partyRelationshipTypeId)
-                        .filterByDate()
-                        .queryFirst();
+                        .where(sideChecked, partyId, "roleTypeIdFrom", roleTypeIdFrom, "roleTypeIdTo", roleTypeIdTo, "partyRelationshipTypeId",
+                                partyRelationshipTypeId).filterByDate().queryFirst();
                 if (oldPartyRelationShip != null) {
-                        oldPartyRelationShip.setFields(UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp())); // Current becomes inactive
-                        oldPartyRelationShip.store();
+                    oldPartyRelationShip.setFields(UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp())); // Current becomes inactive
+                    oldPartyRelationShip.store();
                 }
                 try {
                     Map<String, Object> resultMap = dispatcher.runSync("createPartyRelationship", context); // Create new one

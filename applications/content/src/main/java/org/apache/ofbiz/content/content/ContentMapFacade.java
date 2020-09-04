@@ -486,8 +486,8 @@ public class ContentMapFacade implements Map<Object, Object> {
     }
 
     class SubContent extends AbstractInfo {
-        private String sortOrder="-fromDate";
-        private String statusFilter= "";
+        private String sortOrder = "-fromDate";
+        private String statusFilter = "";
         @Override
         public Object get(Object key) {
             if (!(key instanceof String)) {
@@ -527,14 +527,14 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Debug.logWarning("sortOrder parameters must be a string", MODULE);
                 return;
             }
-            this.sortOrder=(String) obj;
+            this.sortOrder = (String) obj;
         }
         public void setStatusFilter(Object obj) {
             if (!(obj instanceof String)) {
                 Debug.logWarning("statusFilter parameters must be a string", MODULE);
                 return;
             }
-            this.statusFilter=(String) obj;
+            this.statusFilter = (String) obj;
         }
     }
 

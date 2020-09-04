@@ -840,7 +840,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             throws CartItemModifyException {
 
         Delegator delegator = cart.getDelegator();
-        ShoppingCartItem newItem = new ShoppingCartItem(delegator, itemType, itemDescription, productCategoryId, basePrice, attributes, prodCatalogId, cart.getLocale(), itemGroup);
+        ShoppingCartItem newItem = new ShoppingCartItem(delegator, itemType, itemDescription, productCategoryId, basePrice, attributes,
+                prodCatalogId, cart.getLocale(), itemGroup);
 
         // add to cart before setting quantity so that we can get order total, etc
         if (cartLocation == null) {
@@ -867,7 +868,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     /**
      * returns "OK" when the product can be booked or returns a string with the dates the related fixed Asset is not available
      */
-    public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, ShoppingCart cart) {
+    public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength,
+                                           ShoppingCart cart) {
         Delegator delegator = cart.getDelegator();
         // find related fixedAsset
         List<GenericValue> selFixedAssetProduct = null;
@@ -905,7 +907,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         // see if this fixed asset has a calendar, when no create one and attach to fixed asset
-        // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne: GenericValue techDataCalendar = null;
+        // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne:
+        // GenericValue techDataCalendar = null;
         GenericValue techDataCalendar = null;
         try {
             techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar", false);
@@ -1335,7 +1338,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                         }
 
                         if (priceResult.get("specialPromoPrice") != null) {
-                            this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals, RoundingMode.HALF_UP));
+                            this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals,
+                                    RoundingMode.HALF_UP));
                         }
                     } else {
                         if (priceResult.get("listPrice") != null) {
@@ -1357,7 +1361,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                     // If product is configurable, the price is taken from the configWrapper.
                     if (configWrapper != null) {
-                        // TODO: for configurable products need to do something to make them VAT aware... for now base and display prices are the same
+                        // TODO: for configurable products need to do something to make them VAT aware...
+                        //  for now base and display prices are the same
                         this.setBasePrice(configWrapper.getTotalPrice());
                         // Check if price display with taxes
                         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
@@ -2782,7 +2787,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         return attrs;
     }
 
-    /** Add an adjustment to the order item; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId; they will be set when the order is created */
+    /** Add an adjustment to the order item; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId;
+     * they will be set when the order is created */
     public int addAdjustment(GenericValue adjustment) {
         itemAdjustments.add(adjustment);
         return itemAdjustments.indexOf(adjustment);

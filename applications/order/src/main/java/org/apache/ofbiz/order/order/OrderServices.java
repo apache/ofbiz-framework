@@ -1436,8 +1436,8 @@ public class OrderServices {
                                     }
                                 }
 
-                                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"),
-                                       "parentTypeId", "MARKETING_PKG_AUTO")) {
+                                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId",
+                                        product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_AUTO")) {
                                     GenericValue permUserLogin =
                                             EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                                     Map<String, Object> inputMap = new HashMap<>();
@@ -1734,7 +1734,7 @@ public class OrderServices {
                         String facilityId = orderHeader.getString("originFacilityId");
                         if (facilityId != null) {
                             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId,
-                             UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                                    UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                             if (facilityContactMech != null) {
                                 try {
                                     shippingAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
@@ -1750,7 +1750,7 @@ public class OrderServices {
                     // bad and we don't have a way to find an address to check tax for
                     if (shippingAddress == null) {
                         Debug.logWarning("Not calculating tax for Order [" + orderId + "] because there is no shippingAddress, and no address on "
-                         + "the origin facility [" + orderHeader.getString("originFacilityId") + "]", MODULE);
+                                + "the origin facility [" + orderHeader.getString("originFacilityId") + "]", MODULE);
                         continue;
                     }
 
@@ -1894,7 +1894,7 @@ public class OrderServices {
                 }
 
                 Map<String, Object> shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
-                BigDecimal shippingTotal = null;
+                BigDecimal shippingTotal;
                 if (UtilValidate.isEmpty(orh.getValidOrderItems(shipGroupSeqId))) {
                     shippingTotal = ZERO;
                     Debug.logInfo("No valid order items found - " + shippingTotal, MODULE);
@@ -5222,7 +5222,9 @@ public class OrderServices {
                             coh.createOrder(userLogin);
                         } else {
                             // if there are no items to drop ship, then clear out the supplier partyId
-                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group [" + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId") + "].  Supplier party information will be cleared for this ship group", MODULE);
+                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group ["
+                                    + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId")
+                                    + "].  Supplier party information will be cleared for this ship group", MODULE);
                             shipGroup.set("supplierPartyId", null);
                             shipGroup.store();
 
@@ -5231,7 +5233,7 @@ public class OrderServices {
                 }
             }
         } catch (GenericEntityException exc) {
-            // TODO: imporve error handling
+            // TODO: improve error handling
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "OrderOrderCreatingDropShipmentsError",
                     UtilMisc.toMap("orderId", orderId, "errorString", exc.getMessage()),
@@ -5747,7 +5749,7 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         try {
             GenericValue orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId",
-             orderPaymentPreferenceId).queryOne();
+                    orderPaymentPreferenceId).queryOne();
             String orderId = orderPaymentPreference.getString("orderId");
             String statusUserLogin = orderPaymentPreference.getString("createdByUserLogin");
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
@@ -5830,7 +5832,8 @@ public class OrderServices {
                         } else if ("TF_yr".equals(subscription.getString("canclAutmExtTimeUomId"))) {
                             field = Calendar.YEAR;
                         } else {
-                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", MODULE);
+                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId")
+                                    + "], defaulting to month", MODULE);
                         }
 
                         endDate.add(field, Integer.parseInt(subscription.getString("canclAutmExtTime")));
@@ -6184,8 +6187,8 @@ public class OrderServices {
         }
 
         //find OISG Assoc
-        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId",
-                shipGroupSeqId).queryOne();
+        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId,
+                "shipGroupSeqId", shipGroupSeqId).queryOne();
         if (UtilValidate.isEmpty(oisga)) {
             String errMsg = mainErrorMessage + " : Order Item Ship Group Assoc Does Not Exist";
             Debug.logError(errMsg, MODULE);

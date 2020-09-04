@@ -71,7 +71,8 @@ public class OrderManagerEvents {
             GenericValue placingCustomer = null;
             try {
                 paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId).queryList();
-                placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
+                placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId",
+                        "PLACING_CUSTOMER").queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems looking up order payment preferences", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderErrorProcessingOfflinePayments", locale));
@@ -88,7 +89,8 @@ public class OrderManagerEvents {
                     // create a payment record
                     Map<String, Object> results = null;
                     try {
-                        results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("orderPaymentPreferenceId", ppref.get("orderPaymentPreferenceId"),
+                        results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("orderPaymentPreferenceId",
+                                ppref.get("orderPaymentPreferenceId"),
                                 "paymentFromId", placingCustomer.getString("partyId"), "comments", "Payment received offline and manually entered."));
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);
@@ -107,7 +109,8 @@ public class OrderManagerEvents {
                     delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems storing payment information", MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderProblemStoringReceivedPaymentInformation", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR,
+                            "OrderProblemStoringReceivedPaymentInformation", locale));
                     return "error";
                 }
 
@@ -147,7 +150,8 @@ public class OrderManagerEvents {
         List<GenericValue> paymentMethodTypes = null;
 
         try {
-            paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
+            paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId",
+                    EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment types", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderProblemsWithPaymentTypeLookup", locale));
@@ -233,7 +237,8 @@ public class OrderManagerEvents {
                 if (paymentTypeAmount.compareTo(BigDecimal.ZERO) > 0) {
                     // create the OrderPaymentPreference
                     // TODO: this should be done with a service
-                    Map<String, String> prefFields = UtilMisc.<String, String> toMap("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
+                    Map<String, String> prefFields = UtilMisc.<String, String>toMap("orderPaymentPreferenceId",
+                            delegator.getNextSeqId("OrderPaymentPreference"));
                     GenericValue paymentPreference = delegator.makeValue("OrderPaymentPreference", prefFields);
                     paymentPreference.set("paymentMethodTypeId", paymentMethodType.getString("paymentMethodTypeId"));
                     paymentPreference.set("maxAmount", paymentTypeAmount);
@@ -247,7 +252,8 @@ public class OrderManagerEvents {
                     try {
                         if (UtilValidate.isEmpty(paymentReference)) {
                             // get the old order preference to copy the reference number and set it as paymentRefNumber for the payment
-                            GenericValue currentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId).queryFirst();
+                            GenericValue currentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId",
+                                    orderId).queryFirst();
                             if (currentPref != null) {
                                 paymentReference = (String) currentPref.get("manualRefNum");
                                 paymentPreference.set("manualRefNum", paymentReference);

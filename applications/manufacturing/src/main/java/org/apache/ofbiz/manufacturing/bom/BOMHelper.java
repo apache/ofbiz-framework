@@ -156,7 +156,8 @@ public final class BOMHelper {
                                 "shipGroupSeqId", shipmentPlan.get("shipGroupSeqId"))
                         .cache().queryList();
                 if (UtilValidate.isNotEmpty(productionRuns)) {
-                    Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", MODULE);
+                    Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/"
+                            + orderItem.getString("orderItemSeqId") + ") not created.", MODULE);
                     continue;
                 }
                 Map<String, Object> result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity",

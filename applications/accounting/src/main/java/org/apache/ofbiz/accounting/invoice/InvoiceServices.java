@@ -3741,8 +3741,8 @@ public class InvoiceServices {
                         }
                         if (isSalesInvoice && !invoice.get("partyIdFrom").equals(organizationPartyId)) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A sales type invoice should have the partyId 'from' being "
-                                    + "the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom") + "! invoice: "
-                                    + currentInvoiceId);
+                                    + "the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom")
+                                    + "! invoice: " + currentInvoiceId);
                         }
 
 

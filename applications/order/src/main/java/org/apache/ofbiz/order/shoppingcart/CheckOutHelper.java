@@ -77,9 +77,9 @@ public class CheckOutHelper {
     private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
     private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
 
-    protected LocalDispatcher dispatcher = null;
-    protected Delegator delegator = null;
-    protected ShoppingCart cart = null;
+    private LocalDispatcher dispatcher = null;
+    private Delegator delegator = null;
+    private ShoppingCart cart = null;
 
     public CheckOutHelper(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart) {
         this.delegator = delegator;
@@ -87,6 +87,11 @@ public class CheckOutHelper {
         this.cart = cart;
     }
 
+    /**
+     * Sets check out shipping address.
+     * @param shippingContactMechId the shipping contact mech id
+     * @return the check out shipping address
+     */
     public Map<String, Object> setCheckOutShippingAddress(String shippingContactMechId) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result;
@@ -242,7 +247,8 @@ public class CheckOutHelper {
      * @param billingAccountId       the billing account id
      * @return the check out payment
      */
-    public Map<String, Object> setCheckOutPayment(Map<String, Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments, String billingAccountId) {
+    public Map<String, Object> setCheckOutPayment(Map<String, Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments,
+                                                  String billingAccountId) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result;
         String errMsg = null;

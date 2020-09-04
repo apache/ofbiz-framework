@@ -217,7 +217,8 @@ public class DataServices {
         // obtain a reference to the file
         File file = null;
         if (UtilValidate.isEmpty(objectInfo)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile", UtilMisc.toMap("objectInfo", ""), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
+                    UtilMisc.toMap("objectInfo", ""), locale));
         }
         if (UtilValidate.isEmpty(dataResourceTypeId) || "LOCAL_FILE".equals(dataResourceTypeId) || "LOCAL_FILE_BIN".equals(dataResourceTypeId)) {
             file = new File(objectInfo);

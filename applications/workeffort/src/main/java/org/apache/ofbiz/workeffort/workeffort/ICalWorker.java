@@ -64,8 +64,8 @@ public final class ICalWorker {
     private ICalWorker() { }
 
     public static final class ResponseProperties {
-        public final int statusCode;
-        public final String statusMessage;
+        private final int statusCode;
+        private final String statusMessage;
         public ResponseProperties(int statusCode, String statusMessage) {
             this.statusCode = statusCode;
             this.statusMessage = statusMessage;
@@ -182,7 +182,8 @@ public final class ICalWorker {
                     }
                     if ("getlastmodified".equals(propElement.getNodeName())) {
                         Date lastModified = getLastModifiedDate(request);
-                        Element lmElement = helper.createElementSetValue("D:getlastmodified", WebDavUtil.formatDate(WebDavUtil.getRFC1123DateFormat(), lastModified));
+                        Element lmElement = helper.createElementSetValue("D:getlastmodified",
+                                WebDavUtil.formatDate(WebDavUtil.getRFC1123DateFormat(), lastModified));
                         supportedProps.add(lmElement);
                         continue;
                     }
@@ -305,7 +306,8 @@ public final class ICalWorker {
         }
     }
 
-    private static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
+    private static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response,
+                                      ServletContext context) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Returning response: code = " + responseProps.statusCode
                     + ", message = " + responseProps.statusMessage, MODULE);

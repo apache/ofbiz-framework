@@ -273,7 +273,8 @@ public class OutputServices {
 
         } catch (IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError", UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError",
+                    UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();

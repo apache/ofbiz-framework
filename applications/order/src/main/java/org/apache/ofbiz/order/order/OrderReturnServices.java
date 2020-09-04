@@ -350,7 +350,8 @@ public class OrderReturnServices {
                             if (returnItemResponse != null) {
                                 String replacementOrderId = returnItemResponse.getString("replacementOrderId");
                                 Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", replacementOrderId, "userLogin", userLogin);
-                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", replacementOrderId).queryOne();
+                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId",
+                                        replacementOrderId).queryOne();
                                 if ("ORDER_HOLD".equals(orderHeader.getString("statusId"))) {
                                     try {
                                         Map<String, Object> result = dispatcher.runSync("cancelOrderItem", svcCtx);
