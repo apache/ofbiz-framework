@@ -36,7 +36,7 @@ import java.util.Set;
 public final class MultiBlockHtmlTemplateUtil {
 
     private static final String MODULE = MultiBlockHtmlTemplateUtil.class.getName();
-    public static final String MULTI_BLOCK_WRITER = "multiBlockWriter";
+    public static final String FTL_WRITER = "WriterForFTL";
     private static final String SCRIPT_LINKS_FOR_FOOT = "ScriptLinksForFoot";
     private static int maxScriptCacheSizePerUserSession = 15;
     private static int estimatedConcurrentUserSessions = 250;

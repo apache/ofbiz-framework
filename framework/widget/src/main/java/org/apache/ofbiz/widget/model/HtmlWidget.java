@@ -43,6 +43,9 @@ import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.parser.ParseError;
+import org.jsoup.parser.ParseErrorList;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
@@ -56,6 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.function.Consumer;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -187,80 +191,6 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    /**
-     * Render html template when multi-block=true. We use stack to store the string writer because a freemarker template may also render a sub screen
-     * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
-     * existence of the stack and retrieve the correct string writer. Inline script tags are removed from the final rendering.
-     * @param writer
-     * @param locationExdr
-     * @param context
-     * @throws IOException
-     */
-    public static void renderHtmlTemplateWithMultiBlock(Appendable writer, FlexibleStringExpander locationExdr,
-                                                        Map<String, Object> context) throws IOException {
-        String location = locationExdr.expandString(context);
-
-        StringWriter stringWriter = new StringWriter();
-        Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
-        if (stringWriterStack == null) {
-            stringWriterStack = new Stack<>();
-        }
-        stringWriterStack.push(stringWriter);
-        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriterStack);
-        renderHtmlTemplate(stringWriter, locationExdr, context);
-        stringWriterStack.pop();
-        // check if no more parent freemarker template before removing from context
-        if (stringWriterStack.empty()) {
-            context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
-        }
-        String data = stringWriter.toString();
-        stringWriter.close();
-
-        Document doc = Jsoup.parseBodyFragment(data);
-
-        // extract js script tags
-        Elements scriptElements = doc.select("script");
-        if (scriptElements != null && scriptElements.size() > 0) {
-            StringBuilder scripts = new StringBuilder();
-            for (org.jsoup.nodes.Element script : scriptElements) {
-                String type = script.attr("type");
-                String src = script.attr("src");
-                if (UtilValidate.isEmpty(src)) {
-                    if (UtilValidate.isEmpty(type) || "application/javascript".equals(type)) {
-                        scripts.append(script.data());
-                        script.remove();
-                    }
-                }
-            }
-
-            if (scripts.length() > 0) {
-                // store script for retrieval by the browser
-                String fileName = location;
-                fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-                if (fileName.endsWith(".ftl")) {
-                    fileName = fileName.substring(0, fileName.length() - 4);
-                }
-                String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
-
-                // construct script link
-                String webappName = (String) context.get("webappName");
-                String url = "/" + webappName + "/control/getJs?name=" + key;
-
-                // add csrf token to script link
-                HttpServletRequest request = (HttpServletRequest) context.get("request");
-                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
-                url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
-
-                // store script link to be output by scriptTagsFooter freemarker macro
-                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
-            }
-        }
-
-        // the 'template' block
-        String body = doc.body().html();
-        writer.append(body);
-    }
-
     // TODO: We can make this more fancy, but for now this is very functional
     public static void writeError(Appendable writer, String message) {
         try {
@@ -299,10 +229,102 @@ public class HtmlWidget extends ModelScreenWidget {
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
 
-            if (isMultiBlock()) {
-                renderHtmlTemplateWithMultiBlock(writer, this.locationExdr, context);
+            if (!isMultiBlock() && !Debug.verboseOn()) {
+                renderHtmlTemplate(writer, locationExdr, context);
+                return;
+            }
+
+            /**
+             * We use stack to store the string writer because a freemarker template may also render a sub screen
+             * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
+             * existence of the stack and retrieve the correct string writer.
+             * Inline script tags are removed from the final rendering, if multi-block = true
+             */
+            String location = locationExdr.expandString(context);
+            StringWriter stringWriter = new StringWriter();
+            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.FTL_WRITER));
+            if (stringWriterStack == null) {
+                stringWriterStack = new Stack<>();
+            }
+            stringWriterStack.push(stringWriter);
+            context.put(MultiBlockHtmlTemplateUtil.FTL_WRITER, stringWriterStack);
+            renderHtmlTemplate(stringWriter, locationExdr, context);
+            stringWriterStack.pop();
+            // check if no more parent freemarker template before removing from context
+            if (stringWriterStack.empty()) {
+                context.remove(MultiBlockHtmlTemplateUtil.FTL_WRITER);
+            }
+            String data = stringWriter.toString();
+            stringWriter.close();
+
+            Document doc = null;
+            if (Debug.verboseOn()) {
+                Parser parser = Parser.htmlParser();
+                parser.setTrackErrors(100);
+                doc = parser.parseInput(data, "");
+
+                // check for any error during parsing
+                int dataLength = data.length();
+                Consumer<ParseError> logError = a -> Debug.logError(a.toString() + " [Parsing " + location + "]\n"
+                                + "..."
+                                + data.substring(Math.max(a.getPosition() - 50, 0), a.getPosition()).replaceAll("^\\s+", "")
+                                + " ^^^ "
+                                + data.substring(a.getPosition(), Math.min(a.getPosition() + 50, dataLength - 1)).replaceAll("\\s+$", "")
+                                + "...",
+                        MODULE);
+
+                // print any parse error
+                if (parser.isTrackErrors()) {
+                    ParseErrorList list = parser.getErrors();
+                    list.forEach(logError);
+                }
             } else {
-                renderHtmlTemplate(writer, this.locationExdr, context);
+                doc = Jsoup.parseBodyFragment(data);
+            }
+
+            if (isMultiBlock()) {
+                // extract js script tags
+                Elements scriptElements = doc.select("script");
+                if (scriptElements != null && scriptElements.size() > 0) {
+                    StringBuilder scripts = new StringBuilder();
+                    for (org.jsoup.nodes.Element script : scriptElements) {
+                        String type = script.attr("type");
+                        String src = script.attr("src");
+                        if (UtilValidate.isEmpty(src)) {
+                            if (UtilValidate.isEmpty(type) || "application/javascript".equals(type)) {
+                                scripts.append(script.data());
+                                script.remove();
+                            }
+                        }
+                    }
+
+                    if (scripts.length() > 0) {
+                        // store script for retrieval by the browser
+                        String fileName = location;
+                        fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+                        if (fileName.endsWith(".ftl")) {
+                            fileName = fileName.substring(0, fileName.length() - 4);
+                        }
+                        String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
+
+                        // construct script link
+                        String webappName = (String) context.get("webappName");
+                        String url = "/" + webappName + "/control/getJs?name=" + key;
+
+                        // add csrf token to script link
+                        HttpServletRequest request = (HttpServletRequest) context.get("request");
+                        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
+                        url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
+
+                        // store script link to be output by scriptTagsFooter freemarker macro
+                        MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
+                    }
+                }
+                // the 'template' block
+                String body = doc.body().html();
+                writer.append(body);
+            } else {
+                writer.append(data);
             }
         }
 

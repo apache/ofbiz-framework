@@ -139,8 +139,8 @@ public class ScreenRenderer {
             }
         } else {
             context.put("renderFormSeqNumber", String.valueOf(renderFormSeqNumber));
-            if (context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER) != null) {
-                Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+            if (context.get(MultiBlockHtmlTemplateUtil.FTL_WRITER) != null) {
+                Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.FTL_WRITER));
                 modelScreen.renderScreenString(stringWriterStack.peek(), context, screenStringRenderer);
             } else {
                 modelScreen.renderScreenString(writer, context, screenStringRenderer);
