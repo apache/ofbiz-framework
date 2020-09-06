@@ -32,20 +32,38 @@ if (typeof(checkAmtReq2) == 'undefined') {
     function variantUomSelection (select) {
         var $select = $(select);
         var form = $select.closest('form');
-        var price_div = $('.variant-price', form);
-        var variantId = $select.val() || '';
+        var variantId = $select.val();
         $("[name='product_id']", form).val(variantId);
-        $('.product_id_display', price_div).text(variantId);
+        if (!variantId) {
+            variantId = $("[name='product_id_bak']", form).val() || '';
+        }
 
+        $('.product_id_display', form).text(variantId);
         var price = getVariantPrice2(variantId);
-        if (price) {
-            $('.variant_price_display', price_div).text(price);
-            price_div.css('display', 'inline-block');
-        }
-        else {
-            price_div.hide();
-        }
+        $('.variant_price_display', form).text(price || '');
+//        var price_div = $('.variant-price', form);
+//        if (price) {
+//            price_div.css('display', 'inline-block');
+//        }
+//        else {
+//            price_div.hide();
+//        }
     }
 
+          jQuery(document).ready(function(jQuery) {
+          jQuery('.popup_link').each(
+            function(index) {
+              var $this = jQuery(this);
+              var popup = $('.popup', $this.closest('.productsummary'));
+              $this.attr('title', popup.remove().html());
+              $this.tooltip({
+                content: function(){
+                  return this.getAttribute("title");
+                },
+                tooltipClass: "popup",
+                track: true
+              });
+            });
+          }); 
 }
 </script>
