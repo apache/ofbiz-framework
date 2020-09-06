@@ -236,8 +236,8 @@ public class HtmlWidget extends ModelScreenWidget {
 
             /**
              * We use stack to store the string writer because a freemarker template may also render a sub screen
-             * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
-             * existence of the stack and retrieve the correct string writer.
+             * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget,
+             * ScreenRenderer class will check for the existence of the stack and retrieve the correct string writer.
              * Inline script tags are removed from the final rendering, if multi-block = true
              */
             String location = locationExdr.expandString(context);
