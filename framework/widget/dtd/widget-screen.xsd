@@ -514,7 +514,11 @@ under the License.
     </xs:element>
     <xs:element name="html-template" substitutionGroup="HtmlWidgets">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.html-template" />
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attributeGroup ref="attlist.html-template" />
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.html-template">
