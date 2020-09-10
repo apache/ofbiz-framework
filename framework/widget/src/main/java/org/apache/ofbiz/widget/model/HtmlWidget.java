@@ -202,11 +202,13 @@ public class HtmlWidget extends ModelScreenWidget {
     public static class HtmlTemplate extends ModelScreenWidget {
         private FlexibleStringExpander locationExdr;
         private boolean multiBlock;
+        private String inlineFTL;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
+            this.inlineFTL = htmlTemplateElement.getTextContent();
         }
 
         /**
@@ -228,6 +230,17 @@ public class HtmlWidget extends ModelScreenWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
+
+            if (UtilValidate.isNotEmpty(this.inlineFTL)) {
+                try {
+                    FreeMarkerWorker.renderTemplateFromString("", this.inlineFTL, context, writer, 0, false);
+                } catch (TemplateException | IOException e) {
+                    String errMsg = "Error rendering [" + this.inlineFTL + "]: " + e.toString();
+                    Debug.logError(e, errMsg, MODULE);
+                    writeError(writer, errMsg);
+                }
+                return;
+            }
 
             if (!isMultiBlock() && !Debug.verboseOn()) {
                 renderHtmlTemplate(writer, locationExdr, context);
