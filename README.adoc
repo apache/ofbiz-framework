@@ -22,7 +22,7 @@ under the License.
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 
-If you are reading this file in AsciiDoc format you may want to see it in 
+If you are reading this file in AsciiDoc format you may want to see it in
 https://ci.apache.org/projects/ofbiz/site/trunk/readme/html5/README.html[HTML] +
 or https://ci.apache.org/projects/ofbiz/site/trunk/readme/pdf/README.pdf[PDF] format
 
@@ -395,7 +395,7 @@ dash!
 Loads all data sets; meant for initial loading of generic OFBiz data. Can be
 applied for development, testing, demonstration, etc. purposes. Be aware that
 executing this task can result in your data being overwritten in your database
-of choice. 
+of choice.
 
 `gradlew loadAll` OR `gradlew "ofbiz --load-data"`
 
@@ -482,7 +482,7 @@ parameters are passed:
 [[testing-tasks]]
 === Testing tasks
 
-# tag::testingtasks[]
+// tag::testingtasks[]
 [[execute-all-unit-tests]]
 ==== Execute all unit tests
 
@@ -542,7 +542,7 @@ listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests" --debug-jvm`
 
-# end::testingtasks[]
+// end::testingtasks[]
 
 
 [[miscellaneous-tasks]]
