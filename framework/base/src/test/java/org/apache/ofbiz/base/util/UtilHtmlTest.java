@@ -18,22 +18,22 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class UtilHtmlTest {
 
     @Test
-    public void parseHtmlFragment_unclosedDiv() {
+    public void parseHtmlFragmentUnclosedDiv() {
         List<String> errorList = UtilHtml.hasUnclosedTag("<div><div></div>");
         assertEquals(true, errorList.get(0).contains("Unexpected close tag"));
     }
 
     @Test
-    public void parseHtmlFragment_multiRoot() {
+    public void parseHtmlFragmentMultiRoot() {
         List<String> errorList = UtilHtml.hasUnclosedTag("<div></div><div></div>");
         assertEquals(0, errorList.size());
     }
