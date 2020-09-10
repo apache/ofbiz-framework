@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHtml;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -44,8 +45,6 @@ import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.ParseError;
-import org.jsoup.parser.ParseErrorList;
-import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
@@ -270,32 +269,20 @@ public class HtmlWidget extends ModelScreenWidget {
             String data = stringWriter.toString();
             stringWriter.close();
 
-            Document doc = null;
             if (Debug.verboseOn()) {
-                Parser parser = Parser.htmlParser();
-                parser.setTrackErrors(100);
-                doc = parser.parseInput(data, "");
-
-                // check for any error during parsing
-                int dataLength = data.length();
-                Consumer<ParseError> logError = a -> Debug.logError(a.toString() + " [Parsing " + location + "]\n"
-                                + "..."
-                                + data.substring(Math.max(a.getPosition() - 50, 0), a.getPosition()).replaceAll("^\\s+", "")
-                                + " ^^^ "
-                                + data.substring(a.getPosition(), Math.min(a.getPosition() + 50, dataLength - 1)).replaceAll("\\s+$", "")
-                                + "...",
-                        MODULE);
-
-                // print any parse error
-                if (parser.isTrackErrors()) {
-                    ParseErrorList list = parser.getErrors();
-                    list.forEach(logError);
+                // check for unclosed tags
+                boolean hasError = false; //UtilHtml.hasUnclosedTag(data, location);
+                if (!hasError) {
+                    List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
+                    if (UtilValidate.isNotEmpty(errList)) {
+                        Consumer<ParseError> logError = a -> UtilHtml.logFormattedError(data, location, a.toString(), MODULE);
+                        errList.forEach(logError);
+                    }
                 }
-            } else {
-                doc = Jsoup.parseBodyFragment(data);
             }
 
             if (isMultiBlock()) {
+                Document doc = Jsoup.parseBodyFragment(data);
                 // extract js script tags
                 Elements scriptElements = doc.select("script");
                 if (scriptElements != null && scriptElements.size() > 0) {
