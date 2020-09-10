@@ -58,7 +58,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import java.util.function.Consumer;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -271,12 +270,13 @@ public class HtmlWidget extends ModelScreenWidget {
 
             if (Debug.verboseOn()) {
                 // check for unclosed tags
-                boolean hasError = false; //UtilHtml.hasUnclosedTag(data, location);
-                if (!hasError) {
+                List<String> errorList = UtilHtml.hasUnclosedTag(data);
+                if (UtilValidate.isNotEmpty(errorList)) {
+                    errorList.forEach(a -> UtilHtml.logFormattedError(data, location, a, MODULE));
+                    // check with JSoup Html Parser
                     List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
                     if (UtilValidate.isNotEmpty(errList)) {
-                        Consumer<ParseError> logError = a -> UtilHtml.logFormattedError(data, location, a.toString(), MODULE);
-                        errList.forEach(logError);
+                        errList.forEach(a -> UtilHtml.logFormattedError(data, location, a.toString(), MODULE));
                     }
                 }
             }

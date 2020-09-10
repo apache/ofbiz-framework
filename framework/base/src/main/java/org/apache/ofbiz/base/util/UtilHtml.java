@@ -29,6 +29,7 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -59,51 +60,57 @@ public final class UtilHtml {
     /**
      *
      * @param content
-     * @param locationInfo for printing location information
-     * @return true if there is error
+     * @return list of errors
      */
-    public static boolean hasUnclosedTag(String content, String locationInfo) {
+    public static List<String> hasUnclosedTag(String content) {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         XMLEventReader eventReader = null;
+        List<String> errorList = new ArrayList<>();
         try {
+            // wrap with template tag as some content contains multiple root
             eventReader = inputFactory.createXMLEventReader(
-                    new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)), "utf-8");
-        } catch (XMLStreamException e) {
-            Debug.logError(e.getMessage(), MODULE);
-            return true;
-        }
-
-        Stack<StartElement> stack = new Stack<StartElement>();
-        boolean hasError = false;
-        while (eventReader.hasNext()) {
-            try {
-                XMLEvent event = eventReader.nextEvent();
-                if (event.isStartElement()) {
-                    StartElement startElement = event.asStartElement();
-                    stack.push(startElement);
-                }
-                if (event.isEndElement()) {
-                    EndElement endElement = event.asEndElement();
-                    stack.pop();
-                }
-            } catch (XMLStreamException e) {
-                if (!stack.isEmpty()) {
-                    StartElement startElement = stack.pop();
-                    String elementName = startElement.getName().getLocalPart();
-                    if (Arrays.stream(TAG_SHOULD_CLOSE_LIST).anyMatch(elementName::equals)) {
-                        hasError = true;
-                        UtilHtml.logFormattedError(content, locationInfo, e.getMessage(), MODULE);
+                    new ByteArrayInputStream(("<template>" + content + "</template>").getBytes(StandardCharsets.UTF_8)),
+                    "utf-8");
+            Stack<StartElement> stack = new Stack<StartElement>();
+            while (eventReader.hasNext()) {
+                try {
+                    XMLEvent event = eventReader.nextEvent();
+                    if (event.isStartElement()) {
+                        StartElement startElement = event.asStartElement();
+                        stack.push(startElement);
                     }
-                } else {
-                    UtilHtml.logFormattedError(content, locationInfo, e.getMessage(), MODULE);
+                    if (event.isEndElement()) {
+                        EndElement endElement = event.asEndElement();
+                        stack.pop();
+                    }
+                } catch (XMLStreamException e) {
+                    if (!stack.isEmpty()) {
+                        StartElement startElement = stack.pop();
+                        String elementName = startElement.getName().getLocalPart();
+                        if (Arrays.stream(TAG_SHOULD_CLOSE_LIST).anyMatch(elementName::equals)) {
+                            errorList.add(e.getMessage());
+                        }
+                    } else {
+                        errorList.add(e.getMessage());
+                    }
+                    break;
                 }
-                break;
+            }
+        } catch (XMLStreamException e) {
+            errorList.add(e.getMessage());
+        } finally {
+            if (eventReader != null) {
+                try {
+                    eventReader.close();
+                } catch (XMLStreamException e) {
+                    // do nothing
+                }
             }
         }
-        return hasError;
+        return errorList;
     }
 
     public static void logFormattedError(String content, String location, String error, String module) {
-        Debug.logError("[Parsing " + location + "]" + error, module);
+        Debug.logError("[Parsing " + location + "] " + error, module);
     }
 }

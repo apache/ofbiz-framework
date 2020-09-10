@@ -20,15 +20,22 @@ package org.apache.ofbiz.base.util;
 
 import org.junit.Test;
 
-import javax.xml.stream.XMLStreamException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class UtilHtmlTest {
 
     @Test
-    public void parseHtmlFragment_1() throws XMLStreamException {
-        assertEquals(true, UtilHtml.hasUnclosedTag("<div><div></div>", "location.ftl"));
+    public void parseHtmlFragment_unclosedDiv() {
+        List<String> errorList = UtilHtml.hasUnclosedTag("<div><div></div>");
+        assertEquals(true, errorList.get(0).contains("Unexpected close tag"));
+    }
+
+    @Test
+    public void parseHtmlFragment_multiRoot() {
+        List<String> errorList = UtilHtml.hasUnclosedTag("<div></div><div></div>");
+        assertEquals(0, errorList.size());
     }
 }
 
