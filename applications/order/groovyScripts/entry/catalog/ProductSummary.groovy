@@ -97,6 +97,7 @@ if (product) {
 categoryId = null
 reviews = null
 if (product) {
+    numberFormat = NumberFormat.getCurrencyInstance(locale)
     categoryId = parameters.category_id ?: request.getAttribute("productCategoryId")
 
     variantInfoJS = new StringBuffer()
@@ -170,7 +171,6 @@ if (product) {
             }
         }
         variantPriceList = []
-        numberFormat = NumberFormat.getCurrencyInstance(locale)
         
         if(virtualVariants){
             amt = new StringBuffer()
@@ -208,6 +208,7 @@ if (product) {
             context.virtualJavaScript = jsBuf
         }
     }
+    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + numberFormat.format(priceMap.basePrice) + "';\n")
     variantInfoJS.append("    });\n</script>\n")
     context.variantInfoJavaScript = variantInfoJS
 
