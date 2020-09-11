@@ -96,6 +96,7 @@ ${variantInfoJavaScript!}
           </table>
         </div>
         <script type="text/javascript">
+          /*
           jQuery(document).ready(function(jQuery) {
           jQuery("#${productInfoLinkId}").attr('title', jQuery("#${productDetailId}").remove().html());
           jQuery("#${productInfoLinkId}").tooltip({
@@ -106,6 +107,7 @@ ${variantInfoJavaScript!}
               track: true
           }); 
           }); 
+          */
         </script>
         <div class="productbuy">
           <#-- check to see if introductionDate hasn't passed yet -->
@@ -143,7 +145,8 @@ ${variantInfoJavaScript!}
                         <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
                     </#list>
                 </select>
-                <div class="variant-price" style="display: none;">
+                <input type="hidden" name="product_id_bak" value="${product.productId}"/>
+                <div class="variant-price" style="display: inline-block;">
                     <strong><span class="product_id_display"> </span></strong>
                     <strong><span class="variant_price_display"> </span></strong>
                 </div>

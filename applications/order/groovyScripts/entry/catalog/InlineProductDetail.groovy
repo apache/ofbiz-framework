@@ -103,7 +103,7 @@ if (inlineProduct) {
     featureOrder = []
 
     variantInfoJS = new StringBuffer()
-    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    \$(document).ready(function(\$) {\n")
+    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
 
     // make the productContentWrapper
     productContentWrapper = new ProductContentWrapper(inlineProduct, request)
