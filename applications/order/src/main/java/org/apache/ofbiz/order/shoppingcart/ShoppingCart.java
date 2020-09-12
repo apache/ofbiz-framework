@@ -5783,7 +5783,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         public static class CartShipItemInfo implements Serializable {
-            public List<GenericValue> itemTaxAdj = new LinkedList<>();
+            private List<GenericValue> itemTaxAdj = new LinkedList<>();
             private ShoppingCartItem item = null;
             private BigDecimal quantity = BigDecimal.ZERO;
             /** get item tax adj*/

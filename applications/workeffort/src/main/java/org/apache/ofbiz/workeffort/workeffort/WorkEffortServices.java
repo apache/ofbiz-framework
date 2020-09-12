@@ -398,7 +398,7 @@ public class WorkEffortServices {
         for (Date dateBoundary: dateBoundaries) {
             if (prevDateBoundary != null) {
                 DateRange dateRange = new DateRange(prevDateBoundary, dateBoundary);
-                for (Map<String, Object >calendarEntry: calendarEntries) {
+                for (Map<String, Object> calendarEntry: calendarEntries) {
                     DateRange calEntryRange = (DateRange) calendarEntry.get("calEntryRange");
                     if (calEntryRange.intersectsRange(dateRange) && !(calEntryRange.end().equals(dateRange.start())
                             || calEntryRange.start().equals(dateRange.end()))) {

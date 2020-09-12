@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -49,6 +50,7 @@ public class PurchaseOrderTest extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testCreatePurchaseOrder() throws Exception {
+        Delegator delegator = getDelegator();
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company");
         ctx.put("orderTypeId", "PURCHASE_ORDER");
