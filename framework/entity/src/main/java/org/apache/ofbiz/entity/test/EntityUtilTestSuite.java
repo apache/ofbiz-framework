@@ -43,7 +43,7 @@ public class EntityUtilTestSuite extends EntityTestCase {
     private List<GenericValue> prepareGenericValueList() {
         List<GenericValue> newValues = new ArrayList<>();
         for (int i = 0; i < TEST_COUNT; i++) {
-            newValues.add(delegator.makeValue("Testing", "testingId", StringUtil.padNumberString(String.valueOf(i), 5),
+            newValues.add(getDelegator().makeValue("Testing", "testingId", StringUtil.padNumberString(String.valueOf(i), 5),
                     "description", "Description " + i % 10));
         }
         return newValues;

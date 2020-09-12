@@ -77,7 +77,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private String rendererName;
     private int elementId = 999;
-    protected boolean widgetCommentsEnabled = false;
+    private boolean widgetCommentsEnabled = false;
     private int screenLetsIdCounter = 1;
 
     public MacroScreenRenderer(ModelTheme theme, String modelTemplateName) throws TemplateException, IOException {

@@ -27,7 +27,7 @@ public abstract class GenericMapKeySet<K, V, M extends Map<K, V>> extends Generi
 
     @Override
     public boolean remove(Object item) {
-        return source.remove(item) != null;
+        return getSource().remove(item) != null;
     }
 }
 

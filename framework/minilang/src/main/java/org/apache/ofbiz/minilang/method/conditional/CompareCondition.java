@@ -117,7 +117,7 @@ public final class CompareCondition extends MethodOperation implements Condition
             // We use en locale here so constant (literal) values are converted properly.
             return this.compare.doCompare(fieldVal, value, targetClass, Locale.ENGLISH, methodContext.getTimeZone(), format);
         } catch (Exception e) {
-            simpleMethod.addErrorMessage(methodContext, e.getMessage());
+            getSimpleMethod().addErrorMessage(methodContext, e.getMessage());
         }
         return false;
     }

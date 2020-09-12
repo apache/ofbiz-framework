@@ -95,7 +95,7 @@ public final class FindByPrimaryKey extends EntityOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

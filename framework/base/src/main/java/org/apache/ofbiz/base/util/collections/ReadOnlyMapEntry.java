@@ -27,8 +27,8 @@ import org.apache.ofbiz.base.util.UtilObject;
  *  AbstractMap.SimpleImmutableEntry
  */
 public class ReadOnlyMapEntry<K, V> implements Map.Entry<K, V> {
-    protected final K key;
-    protected final V value;
+    private final K key;
+    private final V value;
 
     public ReadOnlyMapEntry(K key, V value) {
         this.key = key;

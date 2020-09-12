@@ -28,8 +28,8 @@ import org.apache.ofbiz.entity.model.ModelField;
  */
 @SuppressWarnings("serial")
 public class EntityConditionParam implements Serializable {
-    protected ModelField modelField;
-    protected Object fieldValue;
+    private ModelField modelField;
+    private Object fieldValue;
 
     protected EntityConditionParam() { }
 
@@ -41,10 +41,18 @@ public class EntityConditionParam implements Serializable {
         this.fieldValue = fieldValue;
     }
 
+    /**
+     * Gets model field.
+     * @return the model field
+     */
     public ModelField getModelField() {
         return modelField;
     }
 
+    /**
+     * Gets field value.
+     * @return the field value
+     */
     public Object getFieldValue() {
         return fieldValue;
     }

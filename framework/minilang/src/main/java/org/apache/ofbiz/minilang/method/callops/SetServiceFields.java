@@ -107,7 +107,7 @@ public final class SetServiceFields extends MethodOperation {
                 methodContext.getTimeZone(), methodContext.getLocale());
         if (!errorMessages.isEmpty()) {
             for (Object obj : errorMessages) {
-                simpleMethod.addErrorMessage(methodContext, (String) obj);
+                getSimpleMethod().addErrorMessage(methodContext, (String) obj);
             }
             throw new MiniLangRuntimeException("Errors encountered while setting service attributes for service name \"" + serviceName + "\"", this);
         }

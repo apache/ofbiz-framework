@@ -32,9 +32,9 @@ import org.w3c.dom.Element;
  */
 public class MapProcessor {
 
-    List<MakeInString> makeInStrings = new ArrayList<>();
-    String name;
-    List<SimpleMapProcess> simpleMapProcesses = new ArrayList<>();
+    private List<MakeInString> makeInStrings = new ArrayList<>();
+    private String name;
+    private List<SimpleMapProcess> simpleMapProcesses = new ArrayList<>();
 
     public MapProcessor(Element simpleMapProcessorElement) {
         name = simpleMapProcessorElement.getAttribute("name");
@@ -48,6 +48,14 @@ public class MapProcessor {
         }
     }
 
+    /**
+     * Exec.
+     * @param inMap the in map
+     * @param results the results
+     * @param messages the messages
+     * @param locale the locale
+     * @param loader the loader
+     */
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         if (UtilValidate.isNotEmpty(makeInStrings)) {
             for (MakeInString makeInString : makeInStrings) {
@@ -61,6 +69,10 @@ public class MapProcessor {
         }
     }
 
+    /**
+     * Gets name.
+     * @return the name
+     */
     public String getName() {
         return name;
     }

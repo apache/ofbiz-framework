@@ -45,7 +45,7 @@ public final class EntityConditionList<T extends EntityCondition> extends Entity
      * @return the size of the internal list of condition expressions
      */
     public int getConditionListSize() {
-        return conditions.size();
+        return getConditions().size();
     }
 
     /**
@@ -54,7 +54,7 @@ public final class EntityConditionList<T extends EntityCondition> extends Entity
      */
     @SuppressWarnings("unchecked")
     public Iterator<T> getConditionIterator() {
-        return (Iterator<T>) conditions.iterator();
+        return (Iterator<T>) getConditions().iterator();
     }
 
     @Override

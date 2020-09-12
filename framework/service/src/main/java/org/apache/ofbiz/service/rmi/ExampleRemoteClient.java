@@ -50,7 +50,7 @@ public class ExampleRemoteClient {
 
     private static final String MODULE = ExampleRemoteClient.class.getName();
     protected static final String RMI_URL = "rmi://localhost:1099/RMIDispatcher"; // change to match the remote server
-    protected RemoteDispatcher rd = null;
+    private RemoteDispatcher rd = null;
 
     public ExampleRemoteClient() {
         try {
@@ -60,6 +60,12 @@ public class ExampleRemoteClient {
         }
     }
 
+    /**
+     * Run test service map.
+     * @return the map
+     * @throws RemoteException the remote exception
+     * @throws GenericServiceException the generic service exception
+     */
     public Map<String, Object> runTestService() throws RemoteException, GenericServiceException {
         Map<String, Object> context = new HashMap<>();
         context.put("message", "Remote Service Test");

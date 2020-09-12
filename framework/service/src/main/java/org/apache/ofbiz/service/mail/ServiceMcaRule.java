@@ -84,9 +84,9 @@ public class ServiceMcaRule implements java.io.Serializable {
 
         if (allCondTrue) {
             for (ServiceMcaAction action: actions) {
-                if (!actionsRun.contains(action.serviceName)) {
+                if (!actionsRun.contains(action.getServiceName())) {
                     if (action.runAction(dispatcher, messageWrapper, userLogin)) {
-                        actionsRun.add(action.serviceName);
+                        actionsRun.add(action.getServiceName());
                     } else {
                         break;
                     }

@@ -43,10 +43,10 @@ public class DataFile {
     private static final String MODULE = DataFile.class.getName();
 
     /** List of record in the file, contains Record objects */
-    protected List<Record> records = new ArrayList<>();
+    private List<Record> records = new ArrayList<>();
 
     /** Contains the definition for the file */
-    protected ModelDataFile modelDataFile;
+    private ModelDataFile modelDataFile;
 
     /** Creates a DataFile object which will contain the parsed objects for the specified datafile, using the specified definition.
      * @param fileUrl The URL where the data file is located

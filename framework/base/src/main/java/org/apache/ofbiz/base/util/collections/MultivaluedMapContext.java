@@ -57,7 +57,7 @@ public class MultivaluedMapContext<K, V> extends MapContext<K, List<V>> {
      * @param value the value to add to the context
      */
     public void add(K key, V value) {
-        List<V> cur = contexts.getFirst().get(key);
+        List<V> cur = getContexts().getFirst().get(key);
         if (cur == null) {
             cur = new LinkedList<>();
             /* if this method is called after a context switch, copy the previous values

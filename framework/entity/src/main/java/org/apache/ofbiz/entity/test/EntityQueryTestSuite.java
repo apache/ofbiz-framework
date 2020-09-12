@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
@@ -46,6 +47,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert: Compared count of number of records found by Entity Engine method with count of number of records found by EntityQuery method.
      */
     public void testQueryCount() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "record-1", "description", "Record One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "record-2", "description", "Record Two"));
@@ -65,6 +67,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 3: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testWhere() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "where-1", "description", "find me"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "where-2", "description", "find me not"));
@@ -91,6 +94,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 3: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testQueryList() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryList-1", "description", "queryList record one"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryList-2", "description", "queryList record two"));
@@ -114,6 +118,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 2: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testQueryFirst() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryFirst-1", "description", "first record"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryFirst-2", "description", "second record"));
@@ -135,6 +140,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 2: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testQueryOne() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOne-1", "description", "query one"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOne-2", "description", "query two"));
@@ -156,6 +162,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 2: Check the TestingType entity queryOneMap-3 has been resolve with the parameters map present in context
      */
     public void testQueryOneWithContext() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOneMap-1", "description", "query one by map"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryOneMap-2", "description", "query two by map"));
@@ -180,6 +187,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 2: Compared 'testingTypeId' field for null which is fetched by EntityQuery method.
      */
     public void testSelect() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "select-1", "description", "description one"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "select-2", "description", "description two"));
@@ -204,6 +212,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 3: Compared 'testingTypeId' field for null which is fetched by EntityQuery method.
      */
     public void testDistinctAndSelect() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "distinct-1", "description", "Distinct Record"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "distinct-2", "description", "Distinct Record"));
@@ -231,6 +240,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 3: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testOrderBy() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "orderBy-1", "description", "B"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "orderBy-2", "description", "C"));
@@ -258,6 +268,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 5: Compared 'thruDate' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testFilterByDate() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         delegator.create("TestingType", "testingTypeId", "filterByDate-1", "description", "Filter BY Date");
 
         delegator.create("Testing", "testingId", "testing-1", "testingTypeId", "filterByDate-1");
@@ -303,6 +314,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 3: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testMaxRows() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "maxRows-1", "description", "Max Row One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "maxRows-2", "description", "Max Row Two"));
@@ -328,6 +340,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert 3: Compared 'description' field of first record fetched by Entity Engine method and by EntityQuery method.
      */
     public void testFetchSize() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "fetchSize-1", "description", "Fetch Size One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "fetchSize-2", "description", "Fetch Size Two"));
@@ -353,6 +366,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert: Compared first record of both the iterator.
      */
     public void testQueryIterator() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryIterator-1", "description", "Value One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "queryIterator-2", "description", "Value Two"));
@@ -386,6 +400,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert: Compared first record found by both the iterator.
      */
     public void testCursorForwardOnly() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "cursorForwardOnly-1", "description", "cursorForwardOnly One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "cursorForwardOnly-2", "description", "cursorForwardOnly Two"));
@@ -422,6 +437,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert: Compared first record found by both the iterators.
      */
     public void testCursorScrollSensitive() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollSensitive-1", "description", "cursorScrollSensitive One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollSensitive-2", "description", "cursorScrollSensitive Two"));
@@ -459,6 +475,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
      * assert: Compared first record found by both the iterators.
      */
     public void testCursorScrollInSensitive() throws GenericEntityException {
+        Delegator delegator = getDelegator();
         List<GenericValue> testingTypes = new LinkedList<>();
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollInSensitive-1", "description", "cursorScrollInSensitive One"));
         testingTypes.add(delegator.makeValue("TestingType", "testingTypeId", "scrollInSensitive-2", "description", "cursorScrollInSensitive Two"));

@@ -307,7 +307,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             }
             // check the runAsUser
             if (UtilValidate.isNotEmpty(jobValue.getString("runAsUser"))) {
-                context.put("userLogin", ServiceUtil.getUserLogin(dctx, context, jobValue.getString("runAsUser")));
+                context.put("userLogin", ServiceUtil.getUserLogin(getDctx(), context, jobValue.getString("runAsUser")));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "PersistedServiceJob.getContext(): Entity Exception", MODULE);
@@ -366,10 +366,10 @@ public class PersistedServiceJob extends GenericServiceJob {
 
     @Override
     public void deQueue() throws InvalidJobException {
-        if (currentState != State.QUEUED) {
+        if (getCurrentState() != State.QUEUED) {
             throw new InvalidJobException("Illegal state change");
         }
-        currentState = State.CREATED;
+        setCurrentState(State.CREATED);
         try {
             jobValue.refresh();
             jobValue.set("startDateTime", null);

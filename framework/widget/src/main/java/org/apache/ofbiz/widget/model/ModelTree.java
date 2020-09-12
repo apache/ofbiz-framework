@@ -81,9 +81,9 @@ public class ModelTree extends ModelWidget {
     private final String defaultRenderStyle;
     private final FlexibleStringExpander defaultWrapStyleExdr;
     private final FlexibleStringExpander expandCollapseRequestExdr;
-    protected final boolean forceChildCheck;
+    private final boolean forceChildCheck;
     private final String location;
-    protected final Map<String, ModelNode> nodeMap;
+    private final Map<String, ModelNode> nodeMap;
     private final int openDepth;
     private final int postTrailOpenDepth;
     private final String rootNodeName;

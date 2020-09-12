@@ -21,6 +21,7 @@ package org.apache.ofbiz.entity.test;
 import java.util.List;
 
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionSubSelect;
@@ -42,9 +43,9 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      */
     public void testCrypto() throws Exception {
         String nanoTime = "" + System.nanoTime();
-        delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
-        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "1", "testingCryptoTypeId", "BASIC"));
-        GenericValue entity = EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoId", "1").queryOne();
+        getDelegator().removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
+        getDelegator().create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "1", "testingCryptoTypeId", "BASIC"));
+        GenericValue entity = EntityQuery.use(getDelegator()).from("TestingCrypto").where("testingCryptoId", "1").queryOne();
         assertNull(entity.getString("unencryptedValue"));
         assertNull(entity.getString("encryptedValue"));
         entity.setString("unencryptedValue", nanoTime);
@@ -65,6 +66,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      * @throws Exception the exception
      */
     public void testCryptoEncryption() throws Exception {
+        Delegator delegator = getDelegator();
         // clear out all values
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
 
@@ -126,6 +128,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      * @throws Exception the exception
      */
     public void testCryptoLookup() throws Exception {
+        Delegator delegator = getDelegator();
         String nanoTime = "" + System.nanoTime();
 
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP"));
@@ -166,7 +169,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      */
     protected EntityConditionSubSelect makeSubSelect(String nanoTime) {
         EntityCondition subCondition = makeSubSelectCondition(nanoTime);
-        return new EntityConditionSubSelect("TestingCrypto", "testingCryptoId", subCondition, true, delegator);
+        return new EntityConditionSubSelect("TestingCrypto", "testingCryptoId", subCondition, true, getDelegator());
     }
 
     /**
@@ -174,6 +177,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      * @throws Exception the exception
      */
     public void testCryptoSubSelect() throws Exception {
+        Delegator delegator = getDelegator();
         String nanoTime = "" + System.nanoTime();
         EntityCondition condition;
         List<GenericValue> results;

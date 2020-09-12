@@ -76,7 +76,7 @@ public class EntitySaxReader extends DefaultHandler {
     private static final String MODULE = EntitySaxReader.class.getName();
     public static final int DEFAULT_TX_TIMEOUT = 7200;
 
-    protected org.xml.sax.Locator locator;
+    private org.xml.sax.Locator locator;
     private Delegator delegator;
     private EntityEcaHandler<?> ecaHandler = null;
     private GenericValue currentValue = null;

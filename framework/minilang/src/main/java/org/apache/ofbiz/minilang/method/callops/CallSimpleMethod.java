@@ -106,8 +106,8 @@ public final class CallSimpleMethod extends MethodOperation {
         if ("function".equals(this.scope)) {
             Map<String, Object> localEnv = new HashMap<>();
             localEnv.putAll(methodContext.getEnvMap());
-            localEnv.remove(this.simpleMethod.getEventResponseCodeName());
-            localEnv.remove(this.simpleMethod.getServiceResponseMessageName());
+            localEnv.remove(this.getSimpleMethod().getEventResponseCodeName());
+            localEnv.remove(this.getSimpleMethod().getServiceResponseMessageName());
             localContext = new MethodContext(localEnv, methodContext.getLoader(), methodContext.getMethodType());
         }
         String returnVal = simpleMethodToCall.exec(localContext);
@@ -117,30 +117,30 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
+                methodContext.putEnv(getSimpleMethod().getEventResponseCodeName(), getSimpleMethod().getDefaultErrorCode());
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
+                methodContext.putEnv(getSimpleMethod().getServiceResponseMessageName(), getSimpleMethod().getDefaultErrorCode());
             }
             return false;
         }
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             // FIXME: This doesn't make sense. We are comparing the called method's response code with this method's
             // response code. Since response codes are configurable per method, this code will fail.
-            String responseCode = (String) localContext.getEnv(this.simpleMethod.getEventResponseCodeName());
-            if (this.simpleMethod.getDefaultErrorCode().equals(responseCode)) {
+            String responseCode = (String) localContext.getEnv(this.getSimpleMethod().getEventResponseCodeName());
+            if (this.getSimpleMethod().getDefaultErrorCode().equals(responseCode)) {
                 Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource ["
-                        + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), MODULE);
+                        + this.xmlResource + "], message is " + methodContext.getEnv(this.getSimpleMethod().getEventErrorMessageName()), MODULE);
                 return false;
             }
         } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
             // FIXME: This doesn't make sense. We are comparing the called method's response message with this method's
             // response message. Since response messages are configurable per method, this code will fail.
-            String responseMessage = (String) localContext.getEnv(this.simpleMethod.getServiceResponseMessageName());
-            if (this.simpleMethod.getDefaultErrorCode().equals(responseMessage)) {
+            String responseMessage = (String) localContext.getEnv(this.getSimpleMethod().getServiceResponseMessageName());
+            if (this.getSimpleMethod().getDefaultErrorCode().equals(responseMessage)) {
                 Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource ["
-                        + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageName())
+                        + this.xmlResource + "], message is " + methodContext.getEnv(this.getSimpleMethod().getServiceErrorMessageName())
                         + ", and the error message list is: "
-                        + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName()), MODULE);
+                        + methodContext.getEnv(this.getSimpleMethod().getServiceErrorMessageListName()), MODULE);
                 return false;
             }
         }

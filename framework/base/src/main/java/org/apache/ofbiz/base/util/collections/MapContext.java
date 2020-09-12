@@ -47,9 +47,15 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
-    private static final String MODULE = MapContext.class.getName();
+    private Deque<Map<K, V>> contexts = new LinkedList<>();
 
-    protected Deque<Map<K, V>> contexts = new LinkedList<>();
+    /**
+     * Gets contexts.
+     * @return the contexts
+     */
+    public Deque<Map<K, V>> getContexts() {
+        return contexts;
+    }
 
     /** Puts a new Map on the top of the stack */
     public void push() {

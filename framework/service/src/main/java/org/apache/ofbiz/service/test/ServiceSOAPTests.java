@@ -52,7 +52,7 @@ public class ServiceSOAPTests extends OFBizTestCase {
      */
     public void testSOAPService() throws Exception {
         Map<String, Object> serviceContext = new HashMap<>();
-        GenericValue testing = delegator.makeValue("Testing");
+        GenericValue testing = getDelegator().makeValue("Testing");
         testing.put("testingId", "COMPLEX_TYPE_TEST");
         testing.put("testingTypeId", "SOAP_TEST");
         testing.put("testingName", "Complex Type Test");

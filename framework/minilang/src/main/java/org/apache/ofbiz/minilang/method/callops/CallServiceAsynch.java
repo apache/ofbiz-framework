@@ -63,6 +63,7 @@ public final class CallServiceAsynch extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        SimpleMethod simpleMethod = getSimpleMethod();
         if (methodContext.isTraceOn()) {
             outputTraceMessage(methodContext, "Begin call-service-asynch.");
         }

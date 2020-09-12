@@ -124,7 +124,7 @@ public final class CompareFieldCondition extends MethodOperation implements Cond
         try {
             return this.compare.doCompare(fieldVal, toFieldVal, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
         } catch (Exception e) {
-            simpleMethod.addErrorMessage(methodContext, e.getMessage());
+            getSimpleMethod().addErrorMessage(methodContext, e.getMessage());
         }
         return false;
     }

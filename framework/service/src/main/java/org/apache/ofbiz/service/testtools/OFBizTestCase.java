@@ -61,7 +61,7 @@ public class OFBizTestCase extends EntityTestCase {
      * @throws GenericEntityException the generic entity exception
      */
     protected GenericValue getUserLogin(String userLoginId) throws GenericEntityException {
-        return EntityQuery.use(delegator)
+        return EntityQuery.use(getDelegator())
                 .from("UserLogin")
                 .where("userLoginId", userLoginId)
                 .queryOne();
@@ -82,7 +82,7 @@ public class OFBizTestCase extends EntityTestCase {
      * @return the entity query
      */
     protected EntityQuery from(String entityName) {
-        return EntityQuery.use(delegator).from(entityName);
+        return EntityQuery.use(getDelegator()).from(entityName);
     }
 
     /**
@@ -91,7 +91,7 @@ public class OFBizTestCase extends EntityTestCase {
      * @return the entity query
      */
     protected EntityQuery from(DynamicViewEntity dynamicViewEntity) {
-        return EntityQuery.use(delegator).from(dynamicViewEntity);
+        return EntityQuery.use(getDelegator()).from(dynamicViewEntity);
     }
 
     /**
@@ -100,7 +100,7 @@ public class OFBizTestCase extends EntityTestCase {
      * @return the entity query
      */
     protected EntityQuery select(String... fields) {
-        return EntityQuery.use(delegator).select(fields);
+        return EntityQuery.use(getDelegator()).select(fields);
     }
 
     /**
@@ -109,7 +109,7 @@ public class OFBizTestCase extends EntityTestCase {
      * @return the entity query
      */
     protected EntityQuery select(Set<String> fields) {
-        return EntityQuery.use(delegator).select(fields);
+        return EntityQuery.use(getDelegator()).select(fields);
     }
 
     /**

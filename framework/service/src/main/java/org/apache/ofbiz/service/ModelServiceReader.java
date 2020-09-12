@@ -333,7 +333,7 @@ public class ModelServiceReader implements Serializable {
     private static void createPermGroups(Element baseElement, ModelService model) {
         for (Element element: UtilXml.childElementList(baseElement, "required-permissions")) {
             ModelPermGroup group = new ModelPermGroup();
-            group.joinType = element.getAttribute("join-type");
+            group.setJoinType(element.getAttribute("join-type"));
             createGroupPermissions(element, group, model);
             model.getPermissionGroups().add(group);
         }
@@ -351,14 +351,14 @@ public class ModelServiceReader implements Serializable {
                 perm.setPermissionType(ModelPermission.getPERMISSION());
             }
             perm.setServiceModel(service);
-            group.permissions.add(perm);
+            group.getPermissions().add(perm);
         }
 
         // Create the permissions based on permission services
         for (Element element : UtilXml.childElementList(baseElement, "permission-service")) {
-            group.permissions.add(createServicePermission(element, service));
+            group.getPermissions().add(createServicePermission(element, service));
         }
-        if (UtilValidate.isNotEmpty(group.permissions)) {
+        if (UtilValidate.isNotEmpty(group.getPermissions())) {
             // auth is always required when permissions are set
             service.setAuth(true);
         }

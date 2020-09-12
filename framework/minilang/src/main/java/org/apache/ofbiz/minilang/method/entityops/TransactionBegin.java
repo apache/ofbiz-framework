@@ -58,7 +58,7 @@ public final class TransactionBegin extends MethodOperation {
         } catch (GenericTransactionException e) {
             String errMsg = "Exception thrown while beginning transaction: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         beganTransactionFma.put(methodContext.getEnvMap(), beganTransaction);

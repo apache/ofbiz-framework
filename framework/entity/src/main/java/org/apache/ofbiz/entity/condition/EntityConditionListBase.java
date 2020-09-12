@@ -32,11 +32,15 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  */
 @SuppressWarnings("serial")
 abstract class EntityConditionListBase<T extends EntityCondition> implements EntityCondition {
-    private static final String MODULE = EntityConditionListBase.class.getName();
+
+    public List<? extends T> getConditions() {
+        return conditions;
+    }
+
     /** The list of condition expressions to combine.  */
-    protected final List<? extends T> conditions;
+    private final List<? extends T> conditions;
     /** The infix operator used to combine every elements in the list of conditions.  */
-    protected final EntityJoinOperator operator;
+    private final EntityJoinOperator operator;
 
     /**
      * Constructs a combination of multiple condition expressions.

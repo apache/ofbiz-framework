@@ -39,12 +39,12 @@ public class RecurrenceInfo {
 
     private static final String MODULE = RecurrenceInfo.class.getName();
 
-    protected GenericValue info;
-    protected Date startDate;
-    protected List<RecurrenceRule> rRulesList;
-    protected List<RecurrenceRule> eRulesList;
-    protected List<Date> rDateList;
-    protected List<Date> eDateList;
+    private GenericValue info;
+    private Date startDate;
+    private List<RecurrenceRule> rRulesList;
+    private List<RecurrenceRule> eRulesList;
+    private List<Date> rDateList;
+    private List<Date> eDateList;
 
     /** Creates new RecurrenceInfo */
     public RecurrenceInfo(GenericValue info) throws RecurrenceInfoException {
@@ -297,6 +297,10 @@ public class RecurrenceInfo {
         return true;
     }
 
+    /**
+     * Primary key string.
+     * @return the string
+     */
     public String primaryKey() {
         return info.getString("recurrenceInfoId");
     }
@@ -348,7 +352,7 @@ public class RecurrenceInfo {
      */
     @SuppressWarnings("serial")
     protected static class RecurrenceWrapper extends TemporalExpression {
-        protected RecurrenceInfo info;
+        private RecurrenceInfo info;
         protected RecurrenceWrapper() { }
         public RecurrenceWrapper(RecurrenceInfo info) {
             this.info = info;
@@ -378,7 +382,8 @@ public class RecurrenceInfo {
             return next;
         }
         @Override
-        public void accept(TemporalExpressionVisitor visitor) {}
+        public void accept(TemporalExpressionVisitor visitor) { }
+
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
             return false;

@@ -444,7 +444,7 @@ public class UelFunctions {
     }
 
     protected static class Functions extends FunctionMapper {
-        protected final Map<String, Method> functionMap = new HashMap<>();
+        private final Map<String, Method> functionMap = new HashMap<>();
 
         public Functions() {
             try {
