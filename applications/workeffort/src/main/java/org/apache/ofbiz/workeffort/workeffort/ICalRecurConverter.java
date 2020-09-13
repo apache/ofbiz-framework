@@ -97,6 +97,11 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
 
     protected ICalRecurConverter() { }
 
+    /**
+     * Consolidate recurs recur.
+     * @param recurList the recur list
+     * @return the recur
+     */
     @SuppressWarnings("unchecked")
     protected Recur consolidateRecurs(List<Recur> recurList) {
         // Try to consolidate a list of Recur instances into one instance

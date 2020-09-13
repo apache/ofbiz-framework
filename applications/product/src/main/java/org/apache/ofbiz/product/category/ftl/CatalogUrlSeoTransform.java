@@ -85,6 +85,12 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
     }
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {

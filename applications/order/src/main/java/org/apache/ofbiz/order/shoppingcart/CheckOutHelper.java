@@ -1889,6 +1889,9 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess();
     }
 
+    /**
+     * Validate gift card amounts.
+     */
     public void validateGiftCardAmounts() {
         // get the product store
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);

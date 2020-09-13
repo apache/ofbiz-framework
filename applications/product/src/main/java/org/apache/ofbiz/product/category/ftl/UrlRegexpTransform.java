@@ -79,6 +79,13 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         return result;
     }
 
+    /**
+     * Check arg boolean.
+     * @param args the args
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the boolean
+     */
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;

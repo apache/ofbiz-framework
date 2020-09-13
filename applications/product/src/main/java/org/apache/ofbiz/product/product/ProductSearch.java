@@ -1812,6 +1812,11 @@ public class ProductSearch {
             }
         }
 
+        /**
+         * Make full keyword set set.
+         * @param delegator the delegator
+         * @return the set
+         */
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set<String> fullKeywordSet = new TreeSet<>();
