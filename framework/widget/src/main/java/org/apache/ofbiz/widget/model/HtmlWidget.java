@@ -426,6 +426,10 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets sub widgets.
+         * @return the sub widgets
+         */
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
         }

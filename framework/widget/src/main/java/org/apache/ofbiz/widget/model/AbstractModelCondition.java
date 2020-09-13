@@ -88,6 +88,10 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
         this.modelWidget = modelWidget;
     }
 
+    /**
+     * Gets model widget.
+     * @return the model widget
+     */
     public ModelWidget getModelWidget() {
         return modelWidget;
     }
@@ -170,6 +174,13 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             return newInstance(this, modelWidget, conditionElement);
         }
 
+        /**
+         * New instance model condition.
+         * @param factory the factory
+         * @param modelWidget the model widget
+         * @param conditionElement the condition element
+         * @return the model condition
+         */
         // TODO: Test extended factory
         protected ModelCondition newInstance(ModelConditionFactory factory, ModelWidget modelWidget, Element conditionElement) {
             if (conditionElement == null) {

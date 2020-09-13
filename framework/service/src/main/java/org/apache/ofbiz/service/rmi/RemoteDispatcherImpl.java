@@ -152,10 +152,18 @@ public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteD
         dispatcher.schedule(serviceName, context, startTime);
     }
 
+    /**
+     * Deregister.
+     */
     public void deregister() {
         dispatcher.deregister();
     }
 
+    /**
+     * Check export flag.
+     * @param serviceName the service name
+     * @throws GenericServiceException the generic service exception
+     */
     protected void checkExportFlag(String serviceName) throws GenericServiceException {
         ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
         if (!model.isExport() && !exportAll) {

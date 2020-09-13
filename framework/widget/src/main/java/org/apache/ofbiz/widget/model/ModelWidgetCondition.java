@@ -81,10 +81,19 @@ public abstract class ModelWidgetCondition implements Serializable {
         this.rootCondition = factory.newInstance(modelWidget, firstChildElement);
     }
 
+    /**
+     * Eval boolean.
+     * @param context the context
+     * @return the boolean
+     */
     public boolean eval(Map<String, Object> context) {
         return rootCondition.eval(context);
     }
 
+    /**
+     * Gets model widget.
+     * @return the model widget
+     */
     public ModelWidget getModelWidget() {
         return modelWidget;
     }

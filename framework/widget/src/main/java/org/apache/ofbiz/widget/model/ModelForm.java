@@ -1812,10 +1812,18 @@ public abstract class ModelForm extends ModelWidget {
         private final String useWhen;
         private final String style;
 
+        /**
+         * Gets use when.
+         * @return the use when
+         */
         public String getUseWhen() {
             return useWhen;
         }
 
+        /**
+         * Gets style.
+         * @return the style
+         */
         public String getStyle() {
             return style;
         }

@@ -2665,6 +2665,11 @@ public class ModelFormField {
             }
         }
 
+        /**
+         * Gets model grid.
+         * @param context the context
+         * @return the model grid
+         */
         public ModelForm getModelGrid(Map<String, Object> context) {
             String name = this.getGridName(context);
             String location = this.getGridLocation(context);
