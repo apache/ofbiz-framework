@@ -269,14 +269,17 @@ public class HtmlWidget extends ModelScreenWidget {
             stringWriter.close();
 
             if (Debug.verboseOn()) {
-                // check for unclosed tags
-                List<String> errorList = UtilHtml.hasUnclosedTag(data);
-                if (UtilValidate.isNotEmpty(errorList)) {
-                    errorList.forEach(a -> UtilHtml.logFormattedError(data, location, a, MODULE));
-                    // check with JSoup Html Parser
-                    List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
-                    if (UtilValidate.isNotEmpty(errList)) {
-                        errList.forEach(a -> UtilHtml.logFormattedError(data, location, a.toString(), MODULE));
+                List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+                if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+                    // check for unclosed tags
+                    List<String> errorList = UtilHtml.hasUnclosedTag(data);
+                    if (UtilValidate.isNotEmpty(errorList)) {
+                        errorList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a, MODULE));
+                        // check with JSoup Html Parser
+                        List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
+                        if (UtilValidate.isNotEmpty(errList)) {
+                            errList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a.toString(), MODULE));
+                        }
                     }
                 }
             }

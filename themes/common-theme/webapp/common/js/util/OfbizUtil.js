@@ -39,6 +39,14 @@ $(document).ready(function() {
     ajaxAutoCompleteDropDown();
     // bindObservers will add observer on passed html section when DOM is ready.
     bindObservers("body");
+    // fadeout info-overlay labels
+    setTimeout(function(){
+        $('.info-overlay').fadeOut(1000, function(){
+            $('.info-container').contents().unwrap();
+            $('.info-content').contents().unwrap();
+            $('.info-overlay').delay(1000).remove();
+        });
+    }, 3000);
 });
 
 /* bindObservers function contains the code of adding observers and it can be called for specific section as well
