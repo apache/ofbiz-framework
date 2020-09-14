@@ -259,7 +259,7 @@ public class UtilCodec {
         @Override
         public String decode(String original) {
             try {
-                canonicalize(original);
+                canonicalize(original); // This is only used to show warning/s in log in case of multiple encoding/s. See OFBIZ-12014 for more
                 return URLDecoder.decode(original, "UTF-8");
             } catch (UnsupportedEncodingException ee) {
                 Debug.logError(ee, MODULE);
