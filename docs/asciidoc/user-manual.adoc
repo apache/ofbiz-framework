@@ -121,12 +121,12 @@ update, delete, search, and do many other operations on the data model.
 
 ==== Core Applications
 
-The core applications in Apache OFBiz are web applications that serve common
+The <<CORE_APPLICATION_COMPONENTS,core applications>> in Apache OFBiz are web applications that serve common
 business needs found in most enterprises such as accounting, order management,
 party management and so on.
 
 These core applications are built on top of the data model and service library
-earlier described. The core applications are further described in the relevant
+earlier described. The <<CORE_APPLICATION_COMPONENTS,core applications>> are further described in the relevant
 section.
 
 ==== Plugins
@@ -184,3 +184,5 @@ include::../../framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[
 // Plugins Business Applications
 
 include::../../plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+1]
+
+include::_include/ofbiz-glossary.adoc[leveloffset=+1]
