@@ -16,7 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Glossary
+[glossary]
+= HR Glossary
 
 [#BUDGET]
 Budget::
@@ -27,12 +28,13 @@ items.
 
 [#EMPLOYEE]
 Employee::
-An employee is a person who has an employment relationship with your Company.
+An employee is a person who has an employment relationship with your Company. +
+For more detail see <<_employees>> chapter.
 
 [#EMPLOYEE_POSITION_TYPE]
 Employee Position Type::
-Employee Positions Type is a name that describes a position. Business Analyst,
- Programmer and System Administrator are examples of position types in the OFBiz
+Employee Position Type is a name that describes a position (<<_employee_positions, Employee Positions>>).
+Business Analyst, Programmer and System Administrator are examples of position types in the OFBiz
 demo data. You can define your own position types in Global HR Settings > Position
 Types.
 
@@ -40,7 +42,14 @@ Types.
 Employment::
 Employment defines the relationship between your Company and a person who is an
  employee. The employment relationship tracks employee benefits  preferences, pay
-history, and unemployment claims and agreements.
+history, and unemployment claims and agreements. +
+For more detail see <<_employments>> chapter.
+
+[#BENEFITS]
+Employment Benefits::
+Employment imply salary but not only, most of time, there are some benefit packages associated. Examples are
+vacation,health or life insurance, sick leave or retirement plan. Cost of these package may be partly or completely
+paid by the entreprise. Example can be see in <<_step_4_employee_associated_benefits>> in <<_tutorial_employment_and_salary>>.
 
 [#EXEMPT_FLAG]
 Exempt Flag::
@@ -109,15 +118,6 @@ Person is a human being as distinguished from a party group which is an organiza
 Human beings and organizations have different attributes i.e. People have first and
 last names while groups have group names. Both person and party group are types
  of parties and share information and processes common to parties.
-
-[#POSITION]
-Position::
-A position is a job that can be filled by more then one person over time or at
-the same time. Positions are defined by a type of work. For example there may
-be 20 positions in an organization for a secretary. Each position is related to
-a department in the organization. A position can me thought of as a full-time
-equivalent employee (FTE). So an FTE may be assigned to one or more positions
-and position can be assigned to more then one FTEs (job sharing).
 
 [#RATING]
 Rating::
