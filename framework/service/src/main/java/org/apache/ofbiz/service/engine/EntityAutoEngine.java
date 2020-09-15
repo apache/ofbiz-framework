@@ -180,7 +180,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 doublePkPrimaryInParam = secondPkParam;
                 doublePkSecondaryOutParam = firstPkParam;
                 doublePkSecondaryOutField = firstPkField;
-            //} else {
+                // } else {
                 // we don't have an IN and an OUT... so do nothing and leave them null
             }
         }

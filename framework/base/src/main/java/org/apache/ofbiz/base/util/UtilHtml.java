@@ -18,16 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import org.apache.ofbiz.widget.model.ThemeFactory;
-import org.jsoup.parser.ParseError;
-import org.jsoup.parser.Parser;
-
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +27,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+
+import org.apache.ofbiz.widget.model.ThemeFactory;
+import org.jsoup.parser.ParseError;
+import org.jsoup.parser.Parser;
 
 public final class UtilHtml {
 
@@ -108,7 +109,7 @@ public final class UtilHtml {
                 try {
                     eventReader.close();
                 } catch (XMLStreamException e) {
-                    // do nothing
+                    Debug.logError(e, MODULE);
                 }
             }
         }

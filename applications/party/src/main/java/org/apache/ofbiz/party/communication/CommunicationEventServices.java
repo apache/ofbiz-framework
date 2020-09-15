@@ -1006,7 +1006,7 @@ public class CommunicationEventServices {
             if (userLogin.get("partyId") == null && partyIdTo != null) {
                 int ch = 0;
                 for (ch = partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch - 1)); ch--) {
-                    // TODO: Do nothing here, this should be removed.
+                    Debug.log("Increase partyIdTo string to create a prefix", MODULE);
                 }
                 userLogin.put("partyId", partyIdTo.substring(0, ch)); //allow services to be called to have prefix
             }

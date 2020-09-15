@@ -42,7 +42,7 @@ public class CartEventListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
-        //for this one do nothing when the session is created...
+        Debug.logInfo("Do nothing when the session is created.", MODULE);
     }
 
     @Override

@@ -2619,7 +2619,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** positionItemToGroup */
     public void positionItemToGroup(ShoppingCartItem item, BigDecimal quantity, int fromIndex, int toIndex, boolean clearEmptyGroups) {
         if (fromIndex == toIndex || quantity.compareTo(BigDecimal.ZERO) <= 0) {
-            // do nothing
+            Debug.logError("Wrong index", MODULE);
             return;
         }
 
