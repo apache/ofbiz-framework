@@ -206,8 +206,8 @@ public final class KeyStoreUtil {
         String line;
 
         // ignore up to the header
-        //TODO: Correct it for checkstyle
         while ((line = reader.readLine()) != null && !line.equals(header)) {
+            Debug.logVerbose("Ignore up to the header...", MODULE);
         }
 
         // no header found

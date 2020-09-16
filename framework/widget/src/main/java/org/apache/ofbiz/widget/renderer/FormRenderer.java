@@ -1121,6 +1121,7 @@ public class FormRenderer {
             if (stayingOnRow) {
                 // no spacer cell, might add later though...
                 //formStringRenderer.renderFormatFieldRowSpacerCell(writer, context, currentFormField);
+                Debug.logVerbose("no spacer cell, might add later though...", MODULE);
             } else {
                 if (haveRenderedOpenFieldRow) {
                     // render row formatting close

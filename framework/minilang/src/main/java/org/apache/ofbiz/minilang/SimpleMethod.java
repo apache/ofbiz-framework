@@ -306,6 +306,7 @@ public final class SimpleMethod extends MiniLangElement {
                     // MiniLangValidate|W| Invalid element found Method = facilityGenericPermission, File =
                     // file:/C:/projectsASF/Git/ofbiz-framework/applications/product/minilang/product/inventory/InventoryServices.xml,
                     // Element = <else>, Line 71
+                    Debug.logVerbose("Prevents false warnings like reported at https://s.apache.org/o7tmu", MODULE);
                 } else {
                     MiniLangValidate.handleError("Invalid element found", simpleMethod, curOperElem);
                 }

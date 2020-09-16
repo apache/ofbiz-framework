@@ -1166,7 +1166,7 @@ public class DatabaseUtil {
                     }
                     rsCols = dbData.getColumns(null, lookupSchemaName, "%", "%");
                     if (!rsCols.next()) {
-                        // TODO: now what to do? I guess try one table name at a time...
+                        Debug.logVerbose("Now what to do? I guess try one table name at a time...", MODULE);
                     } else {
                         foundCols = true;
                     }

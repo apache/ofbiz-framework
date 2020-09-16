@@ -335,9 +335,8 @@ public class ModelReader implements Serializable {
                     for (String curEntityName : new TreeSet<>(this.getEntityNames())) {
                         ModelEntity curModelEntity = this.getModelEntity(curEntityName);
                         if (curModelEntity instanceof ModelViewEntity) {
-                            // for view-entities auto-create relationships for all member-entity
-                            // relationships that have all corresponding fields in the view-entity
-
+                            Debug.logVerbose("for view-entities auto-create relationships for all member-entity"
+                                    + "relationships that have all corresponding fields in the view-entity...", MODULE);
                         } else {
                             // for entities auto-create many relationships for all type one relationships
                             // just in case we add a new relation to the same entity, keep in a separate

@@ -390,7 +390,7 @@ public final class SqlJdbcUtil {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
 
             if ("ansi".equals(joinStyle) || "ansi-no-parenthesis".equals(joinStyle)) {
-                // nothing to do here, all done in the JOIN clauses
+                Debug.logVerbose("Nothing to do here, all done in the JOIN clauses...", MODULE);
             } else if ("theta-oracle".equals(joinStyle) || "theta-mssql".equals(joinStyle)) {
                 boolean isOracleStyle = "theta-oracle".equals(joinStyle);
                 boolean isMssqlStyle = "theta-mssql".equals(joinStyle);
