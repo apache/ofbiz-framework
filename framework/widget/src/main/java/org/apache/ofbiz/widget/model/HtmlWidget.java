@@ -165,7 +165,7 @@ public class HtmlWidget extends ModelScreenWidget {
             try {
                 boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(context);
                 if (insertWidgetBoundaryComments) {
-                    writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
+                    writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
 
                 Template template = null;
@@ -177,7 +177,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
                 if (insertWidgetBoundaryComments) {
-                    writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
+                    writer.append(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));
                 }
             } catch (IllegalArgumentException | TemplateException | IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();

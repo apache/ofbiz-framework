@@ -72,11 +72,7 @@ public class HtmlWidgetRenderer {
      * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
      * @param widgetName The widget name
      */
-    public String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
-        return formatBoundaryComment(boundaryType, widgetType, widgetName);
-    }
-
-    public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
+    public static String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
         String boundaryComment = "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
         if (!Debug.verboseOn()) {
             return boundaryComment;
@@ -110,7 +106,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (this.widgetCommentsEnabled) {
-            writer.append(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.append(buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -122,7 +118,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (this.widgetCommentsEnabled) {
-            writer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.append(buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
