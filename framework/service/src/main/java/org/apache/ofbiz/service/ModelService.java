@@ -1042,7 +1042,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public Map<String, String> getInParamNamesMap() {
         // TODO : Does not yet support getting nested parameters
         return getInModelParamList().stream().filter(param -> !param.getInternal())
-                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType(), (existingValue, newValue) -> newValue));
     }
 
     /**
@@ -1053,7 +1053,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public Map<String, String> getOutParamNamesMap() {
         // TODO : Does not yet support getting nested parameters
         return getModelParamList().stream().filter(param -> param.isOut() && !param.getInternal())
-                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType()));
+                .collect(Collectors.toMap(ModelParam::getName, param -> param.getType(), (existingValue, newValue) -> newValue));
     }
 
     /**
