@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHtml;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.widget.model.ModelWidget;
@@ -73,10 +72,10 @@ public class HtmlWidgetRenderer {
      * @param widgetName The widget name
      */
     public static String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
-        String boundaryComment = "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
-        if (!Debug.verboseOn()) {
-            return boundaryComment;
-        }
+        return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
+    }
+
+    public static String buildNamedBorder(String boundaryType, String widgetType, String widgetName) {
         List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
         if (!themeBasePathsToExempt.stream().anyMatch(widgetName::contains)) {
             // add additional visual label for non-theme ftl
@@ -85,13 +84,12 @@ public class HtmlWidgetRenderer {
                 String fileName = widgetName.substring(widgetName.lastIndexOf(File.separator) + 1);
                 return "</div><div class='info-overlay'><span class='info-overlay-item'>"
                         + fileName
-                        + "</span></div></div>" + boundaryComment;
+                        + "</span></div></div>";
             default:
-                return boundaryComment + "<div class='info-container'><div class='info-content'>";
+                return "<div class='info-container'><div class='info-content'>";
             }
-        } else {
-            return boundaryComment;
         }
+        return "";
     }
 
     public static String formatBoundaryJsComment(String boundaryType, String widgetType, String widgetName) {

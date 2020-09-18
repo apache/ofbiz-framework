@@ -167,6 +167,10 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
+                boolean insertWidgetNamedBorder = ModelWidget.widgetNamedBorderEnabled();
+                if (insertWidgetNamedBorder) {
+                    writer.append(HtmlWidgetRenderer.buildNamedBorder("Begin", "Template", location));
+                }
 
                 Template template = null;
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
@@ -176,6 +180,9 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
+                if (insertWidgetNamedBorder) {
+                    writer.append(HtmlWidgetRenderer.buildNamedBorder("End", "Template", location));
+                }
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));
                 }

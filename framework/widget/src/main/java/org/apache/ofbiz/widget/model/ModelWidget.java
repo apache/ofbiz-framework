@@ -150,4 +150,12 @@ public abstract class ModelWidget implements Serializable {
         }
         return result;
     }
+
+    /**
+     * Returns <code>true</code> if showing filename and border on the rendered part of the template.
+     * @return true if <code>widget.dev.namedBorder</code> is set to <code>true</code>
+     */
+    public static boolean widgetNamedBorderEnabled() {
+        return "true".equals(UtilProperties.getPropertyValue("widget", "widget.dev.namedBorder"));
+    }
 }
