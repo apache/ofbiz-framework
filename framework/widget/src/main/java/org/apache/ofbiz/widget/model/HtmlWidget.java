@@ -167,7 +167,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
-                boolean insertWidgetNamedBorder = ModelWidget.widgetNamedBorderEnabled();
+                boolean insertWidgetNamedBorder = !location.endsWith(".fo.ftl") && ModelWidget.widgetNamedBorderEnabled();
                 if (insertWidgetNamedBorder) {
                     writer.append(HtmlWidgetRenderer.buildNamedBorder("Begin", "Template", location));
                 }
