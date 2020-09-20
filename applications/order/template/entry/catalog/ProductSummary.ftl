@@ -17,38 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 ${virtualJavaScript!}
-<script type="application/javascript">
-    function displayProductVirtualId(variantId, virtualProductId, pForm) {
-        if(variantId){
-            pForm.product_id.value = variantId;
-        }else{
-            pForm.product_id.value = '';
-            variantId = '';
-        }
-        var elem = document.getElementById('product_id_display');
-        var txt = document.createTextNode(variantId);
-        if(elem.hasChildNodes()) {
-            elem.replaceChild(txt, elem.firstChild);
-        } else {
-            elem.appendChild(txt);
-        }
-        
-        var priceElem = document.getElementById('variant_price_display');
-        var price = getVariantPrice(variantId);
-        var priceTxt = null;
-        if(price){
-            priceTxt = document.createTextNode(price);
-        }else{
-            priceTxt = document.createTextNode('');
-        }
-        
-        if(priceElem.hasChildNodes()) {
-            priceElem.replaceChild(priceTxt, priceElem.firstChild);
-        } else {
-            priceElem.appendChild(priceTxt);
-        }
-    }
-</script>
 ${screens.render("component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productvariantjs")}
 ${variantInfoJavaScript!}
 <#if product??>
@@ -98,20 +66,6 @@ ${variantInfoJavaScript!}
             </#if>
           </table>
         </div>
-        <script type="application/javascript">
-          /*
-          jQuery(document).ready(function(jQuery) {
-          jQuery("#${productInfoLinkId}").attr('title', jQuery("#${productDetailId}").remove().html());
-          jQuery("#${productInfoLinkId}").tooltip({
-              content: function(){
-                  return this.getAttribute("title");
-              },
-              tooltipClass: "popup",
-              track: true
-          }); 
-          }); 
-          */
-        </script>
         <div class="productbuy">
           <#-- check to see if introductionDate hasn't passed yet -->
           <#if product.introductionDate?? && nowTimestamp.before(product.introductionDate)>

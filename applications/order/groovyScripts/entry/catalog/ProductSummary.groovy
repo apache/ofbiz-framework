@@ -97,6 +97,13 @@ if (product) {
 categoryId = null
 reviews = null
 if (product) {
+    // Format to apply the currency code to the variant price in the javascript
+    if (productStore) {
+        localeString = productStore.defaultLocaleString
+        if (localeString) {
+            locale = UtilMisc.parseLocale(localeString)
+        }
+    }
     numberFormat = NumberFormat.getCurrencyInstance(locale)
     categoryId = parameters.category_id ?: request.getAttribute("productCategoryId")
 
@@ -158,25 +165,18 @@ if (product) {
         
         // get alternative product price when product doesn't have any feature 
         jsBuf = new StringBuffer()
-        jsBuf.append("<script type=\"application/javascript\">")
+//        jsBuf.append("<script type=\"application/javascript\">")
         
         // make a list of variant sku with requireAmount
         virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId])
         virtualVariants = virtualVariantsRes.assocProducts
-        // Format to apply the currency code to the variant price in the javascript
-        if (productStore) {
-            localeString = productStore.defaultLocaleString
-            if (localeString) {
-                locale = UtilMisc.parseLocale(localeString)
-            }
-        }
         variantPriceList = []
         
         if(virtualVariants){
-            amt = new StringBuffer()
+//            amt = new StringBuffer()
             // Create the javascript to return the price for each variant
-            variantPriceJS = new StringBuffer()
-            variantPriceJS.append("function getVariantPrice(sku) { ")
+//            variantPriceJS = new StringBuffer()
+//            variantPriceJS.append("function getVariantPrice(sku) { ")
             
             virtualVariants.each { virtualAssoc ->
                 virtual = virtualAssoc.getRelatedOne("MainProduct", false)
@@ -196,15 +196,15 @@ if (product) {
                 } else {
                     basePrice = UtilProperties.getResourceBundleMap("CommonUiLabels", locale).get("CommonNA")
                 }
-                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + basePrice + "\"; ")
+//                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + basePrice + "\"; ")
                 variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + basePrice + "';\n")
             }
-            variantPriceJS.append(" } ")
+//            variantPriceJS.append(" } ")
             
             context.variantPriceList = variantPriceList
-            jsBuf.append(amt.toString())
-            jsBuf.append(variantPriceJS.toString())
-            jsBuf.append("</script>")
+//            jsBuf.append(amt.toString())
+//            jsBuf.append(variantPriceJS.toString())
+//            jsBuf.append("</script>")
             context.virtualJavaScript = jsBuf
         }
     }

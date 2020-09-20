@@ -396,11 +396,11 @@ if (product) {
                     variants = variantsRes.assocProducts
                     variantPriceList = []
                     if (variants) {
-                        amt = new StringBuffer()
-                        amt.append("function checkAmtReq(sku) { ")
+//                        amt = new StringBuffer()
+//                        amt.append("function checkAmtReq(sku) { ")
                         // Create the javascript to return the price for each variant
-                        variantPriceJS = new StringBuffer()
-                        variantPriceJS.append("function getVariantPrice(sku) { ")
+//                        variantPriceJS = new StringBuffer()
+//                        variantPriceJS.append("function getVariantPrice(sku) { ")
                         // Format to apply the currency code to the variant price in the javascript
                         if (productStore) {
                             localeString = productStore.defaultLocaleString
@@ -442,10 +442,10 @@ if (product) {
                             } else {
                                 variantPriceMap = runService('calculatePurchasePrice', priceContext)
                             }
-                            amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
+//                            amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
                             variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: "N") + "';\n")
                             if (variantPriceMap && variantPriceMap.basePrice) {
-                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
+//                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
                                 variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
                             }
                             
@@ -485,23 +485,23 @@ if (product) {
                                             }
                                         }
                                         variantPriceList.add(virtualPriceMap)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
+//                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
                                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
                                     } else {
                                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+//                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
                                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     }
                                 }
                                 
                             }
                         }
-                        amt.append(" } ")
-                        variantPriceJS.append(" } ")
+//                        amt.append(" } ")
+//                        variantPriceJS.append(" } ")
                     }
                     context.variantPriceList = variantPriceList
-                    jsBuf.append(amt.toString())
-                    jsBuf.append(variantPriceJS.toString())
+//                    jsBuf.append(amt.toString())
+//                    jsBuf.append(variantPriceJS.toString())
                     jsBuf.append("</script>")
 
                     context.virtualJavaScript = jsBuf
@@ -528,10 +528,10 @@ if (product) {
             virtualVariantPriceList = []
             
             if(virtualVariants){
-                amt = new StringBuffer()
+//                amt = new StringBuffer()
                 // Create the javascript to return the price for each variant
-                variantPriceJS = new StringBuffer()
-                variantPriceJS.append("function getVariantPrice(sku) { ")
+//                variantPriceJS = new StringBuffer()
+//                variantPriceJS.append("function getVariantPrice(sku) { ")
                 
                 virtualVariants.each { virtualAssoc ->
                     virtual = virtualAssoc.getRelatedOne("MainProduct", false)
@@ -543,20 +543,20 @@ if (product) {
                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price")
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
+//                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
                     } else {
                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+//                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     }
                 }
-                variantPriceJS.append(" } ")
+//                variantPriceJS.append(" } ")
                 
                 context.virtualVariantPriceList = virtualVariantPriceList
-                jsBuf.append(amt.toString())
-                jsBuf.append(variantPriceJS.toString())
-                jsBuf.append("</script>")
+//                jsBuf.append(amt.toString())
+//                jsBuf.append(variantPriceJS.toString())
+                jsBuf.append("</script>\n")
                 context.virtualVariantJavaScript = jsBuf
             }
         }

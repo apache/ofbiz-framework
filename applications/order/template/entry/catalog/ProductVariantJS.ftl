@@ -41,13 +41,15 @@ if (typeof(checkAmtReq2) == 'undefined') {
         $('.product_id_display', form).text(variantId);
         var price = getVariantPrice2(variantId);
         $('.variant_price_display', form).text(price || '');
-//        var price_div = $('.variant-price', form);
-//        if (price) {
-//            price_div.css('display', 'inline-block');
-//        }
-//        else {
-//            price_div.hide();
-//        }
+        /*
+        var price_div = $('.variant-price', form);
+        if (price) {
+            price_div.css('display', 'inline-block');
+        }
+        else {
+            price_div.hide();
+        }
+        */
     }
 
           jQuery(document).ready(function(jQuery) {
