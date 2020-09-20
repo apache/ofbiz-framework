@@ -220,8 +220,10 @@ if (inlineProduct) {
                             contentWrapper = new ProductContentWrapper(imageMap[key], request)
 
                             // initial image paths
-                            detailImage = contentWrapper.get("DETAIL_IMAGE_URL", "url") ?: productContentWrapper.get("DETAIL_IMAGE_URL", "url")
-                            largeImage = contentWrapper.get("LARGE_IMAGE_URL", "url") ?: productContentWrapper.get("LARGE_IMAGE_URL", "url")
+                            detailImage = contentWrapper.getProductContentAsText(inlineProduct, "DETAIL_IMAGE_URL", request, "string") 
+                            ?: productContentWrapper.get("DETAIL_IMAGE_URL", "string")
+                            largeImage = contentWrapper.getProductContentAsText(inlineProduct, "LARGE_IMAGE_URL", request, "string") 
+                            ?: productContentWrapper.get("LARGE_IMAGE_URL", "string")
 
                             // full image URLs
                             detailImageUrl = null
