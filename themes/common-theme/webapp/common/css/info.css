@@ -4,7 +4,6 @@
 .info-overlay {
     color: rgb(165, 42, 42);
     justify-items: center;
-    z-index: 10;
     border: 2px dashed rgba(236, 198, 48, 0.7);
     transition: .5s ease-out;
 }
@@ -16,4 +15,5 @@
     height: 50%;
     background: rgba(255, 213, 70);
     border: 2px dashed rgba(236, 198, 48);
+    z-index: 10;
 }

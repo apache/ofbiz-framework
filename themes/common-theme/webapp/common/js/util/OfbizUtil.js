@@ -53,6 +53,7 @@ $(document).ready(function() {
             });
         }, 3000);
     }
+    initNamedBorder();
 });
 
 /* bindObservers function contains the code of adding observers and it can be called for specific section as well
