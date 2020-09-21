@@ -212,7 +212,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
 
     @Override
     public void visit(Substitution expr) {
-        Debug.log("iCalendar format does not support substitutions. Do nothing for now", MODULE);
+        Debug.logVerbose("iCalendar format does not support substitutions. Do nothing for now", MODULE);
     }
 
     @Override

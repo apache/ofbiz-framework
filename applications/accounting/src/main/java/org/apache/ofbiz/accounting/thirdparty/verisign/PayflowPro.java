@@ -881,7 +881,7 @@ public class PayflowPro {
             Object valueObj = context.get(name);
 
             if (valueObj == null || (valueObj instanceof String) && ((String) valueObj).isEmpty()) {
-                Debug.logError("not valid; do nothing", MODULE);
+                Debug.logVerbose("not valid; do nothing", MODULE);
             } else {
                 String value = valueObj.toString();
 

@@ -38,7 +38,7 @@ public class LoginEventListener implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent event) {
         //for this one do nothing when the session is created...
         //HttpSession session = event.getSession();
-        Debug.log("do nothing, it's an ignored field; could add a comment or something if we wanted to", MODULE);
+        Debug.logVerbose("do nothing, it's an ignored field; could add a comment or something if we wanted to", MODULE);
 
     }
 

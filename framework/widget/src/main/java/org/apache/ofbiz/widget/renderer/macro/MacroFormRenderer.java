@@ -1328,7 +1328,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     @Override
     public void renderIgnoredField(Appendable writer, Map<String, Object> context, IgnoredField ignoredField) {
         // do nothing, it's an ignored field; could add a comment or something if we wanted to
-        Debug.logError("do nothing, it's an ignored field; could add a comment or something if we wanted to", MODULE);
+        Debug.logVerbose("do nothing, it's an ignored field; could add a comment or something if we wanted to", MODULE);
 
     }
 

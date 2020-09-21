@@ -477,7 +477,7 @@ public class ProductSearchSession {
                             } else if ("KOTT_OFBURL".equals(targetTypeEnumId)) {
                                 target = rh.makeLink(request, response, target, false, false, false);
                             } else if ("KOTT_AURL".equals(targetTypeEnumId)) {
-                                Debug.log("Do nothing, is absolute URL", MODULE);
+                                Debug.logVerbose("Do nothing, is absolute URL", MODULE);
                             } else {
                                 Debug.logError("The targetTypeEnumId[] is not recognized, not doing keyword override", MODULE);
                                 // might as well see if there are any others...
