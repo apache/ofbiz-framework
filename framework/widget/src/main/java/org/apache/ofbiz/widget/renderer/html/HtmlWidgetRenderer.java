@@ -75,16 +75,26 @@ public class HtmlWidgetRenderer {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
     }
 
-    public static String buildNamedBorder(String boundaryType, String widgetType, String widgetName) {
+    public static String buildNamedBorder(String boundaryType, String widgetType, String widgetName, ModelWidget.NamedBorderType namedBorderType) {
         List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
         if (!themeBasePathsToExempt.stream().anyMatch(widgetName::contains)) {
             // add additional visual label for non-theme ftl
             switch (boundaryType) {
             case "End":
                 String fileName = widgetName.substring(widgetName.lastIndexOf(File.separator) + 1);
-                return "</div><div class='info-overlay'><span class='info-overlay-item'>"
-                        + fileName
-                        + "</span></div></div>";
+                switch (namedBorderType) {
+                case SOURCE:
+                    return "</div><div class='info-overlay'><span class='info-overlay-item'><a href='#' data-source='"
+                            + widgetName
+                            + "'>"
+                            + fileName
+                            + "</a></span></div></div>";
+                case LABEL:
+                    return "</div><div class='info-overlay'><span class='info-overlay-item'>"
+                            + fileName
+                            + "</span></div></div>";
+                default: return "";
+                }
             default:
                 return "<div class='info-container'><div class='info-content'>";
             }

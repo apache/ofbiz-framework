@@ -44,14 +44,28 @@ $(document).ready(function() {
     bindObservers("body");
 
     function initNamedBorder() {
+        jQuery("[data-source]").off();
         // fadeout info-overlay labels
         setTimeout(function(){
             $('.info-overlay').fadeOut(1000, function(){
+                jQuery("[data-source]").off();
                 $('.info-container').contents().unwrap();
                 $('.info-content').contents().unwrap();
                 $('.info-overlay').delay(1000).remove();
             });
         }, 3000);
+        // clickable link in named border to open source file
+        jQuery("[data-source]").click(function(){
+            var sourceLocaton = jQuery(this).data("source");
+            jQuery.ajax({
+                url: 'openSourceFile',
+                type: "POST",
+                data: {sourceLocation:sourceLocaton},
+                success: function(data) {
+                    alert("Command is sent to open source file with your IDE");
+                }
+            });
+        });
     }
     initNamedBorder();
 });

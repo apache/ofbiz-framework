@@ -39,6 +39,7 @@ public abstract class ModelWidget implements Serializable {
      * set to "widgetVerbose".
      */
     public static final String ENABLE_BOUNDARY_COMMENTS_PARAM = "widgetVerbose";
+    public enum NamedBorderType { NONE, LABEL, SOURCE }
 
     private final String name;
     private final String systemId;
@@ -152,10 +153,10 @@ public abstract class ModelWidget implements Serializable {
     }
 
     /**
-     * Returns <code>true</code> if showing filename and border on the rendered part of the template.
-     * @return true if <code>widget.dev.namedBorder</code> is set to <code>true</code>
+     * determine how to display named border for development
+     * @return NamedBorderType from <code>widget.dev.namedBorder</code> property
      */
-    public static boolean widgetNamedBorderEnabled() {
-        return "true".equals(UtilProperties.getPropertyValue("widget", "widget.dev.namedBorder"));
+    public static NamedBorderType widgetNamedBorderEnabled() {
+        return NamedBorderType.valueOf(UtilProperties.getPropertyValue("widget", "widget.dev.namedBorder", NamedBorderType.NONE.toString()));
     }
 }

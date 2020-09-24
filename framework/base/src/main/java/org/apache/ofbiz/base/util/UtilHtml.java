@@ -125,11 +125,13 @@ public final class UtilHtml {
                 String pluginPathKey = File.separator + "plugins" + File.separator;
                 for (File xmlTheme : xmlThemes) {
                     String path = xmlTheme.toURI().toURL().toString();
+                    // get the path after themes or plugins folders
                     if (path.indexOf(themePathKey) > 0) {
                         path = path.substring(path.indexOf(themePathKey) + 8);
                     } else if (path.indexOf(pluginPathKey) > 0) {
                         path = path.substring(path.indexOf(pluginPathKey) + 9);
                     }
+                    // get folder name
                     path = path.substring(0, path.indexOf(File.separator));
                     if (!path.contains("common-theme") && !path.contains("ecommerce")) {
                         visualThemeBasePathsName.add(File.separator + path + File.separator);
