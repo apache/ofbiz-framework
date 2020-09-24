@@ -35,9 +35,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Element;
 
 /**
- * Models the &lt;menu&gt; element.
- *
- * @see <code>widget-menu.xsd</code>
+ * Models the &lt;menu&gt; element. see widget-menu.xsd
  */
 @SuppressWarnings("serial")
 public class ModelMenu extends ModelWidget {
@@ -670,21 +668,16 @@ public class ModelMenu extends ModelWidget {
     }
 
     /**
-     * Renders this menu to a String, i.e. in a text format, as defined with the
-     * MenuStringRenderer implementation.
+     * Renders this menu to a String, i.e. in a text format, as defined with the MenuStringRenderer implementation.
      * @param writer The Writer that the menu text will be written to
-     * @param context Map containing the menu context; the following are
-     *   reserved words in this context: parameters (Map), isError (Boolean),
-     *   itemIndex (Integer, for lists only, otherwise null), menuName
-     *   (String, optional alternate name for menu, defaults to the
-     *   value of the name attribute)
-     * @param menuStringRenderer An implementation of the MenuStringRenderer
-     *   interface that is responsible for the actual text generation for
-     *   different menu elements; implementing you own makes it possible to
-     *   use the same menu definitions for many types of menu UIs
+     * @param context Map containing the menu context; the following are reserved words in this context: parameters (Map), isError (Boolean),
+     * itemIndex (Integer, for lists only, otherwise null), menuName (String, optional alternate name for menu, defaults to the value of the name
+     * attribute)
+     * @param menuStringRenderer An implementation of the MenuStringRenderer interface that is responsible for the actual text generation for
+     * different menu elements; implementing you own makes it possible to use the same menu definitions for many types of menu UIs
+     * @throws IOException the io exception
      */
-    public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
-            throws IOException {
+    public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         AbstractModelAction.runSubActions(this.actions, context);
         if ("simple".equals(this.type)) {
             this.renderSimpleMenuString(writer, context, menuStringRenderer);
@@ -701,8 +694,7 @@ public class ModelMenu extends ModelWidget {
      * @param menuStringRenderer the menu string renderer
      * @throws IOException the io exception
      */
-    public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
-            throws IOException {
+    public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         // render menu open
         menuStringRenderer.renderMenuOpen(writer, context, this);
 
