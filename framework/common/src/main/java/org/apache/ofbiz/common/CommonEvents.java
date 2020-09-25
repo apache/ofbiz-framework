@@ -25,6 +25,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -459,6 +460,11 @@ public class CommonEvents {
                     // find absolute path of file
                     URL sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation);
                     String location = sourceFileUrl.getFile();
+                    // ensure file separator in location is correct
+                    if (!location.contains(File.separator) && "\\".equals(File.separator)) {
+                        location = location.replaceAll("/", "\\\\");
+                    }
+                    location = "\"" + location + "\"";
                     // prepare content map for string expansion
                     Map<String, Object> sourceMap = new HashMap<>();
                     sourceMap.put("sourceLocation", location);
