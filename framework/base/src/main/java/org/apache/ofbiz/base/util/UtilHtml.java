@@ -121,8 +121,8 @@ public final class UtilHtml {
             try {
                 List<File> xmlThemes = ThemeFactory.getThemeXmlFiles();
                 visualThemeBasePathsName = new ArrayList<>();
-                String themePathKey = File.separator + "themes" + File.separator;
-                String pluginPathKey = File.separator + "plugins" + File.separator;
+                String themePathKey = "/themes/";
+                String pluginPathKey = "/plugins/";
                 for (File xmlTheme : xmlThemes) {
                     String path = xmlTheme.toURI().toURL().toString();
                     // get the path after themes or plugins folders
@@ -132,9 +132,9 @@ public final class UtilHtml {
                         path = path.substring(path.indexOf(pluginPathKey) + 9);
                     }
                     // get folder name
-                    path = path.substring(0, path.indexOf(File.separator));
+                    path = path.substring(0, path.indexOf("/"));
                     if (!path.contains("common-theme") && !path.contains("ecommerce")) {
-                        visualThemeBasePathsName.add(File.separator + path + File.separator);
+                        visualThemeBasePathsName.add("/" + path + "/");
                     }
                 }
             } catch (IOException e) {

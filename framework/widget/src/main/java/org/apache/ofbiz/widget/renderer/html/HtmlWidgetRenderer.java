@@ -81,7 +81,7 @@ public class HtmlWidgetRenderer {
             // add additional visual label for non-theme ftl
             switch (boundaryType) {
             case "End":
-                String fileName = widgetName.substring(widgetName.lastIndexOf(File.separator) + 1);
+                String fileName = widgetName.substring(widgetName.lastIndexOf("/") + 1);
                 switch (namedBorderType) {
                 case SOURCE:
                     return "</div><div class='info-overlay'><span class='info-overlay-item'><a href='#' data-source='"
