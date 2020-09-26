@@ -39,5 +39,5 @@ Currently these are limited to the following:
 
 == How do I edit an agreement item?
 . Select the agreement item to be updated by clicking on the Agreement Item Id
-. The 'Edit Agreement Item' screen is displayed <<true_a_id_howdo_a_how_do_i_edit_an_agreement, How do it?>>
+. The 'Edit Agreement Item' screen is displayed <<_how_do_i_edit_an_agreement, How do it?>>
 . Update the fields required (NOTE: Additional details can be updated by selecting the Promotions, Terms, Product, Party or Geo sub menus)

@@ -55,7 +55,8 @@ public final class FindByPrimaryKey extends EntityOperation {
     public FindByPrimaryKey(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list", "map", "value-field", "delegator-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list",
+                    "map", "value-field", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "value-field", "map");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "value-field", "map", "fields-to-select-list", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
@@ -86,14 +87,15 @@ public final class FindByPrimaryKey extends EntityOperation {
         Collection<String> fieldsToSelectList = fieldsToSelectListFma.get(methodContext.getEnvMap());
         try {
             if (fieldsToSelectList != null) {
-                valueFma.put(methodContext.getEnvMap(), delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), UtilMisc.toSet(fieldsToSelectList)));
+                valueFma.put(methodContext.getEnvMap(), delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap),
+                        UtilMisc.toSet(fieldsToSelectList)));
             } else {
                 valueFma.put(methodContext.getEnvMap(), EntityQuery.use(delegator).from(entityName).where(inMap).cache(useCache).queryOne());
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

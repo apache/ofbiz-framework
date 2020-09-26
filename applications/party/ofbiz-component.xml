@@ -38,6 +38,7 @@ under the License.
     
     <test-suite loader="main" location="testdef/PartyTests.xml"/>
     <test-suite loader="main" location="testdef/PartyContactMechTests.xml"/>
+    <test-suite loader="main" location="testdef/PartyStatusChangeTests.xml"/>
 
     <webapp name="party"
         title="Party"

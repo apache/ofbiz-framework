@@ -159,7 +159,7 @@ under the License.
           </tr>
       </table>
       <div class="button-bar">
-        <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+        <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
         <input type="submit" value="${uiLabelMap.CommonSave}"/>
       </div>
     </form>

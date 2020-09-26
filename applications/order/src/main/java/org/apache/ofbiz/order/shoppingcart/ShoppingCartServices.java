@@ -966,10 +966,10 @@ public class ShoppingCartServices {
                             if (isTaxAdjustment(adj)) {
                                 CartShipItemInfo csii = shipInfo.getShipItemInfo(item);
 
-                                if (csii.itemTaxAdj == null) {
+                                if (csii.getItemTaxAdj() == null) {
                                     shipInfo.setItemInfo(item, UtilMisc.toList(adj));
                                 } else {
-                                    csii.itemTaxAdj.add(adj);
+                                    csii.getItemTaxAdj().add(adj);
                                 }
                             } else {
                                 item.addAdjustment(adj);
@@ -1189,7 +1189,7 @@ public class ShoppingCartServices {
         String productId = (String) context.get("productId");
         if (shoppingCart != null && UtilValidate.isNotEmpty(shoppingCart.items())) {
             List<ShoppingCartItem> items = shoppingCart.findAllCartItems(productId);
-            if (items.size() > 0) {
+            if (!items.isEmpty()) {
                 ShoppingCartItem item = items.get(0);
                 int itemIndex = shoppingCart.getItemIndex(item);
                 result.put("itemIndex", String.valueOf(itemIndex));

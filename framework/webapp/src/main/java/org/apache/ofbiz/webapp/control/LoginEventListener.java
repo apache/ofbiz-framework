@@ -23,6 +23,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.apache.ofbiz.base.util.Debug;
+
 /**
  * HttpSessionListener that finalizes login information
  */
@@ -36,6 +38,8 @@ public class LoginEventListener implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent event) {
         //for this one do nothing when the session is created...
         //HttpSession session = event.getSession();
+        Debug.logVerbose("do nothing, it's an ignored field; could add a comment or something if we wanted to", MODULE);
+
     }
 
     @Override

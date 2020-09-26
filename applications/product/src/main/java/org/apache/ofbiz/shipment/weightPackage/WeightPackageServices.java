@@ -49,11 +49,16 @@ public class WeightPackageServices {
         String shipmentBoxTypeId = (String) context.get("shipmentBoxTypeId");
 
         // User can either enter all the dimensions or shipment box type, but not both
-        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) { // Check if user entered any dimensions
+        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) {
+            // Check if user entered any dimensions
             if (UtilValidate.isNotEmpty(shipmentBoxTypeId)) { // check also if user entered shipment box type
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorEnteredBothDimensionAndPackageInputBoxField", locale));
-            } else if (!(UtilValidate.isNotEmpty(packageLength) && UtilValidate.isNotEmpty(packageWidth) && UtilValidate.isNotEmpty(packageHeight))) { // check if user does not enter all the dimensions
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnteredAllFieldsInDimension", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorEnteredBothDimensionAndPackageInputBoxField", locale));
+            } else if (!(UtilValidate.isNotEmpty(packageLength) && UtilValidate.isNotEmpty(packageWidth)
+                    && UtilValidate.isNotEmpty(packageHeight))) {
+                // check if user does not enter all the dimensions
+                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorNotEnteredAllFieldsInDimension", locale));
             }
         }
         // Check package weight, it must be greater than ZERO
@@ -62,7 +67,8 @@ public class WeightPackageServices {
         }
         try {
             // Checked no of packages, it should not be greater than ordered quantity
-            List<GenericValue> orderItems = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "statusId", "ITEM_APPROVED").queryList();
+            List<GenericValue> orderItems = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId,
+                    "statusId", "ITEM_APPROVED").queryList();
             BigDecimal orderedItemQty = BigDecimal.ZERO;
             for (GenericValue orderItem : orderItems) {
                 orderedItemQty = orderedItemQty.add(orderItem.getBigDecimal("quantity"));
@@ -71,7 +77,8 @@ public class WeightPackageServices {
             if ((orderedItemQty.intValue() - packageQuantity) > 0) {
                 weightPackageSession.createWeightPackageLine(orderId, packageWeight, packageLength, packageWidth, packageHeight, shipmentBoxTypeId);
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNumberOfPackageCannotBeGreaterThanTheNumberOfOrderedQuantity", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorNumberOfPackageCannotBeGreaterThanTheNumberOfOrderedQuantity", locale));
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
@@ -91,19 +98,24 @@ public class WeightPackageServices {
         Integer weightPackageSeqId = (Integer) context.get("weightPackageSeqId");
 
         // User can either enter all the dimensions or shipment box type, but not both
-        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) { // Check if user entered any dimensions
+        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) {
+            // Check if user entered any dimensions
             if (UtilValidate.isNotEmpty(shipmentBoxTypeId)) { // check also if user entered shipment box type
                 weightPackageSession.setDimensionAndShipmentBoxType(weightPackageSeqId);
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorEnteredBothDimensionAndPackageInputBoxField", locale));
-            } else if (!(UtilValidate.isNotEmpty(packageLength) && UtilValidate.isNotEmpty(packageWidth) && UtilValidate.isNotEmpty(packageHeight))) { // check if user does not enter all the dimensions
+                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorEnteredBothDimensionAndPackageInputBoxField", locale));
+            } else if (!(UtilValidate.isNotEmpty(packageLength) && UtilValidate.isNotEmpty(packageWidth)
+                    && UtilValidate.isNotEmpty(packageHeight))) { // check if user does not enter all the dimensions
                 weightPackageSession.setDimensionAndShipmentBoxType(weightPackageSeqId);
-                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNotEnteredAllFieldsInDimension", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorNotEnteredAllFieldsInDimension", locale));
             }
         }
 
         // Check package weight, it must be greater than ZERO
         if (UtilValidate.isEmpty(packageWeight) || packageWeight.compareTo(BigDecimal.ZERO) <= 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorPackageWeightCannotBeNullOrZero", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                    "ProductErrorPackageWeightCannotBeNullOrZero", locale));
         }
 
         weightPackageSession.setPackageWeight(packageWeight, weightPackageSeqId);
@@ -156,7 +168,8 @@ public class WeightPackageServices {
             } else if ("success".equals(result)) {
                 response.put("shipmentId", shipmentId);
             } else {
-                response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
+                response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
@@ -178,7 +191,8 @@ public class WeightPackageServices {
             if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
                 response.put("shipmentId", shipmentId);
             } else {
-                response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
+                response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
+                        "ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete", locale));
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());

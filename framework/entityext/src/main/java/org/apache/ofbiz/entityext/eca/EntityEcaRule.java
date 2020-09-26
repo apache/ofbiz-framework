@@ -116,13 +116,15 @@ public final class EntityEcaRule implements java.io.Serializable {
         return this.conditions;
     }
 
-    public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set<String> actionsRun) throws GenericEntityException {
+    public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set<String> actionsRun)
+            throws GenericEntityException {
         if (!enabled) {
             Debug.logInfo("Entity ECA [" + this.entityName + "] on [" + this.eventName + "] is disabled; not running.", MODULE);
             return;
         }
 
-        //Debug.logInfo("eval eeca rule: operation=" + currentOperation + ", in event=" + this.eventName + ", on entity=" + this.entityName + ", for value=" + value, MODULE);
+        //Debug.logInfo("eval eeca rule: operation=" + currentOperation + ", in event=" + this.eventName + ", on entity=" + this.entityName
+        // + ", for value=" + value, MODULE);
         if (isError && !this.runOnError) {
             return;
         }
@@ -167,7 +169,8 @@ public final class EntityEcaRule implements java.io.Serializable {
                     //only execute a given service name once per service call phase
                     if (actionsRun.add(ea.getServiceName())) {
                         if (Debug.infoOn()) {
-                            Debug.logInfo("Running Entity ECA Service: " + ea.getServiceName() + ", triggered by rule on Entity: " + value.getEntityName(), MODULE);
+                            Debug.logInfo("Running Entity ECA Service: " + ea.getServiceName() + ", triggered by rule on Entity: "
+                                    + value.getEntityName(), MODULE);
                         }
                         ea.runAction(dctx, context, value);
                     }
@@ -209,7 +212,7 @@ public final class EntityEcaRule implements java.io.Serializable {
 
     @Override
     public boolean equals(Object obj) {
-    if (obj instanceof EntityEcaRule) {
+        if (obj instanceof EntityEcaRule) {
             EntityEcaRule other = (EntityEcaRule) obj;
             if (!Objects.equals(this.entityName, other.entityName)) {
                 return false;
@@ -242,6 +245,8 @@ public final class EntityEcaRule implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "EntityEcaRule:" + this.entityName + ":" + this.operationName + ":" + this.eventName +  ":runOnError=" + this.runOnError + ":enabled=" + this.enabled + ":conditions=" + this.conditions + ":actionsAndSets=" + this.actionsAndSets + ":conditionFieldNames" + this.conditionFieldNames;
+        return "EntityEcaRule:" + this.entityName + ":" + this.operationName + ":" + this.eventName + ":runOnError=" + this.runOnError
+                + ":enabled=" + this.enabled + ":conditions=" + this.conditions + ":actionsAndSets=" + this.actionsAndSets + ":conditionFieldNames"
+                + this.conditionFieldNames;
     }
 }

@@ -67,6 +67,6 @@ public final class StartupService {
     }
 
     public int getRuntimeDelay() {
-            return runtimeDelay;
+        return runtimeDelay;
     }
 }

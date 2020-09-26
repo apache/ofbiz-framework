@@ -24,7 +24,9 @@ import org.apache.ofbiz.entity.DelegatorFactory;
 
 public abstract class AbstractCache<K, V> {
 
-    protected final String delegatorName, id, cacheNamePrefix;
+    private final String delegatorName;
+    private final String id;
+    private final String cacheNamePrefix;
 
     protected AbstractCache(String delegatorName, String id) {
         this.delegatorName = delegatorName;
@@ -32,22 +34,41 @@ public abstract class AbstractCache<K, V> {
         this.cacheNamePrefix = "entitycache.".concat(id).concat(".").concat(delegatorName).concat(".");
     }
 
+    /**
+     * Gets delegator.
+     * @return the delegator
+     */
     public Delegator getDelegator() {
         return DelegatorFactory.getDelegator(this.delegatorName);
     }
 
+    /**
+     * Remove.
+     * @param entityName the entity name
+     */
     public void remove(String entityName) {
         UtilCache.clearCache(getCacheName(entityName));
     }
 
+    /**
+     * Clear.
+     */
     public void clear() {
         UtilCache.clearCachesThatStartWith(getCacheNamePrefix());
     }
 
+    /**
+     * Gets cache name prefix.
+     * @return the cache name prefix
+     */
     public String getCacheNamePrefix() {
         return cacheNamePrefix;
     }
 
+    /**
+     * Get cache name prefixes string [ ].
+     * @return the string [ ]
+     */
     public String[] getCacheNamePrefixes() {
         return new String[] {
             "entitycache." + id + ".${delegator-name}.",
@@ -55,10 +76,20 @@ public abstract class AbstractCache<K, V> {
         };
     }
 
+    /**
+     * Gets cache name.
+     * @param entityName the entity name
+     * @return the cache name
+     */
     public String getCacheName(String entityName) {
         return getCacheNamePrefix() + entityName;
     }
 
+    /**
+     * Get cache names string [ ].
+     * @param entityName the entity name
+     * @return the string [ ]
+     */
     public String[] getCacheNames(String entityName) {
         String[] prefixes = getCacheNamePrefixes();
         String[] names = new String[prefixes.length * 2];
@@ -71,10 +102,20 @@ public abstract class AbstractCache<K, V> {
         return names;
     }
 
+    /**
+     * Gets cache.
+     * @param entityName the entity name
+     * @return the cache
+     */
     protected UtilCache<K, V> getCache(String entityName) {
         return UtilCache.findCache(getCacheName(entityName));
     }
 
+    /**
+     * Gets or create cache.
+     * @param entityName the entity name
+     * @return the or create cache
+     */
     protected UtilCache<K, V> getOrCreateCache(String entityName) {
         String name = getCacheName(entityName);
         return UtilCache.getOrCreateUtilCache(name, 0, 0, 0, true, getCacheNames(entityName));

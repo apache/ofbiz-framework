@@ -72,7 +72,8 @@ public final class CallSimpleMethod extends MethodOperation {
         try {
             xmlURL = FlexibleLocation.resolveLocation(this.xmlResource);
         } catch (MalformedURLException e) {
-            MiniLangValidate.handleError("Could not find SimpleMethod XML document in resource: " + this.xmlResource + "; error was: " + e.toString(), simpleMethod, element);
+            MiniLangValidate.handleError("Could not find SimpleMethod XML document in resource: " + this.xmlResource
+                    + "; error was: " + e.toString(), simpleMethod, element);
         }
         this.xmlURL = xmlURL;
         this.scope = element.getAttribute("scope");
@@ -98,43 +99,48 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         SimpleMethod simpleMethodToCall = SimpleMethod.getSimpleMethod(this.xmlURL, this.methodName);
         if (simpleMethodToCall == null) {
-            throw new MiniLangRuntimeException("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource, this);
+            throw new MiniLangRuntimeException("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document "
+                    + this.xmlResource, this);
         }
         MethodContext localContext = methodContext;
         if ("function".equals(this.scope)) {
             Map<String, Object> localEnv = new HashMap<>();
             localEnv.putAll(methodContext.getEnvMap());
-            localEnv.remove(this.simpleMethod.getEventResponseCodeName());
-            localEnv.remove(this.simpleMethod.getServiceResponseMessageName());
+            localEnv.remove(this.getSimpleMethod().getEventResponseCodeName());
+            localEnv.remove(this.getSimpleMethod().getServiceResponseMessageName());
             localContext = new MethodContext(localEnv, methodContext.getLoader(), methodContext.getMethodType());
         }
         String returnVal = simpleMethodToCall.exec(localContext);
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", MODULE);
+            Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is ["
+                     + returnVal + "]", MODULE);
         }
         if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
+                methodContext.putEnv(getSimpleMethod().getEventResponseCodeName(), getSimpleMethod().getDefaultErrorCode());
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
+                methodContext.putEnv(getSimpleMethod().getServiceResponseMessageName(), getSimpleMethod().getDefaultErrorCode());
             }
             return false;
         }
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             // FIXME: This doesn't make sense. We are comparing the called method's response code with this method's
             // response code. Since response codes are configurable per method, this code will fail.
-            String responseCode = (String) localContext.getEnv(this.simpleMethod.getEventResponseCodeName());
-            if (this.simpleMethod.getDefaultErrorCode().equals(responseCode)) {
-                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), MODULE);
+            String responseCode = (String) localContext.getEnv(this.getSimpleMethod().getEventResponseCodeName());
+            if (this.getSimpleMethod().getDefaultErrorCode().equals(responseCode)) {
+                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource ["
+                        + this.xmlResource + "], message is " + methodContext.getEnv(this.getSimpleMethod().getEventErrorMessageName()), MODULE);
                 return false;
             }
         } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
             // FIXME: This doesn't make sense. We are comparing the called method's response message with this method's
             // response message. Since response messages are configurable per method, this code will fail.
-            String responseMessage = (String) localContext.getEnv(this.simpleMethod.getServiceResponseMessageName());
-            if (this.simpleMethod.getDefaultErrorCode().equals(responseMessage)) {
-                Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageName()) + ", and the error message list is: "
-                        + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName()), MODULE);
+            String responseMessage = (String) localContext.getEnv(this.getSimpleMethod().getServiceResponseMessageName());
+            if (this.getSimpleMethod().getDefaultErrorCode().equals(responseMessage)) {
+                Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource ["
+                        + this.xmlResource + "], message is " + methodContext.getEnv(this.getSimpleMethod().getServiceErrorMessageName())
+                        + ", and the error message list is: "
+                        + methodContext.getEnv(this.getSimpleMethod().getServiceErrorMessageListName()), MODULE);
                 return false;
             }
         }
@@ -161,7 +167,8 @@ public final class CallSimpleMethod extends MethodOperation {
                 }
             }
         } catch (MiniLangException e) {
-            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": " + e.toString(), MODULE);
+            Debug.logWarning("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource + ": "
+                    + e.toString(), MODULE);
         }
     }
 
@@ -176,13 +183,13 @@ public final class CallSimpleMethod extends MethodOperation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("<call-simple-method ");
-        if (this.methodName.length() > 0) {
+        if (!this.methodName.isEmpty()) {
             sb.append("method-name=\"").append(this.methodName).append("\" ");
         }
-        if (this.xmlResource.length() > 0) {
+        if (!this.xmlResource.isEmpty()) {
             sb.append("xml-resource=\"").append(this.xmlResource).append("\" ");
         }
-        if (this.scope.length() > 0) {
+        if (!this.scope.isEmpty()) {
             sb.append("scope=\"").append(this.scope).append("\" ");
         }
         sb.append("/>");
@@ -218,7 +225,7 @@ public final class CallSimpleMethod extends MethodOperation {
             }
             this.resultNameFma = FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
             String fieldAttribute = element.getAttribute("field");
-            if (fieldAttribute.length() == 0) {
+            if (fieldAttribute.isEmpty()) {
                 this.fieldFma = this.resultNameFma;
             } else {
                 this.fieldFma = FlexibleMapAccessor.getInstance(fieldAttribute);

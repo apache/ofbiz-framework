@@ -220,7 +220,7 @@ public class HumanResEvents {
                     GenericValue emplContext = EntityQuery.use(delegator).from("EmplPositionType").where("emplPositionTypeId", typeId).queryOne();
                     String title = null;
                     if (UtilValidate.isNotEmpty(emplContext)) {
-                        title = (String) emplContext.get("description") + " " + "[" + emplId +"]";
+                        title = (String) emplContext.get("description") + " " + "[" + emplId + "]";
                     }
                     String hrefStr = "emplPositionView?emplPositionId=" + emplId;
                     emplAttrMap.put("href", hrefStr);

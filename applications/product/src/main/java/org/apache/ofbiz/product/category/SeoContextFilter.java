@@ -240,7 +240,6 @@ public final class SeoContextFilter implements Filter {
 
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
-     *
      * @param uri String to reverse transform
      * @return String
      */

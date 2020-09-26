@@ -20,4 +20,4 @@ rem #####################################################################
 rem interactive DOS version of mergefromtrunk.sh.
 rem to use : launch and pass the trunk version number to merge in release
 
-Powershell.exe -executionpolicy remotesigned -File  gradle\init-gradle-wrapper.ps1
+Powershell.exe -executionpolicy bypass -File  gradle\init-gradle-wrapper.ps1

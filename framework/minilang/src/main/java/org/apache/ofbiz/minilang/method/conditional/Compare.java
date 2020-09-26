@@ -74,7 +74,6 @@ public abstract class Compare {
 
     /**
      * Returns the result of this comparison.
-     *
      * @param lValue The object being compared
      * @param rValue The object being compared to
      * @param type The Java class to be used in the comparison

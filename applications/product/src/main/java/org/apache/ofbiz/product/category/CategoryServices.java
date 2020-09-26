@@ -67,7 +67,8 @@ public class CategoryServices {
 
         try {
             productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", categoryId).cache().queryOne();
-            members = EntityUtil.filterByDate(productCategory.getRelated("ProductCategoryMember", null, UtilMisc.toList("sequenceNum"), true), true);
+            members = EntityUtil.filterByDate(productCategory.getRelated("ProductCategoryMember", null,
+                    UtilMisc.toList("sequenceNum"), true), true);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, MODULE);
             }
@@ -105,25 +106,31 @@ public class CategoryServices {
         List<GenericValue> productCategoryMembers;
         try {
             productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", categoryId).cache().queryOne();
-            productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", categoryId).orderBy(orderByFields).cache(true).queryList();
+            productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", categoryId)
+                    .orderBy(orderByFields).cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.error_find_next_products",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
         List<EntityCondition> filterConditions = new LinkedList<>();
         if (introductionDateLimit != null) {
-            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
+            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate",
+                    EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
             filterConditions.add(condition);
         }
         if (releaseDateLimit != null) {
-            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
+            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null),
+                    EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
             filterConditions.add(condition);
         }
         if (!filterConditions.isEmpty()) {
-            productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
+            productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions,
+                    EntityOperator.AND));
         }
 
         if (productId != null && index == null) {
@@ -163,13 +170,14 @@ public class CategoryServices {
         return result;
     }
 
-    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields, Timestamp introductionDateLimit, Timestamp releaseDateLimit) {
+    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields, Timestamp introductionDateLimit,
+                                                    Timestamp releaseDateLimit) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
         String entityName = introductionDateLimit == null && releaseDateLimit == null ? "ProductCategoryMember" : "ProductAndCategoryMember";
         if (orderByFields == null) {
             return entityName;
         }
-        if (orderByFields.size() == 0) {
+        if (orderByFields.isEmpty()) {
             orderByFields.add("sequenceNum");
             orderByFields.add("productId");
         }
@@ -179,7 +187,8 @@ public class CategoryServices {
         for (String orderByField: orderByFields) {
             // Get the real field name from the order by field removing ascending/descending order
             if (UtilValidate.isNotEmpty(orderByField)) {
-                int startPos = 0, endPos = orderByField.length();
+                int startPos = 0;
+                int endPos = orderByField.length();
 
                 if (orderByField.endsWith(" DESC")) {
                     endPos -= 5;
@@ -201,7 +210,7 @@ public class CategoryServices {
                     entityName = "ProductAndCategoryMember";
                     // that's what we wanted to find out, so we can quit now
                     break;
-                } else {
+                //} else {
                     // ahh!! bad field name, don't worry, it will blow up in the query
                 }
             }
@@ -294,21 +303,27 @@ public class CategoryServices {
         if (productCategory != null) {
             try {
                 if (useCacheForMembers) {
-                    productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", productCategoryId).orderBy(orderByFields).cache(true).queryList();
+                    productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", productCategoryId)
+                            .orderBy(orderByFields).cache(true).queryList();
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
                     List<EntityCondition> filterConditions = new LinkedList<>();
                     if (introductionDateLimit != null) {
-                        EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
+                        EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate",
+                                EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate",
+                                EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
                         filterConditions.add(condition);
                     }
                     if (releaseDateLimit != null) {
-                        EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
+                        EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate",
+                                EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate",
+                                EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
                         filterConditions.add(condition);
                     }
                     if (!filterConditions.isEmpty()) {
-                        productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
+                        productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions,
+                                EntityOperator.AND));
                     }
                     // filter out of stock products
                     if (filterOutOfStock) {
@@ -338,7 +353,7 @@ public class CategoryServices {
                         }
                         // get only between low and high indexes
                         if (UtilValidate.isNotEmpty(productCategoryMembers)) {
-                            productCategoryMembers = productCategoryMembers.subList(lowIndex-1, highIndex);
+                            productCategoryMembers = productCategoryMembers.subList(lowIndex - 1, highIndex);
                         }
                     } else {
                         lowIndex = 1;
@@ -346,16 +361,22 @@ public class CategoryServices {
                     }
                 } else {
                     List<EntityCondition> mainCondList = new LinkedList<>();
-                    mainCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategory.getString("productCategoryId")));
+                    mainCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS,
+                            productCategory.getString("productCategoryId")));
                     if (activeOnly) {
                         mainCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
-                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
+                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
+                                EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
                     }
                     if (introductionDateLimit != null) {
-                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit)));
+                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS,
+                                null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO,
+                                introductionDateLimit)));
                     }
                     if (releaseDateLimit != null) {
-                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit)));
+                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null),
+                                EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO,
+                                        releaseDateLimit)));
                     }
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
 
@@ -394,7 +415,8 @@ public class CategoryServices {
                             productCategoryMembers = pli.getCompleteList();
                             if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
                                 // filter out the view allow
-                                productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
+                                productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers,
+                                        viewProductCategoryId);
                             }
                             listSize = productCategoryMembers.size();
                             lowIndex = 1;
@@ -466,13 +488,16 @@ public class CategoryServices {
             GenericValue category = EntityQuery.use(delegator).from(entityName).where(primaryKeyName, productCategoryId).queryOne();
             if (category != null) {
                 if ("true".equals(isCatalog) && "false".equals(isCategoryType)) {
-                    CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
+                    CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request,
+                            productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
 
                 } else if ("false".equals(isCatalog) && "false".equals(isCategoryType)) {
-                    childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId", productCategoryId).filterByDate().queryList();
+                    childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId",
+                            productCategoryId).filterByDate().queryList();
                 } else {
-                    childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();
+                    childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId)
+                            .filterByDate().queryList();
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
                     for (GenericValue childOfCat : childOfCats) {
@@ -486,7 +511,8 @@ public class CategoryServices {
                         List<GenericValue> childList = null;
 
                         // Get the child list of chosen category
-                        childList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", catId).filterByDate().queryList();
+                        childList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", catId)
+                                .filterByDate().queryList();
 
                         // Get the chosen category information for the categoryContentWrapper
                         GenericValue cate = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", catId).queryOne();
@@ -500,13 +526,15 @@ public class CategoryServices {
                         CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
                         String title = null;
                         if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField, "html"))) {
-                            title = new StringBuffer(categoryContentWrapper.get(catNameField, "html").toString()).append(" [").append(catId).append("]").toString();
+                            title = new StringBuffer(categoryContentWrapper.get(catNameField, "html").toString())
+                                    .append(" [").append(catId).append("]").toString();
                             dataMap.put("title", title);
                         } else {
                             title = catId.toString();
                             dataMap.put("title", catId);
                         }
-                        dataAttrMap.put("onClick", new StringBuffer(onclickFunction).append("('").append(catId).append(additionParam).append("')").toString());
+                        dataAttrMap.put("onClick", new StringBuffer(onclickFunction).append("('").append(catId).append(additionParam)
+                                .append("')").toString());
 
                         String hrefStr = hrefString + catId;
                         if (UtilValidate.isNotEmpty(hrefString2)) {

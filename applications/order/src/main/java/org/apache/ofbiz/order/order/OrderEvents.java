@@ -67,7 +67,8 @@ public class OrderEvents {
                     .queryFirst();
 
             if (orderRoleAndProductContentInfo == null) {
-                request.setAttribute("_ERROR_MESSAGE_", "No record of purchase for digital download found (dataResourceId=[" + dataResourceId + "]).");
+                request.setAttribute("_ERROR_MESSAGE_", "No record of purchase for digital download found (dataResourceId=["
+                        + dataResourceId + "]).");
                 return "error";
             }
 
@@ -79,7 +80,8 @@ public class OrderEvents {
             }
             OutputStream os = response.getOutputStream();
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
-            Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
+            Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"),
+                    UtilHttp.getLocale(request), application.getRealPath("/"), false);
             os.write(IOUtils.toByteArray((InputStream) resourceData.get("stream")));
             os.flush();
         } catch (GeneralException | IOException e) {
@@ -99,7 +101,7 @@ public class OrderEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         Map<String, Object> resultMap;
-        String  orderId = request.getParameter("orderId");
+        String orderId = request.getParameter("orderId");
         String[] selectedItems = request.getParameterValues("selectedItem");
 
         if (selectedItems != null) {

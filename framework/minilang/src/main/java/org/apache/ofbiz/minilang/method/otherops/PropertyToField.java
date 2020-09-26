@@ -43,7 +43,7 @@ public final class PropertyToField extends MethodOperation {
     private static boolean autoCorrect(Element element) {
         // Correct deprecated arg-list-name attribute
         String listAttr = element.getAttribute("arg-list-name");
-        if (listAttr.length() > 0) {
+        if (!listAttr.isEmpty()) {
             element.setAttribute("arg-list", listAttr);
             element.removeAttribute("arg-list-name");
             return true;

@@ -53,7 +53,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public final class ScriptEngine extends GenericAsyncEngine {
 
     private static final String MODULE = ScriptEngine.class.getName();
-    private static final Set<String> protectedKeys = createProtectedKeys();
+    private static final Set<String> PROTECTED_KEYS = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
         Set<String> newSet = new HashSet<>();
@@ -72,17 +72,17 @@ public final class ScriptEngine extends GenericAsyncEngine {
 
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        Assert.notNull("localName", localName, "modelService.location", modelService.location, "context", context);
+        Assert.notNull("localName", localName, "modelService.location", modelService.getLocation(), "context", context);
         Map<String, Object> params = new HashMap<>();
         params.putAll(context);
         context.put(ScriptUtil.PARAMETERS_KEY, params);
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
         context.put("dctx", dctx);
         context.put("dispatcher", dctx.getDispatcher());
-        context.put("delegator", dispatcher.getDelegator());
+        context.put("delegator", getDispatcher().getDelegator());
         try {
-            ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
-            Object resultObj = ScriptUtil.executeScript(getLocation(modelService), modelService.invoke, scriptContext, null);
+            ScriptContext scriptContext = ScriptUtil.createScriptContext(context, PROTECTED_KEYS);
+            Object resultObj = ScriptUtil.executeScript(getLocation(modelService), modelService.getInvoke(), scriptContext, null);
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
             }
@@ -95,7 +95,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
         } catch (ScriptException se) {
             return ServiceUtil.returnError(se.getMessage());
         } catch (Exception e) {
-            Debug.logWarning(e, "Error invoking service " + modelService.name + ": ", MODULE);
+            Debug.logWarning(e, "Error invoking service " + modelService.getName() + ": ", MODULE);
             throw new GenericServiceException(e);
         }
     }

@@ -69,14 +69,11 @@ under the License.
         </attribute>
     </service>
 
-    <service name="createCommEventContentAssoc" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="createCommEventContentAssoc" auth="true">
+    <service name="createCommEventContentAssoc" engine="entity-auto" invoke="create" default-entity-name="CommEventContentAssoc" auth="true">
         <description>Create CommEventContentAssoc</description>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
-        <attribute name="contentId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="INOUT" optional="true"/>
-        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
 
     <service name="updateCommEventContentAssoc" default-entity-name="CommEventContentAssoc" engine="entity-auto" invoke="update" auth="true">

@@ -49,7 +49,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
 
     private static final String MODULE = GroovyEngine.class.getName();
     private static final Object[] EMPTY_ARGS = {};
-    private static final Set<String> protectedKeys = createProtectedKeys();
+    private static final Set<String> PROTECTED_KEYS = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
         Set<String> newSet = new HashSet<>();
@@ -78,7 +78,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context)
             throws GenericServiceException {
-        if (UtilValidate.isEmpty(modelService.location)) {
+        if (UtilValidate.isEmpty(modelService.getLocation())) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
         }
         Map<String, Object> params = new HashMap<>();
@@ -88,13 +88,13 @@ public final class GroovyEngine extends GenericAsyncEngine {
         gContext.putAll(context);
         gContext.put(ScriptUtil.PARAMETERS_KEY, params);
 
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
         gContext.put("dctx", dctx);
         gContext.put("security", dctx.getSecurity());
         gContext.put("dispatcher", dctx.getDispatcher());
-        gContext.put("delegator", dispatcher.getDelegator());
+        gContext.put("delegator", getDispatcher().getDelegator());
         try {
-            ScriptContext scriptContext = ScriptUtil.createScriptContext(gContext, protectedKeys);
+            ScriptContext scriptContext = ScriptUtil.createScriptContext(gContext, PROTECTED_KEYS);
             ScriptHelper scriptHelper = (ScriptHelper) scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
             if (scriptHelper != null) {
                 gContext.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
@@ -105,9 +105,9 @@ public final class GroovyEngine extends GenericAsyncEngine {
                     GroovyUtil.getBinding(gContext));
 
             // Groovy services can either be implemented as a stand-alone script or with a method inside a script.
-            Object resultObj = UtilValidate.isEmpty(modelService.invoke)
+            Object resultObj = UtilValidate.isEmpty(modelService.getInvoke())
                     ? script.run()
-                    : script.invokeMethod(modelService.invoke, EMPTY_ARGS);
+                    : script.invokeMethod(modelService.getInvoke(), EMPTY_ARGS);
 
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
@@ -126,8 +126,8 @@ public final class GroovyEngine extends GenericAsyncEngine {
             // detailMessage can be null.  If it is null, the exception won't be properly returned and logged,
             // and that will make spotting problems very difficult.
             // Disabling this for now in favor of returning a proper exception.
-            throw new GenericServiceException("Error running Groovy method [" + modelService.invoke + "]"
-                    + " in Groovy file [" + modelService.location + "]: ", e);
+            throw new GenericServiceException("Error running Groovy method [" + modelService.getInvoke() + "]"
+                    + " in Groovy file [" + modelService.getLocation() + "]: ", e);
         }
     }
 }

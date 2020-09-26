@@ -108,7 +108,8 @@ public final class UtilXml {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static DOMImplementationLS getDomLsImplementation() throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static DOMImplementationLS getDomLsImplementation()
+            throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         return (DOMImplementationLS) registry.getDOMImplementation("LS");
     }
@@ -164,7 +165,8 @@ public final class UtilXml {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static void writeXmlDocument(OutputStream os, Node node, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void writeXmlDocument(OutputStream os, Node node, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint)
+            throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationLS impl = getDomLsImplementation();
         LSOutput out = createLSOutput(impl, os, encoding);
         LSSerializer writer = createLSSerializer(impl, includeXmlDeclaration, enablePrettyPrint);
@@ -186,7 +188,8 @@ public final class UtilXml {
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerConfigurationException
      */
-    public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerConfigurationException {
+    public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)
+            throws TransformerConfigurationException {
         // Developers: This stylesheet strips all formatting space characters from the XML,
         // then indents the XML using the specified indentation.
         StringBuilder sb = new StringBuilder();
@@ -242,7 +245,8 @@ public final class UtilXml {
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerException
      */
-    public static void writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerException {
+    public static void writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)
+            throws TransformerException {
         Transformer transformer = createOutputTransformer(encoding, omitXmlDeclaration, indent, indentAmount);
         transformDomDocument(transformer, node, os);
     }
@@ -250,7 +254,6 @@ public final class UtilXml {
     // ----- Java Object Marshalling/Unmarshalling ----- //
 
     /** Deserialize an object from an <code>InputStream</code>.
-     *
      * @param input The <code>InputStream</code>
      * @return The deserialized <code>Object</code>
      */
@@ -259,7 +262,6 @@ public final class UtilXml {
     }
 
     /** Deserialize an object from a <code>Reader</code>.
-     *
      * @param reader The <code>Reader</code>
      * @return The deserialized <code>Object</code>
      */
@@ -268,7 +270,6 @@ public final class UtilXml {
     }
 
     /** Deserialize an object from a <code>String</code>.
-     *
      * @param str The <code>String</code>
      * @return The deserialized <code>Object</code>
      */
@@ -277,7 +278,6 @@ public final class UtilXml {
     }
 
     /** Serialize an object to an XML <code>String</code>.
-     *
      * @param obj The object to serialize
      * @return An XML <code>String</code>
      */
@@ -286,7 +286,6 @@ public final class UtilXml {
     }
 
     /** Serialize an object to an <code>OutputStream</code>.
-     *
      * @param obj The object to serialize
      * @param output The <code>OutputStream</code>
      */
@@ -295,7 +294,6 @@ public final class UtilXml {
     }
 
     /** Serialize an object to a <code>Writer</code>.
-     *
      * @param obj The object to serialize
      * @param writer The <code>Writer</code>
      */
@@ -496,7 +494,7 @@ public final class UtilXml {
                 try {
                     Node node = (Node) getProperty("http://apache.org/xml/properties/dom/current-element-node");
                     if (node != null) {
-                       setLineColumn(node.getLastChild());
+                        setLineColumn(node.getLastChild());
                     }
                 } catch (SAXException ex) {
                     Debug.logWarning(ex, MODULE);
@@ -522,7 +520,8 @@ public final class UtilXml {
             }
 
             @Override
-            public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
+            public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs)
+                    throws XNIException {
                 super.startDocument(locator, encoding, namespaceContext, augs);
                 this.locator = locator;
                 setLineColumn();
@@ -999,7 +998,8 @@ public final class UtilXml {
         StringBuilder sb = new StringBuilder();
         for (int index = 0; index < nodeName.length(); index++) {
             char character = nodeName.charAt(index);
-            if ((sb.length() == 0 && !Character.isJavaIdentifierStart(character)) || (sb.length() != 0 && !Character.isJavaIdentifierPart(character))) {
+            if ((sb.length() == 0 && !Character.isJavaIdentifierStart(character))
+                    || (sb.length() != 0 && !Character.isJavaIdentifierPart(character))) {
                 capitalize = true;
                 continue;
             }

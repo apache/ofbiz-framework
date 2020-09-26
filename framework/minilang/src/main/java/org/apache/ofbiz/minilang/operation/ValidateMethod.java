@@ -36,8 +36,8 @@ public class ValidateMethod extends SimpleMapOperation {
 
     private static final String MODULE = ValidateMethod.class.getName();
 
-    String className;
-    String methodName;
+    private String className;
+    private String methodName;
 
     public ValidateMethod(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
@@ -47,7 +47,7 @@ public class ValidateMethod extends SimpleMapOperation {
 
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        Object obj = inMap.get(fieldName);
+        Object obj = inMap.get(getFieldName());
         String fieldValue = null;
         try {
             fieldValue = (String) ObjectType.simpleTypeOrObjectConvert(obj, "String", null, locale);
@@ -59,7 +59,7 @@ public class ValidateMethod extends SimpleMapOperation {
             loader = Thread.currentThread().getContextClassLoader();
         }
         Class<?>[] paramTypes = new Class<?>[] {String.class };
-        Object[] params = new Object[] { fieldValue };
+        Object[] params = new Object[] {fieldValue };
         Class<?> valClass;
         try {
             valClass = loader.loadClass(className);

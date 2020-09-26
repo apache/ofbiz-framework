@@ -92,7 +92,6 @@ public final class ContentManagementWorker {
     /**
      * Makes an entry in the "most recently used" cache. It picks the cache
      * by the entity name and builds a signature from the primary key values.
-     *
      * @param entityName
      * @param lookupCaches
      * @param pk           either a GenericValue or GenericPK - populated
@@ -125,7 +124,6 @@ public final class ContentManagementWorker {
 
     /**
      * Builds a string signature from a GenericValue or GenericPK.
-     *
      * @param pk     either a populated GenericValue or GenericPK.
      * @param suffix a string that can be used to distinguish the signature (probably not used).
      */
@@ -316,7 +314,6 @@ public final class ContentManagementWorker {
     /**
      * Returns a list of WebSitePublishPoint entities that are children of parentPubPt
      * The name should be "getAllTopLevelPublishPoints" or "getAllChildPublishPoints"
-     *
      * @param parentPubPt The parent publish point.
      */
     public static List<GenericValue> getAllPublishPoints(Delegator delegator, String parentPubPt) throws GeneralException {
@@ -389,7 +386,7 @@ public final class ContentManagementWorker {
                 String publishPointId = publishPointArray[0];
                 List<GenericValue> contentAssocList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentId", publishPointId), null, false);
                 List<GenericValue> filteredList = EntityUtil.filterByDate(contentAssocList);
-                if (filteredList.size() > 0) {
+                if (!filteredList.isEmpty()) {
                     map.put(publishPointId, "Y");
                     GenericValue assoc = filteredList.get(0);
                     Timestamp fromDate = (Timestamp) assoc.get("fromDate");
@@ -409,9 +406,9 @@ public final class ContentManagementWorker {
 
     public static GenericValue getWebSitePublishPoint(Delegator delegator, String contentId, boolean ignoreCache) throws GenericEntityException {
         GenericValue webSitePublishPoint = null;
-        if (!ignoreCache)
+        if (!ignoreCache) {
             webSitePublishPoint = cachedWebSitePublishPoints.get(contentId);
-
+        }
         if (webSitePublishPoint == null) {
             webSitePublishPoint = EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).queryOne();
             // If no webSitePublishPoint exists, still try to look for parent by making a dummy value
@@ -459,7 +456,8 @@ public final class ContentManagementWorker {
         return contentIdTo;
     }
 
-    public static GenericValue getStaticValue(Delegator delegator, String parentPlaceholderId, String webSitePublishPointId, boolean ignoreCache) throws GenericEntityException {
+    public static GenericValue getStaticValue(Delegator delegator, String parentPlaceholderId, String webSitePublishPointId, boolean ignoreCache)
+            throws GenericEntityException {
         GenericValue webSitePublishPoint = null;
         if (!ignoreCache) {
             Map<String, Object> subStaticValueMap = cachedStaticValues.get(parentPlaceholderId);
@@ -473,7 +471,8 @@ public final class ContentManagementWorker {
     }
 
     public static List<Object[]> getPublishedLinks(Delegator delegator, String targContentId, String rootPubId, GenericValue userLogin,
-                                                   Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
+                                                   Security security, String permittedAction, String permittedOperations, String passedRoles)
+            throws GeneralException {
         // Set up one map with all the top-level publish points (to which only one sub point can be attached to)
         // and another map (publishPointMapAll) that points to one of the top-level points.
         List<GenericValue> allPublishPointList = getAllPublishPoints(delegator, rootPubId);
@@ -546,7 +545,7 @@ public final class ContentManagementWorker {
             Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To",
                     null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.cast(results.get("entityList"));
-            if (valueList.size() > 0) {
+            if (!valueList.isEmpty()) {
                 GenericValue value = valueList.get(0);
                 authorContent = delegator.makeValue("Content");
                 authorContent.setPKFields(value);
@@ -571,8 +570,9 @@ public final class ContentManagementWorker {
             // TODO check if we want statusId to be filled/used, else this should be removed
             String statusId = null;
             String entityAction = permittedAction;
-            if (entityAction == null)
+            if (entityAction == null) {
                 entityAction = "_ADMIN";
+            }
             List<String> passedPurposes = UtilMisc.<String>toList("ARTICLE");
             List<String> roles = StringUtil.split(passedRoles, "|");
             List<String> targetOperationList = new LinkedList<>();
@@ -596,7 +596,6 @@ public final class ContentManagementWorker {
     /**
      * Returns a list of "department" (having ContentAssoc of type "DEPARTMENT")
      * Content entities that are children of parentPubPt
-     *
      * @param parentPubPt The parent publish point.
      */
     public static List<GenericValue> getAllDepartmentContent(Delegator delegator, String parentPubPt) throws GeneralException {
@@ -631,12 +630,12 @@ public final class ContentManagementWorker {
     public static int updateStatsTopDown(Delegator delegator, String contentId, List<String> typeList) throws GenericEntityException {
         int subLeafCount = 0;
         GenericValue thisContent = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
-        if (thisContent == null)
+        if (thisContent == null) {
             throw new RuntimeException("No entity found for id=" + contentId);
-
+        }
         List<EntityCondition> conditionMain = new ArrayList<>();
         conditionMain.add(EntityCondition.makeCondition("contentIdTo", contentId));
-        if (typeList.size() > 0) {
+        if (!typeList.isEmpty()) {
             conditionMain.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList));
         }
         List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc").where(conditionMain)
@@ -647,8 +646,9 @@ public final class ContentManagementWorker {
         }
 
         // If no children, count this as a leaf
-        if (subLeafCount == 0)
+        if (subLeafCount == 0) {
             subLeafCount = 1;
+        }
         thisContent.put("childBranchCount", (long) contentAssocs.size());
         thisContent.put("childLeafCount", (long) subLeafCount);
         thisContent.store();
@@ -659,9 +659,9 @@ public final class ContentManagementWorker {
     public static void updateStatsBottomUp(Delegator delegator, String contentId, List<String> typeList, int branchChangeAmount,
                                            int leafChangeAmount) throws GenericEntityException {
         GenericValue thisContent = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
-        if (thisContent == null)
+        if (thisContent == null) {
             throw new RuntimeException("No entity found for id=" + contentId);
-
+        }
         List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
                 .where(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList),
                         EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId))

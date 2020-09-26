@@ -50,7 +50,7 @@ import freemarker.template.TemplateException;
  */
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
-    ScreenStringRenderer screenStringRenderer = null;
+    private ScreenStringRenderer screenStringRenderer = null;
     private static final String MODULE = HtmlTreeRenderer.class.getName();
 
     public HtmlTreeRenderer() { }
@@ -62,7 +62,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         List<String> currentNodeTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
         if (node.isRootNode()) {
             appendWhitespace(writer);
-            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
+            this.setWidgetCommentsEnabled(ModelWidget.widgetBoundaryCommentsEnabled(context));
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
             writer.append("<ul class=\"basic-tree\">");
         }
@@ -325,7 +325,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(src);
                 }
-            } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+            } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);

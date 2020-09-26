@@ -37,8 +37,7 @@ import org.apache.ofbiz.webapp.control.ControlFilter;
 public class JspViewHandler extends AbstractViewHandler {
 
     private static final String MODULE = JspViewHandler.class.getName();
-
-    protected ServletContext context;
+    private ServletContext context;
 
     @Override
     public void init(ServletContext context) throws ViewHandlerException {
@@ -46,7 +45,8 @@ public class JspViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    public void render(String name, String page, String contentType, String encoding, String info, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
+    public void render(String name, String page, String contentType, String encoding, String info, HttpServletRequest request, HttpServletResponse
+            response) throws ViewHandlerException {
         // some containers call filters on EVERY request, even forwarded ones,
         // so let it know that it came from the control servlet
 

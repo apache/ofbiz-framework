@@ -22,7 +22,7 @@ package org.apache.ofbiz.webapp.view;
  * ViewHandler - View Handler Interface
  */
 public abstract class AbstractViewHandler implements ViewHandler {
-    protected String name = null;
+    private String name = null;
 
     @Override
     public String getName() {

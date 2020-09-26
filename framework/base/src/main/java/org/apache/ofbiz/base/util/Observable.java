@@ -47,7 +47,6 @@ public final class Observable {
 
     /**
      * Adds an observer to the set of observers for this object.
-     *
      * @param observer the observer to be added.
      */
     public void addObserver(Observer observer) {
@@ -65,7 +64,6 @@ public final class Observable {
     /**
      * Deletes an observer from the set of observers of this object.
      * Passing <code>null</code> to this method will have no effect.
-     *
      * @param observer the observer to be deleted.
      */
     public void deleteObserver(Observer observer) {
@@ -81,7 +79,6 @@ public final class Observable {
 
     /**
      * Returns <code>true</code> if this object has changed.
-     *
      */
     public boolean hasChanged() {
         return changed.get();
@@ -96,7 +93,6 @@ public final class Observable {
      * <blockquote>
      *   {@code notifyObservers(null)}
      * </blockquote>
-     *
      */
     public void notifyObservers() {
         notifyObservers(null);
@@ -106,7 +102,6 @@ public final class Observable {
      * Notify all of the observers.
      * <p>Each observer has its <code>update</code> method called with two
      * arguments: this observable object and the <code>arg</code> argument.</p>
-     *
      */
     public void notifyObservers(Object arg) {
         for (Observer observer : observers) {

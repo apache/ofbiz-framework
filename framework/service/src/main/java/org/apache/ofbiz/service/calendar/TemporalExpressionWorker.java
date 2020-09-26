@@ -91,15 +91,20 @@ public final class TemporalExpressionWorker {
         String tempExprId = exprValue.getString("tempExprId");
         String tempExprTypeId = exprValue.getString("tempExprTypeId");
         if (DATE_RANGE.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.DateRange(exprValue.getTimestamp("date1"), exprValue.getTimestamp("date2")));
+            return setExpressionId(exprValue, new TemporalExpressions.DateRange(exprValue.getTimestamp("date1"),
+                    exprValue.getTimestamp("date2")));
         } else if (DAY_IN_MONTH.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.DayInMonth(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.DayInMonth(exprValue.getLong("integer1").intValue(),
+                    exprValue.getLong("integer2").intValue()));
         } else if (DAY_OF_MONTH_RANGE.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.DayOfMonthRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.DayOfMonthRange(exprValue.getLong("integer1").intValue(),
+                    exprValue.getLong("integer2").intValue()));
         } else if (DAY_OF_WEEK_RANGE.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.DayOfWeekRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.DayOfWeekRange(exprValue.getLong("integer1").intValue(),
+                    exprValue.getLong("integer2").intValue()));
         } else if (DIFFERENCE.equals(tempExprTypeId)) {
-            List<GenericValue> childExpressions = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
+            List<GenericValue> childExpressions = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId",
+                    tempExprId).cache(true).queryList();
             GenericValue inclAssoc = null;
             GenericValue exclAssoc = null;
             for (GenericValue childExpression : childExpressions) {
@@ -110,20 +115,26 @@ public final class TemporalExpressionWorker {
                 }
             }
             if (inclAssoc != null && exclAssoc != null) {
-                return setExpressionId(exprValue, new TemporalExpressions.Difference(getTemporalExpression(delegator, inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId"))));
+                return setExpressionId(exprValue, new TemporalExpressions.Difference(getTemporalExpression(delegator,
+                        inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId"))));
             }
         } else if (FREQUENCY.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.Frequency(exprValue.getTimestamp("date1"), exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.Frequency(exprValue.getTimestamp("date1"),
+                    exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
         } else if (HOUR_RANGE.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.HourRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.HourRange(exprValue.getLong("integer1").intValue(),
+                    exprValue.getLong("integer2").intValue()));
         } else if (INTERSECTION.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.Intersection(getChildExpressions(delegator, tempExprId)));
         } else if (MINUTE_RANGE.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.MinuteRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.MinuteRange(exprValue.getLong("integer1").intValue(),
+                    exprValue.getLong("integer2").intValue()));
         } else if (MONTH_RANGE.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.MonthRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
+            return setExpressionId(exprValue, new TemporalExpressions.MonthRange(exprValue.getLong("integer1").intValue(),
+                    exprValue.getLong("integer2").intValue()));
         } else if (SUBSTITUTION.equals(tempExprTypeId)) {
-            List<GenericValue> childExpressions = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
+            List<GenericValue> childExpressions = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId",
+                    tempExprId).cache(true).queryList();
             GenericValue inclAssoc = null;
             GenericValue exclAssoc = null;
             GenericValue substAssoc = null;
@@ -137,16 +148,19 @@ public final class TemporalExpressionWorker {
                 }
             }
             if (inclAssoc != null && exclAssoc != null && substAssoc != null) {
-                return setExpressionId(exprValue, new TemporalExpressions.Substitution(getTemporalExpression(delegator, inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, substAssoc.getString("toTempExprId"))));
+                return setExpressionId(exprValue, new TemporalExpressions.Substitution(getTemporalExpression(delegator,
+                        inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId")),
+                        getTemporalExpression(delegator, substAssoc.getString("toTempExprId"))));
             }
         } else if (UNION.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.Union(getChildExpressions(delegator, tempExprId)));
         }
-        return TemporalExpressions.NullExpression;
+        return TemporalExpressions.NULL_EXPRESSION;
     }
 
     private static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId) throws GenericEntityException {
-        List<GenericValue> valueList = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
+        List<GenericValue> valueList = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId",
+                tempExprId).cache(true).queryList();
         if (UtilValidate.isEmpty(valueList)) {
             throw new IllegalArgumentException("tempExprId argument invalid - no child expressions found");
         }

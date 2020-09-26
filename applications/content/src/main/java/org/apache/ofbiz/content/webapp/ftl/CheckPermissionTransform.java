@@ -53,7 +53,8 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
     private static final String MODULE = CheckPermissionTransform.class.getName();
 
-    static final String[] SAVE_KEY_NAMES = {"globalNodeTrail", "nodeTrail", "mode", "purposeTypeId", "statusId", "entityOperation", "targetOperation" };
+    static final String[] SAVE_KEY_NAMES = {"globalNodeTrail", "nodeTrail", "mode", "purposeTypeId", "statusId", "entityOperation",
+            "targetOperation" };
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -114,7 +115,8 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 GenericValue currentContent = null;
                 String contentAssocPredicateId = (String) templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String) templateCtx.get("nullThruDatesOnly");
-                Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
+                Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly))
+                        ? Boolean.TRUE : Boolean.FALSE;
                 GenericValue val = null;
                 try {
                     val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
@@ -152,13 +154,14 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     }
                 }
                 List<String> targetOperationList = StringUtil.split(targetOperation, "|");
-                if (targetOperationList.size() == 0) {
+                if (targetOperationList.isEmpty()) {
                     throw new IOException("targetOperationList has zero size.");
                 }
                 List<String> roleList = new LinkedList<>();
 
                 String privilegeEnumId = (String) currentContent.get("privilegeEnumId");
-                Map<String, Object> results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
+                Map<String, Object> results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList,
+                        targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
 
                 boolean isError = ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
                 if (isError) {

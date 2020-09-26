@@ -170,7 +170,7 @@ public final class UrlServletHelper {
             String contentId = pathAlias.getString("contentId");
             if (contentId == null && UtilValidate.isNotEmpty(alias)) {
                 if (!alias.startsWith("/")) {
-                   alias = "/" + alias;
+                    alias = "/" + alias;
                 }
 
                 RequestDispatcher rd = request.getRequestDispatcher(alias);
@@ -265,14 +265,14 @@ public final class UrlServletHelper {
         str = str.replace("‘", "-");
         str = str.replace("？", "-");
         str = str.replace("–", "");
-        while(str.startsWith("-")) {
+        while (str.startsWith("-")) {
             str = str.substring(1);
         }
-        while(str.endsWith("-")) {
+        while (str.endsWith("-")) {
             str = str.substring(0, str.length() - 1);
         }
-        while(str.indexOf("--") != -1) {
-            str = str.replace("--","-");
+        while (str.indexOf("--") != -1) {
+            str = str.replace("--", "-");
         }
         return str;
     }

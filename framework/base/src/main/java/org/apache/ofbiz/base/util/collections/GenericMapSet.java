@@ -32,7 +32,7 @@ public abstract class GenericMapSet<K, V, M extends Map<K, V>, I> extends Generi
             return false;
         }
         Set<?> other = (Set<?>) o;
-        if (source.size() != other.size()) {
+        if (getSource().size() != other.size()) {
             return false;
         }
         for (I item: this) {

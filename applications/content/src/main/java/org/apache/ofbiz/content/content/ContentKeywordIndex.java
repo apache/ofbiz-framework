@@ -103,7 +103,8 @@ public class ContentKeywordIndex {
         }
 
         // DataResourceRole
-        List<GenericValue> dataResourceRoles = EntityQuery.use(delegator).from("DataResourceRole").where("dataResourceId", content.get("dataResourceId")).queryList();
+        List<GenericValue> dataResourceRoles = EntityQuery.use(delegator).from("DataResourceRole").where("dataResourceId",
+                content.get("dataResourceId")).queryList();
         for (GenericValue dataResourceRole: dataResourceRoles) {
             GenericValue party = EntityQuery.use(delegator).from("PartyNameView").where("partyId", dataResourceRole.get("partyId")).queryOne();
             if (party != null) {
@@ -129,9 +130,11 @@ public class ContentKeywordIndex {
         }
 
         // ProductCategory
-        List<GenericValue> productCategoryContentList = EntityQuery.use(delegator).from("ProductCategoryContent").where("contentId", contentId).queryList();
+        List<GenericValue> productCategoryContentList = EntityQuery.use(delegator).from("ProductCategoryContent")
+                .where("contentId", contentId).queryList();
         for (GenericValue productCategoryContent: productCategoryContentList) {
-            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryContent.getString("productCategoryId")).queryOne();
+            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId",
+                    productCategoryContent.getString("productCategoryId")).queryOne();
             if (productCategory != null) {
                 addWeightedKeywordSourceString(productCategory, "categoryName", strings);
                 addWeightedKeywordSourceString(productCategory, "description", strings);
@@ -166,7 +169,8 @@ public class ContentKeywordIndex {
         // WorkEffortContent
         List<GenericValue> workEffortContents = EntityQuery.use(delegator).from("WorkEffortContent").where("contentId", contentId).queryList();
         for (GenericValue workEffortContent: workEffortContents) {
-            GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortContent.get("workEffortId")).queryOne();
+            GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId",
+                    workEffortContent.get("workEffortId")).queryOne();
             if (workEffort != null) {
                 addWeightedKeywordSourceString(workEffort, "workEffortName", strings);
             }
@@ -190,13 +194,15 @@ public class ContentKeywordIndex {
         int keywordMaxLength = EntityUtilProperties.getPropertyAsInteger("contentsearch", "content.keyword.max.length", 0);
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
-                GenericValue contentKeyword = delegator.makeValue("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
+                GenericValue contentKeyword = delegator.makeValue("ContentKeyword", UtilMisc.toMap("contentId",
+                        content.getString("contentId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
                 toBeStored.add(contentKeyword);
             }
         }
-        if (toBeStored.size() > 0) {
+        if (!toBeStored.isEmpty()) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), MODULE);
+                Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId "
+                        + content.getString("contentId"), MODULE);
             }
 
             if ("true".equals(EntityUtilProperties.getPropertyValue("contentsearch", "index.delete.on_index", "false", delegator))) {
@@ -208,10 +214,12 @@ public class ContentKeywordIndex {
         }
     }
 
-    public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator, GenericValue content) {
+    public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator,
+                                                     GenericValue content) {
         Map<String, Object> drContext = UtilMisc.<String, Object>toMap("content", content);
         try {
-            String contentText = DataResourceWorker.renderDataResourceAsText(null, delegator, drView.getString("dataResourceId"), drContext, null, null, false);
+            String contentText = DataResourceWorker.renderDataResourceAsText(null, delegator, drView.getString("dataResourceId"),
+                    drContext, null, null, false);
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }

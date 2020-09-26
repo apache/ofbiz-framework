@@ -33,25 +33,25 @@ At the time of writing, OFBiz allows you to create the following type of agreeme
  * Commission
  * End User Licence
 
-The most common agreements you will use will be Sales Agreements (for your 
-Customers), Purchase Agreements (for your Suppliers) and Commission Agreements 
+The most common agreements you will use will be Sales Agreements (for your
+Customers), Purchase Agreements (for your Suppliers) and Commission Agreements
 (for your Sales Representatives).
 
 == Sales Agreement
 
 A “Sales Agreement” is an agreement between you and your customers. A customer
-can also be another business. You can create a range of conditions for your 
+can also be another business. You can create a range of conditions for your
 customer including giving them such as payment discounts or special payment terms
-and credit limits. 
+and credit limits.
 
 If you have installed OFBiz with the demo data then there are already examples
 of Sales Agreements created for you.
 
 == Purchase Agreement
 
-A “Purchase Agreement” is an agreement between your business and a supplier. You 
+A “Purchase Agreement” is an agreement between your business and a supplier. You
 may have negotiated special conditions such as delivery, volume pricing and
-invoice terms. 
+invoice terms.
 
 If you have installed OFBiz with the demo data then there are already examples
 of Purchase Agreements created for you.
@@ -59,10 +59,10 @@ of Purchase Agreements created for you.
 == Commission Agreement
 
 A “Commission Agreement” is an agreement that is used to calculate how much money
-a Sales Representative will get when products they have promoted or marketed are 
+a Sales Representative will get when products they have promoted or marketed are
 sold to customers. The rate paid to the Sales Representative is can be based on a
-fixed or variable on a percentage of each sale they make. These amounts can be 
-quite small amounts so it can be easier to consolidate multiple commission 
+fixed or variable on a percentage of each sale they make. These amounts can be
+quite small amounts so it can be easier to consolidate multiple commission
 payments into one large payment that is paid monthly.
 
 If you have installed OFBiz with the demo data then there are already two example
@@ -92,7 +92,7 @@ include::HELP_ListAgreementItemTerms.adoc[leveloffset=+2]
 
 === Help Edit Agreement Item Term
 This screen is used to create or update the terms for an agreement item. +
-For more information about Agreement Term look at <<_help_edit_agreement_terms>>
+For more information about Agreement Term look at <<_help_for_edit_agreement_terms>>
 
 include::HELP_ListAgreementItemProducts.adoc[leveloffset=+2]
 

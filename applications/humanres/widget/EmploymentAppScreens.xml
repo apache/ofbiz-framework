@@ -26,6 +26,12 @@
                 <set field="titleProperty" value="HumanResFindEmploymentApp"/>
                 <set field="headerItem" value="EmploymentApp"/>
                 <set field="employmentAppCtx" from-field="parameters"/>
+                <set field="asm_multipleSelectForm" value="FindEmploymentApps"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindEmploymentApps_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -41,6 +47,11 @@
                                 </section>
                             </decorator-section>
                             <decorator-section name="search-options">
+                                <platform-specific>
+                                    <html>
+                                        <html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                    </html>
+                                </platform-specific>
                                 <include-form name="FindEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">

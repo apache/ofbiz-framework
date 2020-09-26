@@ -30,12 +30,12 @@ import org.apache.ofbiz.widget.model.ModelMenuItem;
  * Widget Library - Form String Renderer interface
  */
 public interface MenuStringRenderer {
-    public void renderMenuItem(Appendable writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException;
-    public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
-    public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
-    public void renderFormatSimpleWrapperOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
-    public void renderFormatSimpleWrapperClose(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
-    public void renderFormatSimpleWrapperRows(Appendable writer, Map<String, Object> context, Object menu) throws IOException;
-    public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.MenuLink link) throws IOException;
-    public void renderImage(Appendable writer, Map<String, Object> context, Image image) throws IOException;
+    void renderMenuItem(Appendable writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException;
+    void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
+    void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
+    void renderFormatSimpleWrapperOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
+    void renderFormatSimpleWrapperClose(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException;
+    void renderFormatSimpleWrapperRows(Appendable writer, Map<String, Object> context, Object menu) throws IOException;
+    void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.MenuLink link) throws IOException;
+    void renderImage(Appendable writer, Map<String, Object> context, Image image) throws IOException;
 }

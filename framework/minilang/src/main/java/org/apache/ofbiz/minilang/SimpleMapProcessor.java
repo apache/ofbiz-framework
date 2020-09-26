@@ -37,8 +37,10 @@ import org.w3c.dom.Element;
  */
 public class SimpleMapProcessor {
 
-    private static final UtilCache<String, Map<String, MapProcessor>> simpleMapProcessorsResourceCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsResource", 0, 0);
-    private static final UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
+    private static final UtilCache<String, Map<String, MapProcessor>> SIMPLE_MAP_PROC_RES_CACHE =
+            UtilCache.createUtilCache("minilang.SimpleMapProcessorsResource", 0, 0);
+    private static final UtilCache<URL, Map<String, MapProcessor>> SIMPLE_MAP_PROC_URL_CACHE =
+            UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
 
     protected static Map<String, MapProcessor> getAllProcessors(URL xmlURL) throws MiniLangException {
         Map<String, MapProcessor> mapProcessors = new HashMap<>();
@@ -65,35 +67,38 @@ public class SimpleMapProcessor {
     }
 
     protected static Map<String, MapProcessor> getProcessors(String xmlResource, String name, ClassLoader loader) throws MiniLangException {
-        Map<String, MapProcessor> simpleMapProcessors = simpleMapProcessorsResourceCache.get(xmlResource);
+        Map<String, MapProcessor> simpleMapProcessors = SIMPLE_MAP_PROC_RES_CACHE.get(xmlResource);
         if (simpleMapProcessors == null) {
             URL xmlURL = null;
             try {
                 xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
             } catch (MalformedURLException e) {
-                throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
+                throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource + "; error was: "
+                        + e.toString(), e);
             }
             if (xmlURL == null) {
                 throw new MiniLangException("Could not find SimpleMapProcessor XML document in resource: " + xmlResource);
             }
-            simpleMapProcessors = simpleMapProcessorsResourceCache.putIfAbsentAndGet(xmlResource, getAllProcessors(xmlURL));
+            simpleMapProcessors = SIMPLE_MAP_PROC_RES_CACHE.putIfAbsentAndGet(xmlResource, getAllProcessors(xmlURL));
         }
         return simpleMapProcessors;
     }
 
     protected static Map<String, MapProcessor> getProcessors(URL xmlURL, String name) throws MiniLangException {
-        Map<String, MapProcessor> simpleMapProcessors = simpleMapProcessorsURLCache.get(xmlURL);
+        Map<String, MapProcessor> simpleMapProcessors = SIMPLE_MAP_PROC_URL_CACHE.get(xmlURL);
         if (simpleMapProcessors == null) {
-            simpleMapProcessors = simpleMapProcessorsURLCache.putIfAbsentAndGet(xmlURL, getAllProcessors(xmlURL));
+            simpleMapProcessors = SIMPLE_MAP_PROC_URL_CACHE.putIfAbsentAndGet(xmlURL, getAllProcessors(xmlURL));
         }
         return simpleMapProcessors;
     }
 
-    public static void runSimpleMapProcessor(String xmlResource, String name, Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale) throws MiniLangException {
+    public static void runSimpleMapProcessor(String xmlResource, String name, Map<String, Object> inMap, Map<String, Object> results,
+                                             List<Object> messages, Locale locale) throws MiniLangException {
         runSimpleMapProcessor(xmlResource, name, inMap, results, messages, locale, null);
     }
 
-    public static void runSimpleMapProcessor(String xmlResource, String name, Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) throws MiniLangException {
+    public static void runSimpleMapProcessor(String xmlResource, String name, Map<String, Object> inMap, Map<String, Object> results,
+                                             List<Object> messages, Locale locale, ClassLoader loader) throws MiniLangException {
         if (loader == null) {
             loader = Thread.currentThread().getContextClassLoader();
         }
@@ -106,9 +111,11 @@ public class SimpleMapProcessor {
         }
     }
 
-    public static void runSimpleMapProcessor(URL xmlURL, String name, Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) throws MiniLangException {
-        if (loader == null)
+    public static void runSimpleMapProcessor(URL xmlURL, String name, Map<String, Object> inMap, Map<String, Object> results,
+                                             List<Object> messages, Locale locale, ClassLoader loader) throws MiniLangException {
+        if (loader == null) {
             loader = Thread.currentThread().getContextClassLoader();
+        }
         Map<String, MapProcessor> mapProcessors = getProcessors(xmlURL, name);
         MapProcessor processor = mapProcessors.get(name);
         if (processor == null) {

@@ -45,8 +45,8 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public abstract class JdbcValueHandler<T> {
     private static final String MODULE = JdbcValueHandler.class.getName();
-    private static final Map<String, JdbcValueHandler<?>> JdbcValueHandlerMap = createJdbcValueHandlerMap();
-    private static final Map<String, Integer> SqlTypeMap = createSqlTypeMap();
+    private static final Map<String, JdbcValueHandler<?>> JDBC_VALUE_HANDLER_MAP = createJdbcValueHandlerMap();
+    private static final Map<String, Integer> SQL_TYPE_MAP = createSqlTypeMap();
 
     private static Map<String, JdbcValueHandler<?>> createJdbcValueHandlerMap() {
         /*
@@ -169,10 +169,10 @@ public abstract class JdbcValueHandler<T> {
      * @return A <code>JdbcValueHandler</code> instance
      */
     public static JdbcValueHandler<?> getInstance(String javaType, String sqlType) {
-        JdbcValueHandler<?> handler = JdbcValueHandlerMap.get(javaType);
+        JdbcValueHandler<?> handler = JDBC_VALUE_HANDLER_MAP.get(javaType);
         if (handler != null) {
             String key = parseSqlType(sqlType);
-            Integer sqlTypeInt = SqlTypeMap.get(key);
+            Integer sqlTypeInt = SQL_TYPE_MAP.get(key);
             if (sqlTypeInt != null) {
                 handler = handler.create(sqlTypeInt);
             }
@@ -220,6 +220,11 @@ public abstract class JdbcValueHandler<T> {
      */
     protected abstract void castAndSetValue(PreparedStatement ps, int parameterIndex, T obj) throws SQLException;
 
+    /**
+     * Create jdbc value handler.
+     * @param sqlType the sql type
+     * @return the jdbc value handler
+     */
     protected JdbcValueHandler<T> create(int sqlType) {
         if (sqlType == this.getSqlType()) {
             return this;

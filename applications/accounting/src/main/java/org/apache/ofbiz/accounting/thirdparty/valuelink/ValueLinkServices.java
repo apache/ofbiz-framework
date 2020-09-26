@@ -358,7 +358,7 @@ public class ValueLinkServices {
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                 "AccountingValueLinkPinDisabled", locale));
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("balance", vl.getAmount((String) response.get("currbal")));
         result.put("expireDate", response.get("expiredate"));
@@ -417,7 +417,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -480,7 +480,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -534,7 +534,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("balance", vl.getAmount((String) response.get("currbal")));
         result.put("expireDate", response.get("expiredate"));
@@ -645,7 +645,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -755,7 +755,7 @@ public class ValueLinkServices {
         String paymentConfig = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
-        BigDecimal amount = (BigDecimal) context.get("processAmount");        
+        BigDecimal amount = (BigDecimal) context.get("processAmount");
 
         // make sure we have a currency
         if (currency == null) {
@@ -1171,7 +1171,7 @@ public class ValueLinkServices {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo",
-                        UtilMisc.toMap("errorString", e.toString() ), locale));
+                        UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
             if (failure) {
@@ -1188,7 +1188,8 @@ public class ValueLinkServices {
             GenericValue productStoreEmail = null;
             String emailType = "PRDS_GC_PURCHASE";
             try {
-                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
+                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId,
+                        "emailType", emailType).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
             }
@@ -1208,11 +1209,7 @@ public class ValueLinkServices {
                 }
 
                 Map<String, Object> emailCtx = new HashMap<>();
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-                }
-                emailCtx.put("bodyScreenUri", bodyScreenLocation);
+                emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
                 emailCtx.put("bodyParameters", answerMap);
                 emailCtx.put("sendTo", sendToEmail);
                 emailCtx.put("contentType", productStoreEmail.get("contentType"));
@@ -1435,7 +1432,8 @@ public class ValueLinkServices {
         GenericValue productStoreEmail = null;
         String emailType = "PRDS_GC_RELOAD";
         try {
-            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
+            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType",
+                    emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
         }
@@ -1445,11 +1443,7 @@ public class ValueLinkServices {
             Map<String, Object> emailCtx = new HashMap<>();
             answerMap.put("locale", locale);
 
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            emailCtx.put("bodyScreenUri", bodyScreenLocation);
+            emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
             emailCtx.put("bodyParameters", answerMap);
             emailCtx.put("sendTo", orh.getOrderEmailString());
             emailCtx.put("contentType", productStoreEmail.get("contentType"));

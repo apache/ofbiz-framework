@@ -39,7 +39,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 @SuppressWarnings("serial")
 public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition> {
 
-    protected boolean shortCircuitValue;
+    private boolean shortCircuitValue;
 
     protected EntityJoinOperator(int id, String code, boolean shortCircuitValue) {
         super(id, code);
@@ -47,14 +47,24 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat,
+                            EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo) {
         List<EntityCondition> conditions = new LinkedList<>();
         conditions.add(lhs);
         conditions.add(rhs);
         addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
     }
 
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, List<? extends EntityCondition> conditionList, Datasource datasourceInfo) {
+    /**
+     * Add sql value.
+     * @param sql the sql
+     * @param modelEntity the model entity
+     * @param entityConditionParams the entity condition params
+     * @param conditionList the condition list
+     * @param datasourceInfo the datasource info
+     */
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+                            List<? extends EntityCondition> conditionList, Datasource datasourceInfo) {
         if (UtilValidate.isNotEmpty(conditionList)) {
             boolean hadSomething = false;
             Iterator<? extends EntityCondition> conditionIter = conditionList.iterator();
@@ -79,6 +89,11 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         }
     }
 
+    /**
+     * Freeze entity condition.
+     * @param item the item
+     * @return the entity condition
+     */
     protected EntityCondition freeze(Object item) {
         return ((EntityCondition) item).freeze();
     }
@@ -88,6 +103,11 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
 
+    /**
+     * Freeze entity condition.
+     * @param conditionList the condition list
+     * @return the entity condition
+     */
     public EntityCondition freeze(List<? extends EntityCondition> conditionList) {
         List<EntityCondition> newList = new ArrayList<>(conditionList.size());
         for (EntityCondition condition: conditionList) {
@@ -96,6 +116,13 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return EntityCondition.makeCondition(newList, this);
     }
 
+    /**
+     * Eval boolean.
+     * @param entity the entity
+     * @param lhs the lhs
+     * @param rhs the rhs
+     * @return the boolean
+     */
     public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         return entityMatches(entity, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
     }
@@ -105,6 +132,11 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return lhs.isEmpty() && rhs.isEmpty();
     }
 
+    /**
+     * Is empty boolean.
+     * @param conditionList the condition list
+     * @return the boolean
+     */
     public boolean isEmpty(List<? extends EntityCondition> conditionList) {
         for (EntityCondition condition: conditionList) {
             if (!condition.isEmpty()) {
@@ -122,10 +154,24 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return !shortCircuitValue;
     }
 
+    /**
+     * Entity matches boolean.
+     * @param entity the entity
+     * @param conditionList the condition list
+     * @return the boolean
+     */
     public boolean entityMatches(GenericEntity entity, List<? extends EntityCondition> conditionList) {
         return mapMatches(entity.getDelegator(), entity, conditionList);
     }
 
+    /**
+     * Eval boolean.
+     * @param delegator the delegator
+     * @param map the map
+     * @param lhs the lhs
+     * @param rhs the rhs
+     * @return the boolean
+     */
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
         return mapMatches(delegator, map, lhs, rhs);
     }
@@ -138,10 +184,24 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return !shortCircuitValue;
     }
 
+    /**
+     * Eval boolean.
+     * @param delegator the delegator
+     * @param map the map
+     * @param conditionList the condition list
+     * @return the boolean
+     */
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         return mapMatches(delegator, map, conditionList);
     }
 
+    /**
+     * Map matches boolean.
+     * @param delegator the delegator
+     * @param map the map
+     * @param conditionList the condition list
+     * @return the boolean
+     */
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         if (UtilValidate.isNotEmpty(conditionList)) {
             for (EntityCondition condition: conditionList) {
@@ -159,6 +219,12 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         rhs.checkCondition(modelEntity);
     }
 
+    /**
+     * Validate sql.
+     * @param modelEntity the model entity
+     * @param conditionList the condition list
+     * @throws GenericModelException the generic model exception
+     */
     public void validateSql(ModelEntity modelEntity, List<? extends EntityCondition> conditionList) throws GenericModelException {
         if (conditionList == null) {
             throw new GenericModelException("Condition list is null");

@@ -48,7 +48,7 @@ public final class FieldToResult extends MethodOperation {
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         String resultNameAttribute = element.getAttribute("result-name");
-        if (resultNameAttribute.length() == 0) {
+        if (resultNameAttribute.isEmpty()) {
             this.resultFma = this.fieldFma;
         } else {
             this.resultFma = FlexibleMapAccessor.getInstance(resultNameAttribute);

@@ -412,8 +412,8 @@
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="updateSingleContentPurpose" engine="simple" default-entity-name="ContentPurpose" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="updateSingleContentPurpose">
+    <service name="updateSingleContentPurpose" engine="groovy" default-entity-name="ContentPurpose" auth="true"
+            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateSingleContentPurpose">
         <description>Removes content purposes and creates a new one</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

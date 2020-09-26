@@ -1,0 +1,19 @@
+.info-container {
+    display: grid;
+}
+.info-overlay {
+    color: rgb(165, 42, 42);
+    justify-items: center;
+    border: 2px dashed rgba(236, 198, 48, 0.7);
+    transition: .5s ease-out;
+}
+.info-content,
+.info-overlay {
+    grid-area: 1 / 1;
+}
+.info-overlay-item {
+    height: 50%;
+    background: rgba(255, 213, 70);
+    border: 2px dashed rgba(236, 198, 48);
+    z-index: 10;
+}

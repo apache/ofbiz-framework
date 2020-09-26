@@ -78,7 +78,8 @@ public final class EntityEcaAction implements java.io.Serializable {
             }
 
             //Debug.logInfo("Running Entity ECA action service " + this.serviceName + " triggered by entity: " + value.getEntityName(), MODULE);
-            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + "; value=" + value + "; actionContext=" + actionContext, MODULE);
+            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + "; value=" + value + "; actionContext="
+            // + actionContext, MODULE);
 
             // setup the run-as-user
             GenericValue userLoginToRunAs = null;

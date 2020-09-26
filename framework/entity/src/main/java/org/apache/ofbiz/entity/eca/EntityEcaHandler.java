@@ -51,5 +51,6 @@ public interface EntityEcaHandler<T> {
 
     Map<String, List<T>> getEntityEventMap(String entityName);
 
-    void evalRules(String currentOperation, Map<String, List<T>> eventMap, String event, GenericEntity value, boolean isError) throws GenericEntityException;
+    void evalRules(String currentOperation, Map<String, List<T>> eventMap, String event, GenericEntity value, boolean isError)
+            throws GenericEntityException;
 }

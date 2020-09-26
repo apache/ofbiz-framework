@@ -104,9 +104,11 @@ public class CmsEvents {
         if (UtilValidate.isNotEmpty(displayMaintenancePage) && "Y".equalsIgnoreCase(displayMaintenancePage)) {
             try {
                 writer = response.getWriter();
-                GenericValue webSiteContent = EntityQuery.use(delegator).from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MAINTENANCE_PAGE").filterByDate().queryFirst();
+                GenericValue webSiteContent = EntityQuery.use(delegator).from("WebSiteContent").where("webSiteId", webSiteId,
+                        "webSiteContentTypeId", "MAINTENANCE_PAGE").filterByDate().queryFirst();
                 if (webSiteContent != null) {
-                    ContentWorker.renderContentAsText(dispatcher, webSiteContent.getString("contentId"), writer, null, locale, "text/html", null, null, true);
+                    ContentWorker.renderContentAsText(dispatcher, webSiteContent.getString("contentId"), writer, null, locale,
+                            "text/html", null, null, true);
                     return "success";
                 } else {
                     request.setAttribute("_ERROR_MESSAGE_", "Not able to display maintenance page for [" + webSiteId + "]");
@@ -165,7 +167,8 @@ public class CmsEvents {
 
                 GenericValue pathAlias = null;
                 try {
-                    pathAlias = EntityQuery.use(delegator).from("WebSitePathAlias").where("webSiteId", webSiteId, "pathAlias", pathInfo).orderBy("-fromDate").cache().filterByDate().queryFirst();
+                    pathAlias = EntityQuery.use(delegator).from("WebSitePathAlias").where("webSiteId", webSiteId, "pathAlias",
+                            pathInfo).orderBy("-fromDate").cache().filterByDate().queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
                 }
@@ -181,8 +184,9 @@ public class CmsEvents {
                         String context = request.getContextPath();
                         String location = context + request.getServletPath();
                         GenericValue webSite = WebSiteWorker.getWebSite(request);
-                        if (webSite != null && webSite.getString("hostedPathAlias") != null && !"ROOT".equals(pathInfo))
+                        if (webSite != null && webSite.getString("hostedPathAlias") != null && !"ROOT".equals(pathInfo)) {
                             location += "/" + webSite.getString("hostedPathAlias");
+                        }
 
                         String uriWithContext = request.getRequestURI();
                         String uri = uriWithContext.substring(context.length());
@@ -256,12 +260,12 @@ public class CmsEvents {
                         }
                         if (errorPage != null) {
                             if (Debug.verboseOn()) {
-                                 Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, MODULE);
+                                Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, MODULE);
                             }
                             contentId = errorPage.getString("contentId");
                         } else {
                             if (Debug.verboseOn()) {
-                                 Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, MODULE);
+                                Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, MODULE);
                             }
                             contentId = errorContainer.getString("contentId");
                         }
@@ -271,7 +275,8 @@ public class CmsEvents {
                     // We try to find a generic content Error page concerning the status code
                     if (!hasErrorPage) {
                         try {
-                            GenericValue errorPage = EntityQuery.use(delegator).from("Content").where("contentId", "CONTENT_ERROR_" + statusCode).cache().queryOne();
+                            GenericValue errorPage = EntityQuery.use(delegator).from("Content").where("contentId",
+                                    "CONTENT_ERROR_" + statusCode).cache().queryOne();
                             if (errorPage != null) {
                                 if (Debug.verboseOn()) {
                                     Debug.logVerbose("Found generic page " + statusCode, MODULE);
@@ -309,14 +314,17 @@ public class CmsEvents {
                             String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
                             visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);
                         }
-                        FormStringRenderer formStringRenderer = new MacroFormRenderer(visualTheme.getModelTheme().getFormRendererLocation("screen"), request, response);
+                        FormStringRenderer formStringRenderer = new MacroFormRenderer(visualTheme.getModelTheme()
+                                .getFormRendererLocation("screen"), request, response);
                         templateMap.put("formStringRenderer", formStringRenderer);
 
                         // if use web analytics
-                        List<GenericValue> webAnalytics = EntityQuery.use(delegator).from("WebAnalyticsConfig").where("webSiteId", webSiteId).queryList();
+                        List<GenericValue> webAnalytics = EntityQuery.use(delegator).from("WebAnalyticsConfig")
+                                .where("webSiteId", webSiteId).queryList();
                         // render
                         if (UtilValidate.isNotEmpty(webAnalytics) && hasErrorPage) {
-                            ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html", null, null, true, webAnalytics);
+                            ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html",
+                                    null, null, true, webAnalytics);
                         } else if (UtilValidate.isEmpty(mapKey)) {
                             ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html", null, null, true);
                         } else {
@@ -324,11 +332,15 @@ public class CmsEvents {
                         }
 
                     } catch (TemplateException e) {
-                        throw new GeneralRuntimeException(String.format("Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
+                        throw new GeneralRuntimeException(String.format(
+                                "Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                     } catch (IOException e) {
-                        throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
+                        throw new GeneralRuntimeException(String.format(
+                                "Error in the response writer/output stream while rendering content [%s] with path alias [%s]",
+                                contentId, pathInfo), e);
                     } catch (GeneralException e) {
-                        throw new GeneralRuntimeException(String.format("Error rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
+                        throw new GeneralRuntimeException(String.format(
+                                "Error rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                     }
 
                     return "success";
@@ -340,14 +352,16 @@ public class CmsEvents {
                         if (content != null && UtilValidate.isNotEmpty(content.getString("contentName"))) {
                             contentName = content.getString("contentName");
                         } else {
-                            request.setAttribute("_ERROR_MESSAGE_", "Content: [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
+                            request.setAttribute("_ERROR_MESSAGE_", "Content: [" + contentId
+                                    + "] is not a publish point for the current website: [" + webSiteId + "]");
                             return "error";
                         }
                         siteName = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne().getString("siteName");
                     } catch (GenericEntityException e) {
                         Debug.logError(e, MODULE);
                     }
-                    request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: " + siteName + " [" + webSiteId + "]");
+                    request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId
+                            + "] is not a publish point for the current website: " + siteName + " [" + webSiteId + "]");
                     return "error";
                 }
             }
@@ -366,9 +380,11 @@ public class CmsEvents {
             Debug.logError(e, MODULE);
         }
         if (webSite != null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " [" + webSiteId + "] not even a default page!");
+            request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " ["
+                    + webSiteId + "] not even a default page!");
         } else {
-            request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display, not even a default page AND the website entity record for WebSiteId:" + webSiteId + " could not be found");
+            request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display, not even a default page AND the "
+                    + "website entity record for WebSiteId:" + webSiteId + " could not be found");
         }
         return "error";
     }
@@ -432,7 +448,8 @@ public class CmsEvents {
         }
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (UtilValidate.isEmpty(contentAssoc)) {
-            List<GenericValue> assocs = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentIdFrom).cache().filterByDate().queryList();
+            List<GenericValue> assocs = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentIdFrom)
+                    .cache().filterByDate().queryList();
             if (assocs != null) {
                 for (GenericValue assoc : assocs) {
                     int subContentStatusCode = verifySubContent(delegator, contentId, assoc.getString("contentIdTo"));

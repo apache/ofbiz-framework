@@ -81,8 +81,8 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
 
     // Invoke the remote SOAP service
     private Map<String, Object> serviceInvoker(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        Delegator delegator = dispatcher.getDelegator();
-        if (modelService.location == null || modelService.invoke == null) {
+        Delegator delegator = getDispatcher().getDelegator();
+        if (modelService.getLocation() == null || modelService.getInvoke() == null) {
             throw new GenericServiceException("Cannot locate service to invoke");
         }
 
@@ -94,7 +94,8 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         String axis2XmlFileLocation = System.getProperty("ofbiz.home") + axis2XmlFile;
 
         try {
-            ConfigurationContext configContext = ConfigurationContextFactory.createConfigurationContextFromFileSystem(axis2RepoLocation, axis2XmlFileLocation);
+            ConfigurationContext configContext = ConfigurationContextFactory.createConfigurationContextFromFileSystem(axis2RepoLocation,
+                    axis2XmlFileLocation);
             client = new ServiceClient(configContext, null);
             Options options = new Options();
             EndpointReference endPoint = new EndpointReference(this.getLocation(modelService));
@@ -110,10 +111,10 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), MODULE);
         }
 
-        if (UtilValidate.isNotEmpty(modelService.nameSpace)) {
-            serviceName = new QName(modelService.nameSpace, modelService.invoke);
+        if (UtilValidate.isNotEmpty(modelService.getNameSpace())) {
+            serviceName = new QName(modelService.getNameSpace(), modelService.getInvoke());
         } else {
-            serviceName = new QName(modelService.invoke);
+            serviceName = new QName(modelService.getInvoke());
         }
 
         int i = 0;
@@ -121,12 +122,12 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         Map<String, Object> parameterMap = new HashMap<>();
         for (ModelParam p: inModelParamList) {
             if (Debug.infoOn()) {
-                Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, MODULE);
+                Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.getName() + " (" + p.getMode() + ") - " + i, MODULE);
             }
 
             // exclude params that ModelServiceReader insert into (internal params)
-            if (!p.internal) {
-                parameterMap.put(p.name, context.get(p.name));
+            if (!p.getInternal()) {
+                parameterMap.put(p.getName(), context.get(p.getName()));
             }
             i++;
         }

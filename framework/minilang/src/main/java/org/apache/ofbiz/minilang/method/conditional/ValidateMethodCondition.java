@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 public final class ValidateMethodCondition extends MethodOperation implements Conditional {
 
     private static final String MODULE = ValidateMethodCondition.class.getName();
-    private static final Class<?>[] paramTypes = new Class<?>[] {String.class };
+    private static final Class<?>[] PARAM_TYPES = new Class<?>[] {String.class };
 
     private final String className;
     private final FlexibleMapAccessor<Object> fieldFma;
@@ -90,7 +90,7 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
         Object[] params = new Object[] {fieldVal };
         try {
             Class<?> valClass = methodContext.getLoader().loadClass(className);
-            Method valMethod = valClass.getMethod(methodName, paramTypes);
+            Method valMethod = valClass.getMethod(methodName, PARAM_TYPES);
             Boolean resultBool = (Boolean) valMethod.invoke(null, params);
             return resultBool;
         } catch (Exception e) {
@@ -158,7 +158,8 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
     /**
      * A &lt;if-validate-method&gt; element factory.
      */
-    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> implements Factory<ValidateMethodCondition> {
+    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition>
+            implements Factory<ValidateMethodCondition> {
         @Override
         public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ValidateMethodCondition(element, simpleMethod);

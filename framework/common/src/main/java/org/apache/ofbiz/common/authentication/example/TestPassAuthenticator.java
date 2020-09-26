@@ -31,7 +31,6 @@ public class TestPassAuthenticator extends TestFailAuthenticator {
 
     /**
      * Method to authenticate a user
-     *
      * @param username      User's username
      * @param password      User's password
      * @param isServiceAuth true if authentication is for a service call
@@ -47,7 +46,6 @@ public class TestPassAuthenticator extends TestFailAuthenticator {
 
     /**
      * Flag to test if this Authenticator is enabled
-     *
      * @return true if the Authenticator is enabled
      */
     @Override

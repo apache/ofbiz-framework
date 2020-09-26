@@ -45,8 +45,10 @@ public class MenuFactory {
 
     private static final String MODULE = MenuFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = UtilCache.createUtilCache("widget.menu.webappResource", 0, 0, false);
-    public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = UtilCache.createUtilCache("widget.menu.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelMenu>> MENU_WEBAPP_CACHE =
+            UtilCache.createUtilCache("widget.menu.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelMenu>> MENU_LOCATION_CACHE =
+            UtilCache.createUtilCache("widget.menu.locationResource", 0, 0, false);
 
     public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
@@ -59,24 +61,26 @@ public class MenuFactory {
             cacheKey += "::" + visualTheme.getVisualThemeId();
         }
 
-        Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
+        Map<String, ModelMenu> modelMenuMap = MENU_WEBAPP_CACHE.get(cacheKey);
         if (modelMenuMap == null) {
             ServletContext servletContext = request.getServletContext();
 
             URL menuFileUrl = servletContext.getResource(resourceName);
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
             modelMenuMap = readMenuDocument(menuFileDoc, location, visualTheme);
-            menuWebappCache.putIfAbsent(cacheKey, modelMenuMap);
-            modelMenuMap = menuWebappCache.get(cacheKey);
+            MENU_WEBAPP_CACHE.putIfAbsent(cacheKey, modelMenuMap);
+            modelMenuMap = MENU_WEBAPP_CACHE.get(cacheKey);
         }
 
         if (UtilValidate.isEmpty(modelMenuMap)) {
-            throw new IllegalArgumentException("Could not find menu file in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
+            throw new IllegalArgumentException("Could not find menu file in webapp resource [" + resourceName + "] in the webapp ["
+                    + webappName + "]");
         }
 
         ModelMenu modelMenu = modelMenuMap.get(menuName);
         if (modelMenu == null) {
-            throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
+            throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in webapp resource [" + resourceName
+                    + "] in the webapp [" + webappName + "]");
         }
         return modelMenu;
     }
@@ -93,19 +97,20 @@ public class MenuFactory {
                 ModelMenu modelMenu = new ModelMenu(menuElement, menuLocation, visualTheme);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }
-         }
+        }
         return modelMenuMap;
     }
 
-    public static ModelMenu getMenuFromLocation(String resourceName, String menuName, VisualTheme visualTheme) throws IOException, SAXException, ParserConfigurationException {
+    public static ModelMenu getMenuFromLocation(String resourceName, String menuName, VisualTheme visualTheme)
+            throws IOException, SAXException, ParserConfigurationException {
         String keyName = resourceName + "::" + visualTheme.getVisualThemeId();
-        Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(keyName);
+        Map<String, ModelMenu> modelMenuMap = MENU_LOCATION_CACHE.get(keyName);
         if (modelMenuMap == null) {
             URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
             modelMenuMap = readMenuDocument(menuFileDoc, resourceName, visualTheme);
-            menuLocationCache.putIfAbsent(keyName, modelMenuMap);
-            modelMenuMap = menuLocationCache.get(keyName);
+            MENU_LOCATION_CACHE.putIfAbsent(keyName, modelMenuMap);
+            modelMenuMap = MENU_LOCATION_CACHE.get(keyName);
         }
 
         if (UtilValidate.isEmpty(modelMenuMap)) {

@@ -33,6 +33,10 @@ public class ModelTreeCondition {
         this.condition = AbstractModelCondition.DEFAULT_CONDITION_FACTORY.newInstance(modelTree, conditionElement);
     }
 
+    /**
+     * Gets condition.
+     * @return the condition
+     */
     public ModelCondition getCondition() {
         return condition;
     }

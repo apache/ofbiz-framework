@@ -38,7 +38,7 @@ import org.apache.ofbiz.service.job.JobManager;
  */
 public class ServiceContainer implements Container {
     private static final String MODULE = ServiceContainer.class.getName();
-    private static final ConcurrentHashMap<String, LocalDispatcher> dispatcherCache = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, LocalDispatcher> DISPATCHER_CACHE = new ConcurrentHashMap<>();
     private static LocalDispatcherFactory dispatcherFactory;
 
     private String name;
@@ -88,18 +88,18 @@ public class ServiceContainer implements Container {
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
             dispatcherName = dispatcherName.concat("#").concat(delegator.getDelegatorTenantId());
         }
-        LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
+        LocalDispatcher dispatcher = DISPATCHER_CACHE.get(dispatcherName);
         if (dispatcher == null) {
             dispatcher = dispatcherFactory.createLocalDispatcher(dispatcherName, delegator);
-            dispatcherCache.putIfAbsent(dispatcherName, dispatcher);
-            dispatcher = dispatcherCache.get(dispatcherName);
+            DISPATCHER_CACHE.putIfAbsent(dispatcherName, dispatcher);
+            dispatcher = DISPATCHER_CACHE.get(dispatcherName);
             Debug.logInfo("Created new dispatcher: " + dispatcherName, MODULE);
         }
         return dispatcher;
     }
 
     public static void deregister(String dispatcherName) {
-        LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
+        LocalDispatcher dispatcher = DISPATCHER_CACHE.get(dispatcherName);
         if (dispatcher != null) {
             dispatcher.deregister();
         }
@@ -107,10 +107,10 @@ public class ServiceContainer implements Container {
 
     public static LocalDispatcher removeFromCache(String dispatcherName) {
         Debug.logInfo("Removing from cache dispatcher: " + dispatcherName, MODULE);
-        return dispatcherCache.remove(dispatcherName);
+        return DISPATCHER_CACHE.remove(dispatcherName);
     }
 
     public static Set<String> getAllDispatcherNames() {
-        return Collections.unmodifiableSet(dispatcherCache.keySet());
+        return Collections.unmodifiableSet(DISPATCHER_CACHE.keySet());
     }
 }

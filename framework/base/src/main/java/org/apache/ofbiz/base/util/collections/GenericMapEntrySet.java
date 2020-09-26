@@ -49,10 +49,10 @@ public abstract class GenericMapEntrySet<K, V, M extends GenericMap<K, V>> exten
         }
         Map.Entry<?, ?> other = (Map.Entry<?, ?>) item;
         Object key = other.getKey();
-        if (!source.containsKey(key)) {
+        if (!getSource().containsKey(key)) {
             return false;
         }
-        source.remove(key);
+        getSource().remove(key);
         return true;
     }
 }

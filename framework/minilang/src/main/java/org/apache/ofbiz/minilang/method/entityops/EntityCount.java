@@ -97,18 +97,20 @@ public final class EntityCount extends EntityOperation {
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
             EntityCondition whereEntityCondition = null;
             if (this.whereCondition != null) {
-                whereEntityCondition = this.whereCondition.createCondition(methodContext.getEnvMap(), modelEntity, delegator.getModelFieldTypeReader(modelEntity));
+                whereEntityCondition = this.whereCondition.createCondition(methodContext.getEnvMap(), modelEntity,
+                        delegator.getModelFieldTypeReader(modelEntity));
             }
             EntityCondition havingEntityCondition = null;
             if (this.havingCondition != null) {
-                havingEntityCondition = this.havingCondition.createCondition(methodContext.getEnvMap(), modelEntity, delegator.getModelFieldTypeReader(modelEntity));
+                havingEntityCondition = this.havingCondition.createCondition(methodContext.getEnvMap(), modelEntity,
+                        delegator.getModelFieldTypeReader(modelEntity));
             }
             long count = EntityQuery.use(delegator).from(entityName).where(whereEntityCondition).having(havingEntityCondition).queryCount();
             this.countFma.put(methodContext.getEnvMap(), count);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity count: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

@@ -49,10 +49,27 @@ import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
  */
 public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRenderer {
 
-    HttpServletRequest request;
-    HttpServletResponse response;
-    protected String userLoginIdAtPermGrant;
-    protected String permissionErrorMessage = "";
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+
+    /**
+     * Gets request.
+     * @return the request
+     */
+    public HttpServletRequest getRequest() {
+        return request;
+    }
+
+    /**
+     * Gets response.
+     * @return the response
+     */
+    public HttpServletResponse getResponse() {
+        return response;
+    }
+
+    private String userLoginIdAtPermGrant;
+    private String permissionErrorMessage = "";
 
     protected static final String MODULE = HtmlMenuRenderer.class.getName();
 
@@ -63,6 +80,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         this.response = response;
     }
 
+    /**
+     * Append ofbiz url.
+     * @param writer   the writer
+     * @param location the location
+     * @throws IOException the io exception
+     */
     public void appendOfbizUrl(Appendable writer, String location) throws IOException {
         ServletContext ctx = request.getServletContext();
         if (ctx == null) {
@@ -80,6 +103,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         writer.append(s);
     }
 
+    /**
+     * Append content url.
+     * @param writer   the writer
+     * @param location the location
+     * @throws IOException the io exception
+     */
     public void appendContentUrl(Appendable writer, String location) throws IOException {
         ServletContext ctx = request.getServletContext();
         if (ctx == null) {
@@ -98,6 +127,13 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         writer.append(location);
     }
 
+    /**
+     * Append tooltip.
+     * @param writer the writer
+     * @param context the context
+     * @param modelMenuItem the model menu item
+     * @throws IOException the io exception
+     */
     public void appendTooltip(Appendable writer, Map<String, Object> context, ModelMenuItem modelMenuItem) throws IOException {
         // render the tooltip
         String tooltip = modelMenuItem.getTooltip(context);
@@ -190,6 +226,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         appendWhitespace(writer);
     }
 
+    /**
+     * Is disable if empty boolean.
+     * @param menuItem the menu item
+     * @param context the context
+     * @return the boolean
+     */
     public boolean isDisableIfEmpty(ModelMenuItem menuItem, Map<String, Object> context) {
         boolean disabled = false;
         String disableIfEmpty = menuItem.getDisableIfEmpty();
@@ -209,7 +251,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
 
-        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
+        this.setWidgetCommentsEnabled(ModelWidget.widgetBoundaryCommentsEnabled(context));
         renderBeginningBoundaryComment(writer, "Menu Widget", modelMenu);
         writer.append("<div");
         String menuId = modelMenu.getId();
@@ -282,10 +324,18 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     public void renderFormatSimpleWrapperClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
     }
 
+    /**
+     * Sets request.
+     * @param request the request
+     */
     public void setRequest(HttpServletRequest request) {
         this.request = request;
     }
 
+    /**
+     * Sets response.
+     * @param response the response
+     */
     public void setResponse(HttpServletResponse response) {
         this.response = response;
     }
@@ -298,10 +348,20 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         this.userLoginIdAtPermGrant = string;
     }
 
+    /**
+     * Gets user login id at perm grant.
+     * @return the user login id at perm grant
+     */
     public String getUserLoginIdAtPermGrant() {
         return this.userLoginIdAtPermGrant;
     }
 
+    /**
+     * Is hide if selected boolean.
+     * @param menuItem the menu item
+     * @param context  the context
+     * @return the boolean
+     */
     public boolean isHideIfSelected(ModelMenuItem menuItem, Map<String, Object> context) {
         ModelMenu menu = menuItem.getModelMenu();
         String currentMenuItemName = menu.getSelectedMenuItemContextFieldName(context);
@@ -310,7 +370,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return (hideIfSelected != null && hideIfSelected && currentMenuItemName != null && currentMenuItemName.equals(currentItemName));
     }
 
-
+    /**
+     * User login id has changed boolean.
+     * @return the boolean
+     */
     public boolean userLoginIdHasChanged() {
         boolean hasChanged = false;
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -336,6 +399,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return hasChanged;
     }
 
+    /**
+     * Gets title.
+     * @param menuItem the menu item
+     * @param context the context
+     * @return the title
+     */
     public String getTitle(ModelMenuItem menuItem, Map<String, Object> context) {
         String title = null;
         title = menuItem.getTitle(context);
@@ -355,7 +424,8 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             HttpServletRequest request = (HttpServletRequest) context.get("request");
 
             String targetWindow = link.getTargetWindow(context);
-            String uniqueItemName = menuItem.getModelMenu().getName() + "_" + menuItem.getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
+            String uniqueItemName = menuItem.getModelMenu().getName() + "_" + menuItem.getName() + "_LF_"
+                    + UtilMisc.<String>addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
 
             String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
             if ("hidden-form".equals(linkType)) {
@@ -503,7 +573,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 } else {
                     writer.append(src);
                 }
-            } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+            } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);

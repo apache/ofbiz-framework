@@ -39,11 +39,11 @@ import com.sun.syndication.io.WireFeedOutput;
 public class RomeEventHandler implements EventHandler {
 
     private static final String MODULE = RomeEventHandler.class.getName();
-    public static final String mime = "application/xml; charset=UTF-8";
-    public static final String defaultFeedType = "rss_2.0";
+    private static final String MIME = "application/xml; charset=UTF-8";
+    private static final String DEFAULT_FEED_TYPE = "rss_2.0";
 
-    protected EventHandler service;
-    protected WireFeedOutput out;
+    private EventHandler service;
+    private WireFeedOutput out;
 
     @Override
     public void init(ServletContext context) throws EventHandlerException {
@@ -71,7 +71,7 @@ public class RomeEventHandler implements EventHandler {
 
         String feedType = request.getParameter("feedType");
         if (feedType == null) {
-            request.setAttribute("feedType", defaultFeedType);
+            request.setAttribute("feedType", DEFAULT_FEED_TYPE);
         }
 
         // invoke the feed generator service (implements rssFeedInterface)
@@ -79,7 +79,7 @@ public class RomeEventHandler implements EventHandler {
 
         // pull out the RSS feed from the request attributes
         WireFeed wireFeed = (WireFeed) request.getAttribute("wireFeed");
-        response.setContentType(mime);
+        response.setContentType(MIME);
         try {
             out.output(wireFeed, response.getWriter());
         } catch (IOException e) {

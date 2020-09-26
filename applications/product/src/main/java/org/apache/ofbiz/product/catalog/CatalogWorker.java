@@ -92,7 +92,8 @@ public final class CatalogWorker {
 
     public static List<GenericValue> getStoreCatalogs(Delegator delegator, String productStoreId) {
         try {
-            return EntityQuery.use(delegator).from("ProductStoreCatalog").where("productStoreId", productStoreId).orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
+            return EntityQuery.use(delegator).from("ProductStoreCatalog").where("productStoreId", productStoreId)
+                    .orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up store catalogs for store with id " + productStoreId, MODULE);
         }
@@ -116,7 +117,8 @@ public final class CatalogWorker {
         }
 
         try {
-            return EntityQuery.use(delegator).from("ProdCatalogRole").where("partyId", partyId, "roleTypeId", "CUSTOMER").orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
+            return EntityQuery.use(delegator).from("ProdCatalogRole").where("partyId", partyId, "roleTypeId", "CUSTOMER")
+                    .orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up ProdCatalog Roles for party with id " + partyId, MODULE);
         }
@@ -201,7 +203,7 @@ public final class CatalogWorker {
         if (partyCatalogs != null) allCatalogLinks.addAll(partyCatalogs);
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
 
-        if (allCatalogLinks.size() > 0) {
+        if (!allCatalogLinks.isEmpty()) {
             for (GenericValue catalogLink: allCatalogLinks) {
                 categoryIds.add(catalogLink.getString("prodCatalogId"));
             }

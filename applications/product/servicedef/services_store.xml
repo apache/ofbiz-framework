@@ -25,15 +25,15 @@ under the License.
     <version>1.0</version>
 
     <!-- Product Store Services -->
-    <service name="createProductStore" default-entity-name="ProductStore" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="createProductStore">
+    <service name="createProductStore" default-entity-name="ProductStore" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="createProductStore">
         <description>Create a Product Store</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <override name="storeName" optional="false"/>
     </service>
-    <service name="updateProductStore" default-entity-name="ProductStore" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="updateProductStore">
+    <service name="updateProductStore" default-entity-name="ProductStore" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="updateProductStore">
         <description>Update a Product Store</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
@@ -43,8 +43,8 @@ under the License.
         <attribute name="ecomThemeId" mode="IN" type="String" optional="true"/>
     </service>
 
-    <service name="reserveStoreInventory" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="reserveStoreInventory">
+    <service name="reserveStoreInventory" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="reserveStoreInventory">
         <description>Reserve Inventory in a Product Store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -72,8 +72,8 @@ under the License.
         </attribute>
     </service>
 
-    <service name="isStoreInventoryRequired" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryRequired" auth="false">
+    <service name="isStoreInventoryRequired" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="isStoreInventoryRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -93,8 +93,8 @@ under the License.
          </type-validate>
         </attribute>
     </service>
-    <service name="isStoreInventoryAvailable" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
+    <service name="isStoreInventoryAvailable" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="isStoreInventoryAvailable" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false">
          <type-validate>
@@ -119,8 +119,8 @@ under the License.
          </type-validate>
         </attribute>
     </service>
-    <service name="isStoreInventoryAvailableOrNotRequired" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
+    <service name="isStoreInventoryAvailableOrNotRequired" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false">
          <type-validate>
@@ -412,8 +412,8 @@ under the License.
         <description>Delete a ProductStoreGroupRollup</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="checkProductStoreGroupRollup" engine="simple"
-            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="checkProductStoreGroupRollup" auth="true">
+    <service name="checkProductStoreGroupRollup" engine="groovy"
+            location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="checkProductStoreGroupRollup" auth="true">
         <description>Check if a productStoreGroupId with a primaryParentGroupId has related productStoreGroupRollup or for first ProductStoreGroupRollup on a ProductStoreGroup set relation on primaryParentGroupId</description>
         <attribute name="productStoreGroupId" mode="IN" type="String"/>
         <attribute name="primaryParentGroupId" mode="IN" type="String" optional="true"/>
@@ -422,8 +422,8 @@ under the License.
     </service>
 
     <!-- Permission Services -->
-    <service name="productStoreGenericPermission" engine="simple"
-        location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="productStoreGenericPermission">
+    <service name="productStoreGenericPermission" engine="groovy"
+        location="component://product/groovyScripts/product/store/ProductStoreServices.groovy" invoke="productStoreGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="createProductStoreGroupRole" default-entity-name="ProductStoreGroupRole" engine="entity-auto" invoke="create" auth="true">

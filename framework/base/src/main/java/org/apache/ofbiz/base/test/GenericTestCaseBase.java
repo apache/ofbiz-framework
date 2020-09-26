@@ -58,7 +58,8 @@ public abstract class GenericTestCaseBase extends TestCase {
     public static void assertStaticHelperClass(Class<?> clz) throws Exception {
         Constructor<?>[] constructors = clz.getDeclaredConstructors();
         assertEquals(clz.getName() + " constructor count", 1, constructors.length);
-        assertEquals(clz.getName() + " private declared constructor", 1 << Constructor.DECLARED, constructors[0].getModifiers() & ~(1 << Constructor.PUBLIC) & (1 << Constructor.DECLARED));
+        assertEquals(clz.getName() + " private declared constructor", 1 << Constructor.DECLARED, constructors[0].getModifiers()
+                & ~(1 << Constructor.PUBLIC) & (1 << Constructor.DECLARED));
         constructors[0].setAccessible(true);
         constructors[0].newInstance();
     }
@@ -71,7 +72,8 @@ public abstract class GenericTestCaseBase extends TestCase {
         }
     }
 
-    public static <V, E extends Exception> void assertFuture(String label, Future<V> future, V wanted, boolean interruptable, Class<E> thrownClass, String thrownMessage) {
+    public static <V, E extends Exception> void assertFuture(String label, Future<V> future, V wanted, boolean interruptable, Class<E> thrownClass,
+                                                             String thrownMessage) {
         try {
             assertEquals(label + ": future return", wanted, future.get());
         } catch (InterruptedException e) {
@@ -168,7 +170,7 @@ public abstract class GenericTestCaseBase extends TestCase {
         assertNotNull(msg + "expected a value", got);
         List<T> list = new ArrayList<>(wanted);
         Iterator<?> rightIt = ((Collection<?>) got).iterator();
-OUTER:
+        OUTER:
         while (rightIt.hasNext()) {
             Object right = rightIt.next();
             for (int i = 0; i < list.size(); i++) {
@@ -283,17 +285,19 @@ OUTER:
         assertFalse(label + ":got-done", gotIt.hasNext());
     }
 
-    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, List<? extends V> wantedExtra, I got, List<? extends V> gotExtra) {
+    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, List<? extends V> wantedExtra,
+                                                                       I got, List<? extends V> gotExtra) {
         assertEqualsIterable(label, wanted, wantedExtra, false, got, gotExtra, false);
     }
 
-    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, List<? extends V> wantedExtra, boolean removeWanted, I got, List<? extends V> gotExtra, boolean removeGot) {
+    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, List<? extends V> wantedExtra,
+                                                                       boolean removeWanted, I got, List<? extends V> gotExtra, boolean removeGot) {
         Iterator<? extends V> wantedIt = wanted.iterator();
         Iterator<V> gotIt = got.iterator();
         while (wantedIt.hasNext() && gotIt.hasNext()) {
             assertEquals(label + ":iterate", wantedIt.next(), gotIt.next());
         }
-        while (wantedExtra.size() > 0) {
+        while (!wantedExtra.isEmpty()) {
             assertTrue(label + ":wanted-extra(" + wantedExtra + ")-hasNext", wantedIt.hasNext());
             assertEquals(label + ":wanted-extra(" + wantedExtra + ")", wantedExtra.remove(0), wantedIt.next());
             if (removeWanted) {
@@ -301,7 +305,7 @@ OUTER:
             }
         }
         assertFalse(label + ":wanted-done", wantedIt.hasNext());
-        while (gotExtra.size() > 0) {
+        while (!gotExtra.isEmpty()) {
             assertTrue(label + ":got-extra(" + gotExtra + ")-hasNext", gotIt.hasNext());
             assertEquals(label + ":got-extra(" + gotExtra + ")", gotExtra.remove(0), gotIt.next());
             if (removeGot) {
