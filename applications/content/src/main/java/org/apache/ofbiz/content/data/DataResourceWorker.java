@@ -103,7 +103,7 @@ import freemarker.template.TemplateException;
 /**
  * DataResourceWorker Class
  */
-public class DataResourceWorker  implements org.apache.ofbiz.widget.content.DataResourceWorkerInterface {
+public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataResourceWorkerInterface {
 
     private static final String MODULE = DataResourceWorker.class.getName();
     private static final String ERR_RESOURCE = "ContentErrorUiLabels";

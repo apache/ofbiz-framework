@@ -157,7 +157,7 @@ public class ContactMechWorker {
     }
 
     public static List<Map<String, Object>> getFacilityContactMechValueMaps(Delegator delegator, String facilityId, boolean showOld) {
-       return getFacilityContactMechValueMaps(delegator, facilityId, showOld, null);
+        return getFacilityContactMechValueMaps(delegator, facilityId, showOld, null);
     }
     public static List<Map<String, Object>> getFacilityContactMechValueMaps(Delegator delegator, String facilityId, boolean showOld,
                                                                             String contactMechTypeId) {

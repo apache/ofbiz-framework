@@ -78,7 +78,7 @@ public final class PartyRelationshipHelper {
             return null;
         }
         if (UtilValidate.isNotEmpty(partyRelationships)) {
-           return partyRelationships;
+            return partyRelationships;
         }
         return null;
     }

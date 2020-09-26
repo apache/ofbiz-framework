@@ -5993,7 +5993,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 if ("Y".equals(splitPayPrefPerShpGrp) && cart.paymentInfo.size() > 1) {
                     throw new GeneralRuntimeException("Split Payment Preference per Ship Group does not yet support multiple Payment Methods");
                 }
-                if ("Y".equals(splitPayPrefPerShpGrp)  && cart.paymentInfo.size() == 1) {
+                if ("Y".equals(splitPayPrefPerShpGrp) && cart.paymentInfo.size() == 1) {
                     for (CartShipInfo csi : cart.getShipGroups()) {
                         maxAmount = csi.getTotal().add(cart.getOrderOtherAdjustmentTotal().add(cart.getOrderGlobalAdjustments()).divide(
                                 new BigDecimal(cart.getShipGroupSize()), GEN_ROUNDING)).add(csi.getShipEstimate().add(csi.getTotalTax(cart)));
