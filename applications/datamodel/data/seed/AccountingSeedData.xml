@@ -608,7 +608,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="CRT_REPLACE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="CRT_DISCOUNT_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="CRT_FEE_ADJ"/>
-    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="CRT_MISC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MISC_ADJ" invoiceItemTypeId="CRT_MISC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="CRT_SALES_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="CRT_VAT_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="CRT_VAT_PC_ADJ"/>
@@ -628,7 +628,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="SRT_REPLACE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="SRT_DISCOUNT_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="SRT_FEE_ADJ"/>
-    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="SRT_MISC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MISC_ADJ" invoiceItemTypeId="SRT_MISC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="SRT_SALES_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="SRT_VAT_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="SRT_VAT_PC_ADJ"/>
