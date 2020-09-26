@@ -441,7 +441,7 @@ public final class LoginWorker {
         boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
         if (!unpwErrMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
-            return  requirePasswordChange ? "requirePasswordChange" : "error";
+            return requirePasswordChange ? "requirePasswordChange" : "error";
         }
 
         boolean setupNewDelegatorEtc = false;

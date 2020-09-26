@@ -494,7 +494,7 @@ public final class UtilXml {
                 try {
                     Node node = (Node) getProperty("http://apache.org/xml/properties/dom/current-element-node");
                     if (node != null) {
-                       setLineColumn(node.getLastChild());
+                        setLineColumn(node.getLastChild());
                     }
                 } catch (SAXException ex) {
                     Debug.logWarning(ex, MODULE);

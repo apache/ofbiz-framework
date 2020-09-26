@@ -184,7 +184,7 @@ public final class Paginator {
         Object obj = context.get(lookupName);
         if (obj == null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not running pagination.", MODULE);
+                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not running pagination.", MODULE);
             }
             return;
         }

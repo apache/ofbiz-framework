@@ -164,7 +164,7 @@ public class ExternalLoginKeysManager {
      * @return indicator
      */
     private static boolean isAjax(HttpServletRequest request) {
-       return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
     /**

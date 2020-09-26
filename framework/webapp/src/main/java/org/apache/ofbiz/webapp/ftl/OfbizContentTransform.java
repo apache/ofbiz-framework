@@ -58,7 +58,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
-              result = obj.toString();
+                result = obj.toString();
             }
         }
         return result;
@@ -100,7 +100,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     if ((newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/')
-                    && (!requestUrl.isEmpty() && requestUrl.charAt(0) != '/')) {
+                            && (!requestUrl.isEmpty() && requestUrl.charAt(0) != '/')) {
                         newURL.append('/');
                     }
 

@@ -208,7 +208,7 @@ public class MiscConverters implements ConverterLoader {
 
         @Override
         public String convert(Locale obj) throws ConversionException {
-             return obj.toString();
+            return obj.toString();
         }
     }
 
