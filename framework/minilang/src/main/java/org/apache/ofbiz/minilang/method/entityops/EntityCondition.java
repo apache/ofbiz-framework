@@ -42,10 +42,12 @@ public final class EntityCondition extends EntityOperation {
     public EntityCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date", "list", "distinct", "delegator-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "filter-by-date", "list", "distinct",
+                    "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "delegator-name");
-            MiniLangValidate.childElements(simpleMethod, element, "condition-expr", "condition-list", "condition-object", "having-condition-list", "select-field", "order-by", "limit-range", "limit-view", "use-iterator");
+            MiniLangValidate.childElements(simpleMethod, element, "condition-expr", "condition-list", "condition-object", "having-condition-list",
+                    "select-field", "order-by", "limit-range", "limit-view", "use-iterator");
             MiniLangValidate.requireAnyChildElement(simpleMethod, element, "condition-expr", "condition-list", "condition-object");
         }
         this.finder = new ByConditionFinder(element);
@@ -59,7 +61,7 @@ public final class EntityCondition extends EntityOperation {
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

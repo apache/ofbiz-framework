@@ -39,23 +39,25 @@ import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
 
     private static final String MODULE = Frequency.class.getName();
-    protected MapStack<String> rbmwStack;
-    protected ResourceBundle initialResourceBundle;
-    protected Map<String, Object> context;
+    private MapStack<String> rbmwStack;
+    private ResourceBundle initialResourceBundle;
+    private Map<String, Object> context;
 
     protected ResourceBundleMapWrapper() {
         rbmwStack = MapStack.create();
     }
 
     /**
-     * When creating new from a InternalRbmWrapper the one passed to the constructor should be the most specific or local InternalRbmWrapper, with more common ones pushed onto the stack progressively.
+     * When creating new from a InternalRbmWrapper the one passed to the constructor should be the most specific or local InternalRbmWrapper,
+     * with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(InternalRbmWrapper initialInternalRbmWrapper) {
         this.initialResourceBundle = initialInternalRbmWrapper.getResourceBundle();
         this.rbmwStack = MapStack.create(initialInternalRbmWrapper);
     }
 
-    /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
+    /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle,
+     * with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle) {
         if (initialResourceBundle == null) {
@@ -65,7 +67,8 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.rbmwStack = MapStack.create(new InternalRbmWrapper(initialResourceBundle));
     }
 
-    /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
+    /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle,
+     * with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle, Map<String, Object> context) {
         if (initialResourceBundle == null) {
@@ -76,12 +79,14 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.context = context;
     }
 
-    /** Puts ResourceBundle on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack, ie everything else already there) */
+    /** Puts ResourceBundle on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack,
+     * ie everything else already there) */
     public void addBottomResourceBundle(ResourceBundle topResourceBundle) {
         this.rbmwStack.addToBottom(new InternalRbmWrapper(topResourceBundle));
     }
 
-    /** Puts InternalRbmWrapper on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack, ie everything else already there) */
+    /** Puts InternalRbmWrapper on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack,
+     * ie everything else already there) */
     public void addBottomResourceBundle(InternalRbmWrapper topInternalRbmWrapper) {
         this.rbmwStack.addToBottom(topInternalRbmWrapper);
     }
@@ -89,7 +94,8 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
     /** Don't pass the locale to make sure it has the same locale as the base */
     public void addBottomResourceBundle(String resource) {
         if (this.initialResourceBundle == null) {
-            throw new IllegalArgumentException("Cannot add bottom resource bundle, this wrapper was not properly initialized (there is no base/initial ResourceBundle).");
+            throw new IllegalArgumentException("Cannot add bottom resource bundle, this wrapper was not properly initialized"
+                    + "(there is no base/initial ResourceBundle).");
         }
         this.addBottomResourceBundle(new InternalRbmWrapper(UtilProperties.getResourceBundle(resource, this.initialResourceBundle.getLocale())));
     }
@@ -101,6 +107,10 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.rbmwStack.push(new InternalRbmWrapper(topResourceBundle));
     }
 
+    /**
+     * Gets initial resource bundle.
+     * @return the initial resource bundle
+     */
     public ResourceBundle getInitialResourceBundle() {
         return this.initialResourceBundle;
     }
@@ -166,8 +176,8 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
     }
 
     public static class InternalRbmWrapper implements Map<String, Object>, Serializable {
-        protected ResourceBundle resourceBundle;
-        protected Map<String, Object> topLevelMap;
+        private ResourceBundle resourceBundle;
+        private Map<String, Object> topLevelMap;
         private boolean isMapInitialized = false;
 
         public InternalRbmWrapper(ResourceBundle resourceBundle) {
@@ -205,7 +215,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         public int size() {
             if (isMapInitialized) {
                 // this is an approximate size, won't include elements from parent bundles
-                return topLevelMap.size() -1;
+                return topLevelMap.size() - 1;
             }
             return resourceBundle.keySet().size();
         }
@@ -215,7 +225,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             if (isMapInitialized) {
                 return topLevelMap.isEmpty();
             }
-            return resourceBundle.keySet().size() == 0;
+            return resourceBundle.keySet().isEmpty();
         }
 
         @Override
@@ -303,6 +313,10 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             return this.topLevelMap.entrySet();
         }
 
+        /**
+         * Gets resource bundle.
+         * @return the resource bundle
+         */
         public ResourceBundle getResourceBundle() {
             return this.resourceBundle;
         }

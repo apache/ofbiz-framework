@@ -69,7 +69,8 @@ public final class EntityUtilProperties implements Serializable {
             if (systemProperty != null) {
                 //property exists in database
                 results.put("isExistInDb", "Y");
-                results.put("value", (systemProperty.getString("systemPropertyValue") != null) ? systemProperty.getString("systemPropertyValue") : "");
+                results.put("value", (systemProperty.getString("systemPropertyValue") != null)
+                        ? systemProperty.getString("systemPropertyValue") : "");
             }
         } catch (GenericEntityException e) {
             Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), MODULE);
@@ -262,11 +263,13 @@ public final class EntityUtilProperties implements Serializable {
                 prevValue = gv.getString("systemPropertyValue");
                 gv.set("systemPropertyValue", value);
             } else {
-                gv = delegator.makeValue("SystemProperty", UtilMisc.toMap("systemResourceId", resourceName, "systemPropertyId", name, "systemPropertyValue", value, "description", null));
+                gv = delegator.makeValue("SystemProperty", UtilMisc.toMap("systemResourceId", resourceName, "systemPropertyId",
+                        name, "systemPropertyValue", value, "description", null));
             }
             gv.store();
         } catch (GenericEntityException e) {
-            Debug.logError(String.format("tenantId=%s, exception=%s, message=%s", delegator.getDelegatorTenantId(), e.getClass().getName(), e.getMessage()), MODULE);
+            Debug.logError(String.format("tenantId=%s, exception=%s, message=%s", delegator.getDelegatorTenantId(), e.getClass().getName(),
+                    e.getMessage()), MODULE);
         }
         return prevValue;
     }
@@ -346,7 +349,8 @@ public final class EntityUtilProperties implements Serializable {
         return UtilProperties.resolvePropertiesUrl(resource, locale);
     }
 
-    public static Properties xmlToProperties(InputStream in, Locale locale, Properties properties) throws IOException, InvalidPropertiesFormatException {
+    public static Properties xmlToProperties(InputStream in, Locale locale, Properties properties)
+            throws IOException, InvalidPropertiesFormatException {
         return UtilProperties.xmlToProperties(in, locale, properties);
     }
 }

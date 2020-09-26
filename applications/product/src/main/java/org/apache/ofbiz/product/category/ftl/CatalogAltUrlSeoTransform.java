@@ -54,6 +54,12 @@ import freemarker.template.TemplateTransformModel;
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
     private static final String MODULE = CatalogUrlSeoTransform.class.getName();
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -68,6 +74,13 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
         return null;
     }
 
+    /**
+     * Check arg boolean.
+     * @param args the args
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the boolean
+     */
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;

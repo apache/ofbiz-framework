@@ -45,8 +45,9 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> result = serviceInvoker(localName, modelService, context);
-        if (result == null)
+        if (result == null) {
             throw new GenericServiceException("Service did not return expected result");
+        }
         return result;
     }
 
@@ -61,22 +62,26 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
     }
 
     // Invoke the simple method from a service context
-    private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, ? extends Object> context) throws GenericServiceException {
+    private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, ? extends Object> context)
+            throws GenericServiceException {
         // static java service methods should be: public Map methodName(DispatchContext dctx, Map context)
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
         // check the package and method names
-        if (modelService.location == null || modelService.invoke == null)
+        if (modelService.getLocation() == null || modelService.getInvoke() == null) {
             throw new GenericServiceException("Cannot locate service to invoke (location or invoke name missing)");
+        }
         // get the classloader to use
         ClassLoader classLoader = null;
-        if (dctx != null)
+        if (dctx != null) {
             classLoader = dctx.getClassLoader();
+        }
         // if the classLoader is null, no big deal, SimpleMethod will use the
         // current thread's ClassLoader by default if null passed in
         try {
-            return SimpleMethod.runSimpleService(this.getLocation(modelService), modelService.invoke, dctx, context, classLoader);
+            return SimpleMethod.runSimpleService(this.getLocation(modelService), modelService.getInvoke(), dctx, context, classLoader);
         } catch (MiniLangException e) {
-            throw new GenericServiceException("Error running simple method [" + modelService.invoke + "] in XML file [" + modelService.location + "]: ", e);
+            throw new GenericServiceException("Error running simple method [" + modelService.getInvoke() + "] in XML file ["
+                    + modelService.getLocation() + "]: ", e);
         }
     }
 }

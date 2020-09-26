@@ -233,7 +233,19 @@ under the License.
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
     <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
     <request-map uri="LookupLocale"><security https="true" auth="true"/><response name="success" type="view" value="LookupLocale"/></request-map>
-    
+
+    <!-- Get Js derived from HTML Template -->
+    <request-map uri="getJs" method="get" track-serverhit="false">
+        <security https="false" auth="false"/>
+        <response name="success" type="request" value="js"/>
+        <response name="error" type="request" value="js"/>
+    </request-map>
+    <request-map uri="js">
+        <security direct-request="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsResponseFromRequest"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!--========================== AJAX events =====================-->
     <!-- Get states related to a country -->
     <request-map uri="getAssociatedStateList">
@@ -324,15 +336,11 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
 
-    <request-map uri="getJs" method="get">
+    <request-map uri="openSourceFile">
         <security https="false" auth="false"/>
-        <response name="success" type="request" value="js"/>
-        <response name="error" type="request" value="js"/>
-    </request-map>
-    <request-map uri="js">
-        <security direct-request="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsResponseFromRequest"/>
-        <response name="success" type="none"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="openSourceFile"/>
+        <response name="success" type="none" />
+        <response name="error" type="none" />
     </request-map>
 
     <!--========================== AJAX events =====================-->

@@ -70,7 +70,7 @@ public final class CreateObject extends MethodOperation {
         this.targetClass = targetClass;
         fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
-        if (parameterElements.size() > 0) {
+        if (!parameterElements.isEmpty()) {
             ArrayList<MethodObject<?>> parameterList = new ArrayList<>(parameterElements.size());
             for (Element parameterElement : parameterElements) {
                 if ("string".equals(parameterElement.getNodeName())) {
@@ -100,9 +100,10 @@ public final class CreateObject extends MethodOperation {
                 try {
                     typeClass = methodObjectDef.getTypeClass(methodContext);
                 } catch (ClassNotFoundException e) {
-                    String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
+                    String errMsg = "ERROR: Could not complete the " + getSimpleMethod().getShortDescription()
+                            + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
                     Debug.logWarning(e, errMsg, MODULE);
-                    simpleMethod.addErrorMessage(methodContext, errMsg);
+                    getSimpleMethod().addErrorMessage(methodContext, errMsg);
                     return false;
                 }
                 parameterTypes[i] = typeClass;

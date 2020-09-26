@@ -33,22 +33,33 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 
 @SuppressWarnings("serial")
 public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K, V>, Serializable {
-    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Set<?>> keySetUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "keySet"));
-    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Set<?>> entrySetUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "entrySet"));
-    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Collection<?>> valuesUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Collection.class, "values"));
-    private static final AtomicIntegerFieldUpdater<GenericMap<?, ?>> modCountUpdater = UtilGenerics.cast(AtomicIntegerFieldUpdater.newUpdater(GenericMap.class, "modCount"));
+    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Set<?>> KEY_SET_UPDATER =
+            UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "keySet"));
+    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Set<?>> ENTRY_SET_UPDATER =
+            UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "entrySet"));
+    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Collection<?>> VALUES_UPDATER =
+            UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Collection.class, "values"));
+    private static final AtomicIntegerFieldUpdater<GenericMap<?, ?>> MOD_COUNT_UPDATER =
+            UtilGenerics.cast(AtomicIntegerFieldUpdater.newUpdater(GenericMap.class, "modCount"));
 
     private volatile Set<K> keySet;
     private volatile Set<Map.Entry<K, V>> entrySet;
     private volatile Collection<V> values;
     private volatile int modCount;
 
+    /**
+     * Gets mod count.
+     * @return the mod count
+     */
     public int getModCount() {
         return modCount;
     }
 
+    /**
+     * Increment mod count.
+     */
     protected void incrementModCount() {
-        modCountUpdater.getAndIncrement(this);
+        MOD_COUNT_UPDATER.getAndIncrement(this);
     }
 
     @Override
@@ -90,6 +101,11 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         return equalsMap(map);
     }
 
+    /**
+     * Equals generic map boolean.
+     * @param map the map
+     * @return the boolean
+     */
     protected boolean equalsGenericMap(GenericMap<?, ?> map) {
         Iterator<Map.Entry<K, V>> it = iterator(false);
         while (it.hasNext()) {
@@ -113,6 +129,11 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         return true;
     }
 
+    /**
+     * Equals map boolean.
+     * @param map the map
+     * @return the boolean
+     */
     protected boolean equalsMap(Map<?, ?> map) {
         Iterator<Map.Entry<K, V>> it = iterator(false);
         while (it.hasNext()) {
@@ -150,6 +171,11 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
             super(iterator(noteAccess));
         }
 
+        /**
+         * Is valid boolean.
+         * @param src the src
+         * @return the boolean
+         */
         protected boolean isValid(Map.Entry<K, V> src) {
             if (currentModCount != getModCount()) {
                 throw new ConcurrentModificationException();
@@ -161,7 +187,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     @Override
     public final Set<Map.Entry<K, V>> entrySet() {
         if (entrySet == null) {
-            entrySetUpdater.compareAndSet(this, null, new GenericMapEntrySet<K, V, GenericMap<K, V>>(this) {
+            ENTRY_SET_UPDATER.compareAndSet(this, null, new GenericMapEntrySet<K, V, GenericMap<K, V>>(this) {
                 @Override
                 protected boolean contains(Object key, Object value) {
                     return Objects.equals(get(key, false), value);
@@ -191,7 +217,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     @Override
     public final Set<K> keySet() {
         if (keySet == null) {
-            keySetUpdater.compareAndSet(this, null, new GenericMapKeySet<K, V, GenericMap<K, V>>(this) {
+            KEY_SET_UPDATER.compareAndSet(this, null, new GenericMapKeySet<K, V, GenericMap<K, V>>(this) {
                 @Override
                 public boolean contains(Object key) {
                     return containsKey(key);
@@ -219,7 +245,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     @Override
     public final Collection<V> values() {
         if (values == null) {
-            valuesUpdater.compareAndSet(this, null, new GenericMapValues<K, V, GenericMap<K, V>>(this) {
+            VALUES_UPDATER.compareAndSet(this, null, new GenericMapValues<K, V, GenericMap<K, V>>(this) {
                 @Override
                 public Iterator<V> iterator(boolean noteAccess) {
                     return new GenericMapIterator<V>(noteAccess) {

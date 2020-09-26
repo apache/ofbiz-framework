@@ -44,14 +44,14 @@ public final class EntityEcaCondition implements java.io.Serializable {
 
     private static final String MODULE = EntityEcaCondition.class.getName();
 
-    protected String lhsValueName = null;
-    protected String rhsValueName = null;
-    protected String operator = null;
-    protected String compareType = null;
-    protected String format = null;
-    protected boolean constant = false;
-    protected boolean isService = false;
-    protected String conditionService = null;
+    private String lhsValueName = null;
+    private String rhsValueName = null;
+    private String operator = null;
+    private String compareType = null;
+    private String format = null;
+    private boolean constant = false;
+    private boolean isService = false;
+    private String conditionService = null;
 
     public EntityEcaCondition(Element condition, boolean constant, boolean isService) {
         if (isService) {
@@ -96,7 +96,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
                 }
                 return conditionReply;
             } catch (GenericServiceException gse) {
-                throw new GenericEntityException("Error in calling condition service " + conditionService+". " + gse.getMessage());
+                throw new GenericEntityException("Error in calling condition service " + conditionService + ". " + gse.getMessage());
             }
         }
 
@@ -118,7 +118,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out
-        if (messages.size() > 0) {
+        if (!messages.isEmpty()) {
             for (Object message: messages) {
                 Debug.logWarning((String) message, MODULE);
             }

@@ -30,7 +30,8 @@ public class ModelActionUtil {
      * @param result
      * @param resultMapNameAcsr
      */
-    protected static void contextPutQueryStringOrAllResult(Map<String, Object> context, Map<String, Object> result, FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr) {
+    protected static void contextPutQueryStringOrAllResult(Map<String, Object> context, Map<String, Object> result,
+                                                           FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr) {
         if (!resultMapNameAcsr.isEmpty()) {
             resultMapNameAcsr.put(context, result);
             String queryString = (String) result.get("queryString");

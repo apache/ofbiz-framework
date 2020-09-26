@@ -25,7 +25,15 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> implements Collection<I> {
-    protected final M source;
+    private final M source;
+
+    /**
+     * Gets source.
+     * @return the source
+     */
+    public M getSource() {
+        return source;
+    }
 
     public GenericMapCollection(M source) {
         this.source = source;
@@ -123,6 +131,11 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return appendTo(new StringBuilder()).toString();
     }
 
+    /**
+     * Append to string builder.
+     * @param sb the sb
+     * @return the string builder
+     */
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("[");
         Iterator<I> it = iterator(false);

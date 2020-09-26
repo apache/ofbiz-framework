@@ -64,45 +64,46 @@ In order to make this service active add the following to the service definition
 
 */
 
-    public static  Map<String, Object> convertTree(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> convertTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String file = (String) context.get("file");
         Map<String, Object> result = new HashMap<>();
-        String errMsg = "", sucMsg= "";
-        GenericValue Entity = null;
+        String errMsg = "";
+        String sucMsg = "";
+        GenericValue entity = null;
         if (UtilValidate.isNotEmpty(file)) {
             try (BufferedReader input = new BufferedReader(new FileReader(file))) {
                 String line = null;
                 int size = 0;
                 int counterLine = 0;
-                Entity = delegator.makeValue("Content");
-                Entity.set("contentId", "ROOT");
-                Entity.set("contentName", "ROOT");
-                Entity.set("contentTypeId", "DOCUMENT");
-                Entity.set("createdByUserLogin", userLogin.get("userLoginId"));
-                Entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
-                Entity.set("createdDate", UtilDateTime.nowTimestamp());
-                Entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
-                Entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
-                Entity.set("createdStamp", UtilDateTime.nowTimestamp());
-                Entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
-                delegator.create(Entity);
+                entity = delegator.makeValue("Content");
+                entity.set("contentId", "ROOT");
+                entity.set("contentName", "ROOT");
+                entity.set("contentTypeId", "DOCUMENT");
+                entity.set("createdByUserLogin", userLogin.get("userLoginId"));
+                entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                entity.set("createdDate", UtilDateTime.nowTimestamp());
+                entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
+                entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
+                entity.set("createdStamp", UtilDateTime.nowTimestamp());
+                entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
+                delegator.create(entity);
 
-                Entity = delegator.makeValue("Content");
-                Entity.set("contentId", "HOME_DOCUMENT");
-                Entity.set("contentName", "Home");
-                Entity.set("contentTypeId", "DOCUMENT");
-                Entity.set("createdByUserLogin", userLogin.get("userLoginId"));
-                Entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
-                Entity.set("createdDate", UtilDateTime.nowTimestamp());
-                Entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
-                Entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
-                Entity.set("createdStamp", UtilDateTime.nowTimestamp());
-                Entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
-                delegator.create(Entity);
+                entity = delegator.makeValue("Content");
+                entity.set("contentId", "HOME_DOCUMENT");
+                entity.set("contentName", "Home");
+                entity.set("contentTypeId", "DOCUMENT");
+                entity.set("createdByUserLogin", userLogin.get("userLoginId"));
+                entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                entity.set("createdDate", UtilDateTime.nowTimestamp());
+                entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
+                entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
+                entity.set("createdStamp", UtilDateTime.nowTimestamp());
+                entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
+                delegator.create(entity);
 
                 Map<String, Object> contentAssoc = new HashMap<>();
                 contentAssoc.put("contentId", "HOME_DOCUMENT");
@@ -115,13 +116,18 @@ In order to make this service active add the following to the service definition
                 }
                 while ((line = input.readLine()) != null) { //start line
                     boolean hasFolder = true;
-                    String rootContent = null, contentId = null; counterLine++;
+                    String rootContent = null;
+                    String contentId = null; counterLine++;
                     if (counterLine > 1) {
                         size = line.length();
-                        String check = "\\", checkSubContent = ",", contentName = "", contentNameInprogress = "", data = line.substring(3, size);
+                        String check = "\\";
+                        String checkSubContent = ",";
+                        String contentName = "";
+                        String contentNameInprogress = "";
+                        String data = line.substring(3, size);
                         size = data.length();
 
-                        for (int index = 0; index< size; index++) { //start character in line
+                        for (int index = 0; index < size; index++) { //start character in line
                             boolean contentNameMatch = false;
                             int contentAssocSize = 0;
                             List<GenericValue> contentAssocs = null;
@@ -135,19 +141,21 @@ In order to make this service active add the following to the service definition
                                 if (content != null) {
                                     contentId = content.getString("contentId");
                                 }
-                                if (content != null && hasFolder == true) {
+                                if (content != null && hasFolder) {
                                     if (rootContent != null) {
                                         contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
                                                 .where("contentId", contentId, "contentIdTo", rootContent)
                                                 .queryList();
-                                        List<GenericValue> contentAssocCheck = EntityQuery.use(delegator).from("ContentAssoc").where("contentIdTo", rootContent).queryList();
+                                        List<GenericValue> contentAssocCheck = EntityQuery.use(delegator).from("ContentAssoc")
+                                                .where("contentIdTo", rootContent).queryList();
 
                                         Iterator<GenericValue> contentAssChecks = contentAssocCheck.iterator();
-                                        while (contentAssChecks.hasNext() && contentNameMatch == false) {
+                                        while (contentAssChecks.hasNext() && !contentNameMatch) {
                                             GenericValue contentAss = contentAssChecks.next();
-                                            GenericValue contentcheck = EntityQuery.use(delegator).from("Content").where("contentId", contentAss.get("contentId")).queryOne();
+                                            GenericValue contentcheck = EntityQuery.use(delegator).from("Content").where("contentId",
+                                                    contentAss.get("contentId")).queryOne();
                                             if (contentcheck != null) {
-                                                if (contentcheck.get("contentName").equals(contentName) && contentNameMatch == false) {
+                                                if (contentcheck.get("contentName").equals(contentName) && !contentNameMatch) {
                                                     contentNameMatch = true;
                                                     contentId = contentcheck.get("contentId").toString();
                                                 }
@@ -162,16 +170,16 @@ In order to make this service active add the following to the service definition
                                     contentAssocSize = contentAssocs.size();
                                 }
 
-                                if (contentAssocSize == 0 && contentNameMatch == false) { //New Root Content
+                                if (contentAssocSize == 0 && !contentNameMatch) { //New Root Content
                                     contentId = delegator.getNextSeqId("Content");
-                                    Entity = delegator.makeValue("Content");
-                                    Entity.set("contentId", contentId);
-                                    Entity.set("contentName", contentName);
-                                    Entity.set("contentTypeId", "DOCUMENT");
-                                    Entity.set("createdByUserLogin", userLogin.get("userLoginId"));
-                                    Entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
-                                    Entity.set("createdDate", UtilDateTime.nowTimestamp());
-                                    delegator.create(Entity);
+                                    entity = delegator.makeValue("Content");
+                                    entity.set("contentId", contentId);
+                                    entity.set("contentName", contentName);
+                                    entity.set("contentTypeId", "DOCUMENT");
+                                    entity.set("createdByUserLogin", userLogin.get("userLoginId"));
+                                    entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                                    entity.set("createdDate", UtilDateTime.nowTimestamp());
+                                    delegator.create(entity);
                                     hasFolder = false;
                                 } else {
                                     hasFolder = true;
@@ -186,7 +194,7 @@ In order to make this service active add the following to the service definition
                                                 "contentAssocTypeId", "TREE_CHILD")
                                         .queryList();
 
-                                if (contentAssocs.size() == 0) {
+                                if (contentAssocs.isEmpty()) {
                                     contentAssoc = new HashMap<>();
                                     contentAssoc.put("contentId", contentId);
                                     contentAssoc.put("contentAssocTypeId", "TREE_CHILD");
@@ -198,7 +206,8 @@ In order to make this service active add the following to the service definition
                                     }
                                     rootContent = contentId;
                                 } else {
-                                    //Debug.logInfo("ContentAssoc [contentId= " + contentId + ", contentIdTo=" + rootContent + "] already exist.");//ShoW log file
+                                    //Debug.logInfo("ContentAssoc [contentId= " + contentId + ", contentIdTo=" + rootContent
+                                    // + "] already exist.");//ShoW log file
                                     rootContent = contentId;
                                 }
                                 contentName = "";
@@ -219,7 +228,8 @@ In order to make this service active add the following to the service definition
                         } //end character in line
                     }
                 } //end line
-                sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful", UtilMisc.toMap("counterLine", counterLine), locale);
+                sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful",
+                        UtilMisc.toMap("counterLine", counterLine), locale);
             } catch (IOException | GenericServiceException | GenericEntityException e) {
                 errMsg = "Exception " + UtilMisc.toMap("errMessage", e.toString());
                 Debug.logError(e, errMsg, MODULE);
@@ -229,14 +239,22 @@ In order to make this service active add the following to the service definition
         return ServiceUtil.returnSuccess(sucMsg);
     }
 
-    public static Map<String, Object> createSubContent(int index, String line, String rootContent, Map<String, ? extends Object> context, DispatchContext dctx) {
+    public static Map<String, Object> createSubContent(int index, String line, String rootContent,
+                                                       Map<String, ? extends Object> context, DispatchContext dctx) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map<String, Object> result = new HashMap<>();
-        String subContents = null, check = ",", oldChar = "\"", newChar = "", contentNameInprogress = "", contentName = "", contentId = null;
-        GenericValue Entity = null;
-        String errMsg = "", sucMsg = "";
+        String subContents = null;
+        String check = ",";
+        String oldChar = "\"";
+        String newChar = "";
+        String contentNameInprogress = "";
+        String contentName = "";
+        String contentId = null;
+        GenericValue entity = null;
+        String errMsg = "";
+        String sucMsg = "";
         subContents = line.substring(index + 1, line.length());
         subContents = subContents.replace(oldChar, newChar);
         int size = subContents.length();
@@ -245,25 +263,26 @@ In order to make this service active add the following to the service definition
                 boolean contentNameMatch = false;
                 if (subContents.charAt(index) == check.charAt(0)) { //store data
                     contentName = contentName + contentNameInprogress;
-                    if (contentName.length()>100) {
-                        contentName = contentName.substring(0,100);
+                    if (contentName.length() > 100) {
+                        contentName = contentName.substring(0, 100);
                     }
-                    List<GenericValue> contents = EntityQuery.use(delegator).from("Content").where("contentName", contentName).orderBy("-contentId").queryList();
+                    List<GenericValue> contents = EntityQuery.use(delegator).from("Content").where("contentName",
+                            contentName).orderBy("-contentId").queryList();
                     if (contents != null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
-                        while (contentCheck.hasNext() && contentNameMatch == false) {
+                        while (contentCheck.hasNext() && !contentNameMatch) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch != null) {
                                 List<GenericValue> contentAssocsChecks = EntityQuery.use(delegator).from("ContentAssoc")
                                         .where("contentId", contentch.get("contentId"), "contentIdTo", rootContent)
                                         .queryList();
-                                if (contentAssocsChecks.size() > 0) {
+                                if (!contentAssocsChecks.isEmpty()) {
                                     contentNameMatch = true;
                                 }
                             }
                         }
                     }
-                    if (contentNameMatch == false) {
+                    if (!contentNameMatch) {
                         //create DataResource
                         Map<String, Object> data = new HashMap<>();
                         data.put("userLogin", userLogin);
@@ -274,19 +293,19 @@ In order to make this service active add the following to the service definition
                         String dataResourceId = (String) result.get("dataResourceId");
                         //create Content
                         contentId = delegator.getNextSeqId("Content");
-                        Entity = delegator.makeValue("Content");
-                        Entity.set("contentId", contentId);
-                        Entity.set("contentName", contentName);
-                        Entity.set("contentTypeId", "DOCUMENT");
-                        Entity.set("dataResourceId", dataResourceId);
-                        Entity.set("createdByUserLogin", userLogin.get("userLoginId"));
-                        Entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
-                        Entity.set("createdDate", UtilDateTime.nowTimestamp());
-                        Entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
-                        Entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
-                        Entity.set("createdStamp", UtilDateTime.nowTimestamp());
-                        Entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
-                        delegator.create(Entity);
+                        entity = delegator.makeValue("Content");
+                        entity.set("contentId", contentId);
+                        entity.set("contentName", contentName);
+                        entity.set("contentTypeId", "DOCUMENT");
+                        entity.set("dataResourceId", dataResourceId);
+                        entity.set("createdByUserLogin", userLogin.get("userLoginId"));
+                        entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                        entity.set("createdDate", UtilDateTime.nowTimestamp());
+                        entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
+                        entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
+                        entity.set("createdStamp", UtilDateTime.nowTimestamp());
+                        entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
+                        delegator.create(entity);
 
                         //Relation Content
                         Map<String, Object> contentAssoc = new HashMap<>();
@@ -300,7 +319,7 @@ In order to make this service active add the following to the service definition
                         }
                     }
                     contentName = "";
-                    contentNameInprogress= "";
+                    contentNameInprogress = "";
                 }
 
                 if ((subContents.charAt(index)) != check.charAt(0)) {
@@ -316,7 +335,7 @@ In order to make this service active add the following to the service definition
                     List<GenericValue> contents = EntityQuery.use(delegator).from("Content").where("contentName", contentName).queryList();
                     if (contents != null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
-                        while (contentCheck.hasNext() && contentNameMatch == false) {
+                        while (contentCheck.hasNext() && !contentNameMatch) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch != null) {
                                 long contentAssocCount = EntityQuery.use(delegator).from("ContentAssoc")
@@ -339,19 +358,19 @@ In order to make this service active add the following to the service definition
                         String dataResourceId = (String) result.get("dataResourceId");
                         //create Content
                         contentId = delegator.getNextSeqId("Content");
-                        Entity = delegator.makeValue("Content");
-                        Entity.set("contentId", contentId);
-                        Entity.set("contentName", contentName);
-                        Entity.set("contentTypeId", "DOCUMENT");
-                        Entity.set("dataResourceId", dataResourceId);
-                        Entity.set("createdByUserLogin", userLogin.get("userLoginId"));
-                        Entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
-                        Entity.set("createdDate", UtilDateTime.nowTimestamp());
-                        Entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
-                        Entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
-                        Entity.set("createdStamp", UtilDateTime.nowTimestamp());
-                        Entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
-                        delegator.create(Entity);
+                        entity = delegator.makeValue("Content");
+                        entity.set("contentId", contentId);
+                        entity.set("contentName", contentName);
+                        entity.set("contentTypeId", "DOCUMENT");
+                        entity.set("dataResourceId", dataResourceId);
+                        entity.set("createdByUserLogin", userLogin.get("userLoginId"));
+                        entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
+                        entity.set("createdDate", UtilDateTime.nowTimestamp());
+                        entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
+                        entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
+                        entity.set("createdStamp", UtilDateTime.nowTimestamp());
+                        entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
+                        delegator.create(entity);
 
                         //create ContentAssoc
                         Map<String, Object> contentAssoc = new HashMap<>();
@@ -368,11 +387,11 @@ In order to make this service active add the following to the service definition
             }
             return ServiceUtil.returnSuccess(sucMsg);
         } catch (GenericEntityException e) {
-            errMsg = "GenericEntityException "+ UtilMisc.toMap("errMessage", e.toString());
+            errMsg = "GenericEntityException " + UtilMisc.toMap("errMessage", e.toString());
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         } catch (GenericServiceException e) {
-            errMsg = "GenericServiceException"+ UtilMisc.toMap("errMessage", e.toString());
+            errMsg = "GenericServiceException" + UtilMisc.toMap("errMessage", e.toString());
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }

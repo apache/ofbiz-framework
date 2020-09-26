@@ -83,8 +83,10 @@ public class ImageManagementServices {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isNotEmpty(uploadFileName)) {
-            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-            String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                    "image.management.path", delegator), context);
+            String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                    "image.management.url", delegator), context);
             String rootTargetDirectory = imageServerPath;
             File rootTargetDir = new File(rootTargetDirectory);
             if (!rootTargetDir.exists()) {
@@ -284,7 +286,8 @@ public class ImageManagementServices {
 
         try {
             if (UtilValidate.isNotEmpty(contentId)) {
-                String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
+                String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                        "image.management.path", delegator), context);
                 File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
                 if (!file.delete()) {
                     Debug.logError("File :" + file.getName() + ", couldn't be deleted", MODULE);
@@ -296,7 +299,8 @@ public class ImageManagementServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Map<String, Object> scaleImageMangementInAllSize(DispatchContext dctx, Map<String, ? extends Object> context, String filenameToUse, String resizeType, String productId)
+    private static Map<String, Object> scaleImageMangementInAllSize(DispatchContext dctx, Map<String, ? extends Object> context,
+                                                                    String filenameToUse, String resizeType, String productId)
         throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
 
         /* VARIABLES */
@@ -305,13 +309,15 @@ public class ImageManagementServices {
         if (UtilValidate.isNotEmpty(resizeType)) {
             sizeTypeList = UtilMisc.toList(resizeType);
         } else {
-            sizeTypeList = UtilMisc.toList("small","100x75", "150x112", "320x240", "640x480", "800x600", "1024x768", "1280x1024", "1600x1200");
+            sizeTypeList = UtilMisc.toList("small", "100x75", "150x112", "320x240", "640x480", "800x600", "1024x768", "1280x1024", "1600x1200");
         }
 
         int index;
         Map<String, Map<String, String>> imgPropertyMap = new HashMap<>();
-        BufferedImage bufImg, bufNewImg;
-        double imgHeight, imgWidth;
+        BufferedImage bufImg;
+        BufferedImage bufNewImg;
+        double imgHeight;
+        double imgWidth;
         Map<String, String> imgUrlMap = new HashMap<>();
         Map<String, Object> resultXMLMap = new HashMap<>();
         Map<String, Object> resultBufImgMap = new HashMap<>();
@@ -336,8 +342,10 @@ public class ImageManagementServices {
         index = filenameToUse.lastIndexOf('.');
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", dctx.getDelegator()), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", dctx.getDelegator()), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", dctx.getDelegator()), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", dctx.getDelegator()), context);
 
 
         /* get original BUFFERED IMAGE */
@@ -350,7 +358,8 @@ public class ImageManagementServices {
             imgHeight = bufImg.getHeight();
             imgWidth = bufImg.getWidth();
             if (imgHeight == 0.0 || imgWidth == 0.0) {
-                String errMsg = UtilProperties.getMessage(RES_ERROR, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = " + imgHeight + " ; imgWidth = " + imgWidth;
+                String errMsg = UtilProperties.getMessage(RES_ERROR, "ScaleImage.one_current_image_dimension_is_null", locale) + " : imgHeight = "
+                        + imgHeight + " ; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -370,7 +379,8 @@ public class ImageManagementServices {
                     if (!targetDir.exists()) {
                         boolean created = targetDir.mkdirs();
                         if (!created) {
-                            String errMsg = UtilProperties.getMessage(RES_ERROR, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
+                            String errMsg = UtilProperties.getMessage(RES_ERROR, "ScaleImage.unable_to_create_target_directory", locale)
+                                    + " - " + targetDirectory;
                             Debug.logFatal(errMsg, MODULE);
                             return ServiceUtil.returnError(errMsg);
                         }
@@ -379,7 +389,7 @@ public class ImageManagementServices {
                     // write new image
                     try {
                         ImageIO.write(bufNewImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
-                        File deleteFile = new File(imageServerPath + "/"  + filenameToUse);
+                        File deleteFile = new File(imageServerPath + "/" + filenameToUse);
                         if (!deleteFile.delete()) {
                             Debug.logError("File :" + deleteFile.getName() + ", couldn't be deleted", MODULE);
                         }
@@ -415,7 +425,8 @@ public class ImageManagementServices {
         return ServiceUtil.returnError(errMsg);
     }
 
-    public static Map<String, Object> createContentAndDataResource(DispatchContext dctx, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String fileContentType) {
+    public static Map<String, Object> createContentAndDataResource(DispatchContext dctx, GenericValue userLogin, String filenameToUse,
+                                                                   String imageUrl, String contentId, String fileContentType) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -492,13 +503,16 @@ public class ImageManagementServices {
         return result;
     }
 
-    public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context, GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) {
+    public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context,
+            GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.nameofthumbnail", delegator), context);
 
         // Create content for thumbnail
         Map<String, Object> contentThumb = new HashMap<>();
@@ -564,7 +578,9 @@ public class ImageManagementServices {
 
         /* VARIABLES */
         BufferedImage bufNewImg;
-        double defaultHeight, defaultWidth, scaleFactor;
+        double defaultHeight;
+        double defaultWidth;
+        double scaleFactor;
         Map<String, Object> result = new HashMap<>();
 
         /* DIMENSIONS from ImageProperties */
@@ -623,7 +639,9 @@ public class ImageManagementServices {
 
         /* VARIABLES */
         BufferedImage bufNewImg;
-        double defaultHeight, defaultWidth, scaleFactor;
+        double defaultHeight;
+        double defaultWidth;
+        double scaleFactor;
         Map<String, Object> result = new HashMap<>();
 
         /* DIMENSIONS from ImageProperties */
@@ -670,8 +688,10 @@ public class ImageManagementServices {
         Delegator delegator = dispatcher.getDelegator();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
         String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String dataResourceName = (String) context.get("dataResourceName");
@@ -693,7 +713,8 @@ public class ImageManagementServices {
             if (dataResourceName.length() > 3) {
                 String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
                 Map<String, Object> resultResize = resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
-                ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath
+                        + "/" + productId + "/" + filenameToUse));
 
                 Map<String, Object> contentThumb = new HashMap<>();
                 contentThumb.put("contentTypeId", "DOCUMENT");
@@ -740,7 +761,8 @@ public class ImageManagementServices {
     public static Map<String, Object> resizeImageOfProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
         String productId = (String) context.get("productId");
         String dataResourceName = (String) context.get("dataResourceName");
         String width = (String) context.get("resizeWidth");
@@ -754,7 +776,8 @@ public class ImageManagementServices {
             String filenameToUse = dataResourceName;
             String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
             Map<String, Object> resultResize = resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
-            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/"
+                    + productId + "/" + filenameToUse));
         } catch (Exception e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
@@ -768,8 +791,10 @@ public class ImageManagementServices {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
         String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String filenameToUse = (String) context.get("drDataResourceName");
@@ -778,7 +803,8 @@ public class ImageManagementServices {
         String imageUrl = imageServerUrl + "/" + productId + "/" + filenameToUse;
 
         try {
-            GenericValue productContent = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE").queryFirst();
+            GenericValue productContent = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "contentId",
+                    contentId, "productContentTypeId", "IMAGE").queryFirst();
             String dataResourceName = (String) productContent.get("drDataResourceName");
             String mimeType = filenameToUse.substring(filenameToUse.lastIndexOf('.'));
 
@@ -838,16 +864,19 @@ public class ImageManagementServices {
                     }
                 }
 
-                List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL").queryList();
-                if (contentAssocList.size() > 0) {
+                List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId,
+                        "contentAssocTypeId", "IMAGE_THUMBNAIL").queryList();
+                if (!contentAssocList.isEmpty()) {
                     for (int i = 0; i < contentAssocList.size(); i++) {
                         GenericValue contentAssoc = contentAssocList.get(i);
 
-                        List<GenericValue> dataResourceAssocList = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", contentAssoc.get("contentIdTo")).queryList();
+                        List<GenericValue> dataResourceAssocList = EntityQuery.use(delegator).from("ContentDataResourceView")
+                                .where("contentId", contentAssoc.get("contentIdTo")).queryList();
                         GenericValue dataResourceAssoc = EntityUtil.getFirst(dataResourceAssocList);
 
                         String drDataResourceNameAssoc = (String) dataResourceAssoc.get("drDataResourceName");
-                        String filenameToUseAssoc = filenameToUse.substring(0, filenameToUse.length() - 4) + "-" + contentAssoc.get("mapKey") + imageType;
+                        String filenameToUseAssoc = filenameToUse.substring(0, filenameToUse.length() - 4) + "-" + contentAssoc.get("mapKey")
+                                + imageType;
                         String imageUrlAssoc = imageServerUrl + "/" + productId + "/" + filenameToUseAssoc;
 
                         BufferedImage bufImgAssoc = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc));
@@ -873,7 +902,8 @@ public class ImageManagementServices {
                         }
                         GenericValue contentAssocUp = null;
                         try {
-                            contentAssocUp = EntityQuery.use(delegator).from("Content").where("contentId", contentAssoc.get("contentIdTo")).queryOne();
+                            contentAssocUp = EntityQuery.use(delegator).from("Content").where("contentId", contentAssoc.get("contentIdTo"))
+                                    .queryOne();
                         } catch (GenericEntityException e) {
                             Debug.logError(e, MODULE);
                             return ServiceUtil.returnError(e.getMessage());

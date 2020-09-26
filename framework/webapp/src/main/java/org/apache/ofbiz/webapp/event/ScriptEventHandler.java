@@ -59,7 +59,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 public final class ScriptEventHandler implements EventHandler {
 
     private static final String MODULE = ScriptEventHandler.class.getName();
-    private static final Set<String> protectedKeys = createProtectedKeys();
+    private static final Set<String> PROTECTED_KEYS = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
         Set<String> newSet = new HashSet<>();
@@ -96,16 +96,17 @@ public final class ScriptEventHandler implements EventHandler {
             context.put("locale", UtilHttp.getLocale(request));
             context.put("timeZone", UtilHttp.getTimeZone(request));
             context.put("userLogin", session.getAttribute("userLogin"));
-            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
+            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request,
+                    UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
             Object result = null;
             try {
-                ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
-                result = ScriptUtil.executeScript(event.path, event.invoke, scriptContext, null);
+                ScriptContext scriptContext = ScriptUtil.createScriptContext(context, PROTECTED_KEYS);
+                result = ScriptUtil.executeScript(event.getPath(), event.getInvoke(), scriptContext, null);
                 if (result == null) {
                     result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "Error running event " + event.path + ": ", MODULE);
+                Debug.logWarning(e, "Error running event " + event.getPath() + ": ", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
@@ -126,7 +127,7 @@ public final class ScriptEventHandler implements EventHandler {
             }
             return (String) result;
         } catch (Exception e) {
-            throw new EventHandlerException("Error running event " + event.path, e);
+            throw new EventHandlerException("Error running event " + event.getPath(), e);
         }
     }
 }

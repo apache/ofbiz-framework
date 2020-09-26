@@ -197,7 +197,7 @@ public final class XmlRpcEventHandler extends XmlRpcHttpServer implements EventH
                 throw new XmlRpcException(e.getMessage(), e);
             }
 
-            if (model != null && model.auth) {
+            if (model != null && model.isAuth()) {
                 String username = config.getBasicUserName();
                 String password = config.getBasicPassword();
 
@@ -348,7 +348,7 @@ public final class XmlRpcEventHandler extends XmlRpcHttpServer implements EventH
             }
 
             // check remote invocation security
-            if (model == null || !model.export) {
+            if (model == null || !model.isExport()) {
                 throw new XmlRpcException("Unknown method");
             }
 

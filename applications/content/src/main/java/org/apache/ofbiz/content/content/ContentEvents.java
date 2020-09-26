@@ -47,7 +47,6 @@ public class ContentEvents {
 
     /**
      * Updates/adds keywords for all contents
-     *
      * @param request HTTPRequest object for the current request
      * @param response HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -57,7 +56,7 @@ public class ContentEvents {
         Security security = (Security) request.getAttribute("security");
 
         String updateMode = "CREATE";
-        String errMsg=null;
+        String errMsg = null;
 
         String doAll = request.getParameter("doAll");
 
@@ -119,13 +118,15 @@ public class ContentEvents {
 
         if (errConts == 0) {
             Map<String, String> messageMap = UtilMisc.toMap("numConts", Integer.toString(numConts));
-            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.keyword_creation_complete_for_contents", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.keyword_creation_complete_for_contents", messageMap,
+                    UtilHttp.getLocale(request));
             request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "success";
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("numConts", Integer.toString(numConts));
             messageMap.put("errConts", Integer.toString(errConts));
-            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.keyword_creation_complete_for_contents_with_errors", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilProperties.getMessage(RESOURCE, "contentevents.keyword_creation_complete_for_contents_with_errors",
+                    messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

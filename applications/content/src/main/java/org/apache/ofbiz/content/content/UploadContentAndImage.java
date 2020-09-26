@@ -91,7 +91,7 @@ public class UploadContentAndImage {
                 return "error";
             }
 
-            if (lst.size() == 0) {
+            if (lst.isEmpty()) {
                 String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "uploadContentAndImage.no_files_uploaded", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
@@ -361,7 +361,7 @@ public class UploadContentAndImage {
                 return "error";
             }
 
-            if (lst.size() == 0) {
+            if (lst.isEmpty()) {
                 request.setAttribute("_ERROR_MESSAGE_", "No files uploaded");
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", MODULE);
                 return "error";
@@ -404,7 +404,7 @@ public class UploadContentAndImage {
             for (int i = 0; i < rowCount; i++) {
                 String suffix = "_o_" + i;
                 if (i == 0) {
-                   suffix = "";
+                    suffix = "";
                 }
                 String returnMsg = processContentUpload(passedParams, suffix, request);
                 if ("error".equals(returnMsg)) {
@@ -432,7 +432,8 @@ public class UploadContentAndImage {
         return "success";
     }
 
-    public static String processContentUpload(Map<String, Object> passedParams, String suffix, HttpServletRequest request) throws GenericServiceException {
+    public static String processContentUpload(Map<String, Object> passedParams, String suffix, HttpServletRequest request)
+            throws GenericServiceException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
@@ -443,14 +444,14 @@ public class UploadContentAndImage {
         if (UtilValidate.isEmpty(contentPurposeString)) {
             contentPurposeString = (String) passedParams.get("contentPurposeString");
         }
-        List<String> contentPurposeList = StringUtil.split(contentPurposeString,"|");
+        List<String> contentPurposeList = StringUtil.split(contentPurposeString, "|");
         ftlContext.put("contentPurposeList", contentPurposeList);
 
         String targetOperationString = (String) passedParams.get("targetOperationString" + suffix);
         if (UtilValidate.isEmpty(targetOperationString)) {
             targetOperationString = (String) passedParams.get("targetOperationString");
         }
-        List<String> targetOperationList = StringUtil.split(targetOperationString,"|");
+        List<String> targetOperationList = StringUtil.split(targetOperationString, "|");
         ftlContext.put("targetOperationList", targetOperationList);
 
         ftlContext.put("userLogin", userLogin);
@@ -490,16 +491,22 @@ public class UploadContentAndImage {
         List<Object> errorMessages = new LinkedList<>();
         Locale loc = Locale.getDefault();
         try {
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentIn", ftlContext2, ftlContext3, errorMessages, loc);
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentOut", ftlContext3, ftlContext, errorMessages, loc);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                    "contentIn", ftlContext2, ftlContext3, errorMessages, loc);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                    "contentOut", ftlContext3, ftlContext, errorMessages, loc);
 
             ftlContext3 = new HashMap<>();
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceIn", ftlContext2, ftlContext3, errorMessages, loc);
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut", ftlContext3, ftlContext, errorMessages, loc);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                    "dataResourceIn", ftlContext2, ftlContext3, errorMessages, loc);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                    "dataResourceOut", ftlContext3, ftlContext, errorMessages, loc);
 
             ftlContext3 = new HashMap<>();
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", ftlContext2, ftlContext3, errorMessages, loc);
-            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", ftlContext3, ftlContext, errorMessages, loc);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                    "contentAssocIn", ftlContext2, ftlContext3, errorMessages, loc);
+            SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml",
+                    "contentAssocOut", ftlContext3, ftlContext, errorMessages, loc);
         } catch (MiniLangException e) {
             throw new GenericServiceException(e.getMessage());
         }

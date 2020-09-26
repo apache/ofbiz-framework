@@ -42,17 +42,16 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 public final class ProtectViewWorker {
 
     private static final String MODULE = ProtectViewWorker.class.getName();
-    private static final String resourceWebapp = "WebappUiLabels";
-    private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<>();
-    private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<>();
-    private static final Long one = 1L;
+    private static final String RESOURCE_WEBAPP = "WebappUiLabels";
+    private static final Map<String, Long> HITS_BY_VIEW_ACCESSED = new ConcurrentHashMap<>();
+    private static final Map<String, Long> DURATION_BY_VIEW_ACCESSED = new ConcurrentHashMap<>();
+    private static final Long ONE = 1L;
 
     private ProtectViewWorker() { }
 
     /**
      * An HTTP WebEvent handler that checks to see if an userLogin should be tarpitted
      * The decision is made in regard of number of hits in last period of time
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
@@ -62,7 +61,7 @@ public final class ProtectViewWorker {
         String viewNameId = RequestHandler.getRequestUri(request.getPathInfo());
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String  returnValue = "success";
+        String returnValue = "success";
 
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId");
@@ -82,33 +81,35 @@ public final class ProtectViewWorker {
                                                                         .where("userLoginId", userLoginId, "viewNameId", viewNameId)
                                                                         .cache(true)
                                                                         .queryList();
-                    String  viewNameUserLoginId = viewNameId + userLoginId;
+                    String viewNameUserLoginId = viewNameId + userLoginId;
                     if (UtilValidate.isNotEmpty(tarpittedLoginViews)) {
                         GenericValue tarpittedLoginView = tarpittedLoginViews.get(0);
                         Long tarpitReleaseDateTime = (Long) tarpittedLoginView.get("tarpitReleaseDateTime");
                         if (now < tarpitReleaseDateTime) {
-                            String tarpittedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.tarpitted_message", UtilHttp.getLocale(request));
+                            String tarpittedMessage = UtilProperties.getMessage(RESOURCE_WEBAPP, "protectedviewevents.tarpitted_message",
+                                    UtilHttp.getLocale(request));
                             // reset since now protected by the tarpit duration
-                            hitsByViewAccessed.put(viewNameUserLoginId, 0L);
+                            HITS_BY_VIEW_ACCESSED.put(viewNameUserLoginId, 0L);
                             return ":_protect_:" + tarpittedMessage;
                         }
                     }
                     GenericValue protectedView = protectedViews.get(0);
                     // 1st hit ?
-                    Long curMaxHits = hitsByViewAccessed.get(viewNameUserLoginId);
+                    Long curMaxHits = HITS_BY_VIEW_ACCESSED.get(viewNameUserLoginId);
                     if (UtilValidate.isEmpty(curMaxHits)) {
-                        hitsByViewAccessed.put(viewNameUserLoginId, one);
+                        HITS_BY_VIEW_ACCESSED.put(viewNameUserLoginId, ONE);
                         Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
-                        durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
+                        DURATION_BY_VIEW_ACCESSED.put(viewNameUserLoginId, now + maxHitsDuration);
                     } else {
-                        Long maxDuration = durationByViewAccessed.get(viewNameUserLoginId);
-                        Long newMaxHits = curMaxHits + one;
-                        hitsByViewAccessed.put(viewNameUserLoginId, newMaxHits);
+                        Long maxDuration = DURATION_BY_VIEW_ACCESSED.get(viewNameUserLoginId);
+                        Long newMaxHits = curMaxHits + ONE;
+                        HITS_BY_VIEW_ACCESSED.put(viewNameUserLoginId, newMaxHits);
                         // Are we in a period of time where we need to check if there was too much hits ?
                         if (now < maxDuration) {
                             // Check if over the max hit count...
                             if (newMaxHits > protectedView.getLong("maxHits")) { // yes : block and set tarpitReleaseDateTime
-                                String blockedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.blocked_message", UtilHttp.getLocale(request));
+                                String blockedMessage = UtilProperties.getMessage(RESOURCE_WEBAPP, "protectedviewevents.blocked_message",
+                                        UtilHttp.getLocale(request));
                                 returnValue = ":_protect_:" + blockedMessage;
 
                                 Long tarpitDuration = (Long) protectedView.get("tarpitDuration") * 1000;
@@ -131,9 +132,9 @@ public final class ProtectViewWorker {
                             // We could also take an average of hits in the last x periods of time as initial value,
                             // but it does not make any more sense.
                             // Of course for this to work well the tarpitting period must be long enough...
-                            hitsByViewAccessed.put(viewNameUserLoginId, one);
+                            HITS_BY_VIEW_ACCESSED.put(viewNameUserLoginId, ONE);
                             Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
-                            durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
+                            DURATION_BY_VIEW_ACCESSED.put(viewNameUserLoginId, now + maxHitsDuration);
                         }
                     }
                 }

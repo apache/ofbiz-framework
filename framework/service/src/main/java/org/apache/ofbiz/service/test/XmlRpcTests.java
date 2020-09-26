@@ -42,8 +42,8 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     public XmlRpcTests(String name) {
         super(name);
-        if (Start.getInstance().getConfig().portOffset != 0) {
-            Integer port = 8080 + Start.getInstance().getConfig().portOffset;
+        if (Start.getInstance().getConfig().getPortOffset() != 0) {
+            Integer port = 8080 + Start.getInstance().getConfig().getPortOffset();
             url = url.replace("8080", port.toString());
         }
     }
@@ -54,7 +54,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
      */
     public void testXmlRpcRequest() throws Exception {
         XmlRpcClient client = this.getRpcClient(url, "admin", "ofbiz");
-        Object[] params = new Object[] { 55.00, "message from xml-rpc client" };
+        Object[] params = new Object[] {55.00, "message from xml-rpc client" };
         Map<String, Object> result = UtilGenerics.cast(client.execute("testScv", params));
         assertEquals("XML-RPC Service result success", "service done", result.get("resp"));
     }

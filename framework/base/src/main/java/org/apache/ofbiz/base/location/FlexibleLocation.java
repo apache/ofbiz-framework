@@ -37,7 +37,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 public final class FlexibleLocation {
 
     private static final String MODULE = FlexibleLocation.class.getName();
-    private static final Map<String, LocationResolver> locationResolvers;
+    private static final Map<String, LocationResolver> LOCATION_RESOLVERS;
 
     static {
         Map<String, LocationResolver> resolverMap = new HashMap<>(8);
@@ -68,7 +68,7 @@ public final class FlexibleLocation {
         } catch (Throwable e) {
             Debug.logError(e, "Exception thrown while loading locationresolvers.properties", MODULE);
         }
-        locationResolvers = Collections.unmodifiableMap(resolverMap);
+        LOCATION_RESOLVERS = Collections.unmodifiableMap(resolverMap);
     }
 
     /**
@@ -87,14 +87,11 @@ public final class FlexibleLocation {
 
     /**
      * Resolves the gives location into a URL object for use in various ways.
-     *
      * The general format of the location is like a URL: {locationType}://location/path/file.ext
-     *
      * Supports standard locationTypes like http, https, ftp, jar and file
      * Supports a classpath location type for when desired to be used like any other URL
      * Supports OFBiz specific location types like ofbizhome and component
      * Supports additional locationTypes specified in the locationresolvers.properties file
-     *
      * @param location The location String to parse and create a URL from
      * @return URL object corresponding to the location String passed in
      * @throws MalformedURLException
@@ -108,7 +105,7 @@ public final class FlexibleLocation {
             return null;
         }
         String locationType = getLocationType(location);
-        LocationResolver resolver = locationResolvers.get(locationType);
+        LocationResolver resolver = LOCATION_RESOLVERS.get(locationType);
         if (resolver != null) {
             if (loader != null && resolver instanceof ClasspathLocationResolver) {
                 ClasspathLocationResolver cplResolver = (ClasspathLocationResolver) resolver;

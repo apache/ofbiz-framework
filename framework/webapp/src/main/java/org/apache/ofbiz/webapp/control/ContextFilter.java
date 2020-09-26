@@ -52,7 +52,7 @@ public class ContextFilter implements Filter {
 
     private static final String MODULE = ContextFilter.class.getName();
 
-    protected FilterConfig config = null;
+    private FilterConfig config = null;
 
     // default charset used to decode requests body data if no encoding is specified in the request
     private String defaultCharacterEncoding;
@@ -197,7 +197,8 @@ public class ContextFilter implements Filter {
             String initParamName = initParamEnum.nextElement();
             String initParamValue = config.getServletContext().getInitParameter(initParamName);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", MODULE);
+                Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value ["
+                        + initParamValue + "]", MODULE);
             }
             config.getServletContext().setAttribute(initParamName, initParamValue);
         }

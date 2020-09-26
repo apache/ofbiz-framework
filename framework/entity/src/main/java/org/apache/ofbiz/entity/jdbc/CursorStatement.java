@@ -32,10 +32,10 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 public class CursorStatement extends AbstractCursorHandler {
 
     private static final String MODULE = CursorStatement.class.getName();
-    protected ResultSet currentResultSet;
-    protected Statement stmt;
-    protected boolean beganTransaction;
-    protected boolean autoCommit;
+    private ResultSet currentResultSet;
+    private Statement stmt;
+    private boolean beganTransaction;
+    private boolean autoCommit;
 
     protected CursorStatement(Statement stmt, String cursorName, int fetchSize) throws GenericTransactionException, SQLException {
         super(cursorName, fetchSize);
@@ -53,19 +53,19 @@ public class CursorStatement extends AbstractCursorHandler {
             TransactionUtil.commit(beganTransaction);
             stmt.close();
             return null;
-        } else if ("execute".equals(method.getName())) {
+        // } else if ("execute".equals(method.getName())) {
         } else if ("executeQuery".equals(method.getName()) && args == null) {
             PreparedStatement pstmt = (PreparedStatement) stmt;
             pstmt.executeUpdate();
-            currentResultSet = CursorResultSet.newCursorResultSet(stmt, cursorName, fetchSize);
+            currentResultSet = CursorResultSet.newCursorResultSet(stmt, getCursorName(), getFetchSize());
             return currentResultSet;
         } else if ("executeQuery".equals(method.getName()) && args != null) {
-            args[0] = "DECLARE " + cursorName + " CURSOR FOR " + args[0];
+            args[0] = "DECLARE " + getCursorName() + " CURSOR FOR " + args[0];
             Debug.logInfo("query=" + args[0], MODULE);
             if (stmt.execute((String) args[0])) {
                 throw new SQLException("DECLARE returned a ResultSet");
             }
-            currentResultSet = CursorResultSet.newCursorResultSet(stmt, cursorName, fetchSize);
+            currentResultSet = CursorResultSet.newCursorResultSet(stmt, getCursorName(), getFetchSize());
             return currentResultSet;
         } else if ("getMoreResults".equals(method.getName())) {
             boolean hasMoreResults = stmt.getMoreResults();

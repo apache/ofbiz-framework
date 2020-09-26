@@ -55,7 +55,8 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
     }
 
     @Override
-    public abstract Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException;
+    public abstract Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context)
+            throws GenericServiceException;
 
     @Override
     public abstract void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException;
@@ -66,13 +67,14 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
     }
 
     @Override
-    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist)
+            throws GenericServiceException {
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
         Job job = null;
 
         if (persist) {
             // check for a delegator
-            if (dispatcher.getDelegator() == null) {
+            if (getDispatcher().getDelegator() == null) {
                 throw new GenericServiceException("No reference to delegator; cannot run persisted services.");
             }
 
@@ -80,9 +82,9 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
             // Build the value object(s).
             try {
                 // Create the runtime data
-                String dataId = dispatcher.getDelegator().getNextSeqId("RuntimeData");
+                String dataId = getDispatcher().getDelegator().getNextSeqId("RuntimeData");
 
-                GenericValue runtimeData = dispatcher.getDelegator().makeValue("RuntimeData", "runtimeDataId", dataId);
+                GenericValue runtimeData = getDispatcher().getDelegator().makeValue("RuntimeData", "runtimeDataId", dataId);
 
                 runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
                 runtimeData.create();
@@ -95,22 +97,22 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 }
 
                 // Create the job info
-                String jobId = dispatcher.getDelegator().getNextSeqId("JobSandbox");
+                String jobId = getDispatcher().getDelegator().getNextSeqId("JobSandbox");
                 String jobName = Long.toString(System.currentTimeMillis());
 
                 Map<String, Object> jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", UtilDateTime.nowTimestamp());
                 jFields.put("poolId", ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool());
                 jFields.put("statusId", "SERVICE_PENDING");
-                jFields.put("serviceName", modelService.name);
+                jFields.put("serviceName", modelService.getName());
                 jFields.put("loaderName", localName);
-                jFields.put("maxRetry", (long) modelService.maxRetry);
+                jFields.put("maxRetry", (long) modelService.getMaxRetry());
                 jFields.put("runtimeDataId", dataId);
                 jFields.put("priority", JobPriority.NORMAL);
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);
                 }
 
-                jobV = dispatcher.getDelegator().makeValue("JobSandbox", jFields);
+                jobV = getDispatcher().getDelegator().makeValue("JobSandbox", jFields);
                 jobV.create();
             } catch (GenericEntityException e) {
                 throw new GenericServiceException("Unable to create persisted job", e);
@@ -122,13 +124,13 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
 
             Debug.logInfo("Persisted job queued : " + jobV.getString("jobName"), MODULE);
         } else {
-            JobManager jMgr = dispatcher.getJobManager();
+            JobManager jMgr = getDispatcher().getJobManager();
             if (jMgr != null) {
                 String name = Long.toString(System.currentTimeMillis());
-                String jobId = modelService.name + "." + name;
-                job = new GenericServiceJob(dctx, jobId, name, modelService.name, context, requester);
+                String jobId = modelService.getName() + "." + name;
+                job = new GenericServiceJob(dctx, jobId, name, modelService.getName(), context, requester);
                 try {
-                    dispatcher.getJobManager().runJob(job);
+                    getDispatcher().getJobManager().runJob(job);
                 } catch (JobManagerException jse) {
                     throw new GenericServiceException("Cannot run job.", jse);
                 }

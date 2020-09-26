@@ -199,7 +199,6 @@ public class UelFunctions {
 
     /**
      * Returns a <code>FunctionMapper</code> instance.
-     *
      * @return <code>FunctionMapper</code> instance
      */
     public static FunctionMapper getFunctionMapper() {
@@ -445,7 +444,7 @@ public class UelFunctions {
     }
 
     protected static class Functions extends FunctionMapper {
-        protected final Map<String, Method> functionMap = new HashMap<>();
+        private final Map<String, Method> functionMap = new HashMap<>();
 
         public Functions() {
             try {

@@ -61,7 +61,7 @@ public final class StoreValue extends MethodOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while storing entity value: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

@@ -34,7 +34,6 @@ public interface GenericEngine {
 
     /**
      * Run the service synchronously and return the result.
-     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -45,7 +44,6 @@ public interface GenericEngine {
 
     /**
      * Run the service synchronously and IGNORE the result.
-     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -55,7 +53,6 @@ public interface GenericEngine {
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
-     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -68,7 +65,6 @@ public interface GenericEngine {
 
     /**
      * Run the service asynchronously and IGNORE the result.
-     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.

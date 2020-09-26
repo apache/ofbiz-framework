@@ -41,18 +41,18 @@ public class EntityFindOptions implements java.io.Serializable {
     /** Concurrency constant from the java.sql.ResultSet object for convenience */
     public static final int CONCUR_UPDATABLE = ResultSet.CONCUR_UPDATABLE;
 
-    protected boolean specifyTypeAndConcur = true;
-    protected int resultSetType = TYPE_FORWARD_ONLY;
-    protected int resultSetConcurrency = CONCUR_READ_ONLY;
-    protected int fetchSize = -1;
-    protected int maxRows = -1;
-    protected boolean distinct = false;
+    private boolean specifyTypeAndConcur = true;
+    private int resultSetType = TYPE_FORWARD_ONLY;
+    private int resultSetConcurrency = CONCUR_READ_ONLY;
+    private int fetchSize = -1;
+    private int maxRows = -1;
+    private boolean distinct = false;
 
     /** LIMIT option */
-    protected int limit = -1;
+    private int limit = -1;
 
     /** OFFSET option */
-    protected int offset = -1;
+    private int offset = -1;
 
     /** Default constructor. Defaults are as follows:
      *      specifyTypeAndConcur = true
@@ -63,7 +63,8 @@ public class EntityFindOptions implements java.io.Serializable {
      */
     public EntityFindOptions() { }
 
-    public EntityFindOptions(boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency, int fetchSize, int maxRows, boolean distinct) {
+    public EntityFindOptions(boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency, int fetchSize,
+                             int maxRows, boolean distinct) {
         this.specifyTypeAndConcur = specifyTypeAndConcur;
         this.resultSetType = resultSetType;
         this.resultSetConcurrency = resultSetConcurrency;

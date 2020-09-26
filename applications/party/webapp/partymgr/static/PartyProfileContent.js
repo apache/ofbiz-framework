@@ -84,40 +84,42 @@ function checkIframeStatus() {
 }
 
 function getUploadProgressStatus(event){
-    jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUiLabels[0] + "...</span>");
-    var i=0;
-    jQuery.fjTimer({
-        interval: 1000,
-        repeat: true,
-        tick: function(counter, timerId) {
-            var timerId = timerId;
-            jQuery.ajax({
-                url: 'getFileUploadProgressStatus',
-                dataType: 'json',
-                success: function(data) {
-                    if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                        jQuery('#content-messages').html(data._ERROR_MESSAGE_LIST_);
-                        timerId.stop();
-                     } else if (data._ERROR_MESSAGE_ != undefined) {
-                         jQuery('#content-messages').html(data._ERROR_MESSAGE_);
-                        timerId.stop();
-                     } else {
-                        var readPercent = data.readPercent;
-                        jQuery("#progress_bar").progressbar("option", "value", readPercent);
-                        jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[0] + "... (" + readPercent + "%)");
-                        if(readPercent > 99){
-                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[1] + "...");
-                            // stop the fjTimer
+    importLibrary(["/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"], function(){
+        jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUiLabels[0] + "...</span>");
+        var i=0;
+        jQuery.fjTimer({
+            interval: 1000,
+            repeat: true,
+            tick: function(counter, timerId) {
+                var timerId = timerId;
+                jQuery.ajax({
+                    url: 'getFileUploadProgressStatus',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data._ERROR_MESSAGE_LIST_ != undefined) {
+                            jQuery('#content-messages').html(data._ERROR_MESSAGE_LIST_);
                             timerId.stop();
-                            // call the upload complete method to do final stuff
-                            checkIframeStatus();
-                        }
-                     }
-                },
-                error: function() {
-                     timerId.stop();
-                }
-            });
-        }
+                         } else if (data._ERROR_MESSAGE_ != undefined) {
+                             jQuery('#content-messages').html(data._ERROR_MESSAGE_);
+                            timerId.stop();
+                         } else {
+                            var readPercent = data.readPercent;
+                            jQuery("#progress_bar").progressbar("option", "value", readPercent);
+                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[0] + "... (" + readPercent + "%)");
+                            if(readPercent > 99){
+                                jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[1] + "...");
+                                // stop the fjTimer
+                                timerId.stop();
+                                // call the upload complete method to do final stuff
+                                checkIframeStatus();
+                            }
+                         }
+                    },
+                    error: function() {
+                         timerId.stop();
+                    }
+                });
+            }
+        });
     });
 }

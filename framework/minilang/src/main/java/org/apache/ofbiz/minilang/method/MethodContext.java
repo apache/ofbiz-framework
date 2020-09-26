@@ -102,7 +102,8 @@ public final class MethodContext {
     }
 
     /**
-     * This is a very simple constructor which assumes the needed objects (dispatcher, delegator, security, request, response, etc) are in the context. Will result in calling method as a
+     * This is a very simple constructor which assumes the needed objects (dispatcher, delegator, security, request, response,
+     * etc) are in the context. Will result in calling method as a
      * service or event, as specified.
      */
     public MethodContext(Map<String, ? extends Object> context, ClassLoader loader, int methodType) {
@@ -118,22 +119,28 @@ public final class MethodContext {
         if (methodType == MethodContext.EVENT) {
             this.request = (HttpServletRequest) context.get("request");
             this.response = (HttpServletResponse) context.get("response");
-            if (this.locale == null)
+            if (this.locale == null) {
                 this.locale = UtilHttp.getLocale(request);
-            if (this.timeZone == null)
+            }
+            if (this.timeZone == null) {
                 this.timeZone = UtilHttp.getTimeZone(request);
+            }
             // make sure the delegator and other objects are in place, getting from
             // request if necessary; assumes this came through the ControlServlet
             // or something similar
             if (this.request != null) {
-                if (this.dispatcher == null)
+                if (this.dispatcher == null) {
                     this.dispatcher = (LocalDispatcher) this.request.getAttribute("dispatcher");
-                if (this.delegator == null)
+                }
+                if (this.delegator == null) {
                     this.delegator = (Delegator) this.request.getAttribute("delegator");
-                if (this.security == null)
+                }
+                if (this.security == null) {
                     this.security = (Security) this.request.getAttribute("security");
-                if (this.userLogin == null)
+                }
+                if (this.userLogin == null) {
                     this.userLogin = (GenericValue) this.request.getSession().getAttribute("userLogin");
+                }
             }
         }
         if (this.loader == null) {
@@ -158,7 +165,8 @@ public final class MethodContext {
     }
 
     /**
-     * Gets the named value from the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List entries. This value is expanded, supporting the
+     * Gets the named value from the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket)
+     * syntax to access List entries. This value is expanded, supporting the
      * insertion of other environment values using the "${}" notation.
      * @param key
      *            The name of the environment value to get. Can contain "." and "[]" syntax elements as described above.
@@ -244,9 +252,11 @@ public final class MethodContext {
     }
 
     /**
-     * Puts the named value in the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List entries. If the brackets for a list are empty the value
-     * will be appended to end of the list, otherwise the value will be set in the position of the number in the brackets. If a "+" (plus sign) is included inside the square brackets before the index
-     * number the value will inserted/added at that index instead of set at that index. This value is expanded, supporting the insertion of other environment values using the "${}" notation.
+     * Puts the named value in the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List
+     * entries. If the brackets for a list are empty the value will be appended to end of the list, otherwise the value will be set in the position
+     * of the number in the brackets. If a "+" (plus sign) is included inside the square brackets before the index number the value will
+     * inserted/added at that index instead of set at that index. This value is expanded, supporting the insertion of other environment values
+     * using the "${}" notation.
      * @param key
      *            The name of the environment value to get. Can contain "." syntax elements as described above.
      * @param value
@@ -271,7 +281,8 @@ public final class MethodContext {
     }
 
     /**
-     * Removes the named value from the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access List entries. This value is expanded, supporting the
+     * Removes the named value from the environment. Supports the "." (dot) syntax to access Map members and the "[]" (bracket) syntax to access
+     * List entries. This value is expanded, supporting the
      * insertion of other environment values using the "${}" notation.
      * @param key
      *            The name of the environment value to get. Can contain "." syntax elements as described above.

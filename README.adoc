@@ -22,7 +22,7 @@ under the License.
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 
-If you are reading this file in AsciiDoc format you may want to see it in 
+If you are reading this file in AsciiDoc format you may want to see it in
 https://ci.apache.org/projects/ofbiz/site/trunk/readme/html5/README.html[HTML] +
 or https://ci.apache.org/projects/ofbiz/site/trunk/readme/pdf/README.pdf[PDF] format
 
@@ -136,8 +136,10 @@ Once proper mitigations to the security issues are complete the OFBiz team will
 disclose this information to the public mailing list.
 
 You can find more information about security in OFBiz at
-https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping
-OFBiz secure]
+https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
+
+[CAUTION]
+In production never use the credentials contained in demo data. Not only the admin credentials, but all of them.
 
 [[build-system-syntax]]
 == Build system syntax
@@ -278,8 +280,7 @@ operating system kill command. Use this command to force OFBiz termination if
 the --shutdown command does not work. Usually this is needed when in the middle
 of data loading or testing in OFBiz.
 
-Warning: Be careful in using this command as force termination might lead to
-inconsistent state / data
+Warning: Be careful in using this command as force termination might lead to inconsistent state / data
 
 `gradlew terminateOfbiz`
 
@@ -386,7 +387,7 @@ Example:
  Beware that copying this command in Microsoft Word will automatically transform
 the double dash in en dashes (Unicode 0x2013: –) Other cases not related to Word
 were also reported.So when this command does not work check that you are using
-dash! text
+dash!
 
 [[load-all-ofbiz-data]]
 ==== Load all OFBiz data
@@ -394,13 +395,13 @@ dash! text
 Loads all data sets; meant for initial loading of generic OFBiz data. Can be
 applied for development, testing, demonstration, etc. purposes. Be aware that
 executing this task can result in your data being overwritten in your database
-of choice. Use with caution in production environments.
+of choice.
 
-`gradlew loadAll`
+`gradlew loadAll` OR `gradlew "ofbiz --load-data"`
 
-OR
+[CAUTION]
+Use with caution in production environments.
 
-`gradlew "ofbiz --load-data"`
 
 [[load-seed-data]]
 ==== Load seed data
@@ -481,7 +482,7 @@ parameters are passed:
 [[testing-tasks]]
 === Testing tasks
 
-# tag::testingtasks[]
+// tag::testingtasks[]
 [[execute-all-unit-tests]]
 ==== Execute all unit tests
 
@@ -541,7 +542,7 @@ listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests" --debug-jvm`
 
-# end::testingtasks[]
+// end::testingtasks[]
 
 
 [[miscellaneous-tasks]]

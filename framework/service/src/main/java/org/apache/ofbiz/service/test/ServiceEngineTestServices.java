@@ -61,7 +61,7 @@ public class ServiceEngineTestServices {
                 errorList.add(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockThreadB", UtilMisc.toMap("errorString",
                         ServiceUtil.getErrorMessage(threadBResult)), locale));
             }
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestDeadLockRetry", locale), errorList, null, null);
             }
         } catch (Exception e) {
@@ -164,7 +164,7 @@ public class ServiceEngineTestServices {
             if (ServiceUtil.isError(waiterResult)) {
                 errorList.add("Error running testServiceLockWaitTimeoutRetryWaiter: " + ServiceUtil.getErrorMessage(waiterResult));
             }
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestLockWaitTimeoutRetry", locale), errorList, null, null);
             }
         } catch (Exception e) {
@@ -245,7 +245,6 @@ public class ServiceEngineTestServices {
      * NOTE: maybe this will work: create a list that the service engine maintains of services it will run after the
      * current service run is complete, and AFTER it has committed or rolled back its transaction; if a service finds
      * it has a lock wait timeout, add itself to the list for its parent service (somehow...) and off we go!
-     *
      * @param dctx    the dispatch context
      * @param context the context
      * @return returns the results of the service execution

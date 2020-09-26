@@ -78,7 +78,8 @@ public final class MessageElement extends MiniLangElement {
         if (messageFse != null) {
             return messageFse.expandString(methodContext.getEnvMap());
         } else {
-            return UtilProperties.getMessage(propertyResource, propertyFse.expandString(methodContext.getEnvMap()), methodContext.getEnvMap(), methodContext.getLocale());
+            return UtilProperties.getMessage(propertyResource, propertyFse.expandString(methodContext.getEnvMap()), methodContext.getEnvMap(),
+                    methodContext.getLocale());
         }
     }
 

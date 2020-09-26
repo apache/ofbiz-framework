@@ -181,7 +181,6 @@ public final class SagePayUtil {
 
     /**
      * Builds HttpHost with the given SagePayProperties.
-     *
      * @param props SagePay properties
      * @return
      * @throws IllegalArgumentException if neither productionHost nor testingHost found in properties.

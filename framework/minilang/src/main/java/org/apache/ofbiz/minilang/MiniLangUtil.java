@@ -76,7 +76,7 @@ public final class MiniLangUtil {
      * @return <code>true</code> if <code>str</code> contains a script
      */
     public static boolean containsScript(String str) {
-        if (str.length() > 0) {
+        if (!str.isEmpty()) {
             for (String scriptPrefix : SCRIPT_PREFIXES) {
                 if (str.contains(scriptPrefix)) {
                     return true;
@@ -107,7 +107,8 @@ public final class MiniLangUtil {
      * @param retFieldFma
      * @throws MiniLangRuntimeException
      */
-    public static void callMethod(MethodOperation operation, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?> methodClass, Object methodObject, String methodName, FlexibleMapAccessor<Object> retFieldFma) throws MiniLangRuntimeException {
+    public static void callMethod(MethodOperation operation, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?>
+            methodClass, Object methodObject, String methodName, FlexibleMapAccessor<Object> retFieldFma) throws MiniLangRuntimeException {
         Object[] args = null;
         Class<?>[] parameterTypes = null;
         if (parameters != null) {
@@ -230,7 +231,7 @@ public final class MiniLangUtil {
      * constant value
      */
     public static boolean isConstantAttribute(String attributeValue) {
-        if (attributeValue.length() > 0) {
+        if (!attributeValue.isEmpty()) {
             return !FlexibleStringExpander.containsExpression(FlexibleStringExpander.getInstance(attributeValue));
         }
         return true;
@@ -245,7 +246,7 @@ public final class MiniLangUtil {
      * constant value or a constant plus expression value
      */
     public static boolean isConstantPlusExpressionAttribute(String attributeValue) {
-        if (attributeValue.length() > 0) {
+        if (!attributeValue.isEmpty()) {
             if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                 // A lot of existing code uses concatenated expressions, and they can be difficult
                 // to convert to a single expression, so we will allow them for now.
@@ -282,7 +283,7 @@ public final class MiniLangUtil {
             styleSheetURL = FlexibleLocation.resolveLocation("component://minilang/config/MiniLang.xslt");
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             try (InputStream styleSheetInStream = styleSheetURL.openStream()) {
-            transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
+                transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
             }
         } catch (Exception e) {
             Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", MODULE);

@@ -32,14 +32,14 @@ def createLead() {
     String partyGroupPartyId
     // Check if Person or PartyGroup name is supplied
     if ((!parameters.firstName || !parameters.lastName) && !parameters.groupName) {
-        return error(UtilProperties.getMessage("MarketingUiLabels", 
+        return error(UtilProperties.getMessage("MarketingUiLabels",
                 "SfaFirstNameLastNameAndCompanyNameMissingError", locale))
     }
     run service: "ensurePartyRole", with: [partyId: userLogin.partyId,
                                            roleTypeId: "OWNER"]
     // PartyRole check end
     parameters.roleTypeId = "LEAD"
-    
+
     Map serviceResult = run service: "createPersonRoleAndContactMechs", with: parameters
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
@@ -58,6 +58,7 @@ def createLead() {
 
     // Now create PartyGroup corresponding to the companyName, if its not null and then set up
     // relationship of Person and PartyGroup as Employee and title
+    if (parameters.groupName) {
     parameters.partyTypeId = "PARTY_GROUP"
     if (!leadContactPartyId) {
         parameters.roleTypeId = "ACCOUNT_LEAD"
@@ -81,7 +82,8 @@ def createLead() {
             return serviceResult
         }
     }
-    if (leadContactPartyId) {
+    }
+    if (leadContactPartyId && partyGroupPartyId) {
         run service: "createPartyRelationship", with: [partyIdFrom: partyGroupPartyId,
                                                        partyIdTo: leadContactPartyId,
                                                        roleTypeIdFrom: "ACCOUNT_LEAD",
@@ -89,11 +91,13 @@ def createLead() {
                                                        positionTitle: parameters.title,
                                                        partyRelationshipTypeId: "EMPLOYMENT"]
     }
+    if (partyGroupPartyId) {
     run service: "createPartyRelationship", with: [partyIdFrom: userLogin.partyId,
                                                    partyIdTo: partyGroupPartyId,
                                                    roleTypeIdFrom: "OWNER",
                                                    roleTypeIdTo: "ACCOUNT_LEAD",
                                                    partyRelationshipTypeId: "LEAD_OWNER"]
+    }
 
     if (parameters.dataSourceId) {
         serviceResult = run service: "createPartyDataSource", with: [partyId: leadContactPartyId,

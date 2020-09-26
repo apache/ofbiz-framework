@@ -39,7 +39,6 @@ public class AuthenticatorException extends GeneralException {
 
     /**
      * Constructs an <code>GeneralException</code> with the specified detail message.
-     *
      * @param msg the detail message.
      */
     public AuthenticatorException(String msg) {
@@ -48,7 +47,6 @@ public class AuthenticatorException extends GeneralException {
 
     /**
      * Constructs an <code>GeneralException</code> with the specified detail message and nested Exception.
-     *
      * @param msg    the detail message.
      * @param nested the nested exception.
      */
@@ -58,7 +56,6 @@ public class AuthenticatorException extends GeneralException {
 
     /**
      * Constructs an <code>GeneralException</code> with the specified detail message and nested Exception.
-     *
      * @param nested the nested exception.
      */
     public AuthenticatorException(Throwable nested) {
@@ -67,7 +64,6 @@ public class AuthenticatorException extends GeneralException {
 
     /**
      * Constructs an <code>GeneralException</code> with the specified detail message, list and nested Exception.
-     *
      * @param msg      the detail message.
      * @param messages error message list.
      */
@@ -77,7 +73,6 @@ public class AuthenticatorException extends GeneralException {
 
     /**
      * Constructs an <code>GeneralException</code> with the specified detail message, list and nested Exception.
-     *
      * @param msg      the detail message.
      * @param messages error message list.
      * @param nested   the nested exception
@@ -88,7 +83,6 @@ public class AuthenticatorException extends GeneralException {
 
     /**
      * Constructs an <code>GeneralException</code> with the specified detail message list and nested Exception.
-     *
      * @param messages error message list.
      * @param nested   the nested exception.
      */

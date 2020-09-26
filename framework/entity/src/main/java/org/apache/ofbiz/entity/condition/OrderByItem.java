@@ -31,15 +31,15 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 public class OrderByItem implements Comparator<GenericEntity> {
     public static final int DEFAULT = 0;
     public static final int UPPER = 1;
-    public static final int LOWER = 2;
+    private static final int LOWER = 2;
 
-    public static final String NULLS_FIRST = "NULLS FIRST";
-    public static final String NULLS_LAST = "NULLS LAST";
+    private static final String NULLS_FIRST = "NULLS FIRST";
+    private static final String NULLS_LAST = "NULLS LAST";
     private static final String MODULE = OrderByItem.class.getName();
 
-    protected boolean descending;
-    protected Boolean nullsFirst;
-    protected EntityConditionValue value;
+    private boolean descending;
+    private Boolean nullsFirst;
+    private EntityConditionValue value;
 
     public OrderByItem(EntityConditionValue value) {
         this.value = value;
@@ -55,10 +55,18 @@ public class OrderByItem implements Comparator<GenericEntity> {
         this.nullsFirst = nullsFirst;
     }
 
+    /**
+     * Gets value.
+     * @return the value
+     */
     public EntityConditionValue getValue() {
         return value;
     }
 
+    /**
+     * Gets descending.
+     * @return the descending
+     */
     public boolean getDescending() {
         return descending;
     }
@@ -90,7 +98,8 @@ public class OrderByItem implements Comparator<GenericEntity> {
             text = text.substring(0, text.length() - NULLS_LAST.length()).trim();
         }
 
-        int startIndex = 0, endIndex = text.length();
+        int startIndex = 0;
+        int endIndex = text.length();
         boolean descending;
         int caseSensitivity;
         if (text.endsWith(" DESC")) {
@@ -149,6 +158,11 @@ public class OrderByItem implements Comparator<GenericEntity> {
         return new OrderByItem(value, descending, nullsFirst);
     }
 
+    /**
+     * Check order by.
+     * @param modelEntity the model entity
+     * @throws GenericModelException the generic model exception
+     */
     public void checkOrderBy(ModelEntity modelEntity) throws GenericModelException {
         value.validateSql(modelEntity);
     }
@@ -170,12 +184,26 @@ public class OrderByItem implements Comparator<GenericEntity> {
         return descending ? -result : result;
     }
 
+    /**
+     * Make order by string string.
+     * @param modelEntity            the model entity
+     * @param includeTablenamePrefix the include tablename prefix
+     * @param datasourceInfo         the datasource info
+     * @return the string
+     */
     public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         return sb.toString();
     }
 
+    /**
+     * Make order by string.
+     * @param sb                     the sb
+     * @param modelEntity            the model entity
+     * @param includeTablenamePrefix the include tablename prefix
+     * @param datasourceInfo         the datasource info
+     */
     public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, Datasource datasourceInfo) {
         if ((nullsFirst != null) && (!datasourceInfo.getUseOrderByNulls())) {
             sb.append("CASE WHEN ");

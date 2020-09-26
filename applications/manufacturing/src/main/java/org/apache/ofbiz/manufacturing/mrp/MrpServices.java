@@ -513,7 +513,6 @@ public class MrpServices {
      * <li>PreConditions : none</li>
      * <li>Result : We get the quantity of product available in the stocks.</li>
      * </ul>
-     *
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available
      * (not yet implemented!!)
@@ -565,7 +564,6 @@ public class MrpServices {
     /**
      * Process the bill of material (bom) of the product  to insert components in the MrpEvent table.
      * Before inserting in the entity, test if there is the record already existing to add quantity rather to create a new one.
-     *
      * @param mrpId                the mrp id
      * @param product              GenericValue oject of the product
      * @param eventQuantity        the product quantity needed
@@ -613,7 +611,6 @@ public class MrpServices {
      * <li>INPUT : parameters to get from the context: <ul><li>String mrpName</li></ul></li>
      * <li>OUTPUT : Result to put in the map : <ul><li>none</li></ul></li>
      * </ul>
-     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId routingId, quantity, startDate.
      * @return Map with the result of the service, the output parameters.

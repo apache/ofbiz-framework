@@ -52,7 +52,6 @@ public class GenericWebEvent {
     private static final String ERR_RESOURCE = "WebtoolsErrorUiLabels";
 
     /** An HTTP WebEvent handler that updates a Generic entity
-     *
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return Returns a String specifying the outcome state of the event. This is used to decide which event
@@ -175,13 +174,15 @@ public class GenericWebEvent {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
                     Map<String, String> messageMap = UtilMisc.toMap("fval", fval);
-                    errMsg = errMsg + "<li>" + field.getColName() + UtilProperties.getMessage(ERR_RESOURCE, "genericWebEvent.conversion_failed", messageMap, locale) + type.getJavaType() + ".";
-                    Debug.logWarning("[updateGeneric] " + field.getColName() + " conversion failed: \"" + fval + "\" is not a valid " + type.getJavaType() + "; entityName: " + entityName, MODULE);
+                    errMsg = errMsg + "<li>" + field.getColName() + UtilProperties.getMessage(ERR_RESOURCE, "genericWebEvent.conversion_failed",
+                            messageMap, locale) + type.getJavaType() + ".";
+                    Debug.logWarning("[updateGeneric] " + field.getColName() + " conversion failed: \"" + fval + "\" is not a valid "
+                            + type.getJavaType() + "; entityName: " + entityName, MODULE);
                 }
             }
         }
 
-        if (errMsgPk.length() > 0) {
+        if (!errMsgPk.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_", errMsgPk);
             return "error";
         }
@@ -239,7 +240,7 @@ public class GenericWebEvent {
             }
         }
 
-        if (errMsgNonPk.length() > 0) {
+        if (!errMsgNonPk.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_", errMsgNonPk);
             return "error";
         }
@@ -337,7 +338,7 @@ public class GenericWebEvent {
             }
         }
 
-        if (errMsgParam.length() > 0) {
+        if (!errMsgParam.isEmpty()) {
             errMsgParam = UtilProperties.getMessage(ERR_RESOURCE,
                     "genericWebEvent.following_error_occurred", locale) + errMsgParam;
             request.setAttribute("_ERROR_MESSAGE_", errMsgParam);

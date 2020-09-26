@@ -66,14 +66,17 @@ public final class CategoryWorker {
         // if no parameter, try from session
         if (topCatName == null) {
             topCatName = (String) httpRequest.getSession().getAttribute("CATALOG_TOP_CATEGORY");
-            if (topCatName != null)
+            if (topCatName != null) {
                 fromSession = true;
+            }
         }
         // if nothing else, just use a default top category name
-        if (topCatName == null)
+        if (topCatName == null) {
             topCatName = defaultTopCategory;
-        if (topCatName == null)
+        }
+        if (topCatName == null) {
             topCatName = "CATALOG1";
+        }
 
         if (!fromSession) {
             if (Debug.infoOn()) {
@@ -109,8 +112,9 @@ public final class CategoryWorker {
         requestId = UtilFormatOut.checkNull((String) requestParameters.get("catalog_id"), (String) requestParameters.get("CATALOG_ID"),
                 (String) requestParameters.get("category_id"), (String) requestParameters.get("CATEGORY_ID"));
 
-        if (requestId.equals(""))
+        if ("".equals(requestId)) {
             return;
+        }
         if (Debug.infoOn()) {
             Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, MODULE);
         }
@@ -124,24 +128,26 @@ public final class CategoryWorker {
     public static void getRelatedCategories(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
         List<GenericValue> categories = getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty);
 
-        if (!categories.isEmpty())  request.setAttribute(attributeName, categories);
+        if (!categories.isEmpty()) request.setAttribute(attributeName, categories);
     }
 
     public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView) {
         return getRelatedCategoriesRet(request, attributeName, parentId, limitView, false);
     }
 
-    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
+    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView,
+                                                             boolean excludeEmpty) {
         return getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty, false);
     }
 
-    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
-      Delegator delegator = (Delegator) request.getAttribute("delegator");
-
-      return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, recursive);
+    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView,
+                                                             boolean excludeEmpty, boolean recursive) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, recursive);
     }
 
-    public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
+    public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView,
+                                                             boolean excludeEmpty, boolean recursive) {
         List<GenericValue> categories = new LinkedList<>();
 
         if (Debug.verboseOn()) {
@@ -151,7 +157,8 @@ public final class CategoryWorker {
         List<GenericValue> rollups = null;
 
         try {
-            rollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", parentId).orderBy("sequenceNum").cache(true).queryList();
+            rollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", parentId)
+                    .orderBy("sequenceNum").cache(true).queryList();
             if (limitView) {
                 rollups = EntityUtil.filterByDate(rollups, true);
             }
@@ -172,13 +179,15 @@ public final class CategoryWorker {
                         if (!isCategoryEmpty(cv)) {
                             categories.add(cv);
                             if (recursive) {
-                                categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                                categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"),
+                                        limitView, excludeEmpty, recursive));
                             }
                         }
                     } else {
                         categories.add(cv);
                         if (recursive) {
-                            categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                            categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"),
+                                    limitView, excludeEmpty, recursive));
                         }
                     }
                 }
@@ -209,7 +218,8 @@ public final class CategoryWorker {
         Delegator delegator = category.getDelegator();
         long count = 0;
         try {
-            count = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", category.getString("productCategoryId")).queryCount();
+            count = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId",
+                    category.getString("productCategoryId")).queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -221,7 +231,8 @@ public final class CategoryWorker {
         Delegator delegator = category.getDelegator();
         long count = 0;
         try {
-            count = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", category.getString("productCategoryId")).queryCount();
+            count = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId",
+                    category.getString("productCategoryId")).queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -359,11 +370,13 @@ public final class CategoryWorker {
         }
     }
 
-    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId) throws GenericEntityException {
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId)
+            throws GenericEntityException {
         return filterProductsInCategory(delegator, valueObjects, productCategoryId, "productId");
     }
 
-    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId,
+                                                              String productIdFieldName) throws GenericEntityException {
         List<GenericValue> newList = new LinkedList<>();
 
         if (productCategoryId == null) return newList;
@@ -378,7 +391,8 @@ public final class CategoryWorker {
         return newList;
     }
 
-    public static void getCategoryContentWrappers(Map<String, CategoryContentWrapper> catContentWrappers, List<GenericValue> categoryList, HttpServletRequest request) throws GenericEntityException {
+    public static void getCategoryContentWrappers(Map<String, CategoryContentWrapper> catContentWrappers, List<GenericValue> categoryList,
+                                                  HttpServletRequest request) throws GenericEntityException {
         if (catContentWrappers == null || categoryList == null) {
             return;
         }
@@ -421,7 +435,8 @@ public final class CategoryWorker {
                 List<EntityCondition> rolllupConds = new LinkedList<>();
                 rolllupConds.add(EntityCondition.makeCondition("productCategoryId", parentProductCategoryId));
                 rolllupConds.add(EntityUtil.getFilterByDateExpr());
-                List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds).orderBy("sequenceNum").cache(true).queryList();
+                List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds)
+                        .orderBy("sequenceNum").cache(true).queryList();
                 if (UtilValidate.isNotEmpty(productCategoryRollups)) {
                     // add only categories that belong to the top category to trail
                     for (GenericValue productCategoryRollup : productCategoryRollups) {

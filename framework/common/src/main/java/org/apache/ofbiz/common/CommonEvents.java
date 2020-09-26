@@ -24,9 +24,13 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,17 +46,20 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
+import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -190,6 +197,10 @@ public class CommonEvents {
             response.setContentType("application/javascript");
             // script.length is not reliable for unicode characters
             response.setContentLength(script.getBytes("UTF8").length);
+            // return 404 if script is empty
+            if (UtilValidate.isEmpty(script)) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            }
 
             out = response.getWriter();
             out.write(script);
@@ -438,6 +449,43 @@ public class CommonEvents {
             Debug.logWarning("No securedUserLoginId cookie was found for this application", MODULE);
         }
         return "success";
+    }
+
+    public static String openSourceFile(HttpServletRequest request, HttpServletResponse response) {
+        ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderEnabled();
+        if (namedBorderType == ModelWidget.NamedBorderType.SOURCE) {
+            String sourceLocation = request.getParameter("sourceLocation");
+            if (UtilValidate.isNotEmpty(sourceLocation) && sourceLocation.startsWith("component:")) {
+                try {
+                    // find absolute path of file
+                    URL sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation);
+                    String location = sourceFileUrl.getFile();
+                    // ensure file separator in location is correct
+                    if (!location.contains(File.separator) && "\\".equals(File.separator)) {
+                        location = location.replaceAll("/", "\\\\");
+                    }
+                    location = "\"" + location + "\"";
+                    // prepare content map for string expansion
+                    Map<String, Object> sourceMap = new HashMap<>();
+                    sourceMap.put("sourceLocation", location);
+                    // get command to run
+                    String cmdTemplate = UtilProperties.getPropertyValue("widget", "widget.dev.cmd.openSourceFile");
+                    String cmd = (String) FlexibleStringExpander.getInstance(cmdTemplate).expand(sourceMap);
+                    // run command
+                    Process process = Runtime.getRuntime().exec(String.format(cmd, location));
+                    // print result
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line = "";
+                    while ((line = reader.readLine()) != null) {
+                        Debug.logInfo(line, MODULE);
+                    }
+                    return "success";
+                } catch (IOException e) {
+                    Debug.logError(e, MODULE);
+                }
+            }
+        }
+        return "error";
     }
 
 }

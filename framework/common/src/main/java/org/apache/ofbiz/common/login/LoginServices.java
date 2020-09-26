@@ -440,7 +440,7 @@ public class LoginServices {
             }
         }
 
-        if (errMsg.length() > 0) {
+        if (!errMsg.isEmpty()) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
         }
@@ -449,7 +449,6 @@ public class LoginServices {
 
     /**
      * Login service to authenticate a username without password, storing history
-     *
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map<String, Object> userImpersonate(DispatchContext ctx, Map<String, ?> context) {
@@ -522,7 +521,6 @@ public class LoginServices {
     /**
      * Return error message if a needed control has failed : userLoginToImpersonate must exist Impersonation have to be enabled Check
      * userLoginIdToImpersonate is active, not Admin and not equals to userLogin Check userLogin has enough permission
-     *
      * @param delegator
      * @param userLogin
      * @param userLoginToImpersonate
@@ -695,7 +693,7 @@ public class LoginServices {
             errorMessageList.add(errMsg);
         }
 
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 
@@ -814,7 +812,7 @@ public class LoginServices {
             checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify, passwordHint, errorMessageList, adminUser, locale);
         }
 
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 
@@ -922,7 +920,7 @@ public class LoginServices {
         newUserLogin.set("enabled", "Y");
         newUserLogin.set("disabledDateTime", null);
 
-        if (errorMessageList.size() > 0) {
+        if (!errorMessageList.isEmpty()) {
             return ServiceUtil.returnError(errorMessageList);
         }
 

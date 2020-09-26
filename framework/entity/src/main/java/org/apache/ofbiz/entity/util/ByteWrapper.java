@@ -30,7 +30,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 @Deprecated
 public class ByteWrapper implements Serializable {
-    protected byte[] bytes;
+    private byte[] bytes;
 
     protected ByteWrapper() { }
 
@@ -38,14 +38,27 @@ public class ByteWrapper implements Serializable {
         this.bytes = bytes;
     }
 
+    /**
+     * Get bytes byte [ ].
+     * @return the byte [ ]
+     */
     public byte[] getBytes() {
         return bytes;
     }
 
+    /**
+     * Gets byte.
+     * @param pos the pos
+     * @return the byte
+     */
     public byte getByte(int pos) {
         return bytes[pos];
     }
 
+    /**
+     * Gets length.
+     * @return the length
+     */
     public int getLength() {
         return bytes.length;
     }

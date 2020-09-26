@@ -54,7 +54,8 @@ public class DumbTransactionFactory implements TransactionFactory {
             }
 
             @Override
-            public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException, IllegalStateException, SystemException {
+            public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
+                    IllegalStateException, SystemException {
             }
 
             @Override
@@ -98,7 +99,8 @@ public class DumbTransactionFactory implements TransactionFactory {
             }
 
             @Override
-            public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException, IllegalStateException, SystemException {
+            public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
+                    IllegalStateException, SystemException {
             }
 
             @Override
@@ -133,7 +135,8 @@ public class DumbTransactionFactory implements TransactionFactory {
             Connection otherCon = ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
             return TransactionUtil.getCursorConnection(helperInfo, otherCon);
         }
-        Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", MODULE);
+        Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the "
+                + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", MODULE);
         return null;
     }
 

@@ -54,8 +54,10 @@ public class ProductFeatureServices {
 
     /*
      * Parameters: productFeatureCategoryId, productFeatureGroupId, productId, productFeatureApplTypeId
-     * Result: productFeaturesByType, a Map of all product features from productFeatureCategoryId, group by productFeatureType -> List of productFeatures
-     * If the parameter were productFeatureCategoryId, the results are from ProductFeatures.  If productFeatureCategoryId were null and there were a productFeatureGroupId,
+     * Result: productFeaturesByType, a Map of all product features from productFeatureCategoryId, group by productFeatureType ->
+     * List of productFeatures
+     * If the parameter were productFeatureCategoryId, the results are from ProductFeatures.  If productFeatureCategoryId were null
+     * and there were a productFeatureGroupId,
      * the results are from ProductFeatureGroupAndAppl.  Otherwise, if there is a productId, the results are from ProductFeatureAndAppl.
      * The optional productFeatureApplTypeId causes results to be filtered by this parameter--only used in conjunction with productId.
      */
@@ -92,10 +94,12 @@ public class ProductFeatureServices {
 
         try {
             // get all product features in this feature category
-            List<GenericValue> allFeatures = EntityQuery.use(delegator).from(entityToSearch).where(fieldToSearch, valueToSearch).orderBy(orderBy).queryList();
+            List<GenericValue> allFeatures = EntityQuery.use(delegator).from(entityToSearch).where(fieldToSearch, valueToSearch)
+                    .orderBy(orderBy).queryList();
 
-            if ("ProductFeatureAndAppl".equals(entityToSearch) && productFeatureApplTypeId != null)
+            if ("ProductFeatureAndAppl".equals(entityToSearch) && productFeatureApplTypeId != null) {
                 allFeatures = EntityUtil.filterByAnd(allFeatures, UtilMisc.toMap("productFeatureApplTypeId", productFeatureApplTypeId));
+            }
 
             List<String> featureTypes = new LinkedList<>();
             Map<String, List<GenericValue>> featuresByType = new LinkedHashMap<>();
@@ -140,7 +144,8 @@ public class ProductFeatureServices {
              * see if it has every single feature in the list of productFeatureAppls as a STANDARD_FEATURE.  If so, then
              * it qualifies and add it to the list of existingVariantProductIds.
              */
-            List<GenericValue> productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
+            List<GenericValue> productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId",
+                    "PRODUCT_VARIANT").filterByDate().queryList();
             for (GenericValue productAssoc: productAssocs) {
 
                 //for each associated product, if it has all standard features, display it's productId
@@ -150,15 +155,13 @@ public class ProductFeatureServices {
                             "productFeatureId", productFeatureAndAppl,
                             "productFeatureApplTypeId", "STANDARD_FEATURE");
 
-                    List<GenericValue> standardProductFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where(findByMap).filterByDate().queryList();
+                    List<GenericValue> standardProductFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where(findByMap)
+                            .filterByDate().queryList();
                     if (UtilValidate.isEmpty(standardProductFeatureAndAppls)) {
                         hasAllFeatures = false;
                         break;
-                    } else {
-
                     }
                 }
-
                 if (hasAllFeatures) {
                     // add to list of existing variants: productId=productAssoc.productIdTo
                     existingVariantProductIds.add(productAssoc.getString("productIdTo"));
@@ -170,13 +173,14 @@ public class ProductFeatureServices {
             Debug.logError(ex, ex.getMessage(), MODULE);
             return ServiceUtil.returnError(ex.getMessage());
         }
-    return results;
+        return results;
     }
 
     /*
      * Parameter: productId (of the parent product which has SELECTABLE features)
      * Result: featureCombinations, a List of Maps containing, for each possible variant of the productid:
-     * {defaultVariantProductId: id of this variant; curProductFeatureAndAppls: features applied to this variant; existingVariantProductIds: List of productIds which are already variants with these features }
+     * {defaultVariantProductId: id of this variant; curProductFeatureAndAppls: features applied to this variant;
+     * existingVariantProductIds: List of productIds which are already variants with these features }
      */
     public static Map<String, Object> getVariantCombinations(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results;
@@ -206,7 +210,7 @@ public class ProductFeatureServices {
                 List<Map<String, Object>> combinations;
 
                 // start with either existing combinations or from scratch
-                if (oldCombinations.size() > 0) {
+                if (!oldCombinations.isEmpty()) {
                     combinations = oldCombinations;
                 } else {
                     combinations = new LinkedList<>();
@@ -216,7 +220,7 @@ public class ProductFeatureServices {
                 // product feature and add it to the id code and product feature applications
                 // of the next variant.  just a matter of whether we're starting with an
                 // existing list of features and id code or from scratch.
-                if (combinations.size() == 0) {
+                if (combinations.isEmpty()) {
                     for (GenericValue currentFeature: currentFeatures) {
                         if ("SELECTABLE_FEATURE".equals(currentFeature.getString("productFeatureApplTypeId"))) {
                             Map<String, Object> newCombination = new HashMap<>();
@@ -241,10 +245,12 @@ public class ProductFeatureServices {
                                 Map<String, Object> newCombination = new HashMap<>();
                                 // .clone() is important, or you'll keep adding to the same List for all the variants
                                 // have to cast twice: once from get() and once from clone()
-                                List<GenericValue> newFeatures = UtilMisc.makeListWritable(UtilGenerics.cast(combination.get("curProductFeatureAndAppls")));
+                                List<GenericValue> newFeatures = UtilMisc.makeListWritable(UtilGenerics.cast(combination
+                                        .get("curProductFeatureAndAppls")));
                                 List<String> newFeatureIds = UtilMisc.makeListWritable(UtilGenerics.cast(combination.get("curProductFeatureIds")));
                                 if (currentFeature.getString("idCode") != null) {
-                                    newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + currentFeature.getString("idCode"));
+                                    newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId")
+                                            + currentFeature.getString("idCode"));
                                 } else {
                                     newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId"));
                                 }
@@ -270,7 +276,8 @@ public class ProductFeatureServices {
             for (Map<String, Object> combination: oldCombinations) {
                 // Verify if the default code is already used, if so add a numeric suffix
                 if (defaultVariantProductIds.contains(combination.get("defaultVariantProductId"))) {
-                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + "-" + (defaultCodeCounter < 10 ? "0" + defaultCodeCounter : "" + defaultCodeCounter));
+                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + "-" + (defaultCodeCounter < 10 ? "0"
+                            + defaultCodeCounter : "" + defaultCodeCounter));
                     defaultCodeCounter++;
                 }
                 defaultVariantProductIds.add((String) combination.get("defaultVariantProductId"));
@@ -310,7 +317,7 @@ public class ProductFeatureServices {
         }
 
         List<GenericValue> memberProducts = UtilGenerics.cast(result.get("categoryMembers"));
-        if ((memberProducts != null) && (memberProducts.size() > 0)) {
+        if ((memberProducts != null) && (!memberProducts.isEmpty())) {
             // construct a Map of productFeatureTypeId -> productFeatureId from the productFeatures List
             Map<String, String> featuresByType = new HashMap<>();
             for (GenericValue nextFeature: productFeatures) {
@@ -322,21 +329,23 @@ public class ProductFeatureServices {
                 // find variants for each member product of the category
 
                 try {
-                    result = dispatcher.runSync("getProductVariant", UtilMisc.toMap("productId", memberProduct.getString("productId"), "selectedFeatures", featuresByType));
+                    result = dispatcher.runSync("getProductVariant", UtilMisc.toMap("productId", memberProduct.getString("productId"),
+                            "selectedFeatures", featuresByType));
                 } catch (GenericServiceException ex) {
-                    Debug.logError("Cannot get product variants for " + memberProduct.getString("productId") + " due to error: " + ex.getMessage(), MODULE);
+                    Debug.logError("Cannot get product variants for " + memberProduct.getString("productId") + " due to error: "
+                            + ex.getMessage(), MODULE);
                     return ServiceUtil.returnError(ex.getMessage());
                 }
 
                 List<GenericValue> variantProducts = UtilGenerics.cast(result.get("products"));
-                if ((variantProducts != null) && (variantProducts.size() > 0)) {
+                if ((variantProducts != null) && (!variantProducts.isEmpty())) {
                     products.addAll(variantProducts);
                 } else {
                     Debug.logWarning("Product " + memberProduct.getString("productId") + " did not have any variants for the given features", MODULE);
                 }
             }
 
-            if (products.size() == 0) {
+            if (products.isEmpty()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductCategoryNoVariants", locale));
             } else {
                 results = ServiceUtil.returnSuccess();

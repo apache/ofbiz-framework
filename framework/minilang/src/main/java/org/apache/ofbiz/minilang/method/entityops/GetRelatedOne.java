@@ -72,7 +72,7 @@ public final class GetRelatedOne extends MethodOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while finding related value: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

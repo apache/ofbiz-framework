@@ -234,11 +234,11 @@ public class RequestHandlerTests {
         @Test
         public void resolveMethodBasic() throws RequestHandlerException {
             RequestMap fooPut = new RequestMap(dummyElement);
-            fooPut.method = "put";
+            fooPut.setMethod("put");
             rmaps.add(fooPut);
 
             RequestMap fooAll = new RequestMap(dummyElement);
-            fooAll.method = "all";
+            fooAll.setMethod("all");
             rmaps.add(fooAll);
 
             assertThat(RequestHandler.resolveMethod("put", rmaps).get(), is(fooPut));
@@ -253,7 +253,7 @@ public class RequestHandlerTests {
             assertFalse(RequestHandler.resolveMethod("delete", rmaps).isPresent());
 
             RequestMap foo = new RequestMap(dummyElement);
-            foo.method = "all";
+            foo.setMethod("all");
             rmaps.add(foo);
             assertTrue(RequestHandler.resolveMethod("get", rmaps).isPresent());
             assertTrue(RequestHandler.resolveMethod("post", rmaps).isPresent());

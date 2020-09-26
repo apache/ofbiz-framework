@@ -50,7 +50,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
 
     @Override
     public MenuStringRenderer getMenuRenderer() {
-        return new HtmlMenuRendererImage(request, response);
+        return new HtmlMenuRendererImage(getRequest(), getResponse());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
         Map<String, Object> dummyMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
-            for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
+            for (ModelMenuItem menuItem : getModelMenu().getMenuItemList()) {
                 String contentId = menuItem.getAssociatedContentId(dummyMap);
                 GenericValue webSitePublishPoint =
                         EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).cache().queryOne();

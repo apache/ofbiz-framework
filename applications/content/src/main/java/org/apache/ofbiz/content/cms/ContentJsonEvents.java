@@ -21,8 +21,6 @@ package org.apache.ofbiz.content.cms;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -101,7 +99,8 @@ public class ContentJsonEvents {
                            contentAssocTypeId, "fromDate", fromDate)
                     .queryOne();
             if (oldAssoc == null) {
-                throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: $contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
+                throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: "
+                        + "$contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
             }
             GenericValue newAssoc = (GenericValue) oldAssoc.clone();
 

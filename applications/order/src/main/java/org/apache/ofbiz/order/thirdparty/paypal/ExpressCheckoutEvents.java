@@ -47,7 +47,7 @@ public class ExpressCheckoutEvents {
 
     private static final String RES_ERROR = "AccountingErrorUiLabels";
     private static final String MODULE = ExpressCheckoutEvents.class.getName();
-    public static enum CheckoutType {PAYFLOW, STANDARD, NONE}
+    public enum CheckoutType { PAYFLOW, STANDARD, NONE }
 
     public static String setExpressCheckout(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
@@ -101,7 +101,8 @@ public class ExpressCheckoutEvents {
         }
         if (paymentGatewayConfigId != null) {
             try {
-                payPalGatewayConfig = EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId", paymentGatewayConfigId).cache().queryOne();
+                payPalGatewayConfig = EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId",
+                        paymentGatewayConfigId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
             }
@@ -176,7 +177,8 @@ public class ExpressCheckoutEvents {
         return "success";
     }
 
-    public static Map<String, Object> doExpressCheckout(String productStoreId, String orderId, GenericValue paymentPref, GenericValue userLogin, Delegator delegator, LocalDispatcher dispatcher) {
+    public static Map<String, Object> doExpressCheckout(String productStoreId, String orderId, GenericValue paymentPref,
+                                                        GenericValue userLogin, Delegator delegator, LocalDispatcher dispatcher) {
         CheckoutType checkoutType = determineCheckoutType(delegator, productStoreId);
         if (!checkoutType.equals(CheckoutType.NONE)) {
             String serviceName = null;

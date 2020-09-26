@@ -196,7 +196,8 @@ public final class UtilNumber {
             Debug.logWarning(e, e.getMessage(), MODULE);
         }
         if (scale == -1) {
-            Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of " + DEFAULT_BD_SCALE + ".", MODULE);
+            Debug.logWarning("Could not set decimal precision from " + property + "=" + value + ". Using default scale of "
+                    + DEFAULT_BD_SCALE + ".", MODULE);
             scale = DEFAULT_BD_SCALE;
         }
         return scale;
@@ -248,7 +249,8 @@ public final class UtilNumber {
         String value = UtilProperties.getPropertyValue(file, property);
         RoundingMode mode = roundingModeFromString(value);
         if (mode == null) {
-            Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of " + DEFAULT_BD_SCALE + ".", MODULE);
+            Debug.logWarning("Could not set decimal rounding mode from " + property + "=" + value + ". Using default mode of "
+                    + DEFAULT_BD_SCALE + ".", MODULE);
             return DEFAULT_BD_ROUNDING_MODE;
         }
         return mode;
@@ -295,7 +297,6 @@ public final class UtilNumber {
     /**
      * Method to format an amount using a custom rule set.
      * Current rule sets available:
-     *
      * @param   amount - the amount to format
      * @param   locale - the Locale
      * @return  formatted string or an empty string if there was an error
@@ -303,7 +304,8 @@ public final class UtilNumber {
     public static String formatRuleBasedAmount(double amount, Locale locale) {
         String ruleSet = rbnfRuleSets.get(locale);
         if (ruleSet == null) {
-            Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", MODULE);
+            Debug.logWarning("Cannot format rule based amount for locale " + locale.toString()
+                    + " because rule set for that locale does not exist", MODULE);
             return "";
         }
         return formatRuleBasedAmount(amount, ruleSet, null, locale);
@@ -312,11 +314,9 @@ public final class UtilNumber {
     /**
      * Method to format an amount using a custom rule set.
      * Current rule sets available:
-     *
      * en_US
      * %dollars-and-cents - 1,225.25 becomes "one thousand two hundred twenty five dollars and twenty five cents" (useful for checks)
      * %dollars-and-hundreths - 1,225.25 becomes "one thousand two hundred twenty five and 25/00" (alternate for checks)
-     *
      * @param   amount - the amount to format
      * @param   ruleSet - ruleSet to use
      * @param   rule - the name of the rule set to use (e.g., %dollars-and-hundredths)
@@ -360,7 +360,6 @@ public final class UtilNumber {
 
     /**
      * Method to turn a number such as "0.9853" into a nicely formatted percent, "98.53%".
-     *
      * @param number    The number object to format
      * @param scale     How many places after the decimal to include
      * @param roundingMode  the RoundingMode rounding mode to apply
@@ -383,7 +382,6 @@ public final class UtilNumber {
 
     /**
      * A null-aware method for adding BigDecimal, but only for the right operand.
-     *
      * @param left      The number to add to
      * @param right     The number being added; if null, then nothing will be added
      * @return          The result of the addition, or left if right is null.

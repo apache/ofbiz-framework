@@ -133,7 +133,7 @@ public class OrderServices {
             GenericValue placingCustomer = null;
             try {
                 placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "partyId", userLogin.getString("partyId"),
-                 "roleTypeId", "PLACING_CUSTOMER").queryOne();
+                        "roleTypeId", "PLACING_CUSTOMER").queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError("Could not select OrderRoles for order " + orderId + " due to " + e.getMessage(), MODULE);
             }
@@ -153,12 +153,12 @@ public class OrderServices {
                     List<GenericValue> repsCustomers = new LinkedList<>();
                     try {
                         repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship",
-                         UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
+                                UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                     } catch (GenericEntityException ex) {
                         Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due"
                                 + " to " + ex.getMessage(), MODULE);
                     }
-                    if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
+                    if ((repsCustomers != null) && (!repsCustomers.isEmpty()) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
                             userLogin))) {
                         hasPermission = true;
                     }
@@ -166,12 +166,12 @@ public class OrderServices {
                         // check sales sales rep/customer relationship
                         try {
                             repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship",
-                             UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
+                                    UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                         } catch (GenericEntityException ex) {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId")
-                                   + " due to " + ex.getMessage(), MODULE);
+                                    + " due to " + ex.getMessage(), MODULE);
                         }
-                        if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
+                        if ((repsCustomers != null) && (!repsCustomers.isEmpty()) && (security.hasEntityPermission("ORDERMGR", "_ROLE_" + action,
                                 userLogin))) {
                             hasPermission = true;
                         }
@@ -211,7 +211,7 @@ public class OrderServices {
         // jacopoc: what is the meaning of this code block? FIXME
         if (!hasPermission) {
             partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, resultSecurity, "ORDERMGR", "_CREATE");
-            if (resultSecurity.size() > 0) {
+            if (!resultSecurity.isEmpty()) {
                 return resultSecurity;
             }
         }
@@ -409,7 +409,8 @@ public class OrderServices {
                         List<GenericValue> selFixedAssetProduct = null;
                         try {
                             selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", orderItem.getString(
-                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate", "thruDate").queryList();
+                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate",
+                                    "thruDate").queryList();
                         } catch (GenericEntityException e) {
                             String excMsg = "Could not find related Fixed Asset for the product: " + orderItem.getString("productId");
                             Debug.logError(excMsg, MODULE);
@@ -435,7 +436,7 @@ public class OrderServices {
             }
         }
 
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             return ServiceUtil.returnError(errorMessages);
         }
 
@@ -717,13 +718,15 @@ public class OrderServices {
                 }
                 if (techDataCalendar == null) {
                     for (GenericValue currentValue : tempList) {
-                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId").equals(workEffort.getString("fixedAssetId"))) {
+                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId")
+                                .equals(workEffort.getString("fixedAssetId"))) {
                             fixedAsset = currentValue;
                             break;
                         }
                     }
                     for (GenericValue currentValue : tempList) {
-                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))) {
+                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId")
+                                .equals(fixedAsset.getString("calendarId"))) {
                             techDataCalendar = currentValue;
                             break;
                         }
@@ -804,11 +807,11 @@ public class OrderServices {
                     tempList.add(techDataCalendarExcDay);
                 }
             }
-            if (tempList.size() > 0) {
+            if (!tempList.isEmpty()) {
                 toBeStored.addAll(tempList);
             }
         }
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             return ServiceUtil.returnError(errorMessages);
         }
 
@@ -1143,7 +1146,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
 
-            if (resErrorMessages.size() > 0) {
+            if (!resErrorMessages.isEmpty()) {
                 return ServiceUtil.returnError(resErrorMessages);
             }
             // END inventory reservation
@@ -1333,7 +1336,7 @@ public class OrderServices {
                             // If the product is a marketing package auto, attempt to create enough packages to bring ATP back to 0, won't
                             // necessarily create enough to cover this order.
                             if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"),
-                            "parentTypeId", "MARKETING_PKG_AUTO")) {
+                                    "parentTypeId", "MARKETING_PKG_AUTO")) {
                                 // do something tricky here: run as the "system" user
                                 // that can actually create and run a production run
                                 GenericValue permUserLogin =
@@ -1427,14 +1430,14 @@ public class OrderServices {
                                             String invErrMsg = "The product ";
                                             invErrMsg += getProductName(product, orderItem);
                                             invErrMsg += " with ID " + orderItem.getString("productId") + " is no longer in stock. Please try "
-                                             + "reducing the quantity or removing the product from this order.";
+                                                    + "reducing the quantity or removing the product from this order.";
                                             resErrorMessages.add(invErrMsg);
                                         }
                                     }
                                 }
 
-                                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"),
-                                       "parentTypeId", "MARKETING_PKG_AUTO")) {
+                                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId",
+                                        product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_AUTO")) {
                                     GenericValue permUserLogin =
                                             EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                                     Map<String, Object> inputMap = new HashMap<>();
@@ -1719,7 +1722,7 @@ public class OrderServices {
                     // no shipping address, try the billing address
                     if (shippingAddress == null) {
                         List<GenericValue> billingAddressList = orh.getBillingLocations();
-                        if (billingAddressList.size() > 0) {
+                        if (!billingAddressList.isEmpty()) {
                             shippingAddress = billingAddressList.get(0);
                         }
                     }
@@ -1731,7 +1734,7 @@ public class OrderServices {
                         String facilityId = orderHeader.getString("originFacilityId");
                         if (facilityId != null) {
                             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId,
-                             UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                                    UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                             if (facilityContactMech != null) {
                                 try {
                                     shippingAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
@@ -1747,7 +1750,7 @@ public class OrderServices {
                     // bad and we don't have a way to find an address to check tax for
                     if (shippingAddress == null) {
                         Debug.logWarning("Not calculating tax for Order [" + orderId + "] because there is no shippingAddress, and no address on "
-                         + "the origin facility [" + orderHeader.getString("originFacilityId") + "]", MODULE);
+                                + "the origin facility [" + orderHeader.getString("originFacilityId") + "]", MODULE);
                         continue;
                     }
 
@@ -1891,7 +1894,7 @@ public class OrderServices {
                 }
 
                 Map<String, Object> shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
-                BigDecimal shippingTotal = null;
+                BigDecimal shippingTotal;
                 if (UtilValidate.isEmpty(orh.getValidOrderItems(shipGroupSeqId))) {
                     shippingTotal = ZERO;
                     Debug.logInfo("No valid order items found - " + shippingTotal, MODULE);
@@ -2037,7 +2040,7 @@ public class OrderServices {
                             if (UtilValidate.isNotEmpty(headerApprovedStatus)) {
                                 if (headerApprovedStatus.equals(orderHeaderStatusId)) {
                                     List<GenericValue> orderStatusList = EntityQuery.use(delegator).from("OrderStatus").where("orderId", orderId,
-                                    "statusId", headerApprovedStatus, "orderItemSeqId", null).queryList();
+                                            "statusId", headerApprovedStatus, "orderItemSeqId", null).queryList();
                                     // should be 1 in the history, but just in case accept 0 too
                                     if (orderStatusList.size() <= 1) {
                                         changeToApprove = false;
@@ -2046,8 +2049,8 @@ public class OrderServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                        String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved"
-                        , UtilMisc.toMap("errorString", e.toString()), locale);
+                        String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved",
+                                UtilMisc.toMap("errorString", e.toString()), locale);
                         Debug.logError(e, errMsg, MODULE);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -2077,7 +2080,7 @@ public class OrderServices {
             // now set the new order status
             if (newStatus != null && !newStatus.equals(orderHeaderStatusId)) {
                 Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newStatus, "userLogin",
-                 userLogin);
+                        userLogin);
                 Map<String, Object> newSttsResult = null;
                 try {
                     newSttsResult = dispatcher.runSync("changeOrderStatus", serviceContext);
@@ -2283,14 +2286,14 @@ public class OrderServices {
                         if ("ITEM_COMPLETED".equals(itemStatus) && "SALES_ORDER".equals(orh.getOrderTypeId())) {
                             //If partial item shipped then release remaining inventory of SO item and marked SO item as completed.
                             Map<String, Object> cancelOrderItemInvResCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId",
-                             orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
+                                    orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
                                     shipGroupSeqId, "cancelQuantity", thisCancelQty, "userLogin", userLogin);
                             try {
                                 dispatcher.runSyncIgnore("cancelOrderItemInvResQty", cancelOrderItemInvResCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, MODULE);
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToUpdateInventoryReservations",
-                                 UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
+                                        UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                             }
                         }
                         // all items are cancelled -- mark the item as cancelled
@@ -2425,7 +2428,7 @@ public class OrderServices {
             }
 
             // store the changes
-            if (toBeStored.size() > 0) {
+            if (!toBeStored.isEmpty()) {
                 try {
                     delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
@@ -2486,7 +2489,7 @@ public class OrderServices {
             }
             try {
                 GenericValue statusChange = EntityQuery.use(delegator).from("StatusValidChange").where("statusId",
-                 orderHeader.getString("statusId"), "statusIdTo", statusId).cache(true).queryOne();
+                        orderHeader.getString("statusId"), "statusIdTo", statusId).cache(true).queryOne();
                 if (statusChange == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderErrorCouldNotChangeOrderStatusStatusIsNotAValidChange", locale) + ": [" + orderHeader.getString("statusId") + "] "
@@ -2740,7 +2743,7 @@ public class OrderServices {
                     orderHeader.get("productStoreId"), "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + orderHeader.get("productStoreId") + " and "
-            + "emailType=" + emailType, MODULE);
+                    + "emailType=" + emailType, MODULE);
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
@@ -2751,17 +2754,13 @@ public class OrderServices {
 
         // the override screenUri
         if (UtilValidate.isEmpty(screenUri)) {
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            sendMap.put("bodyScreenUri", bodyScreenLocation);
+            sendMap.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
 
             String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
             sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
             // add attachmentName param to get an attachment namend "[oderId].pdf" instead of default "Details.pdf"
             sendMap.put("attachmentName", (UtilValidate.isNotEmpty(shipGroupSeqId) ? orderId + "-" + StringUtils.stripStart(shipGroupSeqId, "0")
-            : orderId) + ".pdf");
+                    : orderId) + ".pdf");
             sendMap.put("attachmentType", MimeConstants.MIME_PDF);
         } else {
             sendMap.put("bodyScreenUri", screenUri);
@@ -3356,7 +3355,7 @@ public class OrderServices {
         }
 
         // now process the digital items
-        if (digitalItems.size() > 0 || nonProductItems.size() > 0) {
+        if (!digitalItems.isEmpty() || !nonProductItems.isEmpty()) {
             GenericValue productStore = OrderReadHelper.getProductStoreFromOrder(dispatcher.getDelegator(), orderId);
             boolean invoiceItems = true;
             if (productStore != null && productStore.get("autoInvoiceDigitalItems") != null) {
@@ -3375,8 +3374,8 @@ public class OrderServices {
                 Map<String, Object> invoiceResult = null;
                 try {
                     GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-                    Map<String, Object> invoiceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin"
-                            , permUserLogin);
+                    Map<String, Object> invoiceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin",
+                            permUserLogin);
                     invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
                     if (ServiceUtil.isError(invoiceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
@@ -3562,7 +3561,8 @@ public class OrderServices {
                         } else if ("DIGITAL_DOWNLOAD".equals(fulfillmentType)) {
                             // digital download fulfillment
                             // Nothing to do for here. Downloads are made available to the user
-                            // though a query of OrderItems with related ProductContent.
+                            // though a query of OrderItems with related ProductContent. Adding log to avoid checkstyle issue
+                            Debug.logInfo("Fulfillment type : " + fulfillmentType, MODULE);
                         } else {
                             Debug.logError("Invalid fulfillment type : " + fulfillmentType + " not supported.", MODULE);
                         }
@@ -3734,7 +3734,8 @@ public class OrderServices {
                             null, dispatcher, cart, supplierProduct, itemDesiredDeliveryDate, itemDesiredDeliveryDate, null);
                     cart.addItem(0, item);
                 } else {
-                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity [" + quantity + "], cannot add to cart.");
+                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity ["
+                            + quantity + "], cannot add to cart.");
                 }
 
                 if (basePrice != null) {
@@ -4700,7 +4701,7 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
 
-        if (resErrorMessages.size() > 0) {
+        if (!resErrorMessages.isEmpty()) {
             throw new GeneralException(ServiceUtil.getErrorMessage(ServiceUtil.returnError(resErrorMessages)));
         }
     }
@@ -4772,7 +4773,6 @@ public class OrderServices {
 
     /**
      * Service to create a payment using an order payment preference.
-     *
      * @return Map
      */
     public static Map<String, Object> createPaymentFromPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -5222,7 +5222,9 @@ public class OrderServices {
                             coh.createOrder(userLogin);
                         } else {
                             // if there are no items to drop ship, then clear out the supplier partyId
-                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group [" + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId") + "].  Supplier party information will be cleared for this ship group", MODULE);
+                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group ["
+                                    + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId")
+                                    + "].  Supplier party information will be cleared for this ship group", MODULE);
                             shipGroup.set("supplierPartyId", null);
                             shipGroup.store();
 
@@ -5231,7 +5233,7 @@ public class OrderServices {
                 }
             }
         } catch (GenericEntityException exc) {
-            // TODO: imporve error handling
+            // TODO: improve error handling
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "OrderOrderCreatingDropShipmentsError",
                     UtilMisc.toMap("orderId", orderId, "errorString", exc.getMessage()),
@@ -5298,7 +5300,6 @@ public class OrderServices {
 
     /**
      * Generates a product requirement for the total cancelled quantity over all order items for each product
-     *
      * @param dctx    the dispatch context
      * @param context the context
      * @return the result of the service execution
@@ -5607,7 +5608,6 @@ public class OrderServices {
      * any adjustments for that item (via OrderAdjustmentBilling), and the item's share of any order-level adjustments (that calculated
      * by applying the percentage of the items total that the item represents to the order-level adjustments total (also via
      * OrderAdjustmentBilling). Also returns the quantity invoiced for the item over all invoices, to aid in prorating.
-     *
      * @param dctx    DispatchContext
      * @param context Map
      * @return Map
@@ -5749,7 +5749,7 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         try {
             GenericValue orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId",
-             orderPaymentPreferenceId).queryOne();
+                    orderPaymentPreferenceId).queryOne();
             String orderId = orderPaymentPreference.getString("orderId");
             String statusUserLogin = orderPaymentPreference.getString("createdByUserLogin");
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
@@ -5832,7 +5832,8 @@ public class OrderServices {
                         } else if ("TF_yr".equals(subscription.getString("canclAutmExtTimeUomId"))) {
                             field = Calendar.YEAR;
                         } else {
-                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", MODULE);
+                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId")
+                                    + "], defaulting to month", MODULE);
                         }
 
                         endDate.add(field, Integer.parseInt(subscription.getString("canclAutmExtTime")));
@@ -5928,7 +5929,6 @@ public class OrderServices {
 
     /**
      * Create an OrderItemShipGroup record
-     *
      * @param dctx
      * @param context
      * @return
@@ -6024,7 +6024,6 @@ public class OrderServices {
 
     /**
      * Remove an OrderItemShipGroup record
-     *
      * @param ctx
      * @param context a map containing in paramaters
      * @return result: a map containing out parameters
@@ -6057,7 +6056,6 @@ public class OrderServices {
 
     /**
      * Create orderItem and shipGroup association
-     *
      * @param dctx
      * @param context
      * @return
@@ -6150,7 +6148,6 @@ public class OrderServices {
 
     /**
      * Update orderItem and shipgroup association
-     *
      * @param dctx
      * @param context
      * @return
@@ -6190,8 +6187,8 @@ public class OrderServices {
         }
 
         //find OISG Assoc
-        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId",
-                shipGroupSeqId).queryOne();
+        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId,
+                "shipGroupSeqId", shipGroupSeqId).queryOne();
         if (UtilValidate.isEmpty(oisga)) {
             String errMsg = mainErrorMessage + " : Order Item Ship Group Assoc Does Not Exist";
             Debug.logError(errMsg, MODULE);
@@ -6863,7 +6860,7 @@ public class OrderServices {
             itemConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ALLOC_PLAN_ITEM_APRV"));
             allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(itemConditions).queryList();
 
-            if (allocationPlanItems.size() > 0) {
+            if (!allocationPlanItems.isEmpty()) {
                 //Rereserve the inventory
                 serviceCtx.put("productId", productId);
                 serviceCtx.put("facilityId", facilityId);
@@ -7104,7 +7101,7 @@ public class OrderServices {
                 exprs.add(EntityCondition.makeCondition("orderItemSeqId", orderItemSeqId));
             } else {
                 exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ALLOC_PLAN_ITEM_CMPL",
-                "ALLOC_PLAN_ITEM_CNCL")));
+                        "ALLOC_PLAN_ITEM_CNCL")));
             }
 
             List<GenericValue> allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(exprs).queryList();
@@ -7179,7 +7176,8 @@ public class OrderServices {
                     BigDecimal quantityChanged = orderItemChange.getBigDecimal("quantity");
                     if (quantityChanged.compareTo(BigDecimal.ZERO) < 0) {
                         GenericValue allocationPlanItem = EntityQuery.use(delegator).from("AllocationPlanItem").where("orderId", orderId,
-                        "orderItemSeqId", orderItemSeqId, "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId")).queryFirst();
+                                "orderItemSeqId", orderItemSeqId, "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId"))
+                                .queryFirst();
                         if (allocationPlanItem != null) {
                             BigDecimal revisedQuantity = orderItem.getBigDecimal("quantity");
                             BigDecimal allocatedQuantity = allocationPlanItem.getBigDecimal("allocatedQuantity");
@@ -7384,7 +7382,7 @@ public class OrderServices {
             itemConditions.add(EntityCondition.makeCondition("planItemSeqId", EntityOperator.IN, reReservePlanItemSeqIdList));
             List<GenericValue> allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(itemConditions).queryList();
 
-            if (allocationPlanItems.size() > 0) {
+            if (!allocationPlanItems.isEmpty()) {
                 //Rereserve the inventory
                 serviceCtx.put("productId", productId);
                 serviceCtx.put("facilityId", facilityId);

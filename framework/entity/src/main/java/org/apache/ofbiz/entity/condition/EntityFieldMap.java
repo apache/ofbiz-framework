@@ -45,7 +45,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Converts a map of condition fields into a list of condition expression.
-     *
      * @param fieldMap the condition fields
      * @param op the operator used to compared each entry in the condition field map.
      * @return a list of condition expression
@@ -60,7 +59,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Constructs a map of fields.
-     *
      * @param compOp the operator used to compare fields
      * @param joinOp the operator used to join field comparisons
      * @param keysValues a list of values that the field map will contain.
@@ -75,7 +73,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Constructs a map of fields.
-     *
      * @param fieldMap the map containing the fields to compare
      * @param compOp the operator to compare fields
      * @param joinOp the operator to join entries in the field map
@@ -89,7 +86,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Gets the value associated with field {@code name}.
-     *
      * @param name the name of the field
      * @return the value associated with field {@code name}
      * @throws NullPointerException if the specified name is {@code null}
@@ -101,7 +97,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Checks if the field map contains the field {@code name}.
-     *
      * @param name the name of the field to search
      * @return {@code true} if field is defined in the field map
      * @throws NullPointerException if the specified name is {@code null}
@@ -113,7 +108,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Provides an iterator on the fields contained in the field map.
-     *
      * @return an iterator of fields
      */
     public Iterator<String> getFieldKeyIterator() {
@@ -122,7 +116,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Provides an iterator on the entries contained in the field map.
-     *
      * @return an iterator of field entries
      */
     public Iterator<Map.Entry<String, ? extends Object>> getFieldEntryIterator() {

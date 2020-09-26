@@ -76,7 +76,8 @@ public class EwayServices {
 
         // billing address
         if (address != null) {
-            String street = address.getString("address1") + ((UtilValidate.isNotEmpty(address.getString("address2"))) ? " " + address.getString("address2") : "");
+            String street = address.getString("address1") + ((UtilValidate.isNotEmpty(address.getString("address2"))) ? " "
+                    + address.getString("address2") : "");
             req.setCustomerAddress(street);
             req.setCustomerPostcode(address.getString("postalCode"));
             req.setCustomerBillingCountry(address.getString("countryGeoId"));
@@ -86,7 +87,7 @@ public class EwayServices {
         GatewayConnector con = new GatewayConnector();
         GatewayResponse reply;
         try {
-             reply = con.sendRequest(req);
+            reply = con.sendRequest(req);
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -151,7 +152,7 @@ public class EwayServices {
         GatewayConnector con = new GatewayConnector();
         GatewayResponse reply;
         try {
-             reply = con.sendRequest(req);
+            reply = con.sendRequest(req);
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -212,7 +213,7 @@ public class EwayServices {
         GatewayConnector con = new GatewayConnector();
         GatewayResponse reply;
         try {
-             reply = con.sendRequest(req);
+            reply = con.sendRequest(req);
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -238,8 +239,8 @@ public class EwayServices {
         Boolean cvn = "Y".equalsIgnoreCase(getPaymentGatewayConfigValue(delegator, pgcId, "enableCvn", cfgStr, "payment.eway.enableCvn"));
 
         // the request mode
-        int requestMode = refund ? GatewayRequest.REQUEST_METHOD_REFUND : beagle
-        ? GatewayRequest.REQUEST_METHOD_BEAGLE : cvn ? GatewayRequest.REQUEST_METHOD_CVN : 0;
+        int requestMode = refund ? GatewayRequest.REQUEST_METHOD_REFUND : beagle ? GatewayRequest.REQUEST_METHOD_BEAGLE : cvn
+                ? GatewayRequest.REQUEST_METHOD_CVN : 0;
 
         // create the request object
         GatewayRequest req = new GatewayRequest(requestMode);

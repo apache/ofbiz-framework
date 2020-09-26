@@ -158,7 +158,6 @@ public final class FreeMarkerWorker {
 
     /**
      * Provides the sequence of existing {@code freemarkerTransforms.properties} files.
-     *
      * @return a stream of resource location.
      */
     private static Stream<URL> transformsURL(ClassLoader loader) {
@@ -271,7 +270,6 @@ public final class FreeMarkerWorker {
      * call this method instead of creating its own <code>Configuration</code> instance. The instance
      * returned by this method includes the <code>component://</code> resolver and the OFBiz custom
      * transformations.
-     *
      * @return A <code>Configuration</code> instance.
      */
     public static Configuration getDefaultOfbizConfig() {
@@ -538,7 +536,6 @@ public final class FreeMarkerWorker {
      * Note that exception is still logged.
      * <p>
      * This implements the {@link freemarker.template.TemplateExceptionHandler} functional interface.
-     *
      * @param te  the exception that occurred
      * @param env  the runtime environment of the template
      * @param out  this is where the output of the template is written
@@ -560,7 +557,6 @@ public final class FreeMarkerWorker {
      * Note that exception is still logged.
      * <p>
      * This implements the {@link freemarker.template.TemplateExceptionHandler} functional interface.
-     *
      * @param te  the exception that occurred
      * @param env  the runtime environment of the template
      * @param out  this is where the output of the template is written

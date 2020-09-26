@@ -34,10 +34,8 @@ public class MapContextTest {
 
     /**
      * A node containing properties and including other nodes.
-     *
      * This class is simplification of the Controller configuration objects
      * useful to test {@code MapContext} objects.
-     *
      * @see ControllerConfig
      */
     static class PNode {
@@ -48,7 +46,6 @@ public class MapContextTest {
 
         /**
          * Constructs a node without properties.
-         *
          * @param includes  the included nodes
          */
         @SafeVarargs
@@ -58,7 +55,6 @@ public class MapContextTest {
 
         /**
          * Constructs a node with some properties.
-         *
          * @param props  the properties of the node
          * @param includes  the included nodes
          */
@@ -70,7 +66,6 @@ public class MapContextTest {
 
         /**
          * Combines the properties of included nodes.
-         *
          * @return a map context containing the properties of the tree.
          */
         public MapContext<String, String> allProps() {

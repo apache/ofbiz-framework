@@ -144,7 +144,8 @@ public final class HasPermissionCondition extends MethodOperation implements Con
     /**
      * A &lt;if-has-permission&gt; element factory.
      */
-    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> implements Factory<HasPermissionCondition> {
+    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition>
+            implements Factory<HasPermissionCondition> {
         @Override
         public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new HasPermissionCondition(element, simpleMethod);

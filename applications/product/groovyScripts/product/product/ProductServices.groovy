@@ -175,9 +175,7 @@ def duplicateProduct() {
     }
     GenericValue dummyProduct = from("Product").where(parameters).queryOne()
     if (dummyProduct) {
-        String errorMessage = UtilProperties.getMessage("CommonErrorUiLabels",
-                CommonErrorDuplicateKey, parameters.locale)
-        return error(errorMessage)
+        return error(UtilProperties.getMessage("CommonErrorUiLabels", "CommonErrorDuplicateKey", parameters.locale))
     }
 
     // look up the old product and clone it

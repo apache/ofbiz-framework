@@ -352,16 +352,16 @@ if (selectedService) {
     curServiceModel = curDispatchContext.getModelService(selectedService)
 
     if (curServiceModel != null) {
-        curServiceMap.description = curServiceModel.description
-        engineName = curServiceModel.engineName ?: "NA"
-        defaultEntityName = curServiceModel.defaultEntityName ?: "NA"
-        export = curServiceModel.export ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
-        exportBool = curServiceModel.export ? "true" : "false"
-        permissionGroups = curServiceModel.permissionGroups ?: "NA"
-        implServices = curServiceModel.implServices ?: "NA"
-        overrideParameters = curServiceModel.overrideParameters
-        useTrans = curServiceModel.useTransaction ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
-        maxRetry = curServiceModel.maxRetry
+        curServiceMap.description = curServiceModel.getDescription()
+        engineName = curServiceModel.getEngineName() ?: "NA"
+        defaultEntityName = curServiceModel.getDefaultEntityName() ?: "NA"
+        export = curServiceModel.isExport() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
+        exportBool = curServiceModel.isExport() ? "true" : "false"
+        permissionGroups = curServiceModel.getPermissionGroups() ?: "NA"
+        implServices = curServiceModel.getImplServices() ?: "NA"
+        overrideParameters = curServiceModel.getOverrideParameters()
+        useTrans = curServiceModel.isUseTransaction() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
+        maxRetry = curServiceModel.getMaxRetry()
 
         //Test for ECA's
         ecaMapList = getEcaListForService(selectedService)
@@ -370,15 +370,15 @@ if (selectedService) {
         }
         //End Test for ECA's
 
-        invoke = curServiceModel.invoke ?: "NA"
-        location = curServiceModel.location ?: "NA"
-        requireNewTransaction = curServiceModel.requireNewTransaction ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
+        invoke = curServiceModel.getInvoke() ?: "NA"
+        location = curServiceModel.getLocation() ?: "NA"
+        requireNewTransaction = curServiceModel.isRequireNewTransaction() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
 
         curServiceMap.engineName = engineName
         curServiceMap.defaultEntityName = defaultEntityName
         curServiceMap.invoke = invoke
         curServiceMap.location = location
-        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.definitionLocation, "file:/" + System.getProperty("ofbiz.home") + "/", "")
+        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), "file:/" + System.getProperty("ofbiz.home") + "/", "")
         curServiceMap.requireNewTransaction = requireNewTransaction
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
@@ -410,9 +410,9 @@ if (selectedService) {
         curServiceMap.implServices = implServices
         curServiceMap.useTrans = useTrans
         curServiceMap.maxRetry = maxRetry
-        curServiceMap.deprecatedUseInstead = curServiceModel.deprecatedUseInstead
-        curServiceMap.deprecatedSince = curServiceModel.deprecatedSince
-        curServiceMap.deprecatedReason = curServiceModel.deprecatedReason
+        curServiceMap.deprecatedUseInstead = curServiceModel.getDeprecatedUseInstead()
+        curServiceMap.deprecatedSince = curServiceModel.getDeprecatedSince()
+        curServiceMap.deprecatedReason = curServiceModel.getDeprecatedReason()
 
         allParamsList = new ArrayList(3)
 
@@ -523,28 +523,28 @@ if (!selectedService) {
             constraintVal = consArr[1]
 
             if ("engine_name".equals(constraintName)) {
-                canIncludeService = curServiceModel.engineName.equals(constraintVal)
+                canIncludeService = curServiceModel.getEngineName().equals(constraintVal)
                 if ("NA".equals(constraintVal)) {
-                    canIncludeService = curServiceModel.engineName ? false : true
+                    canIncludeService = curServiceModel.getEngineName() ? false : true
                 }
             }
 
             if (canIncludeService && "default_entity_name".equals(constraintName)) {
-                canIncludeService = curServiceModel.defaultEntityName.equals(constraintVal)
+                canIncludeService = curServiceModel.getDefaultEntityName().equals(constraintVal)
                 if ("NA".equals(constraintVal)) {
-                    canIncludeService = curServiceModel.defaultEntityName ? false : true
+                    canIncludeService = curServiceModel.getDefaultEntityName() ? false : true
                 }
             }
 
             if (canIncludeService && "location".equals(constraintName)) {
-                canIncludeService = curServiceModel.location.equals(constraintVal)
+                canIncludeService = curServiceModel.getLocation().equals(constraintVal)
                 if ("NA".equals(constraintVal)) {
-                    canIncludeService = curServiceModel.location ? false : true
+                    canIncludeService = curServiceModel.getLocation() ? false : true
                 }
             }
 
             if (canIncludeService && "definitionLocation".equals(constraintName)) {
-                canIncludeService = curServiceModel.definitionLocation.equals(constraintVal)
+                canIncludeService = curServiceModel.getDefinitionLocation().equals(constraintVal)
             }
 
             if (canIncludeService && "alpha".equals(constraintName)) {
@@ -556,19 +556,19 @@ if (!selectedService) {
         }
 
         if (curServiceModel != null && canIncludeService) {
-            engineName = curServiceModel.engineName ?: "NA"
-            defaultEntityName = curServiceModel.defaultEntityName ?: "NA"
-            invoke = curServiceModel.invoke ?: "NA"
-            location = curServiceModel.location ?: "NA"
-            requireNewTransaction = curServiceModel.requireNewTransaction
+            engineName = curServiceModel.getEngineName() ?: "NA"
+            defaultEntityName = curServiceModel.getDefaultEntityName() ?: "NA"
+            invoke = curServiceModel.getInvoke() ?: "NA"
+            location = curServiceModel.getLocation() ?: "NA"
+            requireNewTransaction = curServiceModel.isRequireNewTransaction()
 
             curServiceMap.engineName = engineName
             curServiceMap.defaultEntityName = defaultEntityName
             curServiceMap.invoke = invoke
             curServiceMap.location = location
-            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.definitionLocation, "file:/" + System.getProperty("ofbiz.home") + "/", "")
+            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), "file:/" + System.getProperty("ofbiz.home") + "/", "")
             curServiceMap.requireNewTransaction = requireNewTransaction
-            curServiceMap.deprecated = curServiceModel.deprecatedUseInstead
+            curServiceMap.deprecated = curServiceModel.getDeprecatedUseInstead()
 
             servicesList.add(curServiceMap)
             servicesFoundCount++

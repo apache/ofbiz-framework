@@ -50,7 +50,8 @@ public class ContactHelper {
         return getContactMech(party, contactMechPurposeTypeId, null, includeOld);
     }
 
-    public static Collection<GenericValue> getContactMech(GenericValue party, String contactMechPurposeTypeId, String contactMechTypeId, boolean includeOld) {
+    public static Collection<GenericValue> getContactMech(GenericValue party, String contactMechPurposeTypeId, String
+            contactMechTypeId, boolean includeOld) {
         if (party == null) {
             return null;
         }

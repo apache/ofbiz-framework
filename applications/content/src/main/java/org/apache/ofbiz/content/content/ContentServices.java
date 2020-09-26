@@ -85,7 +85,8 @@ public class ContentServices {
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (UtilValidate.isEmpty(targetOperations)) {
@@ -134,7 +135,7 @@ public class ContentServices {
         String contentAssocTypeId = (String) context.get("contentAssocTypeId");
         String direction = (String) context.get("direction");
         if (UtilValidate.isEmpty(direction)) {
-            direction="To";
+            direction = "To";
         }
         Map<String, Object> traversMap = new HashMap<>();
         traversMap.put("contentId", contentId);
@@ -188,7 +189,8 @@ public class ContentServices {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound",
+                    UtilMisc.toMap("contentId", contentId), locale));
         }
 
         String fromDateStr = (String) context.get("fromDateStr");
@@ -224,8 +226,8 @@ public class ContentServices {
     }
 
     /**
-     * Update a ContentAssoc service. The work is done in a separate method so that complex services that need this functionality do not need to incur the
-     * reflection performance penalty.
+     * Update a ContentAssoc service. The work is done in a separate method so that complex services that need this
+     * functionality do not need to incur the reflection performance penalty.
      */
     public static Map<String, Object> deactivateContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
@@ -242,8 +244,8 @@ public class ContentServices {
     }
 
     /**
-     * Update a ContentAssoc method. The work is done in this separate method so that complex services that need this functionality do not need to incur the
-     * reflection performance penalty.
+     * Update a ContentAssoc method. The work is done in this separate method so that complex services that need this
+     * functionality do not need to incur the reflection performance penalty.
      */
     public static Map<String, Object> deactivateContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
@@ -267,7 +269,8 @@ public class ContentServices {
             contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(pk).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (contentAssoc == null) {
@@ -336,9 +339,12 @@ public class ContentServices {
         try {
             GenericValue activeAssoc = null;
             if (fromDate != null) {
-                activeAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", activeContentId, "contentIdTo", contentIdTo, "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId).queryOne();
+                activeAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", activeContentId, "contentIdTo", contentIdTo,
+                        "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId).queryOne();
                 if (activeAssoc == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocNotFound", UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocNotFound",
+                            UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId,
+                                    "fromDate", fromDate), locale));
                 }
                 sequenceNum = (String) activeAssoc.get("sequenceNum");
             }
@@ -378,8 +384,8 @@ public class ContentServices {
     }
 
     /**
-     * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered without searching for other
-     * matching content.
+     * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered
+     * without searching for other matching content.
      */
     public static Map<String, Object> renderSubContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = new HashMap<>();
@@ -425,8 +431,8 @@ public class ContentServices {
     }
 
     /**
-     * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered without searching for other
-     * matching content.
+     * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered
+     * without searching for other matching content.
      */
     public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = new HashMap<>();
@@ -495,11 +501,14 @@ public class ContentServices {
 
         try {
             boolean isPublished = false;
-            GenericValue contentAssocViewFrom = ContentWorker.getContentAssocViewFrom(delegator, contentIdTo, contentId, contentAssocTypeId, statusId, privilegeEnumId);
-            if (contentAssocViewFrom != null)
+            GenericValue contentAssocViewFrom = ContentWorker.getContentAssocViewFrom(delegator, contentIdTo, contentId, contentAssocTypeId,
+                    statusId, privilegeEnumId);
+            if (contentAssocViewFrom != null) {
                 isPublished = true;
+            }
             if (Debug.infoOn()) {
-                Debug.logInfo("in publishContent, contentId:" + contentId + " contentIdTo:" + contentIdTo + " contentAssocTypeId:" + contentAssocTypeId + " publish:" + publish + " isPublished:" + isPublished, MODULE);
+                Debug.logInfo("in publishContent, contentId:" + contentId + " contentIdTo:" + contentIdTo + " contentAssocTypeId:"
+                        + contentAssocTypeId + " publish:" + publish + " isPublished:" + isPublished, MODULE);
             }
             if (UtilValidate.isNotEmpty(publish) && "Y".equalsIgnoreCase(publish)) {
                 GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
@@ -507,7 +516,8 @@ public class ContentServices {
                 String contentPrivilegeEnumId = (String) content.get("privilegeEnumId");
 
                 if (Debug.infoOn()) {
-                    Debug.logInfo("in publishContent, statusId:" + statusId + " contentStatusId:" + contentStatusId + " privilegeEnumId:" + privilegeEnumId + " contentPrivilegeEnumId:" + contentPrivilegeEnumId, MODULE);
+                    Debug.logInfo("in publishContent, statusId:" + statusId + " contentStatusId:" + contentStatusId + " privilegeEnumId:"
+                            + privilegeEnumId + " contentPrivilegeEnumId:" + contentPrivilegeEnumId, MODULE);
                 }
                 // Don't do anything if link was already there
                 if (!isPublished) {

@@ -367,7 +367,7 @@ public final class SqlJdbcUtil {
 
         String viewClause = makeViewWhereClause(modelEntity, joinStyle);
 
-        if (viewClause.length() > 0) {
+        if (!viewClause.isEmpty()) {
             if (whereString.length() > 0) {
                 whereString.append(' ');
                 whereString.append(operator);
@@ -390,7 +390,7 @@ public final class SqlJdbcUtil {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
 
             if ("ansi".equals(joinStyle) || "ansi-no-parenthesis".equals(joinStyle)) {
-                // nothing to do here, all done in the JOIN clauses
+                Debug.logVerbose("Nothing to do here, all done in the JOIN clauses...", MODULE);
             } else if ("theta-oracle".equals(joinStyle) || "theta-mssql".equals(joinStyle)) {
                 boolean isOracleStyle = "theta-oracle".equals(joinStyle);
                 boolean isMssqlStyle = "theta-mssql".equals(joinStyle);
@@ -412,7 +412,8 @@ public final class SqlJdbcUtil {
                     }
 
                     // ModelViewEntity.ModelMemberEntity linkMemberEntity = modelViewEntity.getMemberModelMemberEntity(viewLink.getEntityAlias());
-                    // ModelViewEntity.ModelMemberEntity relLinkMemberEntity = modelViewEntity.getMemberModelMemberEntity(viewLink.getRelEntityAlias());
+                    // ModelViewEntity.ModelMemberEntity relLinkMemberEntity =
+                    // modelViewEntity.getMemberModelMemberEntity(viewLink.getRelEntityAlias());
 
                     for (int j = 0; j < viewLink.getKeyMapsSize(); j++) {
                         ModelKeyMap keyMap = viewLink.getKeyMap(j);
@@ -542,7 +543,6 @@ public final class SqlJdbcUtil {
     /**
      * The elements (ModelFields) of the list are bound to an SQL statement
      * (SQL-Processor)
-     *
      * @param sqlP
      * @param list
      * @param entity
@@ -558,7 +558,6 @@ public final class SqlJdbcUtil {
     /**
      * The elements (ModelFields) of the list are bound to an SQL statement
      * (SQL-Processor), but values must not be null.
-     *
      * @param sqlP
      * @param list
      * @param dummyValue
@@ -579,7 +578,6 @@ public final class SqlJdbcUtil {
     /**
      * Get all primary keys from the model entity and bind their values
      * to the an SQL statement (SQL-Processor)
-     *
      * @param sqlP
      * @param modelEntity
      * @param entity
@@ -848,7 +846,8 @@ public final class SqlJdbcUtil {
             } catch (ClassNotFoundException ex) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Class not found: Unable to cast BLOB data to an Java object while getting value: " + curField.getName()
-                            + " [" + curField.getColName() + "] (" + ind + "); most likely because it is a straight byte[], so just using the raw bytes" + ex.toString(), MODULE);
+                            + " [" + curField.getColName() + "] (" + ind + "); most likely because it is a straight byte[], "
+                            + "so just using the raw bytes" + ex.toString(), MODULE);
                 }
                 return null;
             } finally {

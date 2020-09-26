@@ -37,10 +37,17 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
 
     private static final String MODULE = GenericServiceJob.class.getName();
 
-    protected final transient GenericRequester requester;
-    protected final transient DispatchContext dctx;
+    private final transient GenericRequester requester;
+    private final transient DispatchContext dctx;
     private final String service;
     private final Map<String, Object> context;
+    /**
+     * Gets dctx.
+     * @return the dctx
+     */
+    public DispatchContext getDctx() {
+        return dctx;
+    }
 
     public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map<String, Object> context, GenericRequester req) {
         super(jobId, jobName);
@@ -56,10 +63,10 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      */
     @Override
     public void exec() throws InvalidJobException {
-        if (currentState != State.QUEUED) {
+        if (getCurrentState() != State.QUEUED) {
             throw new InvalidJobException("Illegal state change");
         }
-        currentState = State.RUNNING;
+        setCurrentState(State.RUNNING);
         init();
         Throwable thrown = null;
         Map<String, Object> result = null;
@@ -102,10 +109,10 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      * Method is called after the service has finished successfully.
      */
     protected void finish(Map<String, Object> result) throws InvalidJobException {
-        if (currentState != State.RUNNING) {
+        if (getCurrentState() != State.RUNNING) {
             throw new InvalidJobException("Illegal state change");
         }
-        currentState = State.FINISHED;
+        setCurrentState(State.FINISHED);
         if (Debug.verboseOn()) {
             Debug.logVerbose("Async-Service finished.", MODULE);
         }
@@ -121,7 +128,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
         } else {
             Debug.logError(t, "Async-Service failed.", MODULE);
         }
-        currentState = State.FAILED;
+        setCurrentState(State.FAILED);
     }
 
     /**
@@ -142,7 +149,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
 
     @Override
     public boolean isValid() {
-        return currentState == State.CREATED;
+        return getCurrentState() == State.CREATED;
     }
 
     @Override

@@ -220,7 +220,7 @@ public final class WidgetWorker {
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
                 ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
-                if (requestMap != null && requestMap.event != null) {
+                if (requestMap != null && requestMap.getEvent() != null) {
                     return "hidden-form";
                 }
             }
@@ -231,7 +231,6 @@ public final class WidgetWorker {
 
     /** Returns the script location based on a script combined name:
      * <code>location#methodName</code>.
-     *
      * @param combinedName The combined location/method name
      * @return The script location
      */
@@ -246,7 +245,6 @@ public final class WidgetWorker {
     /** Returns the script method name based on a script combined name:
      * <code>location#methodName</code>. Returns <code>null</code> if
      * no method name is found.
-     *
      * @param combinedName The combined location/method name
      * @return The method name or <code>null</code>
      */

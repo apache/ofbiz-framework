@@ -57,35 +57,36 @@ public final class ApacheFopWorker {
     /** File name prefix used for temporary files. Currently set to
      * <code>org.apache.ofbiz.webapp.view.ApacheFopWorker-</code>.
      */
-    private static final String tempFilePrefix = "org.apache.ofbiz.webapp.view.ApacheFopWorker-";
+    private static final String TEMP_FILE_PREFIX = "org.apache.ofbiz.webapp.view.ApacheFopWorker-";
 
     private static FopFactory fopFactory = null;
-    private static final int encryptionLengthBitsDefault = 128;
-    private static final String encryptionLengthDefault = UtilProperties.getPropertyValue("fop", "fop.encryption-length.default", String.valueOf(encryptionLengthBitsDefault));
+    private static final int ENCRY_LENGTH_BITS_DEF = 128;
+    private static final String ENCRY_LENGTH_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.encryption-length.default",
+            String.valueOf(ENCRY_LENGTH_BITS_DEF));
 
-    private static final String userPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.userPassword.default");
+    private static final String USER_PASS_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.userPassword.default");
 
-    private static final String ownerPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.ownerPassword.default");
+    private static final String OWNER_PASS_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.ownerPassword.default");
 
-    private static final String allowPrintDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrint.default", "true");
+    private static final String ALLOW_PRINT_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowPrint.default", "true");
 
-    private static final String allowCopyContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowCopyContent.default", "true");
+    private static final String ALLOW_COPY_CONTENT_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowCopyContent.default", "true");
 
-    private static final String allowEditContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditContent.default", "true");
+    private static final String ALLOW_EDIT_CONTENT_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowEditContent.default", "true");
 
-    private static final String allowEditAnnotationsDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditAnnotations.default", "true");
+    private static final String ALLOW_EDIT_ANNO_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowEditAnnotations.default", "true");
 
-    private static final String allowFillInFormsDefault = UtilProperties.getPropertyValue("fop", "fop.allowFillInForms.default", "true");
+    private static final String ALLOW_FILE_IN_FORMS_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowFillInForms.default", "true");
 
-    private static final String allowAccessContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAccessContent.default", "true");
+    private static final String ALLOW_ACCESS_CONTENT_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowAccessContent.default", "true");
 
-    private static final String allowAssembleDocumentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAssembleDocument.default", "true");
+    private static final String ALLOW_ASSEMBLE_DOC_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowAssembleDocument.default", "true");
 
-    private static final String allowPrintHqDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrintHq.default", "true");
+    private static final String ALLOW_PRINT_HQ_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.allowPrintHq.default", "true");
 
-    private static final String encryptMetadataDefault = UtilProperties.getPropertyValue("fop", "fop.encrypt-metadata.default", "true");
-    private static final String fopPath = UtilProperties.getPropertyValue("fop", "fop.path", "/framework/webapp/config");
-    private static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
+    private static final String ENCRY_META_DATA_DEFAULT = UtilProperties.getPropertyValue("fop", "fop.encrypt-metadata.default", "true");
+    private static final String FOP_PATH = UtilProperties.getPropertyValue("fop", "fop.path", "/framework/webapp/config");
+    private static final String FOP_FONT_BASE_PROPERTY = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
 
     private ApacheFopWorker() { }
 
@@ -101,18 +102,19 @@ public final class ApacheFopWorker {
                 }
 
                 try {
-                    URL configFilePath = FlexibleLocation.resolveLocation(fopPath + "/fop.xconf");
+                    URL configFilePath = FlexibleLocation.resolveLocation(FOP_PATH + "/fop.xconf");
                     File userConfigFile = FileUtil.getFile(configFilePath.getFile());
                     if (userConfigFile.exists()) {
                         fopFactory = FopFactory.newInstance(userConfigFile);
                     } else {
                         Debug.logWarning("FOP configuration file not found: " + userConfigFile, MODULE);
                     }
-                    URL fontBaseFileUrl = FlexibleLocation.resolveLocation(fopFontBaseProperty);
+                    URL fontBaseFileUrl = FlexibleLocation.resolveLocation(FOP_FONT_BASE_PROPERTY);
                     File fontBaseFile = FileUtil.getFile(fontBaseFileUrl.getFile());
 
                     if (fontBaseFile.isDirectory()) {
-                        fopFactory.getFontManager().setResourceResolver(ResourceResolverFactory.createDefaultInternalResourceResolver(fontBaseFile.toURI()));
+                        fopFactory.getFontManager().setResourceResolver(ResourceResolverFactory
+                                .createDefaultInternalResourceResolver(fontBaseFile.toURI()));
                     } else {
                         Debug.logWarning("FOP font base URL not found: " + fontBaseFile, MODULE);
                     }
@@ -135,8 +137,8 @@ public final class ApacheFopWorker {
         StreamSource src = new StreamSource(srcFile);
         StreamSource stylesheet = stylesheetFile == null ? null : new StreamSource(stylesheetFile);
         try (BufferedOutputStream dest = new BufferedOutputStream(new FileOutputStream(destFile))) {
-        Fop fop = createFopInstance(dest, outputFormat);
-        transform(src, stylesheet, fop);
+            Fop fop = createFopInstance(dest, outputFormat);
+            transform(src, stylesheet, fop);
         }
     }
 
@@ -146,7 +148,8 @@ public final class ApacheFopWorker {
      * @param stylesheetStream Optional stylesheet InputStream instance
      * @param outputFormat Optional output format, defaults to "application/pdf"
      */
-    public static void transform(InputStream srcStream, OutputStream destStream, InputStream stylesheetStream, String outputFormat) throws FOPException {
+    public static void transform(InputStream srcStream, OutputStream destStream, InputStream stylesheetStream, String outputFormat)
+            throws FOPException {
         StreamSource src = new StreamSource(srcStream);
         StreamSource stylesheet = stylesheetStream == null ? null : new StreamSource(stylesheetStream);
         Fop fop = createFopInstance(destStream, outputFormat);
@@ -218,7 +221,7 @@ public final class ApacheFopWorker {
      * @return File instance
      */
     public static File createTempFoXmlFile() throws IOException {
-        File tempXmlFile = File.createTempFile(tempFilePrefix, ".xml");
+        File tempXmlFile = File.createTempFile(TEMP_FILE_PREFIX, ".xml");
         tempXmlFile.deleteOnExit();
         return tempXmlFile;
     }
@@ -232,7 +235,7 @@ public final class ApacheFopWorker {
      * @return File instance
      */
     public static File createTempResultFile() throws IOException {
-        File tempResultFile = File.createTempFile(tempFilePrefix, ".res");
+        File tempResultFile = File.createTempFile(TEMP_FILE_PREFIX, ".res");
         tempResultFile.deleteOnExit();
         return tempResultFile;
     }
@@ -265,50 +268,50 @@ public final class ApacheFopWorker {
     }
 
     public static String getEncryptionLengthDefault() {
-        return encryptionLengthDefault;
+        return ENCRY_LENGTH_DEFAULT;
     }
 
     public static String getUserPasswordDefault() {
-        return userPasswordDefault;
+        return USER_PASS_DEFAULT;
     }
 
     public static String getOwnerPasswordDefault() {
-        return ownerPasswordDefault;
+        return OWNER_PASS_DEFAULT;
     }
 
     public static String getAllowPrintDefault() {
-        return allowPrintDefault;
+        return ALLOW_PRINT_DEFAULT;
     }
 
     public static String getAllowCopyContentDefault() {
-        return allowCopyContentDefault;
+        return ALLOW_COPY_CONTENT_DEFAULT;
     }
 
     public static String getAllowEditContentDefault() {
-        return allowEditContentDefault;
+        return ALLOW_EDIT_CONTENT_DEFAULT;
     }
 
     public static String getAllowEditAnnotationsDefault() {
-        return allowEditAnnotationsDefault;
+        return ALLOW_EDIT_ANNO_DEFAULT;
     }
 
     public static String getAllowAccessContentDefault() {
-        return allowAccessContentDefault;
+        return ALLOW_ACCESS_CONTENT_DEFAULT;
     }
 
     public static String getAllowFillInFormsDefault() {
-        return allowFillInFormsDefault;
+        return ALLOW_FILE_IN_FORMS_DEFAULT;
     }
 
     public static String getAllowAssembleDocumentDefault() {
-        return allowAssembleDocumentDefault;
+        return ALLOW_ASSEMBLE_DOC_DEFAULT;
     }
 
     public static String getAllowPrintHqDefault() {
-        return allowPrintHqDefault;
+        return ALLOW_PRINT_HQ_DEFAULT;
     }
 
     public static String getEncryptMetadataDefault() {
-        return encryptMetadataDefault;
+        return ENCRY_META_DATA_DEFAULT;
     }
 }

@@ -77,9 +77,9 @@ public class CheckOutHelper {
     private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
     private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
 
-    protected LocalDispatcher dispatcher = null;
-    protected Delegator delegator = null;
-    protected ShoppingCart cart = null;
+    private LocalDispatcher dispatcher = null;
+    private Delegator delegator = null;
+    private ShoppingCart cart = null;
 
     public CheckOutHelper(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart) {
         this.delegator = delegator;
@@ -87,6 +87,11 @@ public class CheckOutHelper {
         this.cart = cart;
     }
 
+    /**
+     * Sets check out shipping address.
+     * @param shippingContactMechId the shipping contact mech id
+     * @return the check out shipping address
+     */
     public Map<String, Object> setCheckOutShippingAddress(String shippingContactMechId) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result;
@@ -100,7 +105,7 @@ public class CheckOutHelper {
         }
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -125,8 +130,22 @@ public class CheckOutHelper {
         return errorMessages;
     }
 
+    /**
+     * Sets check out shipping options.
+     * @param shippingMethod        the shipping method
+     * @param shippingInstructions  the shipping instructions
+     * @param orderAdditionalEmails the order additional emails
+     * @param maySplit              the may split
+     * @param giftMessage           the gift message
+     * @param isGift                the is gift
+     * @param internalCode          the internal code
+     * @param shipBeforeDate        the ship before date
+     * @param shipAfterDate         the ship after date
+     * @return the check out shipping options
+     */
     public Map<String, Object> setCheckOutShippingOptions(String shippingMethod, String shippingInstructions,
-            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
+            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate,
+                                                          String shipAfterDate) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result;
         String errMsg = null;
@@ -141,7 +160,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -221,7 +240,15 @@ public class CheckOutHelper {
         return errorMessages;
     }
 
-    public Map<String, Object> setCheckOutPayment(Map<String, Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments, String billingAccountId) {
+    /**
+     * Sets check out payment.
+     * @param selectedPaymentMethods the selected payment methods
+     * @param singleUsePayments      the single use payments
+     * @param billingAccountId       the billing account id
+     * @return the check out payment
+     */
+    public Map<String, Object> setCheckOutPayment(Map<String, Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments,
+                                                  String billingAccountId) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result;
         String errMsg = null;
@@ -235,7 +262,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -244,7 +271,15 @@ public class CheckOutHelper {
         return result;
     }
 
-    public List<String> setCheckOutPaymentInternal(Map<String, Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments, String billingAccountId) {
+    /**
+     * Sets check out payment internal.
+     * @param selectedPaymentMethods the selected payment methods
+     * @param singleUsePayments      the single use payments
+     * @param billingAccountId       the billing account id
+     * @return the check out payment internal
+     */
+    public List<String> setCheckOutPaymentInternal(Map<String, Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments,
+                                                   String billingAccountId) {
         List<String> errorMessages = new ArrayList<>();
         String errMsg = null;
 
@@ -261,15 +296,17 @@ public class CheckOutHelper {
                 Map<String, Object> billingAccountMap = selectedPaymentMethods.get("EXT_BILLACT");
                 BigDecimal billingAccountAmt = (BigDecimal) billingAccountMap.get("amount");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
-                cart.setBillingAccount(billingAccountId, (billingAccountAmt != null ? billingAccountAmt: BigDecimal.ZERO));
+                cart.setBillingAccount(billingAccountId, (billingAccountAmt != null ? billingAccountAmt : BigDecimal.ZERO));
                 // copy the billing account terms as order terms
                 try {
-                    List<GenericValue> billingAccountTerms = EntityQuery.use(delegator).from("BillingAccountTerm").where("billingAccountId", billingAccountId).queryList();
+                    List<GenericValue> billingAccountTerms = EntityQuery.use(delegator).from("BillingAccountTerm").where("billingAccountId",
+                            billingAccountId).queryList();
                     if (UtilValidate.isNotEmpty(billingAccountTerms)) {
                         for (GenericValue billingAccountTerm : billingAccountTerms) {
                             // the term is not copied if in the cart a term of the same type is already set
                             if (!cart.hasOrderTerm(billingAccountTerm.getString("termTypeId"))) {
-                                cart.addOrderTerm(billingAccountTerm.getString("termTypeId"), billingAccountTerm.getBigDecimal("termValue"), billingAccountTerm.getLong("termDays"));
+                                cart.addOrderTerm(billingAccountTerm.getString("termTypeId"), billingAccountTerm.getBigDecimal("termValue"),
+                                        billingAccountTerm.getLong("termDays"));
                             }
                         }
                     }
@@ -292,7 +329,8 @@ public class CheckOutHelper {
                             cart.getLocale());
                     errorMessages.add(errMsg);
                 } else {
-                    // otherwise use the available account credit (The user might enter 10.00 for an order worth 20.00 from an account with 30.00. This makes sure that the 30.00 is used)
+                    // otherwise use the available account credit (The user might enter 10.00 for an order worth 20.00 from an account with 30.00.
+                    // This makes sure that the 30.00 is used)
                     amountToUse = accountCredit;
                 }
 
@@ -365,6 +403,12 @@ public class CheckOutHelper {
         return errorMessages;
     }
 
+    /**
+     * Sets check out dates.
+     * @param shipBefore the ship before
+     * @param shipAfter  the ship after
+     * @return the check out dates
+     */
     public Map<String, Object> setCheckOutDates(Timestamp shipBefore, Timestamp shipAfter) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result = null;
@@ -381,7 +425,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -390,9 +434,27 @@ public class CheckOutHelper {
     }
 
 
-    public Map<String, Object> setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map<String, Map<String, Object>> selectedPaymentMethods,
-            List<String> singleUsePayments, String billingAccountId, String shippingInstructions,
-            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
+    /**
+     * Sets check out options.
+     * @param shippingMethod the shipping method
+     * @param shippingContactMechId the shipping contact mech id
+     * @param selectedPaymentMethods the selected payment methods
+     * @param singleUsePayments the single use payments
+     * @param billingAccountId the billing account id
+     * @param shippingInstructions the shipping instructions
+     * @param orderAdditionalEmails the order additional emails
+     * @param maySplit the may split
+     * @param giftMessage the gift message
+     * @param isGift the is gift
+     * @param internalCode the internal code
+     * @param shipBeforeDate the ship before date
+     * @param shipAfterDate the ship after date
+     * @return the check out options
+     */
+    public Map<String, Object> setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map<String,
+            Map<String, Object>> selectedPaymentMethods, List<String> singleUsePayments, String billingAccountId, String shippingInstructions,
+            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String
+            shipAfterDate) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> result = null;
         String errMsg = null;
@@ -431,7 +493,7 @@ public class CheckOutHelper {
 
         if (errorMessages.size() == 1) {
             result = ServiceUtil.returnError(errorMessages.get(0));
-        } else if (errorMessages.size() > 0) {
+        } else if (!errorMessages.isEmpty()) {
             result = ServiceUtil.returnError(errorMessages);
         } else {
             result = ServiceUtil.returnSuccess();
@@ -440,6 +502,12 @@ public class CheckOutHelper {
         return result;
     }
 
+    /**
+     * Check gift card map.
+     * @param params                 the params
+     * @param selectedPaymentMethods the selected payment methods
+     * @return the map
+     */
     public Map<String, Object> checkGiftCard(Map<String, Object> params, Map<String, Map<String, Object>> selectedPaymentMethods) {
         List<String> errorMessages = new ArrayList<>();
         Map<String, Object> errorMaps = new HashMap<>();
@@ -454,7 +522,8 @@ public class CheckOutHelper {
 
             boolean gcFieldsOkay = true;
             if (UtilValidate.isEmpty(gcNum)) {
-                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale()
+                        : Locale.getDefault()));
                 errorMessages.add(errMsg);
                 gcFieldsOkay = false;
             }
@@ -531,7 +600,7 @@ public class CheckOutHelper {
                 if (gcResult != null) {
                     ServiceUtil.addErrors(errorMessages, errorMaps, gcResult);
 
-                    if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+                    if (errorMessages.isEmpty() && errorMaps.isEmpty()) {
                         // set the GC payment method
                         BigDecimal giftCardAmount = null;
                         if (gcAmount.compareTo(BigDecimal.ZERO) > 0) {
@@ -552,11 +621,11 @@ public class CheckOutHelper {
         }
 
         // see whether we need to return an error or not
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         }
-        if (errorMaps.size() > 0) {
+        if (!errorMaps.isEmpty()) {
             result.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         }
@@ -564,11 +633,26 @@ public class CheckOutHelper {
         return result;
     }
 
+    /**
+     * Create order map.
+     * @param userLogin the user login
+     * @return the map
+     */
     public Map<String, Object> createOrder(GenericValue userLogin) {
         return createOrder(userLogin, null, null, null, false, null, cart.getWebSiteId());
     }
 
-    // Create order event - uses createOrder service for processing
+    /**
+     * Create order event - uses createOrder service for processing
+     * @param userLogin             the user login
+     * @param distributorId         the distributor id
+     * @param affiliateId           the affiliate id
+     * @param trackingCodeOrders    the tracking code orders
+     * @param areOrderItemsExploded the are order items exploded
+     * @param visitId               the visit id
+     * @param webSiteId             the web site id
+     * @return the map
+     */
     public Map<String, Object> createOrder(GenericValue userLogin, String distributorId, String affiliateId,
             List<GenericValue> trackingCodeOrders, boolean areOrderItemsExploded, String visitId, String webSiteId) {
         if (this.cart == null) {
@@ -655,7 +739,8 @@ public class CheckOutHelper {
                     GenericValue permUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                     GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
                     GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-                    if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
+                    if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId",
+                            "AGGREGATED")) {
                         org.apache.ofbiz.product.config.ProductConfigWrapper config = this.cart.findCartItem(counter).getConfigWrapper();
                         Map<String, Object> inputMap = new HashMap<>();
                         inputMap.put("config", config);
@@ -674,30 +759,30 @@ public class CheckOutHelper {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
                     String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
-                    errMsg += UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
+                    errMsg += UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
+                            cart.getLocale());
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 } catch (GenericServiceException e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
-                    String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
+                    String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
+                            cart.getLocale());
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
             }
             counter++;
         }
-        // ----------
-
-        // ----------
         // The status of the requirement associated to the shopping cart lines is set to "ordered".
-        //
         for (ShoppingCartItem shoppingCartItem : this.cart.items()) {
             String requirementId = shoppingCartItem.getRequirementId();
             if (requirementId != null) {
                 try {
-                    /* OrderRequirementCommitment records will map which POs which are created from which requirements. With the help of this mapping requirements will be updated to Ordered when POs will be approved.  */
-                    Map<String, Object> inputMap = UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId", shoppingCartItem.getOrderItemSeqId(), "requirementId", requirementId, "quantity", shoppingCartItem.getQuantity());
+                    /* OrderRequirementCommitment records will map which POs which are created from which requirements.
+                    With the help of this mapping requirements will be updated to Ordered when POs will be approved.  */
+                    Map<String, Object> inputMap = UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId",
+                            shoppingCartItem.getOrderItemSeqId(), "requirementId", requirementId, "quantity", shoppingCartItem.getQuantity());
                     Map<String, Object> serviceResult = dispatcher.runSync("createOrderRequirementCommitment", inputMap);
                     if (ServiceUtil.isError(serviceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -705,7 +790,8 @@ public class CheckOutHelper {
                 } catch (GenericServiceException e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
-                    String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
+                    String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
+                            cart.getLocale());
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -734,11 +820,13 @@ public class CheckOutHelper {
             while (emailIter != null && emailIter.hasNext()) {
                 GenericValue email = emailIter.next();
                 GenericValue orderContactMech = this.delegator.makeValue("OrderContactMech",
-                        UtilMisc.toMap("orderId", orderId, "contactMechId", email.getString("contactMechId"), "contactMechPurposeTypeId", "ORDER_EMAIL"));
+                        UtilMisc.toMap("orderId", orderId, "contactMechId", email.getString("contactMechId"), "contactMechPurposeTypeId",
+                                "ORDER_EMAIL"));
                 toBeStored.add(orderContactMech);
                 if (UtilValidate.isEmpty(ContactHelper.getContactMechByPurpose(party, "ORDER_EMAIL", false))) {
                     GenericValue partyContactMechPurpose = this.delegator.makeValue("PartyContactMechPurpose",
-                            UtilMisc.toMap("partyId", party.getString("partyId"), "contactMechId", email.getString("contactMechId"), "contactMechPurposeTypeId", "ORDER_EMAIL", "fromDate", UtilDateTime.nowTimestamp()));
+                            UtilMisc.toMap("partyId", party.getString("partyId"), "contactMechId", email.getString("contactMechId"),
+                                    "contactMechPurposeTypeId", "ORDER_EMAIL", "fromDate", UtilDateTime.nowTimestamp()));
                     toBeStored.add(partyContactMechPurpose);
                 }
             }
@@ -761,7 +849,7 @@ public class CheckOutHelper {
             toBeStored.add(orderContactMech);
         }
 
-        if (toBeStored.size() > 0) {
+        if (!toBeStored.isEmpty()) {
             try {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("To Be Stored: " + toBeStored, MODULE);
@@ -769,25 +857,46 @@ public class CheckOutHelper {
                 this.delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 // not a fatal error; so just print a message
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), MODULE);
+                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()),
+                        MODULE);
             }
         }
 
         return result;
     }
 
+    /**
+     * Calc and add tax.
+     * @throws GeneralException the general exception
+     */
     public void calcAndAddTax() throws GeneralException {
         calcAndAddTax(null, false);
     }
 
+    /**
+     * Calc and add tax.
+     * @param skipEmptyAddresses the skip empty addresses
+     * @throws GeneralException the general exception
+     */
     public void calcAndAddTax(boolean skipEmptyAddresses) throws GeneralException {
         calcAndAddTax(null, skipEmptyAddresses);
     }
 
+    /**
+     * Calc and add tax.
+     * @param shipAddress the ship address
+     * @throws GeneralException the general exception
+     */
     public void calcAndAddTax(GenericValue shipAddress) throws GeneralException {
         calcAndAddTax(shipAddress, false);
     }
 
+    /**
+     * Calc and add tax.
+     * @param shipAddress        the ship address
+     * @param skipEmptyAddresses the skip empty addresses
+     * @throws GeneralException the general exception
+     */
     public void calcAndAddTax(GenericValue shipAddress, boolean skipEmptyAddresses) throws GeneralException {
         if (UtilValidate.isEmpty(cart.getShippingContactMechId()) && cart.getBillingAddress() == null && shipAddress == null) {
             return;
@@ -797,7 +906,8 @@ public class CheckOutHelper {
         for (int i = 0; i < shipGroups; i++) {
             ShoppingCart.CartShipInfo csi = cart.getShipInfo(i);
             Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap = new HashMap<>();
-            Map<String, Object> serviceContext = this.makeTaxContext(i, shipAddress, shoppingCartItemIndexMap, cart.getFacilityId(), skipEmptyAddresses);
+            Map<String, Object> serviceContext = this.makeTaxContext(i, shipAddress, shoppingCartItemIndexMap, cart.getFacilityId(),
+                    skipEmptyAddresses);
             if (skipEmptyAddresses && serviceContext == null) {
                 csi.clearAllTaxInfo();
                 continue;
@@ -831,7 +941,8 @@ public class CheckOutHelper {
         }
     }
 
-    private Map<String, Object> makeTaxContext(int shipGroup, GenericValue shipAddress, Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap, String originFacilityId, boolean skipEmptyAddresses) {
+    private Map<String, Object> makeTaxContext(int shipGroup, GenericValue shipAddress, Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap,
+                                               String originFacilityId, boolean skipEmptyAddresses) {
         ShoppingCart.CartShipInfo csi = cart.getShipInfo(shipGroup);
         int totalItems = csi.getShipItemInfo().size();
 
@@ -873,7 +984,8 @@ public class CheckOutHelper {
                 GenericValue billAddr = cpi.getBillingAddress(delegator);
                 if (billAddr != null) {
                     shipAddress = billAddr;
-                    Debug.logInfo("In makeTaxContext no shipping address, but found address with ID [" + shipAddress.get("contactMechId") + "] from payment method.", MODULE);
+                    Debug.logInfo("In makeTaxContext no shipping address, but found address with ID [" + shipAddress.get("contactMechId")
+                            + "] from payment method.", MODULE);
                     break;
                 }
             }
@@ -882,10 +994,12 @@ public class CheckOutHelper {
         if (shipAddress == null) {
             // face-to-face order; use the facility address
             if (originFacilityId != null) {
-                GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, originFacilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, originFacilityId,
+                        UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                 if (facilityContactMech != null) {
                     try {
-                        shipAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech.getString("contactMechId")).queryOne();
+                        shipAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
+                                facilityContactMech.getString("contactMechId")).queryOne();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, MODULE);
                     }
@@ -893,9 +1007,11 @@ public class CheckOutHelper {
             }
         }
 
-        // if shippingAddress is still null then don't calculate tax; it may be an situation where no tax is applicable, or the data is bad and we don't have a way to find an address to check tax for
+        // if shippingAddress is still null then don't calculate tax; it may be an situation where no tax is applicable, or the data is bad and we
+        // don't have a way to find an address to check tax for
         if (shipAddress == null) {
-            Debug.logWarning("Not calculating tax for new order because there is no shipping address, no billing address, and no address on the origin facility [" + originFacilityId + "]", MODULE);
+            Debug.logWarning("Not calculating tax for new order because there is no shipping address, no billing address, and no address on the"
+                    + "origin facility [" + originFacilityId + "]", MODULE);
         }
 
         Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productStoreId", cart.getProductStoreId());
@@ -936,19 +1052,49 @@ public class CheckOutHelper {
         return UtilMisc.toList(orderAdj, itemAdj);
     }
 
+    /**
+     * Process payment map.
+     * @param productStore the product store
+     * @param userLogin    the user login
+     * @return the map
+     * @throws GeneralException the general exception
+     */
     public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin) throws GeneralException {
-        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
+        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin,
+                false, false, dispatcher, delegator);
     }
 
+    /**
+     * Process payment map.
+     * @param productStore the product store
+     * @param userLogin    the user login
+     * @param faceToFace   the face to face
+     * @return the map
+     * @throws GeneralException the general exception
+     */
     public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace) throws GeneralException {
-        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, false, dispatcher, delegator);
+        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin,
+                faceToFace, false, dispatcher, delegator);
     }
 
-    public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold) throws GeneralException {
-        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, manualHold, dispatcher, delegator);
+    /**
+     * Process payment map.
+     * @param productStore the product store
+     * @param userLogin    the user login
+     * @param faceToFace   the face to face
+     * @param manualHold   the manual hold
+     * @return the map
+     * @throws GeneralException the general exception
+     */
+    public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold)
+            throws GeneralException {
+        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin,
+                faceToFace, manualHold, dispatcher, delegator);
     }
 
-    public static Map<String, Object> processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
+    public static Map<String, Object> processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore,
+                GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator)
+                throws GeneralException {
         // Get some payment related strings
         String declineMessage = productStore.getString("authDeclinedMessage");
         String errMessage = productStore.getString("authErrorMessage");
@@ -1024,7 +1170,8 @@ public class CheckOutHelper {
         List<GenericValue> payPalPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, payPalExprs);
         if (UtilValidate.isNotEmpty(payPalPaymentPrefs)) {
             GenericValue payPalPaymentPref = EntityUtil.getFirst(payPalPaymentPrefs);
-            ExpressCheckoutEvents.doExpressCheckout(productStore.getString("productStoreId"), orderId, payPalPaymentPref, userLogin, delegator, dispatcher);
+            ExpressCheckoutEvents.doExpressCheckout(productStore.getString("productStoreId"), orderId, payPalPaymentPref, userLogin,
+                    delegator, dispatcher);
         }
 
         // check for online payment methods needing authorization
@@ -1034,7 +1181,8 @@ public class CheckOutHelper {
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         // Invoke payment processing.
         if (UtilValidate.isNotEmpty(onlinePaymentPrefs)) {
-            boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
+            boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore
+                    .getString("autoApproveOrder"));
             if (orderTotal.compareTo(BigDecimal.ZERO) == 0 && autoApproveOrder) {
                 // if there is nothing to authorize; don't bother
                 boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
@@ -1090,9 +1238,9 @@ public class CheckOutHelper {
                     // set the order and item status to approved
                     if (autoApproveOrder) {
                         List<GenericValue> productStorePaymentSettingList = EntityQuery.use(delegator).from("ProductStorePaymentSetting")
-                                .where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD", "paymentService", "cyberSourceCCAuth")
-                                .queryList();
-                        if (productStorePaymentSettingList.size() > 0) {
+                                .where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD",
+                                        "paymentService", "cyberSourceCCAuth").queryList();
+                        if (!productStorePaymentSettingList.isEmpty()) {
                             String decision = (String) paymentResult.get("authCode");
                             if (UtilValidate.isNotEmpty(decision)) {
                                 if ("ACCEPT".equalsIgnoreCase(decision)) {
@@ -1133,7 +1281,8 @@ public class CheckOutHelper {
                     return ServiceUtil.returnError(messages);
                 } else {
                     // should never happen
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderPleaseContactCustomerServicePaymentReturnCodeUnknown", Locale.getDefault()));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderPleaseContactCustomerServicePaymentReturnCodeUnknown",
+                            Locale.getDefault()));
                 }
             } else {
                 // result returned null == service failed
@@ -1163,7 +1312,8 @@ public class CheckOutHelper {
                     && cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
 
                 //if there are Check type, approve the order only if it is face to face
-                List<GenericValue> checkPreferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));
+                List<GenericValue> checkPreferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences,
+                        UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));
                 if (UtilValidate.isNotEmpty(checkPreferences)) {
                     if (faceToFace) {
                         boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
@@ -1199,7 +1349,8 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void adjustFaceToFacePayment(String orderId, BigDecimal cartTotal, List<GenericValue> allPaymentPrefs, GenericValue userLogin, Delegator delegator) throws GeneralException {
+    public static void adjustFaceToFacePayment(String orderId, BigDecimal cartTotal, List<GenericValue> allPaymentPrefs, GenericValue userLogin,
+                                               Delegator delegator) throws GeneralException {
         BigDecimal prefTotal = BigDecimal.ZERO;
         if (allPaymentPrefs != null) {
             for (GenericValue pref : allPaymentPrefs) {
@@ -1226,6 +1377,10 @@ public class CheckOutHelper {
         }
     }
 
+    /**
+     * Check order black list map.
+     * @return the map
+     */
     public Map<String, Object> checkOrderBlackList() {
         if (cart == null) {
             return ServiceUtil.returnSuccess("success");
@@ -1237,7 +1392,8 @@ public class CheckOutHelper {
         String shippingAddress = UtilFormatOut.checkNull(shippingAddressObj.getString("address1")).toUpperCase(Locale.getDefault());
         shippingAddress = UtilFormatOut.makeSqlSafe(shippingAddress);
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition(
-                EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS, EntityFunction.UPPER(shippingAddress)),
+                EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS,
+                EntityFunction.UPPER(shippingAddress)),
                 EntityOperator.AND,
                 EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
         String errMsg = null;
@@ -1267,7 +1423,8 @@ public class CheckOutHelper {
                     String address = UtilFormatOut.checkNull(billingAddress.getString("address1").toUpperCase(Locale.getDefault()));
                     address = UtilFormatOut.makeSqlSafe(address);
                     exprs.add(EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS, EntityFunction.UPPER(address)),
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS,
+                            EntityFunction.UPPER(address)),
                             EntityOperator.AND,
                             EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
                 }
@@ -1275,7 +1432,7 @@ public class CheckOutHelper {
         }
 
         List<GenericValue> blacklistFound = null;
-        if (exprs.size() > 0) {
+        if (!exprs.isEmpty()) {
             try {
                 blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
             } catch (GenericEntityException e) {
@@ -1291,11 +1448,22 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess("success");
     }
 
+    /**
+     * Check order blacklist map.
+     * @param userLogin the user login
+     * @return the map
+     */
     @Deprecated
     public Map<String, Object> checkOrderBlacklist(GenericValue userLogin) {
         return checkOrderBlackList();
     }
 
+    /**
+     * Failed blacklist check map.
+     * @param userLogin    the user login
+     * @param productStore the product store
+     * @return the map
+     */
     public Map<String, Object> failedBlacklistCheck(GenericValue userLogin, GenericValue productStore) {
         Map<String, Object> result;
         String errMsg = null;
@@ -1327,6 +1495,11 @@ public class CheckOutHelper {
         return result;
     }
 
+    /**
+     * Check external payment map.
+     * @param orderId the order id
+     * @return the map
+     */
     public Map<String, Object> checkExternalPayment(String orderId) {
         Map<String, Object> result;
         String errMsg = null;
@@ -1337,7 +1510,8 @@ public class CheckOutHelper {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting order header", MODULE);
-            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_order_header", (cart != null ? cart.getLocale()
+                    : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -1347,7 +1521,8 @@ public class CheckOutHelper {
                 paymentPrefs = orderHeader.getRelated("OrderPaymentPreference", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems getting order payments", MODULE);
-                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_getting_payment_preference", (cart != null ? cart.getLocale()
+                        : Locale.getDefault()));
                 result = ServiceUtil.returnError(errMsg);
                 return result;
             }
@@ -1381,7 +1556,6 @@ public class CheckOutHelper {
 
     /**
      * Sets the shipping contact mechanism for a given ship group on the cart
-     *
      * @param shipGroupIndex The index of the ship group in the cart
      * @param shippingContactMechId The identifier of the contact
      * @param supplierPartyId The identifier of the supplier to use for the drop shipment
@@ -1389,9 +1563,10 @@ public class CheckOutHelper {
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map<String, Object> finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId, String supplierAgreementId) {
+    public Map<String, Object> finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId,
+                                                      String supplierAgreementId) {
         Map<String, Object> result;
-        String errMsg=null;
+        String errMsg = null;
         //Verify the field is valid
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             this.cart.setShippingContactMechId(shipGroupIndex, shippingContactMechId);
@@ -1403,7 +1578,8 @@ public class CheckOutHelper {
             }
             result = ServiceUtil.returnSuccess();
         } else {
-            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
+            errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.enter_shipping_address", (cart != null ? cart.getLocale()
+                    : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
         }
 
@@ -1412,7 +1588,6 @@ public class CheckOutHelper {
 
     /**
      * Sets the options associated with the order for a given ship group
-     *
      * @param shipGroupIndex The index of the ship group in the cart
      * @param shippingMethod The shipping method indicating the carrier and
      * shipment type to use
@@ -1427,19 +1602,56 @@ public class CheckOutHelper {
     public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
             String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String orderAdditionalEmails) {
         this.cart.setOrderAdditionalEmails(orderAdditionalEmails);
-        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, null, null);
+        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode,
+                shipBeforeDate, shipAfterDate, null, null);
     }
+
+    /**
+     * Finalize order entry options map.
+     * @param shipGroupIndex       the ship group index
+     * @param shippingMethod       the shipping method
+     * @param shippingInstructions the shipping instructions
+     * @param maySplit             the may split
+     * @param giftMessage          the gift message
+     * @param isGift               the is gift
+     * @param internalCode         the internal code
+     * @param shipBeforeDate       the ship before date
+     * @param shipAfterDate        the ship after date
+     * @param internalOrderNotes   the internal order notes
+     * @param shippingNotes        the shipping notes
+     * @param shipEstimate         the ship estimate
+     * @return the map
+     */
     public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes, String shippingNotes, BigDecimal shipEstimate) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes,
+                                                         String shippingNotes, BigDecimal shipEstimate) {
         this.cart.setItemShipGroupEstimate(shipEstimate, shipGroupIndex);
-        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes);
+        return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode,
+                shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes);
     }
+
+    /**
+     * Finalize order entry options map.
+     * @param shipGroupIndex       the ship group index
+     * @param shippingMethod       the shipping method
+     * @param shippingInstructions the shipping instructions
+     * @param maySplit             the may split
+     * @param giftMessage          the gift message
+     * @param isGift               the is gift
+     * @param internalCode         the internal code
+     * @param shipBeforeDate       the ship before date
+     * @param shipAfterDate        the ship after date
+     * @param internalOrderNotes   the internal order notes
+     * @param shippingNotes        the shipping notes
+     * @return the map
+     */
     public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
-            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes, String shippingNotes) {
+            String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes,
+            String shippingNotes) {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        String errMsg=null;
+        String errMsg = null;
         //Verify the shipping method is valid
         if (UtilValidate.isNotEmpty(shippingMethod)) {
             int delimiterPos = shippingMethod.indexOf('@');
@@ -1509,7 +1721,6 @@ public class CheckOutHelper {
 
     /**
      * Sets the payment ID to use during the checkout process
-     *
      * @param checkOutPaymentId The payment ID to be associated with the cart
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages.
@@ -1547,10 +1758,20 @@ public class CheckOutHelper {
         return BigDecimal.ZERO;
     }
 
+    /**
+     * Available account balance big decimal.
+     * @param billingAccountId the billing account id
+     * @return the big decimal
+     */
     public BigDecimal availableAccountBalance(String billingAccountId) {
         return availableAccountBalance(billingAccountId, dispatcher);
     }
 
+    /**
+     * Make billing account map map.
+     * @param paymentPrefs the payment prefs
+     * @return the map
+     */
     public Map<String, BigDecimal> makeBillingAccountMap(List<GenericValue> paymentPrefs) {
         Map<String, BigDecimal> accountMap = new HashMap<>();
         if (paymentPrefs != null) {
@@ -1563,13 +1784,18 @@ public class CheckOutHelper {
         return accountMap;
     }
 
+    /**
+     * Validate payment methods map.
+     * @return the map
+     */
     public Map<String, Object> validatePaymentMethods() {
         String errMsg = null;
         String billingAccountId = cart.getBillingAccountId();
         BigDecimal billingAccountAmt = cart.getBillingAccountAmount();
         BigDecimal availableAmount = this.availableAccountBalance(billingAccountId);
         if (billingAccountAmt.compareTo(availableAmount) > 0) {
-            Debug.logError("Billing account " + billingAccountId + " has [" + availableAmount + "] available but needs [" + billingAccountAmt + "] for this order", MODULE);
+            Debug.logError("Billing account " + billingAccountId + " has [" + availableAmount + "] available but needs [" + billingAccountAmt
+                    + "] for this order", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
             errMsg = UtilProperties.getMessage(RES_ERROR, "checkevents.not_enough_available_on_account", messageMap, cart.getLocale());
             return ServiceUtil.returnError(errMsg);
@@ -1578,7 +1804,7 @@ public class CheckOutHelper {
         // payment by billing account only requires more checking
         List<String> paymentMethods = cart.getPaymentMethodIds();
         List<String> paymentTypes = cart.getPaymentMethodTypeIds();
-        if (paymentTypes.contains("EXT_BILLACT") && paymentTypes.size() == 1 && paymentMethods.size() == 0) {
+        if (paymentTypes.contains("EXT_BILLACT") && paymentTypes.size() == 1 && paymentMethods.isEmpty()) {
             if (cart.getGrandTotal().compareTo(availableAmount) > 0) {
                 errMsg = UtilProperties.getMessage(RES_ERROR, "checkevents.insufficient_credit_available_on_account", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
@@ -1663,6 +1889,9 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess();
     }
 
+    /**
+     * Validate gift card amounts.
+     */
     public void validateGiftCardAmounts() {
         // get the product store
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);

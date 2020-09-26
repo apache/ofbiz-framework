@@ -377,7 +377,8 @@ public class RitaServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = (GenericValue) context.get("creditCard");
         if (creditCard == null) {
-            creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", orderPaymentPreference.getString("paymentMethodId")).queryOne();
+            creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", orderPaymentPreference.getString("paymentMethodId"))
+                    .queryOne();
         }
         if (creditCard != null) {
             List<String> expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");

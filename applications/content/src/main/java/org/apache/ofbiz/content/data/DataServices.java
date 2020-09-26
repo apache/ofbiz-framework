@@ -66,7 +66,8 @@ public class DataServices {
             DataResourceWorker.clearAssociatedRenderCache(delegator, dataResourceId);
         } catch (GeneralException e) {
             Debug.logError(e, "Unable to clear associated render cache with dataResourceId=" + dataResourceId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentClearAssociatedRenderCacheError", UtilMisc.toMap("dataResourceId", dataResourceId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentClearAssociatedRenderCacheError",
+                    UtilMisc.toMap("dataResourceId", dataResourceId), locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -138,7 +139,8 @@ public class DataServices {
         // get first statusId  for content out of the statusItem table if not provided
         if (UtilValidate.isEmpty(dataResource.get("statusId"))) {
             try {
-                GenericValue statusItem = EntityQuery.use(delegator).from("StatusItem").where("statusTypeId", "CONTENT_STATUS").orderBy("sequenceId").queryFirst();
+                GenericValue statusItem = EntityQuery.use(delegator).from("StatusItem").where("statusTypeId", "CONTENT_STATUS")
+                        .orderBy("sequenceId").queryFirst();
                 if (statusItem != null) {
                     dataResource.put("statusId", statusItem.get("statusId"));
                 }
@@ -171,7 +173,8 @@ public class DataServices {
         String dataResourceId = (String) context.get("dataResourceId");
         String textData = (String) context.get("textData");
         if (UtilValidate.isNotEmpty(textData)) {
-            GenericValue electronicText = delegator.makeValue("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId, "textData", textData));
+            GenericValue electronicText = delegator.makeValue("ElectronicText",
+                    UtilMisc.toMap("dataResourceId", dataResourceId, "textData", textData));
             try {
                 electronicText.create();
             } catch (GenericEntityException e) {
@@ -214,7 +217,8 @@ public class DataServices {
         // obtain a reference to the file
         File file = null;
         if (UtilValidate.isEmpty(objectInfo)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile", UtilMisc.toMap("objectInfo", ""), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
+                    UtilMisc.toMap("objectInfo", ""), locale));
         }
         if (UtilValidate.isEmpty(dataResourceTypeId) || "LOCAL_FILE".equals(dataResourceTypeId) || "LOCAL_FILE_BIN".equals(dataResourceTypeId)) {
             file = new File(objectInfo);
@@ -238,7 +242,8 @@ public class DataServices {
             file = new File(prefix + sep + objectInfo);
         }
         if (file == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile", UtilMisc.toMap("objectInfo", objectInfo), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
+                    UtilMisc.toMap("objectInfo", objectInfo), locale));
         }
 
         // write the data to the file
@@ -247,7 +252,8 @@ public class DataServices {
                 out.write(textData);
             } catch (IOException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
+                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
         } else if (binData != null) {
             try {
@@ -256,13 +262,16 @@ public class DataServices {
                 out.close();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
+                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
+                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFilePassed", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFilePassed",
+                    UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -311,7 +320,8 @@ public class DataServices {
             dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentDataResourceNotFound", UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentDataResourceNotFound",
+                    UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
         }
 
         dataResource.setNonPKFields(context);
@@ -338,8 +348,8 @@ public class DataServices {
     }
 
     /**
-     * Because sometimes a DataResource will exist, but no ElectronicText has been created,
-     * this method will create an ElectronicText if it does not exist.
+     * Because sometimes a DataResource will exist, but no ElectronicText has been created, this method will create an
+     * ElectronicText if it does not exist.
      * @param dctx the dispatch context
      * @param context the context
      * @return update the ElectronicText
@@ -434,7 +444,8 @@ public class DataServices {
                     out.write(textData);
                 } catch (IOException e) {
                     Debug.logWarning(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else if (binData != null) {
                 try {
@@ -444,13 +455,16 @@ public class DataServices {
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFilePassed", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFilePassed",
+                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
 
         } catch (IOException e) {
@@ -461,7 +475,8 @@ public class DataServices {
         return result;
     }
 
-    public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException, IOException {
+    public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context)
+            throws GeneralException, IOException {
         Map<String, Object> results = new HashMap<>();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
@@ -511,7 +526,8 @@ public class DataServices {
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {
-                GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
+                GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource")
+                        .where("dataResourceId", dataResourceId).queryOne();
                 if (Debug.infoOn()) {
                     Debug.logInfo("imageDataResource(U):" + imageDataResource, MODULE);
                     Debug.logInfo("imageBytes(U):" + Arrays.toString(imageBytes), MODULE);
@@ -571,7 +587,8 @@ public class DataServices {
         return result;
     }
 
-    public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
+    public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context)
+            throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
@@ -622,7 +639,8 @@ public class DataServices {
         return result;
     }
 
-    public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
+    public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context)
+            throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");

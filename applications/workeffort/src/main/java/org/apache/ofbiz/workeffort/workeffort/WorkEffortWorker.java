@@ -43,7 +43,8 @@ public final class WorkEffortWorker {
         return getLowestLevelWorkEfforts(delegator, workEffortId, workEffortAssocTypeId, "workEffortIdFrom", "workEffortIdTo");
     }
 
-    public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId, String left, String right) {
+    public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId,
+                                                               String left, String right) {
         if (left == null) {
             left = "workEffortIdFrom";
         }
@@ -53,13 +54,16 @@ public final class WorkEffortWorker {
 
         List<GenericValue> workEfforts = new LinkedList<>();
         try {
-            List<GenericValue> childWEAssocsLevelFirst = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, workEffortId, "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
+            List<GenericValue> childWEAssocsLevelFirst = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, workEffortId,
+                    "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
             for (GenericValue childWEAssocLevelFirst : childWEAssocsLevelFirst) {
-                List<GenericValue> childWEAssocsLevelNext = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, childWEAssocLevelFirst.get(right), "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
+                List<GenericValue> childWEAssocsLevelNext = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left,
+                        childWEAssocLevelFirst.get(right), "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
                 while (UtilValidate.isNotEmpty(childWEAssocsLevelNext)) {
                     List<GenericValue> tempWorkEffortList = new LinkedList<>();
                     for (GenericValue childWEAssocLevelNext : childWEAssocsLevelNext) {
-                        List<GenericValue> childWEAssocsLevelNth = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, childWEAssocLevelNext.get(right), "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
+                        List<GenericValue> childWEAssocsLevelNth = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left,
+                                childWEAssocLevelNext.get(right), "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
                         if (UtilValidate.isNotEmpty(childWEAssocsLevelNth)) {
                             tempWorkEffortList.addAll(childWEAssocsLevelNth);
                         }
