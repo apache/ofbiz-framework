@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 def createPartyGroupRoleAndContactMechs() {
     try {
-        parameters.partyGroupContext = resolvePartyGroupMap(parameters)
+        parameters.partyGroupContext = resolvePartyGroupMap()
         if (parameters.address1) {
             parameters.postalAddressContext = resolvePostalAddressMap()
         }
@@ -76,19 +76,18 @@ def createPartyGroupRoleAndContactMechs() {
 
 // TODO need to convert from MapProcessor
 def resolvePartyGroupMap() {
-    return resolvePartyProcessMap('partyGroup')
+    return resolvePartyProcessMap("party/minilang/party/PartyMapProcs.xml", 'partyGroup')
 }
 def resolvePostalAddressMap() {
-    return resolvePartyProcessMap('postalAddress')
+    return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'postalAddress')
 }
 def resolveTelecomNumberMap() {
-    return resolvePartyProcessMap('telecomNumber')
+    return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'telecomNumber')
 }
-def resolvePartyProcessMap(String processMapName) {
+def resolvePartyProcessMap(String mapProcessorPath, String processMapName) {
     List messages = []
     Map resultMap = [:]
-    SimpleMapProcessor.runSimpleMapProcessor('component://party/minilang/party/PartyMapProcs.xml',
-            processMapName, parameters, resultMap, messages, context.locale)
+    SimpleMapProcessor.runSimpleMapProcessor('component://' + mapProcessorPath, processMapName, parameters, resultMap, messages, context.locale)
     // Check errors
     if (messages) {
         throw new GenericServiceException(messages.join(','))
