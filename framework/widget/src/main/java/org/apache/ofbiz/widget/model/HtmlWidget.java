@@ -38,6 +38,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
@@ -324,12 +325,17 @@ public class HtmlWidget extends ModelScreenWidget {
                         }
                         String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
 
+                        HttpServletRequest request = (HttpServletRequest) context.get("request");
                         // construct script link
-                        String webappName = (String) context.get("webappName");
-                        String url = "/" + webappName + "/control/getJs?name=" + key;
+                        String contextPath = request.getContextPath();
+                        String url = null;
+                        if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
+                            url = contextPath + "/getJs?name=" + key;
+                        } else {
+                            url = contextPath + "/control/getJs?name=" + key;
+                        }
 
                         // add csrf token to script link
-                        HttpServletRequest request = (HttpServletRequest) context.get("request");
                         String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
                         url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
 
