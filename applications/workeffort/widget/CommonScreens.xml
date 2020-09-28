@@ -43,6 +43,7 @@ under the License.
                 <set field="activeApp" value="workeffort" global="true"/>
                 <set field="applicationMenuName" value="WorkEffortAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://workeffort/widget/WorkEffortMenus.xml" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_core_business_applications"/>
                 <set field="applicationTitle" from-field="uiLabelMap.WorkEffortManagerApplication" global="true"/>
             </actions>
             <widgets>
