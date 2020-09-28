@@ -35,39 +35,48 @@ $(document).ready(function() {
         }
       }
     });
-    jQuery(document).ajaxSuccess(function () {
-        initNamedBorder();
-    })
     //initializing UI combobox dropdown by overriding its methods.
     ajaxAutoCompleteDropDown();
     // bindObservers will add observer on passed html section when DOM is ready.
     bindObservers("body");
 
-    function initNamedBorder() {
-        jQuery("[data-source]").off();
-        // fadeout info-overlay labels
-        setTimeout(function(){
-            $('.info-overlay').fadeOut(1000, function(){
-                jQuery("[data-source]").off();
-                $('.info-container').contents().unwrap();
-                $('.info-content').contents().unwrap();
-                $('.info-overlay').delay(1000).remove();
-            });
-        }, 3000);
+    let count = 1;
+    function initNamedBorders() {
         // clickable link in named border to open source file
-        jQuery("[data-source]").click(function(){
-            var sourceLocaton = jQuery(this).data("source");
-            jQuery.ajax({
-                url: 'openSourceFile',
-                type: "POST",
-                data: {sourceLocation:sourceLocaton},
-                success: function(data) {
-                    alert("Command is sent to open source file with your IDE");
-                }
+        var selectList = jQuery(".info-cursor-none[data-source]");
+        // console.log("length="+selectList.length);
+        selectList.each(function(){
+            const $this = $(this);
+            $this.removeClass("info-cursor-none");
+            var sourceLocaton = $this.data("source");
+            $this.addClass("info-cursor").click(function(){
+                jQuery.ajax({
+                    url: 'openSourceFile',
+                    type: "POST",
+                    data: {sourceLocation:sourceLocaton},
+                    success: function(data) {
+                        alert("Server has opened \n" + sourceLocaton);
+                    }
+                });
             });
+            setTimeout(function (){
+                $this.fadeOut(1000,function() {
+                    // fadeout info-overlay labels
+                    $this.off();
+                    var container = $this.closest(".info-container");
+                    container.find(".info-content").contents().unwrap();
+                    container.contents().unwrap();
+                    $this.closest(".info-overlay").remove();
+                });
+            }, (200 * ++count) + 5000);
+
         });
+
     }
-    initNamedBorder();
+    initNamedBorders();
+    jQuery(document).ajaxSuccess(function () {
+        initNamedBorders();
+    });
 });
 
 /* bindObservers function contains the code of adding observers and it can be called for specific section as well

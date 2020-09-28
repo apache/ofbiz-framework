@@ -17,3 +17,9 @@
     border: 2px dashed rgba(236, 198, 48);
     z-index: 10;
 }
+.info-cursor {
+    cursor: pointer;
+}
+.info-cursor-none {
+    cursor: text;
+}

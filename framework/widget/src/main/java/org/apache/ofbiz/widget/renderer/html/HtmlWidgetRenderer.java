@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.html;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,24 +78,21 @@ public class HtmlWidgetRenderer {
         List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
         if (!themeBasePathsToExempt.stream().anyMatch(widgetName::contains)) {
             // add additional visual label for non-theme ftl
-            switch (boundaryType) {
-            case "End":
+            if ("Begin".equals(boundaryType)) {
+                return "<div class='info-container'><div class='info-content'>";
+            } else if ("End".equals(boundaryType)) {
                 String fileName = widgetName.substring(widgetName.lastIndexOf("/") + 1);
                 switch (namedBorderType) {
                 case SOURCE:
-                    return "</div><div class='info-overlay'><span class='info-overlay-item'><a href='#' data-source='"
-                            + widgetName
-                            + "'>"
+                    return "</div><div class='info-overlay'><span class='info-overlay-item info-cursor-none' data-source='" + widgetName + "'>"
                             + fileName
-                            + "</a></span></div></div>";
+                            + "</span></div></div>";
                 case LABEL:
                     return "</div><div class='info-overlay'><span class='info-overlay-item'>"
                             + fileName
                             + "</span></div></div>";
                 default: return "";
                 }
-            default:
-                return "<div class='info-container'><div class='info-content'>";
             }
         }
         return "";
