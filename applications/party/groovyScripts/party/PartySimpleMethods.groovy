@@ -23,34 +23,16 @@ import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.ServiceUtil
 
-// Simple method to create a party group, its role and basic contact mechs
 
 /**
  * Creates a party group, role and contactMechs
- * @return
+ * @return result
  */
 def createPartyGroupRoleAndContactMechs() {
     try {
         parameters.partyGroupContext = resolvePartyGroupMap()
-        if (parameters.address1) {
-            parameters.postalAddressContext = resolvePostalAddressMap()
-        }
-        if (parameters.contactNumber) {
-            parameters.telecomNumberContext = resolveTelecomNumberMap()
-        }
     } catch (GenericServiceException e) {
         return error(e.toString())
-    }
-
-    if (parameters.emailAddress) {
-        Map emailAddressContext = [:]
-        if  (!UtilValidate.isEmail(parameters.emailAddress)) {
-            return error(UtilProperties.getMessage('PartyUiLabels',
-                    'PartyEmailAddressNotFormattedCorrectly', parameters.locale))
-        } else {
-            emailAddressContext.emailAddress = parameters.emailAddress
-        }
-        parameters.emailAddressContext = emailAddressContext
     }
 
     parameters.partyGroupContext.partyTypeId = "PARTY_GROUP"
@@ -60,7 +42,8 @@ def createPartyGroupRoleAndContactMechs() {
     }
     Map result = success()
     result.partyId = serviceResult.partyId
-
+    parameters.partyId = serviceResult.partyId
+    
     if (parameters.roleTypeId) {
         Map serviceResultCPR = run service: "createPartyRole", with: [partyId: serviceResult.partyId,
                                                                      roleTypeId: parameters.roleTypeId]
@@ -68,9 +51,26 @@ def createPartyGroupRoleAndContactMechs() {
             return serviceResultCPR
         }
     }
+    try {
+        if (parameters.address1) {
+            parameters.postalAddressContext = resolvePostalAddressMap()
+        }
+        if (parameters.contactNumber) {
+            parameters.telecomNumberContext = resolveTelecomNumberMap()
+        }
+        if (parameters.emailAddress) {
+            resolveEmailAddressMap()
+            Map emailAddressContext = [:]
+            emailAddressContext.partyId = parameters.partyId
+            emailAddressContext.emailAddress = parameters.emailAddress
+            parameters.emailAddressContext = emailAddressContext
+        }
+    } catch (GenericServiceException e) {
+        return error(e.toString())
+    }
+    
 
-    run service:"createPartyContactMechs", with: parameters
-
+    run service: "createPartyContactMechs", with: parameters
     return result
 }
 
@@ -83,6 +83,9 @@ def resolvePostalAddressMap() {
 }
 def resolveTelecomNumberMap() {
     return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'telecomNumber')
+}
+def resolveEmailAddressMap() {
+    return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'emailAddress')
 }
 def resolvePartyProcessMap(String mapProcessorPath, String processMapName) {
     List messages = []
