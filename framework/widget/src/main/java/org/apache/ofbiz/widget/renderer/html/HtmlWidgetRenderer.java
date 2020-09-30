@@ -79,20 +79,20 @@ public class HtmlWidgetRenderer {
         if (!themeBasePathsToExempt.stream().anyMatch(widgetName::contains)) {
             // add additional visual label for non-theme ftl
             if ("Begin".equals(boundaryType)) {
-                return "<div class='info-container'><div class='info-content'>";
-            } else if ("End".equals(boundaryType)) {
                 String fileName = widgetName.substring(widgetName.lastIndexOf("/") + 1);
                 switch (namedBorderType) {
                 case SOURCE:
-                    return "</div><div class='info-overlay'><span class='info-overlay-item info-cursor-none' data-source='" + widgetName + "'>"
+                    return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='" + widgetName + "'>"
                             + fileName
-                            + "</span></div></div>";
+                            + "</span>";
                 case LABEL:
-                    return "</div><div class='info-overlay'><span class='info-overlay-item'>"
+                    return "<div class='info-container'><span class='info-overlay-item'>"
                             + fileName
-                            + "</span></div></div>";
+                            + "</span>";
                 default: return "";
                 }
+            } else if ("End".equals(boundaryType)) {
+                return "</div>";
             }
         }
         return "";
