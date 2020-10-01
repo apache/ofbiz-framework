@@ -504,7 +504,9 @@ tasks.withType(AsciidoctorTask) { task ->
     backends 'html5', 'pdf'
     attributes \
         'doctype': 'book',
+		'revnumber': 'Trunk',
         'experimental': '',
+		'allow-uri-read': true,
         'icons': 'font',
         'sectnums': '',
         'chapter-label': '',
