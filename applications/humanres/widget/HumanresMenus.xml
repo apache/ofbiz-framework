@@ -34,6 +34,50 @@
         <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
         <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
+
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewEmployee" title="${uiLabelMap.CommonNew} ${uiLabelMap.Employee}">
+            <condition>
+                <or>
+                    <if-has-permission permission="HUMANRES" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="NewEmployee"/>
+        </menu-item>
+        <menu-item name="NewPosition" title="${uiLabelMap.CommonNew} ${uiLabelMap.Position}">
+            <condition>
+                <or>
+                    <if-has-permission permission="HUMANRES" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditEmplPosition"/>
+        </menu-item>
+        <menu-item name="NewFulfilmennt" title="${uiLabelMap.CommonNew} ${uiLabelMap.Fulfilmnent}">
+            <condition>
+                <or>
+                    <if-has-permission permission="HUMANRES" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditEmplPositionFulfillments"/>
+        </menu-item>
+        <menu-item name="NewPerformanceReview" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonReview}">
+            <condition>
+                <or>
+                    <if-has-permission permission="HUMANRES" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditPerfReview"/>
+        </menu-item>
+        <menu-item name="NewLeave" title="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmplLeave}">
+            <condition>
+                <or>
+                    <if-has-permission permission="HUMANRES" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditEmplLeave"/>
+        </menu-item>
+    </menu>
+
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <actions>
