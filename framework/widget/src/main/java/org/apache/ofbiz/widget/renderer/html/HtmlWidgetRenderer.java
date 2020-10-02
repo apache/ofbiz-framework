@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.apache.ofbiz.base.util.UtilHtml;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.ofbiz.widget.model.ModelWidget;
 
 /**

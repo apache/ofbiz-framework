@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.product.category;
+package org.apache.ofbiz.webapp;
 
 import java.io.IOException;
 import java.net.URL;

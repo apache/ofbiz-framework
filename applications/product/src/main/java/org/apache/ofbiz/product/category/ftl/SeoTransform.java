@@ -29,8 +29,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 

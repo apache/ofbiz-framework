@@ -32,6 +32,7 @@ import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.jasper.servlet.JspServlet;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.ControlServlet;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 
 /**
  * SeoControlServlet.java - SEO Master servlet for the web application.
