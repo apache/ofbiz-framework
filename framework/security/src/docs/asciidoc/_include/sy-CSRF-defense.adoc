@@ -38,7 +38,7 @@ ____
 By default OOTB the SameSiteFilter property sets the same-site attribute value to 'strict. SameSiteFilter allows to change to 'lax' if needed
 
 
-===== Properties
+==== Properties
 
 The _security.properties_ file contains related properties:
 
