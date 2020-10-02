@@ -176,8 +176,10 @@ public class HtmlWidget extends ModelScreenWidget {
                         insertWidgetNamedBorder = true;
                     }
                 }
+                String contextPath = "";
                 if (insertWidgetNamedBorder) {
-                    writer.append(HtmlWidgetRenderer.buildNamedBorder("Begin", "Template", location, namedBorderType));
+                    contextPath = ((HttpServletRequest) context.get("request")).getContextPath();
+                    writer.append(HtmlWidgetRenderer.buildNamedBorder("Begin", "Template", location, namedBorderType, contextPath));
                 }
 
                 Template template = null;
@@ -189,7 +191,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
                 if (insertWidgetNamedBorder) {
-                    writer.append(HtmlWidgetRenderer.buildNamedBorder("End", "Template", location, namedBorderType));
+                    writer.append(HtmlWidgetRenderer.buildNamedBorder("End", "Template", location, namedBorderType, contextPath));
                 }
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));

@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.apache.ofbiz.base.util.UtilHtml;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.widget.model.ModelWidget;
 
 /**
@@ -74,7 +75,8 @@ public class HtmlWidgetRenderer {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
     }
 
-    public static String buildNamedBorder(String boundaryType, String widgetType, String widgetName, ModelWidget.NamedBorderType namedBorderType) {
+    public static String buildNamedBorder(String boundaryType, String widgetType, String widgetName,
+                                          ModelWidget.NamedBorderType namedBorderType, String contextPath) {
         List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
         if (!themeBasePathsToExempt.stream().anyMatch(widgetName::contains)) {
             // add additional visual label for non-theme ftl
@@ -82,7 +84,10 @@ public class HtmlWidgetRenderer {
                 String fileName = widgetName.substring(widgetName.lastIndexOf("/") + 1);
                 switch (namedBorderType) {
                 case SOURCE:
-                    return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='" + widgetName + "'>"
+                    return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='"
+                            + widgetName + "' data-target='" + contextPath
+                            + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
+                            + "/openSourceFile'>"
                             + fileName
                             + "</span>";
                 case LABEL:

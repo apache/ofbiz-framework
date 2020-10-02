@@ -48,10 +48,11 @@ $(document).ready(function() {
         selectList.each(function(){
             const $this = $(this);
             $this.removeClass("info-cursor-none");
-            var sourceLocaton = $this.data("source");
+            let sourceLocaton = $this.data("source");
+            let target = $this.data("target");
             $this.addClass("info-cursor").click(function(){
                 jQuery.ajax({
-                    url: 'openSourceFile',
+                    url: target,
                     type: "POST",
                     data: {sourceLocation:sourceLocaton},
                     success: function(data) {
