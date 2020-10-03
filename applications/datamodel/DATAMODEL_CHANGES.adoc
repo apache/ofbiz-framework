@@ -37,9 +37,6 @@ The following file contains information about the data model changes in the Apac
 
 1. ProductPromoCodeEmail
 
-=== Field type changes
-field types "description" and "comment" are now made the same type as "very-long", (meaning people can now have comments that go longer then 255 charactors)
-
 === Field Changes
 [cols="<,^,^,^,>",options="header",]
 |=======================================================

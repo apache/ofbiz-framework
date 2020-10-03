@@ -60,8 +60,8 @@ under the License.
     <field-type-def type="long-varchar" sql-type="VARCHAR2(255)" java-type="String"/>
     <field-type-def type="very-long" sql-type="CLOB" java-type="String"/>
 
-    <field-type-def type="comment" sql-type="CLOB" java-type="String"/>
-    <field-type-def type="description" sql-type="CLOB" java-type="String"/>
+    <field-type-def type="comment" sql-type="VARCHAR2(255)" java-type="String"/>
+    <field-type-def type="description" sql-type="VARCHAR2(255)" java-type="String"/>
     <field-type-def type="name" sql-type="VARCHAR2(100)" java-type="String"/>
     <field-type-def type="value" sql-type="VARCHAR2(255)" java-type="String"/>
 
