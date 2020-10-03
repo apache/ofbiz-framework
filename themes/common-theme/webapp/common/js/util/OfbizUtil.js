@@ -65,9 +65,8 @@ $(document).ready(function() {
                     // fadeout info-overlay labels
                     $this.off();
                     var container = $this.closest(".info-container");
-                    container.find(".info-content").contents().unwrap();
                     container.contents().unwrap();
-                    $this.closest(".info-overlay").remove();
+                    $this.remove();
                 });
             }, (200 * ++count) + 5000);
 
