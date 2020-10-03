@@ -50,8 +50,8 @@ under the License.
     <field-type-def type="long-varchar" sql-type="Char(255)" java-type="String"/>
     <field-type-def type="very-long" sql-type="Memo" java-type="String"/>
 
-    <field-type-def type="comment" sql-type="Memo" java-type="String"/>
-    <field-type-def type="description" sql-type="Memo" java-type="String"/>
+    <field-type-def type="comment" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="description" sql-type="Char(255)" java-type="String"/>
     <field-type-def type="name" sql-type="Char(100)" java-type="String"/>
     <field-type-def type="value" sql-type="Char(255)" java-type="String"/>
 
