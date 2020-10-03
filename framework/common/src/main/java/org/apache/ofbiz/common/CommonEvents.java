@@ -451,8 +451,14 @@ public class CommonEvents {
         return "success";
     }
 
+    /**
+     * Open the source file. Only when widget.dev.namedBorder=SOURCE
+     * @param request
+     * @param response
+     * @return
+     */
     public static String openSourceFile(HttpServletRequest request, HttpServletResponse response) {
-        ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderEnabled();
+        ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderType();
         if (namedBorderType == ModelWidget.NamedBorderType.SOURCE) {
             String sourceLocation = request.getParameter("sourceLocation");
             if (UtilValidate.isNotEmpty(sourceLocation) && sourceLocation.startsWith("component:")) {

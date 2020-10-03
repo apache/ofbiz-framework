@@ -171,7 +171,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 boolean insertWidgetNamedBorder = false;
                 NamedBorderType namedBorderType = null;
                 if (!location.endsWith(".fo.ftl")) {
-                    namedBorderType = ModelWidget.widgetNamedBorderEnabled();
+                    namedBorderType = ModelWidget.widgetNamedBorderType();
                     if (namedBorderType != NamedBorderType.NONE) {
                         insertWidgetNamedBorder = true;
                     }
