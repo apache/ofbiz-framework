@@ -52,7 +52,6 @@ public class AuthenticationComparator implements Comparator<Authenticator> {
      * any comparator that violates this condition should clearly indicate
      * this fact.  The recommended language is "Note: this comparator
      * imposes orderings that are inconsistent with equals."
-     *
      * @param a1 the first object to be compared.
      * @param a2 the second object to be compared.
      * @return a negative integer, zero, or a positive integer as the

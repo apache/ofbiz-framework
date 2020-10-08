@@ -23,11 +23,11 @@ import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
-contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom")
+contentAssocDataResourceViewFrom = makeValue("ContentAssocDataResourceViewFrom")
 
 contentId = context.contentId
 
-contentAssocPK = delegator.makeValue("ContentAssoc")
+contentAssocPK = makeValue("ContentAssoc")
 contentAssocPK.setAllFields(context, false, "ca", new Boolean(true))
 logInfo("in cmseditaddprep, contentAssocPK:" + contentAssocPK)
 

@@ -42,8 +42,8 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
     private static final String MODULE = AbstractJmsListener.class.getName();
 
-    protected LocalDispatcher dispatcher;
-    protected boolean isConnected = false;
+    private LocalDispatcher dispatcher;
+    private boolean isConnected = false;
 
     /**
      * Initializes the LocalDispatcher for this service listener.
@@ -73,9 +73,12 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
             Object o = XmlSerializer.deserialize(xmlContext, dispatcher.getDelegator());
 
-            if (Debug.verboseOn()) Debug.logVerbose("De-Serialized Context --> " + o, MODULE);
-            if (ObjectType.instanceOf(o, "java.util.Map"))
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("De-Serialized Context --> " + o, MODULE);
+            }
+            if (ObjectType.instanceOf(o, "java.util.Map")) {
                 context = UtilGenerics.cast(o);
+            }
         } catch (JMSException je) {
             Debug.logError(je, "Problems reading message.", MODULE);
         } catch (Exception e) {
@@ -84,7 +87,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
         try {
             ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
-            if (!model.export) {
+            if (!model.isExport()) {
                 Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
                 return null;
             }
@@ -92,7 +95,9 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
             Debug.logError(e, "Unable to get ModelService for service : " + serviceName, MODULE);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Running service: " + serviceName, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Running service: " + serviceName, MODULE);
+        }
 
         Map<String, Object> result = null;
         if (context != null) {
@@ -113,7 +118,9 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     public void onMessage(Message message) {
         MapMessage mapMessage = null;
 
-        if (Debug.verboseOn()) Debug.logVerbose("JMS Message Received --> " + message, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("JMS Message Received --> " + message, MODULE);
+        }
 
         if (message instanceof MapMessage) {
             mapMessage = (MapMessage) message;

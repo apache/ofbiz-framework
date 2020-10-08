@@ -34,8 +34,14 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class OfbizCatalogUrlTransform implements TemplateTransformModel {
-    public final static String MODULE = OfbizCatalogUrlTransform.class.getName();
+    private static final String MODULE = OfbizCatalogUrlTransform.class.getName();
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {

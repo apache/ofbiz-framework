@@ -28,14 +28,35 @@ import org.w3c.dom.Element;
 
 @SuppressWarnings("serial")
 public abstract class Finder implements Serializable {
-    protected FlexibleStringExpander entityNameExdr;
-    protected FlexibleStringExpander useCacheStrExdr;
+    private FlexibleStringExpander entityNameExdr;
+
+    /**
+     * Gets entity name exdr.
+     * @return the entity name exdr
+     */
+    public FlexibleStringExpander getEntityNameExdr() {
+        return entityNameExdr;
+    }
+
+    private FlexibleStringExpander useCacheStrExdr;
+
+    /**
+     * Gets use cache str exdr.
+     * @return the use cache str exdr
+     */
+    public FlexibleStringExpander getUseCacheStrExdr() {
+        return useCacheStrExdr;
+    }
 
     protected Finder(Element element) {
         this.entityNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         this.useCacheStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
     }
 
+    /**
+     * Gets entity name.
+     * @return the entity name
+     */
     public String getEntityName() {
         String entName = this.entityNameExdr.getOriginal();
         // if there is expansion syntax
@@ -45,6 +66,10 @@ public abstract class Finder implements Serializable {
         return entName;
     }
 
+    /**
+     * Sets entity name.
+     * @param entityName the entity name
+     */
     public void setEntityName(String entityName) {
         this.entityNameExdr = FlexibleStringExpander.getInstance(entityName);
     }

@@ -32,13 +32,13 @@ import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
  */
 public interface TransactionFactory {
 
-    public TransactionManager getTransactionManager();
+    TransactionManager getTransactionManager();
 
-    public UserTransaction getUserTransaction();
+    UserTransaction getUserTransaction();
 
-    public String getTxMgrName();
+    String getTxMgrName();
 
-    public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException;
+    Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException;
 
-    public void shutdown();
+    void shutdown();
 }

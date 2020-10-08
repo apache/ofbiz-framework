@@ -26,7 +26,16 @@ import java.net.URL;
  */
 public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
 
-    protected ArtifactInfoFactory aif;
+    private ArtifactInfoFactory aif;
+
+    /**
+     * Gets aif.
+     * @return the aif
+     */
+    public ArtifactInfoFactory getAif() {
+        return aif;
+    }
+
     private String fullName = null;
 
     public ArtifactInfoBase(ArtifactInfoFactory aif) {
@@ -54,15 +63,15 @@ public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
         }
     }
 
-    abstract public String getDisplayName();
+    public abstract String getDisplayName();
 
-    abstract public String getDisplayType();
+    public abstract String getDisplayType();
 
-    abstract public URL getLocationURL() throws MalformedURLException;
+    public abstract URL getLocationURL() throws MalformedURLException;
 
-    abstract public String getType();
+    public abstract String getType();
 
-    abstract public String getUniqueId();
+    public abstract String getUniqueId();
 
     @Override
     public int hashCode() {

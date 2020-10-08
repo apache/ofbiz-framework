@@ -68,14 +68,11 @@ public class ModelTree extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
     private static final String MODULE = ModelTree.class.getName();
@@ -84,9 +81,9 @@ public class ModelTree extends ModelWidget {
     private final String defaultRenderStyle;
     private final FlexibleStringExpander defaultWrapStyleExdr;
     private final FlexibleStringExpander expandCollapseRequestExdr;
-    protected final boolean forceChildCheck;
+    private final boolean forceChildCheck;
     private final String location;
-    protected final Map<String, ModelNode> nodeMap;
+    private final Map<String, ModelNode> nodeMap;
     private final int openDepth;
     private final int postTrailOpenDepth;
     private final String rootNodeName;
@@ -132,7 +129,7 @@ public class ModelTree extends ModelWidget {
         }
         this.postTrailOpenDepth = postTrailOpenDepth;
         List<? extends Element> nodeElements = UtilXml.childElementList(treeElement, "node");
-        if (nodeElements.size() == 0) {
+        if (nodeElements.isEmpty()) {
             throw new IllegalArgumentException("No node elements found for the tree definition with name: " + getName());
         }
         Map<String, ModelNode> nodeMap = new HashMap<>();
@@ -154,10 +151,19 @@ public class ModelTree extends ModelWidget {
         return location + "#" + getName();
     }
 
+    /**
+     * Gets default entity name.
+     * @return the default entity name
+     */
     public String getDefaultEntityName() {
         return this.defaultEntityName;
     }
 
+    /**
+     * Gets default pk name.
+     * @param context the context
+     * @return the default pk name
+     */
     public String getDefaultPkName(Map<String, Object> context) {
         ModelEntity modelEntity = WidgetWorker.getDelegator(context).getModelEntity(this.defaultEntityName);
         if (modelEntity.getPksSize() == 1) {
@@ -167,6 +173,11 @@ public class ModelTree extends ModelWidget {
         return null;
     }
 
+    /**
+     * Gets expand collapse request.
+     * @param context the context
+     * @return the expand collapse request
+     */
     public String getExpandCollapseRequest(Map<String, Object> context) {
         String expColReq = this.expandCollapseRequestExdr.expandString(context);
         if (UtilValidate.isEmpty(expColReq)) {
@@ -197,33 +208,58 @@ public class ModelTree extends ModelWidget {
         return expColReq;
     }
 
+    /**
+     * Gets open depth.
+     * @return the open depth
+     */
     public int getOpenDepth() {
         return openDepth;
     }
 
+    /**
+     * Gets post trail open depth.
+     * @return the post trail open depth
+     */
     public int getPostTrailOpenDepth() {
         return postTrailOpenDepth;
     }
 
+    /**
+     * Gets render style.
+     * @return the render style
+     */
     public String getRenderStyle() {
         return this.defaultRenderStyle;
     }
 
+    /**
+     * Gets root node name.
+     * @return the root node name
+     */
     public String getRootNodeName() {
         return rootNodeName;
     }
 
+    /**
+     * Gets trail name.
+     * @param context the context
+     * @return the trail name
+     */
     public String getTrailName(Map<String, Object> context) {
         return this.trailNameExdr.expandString(context);
     }
 
+    /**
+     * Gets wrap style.
+     * @param context the context
+     * @return the wrap style
+     */
     public String getWrapStyle(Map<String, Object> context) {
         return this.defaultWrapStyleExdr.expandString(context);
     }
 
     /**
      * Renders this model.
-     *
      * @param writer
      * @param context
      * @param treeStringRenderer
@@ -261,37 +297,64 @@ public class ModelTree extends ModelWidget {
 
     }
 
+    /**
+     * Gets default render style.
+     * @return the default render style
+     */
     public String getDefaultRenderStyle() {
         return defaultRenderStyle;
     }
 
+    /**
+     * Gets default wrap style exdr.
+     * @return the default wrap style exdr
+     */
     public FlexibleStringExpander getDefaultWrapStyleExdr() {
         return defaultWrapStyleExdr;
     }
 
+    /**
+     * Gets expand collapse request exdr.
+     * @return the expand collapse request exdr
+     */
     public FlexibleStringExpander getExpandCollapseRequestExdr() {
         return expandCollapseRequestExdr;
     }
 
+    /**
+     * Gets force child check.
+     * @return the force child check
+     */
     public boolean getForceChildCheck() {
         return forceChildCheck;
     }
 
+    /**
+     * Gets location.
+     * @return the location
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Gets node map.
+     * @return the node map
+     */
     public Map<String, ModelNode> getNodeMap() {
         return nodeMap;
     }
 
+    /**
+     * Gets trail name exdr.
+     * @return the trail name exdr
+     */
     public FlexibleStringExpander getTrailNameExdr() {
         return trailNameExdr;
     }
 
     /**
      * Models the &lt;node&gt; element.
-     *
      * @see <code>widget-tree.xsd</code>
      */
     public static class ModelNode extends ModelWidget {
@@ -400,7 +463,7 @@ public class ModelTree extends ModelWidget {
                     try (EntityListIterator eli = (EntityListIterator) dataIter) {
                         Map<String, Object> val = null;
                         while ((val = eli.next()) != null) {
-                            Object[] arr = { node, val };
+                            Object[] arr = {node, val };
                             subNodeValues.add(arr);
                         }
                     } catch (GenericEntityException e) {
@@ -410,7 +473,7 @@ public class ModelTree extends ModelWidget {
                 } else if (dataIter != null) {
                     while (dataIter.hasNext()) {
                         Map<String, ? extends Object> val = dataIter.next();
-                        Object[] arr = { node, val };
+                        Object[] arr = {node, val };
                         subNodeValues.add(arr);
                     }
                 }
@@ -418,6 +481,10 @@ public class ModelTree extends ModelWidget {
             return subNodeValues;
         }
 
+        /**
+         * Gets entity name.
+         * @return the entity name
+         */
         public String getEntityName() {
             if (!this.entityName.isEmpty()) {
                 return this.entityName;
@@ -425,18 +492,35 @@ public class ModelTree extends ModelWidget {
             return this.modelTree.getDefaultEntityName();
         }
 
+        /**
+         * Gets entry name.
+         * @return the entry name
+         */
         public String getEntryName() {
             return this.entryName;
         }
 
+        /**
+         * Gets expand collapse style.
+         * @return the expand collapse style
+         */
         public String getExpandCollapseStyle() {
             return expandCollapseStyle;
         }
 
+        /**
+         * Gets model tree.
+         * @return the model tree
+         */
         public ModelTree getModelTree() {
             return this.modelTree;
         }
 
+        /**
+         * Gets pk name.
+         * @param context the context
+         * @return the pk name
+         */
         public String getPkName(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.pkName)) {
                 return this.pkName;
@@ -444,6 +528,10 @@ public class ModelTree extends ModelWidget {
             return this.modelTree.getDefaultPkName(context);
         }
 
+        /**
+         * Gets render style.
+         * @return the render style
+         */
         public String getRenderStyle() {
             if (this.renderStyle.isEmpty()) {
                 return modelTree.getRenderStyle();
@@ -451,6 +539,11 @@ public class ModelTree extends ModelWidget {
             return this.renderStyle;
         }
 
+        /**
+         * Gets wrap style.
+         * @param context the context
+         * @return the wrap style
+         */
         public String getWrapStyle(Map<String, Object> context) {
             String val = this.wrapStyleExdr.expandString(context);
             if (val.isEmpty()) {
@@ -459,6 +552,11 @@ public class ModelTree extends ModelWidget {
             return val;
         }
 
+        /**
+         * Has children boolean.
+         * @param context the context
+         * @return the boolean
+         */
         public boolean hasChildren(Map<String, Object> context) {
             List<Object[]> subNodeValues = getChildren(context);
             boolean hasChildren = false;
@@ -492,7 +590,7 @@ public class ModelTree extends ModelWidget {
                 String pkName = this.getPkName(context);
                 String id = null;
                 if (!this.entryName.isEmpty()) {
-                    id = UtilGenerics.<Map<String, String>> cast(context.get(this.entryName)).get(pkName);
+                    id = UtilGenerics.<Map<String, String>>cast(context.get(this.entryName)).get(pkName);
                 } else {
                     id = (String) context.get(pkName);
                 }
@@ -518,6 +616,10 @@ public class ModelTree extends ModelWidget {
             return hasChildren;
         }
 
+        /**
+         * Is expand collapse boolean.
+         * @return the boolean
+         */
         public boolean isExpandCollapse() {
             boolean isExpCollapse = false;
             String rStyle = getRenderStyle();
@@ -527,6 +629,10 @@ public class ModelTree extends ModelWidget {
             return isExpCollapse;
         }
 
+        /**
+         * Is follow trail boolean.
+         * @return the boolean
+         */
         public boolean isFollowTrail() {
             boolean isFollowTrail = false;
             String rStyle = getRenderStyle();
@@ -536,10 +642,23 @@ public class ModelTree extends ModelWidget {
             return isFollowTrail;
         }
 
+        /**
+         * Is root node boolean.
+         * @return the boolean
+         */
         public boolean isRootNode() {
             return getName().equals(modelTree.getRootNodeName());
         }
 
+        /**
+         * Render node string.
+         * @param writer the writer
+         * @param context the context
+         * @param treeStringRenderer the tree string renderer
+         * @param depth the depth
+         * @throws IOException the io exception
+         * @throws GeneralException the general exception
+         */
         public void renderNodeString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer,
                 int depth) throws IOException, GeneralException {
             boolean passed = true;
@@ -557,7 +676,7 @@ public class ModelTree extends ModelWidget {
                 String pkName = getPkName(context);
                 String id = null;
                 if (!this.entryName.isEmpty()) {
-                    id = UtilGenerics.<Map<String, String>> cast(context.get(this.entryName)).get(pkName);
+                    id = UtilGenerics.<Map<String, String>>cast(context.get(this.entryName)).get(pkName);
                 } else {
                     id = (String) context.get(pkName);
                 }
@@ -625,6 +744,12 @@ public class ModelTree extends ModelWidget {
             }
         }
 
+        /**
+         * Show peers boolean.
+         * @param currentDepth the current depth
+         * @param context the context
+         * @return the boolean
+         */
         public boolean showPeers(int currentDepth, Map<String, Object> context) {
             int trailSize = 0;
             List<?> trail = UtilGenerics.cast(context.get("targetNodeTrail"));
@@ -654,49 +779,88 @@ public class ModelTree extends ModelWidget {
             return showPeers;
         }
 
+        /**
+         * Gets actions.
+         * @return the actions
+         */
         public List<ModelAction> getActions() {
             return actions;
         }
 
+        /**
+         * Gets condition.
+         * @return the condition
+         */
         public ModelTreeCondition getCondition() {
             return condition;
         }
 
+        /**
+         * Gets label.
+         * @return the label
+         */
         public Label getLabel() {
             return label;
         }
 
+        /**
+         * Gets link.
+         * @return the link
+         */
         public Link getLink() {
             return link;
         }
 
+        /**
+         * Gets pk name.
+         * @return the pk name
+         */
         public String getPkName() {
             return pkName;
         }
 
+        /**
+         * Gets screen location exdr.
+         * @return the screen location exdr
+         */
         public FlexibleStringExpander getScreenLocationExdr() {
             return screenLocationExdr;
         }
 
+        /**
+         * Gets screen name exdr.
+         * @return the screen name exdr
+         */
         public FlexibleStringExpander getScreenNameExdr() {
             return screenNameExdr;
         }
 
+        /**
+         * Gets share scope.
+         * @return the share scope
+         */
         public String getShareScope() {
             return shareScope;
         }
 
+        /**
+         * Gets sub node list.
+         * @return the sub node list
+         */
         public List<ModelSubNode> getSubNodeList() {
             return subNodeList;
         }
 
+        /**
+         * Gets wrap style exdr.
+         * @return the wrap style exdr
+         */
         public FlexibleStringExpander getWrapStyleExdr() {
             return wrapStyleExdr;
         }
 
         /**
          * Models the &lt;image&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class Image {
@@ -720,34 +884,74 @@ public class ModelTree extends ModelWidget {
                 this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
             }
 
+            /**
+             * Gets border.
+             * @param context the context
+             * @return the border
+             */
             public String getBorder(Map<String, Object> context) {
                 return this.borderExdr.expandString(context);
             }
 
+            /**
+             * Gets height.
+             * @param context the context
+             * @return the height
+             */
             public String getHeight(Map<String, Object> context) {
                 return this.heightExdr.expandString(context);
             }
 
+            /**
+             * Gets id.
+             * @param context the context
+             * @return the id
+             */
             public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
 
+            /**
+             * Gets src.
+             * @param context the context
+             * @return the src
+             */
             public String getSrc(Map<String, Object> context) {
                 return this.srcExdr.expandString(context);
             }
 
+            /**
+             * Gets style.
+             * @param context the context
+             * @return the style
+             */
             public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
 
+            /**
+             * Gets url mode.
+             * @return the url mode
+             */
             public String getUrlMode() {
                 return this.urlMode;
             }
 
+            /**
+             * Gets width.
+             * @param context the context
+             * @return the width
+             */
             public String getWidth(Map<String, Object> context) {
                 return this.widthExdr.expandString(context);
             }
 
+            /**
+             * Render image string.
+             * @param writer the writer
+             * @param context the context
+             * @param treeStringRenderer the tree string renderer
+             */
             public void renderImageString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderImage(writer, context, this);
@@ -761,7 +965,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;label&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static final class Label {
@@ -820,7 +1023,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;link&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class Link {
@@ -874,13 +1076,20 @@ public class ModelTree extends ModelWidget {
 
             // FIXME: Using a widget model in this way is an ugly hack.
             public Link(String style, String target, String text) {
+                this(style, target, text, null);
+            }
+
+            // FIXME: Something to be replaced by a builder class, but allows us to quickly
+            // build Links to represent nodes with parameters in a tree, rather that trying
+            // to encode the parameters early in the link's target.
+            public Link(String style, String target, String text, List<Parameter> parameterList) {
                 this.encode = false;
                 this.fullPath = false;
                 this.idExdr = FlexibleStringExpander.getInstance("");
                 this.image = null;
                 this.linkType = "";
                 this.nameExdr = FlexibleStringExpander.getInstance("");
-                this.parameterList = Collections.emptyList();
+                this.parameterList = parameterList != null ? Collections.unmodifiableList(parameterList) : Collections.emptyList();
                 this.prefixExdr = FlexibleStringExpander.getInstance("");
                 this.secure = false;
                 this.styleExdr = FlexibleStringExpander.getInstance(style);
@@ -891,30 +1100,61 @@ public class ModelTree extends ModelWidget {
                 this.urlMode = "intra-app";
             }
 
+            /**
+             * Gets encode.
+             * @return the encode
+             */
             public boolean getEncode() {
                 return this.encode;
             }
 
+            /**
+             * Gets full path.
+             * @return the full path
+             */
             public boolean getFullPath() {
                 return this.fullPath;
             }
 
+            /**
+             * Gets id.
+             * @param context the context
+             * @return the id
+             */
             public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
 
+            /**
+             * Gets image.
+             * @return the image
+             */
             public Image getImage() {
                 return this.image;
             }
 
+            /**
+             * Gets link type.
+             * @return the link type
+             */
             public String getLinkType() {
                 return this.linkType;
             }
 
+            /**
+             * Gets name.
+             * @param context the context
+             * @return the name
+             */
             public String getName(Map<String, Object> context) {
                 return this.nameExdr.expandString(context);
             }
 
+            /**
+             * Gets parameter map.
+             * @param context the context
+             * @return the parameter map
+             */
             public Map<String, String> getParameterMap(Map<String, Object> context) {
                 Map<String, String> fullParameterMap = new HashMap<>();
                 /* leaving this here... may want to add it at some point like the hyperlink element:
@@ -929,18 +1169,37 @@ public class ModelTree extends ModelWidget {
                 return fullParameterMap;
             }
 
+            /**
+             * Gets prefix.
+             * @param context the context
+             * @return the prefix
+             */
             public String getPrefix(Map<String, Object> context) {
                 return this.prefixExdr.expandString(context);
             }
 
+            /**
+             * Gets secure.
+             * @return the secure
+             */
             public boolean getSecure() {
                 return this.secure;
             }
 
+            /**
+             * Gets style.
+             * @param context the context
+             * @return the style
+             */
             public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
 
+            /**
+             * Gets target.
+             * @param context the context
+             * @return the target
+             */
             public String getTarget(Map<String, Object> context) {
                 UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -950,10 +1209,20 @@ public class ModelTree extends ModelWidget {
                 return this.targetExdr.expandString(context);
             }
 
+            /**
+             * Gets target window.
+             * @param context the context
+             * @return the target window
+             */
             public String getTargetWindow(Map<String, Object> context) {
                 return this.targetWindowExdr.expandString(context);
             }
 
+            /**
+             * Gets text.
+             * @param context the context
+             * @return the text
+             */
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
                 // FIXME: Encoding should be done by the renderer, not by the model.
@@ -964,6 +1233,11 @@ public class ModelTree extends ModelWidget {
                 return text;
             }
 
+            /**
+             * Gets title.
+             * @param context the context
+             * @return the title
+             */
             public String getTitle(Map<String, Object> context) {
                 String title = this.titleExdr.expandString(context);
                 // FIXME: Encoding should be done by the renderer, not by the model.
@@ -974,10 +1248,20 @@ public class ModelTree extends ModelWidget {
                 return title;
             }
 
+            /**
+             * Gets url mode.
+             * @return the url mode
+             */
             public String getUrlMode() {
                 return this.urlMode;
             }
 
+            /**
+             * Render link string.
+             * @param writer the writer
+             * @param context the context
+             * @param treeStringRenderer the tree string renderer
+             */
             public void renderLinkString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLink(writer, context, this);
@@ -988,38 +1272,74 @@ public class ModelTree extends ModelWidget {
                 }
             }
 
+            /**
+             * Gets id exdr.
+             * @return the id exdr
+             */
             public FlexibleStringExpander getIdExdr() {
                 return idExdr;
             }
 
+            /**
+             * Gets name exdr.
+             * @return the name exdr
+             */
             public FlexibleStringExpander getNameExdr() {
                 return nameExdr;
             }
 
+            /**
+             * Gets parameter list.
+             * @return the parameter list
+             */
             public List<Parameter> getParameterList() {
                 return parameterList;
             }
 
+            /**
+             * Gets prefix exdr.
+             * @return the prefix exdr
+             */
             public FlexibleStringExpander getPrefixExdr() {
                 return prefixExdr;
             }
 
+            /**
+             * Gets style exdr.
+             * @return the style exdr
+             */
             public FlexibleStringExpander getStyleExdr() {
                 return styleExdr;
             }
 
+            /**
+             * Gets target exdr.
+             * @return the target exdr
+             */
             public FlexibleStringExpander getTargetExdr() {
                 return targetExdr;
             }
 
+            /**
+             * Gets target window exdr.
+             * @return the target window exdr
+             */
             public FlexibleStringExpander getTargetWindowExdr() {
                 return targetWindowExdr;
             }
 
+            /**
+             * Gets text exdr.
+             * @return the text exdr
+             */
             public FlexibleStringExpander getTextExdr() {
                 return textExdr;
             }
 
+            /**
+             * Gets title exdr.
+             * @return the title exdr
+             */
             public FlexibleStringExpander getTitleExdr() {
                 return titleExdr;
             }
@@ -1027,7 +1347,6 @@ public class ModelTree extends ModelWidget {
 
         /**
          * Models the &lt;sub-node&gt; element.
-         *
          * @see <code>widget-tree.xsd</code>
          */
         public static class ModelSubNode extends ModelWidget {
@@ -1074,27 +1393,54 @@ public class ModelTree extends ModelWidget {
                 visitor.visit(this);
             }
 
+            /**
+             * Gets actions.
+             * @return the actions
+             */
             public List<ModelAction> getActions() {
                 return actions;
             }
 
+            /**
+             * Gets list iterator.
+             * @param context the context
+             * @return the list iterator
+             */
             @SuppressWarnings("unchecked")
             public ListIterator<? extends Map<String, ? extends Object>> getListIterator(Map<String, Object> context) {
                 return (ListIterator<? extends Map<String, ? extends Object>>) context.get(this.iteratorKey);
             }
 
+            /**
+             * Gets node.
+             * @return the node
+             */
             public ModelTree.ModelNode getNode() {
                 return this.rootNode;
             }
 
+            /**
+             * Gets node name.
+             * @param context the context
+             * @return the node name
+             */
             public String getNodeName(Map<String, Object> context) {
                 return this.nodeNameExdr.expandString(context);
             }
 
+            /**
+             * Gets node name exdr.
+             * @return the node name exdr
+             */
             public FlexibleStringExpander getNodeNameExdr() {
                 return nodeNameExdr;
             }
 
+            /**
+             * Sets list iterator.
+             * @param iter the iter
+             * @param context the context
+             */
             public void setListIterator(ListIterator<? extends Map<String, ? extends Object>> iter, Map<String, Object> context) {
                 context.put(this.iteratorKey, iter);
             }

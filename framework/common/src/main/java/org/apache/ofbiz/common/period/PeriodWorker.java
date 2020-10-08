@@ -30,9 +30,9 @@ import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 
 public final class PeriodWorker {
-    public final static String MODULE = PeriodWorker.class.getName();
+    private static final String MODULE = PeriodWorker.class.getName();
 
-    private PeriodWorker() {}
+    private PeriodWorker() { }
 
     /**
      * Method to get a condition that checks that the given fieldName is in a given timePeriod.

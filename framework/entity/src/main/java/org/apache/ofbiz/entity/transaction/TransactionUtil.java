@@ -72,18 +72,23 @@ public final class TransactionUtil implements Status {
     private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<>();
     private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<>();
 
-    private static final boolean debugResources = readDebugResources();
-    public static final Map<Xid, DebugXaResource> debugResMap = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
-    // in order to improve performance allThreadsTransactionBeginStack and allThreadsTransactionBeginStackSave are only maintained when logging level INFO is on
-    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<Long, Exception>());
-    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<Long, List<Exception>>());
+    private static final boolean DEBUG_RESOURCES = readDebugResources();
+    public static final Map<Xid, DebugXaResource> DEBUG_RES_MAP =
+            Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
+    // in order to improve performance allThreadsTransactionBeginStack and allThreadsTransactionBeginStackSave are only
+    // maintained when logging level INFO is on
+    private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<>());
+    private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave =
+            Collections.<Long, List<Exception>>synchronizedMap(new HashMap<>());
 
-    private TransactionUtil () {}
-    public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
+    private TransactionUtil() { }
+    public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException)
+            throws GenericEntityException {
         return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
 
-    public static <V> V doTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
+    public static <V> V doTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException)
+            throws GenericEntityException {
         return inTransaction(callable, ifErrorMessage, timeout, printException).call();
     }
 
@@ -125,7 +130,8 @@ public final class TransactionUtil implements Status {
                 } else if (currentStatus == Status.STATUS_MARKED_ROLLBACK) {
                     Exception e = getTransactionBeginStack();
                     if (e != null) {
-                        Debug.logWarning(e, "Active transaction marked for rollback in place, so no transaction begun; this stack trace shows when the exception began: ", MODULE);
+                        Debug.logWarning(e, "Active transaction marked for rollback in place, so no transaction begun; "
+                                + "this stack trace shows when the exception began: ", MODULE);
                     } else {
                         Debug.logWarning("Active transaction marked for rollback in place, so no transaction begun", MODULE);
                     }
@@ -133,7 +139,8 @@ public final class TransactionUtil implements Status {
                     RollbackOnlyCause roc = getSetRollbackOnlyCause();
                     // do we have a cause? if so, throw special exception
                     if (UtilValidate.isNotEmpty(roc)) {
-                        throw new GenericTransactionException("The current transaction is marked for rollback, not beginning a new transaction and aborting current operation; the rollbackOnly was caused by: " + roc.getCauseMessage(), roc.getCauseThrowable());
+                        throw new GenericTransactionException("The current transaction is marked for rollback, not beginning a new transaction and "
+                                + "aborting current operation; the rollbackOnly was caused by: " + roc.getCauseMessage(), roc.getCauseThrowable());
                     }
                     return false;
                 }
@@ -234,9 +241,12 @@ public final class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int status = ut.getStatus();
-                if (Debug.verboseOn()) Debug.logVerbose("Current status : " + getTransactionStateString(status), MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Current status : " + getTransactionStateString(status), MODULE);
+                }
 
-                if (status != STATUS_NO_TRANSACTION && status != STATUS_COMMITTING && status != STATUS_COMMITTED && status != STATUS_ROLLING_BACK && status != STATUS_ROLLEDBACK) {
+                if (status != STATUS_NO_TRANSACTION && status != STATUS_COMMITTING && status != STATUS_COMMITTED
+                        && status != STATUS_ROLLING_BACK && status != STATUS_ROLLEDBACK) {
                     ut.commit();
 
                     // clear out the stamps to keep it clean
@@ -245,7 +255,9 @@ public final class TransactionUtil implements Status {
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
 
-                    if (Debug.verboseOn()) Debug.logVerbose("Transaction committed", MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Transaction committed", MODULE);
+                    }
                 } else {
                     Debug.logWarning("Not committing transaction, status is " + getStatusString(), MODULE);
                 }
@@ -259,10 +271,12 @@ public final class TransactionUtil implements Status {
                     clearSetRollbackOnlyCause();
 
                     Debug.logError(e, "Rollback Only was set when trying to commit transaction here; throwing rollbackOnly cause exception", MODULE);
-                    throw new GenericTransactionException("Roll back error, could not commit transaction, was rolled back instead because of: " + rollbackOnlyCause.getCauseMessage(), rollbackOnlyCause.getCauseThrowable());
+                    throw new GenericTransactionException("Roll back error, could not commit transaction, was rolled back instead because of: "
+                            + rollbackOnlyCause.getCauseMessage(), rollbackOnlyCause.getCauseThrowable());
                 }
                 Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("Roll back error (with no rollbackOnly cause found), could not commit transaction, was rolled back instead: " + t.toString(), t);
+                throw new GenericTransactionException("Roll back error (with no rollbackOnly cause found), could not commit transaction, "
+                        + "was rolled back instead: " + t.toString(), t);
             } catch (IllegalStateException e) {
                 Throwable t = e.getCause() == null ? e : e.getCause();
                 throw new GenericTransactionException("Could not commit transaction, IllegalStateException exception: " + t.toString(), t);
@@ -355,7 +369,8 @@ public final class TransactionUtil implements Status {
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {
                         if (Debug.warningOn()) {
-                            Debug.logWarning(new Exception(causeMessage), "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
+                            Debug.logWarning(new Exception(causeMessage),
+                                    "Calling transaction setRollbackOnly; this stack trace shows where this is happening:", MODULE);
                         }
                         ut.setRollbackOnly();
                         setSetRollbackOnlyCause(causeMessage, causeThrowable);
@@ -371,7 +386,8 @@ public final class TransactionUtil implements Status {
                 }
             } catch (IllegalStateException e) {
                 Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("Could not set rollback only on transaction, IllegalStateException exception: " + t.toString(), t);
+                throw new GenericTransactionException("Could not set rollback only on transaction, IllegalStateException exception: "
+                        + t.toString(), t);
             } catch (SystemException e) {
                 Throwable t = e.getCause() == null ? e : e.getCause();
                 throw new GenericTransactionException("System error, could not set rollback only on transaction: " + t.toString(), t);
@@ -458,12 +474,13 @@ public final class TransactionUtil implements Status {
             if (tm != null && tm.getStatus() == STATUS_ACTIVE) {
                 Transaction tx = tm.getTransaction();
                 if (tx != null) {
-                     tx.enlistResource(resource);
+                    tx.enlistResource(resource);
                 }
             }
         } catch (RollbackException e) {
             //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-            throw new GenericTransactionException("Roll Back error, could not enlist resource in transaction even though transactions are available, current transaction rolled back", e);
+            throw new GenericTransactionException("Roll Back error, could not enlist resource in transaction even though transactions are "
+                    + "available, current transaction rolled back", e);
         } catch (SystemException e) {
             //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
             throw new GenericTransactionException("System error, could not enlist resource in transaction even though transactions are available", e);
@@ -485,28 +502,28 @@ public final class TransactionUtil implements Status {
          * STATUS_ROLLING_BACK     9
          */
         switch (state) {
-            case Status.STATUS_ACTIVE:
-                return "Transaction Active (" + state + ")";
-            case Status.STATUS_COMMITTED:
-                return "Transaction Committed (" + state + ")";
-            case Status.STATUS_COMMITTING:
-                return "Transaction Committing (" + state + ")";
-            case Status.STATUS_MARKED_ROLLBACK:
-                return "Transaction Marked Rollback (" + state + ")";
-            case Status.STATUS_NO_TRANSACTION:
-                return "No Transaction (" + state + ")";
-            case Status.STATUS_PREPARED:
-                return "Transaction Prepared (" + state + ")";
-            case Status.STATUS_PREPARING:
-                return "Transaction Preparing (" + state + ")";
-            case Status.STATUS_ROLLEDBACK:
-                return "Transaction Rolledback (" + state + ")";
-            case Status.STATUS_ROLLING_BACK:
-                return "Transaction Rolling Back (" + state + ")";
-            case Status.STATUS_UNKNOWN:
-                return "Transaction Status Unknown (" + state + ")";
-            default:
-                return "Not a valid state code (" + state + ")";
+        case Status.STATUS_ACTIVE:
+            return "Transaction Active (" + state + ")";
+        case Status.STATUS_COMMITTED:
+            return "Transaction Committed (" + state + ")";
+        case Status.STATUS_COMMITTING:
+            return "Transaction Committing (" + state + ")";
+        case Status.STATUS_MARKED_ROLLBACK:
+            return "Transaction Marked Rollback (" + state + ")";
+        case Status.STATUS_NO_TRANSACTION:
+            return "No Transaction (" + state + ")";
+        case Status.STATUS_PREPARED:
+            return "Transaction Prepared (" + state + ")";
+        case Status.STATUS_PREPARING:
+            return "Transaction Preparing (" + state + ")";
+        case Status.STATUS_ROLLEDBACK:
+            return "Transaction Rolledback (" + state + ")";
+        case Status.STATUS_ROLLING_BACK:
+            return "Transaction Rolling Back (" + state + ")";
+        case Status.STATUS_UNKNOWN:
+            return "Transaction Status Unknown (" + state + ")";
+        default:
+            return "Not a valid state code (" + state + ")";
         }
     }
 
@@ -520,13 +537,13 @@ public final class TransactionUtil implements Status {
     }
 
     public static boolean debugResources() {
-        return debugResources;
+        return DEBUG_RESOURCES;
     }
 
     public static void logRunningTx() {
         if (debugResources()) {
-            if (UtilValidate.isNotEmpty(debugResMap)) {
-                for (DebugXaResource dxa: debugResMap.values()) {
+            if (UtilValidate.isNotEmpty(DEBUG_RES_MAP)) {
+                for (DebugXaResource dxa: DEBUG_RES_MAP.values()) {
                     dxa.log();
                 }
             }
@@ -547,9 +564,11 @@ public final class TransactionUtil implements Status {
                 }
             }
         } catch (RollbackException e) {
-            throw new GenericTransactionException("Roll Back error, could not register synchronization in transaction even though transactions are available, current transaction rolled back", e);
+            throw new GenericTransactionException("Roll Back error, could not register synchronization in transaction even though "
+                    + "transactions are available, current transaction rolled back", e);
         } catch (SystemException e) {
-            throw new GenericTransactionException("System error, could not register synchronization in transaction even though transactions are available", e);
+            throw new GenericTransactionException("System error, could not register synchronization in transaction even though "
+                    + "transactions are available", e);
         }
     }
 
@@ -565,7 +584,7 @@ public final class TransactionUtil implements Status {
             rollback();
             num++;
         }
-        // no transaction stamps to remember anymore ;-)
+        // no transaction stamps to remember anymore
         clearTransactionStartStampStack();
         return num;
     }
@@ -700,12 +719,15 @@ public final class TransactionUtil implements Status {
             Exception transactionBeginStack = attbsMapEntry.getValue();
             List<Exception> txBeginStackList = allThreadsTransactionBeginStackSave.get(curThreadId);
 
-            Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", MODULE);
+            Debug.logInfo(transactionBeginStack, "===================================================\n================================="
+                    + "==================\n Current tx begin stack for thread [" + curThreadId + "]:", MODULE);
 
             if (UtilValidate.isNotEmpty(txBeginStackList)) {
                 int stackLevel = 0;
                 for (Exception stack : txBeginStackList) {
-                    Debug.logInfo(stack, "===================================================\n===================================================\n Tx begin stack history for thread [" + curThreadId + "] history number [" + stackLevel + "]:", MODULE);
+                    Debug.logInfo(stack, "===================================================\n================================"
+                            + "===================\n Tx begin stack history for thread [" + curThreadId + "] history number ["
+                            + stackLevel + "]:", MODULE);
                     stackLevel++;
                 }
             } else {
@@ -722,7 +744,8 @@ public final class TransactionUtil implements Status {
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
             Exception e = transactionBeginStack.get();
-            Debug.logWarning(e, "In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ", MODULE);
+            Debug.logWarning(e, "In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ",
+                    MODULE);
             Exception e2 = new Exception("Current Stack Trace");
             Debug.logWarning(e2, "In setTransactionBeginStack a stack placeholder was already in place, here is the current location: ", MODULE);
         }
@@ -761,10 +784,10 @@ public final class TransactionUtil implements Status {
     // ROLLBACK ONLY CAUSE
     // =======================================
     private static class RollbackOnlyCause {
-        protected String causeMessage;
-        protected Throwable causeThrowable;
+        private String causeMessage;
+        private Throwable causeThrowable;
 
-        public RollbackOnlyCause(String causeMessage, Throwable causeThrowable) {
+        RollbackOnlyCause(String causeMessage, Throwable causeThrowable) {
             this.causeMessage = causeMessage;
             this.causeThrowable = causeThrowable;
         }
@@ -867,7 +890,7 @@ public final class TransactionUtil implements Status {
     */
     private static void popTransactionStartStamp(Transaction t) {
         Map<Transaction, Timestamp> map = suspendedTxStartStamps.get();
-        if (map.size() > 0) {
+        if (!map.isEmpty()) {
             Timestamp stamp = map.remove(t);
             if (stamp != null) {
                 transactionStartStamp.set(stamp);
@@ -901,7 +924,8 @@ public final class TransactionUtil implements Status {
             try {
                 registerSynchronization(new StampClearSync());
             } catch (GenericTransactionException e) {
-                Debug.logError(e, "Error registering StampClearSync synchronization, stamps will still be reset if begin/commit/rollback are call through TransactionUtil, but not if otherwise", MODULE);
+                Debug.logError(e, "Error registering StampClearSync synchronization, stamps will still be reset if "
+                        + "begin/commit/rollback are call through TransactionUtil, but not if otherwise", MODULE);
             }
         }
         return curStamp;

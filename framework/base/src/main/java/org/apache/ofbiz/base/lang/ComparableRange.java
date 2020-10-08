@@ -22,9 +22,25 @@ package org.apache.ofbiz.base.lang;
 @SourceMonitored
 public class ComparableRange<T extends Comparable<T>> implements Range<T>, Comparable<ComparableRange<T>> {
 
-    protected final T start;
-    protected final T end;
-    protected final boolean isPoint;
+    private final T start;
+    private final T end;
+    private final boolean isPoint;
+
+    /**
+     * Gets start.
+     * @return the start
+     */
+    public T getStart() {
+        return start;
+    }
+
+    /**
+     * Gets end.
+     * @return the end
+     */
+    public T getEnd() {
+        return end;
+    }
 
     public ComparableRange(T start, T end) {
         if (start.getClass() != end.getClass()) {

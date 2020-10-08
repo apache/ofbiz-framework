@@ -34,12 +34,12 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.xml.sax.SAXException;
@@ -79,6 +79,13 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         return result;
     }
 
+    /**
+     * Check arg boolean.
+     * @param args the args
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the boolean
+     */
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
@@ -185,12 +192,10 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
     /**
      * Transform a url according to seo pattern regular expressions.
-     *
      * @param url
      *            String to do the seo transform
      * @param isAnon
      *            boolean to indicate whether it's an anonymous visit.
-     *
      * @return String the transformed url.
      */
     public static String seoUrl(String url, boolean isAnon) {
@@ -248,7 +253,6 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
-     *
      * @param uri
      *            String to reverse transform
      * @return String

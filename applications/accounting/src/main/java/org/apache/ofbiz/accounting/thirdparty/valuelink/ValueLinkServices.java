@@ -51,9 +51,9 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ValueLinkServices {
 
     private static final String MODULE = ValueLinkServices.class.getName();
-    public final static String RESOURCE = "AccountingUiLabels";
-    public final static String RES_ERROR = "AccountingErrorUiLabels";
-    public final static String RES_ORDER = "OrderUiLabels";
+    private static final String RESOURCE = "AccountingUiLabels";
+    private static final String RES_ERROR = "AccountingErrorUiLabels";
+    private static final String RES_ORDER = "OrderUiLabels";
 
     // generate/display new public/private/kek keys
     public static Map<String, Object> createKeys(DispatchContext dctx, Map<String, Object> context) {
@@ -358,7 +358,7 @@ public class ValueLinkServices {
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
                 "AccountingValueLinkPinDisabled", locale));
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("balance", vl.getAmount((String) response.get("currbal")));
         result.put("expireDate", response.get("expiredate"));
@@ -417,7 +417,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -480,7 +480,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -534,7 +534,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("balance", vl.getAmount((String) response.get("currbal")));
         result.put("expireDate", response.get("expiredate"));
@@ -645,7 +645,7 @@ public class ValueLinkServices {
         String responseCode = (String) response.get("responsecode");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
-        result.put("processResult","00".equals(responseCode));
+        result.put("processResult", "00".equals(responseCode));
         result.put("responseCode", responseCode);
         result.put("authCode", response.get("authcode"));
         result.put("previousAmount", vl.getAmount((String) response.get("prevbal")));
@@ -755,7 +755,7 @@ public class ValueLinkServices {
         String paymentConfig = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
-        BigDecimal amount = (BigDecimal) context.get("processAmount");        
+        BigDecimal amount = (BigDecimal) context.get("processAmount");
 
         // make sure we have a currency
         if (currency == null) {
@@ -970,7 +970,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1004,7 +1004,7 @@ public class ValueLinkServices {
         }
         if (paymentConfig == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
-                    "AccountingFinAccountSetting", 
+                    "AccountingFinAccountSetting",
                     UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", "GIFT_CARD"), locale));
         }
 
@@ -1036,7 +1036,7 @@ public class ValueLinkServices {
         try {
             typeFeature = EntityQuery.use(delegator)
                     .from("ProductFeatureAndAppl")
-                    .where("productId", product.get("productId"), 
+                    .where("productId", product.get("productId"),
                             "productFeatureTypeId", "TYPE")
                     .orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
@@ -1046,7 +1046,7 @@ public class ValueLinkServices {
         }
         if (typeFeature == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "AccountingValueLinkFeatureTypeRequested", 
+                    "AccountingValueLinkFeatureTypeRequested",
                     UtilMisc.toMap("productId", product.get("productId")), locale));
         }
 
@@ -1171,7 +1171,7 @@ public class ValueLinkServices {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo",
-                        UtilMisc.toMap("errorString", e.toString() ), locale));
+                        UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
             if (failure) {
@@ -1188,7 +1188,8 @@ public class ValueLinkServices {
             GenericValue productStoreEmail = null;
             String emailType = "PRDS_GC_PURCHASE";
             try {
-                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
+                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId,
+                        "emailType", emailType).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
             }
@@ -1208,11 +1209,7 @@ public class ValueLinkServices {
                 }
 
                 Map<String, Object> emailCtx = new HashMap<>();
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-                }
-                emailCtx.put("bodyScreenUri", bodyScreenLocation);
+                emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
                 emailCtx.put("bodyParameters", answerMap);
                 emailCtx.put("sendTo", sendToEmail);
                 emailCtx.put("contentType", productStoreEmail.get("contentType"));
@@ -1254,7 +1251,7 @@ public class ValueLinkServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",MODULE);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
         }
@@ -1309,8 +1306,8 @@ public class ValueLinkServices {
         GenericValue surveyResponse = null;
         try {
             surveyResponse = EntityQuery.use(delegator).from("SurveyResponse")
-                    .where("orderId", orderId, 
-                            "orderItemSeqId", orderItem.get("orderItemSeqId"), 
+                    .where("orderId", orderId,
+                            "orderItemSeqId", orderItem.get("orderItemSeqId"),
                             "surveyId", surveyId).orderBy("-responseDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
@@ -1403,7 +1400,7 @@ public class ValueLinkServices {
 
             // process the return
             try {
-                Map<String, Object> refundCtx = UtilMisc.<String, Object>toMap("orderItem", orderItem, 
+                Map<String, Object> refundCtx = UtilMisc.<String, Object>toMap("orderItem", orderItem,
                         "partyId", partyId, "userLogin", userLogin);
                 dispatcher.runAsync("refundGcPurchase", refundCtx, null, true, 300, true);
             } catch (GenericServiceException e) {
@@ -1435,7 +1432,8 @@ public class ValueLinkServices {
         GenericValue productStoreEmail = null;
         String emailType = "PRDS_GC_RELOAD";
         try {
-            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
+            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType",
+                    emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
         }
@@ -1445,11 +1443,7 @@ public class ValueLinkServices {
             Map<String, Object> emailCtx = new HashMap<>();
             answerMap.put("locale", locale);
 
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            emailCtx.put("bodyScreenUri", bodyScreenLocation);
+            emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
             emailCtx.put("bodyParameters", answerMap);
             emailCtx.put("sendTo", orh.getOrderEmailString());
             emailCtx.put("contentType", productStoreEmail.get("contentType"));

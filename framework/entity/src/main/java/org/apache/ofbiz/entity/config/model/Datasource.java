@@ -220,7 +220,8 @@ public final class Datasource {
             jdbcElementCount++;
         }
         if (jdbcElementCount > 1) {
-            throw new GenericEntityConfException("<datasource> element is invalid: Only one of <inline-jdbc>, <jndi-jdbc>, <tyrex-dataSource> is allowed" + lineNumberText);
+            throw new GenericEntityConfException("<datasource> element is invalid: Only one of <inline-jdbc>, <jndi-jdbc>, "
+                    + "<tyrex-dataSource> is allowed" + lineNumberText);
         }
     }
 

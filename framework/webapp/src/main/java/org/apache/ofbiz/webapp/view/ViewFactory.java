@@ -43,9 +43,9 @@ public class ViewFactory {
     public ViewFactory(ServletContext context, URL controllerConfigURL) {
         // load all the view handlers
         try {
-            Set<Map.Entry<String,String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
+            Set<Map.Entry<String, String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
             if (handlerEntries != null) {
-                for (Map.Entry<String,String> handlerEntry: handlerEntries) {
+                for (Map.Entry<String, String> handlerEntry: handlerEntries) {
                     ViewHandler handler = (ViewHandler) ObjectType.getInstance(handlerEntry.getValue());
                     handler.setName(handlerEntry.getKey());
                     handler.init(context);
@@ -56,7 +56,7 @@ public class ViewFactory {
             if (!this.handlers.containsKey("default")) {
                 ViewHandler defaultHandler = (ViewHandler) ObjectType.getInstance("org.apache.ofbiz.webapp.view.JspViewHandler");
                 defaultHandler.init(context);
-                this. handlers.put("default", defaultHandler);
+                this.handlers.put("default", defaultHandler);
             }
         } catch (Exception e) {
             Debug.logError(e, MODULE);
@@ -64,6 +64,12 @@ public class ViewFactory {
         }
     }
 
+    /**
+     * Gets view handler.
+     * @param type the type
+     * @return the view handler
+     * @throws ViewHandlerException the view handler exception
+     */
     public ViewHandler getViewHandler(String type) throws ViewHandlerException {
         if (UtilValidate.isEmpty(type)) {
             type = "default";

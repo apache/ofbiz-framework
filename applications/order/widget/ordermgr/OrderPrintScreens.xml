@@ -27,55 +27,72 @@ under the License.
     <screen name="OrderPDF">
         <section>
             <actions>
-                <set field="titleProperty" value="OrderOrder"/>
-                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="OrderOrder" />
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true" />
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true" />
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true" />
 
-                <script location="component://order/groovyScripts/order/OrderView.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderView.groovy" />
+                <script location="component://order/groovyScripts/order/OrderViewWebSecure.groovy" />
             </actions>
             <widgets>
-                <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
-                    <!-- at the top left of every page we put the logo and company information -->
-                    <decorator-section name="topLeft">
-                        <section>
-                            <widgets>
-                                <include-screen name="CompanyLogo" location="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                    <!-- at the top right of every page we put the order information -->
-                    <decorator-section name="topRight">
-                        <section>
-                            <widgets>
-                                <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/order/OrderReportHeaderInfo.fo.ftl"/></xsl-fo>
-                                </platform-specific>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
-                                <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/order/OrderReportContactMechs.fo.ftl"/></xsl-fo>
-                                </platform-specific>
-                                <!-- order items and totals -->
-                                <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/order/OrderReportBody.fo.ftl"/></xsl-fo>
-                                </platform-specific>
-                                <!-- return policies and notes are shown in the last page -->
-                                <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/order/OrderReportConditions.fo.ftl"/></xsl-fo>
-                                </platform-specific>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
+                <section>
+                    <condition>
+                        <if-compare operator="equals" value="true" field="hasPermission" />
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
+                            <!-- at the top left of every page we put the logo and company information -->
+                            <decorator-section name="topLeft">
+                                <section>
+                                    <widgets>
+                                        <include-screen name="CompanyLogo" location="component://order/widget/ordermgr/OrderPrintScreens.xml" />
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <!-- at the top right of every page we put the order information -->
+                            <decorator-section name="topRight">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <xsl-fo>
+                                                <html-template location="component://order/template/order/OrderReportHeaderInfo.fo.ftl" />
+                                            </xsl-fo>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="body">
+                                <section>
+                                    <widgets>
+                                        <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
+                                        <platform-specific>
+                                            <xsl-fo>
+                                                <html-template location="component://order/template/order/OrderReportContactMechs.fo.ftl" />
+                                            </xsl-fo>
+                                        </platform-specific>
+                                        <!-- order items and totals -->
+                                        <platform-specific>
+                                            <xsl-fo>
+                                                <html-template location="component://order/template/order/OrderReportBody.fo.ftl" />
+                                            </xsl-fo>
+                                        </platform-specific>
+                                        <!-- return policies and notes are shown in the last page -->
+                                        <platform-specific>
+                                            <xsl-fo>
+                                                <html-template location="component://order/template/order/OrderReportConditions.fo.ftl" />
+                                            </xsl-fo>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
+    
     <screen name="CompanyLogo">
         <section>
             <actions>

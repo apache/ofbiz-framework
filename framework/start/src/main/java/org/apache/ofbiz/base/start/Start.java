@@ -50,14 +50,13 @@ public final class Start {
     private final AtomicReference<ServerState> serverState = new AtomicReference<>(ServerState.STARTING);
 
     // Singleton, do not change
-    private static final Start instance = new Start();
+    private static final Start INSTANCE = new Start();
     private Start() {
     }
 
     /**
      * main is the entry point to execute high level OFBiz commands
      * such as starting, stopping or checking the status of the server.
-     *
      * @param args The commands for OFBiz
      */
     public static void main(String[] args) {
@@ -72,22 +71,22 @@ public final class Start {
         }
 
         CommandType commandType = CommandType.valueOf(ofbizCommands);
-        if(!commandType.equals(CommandType.HELP)) {
-            instance.config = StartupControlPanel.init(ofbizCommands);
+        if (!commandType.equals(CommandType.HELP)) {
+            INSTANCE.config = StartupControlPanel.init(ofbizCommands);
         }
         switch (commandType) {
         case HELP:
             StartupCommandUtil.printOfbizStartupHelp(System.out);
             break;
         case STATUS:
-            System.out.println("Current Status : " + AdminClient.requestStatus(instance.config));
+            System.out.println("Current Status : " + AdminClient.requestStatus(INSTANCE.config));
             break;
         case SHUTDOWN:
-            System.out.println("Shutting down server : " + AdminClient.requestShutdown(instance.config));
+            System.out.println("Shutting down server : " + AdminClient.requestShutdown(INSTANCE.config));
             break;
         case START:
             try {
-                StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands, instance.loader);
+                StartupControlPanel.start(INSTANCE.config, INSTANCE.serverState, ofbizCommands, INSTANCE.loader);
             } catch (StartupException e) {
                 StartupControlPanel.fullyTerminateSystem(e);
             }
@@ -99,7 +98,7 @@ public final class Start {
      * Returns the <code>Start</code> instance.
      */
     public static Start getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -111,7 +110,6 @@ public final class Start {
 
     /**
      * Updates the server's main configuration.
-     *
      * @param c  the new configuration
      */
     public void setConfig(Config c) {
@@ -150,8 +148,7 @@ public final class Start {
 
         /**
          * Determines the type of command from a list of command-line commands
-         *
-         * @param ofbizCommands  the list of parsed command-line arguments which cannot be {@code null} 
+         * @param ofbizCommands  the list of parsed command-line arguments which cannot be {@code null}
          * @return the corresponding command type.
          */
         static CommandType valueOf(List<StartupCommand> ofbizCommands) {

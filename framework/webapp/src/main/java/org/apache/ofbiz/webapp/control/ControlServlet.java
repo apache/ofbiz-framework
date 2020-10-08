@@ -98,7 +98,6 @@ public class ControlServlet extends HttpServlet {
 
     /**
      * Invokes {@link RequestHandler#doRequest} with error handling.
-     *
      * @param request  an {@link HttpServletRequest} object that contains the request
      *                 the client has made of the servlet
      * @param response an {@link HttpServletResponse} object that contains the response

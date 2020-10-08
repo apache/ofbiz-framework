@@ -103,9 +103,7 @@ public final class MainResourceHandler implements ResourceHandler {
         }
 
         MainResourceHandler other = (MainResourceHandler) obj;
-        return this.loaderName.equals(other.loaderName) &&
-            this.xmlFilename.equals(other.xmlFilename) &&
-                this.location.equals(other.location);
+        return this.loaderName.equals(other.loaderName) && this.xmlFilename.equals(other.xmlFilename) && this.location.equals(other.location);
     }
 
     @Override

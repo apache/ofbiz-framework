@@ -31,7 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;transaction-rollback&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class TransactionRollback extends MethodOperation {
@@ -47,7 +46,8 @@ public final class TransactionRollback extends MethodOperation {
             MiniLangValidate.expressionAttributes(simpleMethod, element, "began-transaction-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"), "beganTransaction"));
+        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"),
+                "beganTransaction"));
     }
 
     @Override
@@ -58,11 +58,12 @@ public final class TransactionRollback extends MethodOperation {
             beganTransaction = beganTransactionBoolean;
         }
         try {
-            TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.simpleMethod.getShortDescription() + "]", null);
+            TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.getSimpleMethod().getShortDescription()
+                    + "]", null);
         } catch (GenericTransactionException e) {
             String errMsg = "Exception thrown while rolling back transaction: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         beganTransactionFma.remove(methodContext.getEnvMap());

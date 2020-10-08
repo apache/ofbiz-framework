@@ -38,7 +38,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;check-permission&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class CheckPermission extends MethodOperation {
@@ -117,7 +116,7 @@ public final class CheckPermission extends MethodOperation {
     }
 
     /**
-     * A &lt;check-permission&gt; element factory. 
+     * A &lt;check-permission&gt; element factory.
      */
     public static final class CheckPermissionFactory implements Factory<CheckPermission> {
         @Override
@@ -131,14 +130,14 @@ public final class CheckPermission extends MethodOperation {
         }
     }
 
-    private class PermissionInfo {
+    final class PermissionInfo {
         private final FlexibleStringExpander actionFse;
         private final FlexibleStringExpander permissionFse;
 
         private PermissionInfo(Element element) throws MiniLangException {
             if (MiniLangValidate.validationOn()) {
-                MiniLangValidate.attributeNames(simpleMethod, element, "permission", "action");
-                MiniLangValidate.requiredAttributes(simpleMethod, element, "permission");
+                MiniLangValidate.attributeNames(getSimpleMethod(), element, "permission", "action");
+                MiniLangValidate.requiredAttributes(getSimpleMethod(), element, "permission");
             }
             this.permissionFse = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
             this.actionFse = FlexibleStringExpander.getInstance(element.getAttribute("action"));

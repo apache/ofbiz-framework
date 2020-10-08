@@ -51,13 +51,13 @@ public class WebDavServlet extends GenericServlet {
 
     private static final String MODULE = WebDavServlet.class.getName();
 
-    protected Delegator delegator = null;
-    protected LocalDispatcher dispatcher = null;
-    protected RequestHandlerFactory handlerFactory = null;
-    protected Security security = null;
+    private Delegator delegator = null;
+    private LocalDispatcher dispatcher = null;
+    private RequestHandlerFactory handlerFactory = null;
+    private Security security = null;
 
     @Override
-    public void init(ServletConfig config) throws ServletException{
+    public void init(ServletConfig config) throws ServletException {
         try {
             super.init(config);
             ServletContext context = this.getServletContext();
@@ -94,9 +94,7 @@ public class WebDavServlet extends GenericServlet {
         RequestHandler handler = this.handlerFactory.getHandler(httpRequest.getMethod());
         try {
             handler.handleRequest(httpRequest, (HttpServletResponse) response, this.getServletContext());
-        } catch (IOException e) {
-            throw e;
-        } catch (ServletException e) {
+        } catch (IOException | ServletException e) {
             throw e;
         } catch (Exception e) {
             throw new ServletException(e);

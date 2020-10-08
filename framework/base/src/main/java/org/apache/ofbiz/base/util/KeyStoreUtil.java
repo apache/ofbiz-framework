@@ -62,20 +62,19 @@ public final class KeyStoreUtil {
 
     private static final String MODULE = KeyStoreUtil.class.getName();
 
-    private KeyStoreUtil () {}
+    private KeyStoreUtil() { }
 
-    public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
+    public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store)
+            throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
         File file = FileUtil.getFile(ks.createResourceHandler().getFullLocation());
-        FileOutputStream out = new FileOutputStream(file);
-        try {
+        try (FileOutputStream out = new FileOutputStream(file)) {
             store.store(out, ks.getPassword().toCharArray());
-        } finally {
-            out.close();
         }
     }
 
-    public static KeyStore getComponentKeyStore(String componentName, String keyStoreName) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static KeyStore getComponentKeyStore(String componentName, String keyStoreName)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
         return getStore(ks.createResourceHandler().getURL(), ks.getPassword(), ks.getType());
     }
@@ -89,11 +88,8 @@ public final class KeyStoreUtil {
             throw new IOException("Invalid keystore type; null");
         }
         KeyStore ks = KeyStore.getInstance(type);
-        InputStream in = url.openStream();
-        try {
+        try (InputStream in = url.openStream()) {
             ks.load(in, password.toCharArray());
-        } finally {
-            in.close();
         }
         return ks;
     }
@@ -118,11 +114,8 @@ public final class KeyStoreUtil {
         }
 
         if (keyFile.exists() && keyFile.canRead()) {
-            InputStream in = new FileInputStream(keyFile);
-            try {
+            try (InputStream in = new FileInputStream(keyFile)) {
                 ks.load(in, password.toCharArray());
-            } finally {
-                in.close();
             }
         } else {
             ks.load(null, "changeit".toCharArray());
@@ -155,7 +148,8 @@ public final class KeyStoreUtil {
         return x500Map;
     }
 
-    public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain) throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
+    public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain)
+            throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         // load the private key
         KeyFactory kf = KeyFactory.getInstance("RSA");
         PKCS8EncodedKeySpec keysp = new PKCS8EncodedKeySpec(keyBytes);
@@ -213,6 +207,7 @@ public final class KeyStoreUtil {
 
         // ignore up to the header
         while ((line = reader.readLine()) != null && !line.equals(header)) {
+            Debug.logVerbose("Ignore up to the header...", MODULE);
         }
 
         // no header found

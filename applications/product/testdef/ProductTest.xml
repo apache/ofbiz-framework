@@ -27,7 +27,7 @@ under the License.
     </test-case>
 
     <test-case case-name="producttest">
-        <simple-method-test location="component://product/minilang/product/test/ProductTest.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductTest"/>
     </test-case>
 
     <test-case case-name="product-tests">

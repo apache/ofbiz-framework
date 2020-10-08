@@ -18,12 +18,13 @@ under the License.
 ////
 = Apache OFBiz Documentation Guidelines
 The Apache OFBiz Project
-Release trunk
 :imagesdir: ./images
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
 :source-highlighter: rouge
 endif::[]
+
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 == Intro
 
@@ -61,20 +62,18 @@ Please see below for details of the proposed configuration:
 
 ----
 The Apache OFBiz Project // <1>
-Release 17.12 // <2>
-:imagesdir: ./images // <3>
-ifdef::backend-pdf[] // <4>
-:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center] // <5>
-:source-highlighter: rouge // <6>
-endif::[] // <7>
+:imagesdir: ./images // <2>
+ifdef::backend-pdf[] // <3>
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center] // <4>
+:source-highlighter: rouge // <5>
+endif::[] // <6>
 ----
 <1> author
-<2> target release, indicates the release for which this documentation is valid
-<3> global definition of the image directory
-<4> begin block of configurations only for pdf rendering
-<5> define the title logo image
-<6> use the Rouge source code highlighter
-<7> end block of configurations only for PDF rendering
+<2> global definition of the image directory
+<3> begin block of configurations only for pdf rendering
+<4> define the title logo image
+<5> use the Rouge source code highlighter
+<6> end block of configurations only for PDF rendering
 
 The following configuration options are set globally in the Gradle build file.
 They are not configured in the document itself and are listed for reference only:
@@ -82,20 +81,22 @@ They are not configured in the document itself and are listed for reference only
 .build.gradle
 ----
 'doctype': 'book', // <1>
-'experimental': '', // <2>
-'icons': 'font', // <3>
-'sectnums': '', // <4>
-'chapter-label': '', // <5>
-'toc': '', // <6>
-'toclevels': '5' // <7>
+'revnumber': 'Trunk', // <2>
+'experimental': '', // <3>
+'icons': 'font', // <4>
+'sectnums': '', // <5>
+'chapter-label': '', // <6>
+'toc': '', // <7>
+'toclevels': '5' // <8>
 ----
 <1> doctype book
-<2> allow experimental features like keyboard shortcuts
-<3> make font awesome icons available
-<4> number chapters and sections automatically
-<5> do not prefix the chapters
-<6> insert a table of contents
-<7> max levels to show in the table of contents
+<2> target release, indicates the release for which the documentation is valid
+<3> allow experimental features like keyboard shortcuts
+<4> make font awesome icons available
+<5> number chapters and sections automatically
+<6> do not prefix the chapters
+<7> insert a table of contents
+<8> max levels to show in the table of contents
 
 === Apache License Header
 
@@ -561,18 +562,31 @@ The result will be different depending on the rendering (PDF, HTML).
 === Using inline icons
 
 You can also add the `:icons: font` directive to the top of your document, which allows you to use the icons
-from http://fortawesome.github.io/Font-Awesome/icons/ directory via a macro.
+from http://fortawesome.github.io/Font-Awesome/icons/ directory via a macro using any of the following icon sets:
+
+* fa - https://fontawesome.com/v4.7.0/icons (default)
+* fas - https://fontawesome.com/icons?d=gallery&s=solid[Font Awesome - Solid]
+* fab - https://fontawesome.com/icons?d=gallery&s=brands[Font Awesome - Brands]
+* far - https://fontawesome.com/icons?d=gallery&s=regular[Font Awesome - Regular]
+* fi - http://zurb.com/playground/foundation-icon-fonts-3[Foundation Icons]
+* pf - https://paymentfont.com/[Payment font]
+
+The fa icon set is deprecated. Please use one of the other three FontAwesome icon sets. +
+when icon is not available in fa icon set but in an other, it's possible to give the correct set.
+
+The generate Document process generate a INFOS message, if icon is available in an other set and it is not given.
 ----
-icon:comment[] This is a comment icon
-icon:file[] And a file icon
-icon:battery-full[] And a battery icon
+icon:comment[set=far] This is a comment icon
+icon:file[set=far] And a file icon
+icon:battery-full[set=fas] And a battery icon
 ----
 
 .The output looks like the following
 [example]
-icon:comment[] This is a comment icon +
-icon:file[] And a file icon +
-icon:battery-full[] And a battery icon
+icon:comment[set=far] This is a comment icon +
+icon:file[set=far] And a file icon +
+icon:battery-full[set=fas] And a battery icon
+
 
 == How to write a...
 

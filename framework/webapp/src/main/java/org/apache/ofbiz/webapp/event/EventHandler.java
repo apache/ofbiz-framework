@@ -34,12 +34,11 @@ public interface EventHandler {
     /**
      * Initializes the handler. Since handlers use the singleton pattern this method should only be called
      * the first time the handler is used.
-     *
      * @param context ServletContext This may be needed by the handler in order to lookup properties or XML
      * definition files for rendering pages or handler options.
      * @throws EventHandlerException
      */
-    public void init(ServletContext context) throws EventHandlerException;
+    void init(ServletContext context) throws EventHandlerException;
 
     /**
      * Invoke the web event
@@ -47,9 +46,8 @@ public interface EventHandler {
      * @param requestMap Contains information about the request-map the event was called from
      * @param request The servlet request object
      * @param response The servlet response object
-     *
      *@return String Result code
      *@throws EventHandlerException
      */
-    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException;
+    String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException;
 }

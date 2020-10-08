@@ -27,7 +27,7 @@ public final class WidgetContentWorker {
     private static final String MODULE = WidgetContentWorker.class.getName();
     private static ContentWorkerInterface contentWorker = null;
 
-    private WidgetContentWorker () {}
+    private WidgetContentWorker() { }
 
     static {
         try {

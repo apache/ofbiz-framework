@@ -63,11 +63,12 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         https = (String) context.getAttribute("https");
     }
     /**
-     * @see org.apache.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.apache.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+     * java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
-    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-
+    public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
+                       HttpServletResponse response) throws ViewHandlerException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
@@ -83,8 +84,10 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
-            Delegator delegator = (Delegator)request.getAttribute("delegator");
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+            }
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                     if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {
@@ -92,7 +95,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                             dataResourceId = content.getString("dataResourceId");
                         }
-                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        }
                     } else {
                         Timestamp fromDate = null;
                         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -108,7 +113,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                         }
                         GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, fromDate);
                         dataResourceId = content.getString("dataResourceId");
-                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                        }
                     }
                 } else {
                     GenericValue contentRevisionItem = EntityQuery.use(delegator)
@@ -121,13 +128,21 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                                 + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                     }
                     dataResourceId = contentRevisionItem.getString("newDataResourceId");
-                    if (Debug.verboseOn()) Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, MODULE);
-                    if (Debug.verboseOn()) Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, MODULE);
-                    if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, MODULE);
+                    }
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId
+                                + ", itemContentId=" + contentId, MODULE);
+                    }
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
+                    }
                 }
             }
             if (UtilValidate.isNotEmpty(dataResourceId)) {
-                GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
+                GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId",
+                        dataResourceId).cache().queryOne();
                 // DEJ20080717: why are we rendering the DataResource directly instead of rendering the content?
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
@@ -143,7 +158,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     }
                 }
                 // setup content type
-                String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" +charset : contentType;
+                String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" + charset : contentType;
                 String fileName = null;
                 if (UtilValidate.isNotEmpty(dataResource.getString("dataResourceName"))) {
                     fileName = dataResource.getString("dataResourceName").replace(" ", "_"); // spaces in filenames can be a problem
@@ -155,12 +170,14 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     isPublic = "N";
                 }
                 // get the permission service required for streaming data; default is always the genericContentPermission
-                String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service", "genericContentPermission", delegator);
+                String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service",
+                        "genericContentPermission", delegator);
 
                 // not public check security
                 if (!"Y".equalsIgnoreCase(isPublic)) {
                     // do security check
-                    Map<String, ? extends Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "VIEW", "contentId", contentId);
+                    Map<String, ? extends Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction",
+                            "VIEW", "contentId", contentId);
                     Map<String, Object> permSvcResp;
                     try {
                         permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);

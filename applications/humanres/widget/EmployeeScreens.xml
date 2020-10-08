@@ -25,6 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
                 <set field="headerItem" value="Employees"/>
+                <set field="helpAnchor" value="_find_employees"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -60,6 +61,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PartyCreateNewEmployee"/>
                 <set field="headerItem" value="Employees"/>
+                <set field="helpAnchor" value="_create_new_employee"/>
                 <set field="dependentForm" value="AddEmployee"/>
                 <set field="paramKey" value="countryGeoId"/>
                 <set field="mainId" value="countryGeoId"/>
@@ -95,6 +97,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartyProfile"/>
                 <set field="tabButtonItem" value="EmployeeProfile"/>
+                <set field="helpAnchor" value="_employee_profile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
@@ -163,6 +166,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartySkill"/>
                 <set field="tabButtonItem" value="EditEmployeeSkills"/>
+                <set field="helpAnchor" value="_employee_skills"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
@@ -185,6 +189,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="HumanResEditPartyQual"/>
                 <set field="headerItem" value="Employee"/>
+                <set field="helpAnchor" value="_employee_qualifications"/>
                 <set field="tabButtonItem" value="EditEmployeeQuals"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyQualCtx.partyId" from-field="parameters.partyId"/>
@@ -206,6 +211,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="EditEmployeeTrainings"/>
+                <set field="helpAnchor" value="_employee_training"/>
             </actions>
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
@@ -284,6 +290,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="HumanResEditEmplLeave"/>
                 <set field="tabButtonItem" value="EditEmployeeLeaves"/>
+                <set field="helpAnchor" value="_employee_leave"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="EmplLeave" value-field="leaveApp"/>
             </actions>
@@ -311,7 +318,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="trainingsList">
         <section>
             <widgets>
@@ -327,6 +334,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="HumanResPayRollHistory"/>
                 <set field="tabButtonItem" value="PayrollHistory"/>
+                <set field="helpAnchor" value="_payroll_history"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="parameters.sortField" from-field="parameters.sortField" default-value="invoiceDate DESC"/>
                 <entity-condition entity-name="InvoiceAndType" list="payroll">

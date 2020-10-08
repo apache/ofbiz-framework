@@ -40,9 +40,9 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
  */
 public final class CommonWorkers {
 
-    public final static String MODULE = CommonWorkers.class.getName();
+    private static final String MODULE = CommonWorkers.class.getName();
 
-    private CommonWorkers() {}
+    private CommonWorkers() { }
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = new LinkedList<>();
@@ -57,7 +57,8 @@ public final class CommonWorkers {
         }
 
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"));
-        List<String> countriesAvailable = StringUtil.split(EntityUtilProperties.getPropertyValue("general", "countries.geo.id.available", delegator), ",");
+        List<String> countriesAvailable = StringUtil.split(EntityUtilProperties.getPropertyValue("general",
+                "countries.geo.id.available", delegator), ",");
         if (UtilValidate.isNotEmpty(countriesAvailable)) {
             // only available countries (we don't verify the list of geoId in countries.geo.id.available)
             exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesAvailable));
@@ -73,7 +74,7 @@ public final class CommonWorkers {
             geoList.add(defaultGeo);
             boolean removeDefaultGeo = UtilValidate.isEmpty(countriesList);
             if (!removeDefaultGeo) {
-                for (GenericValue country  : countriesList) {
+                for (GenericValue country : countriesList) {
                     if (country.get("geoId").equals(defaultGeo.get("geoId"))) {
                         removeDefaultGeo = true;
                     }
@@ -91,7 +92,8 @@ public final class CommonWorkers {
 
     public static List<GenericValue> getStateList(Delegator delegator) {
         List<GenericValue> geoList = new LinkedList<>();
-        EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "TERRITORY"),
+        EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"),
+                EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "TERRITORY"),
                 EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"));
         try {
             geoList = EntityQuery.use(delegator).from("Geo").where(condition).orderBy("geoName").cache(true).queryList();
@@ -147,16 +149,18 @@ public final class CommonWorkers {
             EntityCondition stateProvinceFindCond = EntityCondition.makeCondition(
                     EntityCondition.makeCondition("geoIdFrom", country),
                     EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
-                    EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"),
-                    		EntityCondition.makeCondition("geoTypeId", "TERRITORY"), EntityCondition.makeCondition("geoTypeId", "COUNTY")));
+                    EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"),
+                            EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
+                            EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"),
+                            EntityCondition.makeCondition("geoTypeId", "TERRITORY"),
+                            EntityCondition.makeCondition("geoTypeId", "COUNTY")));
             geoList.addAll(EntityQuery.use(delegator)
                                       .from("GeoAssocAndGeoToWithState")
                                       .where(stateProvinceFindCond)
                                       .orderBy(sortList)
                                       .cache(true)
-                                      .queryList()
-                          );
-        } catch (GenericEntityException e){
+                                      .queryList());
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", MODULE);
         }
 
@@ -166,7 +170,6 @@ public final class CommonWorkers {
     /**
      * A generic method to be used on Type enities, e.g. ProductType.  Recurse to the root level in the type hierarchy
      * and checks if the specified type childType has parentType as its parent somewhere in the hierarchy.
-     *
      * @param delegator       The Delegator object.
      * @param entityName      Name of the Type entity on which check is performed.
      * @param primaryKey      Primary Key field of the Type entity.
@@ -174,11 +177,12 @@ public final class CommonWorkers {
      * @param parentTypeField Field in Type entity which stores the parent type.
      * @param parentType      Value of the parent type against which check is performed.
      * @return boolean value based on the check results.
-     *
-     * @deprecated Moved to {@link org.apache.ofbiz.entity.util.EntityTypeUtil#hasParentType(Delegator, String, String, String, String, String) EntityTypeUtil}
+     * @deprecated Moved to {@link org.apache.ofbiz.entity.util.EntityTypeUtil#hasParentType(Delegator, String, String, String, String, String)
+     * EntityTypeUtil}
      */
     @Deprecated
-    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
+    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType,
+                                        String parentTypeField, String parentType) {
         return EntityTypeUtil.hasParentType(delegator, entityName, primaryKey, childType, parentTypeField, parentType);
     }
 }

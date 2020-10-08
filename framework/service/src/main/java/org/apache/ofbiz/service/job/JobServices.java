@@ -111,7 +111,7 @@ public class JobServices {
     }
 
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String sendPool = (String) context.get("poolId");
         Integer daysToKeep = (Integer) context.get("daysToKeep");
         Integer limit = (Integer) context.get("limit");
@@ -121,7 +121,8 @@ public class JobServices {
             if (limit == null) limit = ServiceConfigUtil.getServiceEngine().getThreadPool().getMaxThreads();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceExceptionThrownWhileGettingServiceConfiguration", UtilMisc.toMap("errorString", e), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceExceptionThrownWhileGettingServiceConfiguration",
+                    UtilMisc.toMap("errorString", e), locale));
         }
         Delegator delegator = dctx.getDelegator();
         Timestamp purgeTime = Timestamp.from(Instant.now().minus(Duration.ofDays(daysToKeep)));

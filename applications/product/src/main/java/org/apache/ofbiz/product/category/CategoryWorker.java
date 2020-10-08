@@ -53,7 +53,7 @@ public final class CategoryWorker {
 
     private static final String MODULE = CategoryWorker.class.getName();
 
-    private CategoryWorker () {}
+    private CategoryWorker() { }
 
     public static String getCatalogTopCategory(ServletRequest request, String defaultTopCategory) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -66,17 +66,22 @@ public final class CategoryWorker {
         // if no parameter, try from session
         if (topCatName == null) {
             topCatName = (String) httpRequest.getSession().getAttribute("CATALOG_TOP_CATEGORY");
-            if (topCatName != null)
+            if (topCatName != null) {
                 fromSession = true;
+            }
         }
         // if nothing else, just use a default top category name
-        if (topCatName == null)
+        if (topCatName == null) {
             topCatName = defaultTopCategory;
-        if (topCatName == null)
+        }
+        if (topCatName == null) {
             topCatName = "CATALOG1";
+        }
 
         if (!fromSession) {
-            if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.getCatalogTopCategory] Setting new top category: " + topCatName, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("[CategoryWorker.getCatalogTopCategory] Setting new top category: " + topCatName, MODULE);
+            }
             httpRequest.getSession().setAttribute("CATALOG_TOP_CATEGORY", topCatName);
         }
         return topCatName;
@@ -104,12 +109,15 @@ public final class CategoryWorker {
         Map<String, Object> requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
         String requestId = null;
 
-        requestId = UtilFormatOut.checkNull((String)requestParameters.get("catalog_id"), (String)requestParameters.get("CATALOG_ID"),
-                (String)requestParameters.get("category_id"), (String)requestParameters.get("CATEGORY_ID"));
+        requestId = UtilFormatOut.checkNull((String) requestParameters.get("catalog_id"), (String) requestParameters.get("CATALOG_ID"),
+                (String) requestParameters.get("category_id"), (String) requestParameters.get("CATEGORY_ID"));
 
-        if (requestId.equals(""))
+        if ("".equals(requestId)) {
             return;
-        if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, MODULE);
+        }
+        if (Debug.infoOn()) {
+            Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, MODULE);
+        }
         getRelatedCategories(request, attributeName, requestId, limitView);
     }
 
@@ -120,32 +128,37 @@ public final class CategoryWorker {
     public static void getRelatedCategories(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
         List<GenericValue> categories = getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty);
 
-        if (!categories.isEmpty())  request.setAttribute(attributeName, categories);
+        if (!categories.isEmpty()) request.setAttribute(attributeName, categories);
     }
 
     public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView) {
         return getRelatedCategoriesRet(request, attributeName, parentId, limitView, false);
     }
 
-    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
+    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView,
+                                                             boolean excludeEmpty) {
         return getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty, false);
     }
 
-    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
-      Delegator delegator = (Delegator) request.getAttribute("delegator");
-
-      return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, recursive);
+    public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView,
+                                                             boolean excludeEmpty, boolean recursive) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, recursive);
     }
 
-    public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
+    public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView,
+                                                             boolean excludeEmpty, boolean recursive) {
         List<GenericValue> categories = new LinkedList<>();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, MODULE);
+        }
 
         List<GenericValue> rollups = null;
 
         try {
-            rollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", parentId).orderBy("sequenceNum").cache(true).queryList();
+            rollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", parentId)
+                    .orderBy("sequenceNum").cache(true).queryList();
             if (limitView) {
                 rollups = EntityUtil.filterByDate(rollups, true);
             }
@@ -166,13 +179,15 @@ public final class CategoryWorker {
                         if (!isCategoryEmpty(cv)) {
                             categories.add(cv);
                             if (recursive) {
-                                categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                                categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"),
+                                        limitView, excludeEmpty, recursive));
                             }
                         }
                     } else {
                         categories.add(cv);
                         if (recursive) {
-                            categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                            categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"),
+                                    limitView, excludeEmpty, recursive));
                         }
                     }
                 }
@@ -203,7 +218,8 @@ public final class CategoryWorker {
         Delegator delegator = category.getDelegator();
         long count = 0;
         try {
-            count = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", category.getString("productCategoryId")).queryCount();
+            count = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId",
+                    category.getString("productCategoryId")).queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -215,7 +231,8 @@ public final class CategoryWorker {
         Delegator delegator = category.getDelegator();
         long count = 0;
         try {
-            count = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", category.getString("productCategoryId")).queryCount();
+            count = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId",
+                    category.getString("productCategoryId")).queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -229,7 +246,9 @@ public final class CategoryWorker {
     }
 
     public static void setTrail(ServletRequest request, String currentCategory, String previousCategory) {
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory + " currentCategory=" + currentCategory, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory + " currentCategory=" + currentCategory, MODULE);
+        }
 
         // if there is no current category, just return and do nothing to that the last settings will stay
         if (UtilValidate.isEmpty(currentCategory)) {
@@ -289,7 +308,9 @@ public final class CategoryWorker {
 
         // add the current category to the end of the list
         trail.add(currentCategoryId);
-        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategoryId, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategoryId, MODULE);
+        }
 
         return trail;
     }
@@ -349,11 +370,13 @@ public final class CategoryWorker {
         }
     }
 
-    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId) throws GenericEntityException {
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId)
+            throws GenericEntityException {
         return filterProductsInCategory(delegator, valueObjects, productCategoryId, "productId");
     }
 
-    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId,
+                                                              String productIdFieldName) throws GenericEntityException {
         List<GenericValue> newList = new LinkedList<>();
 
         if (productCategoryId == null) return newList;
@@ -368,7 +391,8 @@ public final class CategoryWorker {
         return newList;
     }
 
-    public static void getCategoryContentWrappers(Map<String, CategoryContentWrapper> catContentWrappers, List<GenericValue> categoryList, HttpServletRequest request) throws GenericEntityException {
+    public static void getCategoryContentWrappers(Map<String, CategoryContentWrapper> catContentWrappers, List<GenericValue> categoryList,
+                                                  HttpServletRequest request) throws GenericEntityException {
         if (catContentWrappers == null || categoryList == null) {
             return;
         }
@@ -386,17 +410,14 @@ public final class CategoryWorker {
             getCategoryContentWrappers(catContentWrappers, subCat, request);
         }
     }
-    
     /**
-     * Returns a complete category trail - can be used for exporting proper category trees. 
-     * This is mostly useful when used in combination with bread-crumbs,  for building a 
+     * Returns a complete category trail - can be used for exporting proper category trees.
+     * This is mostly useful when used in combination with bread-crumbs, for building a
      * faceted index tree, or to export a category tree for migration to another system.
      * Will create the tree from root point to categoryId.
-     * 
      * This method is not meant to be run on every request.
-     * Its best use is to generate the trail every so often and store somewhere 
-     * (a lucene/solr tree, entities, cache or so). 
-     * 
+     * Its best use is to generate the trail every so often and store somewhere
+     * (a lucene/solr tree, entities, cache or so).
      * @param dctx The DispatchContext that this service is operating in
      * @param context Map containing the input parameters
      * @return Map organized trail from root point to categoryId.
@@ -414,7 +435,8 @@ public final class CategoryWorker {
                 List<EntityCondition> rolllupConds = new LinkedList<>();
                 rolllupConds.add(EntityCondition.makeCondition("productCategoryId", parentProductCategoryId));
                 rolllupConds.add(EntityUtil.getFilterByDateExpr());
-                List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds).orderBy("sequenceNum").cache(true).queryList();
+                List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds)
+                        .orderBy("sequenceNum").cache(true).queryList();
                 if (UtilValidate.isNotEmpty(productCategoryRollups)) {
                     // add only categories that belong to the top category to trail
                     for (GenericValue productCategoryRollup : productCategoryRollups) {

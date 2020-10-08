@@ -1,0 +1,59 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Party
+
+The Party Manager application is used to manage the parties, i.e any legal entity your company has to deal with.
+
+== Overview
+TODO
+
+== Parties management
+
+=== Help for The Party Find screen.
+The 'Find Party' is the default screen for the Party Manager application. +
+It is used to locate existing parties. +
+Various search criteria can be used, either based on the general party data like name role and type
+but also on the postal address, telephone (Telecom) and other like email address.
+
+If the find button is pressed, a list is presented containing several columns.
+
+The first column shows the Party ID.
+This is a string that uniquely identifies the Party in the system.
+
+The second column shows the Party logins. +
+This is the string the user enters when logging into the system. +
+A single Party can have more than one login.
+In this case the "(many)" string is showed in place of the login string.
+The complete list of user logins can still be seen in the Party details screen.
+If a Party has no user login associated the string "(none)" is shown.
+
+In the "Main Roletype" column the role is listed which is a child of the "Main role"" roletype.
+It is currently set to "Organisation" and "SFA Role". The later to be prepared to use he party in he SFA component.
+See the <<_marketing,marketing application>> for more information
+
+
+== Communications
+
+== Visits
+
+== Classifications
+
+== Security
+
+== Miscellaneous

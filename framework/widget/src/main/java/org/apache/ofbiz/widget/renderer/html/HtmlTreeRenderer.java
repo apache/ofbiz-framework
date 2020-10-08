@@ -19,6 +19,7 @@
 package org.apache.ofbiz.widget.renderer.html;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -49,10 +50,10 @@ import freemarker.template.TemplateException;
  */
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
-    ScreenStringRenderer screenStringRenderer = null;
+    private ScreenStringRenderer screenStringRenderer = null;
     private static final String MODULE = HtmlTreeRenderer.class.getName();
 
-    public HtmlTreeRenderer() {}
+    public HtmlTreeRenderer() { }
 
     @Override
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
@@ -61,7 +62,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         List<String> currentNodeTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
         if (node.isRootNode()) {
             appendWhitespace(writer);
-            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
+            this.setWidgetCommentsEnabled(ModelWidget.widgetBoundaryCommentsEnabled(context));
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
             writer.append("<ul class=\"basic-tree\">");
         }
@@ -230,8 +231,10 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             HttpServletRequest req = (HttpServletRequest) context.get("request");
             if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
                 if (req != null && res != null) {
-                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
-                        link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
+                    final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
+                            link.getParameterMap(context), link.getPrefix(context), link.getFullPath(),
+                            link.getSecure(), link.getEncode(), req, res);
+                    writer.append(uri.toString());
                 } else if (prefix != null) {
                     writer.append(prefix).append(target);
                 } else {
@@ -322,7 +325,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(src);
                 }
-            } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+            } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
@@ -342,7 +345,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
         VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
         ModelTheme modelTheme = visualTheme.getModelTheme();
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
+        ScreenRenderer screenRenderer = (ScreenRenderer) context.get("screens");
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {

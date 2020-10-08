@@ -27,8 +27,14 @@ public abstract class CacheLine<V> extends ExecutionPool.Pulse {
 
     abstract CacheLine<V> changeLine(boolean useSoftReference, long expireTimeNanos);
     abstract void remove();
+
+    /**
+     * Different expire time boolean.
+     * @param expireTimeNanos the expire time nanos
+     * @return the boolean
+     */
     boolean differentExpireTime(long expireTimeNanos) {
-        return this.expireTimeNanos - loadTimeNanos - expireTimeNanos != 0;
+        return this.getExpireTimeNanos() - getLoadTimeNanos() - expireTimeNanos != 0;
     }
     public abstract V getValue();
 

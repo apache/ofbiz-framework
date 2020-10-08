@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     private final HttpServletResponse response;
     private final VisualTheme visualTheme;
 
-    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
+            throws TemplateException, IOException {
         this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
@@ -211,7 +213,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("width", link.getWidth());
         parameters.put("targetWindow", link.getTargetWindow(context));
         StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
-        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE));
+        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
+                "menuUniqueItemIndex", BigDecimal.ONE));
         if (menuItem.getModelMenu().getExtraIndex(context) != null) {
             uniqueItemName.append("_").append(menuItem.getModelMenu().getExtraIndex(context));
         }
@@ -232,9 +235,11 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         String actionUrl = "";
         StringBuilder targetParameters = new StringBuilder();
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
-            StringBuilder sb = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-            actionUrl = sb.toString();
+            final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
+                    link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                    request, response);
+            actionUrl = actionUri.toString();
+
             targetParameters.append("[");
             for (Map.Entry<String, String> parameter : link.getParameterMap(context).entrySet()) {
                 if (targetParameters.length() > 1) {
@@ -255,9 +260,11 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
-                StringBuilder sb = new StringBuilder();
-                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), "layered-modal".equals(linkType)?null:link.getParameterMap(context), link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-                linkUrl = sb.toString();
+                final URI linkUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
+                        "layered-modal".equals(linkType) ? null : link.getParameterMap(context),
+                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                linkUrl = linkUri.toString();
             }
         }
         parameters.put("linkUrl", linkUrl);
@@ -307,9 +314,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 selectedStyle = "selected";
             }
             if (UtilValidate.isNotEmpty(style)) {
-                style += " " ;
+                style += " ";
             }
-            style += selectedStyle ;
+            style += selectedStyle;
         }
         if (isDisableIfEmpty(menuItem, context)) {
             style = menuItem.getDisabledTitleStyle();

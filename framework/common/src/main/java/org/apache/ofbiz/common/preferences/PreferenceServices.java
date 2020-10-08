@@ -87,7 +87,7 @@ public class PreferenceServices {
             }
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] {e.getMessage() }, locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -127,14 +127,16 @@ public class PreferenceServices {
         Map<String, Object> userPrefMap = null;
         try {
             Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", "_NA_", "userPrefGroupTypeId", userPrefGroupTypeId);
-            userPrefMap = PreferenceWorker.createUserPrefMap(EntityQuery.use(delegator).from("UserPreference").where(fieldMap).cache(true).queryList());
+            userPrefMap = PreferenceWorker.createUserPrefMap(EntityQuery.use(delegator).from("UserPreference").where(fieldMap)
+                    .cache(true).queryList());
             if (userLoginId != null) {
                 fieldMap.put("userLoginId", userLoginId);
-                userPrefMap.putAll(PreferenceWorker.createUserPrefMap(EntityQuery.use(delegator).from("UserPreference").where(fieldMap).cache(true).queryList()));
+                userPrefMap.putAll(PreferenceWorker.createUserPrefMap(EntityQuery.use(delegator).from("UserPreference")
+                        .where(fieldMap).cache(true).queryList()));
             }
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "getPreference.readFailure", new Object[] {e.getMessage() }, locale));
         }
         // for the 'DEFAULT' values find the related values in general properties and if found use those.
         Properties generalProperties = UtilProperties.getProperties("general");
@@ -177,11 +179,12 @@ public class PreferenceServices {
             if (UtilValidate.isNotEmpty(userPrefDataType)) {
                 userPrefValue = ObjectType.simpleTypeOrObjectConvert(userPrefValue, userPrefDataType, null, null, false);
             }
-            GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, userPrefTypeId, userPrefGroupTypeId, userPrefValue));
+            GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, userPrefTypeId,
+                    userPrefGroupTypeId, userPrefValue));
             delegator.createOrStore(rec);
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -207,7 +210,7 @@ public class PreferenceServices {
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -235,12 +238,13 @@ public class PreferenceServices {
 
         try {
             for (Map.Entry<String, Object> mapEntry: userPrefMap.entrySet()) {
-                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, mapEntry.getKey(), userPrefGroupTypeId, mapEntry.getValue()));
+                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, mapEntry.getKey(),
+                        userPrefGroupTypeId, mapEntry.getValue()));
                 delegator.createOrStore(rec);
             }
         } catch (GeneralException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "setPreference.writeFailure", new Object[] {e.getMessage() }, locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -279,7 +283,8 @@ public class PreferenceServices {
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "copyPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "copyPreference.writeFailure", new Object[] {e.getMessage() },
+                    locale));
         }
 
         return ServiceUtil.returnSuccess();

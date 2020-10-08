@@ -25,8 +25,8 @@ if (!facilityId && request.getAttribute("facilityId")) {
 }
 facility = from("Facility").where("facilityId", facilityId).queryOne()
 if (!facility) {
-  facility = delegator.makeValue("Facility")
-  facilityType = delegator.makeValue("FacilityType")
+  facility = makeValue("Facility")
+  facilityType = makeValue("FacilityType")
 } else {
   facilityType = facility.getRelatedOne("FacilityType", false)
 }

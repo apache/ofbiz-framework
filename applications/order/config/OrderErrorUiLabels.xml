@@ -4020,22 +4020,6 @@
         <value xml:lang="zh">安全错误：要运行 createQuoteItem，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
         <value xml:lang="zh-TW">安全錯誤：要運行 createQuoteItem，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
-    <property key="OrderSecurityErrorToRunCreateRequirementFromItemATP">
-        <value xml:lang="ar">خطأ أمني: لتشغيل  createRequirementFromItemATP يجب أن يكون لديك صلاحية ORDERMGR_CREATE أو ORDERMGR_ADMIN</value>
-        <value xml:lang="de">Berechtigungsfehler: Um 'createRequirementFromItemATP' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
-        <value xml:lang="en">Security Error: to run createRequirementFromItemATP you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
-        <value xml:lang="es">Error de seguridad: Para ejecutar createRequirementFromItemATP debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour exécuter createRequirementFromItemATP, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire createRequirementFromItemATP tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="ja">セキュリティエラー: createRequirementFromItemATPの実行には ORDERMGR_CREATE または ORDERMGR_ADMIN 権限が必要です</value>
-        <value xml:lang="pt-BR">Erro de segurança: para rodar createRequirementFromItemATP você deve ter a permissão ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
-        <value xml:lang="ro">Eroare Siguranta : pentru executarea createRequirementFromItemATP tu trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для выполнения createRequirementFromItemATP у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
-        <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createRequirementFromItemATP คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
-        <value xml:lang="vi">Lỗi phân quyền: để thực thi dịch vụ createRequirementFromItemATP bạn cần có quyền ORDERMGR_CREATE hoặc ORDERMGR_ADMIN</value>
-        <value xml:lang="zh">安全错误：要运行 createRequirementFromItemATP，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
-        <value xml:lang="zh-TW">安全錯誤：要運行 createRequirementFromItemATP，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
-    </property>
     <property key="OrderSecurityErrorToRunCreateReturnHeader">
         <value xml:lang="ar">خطأ أمني: لتشغيل  createReturnHeader يجب أن يكون لديك صلاحية ORDERMGR_CREATE أو ORDERMGR_ADMIN</value>
         <value xml:lang="de">Berechtigungsfehler: Um 'createReturnHeader' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>

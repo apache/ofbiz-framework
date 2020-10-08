@@ -39,18 +39,24 @@ import org.apache.ofbiz.widget.model.ModelMenuItem;
 
 public class HtmlMenuRendererImage extends HtmlMenuRenderer {
 
-    protected HtmlMenuRendererImage() {}
+    protected HtmlMenuRendererImage() { }
 
     public HtmlMenuRendererImage(HttpServletRequest request, HttpServletResponse response) {
         super(request, response);
     }
 
-
+    /**
+     * Build div str string.
+     * @param menuItem the menu item
+     * @param context  the context
+     * @return the string
+     * @throws IOException the io exception
+     */
     public String buildDivStr(ModelMenuItem menuItem, Map<String, Object> context) throws IOException {
 
         StringBuilder imgStr = new StringBuilder("<img src=\"");
         String contentId = menuItem.getAssociatedContentId(context);
-        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator) getRequest().getAttribute("delegator");
         GenericValue webSitePublishPoint = null;
         try {
             if (WidgetContentWorker.getContentWorker() != null) {

@@ -47,7 +47,7 @@ public final class WebDavUtil {
     private static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
     private static final String RFC1123_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
 
-    private WebDavUtil() {}
+    private WebDavUtil() { }
 
     public static String formatDate(String formatString, Date date) {
         DateFormat df = new SimpleDateFormat(formatString);
@@ -69,7 +69,6 @@ public final class WebDavUtil {
      * checks for the request parameters <code>USERNAME</code> and <code>PASSWORD</code>. If
      * those aren't found, then the request is checked for the HTTP Authorization header.
      * Currently, only Basic authorization is supported.</p>
-     *
      * @param request The WebDAV request
      * @return A <code>Map</code> containing <code>login.username</code> and
      * <code>login.password</code> elements.
@@ -81,7 +80,9 @@ public final class WebDavUtil {
             String credentials = request.getHeader("Authorization");
             if (credentials != null && credentials.startsWith("Basic ")) {
                 credentials = Arrays.toString(Base64.getMimeDecoder().decode(credentials.replace("Basic ", "").getBytes(StandardCharsets.UTF_8)));
-                if (Debug.verboseOn()) Debug.logVerbose("Found HTTP Basic credentials", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Found HTTP Basic credentials", MODULE);
+                }
                 String[] parts = credentials.split(":");
                 if (parts.length < 2) {
                     return null;

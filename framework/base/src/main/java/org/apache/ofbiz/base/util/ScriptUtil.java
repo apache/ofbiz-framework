@@ -46,7 +46,6 @@ import javax.script.SimpleScriptContext;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.ScriptHelper;
 import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
@@ -69,7 +68,7 @@ public final class ScriptUtil {
     public static final String RESULT_KEY = "result";
     /** The <code>ScriptHelper</code> key. */
     public static final String SCRIPT_HELPER_KEY = "ofbiz";
-    private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
+    private static final UtilCache<String, CompiledScript> PARSED_SCRIPTS = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
     /** A set of script names - derived from the JSR-223 scripting engines. */
     public static final Set<String> SCRIPT_NAMES;
@@ -87,14 +86,14 @@ public final class ScriptUtil {
                 Debug.logInfo("  Version: " + engine.getEngineVersion(), MODULE);
                 Debug.logInfo("  Language: " + engine.getLanguageName(), MODULE);
                 List<String> extensions = engine.getExtensions();
-                if (extensions.size() > 0) {
+                if (!extensions.isEmpty()) {
                     Debug.logInfo("  Engine supports the following extensions:", MODULE);
                     for (String e : extensions) {
                         Debug.logInfo("    " + e, MODULE);
                     }
                 }
                 List<String> shortNames = engine.getNames();
-                if (shortNames.size() > 0) {
+                if (!shortNames.isEmpty()) {
                     Debug.logInfo("  Engine has the following short names:", MODULE);
                     for (String name : engine.getNames()) {
                         writableScriptNames.add(name);
@@ -108,7 +107,6 @@ public final class ScriptUtil {
 
     /**
      * Returns a compiled script.
-     *
      * @param filePath Script path and file name.
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
      * @throws IllegalArgumentException
@@ -117,7 +115,7 @@ public final class ScriptUtil {
      */
     public static CompiledScript compileScriptFile(String filePath) throws ScriptException, IOException {
         Assert.notNull("filePath", filePath);
-        CompiledScript script = parsedScripts.get(filePath);
+        CompiledScript script = PARSED_SCRIPTS.get(filePath);
         if (script == null) {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByExtension(getFileExtension(filePath));
@@ -138,7 +136,7 @@ public final class ScriptUtil {
                 }
             }
             if (script != null) {
-                parsedScripts.putIfAbsent(filePath, script);
+                PARSED_SCRIPTS.putIfAbsent(filePath, script);
             }
         }
         return script;
@@ -146,7 +144,6 @@ public final class ScriptUtil {
 
     /**
      * Returns a compiled script.
-     *
      * @param language
      * @param script
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
@@ -156,7 +153,7 @@ public final class ScriptUtil {
     public static CompiledScript compileScriptString(String language, String script) throws ScriptException {
         Assert.notNull("language", language, "script", script);
         String cacheKey = language.concat("://").concat(script);
-        CompiledScript compiledScript = parsedScripts.get(cacheKey);
+        CompiledScript compiledScript = PARSED_SCRIPTS.get(cacheKey);
         if (compiledScript == null) {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName(language);
@@ -175,7 +172,7 @@ public final class ScriptUtil {
                 }
             }
             if (compiledScript != null) {
-                parsedScripts.putIfAbsent(cacheKey, compiledScript);
+                PARSED_SCRIPTS.putIfAbsent(cacheKey, compiledScript);
             }
         }
         return compiledScript;
@@ -186,7 +183,6 @@ public final class ScriptUtil {
      * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
      * each thread must create its own <code>ScriptContext</code> and pass it to the
      * <code>CompiledScript</code> eval method.</p>
-     *
      * @param context
      * @return
      */
@@ -208,7 +204,6 @@ public final class ScriptUtil {
      * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
      * each thread must create its own <code>ScriptContext</code> and pass it to the
      * <code>CompiledScript</code> eval method.</p>
-     *
      * @param context
      * @param protectedKeys
      * @return
@@ -227,7 +222,6 @@ public final class ScriptUtil {
 
     /**
      * Executes a script <code>String</code> and returns the result.
-     *
      * @param language
      * @param script
      * @param scriptClass
@@ -264,14 +258,14 @@ public final class ScriptUtil {
 
     /**
      * Executes a compiled script and returns the result.
-     *
      * @param script Compiled script.
      * @param functionName Optional function or method to invoke.
      * @param scriptContext Script execution context.
      * @return The script result.
      * @throws IllegalArgumentException
      */
-    public static Object executeScript(CompiledScript script, String functionName, ScriptContext scriptContext, Object[] args) throws ScriptException, NoSuchMethodException {
+    public static Object executeScript(CompiledScript script, String functionName, ScriptContext scriptContext, Object[] args)
+            throws ScriptException, NoSuchMethodException {
         Assert.notNull("script", script, "scriptContext", scriptContext);
         Object result = script.eval(scriptContext);
         if (UtilValidate.isNotEmpty(functionName)) {
@@ -291,7 +285,6 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     *
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param context Script execution context.
@@ -299,12 +292,11 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      */
     public static Object executeScript(String filePath, String functionName, Map<String, Object> context) {
-        return executeScript(filePath, functionName, context, new Object[] { context });
+        return executeScript(filePath, functionName, context, new Object[] {context });
     }
 
     /**
      * Executes the script at the specified location and returns the result.
-     *
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param context Script execution context.
@@ -329,7 +321,6 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     *
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param scriptContext Script execution context.
@@ -340,7 +331,8 @@ public final class ScriptUtil {
      * @throws IOException
      * @throws IllegalArgumentException
      */
-    public static Object executeScript(String filePath, String functionName, ScriptContext scriptContext, Object[] args) throws ScriptException, NoSuchMethodException, IOException {
+    public static Object executeScript(String filePath, String functionName, ScriptContext scriptContext, Object[] args)
+            throws ScriptException, NoSuchMethodException, IOException {
         Assert.notNull("filePath", filePath, "scriptContext", scriptContext);
         scriptContext.setAttribute(ScriptEngine.FILENAME, filePath, ScriptContext.ENGINE_SCOPE);
         if (functionName == null) {
@@ -399,7 +391,7 @@ public final class ScriptUtil {
         return scriptClass;
     }
 
-    private ScriptUtil() {}
+    private ScriptUtil() { }
 
     private static final class ProtectedBindings implements Bindings {
         private final Map<String, Object> bindings;

@@ -33,7 +33,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;request-parameters-to-list&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class RequestParametersToList extends MethodOperation {
@@ -42,7 +41,7 @@ public final class RequestParametersToList extends MethodOperation {
     private static boolean autoCorrect(Element element) {
         // Correct deprecated list-name attribute
         String listAttr = element.getAttribute("list-name");
-        if (listAttr.length() > 0) {
+        if (!listAttr.isEmpty()) {
             element.setAttribute("list", listAttr);
             element.removeAttribute("list-name");
             return true;

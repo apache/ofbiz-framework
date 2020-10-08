@@ -31,7 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;create-value&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CreateValue extends MethodOperation {
@@ -59,11 +58,12 @@ public final class CreateValue extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        SimpleMethod simpleMethod = getSimpleMethod();
         GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
             String errMsg = "In <create-value> the value \"" + valueFma + "\" was not found, not creating";
             Debug.logWarning(errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         try {
@@ -73,9 +73,9 @@ public final class CreateValue extends MethodOperation {
                 value.getDelegator().create(value);
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Exception thrown while creating the \"" + valueFma +"\" GenericValue: " + e.getMessage();
+            String errMsg = "Exception thrown while creating the \"" + valueFma + "\" GenericValue: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

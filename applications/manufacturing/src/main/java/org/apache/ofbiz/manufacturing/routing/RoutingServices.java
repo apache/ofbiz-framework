@@ -70,7 +70,8 @@ public class RoutingServices {
         try {
             task = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", taskId).queryOne();
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingRoutingErrorFindingTask", UtilMisc.toMap("taskId", taskId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingRoutingErrorFindingTask",
+                    UtilMisc.toMap("taskId", taskId), locale));
         }
         // FIXME: the ProductionRun.getEstimatedTaskTime(...) method will be removed and
         // its logic will be implemented inside this method.

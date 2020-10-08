@@ -31,10 +31,10 @@
     </test-case>
 
     <test-case case-name="auto-accounting-transaction-tests-sales">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTestsSales.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgTransTestsSales"/>
     </test-case>
     <test-case case-name="auto-accounting-transaction-tests-purchase">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgTransTestsPurchase"/>
     </test-case>
     <test-case case-name="auto-accounting-admin-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoAcctgAdminTests"/>

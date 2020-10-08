@@ -49,7 +49,7 @@ It's the datasource name. It doesn't need to be associated with a
       GenericDAO dao = GenericDAO.getGenericDAO(new GenericHelperInfo(null, helperName));
       List newEntList = dao.induceModelFromDb(messages);
 
-      if(messages.size() > 0) {
+      if(!messages.isEmpty()) {
 %>
 ERRORS:
 <%

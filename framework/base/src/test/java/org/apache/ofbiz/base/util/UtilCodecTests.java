@@ -71,7 +71,7 @@ public class UtilCodecTests {
                 "In field [>-not-allowed] less-than (<) and greater-than (>) symbols are not allowed.");
         // jleroux: temporarily comments because this test is failing on BuildBot (only) when switching to Gradle
         //checkStringForHtmlStrictNone_test("high-ascii", "fÀ®", "f%C0%AE");
-        // this looks like a bug, namely the extra trailing ;
+        // this looks like a bug, namely the extra trailing;
         // jacopoc: temporarily commented because this test is failing after the upgrade of owasp-esapi
         //checkStringForHtmlStrictNone_test("double-ampersand", "f\";oo", "f%26quot%3boo");
         checkStringForHtmlStrictNoneTest("double-encoding", "%2%353Cscript", "%2%353Cscript",

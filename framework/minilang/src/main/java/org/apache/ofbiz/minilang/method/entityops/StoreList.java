@@ -34,7 +34,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;store-list&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class StoreList extends EntityOperation {
@@ -65,7 +64,7 @@ public final class StoreList extends EntityOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while storing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

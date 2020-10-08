@@ -67,10 +67,10 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
 
     private static final String MODULE = FoFormRenderer.class.getName();
 
-    HttpServletRequest request;
-    HttpServletResponse response;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 
-    public FoFormRenderer() {}
+    public FoFormRenderer() { }
 
     public FoFormRenderer(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.request = request;
@@ -139,14 +139,17 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             if (UtilValidate.isNotEmpty(explicitDescription)) {
                 makeBlockString(writer, modelFormField.getWidgetStyle(), explicitDescription);
             } else {
-                makeBlockString(writer, modelFormField.getWidgetStyle(), FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                makeBlockString(writer, modelFormField.getWidgetStyle(),
+                        FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
         } else {
             boolean optionSelected = false;
             for (ModelFormField.OptionValue optionValue : allOptionValues) {
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
-                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
-                        (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
+                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey())
+                        && "selected".equals(dropDownField.getCurrent()))
+                        || (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null
+                        && noCurrentSelectedKey.equals(optionValue.getKey()))) {
                     makeBlockString(writer, modelFormField.getWidgetStyle(), optionValue.getDescription());
                     optionSelected = true;
                     break;
@@ -204,7 +207,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
 
     @Override
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
+        this.setWidgetCommentsEnabled(ModelWidget.widgetBoundaryCommentsEnabled(context));
         renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
     }
 
@@ -245,13 +248,11 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         writer.append("</fo:table>");
         appendWhitespace(writer);
     }
-    
     @Override
     public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("<fo:table-header>");
         appendWhitespace(writer);
     }
-        
     @Override
     public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("  </fo:table-header>");
@@ -274,7 +275,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
-    public void renderFormatHeaderRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
+    public void renderFormatHeaderRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField,
+                                              int positionSpan) throws IOException {
         writer.append("<fo:table-cell ");
         if (positionSpan > 1) {
             writer.append("number-columns-spanned=\"");
@@ -288,7 +290,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
-    public void renderFormatHeaderRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
+    public void renderFormatHeaderRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField)
+            throws IOException {
         writer.append("</fo:block>");
         writer.append("</fo:table-cell>");
         appendWhitespace(writer);
@@ -307,7 +310,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
-    public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
+    public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm,
+                                                            ModelFormField modelFormField, boolean isLast) throws IOException {
     }
 
     @Override
@@ -323,7 +327,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
-    public void renderFormatItemRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
+    public void renderFormatItemRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField,
+                                            int positionSpan) throws IOException {
         writer.append("<fo:table-cell ");
         if (positionSpan > 1) {
             writer.append("number-columns-spanned=\"");
@@ -340,7 +345,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
-    public void renderFormatItemRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
+    public void renderFormatItemRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField)
+            throws IOException {
         writer.append("</fo:table-cell>");
         appendWhitespace(writer);
     }
@@ -408,13 +414,15 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
-    public void renderFormatFieldRowWidgetCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
+    public void renderFormatFieldRowWidgetCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions,
+                                                   int positionSpan, Integer nextPositionInRow) throws IOException {
         writer.append("<fo:table-cell text-align=\"left\" padding=\"2pt\" padding-left=\"5pt\">");
         appendWhitespace(writer);
     }
 
     @Override
-    public void renderFormatFieldRowWidgetCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
+    public void renderFormatFieldRowWidgetCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField,
+                                                    int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
         writer.append("</fo:table-cell>");
         appendWhitespace(writer);
     }
@@ -489,7 +497,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         makeBlockString(writer, null, "");
     }
 
-    public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
+    public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText)
+            throws IOException {
     }
 
     @Override

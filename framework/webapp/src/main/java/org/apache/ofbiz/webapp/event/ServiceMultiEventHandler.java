@@ -63,7 +63,7 @@ public class ServiceMultiEventHandler implements EventHandler {
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
 
-    protected ServletContext servletContext;
+    private ServletContext servletContext;
 
     @Override
     public void init(ServletContext servletContext) throws EventHandlerException {
@@ -88,10 +88,10 @@ public class ServiceMultiEventHandler implements EventHandler {
         String mode = SYNC;
         String serviceName = null;
 
-        if (UtilValidate.isEmpty(event.path)) {
+        if (UtilValidate.isEmpty(event.getPath())) {
             mode = SYNC;
         } else {
-            mode = event.path;
+            mode = event.getPath();
         }
 
         // we only support SYNC mode in this handler
@@ -100,11 +100,13 @@ public class ServiceMultiEventHandler implements EventHandler {
         }
 
         // nake sure we have a defined service to call
-        serviceName = event.invoke;
+        serviceName = event.getInvoke();
         if (serviceName == null) {
             throw new EventHandlerException("Service name (eventMethod) cannot be null");
         }
-        if (Debug.verboseOn()) Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Set mode/service]: " + mode + "/" + serviceName, MODULE);
+        }
 
         // some needed info for when running the service
         Locale locale = UtilHttp.getLocale(request);
@@ -125,16 +127,20 @@ public class ServiceMultiEventHandler implements EventHandler {
             throw new EventHandlerException("Problems getting the service model");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SERVICE Event", MODULE);
-        if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Processing]: SERVICE Event", MODULE);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), MODULE);
+        }
 
         // check if we are using per row submit
-        boolean useRowSubmit = request.getParameter("_useRowSubmit") == null ? false :
-                "Y".equalsIgnoreCase(request.getParameter("_useRowSubmit"));
+        boolean useRowSubmit = request.getParameter("_useRowSubmit") == null ? false
+                : "Y".equalsIgnoreCase(request.getParameter("_useRowSubmit"));
 
         // check if we are to also look in a global scope (no delimiter)
-        boolean checkGlobalScope = request.getParameter("_checkGlobalScope") == null ? true :
-                !"N".equalsIgnoreCase(request.getParameter("_checkGlobalScope"));
+        boolean checkGlobalScope = request.getParameter("_checkGlobalScope") == null ? true
+                : !"N".equalsIgnoreCase(request.getParameter("_checkGlobalScope"));
 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(request);
@@ -161,7 +167,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         } catch (WebAppConfigurationException e) {
             throw new EventHandlerException(e);
         }
-        boolean eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).event.globalTransaction;
+        boolean eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).getEvent().isGlobalTransaction();
 
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
@@ -170,7 +176,7 @@ public class ServiceMultiEventHandler implements EventHandler {
             if (eventGlobalTransaction) {
                 // start the global transaction
                 try {
-                    beganTrans = TransactionUtil.begin(modelService.transactionTimeout * rowCount);
+                    beganTrans = TransactionUtil.begin(modelService.getTransactionTimeout() * rowCount);
                 } catch (GenericTransactionException e) {
                     throw new EventHandlerException("Problem starting multi-service global transaction", e);
                 }
@@ -181,11 +187,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                 String curSuffix = UtilHttp.getMultiRowDelimiter() + i;
                 boolean rowSelected = false;
                 if (UtilValidate.isNotEmpty(request.getAttribute(UtilHttp.getRowSubmitPrefix() + i))) {
-                    rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                    "Y".equalsIgnoreCase((String)request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
+                    rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false
+                            : "Y".equalsIgnoreCase((String) request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
                 } else {
-                    rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                    "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
+                    rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false
+                            : "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
                 }
 
                 // make sure we are to process this row
@@ -196,9 +202,10 @@ public class ServiceMultiEventHandler implements EventHandler {
                 // build the context
                 Map<String, Object> serviceContext = new HashMap<>();
                 for (ModelParam modelParam: modelService.getInModelParamList()) {
-                    String paramName = modelParam.name;
+                    String paramName = modelParam.getName();
 
-                    // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", MODULE);
+                    // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name +
+                    // (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", MODULE);
 
                     // don't include userLogin, that's taken care of below
                     if ("userLogin".equals(paramName)) continue;
@@ -208,14 +215,15 @@ public class ServiceMultiEventHandler implements EventHandler {
                     if ("timeZone".equals(paramName)) continue;
 
                     Object value = null;
-                    if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
-                        Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, modelParam.stringMapPrefix, curSuffix);
+                    if (UtilValidate.isNotEmpty(modelParam.getStringMapPrefix())) {
+                        Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, modelParam.getStringMapPrefix(), curSuffix);
                         value = paramMap;
-                    } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
-                        List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, modelParam.stringListSuffix, null);
+                    } else if (UtilValidate.isNotEmpty(modelParam.getStringListSuffix())) {
+                        List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, modelParam.getStringListSuffix(), null);
                         value = paramList;
                     } else {
-                        // check attributes; do this before parameters so that attribute which can be changed by code can override parameters which can't
+                        // check attributes; do this before parameters so that attribute which can be changed by code can
+                        // override parameters which can't
                         value = request.getAttribute(paramName + curSuffix);
 
                         // first check for request parameters
@@ -267,7 +275,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                             continue;
                         }
 
-                        if (value instanceof String && ((String) value).length() == 0) {
+                        if (value instanceof String && ((String) value).isEmpty()) {
                             // interpreting empty fields as null values for each in back end handling...
                             value = null;
                         }
@@ -275,7 +283,8 @@ public class ServiceMultiEventHandler implements EventHandler {
                     // set even if null so that values will get nulled in the db later on
                     serviceContext.put(paramName, value);
 
-                    // Debug.logInfo("In ServiceMultiEventHandler got value [" + value + "] for input parameter [" + paramName + "] for service [" + serviceName + "]", MODULE);
+                    // Debug.logInfo("In ServiceMultiEventHandler got value [" + value + "] for input parameter [" + paramName + "] for service ["
+                    // + serviceName + "]", MODULE);
                 }
 
                 // get only the parameters for this service - converted to proper type
@@ -304,7 +313,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     result = dispatcher.runSync(serviceName, serviceContext);
                 } catch (ServiceAuthException e) {
                     // not logging since the service engine already did
-                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNonNestedMessage());
+                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i + "): " + e.getNonNestedMessage());
                 } catch (ServiceValidationException e) {
                     // not logging since the service engine already did
                     request.setAttribute("serviceValidationException", e);
@@ -314,11 +323,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                             errorMessages.add("Service invocation error on row (" + i + "): " + message);
                         }
                     } else {
-                        errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNonNestedMessage());
+                        errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i + "): " + e.getNonNestedMessage());
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Service invocation error", MODULE);
-                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNested() + messageSuffixStr);
+                    errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i + "): " + e.getNested() + messageSuffixStr);
                 }
 
                 if (result == null) {
@@ -332,7 +341,7 @@ public class ServiceMultiEventHandler implements EventHandler {
 
                     // get the success messages
                     if (UtilValidate.isNotEmpty(result.get(ModelService.SUCCESS_MESSAGE))) {
-                        String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
+                        String newSuccessMessage = (String) result.get(ModelService.SUCCESS_MESSAGE);
                         if (!successMessages.contains(newSuccessMessage)) {
                             successMessages.add(newSuccessMessage);
                         }
@@ -353,10 +362,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                         String resultKey = rme.getKey();
                         Object resultValue = rme.getValue();
 
-                        if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey) &&
-                                !ModelService.ERROR_MESSAGE_LIST.equals(resultKey) && !ModelService.ERROR_MESSAGE_MAP.equals(resultKey) &&
-                                !ModelService.SUCCESS_MESSAGE.equals(resultKey) && !ModelService.SUCCESS_MESSAGE_LIST.equals(resultKey)) {
-                            //set the result to request w/ and w/o a suffix to handle both cases: to have the result in each iteration and to prevent its overriding
+                        if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey)
+                                && !ModelService.ERROR_MESSAGE_LIST.equals(resultKey) && !ModelService.ERROR_MESSAGE_MAP.equals(resultKey)
+                                && !ModelService.SUCCESS_MESSAGE.equals(resultKey) && !ModelService.SUCCESS_MESSAGE_LIST.equals(resultKey)) {
+                            //set the result to request w/ and w/o a suffix to handle both cases: to have the result in each iteration and to prevent
+                            // its overriding
                             request.setAttribute(resultKey + curSuffix, resultValue);
                             request.setAttribute(resultKey, resultValue);
                         }
@@ -364,7 +374,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
             }
         } finally {
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 if (eventGlobalTransaction) {
                     // rollback the global transaction
                     try {
@@ -391,7 +401,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         throw new EventHandlerException("Commit multi-service global transaction failed");
                     }
                 }
-                if (successMessages.size() > 0) {
+                if (!successMessages.isEmpty()) {
                     request.setAttribute("_EVENT_MESSAGE_LIST_", successMessages);
                 }
                 returnString = "success";

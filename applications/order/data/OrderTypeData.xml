@@ -33,5 +33,7 @@ under the License.
     <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_NOTE_ADDED"
         bodyScreenLocation="component://order/widget/ordermgr/CustRequestScreens.xml#AddNoteCustRequestNotification"
         subject="OFBiz - A Note has been added to your request: '${custRequestName}' #CR${custRequestId}"/>
-    
+    <EmailTemplateSetting emailTemplateSettingId="SEND_PO_EMAIL"
+                          bodyScreenLocation="component://order/widget/ordermgr/OrderHeaderScreens.xml#SendPOEmail"
+                          subject="Your Purchase Order #${orderId}"/>
 </entity-engine-xml>

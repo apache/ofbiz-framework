@@ -40,6 +40,7 @@ under the License.
                 <set field="applicationTitle" from-field="uiLabelMap.MarketingManagerApplication" global="true"/>
                 <set field="applicationMenuName" value="MarketingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://marketing/widget/MarketingMenus.xml" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_marketing"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>

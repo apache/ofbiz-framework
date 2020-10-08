@@ -79,7 +79,8 @@ public class QRCodeEvents {
         try {
             response.setContentType(mimeType);
             OutputStream os = response.getOutputStream();
-            Map<String, Object> context = UtilMisc.<String, Object>toMap("message", message, "format", format, "userLogin", userLogin, "locale", locale);
+            Map<String, Object> context = UtilMisc.<String, Object>toMap("message", message, "format", format, "userLogin", userLogin,
+                    "locale", locale);
             if (UtilValidate.isNotEmpty(width)) {
                 try {
                     context.put("width", Integer.parseInt(width));
@@ -132,7 +133,7 @@ public class QRCodeEvents {
             if (ServiceUtil.isSuccess(results)) {
                 BufferedImage bufferedImage = (BufferedImage) results.get("bufferedImage");
                 if (!ImageIO.write(bufferedImage, format, os)) {
-                    String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorWriteFormatToFile", new Object[] { format }, locale);
+                    String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorWriteFormatToFile", new Object[] {format }, locale);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
@@ -143,7 +144,7 @@ public class QRCodeEvents {
                 return "error";
             }
         } catch (IOException | GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.getMessage() }, locale);
+            String errMsg = UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] {e.getMessage() }, locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }

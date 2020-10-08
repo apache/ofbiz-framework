@@ -18,101 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <DataResource dataResourceId="HELP_HR" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/humanres/data/helpdata/HELP_HR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+    <DataResource dataResourceId="HELP_HR" localeString="en" dataResourceTypeId="OFBIZ_FILE"
+        objectInfo="applications/humanres/data/HELP_HR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Human Resources Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources" templateDataResourceId="HELP_TEMPL"
         dataResourceId="HELP_HR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_HR" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000"/>
 
-    <DataResource dataResourceId="HR_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/humanres/data/helpdata/HELP_HR_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HR_main" contentTypeId="DOCUMENT" contentName="Human Resources Main." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_main" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_main"/>
-   
-    <!-- employees -->    
-    <DataResource dataResourceId="HR_findEmployees" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_findEmployees.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Find Employees Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_findEmployees" contentTypeId="DOCUMENT" contentName="Find Employees" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_findEmployees" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_findEmployees" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_FindEmployee"/>
-  
-     <DataResource dataResourceId="HR_NewEmployee" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_NewEmployee.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources New Employee Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_NewEmployee" contentTypeId="DOCUMENT" contentName="New Employee" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_NewEmployee" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_NewEmployee" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_NewEmployee"/>
-
-	 <DataResource dataResourceId="HR_EmployeeProfile" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EmployeeProfile.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Employee Profile Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_EmployeeProfile" contentTypeId="DOCUMENT" contentName="Employee Profile" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EmployeeProfile" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EmployeeProfile" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EmployeeProfile"/>
-
-	 <DataResource dataResourceId="HR_EditEmployeeSkill" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EditEmployeeSkills.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Employee Skills Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_EditEmployeeSkill" contentTypeId="DOCUMENT" contentName="Employee Skills" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EditEmployeeSkill" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EditEmployeeSkill" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EditEmployeeSkills"/>
-
-	 <DataResource dataResourceId="HR_EditEmployeeQuals" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EditEmployeeQuals.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Employee Qualifications Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_EditEmployeeQuals" contentTypeId="DOCUMENT" contentName="Employee Qualifications" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EditEmployeeQuals" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EditEmployeeQuals" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EditEmployeeQuals"/>
-
-	 <DataResource dataResourceId="HR_EditEmployeeLeave" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EditEmployeeLeaves.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Employee Leave Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_EditEmployeeLeave" contentTypeId="DOCUMENT" contentName="Employee Leave" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EditEmployeeLeave" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EditEmployeeLeave" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EditEmployeeLeaves"/>
-
-	 <DataResource dataResourceId="HR_EditEmployeeTrain" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EditEmployeeTrainings.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Employee Training Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_EditEmployeeTrain" contentTypeId="DOCUMENT" contentName="Employee Training" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EditEmployeeTrain" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EditEmployeeTrain" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EditEmployeeTrainings"/>
-
-	 <DataResource dataResourceId="HR_PayrollHistory" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_PayrollHistory.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Payroll History Help" mimeTypeId="text/xml" isPublic="Y" />
-   <Content contentId="HR_PayrollHistory" contentTypeId="DOCUMENT" contentName="Payroll History" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_PayrollHistory" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_PayrollHistory" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_PayrollHistory"/>
-
-
-    <!-- employments -->    
-    <DataResource dataResourceId="HR_FindEmployments" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_FindEmployments.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Find Employments Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_FindEmployments" contentTypeId="DOCUMENT" contentName="Find Employments" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_FindEmployments" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_FindEmployments" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_FindEmployments"/>
-  
-   <DataResource dataResourceId="HR_EditEmployment" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EditEmployment.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Edit Employment Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_EditEmployment" contentTypeId="DOCUMENT" contentName="Edit Employment" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EditEmployment" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EditEmployment" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EditEmployment"/>
-  
-    <DataResource dataResourceId="HR_ListEmployments" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_ListEmployments.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources List Employments Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_ListEmployments" contentTypeId="DOCUMENT" contentName="List Employments" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_ListEmployments" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_ListEmployments" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_ListEmployments"/>
-  
-  <!-- employee positions -->    
-    <DataResource dataResourceId="HR_FindEmplPositions" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_FindEmplPositions.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Find Employee Positions Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_FindEmplPositions" contentTypeId="DOCUMENT" contentName="Find Employee Positions" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_FindEmplPositions" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_FindEmplPositions" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_FindEmplPositions"/>
- 
-   <DataResource dataResourceId="HR_ListEmplPositions" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_ListEmplPositions.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources List Employee Positions Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_ListEmplPositions" contentTypeId="DOCUMENT" contentName="List Employee Positions" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_ListEmplPositions" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_ListEmplPositions" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_ListEmplPositions"/>
-  
-   <DataResource dataResourceId="HR_EditEmplPosition" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EditEmplPosition.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Edit Employee Position Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_EditEmplPosition" contentTypeId="DOCUMENT" contentName="Edit Employee Position" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EditEmplPosition" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EditEmplPosition" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EditEmplPosition"/>
-  
-   <DataResource dataResourceId="HR_EmplPositionView" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_EmplPositionView.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources View Employee Position Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_EmplPositionView" contentTypeId="DOCUMENT" contentName="View Employee Position" templateDataResourceId="HELP_TEMPL" dataResourceId="HR_EmplPositionView" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_EmplPositionView" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_EmplPositionView"/>
- 
-  <!-- training -->    
-    <DataResource dataResourceId="HR_training" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/humanres/data/helpdata/HELP_HR_training.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Training Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_training" contentTypeId="DOCUMENT" contentName="Training." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_training" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_HR" contentIdTo="HR_training" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HUMANRES_TrainingCalendar"/>
-    
 </entity-engine-xml>

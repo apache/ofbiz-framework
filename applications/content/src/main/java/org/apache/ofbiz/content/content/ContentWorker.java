@@ -73,7 +73,7 @@ import freemarker.ext.dom.NodeModel;
 public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWorkerInterface {
 
     private static final String MODULE = ContentWorker.class.getName();
-    static final UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder("html");
+    static final UtilCodec.SimpleEncoder ENCODER = UtilCodec.getEncoder("html");
 
     public ContentWorker() { }
 
@@ -83,7 +83,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     @Override
-    public GenericValue getCurrentContentExt(Delegator delegator, List<Map<String, ? extends Object>> trail, GenericValue userLogin, Map<String, Object> ctx, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GeneralException {
+    public GenericValue getCurrentContentExt(Delegator delegator, List<Map<String, ? extends Object>> trail, GenericValue userLogin,
+            Map<String, Object> ctx, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GeneralException {
         return getCurrentContent(delegator, trail, userLogin, ctx, nullThruDatesOnly, contentAssocPredicateId);
     }
 
@@ -94,29 +95,34 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     // new rendering methods
     @Override
-    public void renderContentAsTextExt(LocalDispatcher dispatcher, String contentId, Appendable out, Map<String, Object> templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public void renderContentAsTextExt(LocalDispatcher dispatcher, String contentId, Appendable out, Map<String, Object> templateContext,
+                                       Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         renderContentAsText(dispatcher, contentId, out, templateContext, locale, mimeTypeId, null, null, cache);
     }
 
     @Override
-    public void renderSubContentAsTextExt(LocalDispatcher dispatcher, String contentId, Appendable out, String mapKey, Map<String, Object> templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public void renderSubContentAsTextExt(LocalDispatcher dispatcher, String contentId, Appendable out, String mapKey, Map<String, Object>
+            templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         renderSubContentAsText(dispatcher, contentId, out, mapKey, templateContext, locale, mimeTypeId, cache);
     }
 
     @Override
-    public String renderSubContentAsTextExt(LocalDispatcher dispatcher, String contentId, String mapKey, Map<String, Object> templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public String renderSubContentAsTextExt(LocalDispatcher dispatcher, String contentId, String mapKey, Map<String, Object> templateContext, Locale
+            locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         return renderSubContentAsText(dispatcher, contentId, mapKey, templateContext, locale, mimeTypeId, cache);
     }
 
     @Override
-    public String renderContentAsTextExt(LocalDispatcher dispatcher, String contentId, Map<String, Object> templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public String renderContentAsTextExt(LocalDispatcher dispatcher, String contentId, Map<String, Object> templateContext, Locale locale,
+                                         String mimeTypeId, boolean cache) throws GeneralException, IOException {
         return renderContentAsText(dispatcher, contentId, templateContext, locale, mimeTypeId, cache);
     }
 
     // -------------------------------------
     // Content rendering methods
     // -------------------------------------
-    public static GenericValue findContentForRendering(Delegator delegator, String contentId, Locale locale, String partyId, String roleTypeId, boolean cache) throws GeneralException, IOException {
+    public static GenericValue findContentForRendering(Delegator delegator, String contentId, Locale locale, String partyId, String roleTypeId,
+                                                       boolean cache) throws GeneralException, IOException {
         if (UtilValidate.isEmpty(contentId)) {
             Debug.logError("No content ID found.", MODULE);
             return null;
@@ -131,7 +137,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             GenericValue relContent = EntityQuery.use(delegator)
                     .from("ContentAssocDataResourceViewTo")
                     .where("contentIdStart", content.get("contentId"),
-                            "statusId","CTNT_PUBLISHED",
+                            "statusId", "CTNT_PUBLISHED",
                             "caContentAssocTypeId", "PUBLISH_LINK")
                     .orderBy("caFromDate")
                     .filterByDate("caFromDate", "caThruDate")
@@ -164,14 +170,16 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         if (partyId != null && roleTypeId != null) {
             List<GenericValue> alternateViews = null;
             try {
-                alternateViews = content.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_ROLE"), UtilMisc.toList("-caFromDate"), true);
+                alternateViews = content.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_ROLE"),
+                        UtilMisc.toList("-caFromDate"), true);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding alternate content: " + e.toString(), MODULE);
             }
 
             alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
             for (GenericValue thisView : alternateViews) {
-                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelated("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId), null, true)));
+                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelated("ContentRole",
+                        UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId), null, true)));
                 GenericValue altContent = null;
                 if (UtilValidate.isNotEmpty(altContentRole)) {
                     altContent = altContentRole.getRelatedOne("Content", true);
@@ -184,7 +192,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return content;
     }
 
-    public static void renderContentAsText(LocalDispatcher dispatcher, GenericValue content, Appendable out, Map<String,Object>templateContext,
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericValue content, Appendable out, Map<String, Object> templateContext,
             Locale locale, String mimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
         // if the content has a service attached run the service
 
@@ -200,11 +208,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             ModelService service = dctx.getModelService(serviceName);
             if (service != null) {
                 //put all requestParameters into templateContext to use them as IN service parameters
-                Map<String,Object> tempTemplateContext = new HashMap<>();
+                Map<String, Object> tempTemplateContext = new HashMap<>();
                 tempTemplateContext.putAll(UtilGenerics.cast(templateContext.get("requestParameters")));
                 tempTemplateContext.putAll(templateContext);
-                Map<String,Object> serviceCtx = service.makeValid(tempTemplateContext, ModelService.IN_PARAM);
-                Map<String,Object> serviceRes;
+                Map<String, Object> serviceCtx = service.makeValid(tempTemplateContext, ModelService.IN_PARAM);
+                Map<String, Object> serviceRes;
                 try {
                     serviceRes = dispatcher.runSync(serviceName, serviceCtx);
                     if (ServiceUtil.isError(serviceRes)) {
@@ -277,9 +285,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     Debug.logError("No content ID found.", MODULE);
                     return;
                 }
-                
+
                 if (UtilValidate.isNotEmpty(webAnalytics)) {
-                    DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, out, templateContext, locale, mimeTypeId, cache, webAnalytics);
+                    DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, out, templateContext, locale, mimeTypeId,
+                            cache, webAnalytics);
                 } else {
                     DataResourceWorker.renderDataResourceAsText(dispatcher, dataResourceId, out, templateContext, locale, mimeTypeId, cache);
                 }
@@ -304,20 +313,21 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 // This part is using an xml file as the input data and an ftl or xsl file to present it.
                 if (UtilValidate.isNotEmpty(mimeType)) {
                     if (mimeType.toLowerCase().indexOf("xml") >= 0) {
-                        GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
-                        GenericValue templateDataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", templateDataResourceId).cache().queryOne();
+                        GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache()
+                                .queryOne();
+                        GenericValue templateDataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId",
+                                templateDataResourceId).cache().queryOne();
                         if ("FTL".equals(templateDataResource.getString("dataTemplateTypeId"))) {
                             StringReader sr = new StringReader(textData);
                             try {
                                 NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
-                                templateContext.put("doc", nodeModel) ;
-                            } catch (SAXException e) {
+                                templateContext.put("doc", nodeModel);
+                            } catch (SAXException | ParserConfigurationException e) {
                                 throw new GeneralException(e.getMessage());
-                            } catch (ParserConfigurationException e2) {
-                                throw new GeneralException(e2.getMessage());
                             }
                         } else {
-                            templateContext.put("docFile", DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"), dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).getAbsoluteFile().toString());
+                            templateContext.put("docFile", DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"),
+                                    dataResource.getString("objectInfo"), (String) templateContext.get("contextRoot")).getAbsoluteFile().toString());
                         }
                     } else {
                         // must be text
@@ -350,13 +360,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 || rendered.contains("<input")
                 || rendered.contains("<iframe")
                 || rendered.contains("<a")) {
-            rendered = encoder.sanitize(rendered, contentTypeId);
+            rendered = ENCODER.sanitize(rendered, contentTypeId);
         }
-        return rendered; 
+        return rendered;
     }
 
     public static String renderContentAsText(LocalDispatcher dispatcher, String contentId, Appendable out, Map<String, Object> templateContext,
-            Locale locale, String mimeTypeId, String partyId, String roleTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
+            Locale locale, String mimeTypeId, String partyId, String roleTypeId, boolean cache, List<GenericValue> webAnalytics)
+            throws GeneralException, IOException {
         Delegator delegator = dispatcher.getDelegator();
         GenericValue content = ContentWorker.findContentForRendering(delegator, contentId, locale, partyId, roleTypeId, cache);
         ContentWorker.renderContentAsText(dispatcher, content, out, templateContext, locale, mimeTypeId, cache, webAnalytics);
@@ -370,21 +381,21 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         ContentWorker.renderContentAsText(dispatcher, content, out, templateContext, locale, mimeTypeId, cache, null);
     }
 
-    public static String renderSubContentAsText(LocalDispatcher dispatcher, String contentId, String mapKey, Map<String, Object> templateContext, Locale locale,
-            String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public static String renderSubContentAsText(LocalDispatcher dispatcher, String contentId, String mapKey, Map<String, Object> templateContext,
+                                                Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
         renderSubContentAsText(dispatcher, contentId, writer, mapKey, templateContext, locale, mimeTypeId, cache);
         return writer.toString();
     }
 
-    public static void renderSubContentAsText(LocalDispatcher dispatcher, String contentId, Appendable out, String mapKey, Map<String,Object> templateContext,
-            Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public static void renderSubContentAsText(LocalDispatcher dispatcher, String contentId, Appendable out, String mapKey, Map<String, Object>
+            templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         Delegator delegator = dispatcher.getDelegator();
 
         // find the sub-content with matching mapKey
         List<EntityCondition> exprs = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId));
         if (UtilValidate.isNotEmpty(mapKey)) {
-                exprs.add(EntityCondition.makeCondition("mapKey", EntityOperator.EQUALS, mapKey));
+            exprs.add(EntityCondition.makeCondition("mapKey", EntityOperator.EQUALS, mapKey));
         }
 
         GenericValue subContent = EntityQuery.use(delegator).from("ContentAssoc")
@@ -411,7 +422,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
         List<GenericValue> alternateViews = null;
         try {
-            alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), true);
+            alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"),
+                    UtilMisc.toList("-caFromDate"), true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding alternate locale content: " + e.toString(), MODULE);
             return view;
@@ -470,7 +482,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return contentAssocDataResourceViewFrom;
     }
 
-    public static void traverse(Delegator delegator, GenericValue content, Timestamp fromDate, Timestamp thruDate, Map<String, Object> whenMap, int depthIdx, Map<String, Object> masterNode, String contentAssocTypeId, List<GenericValue> pickList, String direction) {
+    public static void traverse(Delegator delegator, GenericValue content, Timestamp fromDate, Timestamp thruDate, Map<String, Object> whenMap,
+            int depthIdx, Map<String, Object> masterNode, String contentAssocTypeId, List<GenericValue> pickList, String direction) {
         String contentTypeId = null;
         String contentId = null;
         try {
@@ -481,20 +494,17 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             contentTypeId = (String) content.get("contentTypeId");
             List<GenericValue> topicList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"), null, false);
             List<String> topics = new LinkedList<>();
-            for (int i = 0; i < topicList.size(); i++) {
-                GenericValue assoc = topicList.get(i);
+            for (GenericValue assoc : topicList) {
                 topics.add(assoc.getString("contentId"));
             }
             List<GenericValue> keywordList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"), null, false);
             List<String> keywords = new LinkedList<>();
-            for (int i = 0; i < keywordList.size(); i++) {
-                GenericValue assoc = keywordList.get(i);
+            for (GenericValue assoc : keywordList) {
                 keywords.add(assoc.getString("contentId"));
             }
             List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
             List<String> purposes = new LinkedList<>();
-            for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = purposeValueList.get(i);
+            for (GenericValue purposeValue : purposeValueList) {
                 purposes.add(purposeValue.getString("contentPurposeTypeId"));
             }
             List<String> contentTypeAncestry = new LinkedList<>();
@@ -552,7 +562,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     boolean isFollow = checkWhen(assocContext, (String) whenMap.get("followWhen"), true);
                     if (isFollow) {
                         GenericValue thisContent = assocValue.getRelatedOne(assocRelation, false);
-                        traverse(delegator, thisContent, fromDate, thruDate, whenMap, depthIdx + 1, thisNode, contentAssocTypeId, pickList, relatedDirection);
+                        traverse(delegator, thisContent, fromDate, thruDate, whenMap, depthIdx + 1, thisNode, contentAssocTypeId, pickList,
+                                relatedDirection);
                     }
                 }
             }
@@ -563,35 +574,35 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static boolean traverseSubContent(Map<String, Object> ctx) {
         boolean inProgress = false;
-        List<Map <String, Object>> nodeTrail = UtilGenerics.cast(ctx.get("nodeTrail"));
-        ContentWorker.traceNodeTrail("11",nodeTrail);
+        List<Map<String, Object>> nodeTrail = UtilGenerics.cast(ctx.get("nodeTrail"));
+        ContentWorker.traceNodeTrail("11", nodeTrail);
         int sz = nodeTrail.size();
         if (sz == 0) {
             return false;
         }
 
         Map<String, Object> currentNode = nodeTrail.get(sz - 1);
-        Boolean isReturnAfter = (Boolean)currentNode.get("isReturnAfter");
+        Boolean isReturnAfter = (Boolean) currentNode.get("isReturnAfter");
         if (isReturnAfter != null && isReturnAfter) {
             return false;
         }
 
-        List<Map <String, Object>> kids = UtilGenerics.cast(currentNode.get("kids"));
+        List<Map<String, Object>> kids = UtilGenerics.cast(currentNode.get("kids"));
         if (UtilValidate.isNotEmpty(kids)) {
             int idx = 0;
             while (idx < kids.size()) {
                 currentNode = kids.get(idx);
-                ContentWorker.traceNodeTrail("12",nodeTrail);
-                Boolean isPick = (Boolean)currentNode.get("isPick");
+                ContentWorker.traceNodeTrail("12", nodeTrail);
+                Boolean isPick = (Boolean) currentNode.get("isPick");
 
                 if (isPick != null && isPick) {
                     nodeTrail.add(currentNode);
                     inProgress = true;
                     selectKids(currentNode, ctx);
-                    ContentWorker.traceNodeTrail("14",nodeTrail);
+                    ContentWorker.traceNodeTrail("14", nodeTrail);
                     break;
                 } else {
-                    Boolean isFollow = (Boolean)currentNode.get("isFollow");
+                    Boolean isFollow = (Boolean) currentNode.get("isFollow");
                     if (isFollow != null && isFollow) {
                         nodeTrail.add(currentNode);
                         boolean foundPick = traverseSubContent(ctx);
@@ -609,7 +620,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             // look for next sibling
             while (sz > 1) {
                 currentNode = nodeTrail.remove(--sz);
-                ContentWorker.traceNodeTrail("15",nodeTrail);
+                ContentWorker.traceNodeTrail("15", nodeTrail);
                 Map<String, Object> parentNode = nodeTrail.get(sz - 1);
                 kids = UtilGenerics.cast(parentNode.get("kids"));
                 if (kids == null) {
@@ -619,18 +630,18 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 int idx = kids.indexOf(currentNode);
                 while (idx < (kids.size() - 1)) {
                     currentNode = kids.get(idx + 1);
-                    Boolean isFollow = (Boolean)currentNode.get("isFollow");
+                    Boolean isFollow = (Boolean) currentNode.get("isFollow");
                     if (isFollow == null || !isFollow) {
                         idx++;
                         continue;
                     }
                     nodeTrail.add(currentNode);
-                    ContentWorker.traceNodeTrail("16",nodeTrail);
-                    Boolean isPick = (Boolean)currentNode.get("isPick");
+                    ContentWorker.traceNodeTrail("16", nodeTrail);
+                    Boolean isPick = (Boolean) currentNode.get("isPick");
                     if (isPick == null || !isPick) {
                         // If not a "pick" node, look at kids
                         inProgress = traverseSubContent(ctx);
-                        ContentWorker.traceNodeTrail("17",nodeTrail);
+                        ContentWorker.traceNodeTrail("17", nodeTrail);
                         if (inProgress) {
                             break;
                         }
@@ -652,8 +663,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> purposes = new LinkedList<>();
         try {
             List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
-            for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = purposeValueList.get(i);
+            for (GenericValue purposeValue : purposeValueList) {
                 purposes.add(purposeValue.get("contentPurposeTypeId"));
             }
         } catch (GenericEntityException e) {
@@ -666,9 +676,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> sections = new LinkedList<>();
         try {
             List<GenericValue> sectionValueList = content.getRelated("FromContentAssoc", null, null, true);
-            for (int i = 0; i < sectionValueList.size(); i++) {
-                GenericValue sectionValue = sectionValueList.get(i);
-                String contentAssocPredicateId = (String)sectionValue.get("contentAssocPredicateId");
+            for (GenericValue sectionValue : sectionValueList) {
+                String contentAssocPredicateId = (String) sectionValue.get("contentAssocPredicateId");
                 if (contentAssocPredicateId != null && "categorizes".equals(contentAssocPredicateId)) {
                     sections.add(sectionValue.get("contentIdTo"));
                 }
@@ -683,11 +692,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         List<Object> topics = new LinkedList<>();
         try {
             List<GenericValue> topicValueList = content.getRelated("FromContentAssoc", null, null, true);
-            for (int i = 0; i < topicValueList.size(); i++) {
-                GenericValue topicValue = topicValueList.get(i);
-                String contentAssocPredicateId = (String)topicValue.get("contentAssocPredicateId");
-                if (contentAssocPredicateId != null && "topifies".equals(contentAssocPredicateId))
+            for (GenericValue topicValue : topicValueList) {
+                String contentAssocPredicateId = (String) topicValue.get("contentAssocPredicateId");
+                if (contentAssocPredicateId != null && "topifies".equals(contentAssocPredicateId)) {
                     topics.add(topicValue.get("contentIdTo"));
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError("Entity Error:" + e.getMessage(), null);
@@ -716,11 +725,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Boolean nullThruDatesOnly = Boolean.TRUE;
         Map<String, Object> results = null;
         try {
-            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null, assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId, null);
-        } catch (GenericEntityException e) {
+            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null,
+                    assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId, null);
+        } catch (GenericEntityException | MiniLangException e) {
             throw new RuntimeException(e.getMessage());
-        } catch (MiniLangException e2) {
-            throw new RuntimeException(e2.getMessage());
         }
         List<GenericValue> relatedViews = UtilGenerics.cast(results.get("entityList"));
         for (GenericValue assocValue : relatedViews) {
@@ -729,13 +737,13 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             boolean isPick = booleanDataType(thisNode.get("isPick"));
             kids.add(thisNode);
             if (isPick) {
-                    Integer count = (Integer) currentNode.get("count");
-                    if (count == null) {
-                        count = 1;
-                    } else {
-                        count = count + 1;
-                    }
-                    currentNode.put("count", count);
+                Integer count = (Integer) currentNode.get("count");
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count = count + 1;
+                }
+                currentNode.put("count", count);
             }
         }
     }
@@ -745,7 +753,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      * @param context A <code>Map</code> containing initial variables
      * @param whenStr A <code>String</code> condition expression
      * @param defaultReturn A <code>boolean</code> default return value
-     * @return A <code>boolan</code> result of evaluation
+     * @return A <code>boolean</code> result of evaluation
      */
     public static boolean checkWhen(Map<String, Object> context, String whenStr, boolean defaultReturn) {
         boolean isWhen = defaultReturn;
@@ -753,7 +761,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             try {
-                Object retVal = GroovyUtil.eval(newWhen,context);
+                Object retVal = GroovyUtil.eval(newWhen, context);
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;
@@ -770,7 +778,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return isWhen;
     }
 
-    public static List<GenericValue> getAssociatedContent(GenericValue currentContent, String linkDir, List<String> assocTypes, List<String> contentTypes, String fromDate, String thruDate) throws GenericEntityException {
+    public static List<GenericValue> getAssociatedContent(GenericValue currentContent, String linkDir, List<String> assocTypes,
+             List<String> contentTypes, String fromDate, String thruDate) throws GenericEntityException {
         Delegator delegator = currentContent.getDelegator();
         List<GenericValue> assocList = getAssociations(currentContent, linkDir, assocTypes, fromDate, thruDate);
         if (UtilValidate.isEmpty(assocList)) {
@@ -789,7 +798,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String contentTypeId = null;
         for (GenericValue assoc : assocList) {
             String contentId = (String) assoc.get(contentIdName);
-            if (Debug.infoOn()) Debug.logInfo("contentId:" + contentId, "");
+            if (Debug.infoOn()) {
+                Debug.logInfo("contentId:" + contentId, "");
+            }
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (UtilValidate.isNotEmpty(contentTypes)) {
                 contentTypeId = content.getString("contentTypeId");
@@ -801,12 +812,13 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             }
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("contentList:" + contentList.size() , "");
+            Debug.logInfo("contentList:" + contentList.size(), "");
         }
         return contentList;
     }
 
-    public static List<GenericValue> getAssociatedContentView(GenericValue currentContent, String linkDir, List<String> assocTypes, List<String> contentTypes, String fromDate, String thruDate) throws GenericEntityException {
+    public static List<GenericValue> getAssociatedContentView(GenericValue currentContent, String linkDir, List<String> assocTypes,
+            List<String> contentTypes, String fromDate, String thruDate) throws GenericEntityException {
         List<EntityExpr> exprListAnd = new LinkedList<>();
 
         String origContentId = (String) currentContent.get("contentId");
@@ -819,10 +831,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         EntityExpr expr = EntityCondition.makeCondition(contentIdName, EntityOperator.EQUALS, origContentId);
         exprListAnd.add(expr);
 
-        if (contentTypes.size() > 0) {
+        if (!contentTypes.isEmpty()) {
             exprListAnd.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.IN, contentTypes));
         }
-        if (assocTypes.size() > 0) {
+        if (!assocTypes.isEmpty()) {
             exprListAnd.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, assocTypes));
         }
 
@@ -841,7 +853,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return EntityQuery.use(delegator).from(contentAssocViewName).where(exprListAnd).queryList();
     }
 
-    public static List<GenericValue> getAssociations(GenericValue currentContent, String linkDir, List<String> assocTypes, String strFromDate, String strThruDate) throws GenericEntityException {
+    public static List<GenericValue> getAssociations(GenericValue currentContent, String linkDir, List<String> assocTypes, String strFromDate,
+                                                     String strThruDate) throws GenericEntityException {
         Delegator delegator = currentContent.getDelegator();
         String origContentId = (String) currentContent.get("contentId");
         Timestamp fromDate = null;
@@ -856,7 +869,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return assocs;
     }
 
-    public static List<GenericValue> getContentAssocsWithId(Delegator delegator, String contentId, Timestamp fromDate, Timestamp thruDate, String direction, List<String> assocTypes) throws GenericEntityException {
+    public static List<GenericValue> getContentAssocsWithId(Delegator delegator, String contentId, Timestamp fromDate, Timestamp thruDate,
+                                                            String direction, List<String> assocTypes) throws GenericEntityException {
         List<EntityCondition> exprList = new LinkedList<>();
         EntityExpr joinExpr = null;
         if (direction != null && "From".equalsIgnoreCase(direction)) {
@@ -894,22 +908,24 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             EntityExpr thruExpr2 = EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null);
             exprList.add(thruExpr2);
         }
-        
+
         return EntityQuery.use(delegator).from("ContentAssoc").where(exprList).orderBy("-fromDate").queryList();
     }
 
     public static void getContentTypeAncestry(Delegator delegator, String contentTypeId, List<String> contentTypes) throws GenericEntityException {
         contentTypes.add(contentTypeId);
         GenericValue contentTypeValue = EntityQuery.use(delegator).from("ContentType").where("contentTypeId", contentTypeId).queryOne();
-        if (contentTypeValue == null)
+        if (contentTypeValue == null) {
             return;
+        }
         String parentTypeId = (String) contentTypeValue.get("parentTypeId");
         if (parentTypeId != null) {
             getContentTypeAncestry(delegator, parentTypeId, contentTypes);
         }
     }
 
-    public static void getContentAncestry(Delegator delegator, String contentId, String contentAssocTypeId, String direction, List<GenericValue> contentAncestorList) throws GenericEntityException {
+    public static void getContentAncestry(Delegator delegator, String contentId, String contentAssocTypeId, String direction,
+                                          List<GenericValue> contentAncestorList) throws GenericEntityException {
         String contentIdField = null;
         String contentIdOtherField = null;
         if (direction != null && "to".equalsIgnoreCase(direction)) {
@@ -937,12 +953,13 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAncestorList.add(contentAssoc);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,MODULE);
+            Debug.logError(e, MODULE);
             return;
         }
     }
 
-    public static void getContentAncestryAll(Delegator delegator, String contentId, String passedContentTypeId, String direction, List<String> contentAncestorList) {
+    public static void getContentAncestryAll(Delegator delegator, String contentId, String passedContentTypeId, String direction,
+                                             List<String> contentAncestorList) {
         String contentIdField = null;
         String contentIdOtherField = null;
         if (direction != null && "to".equalsIgnoreCase(direction)) {
@@ -953,7 +970,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             contentIdOtherField = "contentId";
         }
 
-        if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
+        if (Debug.infoOn()) {
+            Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
+        }
         try {
             List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
                     .where(contentIdField, contentId)
@@ -966,36 +985,40 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                         GenericValue contentTo = EntityQuery.use(delegator).from("Content").where("contentId", contentIdOther).cache().queryOne();
 
                         String contentTypeId = contentTo.getString("contentTypeId");
-                        if (contentTypeId != null && contentTypeId.equals(passedContentTypeId))
+                        if (contentTypeId != null && contentTypeId.equals(passedContentTypeId)) {
                             contentAncestorList.add(contentIdOther);
+                        }
                     }
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,MODULE);
+            Debug.logError(e, MODULE);
             return;
         }
     }
 
-    public static List<Map<String, Object>> getContentAncestryNodeTrail(Delegator delegator, String contentId, String contentAssocTypeId, String direction) throws GenericEntityException {
-         List<GenericValue> contentAncestorList = new LinkedList<>();
-         List<Map<String, Object>> nodeTrail = new LinkedList<>();
-         getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
-         for (GenericValue value : contentAncestorList) {
-             Map<String, Object> thisNode = ContentWorker.makeNode(value);
-             nodeTrail.add(thisNode);
-         }
-         return nodeTrail;
+    public static List<Map<String, Object>> getContentAncestryNodeTrail(Delegator delegator, String contentId, String contentAssocTypeId,
+                                                                        String direction) throws GenericEntityException {
+        List<GenericValue> contentAncestorList = new LinkedList<>();
+        List<Map<String, Object>> nodeTrail = new LinkedList<>();
+        getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
+        for (GenericValue value : contentAncestorList) {
+            Map<String, Object> thisNode = ContentWorker.makeNode(value);
+            nodeTrail.add(thisNode);
+        }
+        return nodeTrail;
     }
 
-    public static String getContentAncestryNodeTrailCsv(Delegator delegator, String contentId, String contentAssocTypeId, String direction) throws GenericEntityException {
-         List<GenericValue> contentAncestorList = new LinkedList<>();
-         getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
-         String csv = StringUtil.join(contentAncestorList, ",");
-         return csv;
+    public static String getContentAncestryNodeTrailCsv(Delegator delegator, String contentId, String contentAssocTypeId, String direction)
+            throws GenericEntityException {
+        List<GenericValue> contentAncestorList = new LinkedList<>();
+        getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
+        String csv = StringUtil.join(contentAncestorList, ",");
+        return csv;
     }
 
-    public static void getContentAncestryValues(Delegator delegator, String contentId, String contentAssocTypeId, String direction, List<GenericValue> contentAncestorList) throws GenericEntityException {
+    public static void getContentAncestryValues(Delegator delegator, String contentId, String contentAssocTypeId, String direction,
+                                                List<GenericValue> contentAncestorList) throws GenericEntityException {
         String contentIdField = null;
         String contentIdOtherField = null;
         if (direction != null && "to".equalsIgnoreCase(direction)) {
@@ -1019,7 +1042,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAncestorList.add(content);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,MODULE);
+            Debug.logError(e, MODULE);
             return;
         }
     }
@@ -1044,7 +1067,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Map<String, Object> permResults = new HashMap<>();
         String skipPermissionCheck = (String) context.get("skipPermissionCheck");
 
-        if (UtilValidate.isEmpty(skipPermissionCheck) 
+        if (UtilValidate.isEmpty(skipPermissionCheck)
                 || (!"true".equalsIgnoreCase(skipPermissionCheck) && !"granted".equalsIgnoreCase(skipPermissionCheck))) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             Map<String, Object> serviceInMap = new HashMap<>();
@@ -1071,7 +1094,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return permResults;
     }
 
-    public static GenericValue getSubContent(Delegator delegator, String contentId, String mapKey, String subContentId, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate) throws IOException {
+    public static GenericValue getSubContent(Delegator delegator, String contentId, String mapKey, String subContentId, GenericValue userLogin,
+                                             List<String> assocTypes, Timestamp fromDate) throws IOException {
         GenericValue view = null;
         try {
             if (subContentId == null) {
@@ -1079,9 +1103,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     throw new GenericEntityException("contentId and subContentId are null.");
                 }
                 Map<String, Object> results = null;
-                results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, "To", fromDate, null, null, null, assocTypes, null);
+                results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, "To", fromDate, null, null,
+                        null, assocTypes, null);
                 List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
                 if (UtilValidate.isEmpty(entityList)) {
+                    return view;
                     //throw new IOException("No subcontent found.");
                 } else {
                     view = entityList.get(0);
@@ -1099,7 +1125,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return view;
     }
 
-    public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, String subContentId, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
+    public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, String subContentId, GenericValue userLogin,
+            List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
         GenericValue view = null;
         if (UtilValidate.isEmpty(subContentId)) {
             view = getSubContentCache(delegator, contentId, mapKey, userLogin, assocTypes, fromDate, nullThruDatesOnly, contentAssocPredicateId);
@@ -1109,7 +1136,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return view;
     }
 
-    public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
+    public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, GenericValue userLogin,
+            List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
         GenericValue view = null;
         if (contentId == null) {
             Debug.logError("ContentId is null", MODULE);
@@ -1118,14 +1146,19 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Map<String, Object> results = null;
         List<String> contentTypes = null;
         try {
-            // NOTE DEJ20060610: Changed "From" to "To" because it makes the most sense for sub-content renderings using a root-contentId and mapKey to determine the sub-contentId to have the ContentAssoc go from the root to the sub, ie try to determine the contentIdTo from the contentId and mapKey
-            // This shouldn't be changed from "To" to "From", but if desired could be parameterized to make this selectable in higher up calling methods
-            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, "To", fromDate, null, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
+            // NOTE DEJ20060610: Changed "From" to "To" because it makes the most sense for sub-content renderings using a root-contentId and mapKey
+            // to determine the sub-contentId to have the ContentAssoc go from the root to the sub, ie try to determine the contentIdTo from the
+            // contentId and mapKey
+            // This shouldn't be changed from "To" to "From", but if desired could be parameterized to make this selectable in higher up calling
+            // methods
+            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, "To", fromDate, null,
+                    assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
         } catch (MiniLangException e) {
             throw new RuntimeException(e.getMessage());
         }
         List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
         if (UtilValidate.isEmpty(entityList)) {
+            Debug.log("No subcontent found.");
             //throw new IOException("No subcontent found.");
         } else {
             view = entityList.get(0);
@@ -1139,10 +1172,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 .cache().queryFirst();
     }
 
-    public static GenericValue getCurrentContent(Delegator delegator, List<Map<String, ? extends Object>> trail, GenericValue userLogin, Map<String, Object> ctx, Boolean nullThruDatesOnly, String contentAssocPredicateId)  throws GeneralException {
-        String contentId = (String)ctx.get("contentId");
-        String subContentId = (String)ctx.get("subContentId");
-        String mapKey = (String)ctx.get("mapKey");
+    public static GenericValue getCurrentContent(Delegator delegator, List<Map<String, ? extends Object>> trail, GenericValue userLogin,
+            Map<String, Object> ctx, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GeneralException {
+        String contentId = (String) ctx.get("contentId");
+        String subContentId = (String) ctx.get("subContentId");
+        String mapKey = (String) ctx.get("mapKey");
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         List<String> assocTypes = null;
         List<Map<String, Object>> passedGlobalNodeTrail = null;
@@ -1156,10 +1190,12 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         int sz = passedGlobalNodeTrail.size();
         if (sz > 0) {
             Map<String, Object> nd = passedGlobalNodeTrail.get(sz - 1);
-            if (nd != null)
-                currentContent = (GenericValue)nd.get("value");
-            if (currentContent != null)
-                viewContentId = (String)currentContent.get("contentId");
+            if (nd != null) {
+                currentContent = (GenericValue) nd.get("value");
+            }
+            if (currentContent != null) {
+                viewContentId = (String) currentContent.get("contentId");
+            }
         }
 
         if (UtilValidate.isNotEmpty(subContentId)) {
@@ -1177,7 +1213,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
         if (UtilValidate.isNotEmpty(contentId) || UtilValidate.isNotEmpty(subContentId)) {
             try {
-                currentContent = ContentWorker.getSubContentCache(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, nullThruDatesOnly, contentAssocPredicateId);
+                currentContent = ContentWorker.getSubContentCache(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate,
+                        nullThruDatesOnly, contentAssocPredicateId);
                 Map<String, Object> node = ContentWorker.makeNode(currentContent);
                 passedGlobalNodeTrail.add(node);
             } catch (GenericEntityException e) {
@@ -1208,7 +1245,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return content;
     }
 
-    public static Map<String, Object> buildPickContext(Delegator delegator, String contentAssocTypeId, String assocContentId, String direction, GenericValue thisContent) throws GenericEntityException {
+    public static Map<String, Object> buildPickContext(Delegator delegator, String contentAssocTypeId, String assocContentId, String direction,
+                                                       GenericValue thisContent) throws GenericEntityException {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("contentAssocTypeId", contentAssocTypeId);
         ctx.put("contentId", assocContentId);
@@ -1218,8 +1256,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         } else {
             ctx.put("contentIdTo", assocContentId);
         }
-        if (thisContent == null)
+        if (thisContent == null) {
             thisContent = EntityQuery.use(delegator).from("Content").where("contentId", assocContentId).cache().queryOne();
+        }
         ctx.put("content", thisContent);
         List<Object> purposes = getPurposes(thisContent);
         ctx.put("purposes", purposes);
@@ -1234,9 +1273,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return ctx;
     }
 
-    public static void checkConditions(Delegator delegator, Map<String, Object> trailNode, Map<String, Object> contentAssoc, Map<String, Object> whenMap) {
+    public static void checkConditions(Delegator delegator, Map<String, Object> trailNode, Map<String, Object> contentAssoc,
+                                       Map<String, Object> whenMap) {
         Map<String, Object> context = new HashMap<>();
-        GenericValue content = (GenericValue)trailNode.get("value");
+        GenericValue content = (GenericValue) trailNode.get("value");
         if (content != null) {
             context.put("content", content);
             List<Object> purposes = getPurposes(content);
@@ -1245,7 +1285,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             context.put("sections", sections);
             List<Object> topics = getTopics(content);
             context.put("topics", topics);
-            String contentTypeId = (String)content.get("contentTypeId");
+            String contentTypeId = (String) content.get("contentTypeId");
             List<String> contentTypeAncestry = new LinkedList<>();
             try {
                 getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
@@ -1257,7 +1297,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 contentAssoc = delegator.makeValue("ContentAssoc");
                 try {
                     // TODO: locale needs to be gotten correctly
-                    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", content, contentAssoc, new LinkedList<>(), Locale.getDefault());
+                    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn",
+                            content, contentAssoc, new LinkedList<>(), Locale.getDefault());
                     context.put("contentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
                     context.put("contentAssocPredicateId", contentAssoc.get("contentAssocPredicateId"));
                     context.put("mapKey", contentAssoc.get("mapKey"));
@@ -1270,13 +1311,13 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 context.put("mapKey", null);
             }
         }
-        boolean isReturnBefore = checkWhen(context, (String)whenMap.get("returnBeforePickWhen"), false);
+        boolean isReturnBefore = checkWhen(context, (String) whenMap.get("returnBeforePickWhen"), false);
         trailNode.put("isReturnBefore", isReturnBefore);
-        boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"), true);
+        boolean isPick = checkWhen(context, (String) whenMap.get("pickWhen"), true);
         trailNode.put("isPick", isPick);
-        boolean isFollow = checkWhen(context, (String)whenMap.get("followWhen"), true);
+        boolean isFollow = checkWhen(context, (String) whenMap.get("followWhen"), true);
         trailNode.put("isFollow", isFollow);
-        boolean isReturnAfter = checkWhen(context, (String)whenMap.get("returnAfterPickWhen"), false);
+        boolean isReturnAfter = checkWhen(context, (String) whenMap.get("returnAfterPickWhen"), false);
         trailNode.put("isReturnAfter", isReturnAfter);
         trailNode.put("checked", Boolean.TRUE);
     }
@@ -1291,7 +1332,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static List<String> prepTargetOperationList(Map<String, ? extends Object> context, String md) {
         List<String> targetOperationList = UtilGenerics.cast(context.get("targetOperationList"));
-        String targetOperationString = (String)context.get("targetOperationString");
+        String targetOperationString = (String) context.get("targetOperationString");
         if (Debug.infoOn()) {
             Debug.logInfo("in prepTargetOperationList, targetOperationString(0):" + targetOperationString, "");
         }
@@ -1305,7 +1346,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         if (UtilValidate.isEmpty(targetOperationList)) {
             targetOperationList = new LinkedList<>();
             if (UtilValidate.isEmpty(md)) {
-                md ="_CREATE";
+                md = "_CREATE";
             }
             targetOperationList.add("CONTENT" + md);
         }
@@ -1323,7 +1364,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      */
     public static List<String> prepContentPurposeList(Map<String, Object> context) {
         List<String> contentPurposeList = UtilGenerics.cast(context.get("contentPurposeList"));
-        String contentPurposeString = (String)context.get("contentPurposeString");
+        String contentPurposeString = (String) context.get("contentPurposeString");
         if (Debug.infoOn()) {
             Debug.logInfo("in prepContentPurposeList, contentPurposeString(0):" + contentPurposeString, "");
         }
@@ -1344,10 +1385,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static String prepPermissionErrorMsg(Map<String, Object> permResults) {
-        String permissionStatus = (String)permResults.get("permissionStatus");
+        String permissionStatus = (String) permResults.get("permissionStatus");
         String errorMessage = "Permission is denied." + permissionStatus;
         errorMessage += ServiceUtil.getErrorMessage(permResults);
-        PermissionRecorder recorder = (PermissionRecorder)permResults.get("permissionRecorder");
+        PermissionRecorder recorder = (PermissionRecorder) permResults.get("permissionRecorder");
         Debug.logInfo("recorder(0):" + recorder, "");
         if (recorder != null && recorder.isOn()) {
             String permissionMessage = recorder.toHtml();
@@ -1356,7 +1397,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return errorMessage;
     }
 
-    public static List<GenericValue> getContentAssocViewList(Delegator delegator, String contentIdTo, String contentId, String contentAssocTypeId, String statusId, String privilegeEnumId) throws GenericEntityException {
+    public static List<GenericValue> getContentAssocViewList(Delegator delegator, String contentIdTo, String contentId, String contentAssocTypeId,
+                                                             String statusId, String privilegeEnumId) throws GenericEntityException {
         List<EntityExpr> exprListAnd = new LinkedList<>();
 
         if (UtilValidate.isNotEmpty(contentIdTo)) {
@@ -1390,11 +1432,12 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 .queryList();
     }
 
-    public static GenericValue getContentAssocViewFrom(Delegator delegator, String contentIdTo, String contentId, String contentAssocTypeId, String statusId, String privilegeEnumId) throws GenericEntityException {
+    public static GenericValue getContentAssocViewFrom(Delegator delegator, String contentIdTo, String contentId, String contentAssocTypeId,
+                                                       String statusId, String privilegeEnumId) throws GenericEntityException {
         List<GenericValue> filteredList = getContentAssocViewList(delegator, contentIdTo, contentId, contentAssocTypeId, statusId, privilegeEnumId);
 
         GenericValue val = null;
-        if (filteredList.size() > 0) {
+        if (!filteredList.isEmpty()) {
             val = filteredList.get(0);
         }
         return val;
@@ -1408,7 +1451,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
         thisNode = new HashMap<>();
         thisNode.put("value", thisContent);
-        String contentId = (String)thisContent.get("contentId");
+        String contentId = (String) thisContent.get("contentId");
         thisNode.put("contentId", contentId);
         thisNode.put("contentTypeId", thisContent.get("contentTypeId"));
         thisNode.put("isReturnBeforePick", Boolean.FALSE);
@@ -1435,7 +1478,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             if (node == null) {
                 break;
             }
-            String contentId = (String)node.get("contentId");
+            String contentId = (String) node.get("contentId");
             csv.append(contentId);
         }
         return csv.toString();
@@ -1453,7 +1496,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 Debug.logError(e.getMessage(), MODULE);
                 return new LinkedList<>();
             }
-            contentName = (String)content.get("contentName");
+            contentName = (String) content.get("contentName");
             outList.add(UtilMisc.toList(contentId, contentName));
         }
         return outList;
@@ -1493,10 +1536,10 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static String getMimeTypeId(Delegator delegator, GenericValue view, Map<String, Object> ctx) {
         // This order is taken so that the mimeType can be overridden in the transform arguments.
-        String mimeTypeId = (String)ctx.get("mimeTypeId");
+        String mimeTypeId = (String) ctx.get("mimeTypeId");
         if (UtilValidate.isEmpty(mimeTypeId) && view != null) {
             mimeTypeId = (String) view.get("mimeTypeId");
-            String parentContentId = (String)ctx.get("contentId");
+            String parentContentId = (String) ctx.get("contentId");
             if (UtilValidate.isEmpty(mimeTypeId) && UtilValidate.isNotEmpty(parentContentId)) { // will need these below
                 try {
                     GenericValue parentContent = EntityQuery.use(delegator).from("Content").where("contentId", parentContentId).queryOne();
@@ -1514,7 +1557,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     /*
      * Tries to find the mime type of the associated content and parent content.
-     *
      * @param delegator
      * @param view SubContentDataResourceView
      * @param parentContent Content entity
@@ -1522,7 +1564,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      * @param dataResourceId part of primary key of view. To be used if view is null.
      * @param parentContentId primary key of parent content. To be used if parentContent is null;
      */
-    public static String determineMimeType(Delegator delegator, GenericValue view, GenericValue parentContent, String contentId, String dataResourceId, String parentContentId) throws GenericEntityException {
+    public static String determineMimeType(Delegator delegator, GenericValue view, GenericValue parentContent, String contentId,
+                                           String dataResourceId, String parentContentId) throws GenericEntityException {
         String mimeTypeId = null;
 
         if (view != null) {
@@ -1535,7 +1578,8 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
         if (UtilValidate.isEmpty(mimeTypeId)) {
             if (UtilValidate.isNotEmpty(contentId) && UtilValidate.isNotEmpty(dataResourceId)) {
-                view = EntityQuery.use(delegator).from("SubContentDataResourceView").where("contentId", contentId, "drDataResourceId", dataResourceId).queryOne();
+                view = EntityQuery.use(delegator).from("SubContentDataResourceView").where("contentId", contentId, "drDataResourceId",
+                        dataResourceId).queryOne();
                 if (view != null) {
                     mimeTypeId = view.getString("mimeTypeId");
                     String drMimeTypeId = view.getString("drMimeTypeId");
@@ -1565,7 +1609,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static String logMap(String lbl, Map<String, Object> map, int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i=0; i<indentLevel; i++) {
+        for (int i = 0; i < indentLevel; i++) {
             indent.append(' ');
         }
         return logMap(new StringBuilder(), lbl, map, indent).toString();
@@ -1584,14 +1628,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 Object obj = map.get(key);
                 s.append(spc).append(key).append(sep);
                 if (obj instanceof GenericValue) {
-                    GenericValue gv = (GenericValue)obj;
+                    GenericValue gv = (GenericValue) obj;
                     GenericPK pk = gv.getPrimaryKey();
                     indent.append(' ');
-                    logMap(s, "GMAP[" + key + " name:" + pk.getEntityName()+ "]", pk, indent);
+                    logMap(s, "GMAP[" + key + " name:" + pk.getEntityName() + "]", pk, indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof List<?>) {
                     indent.append(' ');
-                    logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.cast(obj), indent);
+                    logList(s, "LIST[" + ((List<?>) obj).size() + "]", UtilGenerics.cast(obj), indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof Map<?, ?>) {
                     indent.append(' ');
@@ -1609,7 +1653,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static String logList(String lbl, List<Object> lst, int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i=0; i<indentLevel; i++) {
+        for (int i = 0; i < indentLevel; i++) {
             indent.append(' ');
         }
         return logList(new StringBuilder(), lbl, lst, indent).toString();
@@ -1628,14 +1672,14 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         for (Object obj : lst) {
             s.append(spc);
             if (obj instanceof GenericValue) {
-                GenericValue gv = (GenericValue)obj;
+                GenericValue gv = (GenericValue) obj;
                 GenericPK pk = gv.getPrimaryKey();
                 indent.append(' ');
                 logMap(s, "MAP[name:" + pk.getEntityName() + "]", pk, indent);
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof List<?>) {
                 indent.append(' ');
-                logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.cast(obj), indent);
+                logList(s, "LIST[" + ((List<?>) obj).size() + "]", UtilGenerics.cast(obj), indent);
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof Map<?, ?>) {
                 indent.append(' ');

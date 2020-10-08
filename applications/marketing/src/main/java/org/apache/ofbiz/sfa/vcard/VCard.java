@@ -73,7 +73,7 @@ public class VCard {
      * @param dctx
      * @param context
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) throws IOException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -96,9 +96,10 @@ public class VCard {
                 FormattedName formattedName = vcard.getFormattedName();
                 if (formattedName != null) {
                     String refCardId = formattedName.getValue();
-                    GenericValue partyIdentification = EntityQuery.use(delegator).from("PartyIdentification").where("partyIdentificationTypeId", "VCARD_FN_ORIGIN", "idValue", refCardId).queryFirst();
+                    GenericValue partyIdentification = EntityQuery.use(delegator).from("PartyIdentification").where("partyIdentificationTypeId",
+                            "VCARD_FN_ORIGIN", "idValue", refCardId).queryFirst();
                     if (partyIdentification != null) {
-                        partiesExist.add(UtilMisc.toMap("partyId", (String)partyIdentification.get("partyId")));
+                        partiesExist.add(UtilMisc.toMap("partyId", (String) partyIdentification.get("partyId")));
                         continue;
                     }
                     //TODO manage update
@@ -123,7 +124,7 @@ public class VCard {
                             break;
                         }
                     }
-                    if (! workAddress) continue;
+                    if (!workAddress) continue;
 
                     serviceCtx.put("address1", address.getStreetAddressFull());
                     serviceCtx.put("city", address.getLocality());
@@ -154,7 +155,7 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (! workEmail) continue;
+                        if (!workEmail) continue;
                     }
                     String emailAddr = email.getValue();
                     if (UtilValidate.isEmail(emailAddr)) {
@@ -162,7 +163,8 @@ public class VCard {
                     } else {
                         //TODO change uncorrect labellisation
                         String emailFormatErrMsg = UtilProperties.getMessage(RES_ERROR, "SfaImportVCardEmailFormatError", locale);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "MarketingEmailFormatError", UtilMisc.toMap("firstName", structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "MarketingEmailFormatError", UtilMisc.toMap("firstName",
+                                structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
                     }
                 }
 
@@ -176,7 +178,7 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (! workPhone) continue;
+                        if (!workPhone) continue;
                     }
                     String phoneAddr = phone.getText();
                     boolean internationalPhone = phoneAddr.startsWith("+") || phoneAddr.startsWith("00");
@@ -211,7 +213,8 @@ public class VCard {
 
                 if (formattedName != null) {
                     //store the origin creation
-                    Map<String, Object> createPartyIdentificationMap = dctx.makeValidContext("createPartyIdentification", ModelService.IN_PARAM, context);
+                    Map<String, Object> createPartyIdentificationMap = dctx.makeValidContext("createPartyIdentification",
+                            ModelService.IN_PARAM, context);
                     createPartyIdentificationMap.put("partyId", resp.get("partyId"));
                     createPartyIdentificationMap.put("partyIdentificationTypeId", "VCARD_FN_ORIGIN");
                     createPartyIdentificationMap.put("idValue", formattedName.getValue());
@@ -241,10 +244,12 @@ public class VCard {
             StructuredName structuredName = new StructuredName();
             GenericValue person = EntityQuery.use(delegator).from("Person").where("partyId", partyId).queryOne();
             if (person != null) {
-                if (UtilValidate.isNotEmpty(person.getString("firstName")))
+                if (UtilValidate.isNotEmpty(person.getString("firstName"))) {
                     structuredName.setGiven(person.getString("firstName"));
-                if (UtilValidate.isNotEmpty(person.getString("lastName")))
+                }
+                if (UtilValidate.isNotEmpty(person.getString("lastName"))) {
                     structuredName.setFamily(person.getString("lastName"));
+                }
                 vcard.setStructuredName(structuredName);
             }
             String fullName = PartyHelper.getPartyName(delegator, partyId, false);
@@ -252,7 +257,7 @@ public class VCard {
 
             GenericValue postalAddress = PartyWorker.findPartyLatestPostalAddress(partyId, delegator);
             if (postalAddress != null) {
-                Address address =  new Address();
+                Address address = new Address();
                 address.setStreetAddress(postalAddress.getString("address1"));
                 address.setLocality(postalAddress.getString("city"));
                 address.setPostalCode(postalAddress.getString("postalCode"));

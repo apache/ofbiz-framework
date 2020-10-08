@@ -38,6 +38,6 @@ It can be used to create or update the following details for an Agreement:
 
 == How do I copy an existing agreement?
 . Find the agreement that needs to be copied
-. Click on the Agreement Id <<true_a_id_howdo_a_how_do_i_edit_an_agreement, How do it?>>
+. Click on the Agreement Id <<_how_do_i_edit_an_agreement, How do it?>>
 . The 'Edit Agreement' screen will be displayed
 . At the bottom of the screen press the 'Copy' in the 'Copy Agreement' window (NOTE: The default tick boxes will copy the agreement terms, products and party. If not required then click on the boxes to stop them being copied)

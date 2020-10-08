@@ -59,6 +59,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ManufacturingRunMrp"/>
                 <set field="tabButtonItem" value="RunMrp"/>
+                <set field="helpAnchor" value="_run_mrp"/>
                 <set field="headerItem" value="mrp"/>
                 <set field="eventMessage" value="${groovy: org.apache.ofbiz.base.util.UtilProperties.getMessage('ManufacturingUiLabels', 'ManufacturingMrpRunScheduledSuccessfully', locale)}"/>
             </actions>
@@ -78,6 +79,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindInventoryEventPlan"/>
                 <set field="tabButtonItem" value="findInventoryEventPlan"/>
+                <set field="helpAnchor" value="_mrp"/>
                 <set field="headerItem" value="mrp"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>

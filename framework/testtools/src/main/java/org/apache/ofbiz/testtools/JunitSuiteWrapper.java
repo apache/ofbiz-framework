@@ -37,8 +37,7 @@ import junit.framework.TestSuite;
 public class JunitSuiteWrapper {
 
     private static final String MODULE = JunitSuiteWrapper.class.getName();
-
-    protected List<ModelTestSuite> modelTestSuiteList = new LinkedList<>();
+    private List<ModelTestSuite> modelTestSuiteList = new LinkedList<>();
 
     public JunitSuiteWrapper(String componentName, String suiteName, String testCase) {
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
@@ -59,12 +58,17 @@ public class JunitSuiteWrapper {
                     this.modelTestSuiteList.add(modelTestSuite);
                 }
             } catch (GenericConfigException e) {
-                String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
+                String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName()
+                        + "] and location [" + testSuiteResource.getLocation() + "]";
                 Debug.logError(e, errMsg, MODULE);
             }
         }
     }
 
+    /**
+     * Populate test suite.
+     * @param suite the suite
+     */
     @Deprecated
     public void populateTestSuite(TestSuite suite) {
         for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
@@ -74,10 +78,18 @@ public class JunitSuiteWrapper {
         }
     }
 
+    /**
+     * Gets model test suites.
+     * @return the model test suites
+     */
     public List<ModelTestSuite> getModelTestSuites() {
         return this.modelTestSuiteList;
     }
 
+    /**
+     * Gets all test list.
+     * @return the all test list
+     */
     public List<Test> getAllTestList() {
         List<Test> allTestList = new LinkedList<>();
 

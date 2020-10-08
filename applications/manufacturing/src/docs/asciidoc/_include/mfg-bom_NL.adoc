@@ -1,0 +1,77 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Bill Of Material
+The Bill of Materials is the list of raw materials or list of ingredients required to make
+our manufactured product.
+
+When a product is created and it will be manufactured,  we need to define the relationship between the product
+ and its raw materials. This is done using the BOM.
+
+ For configurable product, or product with feature, it's possible to define some "Manufacturing Rules" to have
+ a BOM which that adjust according to the options / feature chosen.
+
+== Bill Of Material management in UI
+=== BoM's'
+Dit scherm biedt je de mogelijkheid om nieuwe BoM's aan te maken en om ze te vinden en te bekijken.
+
+Vanaf hier kun je doorklikken naar:
+
+* kalenders
+* kalenderweken
+
+==== Nieuwe BoM aanmaken
+Klik op de knop 'BoM aanmaken' om een nieuwe BoM te definieren.
+
+==== Overzicht Bom's
+Dit overzicht toont de beschikbare BoM's. +
+Klik op de ID van de BoM om die te bekijken.
+
+
+=== BoM toevoegen/aanpassen
+In dit scherm kun je een bestaande BoM aanpassen of een nieuwe definieren.
+
+
+=== BOM Simulation
+Dit scherm toont de effecten van een simulatie van een BoM.
+
+==== Het invulscherm
+Selecteer het product van de te simuleren BOM. +
+Kies vervolgens het BoM-type en zet het aantal
+
+Kies de type simulatie en selecteer het magazijn, om de vooraad van de componenten op te halen
+
+Klik vervolgens op de 'Uitvoeren'-knop om de simulatie uit te voeren.
+De gegevens van de simulatie worden onder het invulformulier getoond.
+
+==== Het simulatie overzicht
+Nadat op de knop is gedrukt wordt het simulatie overzicht getoond.
+
+Het eerste deel toont de BoM. +
+Het tweede deel toont de benodigde hoeveelheden, en de kosten.
+
+
+=== Manufacturing rules
+Dit scherm toont de productie regels die van toepassing zijn op een te produceren product. +
+Een productie regel geeft aan welke componenten vervangen kunnen worden door een ander component.
+
+In dit scherm kun je tevens nieuwe productie regels definieren.
+
+== Nieuwe productie regel definieren
+Dit formulier stelt je in staat vervangende componenten te definieren voor BoM componenten. +
+In het tweede deel van het scherm worden de vervangingsregels getoond.

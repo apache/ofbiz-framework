@@ -35,12 +35,10 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     private static final String MODULE = ControllerViewArtifactInfo.class.getName();
 
-    protected URL controllerXmlUrl;
-    protected String viewUri;
-
-    protected ConfigXMLReader.ViewMap viewInfoMap;
-
-    protected ScreenWidgetArtifactInfo screenCalledByThisView = null;
+    private URL controllerXmlUrl;
+    private String viewUri;
+    private ConfigXMLReader.ViewMap viewInfoMap;
+    private ScreenWidgetArtifactInfo screenCalledByThisView = null;
 
     public ControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -57,24 +55,33 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
-        if ("screen".equals(this.viewInfoMap.type) || "screenfop".equals(this.viewInfoMap.type) ||
-                "screentext".equals(this.viewInfoMap.type) || "screenxml".equals(this.viewInfoMap.type)) {
-            String fullScreenName = this.viewInfoMap.page;
+        if ("screen".equals(this.viewInfoMap.getType()) || "screenfop".equals(this.viewInfoMap.getType())
+                || "screentext".equals(this.viewInfoMap.getType()) || "screenxml".equals(this.viewInfoMap.getType())) {
+            String fullScreenName = this.viewInfoMap.getPage();
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
-                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
+                this.screenCalledByThisView = this.getAif().getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex + 1),
+                        fullScreenName.substring(0, poundIndex));
                 if (this.screenCalledByThisView != null) {
                     // add the reverse association
-                    UtilMisc.addToSortedSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
+                    UtilMisc.addToSortedSetInMap(this, aif.getAllViewInfosReferringToScreen(), this.screenCalledByThisView.getUniqueId());
                 }
             }
         }
     }
 
+    /**
+     * Gets controller xml url.
+     * @return the controller xml url
+     */
     public URL getControllerXmlUrl() {
         return this.controllerXmlUrl;
     }
 
+    /**
+     * Gets view uri.
+     * @return the view uri
+     */
     public String getViewUri() {
         return this.viewUri;
     }
@@ -95,7 +102,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public String getType() {
-        return ArtifactInfoFactory.ControllerViewInfoTypeId;
+        return ArtifactInfoFactory.CONTROLLER_VIEW_INFO_TYPE_ID;
     }
 
     @Override
@@ -112,17 +119,25 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     public boolean equals(Object obj) {
         if (obj instanceof ControllerViewArtifactInfo) {
             ControllerViewArtifactInfo that = (ControllerViewArtifactInfo) obj;
-            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl) &&
-                Objects.equals(this.viewUri, that.viewUri);
+            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl)
+                    && Objects.equals(this.viewUri, that.viewUri);
         } else {
             return false;
         }
     }
 
+    /**
+     * Gets requests that this view is response to.
+     * @return the requests that this view is response to
+     */
     public Set<ControllerRequestArtifactInfo> getRequestsThatThisViewIsResponseTo() {
-        return this.aif.allRequestInfosReferringToView.get(this.getUniqueId());
+        return this.getAif().getAllRequestInfosReferringToView().get(this.getUniqueId());
     }
 
+    /**
+     * Gets screen called by this view.
+     * @return the screen called by this view
+     */
     public ScreenWidgetArtifactInfo getScreenCalledByThisView() {
         return screenCalledByThisView;
     }

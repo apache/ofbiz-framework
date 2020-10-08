@@ -19,6 +19,7 @@
 
 package org.apache.ofbiz.service.testtools;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
@@ -30,8 +31,13 @@ import java.util.Set;
 
 public class OFBizTestCase extends EntityTestCase {
 
-    protected LocalDispatcher dispatcher = null;
+    private LocalDispatcher dispatcher = null;
+    private static final String MODULE = OFBizTestCase.class.getName();
 
+    /**
+     * Gets dispatcher.
+     * @return the dispatcher
+     */
     public LocalDispatcher getDispatcher() {
         return dispatcher;
     }
@@ -40,36 +46,93 @@ public class OFBizTestCase extends EntityTestCase {
         super(name);
     }
 
+    /**
+     * Sets dispatcher.
+     * @param dispatcher the dispatcher
+     */
     public void setDispatcher(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;
     }
 
-    // Retrieves a particular login record.
+    /**
+     * Gets user login.
+     * @param userLoginId the user login id
+     * @return the user login
+     * @throws GenericEntityException the generic entity exception
+     */
     protected GenericValue getUserLogin(String userLoginId) throws GenericEntityException {
-        return EntityQuery.use(delegator)
+        return EntityQuery.use(getDelegator())
                 .from("UserLogin")
                 .where("userLoginId", userLoginId)
                 .queryOne();
     }
 
-    // Retrieves the default login record.
+    /**
+     * Gets user login.
+     * @return the user login
+     * @throws GenericEntityException the generic entity exception
+     */
     protected GenericValue getUserLogin() throws GenericEntityException {
         return getUserLogin("system");
     }
 
+    /**
+     * From entity query.
+     * @param entityName the entity name
+     * @return the entity query
+     */
     protected EntityQuery from(String entityName) {
-        return EntityQuery.use(delegator).from(entityName);
+        return EntityQuery.use(getDelegator()).from(entityName);
     }
 
+    /**
+     * From entity query.
+     * @param dynamicViewEntity the dynamic view entity
+     * @return the entity query
+     */
     protected EntityQuery from(DynamicViewEntity dynamicViewEntity) {
-        return EntityQuery.use(delegator).from(dynamicViewEntity);
+        return EntityQuery.use(getDelegator()).from(dynamicViewEntity);
     }
 
+    /**
+     * Select entity query.
+     * @param fields the fields
+     * @return the entity query
+     */
     protected EntityQuery select(String... fields) {
-        return EntityQuery.use(delegator).select(fields);
+        return EntityQuery.use(getDelegator()).select(fields);
     }
 
+    /**
+     * Select entity query.
+     * @param fields the fields
+     * @return the entity query
+     */
     protected EntityQuery select(Set<String> fields) {
-        return EntityQuery.use(delegator).select(fields);
+        return EntityQuery.use(getDelegator()).select(fields);
+    }
+
+    /**
+     * Log info.
+     * @param msg the msg
+     */
+    protected void logInfo(String msg) {
+        Debug.logInfo(msg, MODULE);
+    }
+
+    /**
+     * Log error.
+     * @param msg the msg
+     */
+    protected void logError(String msg) {
+        Debug.logError(msg, MODULE);
+    }
+
+    /**
+     * Log warning.
+     * @param msg the msg
+     */
+    protected void logWarning(String msg) {
+        Debug.logWarning(msg, MODULE);
     }
 }

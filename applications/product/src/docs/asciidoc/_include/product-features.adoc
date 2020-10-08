@@ -1,0 +1,108 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Product Features
+To Sell and to Differentiate Products, Features are characteristics used to sell and to differentiate products.
+
+The Apache OFBiz catalog manager allows you to define any feature set you wish for your products. +
+Typical features include size and color.
+
+In Apache OFBiz, features are associated, or applied, to products as Standard Features, Selectable Features,
+or Distinguishing Features.
+
+== Standard features
+Standard features are features which are associated with every instance of a product.
+
+An example might be the brand name of a product -- all instances of the product share the same brand name.
+
+==  Selectable features
+Selectable features are features which the customer selects one from many available choices.
+
+For example, a shirt may be available in White, Blue, Green, Yellow, Pink. +
+These colors would be selectable features of the variant product shirt, and the customer would be prompted to choose a color.
+
+Each color, though, would be a standard feature of the physical product. +
+Thus, White would be a selectable feature of the virtual product 'shirt' but a standard feature of 'white shirt.'
+
+== Distinguishing features
+Distinguishing features are features which distinguish one product from another and are used to show the customer
+which item she chose.
+
+==  Working with Product Features
+* Click on Features tab.
+* Defaults to Product Features
+
+== Create and Maintain Product Features
+These screens are for creating and maintaining product features, which are features or characteristics that are available
+for products.
+
+Here you will define what features can be available for products. +
+Later, when working with the products, you will have a chance to define what features a particular product may have.
+
+==  Feature Categories and Feature Groups
+Notice the sub-tabs for Feature Categories and Feature Groups.
+
+These are both used to help you organize your product features.
+
+Each feature can only belong to one category but as many groups as you need.
+
+For example, you can have :
+
+* a colors category that has colors White, Blue, Grey, Green, Yellow, Pink, Red, and Orange
+* and a sizes category that has sizes XXS, XS, S, M, L, XL, XXL.
+
+Then, you can have :
+
+* one group for shirts that would have colors White, Blue, Grey and sizes S, M, L, XL, XXL,
+* and another group for dresses that have colors Yellow, Pink, Red, Orange and sizes XXS, XS, S, M, and L.
+
+==  Add Features to a Category
+Once you have created a feature category, you can click on it to add features to it.
+
+There is a link [Create new feature] which takes you to a screen to create a new product feature. +
+Below this link is a list of product features already in this category.
+
+Important fields for product features are listed below.
+
+==  Feature Categories
+Click on [Feature Categories] (this is the default screen when you clicked on 'Features' above),
+and you will see a menu for editing a particular feature, if you remember its feature ID. +
+(If not, you can edit it from the feature categories below.) Next, you will see a list of feature categories and
+their parent categories.
+
+The categories' ID codes are highlighted, and you can click on one to go to the feature category.
+
+At the very bottom is a menu for creating a new feature category. +
+Here, you would enter the new feature category's name and specify a parent category for it (if it has one.)
+The category ID is automatically created for you.
+
+==  Working with Feature Groups
+Click on [Feature Groups] and you will see a screen showing a list of available feature groups,
+and an option to create a new feature group at the bottom.
+
+Click on the ID of the feature group, and you will be taken to a screen which shows all the features in this group
+(if there are any) and a menu to add more features to this group.
+
+Like feature categories, the IDs of feature groups are automatically created.
+
+== Implement Feature-based Product Search
+You can associate feature categories or feature groups to a Product Category. +
+Buy doing this will provide web store customer feature based product search ability.
+
+If customers choose to search within a given category and that category has features associated with it
+then they will be displayed as selectable filtering options (based on the associated product features) on the search form.

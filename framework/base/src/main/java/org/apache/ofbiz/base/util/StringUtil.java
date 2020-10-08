@@ -44,7 +44,7 @@ public class StringUtil {
 
     public static final StringUtil INSTANCE = new StringUtil();
     private static final String MODULE = StringUtil.class.getName();
-    private static final Map<String, Pattern> substitutionPatternMap = createSubstitutionPatternMap();
+    private static final Map<String, Pattern> SUBSTITUTION_PATTERN_MAP = createSubstitutionPatternMap();
 
     private static Map<String, Pattern> createSubstitutionPatternMap() {
         Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<>();  // Preserve insertion order
@@ -99,7 +99,6 @@ public class StringUtil {
 
     /**
      * Creates a single string from a Collection of strings separated by a delimiter.
-     *
      * @param col  a collection of strings to join
      * @param delim  the delimiter character(s) to use. (null value will join with no delimiter)
      * @return a String of all values in the collection separated by the delimiter
@@ -124,7 +123,7 @@ public class StringUtil {
             return null;
         }
 
-        st = (delim != null? new StringTokenizer(str, delim): new StringTokenizer(str));
+        st = (delim != null ? new StringTokenizer(str, delim) : new StringTokenizer(str));
 
         if (st.hasMoreTokens()) {
             splitList = new LinkedList<>();
@@ -214,7 +213,6 @@ public class StringUtil {
 
     /**
      * Reads a String version of a List (should contain only strings) and creates a new List
-     *
      * @param s String value of a Map ({n1=v1, n2=v2})
      * @return new List
      */
@@ -235,7 +233,6 @@ public class StringUtil {
 
     /**
      * Reads a String version of a Set (should contain only strings) and creates a new Set
-     *
      * @param s String value of a Map ({n1=v1, n2=v2})
      * @return new List
      */
@@ -272,7 +269,8 @@ public class StringUtil {
         return newMap;
     }
 
-    /** Make sure the string starts with a forward slash but does not end with one; converts back-slashes to forward-slashes; if in String is null or empty, returns zero length string. */
+    /** Make sure the string starts with a forward slash but does not end with one; converts back-slashes to forward-slashes;
+     * if in String is null or empty, returns zero length string. */
     public static String cleanUpPathPrefix(String prefix) {
         if (UtilValidate.isEmpty(prefix)) {
             return "";
@@ -291,7 +289,7 @@ public class StringUtil {
 
     /** Removes all spaces from a string */
     public static String removeSpaces(String str) {
-        return removeRegex(str,"[\\ ]");
+        return removeRegex(str, "[\\ ]");
     }
 
     public static String toHexString(byte[] bytes) {
@@ -317,7 +315,7 @@ public class StringUtil {
         }
     }
 
-    private static char[] hexChar = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static char[] hexChar = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
     public static char[] encodeInt(int i, int j, char digestChars[]) {
         if (i < 16) {
             digestChars[j] = '0';
@@ -332,7 +330,7 @@ public class StringUtil {
 
     /** Removes all non-numbers from str */
     public static String removeNonNumeric(String str) {
-        return removeRegex(str,"[\\D]");
+        return removeRegex(str, "[\\D]");
     }
 
     /**
@@ -346,7 +344,6 @@ public class StringUtil {
 
     /**
      * Add the number to the string, keeping (padding to min of original length)
-     *
      * @return the new value
      */
     public static String addToNumberString(String numberString, long addAmount) {
@@ -385,7 +382,7 @@ public class StringUtil {
     public static String convertOperatorSubstitutions(String expression) {
         String result = expression;
         if (result != null && (result.contains("@"))) {
-            for (Map.Entry<String, Pattern> entry: substitutionPatternMap.entrySet()) {
+            for (Map.Entry<String, Pattern> entry: SUBSTITUTION_PATTERN_MAP.entrySet()) {
                 Pattern pattern = entry.getValue();
                 result = pattern.matcher(result).replaceAll(entry.getKey());
             }
@@ -403,7 +400,7 @@ public class StringUtil {
         if (theString == null) {
             return null;
         }
-        if (theString.length() == 0) {
+        if (theString.isEmpty()) {
             return StringWrapper.EMPTY_STRING_WRAPPER;
         }
         return new StringWrapper(theString);
@@ -416,7 +413,7 @@ public class StringUtil {
     public static class StringWrapper {
         public static final StringWrapper EMPTY_STRING_WRAPPER = new StringWrapper("");
 
-        protected String theString;
+        private String theString;
         protected StringWrapper() { }
         public StringWrapper(String theString) {
             this.theString = theString;
@@ -424,7 +421,6 @@ public class StringUtil {
 
         /**
          * Fairly simple method used for the plus (+) base concatenation in Groovy.
-         *
          * @param value
          * @return the wrapped string, plus the value
          */

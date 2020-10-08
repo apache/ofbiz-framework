@@ -37,8 +37,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for invalid attribute names.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param validAttributeNames The valid attribute names
      * @throws ValidationException If an invalid attribute name is found and <code>validation.level=strict</code>
@@ -60,7 +59,6 @@ public final class MiniLangValidate {
     /**
      * Returns <code>attributeValue</code> if it is not empty, else returns <code>defaultValue</code>.
      * No <code>null</code> checks are performed.
-     * 
      * @param attributeValue
      * @param defaultValue
      * @return <code>attributeValue</code> if it is not empty, else returns <code>defaultValue</code>
@@ -71,8 +69,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for invalid child elements.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param validChildElementNames The valid child element tag names
      * @throws ValidationException If an invalid child element is found and <code>validation.level=strict</code>
@@ -96,8 +93,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests if element attributes are constant type.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeNames The attributes to test
      * @throws ValidationException If an invalid attribute is found and <code>validation.level=strict</code>
@@ -113,8 +109,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests if element attributes are constant+expr type.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeNames The attributes to test
      * @throws ValidationException If an invalid attribute is found and <code>validation.level=strict</code>
@@ -123,7 +118,8 @@ public final class MiniLangValidate {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
             if (!MiniLangUtil.isConstantPlusExpressionAttribute(attributeValue)) {
-                handleError("Constant+expr attribute \"" + name + "\" is missing a constant value (expression-only constants are not allowed).", method, element);
+                handleError("Constant+expr attribute \"" + name + "\" is missing a constant value (expression-only constants are not allowed).",
+                        method, element);
             }
             if (MiniLangUtil.containsScript(attributeValue)) {
                 handleError("Constant+expr attribute \"" + name + "\" cannot contain a script (remove script).", method, element);
@@ -133,24 +129,23 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for a deprecated attribute.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeName The name of the deprecated attribute
      * @param fixInstruction Instructions to fix the deprecated attribute
      * @throws ValidationException If the deprecated attribute is found and <code>validation.level=strict</code>
      */
-    public static void deprecatedAttribute(SimpleMethod method, Element element, String attributeName, String fixInstruction) throws ValidationException {
+    public static void deprecatedAttribute(SimpleMethod method, Element element, String attributeName, String fixInstruction)
+            throws ValidationException {
         String attributeValue = element.getAttribute(attributeName);
-        if (attributeValue.length() > 0) {
+        if (!attributeValue.isEmpty()) {
             handleError("Attribute \"" + attributeName + "\" is deprecated (" + fixInstruction + ")", method, element);
         }
     }
 
     /**
      * Tests if element attributes are expression type.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeNames The attributes to test
      * @throws ValidationException If an invalid attribute is found and <code>validation.level=strict</code>
@@ -158,7 +153,7 @@ public final class MiniLangValidate {
     public static void expressionAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
-            if (attributeValue.length() > 0) {
+            if (!attributeValue.isEmpty()) {
                 if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                     attributeValue = attributeValue.substring(2, attributeValue.length() - 1);
                 }
@@ -171,9 +166,8 @@ public final class MiniLangValidate {
 
     /**
      * Handles a Mini-language validation error.
-     * 
      * @param errorMessage The error message
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> that contains the error
      * @throws ValidationException If <code>validation.level=strict</code>, otherwise a warning is logged
      */
@@ -188,7 +182,6 @@ public final class MiniLangValidate {
 
     /**
      * Returns <code>true</code> if <code>validation.level=lenient</code>.
-     * 
      * @return <code>true</code> if <code>validation.level=lenient</code>
      */
     public static boolean lenientOn() {
@@ -197,8 +190,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for child elements.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @throws ValidationException If a child element is found and <code>validation.level=strict</code>
      */
@@ -215,8 +207,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for any one required attribute from a set of attribute names.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeNames The required attribute names
      * @throws ValidationException If none of the required attributes are found and <code>validation.level=strict</code>
@@ -225,7 +216,7 @@ public final class MiniLangValidate {
         StringBuilder sb = new StringBuilder();
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
-            if (attributeValue.length() > 0) {
+            if (!attributeValue.isEmpty()) {
                 return;
             }
             if (sb.length() > 0) {
@@ -238,8 +229,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for any one required child element from a set of tag names.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param elementNames The required child element tag names
      * @throws ValidationException If none of the required child elements are found and <code>validation.level=strict</code>
@@ -269,8 +259,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for required attributes.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeNames The required attribute names
      * @throws ValidationException If any of the required attributes are not found and <code>validation.level=strict</code>
@@ -278,7 +267,7 @@ public final class MiniLangValidate {
     public static void requiredAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
-            if (attributeValue.length() == 0) {
+            if (attributeValue.isEmpty()) {
                 handleError("Required attribute \"" + name + "\" is missing.", method, element);
             }
         }
@@ -286,8 +275,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests <code>element</code> for required child elements.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param elementNames The required child element tag names
      * @throws ValidationException If any of the required child elements are not found and <code>validation.level=strict</code>
@@ -311,8 +299,7 @@ public final class MiniLangValidate {
 
     /**
      * Tests if element attributes are script type.
-     * 
-     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
+     * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code>
      * @param element The <code>element</code> to test
      * @param attributeNames The attributes to test
      * @throws ValidationException If an invalid attribute is found and <code>validation.level=strict</code>
@@ -320,7 +307,7 @@ public final class MiniLangValidate {
     public static void scriptAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name).trim();
-            if (attributeValue.length() > 0) {
+            if (!attributeValue.isEmpty()) {
                 if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                     handleError("Script attribute \"" + name + "\" enclosed in \"${}\" (remove enclosing ${}).", method, element);
                 }
@@ -341,7 +328,6 @@ public final class MiniLangValidate {
 
     /**
      * Returns <code>true</code> if <code>validation.level=strict</code>.
-     * 
      * @return <code>true</code> if <code>validation.level=strict</code>
      */
     public static boolean strictOn() {
@@ -350,13 +336,12 @@ public final class MiniLangValidate {
 
     /**
      * Returns <code>true</code> if <code>validation.level</code> is set to lenient or strict.
-     * 
      * @return <code>true</code> if <code>validation.level</code> is set to lenient or strict
      */
     public static boolean validationOn() {
         return !"none".equals(UtilProperties.getPropertyValue("minilang", "validation.level"));
     }
 
-    private MiniLangValidate() {}
+    private MiniLangValidate() { }
 
 }

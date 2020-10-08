@@ -49,6 +49,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductBom"/>
                 <set field="tabButtonItem" value="EditProductBom"/>
+                <set field="helpAnchor" value="_addedit_a_bom"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="bom"/>
                 <set field="productId" from-field="parameters.productId"/>
@@ -71,6 +72,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductManufacturingRules"/>
                 <set field="tabButtonItem" value="productManufacturingRules"/>
+                <set field="helpAnchor" value="_manufacturing_rules"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="bom"/>
 
@@ -99,6 +101,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingBomSimulation"/>
                 <set field="tabButtonItem" value="bomSimulation"/>
                 <set field="headerItem" value="bom"/>
+                <set field="helpAnchor" value="_bom_simulation"/>
 
                 <set field="bomType" from-field="parameters.bomType"/>
                 <set field="productId" from-field="parameters.productId"/>
@@ -130,12 +133,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindBom">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindBom"/>
                 <set field="tabButtonItem" value="findBom"/>
+                <set field="helpAnchor" value="_bill_of_material"/>
                 <set field="labelTitleProperty" value="findBom"/>
                 <set field="headerItem" value="bom"/>
                 <script location="component://manufacturing/groovyScripts/bom/FindProductBom.groovy"/>

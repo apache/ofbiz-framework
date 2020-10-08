@@ -51,7 +51,7 @@ public final class PreferenceWorker {
      */
     private static final String DEFAULT_UID = "_NA_";
 
-    private PreferenceWorker () {}
+    private PreferenceWorker() { }
 
     /**
      * Add a UserPreference GenericValue to a Map.
@@ -66,7 +66,8 @@ public final class PreferenceWorker {
             // default to String
             userPrefMap.put(rec.getString("userPrefTypeId"), rec.getString("userPrefValue"));
         } else {
-            userPrefMap.put(rec.getString("userPrefTypeId"), ObjectType.simpleTypeOrObjectConvert(rec.get("userPrefValue"), prefDataType, null, null, false));
+            userPrefMap.put(rec.getString("userPrefTypeId"), ObjectType.simpleTypeOrObjectConvert(rec.get("userPrefValue"),
+                    prefDataType, null, null, false));
         }
         return userPrefMap;
     }
@@ -143,7 +144,7 @@ public final class PreferenceWorker {
      * @return user preference map
      */
     public static Map<String, Object> createUserPrefMap(List<GenericValue> recList) throws GeneralException {
-        Map<String, Object> userPrefMap =  new LinkedHashMap<>();
+        Map<String, Object> userPrefMap = new LinkedHashMap<>();
         if (recList != null) {
             for (GenericValue value: recList) {
                 addPrefToMap(value, userPrefMap);
@@ -158,7 +159,6 @@ public final class PreferenceWorker {
      * found, the method attempts to get the current user's userLoginId. If the user
      * isn't logged in, then the method returns <a href="#DEFAULT_UID">DEFAULT_UID</a>
      * if returnDefault is set to true, otherwise the method returns a null or empty string.</p>
-     *
      * @param context Map containing the input arguments.
      * @param returnDefault return <a href="#DEFAULT_UID">DEFAULT_UID</a> if no userLoginId is found.
      * @return userLoginId String
@@ -190,7 +190,6 @@ public final class PreferenceWorker {
      * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a> permission then the
      *  method returns true.</li>
      * </ul>
-     *
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input arguments.
      * @return true if the userLoginId arguments are valid
@@ -252,8 +251,10 @@ public final class PreferenceWorker {
      * @throws GeneralException
      * @return field map
      */
-    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupTypeId, Object userPrefValue) throws GeneralException {
-        Map<String, Object> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId, "userPrefValue", ObjectType.simpleTypeOrObjectConvert(userPrefValue, "String", null, null, false));
+    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupTypeId, Object userPrefValue)
+            throws GeneralException {
+        Map<String, Object> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId, "userPrefValue",
+                ObjectType.simpleTypeOrObjectConvert(userPrefValue, "String", null, null, false));
         if (UtilValidate.isNotEmpty(userPrefGroupTypeId)) {
             fieldMap.put("userPrefGroupTypeId", userPrefGroupTypeId);
         }

@@ -59,11 +59,11 @@ public final class CommonWidgetModels {
 
     public static class AutoEntityParameters {
         private String entityName;
-        List<String> excludeList = new ArrayList<>();
-        boolean includeNonPk;
-        boolean includePk;
+        private List<String> excludeList = new ArrayList<>();
+        private boolean includeNonPk;
+        private boolean includePk;
         private String includeType;
-        boolean sendIfEmpty;
+        private boolean sendIfEmpty;
 
         public AutoEntityParameters(Element autoElement) {
             entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));
@@ -81,6 +81,12 @@ public final class CommonWidgetModels {
             }
         }
 
+        /**
+         * Gets parameters map.
+         * @param context the context
+         * @param defaultEntityName the default entity name
+         * @return the parameters map
+         */
         @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultEntityName) {
             Map<String, String> autEntityParams = new HashMap<>();
@@ -109,7 +115,7 @@ public final class CommonWidgetModels {
                 FlexibleMapAccessor<Object> fma = FlexibleMapAccessor.getInstance(fieldName);
                 boolean shouldExclude = excludeList.contains(fieldName);
                 if ((!shouldExclude) && (!field.getIsAutoCreatedInternal())
-                    && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
+                        && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
                     Object flexibleValue = fma.get(context);
                     if (UtilValidate.isEmpty(flexibleValue) && context.containsKey("parameters")) {
                         flexibleValue = fma.get((Map<String, Object>) context.get("parameters"));
@@ -124,8 +130,8 @@ public final class CommonWidgetModels {
     }
 
     public static class AutoServiceParameters {
-        List<String> excludeList = new ArrayList<>();
-        boolean sendIfEmpty;
+        private List<String> excludeList = new ArrayList<>();
+        private boolean sendIfEmpty;
         private String serviceName;
 
         public AutoServiceParameters(Element autoElement) {
@@ -141,6 +147,12 @@ public final class CommonWidgetModels {
             }
         }
 
+        /**
+         * Gets parameters map.
+         * @param context the context
+         * @param defaultServiceName the default service name
+         * @return the parameters map
+         */
         @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultServiceName) {
             Map<String, String> autServiceParams = new HashMap<>();
@@ -590,9 +602,9 @@ public final class CommonWidgetModels {
      * @see <code>widget-form.xsd</code>
      */
     public static class Parameter {
-        protected FlexibleMapAccessor<Object> fromField;
-        protected String name;
-        protected FlexibleStringExpander value;
+        private FlexibleMapAccessor<Object> fromField;
+        private String name;
+        private FlexibleStringExpander value;
 
         public Parameter(Element element) {
             this.name = element.getAttribute("param-name");
@@ -611,18 +623,35 @@ public final class CommonWidgetModels {
             }
         }
 
+        /**
+         * Gets from field.
+         * @return the from field
+         */
         public FlexibleMapAccessor<Object> getFromField() {
             return fromField;
         }
 
+        /**
+         * Gets name.
+         * @return the name
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         * Gets value.
+         * @return the value
+         */
         public FlexibleStringExpander getValue() {
             return value;
         }
 
+        /**
+         * Gets value.
+         * @param context the context
+         * @return the value
+         */
         public String getValue(Map<String, Object> context) {
             if (this.value != null) {
                 return this.value.expandString(context);

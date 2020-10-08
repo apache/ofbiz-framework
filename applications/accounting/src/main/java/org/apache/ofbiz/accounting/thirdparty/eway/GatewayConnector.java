@@ -48,7 +48,6 @@ public class GatewayConnector {
 
     /**
      * Get the timeout value set in the corresponding setter.
-     *
      * @return timeout value in seconds, 0 for infinite
      */
     public int getTimeout() {
@@ -59,7 +58,6 @@ public class GatewayConnector {
      * Set the timout value. Note that setting the timeout for an HttpURLConnection
      * is possible only since Java 1.5. This method has no effect on earlier
      * versions.
-     *
      * @param time timeout value in seconds, 0 for infinite
      */
     public void setTimeout(int time) {
@@ -73,39 +71,33 @@ public class GatewayConnector {
      * @param request the request object, can be any of the 3 supported payment
      * methods. Its data have to be filled in by its setter methods before
      * calling sendRequest().
-     * @return the response object, containing the gateway's response to the 
+     * @return the response object, containing the gateway's response to the
      * request
-     * @throws Exception in case of networking and xml parsing errors 
+     * @throws Exception in case of networking and xml parsing errors
      */
     public GatewayResponse sendRequest(GatewayRequest request) throws Exception {
-        
         // determine the gateway url to be used, based on the request type
         String serverurl = request.getUrl();
-        
         GatewayResponse response = null;
         InputStream in = null;
         HttpURLConnection connection = null;
         try {
             // connect to the gateway
             URL u = new URL(serverurl);
-            connection = (HttpURLConnection)(u.openConnection());
+            connection = (HttpURLConnection) (u.openConnection());
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(timeout*1000);
-            
+            connection.setConnectTimeout(timeout * 1000);
             try (OutputStream out = connection.getOutputStream();
                  Writer wout = new OutputStreamWriter(out, "UTF-8")) {
-                
                 wout.write(request.toXml());
                 wout.flush();
-
                 in = connection.getInputStream();
                 response = new GatewayResponse(in, request);
                 return response;
             }
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             // re-throws exception so that the caller knows what went wrong
             Debug.logError(e, e.getMessage(), MODULE);
             throw e;

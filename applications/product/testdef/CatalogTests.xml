@@ -27,7 +27,7 @@ under the License.
     </test-case>
 
     <test-case case-name="productPrice-tests">
-        <simple-method-test location="component://product/minilang/product/test/ProductPriceTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.ProductPriceTests"/>
     </test-case>
 
     <test-case case-name="loadCategoryTestData">

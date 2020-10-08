@@ -49,7 +49,7 @@ public class CsrfUtilTests {
         when(request.getSession()).thenReturn(session);
 
         // prepare the token map to be retrieved from session
-        Map<String, String> tokenMap = new LinkedHashMap<String, String>();
+        Map<String, String> tokenMap = new LinkedHashMap<>();
         tokenMap.put("uri_1", "abcd");
         when(session.getAttribute("CSRF-Token")).thenReturn(tokenMap);
 
@@ -119,12 +119,12 @@ public class CsrfUtilTests {
         Element requestMapElement = doc.createElement("request-map");
         requestMapElement.setAttribute("uri", "checkLogin");
         ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-        requestMapMap.put(requestMap.uri, requestMap);
+        requestMapMap.put(requestMap.getUri(), requestMap);
 
         requestMapElement = doc.createElement("request-map");
         requestMapElement.setAttribute("uri", "entity/find/{entityName}/{pkValues: .*}");
         requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-        requestMapMap.put(requestMap.uri, requestMap);
+        requestMapMap.put(requestMap.getUri(), requestMap);
 
         when(request.getAttribute("requestMapMap")).thenReturn(requestMapMap);
 
@@ -156,39 +156,39 @@ public class CsrfUtilTests {
         Element requestMapElement = doc.createElement("request-map");
         requestMapElement.setAttribute("uri", "checkLogin");
         ConfigXMLReader.RequestMap requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-        requestMapMap.put(requestMap.uri, requestMap);
+        requestMapMap.put(requestMap.getUri(), requestMap);
         // REST request like /entity/find/AccommodationClass
         requestMapElement = doc.createElement("request-map");
         requestMapElement.setAttribute("uri", "entity/find/{entityName}");
         requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-        requestMapMap.put(requestMap.uri, requestMap);
+        requestMapMap.put(requestMap.getUri(), requestMap);
 
         // View override like /view/ModelInduceFromDb
         requestMapElement = doc.createElement("request-map");
         requestMapElement.setAttribute("uri", "view");
         requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-        requestMapMap.put(requestMap.uri, requestMap);
+        requestMapMap.put(requestMap.getUri(), requestMap);
 
         requestMapElement = doc.createElement("request-map");
         requestMapElement.setAttribute("uri", "ModelInduceFromDb");
         requestMap = new ConfigXMLReader.RequestMap(requestMapElement);
-        requestMapMap.put(requestMap.uri, requestMap);
+        requestMapMap.put(requestMap.getUri(), requestMap);
 
         // test usual request
         requestMap = CsrfUtil.findRequestMap(requestMapMap, "/checkLogin");
-        assertEquals(requestMap.uri, "checkLogin");
+        assertEquals(requestMap.getUri(), "checkLogin");
 
         // test usual request
         requestMap = CsrfUtil.findRequestMap(requestMapMap, "checkLogin");
-        assertEquals(requestMap.uri, "checkLogin");
+        assertEquals(requestMap.getUri(), "checkLogin");
 
         // test REST request
         requestMap = CsrfUtil.findRequestMap(requestMapMap, "/entity/find/AccommodationClass");
-        assertEquals(requestMap.uri, "entity/find/{entityName}");
+        assertEquals(requestMap.getUri(), "entity/find/{entityName}");
 
         // test view orderride
         requestMap = CsrfUtil.findRequestMap(requestMapMap, "/view/ModelInduceFromDb");
-        assertEquals(requestMap.uri, "view");
+        assertEquals(requestMap.getUri(), "view");
 
     }
 

@@ -48,9 +48,9 @@ public final class CatalogWorker {
 
     private static final String MODULE = CatalogWorker.class.getName();
 
-    private CatalogWorker () {}
+    private CatalogWorker() { }
 
-    
+
     /**
      * @deprecated - Use WebSiteWorker.getWebSiteId(ServletRequest) instead
      */
@@ -92,7 +92,8 @@ public final class CatalogWorker {
 
     public static List<GenericValue> getStoreCatalogs(Delegator delegator, String productStoreId) {
         try {
-            return EntityQuery.use(delegator).from("ProductStoreCatalog").where("productStoreId", productStoreId).orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
+            return EntityQuery.use(delegator).from("ProductStoreCatalog").where("productStoreId", productStoreId)
+                    .orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up store catalogs for store with id " + productStoreId, MODULE);
         }
@@ -116,7 +117,8 @@ public final class CatalogWorker {
         }
 
         try {
-            return EntityQuery.use(delegator).from("ProdCatalogRole").where("partyId", partyId, "roleTypeId", "CUSTOMER").orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
+            return EntityQuery.use(delegator).from("ProdCatalogRole").where("partyId", partyId, "roleTypeId", "CUSTOMER")
+                    .orderBy("sequenceNum", "prodCatalogId").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up ProdCatalog Roles for party with id " + partyId, MODULE);
         }
@@ -174,9 +176,11 @@ public final class CatalogWorker {
         }
 
         if (!fromSession) {
-            if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, MODULE);
+            }
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new LinkedList<String>());
+            CategoryWorker.setTrail(request, new LinkedList<>());
         }
         return prodCatalogId;
     }
@@ -199,7 +203,7 @@ public final class CatalogWorker {
         if (partyCatalogs != null) allCatalogLinks.addAll(partyCatalogs);
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
 
-        if (allCatalogLinks.size() > 0) {
+        if (!allCatalogLinks.isEmpty()) {
             for (GenericValue catalogLink: allCatalogLinks) {
                 categoryIds.add(catalogLink.getString("prodCatalogId"));
             }
@@ -264,8 +268,7 @@ public final class CatalogWorker {
 
     public static String getProdCatalogCategoryId(Delegator delegator, String prodCatalogId, String prodCatalogCategoryTypeId) {
         if (UtilValidate.isNotEmpty(prodCatalogId) && UtilValidate.isNotEmpty(prodCatalogCategoryTypeId)) {
-            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId
-                                                            , prodCatalogCategoryTypeId));
+            GenericValue prodCatalogCategory = EntityUtil.getFirst(getProdCatalogCategories(delegator, prodCatalogId, prodCatalogCategoryTypeId));
 
             if (prodCatalogCategory != null) {
                 return prodCatalogCategory.getString("productCategoryId");
@@ -353,9 +356,7 @@ public final class CatalogWorker {
 
         return EntityUtil.getFieldListFromEntityList(
                 getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD"),
-                "productCategoryId",
-                true
-        );
+                "productCategoryId", true);
     }
 
     public static String getCatalogTopEbayCategoryId(ServletRequest request, String prodCatalogId) {

@@ -117,14 +117,14 @@ public class TaxAuthorityServices {
                     taxAuthoritySet.add(taxAuthority);
                 }
 
-                if (taxAuthoritySet.size() == 0) {
+                if (taxAuthoritySet.isEmpty()) {
                     throw new IllegalArgumentException("Could not find any Tax Authories for store with ID ["
                             + productStoreId + "] for tax calculation; the store settings may need to be corrected.");
                 }
 
                 List<GenericValue> taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null,
                         billToPartyId, taxAuthoritySet, basePrice, quantity, amount, shippingPrice, ZERO_BASE);
-                if (taxAdustmentList.size() == 0) {
+                if (taxAdustmentList.isEmpty()) {
                     // this is something that happens every so often for different products and
                     // such, so don't blow up on it...
                     Debug.logWarning("Could not find any Tax Authories Rate Rules for store with ID [" + productStoreId
@@ -247,7 +247,7 @@ public class TaxAuthorityServices {
         List<List<GenericValue>> itemAdjustments = new LinkedList<>();
 
         BigDecimal totalPrice = ZERO_BASE;
-        Map<GenericValue,BigDecimal> productWeight = new HashMap<>();
+        Map<GenericValue, BigDecimal> productWeight = new HashMap<>();
         // Loop through the products; get the taxCategory; and lookup each in the cache.
         for (int i = 0; i < itemProductList.size(); i++) {
             GenericValue product = itemProductList.get(i);
@@ -255,18 +255,18 @@ public class TaxAuthorityServices {
             BigDecimal itemPrice = itemPriceList.get(i);
             BigDecimal itemQuantity = itemQuantityList != null ? itemQuantityList.get(i) : null;
             BigDecimal shippingAmount = itemShippingList != null ? itemShippingList.get(i) : null;
-            
+
             totalPrice = totalPrice.add(itemAmount);
-            
+
             List<GenericValue> taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId,
                     billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
 
             // this is an add and not an addAll because we want a List of Lists of
             // GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
-            
+
             //Calculates the TotalPrices for each Product in the Order
-            BigDecimal currentTotalPrice =  productWeight.containsKey(product) ? productWeight.get(product) : BigDecimal.ZERO;
+            BigDecimal currentTotalPrice = productWeight.getOrDefault(product, BigDecimal.ZERO);
             currentTotalPrice = currentTotalPrice.add(itemAmount);
             productWeight.put(product, currentTotalPrice);
         }
@@ -280,11 +280,11 @@ public class TaxAuthorityServices {
         }
 
         if (orderShippingAmount != null && orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
-           for (GenericValue prod : productWeight.keySet()) {
-               List<GenericValue> taxList = getTaxAdjustments(delegator, prod, productStore, payToPartyId, billToPartyId,
-                       taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderShippingAmount, null, productWeight.get(prod));
-               orderAdjustments.addAll(taxList);
-           }
+            for (GenericValue prod : productWeight.keySet()) {
+                List<GenericValue> taxList = getTaxAdjustments(delegator, prod, productStore, payToPartyId, billToPartyId,
+                        taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderShippingAmount, null, productWeight.get(prod));
+                orderAdjustments.addAll(taxList);
+            }
         }
         if (orderPromotionsAmount != null && orderPromotionsAmount.compareTo(BigDecimal.ZERO) != 0) {
             List<GenericValue> taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId,
@@ -300,7 +300,7 @@ public class TaxAuthorityServices {
     }
 
     private static void getTaxAuthorities(Delegator delegator, GenericValue shippingAddress,
-            Set<GenericValue> taxAuthoritySet) throws GenericEntityException {
+                                          Set<GenericValue> taxAuthoritySet) throws GenericEntityException {
         Map<String, String> geoIdByTypeMap = new HashMap<>();
         if (shippingAddress != null) {
             if (UtilValidate.isNotEmpty(shippingAddress.getString("countryGeoId"))) {
@@ -332,13 +332,13 @@ public class TaxAuthorityServices {
     }
 
     private static List<GenericValue> getTaxAdjustments(Delegator delegator, GenericValue product,
-            GenericValue productStore,
-            String payToPartyId, String billToPartyId, Set<GenericValue> taxAuthoritySet,
-            BigDecimal itemPrice, BigDecimal itemQuantity, BigDecimal itemAmount,
-            BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
-            return getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, 
-                    taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, 
-                    orderPromotionsAmount, null);
+                                                        GenericValue productStore,
+                                                        String payToPartyId, String billToPartyId, Set<GenericValue> taxAuthoritySet,
+                                                        BigDecimal itemPrice, BigDecimal itemQuantity, BigDecimal itemAmount,
+                                                        BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
+        return getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId,
+                taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount,
+                orderPromotionsAmount, null);
     }
 
     private static List<GenericValue> getTaxAdjustments(Delegator delegator, GenericValue product,
@@ -348,11 +348,10 @@ public class TaxAuthorityServices {
             BigDecimal shippingAmount, BigDecimal orderPromotionsAmount, BigDecimal weight) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List<GenericValue> adjustments = new LinkedList<>();
-        
         if (weight == null) {
             weight = BigDecimal.ONE;
         }
-        
+
         if (payToPartyId == null) {
             if (productStore != null) {
                 payToPartyId = productStore.getString("payToPartyId");
@@ -428,9 +427,8 @@ public class TaxAuthorityServices {
             List<GenericValue> lookupList = EntityQuery.use(delegator).from("TaxAuthorityRateProduct")
                     .where(mainCondition).orderBy("minItemPrice", "minPurchase", "fromDate").filterByDate().queryList();
 
-            if (lookupList.size() == 0) {
-                Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition
-                        .toString(), MODULE);
+            if (lookupList.isEmpty()) {
+                Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition.toString(), MODULE);
                 return adjustments;
             }
 
@@ -472,14 +470,13 @@ public class TaxAuthorityServices {
                 // get glAccountId from TaxAuthorityGlAccount entity using the payToPartyId as
                 // the organizationPartyId
                 GenericValue taxAuthorityGlAccount = EntityQuery.use(delegator).from("TaxAuthorityGlAccount")
-                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId",
-                                payToPartyId).queryOne();
+                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId).queryOne();
                 String taxAuthGlAccountId = null;
                 if (taxAuthorityGlAccount != null) {
                     taxAuthGlAccountId = taxAuthorityGlAccount.getString("glAccountId");
                 } else {
-                    // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is
-                    // that done elsewhere later on?
+                    // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is that done elsewhere later on?
+                    Debug.logVerbose("what to do if no TaxAuthorityGlAccount found?", MODULE);
                 }
 
                 GenericValue productPrice = null;
@@ -576,9 +573,8 @@ public class TaxAuthorityServices {
                     handlePartyTaxExempt(taxAdjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount,
                             nowTimestamp, delegator);
                 } else {
-                    Debug.logInfo(
-                            "NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=["
-                                    + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
+                    Debug.logInfo("NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs "
+                            + "considered; billToPartyId=[" + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
                 }
                 if (discountedSalesTax.compareTo(BigDecimal.ZERO) < 0) {
                     GenericValue taxAdjValueNegative = delegator.makeValue("OrderAdjustment");
@@ -588,9 +584,9 @@ public class TaxAuthorityServices {
                 }
                 adjustments.add(taxAdjValue);
 
-                if (productPrice != null && itemQuantity != null &&
-                        productPrice.getBigDecimal("priceWithTax") != null &&
-                        !"Y".equals(productPrice.getString("taxInPrice"))) {
+                if (productPrice != null && itemQuantity != null
+                        && productPrice.getBigDecimal("priceWithTax") != null
+                        && !"Y".equals(productPrice.getString("taxInPrice"))) {
                     BigDecimal priceWithTax = productPrice.getBigDecimal("priceWithTax");
                     BigDecimal price = productPrice.getBigDecimal("price");
                     BigDecimal baseSubtotal = price.multiply(itemQuantity);
@@ -662,7 +658,6 @@ public class TaxAuthorityServices {
     /**
      * Private helper method which determines, based on the state of the product,
      * how the ProdCondition should be set for the main condition.
-     *
      * @param delegator
      * @param product
      *            which may be null
@@ -704,7 +699,7 @@ public class TaxAuthorityServices {
             productCategoryIdSet.add(pcm.getString("productCategoryId"));
         }
 
-        if (productCategoryIdSet.size() == 0) {
+        if (productCategoryIdSet.isEmpty()) {
             return EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
         }
         return EntityCondition.makeCondition(

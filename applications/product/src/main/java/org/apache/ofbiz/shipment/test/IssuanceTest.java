@@ -42,26 +42,30 @@ public class IssuanceTest extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test multiple inventory item issuance.
+     * @throws Exception the exception
+     */
     public void testMultipleInventoryItemIssuance() throws Exception {
         String facilityId = "WebStoreWarehouse";
-        String productId="GZ-2644";
-        String orderId="DEMO81015";
-        String orderItemSeqId="00001";
-        String shipGroupSeqId="00001";
+        String productId = "GZ-2644";
+        String orderId = "DEMO81015";
+        String orderItemSeqId = "00001";
+        String shipGroupSeqId = "00001";
         String shipmentItemSeqId = "00001";
 
-        PackingSession packSession = new PackingSession(dispatcher, getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
+        PackingSession packSession = new PackingSession(getDispatcher(), getUserLogin("system"), facilityId, null, orderId, shipGroupSeqId);
         packSession.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, productId, BigDecimal.valueOf(6L), 1,
-            BigDecimal.valueOf(1000L), false);
+                BigDecimal.valueOf(1000L), false);
         String shipmentId = packSession.complete(false);
 
-        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).cache().queryOne();
+        GenericValue orderHeader = EntityQuery.use(getDelegator()).from("OrderHeader").where("orderId", orderId).queryOne();
 
         // Test the OrderShipment is correct
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
 
         assertFalse("No OrderShipment for order", UtilValidate.isEmpty(orderShipments));
-        assertEquals( "Incorrect number of OrderShipments for order", 1, orderShipments.size());
+        assertEquals("Incorrect number of OrderShipments for order", 1, orderShipments.size());
 
         GenericValue orderShipment = orderShipments.get(0);
         assertEquals(orderItemSeqId, orderShipment.getString("orderItemSeqId"));
@@ -69,12 +73,12 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentId, orderShipment.getString("shipmentId"));
         assertEquals(shipmentItemSeqId, orderShipment.getString("shipmentItemSeqId"));
         BigDecimal actual = orderShipment.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L))==0);
+        assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L)) == 0);
 
         // Test the ItemIssuances are correct
         List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("inventoryItemId"), false);
         assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
-        assertEquals( "Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
+        assertEquals("Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
 
         GenericValue itemIssuance = itemIssuances.get(0);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));
@@ -83,7 +87,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentItemSeqId, itemIssuance.getString("shipmentItemSeqId"));
         assertEquals("9001", itemIssuance.getString("inventoryItemId"));
         actual = itemIssuance.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in ItemIssuance. Expected 5.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(5L))==0);
+        assertTrue("Incorrect quantity in ItemIssuance. Expected 5.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(5L)) == 0);
 
         itemIssuance = itemIssuances.get(1);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));
@@ -92,7 +96,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentItemSeqId, itemIssuance.getString("shipmentItemSeqId"));
         assertEquals("9025", itemIssuance.getString("inventoryItemId"));
         actual = itemIssuance.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(1L))==0);
+        assertTrue("Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(1L)) == 0);
 
         // Test reservations have been removed
         List<GenericValue> reservations = orderHeader.getRelated("OrderItemShipGrpInvRes", null, null, false);

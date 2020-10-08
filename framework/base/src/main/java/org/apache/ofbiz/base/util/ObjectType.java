@@ -48,43 +48,43 @@ public class ObjectType {
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
 
-    private static final Map<String, String> classAlias = new HashMap<>();
-    private static final Map<String, Class<?>> primitives = new HashMap<>();
+    private static final Map<String, String> CLASS_ALIAS = new HashMap<>();
+    private static final Map<String, Class<?>> PRIMITIVES = new HashMap<>();
 
     static {
-        classAlias.put("Object", "java.lang.Object");
-        classAlias.put("String", "java.lang.String");
-        classAlias.put("Boolean", "java.lang.Boolean");
-        classAlias.put("BigDecimal", "java.math.BigDecimal");
-        classAlias.put("Double", "java.lang.Double");
-        classAlias.put("Float", "java.lang.Float");
-        classAlias.put("Long", "java.lang.Long");
-        classAlias.put("Integer", "java.lang.Integer");
-        classAlias.put("Short", "java.lang.Short");
-        classAlias.put("Byte", "java.lang.Byte");
-        classAlias.put("Character", "java.lang.Character");
-        classAlias.put("Timestamp", "java.sql.Timestamp");
-        classAlias.put("Time", "java.sql.Time");
-        classAlias.put("Date", "java.sql.Date");
-        classAlias.put("Locale", "java.util.Locale");
-        classAlias.put("Collection", "java.util.Collection");
-        classAlias.put("List", "java.util.List");
-        classAlias.put("Set", "java.util.Set");
-        classAlias.put("Map", "java.util.Map");
-        classAlias.put("HashMap", "java.util.HashMap");
-        classAlias.put("TimeZone", "java.util.TimeZone");
-        classAlias.put("TimeDuration", "org.apache.ofbiz.base.util.TimeDuration");
-        classAlias.put("GenericValue", "org.apache.ofbiz.entity.GenericValue");
-        classAlias.put("GenericPK", "org.apache.ofbiz.entity.GenericPK");
-        classAlias.put("GenericEntity", "org.apache.ofbiz.entity.GenericEntity");
-        primitives.put("boolean", Boolean.TYPE);
-        primitives.put("short", Short.TYPE);
-        primitives.put("int", Integer.TYPE);
-        primitives.put("long", Long.TYPE);
-        primitives.put("float", Float.TYPE);
-        primitives.put("double", Double.TYPE);
-        primitives.put("byte", Byte.TYPE);
-        primitives.put("char", Character.TYPE);
+        CLASS_ALIAS.put("Object", "java.lang.Object");
+        CLASS_ALIAS.put("String", "java.lang.String");
+        CLASS_ALIAS.put("Boolean", "java.lang.Boolean");
+        CLASS_ALIAS.put("BigDecimal", "java.math.BigDecimal");
+        CLASS_ALIAS.put("Double", "java.lang.Double");
+        CLASS_ALIAS.put("Float", "java.lang.Float");
+        CLASS_ALIAS.put("Long", "java.lang.Long");
+        CLASS_ALIAS.put("Integer", "java.lang.Integer");
+        CLASS_ALIAS.put("Short", "java.lang.Short");
+        CLASS_ALIAS.put("Byte", "java.lang.Byte");
+        CLASS_ALIAS.put("Character", "java.lang.Character");
+        CLASS_ALIAS.put("Timestamp", "java.sql.Timestamp");
+        CLASS_ALIAS.put("Time", "java.sql.Time");
+        CLASS_ALIAS.put("Date", "java.sql.Date");
+        CLASS_ALIAS.put("Locale", "java.util.Locale");
+        CLASS_ALIAS.put("Collection", "java.util.Collection");
+        CLASS_ALIAS.put("List", "java.util.List");
+        CLASS_ALIAS.put("Set", "java.util.Set");
+        CLASS_ALIAS.put("Map", "java.util.Map");
+        CLASS_ALIAS.put("HashMap", "java.util.HashMap");
+        CLASS_ALIAS.put("TimeZone", "java.util.TimeZone");
+        CLASS_ALIAS.put("TimeDuration", "org.apache.ofbiz.base.util.TimeDuration");
+        CLASS_ALIAS.put("GenericValue", "org.apache.ofbiz.entity.GenericValue");
+        CLASS_ALIAS.put("GenericPK", "org.apache.ofbiz.entity.GenericPK");
+        CLASS_ALIAS.put("GenericEntity", "org.apache.ofbiz.entity.GenericEntity");
+        PRIMITIVES.put("boolean", Boolean.TYPE);
+        PRIMITIVES.put("short", Short.TYPE);
+        PRIMITIVES.put("int", Integer.TYPE);
+        PRIMITIVES.put("long", Long.TYPE);
+        PRIMITIVES.put("float", Float.TYPE);
+        PRIMITIVES.put("double", Double.TYPE);
+        PRIMITIVES.put("byte", Byte.TYPE);
+        PRIMITIVES.put("char", Character.TYPE);
     }
 
     /**
@@ -106,9 +106,9 @@ public class ObjectType {
      */
     public static Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
         Class<?> theClass = null;
-        // if it is a primitive type, return the object from the "primitives" map
-        if (primitives.containsKey(className)) {
-            return primitives.get(className);
+        // if it is a primitive type, return the object from the "PRIMITIVES" map
+        if (PRIMITIVES.containsKey(className)) {
+            return PRIMITIVES.get(className);
         }
 
         int genericsStart = className.indexOf("<");
@@ -120,13 +120,13 @@ public class ObjectType {
         if (className.endsWith("[]")) {
             if (Character.isLowerCase(className.charAt(0)) && className.indexOf(".") < 0) {
                 String prefix = className.substring(0, 1).toUpperCase(Locale.getDefault());
-               // long and boolean have other prefix than first letter
-               if (className.startsWith("long")) {
-                   prefix = "J";
-               } else if (className.startsWith("boolean")) {
-                   prefix = "Z";
-               }
-               className = "[" + prefix;
+                // long and boolean have other prefix than first letter
+                if (className.startsWith("long")) {
+                    prefix = "J";
+                } else if (className.startsWith("boolean")) {
+                    prefix = "Z";
+                }
+                className = "[" + prefix;
             } else {
                 Class<?> arrayClass = loadClass(className.replace("[]", ""), loader);
                 className = "[L" + arrayClass.getName().replace("[]", "") + ";";
@@ -134,8 +134,8 @@ public class ObjectType {
         }
 
         // if className is an alias (e.g. "String") then replace it with the proper class name (e.g. "java.lang.String")
-        if (classAlias.containsKey(className)) {
-            className = classAlias.get(className);
+        if (CLASS_ALIAS.containsKey(className)) {
+            className = CLASS_ALIAS.get(className);
         }
 
         if (loader == null) {
@@ -155,7 +155,7 @@ public class ObjectType {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws NoSuchMethodException 
+     * @throws NoSuchMethodException
      * @throws InvocationTargetException
      */
     public static Object getInstance(String className) throws ClassNotFoundException, InstantiationException,
@@ -227,48 +227,44 @@ public class ObjectType {
         try {
             return loadClass(typeName, loader);
         } catch (SecurityException se1) {
-            throw new IllegalArgumentException("Problems with classloader: security exception (" +
-                    se1.getMessage() + ")");
+            throw new IllegalArgumentException("Problems with classloader: security exception ("
+                    + se1.getMessage() + ")");
         } catch (ClassNotFoundException e1) {
             try {
                 return loadClass(LANG_PACKAGE + typeName, loader);
             } catch (SecurityException se2) {
-                throw new IllegalArgumentException("Problems with classloader: security exception (" +
-                        se2.getMessage() + ")");
+                throw new IllegalArgumentException("Problems with classloader: security exception ("
+                        + se2.getMessage() + ")");
             } catch (ClassNotFoundException e2) {
                 try {
                     return loadClass(SQL_PACKAGE + typeName, loader);
                 } catch (SecurityException se3) {
-                    throw new IllegalArgumentException("Problems with classloader: security exception (" +
-                            se3.getMessage() + ")");
+                    throw new IllegalArgumentException("Problems with classloader: security exception ("
+                            + se3.getMessage() + ")");
                 } catch (ClassNotFoundException e3) {
-                    throw new IllegalArgumentException("Cannot find and load the class of type: " + typeName +
-                            " or of type: " + LANG_PACKAGE + typeName + " or of type: " + SQL_PACKAGE + typeName +
-                            ":  (" + e3.getMessage() + ")");
+                    throw new IllegalArgumentException("Cannot find and load the class of type: " + typeName
+                            + " or of type: " + LANG_PACKAGE + typeName + " or of type: " + SQL_PACKAGE + typeName
+                            + ":  (" + e3.getMessage() + ")");
                 }
             }
         }
     }
 
     /** See also {@link #simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)}. */
-    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail)
+            throws GeneralException {
         return simpleTypeOrObjectConvert(obj, type, format, null, locale, noTypeFail);
     }
 
     /**
-     * Converts the passed object to the named type. 
+     * Converts the passed object to the named type.
      * Initially created for only simple types but actually handle more types and not all simple types.
      * See ObjectTypeTests class for more, and (normally) up to date information
-     * 
-     * Supported types: 
-     * - All primitives
-     * 
+     * Supported types:
+     * - All PRIMITIVES
      * - Simple types: String, Boolean, Double, Float, Long, Integer, BigDecimal.
-     * 
      * - Other Objects: List, Map, Set, Calendar, Date (java.sql.Date), Time, Timestamp, TimeZone, Date (util.Date and sql.Date)
-     * 
      * - Simple types (maybe) not handled: Short, BigInteger, Byte, Character, ObjectName and Void...
-     * 
      * @param obj Object to convert
      * @param type Optional Java class name of type to convert to. A <code>null</code> or empty <code>String</code> will return the original object.
      * @param format Optional (can be null) format string for Date, Time, Timestamp
@@ -280,7 +276,8 @@ public class ObjectType {
      */
     @SourceMonitored
     @SuppressWarnings("unchecked")
-    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)
+            throws GeneralException {
         if (obj == null || UtilValidate.isEmpty(type) || "Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
         }
@@ -291,7 +288,7 @@ public class ObjectType {
             Node node = (Node) obj;
 
 
-            String nodeValue =  node.getTextContent();
+            String nodeValue = node.getTextContent();
 
             if (nodeValue == null) {
                 /* We can't get the text value of Document, Document Type and Notation Node,
@@ -323,7 +320,7 @@ public class ObjectType {
         if (sourceClass.equals(targetClass)) {
             return obj;
         }
-        if (obj instanceof String && ((String) obj).length() == 0) {
+        if (obj instanceof String && ((String) obj).isEmpty()) {
             return null;
         }
         Converter<Object, Object> converter = null;
@@ -365,7 +362,8 @@ public class ObjectType {
             throw new GeneralException("Conversion from " + obj.getClass().getName() + " to " + type + " not currently supported");
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + targetClass.getName() + ", returning original object.", MODULE);
+            Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + targetClass.getName()
+                    + ", returning original object.", MODULE);
         }
         return obj;
     }
@@ -376,7 +374,7 @@ public class ObjectType {
     }
 
     public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format,
-        List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
+            List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) {
@@ -389,7 +387,8 @@ public class ObjectType {
                 type = clz.getName();
             }
         } catch (ClassNotFoundException e) {
-            Debug.logWarning("The specified type [" + type + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), MODULE);
+            Debug.logWarning("The specified type [" + type
+                    + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), MODULE);
         }
 
         if (value1 == null) {
@@ -440,7 +439,8 @@ public class ObjectType {
             } else if ("not-equals".equals(operator)) {
                 return convertedValue1 == null && convertedValue2 == null ? Boolean.FALSE : Boolean.TRUE;
             } else if ("is-not-empty".equals(operator) || "is-empty".equals(operator)) {
-                // do nothing, handled later...
+                // do nothing, handled later...Logging to avoid checkstyle issue.
+                Debug.logInfo("Operator not handled:" + operator, MODULE);
             } else {
                 if (convertedValue1 == null) {
                     messages.add("Left value is null, cannot complete compare for the operator " + operator);
@@ -466,13 +466,13 @@ public class ObjectType {
             if (convertedValue1 == null) {
                 return Boolean.TRUE;
             }
-            if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0) {
+            if (convertedValue1 instanceof String && ((String) convertedValue1).isEmpty()) {
                 return Boolean.TRUE;
             }
-            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).isEmpty()) {
                 return Boolean.TRUE;
             }
-            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).isEmpty()) {
                 return Boolean.TRUE;
             }
             return Boolean.FALSE;
@@ -480,13 +480,13 @@ public class ObjectType {
             if (convertedValue1 == null) {
                 return Boolean.FALSE;
             }
-            if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0) {
+            if (convertedValue1 instanceof String && ((String) convertedValue1).isEmpty()) {
                 return Boolean.FALSE;
             }
-            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).isEmpty()) {
                 return Boolean.FALSE;
             }
-            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).size() == 0) {
+            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).isEmpty()) {
                 return Boolean.FALSE;
             }
             return Boolean.TRUE;
@@ -496,18 +496,19 @@ public class ObjectType {
             String str1 = (String) convertedValue1;
             String str2 = (String) convertedValue2;
 
-            if (str1.length() == 0 || str2.length() == 0) {
+            if (str1.isEmpty() || str2.isEmpty()) {
                 if ("equals".equals(operator)) {
-                    return str1.length() == 0 && str2.length() == 0 ? Boolean.TRUE : Boolean.FALSE;
+                    return str1.isEmpty() && str2.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
                 } else if ("not-equals".equals(operator)) {
-                    return str1.length() == 0 && str2.length() == 0 ? Boolean.FALSE : Boolean.TRUE;
+                    return str1.isEmpty() && str2.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
                 } else {
                     messages.add("ERROR: Could not do a compare between strings with one empty string for the operator " + operator);
                     return Boolean.FALSE;
                 }
             }
             result = str1.compareTo(str2);
-        } else if ("java.lang.Double".equals(type) || "java.lang.Float".equals(type) || "java.lang.Long".equals(type) || "java.lang.Integer".equals(type) || "java.math.BigDecimal".equals(type)) {
+        } else if ("java.lang.Double".equals(type) || "java.lang.Float".equals(type) || "java.lang.Long".equals(type)
+                || "java.lang.Integer".equals(type) || "java.math.BigDecimal".equals(type)) {
             Number tempNum = (Number) convertedValue1;
             double value1Double = tempNum.doubleValue();
 
@@ -608,13 +609,13 @@ public class ObjectType {
         }
 
         if (value instanceof String) {
-            return ((String) value).length() == 0;
+            return ((String) value).isEmpty();
         }
         if (value instanceof Collection) {
-            return ((Collection<? extends Object>) value).size() == 0;
+            return ((Collection<? extends Object>) value).isEmpty();
         }
         if (value instanceof Map) {
-            return ((Map<? extends Object, ? extends Object>) value).size() == 0;
+            return ((Map<? extends Object, ? extends Object>) value).isEmpty();
         }
         if (value instanceof CharSequence) {
             return ((CharSequence) value).length() == 0;

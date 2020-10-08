@@ -37,7 +37,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;call-service-asynch&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CallServiceAsynch extends MethodOperation {
@@ -64,6 +63,7 @@ public final class CallServiceAsynch extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        SimpleMethod simpleMethod = getSimpleMethod();
         if (methodContext.isTraceOn()) {
             outputTraceMessage(methodContext, "Begin call-service-asynch.");
         }
@@ -89,10 +89,12 @@ public final class CallServiceAsynch extends MethodOperation {
             methodContext.getDispatcher().runAsync(serviceName, inMap);
         } catch (GenericServiceException e) {
             if (methodContext.isTraceOn()) {
-                outputTraceMessage(methodContext, "Service engine threw an exception: " + e.getMessage() + ", halting script execution. End call-service-asynch.");
+                outputTraceMessage(methodContext, "Service engine threw an exception: " + e.getMessage()
+                        + ", halting script execution. End call-service-asynch.");
             }
             Debug.logError(e, MODULE);
-            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the " + serviceName + " service: " + e.getMessage() + "]";
+            String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the "
+                    + serviceName + " service: " + e.getMessage() + "]";
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());

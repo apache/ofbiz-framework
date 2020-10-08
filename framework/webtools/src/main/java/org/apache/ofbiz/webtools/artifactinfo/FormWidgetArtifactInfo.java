@@ -44,16 +44,16 @@ import org.xml.sax.SAXException;
 public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     private static final String MODULE = FormWidgetArtifactInfo.class.getName();
 
-    protected ModelForm modelForm;
+    private ModelForm modelForm;
 
-    protected String formName;
-    protected String formLocation;
+    private String formName;
+    private String formLocation;
 
-    protected Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<>();
-    protected Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<>();
-    protected FormWidgetArtifactInfo formThisFormExtends = null;
-    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<>();
-    protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<>();
+    private Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<>();
+    private FormWidgetArtifactInfo formThisFormExtends = null;
+    private Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<>();
+    private Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<>();
 
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -61,16 +61,13 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         this.formLocation = formLocation;
         try {
             this.modelForm = aif.getModelForm(formName, formLocation);
-        } catch (ParserConfigurationException e) {
-            throw new GeneralException(e);
-        } catch (SAXException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             throw new GeneralException(e);
         }
     }
 
-    /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
+    /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in
+     * ArtifactInfoFactory.getFormWidgetArtifactInfo */
     public void populateAll() throws GeneralException {
         ArtifactInfoContext infoContext = new ArtifactInfoContext();
         ArtifactInfoGatherer infoGatherer = new ArtifactInfoGatherer(infoContext);
@@ -90,6 +87,10 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         this.populateTargetedRequests(infoContext.getTargetLocations());
     }
 
+    /**
+     * Populate form extended.
+     * @throws GeneralException the general exception
+     */
     protected void populateFormExtended() throws GeneralException {
         // populate formThisFormExtends and the reverse-associate cache in the aif
         if (this.modelForm.getParentFormName() != null) {
@@ -99,55 +100,95 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             try {
-                aif.getModelForm(formName);
+                getAif().getModelForm(formName);
             } catch (Exception e) {
-                Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", MODULE);
+                Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
+                        + "] does not exist!", MODULE);
                 return;
             }
 
             // the forward reference
-            this.formThisFormExtends = aif.getFormWidgetArtifactInfo(formName);
+            this.formThisFormExtends = getAif().getFormWidgetArtifactInfo(formName);
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allFormInfosExtendingForm, formName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosExtendingForm(), formName);
         }
     }
 
+    /**
+     * Populate entities from name set.
+     * @param allEntityNameSet the all entity name set
+     * @throws GeneralException the general exception
+     */
     protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
         for (String entityName: allEntityNameSet) {
             if (entityName.contains("${")) {
                 continue;
             }
-            if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
-                Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", MODULE);
+            if (!getAif().getEntityModelReader().getEntityNames().contains(entityName)) {
+                Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
+                        + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
-            this.entitiesUsedInThisForm.add(aif.getEntityArtifactInfo(entityName));
+            this.entitiesUsedInThisForm.add(getAif().getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToEntityName, entityName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToEntityName(), entityName);
         }
     }
+
+    /**
+     * Populate services from name set.
+     * @param allServiceNameSet the all service name set
+     * @throws GeneralException the general exception
+     */
     protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
         for (String serviceName: allServiceNameSet) {
             if (serviceName.contains("${")) {
                 continue;
             }
             try {
-                aif.getModelService(serviceName);
+                getAif().getModelService(serviceName);
             } catch (GeneralException e) {
-                Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", MODULE);
+                Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
+                        + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
-            this.servicesUsedInThisForm.add(aif.getServiceArtifactInfo(serviceName));
+            this.servicesUsedInThisForm.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToServiceName, serviceName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToServiceName(), serviceName);
         }
     }
 
-    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
+    /**
+     * Populate linked requests.
+     * @param allRequestUniqueId the all request unique id
+     * @throws GeneralException the general exception
+     */
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
+        for (String requestUniqueId: allRequestUniqueId) {
+            if (requestUniqueId.contains("${")) {
+                continue;
+            }
+            if (requestUniqueId.indexOf("#") > -1) {
+                String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
+                String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
+                // the forward reference
+                this.requestsLinkedToInForm.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                // the reverse reference
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToRequest(), requestUniqueId);
+            }
+        }
+    }
+
+    /**
+     * Populate targeted requests.
+     * @param allRequestUniqueId the all request unique id
+     * @throws GeneralException the general exception
+     */
+    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -158,26 +199,9 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
                 // the forward reference
-                this.requestsLinkedToInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                this.requestsTargetedByInForm.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToRequest, requestUniqueId);
-            }
-        }
-    }
-    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException{
-
-        for (String requestUniqueId: allRequestUniqueId) {
-            if (requestUniqueId.contains("${")) {
-                continue;
-            }
-
-            if (requestUniqueId.indexOf("#") > -1) {
-                String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
-                String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
-                // the forward reference
-                this.requestsTargetedByInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
-                // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.allFormInfosTargetingRequest, requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosTargetingRequest(), requestUniqueId);
             }
         }
     }
@@ -195,7 +219,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public String getType() {
-        return ArtifactInfoFactory.FormWidgetInfoTypeId;
+        return ArtifactInfoFactory.FORM_WIDGET_INFO_TYPE_ID;
     }
 
     @Override
@@ -211,37 +235,65 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof FormWidgetArtifactInfo) {
-            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) &&
-                    this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
+            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName())
+                    && this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
         } else {
             return false;
         }
     }
 
+    /**
+     * Gets entities used in form.
+     * @return the entities used in form
+     */
     public Set<EntityArtifactInfo> getEntitiesUsedInForm() {
         return this.entitiesUsedInThisForm;
     }
 
+    /**
+     * Gets services used in form.
+     * @return the services used in form
+     */
     public Set<ServiceArtifactInfo> getServicesUsedInForm() {
         return this.servicesUsedInThisForm;
     }
 
+    /**
+     * Gets form this form extends.
+     * @return the form this form extends
+     */
     public FormWidgetArtifactInfo getFormThisFormExtends() {
         return this.formThisFormExtends;
     }
 
+    /**
+     * Gets forms extending this form.
+     * @return the forms extending this form
+     */
     public Set<FormWidgetArtifactInfo> getFormsExtendingThisForm() {
-        return this.aif.allFormInfosExtendingForm.get(this.getUniqueId());
+        return this.getAif().getAllFormInfosExtendingForm().get(this.getUniqueId());
     }
 
+    /**
+     * Gets screens including this form.
+     * @return the screens including this form
+     */
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisForm() {
-        return this.aif.allScreenInfosReferringToForm.get(this.getUniqueId());
+        return this.getAif().getAllScreenInfosReferringToForm().get(this.getUniqueId());
     }
 
+    /**
+     * Gets requests linked to in form.
+     * @return the requests linked to in form
+     */
     public Set<ControllerRequestArtifactInfo> getRequestsLinkedToInForm() {
         return this.requestsLinkedToInForm;
     }
 
+    /**
+     * Gets requests targeted by form.
+     * @return the requests targeted by form
+     */
     public Set<ControllerRequestArtifactInfo> getRequestsTargetedByForm() {
         return this.requestsTargetedByInForm;
     }

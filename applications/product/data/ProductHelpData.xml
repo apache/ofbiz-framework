@@ -22,28 +22,4 @@ under the License.
     <Content contentId="HELP_PRODUCT" contentTypeId="DOCUMENT" localeString="en" contentName="Catalog Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_PRODUCT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="020"/>
 
-    <DataResource dataResourceId="PRODCATALOG_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_PRODCATALOG_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="PRODCATALOG_main" contentTypeId="DOCUMENT" contentName="Main Catalog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="PRODCATALOG_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_PRODUCT" contentIdTo="PRODCATALOG_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="CATALOG_main"/>
-
-    <!-- Image Management -->
-    <DataResource dataResourceId="IMAGEMANAGEMENT_MAIN" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_IMAGEMANAGEMENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Image Management" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="IMAGEMANAGEMENT_MAIN" contentTypeId="DOCUMENT" contentName="Image Management" templateDataResourceId="HELP_TEMPL" dataResourceId="IMAGEMANAGEMENT_MAIN" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="PRODCATALOG_main" contentIdTo="IMAGEMANAGEMENT_MAIN" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="01" mapKey="CATALOG_Imagemanagement"/>
-
-    <!-- Facility help pages -->
-    <DataResource dataResourceId="HELP_FACILITY" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/product/data/helpdata/HELP_FACILITY.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Help system Facility" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_FACILITY" contentTypeId="DOCUMENT" contentName="Facility" templateDataResourceId="HELP_TEMPL" 
-        dataResourceId="HELP_FACILITY" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_FACILITY" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
-
-    <DataResource dataResourceId="HELP_FACILITY_TRK" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_FACILITY_Tracking.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Facility Tracking" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_FACILITY_TRK" contentTypeId="DOCUMENT" localeString="en" contentName="Facility Tracking" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_FACILITY_TRK" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_FACILITY" contentIdTo="HELP_FACILITY_TRK" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="FACILITY_Tracking"/>
-    
-    <DataResource dataResourceId="HELP_FACILITY_PICK" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_FACILITY_PicklistManage.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Facility PicklistManage" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_FACILITY_PICK" contentTypeId="DOCUMENT" localeString="en" contentName="Facility PicklistManage" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_FACILITY_PICK" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_FACILITY" contentIdTo="HELP_FACILITY_PICK" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="FACILITY_PicklistManage"/>
 </entity-engine-xml>

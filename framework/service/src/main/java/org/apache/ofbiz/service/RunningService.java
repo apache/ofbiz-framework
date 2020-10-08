@@ -24,12 +24,12 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 
 public class RunningService {
 
-    protected ModelService model;
-    protected String name;
-    protected int mode;
+    private ModelService model;
+    private String name;
+    private int mode;
 
-    protected Timestamp startStamp;
-    protected Timestamp endStamp;
+    private Timestamp startStamp;
+    private Timestamp endStamp;
 
     private RunningService() {
         this.startStamp = UtilDateTime.nowTimestamp();
@@ -43,26 +43,49 @@ public class RunningService {
         this.mode = mode;
     }
 
+    /**
+     * Gets model service.
+     * @return the model service
+     */
     public ModelService getModelService() {
         return this.model;
     }
 
+    /**
+     * Gets local name.
+     * @return the local name
+     */
     public String getLocalName() {
         return this.name;
     }
 
+    /**
+     * Gets mode.
+     * @return the mode
+     */
     public int getMode() {
         return mode;
     }
 
+    /**
+     * Gets start stamp.
+     * @return the start stamp
+     */
     public Timestamp getStartStamp() {
         return (Timestamp) this.startStamp.clone();
     }
 
+    /**
+     * Gets end stamp.
+     * @return the end stamp
+     */
     public Timestamp getEndStamp() {
         return (Timestamp) this.endStamp.clone();
     }
 
+    /**
+     * Sets end stamp.
+     */
     public void setEndStamp() {
         this.endStamp = UtilDateTime.nowTimestamp();
     }

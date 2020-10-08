@@ -72,6 +72,13 @@ under the License.
         <implements service="orderNotificationInterface"/>
     </service>
 
+    <service name="sendPOEmail" engine="java" require-new-transaction="true" max-retry="3"
+             location="org.apache.ofbiz.order.order.OrderServices" invoke="sendPOEmail">
+        <description>Send Purchase Order Email</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="sendProcessNotification" engine="java" require-new-transaction="true" max-retry="3"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="sendProcessNotification">
         <description>Limit Service for order processing workflow; sends activitiy notifications</description>

@@ -66,14 +66,13 @@ public final class WebAppUtil {
 
     private static final String MODULE = WebAppUtil.class.getName();
     public static final String CONTROL_MOUNT_POINT = "control";
-    private static final Path webAppFileName = Paths.get("WEB-INF", "web.xml");
-    private static final UtilCache<Path, WebXml> webXmlCache = UtilCache.createUtilCache("webapp.WebXml");
+    private static final Path WEB_APP_FILE_NAME = Paths.get("WEB-INF", "web.xml");
+    private static final UtilCache<Path, WebXml> WEB_XML_CACHE = UtilCache.createUtilCache("webapp.WebXml");
 
     /**
      * Returns the control servlet path. The path consists of the web application's mount-point
      * specified in the <code>ofbiz-component.xml</code> file and the servlet mapping specified
      * in the web application's <code>web.xml</code> file.
-     * 
      * @param webAppInfo
      * @throws IOException
      * @throws SAXException
@@ -83,7 +82,8 @@ public final class WebAppUtil {
         String servletMapping = null;
         WebXml webXml = getWebXml(webAppInfo);
         for (ServletDef servletDef : webXml.getServlets().values()) {
-            if ("org.apache.ofbiz.webapp.control.ControlServlet".equals(servletDef.getServletClass()) || "org.apache.ofbiz.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
+            if ("org.apache.ofbiz.webapp.control.ControlServlet".equals(servletDef.getServletClass())
+                    || "org.apache.ofbiz.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
                 String servletName = servletDef.getServletName();
                 // Catalina servlet mappings: key = url-pattern, value = servlet-name.
                 for (Entry<String, String> entry : webXml.getServletMappings().entrySet()) {
@@ -97,10 +97,10 @@ public final class WebAppUtil {
         }
         if (servletMapping == null) {
             throw new IllegalArgumentException("org.apache.ofbiz.webapp.control.ControlServlet mapping not found in "
-                    + webAppInfo.location().resolve(webAppFileName));
+                    + webAppInfo.location().resolve(WEB_APP_FILE_NAME));
         }
         servletMapping = servletMapping.replace("*", "");
-        String servletPath = webAppInfo.contextRoot.concat(servletMapping);
+        String servletPath = webAppInfo.getContextRoot().concat(servletMapping);
         return servletPath;
     }
 
@@ -112,7 +112,6 @@ public final class WebAppUtil {
     /**
      * Returns the <code>WebappInfo</code> instance associated to the specified web site ID.
      * Throws <code>IllegalArgumentException</code> if the web site ID was not found.
-     * 
      * @param webSiteId
      * @throws IOException
      * @throws SAXException
@@ -130,7 +129,6 @@ public final class WebAppUtil {
     /**
      * Returns the web site ID - as configured in the web application's <code>web.xml</code> file,
      * or <code>null</code> if no web site ID was found.
-     * 
      * @param webAppInfo
      * @throws IOException
      * @throws SAXException
@@ -167,7 +165,8 @@ public final class WebAppUtil {
         }
     }
 
-    /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext or anywhere else, just returns it */
+    /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext
+     * or anywhere else, just returns it */
     public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
         if (delegator == null) {
             Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", MODULE);
@@ -197,7 +196,9 @@ public final class WebAppUtil {
             if (UtilValidate.isEmpty(delegatorName)) {
                 delegatorName = "default";
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, MODULE);
+            }
             delegator = DelegatorFactory.getDelegator(delegatorName);
             servletContext.setAttribute("delegator", delegator);
             if (delegator == null) {
@@ -229,20 +230,18 @@ public final class WebAppUtil {
 
     /**
      * Returns a <code>WebXml</code> instance that models the web application's <code>web.xml</code> file.
-     * 
      * @param webAppInfo
      * @throws IOException
      * @throws SAXException
      */
     private static WebXml getWebXml(WebappInfo webAppInfo) throws IOException, SAXException {
         Assert.notNull("webAppInfo", webAppInfo);
-        Path webXmlFileLocation = webAppInfo.location().resolve(webAppFileName);
+        Path webXmlFileLocation = webAppInfo.location().resolve(WEB_APP_FILE_NAME);
         return parseWebXmlFile(webXmlFileLocation, true);
     }
 
     /**
      * Parses the specified <code>web.xml</code> file into a <code>WebXml</code> instance.
-     * 
      * @param webXmlLocation
      * @param validate
      * @throws IOException
@@ -250,7 +249,7 @@ public final class WebAppUtil {
      */
     private static WebXml parseWebXmlFile(Path webXmlLocation, boolean validate) throws IOException, SAXException {
         Objects.requireNonNull(webXmlLocation, "webXmlFileLocation");
-        WebXml result = webXmlCache.get(webXmlLocation);
+        WebXml result = WEB_XML_CACHE.get(webXmlLocation);
         if (result == null) {
             if (Files.notExists(webXmlLocation)) {
                 throw new IllegalArgumentException(webXmlLocation + " does not exist.");
@@ -270,10 +269,10 @@ public final class WebAppUtil {
             } finally {
                 digester.reset();
             }
-            result = webXmlCache.putIfAbsentAndGet(webXmlLocation, result);
+            result = WEB_XML_CACHE.putIfAbsentAndGet(webXmlLocation, result);
         }
         return result;
     }
 
-    private WebAppUtil() {}
+    private WebAppUtil() { }
 }

@@ -46,7 +46,7 @@ public class GeneralException extends Exception {
         throw (GeneralException) new GeneralException(message).initCause(t);
     }
 
-    List<String> messages = null;
+    private List<String> messages = null;
 
     /**
      * Creates new <code>GeneralException</code> without detail message.
@@ -129,6 +129,10 @@ public class GeneralException extends Exception {
         return super.getMessage();
     }
 
+    /**
+     * Gets message list.
+     * @return the message list
+     */
     public List<String> getMessageList() {
         return this.messages;
     }

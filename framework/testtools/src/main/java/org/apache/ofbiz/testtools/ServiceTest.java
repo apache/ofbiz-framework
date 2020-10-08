@@ -36,12 +36,12 @@ public class ServiceTest extends OFBizTestCase {
 
     private static final String MODULE = ServiceTest.class.getName();
 
-    protected String serviceName;
+    private String serviceName;
 
     /**
      * Tests of Service
      * @param caseName test case name
-     * @param mainElement DOM main element 
+     * @param mainElement DOM main element
      */
     public ServiceTest(String caseName, Element mainElement) {
         super(caseName);
@@ -59,7 +59,7 @@ public class ServiceTest extends OFBizTestCase {
 
         try {
 
-            Map<String, Object> serviceResult = dispatcher.runSync(serviceName, UtilMisc.toMap("test", this, "testResult", result));
+            Map<String, Object> serviceResult = getDispatcher().runSync(serviceName, UtilMisc.toMap("test", this, "testResult", result));
 
             // do something with the errorMessage
             String errorMessage = (String) serviceResult.get(ModelService.ERROR_MESSAGE);

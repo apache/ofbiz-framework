@@ -37,7 +37,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <!-- Help link actions -->
-                <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_web_tools"/>
                 <set field="applicationMenuLocation" value="component://webtools/widget/Menus.xml" global="true"/>
                 <set field="applicationMenuName" value="WebtoolsAppBar" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.FrameworkWebTools" global="true"/>
@@ -214,7 +214,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonArtifactDecorator">
         <section>
             <actions>
@@ -322,5 +322,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

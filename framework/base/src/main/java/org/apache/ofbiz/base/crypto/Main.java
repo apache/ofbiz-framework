@@ -23,7 +23,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.shiro.crypto.AesCipherService;
 
 public class Main {
-    
     private static final String MODULE = Main.class.getName();
     public static void main(String[] args) throws Exception {
         if ("-crypt".equals(args[0])) {

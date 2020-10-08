@@ -39,7 +39,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;calculate&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class Calculate extends MethodOperation {
@@ -138,36 +137,36 @@ public final class Calculate extends MethodOperation {
         resultValue = resultValue.setScale(decimalScale, roundingMode);
         Object resultObj = null;
         switch (type) {
-            case TYPE_DOUBLE:
-                resultObj = resultValue.doubleValue();
-                break;
-            case TYPE_FLOAT:
-                resultObj = resultValue.floatValue();
-                break;
-            case TYPE_LONG:
-                resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = resultValue.longValue();
-                break;
-            case TYPE_INTEGER:
-                resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = resultValue.intValue();
-                break;
-            case TYPE_STRING:
-                // run the decimal-formatting
-                String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
-                DecimalFormat df = null;
-                if (!decimalFormatString.isEmpty()) {
-                    df = new DecimalFormat(decimalFormatString);
-                }
-                if (df != null && resultValue.compareTo(BigDecimal.ZERO) != 0) {
-                    resultObj = df.format(resultValue);
-                } else {
-                    resultObj = resultValue.toString();
-                }
-                break;
-            case TYPE_BIG_DECIMAL:
-                resultObj = resultValue;
-                break;
+        case TYPE_DOUBLE:
+            resultObj = resultValue.doubleValue();
+            break;
+        case TYPE_FLOAT:
+            resultObj = resultValue.floatValue();
+            break;
+        case TYPE_LONG:
+            resultValue = resultValue.setScale(0, roundingMode);
+            resultObj = resultValue.longValue();
+            break;
+        case TYPE_INTEGER:
+            resultValue = resultValue.setScale(0, roundingMode);
+            resultObj = resultValue.intValue();
+            break;
+        case TYPE_STRING:
+            // run the decimal-formatting
+            String decimalFormatString = decimalFormatFse.expandString(methodContext.getEnvMap());
+            DecimalFormat df = null;
+            if (!decimalFormatString.isEmpty()) {
+                df = new DecimalFormat(decimalFormatString);
+            }
+            if (df != null && resultValue.compareTo(BigDecimal.ZERO) != 0) {
+                resultObj = df.format(resultValue);
+            } else {
+                resultObj = resultValue.toString();
+            }
+            break;
+        case TYPE_BIG_DECIMAL:
+            resultObj = resultValue;
+            break;
         }
         fieldFma.put(methodContext.getEnvMap(), resultObj);
         return true;
@@ -202,8 +201,8 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;calcop&gt; element.
-     * 
-     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">
+     *     Mini-language Reference</a>
      */
     public final class CalcOp extends MiniLangElement implements SubCalc {
         private static final int OPERATOR_ADD = 1;
@@ -272,31 +271,33 @@ public final class Calculate extends MethodOperation {
                 } else if (fieldObj instanceof BigDecimal) {
                     resultValue = (BigDecimal) fieldObj;
                 }
-                if (operator == OPERATOR_NEGATIVE)
+                if (operator == OPERATOR_NEGATIVE) {
                     resultValue = resultValue.negate();
+                }
                 isFirst = false;
             }
             for (SubCalc calcop : calcops) {
                 if (isFirst) {
                     resultValue = calcop.calcValue(methodContext, scale, roundingMode);
-                    if (operator == OPERATOR_NEGATIVE)
+                    if (operator == OPERATOR_NEGATIVE) {
                         resultValue = resultValue.negate();
+                    }
                     isFirst = false;
                 } else {
                     switch (operator) {
-                        case OPERATOR_ADD:
-                            resultValue = resultValue.add(calcop.calcValue(methodContext, scale, roundingMode));
-                            break;
-                        case OPERATOR_SUBTRACT:
-                        case OPERATOR_NEGATIVE:
-                            resultValue = resultValue.subtract(calcop.calcValue(methodContext, scale, roundingMode));
-                            break;
-                        case OPERATOR_MULTIPLY:
-                            resultValue = resultValue.multiply(calcop.calcValue(methodContext, scale, roundingMode));
-                            break;
-                        case OPERATOR_DIVIDE:
-                            resultValue = resultValue.divide(calcop.calcValue(methodContext, scale, roundingMode), scale, roundingMode);
-                            break;
+                    case OPERATOR_ADD:
+                        resultValue = resultValue.add(calcop.calcValue(methodContext, scale, roundingMode));
+                        break;
+                    case OPERATOR_SUBTRACT:
+                    case OPERATOR_NEGATIVE:
+                        resultValue = resultValue.subtract(calcop.calcValue(methodContext, scale, roundingMode));
+                        break;
+                    case OPERATOR_MULTIPLY:
+                        resultValue = resultValue.multiply(calcop.calcValue(methodContext, scale, roundingMode));
+                        break;
+                    case OPERATOR_DIVIDE:
+                        resultValue = resultValue.divide(calcop.calcValue(methodContext, scale, roundingMode), scale, roundingMode);
+                        break;
                     }
                 }
             }
@@ -306,8 +307,8 @@ public final class Calculate extends MethodOperation {
 
     /**
      * Implements the &lt;number&gt; element.
-     * 
-     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">
+     *     Mini-language Reference</a>
      */
     public final class NumberOp extends MiniLangElement implements SubCalc {
 
@@ -327,8 +328,9 @@ public final class Calculate extends MethodOperation {
         public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
             String valueStr = valueFse.expandString(methodContext.getEnvMap());
             Locale locale = methodContext.getLocale();
-            if (locale == null)
+            if (locale == null) {
                 locale = Locale.getDefault();
+            }
             try {
                 BigDecimal parsedVal = (BigDecimal) MiniLangUtil.convertType(valueStr, java.math.BigDecimal.class, locale, null, null);
                 return parsedVal.setScale(scale, roundingMode);

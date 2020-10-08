@@ -1,0 +1,15 @@
+.info-container {
+    color: rgb(165, 42, 42);
+    justify-items: center;
+    border: 2px dashed rgba(236, 198, 48, 0.7);
+    transition: .5s ease-out;
+}
+.info-overlay-item {
+    background: rgba(255, 213, 70);
+}
+.info-cursor {
+    cursor: pointer;
+}
+.info-cursor-none {
+    cursor: text;
+}

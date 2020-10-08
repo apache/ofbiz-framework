@@ -28,7 +28,7 @@
         <junit-test-suite class-name="org.apache.ofbiz.party.ContactMechWorkerTests"/>
     </test-case>
     <test-case case-name="partyContactMech-tests">
-        <simple-method-test location="component://party/minilang/test/PartyContactMechTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.party.PartyContactMechTests"/>
     </test-case>
 
 

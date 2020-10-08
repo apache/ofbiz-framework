@@ -42,7 +42,7 @@ public class ExternalLoginKeysManager {
     private static final String MODULE = ExternalLoginKeysManager.class.getName();
     private static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     // This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object
-    private static final Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<>();
+    private static final Map<String, GenericValue> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
 
     // This variable is set to empty so we know need to read from the properties file.
     private static String isExternalLoginKeyEnabled = "";
@@ -51,7 +51,6 @@ public class ExternalLoginKeysManager {
      * Gets (and creates if necessary) an authentication token to be used for an external login parameter.
      * When a new token is created, it is persisted in the web session and in the web request and map entry keyed by the
      * token and valued by a userLogin object is added to a map that is looked up for subsequent requests.
-     *
      * @param request - the http request in which the authentication token is searched and stored
      * @return the authentication token as persisted in the session and request objects
      */
@@ -67,7 +66,7 @@ public class ExternalLoginKeysManager {
             if (sesExtKey != null) {
                 if (isAjax(request)) return sesExtKey;
 
-                externalLoginKeys.remove(sesExtKey);
+                EXTERNAL_LOGIN_KEYS.remove(sesExtKey);
             }
 
             GenericValue userLogin = (GenericValue) request.getAttribute("userLogin");
@@ -75,27 +74,26 @@ public class ExternalLoginKeysManager {
             if (userLogin == null) return "";
 
             //no key made yet for this request, create one
-            while (externalKey == null || externalLoginKeys.containsKey(externalKey)) {
+            while (externalKey == null || EXTERNAL_LOGIN_KEYS.containsKey(externalKey)) {
                 UUID uuid = UUID.randomUUID();
                 externalKey = "EL" + uuid.toString();
             }
 
             request.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
             session.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
-            externalLoginKeys.put(externalKey, userLogin);
+            EXTERNAL_LOGIN_KEYS.put(externalKey, userLogin);
             return externalKey;
         }
     }
 
     /**
      * Removes the authentication token, if any, from the session.
-     *
      * @param session - the http session from which the authentication token is removed
      */
     static void cleanupExternalLoginKey(HttpSession session) {
         String sesExtKey = (String) session.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
         if (sesExtKey != null) {
-            externalLoginKeys.remove(sesExtKey);
+            EXTERNAL_LOGIN_KEYS.remove(sesExtKey);
         }
     }
 
@@ -104,7 +102,6 @@ public class ExternalLoginKeysManager {
      * The method is designed to be used in a chain of controller preprocessor event: it always return "success"
      * even when the authentication token is missing or the authentication fails in order to move the processing to the
      * next event in the chain.
-     *
      * @param request - the http request object
      * @param response - the http response object
      * @return "success" in all the cases
@@ -113,7 +110,7 @@ public class ExternalLoginKeysManager {
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
-        GenericValue userLogin = externalLoginKeys.get(externalKey);
+        GenericValue userLogin = EXTERNAL_LOGIN_KEYS.get(externalKey);
         if (userLogin != null) {
             //to check it's the right tenant
             //in case username and password are the same in different tenants
@@ -158,7 +155,6 @@ public class ExternalLoginKeysManager {
 
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
         LoginWorker.autoLoginSet(request, response);
-        
         return "success";
     }
 
@@ -168,14 +164,14 @@ public class ExternalLoginKeysManager {
      * @return indicator
      */
     private static boolean isAjax(HttpServletRequest request) {
-       return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
     /**
      * Check if using externalLoginKey
      * @return
      */
-    public static boolean isExternalLoginKeyEnabled (HttpServletRequest request){
+    public static boolean isExternalLoginKeyEnabled (HttpServletRequest request) {
         if (UtilValidate.isEmpty(isExternalLoginKeyEnabled)) {
             isExternalLoginKeyEnabled = EntityUtilProperties.getPropertyValue("security",
                     "security.login.externalLoginKey.enabled", "true",

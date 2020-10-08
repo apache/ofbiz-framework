@@ -46,38 +46,45 @@ public class ServiceMcaCondition implements java.io.Serializable {
     public static final int CONDITION_HEADER = 2;
     public static final int CONDITION_SERVICE = 3;
 
-    protected String serviceName = null;
-    protected String headerName = null;
-    protected String fieldName = null;
-    protected String operator = null;
-    protected String value = null;
+    private String serviceName = null;
+    private String headerName = null;
+    private String fieldName = null;
+    private String operator = null;
+    private String value = null;
 
     public ServiceMcaCondition(Element condElement, int condType) {
         switch (condType) {
-            case CONDITION_FIELD:
-                // fields: from|to|subject|body|sent-date|receieved-date
-                this.fieldName = condElement.getAttribute("field-name");
-                // operators: equals|not-equals|empty|not-empty|matches|not-matches
-                this.operator = condElement.getAttribute("operator");
-                // value to compare
-                this.value = condElement.getAttribute("value");
-                break;
-            case CONDITION_HEADER:
-                // free form header name
-                this.headerName = condElement.getAttribute("header-name");
-                // operators: equals|not-equals|empty|not-empty|matches|not-matches
-                this.operator = condElement.getAttribute("operator");
-                // value to compare
-                this.value = condElement.getAttribute("value");
-                break;
-            case CONDITION_SERVICE:
-                this.serviceName = condElement.getAttribute("service-name");
-                break;
-            default:
-                Debug.logWarning("There was an error in the switch-case in ServiceMcaCondition", MODULE);
+        case CONDITION_FIELD:
+            // fields: from|to|subject|body|sent-date|receieved-date
+            this.fieldName = condElement.getAttribute("field-name");
+            // operators: equals|not-equals|empty|not-empty|matches|not-matches
+            this.operator = condElement.getAttribute("operator");
+            // value to compare
+            this.value = condElement.getAttribute("value");
+            break;
+        case CONDITION_HEADER:
+            // free form header name
+            this.headerName = condElement.getAttribute("header-name");
+            // operators: equals|not-equals|empty|not-empty|matches|not-matches
+            this.operator = condElement.getAttribute("operator");
+            // value to compare
+            this.value = condElement.getAttribute("value");
+            break;
+        case CONDITION_SERVICE:
+            this.serviceName = condElement.getAttribute("service-name");
+            break;
+        default:
+            Debug.logWarning("There was an error in the switch-case in ServiceMcaCondition", MODULE);
         }
     }
 
+    /**
+     * Eval boolean.
+     * @param dispatcher the dispatcher
+     * @param messageWrapper the message wrapper
+     * @param userLogin the user login
+     * @return the boolean
+     */
     public boolean eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, GenericValue userLogin) {
         boolean passedCondition = false;
         if (serviceName != null) {
@@ -191,6 +198,14 @@ public class ServiceMcaCondition implements java.io.Serializable {
         return passedCondition;
     }
 
+    /**
+     * Get field value string [ ].
+     * @param message the message
+     * @param fieldName the field name
+     * @return the string [ ]
+     * @throws MessagingException the messaging exception
+     * @throws IOException the io exception
+     */
     protected String[] getFieldValue(MimeMessage message, String fieldName) throws MessagingException, IOException {
         String[] values = null;
         if ("to".equals(fieldName)) {

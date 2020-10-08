@@ -39,7 +39,7 @@ public final class GeoWorker {
 
     private static final String MODULE = GeoWorker.class.getName();
 
-    private GeoWorker() {}
+    private GeoWorker() { }
 
     public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;
@@ -76,7 +76,7 @@ public final class GeoWorker {
                 }
                 geoList.addAll(expandGeoGroup(nextGeo));
             }
-        } 
+        }
         return geoList;
     }
 
@@ -84,7 +84,7 @@ public final class GeoWorker {
         if (UtilValidate.isEmpty(geoIdByTypeMapOrig)) {
             return geoIdByTypeMapOrig;
         }
-        Map<String, String> geoIdByTypeMapTemp =  new LinkedHashMap<>();
+        Map<String, String> geoIdByTypeMapTemp = new LinkedHashMap<>();
         for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
             List<GenericValue> geoAssocList = EntityQuery.use(delegator)
                                                          .from("GeoAssoc")
@@ -97,7 +97,7 @@ public final class GeoWorker {
             }
         }
         geoIdByTypeMapTemp = expandGeoRegionDeep(geoIdByTypeMapTemp, delegator);
-        Map<String, String> geoIdByTypeMapNew =  new LinkedHashMap<>();
+        Map<String, String> geoIdByTypeMapNew = new LinkedHashMap<>();
         // add the temp Map first, then the original over top of it, ie give the original priority over the sub/expanded values
         geoIdByTypeMapNew.putAll(geoIdByTypeMapTemp);
         geoIdByTypeMapNew.putAll(geoIdByTypeMapOrig);
@@ -121,7 +121,8 @@ public final class GeoWorker {
         return geoList.contains(geo);
     }
 
-    public static GenericValue findLatestGeoPoint(Delegator delegator, String entityName, String mainId, String mainValueId, String secondId, String secondValueId) {
+    public static GenericValue findLatestGeoPoint(Delegator delegator, String entityName, String mainId, String mainValueId, String secondId,
+                                                  String secondValueId) {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
             try {
@@ -131,7 +132,8 @@ public final class GeoWorker {
                                      .orderBy("-fromDate")
                                      .queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), MODULE);
+                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId
+                        + " Id [" + secondValueId + "] " + e.toString(), MODULE);
             }
         } else {
             try {

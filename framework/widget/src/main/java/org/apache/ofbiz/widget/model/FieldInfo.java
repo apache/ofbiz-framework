@@ -125,7 +125,7 @@ public abstract class FieldInfo {
     }
 
     public static boolean isInputFieldType(Integer fieldType) {
-        return ! nonInputFieldTypeList.contains(fieldType);
+        return !nonInputFieldTypeList.contains(fieldType);
     }
 
     private final int fieldType;
@@ -150,19 +150,30 @@ public abstract class FieldInfo {
 
     /**
      * Returns a new instance of this object.
-     *
      * @param modelFormField
      */
     public abstract FieldInfo copy(ModelFormField modelFormField);
 
+    /**
+     * Gets field source.
+     * @return the field source
+     */
     public int getFieldSource() {
         return fieldSource;
     }
 
+    /**
+     * Gets field type.
+     * @return the field type
+     */
     public int getFieldType() {
         return fieldType;
     }
 
+    /**
+     * Gets model form field.
+     * @return the model form field
+     */
     public ModelFormField getModelFormField() {
         return modelFormField;
     }

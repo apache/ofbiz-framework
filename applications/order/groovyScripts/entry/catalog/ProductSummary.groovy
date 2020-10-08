@@ -97,7 +97,11 @@ if (product) {
 categoryId = null
 reviews = null
 if (product) {
+    numberFormat = NumberFormat.getCurrencyInstance(locale)
     categoryId = parameters.category_id ?: request.getAttribute("productCategoryId")
+
+    variantInfoJS = new StringBuffer()
+    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
 
     // get the product price
     if (cart.isSalesOrder()) {
@@ -167,7 +171,6 @@ if (product) {
             }
         }
         variantPriceList = []
-        numberFormat = NumberFormat.getCurrencyInstance(locale)
         
         if(virtualVariants){
             amt = new StringBuffer()
@@ -194,6 +197,7 @@ if (product) {
                     basePrice = UtilProperties.getResourceBundleMap("CommonUiLabels", locale).get("CommonNA")
                 }
                 variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + basePrice + "\"; ")
+                variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + basePrice + "';\n")
             }
             variantPriceJS.append(" } ")
             
@@ -204,6 +208,10 @@ if (product) {
             context.virtualJavaScript = jsBuf
         }
     }
+    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + numberFormat.format(priceMap.basePrice) + "';\n")
+    variantInfoJS.append("    });\n</script>\n")
+    context.variantInfoJavaScript = variantInfoJS
+
     context.mainProducts = mainProducts
 }
 

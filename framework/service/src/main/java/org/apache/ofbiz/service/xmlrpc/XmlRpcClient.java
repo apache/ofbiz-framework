@@ -34,9 +34,9 @@ public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
 
     private static final String MODULE = XmlRpcClient.class.getName();
 
-    protected String keyStoreComponent;
-    protected String keyStoreName;
-    protected String keyAlias;
+    private String keyStoreComponent;
+    private String keyStoreName;
+    private String keyAlias;
 
     public XmlRpcClient(XmlRpcClientConfig config, String keyStoreComponent, String keyStoreName, String keyAlias) {
         this(config);
@@ -51,6 +51,10 @@ public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
         this.setConfig(config);
     }
 
+    /**
+     * Gets client transport factory.
+     * @return the client transport factory
+     */
     public XmlRpcTransportFactory getClientTransportFactory() {
         if (keyStoreComponent == null || keyStoreName == null || keyAlias == null) {
             return this.getTransportFactory();

@@ -110,11 +110,14 @@ under the License.
         <auto-attributes entity-name="OrderRequirementCommitment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderRequirementCommitment" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="checkCreateOrderRequirement" engine="simple" auth="true"
-            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateOrderRequirement">
+    <service name="checkCreateOrderRequirement" engine="groovy" auth="true"
+            location="component://order/groovyScripts/order/OrderRequirementServices.groovy" invoke="checkCreateOrderRequirement">
         <description>Create OrderRequirementCommitment and Requirement for items with automatic requirement upon ordering</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
@@ -131,17 +134,6 @@ under the License.
     <service name="checkCreateStockRequirementAtp" engine="simple" auth="true"
             location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateStockRequirementAtp">
         <description>Create a Product Requirement based on ATP inventory</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
-        <attribute name="productId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
-    </service>
-    <service name="createRequirementFromItemATP" engine="simple" auth="true"
-            location="component://order/minilang/order/OrderServices.xml" invoke="createRequirementFromItemATP">
-        <description>Create OrderRequirementCommitment and Requirement for items with requirement based on ATP stock levels</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
