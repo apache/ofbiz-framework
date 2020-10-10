@@ -168,18 +168,9 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
-                boolean insertWidgetNamedBorder = false;
-                NamedBorderType namedBorderType = null;
                 if (!location.endsWith(".fo.ftl")) {
-                    namedBorderType = ModelWidget.widgetNamedBorderType();
-                    if (namedBorderType != NamedBorderType.NONE) {
-                        insertWidgetNamedBorder = true;
-                    }
-                }
-                String contextPath = "";
-                if (insertWidgetNamedBorder) {
-                    contextPath = ((HttpServletRequest) context.get("request")).getContextPath();
-                    writer.append(HtmlWidgetRenderer.buildNamedBorder("Begin", "Template", location, namedBorderType, contextPath));
+                    String contextPath = ((HttpServletRequest) context.get("request")).getContextPath();
+                    writer.append(HtmlWidgetRenderer.beginNamedBorder("Template", location, contextPath));
                 }
 
                 Template template = null;
@@ -190,8 +181,8 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
-                if (insertWidgetNamedBorder) {
-                    writer.append(HtmlWidgetRenderer.buildNamedBorder("End", "Template", location, namedBorderType, contextPath));
+                if (!location.endsWith(".fo.ftl")) {
+                    writer.append(HtmlWidgetRenderer.endNamedBorder("Template", location));
                 }
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));

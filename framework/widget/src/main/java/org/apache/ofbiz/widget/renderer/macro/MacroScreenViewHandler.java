@@ -36,7 +36,6 @@ import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 import org.apache.ofbiz.widget.model.ModelTheme;
-import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
@@ -116,15 +115,10 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             context.put("simpleEncoder", UtilCodec.getEncoder(visualTheme.getModelTheme().getEncoder(getName())));
             screenStringRenderer.renderScreenBegin(writer, context);
             // render start of named border for screen
-            ModelWidget.NamedBorderType widgetNamedBorderType = ModelWidget.widgetNamedBorderType();
-            if (widgetNamedBorderType != ModelWidget.NamedBorderType.NONE) {
-                writer.append(HtmlWidgetRenderer.buildNamedBorder("Begin", "Screen", page, widgetNamedBorderType, request.getContextPath()));
-            }
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Screen", page, request.getContextPath()));
             screens.render(page);
             // render end of named border for screen
-            if (widgetNamedBorderType != ModelWidget.NamedBorderType.NONE) {
-                writer.append(HtmlWidgetRenderer.buildNamedBorder("End", "Screen", page, widgetNamedBorderType, request.getContextPath()));
-            }
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Screen", page));
             screenStringRenderer.renderScreenEnd(writer, context);
             writer.flush();
         } catch (TemplateException e) {

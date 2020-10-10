@@ -49,6 +49,8 @@ public class HtmlWidgetRenderer {
 
     private boolean widgetCommentsEnabled = false;
 
+    private static ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderType();
+
     /**
      * Is widget comments enabled boolean.
      * @return the boolean
@@ -75,17 +77,15 @@ public class HtmlWidgetRenderer {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
     }
 
-    public static String buildNamedBorder(String boundaryType, String widgetType, String widgetName,
-                                          ModelWidget.NamedBorderType namedBorderType, String contextPath) {
-        List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
-        if (!themeBasePathsToExempt.stream().anyMatch(widgetName::contains)) {
-            // add additional visual label for non-theme ftl
-            if ("Begin".equals(boundaryType)) {
-                String fileName = widgetName.substring(widgetName.lastIndexOf("/") + 1);
+    public static String beginNamedBorder(String widgetType, String location, String contextPath) {
+        if (namedBorderType != ModelWidget.NamedBorderType.NONE) {
+            List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+            if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+                String fileName = location.substring(location.lastIndexOf("/") + 1);
                 switch (namedBorderType) {
                 case SOURCE:
                     return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='"
-                            + widgetName + "' data-target='" + contextPath
+                            + location + "' data-target='" + contextPath
                             + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
                             + "/openSourceFile'>"
                             + fileName
@@ -94,9 +94,18 @@ public class HtmlWidgetRenderer {
                     return "<div class='info-container'><span class='info-overlay-item'>"
                             + fileName
                             + "</span>";
-                default: return "";
+                default:
+                    return "";
                 }
-            } else if ("End".equals(boundaryType)) {
+            }
+        }
+        return "";
+    }
+
+    public static String endNamedBorder(String widgetType, String location) {
+        if (namedBorderType != ModelWidget.NamedBorderType.NONE) {
+            List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+            if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
                 return "</div>";
             }
         }
