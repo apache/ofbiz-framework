@@ -168,12 +168,10 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
-                HttpServletRequest request = ((HttpServletRequest) context.get("request"));
-                if (!location.endsWith(".fo.ftl") && request != null) {
-                    String contextPath = request.getContextPath();
-                    writer.append(HtmlWidgetRenderer.beginNamedBorder("Template", location, contextPath));
+                if (!location.endsWith(".fo.ftl") && HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+                    HttpServletRequest request = ((HttpServletRequest) context.get("request"));
+                    writer.append(HtmlWidgetRenderer.beginNamedBorder("Template", location, request.getContextPath()));
                 }
-
                 Template template = null;
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
                     template = FreeMarkerWorker.getTemplate(location);
@@ -182,7 +180,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
-                if (!location.endsWith(".fo.ftl") && request != null) {
+                if (!location.endsWith(".fo.ftl") && HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
                     writer.append(HtmlWidgetRenderer.endNamedBorder("Template", location));
                 }
                 if (insertWidgetBoundaryComments) {

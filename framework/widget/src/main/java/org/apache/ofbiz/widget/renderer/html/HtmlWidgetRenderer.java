@@ -40,6 +40,11 @@ public class HtmlWidgetRenderer {
     public static final String WHITE_SPACE = "\r\n";
 
     /**
+     * Store property value of widget.dev.namedBorder
+     */
+    public static final ModelWidget.NamedBorderType NAMED_BORDER_TYPE = ModelWidget.widgetNamedBorderType();
+
+    /**
      * Sets widget comments enabled.
      * @param widgetCommentsEnabled the widget comments enabled
      */
@@ -48,8 +53,6 @@ public class HtmlWidgetRenderer {
     }
 
     private boolean widgetCommentsEnabled = false;
-
-    private static ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderType();
 
     /**
      * Is widget comments enabled boolean.
@@ -77,37 +80,48 @@ public class HtmlWidgetRenderer {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
     }
 
+    /**
+     * Always check the following condition is true before running the method:
+     * HtmlWidgetRenderer.namedBorderType != ModelWidget.NamedBorderType.NONE
+     * @param widgetType
+     * @param location
+     * @param contextPath
+     * @return
+     */
     public static String beginNamedBorder(String widgetType, String location, String contextPath) {
-        if (namedBorderType != ModelWidget.NamedBorderType.NONE) {
-            List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
-            if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
-                String fileName = location.substring(location.lastIndexOf("/") + 1);
-                switch (namedBorderType) {
-                case SOURCE:
-                    return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='"
-                            + location + "' data-target='" + contextPath
-                            + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
-                            + "/openSourceFile'>"
-                            + fileName
-                            + "</span>";
-                case LABEL:
-                    return "<div class='info-container'><span class='info-overlay-item'>"
-                            + fileName
-                            + "</span>";
-                default:
-                    return "";
-                }
+        List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+        if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+            String fileName = location.substring(location.lastIndexOf("/") + 1);
+            switch (NAMED_BORDER_TYPE) {
+            case SOURCE:
+                return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='"
+                        + location + "' data-target='" + contextPath
+                        + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
+                        + "/openSourceFile'>"
+                        + fileName
+                        + "</span>";
+            case LABEL:
+                return "<div class='info-container'><span class='info-overlay-item'>"
+                        + fileName
+                        + "</span>";
+            default:
+                return "";
             }
         }
         return "";
     }
 
+    /**
+     * Always check the following condition is true before running the method:
+     * HtmlWidgetRenderer.namedBorderType != ModelWidget.NamedBorderType.NONE
+     * @param widgetType
+     * @param location
+     * @return
+     */
     public static String endNamedBorder(String widgetType, String location) {
-        if (namedBorderType != ModelWidget.NamedBorderType.NONE) {
-            List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
-            if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
-                return "</div>";
-            }
+        List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+        if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+            return "</div>";
         }
         return "";
     }
