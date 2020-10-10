@@ -168,8 +168,9 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
-                if (!location.endsWith(".fo.ftl")) {
-                    String contextPath = ((HttpServletRequest) context.get("request")).getContextPath();
+                HttpServletRequest request = ((HttpServletRequest) context.get("request"));
+                if (!location.endsWith(".fo.ftl") && request != null) {
+                    String contextPath = request.getContextPath();
                     writer.append(HtmlWidgetRenderer.beginNamedBorder("Template", location, contextPath));
                 }
 
@@ -181,7 +182,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
-                if (!location.endsWith(".fo.ftl")) {
+                if (!location.endsWith(".fo.ftl") && request != null) {
                     writer.append(HtmlWidgetRenderer.endNamedBorder("Template", location));
                 }
                 if (insertWidgetBoundaryComments) {
