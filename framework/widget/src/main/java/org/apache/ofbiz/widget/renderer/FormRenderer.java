@@ -55,6 +55,10 @@ import org.apache.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroupBase;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelGrid;
+import org.apache.ofbiz.widget.model.ModelWidget;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * A form rendering engine.
@@ -969,6 +973,12 @@ public class FormRenderer {
         // render form open
         if (!modelForm.getSkipStart()) {
             formStringRenderer.renderFormOpen(writer, context, modelForm);
+            if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+                HttpServletRequest request = (HttpServletRequest) context.get("request");
+                writer.append(HtmlWidgetRenderer.beginNamedBorder("Form",
+                        modelForm.getFormLocation() + "#" + modelForm.getName(),
+                        request.getContextPath()));
+            }
         }
 
         // render all hidden & ignored fields
@@ -1185,6 +1195,10 @@ public class FormRenderer {
 
         // render form close
         if (!modelForm.getSkipEnd()) {
+            if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+                writer.append(HtmlWidgetRenderer.endNamedBorder("Form",
+                        modelForm.getFormLocation() + "#" + modelForm.getName()));
+            }
             formStringRenderer.renderFormClose(writer, context, modelForm);
         }
 

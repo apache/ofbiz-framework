@@ -94,7 +94,8 @@ public class HtmlWidgetRenderer {
             String fileName = location.substring(location.lastIndexOf("/") + 1);
             switch (NAMED_BORDER_TYPE) {
             case SOURCE:
-                return "<div class='info-container'><span class='info-overlay-item info-cursor-none' data-source='"
+                return "<div class='info-container'><span class='info-overlay-item info-cursor-none info-"
+                        + widgetType.toLowerCase().replaceAll(" ", "-") + "' data-source='"
                         + location + "' data-target='" + contextPath
                         + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
                         + "/openSourceFile'>"
