@@ -168,7 +168,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
-                if (!location.endsWith(".fo.ftl") && HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+                if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && !location.endsWith(".fo.ftl")) {
                     HttpServletRequest request = ((HttpServletRequest) context.get("request"));
                     writer.append(HtmlWidgetRenderer.beginNamedBorder("Template", location, request.getContextPath()));
                 }
@@ -180,7 +180,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
-                if (!location.endsWith(".fo.ftl") && HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+                if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && !location.endsWith(".fo.ftl")) {
                     writer.append(HtmlWidgetRenderer.endNamedBorder("Template", location));
                 }
                 if (insertWidgetBoundaryComments) {
