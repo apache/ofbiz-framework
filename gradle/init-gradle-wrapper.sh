@@ -27,9 +27,9 @@ GRADLE_WRAPPER_URI="https://dl.bintray.com/apacheofbiz/GradleWrapper/v$RELEASE/"
 GRADLE_WRAPPER_URI_BACKUP="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
 
 # checksum to verify the downloaded file
-SHASUM_GRADLE_WRAPPER_FILES="1d23286bcb9e7d3debff18c1b892b9dbb9a4ec6c  gradle/wrapper/gradle-wrapper.jar
-f9c2ad227ef1fe774cb0e141abfc431b05fc9fd4  gradle/wrapper/gradle-wrapper.properties
-b4a6a7e1dca81a692a775193fada937e035265f3  gradlew"
+SHASUM_GRADLE_WRAPPER_FILES="33b0acb4572934fc1dd7d5880c65036724974e06 gradle-wrapper.jar
+e0f1942760af0faec6c059220291dc3a1401a506 gradle-wrapper.properties
+43e0b1f46530cf90c60deb4040eb01ed8fbd3f60 gradlew"
 
 GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
 GRADLE_WRAPPER_PROPERTIES="gradle-wrapper.properties"
