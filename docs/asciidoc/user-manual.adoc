@@ -172,6 +172,13 @@ include::../../applications/party/src/docs/asciidoc/party.adoc[leveloffset=+2]
 
 include::../../applications/product/src/docs/asciidoc/product.adoc[leveloffset=+2]
 
+////
+webtools help should be remove when global glossary exist, and contain a link to developer-manual#webtools
+////
+=== Web tools
+The Webtools application is the UI-gateway to all the framework functions.
+
+include::../../framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
 // Plugins Business Applications
 
 include::../../plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+1]
