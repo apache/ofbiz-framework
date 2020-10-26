@@ -722,7 +722,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def templateDir = "${rootDir}/framework/resources/templates"
         def pluginDir = "${pluginsDir}/${pluginId}"
 
-        ['config', 'data/helpdata', 'dtd', 'documents', 'entitydef', 'lib', 'patches/test', 'patches/qa',
+        ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
                 'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
             mkdir pluginDir+'/'+it
@@ -734,10 +734,8 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
             [tempName:'SecurityPermissionSeedData.xml', newName:"${pluginResourceName}SecurityPermissionSeedData.xml", location:'data'],
             [tempName:'SecurityGroupDemoData.xml', newName:"${pluginResourceName}SecurityGroupDemoData.xml", location:'data'],
             [tempName:'DemoData.xml', newName:"${pluginResourceName}DemoData.xml", location:'data'],
-            [tempName:'HELP.xml', newName:"HELP_${pluginResourceName}.xml", location:'data/helpdata'],
             [tempName:'HELP.adoc', newName:'HELP.adoc', location:''],
             [tempName:'README.adoc', newName:'README.adoc', location:''],
-            [tempName:'document.xml', newName:"${pluginResourceName}.xml", location:'documents'],
             [tempName:'entitymodel.xml', newName:'entitymodel.xml', location:'entitydef'],
             [tempName:'services.xml', newName:'services.xml', location:'servicedef'],
             [tempName:'Tests.xml', newName:"${pluginResourceName}Tests.xml", location:'testdef'],
