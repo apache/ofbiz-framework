@@ -20,7 +20,9 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -2978,7 +2980,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
-    public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) {
+    public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText)
+            throws UnsupportedEncodingException {
         boolean ajaxEnabled = false;
         ModelForm modelForm = modelFormField.getModelForm();
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnSortColumnUpdateAreas();
@@ -3038,7 +3041,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             String newQueryString = sb.toString();
             String urlPath = UtilHttp.removeQueryStringFromTarget(paginateTarget);
-            linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
+            linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(URLEncoder.encode(newQueryString, "UTF-8")));
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
@@ -3046,7 +3049,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(sortFieldStyle);
         sr.append("\" title=\"");
         sr.append(titleText);
-        sr.append("\" linkUrl=r\"");
+        sr.append("\" linkUrl=\"");
         sr.append(linkUrl);
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
