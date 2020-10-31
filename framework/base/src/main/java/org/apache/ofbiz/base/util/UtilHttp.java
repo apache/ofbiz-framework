@@ -29,9 +29,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,6 +64,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
@@ -177,6 +183,19 @@ public final class UtilHttp {
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
+        }
+
+        // Handles encoded queryStrings
+        String requestURI = request.getRequestURI();
+        if (paramMap.isEmpty() && !requestURI.isEmpty()) {
+            try {
+                List<NameValuePair> nameValuePairs = URLEncodedUtils.parse(new URI(URLDecoder.decode(requestURI, "UTF-8")), Charset.forName("UTF-8"));
+                for (NameValuePair element : nameValuePairs) {
+                    paramMap.put(element.getName(), element.getValue());
+                }
+            } catch (UnsupportedEncodingException | URISyntaxException e1) {
+                Debug.logError("Can't handle encoded queryString " + requestURI, module);
+            }
         }
 
         return canonicalizeParameterMap(paramMap);
@@ -690,7 +709,7 @@ public final class UtilHttp {
         if (request.getContextPath().length() > 1) {
             appName = request.getContextPath().substring(1);
         }
-        // When you set a mountpoint which contains a slash inside its name (ie not only a slash as a trailer, which is possible), 
+        // When you set a mountpoint which contains a slash inside its name (ie not only a slash as a trailer, which is possible),
         // as it's needed with OFBIZ-10765, OFBiz tries to create a cookie with a slash in its name and that's impossible.
         return appName.replaceAll("/","_");
     }
@@ -1016,7 +1035,6 @@ public final class UtilHttp {
 
     /**
      * Encodes a query parameter
-     * 
      * @throws UnsupportedEncodingException
      */
     public static String getEncodedParameter(String parameter) throws UnsupportedEncodingException {
