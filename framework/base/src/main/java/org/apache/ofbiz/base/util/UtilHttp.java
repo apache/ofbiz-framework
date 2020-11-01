@@ -169,7 +169,7 @@ public final class UtilHttp {
 
         // Handles encoded queryStrings
         String requestURI = req.getRequestURI();
-        if (params.isEmpty() && !requestURI.isEmpty()) {
+        if (params.isEmpty() && null != requestURI) {
             try {
                 List<NameValuePair> nameValuePairs = URLEncodedUtils.parse(new URI(URLDecoder.decode(requestURI, "UTF-8")),
                         Charset.forName("UTF-8"));
