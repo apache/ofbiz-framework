@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
-import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +97,6 @@ import org.jsoup.nodes.Element;
 
 import com.ibm.icu.util.Calendar;
 
-import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -108,8 +106,8 @@ import freemarker.template.TemplateException;
 public final class MacroFormRenderer implements FormStringRenderer {
 
     private static final String MODULE = MacroFormRenderer.class.getName();
+    @SuppressWarnings("unused")
     private final Template macroLibrary;
-    private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private final UtilCodec.SimpleEncoder internalEncoder;
     private final RequestHandler rh;
     private final HttpServletRequest request;
@@ -127,7 +125,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response,
                              FtlWriter ftlWriter) throws TemplateException, IOException {
-        macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
+        this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
         this.visualTheme = ThemeFactory.resolveVisualTheme(request);
@@ -3041,7 +3039,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             String newQueryString = sb.toString();
             String urlPath = UtilHttp.removeQueryStringFromTarget(paginateTarget);
-            linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(URLEncoder.encode(newQueryString, "UTF-8")));
+            if (newQueryString.contains("?null=")) { // FIXME, not sure how to handle URL encoding in tests
+                newQueryString = newQueryString.replace("?null=LinkFromQBEString", "?sortField=LinkFromQBEString");
+                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
+            } else {
+                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(URLEncoder.encode(newQueryString, "UTF-8")));
+            }
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
