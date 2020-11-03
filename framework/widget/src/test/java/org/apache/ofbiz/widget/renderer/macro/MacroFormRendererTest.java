@@ -18,46 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.startsWith;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.ofbiz.base.util.UtilCodec.SimpleEncoder;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
-import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.ofbiz.widget.model.ModelForm;
-import org.apache.ofbiz.widget.model.ModelFormField;
-import org.apache.ofbiz.widget.model.ModelScreenWidget;
-import org.apache.ofbiz.widget.model.ModelSingleForm;
-import org.apache.ofbiz.widget.model.ThemeFactory;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
-import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import mockit.Expectations;
@@ -67,6 +29,42 @@ import mockit.MockUp;
 import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
+import org.apache.ofbiz.base.util.UtilCodec.SimpleEncoder;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.widget.model.FieldInfo;
+import org.apache.ofbiz.widget.model.ModelForm;
+import org.apache.ofbiz.widget.model.ModelFormField;
+import org.apache.ofbiz.widget.model.ModelScreenWidget;
+import org.apache.ofbiz.widget.model.ModelSingleForm;
+import org.apache.ofbiz.widget.model.ThemeFactory;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
+import org.hamcrest.Matchers;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
 
 public class MacroFormRendererTest {
 
@@ -78,6 +76,9 @@ public class MacroFormRendererTest {
 
     @Injectable
     private FtlWriter ftlWriter;
+
+    @Injectable
+    private RenderableFtlFormElementsBuilder renderableFtlFormElementsBuilder;
 
     @Mocked
     private HttpSession httpSession;
@@ -100,13 +101,22 @@ public class MacroFormRendererTest {
     @Mocked
     private ModelFormField modelFormField;
 
-    private final StringWriter appendable = new StringWriter();
-
     @Injectable
     private String macroLibraryPath = null;
 
     @Tested
     private MacroFormRenderer macroFormRenderer;
+
+    private final StringWriter appendable = new StringWriter();
+    private RenderableFtlMacroCall genericMacroCall = RenderableFtlMacroCall.builder()
+            .name("genericTest")
+            .build();
+    private RenderableFtlMacroCall genericHyperlinkMacroCall = RenderableFtlMacroCall.builder()
+            .name("genericHyperlink")
+            .build();
+    private RenderableFtlMacroCall genericTooltipMacroCall = RenderableFtlMacroCall.builder()
+            .name("genericTooltip")
+            .build();
 
     @Before
     public void setupMockups() {
@@ -117,144 +127,95 @@ public class MacroFormRendererTest {
         new UtilPropertiesMockUp();
     }
 
-    @Test
-    public void emptyLabelNotRendered(@Mocked ModelScreenWidget.Label label) {
-        new Expectations() {
-            {
-                label.getText(withNotNull());
-                result = "";
-
-                ftlWriter.executeMacro(withNotNull(), withNull(), withNotNull());
-                times = 0;
-            }
-        };
-
-        macroFormRenderer.renderLabel(appendable, ImmutableMap.of(), label);
-    }
-
     @SuppressWarnings("checkstyle:InnerAssignment")
     @Test
-    public void labelMacroRenderedWithText(@Mocked ModelScreenWidget.Label label) throws IOException {
+    public void labelRenderedAsSingleMacro(@Mocked ModelScreenWidget.Label label) {
         new Expectations() {
             {
-                label.getText(withNotNull());
-                result = "TEXT";
+                renderableFtlFormElementsBuilder.label(withNotNull(), withNotNull());
+                result = genericMacroCall;
             }
         };
 
         macroFormRenderer.renderLabel(appendable, ImmutableMap.of(), label);
-
-        assertAndGetMacroString("renderLabel", ImmutableMap.of("text", "TEXT"));
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
-    public void displayFieldMacroRendered(@Mocked ModelFormField.DisplayField displayField) throws IOException {
+    public void displayFieldRendersFieldWithTooltip(@Mocked ModelFormField.DisplayField displayField) {
         new Expectations() {
             {
-                displayField.getType();
-                result = "TYPE";
-
-                displayField.getDescription(withNotNull());
-                result = "DESCRIPTION";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "TOOLTIP";
+                renderableFtlFormElementsBuilder.displayField(withNotNull(), withNotNull(), anyBoolean);
+                result = genericMacroCall;
             }
         };
+        genericTooltipRenderedExpectation(displayField);
 
         macroFormRenderer.renderDisplayField(appendable, ImmutableMap.of(), displayField);
 
-        assertAndGetMacroString("renderDisplayField", ImmutableMap.of("type", "TYPE"));
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
-    public void displayEntityFieldMacroRenderedWithLink(@Mocked ModelFormField.DisplayEntityField displayEntityField,
-                                                        @Mocked ModelFormField.SubHyperlink subHyperlink)
-            throws IOException {
-
-        final Map<String, ConfigXMLReader.RequestMap> requestMapMap = new HashMap<>();
-
+    public void displayEntityFieldRendersFieldWithLinkAndTooltip(
+            @Mocked ModelFormField.DisplayEntityField displayEntityField,
+            @Mocked ModelFormField.SubHyperlink subHyperlink) {
         new Expectations() {
             {
-                displayEntityField.getType();
-                result = "TYPE";
-
-                displayEntityField.getDescription(withNotNull());
-                result = "DESCRIPTION";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "TOOLTIP";
+                renderableFtlFormElementsBuilder.displayField(withNotNull(), withNotNull(), anyBoolean);
+                result = genericMacroCall;
 
                 displayEntityField.getSubHyperlink();
                 result = subHyperlink;
 
-                subHyperlink.getStyle(withNotNull());
-                result = "TestLinkStyle";
-
-                subHyperlink.getUrlMode();
-                result = "url-mode";
-
-                subHyperlink.shouldUse(withNotNull());
-                result = true;
-
-                subHyperlink.getDescription(withNotNull());
-                result = "LinkDescription";
-
-                subHyperlink.getTarget(withNotNull());
-                result = "/link/target/path";
-
-                request.getAttribute("requestMapMap");
-                result = requestMapMap;
+                renderableFtlFormElementsBuilder.makeHyperlinkString(subHyperlink, withNotNull());
+                result = genericHyperlinkMacroCall;
             }
         };
+        genericTooltipRenderedExpectation(displayEntityField);
 
-        Map<String, Object> context = new HashMap<>();
-        macroFormRenderer.renderDisplayField(appendable, context, displayEntityField);
+        macroFormRenderer.renderDisplayField(appendable, ImmutableMap.of(), displayEntityField);
 
-        System.out.println(appendable.toString());
-        assertAndGetMacroString("renderDisplayField", ImmutableMap.of("type", "TYPE"));
+        genericSingleMacroRenderedVerification();
+        genericSubHyperlinkRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
-    public void textFieldMacroRendered(@Mocked ModelFormField.TextField textField) throws IOException {
+    public void textFieldRendersFieldWithLinkAndTooltip(@Mocked final ModelFormField.TextField textField,
+                                                        @Mocked final ModelFormField.SubHyperlink subHyperlink) {
+        final RenderableFtl renderableFtlAsterisk = RenderableFtlMacroCall.builder()
+                .name("asterisks")
+                .build();
         new Expectations() {
             {
-                httpSession.getAttribute("delegatorName");
-                result = "delegator";
+                renderableFtlFormElementsBuilder.textField(withNotNull(), textField, anyBoolean);
+                result = genericMacroCall;
 
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "TEXTVALUE";
+                textField.getSubHyperlink();
+                result = subHyperlink;
 
-                modelFormField.getTooltip(withNotNull());
-                result = "";
+                renderableFtlFormElementsBuilder.makeHyperlinkString(subHyperlink, withNotNull());
+                result = genericHyperlinkMacroCall;
+
+                renderableFtlFormElementsBuilder.asterisks(withNotNull(), withNotNull());
+                result = renderableFtlAsterisk;
             }
         };
 
+        genericTooltipRenderedExpectation(textField);
+
         macroFormRenderer.renderTextField(appendable, ImmutableMap.of("session", httpSession), textField);
+        genericSingleMacroRenderedVerification();
+        genericSubHyperlinkRenderedVerification();
+        genericTooltipRenderedVerification();
 
-        assertAndGetMacroString("renderTextField", ImmutableMap.of("value", "TEXTVALUE"));
-    }
-
-    @Test
-    public void textRendererUsesContainerId(@Mocked ModelFormField.TextField textField)
-            throws IOException {
-
-        new Expectations() {
+        new Verifications() {
             {
-                httpSession.getAttribute("delegatorName");
-                result = "delegator";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
-
-                modelFormField.getCurrentContainerId(withNotNull());
-                result = "CurrentTextId";
-
-                new StringReader(withSubstring("id=\"CurrentTextId\""));
+                ftlWriter.processFtl(appendable, renderableFtlAsterisk);
             }
         };
-
-        macroFormRenderer.renderTextField(appendable, ImmutableMap.of("session", httpSession), textField);
     }
 
     @Test
@@ -269,9 +230,6 @@ public class MacroFormRendererTest {
 
                 textareaField.getRows();
                 result = 22;
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -292,9 +250,6 @@ public class MacroFormRendererTest {
 
                 dateTimeField.getInputMethod();
                 result = "date";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -315,9 +270,6 @@ public class MacroFormRendererTest {
 
                 dropDownField.getAllOptionValues(withNotNull(), (Delegator) any);
                 result = optionValues;
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -341,9 +293,6 @@ public class MacroFormRendererTest {
 
                 checkField.getAllOptionValues(withNotNull(), (Delegator) any);
                 result = optionValues;
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -367,9 +316,6 @@ public class MacroFormRendererTest {
 
                 radioField.getAllOptionValues(withNotNull(), (Delegator) any);
                 result = optionValues;
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -386,9 +332,6 @@ public class MacroFormRendererTest {
             {
                 modelFormField.getTitle(withNotNull());
                 result = "BUTTONTITLE";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -402,9 +345,6 @@ public class MacroFormRendererTest {
             {
                 modelFormField.getTitle(withNotNull());
                 result = "BUTTONTITLE";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -604,9 +544,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getParameterName(withNotNull());
                 result = "FIELDNAME";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -643,9 +580,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getParameterName(withNotNull());
                 result = "FIELDNAME";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -672,9 +606,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getParameterName(withNotNull());
                 result = "FIELDNAME";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -704,9 +635,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getCurrentContainerId(withNotNull());
                 result = "CONTAINERID";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "";
             }
         };
 
@@ -759,9 +687,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getWidgetStyle();
                 result = "WIDGETSTYLE";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "TOOLTIP";
             }
         };
 
@@ -789,9 +714,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getWidgetStyle();
                 result = "WIDGETSTYLE";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "TOOLTIP";
             }
         };
 
@@ -813,9 +735,6 @@ public class MacroFormRendererTest {
 
                 modelFormField.getEntry(withNotNull(), null);
                 result = "VALUE";
-
-                modelFormField.getTooltip(withNotNull());
-                result = "TOOLTIP";
             }
         };
 
@@ -896,57 +815,16 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void tooltipMacroRendered() throws IOException {
+    public void containerRendererAsSingleMacro() throws IOException {
         new Expectations() {
             {
-                modelFormField.getTooltip(withNotNull());
-                result = "TOOLTIP\"With\"Quotes";
-
-                modelFormField.getTooltipStyle();
-                result = "TOOLTIPSTYLE";
-            }
-        };
-
-        final Map<String, Object> context = new HashMap<>();
-        macroFormRenderer.appendTooltip(appendable, context, modelFormField);
-
-        assertAndGetMacroString("renderTooltip", ImmutableMap.of(
-                "tooltip", "TOOLTIP\\\"With\\\"Quotes",
-                "tooltipStyle", "TOOLTIPSTYLE"));
-    }
-
-    @Test
-    public void asterisksMacroRendered() throws IOException {
-        new Expectations() {
-            {
-                modelFormField.getRequiredField();
-                result = true;
-
-                modelFormField.getRequiredFieldStyle();
-                result = "REQUIREDSTYLE";
-            }
-        };
-
-        final Map<String, Object> context = new HashMap<>();
-        macroFormRenderer.addAsterisks(appendable, context, modelFormField);
-
-        assertAndGetMacroString("renderAsterisks", ImmutableMap.of(
-                "requiredField", "true",
-                "requiredStyle", "REQUIREDSTYLE"));
-    }
-
-    @Test
-    public void containerRendererUsesContainerId() throws IOException {
-        new Expectations() {
-            {
-                modelFormField.getCurrentContainerId(withNotNull());
-                result = "CurrentContainerId";
-
-                new StringReader(withSubstring("id=\"CurrentContainerId\""));
+                renderableFtlFormElementsBuilder.containerMacroCall(withNotNull(), withNotNull());
+                result = genericMacroCall;
             }
         };
 
         macroFormRenderer.renderContainerFindField(appendable, ImmutableMap.of(), containerField);
+        genericSingleMacroRenderedVerification();
     }
 
     /**
@@ -1039,7 +917,7 @@ public class MacroFormRendererTest {
         new Verifications() {
             {
                 List<String> macros = new ArrayList<>();
-                ftlWriter.executeMacro(withNotNull(), withNull(), withCapture(macros));
+                ftlWriter.processFtlString(withNotNull(), withNull(), withCapture(macros));
 
                 assertThat(macros, not(empty()));
                 final String macro = macros.get(0);
@@ -1070,6 +948,68 @@ public class MacroFormRendererTest {
         } else {
             assertThat(macro, containsString(attributeName + "=\"" + attributeValue + "\""));
         }
+    }
+
+    /**
+     * Assert that the generic MacroCall instance is passed to the macro executor. This is used for simple renderings
+     * where MacroFormRenderer has FormMacroCallBuilder to construct a MacroCall and then passes it straight to the
+     * MacroCall executor.
+     */
+    private void genericSingleMacroRenderedVerification() {
+        new Verifications() {
+            {
+                ftlWriter.processFtl(appendable, genericMacroCall);
+            }
+        };
+    }
+
+    private void genericTooltipRenderedExpectation(final FieldInfo fieldInfo) {
+        new Expectations() {
+            {
+                fieldInfo.getModelFormField();
+                result = modelFormField;
+
+                renderableFtlFormElementsBuilder.tooltip(withNotNull(), modelFormField);
+                result = genericTooltipMacroCall;
+            }
+        };
+    }
+
+    private void genericTooltipRenderedVerification() {
+        new Verifications() {
+            {
+                ftlWriter.processFtl(appendable, genericTooltipMacroCall);
+            }
+        };
+    }
+
+    private void genericSubHyperlinkRenderedExpectation(final ModelFormField.SubHyperlink subHyperlink) {
+        new Expectations() {
+            {
+                subHyperlink.shouldUse(withNotNull());
+                result = true;
+
+                subHyperlink.getStyle(withNotNull());
+                result = "buttontext";
+
+                subHyperlink.getUrlMode();
+                result = "inter-app";
+
+                subHyperlink.getTarget(withNotNull());
+                result = "/path/to/target";
+
+                subHyperlink.getDescription(withNotNull());
+                result = "LinkDescription";
+            }
+        };
+    }
+
+    private void genericSubHyperlinkRenderedVerification() {
+        new Verifications() {
+            {
+                ftlWriter.processFtl(appendable, genericHyperlinkMacroCall);
+            }
+        };
     }
 
     class FreeMarkerWorkerMockUp extends MockUp<FreeMarkerWorker> {
