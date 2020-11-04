@@ -35,6 +35,41 @@ under the License.
         <menu-item name="Imagemanagement" title="${uiLabelMap.ImageManagement}"><link target="Imagemanagement"/></menu-item>
     </menu>
 
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewProduct" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonProduct}">
+            <condition>
+                <or>
+                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditProduct"/>
+        </menu-item>
+        <menu-item name="NewStore" title="${uiLabelMap.CommonNew} ${uiLabelMap.ProductStore}">
+            <condition>
+                <or>
+                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditProductStore"/>
+        </menu-item>
+        <menu-item name="NewCatalog" title="${uiLabelMap.CommonNew} ${uiLabelMap.Catalog}">
+            <condition>
+                <or>
+                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditProdCatalog"/>
+        </menu-item>
+        <menu-item name="NewCategory" title="${uiLabelMap.CommonNew} ${uiLabelMap.ProductCategory}">
+            <condition>
+                <or>
+                    <if-has-permission permission="HUMANRES" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditCategory"/>
+        </menu-item>
+    </menu>
+
     <menu name="CatalogTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ProductCatalog" title="${uiLabelMap.ProductCatalog}">
             <link target="EditProdCatalog">
