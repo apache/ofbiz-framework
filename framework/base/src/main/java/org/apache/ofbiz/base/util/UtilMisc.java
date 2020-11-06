@@ -199,7 +199,7 @@ public final class UtilMisc {
      */
     public static <V> void makeArrayListSerializable(ArrayList<Object> arrayList) {
         // now filter out all non-serializable values
-        Iterator itr = arrayList.iterator();
+        Iterator<Object> itr = arrayList.iterator();
         while (itr.hasNext()) {
             Object obj = itr.next();
             if (!(obj instanceof Serializable)) {
