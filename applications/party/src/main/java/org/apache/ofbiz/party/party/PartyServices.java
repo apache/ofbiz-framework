@@ -1697,7 +1697,7 @@ public class PartyServices {
         // PartyClassificationGroup Fields
         // ----
 
-        List<String> partyClassificationGroupIds = (List) context.get("partyClassificationGroupId");
+        List<String> partyClassificationGroupIds = UtilGenerics.cast(context.get("partyClassificationGroupId"));
         if (UtilValidate.isNotEmpty(partyClassificationGroupIds)) {
             // add PartyClassification to view
             dynamicView.addMemberEntity("PC", "PartyClassification");
