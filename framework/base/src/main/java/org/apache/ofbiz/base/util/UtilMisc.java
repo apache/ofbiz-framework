@@ -180,10 +180,24 @@ public final class UtilMisc {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
                 }
-                
             }
         }
         for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
+    }
+
+    /**
+     * This change an ArrayList to be Serializable by removing all entries that are not Serializable.
+     * @param arrayList
+     */
+    public static <V> void makeArrayListSerializable(ArrayList<Object> arrayList) {
+        // now filter out all non-serializable values
+        Iterator itr = arrayList.iterator();
+        while (itr.hasNext()) {
+            Object obj = itr.next();
+            if (!(obj instanceof Serializable)) {
+                itr.remove();
+            }
+        }
     }
 
     /**

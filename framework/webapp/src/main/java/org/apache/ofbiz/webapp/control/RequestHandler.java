@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -468,7 +469,7 @@ public class RequestHandler {
                                         
                     if (requestMap.event.metrics != null) {
                         requestMap.event.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
-                    }                    
+                    }
 
                     // save the server hit for the request event
                     if (this.trackStats(request)) {
@@ -634,7 +635,7 @@ public class RequestHandler {
 
             String responseStatusCode  = nextRequestResponse.statusCode;
             if(UtilValidate.isNotEmpty(responseStatusCode))
-                statusCodeString = responseStatusCode;            
+                statusCodeString = responseStatusCode;
             
             
             if ("url".equals(nextRequestResponse.type)) {
@@ -824,7 +825,7 @@ public class RequestHandler {
             statusCode = Integer.valueOf(statusCodeString);
         } catch (NumberFormatException e) {
             statusCode = 303;
-        } 
+        }
         while (attributeNameEnum.hasMoreElements()) {
             String name = attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
@@ -832,6 +833,12 @@ public class RequestHandler {
                 if (obj instanceof Map) {
                     // See OFBIZ-750 and OFBIZ-11123 for cases where a value in an inner Map is not serializable
                     UtilMisc.makeMapSerializable(UtilGenerics.cast(obj));
+                }
+                if (obj instanceof ArrayList) {
+                    // See OFBIZ-10250 for cases where a value in an ArrayList is not serializable
+                    @SuppressWarnings("unchecked")
+                    ArrayList<Object> arrayList = (ArrayList<Object>) obj;
+                    UtilMisc.makeArrayListSerializable(arrayList);
                 }
                 reqAttrMap.put(name, obj);
             }
@@ -844,7 +851,7 @@ public class RequestHandler {
         }
 
         // send the redirect
-        try {            
+        try {
             resp.setStatus(statusCode);
             resp.setHeader("Location", url);
             resp.setHeader("Connection", "close");
@@ -1263,7 +1270,7 @@ public class RequestHandler {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean showSessionIdInLog = EntityUtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y", delegator);
         if (showSessionIdInLog) {
-            return " sessionId=" + UtilHttp.getSessionId(request); 
+            return " sessionId=" + UtilHttp.getSessionId(request);
         }
         return " Hidden sessionId by default.";
     }
