@@ -183,7 +183,7 @@ function submitForm(form, mode, value) {
                       </#if>
                       <#-- end code to display a small image of the product -->
                       <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()} -
-                      ${cartLine.getName(dispatcher)!}</a> : ${cartLine.getDescription(dispatcher)!}
+                      ${StringUtil.wrapString(cartLine.getName(dispatcher))!}</a> : ${StringUtil.wrapString(cartLine.getDescription(dispatcher))!}
 
                       <#-- display the registered ship groups and quantity -->
                       <#assign itemShipGroups = cart.getShipGroups(cartLine)>
@@ -203,7 +203,7 @@ function submitForm(form, mode, value) {
 
                     <#else>
                       <#-- this is a non-product item -->
-                      <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
+                      <b>${StringUtil.wrapString(cartLine.getItemTypeDescription())!}</b> : ${StringUtil.wrapString(cartLine.getName(dispatcher))!}
                     </#if>
                   </div>
 

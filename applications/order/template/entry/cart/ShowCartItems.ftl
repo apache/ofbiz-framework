@@ -80,8 +80,8 @@ under the License.
                   <#if cartLine.getProductId()??>
                     <#-- product item -->
                     <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()}</a> -
-                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName(dispatcher)?default("")}"/><br />
-                    <i>${cartLine.getDescription(dispatcher)!}</i>
+                    <input size="60" type="text" name="description_${cartLineIndex}" value="${StringUtil.wrapString(cartLine.getName(dispatcher))?default("")}"/><br />
+                    <i>${StringUtil.wrapString(cartLine.getDescription(dispatcher))!}</i>
                     <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
                       <#-- only applies to sales orders, not purchase orders -->
                       <#-- if inventory is not required check to see if it is out of stock and needs to have a message shown about that... -->
@@ -93,7 +93,7 @@ under the License.
                     </#if>
                   <#else>
                     <#-- this is a non-product item -->
-                    <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
+                    <b>${StringUtil.wrapString(StringUtil.wrapString(cartLine.getItemTypeDescription()))!}</b> : ${StringUtil.wrapString(cartLine.getName(dispatcher))!}
                   </#if>
                     <#-- display the item's features -->
                    <#assign features = "">
@@ -132,7 +132,7 @@ under the License.
             </#if>
             <#if cartLine.getItemComment()?has_content>
               <tr><td><div>${uiLabelMap.CommonComment} : </div></td>
-                  <td><div><input size="60" type="text" name="comment_${cartLineIndex}" value="${cartLine.getItemComment()?default("")}"/><br /></div></td>
+                  <td><div><input size="60" type="text" name="comment_${cartLineIndex}" value="${StringUtil.wrapString(cartLine.getItemComment())?default("")}"/><br /></div></td>
               </tr>
             </#if>
             <#if cartLine.getDesiredDeliveryDate()?has_content>
