@@ -901,7 +901,7 @@ public final class UtilHttp {
     /**
      * Return the VisualTheme object from the user session
      * @param request
-     * @return
+     * @return VisualTheme
      */
     public static VisualTheme getVisualTheme(HttpServletRequest request) {
         return (VisualTheme) request.getSession().getAttribute(SESSION_KEY_THEME);

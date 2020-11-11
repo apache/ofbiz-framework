@@ -526,8 +526,6 @@ public class UploadContentAndImage {
             List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             if (Debug.infoOn()) {
                 Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, MODULE);
-            }
-            if (Debug.infoOn()) {
                 Debug.logInfo("[UploadContentStuff]msg:" + msg, MODULE);
             }
             if (errorMsgList == null) {
@@ -579,8 +577,6 @@ public class UploadContentAndImage {
                 List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
                 if (Debug.infoOn()) {
                     Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, MODULE);
-                }
-                if (Debug.infoOn()) {
                     Debug.logInfo("[UploadContentStuff]msg:" + msg, MODULE);
                 }
                 if (errorMsgList == null) {

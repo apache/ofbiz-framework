@@ -95,7 +95,7 @@
 
     <service name="createContentFromUploadedFile" engine="group" transaction-timeout="300">
         <description>Accepts file upload, creates DataResource and Content records.</description>
-        <!-- uses createContent internally; additonal permission(s) not necessary -->
+        <!-- uses createContent internally; additional permission(s) not necessary -->
         <group>
             <invoke name="createDataResource" parameters="preserve" result-to-context="true"/>
             <invoke name="attachUploadToDataResource" parameters="preserve" result-to-context="true"/>
