@@ -136,6 +136,8 @@ to the core applications in design and structure, but are not shipped with
 OFBiz by default. Thus to install a plugin a user must add it to the framework
 first.
 
+include::_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
+
 include::../../README.adoc[tags=quickstart]
 
 include::../../applications/commonext/src/docs/asciidoc/ofbiz-setup.adoc[leveloffset=+1]

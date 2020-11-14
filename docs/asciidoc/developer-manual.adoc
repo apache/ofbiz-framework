@@ -190,6 +190,8 @@ Continuing the example, the FindInvoices screen contains many details including
 two forms. One form is for entering invoice search fields and the other form
 displays search results.
 
+include::_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
+
 == Web Framework
 
 include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]

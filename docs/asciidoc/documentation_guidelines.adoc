@@ -51,7 +51,7 @@ how we are organised.
 
 === Document configuration
 
-Documents that will be published as standalone guides (e.g. developer manual, user manual) should contain common configuration
+Documents that will be published as standalone guides (e.g. link:developer-manual.adoc[developer manual], link:user-manual.adoc[user manual]) should contain common configuration
 so that the output will be generated in exactly the same way for all documents.
 
 [NOTE]
@@ -123,6 +123,34 @@ under the License.
 ////
 ----
 
+=== file organization
+There are one main file per application (located in the 'src/docs/asciidoc' directory), which include some other files
+located in 'src/docs/asciidoc/_include'.
+
+.For each component, there are these directories:
+====
+    src
+      |- docs
+          |- asciidoc
+              |- _include
+              |- images
+                  |- ${componentName}
+====
+
+So, for include file use
+
+  include::_include/xxxxxxx
+
+and for image, it's necessary to add on top of main file
+
+  :imagesdir: ./images/${compnentName}
+
+and so include them with
+
+  image::/xxxxxxx
+
+During generating process images are copied on the root asciidoc/images directory
+
 === File name conventions
 
 We will be implementing a consistent naming convention for the documentation content files.
@@ -137,7 +165,6 @@ so the naming format will be ([shortname]-intro, [shortname]-glossary, [shortnam
 [shortname]-security etc.)
 
 .For Human Resources this will be as follows:
-[example]
 ====
     humanres.adoc
         |- hr-intro.adoc
@@ -481,9 +508,14 @@ SELECT * FROM FOO;
 == Importing files or file includes
 
 You can import files via the include macro.
-This also works for source code includes.
-To use ---- in your listing use the [listing] style before that.
+This also works for source code includes. +
+It's possible to use [listing] ---- before include to have the correct style. +
 The following example imports a file formatted as Java source code.
+
+  [source,java]
+  ----
+  include::resource/source.java[]
+  ----
 
 [source,java]
 ----
