@@ -449,13 +449,33 @@ public final class FileUtil {
     }
 
     /**
+     * This useful to prevents Zip slip vulnerability cf. https://snyk.io/research/zip-slip-vulnerability
+     * @param destinationDirName The file path name to normalize
+     * @param zipEntry Zip entry to check before creating
+     * @return A file in destinationDir
+     */
+    public static File newFile(String destinationDirName, ZipEntry zipEntry) throws IOException {
+        File destinationDir = new File(destinationDirName);
+
+        File destFile = new File(destinationDir, zipEntry.getName());
+        String destDirPath = destinationDir.getCanonicalPath();
+        String destFilePath = destFile.getCanonicalPath();
+
+        if (!destFilePath.startsWith(destDirPath + File.separator)) {
+            throw new IOException("Entry is outside of the target dir: " + zipEntry.getName());
+        }
+        return destFile;
+    }
+
+    /**
      * Unzip file structure of the given zipFile to specified outputFolder
      *
      * @param zipFile
      * @param outputFolder
+     * @param handleZipSlip if true FileUtil::newFile is used
      * @throws IOException
      */
-    public static void unzipFileToFolder(File zipFile, String outputFolder) throws IOException {
+    public static boolean unzipFileToFolder(File zipFile, String outputFolder, boolean handleZipSlip) throws IOException {
         byte[] buffer = new byte[8192];
 
         //create output directory if not exists
@@ -464,15 +484,23 @@ public final class FileUtil {
             folder.mkdir();
         }
 
-        //get the zip file content
+        // get the Zip file content
         ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
-        //get the zipped file list entry
+        // get the zipped file list entry
         ZipEntry ze = zis.getNextEntry();
 
         while (ze != null) {
-            String fileName = ze.getName();
-            File newFile = new File(outputFolder, fileName);
-
+            File newFile = null;
+            if (handleZipSlip) {
+                newFile = newFile(outputFolder, ze); // Prevents Zip slip vulnerability
+                if (null == newFile) {
+                    zis.closeEntry();
+                    zis.close();
+                    return false;
+                }
+            } else {
+                newFile = new File(outputFolder, ze.getName());
+            }
             //create all non existing folders
             //else you will hit FileNotFoundException for compressed folder
             new File(newFile.getParent()).mkdirs();
@@ -487,6 +515,7 @@ public final class FileUtil {
         }
         zis.closeEntry();
         zis.close();
+        return true;
     }
     
     /**
