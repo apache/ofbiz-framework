@@ -49,7 +49,7 @@ All main files of each component are included in developer-manual.adoc except fo
 For the main files of the plugin components, there are two ways to read them.
 
 On the one hand, the plugin documentation generation process generates one document per plugin, so that you can see
-the list of documents in the link:../../pluginsdoc/html5[pluginsdoc directory] and thus read each of them;
+the list of documents in the link:../../pluginsdoc[pluginsdoc directory] and thus read each of them;
 
 On the other hand, each plugin master file is included in the plugin chapter of the user manual or developer manual,
 depending on whether the plugin is "technical" or "functional".
