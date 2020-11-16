@@ -61,24 +61,24 @@ They are included in the ofbiz-framework and each one has one (or more) menu ent
 Currently there are :
 * <<_accounting>>, +
   menu entries: Accounting, Accounting-AP, Accounting-AR
-* Product management, to manage products, prices, promotion rules, categories, catalogs, stores and more. +
+* <<_catalog>>, to manage products, prices, promotion rules, categories, catalogs, stores and more. +
   menu entry: Catalog
-* Content management,
-* Wharehouse management, to manage facilities, inventory, physical inventory, in and out shipment, and more. +
+* <<_content_management>>,
+* <<_facility>>: Wharehouse management, to manage facilities, inventory, physical inventory, in and out shipment, and more. +
   menu entry: Facility
 * <<_human_resources>> management, +
   menu entry: HR
-* Manufacturing management: Materials Resource Planning, define production schemas and tasks, Bill of Materials, Equipment allocation,
+* <<_manufacturing>>: Materials Resource Planning, define production schemas and tasks, Bill of Materials, Equipment allocation,
 Workers assignment, Job Shop
-* Marketing management: Marketing Communications Management and Sales Force Automation +
-  menu entry: Marketing, SFA
-* Order management: Fully featured sales and purchase order management module, including
+* <<_marketing>>: Marketing Communications Management and Sales Force Automation +
+  menu entry: Marketing, <<_sfa>>
+* <<_order>>: Fully featured sales and purchase order management module, including
   ** request
   ** requirements
   ** quote
   ** order
   ** statistics
-* Party management, enables organizations to maintain parties (human and other legal entities), their roles and user accounts, and lots more.
+* <<_party>>, enables organizations to maintain parties (human and other legal entities), their roles and user accounts, and lots more.
 * Work Effort Management, to manage work efforts, tasks, calendar, maintenance assignments and more.
 
 With these core applications multiple others can be build. In ofbiz-plugin you can find some.

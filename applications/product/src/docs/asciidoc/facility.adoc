@@ -16,31 +16,17 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Order
+= Facility
 
-The order manager allows you to enter and maintain orders, quotes, requests and report on them.
+The Facility Manager is used to manage a warehouse, a store with related inventory.
 
-It allow to manage purchase and sales orders from the creation and approval to the goods packing and shipping.
+All operations relating to stock:
 
-== Overview
-TODO
-
-== Orders management
-
-=== Main screen
-To select Sales and/or Purchase orders
-
-=== Order View
-This screen allow not only to view an order but also to change it
-
-include::_include/order_report.adoc[leveloffset=+1]
-
-== Requests
-
-== Quotes
-
-== Returns
-
-== Requirements
-
-== Stats
+* defining locations (in a hierarchical and multi-level ways)
+* receiving
+* picking, packing
+* shipping
+* transfer
+* return
+* physical inventory
+* ...
