@@ -19,7 +19,12 @@ under the License.
 [glossary]
 = General Glossary
 
-[glossary]
+[comment]
+It's important to sort glossary entries in alphabetic order to avoid duplication or search failing.
+
+This glossary is intended to help beginners with OFBiz terms and concepts. +
+Some of them come from the https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Book] some are OFBiz specific.
+
 [#APPLICATION]
 Application::
 . **for end users** , an application is a top level menu entry, it's for managing a business object:
@@ -83,12 +88,17 @@ Workers assignment, Job Shop
 
 With these core applications multiple others can be build. In ofbiz-plugin you can find some.
 
+[#CRM]
+CRM:: **C**ustomer **R**elationship **M**anagement
+
 [#DEMO_DATA]
 Demo Data:: Demo data are loaded with the command `gradlew loadAll` or `gradlew "ofbiz --load-data readers=dDemo"` +
  +
 Demo data are present to help understanding ofbiz application process, most of the time it's only the minimum of data,
 For a correct understanding, it's necessary to create more data to have a full functionnal OFBiz.
 
+[#E_COMMERCE]
+E-Commerce:: The buying and selling of goods or services over electronic systems.
 
 [#ENTITY]
 Entity:: An entity represents an important business concept that is stored as a record in the database.
@@ -113,3 +123,52 @@ For creation, as Primary keys must be entered manually apply the ID general advi
 In ID only standard characters and without space are authorized. ID length must be less than 20 characters. +
 Generally manual primary keys are all upper case with underscores between words and are a meaningful mnemonic i.e.
 A_PRIMARY_KEY.
+
+[#ERP]
+ERP:: An acronym for **E**nterprise **R**esource **P**lanning, an ERP is basically a category of software used for
+managing a business. It is often a package containing several individual, but integrated, applications.
+Some of those applications might be Accounts Receivable, Accounts Payable, General Ledger, or Point of Sale.
+
+[NOTE]
+Example of ERP: Apache OFBiz, OpenBravo, Odoo
+
+[#INTERNAL_ORGANIZATION]
+Internal Organization::
+An Internal organization is a special term in OFBiz that allows you to flag the main accounting company that is being setup. +
+It can also be used to highlight relationship between a party group (any of your departments, business units or subsidiaries.)
+and your company. +
+This relationship is used to filter party groups as being part of your
+company to distinguish them from other groups which are external. For example your
+marketing department is an internal organization while a suppliers sales department
+is not.
+
+[#MRP]
+MRP:: **M**aterial **R**equirements **P**lanning
+
+[#PARTY]
+Party:: User, person, organization or other entity (where entity is not an OFBiz "Entity" but rather entity in the legal sense)
+implied in at least one process modeled and implemented by OFBiz. +
+Party is a term used to simplify collecting information that used in a common manner
+by different people and things. +
+The most common party types are people and groups. +
+Both people and groups have contact information. +
+A party is identified by a unique Party Id.
+Using this Id OFBiz can collect and find contact (and other information
+and processes) for both people and groups in the same way. This is why you will
+often see Party Id as a field in a form or a filter as you work in OFBiz.
+
+[NOTE]
+Example of party: a administrator of the website; a company dealing goods and/or services via the website;
+ an OFBiz customer assigned a unique party identifier, etc.
+
+[#PARTY_ID]
+Party Id::
+The unique identifier for a party. +
+The id is stored as text so in some cases you will see an id that helps you identify the party it is linked to
+(e.g. Party Id DemoEmployee, or DemoSupplier). +
+In other cases the Id is created by OFBiz and is will be simply a number from a
+sequence(by default it starts from the sequence 10000). +
+In either case the Id is unique.
+
+[#SCM]
+SCM:: **S**upply **C**hain **M**anagement

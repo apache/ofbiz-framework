@@ -25,8 +25,8 @@ It is well integrated with other components especially
  Accounting to manage Payroll and any specific  employee agreements.
 
 The HR Application data design, like most of the OFBiz back office administration applications, was inspired by
-the data models in The Data Model Resource Books by Len Silverston
-footnote:ref:[silverston-data-model, http://silverston.wiley.com/index.html[Silverston Data Model Resource Companion Site]].
+the data models in The https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Books]
+by Len Silverston footnote:[silverston-data-model, http://silverston.wiley.com/index.html[Silverston Data Model Resource Companion Site]].
 The sections below introduces some of the concepts in HR App that were derived from the models.
 
 In OFBiz <<PARTY, Party>> is one of the core object, a party is a person (employee, end customer, sub-contractor, contact, ...)

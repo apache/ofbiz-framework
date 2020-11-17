@@ -26,7 +26,7 @@ PayHistory is a detail of Employment entity (Composition in UML language) and Em
 emplFromDate (coming from Employment) and one classical fromDate to be able to have multiple PayHistory for one Employment.
 
 PartyBenefit:: It's exactly the same problem or case than PayHistory, currently in Apache OFBiz entity is exactly the same
-as in Data Model Resource Book Difference (only one fromDate field), so it's not possible to have a correct User Interface
+as in https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Book] Difference (only one fromDate field), so it's not possible to have a correct User Interface
 as an Employment subOption. +
 So correct solution should be to have one more field: emplFromDate (coming from Employment).
 
@@ -61,7 +61,7 @@ but there is no menu to use them !
 JIRA OFBIZ-11045 is for that.
 
 ==== Business Rule
-It's suggest in «the Data Model Resource Book» to have a check before adding some responsibilities to a job Position
+It's suggest in «the https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Book]» to have a check before adding some responsibilities to a job Position
 if Position Type has it (in ValidResposibility) with valid date.
 
 === Position Type Rate amount-and-grade

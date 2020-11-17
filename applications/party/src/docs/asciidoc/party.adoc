@@ -66,3 +66,5 @@ See the <<_marketing,marketing application>> for more information
 == Security
 
 == Miscellaneous
+
+include::_include/party-glossary.adoc[leveloffset=+1]
