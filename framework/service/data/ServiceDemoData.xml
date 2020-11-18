@@ -30,6 +30,7 @@ under the License.
 
     <!-- A US federal holiday schedule -->
     <TemporalExpression tempExprId="US_FED_HOLIDAYS" tempExprTypeId="UNION" description="US Federal Holidays"/>
+
     <!-- New Years Day -->
     <TemporalExpression tempExprId="JANUARY_FIRST" tempExprTypeId="INTERSECTION" description="January First"/>
     <TemporalExpressionAssoc fromTempExprId="JANUARY_FIRST" toTempExprId="MONTH_RANGE_01"/>
@@ -81,6 +82,7 @@ under the License.
     <TemporalExpressionAssoc fromTempExprId="CHRISTMAS_DAY" toTempExprId="MONTH_RANGE_12"/>
     <TemporalExpressionAssoc fromTempExprId="CHRISTMAS_DAY" toTempExprId="DAYOFMONTH_25"/>
     <TemporalExpressionAssoc fromTempExprId="US_FED_HOLIDAYS" toTempExprId="CHRISTMAS_DAY"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="CHRISTMAS_DAY"/>
 
     <!-- A semi-monthly expression -> 1st and 15th of the month -->
     <TemporalExpression tempExprId="1ST_AND_15TH_MONTH" tempExprTypeId="UNION" description="First and Fifteenth of the month"/>
@@ -127,5 +129,60 @@ under the License.
         [8] Integer: 0 to 23, midnight = 0
         [9] Integer: 0 to 59
     -->
+
+    <!-- A MEX federal holiday schedule -->
+    <TemporalExpression tempExprId="MX_FED_HOLIDAYS" tempExprTypeId="UNION" description="Días Oficiales de Descanso en México"/>
+
+    <!-- MEX New Years Day -->
+    <TemporalExpression tempExprId="MX_JANUARY_FIRST" tempExprTypeId="INTERSECTION" description="Año Nuevo"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_JANUARY_FIRST" toTempExprId="MONTH_RANGE_01"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_JANUARY_FIRST" toTempExprId="DAYOFMONTH_01"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_JANUARY_FIRST"/>
+    <!-- MEX Constitution Day -->
+    <TemporalExpression tempExprId="MX_CONSTITUTION_DAY" tempExprTypeId="INTERSECTION" description="Día de la Constitución Mexicana"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_CONSTITUTION_DAY" toTempExprId="MONTH_RANGE_02"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_CONSTITUTION_DAY" toTempExprId="1ST_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_CONSTITUTION_DAY"/>
+    <!-- MEX Benito Juárez Day -->
+    <TemporalExpression tempExprId="MX_BENITO_JUAREZ_DAY" tempExprTypeId="INTERSECTION" description="Natalicio de Don Benito Juárez"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_BENITO_JUAREZ_DAY" toTempExprId="MONTH_RANGE_03"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_BENITO_JUAREZ_DAY" toTempExprId="3RD_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_BENITO_JUAREZ_DAY"/>
+    <!-- MEX Labor Day -->
+    <TemporalExpression tempExprId="MX_LABOR_DAY" tempExprTypeId="INTERSECTION" description="Día del Trabajo"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_LABOR_DAY" toTempExprId="MONTH_RANGE_05"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_LABOR_DAY" toTempExprId="DAYOFMONTH_01"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_LABOR_DAY"/>
+    <!-- MEX Teacher's Day -->
+    <TemporalExpression tempExprId="MX_TEACHERS_DAY" tempExprTypeId="INTERSECTION" description="Dia del Maestro"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_TEACHERS_DAY" toTempExprId="MONTH_RANGE_05"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_TEACHERS_DAY" toTempExprId="2ND_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_TEACHERS_DAY"/>
+    <!-- MEX Independence Day -->
+    <TemporalExpression tempExprId="MX_INDEPENDENCE_DAY" tempExprTypeId="INTERSECTION" description="Dia de la Independencia de México"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_INDEPENDENCE_DAY" toTempExprId="MONTH_RANGE_09"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_INDEPENDENCE_DAY" toTempExprId="DAYOFMONTH_16"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_INDEPENDENCE_DAY"/>
+    <!-- MEX Day of the Dead -->
+    <TemporalExpression tempExprId="MX_DAY_OF_THE_DEAD" tempExprTypeId="INTERSECTION" description="Día de Muertos"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_DAY_OF_THE_DEAD" toTempExprId="MONTH_RANGE_11"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_DAY_OF_THE_DEAD" toTempExprId="1ST_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_DAY_OF_THE_DEAD"/>
+    <!-- MEX Revolution Day -->
+    <TemporalExpression tempExprId="MX_REVOLUTION_DAY" tempExprTypeId="INTERSECTION" description="Aniversario de la Revolución Mexicana"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_REVOLUTION_DAY" toTempExprId="MONTH_RANGE_11"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_REVOLUTION_DAY" toTempExprId="3RD_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_REVOLUTION_DAY"/>
+    <!-- Christmas Day -->
+    <TemporalExpression tempExprId="MX_CHRISTMAS_DAY" tempExprTypeId="INTERSECTION" description="Christmas Day"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_CHRISTMAS_DAY" toTempExprId="MONTH_RANGE_12"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_CHRISTMAS_DAY" toTempExprId="DAYOFMONTH_25"/>
+    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_CHRISTMAS_DAY"/>
+
+    <!-- A Mon-Fri expression that excludes MEX federal holidays -->
+    <TemporalExpression tempExprId="GOVT_WORK_SCHED" tempExprTypeId="DIFFERENCE" description="Lunes a Viernes sin los días oficiales"/>
+    <TemporalExpressionAssoc fromTempExprId="GOVT_WORK_SCHED" toTempExprId="MON_TO_FRI" exprAssocType="INCLUDE"/>
+    <TemporalExpressionAssoc fromTempExprId="GOVT_WORK_SCHED" toTempExprId="MX_FED_HOLIDAYS" exprAssocType="EXCLUDE"/>
+
 
 </entity-engine-xml>
