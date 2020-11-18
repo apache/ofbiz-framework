@@ -30,7 +30,6 @@ under the License.
 
     <!-- A US federal holiday schedule -->
     <TemporalExpression tempExprId="US_FED_HOLIDAYS" tempExprTypeId="UNION" description="US Federal Holidays"/>
-
     <!-- New Years Day -->
     <TemporalExpression tempExprId="JANUARY_FIRST" tempExprTypeId="INTERSECTION" description="January First"/>
     <TemporalExpressionAssoc fromTempExprId="JANUARY_FIRST" toTempExprId="MONTH_RANGE_01"/>
