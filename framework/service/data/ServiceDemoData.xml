@@ -82,7 +82,6 @@ under the License.
     <TemporalExpressionAssoc fromTempExprId="CHRISTMAS_DAY" toTempExprId="MONTH_RANGE_12"/>
     <TemporalExpressionAssoc fromTempExprId="CHRISTMAS_DAY" toTempExprId="DAYOFMONTH_25"/>
     <TemporalExpressionAssoc fromTempExprId="US_FED_HOLIDAYS" toTempExprId="CHRISTMAS_DAY"/>
-    <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="CHRISTMAS_DAY"/>
 
     <!-- A semi-monthly expression -> 1st and 15th of the month -->
     <TemporalExpression tempExprId="1ST_AND_15TH_MONTH" tempExprTypeId="UNION" description="First and Fifteenth of the month"/>
@@ -174,7 +173,7 @@ under the License.
     <TemporalExpressionAssoc fromTempExprId="MX_REVOLUTION_DAY" toTempExprId="3RD_MONDAY_IN_MONTH"/>
     <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_REVOLUTION_DAY"/>
     <!-- Christmas Day -->
-    <TemporalExpression tempExprId="MX_CHRISTMAS_DAY" tempExprTypeId="INTERSECTION" description="Christmas Day"/>
+    <TemporalExpression tempExprId="MX_CHRISTMAS_DAY" tempExprTypeId="INTERSECTION" description="Navidad"/>
     <TemporalExpressionAssoc fromTempExprId="MX_CHRISTMAS_DAY" toTempExprId="MONTH_RANGE_12"/>
     <TemporalExpressionAssoc fromTempExprId="MX_CHRISTMAS_DAY" toTempExprId="DAYOFMONTH_25"/>
     <TemporalExpressionAssoc fromTempExprId="MX_FED_HOLIDAYS" toTempExprId="MX_CHRISTMAS_DAY"/>
