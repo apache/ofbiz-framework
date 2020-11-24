@@ -17,7 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
+import java.nio.file.Files
+import java.nio.file.Path
+
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
@@ -127,7 +129,7 @@ if (fileType) {
                         } else if(file.isFile() && "original".equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()
                         }
-                    } 
+                    }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()
@@ -138,7 +140,8 @@ if (fileType) {
             } catch (Exception e) {
                 Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
             }
-            file.renameTo(file1)
+            Path source = file.toPath()
+            Files.move(source, source.resolveSibling(filenameToUse))
         } catch (Exception e) {
             Debug.logError(e, module)
         }
@@ -151,7 +154,6 @@ if (fileType) {
             if ("original".equals(fileType)) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0")
-
                 if (result.containsKey("responseMessage") && "success".equals(result.get("responseMessage"))) {
                     imgMap = result.get("imageUrlMap")
                     imgMap.each() { key, value ->
