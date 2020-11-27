@@ -115,8 +115,8 @@ if (fileType) {
         imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
 
         try {
-            defaultFile = new File(imageServerPath + "/" + filePathPrefix, defaultFileName)
-            fileToUse = new File(imageServerPath + "/" + filePathPrefix, filenameToUse)
+            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName)
+            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse)
             try {
                 // Delete existing image files
                 File targetDir = new File(imageServerPath + "/" + filePathPrefix)
@@ -140,9 +140,8 @@ if (fileType) {
             } catch (Exception e) {
                 Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
             }
-            // OFBIZ-12063: on Windows neither file.renameTo(), Files.move() nor FileUtils.moveFile() works
-            Files.copy(defaultFile.toPath(), fileToUse.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
-            defaultFile.delete();
+            Path source = file.toPath()
+            Files.move(source, source.resolveSibling(filenameToUse))
         } catch (Exception e) {
             Debug.logError(e, module)
         }
