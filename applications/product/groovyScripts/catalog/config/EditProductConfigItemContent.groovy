@@ -17,11 +17,9 @@
  * under the License.
  */
 
-import java.nio.file.Files
-import java.nio.file.Path
-
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
+import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 // make the image file formats
@@ -118,8 +116,7 @@ if (fileType) {
             } catch (Exception e) {
                 logError(e, "error deleting existing file (not neccessarily a problem)")
             }
-            Path source = file.toPath()
-            Files.move(source, source.resolveSibling(filenameToUse))
+            file.renameTo(file1)
         } catch (Exception e) {
             logError(e, module)
         }
