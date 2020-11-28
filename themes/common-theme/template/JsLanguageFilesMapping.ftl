@@ -93,7 +93,7 @@ public final class JsLanguageFilesMapping {
 
     public static class DateTime {
         private static Map<String, String> localeFiles = new HashMap<>();
-        private static String defaultDateTime = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
+        private static String defaultDateTime = "/common/js/jquery/plugins/datetimepicker/i18n/jquery-ui-timepicker-en.js";
 
         static {
             <#list dateTime.keySet() as dateTimeFiles>
