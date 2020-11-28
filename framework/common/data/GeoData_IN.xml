@@ -21,40 +21,39 @@ under the License.
 <entity-engine-xml>
     <Geo abbreviation="AN" geoCode="AN" geoId="IN-AN" geoName="Andaman and Nicobar Islands" geoTypeId="TERRITORY"/>
     <Geo abbreviation="AP" geoCode="AP" geoId="IN-AP" geoName="Andhra Pradesh" geoTypeId="STATE"/>
-    <Geo abbreviation="AR" geoCode="AR" geoId="IN-AR" geoName="Arunachal Pradesh" geoTypeId="STATE"/>
+    <Geo abbreviation="AR" geoCode="AR" geoId="IN-AR" geoName="Arunāchal Pradesh" geoTypeId="STATE"/>
     <Geo abbreviation="AS" geoCode="AS" geoId="IN-AS" geoName="Assam" geoTypeId="STATE"/>
-    <Geo abbreviation="BR" geoCode="BR" geoId="IN-BR" geoName="Bihar" geoTypeId="STATE"/>
+    <Geo abbreviation="BR" geoCode="BR" geoId="IN-BR" geoName="Bihār" geoTypeId="STATE"/>
     <Geo abbreviation="CH" geoCode="CH" geoId="IN-CH" geoName="Chandigarh" geoTypeId="TERRITORY"/>
-    <Geo abbreviation="CT" geoCode="CT" geoId="IN-CT" geoName="Chhattisgarh" geoTypeId="STATE"/>
-    <Geo abbreviation="DN" geoCode="DN" geoId="IN-DN" geoName="Dadra and Nagar Haveli" geoTypeId="TERRITORY"/>
-    <Geo abbreviation="DD" geoCode="DD" geoId="IN-DD" geoName="Daman and Diu" geoTypeId="TERRITORY"/>
+    <Geo abbreviation="CT" geoCode="CT" geoId="IN-CT" geoName="Chhattīsgarh" geoTypeId="STATE"/>
+    <Geo abbreviation="DD" geoCode="DD" geoId="IN-DH" geoName="Dādra and Nagar Haveli and Damān and Diu" geoTypeId="TERRITORY"/>
     <Geo abbreviation="DL" geoCode="DL" geoId="IN-DL" geoName="Delhi" geoTypeId="TERRITORY"/>
     <Geo abbreviation="GA" geoCode="GA" geoId="IN-GA" geoName="Goa" geoTypeId="STATE"/>
-    <Geo abbreviation="GJ" geoCode="GJ" geoId="IN-GJ" geoName="Gujarat" geoTypeId="STATE"/>
-    <Geo abbreviation="HR" geoCode="HR" geoId="IN-HR" geoName="Haryana" geoTypeId="STATE"/>
-    <Geo abbreviation="HP" geoCode="HP" geoId="IN-HP" geoName="Himachal Pradesh" geoTypeId="STATE"/>
-    <Geo abbreviation="JK" geoCode="JK" geoId="IN-JK" geoName="Jammu and Kashmir" geoTypeId="TERRITORY"/>
-    <Geo abbreviation="JH" geoCode="JH" geoId="IN-JH" geoName="Jharkhand" geoTypeId="STATE"/>
-    <Geo abbreviation="KA" geoCode="KA" geoId="IN-KA" geoName="Karnataka" geoTypeId="STATE"/>
+    <Geo abbreviation="GJ" geoCode="GJ" geoId="IN-GJ" geoName="Gujarāt" geoTypeId="STATE"/>
+    <Geo abbreviation="HR" geoCode="HR" geoId="IN-HR" geoName="Haryāna" geoTypeId="STATE"/>
+    <Geo abbreviation="HP" geoCode="HP" geoId="IN-HP" geoName="Himāchal Pradesh" geoTypeId="STATE"/>
+    <Geo abbreviation="JK" geoCode="JK" geoId="IN-JK" geoName="Jammu and Kashmīr" geoTypeId="TERRITORY"/>
+    <Geo abbreviation="JH" geoCode="JH" geoId="IN-JH" geoName="Jhārkhand" geoTypeId="STATE"/>
+    <Geo abbreviation="KA" geoCode="KA" geoId="IN-KA" geoName="Karnātaka" geoTypeId="STATE"/>
     <Geo abbreviation="KL" geoCode="KL" geoId="IN-KL" geoName="Kerala" geoTypeId="STATE"/>
-    <Geo abbreviation="LA" geoCode="LA" geoId="IN-LA" geoName="Ladakh" geoTypeId="TERRITORY"/>
+    <Geo abbreviation="LA" geoCode="LA" geoId="IN-LA" geoName="Ladākh" geoTypeId="TERRITORY"/>
     <Geo abbreviation="LD" geoCode="LD" geoId="IN-LD" geoName="Lakshadweep" geoTypeId="TERRITORY"/>
     <Geo abbreviation="MP" geoCode="MP" geoId="IN-MP" geoName="Madhya Pradesh" geoTypeId="STATE"/>
-    <Geo abbreviation="MH" geoCode="MH" geoId="IN-MH" geoName="Maharashtra" geoTypeId="STATE"/>
+    <Geo abbreviation="MH" geoCode="MH" geoId="IN-MH" geoName="Mahārāshtra" geoTypeId="STATE"/>
     <Geo abbreviation="MN" geoCode="MN" geoId="IN-MN" geoName="Manipur" geoTypeId="STATE"/>
-    <Geo abbreviation="ML" geoCode="ML" geoId="IN-ML" geoName="Meghalaya" geoTypeId="STATE"/>
+    <Geo abbreviation="ML" geoCode="ML" geoId="IN-ML" geoName="Meghālaya" geoTypeId="STATE"/>
     <Geo abbreviation="MZ" geoCode="MZ" geoId="IN-MZ" geoName="Mizoram" geoTypeId="STATE"/>
-    <Geo abbreviation="NL" geoCode="NL" geoId="IN-NL" geoName="Nagaland" geoTypeId="STATE"/>
+    <Geo abbreviation="NL" geoCode="NL" geoId="IN-NL" geoName="Nāgāland" geoTypeId="STATE"/>
     <Geo abbreviation="OR" geoCode="OR" geoId="IN-OR" geoName="Odisha" geoTypeId="STATE"/>
     <Geo abbreviation="PY" geoCode="PY" geoId="IN-PY" geoName="Puducherry" wellKnownText="Pondicherry" geoTypeId="TERRITORY"/>
     <Geo abbreviation="PB" geoCode="PB" geoId="IN-PB" geoName="Punjab" geoTypeId="STATE"/>
-    <Geo abbreviation="RJ" geoCode="RJ" geoId="IN-RJ" geoName="Rajasthan" geoTypeId="STATE"/>
+    <Geo abbreviation="RJ" geoCode="RJ" geoId="IN-RJ" geoName="Rājasthān" geoTypeId="STATE"/>
     <Geo abbreviation="SK" geoCode="SK" geoId="IN-SK" geoName="Sikkim" geoTypeId="STATE"/>
-    <Geo abbreviation="TN" geoCode="TN" geoId="IN-TN" geoName="Tamil Nadu" geoTypeId="STATE"/>
-    <Geo abbreviation="TG" geoCode="TG" geoId="IN-TG" geoName="Telangana" geoTypeId="STATE"/>
+    <Geo abbreviation="TN" geoCode="TN" geoId="IN-TN" geoName="Tamil Nādu" geoTypeId="STATE"/>
+    <Geo abbreviation="TG" geoCode="TG" geoId="IN-TG" geoName="Telangāna" geoTypeId="STATE"/>
     <Geo abbreviation="TR" geoCode="TR" geoId="IN-TR" geoName="Tripura" geoTypeId="STATE"/>
     <Geo abbreviation="UP" geoCode="UP" geoId="IN-UP" geoName="Uttar Pradesh" geoTypeId="STATE"/>
-    <Geo abbreviation="UT" geoCode="UT" geoId="IN-UT" geoName="Uttarakhand" geoTypeId="STATE"/>
+    <Geo abbreviation="UT" geoCode="UT" geoId="IN-UT" geoName="Uttarākhand" geoTypeId="STATE"/>
     <Geo abbreviation="WB" geoCode="WB" geoId="IN-WB" geoName="West Bengal" geoTypeId="STATE"/>
 
     <GeoAssoc geoId="IND" geoIdTo="IN-AN" geoAssocTypeId="REGIONS"/>
@@ -64,9 +63,8 @@ under the License.
     <GeoAssoc geoId="IND" geoIdTo="IN-BR" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-CH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="IND" geoIdTo="IN-DH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-DL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IND" geoIdTo="IN-DN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="IND" geoIdTo="IN-DD" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-GA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-GJ" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="IND" geoIdTo="IN-HR" geoAssocTypeId="REGIONS"/>
