@@ -31,15 +31,14 @@ under the License.
                 <!-- main defines the regions of the HTML page -->
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
                         <include-menu name="TransactionsTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                     </decorator-section>
-
                     <!-- body is the primary display for this page and is called recursively -->
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
-
                                 <!-- Now call the SimpleScreen form -->
                                 <decorator-section-include name="body"/>
                             </widgets>

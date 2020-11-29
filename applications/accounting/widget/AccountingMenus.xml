@@ -53,6 +53,35 @@ under the License.
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
 
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewGLTransaction" title="${uiLabelMap.CommonNew} ${uiLabelMap.GlTransaction}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newAcctgTrans">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewInvoice" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonInvoice}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newInvoice"/>
+        </menu-item>
+        <menu-item name="NewPayment" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonPayment}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newPayment"/>
+        </menu-item>
+    </menu>
+
     <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findInvoices"/>
