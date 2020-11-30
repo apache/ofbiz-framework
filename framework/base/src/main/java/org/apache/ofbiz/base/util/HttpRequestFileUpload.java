@@ -30,6 +30,8 @@ import java.util.Map;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.imaging.ImageReadException;
+import org.apache.ofbiz.entity.Delegator;
 
 /**
  * HttpRequestFileUpload - Receive a file upload through an HttpServletRequest
@@ -112,19 +114,19 @@ public class HttpRequestFileUpload {
         }
     }
 
-    public void doUpload(HttpServletRequest request) throws IOException {
+    public boolean doUpload(HttpServletRequest request, String fileType) throws IOException {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ServletInputStream in = request.getInputStream();
 
         String reqLengthString = request.getHeader("content-length");
-
         Debug.logInfo("expect " + reqLengthString + " bytes.", module);
         int requestLength = 0;
 
         try {
             requestLength = Integer.parseInt(reqLengthString);
-        } catch (Exception e2) {
-            e2.printStackTrace();
-            return;
+        } catch (NumberFormatException e) {
+            Debug.logError(e, e.getMessage(), module);
+            return false;
         }
         byte[] line = new byte[BUFFER_SIZE];
 
@@ -133,7 +135,8 @@ public class HttpRequestFileUpload {
         i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
         requestLength -= i;
         if (i < 3) {
-            return;
+            Debug.logError("Possibly a waitingReadLine error", module);
+            return false;
         }
         int boundaryLength = i - 2;
 
@@ -152,7 +155,7 @@ public class HttpRequestFileUpload {
                 if (newLine.indexOf("filename=\"") != -1) {
                     setFilename(new String(line, 0, i - 2, UtilIO.getUtf8()));
                     if (filename == null) {
-                        return;
+                        return false;
                     }
                     // this is the file content
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
@@ -190,8 +193,8 @@ public class HttpRequestFileUpload {
                         }
 
                     }
-                    try (
-                            FileOutputStream fos = new FileOutputStream(savePath + filenameToUse);) {
+                    String fileTocheck = savePath + filenameToUse;
+                    try (FileOutputStream fos = new FileOutputStream(fileTocheck);) {
                         boolean bail = (new String(line, 0, i, UtilIO.getUtf8()).startsWith(boundary));
                         boolean oneByteLine = (i == 1); // handle one-byte lines
 
@@ -231,11 +234,13 @@ public class HttpRequestFileUpload {
                             }
                         }
                         fos.flush();
-                        fos.close();
-                    } catch (RuntimeException e) {
-                        throw e;
-                    } catch (Exception e) {
+
+                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileTocheck, fileType, delegator)) {
+                            return false;
+                        }
+                    } catch (ImageReadException e) {
                         Debug.logError(e, module);
+                        return false;
                     }
                 } else {
                     // this is a field
@@ -259,7 +264,7 @@ public class HttpRequestFileUpload {
                         i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                         requestLength -= i;
                         if ((i == boundaryLength + 2 || i == boundaryLength + 4) // + 4 is eof
-                            && (new String(line, 0, i).startsWith(boundary))) {
+                                && (new String(line, 0, i).startsWith(boundary))) {
                             fieldValue.append(newLine.substring(0, newLine.length() - 2));
                         } else {
                             fieldValue.append(newLine);
@@ -275,6 +280,7 @@ public class HttpRequestFileUpload {
             }
 
         } // end while
+        return true;
     }
 
     // reads a line, waiting if there is nothing available and reqLen > 0
@@ -295,7 +301,7 @@ public class HttpRequestFileUpload {
             while (endMS > (new Date().getTime())) {
                 try {
                     wait(WAIT_INTERVAL);
-                } catch (Exception e3) {
+                } catch (InterruptedException e) {
                     Debug.logInfo(".", module);
                 }
             }
@@ -303,4 +309,5 @@ public class HttpRequestFileUpload {
         }
         return i;
     }
+
 }

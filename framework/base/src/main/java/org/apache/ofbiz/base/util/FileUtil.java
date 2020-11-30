@@ -41,6 +41,9 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+
 /**
  * File Utilities
  *
@@ -414,4 +417,26 @@ public final class FileUtil {
         return new File(filePath).toPath().normalize().toFile(); 
     }
     
+    /**
+     * Unzip file structure of the given zipFile to specified outputFolder The Zip slip vulnerabilty is handled since version 1.3.3 of
+     * net.lingala.zip4j.ZipFile; unzipFileToFolder is not as reliable and does not handle passwords
+     * @param source
+     * @param destination
+     * @param password optional
+     * @return true if OK
+     */
+    public static boolean unZip(String source, String destination, String password) {
+        try {
+            if (password.isEmpty()) {
+                new ZipFile(source).extractAll(destination);
+            } else {
+                new ZipFile(source, password.toCharArray()).extractAll(destination);
+            }
+        } catch (ZipException e) {
+            Debug.logError("Error extracting [" + source + "] file to dir destination: " + destination, e.toString(), module);
+            return false;
+        }
+        return true;
+    }
+
 }
