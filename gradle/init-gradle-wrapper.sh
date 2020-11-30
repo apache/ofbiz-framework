@@ -48,11 +48,9 @@ downloadFile() {
            return 0;
        fi
    elif [ -n "$(whereIsBinary wget)" ]; then
-       GET_CMD="wget -q -O $GRADLE_WRAPPER_OFBIZ_PATH/$1 --server-response $2/$1";
-       GET_CMD="$GET_CMD 2>&1 > /dev/null | grep 'HTTP/.* 200'";
-       if [ -n "$($GET_CMD)" ]; then
+      if [[ `wget -q -S -O $GRADLE_WRAPPER_OFBIZ_PATH/$1 $2/$1 2>&1 > /dev/null | grep 'HTTP/1.1 200 OK'` ]]; then
            return 0;
-       fi
+      fi
    fi
    return 1
 }
