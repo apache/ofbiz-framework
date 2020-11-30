@@ -32,7 +32,7 @@ Party application can be use to manage:
 
 This application is used to manage profile, contact information, relationship, role, communication, classification, ...
 
-== Parties management
+== Parties management in UI
 
 === Help for The Party Find screen.
 The 'Find Party' is the default screen for the Party Manager application. +
@@ -55,6 +55,10 @@ If a Party has no user login associated the string "(none)" is shown.
 In the "Main Roletype" column the role is listed which is a child of the "Main role"" roletype.
 It is currently set to "Organisation" and "SFA Role". The later to be prepared to use he party in he SFA component.
 See the <<_marketing,marketing application>> for more information
+
+== Parties Processes
+
+include::_include/party-howto-create-mainCompany.adoc[leveloffset=+2]
 
 
 == Communications
