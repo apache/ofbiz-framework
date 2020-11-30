@@ -61,7 +61,6 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-migrate-3.3.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
@@ -74,7 +73,6 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/application.js"/>
         <!--Css styles: don't load them since they differ depending on theme -->
         <property name="VT_STYLESHEET['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css"/>
-        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css"/>
         <property name="VT_STYLESHEET['add']" value="/common/css/info.css"/>
     </theme-properties>
 

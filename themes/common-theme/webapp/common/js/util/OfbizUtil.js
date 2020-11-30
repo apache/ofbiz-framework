@@ -399,19 +399,28 @@ function bindObservers(bind_element) {
                 dateFormat: 'yy-mm-dd'
             })
         } else {
-            element.datetimepicker({
-                showSecond: true,
-                // showMillisec: true,
-                timeFormat: 'HH:mm:ss',
-                stepHour: 1,
-                stepMinute: 1,
-                stepSecond: 1,
-                showOn: 'button',
-                buttonImage: '',
-                buttonText: '',
-                buttonImageOnly: false,
-                dateFormat: 'yy-mm-dd'
-            })
+            var libTimePicker = element.data("timepicker");
+            if (libTimePicker) {
+                libTimePicker = libTimePicker.split(",");
+                importLibrary(libTimePicker, function () {
+                    var libTimePickerLang = [element.data("timepickerlang")];
+                    importLibrary(libTimePickerLang, function () {
+                        element.datetimepicker({
+                            showSecond: true,
+                            // showMillisec: true,
+                            timeFormat: 'HH:mm:ss',
+                            stepHour: 1,
+                            stepMinute: 1,
+                            stepSecond: 1,
+                            showOn: 'button',
+                            buttonImage: '',
+                            buttonText: '',
+                            buttonImageOnly: false,
+                            dateFormat: 'yy-mm-dd'
+                        })
+                    });
+                });
+            }
         }
     });
     jQuery(bind_element).on("click", ".fieldgroup  li.collapsed, .fieldgroup  li.expanded", function(e){
