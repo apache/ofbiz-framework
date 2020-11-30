@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
@@ -92,7 +91,16 @@ if (fileType) {
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
-    uploadObject.doUpload(request)
+    if (!uploadObject.doUpload(request, "Image")) {
+        try {
+            (new File(imageServerPath + "/" + filePathPrefix, defaultFileName)).delete()
+        } catch (Exception e) {
+            logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
+        }
+        String errorMessage = UtilProperties.getMessage("SecurityUiLabels","SupportedImageFormats", locale)
+        logError(errorMessage)
+        return error(errorMessage)
+    }
 
     clientFileName = uploadObject.getFilename()
     if (clientFileName) {
@@ -127,12 +135,14 @@ if (fileType) {
                         } else if(file.isFile() && "original".equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()
                         }
-                    } 
+                    }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + ".")) file.delete()
+                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + ".")) {
+                            file.delete()
+                        }
                     }
                 }
             } catch (Exception e) {

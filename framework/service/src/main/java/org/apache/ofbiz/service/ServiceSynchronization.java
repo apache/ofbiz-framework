@@ -45,7 +45,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public class ServiceSynchronization implements Synchronization {
 
-    public static final String MODULE = ServiceSynchronization.class.getName();
+    public static final String module = ServiceSynchronization.class.getName();
 
     private static Map<Transaction, ServiceSynchronization> syncingleton = new WeakHashMap<>();
     private List<ServiceExecution> services = new ArrayList<>();
@@ -140,18 +140,18 @@ public class ServiceSynchronization implements Synchronization {
                                 // set the userLogin object
                                 thisContext.put("userLogin", ServiceUtil.getUserLogin(dctx, thisContext, runAsUser));
                                 if (async) {
-                                    Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runAsync", MODULE);
+                                    Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runAsync", module);
                                     dctx.getDispatcher().runAsync(serviceName, thisContext, persist);
                                 } else {
-                                    Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runSyncIgnore", MODULE);
+                                    Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runSyncIgnore", module);
                                     dctx.getDispatcher().runSyncIgnore(serviceName, thisContext);
                                 }
                             } catch (Throwable t) {
-                                Debug.logError(t, "Problem calling " + msgPrefix + "service : " + serviceName + " / " + context, MODULE);
+                                Debug.logError(t, "Problem calling " + msgPrefix + "service : " + serviceName + " / " + context, module);
                                 try {
                                     TransactionUtil.rollback(beganTx, t.getMessage(), t);
                                 } catch (GenericTransactionException e) {
-                                    Debug.logError(e, MODULE);
+                                    Debug.logError(e, module);
                                 }
 
                             } finally {
@@ -159,11 +159,11 @@ public class ServiceSynchronization implements Synchronization {
                                 try {
                                     TransactionUtil.commit(beganTx);
                                 } catch (GenericTransactionException e) {
-                                    Debug.logError(e, MODULE);
+                                    Debug.logError(e, module);
                                 }
                             }
                         } catch (GenericTransactionException e) {
-                            Debug.logError(e, MODULE);
+                            Debug.logError(e, module);
                         }
 
                     }

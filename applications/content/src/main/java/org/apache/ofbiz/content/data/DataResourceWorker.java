@@ -1102,6 +1102,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
+                if (!file.exists()) {
+                    throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
+                }
                 return UtilMisc.toMap("stream", Files.newInputStream(file.toPath(), StandardOpenOption.READ), "length", file.length());
             }
             throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");

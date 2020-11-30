@@ -80,7 +80,16 @@ if (fileType) {
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
-    uploadObject.doUpload(request)
+    if (!uploadObject.doUpload(request, "Image")) {
+        try {
+            (new File(imageServerPath + "/" + filePathPrefix, defaultFileName)).delete()
+        } catch (Exception e) {
+            logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
+        }
+        String errorMessage = UtilProperties.getMessage("SecurityUiLabels","SupportedImageFormats", locale)
+        logError(errorMessage)
+        return error(errorMessage)
+    }
 
     clientFileName = uploadObject.getFilename()
     if (clientFileName) {

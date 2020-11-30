@@ -393,7 +393,7 @@ public class ModelEntityChecker {
             "MESSAGESCROLL", "MFETCH", "MIDDLEINT", "MIN", "MIN_ROWS",
             "MINRECLEN", "MINRETURNUNTIL", "MINUS", "MINUTE", "MINUTE_SECOND",
             "MIRROREXIT", "MISLABEL", "MISSING", "MIXED", "MOD", "MODE",
-            "MODIFIES", "MODIFY", "MODIFYREVOKEUPDATE", "MODULE", "MONEY",
+            "MODIFIES", "MODIFY", "MODIFYREVOKEUPDATE", "module", "MONEY",
             "MONITOR", "MONTH", "MONTHNAME", "MOVE", "MULTI", "MYISAM",
 
             "NAME", "NAMES", "NATIONAL", "NATURAL", "NATURALN", "NCHAR",
