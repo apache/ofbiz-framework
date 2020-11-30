@@ -40,7 +40,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="importexport" title=" " use-when="hasBasicPermission" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonImportExport}" target="ImportExport">
+            <hyperlink description="${uiLabelMap.CommonImportExport}" target="ImportExport" target-type="plain">
                 <parameter param-name="organizationPartyId" from-field="partyId"/>
             </hyperlink>
         </field>
