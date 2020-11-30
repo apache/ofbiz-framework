@@ -235,6 +235,20 @@ dependencies {
     }
 }
 
+// Specify database driver dependencies.
+if (findProperty('ofbizDbms')) {
+    dependencies {
+        switch (findProperty('ofbizDbms')) {
+            case "postgres":
+                runtimeOnly "org.postgresql:postgresql:42.2.18"
+                break;
+            default:
+                // Do nothing. Derby drivers will be included.
+                break;
+        }
+    }
+}
+
 def excludedJavaSources = [
     'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java',
     'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
@@ -1089,4 +1103,50 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 
 def gradlewSubprocess(commandList) {
     exec { commandLine(gradlew, "--no-daemon", *commandList) }
+}
+
+// Updates the entityengine.xml data sources according to the selected DBMS.
+task updateEntityEngine {
+    doLast {
+        def eeXmlFile = file('framework/entity/config/entityengine.xml')
+        if (findProperty('ofbizDbms')) {
+            dependencies {
+                switch (findProperty('ofbizDbms')) {
+                    case 'postgres':
+                        def xmlParser = new XmlParser()
+                        def document = xmlParser.parse(eeXmlFile)
+
+                        def delegators = document.'delegator'
+                        delegators.each { delegator ->
+                            delegator.'group-map'.each { groupMap ->
+                                switch (groupMap.'@group-name') {
+                                    case 'org.apache.ofbiz':
+                                        groupMap.'@datasource-name' = 'localpostgres'
+                                        break;
+
+                                    case 'org.apache.ofbiz.olap':
+                                        groupMap.'@datasource-name' = 'localpostgresolap'
+                                        break;
+
+                                    case 'org.apache.ofbiz.tenant':
+                                        groupMap.'@datasource-name' = 'localpostgrestenant'
+                                        break;
+                                }
+                            }
+                        }
+
+                        def xmlPrinter = new XmlNodePrinter(new PrintWriter(new FileWriter(eeXmlFile)))
+                        xmlPrinter.print(document)
+
+                        break;
+
+                    default:
+                        // Do nothing as Derby database is used by default.
+                        break;
+                }
+            }
+        } else {
+            println "ofbizDbms property not set. No changes made to entityengine.xml"
+        }
+    }
 }
