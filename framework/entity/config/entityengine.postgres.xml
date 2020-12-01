@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-config.xsd">
+    <resource-loader name="fieldfile" class="org.apache.ofbiz.base.config.FileLoader"
+                     prepend-env="ofbiz.home" prefix="/framework/entity/fieldtype/"/>
+
+    <transaction-factory class="org.apache.ofbiz.entity.transaction.GeronimoTransactionFactory"/>
+    <connection-factory class="org.apache.ofbiz.entity.connection.DBCPConnectionFactory"/>
+
+    <debug-xa-resources value="false"/>
+
+    <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main"
+               distributed-cache-clear-enabled="false">
+        <group-map group-name="org.apache.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.apache.ofbiz.olap" datasource-name="localpostgresolap"/>
+        <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localpostgrestenant"/>
+    </delegator>
+    <delegator name="default-no-eca" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main"
+               entity-eca-enabled="false" distributed-cache-clear-enabled="false">
+        <group-map group-name="org.apache.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.apache.ofbiz.olap" datasource-name="localpostgresolap"/>
+        <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localpostgrestenant"/>
+    </delegator>
+    <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
+        <group-map group-name="org.apache.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.apache.ofbiz.olap" datasource-name="localpostgresolap"/>
+        <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localpostgrestenant"/>
+    </delegator>
+
+    <entity-model-reader name="main"/>
+    <entity-group-reader name="main"/>
+    <entity-eca-reader name="main"/>
+
+    <entity-data-reader name="tenant"/>
+    <entity-data-reader name="seed"/>
+    <entity-data-reader name="seed-initial"/>
+    <entity-data-reader name="demo"/>
+    <entity-data-reader name="ext"/>
+    <entity-data-reader name="ext-test"/>
+    <entity-data-reader name="ext-demo"/>
+
+    <field-type name="postgres" loader="fieldfile" location="fieldtypepostgres.xml"/>
+
+    <datasource name="localpostgres"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                schema-name="public"
+                field-type-name="postgres"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-fk-initially-deferred="false"
+                alias-view-columns="false"
+                join-style="ansi"
+                use-binary-type-for-blob="true"
+                use-order-by-nulls="true"
+                offset-style="limit"
+                result-fetch-size="50"> <!-- Comment out the result-fetch-size attribute for jdbc driver versions older than 8.0.
+            Not recommended to use those though. They are archived unsupported versions: http://jdbc.postgresql.org/download.html -->
+
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <inline-jdbc
+                jdbc-driver="org.postgresql.Driver"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
+                jdbc-username="${dbUsername}"
+                jdbc-password="${dbPassword}"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/><!-- Be warned that at this date (2009-09-20) the max_connections parameters in postgresql.conf
+                is set by default to 100 by the initdb process see http://www.postgresql.org/docs/8.4/static/runtime-config-connection.html#GUC-MAX-CONNECTIONS-->
+    </datasource>
+    <datasource name="localpostgresolap"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                schema-name="public"
+                field-type-name="postgres"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-fk-initially-deferred="false"
+                alias-view-columns="false"
+                join-style="ansi"
+                result-fetch-size="50"
+                use-binary-type-for-blob="true"
+                use-order-by-nulls="true"
+                offset-style="limit">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <inline-jdbc
+                jdbc-driver="org.postgresql.Driver"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbizolap"
+                jdbc-username="${dbUsername}"
+                jdbc-password="${dbPassword}"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/><!-- Be warned that at this date (2009-09-20) the max_connections parameters in postgresql.conf
+                    is set by default to 100 by the initdb process see http://www.postgresql.org/docs/8.4/static/runtime-config-connection.html#GUC-MAX-CONNECTIONS-->
+    </datasource>
+    <datasource name="localpostgrestenant"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                schema-name="public"
+                field-type-name="postgres"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-fk-initially-deferred="false"
+                alias-view-columns="false"
+                join-style="ansi"
+                result-fetch-size="50"
+                use-binary-type-for-blob="true"
+                use-order-by-nulls="true"
+                offset-style="limit">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <inline-jdbc
+                jdbc-driver="org.postgresql.Driver"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiztenant"
+                jdbc-username="${dbUsername}"
+                jdbc-password="${dbPassword}"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/><!-- Be warned that at this date (2009-09-20) the max_connections parameters in postgresql.conf
+                    is set by default to 100 by the initdb process see http://www.postgresql.org/docs/8.4/static/runtime-config-connection.html#GUC-MAX-CONNECTIONS-->
+    </datasource>
+</entity-config>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-config.xsd">
+    <resource-loader name="fieldfile" class="org.apache.ofbiz.base.config.FileLoader"
+                     prepend-env="ofbiz.home" prefix="/framework/entity/fieldtype/"/>
+
+    <transaction-factory class="org.apache.ofbiz.entity.transaction.GeronimoTransactionFactory"/>
+    <connection-factory class="org.apache.ofbiz.entity.connection.DBCPConnectionFactory"/>
+
+    <debug-xa-resources value="false"/>
+
+    <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main"
+               distributed-cache-clear-enabled="false">
+        <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
+        <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
+    </delegator>
+    <delegator name="default-no-eca" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main"
+               entity-eca-enabled="false" distributed-cache-clear-enabled="false">
+        <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
+        <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
+    </delegator>
+    <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
+        <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
+        <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
+    </delegator>
+
+    <entity-model-reader name="main"/>
+    <entity-group-reader name="main"/>
+    <entity-eca-reader name="main"/>
+
+    <entity-data-reader name="tenant"/>
+    <entity-data-reader name="seed"/>
+    <entity-data-reader name="seed-initial"/>
+    <entity-data-reader name="demo"/>
+    <entity-data-reader name="ext"/>
+    <entity-data-reader name="ext-test"/>
+    <entity-data-reader name="ext-demo"/>
+
+    <field-type name="derby" loader="fieldfile" location="fieldtypederby.xml"/>
+
+    <datasource name="localderby"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                schema-name="OFBIZ"
+                field-type-name="derby"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-pk-constraint-names="false"
+                use-indices-unique="false"
+                alias-view-columns="false"
+                use-order-by-nulls="true"
+                offset-style="fetch">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
+        <inline-jdbc
+                jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
+                jdbc-uri="jdbc:derby:ofbiz;create=true"
+                jdbc-username="ofbiz"
+                jdbc-password-lookup="derby-ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                test-on-borrow="true"
+                pool-jdbc-test-stmt="values 1"
+                soft-min-evictable-idle-time-millis="600000"
+                time-between-eviction-runs-millis="600000"/>
+    </datasource>
+    <datasource name="localderbyolap"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                schema-name="OFBIZ"
+                field-type-name="derby"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-pk-constraint-names="false"
+                use-indices-unique="false"
+                alias-view-columns="false"
+                use-order-by-nulls="true">
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <inline-jdbc
+                jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
+                jdbc-uri="jdbc:derby:ofbizolap;create=true"
+                jdbc-username="ofbiz"
+                jdbc-password-lookup="derby-ofbizolap"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/>
+    </datasource>
+    <datasource name="localderbytenant"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                schema-name="OFBIZ"
+                field-type-name="derby"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-pk-constraint-names="false"
+                use-indices-unique="false"
+                alias-view-columns="false"
+                use-order-by-nulls="true">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
+        <inline-jdbc
+                jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
+                jdbc-uri="jdbc:derby:ofbiztenant;create=true"
+                jdbc-username="ofbiz"
+                jdbc-password-lookup="derby-ofbiztenant"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/>
+    </datasource>
+</entity-config>

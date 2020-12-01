@@ -1033,6 +1033,7 @@ def createOfbizCommandTask(taskName, arguments) {
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             finalizedBy(createTestReports)
         }
+        dependsOn 'copyEntityEngineXml'
     }
 }
 
@@ -1105,48 +1106,50 @@ def gradlewSubprocess(commandList) {
     exec { commandLine(gradlew, "--no-daemon", *commandList) }
 }
 
-// Updates the entityengine.xml data sources according to the selected DBMS.
-task updateEntityEngine {
-    doLast {
-        def eeXmlFile = file('framework/entity/config/entityengine.xml')
-        if (findProperty('ofbizDbms')) {
-            dependencies {
-                switch (findProperty('ofbizDbms')) {
-                    case 'postgres':
-                        def xmlParser = new XmlParser()
-                        def document = xmlParser.parse(eeXmlFile)
+task copyEntityEngineXml(type: Copy) {
+    description 'Selects and populates the entityengine.xml file to be used based on the selected DBMS and other ' +
+            'DB related properties'
 
-                        def delegators = document.'delegator'
-                        delegators.each { delegator ->
-                            delegator.'group-map'.each { groupMap ->
-                                switch (groupMap.'@group-name') {
-                                    case 'org.apache.ofbiz':
-                                        groupMap.'@datasource-name' = 'localpostgres'
-                                        break;
+    def configDir = file('framework/entity/config')
+    def templateFiles = fileTree(dir: configDir, excludes: ['entityengine.xml'])
 
-                                    case 'org.apache.ofbiz.olap':
-                                        groupMap.'@datasource-name' = 'localpostgresolap'
-                                        break;
+    // Determine database usernames and passwords from properties.
+    def ofbizDbUsername = findProperty('ofbizDbUsername') ?: 'ofbiz'
+    def ofbizDbPassword = findProperty('ofbizDbUsername') ?: 'ofbiz'
+    def ofbizDbPasswordLookup = findProperty('ofbizDbPasswordLookup') ?: 'derby-ofbiz'
 
-                                    case 'org.apache.ofbiz.tenant':
-                                        groupMap.'@datasource-name' = 'localpostgrestenant'
-                                        break;
-                                }
-                            }
-                        }
+    def ofbizOlapDbUsername = findProperty('ofbizOlapDbUsername') ?: ofbizDbUsername
+    def ofbizOlapDbPassword = findProperty('ofbizOlapDbUsername') ?: ofbizDbPassword
+    def ofbizOlapDbPasswordLookup = findProperty('ofbizOlapDbPasswordLookup') ?: ofbizDbPasswordLookup
 
-                        def xmlPrinter = new XmlNodePrinter(new PrintWriter(new FileWriter(eeXmlFile)))
-                        xmlPrinter.print(document)
+    def ofbizTenantDbUsername = findProperty('ofbizTenantDbUsername') ?: ofbizDbUsername
+    def ofbizTenantDbPassword = findProperty('ofbizTenantDbUsername') ?: ofbizDbPassword
+    def ofbizTenantDbPasswordLookup = findProperty('ofbizTenantDbPasswordLookup') ?: ofbizDbPasswordLookup
 
-                        break;
+    inputs.properties(
+            ofbizDbms: ofbizDbms,
+            ofbizDbUsername: ofbizDbUsername,
+            ofbizDbPassword: ofbizDbPassword,
+            ofbizDbPasswordLookup: ofbizDbPasswordLookup,
+            ofbizOlapDbUsername: ofbizOlapDbUsername,
+            ofbizOlapDbPassword: ofbizOlapDbPassword,
+            ofbizOlapDbPasswordLookup: ofbizOlapDbPasswordLookup,
+            ofbizTenantDbUsername: ofbizTenantDbUsername,
+            ofbizTenantDbPassword: ofbizTenantDbPassword,
+            ofbizTenantDbPasswordLookup: ofbizTenantDbPasswordLookup
+    )
+    inputs.files(templateFiles)
+    outputs.dir(configDir)
 
-                    default:
-                        // Do nothing as Derby database is used by default.
-                        break;
-                }
-            }
-        } else {
-            println "ofbizDbms property not set. No changes made to entityengine.xml"
-        }
-    }
+    def dbms = findProperty('ofbizDbms') ?: 'default'
+    def templateEeXmlFile = file("framework/entity/config/entityengine.${dbms}.xml")
+
+    from templateEeXmlFile
+    into configDir
+    rename { 'entityengine.xml' }
+    expand(
+            dbUsername: findProperty('ofbizDbUsername') ?: 'ofbiz',
+            dbPassword: findProperty('ofbizDbPassword') ?: 'ofbiz',
+            dbPasswordLookup: findProperty('ofbizDbPasswordLookup') ?: 'derby'
+    )
 }
