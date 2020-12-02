@@ -29,6 +29,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -74,10 +75,10 @@ public class ScaleImage {
      * @throws  JDOMException               Errors occur in parsing
      */
     public static Map<String, Object> scaleImageInAllSize(Map<String, ? extends Object> context, String filenameToUse,
-                                                          String viewType, String viewNumber)
-        throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
+            String viewType, String viewNumber) throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
 
         /* VARIABLES */
+        Delegator delegator = (Delegator) context.get("delegator");
         Locale locale = (Locale) context.get("locale");
 
         int index;
@@ -221,19 +222,23 @@ public class ScaleImage {
 
                     // write new image
                     try {
-                        ImageIO.write(bufNewImg, imgExtension, new File(imageServerPath + "/" + newFileLocation + "." + imgExtension));
+                        String fileToCheck = imageServerPath + "/" + newFileLocation + "." + imgExtension;
+                        ImageIO.write(bufNewImg, imgExtension, new File(fileToCheck));
+                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                            String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                            return ServiceUtil.returnError(errorMessage);
+                        }
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
-                    } catch (IOException e) {
+                    } catch (IOException | ImageReadException e) {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
                     }
-
                     // Save each Url
                     if (SIZE_TYPE_LIST.contains(sizeType)) {
                         String imageUrl = imageUrlPrefix + "/" + newFileLocation + "." + imgExtension;
@@ -257,10 +262,10 @@ public class ScaleImage {
     }
 
     public static Map<String, Object> scaleImageManageInAllSize(Map<String, ? extends Object> context, String filenameToUse,
-                                                                String viewType, String viewNumber, String imageType)
-        throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
+            String viewType, String viewNumber, String imageType) throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
 
         /* VARIABLES */
+        Delegator delegator = (Delegator) context.get("delegator");
         Locale locale = (Locale) context.get("locale");
         List<String> sizeTypeList = null;
         if (UtilValidate.isNotEmpty(imageType)) {
@@ -395,13 +400,18 @@ public class ScaleImage {
 
                     // write new image
                     try {
-                        ImageIO.write(bufNewImg, imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
+                        String fileToCheck = imageServerPath + "/" + newFileLocation + "." + imgExtension;
+                        ImageIO.write(bufNewImg, imgExtension, new File(fileToCheck));
+                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                            String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                            return ServiceUtil.returnError(errorMessage);
+                        }
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
-                    } catch (IOException e) {
+                    } catch (IOException | ImageReadException e) {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
