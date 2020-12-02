@@ -161,7 +161,7 @@ dependencies {
     compile 'net.lingala.zip4j:zip4j:2.6.4'
     compile 'org.apache.commons:commons-imaging:1.0-alpha2' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
     compile 'org.apache.tika:tika-core:1.24.1'
-    compile 'org.apache.xmlgraphics:batik:1.13'
+    compile 'batik:batik-svg-dom:1.6-1'
 
     // ofbiz unit-test compile libs
     testCompile 'org.mockito:mockito-core:2.+'
