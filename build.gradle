@@ -190,7 +190,7 @@ dependencies {
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.37' // Remember to change the version number in javadoc block
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.37'
     implementation 'org.apache.axis2:axis2-kernel:1.7.9'
-    implementation 'org.apache.xmlgraphics:batik:1.13'
+    implementation 'batik:batik-svg-dom:1.6-1'
     implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: in 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
