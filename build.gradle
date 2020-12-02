@@ -1158,3 +1158,5 @@ task copyEntityEngineXml(type: Copy) {
             dbPasswordLookup: findProperty('ofbizDbPasswordLookup') ?: 'derby'
     )
 }
+
+processResources.dependsOn(copyEntityEngineXml)
