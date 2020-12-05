@@ -207,7 +207,7 @@ public final class JsLanguageFilesMapping {
 
     public static class JQuery {
         private static Map<String, String> localeFiles = new HashMap<>();
-        private static String defaultDateJs = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
+        private static String defaultDateJs = "/common/js/jquery/ui/i18n/datepicker-en.js";
 
         static {
             localeFiles.put("sq", "/common/js/jquery/ui/i18n/datepicker-sq.js");
