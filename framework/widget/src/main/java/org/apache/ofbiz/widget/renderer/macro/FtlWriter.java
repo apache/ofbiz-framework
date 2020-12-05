@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.rmi.server.UID;
+import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -45,9 +46,9 @@ public final class FtlWriter {
         this.visualTheme = visualTheme;
     }
 
-    public void executeMacro(Appendable writer, String macro) {
+    public void executeMacro(Appendable writer, Locale locale, String macro) {
         try {
-            Environment environment = getEnvironment(writer);
+            Environment environment = getEnvironment(writer, locale);
             environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
             environment.setVariable("modelTheme", FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
             Reader templateReader = new StringReader(macro);
@@ -59,12 +60,17 @@ public final class FtlWriter {
         }
     }
 
-    private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
+    private Environment getEnvironment(Appendable writer, Locale locale) throws TemplateException, IOException {
         Environment environment = environments.get(writer);
         if (environment == null) {
             Map<String, Object> input = UtilMisc.toMap("key", null);
             environment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
             environments.put(writer, environment);
+        }
+        if (locale != null) {
+            environment.setLocale(locale);
+        } else {
+            environment.setLocale(Locale.getDefault());
         }
         return environment;
     }

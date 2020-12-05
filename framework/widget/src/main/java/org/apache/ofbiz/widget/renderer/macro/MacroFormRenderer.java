@@ -168,7 +168,17 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     private void executeMacro(Appendable writer, String macro) {
-        ftlWriter.executeMacro(writer, macro);
+        ftlWriter.executeMacro(writer, null, macro);
+    }
+
+    /**
+     * Make locale available before executing macro
+     * @param writer
+     * @param locale
+     * @param macro
+     */
+    private void executeMacro(Appendable writer, Locale locale, String macro) {
+        ftlWriter.executeMacro(writer, locale, macro);
     }
 
     private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
@@ -789,7 +799,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, (Locale) context.get("locale"), sr.toString());
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -2228,7 +2238,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, locale, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
 
