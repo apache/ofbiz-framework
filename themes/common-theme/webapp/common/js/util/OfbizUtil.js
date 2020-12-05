@@ -389,22 +389,25 @@ function bindObservers(bind_element) {
                 });
             }
         });
+        var libDatePickerLang = [element.data("datepickerlang")];
         if (shortDate) {
-            element.datepicker({
-                showWeek: true,
-                showOn: 'button',
-                buttonImage: '',
-                buttonText: '',
-                buttonImageOnly: false,
-                dateFormat: 'yy-mm-dd'
-            })
+            importLibrary(libDatePickerLang, function () {
+                element.datepicker({
+                    showWeek: true,
+                    showOn: 'button',
+                    buttonImage: '',
+                    buttonText: '',
+                    buttonImageOnly: false,
+                    dateFormat: 'yy-mm-dd'
+                })
+            });
         } else {
             var libTimePicker = element.data("timepicker");
             if (libTimePicker) {
                 libTimePicker = libTimePicker.split(",");
                 importLibrary(libTimePicker, function () {
-                    var libTimePickerLang = [element.data("timepickerlang")];
-                    importLibrary(libTimePickerLang, function () {
+                    var libDateTimePickerLang = libDatePickerLang.concat([element.data("timepickerlang")]);
+                    importLibrary(libDateTimePickerLang, function () {
                         element.datetimepicker({
                             showSecond: true,
                             // showMillisec: true,
