@@ -465,7 +465,7 @@ public class ContentManagementServices {
                       String errMsg = ServiceUtil.getErrorMessage(permResults);
                       if (UtilValidate.isNotEmpty(errMsg)) {
                           return ServiceUtil.returnError(errMsg);
-                      } 
+                        }
                   } catch (GenericServiceException e) {
                       Debug.logError(e, e.toString(), module);
                       return ServiceUtil.returnError(e.toString());
@@ -1442,7 +1442,7 @@ public class ContentManagementServices {
             }
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
-            	 String msg = UtilProperties.getMessage(resource, "ContentNoOrderHeaderFound", UtilMisc.toMap("orderId", orderId), locale);
+                String msg = UtilProperties.getMessage(resource, "ContentNoOrderHeaderFound", UtilMisc.toMap("orderId", orderId), locale);
                 return ServiceUtil.returnError(msg);
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
@@ -1612,7 +1612,7 @@ public class ContentManagementServices {
                         errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     }
                 } catch (ImageReadException | IOException e) {
-                    errorMessage = UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName",
+                    errorMessage = UtilProperties.getMessage(resource, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName",
                             objectInfo), locale);
                 }
             }
