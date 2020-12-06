@@ -405,10 +405,15 @@ under the License.
 
     <!-- audio mime types -->
     <MimeType mimeTypeId="audio/basic" description="Basic Audio"/>
-    <MimeType mimeTypeId="audio/mpeg" description="MPEG Audio"/>
+    <MimeType mimeTypeId="audio/mpeg" description="MP3 Audio"/>
+    <MimeType mimeTypeId="audio/mp4" description="MP4 Audio"/>
     <MimeType mimeTypeId="audio/x-ms-wax" description="WAX Audio"/>
-    <MimeType mimeTypeId="audio/ogg" description="OGG Audio"/>
     <MimeType mimeTypeId="audio/wav" description="WAV Audio"/>
+    <MimeType mimeTypeId="audio/ogg" description="OGG Audio"/>
+    <MimeType mimeTypeId="audio/x-ogg" description="OGG Audio"/>
+    <MimeType mimeTypeId="audio/vorbis" description="Vorbis Audio"/>
+    <MimeType mimeTypeId="audio/x-flac" description="FLAC Audio"/>
+    <MimeType mimeTypeId="audio/flac" description="FLAC Audio"/>
 
     <!-- image mime types -->
     <MimeType mimeTypeId="image/jpeg" description="JPEG/JPG Image"/>
@@ -465,6 +470,7 @@ under the License.
     <MimeType mimeTypeId="video/x-ms-wm" description="WM Video"/>
     <MimeType mimeTypeId="video/x-ms-wmv" description="WMV Video"/>
     <MimeType mimeTypeId="video/x-ms-wmx" description="WMX Video"/>
+    <MimeType mimeTypeId="video/3gpp" description="3GP Mobile Video"/>
 
     <FileExtension fileExtensionId="asf" mimeTypeId="video/x-ms-asf"/>
     <FileExtension fileExtensionId="asx" mimeTypeId="video/x-ms-asf"/>
