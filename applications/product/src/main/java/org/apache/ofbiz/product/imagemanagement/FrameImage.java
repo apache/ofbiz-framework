@@ -319,7 +319,7 @@ public class FrameImage {
             out.write(imageData.array());
             out.close();
             if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Image", delegator)) {
-                String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileIncludingSvgFormats", locale);
+                String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 return "error";
             }
