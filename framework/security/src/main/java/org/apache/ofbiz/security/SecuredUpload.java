@@ -151,15 +151,23 @@ public class SecuredUpload {
             }
             break;
 
-        // case "Audio": TODO if needed
-        // break;
-        // case "Video": TODO if needed
-        // break;
+        case "Audio":
+            if (isValidAudioFile(fileTocheck)) {
+                return true;
+            }
+            break;
+        case "Video":
+            if (isValidVideoFile(fileTocheck)) {
+                return true;
+            }
+            break;
 
         default: // All
             if (isValidTextFile(fileTocheck)
                     || isValidImageIncludingSvgFile(fileTocheck)
                     || isValidCompressedFile(fileTocheck, delegator)
+                    || isValidAudioFile(fileTocheck)
+                    || isValidVideoFile(fileTocheck)
                     || isValidPdfFile(fileTocheck)) {
                 return true;
             }
@@ -299,14 +307,7 @@ public class SecuredUpload {
      * @throws IOException ImageReadException
      */
     private static boolean isValidImageIncludingSvgFile(String fileName) throws ImageReadException, IOException {
-        Path filePath = Paths.get(fileName);
-        byte[] bytesFromFile = Files.readAllBytes(filePath);
-        ImageFormat imageFormat = Imaging.guessFormat(bytesFromFile);
-        return imageFormat.equals(ImageFormats.PNG)
-                || imageFormat.equals(ImageFormats.GIF)
-                || imageFormat.equals(ImageFormats.TIFF)
-                || imageFormat.equals(ImageFormats.JPEG)
-                || isValidSvgFile(fileName);
+        return isValidImageFile(fileName) || isValidSvgFile(fileName);
     }
 
     /**
@@ -316,15 +317,19 @@ public class SecuredUpload {
      * @throws IOException
      */
     private static boolean isValidSvgFile(String fileName) throws IOException {
-        Path filePath = Paths.get(fileName);
-        String parser = XMLResourceDescriptor.getXMLParserClassName();
-        SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
-        try {
-            f.createDocument(filePath.toUri().toString());
-        } catch (IOException e) {
-            return false;
+        String mimeType = getMimeTypeFromFileName(fileName);
+        if ("image/svg+xml".equals(mimeType)) {
+            Path filePath = Paths.get(fileName);
+            String parser = XMLResourceDescriptor.getXMLParserClassName();
+            SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+            try {
+                f.createDocument(filePath.toUri().toString());
+            } catch (IOException e) {
+                return false;
+            }
+            return isValidTextFile(fileName); // Validate content to prevent webshell
         }
-        return isValidTextFile(fileName);
+        return false;
     }
 
     /**
@@ -498,6 +503,55 @@ public class SecuredUpload {
             mimeTypes.add(metadata1.get(Metadata.CONTENT_TYPE));
         }
         return mimeTypes;
+    }
+
+    /**
+     * Is this a valid Audio file?
+     * @param fileName must be an UTF-8 encoded text file
+     * @return true if it's a valid Audio file?
+     * @throws IOException
+     */
+    private static boolean isValidAudioFile(String fileName) throws IOException {
+        String mimeType = getMimeTypeFromFileName(fileName);
+        if ("audio/basic".equals(mimeType)
+                || "audio/wav".equals(mimeType)
+                || "audio/x-ms-wax".equals(mimeType)
+                || "audio/mpeg".equals(mimeType)
+                || "audio/mp4".equals(mimeType)
+                || "audio/ogg".equals(mimeType)
+                || "audio/vorbis".equals(mimeType)
+                || "audio/x-ogg".equals(mimeType)
+                || "audio/flac".equals(mimeType)
+                || "audio/x-flac".equals(mimeType)) {
+            return true;
+        }
+        Debug.logError("The file" + fileName + " is not a valid audio file, for security reason it's not accepted :", MODULE);
+        return false;
+    }
+
+    /**
+     * Is this a valid Audio file?
+     * @param fileName must be an UTF-8 encoded text file
+     * @return true if it's a valid Audio file?
+     * @throws IOException
+     */
+    private static boolean isValidVideoFile(String fileName) throws IOException {
+        String mimeType = getMimeTypeFromFileName(fileName);
+        if ("video/avi".equals(mimeType)
+                || "video/mpeg".equals(mimeType)
+                || "video/mp4".equals(mimeType)
+                || "video/quicktime".equals(mimeType)
+                || "video/3gpp".equals(mimeType)
+                || "video/x-ms-asf".equals(mimeType)
+                || "video/x-flv".equals(mimeType)
+                || "video/x-ms-wvx".equals(mimeType)
+                || "video/x-ms-wm".equals(mimeType)
+                || "video/x-ms-wmv".equals(mimeType)
+                || "video/x-ms-wmx".equals(mimeType)) {
+            return true;
+        }
+        Debug.logError("The file" + fileName + " is not a valid video file, for security reason it's not accepted :", MODULE);
+        return false;
     }
 
     /**
