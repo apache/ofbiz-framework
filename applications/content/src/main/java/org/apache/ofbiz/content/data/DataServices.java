@@ -264,7 +264,7 @@ public class DataServices {
                 out.close();
                 // Check if a webshell is not uploaded
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
-                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileIncludingSvgFormats", locale);
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
 
@@ -465,7 +465,7 @@ public class DataServices {
                     out.close();
                     // Check if a webshell is not uploaded
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
-                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileIncludingSvgFormats", locale);
+                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
                 } catch (FileNotFoundException | ImageReadException e) {
@@ -629,7 +629,7 @@ public class DataServices {
                 out.write(imageData);
                 // Check if a webshell is not uploaded
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
-                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileIncludingSvgFormats", locale);
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
                 if (Debug.infoOn()) {
@@ -692,7 +692,7 @@ public class DataServices {
                 out.write(imageData);
                 // Check if a webshell is not uploaded
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
-                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileIncludingSvgFormats", locale);
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
 
