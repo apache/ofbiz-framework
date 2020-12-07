@@ -88,7 +88,7 @@ public class SecuredUpload {
     // https://en.wikipedia.org/wiki/File_format
     // https://en.wikipedia.org/wiki/List_of_file_signatures
     // See also information in security.properties:
-    // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF and ZIP
+    // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
 
