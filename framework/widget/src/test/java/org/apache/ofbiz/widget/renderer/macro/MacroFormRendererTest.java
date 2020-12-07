@@ -124,7 +124,7 @@ public class MacroFormRendererTest {
                 label.getText(withNotNull());
                 result = "";
 
-                ftlWriter.executeMacro(withNotNull(), withNotNull());
+                ftlWriter.executeMacro(withNotNull(), withNull(), withNotNull());
                 times = 0;
             }
         };
@@ -1039,7 +1039,7 @@ public class MacroFormRendererTest {
         new Verifications() {
             {
                 List<String> macros = new ArrayList<>();
-                ftlWriter.executeMacro(withNotNull(), withCapture(macros));
+                ftlWriter.executeMacro(withNotNull(), withNull(), withCapture(macros));
 
                 assertThat(macros, not(empty()));
                 final String macro = macros.get(0);
