@@ -509,8 +509,13 @@ under the License.
     <FileExtension fileExtensionId="vcf" mimeTypeId="text/x-vcard"/>
     <FileExtension fileExtensionId="wav" mimeTypeId="audio/wav"/>
     <FileExtension fileExtensionId="mpeg" mimeTypeId="audio/mpeg"/>
+    <FileExtension fileExtensionId="mp3" mimeTypeId="audio/mpeg"/>
+    <FileExtension fileExtensionId="mp4" mimeTypeId="audio/mpeg"/>
     <FileExtension fileExtensionId="ogg" mimeTypeId="audio/ogg"/>
+    <FileExtension fileExtensionId="flac" mimeTypeId="audio/flac"/>
+    <FileExtension fileExtensionId="vorbis" mimeTypeId="audio/ogg"/>
     <FileExtension fileExtensionId="dflt" mimeTypeId="application/octet-stream"/>
+    <FileExtension fileExtensionId="3gp" mimeTypeId="video/3gpp"/>
     
 
     <!-- Registered MIME Types:
