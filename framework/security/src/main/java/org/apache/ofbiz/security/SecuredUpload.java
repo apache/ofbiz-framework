@@ -88,9 +88,9 @@ public class SecuredUpload {
     // https://en.wikipedia.org/wiki/File_format
     // https://en.wikipedia.org/wiki/List_of_file_signatures
     // See also information in security.properties:
-    // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF and ZIP
+    // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
 
-    private static final String module = SecuredUpload.class.getName();
+    private static final String MODULE = SecuredUpload.class.getName();
 
     /**
      * @param fileTocheck
@@ -173,10 +173,10 @@ public class SecuredUpload {
             }
             break;
         }
-        Debug.logError("File :" + fileTocheck + ", can't be uploaded for security reason", module);
+        Debug.logError("File :" + fileTocheck + ", can't be uploaded for security reason", MODULE);
         File badFile = new File(fileTocheck);
         if (!badFile.delete()) {
-            Debug.logError("File :" + fileTocheck + ", couldn't be deleted", module);
+            Debug.logError("File :" + fileTocheck + ", couldn't be deleted", MODULE);
         }
         return false;
     }
@@ -295,7 +295,7 @@ public class SecuredUpload {
             }
         } catch (IOException | ImageReadException | ImageWriteException e) {
             safeState = false;
-            Debug.logWarning(e, "Error during Image file " + fileName + " processing !", module);
+            Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
         }
         return safeState;
     }
@@ -359,7 +359,7 @@ public class SecuredUpload {
             }
         } catch (Exception e) {
             safeState = false;
-            Debug.logError(e, "for security reason the PDF file " + file.getAbsolutePath() + "can't be uploaded !", module);
+            Debug.logError(e, "for security reason the PDF file " + file.getAbsolutePath() + "can't be uploaded !", MODULE);
         }
         return safeState;
     }
@@ -368,7 +368,7 @@ public class SecuredUpload {
         String mimeType = getMimeTypeFromFileName(fileName);
         // Check for Windows executable. Neglect .bat and .ps1: https://s.apache.org/c8sim
         if ("application/x-msdownload".equals(mimeType) || "application/x-ms-installer".equals(mimeType)) {
-            Debug.logError("The file" + fileName + " is a Windows executable, for security reason it's not accepted :", module);
+            Debug.logError("The file" + fileName + " is a Windows executable, for security reason it's not accepted :", MODULE);
             return true;
         }
         // Check for ELF (Linux) and scripts
@@ -376,7 +376,7 @@ public class SecuredUpload {
                 || "application/x-sh".equals(mimeType)
                 || "application/text/x-perl".equals(mimeType)
                 || "application/text/x-python".equals(mimeType)) {
-            Debug.logError("The file" + fileName + " is a Linux executable, for security reason it's not accepted :", module);
+            Debug.logError("The file" + fileName + " is a Linux executable, for security reason it's not accepted :", MODULE);
             return true;
         }
         return false;
