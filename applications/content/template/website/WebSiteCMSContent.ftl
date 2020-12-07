@@ -333,7 +333,18 @@
               <td class="label">${uiLabelMap.CommonUpload}</td>
               <td>
                 <input type="hidden" name="isUploadObject" value="Y"/>
-                <input type="file" name="uploadedFile" size="30"/>
+                <#if dataResourceTypeId == 'IMAGE_OBJECT'>
+                    <input type="file" name="uploadedFile" size="30" accept=".png,.gif,.jpg,.jpeg,.tiff,.tif"/>
+                </#if>
+                <#if dataResourceTypeId == 'VIDEO_OBJECT'>
+                    <input type="file" name="uploadedFile" size="30" accept=".mpeg,.mpg,.mp4,.m4v,.mov,.qt,.asf,.avi,.asx,.asf,.flv,.wvx,.wm,.wmv,.wmx,.avi"/>
+                </#if>
+                <#if dataResourceTypeId == 'AUDIO_OBJECT'>
+                    <input type="file" name="uploadedFile" size="30" accept=".mp3,.ogg,.vorbis,.flac,.wav"/>
+                </#if>
+                <#if dataResourceTypeId == 'OTHER_OBJECT' || dataResourceTypeId == 'LOCAL_FILE' || dataResourceTypeId == 'OFBIZ_FILE' >
+                    <input type="file" name="uploadedFile" size="30"/>
+                </#if>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'URL_RESOURCE')>
@@ -354,9 +365,9 @@
             <tr>
               <td colspan="2">
                 <div id="editorcontainer" class="nocolumns">
-                    <textarea name="textData" id="cmseditor" style="margin: 0; width: 100%; border: 1px solid black;">                    
+                    <textarea name="textData" id="cmseditor" style="margin: 0; width: 100%; border: 1px solid black;">
                         <#if (dataText?has_content)>
-                          ${StringUtil.wrapString(dataText.textData!)} 
+                          ${StringUtil.wrapString(dataText.textData!)}
                         </#if>
                     </textarea>
                 </div>
