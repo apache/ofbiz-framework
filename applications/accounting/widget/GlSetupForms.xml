@@ -90,7 +90,7 @@ under the License.
     </form>
 
     <form name="ExportInvoice" type="single" target="ExportInvoiceCsv.csv" title="" >
-        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>
         <field name="startDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
@@ -132,9 +132,9 @@ under the License.
         <field name="amount" title="amount"><display/></field>
     </form>
     
-    <form name="ImportInvoice" type="upload" target="ImportInvoice" title="" >
-        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
-        <field name="uploadedFile"><file/></field>
+    <form name="ImportInvoice" type="upload" target="ImportInvoice" title="">
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit button-type="button"/></field>
     </form>
 
