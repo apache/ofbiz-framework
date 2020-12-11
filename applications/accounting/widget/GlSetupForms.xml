@@ -30,12 +30,12 @@ under the License.
             </hyperlink>
         </field>
         <field name="accounting" title=" " use-when="hasBasicPermission" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.AccountingAccounting}" target="PartyAccountsSummary" target-type="plain">
+            <hyperlink description="${uiLabelMap.AccountingAccounting}" target="PartyAccountsSummary">
                 <parameter param-name="organizationPartyId" from-field="partyId"/>
             </hyperlink>
         </field>
         <field name="importexport" title=" " use-when="hasBasicPermission" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonImportExport}" target="ImportExport" target-type="plain">
+            <hyperlink description="${uiLabelMap.CommonImportExport}" target="ImportExport">
                 <parameter param-name="organizationPartyId" from-field="partyId"/>
             </hyperlink>
         </field>

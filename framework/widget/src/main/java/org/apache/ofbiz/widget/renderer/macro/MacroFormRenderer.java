@@ -3093,7 +3093,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, Map<String, String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField, HttpServletRequest request,
             HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        String encodedDescription = encode(description, modelFormField, context);
+        String encodedDescription = internalEncoder.encode(description);
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();
