@@ -1161,3 +1161,12 @@ def gradlewSubprocess(commandList) {
     fullCommand.addAll(commandList)
     exec { commandLine fullCommand }
 }
+
+
+def gradle = project.getGradle()
+new File("${gradle.getGradleUserHomeDir().getAbsolutePath()}/daemon/${gradle.getGradleVersion()}").listFiles().each {
+    if (it.getName().endsWith('.out.log')) {
+        logger.debug("Cleaning up daemon log file $it")
+        it.delete()
+    }
+}
