@@ -72,12 +72,12 @@ under the License.
         </field>
         <field name="productId" sort-field="true"></field>
         <field name="partyIdFrom" sort-field="true">
-            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyIdFrom"/>
             </hyperlink> 
         </field>
         <field name="partyIdTo" sort-field="true">
-            <hyperlink description="${partyNameResultTo.fullName} [${partyIdTo}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultTo.fullName} [${partyIdTo}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyIdTo"/>
             </hyperlink>
         </field>

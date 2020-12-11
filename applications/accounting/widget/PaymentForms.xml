@@ -72,14 +72,14 @@ under the License.
         <field name="comments"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]" >
+                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="[${partyIdFrom}]" >
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]" >
+                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="[${partyIdTo}]" >
                     <parameter param-name="partyId" from-field="partyIdTo"/>
                 </sub-hyperlink>
             </display-entity>
@@ -379,12 +379,12 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1"><display-entity entity-name="StatusItem"/></field>
         <field name="paymentMethodId" position="2"><display-entity entity-name="PaymentMethod" description="${description} [${paymentMethodId}]"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="1">
-            <hyperlink description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="payment.partyIdFrom"/>
             </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="2">
-            <hyperlink description="${partyNameResultTo.fullName} [${payment.partyIdTo}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultTo.fullName} [${payment.partyIdTo}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="payment.partyIdTo"/>
             </hyperlink>
         </field>

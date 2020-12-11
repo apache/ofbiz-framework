@@ -141,7 +141,7 @@ under the License.
             </service>
         </actions>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" widget-style="smallSubmit">
-            <hyperlink description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="dataResourceName"><display/></field>
         <field name="dataResourceTypeId"><display-entity entity-name="DataResourceType"></display-entity></field>
@@ -154,7 +154,7 @@ under the License.
     <form name="MruLookupDataResource" default-entity-name="DataResource" list-name="mruList" target="" title="" type="list" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="dataResourceName" widget-style="buttontext"><display/></field>
         <field name="dataCategoryId" widget-style="buttontext"><display/></field>
@@ -474,13 +474,13 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
         <field name="productFeatureId" title=" " widget-style="buttontext">
-            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" url-mode="plain"/>
         </field>
     </form>
     <form name="MruLookupProductFeature" default-entity-name="ProductFeature" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.FormFieldTitle_contentName}" widget-style="buttontext"><display/></field>
         <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}" widget-style="buttontext"><display/></field>

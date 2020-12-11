@@ -72,7 +72,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="OrderHeader" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target-type="plain" also-hidden="true" description="${orderId}" target="javascript:set_value('${orderId}')"/>
+            <hyperlink url-mode="plain" also-hidden="true" description="${orderId}" target="javascript:set_value('${orderId}')"/>
         </field>
         <field name="orderTypeId"><display-entity entity-name="OrderType" also-hidden="true"/></field>
     </form>
@@ -129,7 +129,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden"/>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="javascript:set_value('${orderId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${orderId}" target="javascript:set_value('${orderId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="orderTypeId"><display-entity entity-name="OrderType"/></field>
         <field name="partyId"><display/></field>
@@ -245,7 +245,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="CustRequest" default-field-type="hidden"/>
         <field name="custRequestId" widget-style="buttontext">
-            <hyperlink description="${custRequestId}" target="javascript:set_value('${custRequestId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${custRequestId}" target="javascript:set_value('${custRequestId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="custRequestName"><display/></field>
         <field name="priority"><display/></field>
@@ -291,7 +291,7 @@ under the License.
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="hidden"/>
         <field name="custRequestId"><display/></field>
         <field name="custRequestItemSeqId" widget-style="buttontext" >
-            <hyperlink description="${custRequestItemSeqId}" target="javascript:set_value('${custRequestItemSeqId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${custRequestItemSeqId}" target="javascript:set_value('${custRequestItemSeqId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="priority"><display/></field>
         <field name="custRequestResolutionId"><display-entity also-hidden="false" entity-name="CustRequestResolution"/></field>
@@ -351,7 +351,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink description="${quoteId}" target="javascript:set_value('${quoteId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${quoteId}" target="javascript:set_value('${quoteId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}"><display-entity entity-name="QuoteType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity also-hidden="false" entity-name="StatusItem"/></field>
@@ -418,15 +418,15 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="QuoteItem" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink description="${quoteId}" target="javascript:set_value('${quoteId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${quoteId}" target="javascript:set_value('${quoteId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy:isPromo==null}">
-            <hyperlink description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy: 'N'.equals(isPromo)}">
-            <hyperlink description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" use-when="${groovy: 'Y'.equals(isPromo)}"><display/></field>
         <field name="productId">
@@ -487,7 +487,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Requirement" default-field-type="hidden"/>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink target-type="plain" also-hidden="true" description="${requirementId}" target="javascript:set_value('${requirementId}')"/>
+            <hyperlink url-mode="plain" also-hidden="true" description="${requirementId}" target="javascript:set_value('${requirementId}')"/>
         </field>
         <field name="requirementTypeId">
             <display-entity entity-name="RequirementType" also-hidden="true"/>
@@ -525,7 +525,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ShoppingList" default-field-type="hidden"/>
         <field name="shoppingListId" widget-style="buttontext">
-            <hyperlink target-type="plain" also-hidden="true" description="${shoppingListId}" target="javascript:set_value('${shoppingListId}')"/>
+            <hyperlink url-mode="plain" also-hidden="true" description="${shoppingListId}" target="javascript:set_value('${shoppingListId}')"/>
         </field>
         <field name="shoppingListTypeId"><display-entity entity-name="ShoppingListType" also-hidden="true"/></field>
     </form>
@@ -572,7 +572,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ReturnHeader" default-field-type="display"/>
         <field name="returnId" widget-style="buttontext">
-            <hyperlink target-type="plain" also-hidden="true" description="${returnId}" target="javascript:set_value('${returnId}')"/>
+            <hyperlink url-mode="plain" also-hidden="true" description="${returnId}" target="javascript:set_value('${returnId}')"/>
         </field>
         <field name="returnHeaderTypeId"><display-entity entity-name="ReturnHeaderType" also-hidden="true"/></field>
     </form>

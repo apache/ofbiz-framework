@@ -102,7 +102,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         -->
         <field name="editLink" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app">
+            <hyperlink description="${contentId}" target="/content/control/EditContent" url-mode="inter-app">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
@@ -206,7 +206,7 @@ under the License.
         <field name="submitButton" use-when="productCategoryLink==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="clearFormButton" title=" " use-when="productCategoryLink!=null">
-            <hyperlink description="${uiLabelMap.CommonClear}" target="EditProductCategoryLinks" target-type="intra-app">
+            <hyperlink description="${uiLabelMap.CommonClear}" target="EditProductCategoryLinks" url-mode="intra-app">
                 <parameter param-name="productCategoryId"/>
             </hyperlink>
         </field>
@@ -305,7 +305,7 @@ under the License.
         <field name="description" title="${uiLabelMap.ProductCategoryDescription}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
         <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" >
-            <hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" target-type="inter-app">
+            <hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" url-mode="inter-app">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>

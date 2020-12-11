@@ -60,7 +60,7 @@ under the License.
             <hidden value="${donePage}"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title=" "><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field>
+        <field name="cancelLink" widget-style="buttontext" title=" "><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" url-mode="inter-app"/></field>
     </form>
 
    <form name="ListMarketingCampaign" type="list" paginate-target="FindMarketingCampaign"
@@ -92,7 +92,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${lastName}&quot;!=null">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewprofile" description="${partyId}" link-style="buttontext" target-type="inter-app">
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="${partyId}" link-style="buttontext" url-mode="inter-app">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>

@@ -223,7 +223,7 @@
     <form name="CurrentEmploymentData" default-map-name="employmentData" type="single">
         <field name="company" entry-name="employment.partyIdFrom">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ">
-                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${employmentData.employment.partyIdFrom}]" target-type="inter-app">
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${employmentData.employment.partyIdFrom}]" url-mode="inter-app">
                     <parameter param-name="partyId" from-field="employmentData.employment.partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
@@ -239,7 +239,7 @@
     </form>
     <form name="PayrollHistoryList" type="list" list-name="payroll" extends="ListInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml" paginate-target="PayrollHistory">
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" target-type="inter-app">
+            <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" url-mode="inter-app">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

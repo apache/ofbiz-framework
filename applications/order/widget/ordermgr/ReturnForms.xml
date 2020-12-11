@@ -98,7 +98,7 @@ under the License.
             </drop-down>
         </field>
         <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">
-            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard" target-window="partymgr" description="${uiLabelMap.AccountingAddNewCreditCard}" target-type="inter-app">
+            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard" target-window="partymgr" description="${uiLabelMap.AccountingAddNewCreditCard}" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="returnHeader.fromPartyId"/>
             </hyperlink>
         </field>
@@ -171,13 +171,13 @@ under the License.
         </field>
         <field name="fromPartyId" title="${uiLabelMap.OrderReturnFromParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}">
-                <sub-hyperlink link-style="buttontext" target-type="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile">
+                <sub-hyperlink link-style="buttontext" url-mode="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile">
                     <parameter param-name="partyId" from-field="fromPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="destinationFacilityId" widget-style="buttontext" title="${uiLabelMap.OrderReturnDestinationFacility}">
-            <hyperlink target-type="inter-app" description="${destinationFacilityId}" target="/facility/control/EditFacility">
+            <hyperlink url-mode="inter-app" description="${destinationFacilityId}" target="/facility/control/EditFacility">
                 <parameter param-name="facilityId" from-field="destinationFacilityId"/>
             </hyperlink>
         </field>

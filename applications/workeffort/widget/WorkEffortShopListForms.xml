@@ -29,7 +29,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="shoppingListId" title="${uiLabelMap.WorkEffortShopListId}" widget-style="buttontext">
-            <hyperlink description="${shoppingListId}" target="/partymgr/control/editShoppingList" target-type="inter-app">
+            <hyperlink description="${shoppingListId}" target="/partymgr/control/editShoppingList" url-mode="inter-app">
                 <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>

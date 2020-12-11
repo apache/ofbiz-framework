@@ -33,12 +33,12 @@ under the License.
         <field name="deleteLink"><hidden/></field>
         <field name="currentStatusId"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
-            <hyperlink description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="assignedByUserLoginId" title="${uiLabelMap.SfaAssignedBy}">
-            <hyperlink description="${assignByPartyName.firstName} ${assignByPartyName.middleName} ${assignByPartyName.lastName} ${assignByPartyName.groupName} [${assignByPartyName.partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${assignByPartyName.firstName} ${assignByPartyName.middleName} ${assignByPartyName.lastName} ${assignByPartyName.groupName} [${assignByPartyName.partyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="assignByPartyName.partyId"/>
             </hyperlink>
         </field>
@@ -53,7 +53,7 @@ under the License.
         <field name="assignedByUserLoginId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_toPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="[${partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                <sub-hyperlink description="[${partyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>

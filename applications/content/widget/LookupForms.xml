@@ -29,7 +29,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink description="${contentId}" target-type="plain" target="javascript:execRemoteCall('cloneLayout', '${drDataResourceId}', '${contentId}', 'TEMPLATE_MASTER', '')" also-hidden="false"/>
+            <hyperlink description="${contentId}" url-mode="plain" target="javascript:execRemoteCall('cloneLayout', '${drDataResourceId}', '${contentId}', 'TEMPLATE_MASTER', '')" also-hidden="false"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
@@ -84,12 +84,12 @@ under the License.
             </service>
         </actions>
         <field name="replace" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.FormFieldTitle_replace} [${dataResourceId}/${coContentId}]"
+            <hyperlink also-hidden="false" url-mode="plain" description="${uiLabelMap.FormFieldTitle_replace} [${dataResourceId}/${coContentId}]"
                target="javascript:execRemoteCall('replaceSubContent','${dataResourceId}','${coContentId}', '${contentIdTo}', '${mapKey}')"
             />
         </field>
         <field name="pasteContent" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ContentPaste} [${dataResourceId}/${coContentId}]"
+            <hyperlink also-hidden="false" url-mode="plain" description="${uiLabelMap.ContentPaste} [${dataResourceId}/${coContentId}]"
                target="javascript:execRemoteCall('pasteContent','${dataResourceId}','${coContentId}')"/>
         </field>
         <field name="dataResourceName" widget-style="buttontext">

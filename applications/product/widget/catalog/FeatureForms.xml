@@ -48,7 +48,7 @@
             </drop-down>
         </field>
         <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" target="/EditFeatureCategoryFeatures" target-type="intra-app" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" target="/EditFeatureCategoryFeatures" url-mode="intra-app" also-hidden="false">
                 <parameter param-name="productFeatureCategoryId" from-field="productFeature.productFeatureCategoryId"/>
             </hyperlink>
         </field>

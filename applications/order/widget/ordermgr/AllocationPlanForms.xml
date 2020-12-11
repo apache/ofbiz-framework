@@ -52,7 +52,7 @@ under the License.
     <grid name="ListAllocationPlan" list-name="allocationPlans" target="" title="" paginate-target="FindAllocationPlan"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="planId" widget-style="buttontext" sort-field="true">
-            <hyperlink target-type="inter-app" description="${planId}" target="/ordermgr/control/ViewAllocationPlan">
+            <hyperlink url-mode="inter-app" description="${planId}" target="/ordermgr/control/ViewAllocationPlan">
                 <parameter param-name="planId"/>
             </hyperlink>
         </field>

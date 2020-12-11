@@ -86,12 +86,12 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
         <field name="description" sort-field="true"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" sort-field="true">
-            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app">
+            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyIdFrom"/>
             </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" parameter-name="partyId">
-            <hyperlink description="${partyNameResultTo.fullName} [${partyId}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app">
+            <hyperlink description="${partyNameResultTo.fullName} [${partyId}]" target="/partymgr/control/PartyFinancialHistory" url-mode="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -120,12 +120,12 @@ under the License.
         <field position="1" name="description"><display/></field>
         <field position="2" name="invoiceMessage"><display/></field>
         <field position="1" name="partyIdFrom">
-            <hyperlink description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="invoice.partyIdFrom"/>
             </hyperlink>
         </field>
         <field position="2" name="partyIdTo" entry-name="partyId">
-            <hyperlink description="${partyNameResultTo.fullName} [${invoice.partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultTo.fullName} [${invoice.partyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="invoice.partyId"/>
             </hyperlink>
         </field>
@@ -150,7 +150,7 @@ under the License.
         <field name="invoiceItemSeqId"><display/></field>
         <field name="invoiceItemTypeId"><display-entity entity-name="InvoiceItemType"/></field>
         <field name="orderId" widget-style="linktext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" url-mode="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -160,7 +160,7 @@ under the License.
         <field name="amount" title="${uiLabelMap.AccountingUnitPrice}" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="productId" widget-style="linktext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" url-mode="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -176,7 +176,7 @@ under the License.
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+            <hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -561,7 +561,7 @@ under the License.
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+            <hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -647,20 +647,20 @@ under the License.
         <field name="invoiceItemSeqId"><display/></field>
         <field name="timeEntryId"><display/></field>
         <field name="timesheetId" entry-name="timesheet.timesheetId">
-            <hyperlink description="${timesheetId}" target="/workeffort/control/EditTimesheet" target-type="inter-app">
+            <hyperlink description="${timesheetId}" target="/workeffort/control/EditTimesheet" url-mode="inter-app">
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
         <field name="partyId" entry-name="partyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app"  description=" [${partyId}]">
+                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app"  description=" [${partyId}]">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="timesheetPartyId" entry-name="timesheet.partyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description=" [${timesheet.partyId}]">
+                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description=" [${timesheet.partyId}]">
                     <parameter param-name="partyId" from-field="timesheet.partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -669,7 +669,7 @@ under the License.
         <field name="rateTypeId"><display-entity entity-name="RateType"/></field>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
-                <sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
+                <sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" url-mode="inter-app">
                     <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>

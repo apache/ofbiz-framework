@@ -308,7 +308,7 @@ under the License.
    <grid name="ListRoutingProductLink" target="EditRoutingProductLink" title="" list-name="allRoutingProductLinks"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>

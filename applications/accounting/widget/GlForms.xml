@@ -123,13 +123,13 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
@@ -310,25 +310,25 @@ under the License.
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" position="2" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="workEffortId" position="2" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" position="2" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentId" position="2" use-when="shipmentId==null"><display/></field>
         <field name="partyId" position="2" use-when="partyId!=null" widget-style="buttontext">
-            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyId" position="2" use-when="partyId==null"><display/></field>
         <field name="productId" position="2" use-when="productId!=null" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProduct" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -393,25 +393,25 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${workEffortId}" target="/workeffort/control/EditWorkEffort" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/EditShipment" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
         <field name="partyId" use-when="partyId!=null" widget-style="buttontext">
-            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyId" use-when="partyId==null"><display/></field>
         <field name="productId" use-when="productId!=null" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProduct" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProduct" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -831,13 +831,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="partyId">
-            <hyperlink description="${partyIdTo}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyIdTo}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="productId"><display/></field>
         <field name="organizationPartyId">
-            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
             </hyperlink>
         </field>
@@ -925,7 +925,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="organizationPartyId">
-            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
             </hyperlink>
         </field>
@@ -1015,14 +1015,14 @@ under the License.
         <field name="voucherRef"><display/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productId" widget-style="buttontext">
             <display-entity entity-name="Product" description="${internalName}">
-                <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}" link-style="buttontext">
+                <sub-hyperlink target="/catalog/control/EditProduct" url-mode="inter-app" description="${productId}" link-style="buttontext">
                     <parameter param-name="productId"/>
                 </sub-hyperlink>
             </display-entity>

@@ -64,12 +64,12 @@ under the License.
             </hyperlink>
         </field>
         <field name="organizationPartyId">
-            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="ownerPartyId">
-            <hyperlink description="${ownerPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${ownerPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="ownerPartyId"/>
             </hyperlink>
         </field>
@@ -431,7 +431,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="organizationPartyId" title="${uiLabelMap.PartyParty}">
-            <hyperlink description="${partyName.firstName} ${partyName.lastName}${partyName.groupName} [${partyName.partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyName.firstName} ${partyName.lastName}${partyName.groupName} [${partyName.partyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyName.partyId"/>
             </hyperlink>
         </field>

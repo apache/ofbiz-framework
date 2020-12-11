@@ -1075,7 +1075,7 @@ under the License.
         </field>
         <field name="taxAuthPartyId" title="${uiLabelMap.AccountingTaxAuthorityParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
                     <parameter param-name="partyId" from-field="taxAuthPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1104,7 +1104,7 @@ under the License.
         </field>
         <field name="taxAuthPartyId" title="${uiLabelMap.AccountingTaxAuthorityParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
                     <parameter param-name="partyId" from-field="taxAuthPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1125,7 +1125,7 @@ under the License.
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="partyId">
-            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyId}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>

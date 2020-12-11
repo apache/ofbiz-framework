@@ -124,7 +124,7 @@ under the License.
         <field name="custRequestTypeId"><display-entity entity-name="CustRequestType"/></field>
         <field name="productStoreId">
             <display-entity entity-name="ProductStore" description="${storeName}">
-                <sub-hyperlink description="[${productStoreId}]" target="/catalog/control/EditProductStore" target-type="inter-app">
+                <sub-hyperlink description="[${productStoreId}]" target="/catalog/control/EditProductStore" url-mode="inter-app">
                     <parameter param-name="productStoreId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -135,7 +135,7 @@ under the License.
         <field name="responseRequiredDate" sort-field="true"><display/></field>
         <field name="fromPartyId" sort-field="true">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                     <parameter param-name="partyId" from-field="fromPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -219,7 +219,7 @@ under the License.
     <form name="ViewRequestCommunicationEvents" type="list" extends="ListCommEvents"
             extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
         <field name="subject">
-            <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app" link-type="hidden-form">
+            <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
@@ -257,7 +257,7 @@ under the License.
     <form name="ViewRequestWorkEfforts" type="list" list-name="requestWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId">
-            <hyperlink description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" url-mode="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -485,7 +485,7 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity also-hidden="true" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}">
-                <sub-hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <sub-hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -544,7 +544,7 @@ under the License.
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
-                <sub-hyperlink description="[${workEffortId}]" target="/workeffort/control/EditWorkEffort" target-type="inter-app" link-style="buttontext">
+                <sub-hyperlink description="[${workEffortId}]" target="/workeffort/control/EditWorkEffort" url-mode="inter-app" link-style="buttontext">
                     <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -583,7 +583,7 @@ under the License.
         <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
             </hyperlink>
         </field>
@@ -664,7 +664,7 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
-                <sub-hyperlink target="/content/control/ViewSimpleContent" description="[${contentId}]" link-style="buttontext" target-type="inter-app">
+                <sub-hyperlink target="/content/control/ViewSimpleContent" description="[${contentId}]" link-style="buttontext" url-mode="inter-app">
                     <parameter param-name="contentId"/>
                 </sub-hyperlink>
             </display-entity>

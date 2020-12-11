@@ -447,13 +447,13 @@ under the License.
 <!--
         <field name="paste" title=" " widget-style="buttontext"
             use-when="!&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
-            <hyperlink target-type="plain"
+            <hyperlink url-mode="plain"
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'ClipBoardContent')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>
         <field name="paste" title=" " widget-style="buttontext"
             use-when="&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
-            <hyperlink target-type="plain"
+            <hyperlink url-mode="plain"
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'LookupListLayout')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>

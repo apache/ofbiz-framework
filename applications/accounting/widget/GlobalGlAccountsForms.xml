@@ -245,7 +245,7 @@ under the License.
         <field name="rateDescription"><display/></field>
         <field name="periodTypeId"><display description="${periodDescription}"/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" sort-field="true">
-            <hyperlink description="${groupName}${lastName} ${firstName} ${middleName}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink description="${groupName}${lastName} ${firstName} ${middleName}" target="/partymgr/control/viewprofile" url-mode="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>

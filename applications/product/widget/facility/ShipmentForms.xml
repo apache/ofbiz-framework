@@ -144,13 +144,13 @@ under the License.
         </field>
 
         <field name="estimatedShipWorkEffId" title="${uiLabelMap.ProductEstimatedShipWorkEffId}" widget-style="buttontext">
-            <hyperlink description="${shipment.estimatedShipWorkEffId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${shipment.estimatedShipWorkEffId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="workEffortId" from-field="shipment.estimatedShipWorkEffId"/>
             </hyperlink>
         </field>
         <field name="estimatedArrivalDate" title="${uiLabelMap.ProductEstimatedArrivalDate}"><date-time/></field>
         <field name="estimatedArrivalWorkEffId" title="${uiLabelMap.ProductEstimatedArrivalWorkEffId}" widget-style="buttontext">
-            <hyperlink description="${shipment.estimatedArrivalWorkEffId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
+            <hyperlink description="${shipment.estimatedArrivalWorkEffId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" url-mode="inter-app">
                 <parameter param-name="workEffortId" from-field="shipment.estimatedArrivalWorkEffId"/>
             </hyperlink>
         </field>
@@ -283,7 +283,7 @@ under the License.
         <field name="shipmentId"><hidden/></field>
         <field name="orderItemSeqId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId} - ${orderItemSeqId}" target="/ordermgr/control/orderview" target-type="inter-app" >
+            <hyperlink description="${orderId} - ${orderItemSeqId}" target="/ordermgr/control/orderview" url-mode="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>

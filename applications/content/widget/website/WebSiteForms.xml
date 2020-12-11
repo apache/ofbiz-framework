@@ -43,7 +43,7 @@ under the License.
                 <entity-options entity-name="ProductStore" description="${storeName}">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
-                <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore" description="${uiLabelMap.ContentEditProductStore}">
+                <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" url-mode="inter-app" target="/catalog/control/EditProductStore" description="${uiLabelMap.ContentEditProductStore}">
                 <parameter param-name="productStoreId" from-field="webSite.productStoreId"/>
             </sub-hyperlink>
             </drop-down>
@@ -218,7 +218,7 @@ under the License.
         <field name="webSiteId"><hidden/></field>
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
         <field name="partyId" widget-style="buttontext">
-            <hyperlink target-type="inter-app" target="/partymgr/control/viewprofile" description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName} ${person.suffix} ${partyGroup.groupName} [${webSiteRole.partyId}]">
+            <hyperlink url-mode="inter-app" target="/partymgr/control/viewprofile" description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName} ${person.suffix} ${partyGroup.groupName} [${webSiteRole.partyId}]">
                 <parameter param-name="partyId" from-field="webSiteRole.partyId"/>
             </hyperlink>
         </field>
@@ -304,7 +304,7 @@ under the License.
         <field name="webSiteId"><hidden/></field>
         <field name="contactListName">
             <display-entity entity-name="ContactList" description="${contactListName}" key-field-name="contactListId">
-                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="linktext" description="[${contactListId}]">
+                <sub-hyperlink target="/marketing/control/EditContactList" url-mode="inter-app" link-style="linktext" description="[${contactListId}]">
                     <parameter param-name="contactListId"/>
                 </sub-hyperlink>
             </display-entity>

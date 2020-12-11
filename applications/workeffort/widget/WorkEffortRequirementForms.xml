@@ -30,7 +30,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="requirementId" widget-style="linktext">
-            <hyperlink description="${requirementId}" target="/ordermgr/control/EditRequirement" target-type="inter-app">
+            <hyperlink description="${requirementId}" target="/ordermgr/control/EditRequirement" url-mode="inter-app">
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>

@@ -173,7 +173,7 @@ under the License.
         <field name="billingAccountId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -329,7 +329,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" also-hidden="false">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" url-mode="inter-app" also-hidden="false">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>

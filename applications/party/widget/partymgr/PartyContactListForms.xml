@@ -29,7 +29,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="contactListId" title="${uiLabelMap.PartyContactLists}">
             <display-entity entity-name="ContactList" description="${contactListName}">
-                <sub-hyperlink target="/marketing/control/EditContactList" description="${contactListId}" target-type="inter-app" link-style="smallSubmit">
+                <sub-hyperlink target="/marketing/control/EditContactList" description="${contactListId}" url-mode="inter-app" link-style="smallSubmit">
                     <parameter param-name="contactListId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -98,7 +98,7 @@ under the License.
             <entity-condition entity-name="ContactList"/>
         </actions>
         <field name="contactListId"  widget-style="smallSubmit">
-            <hyperlink description="${contactListId}" target="javascript:set_value('${contactListId}')" also-hidden="false" target-type="plain"/>
+            <hyperlink description="${contactListId}" target="javascript:set_value('${contactListId}')" also-hidden="false" url-mode="plain"/>
         </field>
         <field name="contactListName"><display/></field>
         <field name="contactListTypeId"><display-entity entity-name="ContactListType"/></field>

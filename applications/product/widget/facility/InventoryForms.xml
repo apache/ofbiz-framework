@@ -49,7 +49,7 @@ under the License.
         </field>
         <field name="productId" required-field="true" position="1">
             <lookup target-form-name="LookupProduct">
-                <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]">
+                <sub-hyperlink target="/catalog/control/EditProduct" url-mode="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]">
                     <parameter param-name="productId"/>
                 </sub-hyperlink>
             </lookup>
@@ -192,7 +192,7 @@ under the License.
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" url-mode="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -212,7 +212,7 @@ under the License.
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app" >
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" url-mode="inter-app" >
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
