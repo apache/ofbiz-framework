@@ -107,10 +107,24 @@ public class SecuredUpload {
 
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
             if (fileToCheck.length() > 259) {
+                Debug.logError("Uploaded file name too long", MODULE);
+                return false;
+            } else if (!fileToCheck.matches("[a-zA-Z0-9]{1,249}.[a-zA-Z0-9]{1,10}")) {
+                Debug.logError("Uploaded file "
+                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension; "
+                        + "in which the file name and also the extension should not be empty at all  ",
+                        MODULE);
                 return false;
             }
         } else {
             if (fileToCheck.length() > 4096) {
+                Debug.logError("Uploaded file name too long", MODULE);
+                return false;
+            } else if (!fileToCheck.matches("[a-zA-Z0-9]{1,4086}.[a-zA-Z0-9]{1,10}")) {
+                Debug.logError("Uploaded file "
+                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension; "
+                        + "in which the file name and also the extension should not be empty at all  ",
+                        MODULE);
                 return false;
             }
         }
