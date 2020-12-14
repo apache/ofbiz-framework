@@ -111,8 +111,8 @@ public class SecuredUpload {
                 return false;
             } else if (!fileToCheck.matches("[a-zA-Z0-9]{1,249}.[a-zA-Z0-9]{1,10}")) {
                 Debug.logError("Uploaded file "
-                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension; "
-                        + "in which the file name and also the extension should not be empty at all  ",
+                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension."
+                        + "The file name and the extension should not be empty at all",
                         MODULE);
                 return false;
             }
@@ -122,8 +122,8 @@ public class SecuredUpload {
                 return false;
             } else if (!fileToCheck.matches("[a-zA-Z0-9]{1,4086}.[a-zA-Z0-9]{1,10}")) {
                 Debug.logError("Uploaded file "
-                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension; "
-                        + "in which the file name and also the extension should not be empty at all  ",
+                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension."
+                        + "Tthe file name and the extension should not be empty at all",
                         MODULE);
                 return false;
             }
@@ -619,6 +619,12 @@ public class SecuredUpload {
                 || content.toLowerCase().contains("mkdir")
                 || content.toLowerCase().contains("fopen")
                 || content.toLowerCase().contains("fclose")
+                || content.toLowerCase().contains("new file")
+                || content.toLowerCase().contains("import")
+                || content.toLowerCase().contains("upload")
+                || content.toLowerCase().contains("getFileName")
+                || content.toLowerCase().contains("Download")
+                || content.toLowerCase().contains("getOutputString")
                 || content.toLowerCase().contains("readfile"));
         // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
         // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
