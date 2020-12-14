@@ -93,51 +93,61 @@ public class SecuredUpload {
     private static final String MODULE = SecuredUpload.class.getName();
 
     /**
-     * @param fileTocheck
+     * @param fileToCheck
      * @param fileType
      * @return true if the file is valid
      * @throws IOException
      * @throws ImageReadException
      */
-    public static boolean isValidFile(String fileTocheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
 
         if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
             return true;
         }
 
-        if (isExecutable(fileTocheck)) {
+        if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
+            if (fileToCheck.length() > 259) {
+                return false;
+            }
+        } else {
+            if (fileToCheck.length() > 4096) {
+                return false;
+            }
+        }
+
+        if (isExecutable(fileToCheck)) {
             return false;
         }
 
         switch (fileType) {
         case "Image":
-            if (isValidImageFile(fileTocheck)) {
+            if (isValidImageFile(fileToCheck)) {
                 return true;
             }
             break;
 
         case "ImageAndSvg":
-            if (isValidImageIncludingSvgFile(fileTocheck)) {
+            if (isValidImageIncludingSvgFile(fileToCheck)) {
                 return true;
             }
             break;
 
         case "PDF":
-            if (isValidPdfFile(fileTocheck)) {
+            if (isValidPdfFile(fileToCheck)) {
                 return true;
             }
             break;
 
         case "Compressed":
-            if (isValidCompressedFile(fileTocheck, delegator)) {
+            if (isValidCompressedFile(fileToCheck, delegator)) {
                 return true;
             }
             break;
 
         case "AllButCompressed":
-            if (isValidTextFile(fileTocheck)
-                    || isValidImageIncludingSvgFile(fileTocheck)
-                    || isValidPdfFile(fileTocheck)) {
+            if (isValidTextFile(fileToCheck)
+                    || isValidImageIncludingSvgFile(fileToCheck)
+                    || isValidPdfFile(fileToCheck)) {
                 return true;
             }
             break;
@@ -146,37 +156,37 @@ public class SecuredUpload {
             // The philosophy for isValidTextFile() is that
             // we can't presume of all possible text contents used for attacks with payloads
             // At least there is an easy way to prevent them in isValidTextFile
-            if (isValidTextFile(fileTocheck)) {
+            if (isValidTextFile(fileToCheck)) {
                 return true;
             }
             break;
 
         case "Audio":
-            if (isValidAudioFile(fileTocheck)) {
+            if (isValidAudioFile(fileToCheck)) {
                 return true;
             }
             break;
         case "Video":
-            if (isValidVideoFile(fileTocheck)) {
+            if (isValidVideoFile(fileToCheck)) {
                 return true;
             }
             break;
 
         default: // All
-            if (isValidTextFile(fileTocheck)
-                    || isValidImageIncludingSvgFile(fileTocheck)
-                    || isValidCompressedFile(fileTocheck, delegator)
-                    || isValidAudioFile(fileTocheck)
-                    || isValidVideoFile(fileTocheck)
-                    || isValidPdfFile(fileTocheck)) {
+            if (isValidTextFile(fileToCheck)
+                    || isValidImageIncludingSvgFile(fileToCheck)
+                    || isValidCompressedFile(fileToCheck, delegator)
+                    || isValidAudioFile(fileToCheck)
+                    || isValidVideoFile(fileToCheck)
+                    || isValidPdfFile(fileToCheck)) {
                 return true;
             }
             break;
         }
-        Debug.logError("File :" + fileTocheck + ", can't be uploaded for security reason", MODULE);
-        File badFile = new File(fileTocheck);
+        Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
+        File badFile = new File(fileToCheck);
         if (!badFile.delete()) {
-            Debug.logError("File :" + fileTocheck + ", couldn't be deleted", MODULE);
+            Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
         }
         return false;
     }
@@ -596,7 +606,7 @@ public class SecuredUpload {
                 || content.toLowerCase().contains("fopen")
                 || content.toLowerCase().contains("fclose")
                 || content.toLowerCase().contains("readfile"));
-        // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway
+        // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
         // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
     }
 }
