@@ -75,7 +75,7 @@ under the License.
         <auto-fields-entity entity-name="PersonTraining" default-field-type="hidden"/>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -111,14 +111,14 @@ under the License.
         <auto-fields-entity entity-name="PersonTraining" default-field-type="display"/>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="approverId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${approverId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="approverId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -181,14 +181,14 @@ under the License.
         <auto-fields-entity entity-name="PersonTraining" default-field-type="display"/>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="approverId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${approverId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="approverId"/>
                 </sub-hyperlink>
             </display-entity>

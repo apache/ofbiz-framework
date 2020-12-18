@@ -61,7 +61,7 @@
         <auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
         <field name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -70,7 +70,7 @@
         <field name="emplLeaveReasonTypeId"><display-entity entity-name="EmplLeaveReasonType"/></field>
         <field name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${approverPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -142,7 +142,7 @@
         <auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
         <field name="partyId" field-name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -151,7 +151,7 @@
         <field name="emplLeaveReasonTypeId"><display-entity entity-name="EmplLeaveReasonType"/></field>
         <field name="approverPartyId" field-name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${approverPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
             </display-entity>

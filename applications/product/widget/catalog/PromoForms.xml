@@ -148,7 +148,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
         <field name="editContent" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="/content/control/EditContent" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app" also-hidden="false">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>

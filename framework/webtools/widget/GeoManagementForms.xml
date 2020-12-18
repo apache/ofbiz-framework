@@ -54,7 +54,7 @@
     <form name="ListGeos" extends-resource="component://common/widget/LookupForms.xml" extends="ListLookupGeo" paginate-target="${currentUrl}"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true" >
         <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
-            <hyperlink also-hidden="false" url-mode="plain" description="${geoId}"  target="EditGeo">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="EditGeo">
                 <parameter param-name="geoId"/>
             </hyperlink>
         </field>
@@ -78,7 +78,7 @@
             </service>
         </actions>
         <field name="geoPointId" title="${uiLabelMap.CommonId}">
-            <hyperlink also-hidden="false" url-mode="plain" description="${geoPointId}"  target="geoPoint">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoPointId}"  target="geoPoint">
                 <parameter param-name="geoPointId"/>
             </hyperlink>
         </field>
@@ -113,7 +113,7 @@
     </form>
     <form name="ListLookupGeo" extends="ListGeos">
         <field name="geoId" title="${uiLabelMap.CommonGeoId}" widget-style="buttontext">
-            <hyperlink description="${geoId}" target="javascript:set_value('${geoId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${geoId}" target="javascript:set_value('${geoId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="deleteLink"><ignored/></field>
     </form>

@@ -48,7 +48,7 @@ under the License.
             </service>
         </actions>
         <field name="geoId" widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
-            <hyperlink also-hidden="false" url-mode="plain" description="${geoId}"  target="javascript:set_value('${geoId}')"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_value('${geoId}')"/>
         </field>
         <field name="geoTypeId" title="${uiLabelMap.CommonGeoTypeId}">
             <display-entity key-field-name="geoTypeId" entity-name="GeoType"/>
@@ -63,7 +63,7 @@ under the License.
     <form name="LookupGeoName" extends="LookupGeo" target="LookupGeoName"/>
     <form name="ListLookupGeoName" extends="ListLookupGeo" paginate-target="LookupGeoName">
         <field name="geoId" widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
-            <hyperlink also-hidden="false" url-mode="plain" description="${geoId}"  target="javascript:set_values('${geoName}', '${geoId}')"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_values('${geoName}', '${geoId}')"/>
         </field>
     </form>
 
@@ -85,7 +85,7 @@ under the License.
             </service>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
-            <hyperlink description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="enabled"><display/></field>
         <field name="hasLoggedOut"><display/></field>
@@ -111,7 +111,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="PortalPage" default-field-type="display"/>
         <field name="portalPageId" widget-style="smallSubmit">
-            <hyperlink description="${portalPageId}" target="javascript:set_value('${portalPageId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${portalPageId}" target="javascript:set_value('${portalPageId}')" also-hidden="false" target-type="plain"/>
         </field>
     </form>
 
@@ -124,7 +124,7 @@ under the License.
     <form name="ListLocales" type="list" list-name="locales" paginate-target="LookupLocale"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="localeString" widget-style="buttontext">
-            <hyperlink description="${localeString}" target="javascript:set_value('${localeString}', '${localeName}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${localeString}" target="javascript:set_value('${localeString}', '${localeName}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="localeName" title="${uiLabelMap.CommonLanguageTitle}"><display/></field>
     </form>

@@ -31,7 +31,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="communicationEventId"  widget-style="buttontext">
-            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" url-mode="inter-app">
+            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>

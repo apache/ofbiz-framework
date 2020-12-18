@@ -154,7 +154,7 @@ under the License.
     <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}/${orderItemSeqId}" target="/ordermgr/control/orderview" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${orderId}/${orderItemSeqId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -180,7 +180,7 @@ under the License.
             <set field="quantityOnHandDiff" from-field="inventoryItemDetails[0].quantityOnHandDiff"/>
         </row-actions>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" url-mode="inter-app">
+            <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
@@ -525,7 +525,7 @@ under the License.
     <form name="ProductionRunTaskInventoryProducedList" type="list" title="" list-name="prunInventoryProduced"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" url-mode="inter-app">
+            <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
@@ -558,7 +558,7 @@ under the License.
             <display description="default ${drObjectInfo}"/>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
-            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" url-mode="content" target-window="productionRunContentWindow">
+            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
                 <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
             </hyperlink>
         </field>
@@ -590,7 +590,7 @@ under the License.
             <display description="default ${drObjectInfo}"/>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
-            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" url-mode="content" target-window="productionRunContentWindow">
+            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
                 <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
             </hyperlink>
         </field>
@@ -733,7 +733,7 @@ under the License.
     <form name="ListShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" url-mode="inter-app">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
                 <parameter param-name="orderId" from-field="orderId"/>
             </hyperlink>
         </field>
@@ -764,7 +764,7 @@ under the License.
     <form name="ListShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="shipmentId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${shipmentId}" target="/facility/control/ViewShipment" url-mode="inter-app">
+            <hyperlink description="${shipmentId}" target="/facility/control/ViewShipment" target-type="inter-app">
                 <parameter param-name="shipmentId" from-field="shipmentId"/>
             </hyperlink>
         </field>
@@ -981,7 +981,7 @@ under the License.
             <set field="quantityOnHandDiff" value="${groovy:-1*quantityOnHandDiff}" type="BigDecimal"/>
         </row-actions>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink description="${inventoryItemId}" target="/facility/control/EditInventoryItem" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${inventoryItemId}" target="/facility/control/EditInventoryItem" also-hidden="false" target-type="inter-app">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>

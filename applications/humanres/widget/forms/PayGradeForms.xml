@@ -39,7 +39,7 @@
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePayGrade"/>
         <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}" widget-style="linktext">
-            <hyperlink also-hidden="true" target="EditPayGrade" url-mode="plain" description="${payGradeId}">
+            <hyperlink also-hidden="true" target="EditPayGrade" target-type="plain" description="${payGradeId}">
                 <parameter param-name="payGradeId"/>
             </hyperlink>
         </field>

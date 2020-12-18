@@ -92,7 +92,7 @@ under the License.
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="budgetId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -119,7 +119,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="budgetReviewId"><display/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -200,7 +200,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="budgetId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -241,7 +241,7 @@ under the License.
         <field name="budgetId"><hidden/></field>
         <field name="budgetReviewId"><display/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" url-mode="inter-app" target="/partymgr/control/viewprofile">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>

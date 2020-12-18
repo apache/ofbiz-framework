@@ -29,7 +29,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink description="${quoteId}" target="/ordermgr/control/EditQuote" url-mode="inter-app">
+            <hyperlink description="${quoteId}" target="/ordermgr/control/EditQuote" target-type="inter-app">
                 <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
@@ -60,12 +60,12 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink description="${quoteId}" target="/ordermgr/control/EditQuote" url-mode="inter-app">
+            <hyperlink description="${quoteId}" target="/ordermgr/control/EditQuote" target-type="inter-app">
                 <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
         <field name="quoteItemSeqId" widget-style="buttontext">
-            <hyperlink description="${quoteItemSeqId}" target="/ordermgr/control/EditQuoteItem" url-mode="inter-app">
+            <hyperlink description="${quoteItemSeqId}" target="/ordermgr/control/EditQuoteItem" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="quoteId"/>
                 <parameter param-name="quoteItemSeqId"/>

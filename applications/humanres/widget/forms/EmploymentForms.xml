@@ -348,7 +348,7 @@
         <auto-fields-service default-field-type="display" service-name="updatePerformanceNote"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="/partymgr/control/viewprofile" link-style="smallSubmit" url-mode="inter-app" description="${partyId}">
+               <sub-hyperlink target="/partymgr/control/viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
                 <parameter param-name="partyId"/>
             </sub-hyperlink>
            </display-entity>

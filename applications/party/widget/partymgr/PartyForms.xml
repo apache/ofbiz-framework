@@ -678,7 +678,7 @@ under the License.
         </actions>
         <field name="segmentGroupId" title="${uiLabelMap.PartySegmentGroupId}">
             <display-entity entity-name="SegmentGroup">
-                <sub-hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup" url-mode="inter-app" link-style="smallSubmit">
+                <sub-hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup" target-type="inter-app" link-style="smallSubmit">
                     <parameter param-name="segmentGroupId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -934,7 +934,7 @@ under the License.
     <form name="ListSubscriptions" type="list" list-name="subscriptionList" default-table-style="basic-table">
         <field name="subscriptionId">
             <display-entity entity-name="Subscription">
-                <sub-hyperlink description="[${subscriptionId}]" target="/catalog/control/EditSubscription" url-mode="inter-app">
+                <sub-hyperlink description="[${subscriptionId}]" target="/catalog/control/EditSubscription" target-type="inter-app">
                     <parameter param-name="subscriptionId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -948,7 +948,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="productId">
             <display-entity entity-name="Product" description="${productName}">
-                <sub-hyperlink target="/catalog/control/EditProduct" url-mode="inter-app" description="${productId}" link-style="buttontext">
+                <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}" link-style="buttontext">
                     <parameter param-name="productId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1096,7 +1096,7 @@ under the License.
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" " also-hidden="true">
-                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" url-mode="inter-app">
+                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1108,7 +1108,7 @@ under the License.
         <field name="amountApplied"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="paymentId">
             <display-entity entity-name="Payment" description=" " also-hidden="true">
-                <sub-hyperlink target="/accounting/control/paymentOverview" description="[${paymentId}]" url-mode="inter-app">
+                <sub-hyperlink target="/accounting/control/paymentOverview" description="[${paymentId}]" target-type="inter-app">
                     <parameter param-name="paymentId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1127,7 +1127,7 @@ under the License.
         </actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice">
-                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" url-mode="inter-app">
+                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1150,7 +1150,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
-                <sub-hyperlink target="/accounting/control/paymentOverview" description="[${paymentId}]" url-mode="inter-app">
+                <sub-hyperlink target="/accounting/control/paymentOverview" description="[${paymentId}]" target-type="inter-app">
                     <parameter param-name="paymentId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1362,7 +1362,7 @@ under the License.
         </actions>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
             <display-entity entity-name="ProductStore" key-field-name="productStoreId" description="${storeName}">
-                <sub-hyperlink target="/catalog/control/EditProductStore" url-mode="inter-app" description="${storeName} (${productStoreId})" >
+                <sub-hyperlink target="/catalog/control/EditProductStore" target-type="inter-app" description="${storeName} (${productStoreId})" >
                     <parameter param-name="productStoreId"/>
                 </sub-hyperlink>
             </display-entity>

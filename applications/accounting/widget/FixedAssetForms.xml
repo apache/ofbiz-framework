@@ -411,7 +411,7 @@ under the License.
             </drop-down>
         </field>
         <field name="scheduleWorkEffortId" widget-style="buttontext">
-            <hyperlink description="${fixedAssetMaint.scheduleWorkEffortId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${fixedAssetMaint.scheduleWorkEffortId}" target="/workeffort/control/WorkEffortSummary" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
             </hyperlink>
         </field>
@@ -487,7 +487,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -525,7 +525,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>

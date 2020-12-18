@@ -77,7 +77,7 @@ under the License.
             <set field="quantityOnHandTotal" from-field="resultQohTotal.quantityOnHandTotal"/>
         </row-actions>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink url-mode="inter-app" description="${requirementId}" target="/ordermgr/control/EditRequirement">
+            <hyperlink target-type="inter-app" description="${requirementId}" target="/ordermgr/control/EditRequirement">
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
@@ -164,7 +164,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="OrderRequirementCommitment" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" url-mode="inter-app" target="/ordermgr/control/orderview">
+            <hyperlink description="${orderId}" target-type="inter-app" target="/ordermgr/control/orderview">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -305,7 +305,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top" also-hidden="true" url-mode="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top" also-hidden="true" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -315,11 +315,11 @@ under the License.
         <field name="facilityId"><display/></field>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
             <display-entity entity-name="PartyNameView" description="${LastName} ${firstName} ${middleName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="[${partyId}]" url-mode="inter-app"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="[${partyId}]" target-type="inter-app"/>
             </display-entity>
         </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}">
-            <hyperlink description="${supplierProductId}" target="/catalog/control/EditProductSuppliers?productId=${productId}" url-mode="inter-app"/>
+            <hyperlink description="${supplierProductId}" target="/catalog/control/EditProductSuppliers?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
         <field name="minimumOrderQuantity" widget-area-style="align-text"><display type="number" format="quantity"/></field>
@@ -339,7 +339,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top" also-hidden="true" url-mode="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top" also-hidden="true" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -367,7 +367,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId" id-name="orderId_o_0"><text/></field>
         <field name="submitButton" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.orderId_o_0.value=document.ApprovedProductRequirementsSubmit.orderId_o_0.value;document.ApprovedProductRequirements.submit()" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.orderId_o_0.value=document.ApprovedProductRequirementsSubmit.orderId_o_0.value;document.ApprovedProductRequirements.submit()" also-hidden="false" target-type="plain"/>
         </field>
     </form>
     <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"

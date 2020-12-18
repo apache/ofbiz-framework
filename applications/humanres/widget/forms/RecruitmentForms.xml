@@ -181,7 +181,7 @@ under the License.
 
         <field name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${approverPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -189,7 +189,7 @@ under the License.
 
         <field name="applyingPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${applyingPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${applyingPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="applyingPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -272,14 +272,14 @@ under the License.
         </field>
         <field name="jobIntervieweePartyId" field-name="jobIntervieweePartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${jobIntervieweePartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${jobIntervieweePartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="jobIntervieweePartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="jobIntervieweePartyId" field-name="jobIntervieweePartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${jobInterviewerPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${jobInterviewerPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="jobInterviewerPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -358,14 +358,14 @@ under the License.
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="display"/>
         <field name="applyingPartyId" field-name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${applyingPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${applyingPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="applyingPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="approverPartyId" field-name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${approverPartyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -429,7 +429,7 @@ under the License.
        </actions>
         <field name="partyId" title="Employee Name">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">              
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">              
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>

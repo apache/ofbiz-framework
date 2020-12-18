@@ -33,7 +33,7 @@ under the License.
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoCode}] [${geoId}]"/></field>
         <field name="taxAuthPartyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="partyId" from-field="taxAuthPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -87,7 +87,7 @@ under the License.
         <field name="taxAuthGeoId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategory}">
             <display-entity entity-name="ProductCategory">
-                <sub-hyperlink description="${productCategoryId}" target="/catalog/control/EditCategory" url-mode="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${productCategoryId}" target="/catalog/control/EditCategory" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="productCategoryId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -128,7 +128,7 @@ under the License.
 
         <field name="toTaxAuthPartyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${toTaxAuthPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${toTaxAuthPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="partyId" from-field="toTaxAuthPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -197,7 +197,7 @@ under the License.
         </field>
         <field name="organizationPartyId" title="${uiLabelMap.PartyOrganizationParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="partyId" from-field="organizationPartyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -349,7 +349,7 @@ under the License.
 
         <field name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -387,7 +387,7 @@ under the License.
 
         <field use-when="partyTaxAuthInfo!=null" name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" url-mode="inter-app" link-style="buttontext">
+                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>

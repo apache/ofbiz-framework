@@ -66,7 +66,7 @@ under the License.
             </drop-down>
         </field>
         <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" target="/facility/control/EditFacility" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" target="/facility/control/EditFacility" target-type="inter-app" also-hidden="false">
                 <parameter param-name="facilityId" from-field="productStore.inventoryFacilityId"/>
             </hyperlink>
         </field>
@@ -521,7 +521,7 @@ under the License.
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="[${partyId}]" >
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyId}]" >
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -585,12 +585,12 @@ under the License.
         
         <field name="submitButton" title=" " >
             <hyperlink target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');" 
-                url-mode="plain" image-location="/images/mini-edit.png" image-title="${uiLabelMap.CommonEdit}"/>
+                target-type="plain" image-location="/images/mini-edit.png" image-title="${uiLabelMap.CommonEdit}"/>
         </field>
         <field name="productStoreId"><hidden /></field>
         <field name="facilityId">
             <display-entity entity-name="Facility"  description="${facilityName}">
-                <sub-hyperlink link-style="link" description="[${facilityId}]"  target="/facility/control/EditFacility" url-mode="inter-app">
+                <sub-hyperlink link-style="link" description="[${facilityId}]"  target="/facility/control/EditFacility" target-type="inter-app">
                     <parameter param-name="facilityId"/>
                 </sub-hyperlink>
             </display-entity>    
@@ -600,7 +600,7 @@ under the License.
         <field name="thruDate" ><display type="date-time" /></field>
         <field name="deleteLink" title=" " >
             <hyperlink target="javascript:ajaxUpdateArea('PP_ProductStoreFacilityPrdStoreFacilityMgmt00001', 'deleteProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');"
-               url-mode="plain" request-confirmation="true" image-location="/images/mini-trash.png" image-title="${uiLabelMap.CommonRemove}">
+               target-type="plain" request-confirmation="true" image-location="/images/mini-trash.png" image-title="${uiLabelMap.CommonRemove}">
             </hyperlink>
         </field>
      </form>
@@ -907,14 +907,14 @@ under the License.
             </entity-and>
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.ProductSegmentGroupId}">
-            <hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup" also-hidden="false" target-type="inter-app">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.ProductSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="/marketing/control/deleteSegmentGroup" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="/marketing/control/deleteSegmentGroup" also-hidden="false" target-type="inter-app">
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>

@@ -141,7 +141,7 @@ under the License.
         <field name="orderId"><hidden/></field>
         <field name="shipGroupSeqId"><hidden/></field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" url-mode="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>

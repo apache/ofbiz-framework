@@ -90,7 +90,7 @@ under the License.
         <!-- contact list -->
         <field name="contactListId">
             <lookup size="20" target-form-name="LookupContactList">
-                <sub-hyperlink target="/marketing/control/EditContactList" url-mode="inter-app" link-style="smallSubmit">
+                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="smallSubmit">
                 <parameter param-name="contactListId" from-field="communicationEvent.contactListId"/>
             </sub-hyperlink>
             </lookup>
@@ -174,10 +174,10 @@ under the License.
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
         <field name="send" title=" " position="1" use-when="communicationEvent!=null">
-            <hyperlink description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.submit())" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.submit())" also-hidden="false" target-type="plain"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
-            <hyperlink description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.form.value='list'),(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())" also-hidden="false" target-type="plain"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
         <field name="dummy" position="320"><hidden/></field>
@@ -207,11 +207,11 @@ under the License.
         <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
         <field name="send" title=" " position="1" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true"
-                url-mode="plain" description="${uiLabelMap.CommonSend}"
+                target-type="plain" description="${uiLabelMap.CommonSend}"
                 target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.statusId.value='COM_ENTERED'),(document.EditInternalNote.datetimeStarted.value='${nowDate}'),(document.EditInternalNote.submit())"/>
         </field>
         <field name="save" title=" " position="2" use-when="communicationEvent!=null">
-            <hyperlink description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.submit())" also-hidden="true" url-mode="plain"/>
+            <hyperlink description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.form.value='list'),(document.EditInternalNote.submit())" also-hidden="true" target-type="plain"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
         <field name="dummy" position="320"><hidden/></field>
@@ -235,14 +235,14 @@ under the License.
         <field name="contactListId" use-when="communicationEvent.get(&quot;contactListId&quot;)!=null"><display/></field>
         <field name="partyIdFrom" use-when="communicationEvent.get(&quot;partyIdFrom&quot;)!=null">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechFrom.infoString})">
-                <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
+                <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                     <parameter param-name="partyId" from-field="communicationEvent.partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechTo.infoString})">
-                <sub-hyperlink description=" [${communicationEvent.partyIdTo}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
+                <sub-hyperlink description=" [${communicationEvent.partyIdTo}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                     <parameter param-name="partyId" from-field="communicationEvent.partyIdTo"/>
                 </sub-hyperlink>
             </display-entity>
@@ -287,7 +287,7 @@ under the License.
         <field name="communicationEventId"><display/></field>
         <field name="contactListId" use-when="contactListId!=null">
             <display-entity entity-name="ContactList" description="${contactListName}">
-                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" description="[${communicationEvent.contactListId}]" url-mode="inter-app"/>
+                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" description="[${communicationEvent.contactListId}]" target-type="inter-app"/>
             </display-entity>
         </field>
         <field name="partyIdFrom" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyFrom}">
@@ -421,7 +421,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.CommonPartyId}" sort-field="true">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdFrom}]" url-mode="inter-app">
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdFrom}]" target-type="inter-app">
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
@@ -470,7 +470,7 @@ under the License.
             </service>
         </actions>
         <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" url-mode="inter-app"/>
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app"/>
         </field>
         <field name="communicationEventId">
             <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent">
@@ -526,14 +526,14 @@ under the License.
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyId} ${uiLabelMap.CommonFrom}" sort-field="true">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdFrom}]" url-mode="inter-app">
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdFrom}]" target-type="inter-app">
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyId} ${uiLabelMap.CommonTo}" sort-field="true">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdTo}]" url-mode="inter-app">
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdTo}]" target-type="inter-app">
                     <parameter param-name="partyId" from-field="partyIdTo"/>
                 </sub-hyperlink>
             </display-entity>
@@ -624,7 +624,7 @@ under the License.
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffort}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" url-mode="inter-app" link-style="smallSubmit">
+                <sub-hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" target-type="inter-app" link-style="smallSubmit">
                     <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -633,7 +633,7 @@ under the License.
 
     <form name="AddCommEventWorkEffort" type="single" extends="EditWorkEffort"
         extends-resource="component://workeffort/widget/WorkEffortForms.xml"
-        target="/partymgr/control/createCommEventWorkEffort" url-mode="inter-app"
+        target="/partymgr/control/createCommEventWorkEffort" target-type="inter-app"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="workEffortId"  use-when="workEffort==null&amp;&amp;workEffortId==null" ><lookup target-form-name="LookupWorkEffort"/></field>
@@ -688,7 +688,7 @@ under the License.
         <field name="communicationEventId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink description=" [${partyId}]" target="/partymgr/control/viewprofile" url-mode="inter-app">
+                <sub-hyperlink description=" [${partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -963,7 +963,7 @@ under the License.
     </form>
     <form name="ListRequests" extends="ListRequests" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
         <field name="custRequestName">
-            <hyperlink description="${custRequestName} [${custRequestId}]" target="/ordermgr/control/ViewRequest" url-mode="inter-app">
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="/ordermgr/control/ViewRequest" target-type="inter-app">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
@@ -1010,7 +1010,7 @@ under the License.
             <set field="orderTypeId" from-field="orderHeader.orderTypeId"/>
         </row-actions>
         <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" url-mode="inter-app"/>
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app"/>
         </field>
         <field name="communicationEventId"><hidden/></field>
         <field name="orderTypeId" title="${uiLabelMap.OrderOrderType}">
@@ -1082,7 +1082,7 @@ under the License.
             </service>
         </actions>
         <field name="returnId" title="${uiLabelMap.FormFieldTitle_returnId}">
-            <hyperlink description="${returnId}" target="/ordermgr/control/returnMain?returnId=${returnId}" url-mode="inter-app"/>
+            <hyperlink description="${returnId}" target="/ordermgr/control/returnMain?returnId=${returnId}" target-type="inter-app"/>
         </field>
         <field name="communicationEventId">
             <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent">
@@ -1115,7 +1115,7 @@ under the License.
             <set field="returnHeaderTypeId" from-field="returnHeader.returnHeaderTypeId"/>
         </row-actions>
         <field name="returnId" title="${uiLabelMap.FormFieldTitle_returnId}" widget-style="buttontext">
-            <hyperlink description="${returnId}" target="/ordermgr/control/returnMain?returnId=${returnId}" url-mode="inter-app"/>
+            <hyperlink description="${returnId}" target="/ordermgr/control/returnMain?returnId=${returnId}" target-type="inter-app"/>
         </field>
         <field name="communicationEventId"><hidden/></field>
         <field name="returnHeaderTypeId" title="${uiLabelMap.OrderReturnHeaderType}">

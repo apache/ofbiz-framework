@@ -260,7 +260,7 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateMimeTypeHtmlTemplate"/>
         <field name="mimeTypeId">
-            <hyperlink url-mode="intra-app" target="editMimeType" description="${mimeTypeId}">
+            <hyperlink target-type="intra-app" target="editMimeType" description="${mimeTypeId}">
                 <parameter param-name="mimeTypeId"/>
             </hyperlink>
         </field>

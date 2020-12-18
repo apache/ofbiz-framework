@@ -157,7 +157,7 @@ under the License.
             <set field="hasAmount" value="${groovy:product.getString('requireAmount')?:'N'}"/>
         </row-actions>
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" url-mode="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -182,7 +182,7 @@ under the License.
     <form name="LookupBulkAddSupplierProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProducts" view-size="5">
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" url-mode="inter-app">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
@@ -207,7 +207,7 @@ under the License.
     <form name="LookupAssociatedProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
         paginate-target="LookupAssociatedProducts" default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" url-mode="inter-app"/>
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName"><display/></field>

@@ -48,7 +48,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="viewprofile" link-style="smallSubmit" url-mode="inter-app" description="${partyId}">
+               <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
                 <parameter param-name="partyId"/>
             </sub-hyperlink>
            </display-entity>

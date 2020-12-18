@@ -64,7 +64,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
-        <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" url-mode="inter-app"/></field> -->
+        <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>
 
     <grid name="ListTrackingCode" target="ListTrackingCode" title=""
@@ -195,7 +195,7 @@ under the License.
             </service>
         </actions>
         <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}">
-            <hyperlink description="${visitId}" target="/partymgr/control/visitdetail" url-mode="inter-app">
+            <hyperlink description="${visitId}" target="/partymgr/control/visitdetail" target-type="inter-app">
                 <parameter param-name="visitId"/>
                 <parameter param-name="DONE_PAGE" from-field="donePage"/>
             </hyperlink>
@@ -244,7 +244,7 @@ under the License.
             </service>
         </actions>
         <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" widget-style="buttontext">
-            <hyperlink description="${trackingCodeId}" target="javascript:set_value('${trackingCodeId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${trackingCodeId}" target="javascript:set_value('${trackingCodeId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><display/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
@@ -272,7 +272,7 @@ under the License.
             </service>
         </actions>
         <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}" widget-style="buttontext">
-            <hyperlink description="${visitId}" target="javascript:set_value('${visitId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${visitId}" target="javascript:set_value('${visitId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="partyId" title="${uiLabelMap.MarketingTrackingCodeVisitPartyId}">
             <display-entity description="${partyId}" entity-name="Party" key-field-name="partyId"/>
@@ -302,7 +302,7 @@ under the License.
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
-        <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" url-mode="inter-app"/></field> -->
+        <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>
 
     <grid name="ListTrackingCodeType" target="ListTrackingCodeType" title=""
@@ -342,7 +342,7 @@ under the License.
             </service>
         </actions>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" widget-style="buttontext">
-            <hyperlink description="${trackingCodeTypeId}" target="javascript:set_value('${trackingCodeTypeId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${trackingCodeTypeId}" target="javascript:set_value('${trackingCodeTypeId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><display/></field>
     </grid>

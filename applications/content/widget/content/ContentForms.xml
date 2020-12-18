@@ -130,7 +130,7 @@ under the License.
             </service>
         </actions>
         <field name="contentId" widget-style="smallSubmit">
-            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
@@ -240,7 +240,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
 
         <field name="contentId" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName" widget-style="buttontext"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" widget-style="buttontext"><display/></field>
@@ -504,7 +504,7 @@ under the License.
     <form name="MruLookupPerson" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title=" " widget-style="buttontext">
-            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="firstName" title=" " widget-style="buttontext"><display/></field>
         <field name="lastName" title=" " widget-style="buttontext"><display/></field>
@@ -512,7 +512,7 @@ under the License.
     <form name="MruLookupPartyAndUserLoginAndPerson" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title=" " widget-style="buttontext">
-            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="firstName" title=" " widget-style="buttontext"><display/></field>
         <field name="lastName" title=" " widget-style="buttontext"><display/></field>
@@ -546,7 +546,7 @@ under the License.
         <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit"/>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
-                <sub-hyperlink target="/workeffort/control/EditWorkEffort"  description="${workEffortId}" link-style="buttontext" url-mode="inter-app">
+                <sub-hyperlink target="/workeffort/control/EditWorkEffort"  description="${workEffortId}" link-style="buttontext" target-type="inter-app">
                     <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -625,7 +625,7 @@ under the License.
     </form>
     <form name="ViewContentDetail" type="single" default-map-name="lookupContentDetail">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" url-mode="plain"/>
+            <hyperlink description="${contentId}" target="javascript:set_value('${contentId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="contentName"><display/></field>
         <field name="contentTypeId"><display/></field>
@@ -633,7 +633,7 @@ under the License.
         <field name="mimeTypeId"><display/></field>
         <field name="select" widget-style="buttontext" title=" " use-when="contentId!=null">
             <hyperlink also-hidden="true"
-                url-mode="plain" description="${uiLabelMap.CommonSelect}"
+                target-type="plain" description="${uiLabelMap.CommonSelect}"
                 target="javascript:set_value('${contentId}')"/>            
         </field>
     </form>

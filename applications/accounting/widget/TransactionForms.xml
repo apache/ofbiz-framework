@@ -97,7 +97,7 @@ under the License.
     <form name="ViewGatewayResponseRelations" type="single" target="" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -115,14 +115,14 @@ under the License.
         <field name="comments"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="[${partyIdFrom}]" >
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]" >
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="[${partyIdTo}]" >
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]" >
                     <parameter param-name="partyId" from-field="partyIdTo"/>
                 </sub-hyperlink>
             </display-entity>

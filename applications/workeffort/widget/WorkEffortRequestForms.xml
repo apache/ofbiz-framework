@@ -29,7 +29,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
-            <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" url-mode="inter-app">
+            <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
@@ -61,7 +61,7 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
-            <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" url-mode="inter-app">
+            <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>

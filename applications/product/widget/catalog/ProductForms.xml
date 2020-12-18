@@ -614,7 +614,7 @@ under the License.
         <field name="useRoleTypeId"><display/></field>
         <field name="sequenceNum"><display/></field>
         <field name="editContent" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="/content/control/EditContent" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app" also-hidden="false">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
@@ -719,12 +719,12 @@ under the License.
             <display-entity entity-name="DataResourceType" key-field-name="dataResourceTypeId" also-hidden="false"/>
         </field>
         <field name="editDataResource" widget-style="buttontext">
-            <hyperlink description="${dataResourceId}" target="/content/control/EditDataResource" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${dataResourceId}" target="/content/control/EditDataResource" target-type="inter-app" also-hidden="false">
                 <parameter param-name="dataResourceId"/>
             </hyperlink>
         </field>
         <field name="editContent" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="/content/control/EditContent" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app" also-hidden="false">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
@@ -791,7 +791,7 @@ under the License.
         <field name="description" title="${uiLabelMap.ProductProductDescription}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
         <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" >
-            <hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" url-mode="inter-app">
+            <hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" target-type="inter-app">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
@@ -953,7 +953,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
             <display-entity entity-name="PartyNameView" also-hidden="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile" url-mode="inter-app" description="${partyId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1297,7 +1297,7 @@ under the License.
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/>
         </field>
         <field name="workEffortId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink description="${workEffortId}" target="/manufacturing/control/EditRoutingProductLink" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${workEffortId}" target="/manufacturing/control/EditRoutingProductLink" also-hidden="false" target-type="inter-app">
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
@@ -1360,7 +1360,7 @@ under the License.
             <display-entity entity-name="CostComponentType"/>
         </field>
         <field name="costComponentCalcId" widget-style="buttontext">
-            <hyperlink description="${costComponentCalcId}" target="/manufacturing/control/EditCostCalcs" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${costComponentCalcId}" target="/manufacturing/control/EditCostCalcs" also-hidden="false" target-type="inter-app">
                 <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>
@@ -1454,7 +1454,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="orderDate"><display/></field>
         <field name="orderId">
-            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" url-mode="inter-app">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
@@ -1856,7 +1856,7 @@ under the License.
             <entity-one entity-name="Agreement" value-field="agreement"/>
         </row-actions>
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink description="${agreementId}" target="/accounting/control/EditAgreement" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${agreementId}" target="/accounting/control/EditAgreement" target-type="inter-app" also-hidden="false">
                 <parameter param-name="agreementId"/>
             </hyperlink>
         </field>
@@ -1871,7 +1871,7 @@ under the License.
     <form name="ListSalesAgreements" type="list" list-name="salesAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemProduct" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemProduct" target-type="inter-app" also-hidden="false">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="productId"/>
@@ -1888,7 +1888,7 @@ under the License.
     <form name="ListProductAgreements" type="list" list-name="productAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemProduct" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemProduct" target-type="inter-app" also-hidden="false">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="productId"/>
@@ -1905,7 +1905,7 @@ under the License.
     <form name="ListCommissionAgreements" type="list" list-name="commissionAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemProduct" url-mode="inter-app" also-hidden="false">
+            <hyperlink description="${agreementId}/${agreementItemSeqId}" target="/accounting/control/EditAgreementItemProduct" target-type="inter-app" also-hidden="false">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="productId"/>
@@ -1956,7 +1956,7 @@ under the License.
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit"/>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
-                <sub-hyperlink target="/workeffort/control/EditWorkEffort" description="${workEffortId}" link-style="buttontext" url-mode="inter-app">
+                <sub-hyperlink target="/workeffort/control/EditWorkEffort" description="${workEffortId}" link-style="buttontext" target-type="inter-app">
                     <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -2246,7 +2246,7 @@ under the License.
 
     <form name="ListCommEvents" list-name="communicationEvents" type="list" header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" widget-style="buttontext">
-            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" url-mode="inter-app"/>
+            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
         </field>
         <field name="subject"><display/></field>
         <field name="communicationEventTypeId"><display-entity entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
@@ -2276,7 +2276,7 @@ under the License.
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false">
-                <sub-hyperlink url-mode="inter-app" link-style="buttontext" target="/partymgr/control/viewprofile" description="${partyId}">
+                <sub-hyperlink target-type="inter-app" link-style="buttontext" target="/partymgr/control/viewprofile" description="${partyId}">
                     <parameter param-name="party_id" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
