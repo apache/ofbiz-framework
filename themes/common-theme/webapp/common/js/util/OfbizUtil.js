@@ -1264,6 +1264,7 @@ function waitSpinnerShow() {
     winHeight = jQuery(window).height();
     lookupTop = (scrollOffY + winHeight / 2) - (jSpinner.height() / 2);
 
+    jSpinner.removeClass("hidden");
     jSpinner.css("display", "block");
     jSpinner.css("left", lookupLeft + "px");
     jSpinner.css("top", lookupTop + "px");
