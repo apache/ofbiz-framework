@@ -479,7 +479,7 @@ public class UtilCodec {
         }
 
         if (value != null) {
-            String filtered = policy.sanitize(value);
+            String filtered = StringEscapeUtils.unescapeEcmaScript(policy.sanitize(value));
             if (filtered != null && !value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) {
@@ -603,5 +603,4 @@ public class UtilCodec {
             return this.internalMap.toString();
         }
     }
-
 }
