@@ -31,3 +31,8 @@ limitations under the License.
 .info-cursor-none {
     cursor: text;
 }
+
+/* used by wait-spinner */
+.hidden {
+    display: none;
+}

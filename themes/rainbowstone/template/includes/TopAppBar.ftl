@@ -31,7 +31,7 @@ under the License.
 </#if>
 <body>
 <#include "component://common-theme/template/ImpersonateBanner.ftl"/>
-<div id="wait-spinner" style="display:none">
+<div id="wait-spinner" class="hidden">
     <div id="wait-spinner-image"></div>
 </div>
 <div class="page-container">
