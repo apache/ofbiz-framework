@@ -620,16 +620,18 @@ function ajaxUpdateArea(areaId, target, targetParams) {
         return;
     }
     waitSpinnerShow();
-    jQuery.ajax({
-        url: target,
-        type: "POST",
-        data: targetParams,
-        success: function(data) {
-            jQuery("#" + areaId).html(data);
-            waitSpinnerHide();
-        },
-        error: function(data) {waitSpinnerHide()}
-    });
+    setTimeout(function() {
+        jQuery.ajax({
+            url: target,
+            type: "POST",
+            data: targetParams,
+            success: function(data) {
+                jQuery("#" + areaId).html(data);
+                waitSpinnerHide();
+            },
+            error: function(data) {waitSpinnerHide()}
+        });
+    }, 0);
 }
 
 /** Update multiple areas (HTML container elements).
