@@ -1489,6 +1489,13 @@ function sendJWT(targetUrl) {
     }
 }
 
+/**
+ * Load an array of external javascript and/or css files asynchronously.
+ * Run success function after the external files are loaded.
+ * @param urls array of js / css links
+ * @param onSuccessFn function to run when the files are loaded successfully
+ * @param onErrorFn optional function to run when any of the files are not loaded correctly
+ */
 var importLibrary = function() {
     var importLibraryFiles = new Map();
     return function (urls, onSuccessFn, onErrorFn) {
@@ -1530,6 +1537,10 @@ var importLibrary = function() {
     }
 }();
 
+/**
+ * Is browser accessing local server?
+ * @returns {boolean}
+ */
 function isLocalEnviron(){
     return ["localhost","127.0.0.1"].includes(window.location.hostname);
 }
