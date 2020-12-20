@@ -729,6 +729,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 formattedMask = "9999-99-99 99:99:99";
             }
         }
+        String isXMLHttpRequest = "false";
+        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+            isXMLHttpRequest = "true";
+        }
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderDateTimeField ");
@@ -796,6 +800,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(formattedMask);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
+        sr.append("\" isXMLHttpRequest=\"");
+        sr.append(isXMLHttpRequest);
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
         sr.append(" />");

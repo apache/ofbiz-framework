@@ -90,7 +90,7 @@ under the License.
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled="">
+<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest="">
   <span class="view-calendar">
     <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
     <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
@@ -147,6 +147,11 @@ under the License.
       </#if>
     </#if>
     <input type="hidden" name="${compositeType}" value="Timestamp"/>
+    <#if isXMLHttpRequest=="true">
+        <script>
+          initDateTimePicker(document.getElementById("${id}"));
+        </script>
+    </#if>
   </span>
 </#macro>
 
