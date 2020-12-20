@@ -79,6 +79,7 @@ under the License.
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="ruleName" optional="false" allow-html="safe"/>
     </service>
     <service name="deleteProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPriceRule</description>
