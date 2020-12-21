@@ -70,7 +70,11 @@ public class HtmlWidget extends ModelScreenWidget {
     private static final UtilCache<String, Template> SPECIAL_TEMPLATE_CACHE =
             UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
     protected static final Configuration SPECIAL_CONFIG = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
-
+    private static final Configuration SPECIAL_CONFIG_SQUARE_INTERPOLATION =
+            FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
+    static {
+        SPECIAL_CONFIG_SQUARE_INTERPOLATION.setInterpolationSyntax(Configuration.SQUARE_BRACKET_INTERPOLATION_SYNTAX);
+    }
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
         public ExtendedWrapper(Version version) {
@@ -176,7 +180,11 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
                     template = FreeMarkerWorker.getTemplate(location);
                 } else {
-                    template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG);
+                    if (location.endsWith(".sqi.ftl")) {
+                        template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG_SQUARE_INTERPOLATION);
+                    } else {
+                        template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG);
+                    }
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
