@@ -285,7 +285,7 @@ under the License.
               <td>
                 <div>
                   <b> ${uiLabelMap.ProductAction} ${(productPromoAction.productPromoActionSeqId)!}</b>
-                  <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>" name="updateProductPromoAction">
+                  <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>" name="updateProductPromoAction_${productPromoRule_index}_${productPromoAction_index}">
                     <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)!}" />
                     <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)!}" />
@@ -315,9 +315,9 @@ under the License.
                     ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" value="${(productPromoAction.quantity)!}" />
                     ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" value="${(productPromoAction.amount)!}" />
                     <br/>
-                    ${uiLabelMap.ProductItemId}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.productId)!}" formName="updateProductPromoAction" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                    ${uiLabelMap.ProductItemId}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.productId)!}" formName="updateProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <br/>
-                    ${uiLabelMap.PartyParty}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.partyId)!}" formName="updateProductPromoAction" name="partyId" id="partyId" fieldFormName="LookupUserLoginAndPartyDetails"/>
+                    ${uiLabelMap.PartyParty}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.partyId)!}" formName="updateProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" name="partyId" id="partyId" fieldFormName="LookupUserLoginAndPartyDetails"/>
                     <br/>
                     ${uiLabelMap.ProductServiceName}:&nbsp;<input type="text" size="20" name="serviceName" value="${(productPromoAction.serviceName)!}" />
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
