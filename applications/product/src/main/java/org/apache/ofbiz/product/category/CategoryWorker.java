@@ -44,6 +44,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -75,7 +76,8 @@ public final class CategoryWorker {
         if (topCatName == null)
             topCatName = defaultTopCategory;
         if (topCatName == null)
-            topCatName = "CATALOG1";
+            topCatName = EntityUtilProperties.getPropertyValue("catalog", "top.category.default", "CATALOG1",
+                    (Delegator) request.getAttribute("delegator"));
 
         if (!fromSession) {
             if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.getCatalogTopCategory] Setting new top category: " + topCatName, module);
