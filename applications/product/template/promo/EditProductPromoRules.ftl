@@ -286,9 +286,19 @@ under the License.
                     <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)!}" />
                     <select name="productPromoActionEnumId" size="1">
       <#if (productPromoAction.productPromoActionEnumId)??>
-        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
-                      <option value="${(productPromoAction.productPromoActionEnumId)!}"><#if productPromoActionCurEnum??>${(productPromoActionCurEnum.get("description",locale))!}<#else>[${(productPromoAction.productPromoActionEnumId)!}]</#if></option>
-                      <option value="${(productPromoAction.productPromoActionEnumId)!}">&nbsp;</option>
+        <#assign productPromoActionCustomMethod = productPromoAction.getRelatedOne("CustomMethod", true)>
+                      <option value="${(productPromoAction.customMethodId)!}">
+                        <#if (productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true))??>
+                            ${(productPromoActionCurEnum.get("description",locale))!}
+                        <#else>
+                            ${(productPromoActionCustomMethod.get("description",locale))!}
+                        </#if>
+                      </option>
+                      <option value="${(productPromoAction.customMethodId)!}">&nbsp;</option>
+        <#elseif (productPromoAction.productPromoActionEnumId)??>
+          <#assign actionEnumeration = productPromoAction.getRelatedOne("ActionEnumeration", true)! />
+          <#assign customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", actionEnumeration.enumCode!).cache().queryOne()!>
+            <option value="${(customMethod.customMethodId)!}">${(actionEnumeration.get("description",locale))!}</option>
       <#else>
                       <option value="">&nbsp;</option>
       </#if>
@@ -308,7 +318,6 @@ under the License.
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
       <#if (productPromoAction.useCartQuantity)??>
-        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
                       <option value="${(productPromoAction.useCartQuantity)!}"><#if ("Y" == productPromoAction.useCartQuantity)>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
                       <option value="${(productPromoAction.useCartQuantity)!}">&nbsp;</option>
       <#else>
@@ -383,7 +392,7 @@ under the License.
                 <div>
                   ${(actionProduct.internalName)!} [${actionProductPromoProduct.productId}]
                   - ${(actionApplEnumeration.get("description",locale))?default(actionProductPromoProduct.productPromoApplEnumId)}
-                  <form name="deleteProductPromoProductAction_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoProduct_index}" method="post" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>"> 
+                  <form name="deleteProductPromoProductAction_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoProduct_index}" method="post" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>">
                     <input type="hidden" name="productPromoId" value="${(actionProductPromoProduct.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(actionProductPromoProduct.productPromoRuleId)!}" />
                     <input type="hidden" name="productPromoCondSeqId" value="${(actionProductPromoProduct.productPromoCondSeqId)!}" />
