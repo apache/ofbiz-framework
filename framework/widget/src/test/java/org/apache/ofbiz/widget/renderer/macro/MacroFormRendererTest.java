@@ -18,17 +18,26 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import mockit.Expectations;
-import mockit.Injectable;
-import mockit.Mock;
-import mockit.MockUp;
-import mockit.Mocked;
-import mockit.Tested;
-import mockit.Verifications;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ofbiz.base.util.UtilCodec.SimpleEncoder;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -46,24 +55,18 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.startsWith;
-import static org.hamcrest.MatcherAssert.assertThat;
+import freemarker.core.Environment;
+import freemarker.template.Template;
+import mockit.Expectations;
+import mockit.Injectable;
+import mockit.Mock;
+import mockit.MockUp;
+import mockit.Mocked;
+import mockit.Tested;
+import mockit.Verifications;
 
 public class MacroFormRendererTest {
 
@@ -121,7 +124,7 @@ public class MacroFormRendererTest {
                 label.getText(withNotNull());
                 result = "";
 
-                ftlWriter.executeMacro(withNotNull(), withNotNull());
+                ftlWriter.executeMacro(withNotNull(), withNull(), withNotNull());
                 times = 0;
             }
         };
@@ -1036,7 +1039,7 @@ public class MacroFormRendererTest {
         new Verifications() {
             {
                 List<String> macros = new ArrayList<>();
-                ftlWriter.executeMacro(withNotNull(), withCapture(macros));
+                ftlWriter.executeMacro(withNotNull(), withNull(), withCapture(macros));
 
                 assertThat(macros, not(empty()));
                 final String macro = macros.get(0);
@@ -1063,7 +1066,7 @@ public class MacroFormRendererTest {
             assertThat(macro, containsString(attributeName + "=" + attributeValue));
         } else if (attributeValue instanceof FreemarkerRawString) {
             final String valueString = ((FreemarkerRawString) attributeValue).getRawString();
-            assertThat(macro, containsString(attributeName + "=r\"" + valueString + "\""));
+            assertThat(macro, containsString(attributeName + "=\"" + valueString + "\""));
         } else {
             assertThat(macro, containsString(attributeName + "=\"" + attributeValue + "\""));
         }

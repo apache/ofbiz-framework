@@ -18,11 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <DataResource dataResourceId="HELP_HR" localeString="en" dataResourceTypeId="OFBIZ_FILE"
-        objectInfo="applications/humanres/data/HELP_HR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Human Resources Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources" templateDataResourceId="HELP_TEMPL"
-        dataResourceId="HELP_HR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_HR" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000"/>
+    <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
+    <PortletCategory portletCategoryId="REPORT" description="Reports"/>
 
+    <!-- system document root used in content -> navigate -->
+    <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT"/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
 </entity-engine-xml>

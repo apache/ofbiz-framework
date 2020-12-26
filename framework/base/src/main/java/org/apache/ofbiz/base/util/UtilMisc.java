@@ -186,7 +186,6 @@ public final class UtilMisc {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), MODULE);
                 }
-
             }
         }
         for (String keyToRemove : keysToRemove) {
@@ -195,9 +194,24 @@ public final class UtilMisc {
     }
 
     /**
+     * This change an ArrayList to be Serializable by removing all entries that are not Serializable.
+     * @param arrayList
+     */
+    public static <V> void makeArrayListSerializable(ArrayList<Object> arrayList) {
+        // now filter out all non-serializable values
+        Iterator<Object> itr = arrayList.iterator();
+        while (itr.hasNext()) {
+            Object obj = itr.next();
+            if (!(obj instanceof Serializable)) {
+                itr.remove();
+            }
+        }
+    }
+
+    /**
      * Sort a List of Maps by specified consistent keys.
      * @param listOfMaps List of Map objects to sort.
-     * @param sortKeys   List of Map keys to sort by.
+     * @param sortKeys List of Map keys to sort by.
      * @return a new List of sorted Maps.
      */
     public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {

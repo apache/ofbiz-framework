@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -248,6 +249,12 @@ public class RequestHandler {
                 if (obj instanceof Map) {
                     // See OFBIZ-750 and OFBIZ-11123 for cases where a value in an inner Map is not serializable
                     UtilMisc.makeMapSerializable(UtilGenerics.cast(obj));
+                }
+                if (obj instanceof ArrayList) {
+                    // See OFBIZ-12050 for cases where a value in an ArrayList is not serializable
+                    @SuppressWarnings("unchecked")
+                    ArrayList<Object> arrayList = (ArrayList<Object>) obj;
+                    UtilMisc.makeArrayListSerializable(arrayList);
                 }
                 reqAttrMap.put(name, obj);
             }

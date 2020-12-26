@@ -26,11 +26,9 @@ under the License.
 
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
 
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHelpData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentDocData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHttpErrorData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentPortletData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/PartyHelpData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/WebtoolsHelpData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_content.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_contenttypes.xml"/>

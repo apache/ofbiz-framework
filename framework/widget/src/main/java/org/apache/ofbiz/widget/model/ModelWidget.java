@@ -156,7 +156,7 @@ public abstract class ModelWidget implements Serializable {
      * determine how to display named border for development
      * @return NamedBorderType from <code>widget.dev.namedBorder</code> property
      */
-    public static NamedBorderType widgetNamedBorderEnabled() {
+    public static NamedBorderType widgetNamedBorderType() {
         return NamedBorderType.valueOf(UtilProperties.getPropertyValue("widget", "widget.dev.namedBorder", NamedBorderType.NONE.toString()));
     }
 }

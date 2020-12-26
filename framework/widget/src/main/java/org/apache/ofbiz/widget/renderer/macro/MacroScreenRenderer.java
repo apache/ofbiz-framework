@@ -1071,6 +1071,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         ModelScreen modelScreen = null;
         if (UtilValidate.isNotEmpty(screenName) && UtilValidate.isNotEmpty(screenLocation)) {
             try {
+                context.put("portalPortletId", portalPortlet.getString("portalPortletId"));
+                context.put("portletSeqId", portalPortlet.getString("portletSeqId"));
                 modelScreen = ScreenFactory.getScreenFromLocation(screenLocation, screenName);
             } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();

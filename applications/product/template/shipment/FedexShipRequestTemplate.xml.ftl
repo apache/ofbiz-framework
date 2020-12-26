@@ -20,7 +20,7 @@
         under the License.
     -->
 
-    <#-- FreeMarker template for Fedex FDXShipRequest -->
+    <#-- FTL emplate for Fedex FDXShipRequest -->
 
     <FDXShipRequest xmlns:api="http://www.fedex.com/fsmapi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FDXShipRequest.xsd">
         <RequestHeader>

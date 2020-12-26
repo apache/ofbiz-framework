@@ -32,11 +32,9 @@ def createLead() {
     String partyGroupPartyId
     // Check if Person or PartyGroup name is supplied
     if ((!parameters.firstName || !parameters.lastName) && !parameters.groupName) {
-        return error(UtilProperties.getMessage("MarketingUiLabels",
-                "SfaFirstNameLastNameAndCompanyNameMissingError", locale))
+        return error(UtilProperties.getMessage("MarketingUiLabels", "SfaFirstNameLastNameAndCompanyNameMissingError", locale))
     }
-    run service: "ensurePartyRole", with: [partyId: userLogin.partyId,
-                                           roleTypeId: "OWNER"]
+    run service: "ensurePartyRole", with: [partyId: userLogin.partyId, roleTypeId: "OWNER"]
     // PartyRole check end
     parameters.roleTypeId = "LEAD"
 

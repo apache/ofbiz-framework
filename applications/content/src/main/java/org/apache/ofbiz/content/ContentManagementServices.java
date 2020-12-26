@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.content;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
@@ -30,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -256,7 +259,7 @@ public class ContentManagementServices {
         }
         // Do update and create permission checks on Content if warranted.
 
-        context.put("skipPermissionCheck", null);  // Force check here
+        context.put("skipPermissionCheck", null); // Force check here
         boolean contentExists = true;
         if (Debug.infoOn()) {
             Debug.logInfo("in persist... contentTypeId:" + contentTypeId + " dataResourceTypeId:" + dataResourceTypeId + " contentId:"
@@ -268,7 +271,9 @@ public class ContentManagementServices {
             } else {
                 try {
                     GenericValue val = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
-                    if (val == null) contentExists = false;
+                    if (val == null) {
+                        dataResourceExists = false;
+                    }
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.toString());
                 }
@@ -406,8 +411,7 @@ public class ContentManagementServices {
     }
 
     /**
-     * Service for update publish sites with a ContentRole that will tie them to the passed
-     * in party.
+     * Service for update publish sites with a ContentRole that will tie them to the passed in party.
      */
     public static Map<String, Object> updateSiteRoles(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -531,6 +535,12 @@ public class ContentManagementServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
+
+        String errorMessage = validateUploadedFile(dctx, context);
+        if (errorMessage != null) {
+            return ServiceUtil.returnError(errorMessage);
+        }
+
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> newDrContext = new HashMap<>();
         GenericValue dataResource = delegator.makeValue("DataResource");
@@ -750,7 +760,7 @@ public class ContentManagementServices {
             } else {
                 if (fromDate != null) {
                     // for now, will assume that any error is due to non-existence - ignore
-                    //return ServiceUtil.returnError(e.toString());
+                    // return ServiceUtil.returnError(e.toString());
                     try {
                         Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, MODULE);
                         Map<String, Object> newContext = new HashMap<>();
@@ -980,7 +990,6 @@ public class ContentManagementServices {
         }
         return result;
     }
-
 
     /**
      * This service changes the contentTypeId of the current content and its children depending on the pageMode.
@@ -1542,8 +1551,8 @@ public class ContentManagementServices {
         return result;
     }
 
-    public static Map<String, Object> followNodeChildrenMethod(GenericValue content, LocalDispatcher dispatcher, String serviceName, Map<String,
-            Object> context) throws GenericEntityException, GenericServiceException {
+    public static Map<String, Object> followNodeChildrenMethod(GenericValue content, LocalDispatcher dispatcher, String serviceName,
+            Map<String, Object> context) throws GenericEntityException, GenericServiceException {
         Map<String, Object> result = null;
         String contentId = content.getString("contentId");
         List<String> contentAssocTypeIdList = UtilGenerics.cast(context.get("contentAssocTypeIdList"));
@@ -1638,5 +1647,26 @@ public class ContentManagementServices {
             return ServiceUtil.returnError(e.toString());
         }
         return result;
+    }
+
+    private static String validateUploadedFile(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String objectInfo = (String) context.get("objectInfo");
+        String errorMessage = null;
+        if (!UtilValidate.isEmpty(objectInfo)) {
+            File file = new File(objectInfo);
+            if (file.isFile()) {
+                try {
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(objectInfo, "All", delegator)) {
+                        errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                    }
+                } catch (ImageReadException | IOException e) {
+                    errorMessage = UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName",
+                            objectInfo), locale);
+                }
+            }
+        }
+        return errorMessage;
     }
 }

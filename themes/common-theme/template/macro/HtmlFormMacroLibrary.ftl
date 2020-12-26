@@ -90,8 +90,12 @@ under the License.
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled="">
+<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest="">
   <span class="view-calendar">
+    <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
+    <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
+    <#local timePicker = "/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js,/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css">
+    <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
     <#if dateType!="time" >
       <input type="text" <#if tabindex?has_content> tabindex="${tabindex}"</#if> name="${name}_i18n" <@renderClass className alert /><#rt/>
         <#if title?has_content> title="${title}"</#if>
@@ -108,6 +112,10 @@ under the License.
       <#if size?has_content> size="${size}"</#if><#rt/>
       <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
       <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
+      <#if cultureInfo?has_content> data-cultureinfo="${cultureInfo}"</#if><#rt/>
+      <#if datePickerLang?has_content> data-datepickerlang="${datePickerLang}"</#if><#rt/>
+      <#if timePicker?has_content> data-timepicker="${timePicker}"</#if><#rt/>
+      <#if timePickerLang?has_content> data-timepickerlang="${timePickerLang}"</#if><#rt/>
       data-shortdate="${shortDateInput?string}"
       <#if id?has_content> id="${id}"</#if>/><#rt/>
     <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
@@ -139,6 +147,11 @@ under the License.
       </#if>
     </#if>
     <input type="hidden" name="${compositeType}" value="Timestamp"/>
+    <#if isXMLHttpRequest=="true">
+        <script>
+          initDateTimePicker(document.getElementById("${id}"));
+        </script>
+    </#if>
   </span>
 </#macro>
 
@@ -407,6 +420,10 @@ under the License.
     <#local className = className + " date-time-picker"/>
   </#if>
   <#local shortDateInput = "date" == dateType/>
+  <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
+  <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
+  <#local timePicker = "/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js,/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css"/>
+  <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
   <span class="view-calendar">
     <input id="${id}_fld0_value" type="text" <@renderClass className alert />
         <#if name?has_content> name="${name?html}_fld0_value"</#if>
@@ -415,6 +432,10 @@ under the License.
         <#if size?has_content> size="${size}"</#if>
         <#if maxlength?has_content> maxlength="${maxlength}"</#if>
         <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+        <#if cultureInfo?has_content> data-cultureinfo="${cultureInfo}"</#if><#rt/>
+        <#if datePickerLang?has_content> data-datepickerlang="${datePickerLang}"</#if><#rt/>
+        <#if timePicker?has_content> data-timepicker="${timePicker}"</#if><#rt/>
+        <#if timePickerLang?has_content> data-timepickerlang="${timePickerLang}"</#if><#rt/>
          data-shortdate="${shortDateInput?string}"
     />
     <#if titleStyle?has_content>
@@ -436,6 +457,10 @@ under the License.
         <#if value2?has_content> value="${value2}"</#if>
         <#if size?has_content> size="${size}"</#if>
         <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+        <#if cultureInfo?has_content> data-cultureinfo="${cultureInfo}"</#if><#rt/>
+        <#if datePickerLang?has_content> data-datepickerlang="${datePickerLang}"</#if><#rt/>
+        <#if timePicker?has_content> data-timePicker="${timePicker}"</#if><#rt/>
+        <#if timePickerLang?has_content> data-timepickerlang="${timePickerLang}"</#if><#rt/>
          data-shortdate="${shortDateInput?string}"
     /><#rt/>
     <#if titleStyle?has_content>

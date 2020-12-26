@@ -34,6 +34,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -68,7 +69,7 @@ public class ImageManagementServices {
     private static String imagePath;
 
     public static Map<String, Object> addMultipleuploadForProduct(DispatchContext dctx,
-            Map<String, ? extends Object> context) {
+            Map<String, ? extends Object> context) throws ImageReadException {
 
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -140,7 +141,8 @@ public class ImageManagementServices {
                 }
             }
 
-            File file = new File(imageServerPath + "/" + productId + "/" + uploadFileName);
+            String fileToCheck = imageServerPath + "/" + productId + "/" + uploadFileName;
+            File file = new File(fileToCheck);
             String imageName = null;
             imagePath = imageServerPath + "/" + productId + "/" + uploadFileName;
             file = checkExistsImage(file);
@@ -157,6 +159,10 @@ public class ImageManagementServices {
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
                     out.write(imageData.array());
                     out.close();
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                        return ServiceUtil.returnError(errorMessage);
+                    }
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -169,13 +175,19 @@ public class ImageManagementServices {
             }
             // Scale Image in different sizes
             if (UtilValidate.isNotEmpty(imageResize)) {
-                File fileOriginal = new File(imageServerPath + "/" + productId + "/" + imageName);
+                fileToCheck = imageServerPath + "/" + productId + "/" + imageName;
+                File fileOriginal = new File(fileToCheck);
                 fileOriginal = checkExistsImage(fileOriginal);
 
                 try {
                     RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
                     outFile.write(imageData.array());
                     outFile.close();
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                        return ServiceUtil.returnError(errorMessage);
+                    }
+
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -504,7 +516,7 @@ public class ImageManagementServices {
     }
 
     public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context,
-            GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) {
+            GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) throws ImageReadException {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -554,11 +566,17 @@ public class ImageManagementServices {
         }
         result.put("filenameToUseThumb", filenameToUseThumb);
         // Create image file thumbnail to folder product id.
-        File fileOriginalThumb = new File(imageServerPath + "/" + productId + "/" + filenameToUseThumb);
+        String fileToCheck = imageServerPath + "/" + productId + "/" + filenameToUseThumb;
+        File fileOriginalThumb = new File(fileToCheck);
         try {
             RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
             outFileThumb.write(imageData.array());
             outFileThumb.close();
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                return ServiceUtil.returnError(errorMessage);
+            }
+
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

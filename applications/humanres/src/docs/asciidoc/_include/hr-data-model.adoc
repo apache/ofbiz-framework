@@ -1,0 +1,123 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= HR Data model
+
+This chapter describe the main entities for the Human Resource Component. +
+The goal is to show :
+
+* overall view for each HR core object
+* link between entities
+
+For each diagram, Main Entities (for this diagram) are in purple +
+Entities in Light Blue have not all fields (link, composition ) present.
+
+== Employee Position
+[#DATAMODEL-EMPL-POSITION]
+=== Position and PositionType
+This diagram explain Position and PositionType main informations.
+image:hr-data-model/EmplPosition.png[Employee Position, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION-DETAIL, Position details>>
+* <<DATAMODEL-PARTY-HUMANRES, Party in Human Resources>>
+* <<DATAMODEL-EMPLOYMENT, Employment>>
+* <<DATAMODEL-EMPLOYMENT-APPL, Employment Appl>>
+* <<DATAMODEL-ABILITY, Qualification Skill training>>
+* <<DATAMODEL-PERFORMANCE-REVIEW, Performance Review>>
+
+[#DATAMODEL-EMPL-POSITION-DETAIL]
+=== Position details
+This diagram show all Positions main informations / link.
+image:hr-data-model/EmplPositionDetail.png[Employee Position Detail, width=90%, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION, Position and PositionType>>
+* <<DATAMODEL-PARTY-HUMANRES, Party in Human Resources>>
+* <<DATAMODEL-EMPLOYMENT, Employment>>
+* <<DATAMODEL-EMPLOYMENT-APPL, Employment Appl>>
+* <<DATAMODEL-ABILITY, Qualification Skill training>>
+* <<DATAMODEL-PERFORMANCE-REVIEW, Performance Review>>
+
+== Employment
+[#DATAMODEL-EMPLOYMENT]
+=== Employment
+This diagram explain Position and PositionType main informations.
+image:hr-data-model/Employment.png[Employment, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION, Position and PositionType>>
+* <<DATAMODEL-EMPL-POSITION-DETAIL, Position details>>
+* <<DATAMODEL-PARTY-HUMANRES, Party in Human Resources>>
+* <<DATAMODEL-EMPLOYMENT-APPL, Employment Appl>>
+* <<DATAMODEL-ABILITY, Qualification Skill training>>
+* <<DATAMODEL-PERFORMANCE-REVIEW, Performance Review>>
+
+[#DATAMODEL-EMPLOYMENT-APPL]
+=== Employment Appl
+This diagram show all Positions main informations / link.
+image:hr-data-model/EmploymentApp.png[Employment Appl, width=90%, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION, Position and PositionType>>
+* <<DATAMODEL-EMPL-POSITION-DETAIL, Position details>>
+* <<DATAMODEL-PARTY-HUMANRES, Party in Human Resources>>
+* <<DATAMODEL-EMPLOYMENT, Employment>>
+* <<DATAMODEL-ABILITY, Qualification Skill training>>
+* <<DATAMODEL-PERFORMANCE-REVIEW, Performance Review>>
+
+== Qualification, Skill, Review
+[#DATAMODEL-ABILITY]
+=== Training
+This diagram show all link between Party & PartyRole  AND all HR entites.
+image:hr-data-model/ability.png[Training, width=90%, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION, Position and PositionType>>
+* <<DATAMODEL-EMPL-POSITION-DETAIL, Position details>>
+* <<DATAMODEL-PARTY-HUMANRES, Party in Human Resources>>
+* <<DATAMODEL-EMPLOYMENT, Employment>>
+* <<DATAMODEL-EMPLOYMENT-APPL, Employment Appl>>
+* <<DATAMODEL-PERFORMANCE-REVIEW, Performance Review>>
+
+[#DATAMODEL-PERFORMANCE-REVIEW]
+=== Performance Review
+This diagram show all link between Party & PartyRole  AND all HR entites.
+image:hr-data-model/PerfReview.png[Performance Review, width=90%, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION, Position and PositionType>>
+* <<DATAMODEL-EMPL-POSITION-DETAIL, Position details>>
+* <<DATAMODEL-PARTY-HUMANRES, Party in Human Resources>>
+* <<DATAMODEL-EMPLOYMENT, Employment>>
+* <<DATAMODEL-EMPLOYMENT-APPL, Employment Appl>>
+* <<DATAMODEL-ABILITY, Qualification Skill training>>
+
+== HR App intra-application integration
+[#DATAMODEL-PARTY-HUMANRES]
+=== Party in Human Resources
+This diagram show all link between Party & PartyRole  AND all HR entites.
+image:hr-data-model/PartyHumanRes.png[Party in Human Resources, width=90%, float="right"]
+
+==== Diagram associated
+* <<DATAMODEL-EMPL-POSITION, Position and PositionType>>
+* <<DATAMODEL-EMPL-POSITION-DETAIL, Position details>>
+* <<DATAMODEL-EMPLOYMENT, Employment>>
+* <<DATAMODEL-EMPLOYMENT-APPL, Employment Appl>>
+* <<DATAMODEL-ABILITY, Qualification Skill training>>
+* <<DATAMODEL-PERFORMANCE-REVIEW, Performance Review>>

@@ -20,7 +20,7 @@
         under the License.
     -->
 
-    <#-- FreeMarker template for Fedex FDXSubscriptionRequest -->
+    <#-- FTL template for Fedex FDXSubscriptionRequest -->
 
     <FDXSubscriptionRequest xmlns:api="http://www.fedex.com/fsmapi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FDXSubscriptionRequest.xsd">
         <RequestHeader>
@@ -34,7 +34,7 @@
                 <FaxNumber>${FaxNumber?xml}</FaxNumber>
             </#if>
             <#if EMailAddress??>
-                <#-- Freemarker has a problem with the E-MailAddress tag name, so the opening and closing tags need to be wrapped in the noparse directive. -->
+                <#-- Free-marker has a problem with the E-MailAddress tag name, so the opening and closing tags need to be wrapped in the noparse directive. -->
                 <#noparse><E-MailAddress></#noparse>${EMailAddress?xml}<#noparse></E-MailAddress></#noparse>
             </#if>
         </Contact>

@@ -146,8 +146,7 @@ public class LayoutEvents {
             }
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
-            // Use objectInfo field to store the name of the file, since there is no
-            // place in ImageDataResource for it.
+            // Use objectInfo field to store the name of the file, since there is no place in ImageDataResource for it.
             if (dataResource != null) {
                 dataResource.set("objectInfo", imageFileName);
                 dataResource.set("mimeTypeId", mimeTypeId);

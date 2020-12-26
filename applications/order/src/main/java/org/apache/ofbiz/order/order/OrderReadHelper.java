@@ -3583,21 +3583,26 @@ public class OrderReadHelper {
 
     /**
      * Get orderAdjustments that have no corresponding returnAdjustment
+     * It also handles the case of partial adjustment amount. Check OFBIZ-11185 for details
      * @return return the order adjustments that have no corresponding with return adjustment
      */
     public List<GenericValue> getAvailableOrderHeaderAdjustments() {
         List<GenericValue> orderHeaderAdjustments = this.getOrderHeaderAdjustments();
         List<GenericValue> filteredAdjustments = new LinkedList<>();
         for (GenericValue orderAdjustment : orderHeaderAdjustments) {
-            long count = 0;
+            BigDecimal returnedAmount = BigDecimal.ZERO;
             try {
-                count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition
-                        .makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get(
-                                "orderAdjustmentId")), null, null);
+                List<GenericValue> returnAdjustments = EntityQuery.use(orderHeader.getDelegator()).from("ReturnAdjustment").where("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")).queryList();
+                if (UtilValidate.isNotEmpty(returnAdjustments)) {
+                    for (GenericValue returnAdjustment : returnAdjustments) {
+                        returnedAmount = returnedAmount.add(returnAdjustment.getBigDecimal("amount"));
+                    }
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
             }
-            if (count == 0) {
+            if (orderAdjustment.getBigDecimal("amount").compareTo(returnedAmount) > 0) {
+                orderAdjustment.set("amount", orderAdjustment.getBigDecimal("amount").subtract(returnedAmount));
                 filteredAdjustments.add(orderAdjustment);
             }
         }

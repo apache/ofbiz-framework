@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -198,7 +199,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> createFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        //GenericValue dataResource = (GenericValue) context.get("dataResource");
+        Delegator delegator = dctx.getDelegator();
         String dataResourceTypeId = (String) context.get("dataResourceTypeId");
         String objectInfo = (String) context.get("objectInfo");
         ByteBuffer binData = (ByteBuffer) context.get("binData");
@@ -250,7 +251,11 @@ public class DataServices {
         if (UtilValidate.isNotEmpty(textData)) {
             try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                 out.write(textData);
-            } catch (IOException e) {
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
+                    return ServiceUtil.returnError(errorMessage);
+                }
+            } catch (IOException | ImageReadException e) {
                 Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -260,7 +265,13 @@ public class DataServices {
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(binData.array());
                 out.close();
-            } catch (FileNotFoundException e) {
+                // Check if a webshell is not uploaded
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                    return ServiceUtil.returnError(errorMessage);
+                }
+
+            } catch (FileNotFoundException | ImageReadException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -404,6 +415,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<>();
         Locale locale = (Locale) context.get("locale");
         String dataResourceTypeId = (String) context.get("dataResourceTypeId");
@@ -442,7 +454,11 @@ public class DataServices {
             if (UtilValidate.isNotEmpty(textData)) {
                 try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                     out.write(textData);
-                } catch (IOException e) {
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
+                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
+                        return ServiceUtil.returnError(errorMessage);
+                    }
+                } catch (IOException | ImageReadException e) {
                     Debug.logWarning(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -453,7 +469,12 @@ public class DataServices {
                     out.setLength(binData.array().length);
                     out.write(binData.array());
                     out.close();
-                } catch (FileNotFoundException e) {
+                    // Check if a webshell is not uploaded
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                        return ServiceUtil.returnError(errorMessage);
+                    }
+                } catch (FileNotFoundException | ImageReadException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -589,12 +610,14 @@ public class DataServices {
 
     public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context)
             throws GenericServiceException {
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
         byte[] imageData = (byte[]) context.get("imageData");
         String rootDir = (String) context.get("rootDir");
+        Locale locale = (Locale) context.get("locale");
         File file = null;
         if (Debug.infoOn()) {
             Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
@@ -614,10 +637,15 @@ public class DataServices {
         if (imageData != null && imageData.length > 0) {
             try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
+                // Check if a webshell is not uploaded
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                    return ServiceUtil.returnError(errorMessage);
+                }
                 if (Debug.infoOn()) {
                     Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), MODULE);
                 }
-            } catch (IOException e) {
+            } catch (IOException | ImageReadException e) {
                 Debug.logWarning(e, MODULE);
                 throw new GenericServiceException(e.getMessage());
             }
@@ -641,12 +669,14 @@ public class DataServices {
 
     public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context)
             throws GenericServiceException {
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
         byte[] imageData = (byte[]) context.get("imageData");
         String rootDir = (String) context.get("rootDir");
+        Locale locale = (Locale) context.get("locale");
         File file = null;
         if (Debug.infoOn()) {
             Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, MODULE);
@@ -666,10 +696,16 @@ public class DataServices {
         if (imageData != null && imageData.length > 0) {
             try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
+                // Check if a webshell is not uploaded
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                    return ServiceUtil.returnError(errorMessage);
+                }
+
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), MODULE);
                 }
-            } catch (IOException e) {
+            } catch (IOException | ImageReadException e) {
                 Debug.logWarning(e, MODULE);
                 throw new GenericServiceException(e.getMessage());
             }

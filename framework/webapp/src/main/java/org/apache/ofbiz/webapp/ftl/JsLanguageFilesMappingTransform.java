@@ -31,6 +31,7 @@ import org.apache.ofbiz.common.JsLanguageFilesMapping;
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.template.TemplateTransformModel;
+import org.apache.ofbiz.common.JsLanguageFilesMappingUtil;
 
 /**
  * access JsLanguageFilesMapping from ftl using macro
@@ -52,24 +53,7 @@ public class JsLanguageFilesMappingTransform implements TemplateTransformModel {
                     if (!libraryName.isEmpty()) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                         String localeString = UtilHttp.getLocale(request).toString();
-                        switch (libraryName) {
-                            case "datejs":
-                                out.write(JsLanguageFilesMapping.DateJs.getFilePath(localeString));
-                                break;
-                            case "dateTime":
-                                out.write(JsLanguageFilesMapping.DateTime.getFilePath(localeString));
-                                break;
-                            case "jquery":
-                                out.write(JsLanguageFilesMapping.JQuery.getFilePath(localeString));
-                                break;
-                            case "select2":
-                                out.write(JsLanguageFilesMapping.Select2.getFilePath(localeString));
-                                break;
-                            case "validation":
-                                out.write(JsLanguageFilesMapping.Validation.getFilePath(localeString));
-                                break;
-                            default:
-                        }
+                        out.write(JsLanguageFilesMappingUtil.getFile(libraryName, localeString));
                     }
                 } catch (Exception e) {
                     Debug.logWarning(e, "Exception thrown while running " + MODULE, MODULE);

@@ -35,12 +35,12 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.category.CatalogUrlFilter;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;

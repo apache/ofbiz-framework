@@ -290,7 +290,6 @@ The blue light theme has been these properties in VisualThemeRessource :
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/fieldlookup.js" sequenceId="16"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/plugins/date/date.format-1.2.3-min.js" sequenceId="17"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/plugins/date/date.timezone-min.js" sequenceId="18"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/miscAjaxFunctions.js" sequenceId="19"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/common/js/util/selectMultipleRelatedValues.js" sequenceId="20"/>

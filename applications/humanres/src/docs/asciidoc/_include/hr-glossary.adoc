@@ -16,31 +16,39 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Glossary
+[glossary]
+= HR Glossary
 
-[#BUDGET]
-Budget::
-A budget is used to track spending in the company for a future period of time.
-The company may have one or more budgets depending on the requirements i.e. Operating
-Budget, Capital Budget. A budget has a status, type and is composed of budget line
-items.
+[comment]
+It's important to sort glossary entries in alphabetic order to avoid duplication or search failing.
 
-[#EMPLOYEE]
-Employee::
-An employee is a person who has an employment relationship with your Company.
-
-[#EMPLOYEE_POSITION_TYPE]
-Employee Position Type::
-Employee Positions Type is a name that describes a position. Business Analyst,
- Programmer and System Administrator are examples of position types in the OFBiz
-demo data. You can define your own position types in Global HR Settings > Position
-Types.
+[#BENEFITS]
+Employment Benefits::
+Employment imply salary but not only, most of time, there are some benefit packages associated. Examples are
+vacation,health or life insurance, sick leave or retirement plan. Cost of these package may be partly or completely
+paid by the entreprise. Example can be see in <<_step_4_employee_associated_benefits>> in <<_tutorial_employment_and_salary>>.
 
 [#EMPLOYMENT]
 Employment::
 Employment defines the relationship between your Company and a person who is an
  employee. The employment relationship tracks employee benefits  preferences, pay
-history, and unemployment claims and agreements.
+history, and unemployment claims and agreements. +
+For more detail see <<_employments>> chapter.
+
+[#EMPLOYEE]
+Employee::
+An employee is a person (and so a party) who has an employment relationship with your Company. +
+For more detail see <<_employees>> chapter.
+
+[#EMPLOYEE_POSITION_TYPE]
+Employee Position Type::
+Employee Position Type is a name that describes a position (<<_employee_positions, Employee Positions>>).
+You can define your own position types in Global HR Settings > Position
+Types.
+
+[NOTE]
+Business Analyst, Programmer and System Administrator are examples of position types in the OFBiz
+demo data.
 
 [#EXEMPT_FLAG]
 Exempt Flag::
@@ -62,36 +70,12 @@ HR App Menu::
 The main menu that opens the high level features of the HR App i.e. Employees,
 Employments, Employee Position etc.
 
-[#INTERNAL_ORGANIZATION]
-Internal Organization::
-Internal organization is the name of a relationship between a party group and your
-company. This relationship is used to filter party groups as being part of your
-company to distinguish them from other groups which are external. For example your
-marketing department is an internal organization while a suppliers sales department
-is not.
-
 [#NUMBER_OF_EMPLOYEES]
 Number of Employees::
 Number of employees that are reported in the Party Group Information screenlet of
 the groups profile (Visit Party Profile screen).
 
-[#PARTY]
-Party::
-Party is a term used to simplify collecting information that used in a common manner
-by different people and things. The most common party types are people and groups.
-Both people and groups have contact information. A party is identified by a unique
-Party Id. Using this Id OFBiz can collect and find contact (and other information
-and processes) for both people and groups in the same way. This is why you will
-often see Party Id as a field in a form or a filter as you work in OFBiz.
-
-[#PARTY_ID]
-Party Id::
-The unique identifier for a party. The Id is text so in some cases you will see
-an Id, created by a user, that carries some meaning i.e. Party Id DemoEmployee.
-In other cases the Id is created by OFBiz and is will be simply a number from a
-sequence. In either case the Id is unique.
-
-[#Qualifications]
+[#QUALIFICATIONS]
 Qualifications::
 Qualifications for an individual person or organization are in the Employees Qualifications
 menu item. To find and update the qualifications of people and organizations visit
@@ -103,21 +87,11 @@ Party qualifications define a person or organizations accomplishments that indic
 their suitability to perform a job. Qualifications are organized into qualification
 groups for the purpose of managing and reporting.
 
-[#PERSON]
-Person::
-Person is a human being as distinguished from a party group which is an organization.
-Human beings and organizations have different attributes i.e. People have first and
-last names while groups have group names. Both person and party group are types
- of parties and share information and processes common to parties.
-
 [#POSITION]
-Position::
-A position is a job that can be filled by more then one person over time or at
-the same time. Positions are defined by a type of work. For example there may
-be 20 positions in an organization for a secretary. Each position is related to
-a department in the organization. A position can me thought of as a full-time
-equivalent employee (FTE). So an FTE may be assigned to one or more positions
-and position can be assigned to more then one FTEs (job sharing).
+Position:: A Employee Position is a job that can be filled by more then one person over time or at the same time.
+Positions are defined by a type of work. For example there may be 20 positions in an organization for a secretary.
+Each position is related to a department in the organization. +
+For more details have a look at <<_employee_positions>> in HR core object chapter.
 
 [#RATING]
 Rating::
@@ -161,5 +135,5 @@ type e.g. Type: resigned for reason: found new job.
 
 [#TERMINATION_TYPE]
 Termination Type::
-The termination type is a name for the kind of termination e.g. Resigned, fired,
+The termination type is a name for the kind of termination e.i. Resigned, fired,
  retired, layoff.
