@@ -28,6 +28,9 @@
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="INOUT" optional="true" entity-name="ContentAssoc"/><!--useful to forward some fields waiting by some seca present
+                                                                                                      for historic reason but need refactoring it to isolate
+                                                                                                      correctly this functionality-->
         <attribute name="contentAssocTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="contentIdFrom" type="String" mode="INOUT" optional="true"/>
         <attribute name="contentIdTo" type="String" mode="INOUT" optional="true"/>
@@ -95,7 +98,7 @@
 
     <service name="createContentFromUploadedFile" engine="group" transaction-timeout="300">
         <description>Accepts file upload, creates DataResource and Content records.</description>
-        <!-- uses createContent internally; additonal permission(s) not necessary -->
+        <!-- uses createContent internally; additional permission(s) not necessary -->
         <group>
             <invoke name="createDataResource" parameters="preserve" result-to-context="true"/>
             <invoke name="attachUploadToDataResource" parameters="preserve" result-to-context="true"/>

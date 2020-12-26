@@ -35,39 +35,48 @@ $(document).ready(function() {
         }
       }
     });
-    jQuery(document).ajaxSuccess(function () {
-        initNamedBorder();
-    })
     //initializing UI combobox dropdown by overriding its methods.
     ajaxAutoCompleteDropDown();
     // bindObservers will add observer on passed html section when DOM is ready.
     bindObservers("body");
 
-    function initNamedBorder() {
-        jQuery("[data-source]").off();
-        // fadeout info-overlay labels
-        setTimeout(function(){
-            $('.info-overlay').fadeOut(1000, function(){
-                jQuery("[data-source]").off();
-                $('.info-container').contents().unwrap();
-                $('.info-content').contents().unwrap();
-                $('.info-overlay').delay(1000).remove();
-            });
-        }, 3000);
+    let count = 1;
+    function initNamedBorders() {
         // clickable link in named border to open source file
-        jQuery("[data-source]").click(function(){
-            var sourceLocaton = jQuery(this).data("source");
-            jQuery.ajax({
-                url: 'openSourceFile',
-                type: "POST",
-                data: {sourceLocation:sourceLocaton},
-                success: function(data) {
-                    alert("Command is sent to open source file with your IDE");
-                }
+        var selectList = jQuery(".info-cursor-none[data-source]");
+        // console.log("length="+selectList.length);
+        selectList.each(function(){
+            const $this = $(this);
+            $this.removeClass("info-cursor-none");
+            let sourceLocaton = $this.data("source");
+            let target = $this.data("target");
+            $this.addClass("info-cursor").click(function(){
+                jQuery.ajax({
+                    url: target,
+                    type: "POST",
+                    data: {sourceLocation:sourceLocaton},
+                    success: function(data) {
+                        alert("Server has opened \n" + sourceLocaton);
+                    }
+                });
             });
+            setTimeout(function (){
+                $this.fadeOut(1000,function() {
+                    // fadeout info-overlay labels
+                    $this.off();
+                    var container = $this.closest(".info-container");
+                    container.contents().unwrap();
+                    $this.remove();
+                });
+            }, (200 * ++count) + 5000);
+
         });
+
     }
-    initNamedBorder();
+    initNamedBorders();
+    jQuery(document).ajaxSuccess(function () {
+        initNamedBorders();
+    });
 });
 
 /* bindObservers function contains the code of adding observers and it can be called for specific section as well
@@ -300,12 +309,25 @@ function bindObservers(bind_element) {
         var element = jQuery(this);
         element.validate();
     });
-
     jQuery(bind_element).find(".date-time-picker").each(function(){
+        initDateTimePicker(this);
+    });
+    jQuery(bind_element).on("click", ".fieldgroup  li.collapsed, .fieldgroup  li.expanded", function(e){
         var element = jQuery(this);
-        var id = element.attr("id");
-        var element_i18n = jQuery("#" + id + "_i18n");
-        var shortDate = element.data("shortdate");
+        var collapsibleAreaId =  element.data("collapsible-area-id");
+        var expandToolTip =  element.data("expand-tooltip");
+        var collapseToolTip =  element.data("collapse-tooltip");
+        toggleCollapsiblePanel(element, collapsibleAreaId, expandToolTip, collapseToolTip);
+    });
+}
+
+function initDateTimePicker(self) {
+    var element = jQuery(self);
+    var id = element.attr("id");
+    var element_i18n = jQuery("#" + id + "_i18n");
+    var shortDate = element.data("shortdate");
+    var libCultureInfo = [element.data("cultureinfo")];
+    importLibrary(libCultureInfo, function () {
         //If language specific lib is found, use date / time converter else just copy the value fields
         if (Date.CultureInfo != undefined) {
             var initDate = element.val();
@@ -329,7 +351,7 @@ function bindObservers(bind_element) {
                 element_i18n.val(formatedObj);
             }
 
-            element.change(function() {
+            element.change(function () {
                 var value = element.val();
                 var dateFormat;
                 var ofbizTime;
@@ -348,7 +370,7 @@ function bindObservers(bind_element) {
                 element_i18n.val(newValue);
             });
 
-            element_i18n.change(function() {
+            element_i18n.change(function () {
                 var value = element_i18n.val();
                 var dateFormat;
                 var ofbizTime;
@@ -360,7 +382,7 @@ function bindObservers(bind_element) {
                     ofbizTime = "yyyy-MM-dd HH:mm:ss"
                 }
                 var newValue = "";
-                var dateObj = Date.parseExact(this.value, dateFormat);
+                var dateObj = Date.parseExact(self.value, dateFormat);
                 if (value != "" && dateObj !== null) {
                     newValue = dateObj.toString(ofbizTime);
                 } else { // invalid input
@@ -370,14 +392,17 @@ function bindObservers(bind_element) {
             });
         } else {
             //fallback if no language specific js date file is found
-            element.change(function() {
-                element_i18n.val(this.value);
+            element.change(function () {
+                element_i18n.val(self.value);
             });
-            element_i18n.change(function() {
-                element.val(this.value);
+            element_i18n.change(function () {
+                element.val(self.value);
             });
         }
-        if (shortDate) {
+    });
+    var libDatePickerLang = [element.data("datepickerlang")];
+    if (shortDate) {
+        importLibrary(libDatePickerLang, function () {
             element.datepicker({
                 showWeek: true,
                 showOn: 'button',
@@ -386,29 +411,31 @@ function bindObservers(bind_element) {
                 buttonImageOnly: false,
                 dateFormat: 'yy-mm-dd'
             })
-        } else {
-            element.datetimepicker({
-                showSecond: true,
-                // showMillisec: true,
-                timeFormat: 'HH:mm:ss',
-                stepHour: 1,
-                stepMinute: 1,
-                stepSecond: 1,
-                showOn: 'button',
-                buttonImage: '',
-                buttonText: '',
-                buttonImageOnly: false,
-                dateFormat: 'yy-mm-dd'
-            })
+        });
+    } else {
+        var libTimePicker = element.data("timepicker");
+        if (libTimePicker) {
+            libTimePicker = libTimePicker.split(",");
+            importLibrary(libTimePicker, function () {
+                var libDateTimePickerLang = libDatePickerLang.concat([element.data("timepickerlang")]);
+                importLibrary(libDateTimePickerLang, function () {
+                    element.datetimepicker({
+                        showSecond: true,
+                        // showMillisec: true,
+                        timeFormat: 'HH:mm:ss',
+                        stepHour: 1,
+                        stepMinute: 1,
+                        stepSecond: 1,
+                        showOn: 'button',
+                        buttonImage: '',
+                        buttonText: '',
+                        buttonImageOnly: false,
+                        dateFormat: 'yy-mm-dd'
+                    })
+                });
+            });
         }
-    });
-    jQuery(bind_element).on("click", ".fieldgroup  li.collapsed, .fieldgroup  li.expanded", function(e){
-        var element = jQuery(this);
-        var collapsibleAreaId =  element.data("collapsible-area-id");
-        var expandToolTip =  element.data("expand-tooltip");
-        var collapseToolTip =  element.data("collapse-tooltip");
-        toggleCollapsiblePanel(element, collapsibleAreaId, expandToolTip, collapseToolTip);
-    });
+    }
 }
 
 /* SelectAll: This utility can be used when we need to use parent and child box combination over any page. Here is the list of tasks it will do:
@@ -596,16 +623,18 @@ function ajaxUpdateArea(areaId, target, targetParams) {
         return;
     }
     waitSpinnerShow();
-    jQuery.ajax({
-        url: target,
-        type: "POST",
-        data: targetParams,
-        success: function(data) {
-            jQuery("#" + areaId).html(data);
-            waitSpinnerHide();
-        },
-        error: function(data) {waitSpinnerHide()}
-    });
+    setTimeout(function() {
+        jQuery.ajax({
+            url: target,
+            type: "POST",
+            data: targetParams,
+            success: function(data) {
+                jQuery("#" + areaId).html(data);
+                waitSpinnerHide();
+            },
+            error: function(data) {waitSpinnerHide()}
+        });
+    }, 0);
 }
 
 /** Update multiple areas (HTML container elements).
@@ -1238,6 +1267,7 @@ function waitSpinnerShow() {
     winHeight = jQuery(window).height();
     lookupTop = (scrollOffY + winHeight / 2) - (jSpinner.height() / 2);
 
+    jSpinner.removeClass("hidden");
     jSpinner.css("display", "block");
     jSpinner.css("left", lookupLeft + "px");
     jSpinner.css("top", lookupTop + "px");
@@ -1459,6 +1489,13 @@ function sendJWT(targetUrl) {
     }
 }
 
+/**
+ * Load an array of external javascript and/or css files asynchronously.
+ * Run success function after the external files are loaded.
+ * @param urls array of js / css links
+ * @param onSuccessFn function to run when the files are loaded successfully
+ * @param onErrorFn optional function to run when any of the files are not loaded correctly
+ */
 var importLibrary = function() {
     var importLibraryFiles = new Map();
     return function (urls, onSuccessFn, onErrorFn) {
@@ -1500,6 +1537,10 @@ var importLibrary = function() {
     }
 }();
 
+/**
+ * Is browser accessing local server?
+ * @returns {boolean}
+ */
 function isLocalEnviron(){
     return ["localhost","127.0.0.1"].includes(window.location.hostname);
 }

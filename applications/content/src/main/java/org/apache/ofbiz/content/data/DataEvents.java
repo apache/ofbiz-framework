@@ -83,10 +83,22 @@ public class DataEvents {
         String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service",
                 "genericContentPermission", delegator);
 
-        // This is counterintuitive but it works, for OFBIZ-11840
-        // It could be improved by checking for possible events associated with svg
-        // As listed at https://portswigger.net/web-security/cross-site-scripting/cheat-sheet
-        if (contentId.contains("<svg")) {
+        // @formatter:off (prevent unwanted formatting in Eclipse)
+        // For OFBIZ-11840. It's counterintuitive to return success but it makes sense if you thing about it. It simply returns a blank screen.
+        // To illustrate, only few payloads, onLoad related, are handled because it works everytime.
+        // It could be improved by checking for all payloads.
+        // As listed at https://portswigger.net/web-security/cross-site-scripting/cheat-sheet, at 2020-11-11 there are 8979 of them.
+        // So a way could be to read all of them and test...
+        // @formatter:on
+
+        if (contentId.toLowerCase().contains("<svg")
+                || contentId.toLowerCase().contains("<body")
+                || contentId.toLowerCase().contains("<iframe")
+                || contentId.toLowerCase().contains("<object")
+                || contentId.toLowerCase().contains("<embed")
+                || contentId.toLowerCase().contains("<a href='javas")
+                || contentId.toLowerCase().contains("<a href=\"javas")
+                || contentId.toLowerCase().contains("<script")) {
             return "success";
         }
 

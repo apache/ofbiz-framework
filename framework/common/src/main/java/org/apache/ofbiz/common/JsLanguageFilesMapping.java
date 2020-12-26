@@ -31,7 +31,7 @@ public final class JsLanguageFilesMapping {
 
     public static class DateJs {
 
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultDateJs = "/common/js/jquery/plugins/datejs/date-en-US.js";
 
         static {
@@ -206,8 +206,8 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class JQuery {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultDateJs = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
+        private static Map<String, String> localeFiles = new HashMap<>();
+        private static String defaultDateJs = "/common/js/jquery/ui/i18n/datepicker-en.js";
 
         static {
             localeFiles.put("sq", "/common/js/jquery/ui/i18n/datepicker-sq.js");
@@ -381,7 +381,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class Validation {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultValidation = "/common/js/jquery/plugins/validate/localization/messages_en.js";
 
         static {
@@ -555,8 +555,8 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class DateTime {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
-        private static String defaultDateTime = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
+        private static Map<String, String> localeFiles = new HashMap<>();
+        private static String defaultDateTime = "/common/js/jquery/plugins/datetimepicker/i18n/jquery-ui-timepicker-en.js";
 
         static {
             localeFiles.put("sq", "/common/js/jquery/plugins/datetimepicker/i18n/jquery-ui-timepicker-sq.js");
@@ -729,7 +729,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class Select2 {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultSelect2 = "/common/js/jquery/plugins/select2/js/i18n/en.js";
 
         static {

@@ -551,7 +551,6 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         if (parent.exists()) {
             File[] subs = parent.listFiles();
             if (subs != null) {
-                int length = subs.length;
                 for (File sub : subs) {
                     if (sub.isDirectory()) {
                         dirMap.put(sub.lastModified(), sub);
@@ -1000,6 +999,9 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
+            if (!file.exists()) {
+                throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
+            }
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
@@ -1010,6 +1012,9 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
+            if (!file.exists()) {
+                throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
+            }
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
@@ -1020,6 +1025,9 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
+            if (!file.exists()) {
+                throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
+            }
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 if (Debug.infoOn()) {
                     String enc = in.getEncoding();
@@ -1117,6 +1125,9 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
+                if (!file.exists()) {
+                    throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
+                }
                 return UtilMisc.toMap("stream", Files.newInputStream(file.toPath(), StandardOpenOption.READ), "length", file.length());
             }
             throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");

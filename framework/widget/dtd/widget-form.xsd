@@ -968,7 +968,7 @@ under the License.
             <xs:attribute type="xs:string" name="description">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the string to display, can use the ${} syntax to insert context values; 
+                        Specifies the string to display, can use the ${} syntax to insert context values;
                         if empty the value of the field will be printed for a default.
                     </xs:documentation>
                 </xs:annotation>
@@ -976,7 +976,7 @@ under the License.
             <xs:attribute type="xs:integer" name="size">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the size of the field (as a number of characters), 
+                        Specifies the size of the field (as a number of characters),
                         when the text to display exceed the given size it is truncated and add the complete text as a hint
                     </xs:documentation>
                 </xs:annotation>
@@ -1167,7 +1167,11 @@ under the License.
                 </xs:attribute>
                 <xs:attribute name="target-type" default="intra-app">
                     <xs:annotation>
-                        <xs:documentation>Deprecated - use the url-mode attribute.</xs:documentation>
+                        <xs:documentation>
+                            Deprecated - use the url-mode attribute.
+                            Actually url-mode does not work when a form like target="javascript: is used
+                            Better let it like it is, see OFBIZ-12091
+                        </xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                         <xs:restriction base="xs:token">
@@ -1743,7 +1747,11 @@ under the License.
                 <xs:attribute type="xs:string" name="use-when" />
                 <xs:attribute name="target-type" default="intra-app">
                     <xs:annotation>
-                        <xs:documentation>Deprecated - use the url-mode attribute.</xs:documentation>
+                        <xs:documentation>
+                            Deprecated - use the url-mode attribute.
+                            Actually url-mode does not work when a form like target="javascript: is used
+                            Better let it like it is, see OFBIZ-12091
+                        </xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                         <xs:restriction base="xs:token">

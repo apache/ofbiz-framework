@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.ImageIcon;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -271,6 +272,7 @@ public class FrameImage {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = dispatcher.getDelegator();
         HttpSession session = request.getSession();
+        Locale locale = request.getLocale();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
@@ -316,6 +318,11 @@ public class FrameImage {
             RandomAccessFile out = new RandomAccessFile(file, "rw");
             out.write(imageData.array());
             out.close();
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Image", delegator)) {
+                String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                return "error";
+            }
 
             //create dataResource
             Map<String, Object> dataResourceCtx = new HashMap<>();
@@ -348,7 +355,7 @@ public class FrameImage {
                 return "error";
             }
             contentId = contentResult.get("contentId").toString();
-        } catch (GenericServiceException | IOException gse) {
+        } catch (GenericServiceException | IOException | ImageReadException gse) {
             request.setAttribute("_ERROR_MESSAGE_", gse.getMessage());
             return "error";
         }

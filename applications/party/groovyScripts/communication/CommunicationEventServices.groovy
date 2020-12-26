@@ -205,7 +205,9 @@ def createCommunicationEvent() {
  * @return
  */
 def createCommunicationEventWithoutPermission() {
-    Map result = run service: 'createCommunicationEvent', with: [*:parameters]
+    GenericValue system = from("UserLogin").where(userLoginId: 'system').cache().queryOne()
+    Map result = run service: 'createCommunicationEvent', with: [*:parameters,
+                                                                 userLogin: system]
     return result
 }
 

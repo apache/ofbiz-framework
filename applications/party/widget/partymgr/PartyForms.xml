@@ -1434,7 +1434,7 @@ under the License.
     </grid>
     
     <form name="ImportParty" type="upload" target="uploadParty" title="" >
-        <field name="uploadedFile"><file/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit button-type="button"/></field>
     </form>
     

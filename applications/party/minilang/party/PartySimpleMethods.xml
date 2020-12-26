@@ -120,6 +120,11 @@ under the License.
                 xml-resource="component://party/minilang/contact/PartyContactMechMapProcs.xml"/>
         </if-not-empty>
 
+        <call-service service-name="createPerson" in-map-name="personContext">
+            <result-to-field result-name="partyId" field="partyId"/>
+        </call-service>
+        <check-errors/>
+
         <if-not-empty field="parameters.emailAddress">
             <call-map-processor in-map-name="parameters" out-map-name="emailAddressContext">
                 <simple-map-processor name="emailAddress">
@@ -129,23 +134,19 @@ under the License.
                     </process>
                 </simple-map-processor>
             </call-map-processor>
+            <set field="emailAddressContext.partyId" from="partyId"/>
         </if-not-empty>
         <check-errors/>
-
-        <call-service service-name="createPerson" in-map-name="personContext">
-            <result-to-field result-name="partyId" field="partyId"/>
-        </call-service>
 
         <if-not-empty field="parameters.roleTypeId">
             <set field="createPartyRoleCtx.partyId" from-field="partyId"/>
             <set field="createPartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
         </if-not-empty>
-
+        <check-errors/>
         <set field="postalAddContactMechPurpTypeId" from-field="parameters.postalAddContactMechPurpTypeId"/>
         <set field="contactNumber" from-field="parameters.contactNumber"/>
         <set field="phoneContactMechPurpTypeId" from-field="parameters.phoneContactMechPurpTypeId"/>
-        <set field="emailAddress" from-field="parameters.emailAddress"/>
         <set field="emailContactMechPurpTypeId" from-field="parameters.emailContactMechPurpTypeId"/>
         <call-simple-method method-name="createPartyContactMechs"/>
         <field-to-result field="partyId"/>
@@ -198,6 +199,12 @@ under the License.
     <!-- Simple method to create Party Postal Address, Telecom Number and Email Address, to be used by
          createPersonRoleAndContactMechs and createPartyGroupRoleAndContactMechs simple methods -->
     <simple-method method-name="createPartyContactMechs" short-description="Create Contact Mechs">
+        <set field="postalAddressContext" from-field="parameters.postalAddressContext"/>
+        <set field="postalAddContactMechPurpTypeId" from-field="parameters.postalAddContactMechPurpTypeId"/>
+        <set field="telecomNumberContext" from-field="parameters.telecomNumberContext" />
+        <set field="phoneContactMechPurpTypeId" from-field="parameters.phoneContactMechPurpTypeId"/>
+        <set field="emailAddressContext" from-field="parameters.emailAddressContext"/>
+        <set field="emailContactMechPurpTypeId" from-field="parameters.emailContactMechPurpTypeId"/>
         <!-- postal address -->
         <if-not-empty field="postalAddressContext">
             <set field="postalAddressContext.partyId" from-field="partyId"/>
@@ -230,7 +237,7 @@ under the License.
             <if-not-empty field="emailContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
                 <set field="emailAddressContext.contactMechPurposeTypeId" from-field="emailContactMechPurpTypeId"/>
             </if-not-empty>
-            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext"/>
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext" />
         </if-not-empty>
     </simple-method>
 

@@ -480,7 +480,7 @@ public class UtilCodec {
 
         if (value != null) {
             String filtered = policy.sanitize(value);
-            if (filtered != null && !value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
+            if (filtered != null && !value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(filtered)))) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
@@ -603,5 +603,4 @@ public class UtilCodec {
             return this.internalMap.toString();
         }
     }
-
 }

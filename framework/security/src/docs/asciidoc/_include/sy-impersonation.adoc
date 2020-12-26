@@ -22,11 +22,7 @@ under the License.
 The Apache OFBiz Project
 Release trunk
 
-:imagesdir: ../../themes/common-theme/webapp/images/img/
-ifdef::backend-pdf[]
-:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
-:source-highlighter: rouge
-endif::[]
+:imagesdir: ./images/security
 
 === Introduction to User impersonation
 
@@ -35,7 +31,7 @@ see navigating through the application in his name.
 
 === How do this work ?
 
-An authorized user _(see <<Security,security>> and <<Controls,controls>> section for configuration)_, can select a user
+An authorized user _(see <<impersonation_security,security>> and <<Controls,controls>> section for configuration)_, can select a user
 that will be impersonated.
 
 The impersonation start, if everything is well configured, in current application (partymgr for the demo).
@@ -50,6 +46,7 @@ This icon indicates, when clicking on it, the user impersonated, and offer a way
 The impersonate period is stored for audit purpose, and if the impersonator forgot to depersonate, the period
 is terminated _one hour_ after impersonation start.
 
+[[impersonation_security]]
 === Security
 
 This feature can draw some concerns about security aspect. This paragraph will introduce every controls and properties

@@ -30,6 +30,7 @@ under the License.
                 <set field="applicationMenuName" value="ApAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/ap/ApMenus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.AccountingApManagerApplication" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_accounting"/>
                 <set field="invoiceMenuLocation" value="component://accounting/widget/ap/ApInvoiceMenus.xml" global="true"/>
             </actions>
             <widgets>
@@ -146,7 +147,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonInvoiceDecorator">
         <section>
             <actions>
@@ -193,7 +194,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonPaymentGroupDecorator">
         <section>
             <actions>

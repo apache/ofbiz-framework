@@ -96,8 +96,9 @@ public final class WebAppUtil {
             }
         }
         if (servletMapping == null) {
-            throw new IllegalArgumentException("org.apache.ofbiz.webapp.control.ControlServlet mapping not found in "
-                    + webAppInfo.location().resolve(WEB_APP_FILE_NAME));
+            Debug.logWarning("org.apache.ofbiz.webapp.control.ControlServlet mapping not found in "
+                    + webAppInfo.location().resolve(WEB_APP_FILE_NAME), MODULE);
+            return "";
         }
         servletMapping = servletMapping.replace("*", "");
         String servletPath = webAppInfo.getContextRoot().concat(servletMapping);

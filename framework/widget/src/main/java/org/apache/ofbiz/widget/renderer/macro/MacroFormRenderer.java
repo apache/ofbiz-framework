@@ -20,7 +20,9 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,7 +33,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
-import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,7 +97,6 @@ import org.jsoup.nodes.Element;
 
 import com.ibm.icu.util.Calendar;
 
-import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -106,8 +106,8 @@ import freemarker.template.TemplateException;
 public final class MacroFormRenderer implements FormStringRenderer {
 
     private static final String MODULE = MacroFormRenderer.class.getName();
+    @SuppressWarnings("unused")
     private final Template macroLibrary;
-    private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private final UtilCodec.SimpleEncoder internalEncoder;
     private final RequestHandler rh;
     private final HttpServletRequest request;
@@ -125,7 +125,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response,
                              FtlWriter ftlWriter) throws TemplateException, IOException {
-        macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
+        this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
         this.visualTheme = ThemeFactory.resolveVisualTheme(request);
@@ -168,7 +168,17 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     private void executeMacro(Appendable writer, String macro) {
-        ftlWriter.executeMacro(writer, macro);
+        ftlWriter.executeMacro(writer, null, macro);
+    }
+
+    /**
+     * Make locale available before executing macro
+     * @param writer
+     * @param locale
+     * @param macro
+     */
+    private void executeMacro(Appendable writer, Locale locale, String macro) {
+        ftlWriter.executeMacro(writer, locale, macro);
     }
 
     private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
@@ -719,6 +729,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 formattedMask = "9999-99-99 99:99:99";
             }
         }
+        String isXMLHttpRequest = "false";
+        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+            isXMLHttpRequest = "true";
+        }
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderDateTimeField ");
@@ -786,10 +800,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(formattedMask);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
+        sr.append("\" isXMLHttpRequest=\"");
+        sr.append(isXMLHttpRequest);
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, (Locale) context.get("locale"), sr.toString());
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -2228,7 +2244,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, locale, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -2978,7 +2994,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
-    public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) {
+    public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText)
+            throws UnsupportedEncodingException {
         boolean ajaxEnabled = false;
         ModelForm modelForm = modelFormField.getModelForm();
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnSortColumnUpdateAreas();
@@ -3038,7 +3055,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             String newQueryString = sb.toString();
             String urlPath = UtilHttp.removeQueryStringFromTarget(paginateTarget);
-            linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
+            if (newQueryString.contains("?null=")) { // FIXME, not sure how to handle URL encoding in tests
+                newQueryString = newQueryString.replace("?null=LinkFromQBEString", "?sortField=LinkFromQBEString");
+                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
+            } else {
+                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(URLEncoder.encode(newQueryString, "UTF-8")));
+            }
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
@@ -3046,7 +3068,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(sortFieldStyle);
         sr.append("\" title=\"");
         sr.append(titleText);
-        sr.append("\" linkUrl=r\"");
+        sr.append("\" linkUrl=\"");
         sr.append(linkUrl);
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
@@ -3223,7 +3245,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        String encodedDescription = encode(description, modelFormField, context);
+        String encodedDescription = internalEncoder.encode(description);
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();

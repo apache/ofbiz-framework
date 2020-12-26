@@ -18,6 +18,7 @@ under the License.
 ////
 [[apache-ofbiz]]
 = Apache OFBiz®
+The Apache OFBiz Project
 
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
@@ -83,7 +84,7 @@ the command line at the OFBiz top level directory (folder).
 
 MS Windows: `init-gradle-wrapper`
 
-Unix-like OS: `./gradle/init-gradle-wrapper`
+Unix-like OS: `./gradle/init-gradle-wrapper.sh`
 
 
 [[prepare-ofbiz]]

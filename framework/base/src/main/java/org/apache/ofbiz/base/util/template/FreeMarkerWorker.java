@@ -126,8 +126,7 @@ public final class FreeMarkerWorker {
         } catch (TemplateException e) {
             Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, MODULE);
         }
-        String templateClassResolver = UtilProperties.getPropertyValue("security", "templateClassResolver",
-                "SAFER_RESOLVER");
+        String templateClassResolver = UtilProperties.getPropertyValue("security", "templateClassResolver", "SAFER_RESOLVER");
         switch (templateClassResolver) {
         case "UNRESTRICTED_RESOLVER":
             newConfig.setNewBuiltinClassResolver(TemplateClassResolver.UNRESTRICTED_RESOLVER);

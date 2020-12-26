@@ -26,8 +26,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
@@ -451,28 +453,58 @@ public class CommonEvents {
         return "success";
     }
 
+    /**
+     * Open the source file. Only when widget.dev.namedBorder=SOURCE
+     * @param request
+     * @param response
+     * @return
+     */
     public static String openSourceFile(HttpServletRequest request, HttpServletResponse response) {
-        ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderEnabled();
+        ModelWidget.NamedBorderType namedBorderType = ModelWidget.widgetNamedBorderType();
         if (namedBorderType == ModelWidget.NamedBorderType.SOURCE) {
             String sourceLocation = request.getParameter("sourceLocation");
             if (UtilValidate.isNotEmpty(sourceLocation) && sourceLocation.startsWith("component:")) {
                 try {
                     // find absolute path of file
-                    URL sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation);
-                    String location = sourceFileUrl.getFile();
-                    // ensure file separator in location is correct
-                    if (!location.contains(File.separator) && "\\".equals(File.separator)) {
-                        location = location.replaceAll("/", "\\\\");
+                    URL sourceFileUrl = null;
+                    String fragment = "";
+                    if (sourceLocation.contains("#")) {
+                        int indexOfHash = sourceLocation.indexOf("#");
+                        sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation.substring(0, indexOfHash));
+                        fragment = sourceLocation.substring(indexOfHash + 1);
+                    } else {
+                        sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation);
                     }
-                    location = "\"" + location + "\"";
+                    String platformSpecificPath = sourceFileUrl.getFile();
+                    // ensure file separator in location is correct
+                    if (!platformSpecificPath.contains(File.separator) && "\\".equals(File.separator)) {
+                        platformSpecificPath = platformSpecificPath.replaceAll("/", "\\\\");
+                    }
+                    // get line number
+                    int lineNumber = 1;
+                    if (UtilValidate.isNotEmpty(fragment)) {
+                        try (LineNumberReader lnr = new LineNumberReader(new FileReader(platformSpecificPath))) {
+                            String line;
+                            while ((line = lnr.readLine()) != null) {
+                                if (line.matches(".*name=\"" + fragment + "\".*")) {
+                                    lineNumber = lnr.getLineNumber();
+                                    break;
+                                }
+                            }
+                        } catch (IOException e) {
+                            Debug.logError(e, MODULE);
+                        }
+                    }
                     // prepare content map for string expansion
                     Map<String, Object> sourceMap = new HashMap<>();
-                    sourceMap.put("sourceLocation", location);
+                    sourceMap.put("sourceLocation", platformSpecificPath);
+                    sourceMap.put("lineNumber", lineNumber);
                     // get command to run
                     String cmdTemplate = UtilProperties.getPropertyValue("widget", "widget.dev.cmd.openSourceFile");
                     String cmd = (String) FlexibleStringExpander.getInstance(cmdTemplate).expand(sourceMap);
                     // run command
-                    Process process = Runtime.getRuntime().exec(String.format(cmd, location));
+                    Debug.logInfo("Run command: " + cmd, MODULE);
+                    Process process = Runtime.getRuntime().exec(cmd);
                     // print result
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String line = "";
