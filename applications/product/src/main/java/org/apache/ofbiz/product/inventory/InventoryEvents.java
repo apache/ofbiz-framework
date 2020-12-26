@@ -21,27 +21,26 @@ package org.apache.ofbiz.product.inventory;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.control.ExternalLoginKeysManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InventoryEvents {
     public static final String MODULE = InventoryEvents.class.getName();
-    public static final String resource = "ProductUiLabels";
+    public static final String RESOURCE = "ProductUiLabels";
 
     public static String createInventoryCountAndAddBulkLocations(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -61,15 +60,15 @@ public class InventoryEvents {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
 
-        for(int i = 0; i < rowCount; ++i) {
+        for (int i = 0; i < rowCount; ++i) {
             String curSuffix = UtilHttp.getMultiRowDelimiter() + i;
             boolean rowSelected = false;
             if (UtilValidate.isNotEmpty(request.getAttribute(UtilHttp.getRowSubmitPrefix() + i))) {
-                rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                        "Y".equalsIgnoreCase((String)request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
+                rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false
+                        : "Y".equalsIgnoreCase((String) request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
             } else {
-                rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
-                        "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
+                rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false
+                        : "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
             }
 
             if (!rowSelected) {
@@ -97,10 +96,16 @@ public class InventoryEvents {
             inventoryCountId = (String) serviceResult.get("inventoryCountId");
 
             for (String locationSeqId : locationSeqIds) {
-                GenericValue inventoryItemAndLocation = EntityQuery.use(delegator).from("FacilityLocation").where("facilityId", facilityId, "locationSeqId", locationSeqId, "locked", "Y").queryFirst();
+                GenericValue inventoryItemAndLocation = EntityQuery.use(delegator).from("FacilityLocation")
+                        .where("facilityId", facilityId, "locationSeqId", locationSeqId, "locked", "Y").queryFirst();
                 if (UtilValidate.isNotEmpty(inventoryItemAndLocation)) {
-                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session #" + inventoryItemAndLocation.getString("inventoryCountId") + " Please choose another location or wait till lock is released.", MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", "Location #" + locationSeqId + " is currently locked under active counting session #" + inventoryItemAndLocation.getString("inventoryCountId") + ",  Please choose another location or wait till lock is released.");
+                    Debug.logError("Location #" + locationSeqId + " is currently locked under active counting session #"
+                            + inventoryItemAndLocation.getString("inventoryCountId")
+                            + " Please choose another location or wait till lock is released.", MODULE);
+                    request.setAttribute("_ERROR_MESSAGE_", "Location #"
+                            + locationSeqId + " is currently locked under active counting session #"
+                            + inventoryItemAndLocation.getString("inventoryCountId")
+                            + ",  Please choose another location or wait till lock is released.");
                     return "error";
                 }
                 Map<String, Object> serviceInCtx = new HashMap<String, Object>();
