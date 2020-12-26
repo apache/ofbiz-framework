@@ -61,14 +61,13 @@ under the License.
     </#if>
   </#list>
   <style type="text/css">
+      <#if asm_multipleSelectForm?? && asm_formSize??>
       #${asm_multipleSelectForm}
       {
-          width: ${asm_formSize!700}px
-      ;
-          position: relative
-      ;
+          width: ${asm_formSize!700}px;
+          position: relative;
       }
-
+      </#if>
       .asmListItem {
           width: ${asm_asmListItemPercentOfForm!95}%;
       }
