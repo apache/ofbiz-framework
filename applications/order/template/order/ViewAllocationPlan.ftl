@@ -97,7 +97,7 @@ under the License.
           <li class="h3">${uiLabelMap.OrderOverview} [${uiLabelMap.CommonId}:${allocationPlanInfo.planId!}]</li>
           <#if (allocationPlanInfo.statusId! == "ALLOC_PLAN_CREATED" || allocationPlanInfo.statusId! == "ALLOC_PLAN_APPROVED") && security.hasPermission("ALLOCPLAN_CANCEL", session)>
             <li>
-              <a href="javascript:document.CancelPlan.submit()">${uiLabelMap.OrderCancelPlan}</a>
+              <a class="buttontext" href="javascript:document.CancelPlan.submit()">${uiLabelMap.OrderCancelPlan}</a>
               <form class="basic-form" name="CancelPlan" method="post" action="<@ofbizUrl>changeAllocationPlanStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="planId" value="${allocationPlanInfo.planId!}"/>
                 <input type="hidden" name="statusId" value="ALLOC_PLAN_CANCELLED"/>
@@ -106,7 +106,7 @@ under the License.
           </#if>
           <#if (allocationPlanInfo.statusId! == "ALLOC_PLAN_CREATED") && security.hasPermission("ALLOCPLAN_APPROVE", session)>
             <li>
-              <a href="javascript:document.ApprovePlan.submit()">${uiLabelMap.OrderApprovePlan}</a>
+              <a class="buttontext" href="javascript:document.ApprovePlan.submit()">${uiLabelMap.OrderApprovePlan}</a>
               <form class="basic-form" name="ApprovePlan" method="post" action="<@ofbizUrl>changeAllocationPlanStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="planId" value="${allocationPlanInfo.planId!}"/>
                 <input type="hidden" name="statusId" value="ALLOC_PLAN_APPROVED"/>

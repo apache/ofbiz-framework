@@ -143,11 +143,11 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
       <div class="basic-nav">
         <ul>
       <#if "Y" == requestParameters.hideFields?default("N")>
-        <li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
+        <li><a class="buttontext" href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
         <#if orderList??><li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields?default("Y")}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
-        <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty?externalLoginKey=${requestAttributes.externalLoginKey!}</@ofbizUrl>">${uiLabelMap.PartyLookupParty}</a></li>
-        <li><a href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
+        <li><a class="buttontext" href="<@ofbizUrl controlPath="/partymgr/control">findparty?externalLoginKey=${requestAttributes.externalLoginKey!}</@ofbizUrl>">${uiLabelMap.PartyLookupParty}</a></li>
+        <li><a class="buttontext" href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
       </#if>
       </ul>
     </div>
