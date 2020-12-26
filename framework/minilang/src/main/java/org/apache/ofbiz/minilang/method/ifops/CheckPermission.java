@@ -130,14 +130,14 @@ public final class CheckPermission extends MethodOperation {
         }
     }
 
-    private class PermissionInfo {
+    final class PermissionInfo {
         private final FlexibleStringExpander actionFse;
         private final FlexibleStringExpander permissionFse;
 
         private PermissionInfo(Element element) throws MiniLangException {
             if (MiniLangValidate.validationOn()) {
-                MiniLangValidate.attributeNames(simpleMethod, element, "permission", "action");
-                MiniLangValidate.requiredAttributes(simpleMethod, element, "permission");
+                MiniLangValidate.attributeNames(getSimpleMethod(), element, "permission", "action");
+                MiniLangValidate.requiredAttributes(getSimpleMethod(), element, "permission");
             }
             this.permissionFse = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
             this.actionFse = FlexibleStringExpander.getInstance(element.getAttribute("action"));

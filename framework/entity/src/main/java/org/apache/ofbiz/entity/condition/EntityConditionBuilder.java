@@ -38,7 +38,7 @@ public class EntityConditionBuilder extends BuilderSupport {
 
     @SuppressWarnings("serial")
     private static class ConditionHolder implements EntityCondition {
-        protected EntityCondition condition;
+        private EntityCondition condition;
 
         protected ConditionHolder(EntityCondition condition) {
             this.condition = condition;

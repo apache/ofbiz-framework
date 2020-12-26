@@ -27,7 +27,7 @@ import freemarker.cache.CacheStorage;
  */
 public class OfbizCacheStorage implements CacheStorage {
     //can't have global cache because names/keys are relative to the webapp
-    protected final UtilCache<Object, Object> localCache;
+    private final UtilCache<Object, Object> localCache;
 
     public OfbizCacheStorage(String id) {
         this.localCache = UtilCache.createUtilCache("webapp.FreeMarkerCache." + id, 0, 0, false);

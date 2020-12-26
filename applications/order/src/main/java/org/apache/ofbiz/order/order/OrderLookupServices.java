@@ -279,7 +279,7 @@ public class OrderLookupServices {
         String shipmentMethod = (String) context.get("shipmentMethod");
         if (UtilValidate.isNotEmpty(shipmentMethod)) {
             String carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf('@'));
-            String ShippingMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@') + 1);
+            String shippingMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@') + 1);
             dve.addMemberEntity("OISG", "OrderItemShipGroup");
             dve.addAlias("OISG", "shipmentMethodTypeId");
             dve.addAlias("OISG", "carrierPartyId");
@@ -290,9 +290,9 @@ public class OrderLookupServices {
                 conditions.add(makeExpr("carrierPartyId", carrierPartyId));
             }
 
-            if (UtilValidate.isNotEmpty(ShippingMethodTypeId)) {
-                paramList.add("ShippingMethodTypeId=" + ShippingMethodTypeId);
-                conditions.add(makeExpr("shipmentMethodTypeId", ShippingMethodTypeId));
+            if (UtilValidate.isNotEmpty(shippingMethodTypeId)) {
+                paramList.add("shippingMethodTypeId=" + shippingMethodTypeId);
+                conditions.add(makeExpr("shipmentMethodTypeId", shippingMethodTypeId));
             }
         }
         // PaymentGatewayResponse
@@ -353,7 +353,8 @@ public class OrderLookupServices {
         String goodIdentificationIdValue = (String) context.get("goodIdentificationIdValue");
         boolean hasGoodIdentification = UtilValidate.isNotEmpty(goodIdentificationTypeId) && UtilValidate.isNotEmpty(goodIdentificationIdValue);
 
-        if (correspondingPoId != null || subscriptionId != null || productId != null || budgetId != null || quoteId != null || hasGoodIdentification) {
+        if (correspondingPoId != null || subscriptionId != null || productId != null || budgetId != null || quoteId != null
+                || hasGoodIdentification) {
             dve.addMemberEntity("OI", "OrderItem");
             dve.addAlias("OI", "correspondingPoId");
             dve.addAlias("OI", "subscriptionId");
@@ -423,7 +424,8 @@ public class OrderLookupServices {
                         conditions.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
                     }
                 } else {
-                    String failMsg = UtilProperties.getMessage("OrderErrorUiLabels", "OrderFindOrderProductInvalid", UtilMisc.toMap("productId", productId), locale);
+                    String failMsg = UtilProperties.getMessage("OrderErrorUiLabels", "OrderFindOrderProductInvalid",
+                            UtilMisc.toMap("productId", productId), locale);
                     return ServiceUtil.returnFailure(failMsg);
                 }
             }
@@ -579,7 +581,7 @@ public class OrderLookupServices {
 
         // create the main condition
         EntityCondition cond = null;
-        if (conditions.size() > 0 || "Y".equalsIgnoreCase(showAll)) {
+        if (!conditions.isEmpty() || "Y".equalsIgnoreCase(showAll)) {
             cond = EntityCondition.makeCondition(conditions, EntityOperator.AND);
         }
 
@@ -639,7 +641,8 @@ public class OrderLookupServices {
         return result;
     }
 
-    public static void filterInventoryProblems(Map<String, ? extends Object> context, Map<String, Object> result, List<GenericValue> orderList, List<String> paramList) {
+    public static void filterInventoryProblems(Map<String, ? extends Object> context, Map<String, Object> result, List<GenericValue>
+            orderList, List<String> paramList) {
         List<String> filterInventoryProblems = new LinkedList<>();
 
         String doFilter = (String) context.get("filterInventoryProblems");
@@ -647,7 +650,7 @@ public class OrderLookupServices {
             doFilter = "N";
         }
 
-        if ("Y".equals(doFilter) && orderList.size() > 0) {
+        if ("Y".equals(doFilter) && !orderList.isEmpty()) {
             paramList.add("filterInventoryProblems=Y");
             for (GenericValue orderHeader : orderList) {
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
@@ -689,7 +692,7 @@ public class OrderLookupServices {
             doPoFilter = true;
         }
 
-        if (doPoFilter && orderList.size() > 0) {
+        if (doPoFilter && !orderList.isEmpty()) {
             for (GenericValue orderHeader : orderList) {
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
                 String orderType = orh.getOrderTypeId();
@@ -698,11 +701,9 @@ public class OrderLookupServices {
                 if ("PURCHASE_ORDER".equals(orderType)) {
                     if ("Y".equals(filterPOReject) && orh.getRejectedOrderItems()) {
                         filterPOsWithRejectedItems.add(orderId);
-                    }
-                    else if ("Y".equals(filterPOPast) && orh.getPastEtaOrderItems(orderId)) {
+                    } else if ("Y".equals(filterPOPast) && orh.getPastEtaOrderItems(orderId)) {
                         filterPOsOpenPastTheirETA.add(orderId);
-                    }
-                    else if ("Y".equals(filterPartRec) && orh.getPartiallyReceivedItems()) {
+                    } else if ("Y".equals(filterPartRec) && orh.getPartiallyReceivedItems()) {
                         filterPartiallyReceivedPOs.add(orderId);
                     }
                 }
@@ -725,16 +726,14 @@ public class OrderLookupServices {
         if (value.startsWith("*")) {
             op = EntityOperator.LIKE;
             value = "%" + value.substring(1);
-        }
-        else if (value.startsWith("%")) {
+        } else if (value.startsWith("%")) {
             op = EntityOperator.LIKE;
         }
 
         if (value.endsWith("*")) {
             op = EntityOperator.LIKE;
             value = value.substring(0, value.length() - 1) + "%";
-        }
-        else if (value.endsWith("%")) {
+        } else if (value.endsWith("%")) {
             op = EntityOperator.LIKE;
         }
 

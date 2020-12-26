@@ -46,7 +46,8 @@ public final class TransactionBegin extends MethodOperation {
             MiniLangValidate.expressionAttributes(simpleMethod, element, "began-transaction-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"), "beganTransaction"));
+        beganTransactionFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("began-transaction-name"),
+                "beganTransaction"));
     }
 
     @Override
@@ -57,7 +58,7 @@ public final class TransactionBegin extends MethodOperation {
         } catch (GenericTransactionException e) {
             String errMsg = "Exception thrown while beginning transaction: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         beganTransactionFma.put(methodContext.getEnvMap(), beganTransaction);

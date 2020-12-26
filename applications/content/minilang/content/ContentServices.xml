@@ -136,14 +136,6 @@
         <check-errors/>
     </simple-method>
 
-    <!-- Methods for ContentRole -->
-
-    <simple-method method-name="updateSingleContentPurpose" short-description="Updates the purpose making sure there is only one">
-        <set field="toRemove.contentId" from-field="parameters.contentId"/>
-        <remove-by-and entity-name="ContentPurpose" map="toRemove"/>
-        <call-service service-name="createContentPurpose" in-map-name="parameters"/>
-    </simple-method>
-
     <!-- Util -->
     <simple-method method-name="findAssocContent" short-description="Find associated content">
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
@@ -250,19 +242,6 @@
             <result-to-result result-name="fromDate"/>
         </call-service>
 
-    </simple-method>
-
-    <!-- This service ties CommunicationEvent and Content entities together along with the standard from/thruDate fields.
-        -->
-    <simple-method method-name="createCommEventContentAssoc" short-description="Create CommEventContentAssoc">
-        <make-value entity-name="CommEventContentAssoc" value-field="commEventContentAssoc"/>
-        <set-pk-fields value-field="commEventContentAssoc" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="commEventContentAssoc"/>
-        <if-empty field="commEventContentAssoc.fromDate">
-            <now-timestamp field="commEventContentAssoc.fromDate"/>
-        </if-empty>
-        <create-value value-field="commEventContentAssoc"/>
-        <field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
     </simple-method>
 
     <!-- simply use createContent and the accoc will be created too" the service below +aca will create 2 contentAssocs-->

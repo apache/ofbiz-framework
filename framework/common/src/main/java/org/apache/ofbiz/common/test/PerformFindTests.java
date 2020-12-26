@@ -28,9 +28,11 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityListIterator;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.entity.util.EntityQuery;
@@ -55,6 +57,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void prepareData() throws Exception {
+        Delegator delegator = getDelegator();
         if (EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "PERFOMFINDTEST").cache().queryOne() == null) {
             delegator.create("TestingType", "testingTypeId", "PERFOMFINDTEST");
             delegator.create("Testing", "testingId", "PERF_TEST_1", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice name one");
@@ -115,6 +118,7 @@ public class PerformFindTests extends OFBizTestCase {
         GenericValue userLogin = getUserLogin("system");
         prepareData();
 
+        LocalDispatcher dispatcher = getDispatcher();
         Map<String, Object> inputFields = new HashMap<>();
         //first test without condition
         Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields);
@@ -136,7 +140,7 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        List<GenericValue> testingElements = delegator.findAll("Testing", false);
+        List<GenericValue> testingElements = getDelegator().findAll("Testing", false);
         assertEquals("performFind search without condition with equals on testingTypeId", testingElements.size(), foundElements.size());
 
         //fourth test with equals condition on testingId
@@ -152,6 +156,7 @@ public class PerformFindTests extends OFBizTestCase {
         GenericValue userLogin = getUserLogin("system");
         prepareData();
 
+        LocalDispatcher dispatcher = getDispatcher();
         //first test like condition
         Map<String, Object> inputFields = UtilMisc.toMap("testingName", "nice", "testingName_op", "like");
         Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields);
@@ -189,17 +194,20 @@ public class PerformFindTests extends OFBizTestCase {
         GenericValue userLogin = getUserLogin("system");
         prepareData();
 
+        LocalDispatcher dispatcher = getDispatcher();
         //first test without distinct condition
         Map<String, Object> inputFields = UtilMisc.toMap("testingTypeId", "PERFOMFINDTEST");
-        List<String> fieldList= UtilMisc.toList("testingName", "testingTypeId");
-        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields, "fieldList", fieldList, "distinct", "N");
+        List<String> fieldList = UtilMisc.toList("testingName", "testingTypeId");
+        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields",
+                inputFields, "fieldList", fieldList, "distinct", "N");
         Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         List<GenericValue> foundElements = getCompleteList(result);
         assertEquals("performFind search with distinct N", 9, foundElements.size());
 
         //second test with distinct condition
-        performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields, "fieldList", fieldList, "distinct", "Y");
+        performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields,
+                "fieldList", fieldList, "distinct", "Y");
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
@@ -210,16 +218,19 @@ public class PerformFindTests extends OFBizTestCase {
         GenericValue userLogin = getUserLogin("system");
         prepareData();
 
+        LocalDispatcher dispatcher = getDispatcher();
         //first test without filterDate condition
         Map<String, Object> inputFields = UtilMisc.toMap("testingNodeId", "NODE_1");
-        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "TestingNodeMember", "inputFields", inputFields, "filterByDate", "N", "filterByDateValue", UtilDateTime.nowTimestamp());
+        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "TestingNodeMember",
+                "inputFields", inputFields, "filterByDate", "N", "filterByDateValue", UtilDateTime.nowTimestamp());
         Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         List<GenericValue> foundElements = getCompleteList(result);
         assertEquals("performFind search with filterDate N", 5, foundElements.size());
 
         //second test with filterDate condition
-        performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "TestingNodeMember", "inputFields", inputFields, "filterByDate", "Y", "filterByDateValue", UtilDateTime.nowTimestamp());
+        performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "TestingNodeMember", "inputFields",
+                inputFields, "filterByDate", "Y", "filterByDateValue", UtilDateTime.nowTimestamp());
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
@@ -230,6 +241,7 @@ public class PerformFindTests extends OFBizTestCase {
         GenericValue userLogin = getUserLogin("system");
         prepareData();
 
+        LocalDispatcher dispatcher = getDispatcher();
         //first test without filterDate condition
         Map<String, Object> inputFields = UtilMisc.toMap("testingNodeId", "NODE_1");
         Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "TestingNodeMember", "inputFields", inputFields,

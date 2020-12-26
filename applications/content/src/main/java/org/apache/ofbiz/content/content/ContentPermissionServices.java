@@ -57,14 +57,11 @@ public class ContentPermissionServices {
 
     /**
      * checkContentPermission
-     *
      *@param dctx The DispatchContext that this service is operating in
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
-     *
      * This service goes thru a series of test to determine if the user has
      * authority to performed anyone of the passed in target operations.
-     *
      * It expects a Content entity in "currentContent"
      * It expects a list of contentOperationIds in "targetOperationList" rather
      * than a scalar because it is thought that sometimes more than one operation
@@ -74,20 +71,16 @@ public class ContentPermissionServices {
      * entity could have multiple purposes associated with it.
      * The userLogin GenericValue is also required.
      * A list of roleTypeIds is also possible.
-     *
      * The basic sequence of testing events is:
      * First the ContentPurposeOperation table is checked to see if there are any
      * entries with matching purposes (and operations) with no roleTypeId (ie. _NA_).
      * This is done because it would be the most common scenario and is quick to check.
-     *
      * Secondly, the CONTENTMGR permission is checked.
-     *
      * Thirdly, the ContentPurposeOperation table is rechecked to see if there are
      * any conditions with roleTypeIds that match associated ContentRoles tied to the
      * user.
      * If a Party of "PARTY_GROUP" type is found, the PartyRelationship table is checked
      * to see if the current user is linked to that group.
-     *
      * If no match is found to this point and the current Content entity has a value for
      * ownerContentId, then the last step is recusively applied, using the ContentRoles
      * associated with the ownerContent entity.
@@ -150,7 +143,8 @@ public class ContentPermissionServices {
             passedPurposes.addAll(purposesFromString);
         }
 
-        EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker.StdAuxiliaryValueGetter("ContentPurpose", "contentPurposeTypeId", "contentId");
+        EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker
+                .StdAuxiliaryValueGetter("ContentPurpose", "contentPurposeTypeId", "contentId");
         // Sometimes permissions need to be checked before an entity is created, so
         // there needs to be a method for setting a purpose list
         auxGetter.setList(passedPurposes);
@@ -163,10 +157,13 @@ public class ContentPermissionServices {
             }
             targetOperations.addAll(operationsFromString);
         }
-        EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker.StdPermissionConditionGetter("ContentPurposeOperation", "contentOperationId", "roleTypeId", "statusId", "contentPurposeTypeId", "privilegeEnumId");
+        EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker
+                .StdPermissionConditionGetter("ContentPurposeOperation", "contentOperationId", "roleTypeId",
+                "statusId", "contentPurposeTypeId", "privilegeEnumId");
         permCondGetter.setOperationList(targetOperations);
 
-        EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content", "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
+        EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",
+                "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         List<String> passedRoles = UtilGenerics.cast(context.get("roleTypeList"));
         if (passedRoles == null) passedRoles = new LinkedList<>();
         String roleTypeString = (String) context.get("roleTypeString");
@@ -208,7 +205,8 @@ public class ContentPermissionServices {
                 }
             }
             try {
-                boolean check = EntityPermissionChecker.checkPermissionMethod(delegator, partyId, "Content", entityIds, auxGetter, roleGetter, permCondGetter);
+                boolean check = EntityPermissionChecker.checkPermissionMethod(delegator, partyId, "Content",
+                        entityIds, auxGetter, roleGetter, permCondGetter);
                 if (check) {
                     results.put("permissionStatus", "granted");
                 } else {

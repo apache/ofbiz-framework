@@ -28,7 +28,6 @@ public interface FtpClientInterface {
 
     /**
      * Initialization of a file transfer client, and connection to the given server
-     *
      * @param hostname hostname to connect to
      * @param username username to login with
      * @param password password to login with
@@ -40,7 +39,6 @@ public interface FtpClientInterface {
 
     /**
      * Copy of the give file to the connected server into the path.
-     *
      * @param path     path to copy the file to
      * @param fileName name of the copied file
      * @param file     data to copy

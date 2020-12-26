@@ -48,9 +48,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.product.category.CatalogUrlServlet;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
 import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.product.category.SeoUrlUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
@@ -69,7 +69,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
     private static Map<String, String> categoryNameIdMap = null;
     private static Map<String, String> categoryIdNameMap = null;
     private static boolean categoryMapInitialed = false;
-    private static final String asciiRegexp = "^[0-9-_a-zA-Z]*$";
+    private static final String ASCII_REG_EXP = "^[0-9-_a-zA-Z]*$";
     private static Pattern asciiPattern = null;
     public static final String URL_HYPHEN = "-";
 
@@ -79,12 +79,18 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
         try {
             Perl5Compiler perlCompiler = new Perl5Compiler();
-            asciiPattern = perlCompiler.compile(asciiRegexp, Perl5Compiler.READ_ONLY_MASK);
+            asciiPattern = perlCompiler.compile(ASCII_REG_EXP, Perl5Compiler.READ_ONLY_MASK);
         } catch (MalformedPatternException e1) {
             Debug.logWarning(e1, MODULE);
         }
     }
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -150,7 +156,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Check whether the category map is initialed.
-     *
      * @return a boolean value to indicate whether the category map has been initialized.
      */
     public static boolean isCategoryMapInitialed() {
@@ -159,7 +164,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Get the category name/id map.
-     *
      * @return the category name/id map
      */
     public static Map<String, String> getCategoryNameIdMap() {
@@ -168,7 +172,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Get the category id/name map.
-     *
      * @return the category id/name map
      */
     public static Map<String, String> getCategoryIdNameMap() {
@@ -178,7 +181,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
     /**
      * Initial category-name/category-id map. Note: as a key, the category-name should be: 1. ascii 2. lower cased and
      * use hyphen between the words. If not, the category id will be used.
-     *
      */
     public static synchronized void initCategoryMap(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -244,7 +246,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Make product url according to the configurations.
-     *
      * @return String a catalog url
      */
     public static String makeProductUrl(HttpServletRequest request, String productId, String currentCategoryId,
@@ -335,7 +336,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Make category url according to the configurations.
-     *
      * @return String a category url
      */
     public static String makeCategoryUrl(HttpServletRequest request, String currentCategoryId,
@@ -411,7 +411,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Make product url according to the configurations.
-     *
      * @return String a catalog url
      */
     public static String makeProductUrl(String contextPath, List<String> trail, String productId, String productName,
@@ -473,7 +472,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Get a string lower cased and hyphen connected.
-     *
      * @param name
      *            a String to be transformed
      * @return String nice name
@@ -502,7 +500,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Forward a uri according to forward pattern regular expressions.
-     *
      * @param request
      * @param response
      * @param delegator
@@ -588,7 +585,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                                     EntityCondition.makeCondition(exprs, EntityOperator.OR),
                                     UtilMisc.toSet("productId", "productName"), null, null, true);
 
-                            if (products != null && products.size() > 0) {
+                            if (products != null && !products.isEmpty()) {
                                 if (products.size() == 1) {
                                     productId = products.get(0).getString("productId");
                                     break;
@@ -635,7 +632,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * Forward a category uri according to forward pattern regular expressions.
-     *
      * @param request
      * @param response
      * @param delegator
@@ -698,7 +694,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * This is used when building product url in services.
-     *
      * @param delegator
      * @param wrapper
      * @param prefix
@@ -789,7 +784,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
     /**
      * This is used when building category url in services.
-     *
      * @param delegator
      * @param wrapper
      * @param prefix

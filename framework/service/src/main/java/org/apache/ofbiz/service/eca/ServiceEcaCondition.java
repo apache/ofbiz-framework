@@ -42,16 +42,16 @@ public class ServiceEcaCondition implements java.io.Serializable {
 
     private static final String MODULE = ServiceEcaCondition.class.getName();
 
-    protected String conditionService = null;
-    protected String lhsValueName = null;
-    protected String rhsValueName = null;
-    protected String lhsMapName = null;
-    protected String rhsMapName = null;
-    protected String operator = null;
-    protected String compareType = null;
-    protected String format = null;
-    protected boolean isConstant = false;
-    protected boolean isService = false;
+    private String conditionService = null;
+    private String lhsValueName = null;
+    private String rhsValueName = null;
+    private String lhsMapName = null;
+    private String rhsMapName = null;
+    private String operator = null;
+    private String compareType = null;
+    private String format = null;
+    private boolean isConstant = false;
+    private boolean isService = false;
 
     protected ServiceEcaCondition() { }
 
@@ -79,6 +79,11 @@ public class ServiceEcaCondition implements java.io.Serializable {
         }
     }
 
+    /**
+     * Gets short display description.
+     * @param moreDetail the more detail
+     * @return the short display description
+     */
     public String getShortDisplayDescription(boolean moreDetail) {
         StringBuilder buf = new StringBuilder();
         if (isService) {
@@ -107,6 +112,14 @@ public class ServiceEcaCondition implements java.io.Serializable {
         return buf.toString();
     }
 
+    /**
+     * Eval boolean.
+     * @param serviceName the service name
+     * @param dctx the dctx
+     * @param context the context
+     * @return the boolean
+     * @throws GenericServiceException the generic service exception
+     */
     public boolean eval(String serviceName, DispatchContext dctx, Map<String, Object> context) throws GenericServiceException {
         if (serviceName == null || dctx == null || context == null || dctx.getClassLoader() == null) {
             throw new GenericServiceException("Cannot have null Service, Context or DispatchContext!");
@@ -184,7 +197,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), isConstant);
 
         // if any messages were returned send them out
-        if (messages.size() > 0 && Debug.warningOn()) {
+        if (!messages.isEmpty() && Debug.warningOn()) {
             for (Object message: messages) {
                 Debug.logWarning(message.toString(), MODULE);
             }

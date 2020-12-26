@@ -48,8 +48,10 @@ public class ScreenFactory {
 
     private static final String MODULE = ScreenFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelScreen>> screenLocationCache = UtilCache.createUtilCache("widget.screen.locationResource", 0, 0, false);
-    public static final UtilCache<String, Map<String, ModelScreen>> screenWebappCache = UtilCache.createUtilCache("widget.screen.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelScreen>> SCREEN_LOCATION_CACHE =
+            UtilCache.createUtilCache("widget.screen.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelScreen>> SCREEN_WEBAPP_CACHE =
+            UtilCache.createUtilCache("widget.screen.webappResource", 0, 0, false);
 
     public static boolean isCombinedName(String combinedName) {
         int numSignIndex = combinedName.lastIndexOf("#");
@@ -66,10 +68,12 @@ public class ScreenFactory {
         // split out the name on the last "#"
         int numSignIndex = combinedName.lastIndexOf("#");
         if (numSignIndex == -1) {
-            throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name; correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+            throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name;"
+                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
         }
         if (numSignIndex + 1 >= combinedName.length()) {
-            throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it; correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+            throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it;"
+                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
         }
         String resourceName = combinedName.substring(0, numSignIndex);
         return resourceName;
@@ -79,10 +83,12 @@ public class ScreenFactory {
         // split out the name on the last "#"
         int numSignIndex = combinedName.lastIndexOf("#");
         if (numSignIndex == -1) {
-            throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name; correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+            throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name;"
+                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
         }
         if (numSignIndex + 1 >= combinedName.length()) {
-            throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it; correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+            throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it;"
+                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
         }
         String screenName = combinedName.substring(numSignIndex + 1);
         return screenName;
@@ -107,10 +113,10 @@ public class ScreenFactory {
 
     public static Map<String, ModelScreen> getScreensFromLocation(String resourceName)
             throws IOException, SAXException, ParserConfigurationException {
-        Map<String, ModelScreen> modelScreenMap = screenLocationCache.get(resourceName);
+        Map<String, ModelScreen> modelScreenMap = SCREEN_LOCATION_CACHE.get(resourceName);
         if (modelScreenMap == null) {
             synchronized (ScreenFactory.class) {
-                modelScreenMap = screenLocationCache.get(resourceName);
+                modelScreenMap = SCREEN_LOCATION_CACHE.get(resourceName);
                 if (modelScreenMap == null) {
                     long startTime = System.currentTimeMillis();
                     URL screenFileUrl = null;
@@ -120,9 +126,10 @@ public class ScreenFactory {
                     }
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
-                    screenLocationCache.put(resourceName, modelScreenMap);
+                    SCREEN_LOCATION_CACHE.put(resourceName, modelScreenMap);
                     double totalSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
-                    Debug.logInfo("Got " + modelScreenMap.size() + " screens in " + totalSeconds + "s from: " + screenFileUrl.toExternalForm(), MODULE);
+                    Debug.logInfo("Got " + modelScreenMap.size() + " screens in " + totalSeconds + "s from: "
+                            + screenFileUrl.toExternalForm(), MODULE);
                 }
             }
         }
@@ -139,24 +146,25 @@ public class ScreenFactory {
         String cacheKey = webappName + "::" + resourceName;
 
 
-        Map<String, ModelScreen> modelScreenMap = screenWebappCache.get(cacheKey);
+        Map<String, ModelScreen> modelScreenMap = SCREEN_WEBAPP_CACHE.get(cacheKey);
         if (modelScreenMap == null) {
             synchronized (ScreenFactory.class) {
-                modelScreenMap = screenWebappCache.get(cacheKey);
+                modelScreenMap = SCREEN_WEBAPP_CACHE.get(cacheKey);
                 if (modelScreenMap == null) {
                     ServletContext servletContext = request.getServletContext();
 
                     URL screenFileUrl = servletContext.getResource(resourceName);
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
-                    screenWebappCache.put(cacheKey, modelScreenMap);
+                    SCREEN_WEBAPP_CACHE.put(cacheKey, modelScreenMap);
                 }
             }
         }
 
         ModelScreen modelScreen = modelScreenMap.get(screenName);
         if (modelScreen == null) {
-            throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
+            throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in webapp resource [" + resourceName
+                    + "] in the webapp [" + webappName + "]");
         }
         return modelScreen;
     }
@@ -178,7 +186,8 @@ public class ScreenFactory {
         return modelScreenMap;
     }
 
-    public static void renderReferencedScreen(String name, String location, ModelScreenWidget parentWidget, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
+    public static void renderReferencedScreen(String name, String location, ModelScreenWidget parentWidget, Appendable writer,
+                                              Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
         // check to see if the name is a composite name separated by a #, if so split it up and get it by the full loc#name
         if (ScreenFactory.isCombinedName(name)) {
             String combinedName = name;
@@ -198,7 +207,8 @@ public class ScreenFactory {
         } else {
             modelScreen = parentWidget.getModelScreen().getModelScreenMap().get(name);
             if (modelScreen == null) {
-                throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name [" + parentWidget.getModelScreen().getName() + "]");
+                throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name ["
+                        + parentWidget.getModelScreen().getName() + "]");
             }
         }
         modelScreen.renderScreenString(writer, context, screenStringRenderer);

@@ -46,6 +46,8 @@ public class XmlWidgetConditionVisitor extends XmlAbstractWidgetVisitor implemen
         super(writer);
     }
 
+    private final Appendable writer = getWriter();
+
     @Override
     public void visit(And and) throws Exception {
         writer.append("<and>");

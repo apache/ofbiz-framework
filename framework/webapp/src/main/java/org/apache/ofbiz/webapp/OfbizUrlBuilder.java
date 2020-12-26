@@ -75,7 +75,8 @@ public final class OfbizUrlBuilder {
      * @throws SAXException
      * @throws GenericEntityException
      */
-    public static OfbizUrlBuilder from(WebappInfo webAppInfo, Delegator delegator) throws WebAppConfigurationException, IOException, SAXException, GenericEntityException {
+    public static OfbizUrlBuilder from(WebappInfo webAppInfo, Delegator delegator) throws WebAppConfigurationException, IOException, SAXException,
+                                                                                          GenericEntityException {
         WebSiteProperties webSiteProps = null;
         ControllerConfig config = null;
         String servletPath = null;
@@ -146,7 +147,7 @@ public final class OfbizUrlBuilder {
             requestMap = config.getRequestMapMap().get(requestMapUri);
         }
         if (!makeSecure && requestMap != null) { // if the request has security="true" then use it
-            makeSecure = requestMap.securityHttps;
+            makeSecure = requestMap.isSecurityHttps();
         }
         makeSecure = webSiteProps.getEnableHttps() & makeSecure;
         if (makeSecure) {

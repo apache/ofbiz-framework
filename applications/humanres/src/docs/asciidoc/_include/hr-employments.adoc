@@ -22,7 +22,7 @@ An employment is a relationship between a person and your Company.
 The Human Resources application tracks employment benefits, pay history,
 unemployment claims and employment agreements for each employed person.
 
-When you create new employee, an employee relationship is created automatically.
+When you create new employee, an employee relationship is created automatically (/!\ see <<_createemployee>> functional Bug).
 
 NOTE: If a person was entered into the application by some other means then you
 will have to create the employee relationship manually in the Party Manager application.
@@ -34,6 +34,9 @@ For example, an employee may have been let go because of poor performance.
 
 The Employments screen can be used to create an employment or search for existing
 employments.
+
+To other explanation, look at the process <<_employee_salary_and_benefits_administration>> introduction. +
+A Database diagram for main link with other entities exist in <<DATAMODEL-EMPLOYMENT, HR Data model - Employment>>
 
 == Employments management in UI
 

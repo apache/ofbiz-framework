@@ -48,7 +48,6 @@ public class ModelFormFieldTest {
      * Filter a list of fields with {@link ModelFormField#usedFields} predicate.
      * <p>
      * This is useful since Hamcrest does not provide any Stream matchers.
-     *
      * @param fields  the fields to filter
      * @return a list a filtered fields.
      */

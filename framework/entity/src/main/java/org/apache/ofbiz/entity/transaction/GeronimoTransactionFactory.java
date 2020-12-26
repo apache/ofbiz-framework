@@ -76,7 +76,8 @@ public class GeronimoTransactionFactory implements TransactionFactory {
         if (datasourceInfo != null && datasourceInfo.getInlineJdbc() != null) {
             return ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
         }
-        Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", MODULE);
+        Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the "
+                + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", MODULE);
         return null;
     }
 

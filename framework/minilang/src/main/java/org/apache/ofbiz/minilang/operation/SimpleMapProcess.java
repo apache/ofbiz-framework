@@ -35,24 +35,40 @@ public class SimpleMapProcess {
 
     private static final String MODULE = SimpleMapProcess.class.getName();
 
-    String field = "";
-    List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();
+    private String field = "";
+    private List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();
 
     public SimpleMapProcess(Element simpleMapProcessElement) {
         this.field = simpleMapProcessElement.getAttribute("field");
         readOperations(simpleMapProcessElement);
     }
 
+    /**
+     * Exec.
+     * @param inMap    the in map
+     * @param results  the results
+     * @param messages the messages
+     * @param locale   the locale
+     * @param loader   the loader
+     */
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         for (SimpleMapOperation simpleMapOperation : simpleMapOperations) {
             simpleMapOperation.exec(inMap, results, messages, locale, loader);
         }
     }
 
+    /**
+     * Gets field name.
+     * @return the field name
+     */
     public String getFieldName() {
         return field;
     }
 
+    /**
+     * Read operations.
+     * @param simpleMapProcessElement the simple map process element
+     */
     void readOperations(Element simpleMapProcessElement) {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMapProcessElement);
         if (UtilValidate.isNotEmpty(operationElements)) {
@@ -73,7 +89,8 @@ public class SimpleMapProcess {
                 } else if ("convert".equals(nodeName)) {
                     simpleMapOperations.add(new Convert(curOperElem, this));
                 } else {
-                    Debug.logWarning("[SimpleMapProcessor.SimpleMapProcess.readOperations] Operation element \"" + nodeName + "\" not recognized", MODULE);
+                    Debug.logWarning("[SimpleMapProcessor.SimpleMapProcess.readOperations] Operation element \"" + nodeName
+                            + "\" not recognized", MODULE);
                 }
             }
         }

@@ -115,7 +115,7 @@ public class HttpClient {
     }
 
     /** Enables this request to follow redirect 3xx codes (default true) */
-     public void followRedirects(boolean followRedirects) {
+    public void followRedirects(boolean followRedirects) {
         this.followRedirects = followRedirects;
     }
 
@@ -240,6 +240,11 @@ public class HttpClient {
         return this.trustAny;
     }
 
+    /**
+     * Sets basic auth info.
+     * @param basicAuthUsername the basic auth username
+     * @param basicAuthPassword the basic auth password
+     */
     public void setBasicAuthInfo(String basicAuthUsername, String basicAuthPassword) {
         this.basicAuthUsername = basicAuthUsername;
         this.basicAuthPassword = basicAuthPassword;
@@ -327,6 +332,11 @@ public class HttpClient {
         return con.getContentEncoding();
     }
 
+    /**
+     * Gets response code.
+     * @return the response code
+     * @throws HttpClientException the http client exception
+     */
     public int getResponseCode() throws HttpClientException {
         if (con == null) {
             throw new HttpClientException("Connection not yet established");
@@ -342,6 +352,12 @@ public class HttpClient {
         }
     }
 
+    /**
+     * Send http request string.
+     * @param method the method
+     * @return the string
+     * @throws HttpClientException the http client exception
+     */
     public String sendHttpRequest(String method) throws HttpClientException {
         InputStream in = sendHttpRequestStream(method);
         if (in == null) {
@@ -488,7 +504,8 @@ public class HttpClient {
 
             // if there is basicAuth info set the request property for it
             if (basicAuthUsername != null) {
-                String basicAuthString = "Basic " + Base64.getMimeEncoder().encodeToString((basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword)).getBytes(StandardCharsets.UTF_8));
+                String basicAuthString = "Basic " + Base64.getMimeEncoder().encodeToString((basicAuthUsername + ":" + (basicAuthPassword == null
+                        ? "" : basicAuthPassword)).getBytes(StandardCharsets.UTF_8));
                 con.setRequestProperty("Authorization", basicAuthString);
                 if (Debug.verboseOn() || debug) {
                     Debug.logVerbose("Header - Authorization: " + basicAuthString, MODULE);

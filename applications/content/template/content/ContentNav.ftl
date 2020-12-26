@@ -16,7 +16,6 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
@@ -65,44 +64,50 @@ jQuery(document).ready(createTree());
  <#-------------------------------------------------------------------------------------create Tree-->
   function createTree() {
     jQuery(function () {
-        jQuery("#tree").jstree({
-            "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
-            "json_data" : {
-                "data" : rawdata,
-                "progressive_render" : false
-            },
-            'contextmenu': {
-                'items': {
-                    'ccp' : false,
-                    'create' : false,
-                    'rename' : false,
-                    'remove' : false,
-                    'create1' : {
-                        'label' : "New Folder",
-                        'action' : function(obj) {
-                            callCreateDocumentTree(obj.attr('id'));
-                        }
-                    },
-                    'create2' : {
-                        'label' : "New Content in Folder",
-                        'action' : function(obj) {
-                            callCreateDocument(obj.attr('id'));
-                        }
-                    },
-                    'rename1' : {
-                        'label' : "Rename Folder",
-                        'action' : function(obj) {
-                            callRenameDocumentTree(obj.attr('id'));
-                        }
-                    },
-                    'delete1' : {
-                        'label' : "Delete Folder",
-                        'action' : function(obj) {
-                            callDeleteDocument(obj.attr('id'), obj.attr('contentId'), obj.attr('AssocType'), obj.attr('fromDate'));
-                        }
-                    },
+        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function(){
+            jQuery("#tree").jstree({
+                "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
+                "json_data" : {
+                    "data" : rawdata,
+                    "progressive_render" : false
+                },
+                'contextmenu': {
+                    'items': {
+                        'ccp' : false,
+                        'create' : false,
+                        'rename' : false,
+                        'remove' : false,
+                        'create1' : {
+                            'label' : "New Folder",
+                            'action' : function(obj) {
+                                callCreateDocumentTree(obj.attr('id'));
+                            }
+                        },
+                        'create2' : {
+                            'label' : "New Content in Folder",
+                            'action' : function(obj) {
+                                callCreateDocument(obj.attr('id'));
+                            }
+                        },
+                        'rename1' : {
+                            'label' : "Rename Folder",
+                            'action' : function(obj) {
+                                callRenameDocumentTree(obj.attr('id'));
+                            }
+                        },
+                        'delete1' : {
+                            'label' : "Delete Folder",
+                            'action' : function(obj) {
+                                callDeleteDocument(obj.attr('id'), obj.attr('contentId'), obj.attr('AssocType'), obj.attr('fromDate'));
+                            }
+                        },
+                    }
+                },
+                "themes": {
+                    "theme":"default",
+                    "url":"/common/js/jquery/plugins/jsTree/themes/default/style.css"
                 }
-            }
+            });
         });
     });
   }

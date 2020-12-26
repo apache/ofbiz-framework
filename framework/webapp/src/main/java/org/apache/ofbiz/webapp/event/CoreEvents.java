@@ -95,12 +95,10 @@ public class CoreEvents {
     /**
      * Schedule a service for a specific time or recurrence
      *  Request Parameters which are used for this service:
-     *
      *  SERVICE_NAME      - Name of the service to invoke
      *  SERVICE_TIME      - First time the service will occur
      *  SERVICE_FREQUENCY - The type of recurrence (SECONDLY, MINUTELY, DAILY,etc)
      *  SERVICE_INTERVAL  - The interval of the frequency (every 5 minutes, etc)
-     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @return Response code string
@@ -195,7 +193,7 @@ public class CoreEvents {
                 continue;
             }
 
-            if (value instanceof String && ((String) value).length() == 0) {
+            if (value instanceof String && ((String) value).isEmpty()) {
                 // interpreting empty fields as null values for each in back end handling...
                 value = null;
             }
@@ -224,7 +222,7 @@ public class CoreEvents {
             serviceContext.put("locale", locale);
         }
 
-        if (!modelService.export && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
+        if (!modelService.isExport() && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -312,10 +310,10 @@ public class CoreEvents {
             if (parsedValue > -2) {
                 maxRetry = parsedValue;
             } else {
-                maxRetry = modelService.maxRetry;
+                maxRetry = modelService.getMaxRetry();
             }
         } else {
-            maxRetry = modelService.maxRetry;
+            maxRetry = modelService.getMaxRetry();
         }
 
         // return the errors
@@ -420,13 +418,12 @@ public class CoreEvents {
         }
     }
 
-    public static ServiceEventHandler seh = new ServiceEventHandler();
+    private static ServiceEventHandler seh = new ServiceEventHandler();
 
     /**
      * Run a service.
      *  Request Parameters which are used for this event:
      *  SERVICE_NAME      - Name of the service to invoke
-     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @return Response code string
@@ -467,7 +464,7 @@ public class CoreEvents {
             return "error";
         }
 
-        if (!modelService.export && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
+        if (!modelService.isExport() && !security.hasPermission("SERVICE_INVOKE_ANY", request.getSession())) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg + ".");
             return "error";

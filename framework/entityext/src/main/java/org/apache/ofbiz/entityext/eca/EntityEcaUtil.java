@@ -49,17 +49,18 @@ public final class EntityEcaUtil {
 
     private static final String MODULE = EntityEcaUtil.class.getName();
 
-    private static final UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
+    private static final UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> ENTITY_ECA_READERS =
+            UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
 
     private EntityEcaUtil() { }
 
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
-        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = entityEcaReaders.get(entityEcaReaderName);
+        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = ENTITY_ECA_READERS.get(entityEcaReaderName);
         if (ecaCache == null) {
             // FIXME: Collections are not thread safe
             ecaCache = new HashMap<>();
             readConfig(entityEcaReaderName, ecaCache);
-            ecaCache = entityEcaReaders.putIfAbsentAndGet(entityEcaReaderName, ecaCache);
+            ecaCache = ENTITY_ECA_READERS.putIfAbsentAndGet(entityEcaReaderName, ecaCache);
         }
         return ecaCache;
     }
@@ -92,13 +93,14 @@ public final class EntityEcaUtil {
 
         List<Future<List<EntityEcaRule>>> futures = new LinkedList<>();
         for (Resource eecaResourceElement : entityEcaReaderInfo.getResourceList()) {
-            ResourceHandler handler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, eecaResourceElement.getLoader(), eecaResourceElement.getLocation());
+            ResourceHandler handler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, eecaResourceElement.getLoader(),
+                    eecaResourceElement.getLocation());
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(handler)));
         }
 
         // get all of the component resource eca stuff, ie specified in each ofbiz-component.xml file
         for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("eca")) {
-            if (entityEcaReaderName.equals(componentResourceInfo.readerName)) {
+            if (entityEcaReaderName.equals(componentResourceInfo.getReaderName())) {
                 futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(componentResourceInfo.createResourceHandler())));
             }
         }
@@ -124,7 +126,8 @@ public final class EntityEcaUtil {
                 //remove the old rule if found and keep the recent one
                 //This will prevent duplicate rule execution along with enabled/disabled eca workflow
                 if (rules.remove(rule)) {
-                    Debug.logWarning("Duplicate Entity ECA [" + entityName + "]" + "for operation [ "+ rule.getOperationName() + "] " + "on [" + eventName + "] ", MODULE);
+                    Debug.logWarning("Duplicate Entity ECA [" + entityName + "]" + "for operation [ " + rule.getOperationName() + "] "
+                            + "on [" + eventName + "] ", MODULE);
                 }
                 rules.add(rule);
             }
@@ -144,7 +147,8 @@ public final class EntityEcaUtil {
             rules.add(new EntityEcaRule(e));
         }
         try {
-            Debug.logInfo("Loaded [" + rules.size() + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), MODULE);
+            Debug.logInfo("Loaded [" + rules.size() + "] Entity ECA definitions from " + handler.getFullLocation()
+                    + " in loader " + handler.getLoaderName(), MODULE);
         } catch (GenericConfigException e) {
             Debug.logError(e, MODULE);
         }
@@ -156,7 +160,8 @@ public final class EntityEcaUtil {
     }
 
     public static Collection<EntityEcaRule> getEntityEcaRules(Delegator delegator, String entityName, String event) {
-        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorName()));
+        Map<String, Map<String, List<EntityEcaRule>>> ecaCache =
+                EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorName()));
         Map<String, List<EntityEcaRule>> eventMap = ecaCache.get(entityName);
         if (eventMap != null) {
             if (event != null) {

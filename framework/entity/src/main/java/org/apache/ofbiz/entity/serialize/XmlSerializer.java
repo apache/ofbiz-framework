@@ -82,7 +82,6 @@ public class XmlSerializer {
     /** Deserialize a Java object from an XML string. <p>This method should be used with caution.
      * If the XML string contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
      * then it is possible to unintentionally corrupt the database.</p>
-     *
      * @param content the content
      * @param delegator the delegator
      * @return return a deserialized object from XML string
@@ -109,7 +108,6 @@ public class XmlSerializer {
      * <p>This method should be used with caution. If the DOM <code>Document</code>
      * contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
      * then it is possible to unintentionally corrupt the database.</p>
-     *
      * @param document the document
      * @param delegator the delegator
      * @return returns a deserialized object from a DOM document
@@ -487,7 +485,6 @@ public class XmlSerializer {
      * This format is NOT used to format any of the java.sql subtypes of java.util.Date.
      * A <code>WeakReference</code> is used to maintain a reference to the DateFormat object
      * so that it can be created and garbage collected as needed.
-     *
      * @return the DateFormat used to serialize and deserialize <code>java.util.Date</code> objects.
      */
     private static DateFormat getDateFormat() {

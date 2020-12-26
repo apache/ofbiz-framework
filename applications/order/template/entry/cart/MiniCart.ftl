@@ -60,12 +60,12 @@ under the License.
                 <td>
                   <#if cartLine.getProductId()??>
                       <#if cartLine.getParentProductId()??>
-                          <a href="<@ofbizCatalogAltUrl productId=cartLine.getParentProductId()/>" class="linktext">${cartLine.getName(dispatcher)}</a>
+                          <a href="<@ofbizCatalogAltUrl productId=cartLine.getParentProductId()/>" class="linktext">${StringUtil.wrapString(cartLine.getName(dispatcher))}</a>
                       <#else>
-                          <a href="<@ofbizCatalogAltUrl productId=cartLine.getProductId()/>" class="linktext">${cartLine.getName(dispatcher)}</a>
+                          <a href="<@ofbizCatalogAltUrl productId=cartLine.getProductId()/>" class="linktext">${StringUtil.wrapString(cartLine.getName(dispatcher))}</a>
                       </#if>
                   <#else>
-                    <strong>${cartLine.getItemTypeDescription()!}</strong>
+                    <strong>${StringUtil.wrapString(cartLine.getItemTypeDescription())!}</strong>
                   </#if>
                 </td>
                 <td><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></td>

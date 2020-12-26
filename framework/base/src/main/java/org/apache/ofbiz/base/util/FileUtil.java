@@ -49,6 +49,9 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+
 /**
  * File Utilities
  */
@@ -76,7 +79,6 @@ public final class FileUtil {
 
     /**
      * Converts a file path to one that is compatible with the host operating system.
-     *
      * @param path The file path to convert.
      * @return The converted file path.
      */
@@ -100,7 +102,6 @@ public final class FileUtil {
 
     /**
      * Writes a file from a string with a specified encoding.
-     *
      * @param path
      * @param name
      * @param encoding
@@ -276,7 +277,6 @@ public final class FileUtil {
     /**
      * Search for the specified <code>searchString</code> in the given
      * {@link Reader}.
-     *
      * @param reader       A Reader in which the String will be searched.
      * @param searchString The String to search for
      * @return <code>TRUE</code> if the <code>searchString</code> is found;
@@ -306,7 +306,6 @@ public final class FileUtil {
      * Search for the specified <code>searchString</code> in the given
      * filename. If the specified file doesn't exist, <code>FALSE</code>
      * returns.
-     *
      * @param fileName     A full path to a file in which the String will be searched.
      * @param searchString The String to search for
      * @return <code>TRUE</code> if the <code>searchString</code> is found;
@@ -326,7 +325,6 @@ public final class FileUtil {
     /**
      * Check if the specified <code>fileName</code> exists and is a file (not a directory)
      * If the specified file doesn't exist or is a directory <code>FALSE</code> returns.
-     *
      * @param fileName A full path to a file in which the String will be searched.
      * @return <code>TRUE</code> if the <code>fileName</code> exists and is a file (not a directory)
      * <code>FALSE</code> otherwise.
@@ -339,7 +337,6 @@ public final class FileUtil {
     /**
      * For an inputStream and a file name, create a zip stream containing only one entry with the inputStream set to fileName
      * If fileName is empty, generate a unique one.
-     *
      * @param fileStream
      * @param fileName
      * @return zipStream
@@ -376,13 +373,32 @@ public final class FileUtil {
     }
 
     /**
+     * This useful to prevents Zip slip vulnerability cf. https://snyk.io/research/zip-slip-vulnerability
+     * @param destinationDirName The file path name to normalize
+     * @param zipEntry Zip entry to check before creating
+     * @return A file in destinationDir
+     */
+    public static File newFile(String destinationDirName, ZipEntry zipEntry) throws IOException {
+        File destinationDir = new File(destinationDirName);
+
+        File destFile = new File(destinationDir, zipEntry.getName());
+        String destDirPath = destinationDir.getCanonicalPath();
+        String destFilePath = destFile.getCanonicalPath();
+
+        if (!destFilePath.startsWith(destDirPath + File.separator)) {
+            throw new IOException("Entry is outside of the target dir: " + zipEntry.getName());
+        }
+        return destFile;
+    }
+
+    /**
      * Unzip file structure of the given zipFile to specified outputFolder
-     *
      * @param zipFile
      * @param outputFolder
+     * @param handleZipSlip if true FileUtil::newFile is used
      * @throws IOException
      */
-    public static void unzipFileToFolder(File zipFile, String outputFolder) throws IOException {
+    public static boolean unzipFileToFolder(File zipFile, String outputFolder, boolean handleZipSlip) throws IOException {
         byte[] buffer = new byte[8192];
 
         //create output directory if not exists
@@ -391,15 +407,23 @@ public final class FileUtil {
             folder.mkdir();
         }
 
-        //get the zip file content
+        // get the Zip file content
         ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
-        //get the zipped file list entry
+        // get the zipped file list entry
         ZipEntry ze = zis.getNextEntry();
 
         while (ze != null) {
-            String fileName = ze.getName();
-            File newFile = new File(outputFolder, fileName);
-
+            File newFile = null;
+            if (handleZipSlip) {
+                newFile = newFile(outputFolder, ze); // Prevents Zip slip vulnerability
+                if (null == newFile) {
+                    zis.closeEntry();
+                    zis.close();
+                    return false;
+                }
+            } else {
+                newFile = new File(outputFolder, ze.getName());
+            }
             //create all non existing folders
             //else you will hit FileNotFoundException for compressed folder
             new File(newFile.getParent()).mkdirs();
@@ -414,13 +438,13 @@ public final class FileUtil {
         }
         zis.closeEntry();
         zis.close();
+        return true;
     }
 
     /**
      * Creates a File with a normalized file path
      * This useful to prevent path traversal security issues
      * cf. OFBIZ-9973 for more details
-     *
      * @param filePath The file path to normalize
      * @return A File with a normalized file path
      */
@@ -431,7 +455,6 @@ public final class FileUtil {
     /**
      * Normalizes a file path
      * This useful to prevent path traversal security issues
-     *
      * @param filePath The file path to normalize
      * @return A normalized file path
      */
@@ -440,11 +463,11 @@ public final class FileUtil {
     }
 
     private static class SearchTextFilesFilter implements FilenameFilter {
-        String fileExtension;
-        Set<String> stringsToFindInFile = new HashSet<>();
-        Set<String> stringsToFindInPath = new HashSet<>();
+        private String fileExtension;
+        private Set<String> stringsToFindInFile = new HashSet<>();
+        private Set<String> stringsToFindInPath = new HashSet<>();
 
-        public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
+        SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
             this.fileExtension = fileExtension;
             if (stringsToFindInPath != null) {
                 this.stringsToFindInPath.addAll(stringsToFindInPath);
@@ -474,7 +497,7 @@ public final class FileUtil {
             }
 
             if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
-                if (stringsToFindInFile.size() == 0) {
+                if (stringsToFindInFile.isEmpty()) {
                     return true;
                 }
                 StringBuffer xmlFileBuffer = null;
@@ -499,6 +522,28 @@ public final class FileUtil {
             }
             return false;
         }
+    }
+
+    /**
+     * Unzip file structure of the given zipFile to specified outputFolder The Zip slip vulnerabilty is handled since version 1.3.3 of
+     * net.lingala.zip4j.ZipFile; unzipFileToFolder is not as reliable and does not handle passwords
+     * @param source
+     * @param destination
+     * @param password optional
+     * @return true if OK
+     */
+    public static boolean unZip(String source, String destination, String password) {
+        try {
+            if (password.isEmpty()) {
+                new ZipFile(source).extractAll(destination);
+            } else {
+                new ZipFile(source, password.toCharArray()).extractAll(destination);
+            }
+        } catch (ZipException e) {
+            Debug.logError("Error extracting [" + source + "] file to dir destination: " + destination, e.toString(), MODULE);
+            return false;
+        }
+        return true;
     }
 
 }

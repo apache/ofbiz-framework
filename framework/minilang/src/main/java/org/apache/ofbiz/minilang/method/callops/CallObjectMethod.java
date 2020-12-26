@@ -62,7 +62,7 @@ public final class CallObjectMethod extends MethodOperation {
         this.objFieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("obj-field"));
         this.retFieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("ret-field"));
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
-        if (parameterElements.size() > 0) {
+        if (!parameterElements.isEmpty()) {
             ArrayList<MethodObject<?>> parameterList = new ArrayList<>(parameterElements.size());
             for (Element parameterElement : parameterElements) {
                 if ("string".equals(parameterElement.getNodeName())) {

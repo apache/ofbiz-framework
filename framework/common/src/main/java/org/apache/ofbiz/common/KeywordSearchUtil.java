@@ -89,7 +89,8 @@ public final class KeywordSearchUtil {
         return stemSet;
     }
 
-    public static void processForKeywords(String str, Map<String, Long> keywords, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static void processForKeywords(String str, Map<String, Long> keywords, boolean forSearch, boolean anyPrefix,
+                                          boolean anySuffix, boolean isAnd) {
         String separators = getSeparators();
         String stopWordBagOr = getStopWordBagOr();
         String stopWordBagAnd = getStopWordBagAnd();
@@ -100,23 +101,28 @@ public final class KeywordSearchUtil {
         processForKeywords(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, forSearch, anyPrefix, anySuffix, isAnd);
     }
 
-    public static void processKeywordsForIndex(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet) {
+    public static void processKeywordsForIndex(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String
+            stopWordBagOr, boolean removeStems, Set<String> stemSet) {
         processForKeywords(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, false, false, false, false);
     }
 
-    public static void processForKeywords(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static void processForKeywords(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String stopWordBagOr,
+                                          boolean removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean
+                                                  isAnd) {
         Set<String> keywordSet = makeKeywordSet(str, separators, forSearch);
         fixupKeywordSet(keywordSet, keywords, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, forSearch, anyPrefix, anySuffix, isAnd);
     }
 
-    public static void fixupKeywordSet(Set<String> keywordSet, Map<String, Long> keywords, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static void fixupKeywordSet(Set<String> keywordSet, Map<String, Long> keywords, String stopWordBagAnd, String stopWordBagOr, boolean
+            removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         if (keywordSet == null) {
             return;
         }
 
         for (String token: keywordSet) {
 
-            // when cleaning up the tokens the ordering is inportant: check stop words, remove stems, then get rid of 1 character tokens (1 digit okay)
+            // when cleaning up the tokens the ordering is inportant: check stop words, remove stems, then get rid of 1 character
+            // tokens (1 digit okay)
 
             // check stop words
             String colonToken = ":" + token + ":";
@@ -140,7 +146,7 @@ public final class KeywordSearchUtil {
             }
 
             // get rid of all length 0 tokens now
-            if (token.length() == 0) {
+            if (token.isEmpty()) {
                 continue;
             }
 
@@ -182,7 +188,7 @@ public final class KeywordSearchUtil {
         }
 
         Set<String> keywords = new TreeSet<>();
-        if (str.length() > 0) {
+        if (!str.isEmpty()) {
             // strip off weird characters
             str = str.replaceAll("\\\302\\\240|\\\240", " ");
 
@@ -219,7 +225,7 @@ public final class KeywordSearchUtil {
             }
         }
         return keywords;
-}
+    }
 
     public static Set<String> fixKeywordsForSearch(Set<String> keywordSet, boolean anyPrefix, boolean anySuffix, boolean removeStems, boolean isAnd) {
         Map<String, Long> keywords = new LinkedHashMap<>();
@@ -231,7 +237,8 @@ public final class KeywordSearchUtil {
         boolean replaceEnteredKeyword = false;
 
         try {
-            List<GenericValue> thesaurusList = EntityQuery.use(delegator).from("KeywordThesaurus").where("enteredKeyword", enteredKeyword).cache(true).queryList();
+            List<GenericValue> thesaurusList = EntityQuery.use(delegator).from("KeywordThesaurus").where("enteredKeyword", enteredKeyword)
+                    .cache(true).queryList();
             for (GenericValue keywordThesaurus: thesaurusList) {
                 String relationshipEnumId = (String) keywordThesaurus.get("relationshipEnumId");
                 if (thesaurusRelsToInclude.contains(relationshipEnumId)) {

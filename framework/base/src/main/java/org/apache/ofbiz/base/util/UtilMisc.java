@@ -64,7 +64,7 @@ public final class UtilMisc {
 
     private UtilMisc() { }
 
-    public static final <T extends Throwable> T initCause(T throwable, Throwable cause) {
+    public static <T extends Throwable> T initCause(T throwable, Throwable cause) {
         throwable.initCause(cause);
         return throwable;
     }
@@ -98,7 +98,6 @@ public final class UtilMisc {
 
     /**
      * Get an iterator from a collection, returning null if collection is null
-     *
      * @param col The collection to be turned in to an iterator
      * @return The resulting Iterator
      */
@@ -111,7 +110,6 @@ public final class UtilMisc {
 
     /**
      * Creates a pseudo-literal map corresponding to key-values.
-     *
      * @param kvs the key-value pairs
      * @return the corresponding map.
      * @throws IllegalArgumentException when the key-value list is not even.
@@ -122,7 +120,6 @@ public final class UtilMisc {
 
     /**
      * Creates a pseudo-literal map corresponding to key-values.
-     *
      * @param constructor the constructor used to instantiate the map
      * @param kvs         the key-value pairs
      * @return the corresponding map.
@@ -135,12 +132,12 @@ public final class UtilMisc {
         }
         if (kvs.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException(
-                "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
+                    "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
             Debug.logInfo(e, MODULE);
             throw e;
         }
         Map<K, V> map = constructor.get();
-        for (int i = 0; i < kvs.length; ) {
+        for (int i = 0; i < kvs.length;) {
             map.put((K) kvs[i++], (V) kvs[i++]);
         }
         return map;
@@ -176,7 +173,6 @@ public final class UtilMisc {
 
     /**
      * This change a Map to be Serializable by removing all entries with values that are not Serializable.
-     *
      * @param <V>
      * @param map
      */
@@ -190,7 +186,6 @@ public final class UtilMisc {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), MODULE);
                 }
-
             }
         }
         for (String keyToRemove : keysToRemove) {
@@ -199,10 +194,24 @@ public final class UtilMisc {
     }
 
     /**
+     * This change an ArrayList to be Serializable by removing all entries that are not Serializable.
+     * @param arrayList
+     */
+    public static <V> void makeArrayListSerializable(ArrayList<Object> arrayList) {
+        // now filter out all non-serializable values
+        Iterator<Object> itr = arrayList.iterator();
+        while (itr.hasNext()) {
+            Object obj = itr.next();
+            if (!(obj instanceof Serializable)) {
+                itr.remove();
+            }
+        }
+    }
+
+    /**
      * Sort a List of Maps by specified consistent keys.
-     *
      * @param listOfMaps List of Map objects to sort.
-     * @param sortKeys   List of Map keys to sort by.
+     * @param sortKeys List of Map keys to sort by.
      * @return a new List of sorted Maps.
      */
     public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {
@@ -260,7 +269,8 @@ public final class UtilMisc {
         } else if (currentNumberObj instanceof Long) {
             currentNumber = new BigDecimal((Long) currentNumberObj);
         } else {
-            throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
+            throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: "
+                    + currentNumberObj.getClass().getName());
         }
 
         if (addNumber == null || ZERO_BD.compareTo(addNumber) == 0) {
@@ -292,7 +302,6 @@ public final class UtilMisc {
 
     /**
      * Generates a String from given values delimited by delimiter.
-     *
      * @param values
      * @param delimiter
      * @return String
@@ -314,7 +323,6 @@ public final class UtilMisc {
 
     /**
      * Create a set from the passed objects.
-     *
      * @param data
      * @return theSet
      */
@@ -355,7 +363,6 @@ public final class UtilMisc {
 
     /**
      * Creates a list from passed objects.
-     *
      * @param data
      * @return list
      */
@@ -415,7 +422,6 @@ public final class UtilMisc {
     /**
      * Converts an <code>Object</code> to a <code>double</code>. Returns
      * zero if conversion is not possible.
-     *
      * @param obj Object to convert
      * @return double value
      */
@@ -427,7 +433,6 @@ public final class UtilMisc {
     /**
      * Converts an <code>Object</code> to a <code>Double</code>. Returns
      * <code>null</code> if conversion is not possible.
-     *
      * @param obj Object to convert
      * @return Double
      */
@@ -454,7 +459,6 @@ public final class UtilMisc {
     /**
      * Converts an <code>Object</code> to an <code>int</code>. Returns
      * zero if conversion is not possible.
-     *
      * @param obj Object to convert
      * @return int value
      */
@@ -466,7 +470,6 @@ public final class UtilMisc {
     /**
      * Converts an <code>Object</code> to an <code>Integer</code>. Returns
      * <code>null</code> if conversion is not possible.
-     *
      * @param obj Object to convert
      * @return Integer
      */
@@ -493,7 +496,6 @@ public final class UtilMisc {
     /**
      * Converts an <code>Object</code> to a <code>long</code>. Returns
      * zero if conversion is not possible.
-     *
      * @param obj Object to convert
      * @return long value
      */
@@ -505,7 +507,6 @@ public final class UtilMisc {
     /**
      * Converts an <code>Object</code> to a <code>Long</code>. Returns
      * <code>null</code> if conversion is not possible.
-     *
      * @param obj Object to convert
      * @return Long
      */
@@ -531,7 +532,6 @@ public final class UtilMisc {
 
     /**
      * Adds value to the key entry in theMap, or creates a new one if not already there
-     *
      * @param theMap
      * @param key
      * @param value
@@ -547,7 +547,6 @@ public final class UtilMisc {
 
     /**
      * Parse a locale string Locale object
-     *
      * @param localeString The locale string (en_US)
      * @return Locale The new Locale object or null if no valid locale can be interpreted
      */
@@ -581,7 +580,6 @@ public final class UtilMisc {
 
     /**
      * The input can be a String, Locale, or even null and a valid Locale will always be returned; if nothing else works, returns the default locale.
-     *
      * @param localeObject An Object representing the locale
      */
     public static Locale ensureLocale(Object localeObject) {
@@ -606,7 +604,6 @@ public final class UtilMisc {
     /**
      * List of domains or IP addresses to be checked to prevent Host Header Injection,
      * no spaces after commas, no wildcard, can be extended of course...
-     *
      * @return List of domains or IP addresses to be checked to prevent Host Header Injection,
      */
     public static List<String> getHostHeadersAllowed() {
@@ -631,7 +628,7 @@ public final class UtilMisc {
             throw new IOException("File is a directory, not a file, cannot copy");
         }
         try (InputStream in = new FileInputStream(sourceLocation);
-             OutputStream out = new FileOutputStream(targetLocation);) {
+                OutputStream out = new FileOutputStream(targetLocation);) {
             // Copy the bits from instream to outstream
             byte[] buf = new byte[1024];
             int len;

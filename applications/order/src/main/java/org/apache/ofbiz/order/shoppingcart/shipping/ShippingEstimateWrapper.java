@@ -40,24 +40,24 @@ public class ShippingEstimateWrapper {
 
     private static final String MODULE = ShippingEstimateWrapper.class.getName();
 
-    protected Delegator delegator = null;
-    protected LocalDispatcher dispatcher = null;
+    private Delegator delegator = null;
+    private LocalDispatcher dispatcher = null;
 
-    protected Map<GenericValue, BigDecimal> shippingEstimates = null;
-    protected List<GenericValue> shippingTimeEstimates = null;
-    protected List<GenericValue> shippingMethods = null;
+    private Map<GenericValue, BigDecimal> shippingEstimates = null;
+    private List<GenericValue> shippingTimeEstimates = null;
+    private List<GenericValue> shippingMethods = null;
 
-    protected GenericValue shippingAddress = null;
-    protected GenericValue originAddress = null;
-    protected Map<String, BigDecimal> shippableItemFeatures = null;
-    protected List<BigDecimal> shippableItemSizes = null;
-    protected List<Map<String, Object>> shippableItemInfo = null;
-    protected String productStoreId = null;
-    protected BigDecimal shippableQuantity = BigDecimal.ZERO;
-    protected BigDecimal shippableWeight = BigDecimal.ZERO;
-    protected BigDecimal shippableTotal = BigDecimal.ZERO;
-    protected String partyId = null;
-    protected String supplierPartyId = null;
+    private GenericValue shippingAddress = null;
+    private GenericValue originAddress = null;
+    private Map<String, BigDecimal> shippableItemFeatures = null;
+    private List<BigDecimal> shippableItemSizes = null;
+    private List<Map<String, Object>> shippableItemInfo = null;
+    private String productStoreId = null;
+    private BigDecimal shippableQuantity = BigDecimal.ZERO;
+    private BigDecimal shippableWeight = BigDecimal.ZERO;
+    private BigDecimal shippableTotal = BigDecimal.ZERO;
+    private String partyId = null;
+    private String supplierPartyId = null;
 
     public static ShippingEstimateWrapper getWrapper(LocalDispatcher dispatcher, ShoppingCart cart, int shipGroup) {
         return new ShippingEstimateWrapper(dispatcher, cart, shipGroup);
@@ -83,7 +83,8 @@ public class ShippingEstimateWrapper {
         if (UtilValidate.isNotEmpty(cart.getShipGroupItems(shipGroup))) {
             try {
                 for (ShoppingCartItem item : cart.getShipGroupItems(shipGroup).keySet()) {
-                    GenericValue allowanceProductPrice = EntityQuery.use(delegator).from("ProductPrice").where("productPriceTypeId", "SHIPPING_ALLOWANCE", "productId", item.getProductId()).filterByDate().queryFirst();
+                    GenericValue allowanceProductPrice = EntityQuery.use(delegator).from("ProductPrice").where("productPriceTypeId",
+                            "SHIPPING_ALLOWANCE", "productId", item.getProductId()).filterByDate().queryFirst();
                     if (allowanceProductPrice != null && UtilValidate.isNotEmpty(allowanceProductPrice.get("price"))) {
                         totalAllowance = totalAllowance.add(allowanceProductPrice.getBigDecimal("price")).multiply(item.getQuantity());
                     }
@@ -97,6 +98,9 @@ public class ShippingEstimateWrapper {
         this.loadShipmentTimeEstimates();
     }
 
+    /**
+     * Load shipping methods.
+     */
     protected void loadShippingMethods() {
         try {
             this.shippingMethods = ProductStoreWorker.getAvailableStoreShippingMethods(delegator, productStoreId,
@@ -106,6 +110,10 @@ public class ShippingEstimateWrapper {
         }
     }
 
+    /**
+     * Load estimates.
+     * @param totalAllowance the total allowance
+     */
     protected void loadEstimates(BigDecimal totalAllowance) {
         this.shippingEstimates = new HashMap<>();
         if (shippingMethods != null) {
@@ -118,7 +126,8 @@ public class ShippingEstimateWrapper {
 
                 Map<String, Object> estimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, "SALES_ORDER",
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
-                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId, totalAllowance);
+                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId,
+                        totalAllowance);
 
                 if (ServiceUtil.isSuccess(estimateMap)) {
                     BigDecimal shippingTotal = (BigDecimal) estimateMap.get("shippingTotal");
@@ -128,6 +137,9 @@ public class ShippingEstimateWrapper {
         }
     }
 
+    /**
+     * Load shipment time estimates.
+     */
     protected void loadShipmentTimeEstimates() {
         this.shippingTimeEstimates = new LinkedList<>();
 
@@ -137,27 +149,50 @@ public class ShippingEstimateWrapper {
                 String carrierRoleTypeId = shipMethod.getString("roleTypeId");
                 String carrierPartyId = shipMethod.getString("partyId");
 
-                shippingTimeEstimates.addAll(ShippingEvents.getShipmentTimeEstimates(delegator, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingAddress, originAddress));
+                shippingTimeEstimates.addAll(ShippingEvents.getShipmentTimeEstimates(delegator, shipmentMethodTypeId, carrierPartyId,
+                        carrierRoleTypeId, shippingAddress, originAddress));
             }
         }
     }
 
+    /**
+     * Gets shipping methods.
+     * @return the shipping methods
+     */
     public List<GenericValue> getShippingMethods() {
         return shippingMethods;
     }
 
+    /**
+     * Gets all estimates.
+     * @return the all estimates
+     */
     public Map<GenericValue, BigDecimal> getAllEstimates() {
         return shippingEstimates;
     }
 
+    /**
+     * Gets shipping estimate.
+     * @param storeCarrierShipMethod the store carrier ship method
+     * @return the shipping estimate
+     */
     public BigDecimal getShippingEstimate(GenericValue storeCarrierShipMethod) {
         return shippingEstimates.get(storeCarrierShipMethod);
     }
 
+    /**
+     * Gets shipping time estimates.
+     * @return the shipping time estimates
+     */
     public List<GenericValue> getShippingTimeEstimates() {
         return shippingTimeEstimates;
     }
 
+    /**
+     * Gets shipping time estimate in day.
+     * @param storeCarrierShipMethod the store carrier ship method
+     * @return the shipping time estimate in day
+     */
     public Double getShippingTimeEstimateInDay(GenericValue storeCarrierShipMethod) {
         return ShippingEvents.getShippingTimeEstimateInDay(dispatcher, storeCarrierShipMethod, shippingTimeEstimates);
     }

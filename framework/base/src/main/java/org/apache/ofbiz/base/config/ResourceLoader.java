@@ -34,9 +34,9 @@ import org.w3c.dom.Element;
 public abstract class ResourceLoader {
 
     private static final String MODULE = ResourceLoader.class.getName();
-    private static final UtilCache<String, ResourceLoader> loaderCache = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
+    private static final UtilCache<String, ResourceLoader> LOADER_CACHE = UtilCache.createUtilCache("resource.ResourceLoaders", 0, 0);
     // This cache is temporary - we will use it until the framework has been refactored to eliminate DOM tree caching, then it can be removed.
-    private static final UtilCache<String, Document> domCache = UtilCache.createUtilCache("resource.DomTrees", 0, 0);
+    private static final UtilCache<String, Document> DOM_CACHE = UtilCache.createUtilCache("resource.DomTrees", 0, 0);
 
     public static InputStream loadResource(String xmlFilename, String location, String loaderName) throws GenericConfigException {
         ResourceLoader loader = getLoader(xmlFilename, loaderName);
@@ -56,7 +56,7 @@ public abstract class ResourceLoader {
 
     public static ResourceLoader getLoader(String xmlFilename, String loaderName) throws GenericConfigException {
         String cacheKey = xmlFilename.concat("#").concat(loaderName);
-        ResourceLoader loader = loaderCache.get(cacheKey);
+        ResourceLoader loader = LOADER_CACHE.get(cacheKey);
         if (loader == null) {
             loader = getLoader(xmlFilename, loaderName, cacheKey);
         }
@@ -81,9 +81,10 @@ public abstract class ResourceLoader {
             throw new GenericConfigException("The " + xmlFilename + " file is missing the <resource-loader> element with the name " + loaderName);
         }
         if (loaderElement.getAttribute("class").isEmpty()) {
-            throw new GenericConfigException("The " + xmlFilename + " file <resource-loader> element with the name " + loaderName + " is missing the class attribute");
+            throw new GenericConfigException("The " + xmlFilename + " file <resource-loader> element with the name " + loaderName
+                    + " is missing the class attribute");
         }
-        loader = loaderCache.putIfAbsentAndGet(cacheKey, makeLoader(loaderElement));
+        loader = LOADER_CACHE.putIfAbsentAndGet(cacheKey, makeLoader(loaderElement));
         return loader;
     }
 
@@ -120,13 +121,13 @@ public abstract class ResourceLoader {
      */
     @Deprecated
     public static Document getXmlDocument(String xmlFilename) throws GenericConfigException {
-        Document document = domCache.get(xmlFilename);
+        Document document = DOM_CACHE.get(xmlFilename);
 
         if (document == null) {
             document = readXmlDocument(xmlFilename);
 
             if (document != null) {
-                document = domCache.putIfAbsentAndGet(xmlFilename, document);
+                document = DOM_CACHE.putIfAbsentAndGet(xmlFilename, document);
             }
         }
         return document;

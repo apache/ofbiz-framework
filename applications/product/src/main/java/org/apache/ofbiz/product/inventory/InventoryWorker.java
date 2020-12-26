@@ -51,7 +51,8 @@ public final class InventoryWorker {
      */
     public static List<GenericValue> getOutstandingPurchaseOrders(String productId, Delegator delegator) {
         try {
-            List<EntityCondition> purchaseOrderConditions = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+            List<EntityCondition> purchaseOrderConditions =
+                    UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
@@ -65,7 +66,8 @@ public final class InventoryWorker {
                     .queryList();
             return purchaseOrders;
         } catch (GenericEntityException ex) {
-            Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage() + " - returning null", MODULE);
+            Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage()
+                    + " - returning null", MODULE);
             return null;
         }
     }
@@ -102,7 +104,6 @@ public final class InventoryWorker {
     /**
      * Gets the quanitty of each product in the order that is outstanding across all orders of the given input type.
      * Uses the OrderItemQuantityReportGroupByProduct view entity.
-     *
      * @param   productIds  Collection of disticnt productIds in an order. Use OrderReadHelper.getOrderProductIds()
      * @param   orderTypeId Either "SALES_ORDER" or "PURCHASE_ORDER"
      * @param   delegator   The delegator to use
@@ -115,7 +116,7 @@ public final class InventoryWorker {
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
-        if (productIds.size() > 0) {
+        if (!productIds.isEmpty()) {
             condList.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds));
         }
         condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
@@ -125,7 +126,8 @@ public final class InventoryWorker {
 
         Map<String, BigDecimal> results = new HashMap<>();
         try {
-            List<GenericValue> orderedProducts = EntityQuery.use(delegator).select(fieldsToSelect).from("OrderItemQuantityReportGroupByProduct").where(conditions).queryList();
+            List<GenericValue> orderedProducts = EntityQuery.use(delegator).select(fieldsToSelect).from("OrderItemQuantityReportGroupByProduct")
+                    .where(conditions).queryList();
             for (GenericValue value: orderedProducts) {
                 results.put(value.getString("productId"), value.getBigDecimal("quantityOpen"));
             }

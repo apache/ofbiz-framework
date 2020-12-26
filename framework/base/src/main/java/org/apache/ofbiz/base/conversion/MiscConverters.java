@@ -176,7 +176,7 @@ public class MiscConverters implements ConverterLoader {
     }
 
     private static class StringToEnum<E extends Enum<E>> extends AbstractConverter<String, E> {
-        public StringToEnum() {
+        StringToEnum() {
             super(String.class, Enum.class);
         }
 
@@ -208,7 +208,7 @@ public class MiscConverters implements ConverterLoader {
 
         @Override
         public String convert(Locale obj) throws ConversionException {
-             return obj.toString();
+            return obj.toString();
         }
     }
 
@@ -374,8 +374,8 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
-    public static class NotAConverter_Helper {
-        protected NotAConverter_Helper() {
+    public static class NotAConverterHelper {
+        protected NotAConverterHelper() {
             throw new Error("Should not be loaded");
         }
     }

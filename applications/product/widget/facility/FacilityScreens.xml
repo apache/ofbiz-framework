@@ -330,6 +330,12 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleEditFacilityInventoryItems"/>
+                <set field="asm_multipleSelectForm" value="SearchInventoryItemsParams"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="SearchInventoryItemsParams_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -346,6 +352,9 @@ under the License.
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
+                                <platform-specific>
+                                    <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                </platform-specific>
                                 <include-form name="SearchInventoryItemsParams" location="component://product/widget/facility/FacilityForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">

@@ -35,14 +35,14 @@ public class MessageString implements Serializable {
 
     private static final String MODULE = MessageString.class.getName();
 
-    protected String message;
-    protected String fieldName;
-    protected String toFieldName;
-    protected Throwable sourceError;
-    protected Locale locale;
-    protected String propertyResource;
-    protected String propertyName;
-    protected boolean isError = true;
+    private String message;
+    private String fieldName;
+    private String toFieldName;
+    private Throwable sourceError;
+    private Locale locale;
+    private String propertyResource;
+    private String propertyName;
+    private boolean isError = true;
 
     public static List<Object> getMessagesForField(String fieldName, boolean convertToStrings, List<Object> messageStringList) {
         if (fieldName == null) {
@@ -52,7 +52,8 @@ public class MessageString implements Serializable {
         fieldSet.add(fieldName);
         return getMessagesForField(fieldSet, convertToStrings, messageStringList);
     }
-    public static List<Object> getMessagesForField(String fieldName1, String fieldName2, String fieldName3, String fieldName4, boolean convertToStrings, List<Object> messageStringList) {
+    public static List<Object> getMessagesForField(String fieldName1, String fieldName2, String fieldName3, String fieldName4,
+                                                   boolean convertToStrings, List<Object> messageStringList) {
         Set<String> fieldSet = new TreeSet<>();
         if (UtilValidate.isNotEmpty(fieldName1)) {
             fieldSet.add(fieldName1);
@@ -150,9 +151,21 @@ public class MessageString implements Serializable {
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
     }
+
+    /**
+     * Is for field boolean.
+     * @param fieldNameSet the field name set
+     * @return the boolean
+     */
     public boolean isForField(Set<String> fieldNameSet) {
         return fieldNameSet == null || fieldNameSet.contains(this.fieldName);
     }
+
+    /**
+     * Is for field boolean.
+     * @param fieldName the field name
+     * @return the boolean
+     */
     public boolean isForField(String fieldName) {
         if (this.fieldName == null) {
             return fieldName == null;

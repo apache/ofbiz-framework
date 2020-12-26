@@ -41,7 +41,7 @@ public final class RequestParametersToList extends MethodOperation {
     private static boolean autoCorrect(Element element) {
         // Correct deprecated list-name attribute
         String listAttr = element.getAttribute("list-name");
-        if (listAttr.length() > 0) {
+        if (!listAttr.isEmpty()) {
             element.setAttribute("list", listAttr);
             element.removeAttribute("list-name");
             return true;

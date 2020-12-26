@@ -32,20 +32,21 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
 
     private static final String MODULE = ProductStoreSurveyWrapper.class.getName();
 
-    protected GenericValue productStoreSurveyAppl = null;
-    protected String surveyTemplate = null;
-    protected String resultTemplate = null;
-    protected boolean callResult = false;
+    private GenericValue productStoreSurveyAppl = null;
+    private String surveyTemplate = null;
+    private String resultTemplate = null;
+    private boolean callResult = false;
 
     protected ProductStoreSurveyWrapper() { }
 
-    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
+    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru,
+                                     Map<String, Object> defaultValues) {
         this.productStoreSurveyAppl = productStoreSurveyAppl;
 
         if (this.productStoreSurveyAppl != null) {
-            this.partyId = partyId;
-            this.delegator = productStoreSurveyAppl.getDelegator();
-            this.surveyId = productStoreSurveyAppl.getString("surveyId");
+            this.setPartyId(partyId);
+            this.setDelegator(productStoreSurveyAppl.getDelegator());
+            this.setSurveyId(productStoreSurveyAppl.getString("surveyId"));
             this.surveyTemplate = productStoreSurveyAppl.getString("surveyTemplate");
             this.resultTemplate = productStoreSurveyAppl.getString("resultTemplate");
         } else {
@@ -65,10 +66,19 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
         this(productStoreSurveyAppl, partyId, passThru, null);
     }
 
+    /**
+     * Call result.
+     * @param b the b
+     */
     public void callResult(boolean b) {
         this.callResult = b;
     }
 
+    /**
+     * Render writer.
+     * @return the writer
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public Writer render() throws SurveyWrapperException {
         if (canRespond() && !callResult) {
             return renderSurvey();
@@ -79,10 +89,20 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
         }
     }
 
+    /**
+     * Render survey writer.
+     * @return the writer
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public Writer renderSurvey() throws SurveyWrapperException {
         return this.render(surveyTemplate);
     }
 
+    /**
+     * Render result writer.
+     * @return the writer
+     * @throws SurveyWrapperException the survey wrapper exception
+     */
     public Writer renderResult() throws SurveyWrapperException {
         return this.render(resultTemplate);
     }

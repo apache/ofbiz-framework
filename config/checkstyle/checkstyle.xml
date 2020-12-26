@@ -65,8 +65,16 @@ under the License.
         </module>
 
         <!-- Checks for Size Violations -->
-        <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="500"/>
+            <property name="countEmpty" value="false"/>
+        </module>
+        <module name="ParameterNumber">
+            <property name="max" value="10"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+        </module>
 
         <!-- Checks for whitespace -->
         <module name="EmptyForIteratorPad"/>
@@ -115,10 +123,10 @@ under the License.
         <!-- Checks for class design -->
         <module name="DesignForExtension">
             <property name="ignoredAnnotations"
-                      value="After, AfterClass, Before, BeforeClass, Test, Property"/>
+                      value="After, AfterClass, Before, BeforeClass, Test, Property, Override"/>
         </module>
         <module name="FinalClass"/>
-        <module name="HideUtilityClassConstructor"/>
+        <!-- <module name="HideUtilityClassConstructor"/> -->
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier"/>
 

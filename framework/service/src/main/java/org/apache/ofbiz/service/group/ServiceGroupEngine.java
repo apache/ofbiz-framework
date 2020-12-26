@@ -43,7 +43,7 @@ public class ServiceGroupEngine extends GenericAsyncEngine {
      */
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        GroupModel groupModel = modelService.internalGroup;
+        GroupModel groupModel = modelService.getInternalGroup();
         if (groupModel == null) {
             groupModel = ServiceGroupReader.getGroupModel(this.getLocation(modelService));
         }
@@ -51,7 +51,7 @@ public class ServiceGroupEngine extends GenericAsyncEngine {
             throw new GenericServiceException("GroupModel was null; not a valid ServiceGroup!");
         }
 
-        return groupModel.run(dispatcher, localName, context);
+        return groupModel.run(getDispatcher(), localName, context);
     }
 
     /**

@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
  */
 public class ConstantOper extends MakeInStringOperation {
 
-    String constant;
+    private String constant;
 
     public ConstantOper(Element element) {
         super(element);

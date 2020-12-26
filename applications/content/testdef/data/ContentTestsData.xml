@@ -23,6 +23,7 @@ under the License.
     <DataResource dataResourceId="TEST_RESOURCE" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
     <DataResource dataResourceId="TEST_RESOURCE2" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
     <DataResource dataResourceId="TEST_RESOURCE3" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <DataResource dataResourceId="TEST_RESOURCE4" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
     <DataResource dataResourceId="TEST_SUBJECT" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
     <DataResource dataResourceId="TEST_PLAIN_BODY" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
     <DataResource dataResourceId="TEST_HTML_BODY" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
@@ -35,6 +36,7 @@ under the License.
     <Content contentId="TEST_CONTENT1" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE"/>
     <Content contentId="TEST_CONTENT2" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE"/>
     <Content contentId="TEST_CONTENT3" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE3"/>
+    <Content contentId="TEST_CONTENT4" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE4"/>
     <ContentAssocType contentAssocTypeId="TEST_ASSOC_TYPE"/>
     <ContentAssoc contentId="TEST_CONTENT1" contentIdTo="TEST_CONTENT2" contentAssocTypeId="TEST_ASSOC_TYPE" mapKey="Test_key" fromDate="2013-07-04 00:00:00"/>
 </entity-engine-xml>

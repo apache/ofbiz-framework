@@ -34,36 +34,52 @@ public class ModelDataFile {
     public static final String SEP_DELIMITED = "delimited";
 
     /** The name of the File */
-    public String name = "";
+    private String name = "";
 
     /** The type code of the File, ususally contained somewhere in the file and can be used to identify it */
-    public String typeCode = "";
+    private String typeCode = "";
 
     /** The entity that generally sends the file */
-    public String sender = "";
+    private String sender = "";
 
     /** The entity that generally receives the file */
-    public String receiver = "";
+    private String receiver = "";
 
     /** The length in bytes of a single record, ONLY if it uses fixed length records */
-    public int recordLength = -1;
+    private int recordLength = -1;
 
     /** Start the file read at line */
-    public int startLine = 0;
+    private int startLine = 0;
 
     /** The delimiter used in the file, if delimiter separated fields are used */
-    public char delimiter = '|';
+    private char delimiter = '|';
+
+    /**
+     * Gets text delimiter.
+     * @return the text delimiter
+     */
+    public String getTextDelimiter() {
+        return textDelimiter;
+    }
+
+    /**
+     * Sets text delimiter.
+     * @param textDelimiter the text delimiter
+     */
+    public void setTextDelimiter(String textDelimiter) {
+        this.textDelimiter = textDelimiter;
+    }
 
     /** The text delimiter, like quots, used in the file, if delimiter separated fields are used */
-    public String textDelimiter = null;
+    private String textDelimiter = null;
 
     /** The field serparator style, either fixed-length, or delimited */
-    public String separatorStyle = "";
+    private String separatorStyle = "";
 
     /** A free form description of the file */
-    public String description = "";
+    private String description = "";
     /** file enconding, by default UTF-8 is used */
-    public String encodingType = "UTF-8";
+    private String encodingType = "UTF-8";
 
     /**
      * the End Of Line type (CRLF or CR)
@@ -71,109 +87,211 @@ public class ModelDataFile {
     private String eolType = null;
 
     /** List of record definitions for the file */
-    public List<ModelRecord> records = new ArrayList<>();
+    private List<ModelRecord> records = new ArrayList<>();
 
+    /**
+     * Gets model record.
+     * @param recordName the record name
+     * @return the model record
+     */
     public ModelRecord getModelRecord(String recordName) {
         for (ModelRecord curRecord: records) {
 
-            if (curRecord.name.equals(recordName)) {
+            if (curRecord.getName().equals(recordName)) {
                 return curRecord;
             }
         }
         return null;
     }
 
+    /**
+     * Gets name.
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets type code.
+     * @return the type code
+     */
     public String getTypeCode() {
         return typeCode;
     }
 
+    /**
+     * Sets type code.
+     * @param typeCode the type code
+     */
     public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
     }
 
+    /**
+     * Gets sender.
+     * @return the sender
+     */
     public String getSender() {
         return sender;
     }
 
+    /**
+     * Sets sender.
+     * @param sender the sender
+     */
     public void setSender(String sender) {
         this.sender = sender;
     }
 
+    /**
+     * Gets receiver.
+     * @return the receiver
+     */
     public String getReceiver() {
         return receiver;
     }
 
+    /**
+     * Sets receiver.
+     * @param receiver the receiver
+     */
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 
+    /**
+     * Gets record length.
+     * @return the record length
+     */
     public int getRecordLength() {
         return recordLength;
     }
 
+    /**
+     * Sets record length.
+     * @param recordLength the record length
+     */
     public void setRecordLength(int recordLength) {
         this.recordLength = recordLength;
     }
 
+    /**
+     * Gets delimiter.
+     * @return the delimiter
+     */
     public char getDelimiter() {
         return delimiter;
     }
 
+    /**
+     * Sets delimiter.
+     * @param delimiter the delimiter
+     */
     public void setDelimiter(char delimiter) {
         this.delimiter = delimiter;
     }
 
+    /**
+     * Gets start line.
+     * @return the start line
+     */
     public int getStartLine() {
         return startLine;
     }
 
+    /**
+     * Sets start line.
+     * @param startLine the start line
+     */
     public void setStartLine(int startLine) {
         this.startLine = startLine;
     }
 
+    /**
+     * Gets separator style.
+     * @return the separator style
+     */
     public String getSeparatorStyle() {
         return separatorStyle;
     }
 
+    /**
+     * Sets separator style.
+     * @param separatorStyle the separator style
+     */
     public void setSeparatorStyle(String separatorStyle) {
         this.separatorStyle = separatorStyle;
     }
 
+    /**
+     * Gets description.
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets eol type.
+     * @return the eol type
+     */
     public String getEOLType() {
         return eolType;
     }
 
+    /**
+     * Sets eol type.
+     * @param eolType the eol type
+     */
     public void setEOLType(String eolType) {
         this.eolType = eolType;
     }
 
+    /**
+     * Gets records.
+     * @return the records
+     */
     public List<ModelRecord> getRecords() {
         return records;
     }
 
+    /**
+     * Sets records.
+     * @param records the records
+     */
     public void setRecords(List<ModelRecord> records) {
         this.records = records;
     }
+
+    /**
+     * Gets encoding type.
+     * @return the encoding type
+     */
     public String getEncodingType() {
         return encodingType;
     }
 
+    /**
+     * Sets encoding type.
+     * @param encodingType the encoding type
+     */
     public void setEncodingType(String encodingType) {
         this.encodingType = encodingType;
     }

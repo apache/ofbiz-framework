@@ -38,7 +38,8 @@ public abstract class ModelWidget implements Serializable {
      * The parameter name used to control widget boundary comments. Currently
      * set to "widgetVerbose".
      */
-    public static final String enableBoundaryCommentsParam = "widgetVerbose";
+    public static final String ENABLE_BOUNDARY_COMMENTS_PARAM = "widgetVerbose";
+    public enum NamedBorderType { NONE, LABEL, SOURCE }
 
     private final String name;
     private final String systemId;
@@ -130,19 +131,18 @@ public abstract class ModelWidget implements Serializable {
      * rendering context. If <code>widget.verbose</code> is set to <code>false</code> in the
      * <code>widget.properties</code> file, then that setting will override all other settings and
      * disable all widget boundary comments.
-     *
      * @param context Optional context Map
      */
     public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> context) {
         boolean result = "true".equals(UtilProperties.getPropertyValue("widget", "widget.verbose"));
         if (result && context != null) {
-            String str = (String) context.get(enableBoundaryCommentsParam);
+            String str = (String) context.get(ENABLE_BOUNDARY_COMMENTS_PARAM);
             if (str != null) {
                 result = "true".equals(str);
             } else {
                 Map<String, ? extends Object> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
-                    str = (String) parameters.get(enableBoundaryCommentsParam);
+                    str = (String) parameters.get(ENABLE_BOUNDARY_COMMENTS_PARAM);
                     if (str != null) {
                         result = "true".equals(str);
                     }
@@ -150,5 +150,13 @@ public abstract class ModelWidget implements Serializable {
             }
         }
         return result;
+    }
+
+    /**
+     * determine how to display named border for development
+     * @return NamedBorderType from <code>widget.dev.namedBorder</code> property
+     */
+    public static NamedBorderType widgetNamedBorderType() {
+        return NamedBorderType.valueOf(UtilProperties.getPropertyValue("widget", "widget.dev.namedBorder", NamedBorderType.NONE.toString()));
     }
 }

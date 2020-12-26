@@ -62,6 +62,7 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
     public XmlWidgetFieldVisitor(Appendable writer) {
         super(writer);
     }
+    private final Appendable writer = getWriter();
 
     @Override
     public void visit(CheckField checkField) throws Exception {

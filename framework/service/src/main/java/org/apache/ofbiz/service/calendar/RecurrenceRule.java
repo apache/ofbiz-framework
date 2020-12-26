@@ -85,20 +85,20 @@ public class RecurrenceRule {
     // **********************
     // * GenericValue object
     // **********************
-    protected GenericValue rule;
+    private GenericValue rule;
 
     // **********************
     // * Parsed byXXX lists
     // **********************
-    protected List<String> bySecondList;
-    protected List<String> byMinuteList;
-    protected List<String> byHourList;
-    protected List<String> byDayList;
-    protected List<String> byMonthDayList;
-    protected List<String> byYearDayList;
-    protected List<String> byWeekNoList;
-    protected List<String> byMonthList;
-    protected List<String> bySetPosList;
+    private List<String> bySecondList;
+    private List<String> byMinuteList;
+    private List<String> byHourList;
+    private List<String> byDayList;
+    private List<String> byMonthDayList;
+    private List<String> byYearDayList;
+    private List<String> byWeekNoList;
+    private List<String> byMonthList;
+    private List<String> bySetPosList;
 
     /**
      * Creates a new RecurrenceRule object from a RecurrenceInfo entity.
@@ -419,7 +419,7 @@ public class RecurrenceRule {
 
         // Check for validity of the current frequency.
         if (validByRule(cal.getTime())) {
-             return cal.getTime().getTime();
+            return cal.getTime().getTime();
         }
 
         return 0;
@@ -736,7 +736,7 @@ public class RecurrenceRule {
         }
         String numberStr = numberBuf.toString();
 
-        if (numberStr.length() > 0 && (numberStr.length() > 1 || (numberStr.charAt(0) != '+' && numberStr.charAt(0) != '-'))) {
+        if (!numberStr.isEmpty() && (numberStr.length() > 1 || (numberStr.charAt(0) != '+' && numberStr.charAt(0) != '-'))) {
             try {
                 number = Integer.parseInt(numberStr);
             } catch (NumberFormatException nfe) {
@@ -789,6 +789,10 @@ public class RecurrenceRule {
         return 0;
     }
 
+    /**
+     * Primary key string.
+     * @return the string
+     */
     public String primaryKey() {
         return rule.getString("recurrenceRuleId");
     }

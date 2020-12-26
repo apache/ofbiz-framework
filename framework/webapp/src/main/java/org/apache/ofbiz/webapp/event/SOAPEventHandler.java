@@ -118,9 +118,9 @@ public class SOAPEventHandler implements EventHandler {
 
                     for (String scvName: dctx.getAllServiceNames()) {
                         ModelService model = dctx.getModelService(scvName);
-                        if (model.export) {
-                            sb.append("<li><a href=\"").append(locationUri).append("/").append(model.name).append("?wsdl\">");
-                            sb.append(model.name).append("</a></li>");
+                        if (model.isExport()) {
+                            sb.append("<li><a href=\"").append(locationUri).append("/").append(model.getName()).append("?wsdl\">");
+                            sb.append(model.getName()).append("</a></li>");
                         }
                     }
                     sb.append("</ul></p></body></html>");
@@ -180,7 +180,7 @@ public class SOAPEventHandler implements EventHandler {
                     return null;
                 }
 
-                if (!model.export) {
+                if (!model.isExport()) {
                     sendError(response, "Problem processing the service", serviceName);
                     Debug.logError("Trying to call Service [" + serviceName + "] that is not exported.", MODULE);
                     return null;
@@ -288,7 +288,7 @@ public class SOAPEventHandler implements EventHandler {
         try {
             // setup the response
             res.setContentType("text/xml");
-            String xmlResults= SoapSerializer.serialize(object);
+            String xmlResults = SoapSerializer.serialize(object);
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = (StAXOMBuilder) OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(), xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();

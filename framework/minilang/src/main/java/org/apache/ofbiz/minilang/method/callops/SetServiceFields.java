@@ -103,10 +103,11 @@ public final class SetServiceFields extends MethodOperation {
             toMapFma.put(methodContext.getEnvMap(), toMap);
         }
         List<Object> errorMessages = new LinkedList<>();
-        Map<String, Object> validAttributes = modelService.makeValid(fromMap, mode, true, errorMessages, methodContext.getTimeZone(), methodContext.getLocale());
-        if (errorMessages.size() > 0) {
+        Map<String, Object> validAttributes = modelService.makeValid(fromMap, mode, true, errorMessages,
+                methodContext.getTimeZone(), methodContext.getLocale());
+        if (!errorMessages.isEmpty()) {
             for (Object obj : errorMessages) {
-                simpleMethod.addErrorMessage(methodContext, (String) obj);
+                getSimpleMethod().addErrorMessage(methodContext, (String) obj);
             }
             throw new MiniLangRuntimeException("Errors encountered while setting service attributes for service name \"" + serviceName + "\"", this);
         }

@@ -51,7 +51,7 @@ public final class Log extends MethodOperation {
         }
         this.messageFse = FlexibleStringExpander.getInstance(element.getAttribute("message"));
         String levelAttribute = UtilXml.getAttributeValueIgnorePrefix(element, "level");
-        if (levelAttribute.length() == 0) {
+        if (levelAttribute.isEmpty()) {
             levelAttribute = "info";
         }
         Integer levelInt = Debug.getLevelFromString(levelAttribute);
@@ -68,14 +68,14 @@ public final class Log extends MethodOperation {
         if (Debug.isOn(level)) {
             String message = this.messageFse.expandString(methodContext.getEnvMap());
             StringBuilder buf = new StringBuilder("[");
-            String methodLocation = this.simpleMethod.getFromLocation();
+            String methodLocation = this.getSimpleMethod().getFromLocation();
             int pos = methodLocation.lastIndexOf("/");
             if (pos != -1) {
                 methodLocation = methodLocation.substring(pos + 1);
             }
             buf.append(methodLocation);
             buf.append("#");
-            buf.append(this.simpleMethod.getMethodName());
+            buf.append(this.getSimpleMethod().getMethodName());
             buf.append(" line ");
             buf.append(getLineNumber());
             buf.append("] ");

@@ -84,7 +84,6 @@ public final class FinAccountHelper {
 
     /**
      * A convenience method which adds transactions.get(0).get(fieldName) to initialValue, all done in BigDecimal to decimals and rounding
-     *
      * @param initialValue the initial value
      * @param transactions a List of GenericValue objects of transactions
      * @param fieldName    the field name to get the value from the transaction
@@ -110,7 +109,6 @@ public final class FinAccountHelper {
 
     /**
      * Returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
-     *
      * @param codeLength length of code in number of characters
      * @param delegator  the delegator
      * @return returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
@@ -147,7 +145,6 @@ public final class FinAccountHelper {
 
     /**
      * Gets the first (and should be only) FinAccount based on finAccountCode, which will be cleaned up to be only uppercase and alphanumeric
-     *
      * @param finAccountCode the financial account code
      * @param delegator      the delegator
      * @return gets the first financial account by code
@@ -179,7 +176,6 @@ public final class FinAccountHelper {
 
     /**
      * Sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions whose transactionDate is before asOfDateTime
-     *
      * @param finAccountId the financial account id
      * @param asOfDateTime the validity date
      * @param delegator    the delegator
@@ -221,7 +217,6 @@ public final class FinAccountHelper {
 
     /**
      * Returns the net balance (see above) minus the sum of all authorization amounts which are not expired and were authorized by the as of date
-     *
      * @param finAccountId the financial account id
      * @param asOfDateTime the validity date
      * @param delegator    the delegator
@@ -253,7 +248,6 @@ public final class FinAccountHelper {
 
     /**
      * Validates a FinAccount's PIN number
-     *
      * @param delegator    the delegator
      * @param finAccountId the financial account id
      * @param pinNumber    a pin number
@@ -281,7 +275,6 @@ public final class FinAccountHelper {
 
     /**
      * Generate a random financial number
-     *
      * @param delegator the delegator
      * @param length    length of the number to generate (up to 19 digits)
      * @param isId      to be used as an ID (will check the DB to make sure it doesn't already exist)

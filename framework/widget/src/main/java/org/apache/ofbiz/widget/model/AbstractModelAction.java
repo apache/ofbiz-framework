@@ -70,21 +70,17 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
     private static final String MODULE = AbstractModelAction.class.getName();
 
     /**
      * Returns a new <code>ModelAction</code> instance, built from <code>actionElement</code>.
-     *
      * @param modelWidget The <code>ModelWidget</code> that contains the &lt;actions&gt; element
      * @param actionElement
      * @return A new <code>ModelAction</code> instance
@@ -136,7 +132,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         }
         for (ModelAction action : actions) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Running action " + action.getClass().getName(), MODULE);
+                Debug.logVerbose("Running action " + action.getClass().getName(), MODULE);
             }
             try {
                 action.runAction(context);
@@ -156,7 +152,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
     protected AbstractModelAction(ModelWidget modelWidget, Element actionElement) {
         this.modelWidget = modelWidget;
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), MODULE);
+            Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), MODULE);
         }
     }
 
@@ -182,7 +178,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-and&gt; element.
-     *
      * @see <code>widget-screen.xsd</code>
      */
     public static class EntityAnd extends AbstractModelAction {
@@ -198,6 +193,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets finder.
+         * @return the finder
+         */
         public ByAndFinder getFinder() {
             return this.finder;
         }
@@ -216,7 +215,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-condition&gt; element.
-     *
      * @see <code>widget-screen.xsd</code>
      */
     public static class EntityCondition extends AbstractModelAction {
@@ -232,6 +230,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets finder.
+         * @return the finder
+         */
         public ByConditionFinder getFinder() {
             return this.finder;
         }
@@ -250,7 +252,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-one&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class EntityOne extends AbstractModelAction {
@@ -266,6 +267,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets finder.
+         * @return the finder
+         */
         public PrimaryKeyFinder getFinder() {
             return this.finder;
         }
@@ -284,7 +289,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;get-related&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class GetRelated extends AbstractModelAction {
@@ -310,6 +314,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets relation name.
+         * @return the relation name
+         */
         public String getRelationName() {
             return this.relationName;
         }
@@ -348,22 +356,42 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
         }
 
+        /**
+         * Gets list name acsr.
+         * @return the list name acsr
+         */
         public FlexibleMapAccessor<List<GenericValue>> getListNameAcsr() {
             return listNameAcsr;
         }
 
+        /**
+         * Gets map acsr.
+         * @return the map acsr
+         */
         public FlexibleMapAccessor<Map<String, Object>> getMapAcsr() {
             return mapAcsr;
         }
 
+        /**
+         * Gets order by list acsr.
+         * @return the order by list acsr
+         */
         public FlexibleMapAccessor<List<String>> getOrderByListAcsr() {
             return orderByListAcsr;
         }
 
+        /**
+         * Gets use cache.
+         * @return the use cache
+         */
         public boolean getUseCache() {
             return useCache;
         }
 
+        /**
+         * Gets value name acsr.
+         * @return the value name acsr
+         */
         public FlexibleMapAccessor<Object> getValueNameAcsr() {
             return valueNameAcsr;
         }
@@ -371,7 +399,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;get-related-one&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class GetRelatedOne extends AbstractModelAction {
@@ -393,6 +420,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets relation name.
+         * @return the relation name
+         */
         public String getRelationName() {
             return this.relationName;
         }
@@ -423,14 +454,26 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
         }
 
+        /**
+         * Gets to value name acsr.
+         * @return the to value name acsr
+         */
         public FlexibleMapAccessor<Object> getToValueNameAcsr() {
             return toValueNameAcsr;
         }
 
+        /**
+         * Gets use cache.
+         * @return the use cache
+         */
         public boolean getUseCache() {
             return useCache;
         }
 
+        /**
+         * Gets value name acsr.
+         * @return the value name acsr
+         */
         public FlexibleMapAccessor<Object> getValueNameAcsr() {
             return valueNameAcsr;
         }
@@ -438,7 +481,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;property-map&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class PropertyMap extends AbstractModelAction {
@@ -497,14 +539,26 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
         }
 
+        /**
+         * Gets global exdr.
+         * @return the global exdr
+         */
         public FlexibleStringExpander getGlobalExdr() {
             return globalExdr;
         }
 
+        /**
+         * Gets map name acsr.
+         * @return the map name acsr
+         */
         public FlexibleMapAccessor<ResourceBundleMapWrapper> getMapNameAcsr() {
             return mapNameAcsr;
         }
 
+        /**
+         * Gets resource exdr.
+         * @return the resource exdr
+         */
         public FlexibleStringExpander getResourceExdr() {
             return resourceExdr;
         }
@@ -512,7 +566,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;property-to-field&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class PropertyToField extends AbstractModelAction {
@@ -569,30 +622,58 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             fieldAcsr.put(context, value);
         }
 
+        /**
+         * Gets arg list acsr.
+         * @return the arg list acsr
+         */
         public FlexibleMapAccessor<List<? extends Object>> getArgListAcsr() {
             return argListAcsr;
         }
 
+        /**
+         * Gets default exdr.
+         * @return the default exdr
+         */
         public FlexibleStringExpander getDefaultExdr() {
             return defaultExdr;
         }
 
+        /**
+         * Gets field acsr.
+         * @return the field acsr
+         */
         public FlexibleMapAccessor<Object> getFieldAcsr() {
             return fieldAcsr;
         }
 
+        /**
+         * Gets global exdr.
+         * @return the global exdr
+         */
         public FlexibleStringExpander getGlobalExdr() {
             return globalExdr;
         }
 
+        /**
+         * Gets no locale.
+         * @return the no locale
+         */
         public boolean getNoLocale() {
             return noLocale;
         }
 
+        /**
+         * Gets property exdr.
+         * @return the property exdr
+         */
         public FlexibleStringExpander getPropertyExdr() {
             return propertyExdr;
         }
 
+        /**
+         * Gets resource exdr.
+         * @return the resource exdr
+         */
         public FlexibleStringExpander getResourceExdr() {
             return resourceExdr;
         }
@@ -600,7 +681,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;script&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Script extends AbstractModelAction {
@@ -637,10 +717,18 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
         }
 
+        /**
+         * Gets location.
+         * @return the location
+         */
         public String getLocation() {
             return location;
         }
 
+        /**
+         * Gets method.
+         * @return the method
+         */
         public String getMethod() {
             return method;
         }
@@ -648,7 +736,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;service&gt; element.
-     *
      * @see <code>widget-screen.xsd</code>
      */
     public static class Service extends AbstractModelAction {
@@ -670,6 +757,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets service name exdr.
+         * @return the service name exdr
+         */
         public FlexibleStringExpander getServiceNameExdr() {
             return this.serviceNameExdr;
         }
@@ -718,14 +809,26 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
         }
 
+        /**
+         * Gets auto field map exdr.
+         * @return the auto field map exdr
+         */
         public FlexibleStringExpander getAutoFieldMapExdr() {
             return autoFieldMapExdr;
         }
 
+        /**
+         * Gets field map.
+         * @return the field map
+         */
         public Map<FlexibleMapAccessor<Object>, Object> getFieldMap() {
             return fieldMap;
         }
 
+        /**
+         * Gets result map name acsr.
+         * @return the result map name acsr
+         */
         public FlexibleMapAccessor<Map<String, Object>> getResultMapNameAcsr() {
             return resultMapNameAcsr;
         }
@@ -733,7 +836,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;set&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class SetField extends AbstractModelAction {
@@ -771,6 +873,12 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             visitor.visit(this);
         }
 
+        /**
+         * Gets in memory persisted from field.
+         * @param storeAgent the store agent
+         * @param context the context
+         * @return the in memory persisted from field
+         */
         public Object getInMemoryPersistedFromField(Object storeAgent, Map<String, Object> context) {
             Object newValue = null;
             String originalName = this.fromField.getOriginalName();
@@ -783,7 +891,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             for (int i = trailList.size(); i >= 0; i--) {
                 List<String> subTrail = trailList.subList(0, i);
                 String newKey = null;
-                if (subTrail.size() > 0) {
+                if (!subTrail.isEmpty()) {
                     newKey = StringUtil.join(subTrail, "|") + "|" + originalName;
                 } else {
                     newKey = originalName;
@@ -812,7 +920,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     HttpSession session = (HttpSession) context.get("session");
                     newValue = getInMemoryPersistedFromField(session, context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -822,7 +930,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = getInMemoryPersistedFromField(servletContext, context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue,
+                                MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
@@ -831,7 +940,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
+                        Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, MODULE);
                     }
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
@@ -860,13 +969,15 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
             if (!setIfNull && newValue == null) {
                 if (Debug.warningOn()) {
-                    Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
+                    Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName()
+                            + " and there was no default value, so field was not set", MODULE);
                 }
                 return;
             }
             if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
                 if (Debug.warningOn()) {
-                    Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", MODULE);
+                    Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName()
+                            + " and there was no default value, so field was not set", MODULE);
                 }
                 return;
             }
@@ -885,7 +996,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 HttpSession session = (HttpSession) context.get("session");
                 session.setAttribute(newKey, newValue);
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
+                    Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
                 }
             } else if (this.toScope != null && "application".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
@@ -902,13 +1013,13 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 ServletContext servletContext = (ServletContext) context.get("application");
                 servletContext.setAttribute(newKey, newValue);
                 if (Debug.verboseOn()) {
-                     Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
+                    Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, MODULE);
                 }
             } else {
                 // only do this if it is not global, if global ONLY put it in the global context
                 if (!global) {
                     if (Debug.verboseOn()) {
-                         Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, MODULE);
+                        Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, MODULE);
                     }
                     this.field.put(context, newValue);
                 }
@@ -923,34 +1034,66 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
         }
 
+        /**
+         * Gets default exdr.
+         * @return the default exdr
+         */
         public FlexibleStringExpander getDefaultExdr() {
             return defaultExdr;
         }
 
+        /**
+         * Gets field.
+         * @return the field
+         */
         public FlexibleMapAccessor<Object> getField() {
             return field;
         }
 
+        /**
+         * Gets from field.
+         * @return the from field
+         */
         public FlexibleMapAccessor<Object> getFromField() {
             return fromField;
         }
 
+        /**
+         * Gets from scope.
+         * @return the from scope
+         */
         public String getFromScope() {
             return fromScope;
         }
 
+        /**
+         * Gets global exdr.
+         * @return the global exdr
+         */
         public FlexibleStringExpander getGlobalExdr() {
             return globalExdr;
         }
 
+        /**
+         * Gets to scope.
+         * @return the to scope
+         */
         public String getToScope() {
             return toScope;
         }
 
+        /**
+         * Gets type.
+         * @return the type
+         */
         public String getType() {
             return type;
         }
 
+        /**
+         * Gets value exdr.
+         * @return the value exdr
+         */
         public FlexibleStringExpander getValueExdr() {
             return valueExdr;
         }

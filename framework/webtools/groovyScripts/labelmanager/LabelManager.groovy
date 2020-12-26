@@ -31,7 +31,7 @@ context.filesFound = factory.getFilesFound()
 context.componentNamesFound = factory.getComponentNamesFound()
 context.duplicatedLocalesLabels = factory.getDuplicatedLocalesLabels()
 context.duplicatedLocalesLabelsList = factory.getDuplicatedLocalesLabelsList()
-context.keySeparator = factory.keySeparator
+context.keySeparator = factory.KEY_SEPARATOR
 if ("Y".equals(parameters.onlyNotUsedLabels)) {
     LabelReferences refsObject = new LabelReferences(delegator, factory)
     Map references = refsObject.getLabelReferences()

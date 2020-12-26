@@ -39,12 +39,13 @@ public class InterfaceEngine implements GenericEngine {
 
     @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-       throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
+        throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
     }
 
     @Override
-    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
-       throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist)
+            throws GenericServiceException {
+        throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
     }
 
     @Override
@@ -57,7 +58,8 @@ public class InterfaceEngine implements GenericEngine {
     }
 
     @Override
-    public void sendCallbacks(ModelService modelService, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService modelService, Map<String, Object> context, Map<String, Object> result, int mode)
+            throws GenericServiceException {
     }
 
     @Override

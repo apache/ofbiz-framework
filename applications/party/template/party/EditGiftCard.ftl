@@ -35,7 +35,7 @@ under the License.
     </#if>
         <input type="hidden" name="partyId" value="${partyId}"/>
         <div class="button-bar">
-          <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+          <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
           <a href="javascript:document.editgiftcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
         </div>
         <table class="basic-table" cellspacing="0">
@@ -95,7 +95,7 @@ under the License.
         </tr>
         </table>
         <div class="button-bar">
-          <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+          <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
           <input type="submit" value="${uiLabelMap.CommonSave}"/>
         </div>
       </form>

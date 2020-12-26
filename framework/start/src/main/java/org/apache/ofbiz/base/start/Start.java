@@ -57,7 +57,6 @@ public final class Start {
     /**
      * main is the entry point to execute high level OFBiz commands
      * such as starting, stopping or checking the status of the server.
-     *
      * @param args The commands for OFBiz
      */
     public static void main(String[] args) {
@@ -111,7 +110,6 @@ public final class Start {
 
     /**
      * Updates the server's main configuration.
-     *
      * @param c  the new configuration
      */
     public void setConfig(Config c) {

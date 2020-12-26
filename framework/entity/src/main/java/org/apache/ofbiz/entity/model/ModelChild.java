@@ -42,6 +42,10 @@ public abstract class ModelChild implements Serializable {
         this.description = description;
     }
 
+    /**
+     * Gets model entity.
+     * @return the model entity
+     */
     public ModelEntity getModelEntity() {
         return this.modelEntity;
     }

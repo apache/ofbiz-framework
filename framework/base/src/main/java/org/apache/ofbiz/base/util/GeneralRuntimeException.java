@@ -28,7 +28,7 @@ import java.io.PrintWriter;
 @SuppressWarnings("serial")
 public class GeneralRuntimeException extends RuntimeException {
 
-    Throwable nested = null;
+    private Throwable nested = null;
 
     /**
      * Creates new <code>GeneralException</code> without detail message.

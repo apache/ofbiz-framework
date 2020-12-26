@@ -124,7 +124,7 @@ public final class CompareFieldCondition extends MethodOperation implements Cond
         try {
             return this.compare.doCompare(fieldVal, toFieldVal, targetClass, methodContext.getLocale(), methodContext.getTimeZone(), format);
         } catch (Exception e) {
-            simpleMethod.addErrorMessage(methodContext, e.getMessage());
+            getSimpleMethod().addErrorMessage(methodContext, e.getMessage());
         }
         return false;
     }
@@ -201,7 +201,8 @@ public final class CompareFieldCondition extends MethodOperation implements Cond
     /**
      * A &lt;if-compare-field&gt; element factory.
      */
-    public static final class CompareFieldConditionFactory extends ConditionalFactory<CompareFieldCondition> implements Factory<CompareFieldCondition> {
+    public static final class CompareFieldConditionFactory extends ConditionalFactory<CompareFieldCondition> implements
+            Factory<CompareFieldCondition> {
         @Override
         public CompareFieldCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CompareFieldCondition(element, simpleMethod);

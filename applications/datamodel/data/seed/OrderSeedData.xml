@@ -319,7 +319,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FEE" returnItemTypeId="RET_FEE_ADJ"/>
-    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_CHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SALES_TAX" returnItemTypeId="RET_SALES_TAX_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="VAT_TAX" returnItemTypeId="RET_VAT_TAX_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="VAT_PRICE_CORRECT" returnItemTypeId="RET_VAT_PC_ADJ"/>
@@ -343,7 +343,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FEE" returnItemTypeId="RET_FEE_ADJ"/>
-    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_CHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SALES_TAX" returnItemTypeId="RET_SALES_TAX_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="VAT_TAX" returnItemTypeId="RET_VAT_TAX_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="VAT_PRICE_CORRECT" returnItemTypeId="RET_VAT_PC_ADJ"/>
