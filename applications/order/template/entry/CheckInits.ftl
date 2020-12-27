@@ -39,8 +39,8 @@ under the License.
       <li class="h3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart??>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
         <div class="basic-nav">
           <ul>
-            <li><a class="buttontext" href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
-            <li><a class="buttontext" href="<@ofbizUrl controlPath="/partymgr/control">findparty</@ofbizUrl>">${uiLabelMap.PartyFindParty}</a></li>
+            <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty</@ofbizUrl>">${uiLabelMap.PartyFindParty}</a></li>
           </ul>
         </div>
       </ul>
@@ -125,8 +125,8 @@ under the License.
         <li class="h3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart??>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
         <div class="basic-nav">
           <ul>
-            <li><a class="buttontext" href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
-            <li><a class="buttontext" href="<@ofbizUrl controlPath="/partymgr/control">findparty</@ofbizUrl>">${uiLabelMap.PartyFindParty}</a></li>
+            <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
+            <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty</@ofbizUrl>">${uiLabelMap.PartyFindParty}</a></li>
           </ul>
         </div>
       </ul>
