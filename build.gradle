@@ -168,8 +168,8 @@ dependencies {
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.shiro:shiro-core:1.4.0'
     compile 'org.apache.sshd:sshd-core:1.7.0'
-    compile 'org.apache.tika:tika-core:1.20'
-    compile 'org.apache.tika:tika-parsers:1.20'
+    compile 'org.apache.tika:tika-core:1.24.1'
+    compile 'org.apache.tika:tika-parsers:1.24.1'
     compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.36'
     compile 'org.apache.tomcat:tomcat-catalina:9.0.36'
     compile 'org.apache.tomcat:tomcat-jasper:9.0.36'
@@ -189,7 +189,6 @@ dependencies {
     compile 'com.auth0:java-jwt:3.8.2'
     compile 'net.lingala.zip4j:zip4j:2.6.4'
     compile 'org.apache.commons:commons-imaging:1.0-alpha2' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
-    compile 'org.apache.tika:tika-core:1.24.1'
     compile 'batik:batik-svg-dom:1.6-1'
 
     // ofbiz unit-test compile libs
