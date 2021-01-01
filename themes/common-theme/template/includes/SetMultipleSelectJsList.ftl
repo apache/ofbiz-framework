@@ -17,6 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if asm_listField??> <#-- we check only this var and suppose the others are also present -->
+  <#assign ranOnce=false>
   <#list asm_listField as row>
     <#if row.asm_multipleSelect??>
       <script type="application/javascript">
@@ -57,19 +58,14 @@ under the License.
                   });
               });
           });
+          <#if !ranOnce>
+            <#assign ranOnce=true>
+            <#if asm_multipleSelectForm?? && asm_formSize??>
+          jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
+            </#if>
+          jQuery(".asmListItem").css("width", "${asm_asmListItemPercentOfForm!95}%")
+          </#if>
       </script>
     </#if>
   </#list>
-  <style type="text/css">
-      <#if asm_multipleSelectForm?? && asm_formSize??>
-      #${asm_multipleSelectForm}
-      {
-          width: ${asm_formSize!700}px;
-          position: relative;
-      }
-      </#if>
-      .asmListItem {
-          width: ${asm_asmListItemPercentOfForm!95}%;
-      }
-</style>
 </#if>

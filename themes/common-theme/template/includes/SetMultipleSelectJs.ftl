@@ -55,18 +55,9 @@ jQuery(document).ready(function () {
         });
     });
 });
-</script>
-
-<style type="text/css">
     <#if asm_multipleSelectForm?? && asm_formSize??>
-    #${asm_multipleSelectForm}
-    {
-        width: ${asm_formSize!700}px;
-        position: relative;
-    }
+jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
     </#if>
-    .asmListItem {
-        width: ${asm_asmListItemPercentOfForm!95}%;
-    }
-</style>
+jQuery(".asmListItem").css("width", "${asm_asmListItemPercentOfForm!95}%")
+</script>
 </#if>
