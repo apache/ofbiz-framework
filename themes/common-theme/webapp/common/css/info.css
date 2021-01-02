@@ -36,3 +36,41 @@ limitations under the License.
 .hidden {
     display: none;
 }
+
+/* used by ofbiz-form on CSS Grid Layout */
+.ofbiz-form {
+    display: grid;
+    grid-template-columns: [col1-label] minmax(150px, auto) 1fr [col2-label] minmax(150px, auto) 1fr;
+    grid-auto-flow: row;
+    grid-gap: .4em;
+    padding: 1em;
+}
+.ofbiz-form label {
+    text-align: right;
+    padding: 0.4em;
+    font-weight: bold;
+}
+.ofbiz-form > label {
+    grid-row: auto;
+}
+.ofbiz-form > label.left-column,
+.ofbiz-form > fieldset.left-column  {
+    grid-column: col1-label;
+}
+.ofbiz-form > label.right-column {
+    grid-column: col2-label;
+}
+.ofbiz-form > input,
+.ofbiz-form > select,
+.ofbiz-form > textarea {
+    grid-row: auto;
+    padding: .1em;
+    border: 1px solid lightgray;
+}
+.ofbiz-form .full-width-control {
+    grid-column: 2 / span 3;
+}
+.ofbiz-form .full-width-center {
+    display: flex;
+    justify-items: center;
+}
