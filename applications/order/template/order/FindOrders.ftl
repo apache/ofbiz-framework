@@ -155,7 +155,7 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
     <br class="clear"/>
   </div>
   <#if parameters.hideFields?default("N") != "Y">
-      <div class="ofbiz-form">
+      <div class="ofbiz-form with-left-right-columns">
 
           <label for="orderId">${uiLabelMap.OrderOrderId}</label>
           <input id="orderId" type='text' name='orderId'/>
@@ -246,7 +246,7 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
           <input id='softIdentifier' type='text' name='softIdentifier' value='${requestParameters.softIdentifier!}'/>
 
           <label class="left-column">${uiLabelMap.CommonStatus}</label>
-          <div class="full-width-control">
+          <div class="full-span-field">
               <#list orderStatuses as orderStatus>
                   <label>
                       <input type="checkbox" name="orderStatusId" value="${orderStatus.statusId}" <#if currentStatuses?has_content && currentStatuses.contains(orderStatus.statusId)>checked</#if>/>
