@@ -139,8 +139,11 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.4'
     compile 'org.apache.logging.log4j:log4j-api:2.10.0' // the API of log4j 2
     compile 'org.apache.shiro:shiro-core:1.4.0'
-    compile 'org.apache.tika:tika-core:1.24.1'
-    compile 'org.apache.tika:tika-parsers:1.24.1'
+    compile 'org.apache.tika:tika-core:1.20'
+    compile('org.apache.tika:tika-parsers:1.20') { // Exclude javax.ws.rs because 2.1 version POM has issues
+        exclude group: 'javax.ws.rs'
+    }
+    compile "javax.ws.rs:javax.ws.rs-api:2.1.1@jar" // @jar will make sure packaging 'jar' is used to resolve the URL. 
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.36'
     compile 'org.apache.tomcat:tomcat-catalina:9.0.36'
