@@ -64,6 +64,7 @@ import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
@@ -172,9 +173,18 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             parameters.put("boundaryComment", sb.toString());
             executeMacro(writer, "renderSectionBegin", parameters);
         }
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && section.isMainSection()) {
+            // render start of named border for screen
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Screen",
+                    section.getBoundaryCommentName(), ((HttpServletRequest) context.get("request")).getContextPath()));
+        }
     }
     @Override
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && section.isMainSection()) {
+            // render end of named border for screen
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Screen", section.getBoundaryCommentName()));
+        }
         if (this.widgetCommentsEnabled) {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder sb = new StringBuilder();
