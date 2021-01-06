@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -379,7 +380,11 @@ public final class UtilXml {
             Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", MODULE);
             return null;
         }
-        try (InputStream is = url.openStream()) {
+
+        URLConnection connection = url.openConnection();
+        // https://issues.apache.org/jira/browse/OFBIZ-12118
+        connection.setUseCaches(false);
+        try (InputStream is = connection.getInputStream();){
             return readXmlDocument(is, validate, url.toString());
         }
     }
