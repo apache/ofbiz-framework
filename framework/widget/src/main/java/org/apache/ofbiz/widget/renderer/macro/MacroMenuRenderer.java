@@ -52,6 +52,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
@@ -299,6 +300,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         } catch (TemplateException e) {
             throw new IOException(e);
         }
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Menu", menu.getBoundaryCommentName()));
+        }
     }
 
     @Override
@@ -367,6 +371,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException {
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Menu",
+                    menu.getBoundaryCommentName(), ((HttpServletRequest) context.get("request")).getContextPath()));
+        }
         Map<String, Object> parameters = new HashMap<>();
         if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
             StringBuilder sb = new StringBuilder("Begin Menu Widget ");
