@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -379,7 +380,12 @@ public final class UtilXml {
             Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", MODULE);
             return null;
         }
-        try (InputStream is = url.openStream()) {
+
+        URLConnection connection = url.openConnection();
+        // OFBIZ-12118: Ensure caching is disabled otherwise we may find another thread has already closed the
+        // underlying file's InputStream when dealing with URLs to JAR resources.
+        connection.setUseCaches(false);
+        try (InputStream is = connection.getInputStream()) {
             return readXmlDocument(is, validate, url.toString());
         }
     }
