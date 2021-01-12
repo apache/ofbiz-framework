@@ -62,6 +62,7 @@ import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
+import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -151,12 +152,26 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
+    public void renderBegin(Appendable writer, Map<String, Object> context) throws IOException {
+        executeMacro(writer, "renderBegin", null);
+    }
+
+    @Override
+    public void renderEnd(Appendable writer, Map<String, Object> context) throws IOException {
+        executeMacro(writer, "renderEnd", null);
+    }
+
+    @Override
+    public void renderScreenBegin(Appendable writer, Map<String, Object> context, ModelScreen modelScreen) throws IOException {
+        ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+        screenStack.push(modelScreen);
         executeMacro(writer, "renderScreenBegin", null);
     }
 
     @Override
-    public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
+    public void renderScreenEnd(Appendable writer, Map<String, Object> context, ModelScreen modelScreen) throws IOException {
+        ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+        screenStack.drop();
         executeMacro(writer, "renderScreenEnd", null);
     }
 
@@ -166,12 +181,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = new HashMap<>();
-            StringBuilder sb = new StringBuilder("Begin ");
-            sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
-            sb.append(section.getBoundaryCommentName());
-            parameters.put("boundaryComment", sb.toString());
-            executeMacro(writer, "renderSectionBegin", parameters);
+            StringBuilder sb = new StringBuilder("Begin section widget")
+                    .append(section.getBoundaryCommentName());
+            if (section.isMainSection()) {
+                ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+                sb.append(" id ")
+                        .append(screenStack.resolveCurrentScreenId());
+            }
+            executeMacro(writer, "renderSectionBegin", UtilMisc.toMap("boundaryComment", sb.toString()));
         }
         if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && section.isMainSection()) {
             // render start of named border for screen
@@ -186,13 +203,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             writer.append(HtmlWidgetRenderer.endNamedBorder("Screen", section.getBoundaryCommentName()));
         }
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = new HashMap<>();
-            StringBuilder sb = new StringBuilder();
-            sb.append("End ");
-            sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
-            sb.append(section.getBoundaryCommentName());
-            parameters.put("boundaryComment", sb.toString());
-            executeMacro(writer, "renderSectionEnd", parameters);
+            StringBuilder sb = new StringBuilder("End section Widget ")
+                    .append(section.getBoundaryCommentName());
+            if (section.isMainSection()) {
+                ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+                sb.append(" id ")
+                        .append(screenStack.resolveCurrentScreenId());
+            }
+            executeMacro(writer, "renderSectionEnd", UtilMisc.toMap("boundaryComment", sb.toString()));
         }
     }
 

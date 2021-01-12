@@ -154,7 +154,9 @@ public class ModelScreen extends ModelWidget {
             }
 
             // render the screen, starting with the top-level section
+            screenStringRenderer.renderScreenBegin(writer, context, this);
             this.section.renderWidgetString(writer, context, screenStringRenderer);
+            screenStringRenderer.renderScreenEnd(writer, context, this);
             TransactionUtil.commit(beganTransaction);
         } catch (RuntimeException e) {
             throw e;
