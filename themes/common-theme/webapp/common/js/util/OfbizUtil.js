@@ -382,7 +382,7 @@ function initDateTimePicker(self) {
                     ofbizTime = "yyyy-MM-dd HH:mm:ss"
                 }
                 var newValue = "";
-                var dateObj = Date.parseExact(self.value, dateFormat);
+                var dateObj = Date.parseExact(value, dateFormat);
                 if (value != "" && dateObj !== null) {
                     newValue = dateObj.toString(ofbizTime);
                 } else { // invalid input
