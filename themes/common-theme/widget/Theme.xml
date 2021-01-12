@@ -118,6 +118,7 @@ under the License.
             <screen name="GlobalActions"/>
             <screen name="GlobalDecorator"/>
             <screen name="LookupDecorator"/>
+            <screen name="ShortcutDecorator"/>
             <screen name="SimpleDecorator"/>
             <screen name="FoReportDecorator"/>
             <screen name="GlobalFoDecorator"/>

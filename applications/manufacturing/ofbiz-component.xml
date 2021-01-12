@@ -49,6 +49,7 @@ under the License.
         server="default-server"
         location="webapp/manufacturing"
         base-permission="OFBTOOLS,MANUFACTURING"
+        app-shortcut-screen="component://manufacturing/widget/manufacturing/CommonScreens.xml#ShortcutApp"
         mount-point="/manufacturing"/>
 
 </ofbiz-component>

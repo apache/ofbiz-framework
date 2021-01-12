@@ -43,6 +43,7 @@ under the License.
         server="default-server"
         location="webapp/workeffort"
         base-permission="OFBTOOLS,WORKEFFORTMGR"
+        app-shortcut-screen="component://workeffort/widget/CommonScreens.xml#ShortcutApp"
         mount-point="/workeffort"/>
 
      <webapp name="ical"

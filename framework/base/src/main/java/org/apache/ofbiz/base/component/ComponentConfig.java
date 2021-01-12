@@ -901,6 +901,7 @@ public final class ComponentConfig {
         private final String title;
         private final String description;
         private final String menuName;
+        private final String appShortcutScreen;
         private final String server;
         private final String mountPoint;
         private final String contextRoot;
@@ -951,6 +952,7 @@ public final class ComponentConfig {
             this.title = b.title;
             this.description = b.description;
             this.menuName = b.menuName;
+            this.appShortcutScreen = b.appShortcutScreen;
             this.server = b.server;
             this.mountPoint = b.mountPoint;
             this.contextRoot = b.contextRoot;
@@ -974,6 +976,7 @@ public final class ComponentConfig {
             private String title;
             private String description;
             private String menuName;
+            private String appShortcutScreen;
             private String server;
             private String mountPoint = "";
             private String contextRoot;
@@ -1052,6 +1055,16 @@ public final class ComponentConfig {
              */
             public Builder menuName(String menuName) {
                 this.menuName = menuName;
+                return this;
+            }
+
+            /**
+             * Server builder.
+             * @param appShortcutScreen the shortscreen to use
+             * @return the builder
+             */
+            public Builder appShortcutScreen(String appShortcutScreen) {
+                this.appShortcutScreen = appShortcutScreen;
                 return this;
             }
 
@@ -1223,6 +1236,7 @@ public final class ComponentConfig {
             } else {
                 this.menuName = "main";
             }
+            this.appShortcutScreen = element.getAttribute("app-shortcut-screen");
             this.position = element.getAttribute("position");
             // load the virtual hosts
             List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
@@ -1278,6 +1292,10 @@ public final class ComponentConfig {
 
         public String getName() {
             return name;
+        }
+
+        public String getAppShortcutScreen() {
+            return appShortcutScreen;
         }
 
         public String getMountPoint() {

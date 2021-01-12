@@ -78,6 +78,62 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="ManufacturingShortcutAppBar" title="${uiLabelMap.ManufacturingManager}">
+        <menu-item name="jobshop" title="${uiLabelMap.ManufacturingJobShop}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/FindProductionRun" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="routing" title="${uiLabelMap.ManufacturingRouting}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/FindRouting" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="routingTask" title="${uiLabelMap.ManufacturingRoutingTask}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/FindRoutingTask" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="calendar" title="${uiLabelMap.ManufacturingCalendar}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/FindCalendar" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="costs" title="${uiLabelMap.ManufacturingCostCalcs}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/EditCostCalcs" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="bom" title="${uiLabelMap.ManufacturingBillOfMaterials}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/FindBom" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="mrp" title="${uiLabelMap.ManufacturingMrp}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/FindInventoryEventPlan" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="ShipmentPlans" title="${uiLabelMap.ManufacturingShipmentPlans}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/WorkWithShipmentPlans" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="ManufacturingReports" title="${uiLabelMap.ManufacturingReports}">
+            <condition>
+                <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+            </condition>
+            <link target="/manufacturing/control/ManufacturingReports" url-mode="inter-app"/>
+        </menu-item>
+    </menu>
 
     <menu name="BomTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="findBom" title="${uiLabelMap.CommonFind}">

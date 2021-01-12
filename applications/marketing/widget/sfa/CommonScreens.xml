@@ -72,6 +72,21 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ShortcutApp">
+        <section>
+            <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="SfaShortcutAppBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="leftbar">
         <section>
             <condition><not><if-empty field="userLogin"/></not></condition>

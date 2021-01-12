@@ -80,6 +80,7 @@ under the License.
         server="default-server"
         location="webapp/accounting"
         base-permission="OFBTOOLS,ACCOUNTING"
+        app-shortcut-screen="component://accounting/widget/CommonScreens.xml#ShortcutApp"
         mount-point="/accounting"/>
 
     <webapp name="ar"
@@ -87,6 +88,7 @@ under the License.
         server="default-server"
         location="webapp/ar"
         base-permission="OFBTOOLS,ACCOUNTING"
+        app-shortcut-screen="component://accounting/widget/ar/CommonScreens.xml#ShortcutApp"
         mount-point="/ar"/>
 
     <webapp name="ap"
@@ -94,5 +96,6 @@ under the License.
         server="default-server"
         location="webapp/ap"
         base-permission="OFBTOOLS,ACCOUNTING"
+        app-shortcut-screen="component://accounting/widget/ap/CommonScreens.xml#ShortcutApp"
         mount-point="/ap"/>
 </ofbiz-component>

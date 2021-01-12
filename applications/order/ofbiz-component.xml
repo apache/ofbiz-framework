@@ -58,6 +58,7 @@ under the License.
         title="Order"
         description="OrderComponentDescription"
         server="default-server"
+        app-shortcut-screen="component://order/widget/ordermgr/CommonScreens.xml#ShortcutApp"
         location="webapp/ordermgr"
         base-permission="OFBTOOLS,ORDERMGR"
         mount-point="/ordermgr"/>
