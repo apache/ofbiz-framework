@@ -37,7 +37,7 @@ public final class MultiBlockHtmlTemplateUtil {
 
     private static final String MODULE = MultiBlockHtmlTemplateUtil.class.getName();
     public static final String FTL_WRITER = "WriterForFTL";
-    private static final String SCRIPT_LINKS_FOR_FOOT = "ScriptLinksForFoot";
+    private static final String SCRIPT_LINKS_FOR_BODY_END = "ScriptLinksForBodyEnd";
     private static int maxScriptCacheSizePerUserSession = 15;
     private static int estimatedConcurrentUserSessions = 250;
     /**
@@ -61,11 +61,11 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param filePath
      */
     public static void addScriptLinkForFoot(final HttpServletRequest request, final String filePath) {
-        Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_FOOT));
+        Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_BODY_END));
         if (scriptLinks == null) {
             // use of LinkedHashSet to maintain insertion order
             scriptLinks = new LinkedHashSet<>();
-            request.setAttribute(SCRIPT_LINKS_FOR_FOOT, scriptLinks);
+            request.setAttribute(SCRIPT_LINKS_FOR_BODY_END, scriptLinks);
         }
         scriptLinks.add(filePath);
     }
@@ -76,7 +76,7 @@ public final class MultiBlockHtmlTemplateUtil {
      * @return
      */
     public static Set<String> getScriptLinksForFoot(HttpServletRequest request) {
-        Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_FOOT));
+        Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_BODY_END));
         return scriptLinks;
     }
 
