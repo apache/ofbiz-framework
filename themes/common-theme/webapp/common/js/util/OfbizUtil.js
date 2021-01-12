@@ -330,17 +330,18 @@ function initDateTimePicker(self) {
     importLibrary(libCultureInfo, function () {
         //If language specific lib is found, use date / time converter else just copy the value fields
         if (Date.CultureInfo != undefined) {
+            var dateFormat;
+            var ofbizTime;
+            if (shortDate) {
+                dateFormat = Date.CultureInfo.formatPatterns.shortDate;
+                ofbizTime = "yyyy-MM-dd";
+            } else {
+                dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
+                ofbizTime = "yyyy-MM-dd HH:mm:ss"
+            }
+            element_i18n.attr('title', dateFormat);
             var initDate = element.val();
             if (initDate != "") {
-                var dateFormat;
-                var ofbizTime;
-                if (shortDate) {
-                    dateFormat = Date.CultureInfo.formatPatterns.shortDate;
-                    ofbizTime = "yyyy-MM-dd";
-                } else {
-                    dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
-                    ofbizTime = "yyyy-MM-dd HH:mm:ss"
-                }
                 // The JS date parser doesn't understand the dot before ms in the date/time string. The ms here should be always 000
                 if (initDate.indexOf('.') != -1) {
                     initDate = initDate.substring(0, initDate.indexOf('.'));
@@ -353,15 +354,6 @@ function initDateTimePicker(self) {
 
             element.change(function () {
                 var value = element.val();
-                var dateFormat;
-                var ofbizTime;
-                if (shortDate) {
-                    dateFormat = Date.CultureInfo.formatPatterns.shortDate;
-                    ofbizTime = "yyyy-MM-dd";
-                } else {
-                    dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
-                    ofbizTime = "yyyy-MM-dd HH:mm:ss"
-                }
                 var newValue = ""
                 if (value != "") {
                     var dateObj = Date.parseExact(value, ofbizTime);
@@ -372,15 +364,6 @@ function initDateTimePicker(self) {
 
             element_i18n.change(function () {
                 var value = element_i18n.val();
-                var dateFormat;
-                var ofbizTime;
-                if (shortDate) {
-                    dateFormat = Date.CultureInfo.formatPatterns.shortDate;
-                    ofbizTime = "yyyy-MM-dd";
-                } else {
-                    dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
-                    ofbizTime = "yyyy-MM-dd HH:mm:ss"
-                }
                 var newValue = "";
                 var dateObj = Date.parseExact(value, dateFormat);
                 if (value != "" && dateObj !== null) {
