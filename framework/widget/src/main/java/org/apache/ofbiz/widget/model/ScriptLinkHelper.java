@@ -19,9 +19,12 @@
 package org.apache.ofbiz.widget.model;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.security.CsrfUtil;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -33,17 +36,17 @@ import java.util.Set;
  *    These external javascript tags are placed at the bottom of the html page. The scripts are retrieved via the getJs
  *    request handler.
  */
-public final class MultiBlockHtmlTemplateUtil {
+public final class ScriptLinkHelper {
 
-    private static final String MODULE = MultiBlockHtmlTemplateUtil.class.getName();
+    private static final String MODULE = ScriptLinkHelper.class.getName();
     public static final String FTL_WRITER = "WriterForFTL";
-    private static final String SCRIPT_LINKS_FOR_BODY_END = "ScriptLinksForBodyEnd";
+    public static final String SCRIPT_LINKS_FOR_BODY_END = "ScriptLinksForBodyEnd";
     private static int maxScriptCacheSizePerUserSession = 15;
     private static int estimatedConcurrentUserSessions = 250;
     /**
      * Store inline script extracted from freemarker template for a user session.
-     * Number of inline scripts for a user session will be constraint by {@link MultiBlockHtmlTemplateUtil#maxScriptCacheSizePerUserSession}
-     * {@link MultiBlockHtmlTemplateUtil#cleanupScriptCache(HttpSession)} will be called to remove entry when session ends.
+     * Number of inline scripts for a user session will be constraint by {@link ScriptLinkHelper#maxScriptCacheSizePerUserSession}
+     * {@link ScriptLinkHelper#cleanupScriptCache(HttpSession)} will be called to remove entry when session ends.
      */
     private static LinkedHashMap<String, Map<String, String>> scriptCache =
             new LinkedHashMap<String, Map<String, String>>() {
@@ -53,14 +56,14 @@ public final class MultiBlockHtmlTemplateUtil {
                 }
             };
 
-    private MultiBlockHtmlTemplateUtil() { }
+    private ScriptLinkHelper() { }
 
     /**
      * add script link for page footer.
      * @param request
      * @param filePath
      */
-    public static void addScriptLinkForFoot(final HttpServletRequest request, final String filePath) {
+    private static void addScriptLinkForBodyEnd(final HttpServletRequest request, final String filePath) {
         Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_BODY_END));
         if (scriptLinks == null) {
             // use of LinkedHashSet to maintain insertion order
@@ -75,7 +78,7 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param request
      * @return
      */
-    public static Set<String> getScriptLinksForFoot(HttpServletRequest request) {
+    public static Set<String> getScriptLinksForBodyEnd(HttpServletRequest request) {
         Set<String> scriptLinks = UtilGenerics.cast(request.getAttribute(SCRIPT_LINKS_FOR_BODY_END));
         return scriptLinks;
     }
@@ -87,7 +90,7 @@ public final class MultiBlockHtmlTemplateUtil {
      * @param fileContent
      * @return key used to store the script
      */
-    public static String putScriptInCache(Map<String, Object> context, String fileName, String fileContent) {
+    private static String putScriptInCache(Map<String, Object> context, String fileName, String fileContent) {
         HttpSession session = (HttpSession) context.get("session");
         String sessionId = session.getId();
         Map<String, String> scriptMap = UtilGenerics.cast(scriptCache.get(sessionId));
@@ -134,5 +137,30 @@ public final class MultiBlockHtmlTemplateUtil {
      */
     public static void cleanupScriptCache(HttpSession session) {
         scriptCache.remove(session.getId());
+    }
+
+    public static String prepareScriptLinkForBodyEnd(HttpServletRequest request, String fileName, String script) {
+
+        Map<String, Object> context = new HashMap<>();
+        context.put("session", request.getSession());
+        String key = putScriptInCache(context, fileName, script);
+
+        // construct script link
+        String contextPath = request.getContextPath();
+        String url = null;
+        if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
+            url = contextPath + "/getJs?name=" + key;
+        } else {
+            url = contextPath + "/control/getJs?name=" + key;
+        }
+
+        // add csrf token to script link
+        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
+        url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
+
+        // store script link to be output by scriptTagsFooter freemarker macro
+        addScriptLinkForBodyEnd(request, url);
+
+        return "success";
     }
 }

@@ -38,8 +38,6 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.security.CsrfUtil;
-import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -268,17 +266,17 @@ public class HtmlWidget extends ModelScreenWidget {
              */
             String location = locationExdr.expandString(context);
             StringWriter stringWriter = new StringWriter();
-            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.FTL_WRITER));
+            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(ScriptLinkHelper.FTL_WRITER));
             if (stringWriterStack == null) {
                 stringWriterStack = new Stack<>();
             }
             stringWriterStack.push(stringWriter);
-            context.put(MultiBlockHtmlTemplateUtil.FTL_WRITER, stringWriterStack);
+            context.put(ScriptLinkHelper.FTL_WRITER, stringWriterStack);
             renderHtmlTemplate(stringWriter, locationExdr, context);
             stringWriterStack.pop();
             // check if no more parent freemarker template before removing from context
             if (stringWriterStack.empty()) {
-                context.remove(MultiBlockHtmlTemplateUtil.FTL_WRITER);
+                context.remove(ScriptLinkHelper.FTL_WRITER);
             }
             String data = stringWriter.toString();
             stringWriter.close();
@@ -323,24 +321,8 @@ public class HtmlWidget extends ModelScreenWidget {
                         if (fileName.endsWith(".ftl")) {
                             fileName = fileName.substring(0, fileName.length() - 4);
                         }
-                        String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
-
                         HttpServletRequest request = (HttpServletRequest) context.get("request");
-                        // construct script link
-                        String contextPath = request.getContextPath();
-                        String url = null;
-                        if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
-                            url = contextPath + "/getJs?name=" + key;
-                        } else {
-                            url = contextPath + "/control/getJs?name=" + key;
-                        }
-
-                        // add csrf token to script link
-                        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
-                        url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
-
-                        // store script link to be output by scriptTagsFooter freemarker macro
-                        MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
+                        ScriptLinkHelper.prepareScriptLinkForBodyEnd(request, fileName, scripts.toString());
                     }
                 }
                 // the 'template' block

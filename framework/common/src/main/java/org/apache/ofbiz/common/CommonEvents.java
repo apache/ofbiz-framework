@@ -62,7 +62,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.widget.model.ModelWidget;
-import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -189,7 +189,7 @@ public class CommonEvents {
     public static String jsResponseFromRequest(HttpServletRequest request, HttpServletResponse response) {
 
         String fileName = request.getParameter("name");
-        String script = MultiBlockHtmlTemplateUtil.getScriptFromCache(request.getSession(), fileName);
+        String script = ScriptLinkHelper.getScriptFromCache(request.getSession(), fileName);
 
         // return the JS String
         Writer out;
