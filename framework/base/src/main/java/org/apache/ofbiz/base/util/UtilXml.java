@@ -674,7 +674,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -697,7 +698,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -722,7 +724,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -747,7 +750,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -765,7 +769,8 @@ public final class UtilXml {
             if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
                 nodes.add(node);
             }
-        } while ((node = node.getNextSibling()) != null);
+            node = node.getNextSibling();
+        } while (node != null);
         return nodes;
     }
 
@@ -785,7 +790,8 @@ public final class UtilXml {
 
                     return childElement;
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -812,7 +818,8 @@ public final class UtilXml {
 
                     return childElement;
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -839,7 +846,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     return childElement;
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -865,7 +873,8 @@ public final class UtilXml {
                         return childElement;
                     }
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -930,7 +939,8 @@ public final class UtilXml {
             if (textNode.getNodeType() == Node.CDATA_SECTION_NODE || textNode.getNodeType() == Node.TEXT_NODE) {
                 valueBuffer.append(textNode.getNodeValue());
             }
-        } while ((textNode = textNode.getNextSibling()) != null);
+            textNode = textNode.getNextSibling();
+        } while (textNode != null);
         return valueBuffer.toString();
     }
 
@@ -945,7 +955,8 @@ public final class UtilXml {
             if (node.getNodeType() == Node.CDATA_SECTION_NODE || node.getNodeType() == Node.TEXT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
                 valueBuffer.append(node.getNodeValue());
             }
-        } while ((node = node.getNextSibling()) != null);
+            node = node.getNextSibling();
+        } while (node != null);
         return valueBuffer.toString();
     }
 

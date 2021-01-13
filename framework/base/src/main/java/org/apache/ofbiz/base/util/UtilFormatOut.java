@@ -25,6 +25,8 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import com.ibm.icu.text.DecimalFormat;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
@@ -154,10 +156,10 @@ public final class UtilFormatOut {
      * @return A String with the formatted price
      */
     public static String formatDecimalNumber(double number, String pattern, Locale locale) {
-        com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getNumberInstance(locale);
+        DecimalFormat nf = (DecimalFormat) com.ibm.icu.text.NumberFormat.getNumberInstance(locale);
         String nbParsing = "";
-        ((com.ibm.icu.text.DecimalFormat) nf).applyPattern(pattern);
-        ((com.ibm.icu.text.DecimalFormat) nf).toPattern();
+        nf.applyPattern(pattern);
+        nf.toPattern();
         nbParsing = nf.format(number);
         return nbParsing;
     }

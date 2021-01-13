@@ -366,7 +366,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                         + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
             }
             timeValues.append("[");
-            for (int i = 0; i <= 59; ) {
+            for (int i = 0; i <= 59;) {
                 if (i != 0) {
                     timeValues.append(", ");
                 }
