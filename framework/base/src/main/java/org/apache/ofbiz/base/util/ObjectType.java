@@ -355,7 +355,9 @@ public class ObjectType {
         }
         // we can pretty much always do a conversion to a String, so do that here
         if (targetClass.equals(String.class)) {
-            Debug.logWarning("No special conversion available for " + obj.getClass().getName() + " to String, returning object.toString().", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("No special conversion required for " + obj.getClass().getName() + " to String, returning object.toString().", MODULE);
+            }
             return obj.toString();
         }
         if (noTypeFail) {
