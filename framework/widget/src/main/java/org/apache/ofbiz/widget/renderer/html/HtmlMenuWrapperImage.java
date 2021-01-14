@@ -36,7 +36,10 @@ import org.xml.sax.SAXException;
 
 /**
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
+ *
+ * @deprecated since Upcoming Branch
  */
+@Deprecated
 public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
 
     private static final String MODULE = HtmlMenuWrapperImage.class.getName();

@@ -35,8 +35,10 @@ import org.apache.ofbiz.widget.model.ModelMenuItem;
 
 /**
  * Widget Library - HTML Menu Renderer implementation
+ *
+ * @deprecated since Upcoming Branch
  */
-
+@Deprecated
 public class HtmlMenuRendererImage extends HtmlMenuRenderer {
 
     protected HtmlMenuRendererImage() { }
