@@ -1106,3 +1106,15 @@ new File("${gradle.getGradleUserHomeDir().getAbsolutePath()}/daemon/${gradle.get
         it.delete()
     }
 }
+
+tasks.startScripts {
+    doLast {
+        // Alter the start script for Unix systems.
+        unixScript.text =
+                unixScript.text.replace('CLASSPATH=$APP_HOME/lib','CLASSPATH=$APP_HOME/config/:$APP_HOME/lib-extra/*:$APP_HOME/lib')
+        // Alter the start script for Windows systems.
+        windowsScript.text =
+                windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib',
+ 'CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
+    }
+}
