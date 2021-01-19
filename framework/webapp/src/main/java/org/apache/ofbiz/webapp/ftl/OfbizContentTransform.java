@@ -88,8 +88,8 @@ public class OfbizContentTransform implements TemplateTransformModel {
 
                     String requestUrl = buf.toString();
 
-                    // If the URL starts with http(s) then there is nothing for us to do here
-                    if (requestUrl.startsWith("http")) {
+                    // If the URL starts with http(s) or data then there is nothing for us to do here
+                    if (requestUrl.startsWith("http") || requestUrl.startsWith("data")) {
                         out.write(requestUrl);
                         return;
                     }
