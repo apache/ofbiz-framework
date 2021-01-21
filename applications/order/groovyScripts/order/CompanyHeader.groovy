@@ -138,24 +138,22 @@ if (!partyId) {
 // the logo
 GenericValue partyGroup = from("PartyGroup").where("partyId", partyId).queryOne()
 if (partyGroup) {
-    GenericValue partyContent = PartyContentWrapper.getFirstPartyContentByType(partyId, partyGroup, "LGOIMGURL", delegator)
-    if (partyContent) {
-        GenericValue content = partyContent.getRelatedOne("Content", true)
-        if (content) {
-            GenericValue dataResource = content.getRelatedOne("DataResource", true)
-            if (dataResource) {
-                File logoFile = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"),
-                        dataResource.getString("objectInfo"), "")
-                if (logoFile.exists()) {
-                    def logoFileBase64 = logoFile.bytes.encodeBase64()
-                    logoImageUrl = "data:" + dataResource.mimeTypeId + ";base64," + logoFileBase64
-                }
-            }
+    GenericValue dataResource =
+            PartyContentWrapper.getFirstPartyContentByType(partyId, partyGroup, "LGOIMGURL", delegator)
+                    ?.getRelatedOne("Content", true)
+                    ?.getRelatedOne("DataResource", true)
+
+    if (dataResource) {
+        File logoFile = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"),
+                dataResource.getString("objectInfo"), "")
+        if (logoFile.exists()) {
+            def logoFileBase64 = logoFile.bytes.encodeBase64()
+            logoImageUrl = "data:" + dataResource.mimeTypeId + ";base64," + logoFileBase64
         }
-    } else {
-        if (partyGroup?.logoImageUrl) {
-            logoImageUrl = partyGroup.logoImageUrl
-        }
+    }
+
+    if (!logoImageUrl) {
+        logoImageUrl = partyGroup?.logoImageUrl
     }
 }
 //If logoImageUrl not null then only set it to context else it will override the default value "/images/ofbiz_powered.gif"
