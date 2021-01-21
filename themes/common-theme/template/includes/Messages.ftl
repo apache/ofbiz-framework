@@ -102,11 +102,17 @@ under the License.
     <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
     <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
     <script>
+    <#if unsafeEventMessage?has_content>
 setTimeout(function(){
   showjGrowl(
           "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
           "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");
-}, 10);
+      }, 10);
+    <#else>
+showjGrowl(
+        "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
+        "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");
+    </#if>
     </script>
   </#if>
 </#escape>
