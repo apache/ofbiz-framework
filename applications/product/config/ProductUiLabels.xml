@@ -6587,7 +6587,7 @@
         <value xml:lang="zh-TW">位置識別</value>
     </property>
     <property key="FormFieldTitle_priceBreakId">
-        <value xml:lang="de">Preissprung ID</value>
+        <value xml:lang="de">Preisstaffel ID</value>
         <value xml:lang="en">Price Break ID</value>
         <value xml:lang="es">Código precio promo</value>
         <value xml:lang="fr">Réf. de rupture par prix</value>
@@ -8689,7 +8689,7 @@
         <value xml:lang="zh-TW">網頁分析工具代碼</value>
     </property>
     <property key="FormFieldTitle_weightBreakId">
-        <value xml:lang="de">Gewicht Sprung ID</value>
+        <value xml:lang="de">Gewichtsstaffel ID</value>
         <value xml:lang="en">Weight Break ID</value>
         <value xml:lang="es">Código de separación de peso</value>
         <value xml:lang="fr">Réf. de rupture par poids</value>
@@ -25384,7 +25384,7 @@
         <value xml:lang="zh-TW">價格</value>
     </property>
     <property key="ProductPriceBreakId">
-        <value xml:lang="de">Preissprung ID</value>
+        <value xml:lang="de">Preisstaffel ID</value>
         <value xml:lang="en">PriceBreakId</value>
         <value xml:lang="es">Código Referencia de separación de precio</value>
         <value xml:lang="fr">Réf. de rupture par prix</value>
