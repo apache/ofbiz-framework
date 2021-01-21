@@ -79,7 +79,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
 /**
  * RequestHandler - Request Processor Object
  */
-public class RequestHandler {
+public final class RequestHandler {
 
     private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
