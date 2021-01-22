@@ -80,8 +80,8 @@
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
     </service>
 
-    <service name="attachUploadToDataResource" engine="simple" transaction-timeout="300"
-             location="component://content/minilang/data/DataServices.xml" invoke="attachUploadToDataResource">
+    <service name="attachUploadToDataResource" engine="groovy" transaction-timeout="300"
+             location="component://content/groovyScripts/data/DataServices.groovy" invoke="attachUploadToDataResource">
         <description>Accepts uploaded content and attaches to an existing data resource</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
