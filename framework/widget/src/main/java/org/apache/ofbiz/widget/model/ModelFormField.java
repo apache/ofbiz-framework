@@ -41,6 +41,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
 import org.apache.ofbiz.base.conversion.DateTimeConverters.StringToTimestamp;
@@ -1526,7 +1527,12 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
             } else if (this.getModelFormField().getEncodeOutput()) {
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (retVal.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(retVal)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     retVal = simpleEncoder.encode(retVal);
                 }

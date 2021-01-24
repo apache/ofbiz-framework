@@ -40,7 +40,7 @@ import org.apache.commons.codec.binary.Hex;
  * Misc String Utility Functions
  *
  */
-public class StringUtil {
+public final class StringUtil {
 
     public static final StringUtil INSTANCE = new StringUtil();
     private static final String MODULE = StringUtil.class.getName();

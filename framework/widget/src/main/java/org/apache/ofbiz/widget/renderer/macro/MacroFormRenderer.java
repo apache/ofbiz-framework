@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -90,12 +91,11 @@ import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.UtilHelpText;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.jsoup.nodes.Element;
 
 import com.ibm.icu.util.Calendar;
-
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 
 /**
  * Widget Library - Form Renderer implementation based on Freemarker macros
@@ -3017,7 +3017,16 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        String encodedDescription = internalEncoder.encode(description);
+        UtilCodec.SimpleEncoder simpleEncoder = null;
+        String encodedDescription = null;
+        if (description.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(description)))) {
+            simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        } else {
+            simpleEncoder = UtilCodec.getEncoder("string");
+        }
+        if (simpleEncoder != null) {
+            encodedDescription = simpleEncoder.encode(description);
+        }
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();

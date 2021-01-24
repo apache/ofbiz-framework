@@ -18,6 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
+import java.io.StringWriter;
+import java.net.URI;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilFormatOut;
@@ -36,26 +50,14 @@ import org.apache.ofbiz.widget.model.ModelScreenWidget.Label;
 import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall.RenderableFtlMacroCallBuilder;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlSequence;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString.RenderableFtlStringBuilder;
 import org.jsoup.nodes.Element;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.StringWriter;
-import java.net.URI;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * Creates RenderableFtl objects used to render the various elements of a form.
@@ -499,7 +501,8 @@ public final class RenderableFtlFormElementsBuilder {
             return value;
         }
         UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-        if (modelFormField.getEncodeOutput() && encoder != null) {
+        boolean alreadyEncoded = value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(value)));
+        if (modelFormField.getEncodeOutput() && encoder != null && !alreadyEncoded) {
             value = encoder.encode(value);
         } else {
             value = internalEncoder.encode(value);
@@ -584,8 +587,6 @@ public final class RenderableFtlFormElementsBuilder {
                     .build();
             setPostMultiFormRenderableFtl(wrapper, context);
         }
-
-        final Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
     }
 
     private RenderableFtl getPostMultiFormRenderableFtl(final Map<String, Object> context) {

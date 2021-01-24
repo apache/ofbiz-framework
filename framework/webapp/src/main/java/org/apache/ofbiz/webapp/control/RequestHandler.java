@@ -79,7 +79,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
 /**
  * RequestHandler - Request Processor Object
  */
-public class RequestHandler {
+public final class RequestHandler {
 
     private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
@@ -749,7 +749,7 @@ public class RequestHandler {
                     String key = entry.getKey();
                     if ("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key)
                             || "_WARNING_MESSAGE_LIST_".equals(key) || "_WARNING_MESSAGE_".equals(key)
-                            || "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
+                            || "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key) || "_UNSAFE_EVENT_MESSAGE_".equals(key)) {
                         request.setAttribute(key, entry.getValue());
                     }
                 }

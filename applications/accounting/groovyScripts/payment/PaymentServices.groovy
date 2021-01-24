@@ -87,7 +87,7 @@ def getInvoicePaymentInfoList() {
     for (invoiceTerm in invoiceTerms) {
         termType = from("TermType").where("termTypeId", invoiceTerm.termTypeId).cache(true).queryOne()
         if ("FIN_PAYMENT_TERM" == termType.parentTypeId) {
-            invoicePaymentInfo.clear()
+            invoicePaymentInfo = [:]
             invoicePaymentInfo.invoiceId = invoice.invoiceId
             invoicePaymentInfo.invoiceTermId = invoiceTerm.invoiceTermId
             invoicePaymentInfo.termTypeId = invoiceTerm.termTypeId
@@ -110,7 +110,7 @@ def getInvoicePaymentInfoList() {
     }
 
     if (remainingAppliedAmount > 0.0 || invoiceTotalAmount <= 0.0 || computedTotalAmount < invoiceTotalAmount) {
-        invoicePaymentInfo.clear()
+        invoicePaymentInfo = [:]
         invoiceTerm = from("InvoiceTerm").where("invoiceId", invoice.invoiceId, "termTypeId", "FIN_PAYMENT_TERM").queryFirst()
         if (invoiceTerm) {
             invoicePaymentInfo.termTypeId = invoiceTerm.termTypeId
