@@ -396,9 +396,6 @@ under the License.
 
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
-        <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
-            <link target="EditRequest"/>
-        </menu-item>
         <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <condition>
                 <and>
