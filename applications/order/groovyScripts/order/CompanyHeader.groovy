@@ -22,10 +22,11 @@
  // if none of these parameters are available then fromPartyId is used or "ORGANIZATION_PARTY" from general.properties as fallback
 
 import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.content.PartyContentWrapper
-import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 orderHeader = parameters.orderHeader
 orderId = parameters.orderId
@@ -73,7 +74,7 @@ if (quoteId) {
 
 // defaults:
 def logoImageUrl = null // the default value, "/images/ofbiz_powered.gif", is set in the screen decorators
-def partyId = null
+String partyId = null
 
 // get the logo partyId from order or invoice - note that it is better to do comparisons this way in case the there are null values
 if (orderHeader) {
@@ -130,15 +131,29 @@ if (!partyId) {
 }
 
 // the logo
-partyGroup = from("PartyGroup").where("partyId", partyId).queryOne()
+GenericValue partyGroup = from("PartyGroup").where("partyId", partyId).queryOne()
 if (partyGroup) {
-    partyContentWrapper = new PartyContentWrapper(dispatcher, partyGroup, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator))
-    partyContent = partyContentWrapper.getFirstPartyContentByType(partyGroup.partyId , partyGroup, "LGOIMGURL", delegator)
-    if (partyContent) {
-        logoImageUrl = "/content/control/stream?contentId=" + partyContent.contentId
-    } else {
-        if (partyGroup?.logoImageUrl) {
-            logoImageUrl = partyGroup.logoImageUrl
+    GenericValue partyContent = PartyContentWrapper.getFirstPartyContentByType(partyId, partyGroup, "LGOIMGURL", delegator)
+    GenericValue dataResource = partyContent?.getRelatedOne("Content", true)
+            ?.getRelatedOne("DataResource", true)
+
+    if (dataResource) {
+        String dataResourceTypeId = dataResource.getString("dataResourceTypeId")
+        if (dataResourceTypeId.contains("_FILE")) {
+            File logoFile = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"),
+                    dataResource.getString("objectInfo"), "")
+            if (logoFile.exists()) {
+                def logoFileBase64 = logoFile.bytes.encodeBase64()
+                logoImageUrl = "data:" + dataResource.mimeTypeId + ";base64," + logoFileBase64
+            }
+        }
+    }
+
+    if (!logoImageUrl) {
+        if (partyContent) {
+            logoImageUrl = "/content/control/stream?contentId=" + partyContent.contentId
+        } else {
+            logoImageUrl = partyGroup?.logoImageUrl
         }
     }
 }
