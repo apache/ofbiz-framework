@@ -66,77 +66,133 @@ public class EntitySyncContext {
     private static final String MODULE = EntitySyncContext.class.getName();
 
     // set default split to 10 seconds, ie try not to get too much data moving over at once
-    public static final long defaultSyncSplitMillis = 10000;
-
+    private static final long DEF_SYNC_SPLIT_MILLIS = 10000;
     // default offline split is 30 minutes
-    public static final long defaultOfflineSyncSplitMillis = 1800000;
-
+    private static final long DEF_OFFLINE_SYNC_SPLIT_MILLIS = 1800000;
     // default to 5 minutes
-    public static final long defaultSyncEndBufferMillis = 300000;
-
+    private static final long DEF_SYNC_END_BUFFER_MILLIS = 300000;
     // default to 2 hours, 120m, 7200s
-    public static final long defaultMaxRunningNoUpdateMillis = 7200000;
+    private static final long DEF_MAX_RUNNING_NO_UPDATE_MILLIS = 7200000;
 
-    public Delegator delegator;
-    public LocalDispatcher dispatcher;
-    public Map<String, ? extends Object> context;
-
-    public GenericValue userLogin;
-    public boolean isOfflineSync = false;
-
-    public String entitySyncId;
-    public GenericValue entitySync;
-
-    public String targetServiceName;
-    public String targetDelegatorName;
-
-    public Timestamp syncEndStamp;
-    public long offlineSyncSplitMillis = defaultOfflineSyncSplitMillis;
-    public long syncSplitMillis = defaultSyncSplitMillis;
-    public long syncEndBufferMillis = defaultSyncEndBufferMillis;
-    public long maxRunningNoUpdateMillis = defaultMaxRunningNoUpdateMillis;
-
-    public Timestamp lastSuccessfulSynchTime;
-    public List<ModelEntity> entityModelToUseList;
-    public Set<String> entityNameToUseSet;
-    public Timestamp currentRunStartTime;
-    public Timestamp currentRunEndTime;
+    private Delegator delegator;
+    private LocalDispatcher dispatcher;
+    private Map<String, ? extends Object> context;
+    private GenericValue userLogin;
+    private boolean isOfflineSync = false;
+    private String entitySyncId;
+    private GenericValue entitySync;
+    private String targetServiceName;
+    private String targetDelegatorName;
+    private Timestamp syncEndStamp;
+    private long offlineSyncSplitMillis = DEF_OFFLINE_SYNC_SPLIT_MILLIS;
+    private long syncSplitMillis = DEF_SYNC_SPLIT_MILLIS;
+    private long syncEndBufferMillis = DEF_SYNC_END_BUFFER_MILLIS;
+    private long maxRunningNoUpdateMillis = DEF_MAX_RUNNING_NO_UPDATE_MILLIS;
+    private Timestamp lastSuccessfulSynchTime;
+    private List<ModelEntity> entityModelToUseList;
+    private Set<String> entityNameToUseSet;
+    private Timestamp currentRunStartTime;
+    private Timestamp currentRunEndTime;
 
     // these values are used to make this more efficient; if we run into an entity that has 0
     //results for a given time block, we will do a query to find the next create/update/remove
     //time for that entity, and also keep track of a global next with the lowest future next value;
     //using these we can skip a lot of queries and speed this up significantly
-    public Map<String, Timestamp> nextEntityCreateTxTime = new HashMap<>();
-    public Map<String, Timestamp> nextEntityUpdateTxTime = new HashMap<>();
-    public Timestamp nextCreateTxTime = null;
-    public Timestamp nextUpdateTxTime = null;
-    public Timestamp nextRemoveTxTime = null;
+    private Map<String, Timestamp> nextEntityCreateTxTime = new HashMap<>();
+    private Map<String, Timestamp> nextEntityUpdateTxTime = new HashMap<>();
+    private Timestamp nextCreateTxTime = null;
+    private Timestamp nextUpdateTxTime = null;
+    private Timestamp nextRemoveTxTime = null;
 
     // this is the other part of the history PK, leave null until we create the history object
-    public Timestamp startDate = null;
+    private Timestamp startDate = null;
 
-    long toCreateInserted = 0;
-    long toCreateUpdated = 0;
-    long toCreateNotUpdated = 0;
-    long toStoreInserted = 0;
-    long toStoreUpdated = 0;
-    long toStoreNotUpdated = 0;
-    long toRemoveDeleted = 0;
-    long toRemoveAlreadyDeleted = 0;
+    private long toCreateInserted = 0;
+    private long toCreateUpdated = 0;
+    private long toCreateNotUpdated = 0;
+    private long toStoreInserted = 0;
+    private long toStoreUpdated = 0;
+    private long toStoreNotUpdated = 0;
+    private long toRemoveDeleted = 0;
+    private long toRemoveAlreadyDeleted = 0;
 
-    long totalRowsExported = 0;
-    long totalRowsToCreate = 0;
-    long totalRowsToStore = 0;
-    long totalRowsToRemove = 0;
+    private long totalRowsExported = 0;
+    private long totalRowsToCreate = 0;
+    private long totalRowsToStore = 0;
+    private long totalRowsToRemove = 0;
 
-    long totalRowsPerSplit = 0;
-    long totalStoreCalls = 0;
-    long totalSplits = 0;
-    long perSplitMinMillis = Long.MAX_VALUE;
-    long perSplitMaxMillis = 0;
-    long perSplitMinItems = Long.MAX_VALUE;
-    long perSplitMaxItems = 0;
-    long splitStartTime = 0;
+    private long totalRowsPerSplit = 0;
+    private long totalStoreCalls = 0;
+    private long totalSplits = 0;
+    private long perSplitMinMillis = Long.MAX_VALUE;
+    private long perSplitMaxMillis = 0;
+    private long perSplitMinItems = Long.MAX_VALUE;
+    private long perSplitMaxItems = 0;
+    private long splitStartTime = 0;
+
+    /**
+     * Gets current run end time.
+     * @return the current run end time
+     */
+    public Timestamp getCurrentRunEndTime() {
+        return currentRunEndTime;
+    }
+
+    /**
+     * Gets start date.
+     * @return the start date
+     */
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Gets total rows per split.
+     * @return the total rows per split
+     */
+    public long getTotalRowsPerSplit() {
+        return totalRowsPerSplit;
+    }
+
+    /**
+     * Gets current run start time.
+     * @return the current run start time
+     */
+    public Timestamp getCurrentRunStartTime() {
+        return currentRunStartTime;
+    }
+
+    /**
+     * Gets entity sync id.
+     * @return the entity sync id
+     */
+    public String getEntitySyncId() {
+        return entitySyncId;
+    }
+
+    /**
+     * Sets total splits.
+     * @param totalSplits the total splits
+     */
+    public void setTotalSplits(long totalSplits) {
+        this.totalSplits = totalSplits;
+    }
+
+    /**
+     * Gets entity sync.
+     * @return the entity sync
+     */
+    public GenericValue getEntitySync() {
+        return entitySync;
+    }
+
+    /**
+     * Gets total splits.
+     * @return the total splits
+     */
+    public long getTotalSplits() {
+        return totalSplits;
+    }
 
     public EntitySyncContext(DispatchContext dctx, Map<String, ? extends Object> context) throws SyncDataErrorException, SyncAbortException {
         this.context = context;
@@ -213,8 +269,8 @@ public class EntitySyncContext {
      * @return boolean representing if the EntitySync should be considered running
      */
     public boolean isEntitySyncRunning() {
-        boolean isInRunning = ("ESR_RUNNING".equals(this.entitySync.getString("runStatusId")) ||
-                "ESR_PENDING".equals(this.entitySync.getString("runStatusId")));
+        boolean isInRunning = ("ESR_RUNNING".equals(this.entitySync.getString("runStatusId"))
+                || "ESR_PENDING".equals(this.entitySync.getString("runStatusId")));
 
         if (!isInRunning) {
             return false;
@@ -236,14 +292,25 @@ public class EntitySyncContext {
         return true;
     }
 
+    /**
+     * Has more time to sync boolean.
+     * @return the boolean
+     */
     public boolean hasMoreTimeToSync() {
         return currentRunStartTime.before(syncEndStamp);
     }
 
+    /**
+     * Sets current run end time.
+     */
     protected void setCurrentRunEndTime() {
         this.currentRunEndTime = getNextRunEndTime();
     }
 
+    /**
+     * Gets next run end time.
+     * @return the next run end time
+     */
     protected Timestamp getNextRunEndTime() {
         long syncSplit = this.isOfflineSync ? offlineSyncSplitMillis : syncSplitMillis;
         Timestamp nextRunEndTime = new Timestamp(this.currentRunStartTime.getTime() + syncSplit);
@@ -253,17 +320,23 @@ public class EntitySyncContext {
         return nextRunEndTime;
     }
 
+    /**
+     * Advance run times.
+     */
     public void advanceRunTimes() {
         this.currentRunStartTime = this.currentRunEndTime;
         this.setCurrentRunEndTime();
     }
 
+    /**
+     * Sets split start time.
+     */
     public void setSplitStartTime() {
         this.splitStartTime = System.currentTimeMillis();
     }
 
     protected static long getSyncSplitMillis(GenericValue entitySync) {
-        long splitMillis = defaultSyncSplitMillis;
+        long splitMillis = DEF_SYNC_SPLIT_MILLIS;
         Long syncSplitMillis = entitySync.getLong("syncSplitMillis");
         if (syncSplitMillis != null) {
             splitMillis = syncSplitMillis;
@@ -272,7 +345,7 @@ public class EntitySyncContext {
     }
 
     protected static long getOfflineSyncSplitMillis(GenericValue entitySync) {
-        long splitMillis = defaultOfflineSyncSplitMillis;
+        long splitMillis = DEF_OFFLINE_SYNC_SPLIT_MILLIS;
         Long syncSplitMillis = entitySync.getLong("offlineSyncSplitMillis");
         if (syncSplitMillis != null) {
             splitMillis = syncSplitMillis;
@@ -281,7 +354,7 @@ public class EntitySyncContext {
     }
 
     protected static long getSyncEndBufferMillis(GenericValue entitySync) {
-        long syncEndBufferMillis = defaultSyncEndBufferMillis;
+        long syncEndBufferMillis = DEF_SYNC_END_BUFFER_MILLIS;
         Long syncEndBufferMillisLong = entitySync.getLong("syncEndBufferMillis");
         if (syncEndBufferMillisLong != null) {
             syncEndBufferMillis = syncEndBufferMillisLong;
@@ -290,7 +363,7 @@ public class EntitySyncContext {
     }
 
     protected static long getMaxRunningNoUpdateMillis(GenericValue entitySync) {
-        long maxRunningNoUpdateMillis = defaultMaxRunningNoUpdateMillis;
+        long maxRunningNoUpdateMillis = DEF_MAX_RUNNING_NO_UPDATE_MILLIS;
         Long maxRunningNoUpdateMillisLong = entitySync.getLong("maxRunningNoUpdateMillis");
         if (maxRunningNoUpdateMillisLong != null) {
             maxRunningNoUpdateMillis = maxRunningNoUpdateMillisLong;
@@ -303,13 +376,16 @@ public class EntitySyncContext {
         String errorMsg = "Not running EntitySync [" + entitySyncId + "], could not create EntitySyncHistory";
         try {
             Timestamp startDateTime = UtilDateTime.nowTimestamp();
-            Map<String, Object> initialHistoryRes = dispatcher.runSync("createEntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "beginningSynchTime", this.currentRunStartTime, "lastCandidateEndTime", this.currentRunEndTime, "startDate", startDateTime, "userLogin", userLogin));
+            Map<String, Object> initialHistoryRes = dispatcher.runSync("createEntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId,
+                    "runStatusId", "ESR_RUNNING", "beginningSynchTime", this.currentRunStartTime, "lastCandidateEndTime", this.currentRunEndTime,
+                    "startDate", startDateTime, "userLogin", userLogin));
             if (ServiceUtil.isError(initialHistoryRes)) {
                 throw new SyncDataErrorException(errorMsg, null, null, initialHistoryRes, null);
             }
             this.startDate = (Timestamp) initialHistoryRes.get("startDate");
 
-            Map<String, Object> result = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastHistoryStartDate", this.startDate, "userLogin", userLogin),60,true);
+            Map<String, Object> result = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastHistoryStartDate",
+                    this.startDate, "userLogin", userLogin), 60, true);
             if (ServiceUtil.isError(result)) {
                 throw new SyncDataErrorException(errorMsg, null, null, result, null);
             }
@@ -318,12 +394,18 @@ public class EntitySyncContext {
         }
     }
 
+    /**
+     * Assemble values to create array list.
+     * @return the array list
+     * @throws SyncDataErrorException the sync data error exception
+     */
     public ArrayList<GenericValue> assembleValuesToCreate() throws SyncDataErrorException {
         // first grab all values inserted in the date range, then get the updates (leaving out all values inserted in the data range)
         ArrayList<GenericValue> valuesToCreate = new ArrayList<>(); // make it an ArrayList to easily merge in sorted lists
 
         if (this.nextCreateTxTime != null && (this.nextCreateTxTime.equals(currentRunEndTime) || this.nextCreateTxTime.after(currentRunEndTime))) {
-            // this means that for all entities in this pack we found on the last pass that there would be nothing for this one, so just return nothing...
+            // this means that for all entities in this pack we found on the last pass that there would be nothing for this one,
+            // so just return nothing...
             return valuesToCreate;
         }
 
@@ -338,7 +420,8 @@ public class EntitySyncContext {
             // first test to see if we know that there are no records for this entity in this time period...
             Timestamp knownNextCreateTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
             if (knownNextCreateTime != null && (knownNextCreateTime.equals(currentRunEndTime) || knownNextCreateTime.after(currentRunEndTime))) {
-                //Debug.logInfo("In assembleValuesToCreate found knownNextCreateTime [" + knownNextCreateTime + "] after currentRunEndTime [" + currentRunEndTime + "], so skipping time per period for entity [" + modelEntity.getEntityName() + "]", MODULE);
+                //Debug.logInfo("In assembleValuesToCreate found knownNextCreateTime [" + knownNextCreateTime + "] after currentRunEndTime ["
+                // + currentRunEndTime + "], so skipping time per period for entity [" + modelEntity.getEntityName() + "]", MODULE);
                 entitiesSkippedForKnownNext++;
                 continue;
             }
@@ -366,11 +449,15 @@ public class EntitySyncContext {
 
                     while ((nextValue = eli.next()) != null) {
                         // sort by the tx stamp and then the record stamp
-                        // find first value in valuesToCreate list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
-                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD))) {
+                        // find first value in valuesToCreate list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD
+                        // after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
+                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore)
+                                .getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD)
+                                .before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD))) {
                             insertBefore++;
                         }
-                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_FIELD))) {
+                        while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_FIELD)
+                                .before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_FIELD))) {
                             insertBefore++;
                         }
                         valuesToCreate.add(insertBefore, nextValue);
@@ -391,7 +478,8 @@ public class EntitySyncContext {
 
                     EntityCondition findNextCondition = EntityCondition.makeCondition(
                             EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null),
-                            EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime));
+                            EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO,
+                                    currentRunEndTime));
                     eq = EntityQuery.use(delegator)
                             .from(modelEntity.getEntityName())
                             .where(findNextCondition)
@@ -409,7 +497,6 @@ public class EntitySyncContext {
                         }
                         throw new SyncDataErrorException("Error getting values to create from the datasource", e);
                     }
-                    
                     Timestamp nextTxTime;
                     if (firstVal != null) {
                         nextTxTime = firstVal.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD);
@@ -421,11 +508,11 @@ public class EntitySyncContext {
                         this.nextCreateTxTime = nextTxTime;
                         Debug.logInfo("EntitySync: Set nextCreateTxTime to [" + nextTxTime + "]", MODULE);
                     }
-                    
                     Timestamp curEntityNextTxTime = this.nextEntityCreateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityCreateTxTime.put(modelEntity.getEntityName(), nextTxTime);
-                        Debug.logInfo("EntitySync: Set nextEntityCreateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", MODULE);
+                        Debug.logInfo("EntitySync: Set nextEntityCreateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName()
+                                + "]", MODULE);
                     }
                 }
             } catch (Throwable t) {
@@ -436,21 +523,22 @@ public class EntitySyncContext {
                 }
                 throw new SyncDataErrorException("Caught runtime error while getting values to create", t);
             }
-            
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
                 throw new SyncDataErrorException("Commit transaction failed", e);
             }
         }
-
         if (entitiesSkippedForKnownNext > 0) {
-            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("In assembleValuesToCreate skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList
+                        + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known create times", MODULE);
+            }
         }
 
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
-        if (logValues && valuesToCreate.size() > 0) {
+        if (logValues && !valuesToCreate.isEmpty()) {
             StringBuilder toCreateInfo = new StringBuilder();
             for (GenericValue valueToCreate: valuesToCreate) {
                 toCreateInfo.append("\n-->[");
@@ -465,19 +553,25 @@ public class EntitySyncContext {
 
         // As the this.nextCreateTxTime calculation is only based on entities without values to create, if there at least one value to create returned
         // this calculation is false, so it needs to be nullified
-        if (valuesToCreate.size() > 0) {
+        if (!valuesToCreate.isEmpty()) {
             this.nextCreateTxTime = null;
         }
 
         return valuesToCreate;
     }
 
+    /**
+     * Assemble values to store array list.
+     * @return the array list
+     * @throws SyncDataErrorException the sync data error exception
+     */
     public ArrayList<GenericValue> assembleValuesToStore() throws SyncDataErrorException {
         // simulate two ordered lists and merge them on-the-fly for faster combined sorting
         ArrayList<GenericValue> valuesToStore = new ArrayList<>(); // make it an ArrayList to easily merge in sorted lists
 
         if (this.nextUpdateTxTime != null && (this.nextUpdateTxTime.equals(currentRunEndTime) || this.nextUpdateTxTime.after(currentRunEndTime))) {
-            // this means that for all entities in this pack we found on the last pass that there would be nothing for this one, so just return nothing...
+            // this means that for all entities in this pack we found on the last pass that there would be nothing for this one,
+            // so just return nothing...
             return valuesToStore;
         }
 
@@ -504,7 +598,8 @@ public class EntitySyncContext {
             }
 
             try {
-                // get all values that were updated, but NOT created in the current time range; if no info on created stamp, that's okay we'll include it here because it won't have been included in the valuesToCreate list
+                // get all values that were updated, but NOT created in the current time range; if no info on created stamp, that's okay we'll
+                // include it here because it won't have been included in the valuesToCreate list
                 EntityCondition createdBeforeStartCond = EntityCondition.makeCondition(
                         EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.EQUALS, null),
                         EntityOperator.OR,
@@ -522,11 +617,14 @@ public class EntitySyncContext {
                 long valuesPerEntity = 0;
                 while ((nextValue = eli.next()) != null) {
                     // sort by the tx stamp and then the record stamp
-                    // find first value in valuesToStore list, starting with the current insertBefore value, that has a STAMP_TX_FIELD after the nextValue.STAMP_TX_FIELD, then do the same with STAMP_FIELD
-                    while (insertBefore < valuesToStore.size() && valuesToStore.get(insertBefore).getTimestamp(ModelEntity.STAMP_TX_FIELD).before(nextValue.getTimestamp(ModelEntity.STAMP_TX_FIELD))) {
+                    // find first value in valuesToStore list, starting with the current insertBefore value, that has a STAMP_TX_FIELD after the
+                    // nextValue.STAMP_TX_FIELD, then do the same with STAMP_FIELD
+                    while (insertBefore < valuesToStore.size() && valuesToStore.get(insertBefore).getTimestamp(ModelEntity.STAMP_TX_FIELD)
+                            .before(nextValue.getTimestamp(ModelEntity.STAMP_TX_FIELD))) {
                         insertBefore++;
                     }
-                    while (insertBefore < valuesToStore.size() && valuesToStore.get(insertBefore).getTimestamp(ModelEntity.STAMP_FIELD).before(nextValue.getTimestamp(ModelEntity.STAMP_FIELD))) {
+                    while (insertBefore < valuesToStore.size() && valuesToStore.get(insertBefore).getTimestamp(ModelEntity.STAMP_FIELD)
+                            .before(nextValue.getTimestamp(ModelEntity.STAMP_FIELD))) {
                         insertBefore++;
                     }
                     valuesToStore.add(insertBefore, nextValue);
@@ -537,7 +635,8 @@ public class EntitySyncContext {
                 // definately remove this message and related data gathering
                 //long preCount = delegator.findCountByCondition(modelEntity.getEntityName(), findValCondition, null);
                 //long entityTotalCount = delegator.findCountByCondition(modelEntity.getEntityName(), null, null);
-                //if (entityTotalCount > 0 || preCount > 0 || valuesPerEntity > 0) Debug.logInfo("Got " + valuesPerEntity + "/" + preCount + "/" + entityTotalCount + " values for entity " + modelEntity.getEntityName(), MODULE);
+                //if (entityTotalCount > 0 || preCount > 0 || valuesPerEntity > 0) Debug.logInfo("Got " + valuesPerEntity + "/" + preCount + "/"
+                // + entityTotalCount + " values for entity " + modelEntity.getEntityName(), MODULE);
 
                 // if we didn't find anything for this entity, find the next value's Timestamp and keep track of it
                 if (valuesPerEntity == 0) {
@@ -570,7 +669,8 @@ public class EntitySyncContext {
                     Timestamp curEntityNextTxTime = this.nextEntityUpdateTxTime.get(modelEntity.getEntityName());
                     if (curEntityNextTxTime == null || nextTxTime.before(curEntityNextTxTime)) {
                         this.nextEntityUpdateTxTime.put(modelEntity.getEntityName(), nextTxTime);
-                        Debug.logInfo("EntitySync: Set nextEntityUpdateTxTime to [" + nextTxTime + "] for the entity [" + modelEntity.getEntityName() + "]", MODULE);
+                        Debug.logInfo("EntitySync: Set nextEntityUpdateTxTime to [" + nextTxTime + "] for the entity ["
+                                + modelEntity.getEntityName() + "]", MODULE);
                     }
                 }
             } catch (GenericEntityException e) {
@@ -597,12 +697,15 @@ public class EntitySyncContext {
         }
 
         if (entitiesSkippedForKnownNext > 0) {
-            if (Debug.infoOn()) Debug.logInfo("In assembleValuesToStore skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known update times", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("In assembleValuesToStore skipped [" + entitiesSkippedForKnownNext + "/" + entityModelToUseList
+                        + "] entities for the time period ending at [" + currentRunEndTime + "] because of next known update times", MODULE);
+            }
         }
 
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
-        if (logValues && valuesToStore.size() > 0) {
+        if (logValues && !valuesToStore.isEmpty()) {
             StringBuilder toStoreInfo = new StringBuilder();
             for (GenericValue valueToStore: valuesToStore) {
                 toStoreInfo.append("\n-->[");
@@ -614,22 +717,28 @@ public class EntitySyncContext {
             }
             Debug.logInfo(toStoreInfo.toString(), MODULE);
         }
-        
+
         // As the this.nextUpdateTxTime calculation is only based on entities without values to store, if there at least one value to store returned
         // this calculation is false, so it needs to be nullified
-        if (valuesToStore.size() > 0) {
+        if (!valuesToStore.isEmpty()) {
             this.nextUpdateTxTime = null;
-        }        
+        }
 
         return valuesToStore;
     }
 
+    /**
+     * Assemble keys to remove linked list.
+     * @return the linked list
+     * @throws SyncDataErrorException the sync data error exception
+     */
     public LinkedList<GenericEntity> assembleKeysToRemove() throws SyncDataErrorException {
         // get all removed items from the given time range, add to list for those
         LinkedList<GenericEntity> keysToRemove = new LinkedList<>();
 
         if (this.nextRemoveTxTime != null && (this.nextRemoveTxTime.equals(currentRunEndTime) || this.nextRemoveTxTime.after(currentRunEndTime))) {
-            // this means that for all entities in this pack we found on the last pass that there would be nothing for this one, so just return nothing...
+            // this means that for all entities in this pack we found on the last pass that there would be nothing for this one,
+            // so just return nothing...
             return keysToRemove;
         }
 
@@ -643,7 +752,8 @@ public class EntitySyncContext {
         }
 
         try {
-            // find all instances of this entity with the STAMP_TX_FIELD != null, sort ascending to get lowest/oldest value first, then grab first and consider as candidate currentRunStartTime
+            // find all instances of this entity with the STAMP_TX_FIELD != null, sort ascending to get lowest/oldest value first, then grab first
+            // and consider as candidate currentRunStartTime
             EntityCondition findValCondition = EntityCondition.makeCondition(
                     EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime),
                     EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
@@ -660,7 +770,8 @@ public class EntitySyncContext {
                 try {
                     pkToRemove = (GenericEntity) XmlSerializer.deserialize(primaryKeyRemoved, delegator);
                 } catch (IOException | SAXException | ParserConfigurationException | SerializeException e) {
-                    String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
+                    String errorMsg = "Error deserializing GenericPK to remove in Entity Sync Data for entitySyncId [" + entitySyncId
+                            + "] and entitySyncRemoveId [" + entitySyncRemove.getString("entitySyncRemoveId") + "]: " + e.toString();
                     Debug.logError(e, errorMsg, MODULE);
                     throw new SyncDataErrorException(errorMsg, e);
                 }
@@ -678,8 +789,9 @@ public class EntitySyncContext {
             removeEli.close();
 
             // if we didn't find anything for this entity, find the next value's Timestamp and keep track of it
-            if (keysToRemove.size() == 0) {
-                EntityCondition findNextCondition = EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime);
+            if (keysToRemove.isEmpty()) {
+                EntityCondition findNextCondition = EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO,
+                        currentRunEndTime);
                 EntityListIterator eliNext = EntityQuery.use(delegator)
                                                         .from("EntitySyncRemove")
                                                         .where(findNextCondition)
@@ -719,7 +831,7 @@ public class EntitySyncContext {
 
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
-        if (logValues && keysToRemove.size() > 0) {
+        if (logValues && !keysToRemove.isEmpty()) {
             StringBuilder toRemoveInfo = new StringBuilder();
             for (GenericEntity keyToRemove: keysToRemove) {
                 toRemoveInfo.append("\n-->[");
@@ -734,13 +846,17 @@ public class EntitySyncContext {
 
         // As this.nextRemoveTxTime calculation is only based on entities without keys to remove, if there at least one key to remove returned
         // this calculation is false, so it needs to be nullified
-        if (keysToRemove.size() > 0) {
+        if (!keysToRemove.isEmpty()) {
             this.nextRemoveTxTime = null;
         }
-        
         return keysToRemove;
     }
 
+    /**
+     * Save results reported from data store.
+     * @throws SyncDataErrorException    the sync data error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     */
     public void saveResultsReportedFromDataStore() throws SyncDataErrorException, SyncServiceErrorException {
         try {
             long runningTimeMillis = System.currentTimeMillis() - startDate.getTime();
@@ -758,9 +874,9 @@ public class EntitySyncContext {
             setSplitStartTime();
 
             // total the rows saved so far, and gather some info about them before saving
-            this.totalRowsPerSplit = this.toCreateInserted + this.toCreateNotUpdated + this.toCreateUpdated +
-                    this.toStoreInserted + this.toStoreNotUpdated + this.toStoreUpdated +
-                    this.toRemoveAlreadyDeleted + this.toRemoveDeleted;
+            this.totalRowsPerSplit = this.toCreateInserted + this.toCreateNotUpdated + this.toCreateUpdated
+                    + this.toStoreInserted + this.toStoreNotUpdated + this.toStoreUpdated
+                    + this.toRemoveAlreadyDeleted + this.toRemoveDeleted;
             if (this.totalRowsPerSplit < this.perSplitMinItems) {
                 this.perSplitMinItems = this.totalRowsPerSplit;
             }
@@ -772,10 +888,12 @@ public class EntitySyncContext {
             this.totalRowsToRemove += this.toRemoveAlreadyDeleted + this.toRemoveDeleted;
 
             // store latest result on EntitySync, ie update lastSuccessfulSynchTime, should run in own tx
-            Map<String, Object> updateEsRunResult = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin),60,true);
+            Map<String, Object> updateEsRunResult = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
+                    "lastSuccessfulSynchTime", this.currentRunEndTime, "userLogin", userLogin), 60, true);
 
-            GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("startDate",startDate, "entitySyncId", entitySyncId).queryOne();
-            if(entitySyncHistory != null) {
+            GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("startDate", startDate, "entitySyncId",
+                    entitySyncId).queryOne();
+            if (entitySyncHistory != null) {
                 // store result of service call on history with results so far, should run in own tx
                 ModelService model = dispatcher.getDispatchContext().getModelService("updateEntitySyncHistory");
                 Map<String, Object> updateHistoryMap = model.makeValid(entitySyncHistory, ModelService.IN_PARAM);
@@ -807,13 +925,15 @@ public class EntitySyncContext {
 
                 // now we have updated EntitySync and EntitySyncHistory, check both ops for errors...
                 if (ServiceUtil.isError(updateEsRunResult)) {
-                    String errorMsg = "Error running EntitySync [" + entitySyncId + "], update of EntitySync record with lastSuccessfulSynchTime failed.";
+                    String errorMsg = "Error running EntitySync [" + entitySyncId
+                            + "], update of EntitySync record with lastSuccessfulSynchTime failed.";
                     throw new SyncDataErrorException(errorMsg, null, null, updateEsRunResult, null);
                 }
 
 
                 if (ServiceUtil.isError(updateEsHistRunResult)) {
-                    String errorMsg = "Error running EntitySync [" + entitySyncId + "], update of EntitySyncHistory (startDate:[" + startDate + "]) record with lastSuccessfulSynchTime and result stats failed.";
+                    String errorMsg = "Error running EntitySync [" + entitySyncId + "], update of EntitySyncHistory (startDate:[" + startDate
+                            + "]) record with lastSuccessfulSynchTime and result stats failed.";
                     throw new SyncDataErrorException(errorMsg, null, null, updateEsHistRunResult, null);
                 }
             }
@@ -823,6 +943,11 @@ public class EntitySyncContext {
         }
     }
 
+    /**
+     * Save final sync results.
+     * @throws SyncDataErrorException    the sync data error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     */
     public void saveFinalSyncResults() throws SyncDataErrorException, SyncServiceErrorException {
         String newStatusId = "ESR_COMPLETE";
         if (this.isOfflineSync && totalRowsExported > 0) {
@@ -832,7 +957,8 @@ public class EntitySyncContext {
         // the lastSuccessfulSynchTime on EntitySync will already be set, so just set status as completed
         String esErrMsg = "Could not mark Entity Sync as complete, but all synchronization was successful";
         try {
-            Map<String, Object> completeEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", newStatusId, "userLogin", userLogin), 60,true);
+            Map<String, Object> completeEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
+                    "runStatusId", newStatusId, "userLogin", userLogin), 60, true);
             if (ServiceUtil.isError(completeEntitySyncRes)) {
                 // what to do here? try again?
                 throw new SyncDataErrorException(esErrMsg, null, null, completeEntitySyncRes, null);
@@ -844,9 +970,11 @@ public class EntitySyncContext {
         // if nothing moved over, remove the history record, otherwise store status
         long totalRows = totalRowsToCreate + totalRowsToStore + totalRowsToRemove;
         if (totalRows == 0) {
-            String eshRemoveErrMsg = "Could not remove Entity Sync History (done because nothing was synced in this call), but all synchronization was successful";
+            String eshRemoveErrMsg = "Could not remove Entity Sync History (done because nothing was synced in this call),"
+                    + "but all synchronization was successful";
             try {
-                Map<String, Object> deleteEntitySyncHistRes = dispatcher.runSync("deleteEntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate, "userLogin", userLogin));
+                Map<String, Object> deleteEntitySyncHistRes = dispatcher.runSync("deleteEntitySyncHistory",
+                        UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate, "userLogin", userLogin));
                 if (ServiceUtil.isError(deleteEntitySyncHistRes)) {
                     throw new SyncDataErrorException(eshRemoveErrMsg, null, null, deleteEntitySyncHistRes, null);
                 }
@@ -857,7 +985,8 @@ public class EntitySyncContext {
             // the lastSuccessfulSynchTime on EntitySync will already be set, so just set status as completed
             String eshCompleteErrMsg = "Could not mark Entity Sync History as complete, but all synchronization was successful";
             try {
-                Map<String, Object> completeEntitySyncHistRes = dispatcher.runSync("updateEntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate, "runStatusId", "ESR_COMPLETE", "userLogin", userLogin));
+                Map<String, Object> completeEntitySyncHistRes = dispatcher.runSync("updateEntitySyncHistory",
+                        UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate, "runStatusId", "ESR_COMPLETE", "userLogin", userLogin));
                 if (ServiceUtil.isError(completeEntitySyncHistRes)) {
                     // what to do here? try again?
                     throw new SyncDataErrorException(eshCompleteErrMsg, null, null, completeEntitySyncHistRes, null);
@@ -867,9 +996,16 @@ public class EntitySyncContext {
             }
         }
 
-        if (Debug.infoOn()) Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate=" + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Finished save Final Sync Results [" + entitySyncId + "]: totalRows=" + totalRows + ", totalRowsToCreate="
+                    + totalRowsToCreate + ", totalRowsToStore=" + totalRowsToStore + ", totalRowsToRemove=" + totalRowsToRemove, MODULE);
+        }
     }
 
+    /**
+     * Make entity name to use set set.
+     * @return the set
+     */
     public Set<String> makeEntityNameToUseSet() {
         Set<String> entityNameToUseSet = new HashSet<>();
         for (ModelEntity modelEntity: this.entityModelToUseList) {
@@ -878,7 +1014,8 @@ public class EntitySyncContext {
         return entityNameToUseSet;
     }
 
-    /** prepare a list of all entities we want to synchronize: remove all view-entities and all entities that don't match the patterns attached to this EntitySync */
+    /** prepare a list of all entities we want to synchronize: remove all view-entities and all entities that don't match the patterns attached
+     * to this EntitySync */
     protected List<ModelEntity> makeEntityModelToUseList() throws GenericEntityException {
         List<GenericValue> entitySyncIncludes = entitySync.getRelated("EntitySyncInclude", null, null, false);
         // get these ones as well, and just add them to the main list, it will have an extra field but that shouldn't hurt anything in the code below
@@ -887,18 +1024,23 @@ public class EntitySyncContext {
 
         List<ModelEntity> entityModelToUseList = EntityGroupUtil.getModelEntitiesFromRecords(entitySyncIncludes, delegator, true);
 
-        if (Debug.infoOn()) Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing " + entityModelToUseList.size() + " entities", MODULE);
+        if (Debug.infoOn()) {
+            Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing "
+                    + entityModelToUseList.size() + " entities", MODULE);
+        }
         return entityModelToUseList;
     }
 
-    protected static Timestamp getCurrentRunStartTime(Timestamp lastSuccessfulSynchTime, List<ModelEntity> entityModelToUseList, Delegator delegator) throws GenericEntityException {
+    protected static Timestamp getCurrentRunStartTime(Timestamp lastSuccessfulSynchTime, List<ModelEntity> entityModelToUseList, Delegator delegator)
+            throws GenericEntityException {
         // if currentRunStartTime is null, what to do? I guess iterate through all entities and find earliest tx stamp
         if (lastSuccessfulSynchTime == null) {
             Timestamp currentRunStartTime = null;
             for (ModelEntity modelEntity: entityModelToUseList) {
                 // fields to select will be PK and the STAMP_TX_FIELD, slimmed down so we don't get a ton of data back
                 Set<String> fieldsToSelect = UtilMisc.toSet(modelEntity.getPkFieldNames());
-                // find all instances of this entity with the STAMP_TX_FIELD != null, sort ascending to get lowest/oldest value first, then grab first and consider as candidate currentRunStartTime
+                // find all instances of this entity with the STAMP_TX_FIELD != null, sort ascending to get lowest/oldest value first, then grab
+                // first and consider as candidate currentRunStartTime
                 fieldsToSelect.add(ModelEntity.STAMP_TX_FIELD);
                 EntityListIterator eli = EntityQuery.use(delegator)
                                                     .select(fieldsToSelect)
@@ -915,39 +1057,59 @@ public class EntitySyncContext {
                     }
                 }
             }
-            if (Debug.infoOn()) Debug.logInfo("No currentRunStartTime was stored on the EntitySync record, so searched for the earliest value and got: " + currentRunStartTime, MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("No currentRunStartTime was stored on the EntitySync record, so searched for the earliest value and got: "
+                        + currentRunStartTime, MODULE);
+            }
             return currentRunStartTime;
         } else {
             return lastSuccessfulSynchTime;
         }
     }
 
+    /**
+     * Save sync error info.
+     * @param runStatusId   the run status id
+     * @param errorMessages the error messages
+     */
     public void saveSyncErrorInfo(String runStatusId, List<Object> errorMessages) {
         // set error statuses on the EntitySync and EntitySyncHistory entities
         try {
-            Map<String, Object> errorEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", runStatusId, "userLogin", userLogin), 60,true);
+            Map<String, Object> errorEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
+                    "runStatusId", runStatusId, "userLogin", userLogin), 60, true);
             if (ServiceUtil.isError(errorEntitySyncRes)) {
-                errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySync with ID [" + entitySyncId + "]: " + errorEntitySyncRes.get(ModelService.ERROR_MESSAGE));
+                errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySync with ID [" + entitySyncId + "]: "
+                        + errorEntitySyncRes.get(ModelService.ERROR_MESSAGE));
             }
         } catch (GenericServiceException e) {
             errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySync with ID [" + entitySyncId + "]: " + e.toString());
         }
         if (startDate != null) {
             try {
-                Map<String, Object> errorEntitySyncHistoryRes = dispatcher.runSync("updateEntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate, "runStatusId", runStatusId, "userLogin", userLogin));
+                Map<String, Object> errorEntitySyncHistoryRes = dispatcher.runSync("updateEntitySyncHistory", UtilMisc.toMap("entitySyncId",
+                        entitySyncId, "startDate", startDate, "runStatusId", runStatusId, "userLogin", userLogin));
                 if (ServiceUtil.isError(errorEntitySyncHistoryRes)) {
-                    errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySyncHistory with ID [" + entitySyncId + "]: " + errorEntitySyncHistoryRes.get(ModelService.ERROR_MESSAGE));
+                    errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySyncHistory with ID [" + entitySyncId + "]: "
+                            + errorEntitySyncHistoryRes.get(ModelService.ERROR_MESSAGE));
                 }
             } catch (GenericServiceException e) {
-                errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySyncHistory with ID [" + entitySyncId + ":" + startDate + "]: " + e.toString());
+                errorMessages.add("Could not save error run status [" + runStatusId + "] on EntitySyncHistory with ID [" + entitySyncId + ":"
+                        + startDate + "]: " + e.toString());
             }
         }
     }
 
-    // ======================== PUSH Methods ========================
+    /**
+     * Run push start running.
+     * @throws SyncDataErrorException    the sync data error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     * @throws SyncAbortException        the sync abort exception
+     */
+// ======================== PUSH Methods ========================
     public void runPushStartRunning() throws SyncDataErrorException, SyncServiceErrorException, SyncAbortException {
         if (UtilValidate.isEmpty(targetServiceName)) {
-            throw new SyncAbortException("Not running EntitySync [" + entitySyncId + "], no targetServiceName is specified, where do we send the data?");
+            throw new SyncAbortException("Not running EntitySync [" + entitySyncId
+                    + "], no targetServiceName is specified, where do we send the data?");
         }
 
         // check to see if this sync is already running, if so return error
@@ -959,7 +1121,8 @@ public class EntitySyncContext {
         try {
             // not running, get started NOW
             // set running status on entity sync, run in its own tx
-            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "userLogin", userLogin), 60,true);
+            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
+                    "runStatusId", "ESR_RUNNING", "userLogin", userLogin), 60, true);
             if (ModelService.RESPOND_ERROR.equals(startEntitySyncRes.get(ModelService.RESPONSE_MESSAGE))) {
                 throw new SyncDataErrorException(markErrorMsg, null, null, startEntitySyncRes, null);
             }
@@ -971,6 +1134,13 @@ public class EntitySyncContext {
         this.createInitialHistory();
     }
 
+    /**
+     * Sets total row counts.
+     * @param valuesToCreate the values to create
+     * @param valuesToStore  the values to store
+     * @param keysToRemove   the keys to remove
+     * @return the total row counts
+     */
     public long setTotalRowCounts(ArrayList<GenericValue> valuesToCreate, ArrayList<GenericValue> valuesToStore, List<GenericEntity> keysToRemove) {
         this.totalRowsToCreate = valuesToCreate.size();
         this.totalRowsToStore = valuesToStore.size();
@@ -979,13 +1149,23 @@ public class EntitySyncContext {
         return this.totalRowsPerSplit;
     }
 
-    public void runPushSendData(ArrayList<GenericValue> valuesToCreate, ArrayList<GenericValue> valuesToStore, List<GenericEntity> keysToRemove) throws SyncOtherErrorException, SyncServiceErrorException {
+    /**
+     * Run push send data.
+     * @param valuesToCreate the values to create
+     * @param valuesToStore  the values to store
+     * @param keysToRemove   the keys to remove
+     * @throws SyncOtherErrorException   the sync other error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     */
+    public void runPushSendData(ArrayList<GenericValue> valuesToCreate, ArrayList<GenericValue> valuesToStore, List<GenericEntity> keysToRemove)
+            throws SyncOtherErrorException, SyncServiceErrorException {
         // grab the totals for this data
         this.setTotalRowCounts(valuesToCreate, valuesToStore, keysToRemove);
 
         // call service named on EntitySync, IFF there is actually data to send over
         if (this.totalRowsPerSplit > 0) {
-            Map<String, Object> targetServiceMap = UtilMisc.toMap("entitySyncId", entitySyncId, "valuesToCreate", valuesToCreate, "valuesToStore", valuesToStore, "keysToRemove", keysToRemove, "userLogin", userLogin);
+            Map<String, Object> targetServiceMap = UtilMisc.toMap("entitySyncId", entitySyncId, "valuesToCreate", valuesToCreate, "valuesToStore",
+                    valuesToStore, "keysToRemove", keysToRemove, "userLogin", userLogin);
             if (UtilValidate.isNotEmpty(targetDelegatorName)) {
                 targetServiceMap.put("delegatorName", targetDelegatorName);
             }
@@ -1003,14 +1183,22 @@ public class EntitySyncContext {
 
                 this.totalStoreCalls++;
 
-                long toCreateInsertedCur = remoteStoreResult.get("toCreateInserted") == null ? 0 : (Long) remoteStoreResult.get("toCreateInserted");
-                long toCreateUpdatedCur = remoteStoreResult.get("toCreateUpdated") == null ? 0 : (Long) remoteStoreResult.get("toCreateUpdated");
-                long toCreateNotUpdatedCur = remoteStoreResult.get("toCreateNotUpdated") == null ? 0 : (Long) remoteStoreResult.get("toCreateNotUpdated");
-                long toStoreInsertedCur = remoteStoreResult.get("toStoreInserted") == null ? 0 : (Long) remoteStoreResult.get("toStoreInserted");
-                long toStoreUpdatedCur = remoteStoreResult.get("toStoreUpdated") == null ? 0 : (Long) remoteStoreResult.get("toStoreUpdated");
-                long toStoreNotUpdatedCur = remoteStoreResult.get("toStoreNotUpdated") == null ? 0 : (Long) remoteStoreResult.get("toStoreNotUpdated");
-                long toRemoveDeletedCur = remoteStoreResult.get("toRemoveDeleted") == null ? 0 : (Long) remoteStoreResult.get("toRemoveDeleted");
-                long toRemoveAlreadyDeletedCur = remoteStoreResult.get("toRemoveAlreadyDeleted") == null ? 0 : (Long) remoteStoreResult.get("toRemoveAlreadyDeleted");
+                long toCreateInsertedCur = remoteStoreResult.get("toCreateInserted") == null ? 0
+                        : (Long) remoteStoreResult.get("toCreateInserted");
+                long toCreateUpdatedCur = remoteStoreResult.get("toCreateUpdated") == null ? 0
+                        : (Long) remoteStoreResult.get("toCreateUpdated");
+                long toCreateNotUpdatedCur = remoteStoreResult.get("toCreateNotUpdated") == null ? 0
+                        : (Long) remoteStoreResult.get("toCreateNotUpdated");
+                long toStoreInsertedCur = remoteStoreResult.get("toStoreInserted") == null ? 0
+                        : (Long) remoteStoreResult.get("toStoreInserted");
+                long toStoreUpdatedCur = remoteStoreResult.get("toStoreUpdated") == null ? 0
+                        : (Long) remoteStoreResult.get("toStoreUpdated");
+                long toStoreNotUpdatedCur = remoteStoreResult.get("toStoreNotUpdated") == null ? 0
+                        : (Long) remoteStoreResult.get("toStoreNotUpdated");
+                long toRemoveDeletedCur = remoteStoreResult.get("toRemoveDeleted") == null ? 0
+                        : (Long) remoteStoreResult.get("toRemoveDeleted");
+                long toRemoveAlreadyDeletedCur = remoteStoreResult.get("toRemoveAlreadyDeleted") == null ? 0
+                        : (Long) remoteStoreResult.get("toRemoveAlreadyDeleted");
 
                 this.toCreateInserted += toCreateInsertedCur;
                 this.toCreateUpdated += toCreateUpdatedCur;
@@ -1026,11 +1214,18 @@ public class EntitySyncContext {
         }
     }
 
-    // ======================== PULL Methods ========================
+    /**
+     * Run pull start or restore saved results.
+     * @throws SyncDataErrorException    the sync data error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     * @throws SyncAbortException        the sync abort exception
+     */
+// ======================== PULL Methods ========================
     public void runPullStartOrRestoreSavedResults() throws SyncDataErrorException, SyncServiceErrorException, SyncAbortException {
         // if EntitySync.statusId is ESR_RUNNING, make sure startDate matches EntitySync.lastHistoryStartDate; or return error
         if (isEntitySyncRunning() && this.startDate == null) {
-            throw new SyncAbortException("Not running EntitySync [" + entitySyncId + "], an instance is already running and no startDate for the current run was passed.");
+            throw new SyncAbortException("Not running EntitySync [" + entitySyncId
+                    + "], an instance is already running and no startDate for the current run was passed.");
         }
 
         if (this.startDate == null) {
@@ -1039,7 +1234,8 @@ public class EntitySyncContext {
             try {
                 // not running, get started NOW
                 // set running status on entity sync, run in its own tx
-                Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "userLogin", userLogin),60,true);
+                Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
+                        "runStatusId", "ESR_RUNNING", "userLogin", userLogin), 60, true);
                 if (ModelService.RESPOND_ERROR.equals(startEntitySyncRes.get(ModelService.RESPONSE_MESSAGE))) {
                     throw new SyncDataErrorException(markErrorMsg, null, null, startEntitySyncRes, null);
                 }
@@ -1053,7 +1249,8 @@ public class EntitySyncContext {
         } else {
             try {
                 // set the latest values from the EntitySyncHistory, based on the values on the EntitySync
-                GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("entitySyncId", entitySyncId, "startDate", startDate).queryOne();
+                GenericValue entitySyncHistory = EntityQuery.use(delegator).from("EntitySyncHistory").where("entitySyncId", entitySyncId,
+                        "startDate", startDate).queryOne();
                 this.toCreateInserted = UtilMisc.toLong(entitySyncHistory.getLong("toCreateInserted"));
                 this.toCreateUpdated = UtilMisc.toLong(entitySyncHistory.getLong("toCreateUpdated"));
                 this.toCreateNotUpdated = UtilMisc.toLong(entitySyncHistory.getLong("toCreateNotUpdated"));
@@ -1097,7 +1294,13 @@ public class EntitySyncContext {
         }
     }
 
-    // ======================== OFFLINE Methods ========================
+    /**
+     * Run offline start running.
+     * @throws SyncDataErrorException    the sync data error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     * @throws SyncAbortException        the sync abort exception
+     */
+// ======================== OFFLINE Methods ========================
     public void runOfflineStartRunning() throws SyncDataErrorException, SyncServiceErrorException, SyncAbortException {
         // check to see if this sync is already running, if so return error
         if (this.isEntitySyncRunning()) {
@@ -1111,7 +1314,8 @@ public class EntitySyncContext {
         try {
             // not running, get started NOW
             // set running status on entity sync, run in its own tx
-            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId, "runStatusId", "ESR_RUNNING", "preOfflineSynchTime", this.lastSuccessfulSynchTime, "userLogin", userLogin),60,true);
+            Map<String, Object> startEntitySyncRes = dispatcher.runSync("updateEntitySync", UtilMisc.toMap("entitySyncId", entitySyncId,
+                    "runStatusId", "ESR_RUNNING", "preOfflineSynchTime", this.lastSuccessfulSynchTime, "userLogin", userLogin), 60, true);
             if (ModelService.RESPOND_ERROR.equals(startEntitySyncRes.get(ModelService.RESPONSE_MESSAGE))) {
                 throw new SyncDataErrorException(markErrorMsg, null, null, startEntitySyncRes, null);
             }
@@ -1123,6 +1327,13 @@ public class EntitySyncContext {
         this.createInitialHistory();
     }
 
+    /**
+     * Run save offline sync info.
+     * @param rowsInSplit the rows in split
+     * @throws SyncDataErrorException    the sync data error exception
+     * @throws SyncServiceErrorException the sync service error exception
+     * @throws SyncAbortException        the sync abort exception
+     */
     public void runSaveOfflineSyncInfo(long rowsInSplit) throws SyncDataErrorException, SyncServiceErrorException, SyncAbortException {
         this.totalRowsExported += rowsInSplit;
         this.saveResultsReportedFromDataStore();
@@ -1131,7 +1342,8 @@ public class EntitySyncContext {
     /**
      * Static method to obtain a list of entity names which will be synchronized
      */
-    public static Set<String> getEntitySyncModelNamesToUse(LocalDispatcher dispatcher, String entitySyncId) throws SyncDataErrorException, SyncAbortException {
+    public static Set<String> getEntitySyncModelNamesToUse(LocalDispatcher dispatcher, String entitySyncId)
+            throws SyncDataErrorException, SyncAbortException {
         DispatchContext dctx = dispatcher.getDispatchContext();
         EntitySyncContext ctx = new EntitySyncContext(dctx, UtilMisc.toMap("entitySyncId", entitySyncId));
         return ctx.makeEntityNameToUseSet();
@@ -1156,29 +1368,63 @@ public class EntitySyncContext {
             super(nested);
         }
 
-        public SyncAbortException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) {
+        public SyncAbortException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap,
+                                  Map<String, Object> nestedServiceResult, Throwable nested) {
             super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested);
         }
     }
 
     @SuppressWarnings("serial")
-    public static abstract class SyncErrorException extends GeneralServiceException {
-        public SyncErrorException() { super(); }
-        public SyncErrorException(String str) { super(str); }
-        public SyncErrorException(String str, Throwable nested) { super(str, nested); }
-        public SyncErrorException(Throwable nested) { super(nested); }
-        public SyncErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+    public abstract static class SyncErrorException extends GeneralServiceException {
+        public SyncErrorException() {
+            super();
+        }
+
+        public SyncErrorException(String str) {
+            super(str);
+        }
+
+        public SyncErrorException(String str, Throwable nested) {
+            super(str, nested);
+        }
+
+        public SyncErrorException(Throwable nested) {
+            super(nested);
+        }
+
+        public SyncErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap,
+                                  Map<String, Object> nestedServiceResult, Throwable nested) {
+            super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested);
+        }
+
         public abstract void saveSyncErrorInfo(EntitySyncContext esc);
     }
 
-    /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be changed to reflect the error */
+    /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should
+     * be changed to reflect the error */
     @SuppressWarnings("serial")
     public static class SyncOtherErrorException extends SyncErrorException {
-        public SyncOtherErrorException() { super(); }
-        public SyncOtherErrorException(String str) { super(str); }
-        public SyncOtherErrorException(String str, Throwable nested) { super(str, nested); }
-        public SyncOtherErrorException(Throwable nested) { super(nested); }
-        public SyncOtherErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+        public SyncOtherErrorException() {
+            super();
+        }
+
+        public SyncOtherErrorException(String str) {
+            super(str);
+        }
+
+        public SyncOtherErrorException(String str, Throwable nested) {
+            super(str, nested);
+        }
+
+        public SyncOtherErrorException(Throwable nested) {
+            super(nested);
+        }
+
+        public SyncOtherErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap,
+                                       Map<String, Object> nestedServiceResult, Throwable nested) {
+            super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested);
+        }
+
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
@@ -1189,14 +1435,31 @@ public class EntitySyncContext {
         }
     }
 
-    /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be changed to reflect the error */
+    /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be
+     * changed to reflect the error */
     @SuppressWarnings("serial")
     public static class SyncDataErrorException extends SyncErrorException {
-        public SyncDataErrorException() { super(); }
-        public SyncDataErrorException(String str) { super(str); }
-        public SyncDataErrorException(String str, Throwable nested) { super(str, nested); }
-        public SyncDataErrorException(Throwable nested) { super(nested); }
-        public SyncDataErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+        public SyncDataErrorException() {
+            super();
+        }
+
+        public SyncDataErrorException(String str) {
+            super(str);
+        }
+
+        public SyncDataErrorException(String str, Throwable nested) {
+            super(str, nested);
+        }
+
+        public SyncDataErrorException(Throwable nested) {
+            super(nested);
+        }
+
+        public SyncDataErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap,
+                                      Map<String, Object> nestedServiceResult, Throwable nested) {
+            super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested);
+        }
+
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
@@ -1207,14 +1470,31 @@ public class EntitySyncContext {
         }
     }
 
-    /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be changed to reflect the error */
+    /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be
+     * changed to reflect the error */
     @SuppressWarnings("serial")
     public static class SyncServiceErrorException extends SyncErrorException {
-        public SyncServiceErrorException() { super(); }
-        public SyncServiceErrorException(String str) { super(str); }
-        public SyncServiceErrorException(String str, Throwable nested) { super(str, nested); }
-        public SyncServiceErrorException(Throwable nested) { super(nested); }
-        public SyncServiceErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap, Map<String, Object> nestedServiceResult, Throwable nested) { super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested); }
+        public SyncServiceErrorException() {
+            super();
+        }
+
+        public SyncServiceErrorException(String str) {
+            super(str);
+        }
+
+        public SyncServiceErrorException(String str, Throwable nested) {
+            super(str, nested);
+        }
+
+        public SyncServiceErrorException(Throwable nested) {
+            super(nested);
+        }
+
+        public SyncServiceErrorException(String str, List<Object> errorMsgList, Map<String, Object> errorMsgMap,
+                                         Map<String, Object> nestedServiceResult, Throwable nested) {
+            super(str, errorMsgList, errorMsgMap, nestedServiceResult, nested);
+        }
+
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {

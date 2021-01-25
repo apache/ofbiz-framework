@@ -61,7 +61,7 @@ public class SupplierProductServices {
         String productId = (String) context.get("productId");
         String partyId = (String) context.get("partyId");
         String currencyUomId = (String) context.get("currencyUomId");
-        BigDecimal quantity =(BigDecimal) context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
         String agreementId = (String) context.get("agreementId");
 
@@ -69,20 +69,21 @@ public class SupplierProductServices {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             if (product == null) {
                 results = ServiceUtil.returnSuccess();
-                results.put("supplierProducts",null);
+                results.put("supplierProducts", null);
                 return results;
             }
             List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);
 
-            // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
-            if (supplierProducts.size() == 0 && product.getString("isVariant") != null && "Y".equals(product.getString("isVariant"))) {
+            // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the
+            // virtual parent product
+            if (supplierProducts.isEmpty() && product.getString("isVariant") != null && "Y".equals(product.getString("isVariant"))) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
                 GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", virtualProductId).cache().queryOne();
                 if (virtualProduct != null) {
                     supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }
             }
-            if(agreementId != null) {
+            if (agreementId != null) {
                 supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("agreementId", agreementId));
 
             }
@@ -102,7 +103,8 @@ public class SupplierProductServices {
             // filter the list down by the minimumOrderQuantity if one is provided
             if (quantity != null) {
                 //minimumOrderQuantity
-                supplierProducts = EntityUtil.filterByCondition(supplierProducts, EntityCondition.makeCondition("minimumOrderQuantity", EntityOperator.LESS_THAN_EQUAL_TO, quantity));
+                supplierProducts = EntityUtil.filterByCondition(supplierProducts, EntityCondition.makeCondition("minimumOrderQuantity",
+                        EntityOperator.LESS_THAN_EQUAL_TO, quantity));
             }
 
             // filter the list down by the canDropShip if one is provided
@@ -141,7 +143,7 @@ public class SupplierProductServices {
                                                                    UtilMisc.toMap("partyId", partyId));
                     GenericValue supplierFeature = null;
 
-                    if ((supplierFeatures != null) && (supplierFeatures.size() > 0)) {
+                    if ((supplierFeatures != null) && (!supplierFeatures.isEmpty())) {
                         supplierFeature = supplierFeatures.get(0);
                         if (supplierFeature.get("description") != null) {
                             nextFeature.put("description", supplierFeature.get("description"));

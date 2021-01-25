@@ -194,6 +194,7 @@ under the License.
               <#if security.hasEntityPermission("PAY_INFO", "_DELETE", session) || security.hasEntityPermission("ACCOUNTING", "_DELETE", session)>
                 <form name="deletePaymentMethod_${paymentMethod.paymentMethodId}" method="post" action="<@ofbizUrl>deletePaymentMethod</@ofbizUrl>">
                   <input type="hidden" name="partyId" value="${partyId}" />
+                  <input type="hidden" name="roleTypeId" value="${parameters.roleTypeId!}" />
                   <input type="hidden" name="paymentMethodId" value="${paymentMethod.paymentMethodId}" />
                   <input type="submit" value="${uiLabelMap.CommonExpire}"/>
                 </form>

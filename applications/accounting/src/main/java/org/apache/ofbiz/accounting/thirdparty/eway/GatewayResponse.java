@@ -61,52 +61,91 @@ public class GatewayResponse {
 
     // getter methods for the response fields
 
+    /**
+     * Gets trxn number.
+     * @return the trxn number
+     */
     public String getTrxnNumber() {
         return txTrxnNumber;
     }
 
+    /**
+     * Gets trxn reference.
+     * @return the trxn reference
+     */
     public String getTrxnReference() {
         return txTrxnReference;
     }
 
+    /**
+     * Gets trxn option 1.
+     * @return the trxn option 1
+     */
     public String getTrxnOption1() {
         return txTrxnOption1;
     }
 
+    /**
+     * Gets trxn option 2.
+     * @return the trxn option 2
+     */
     public String getTrxnOption2() {
         return txTrxnOption2;
     }
 
+    /**
+     * Gets trxn option 3.
+     * @return the trxn option 3
+     */
     public String getTrxnOption3() {
         return txTrxnOption3;
     }
 
+    /**
+     * Gets auth code.
+     * @return the auth code
+     */
     public String getAuthCode() {
         return txAuthCode;
     }
 
+    /**
+     * Gets trxn error.
+     * @return the trxn error
+     */
     public String getTrxnError() {
         return txTrxnError;
     }
 
+    /**
+     * Gets return amount.
+     * @return the return amount
+     */
     public int getReturnAmount() {
         return txReturnAmount;
     }
 
+    /**
+     * Gets transaction amount.
+     * @return the transaction amount
+     */
     public BigDecimal getTransactionAmount() {
         BigDecimal amt = new BigDecimal(getReturnAmount());
         amt = amt.divide(new BigDecimal(100));
         return amt.setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * Gets trxn status.
+     * @return the trxn status
+     */
     public boolean getTrxnStatus() {
         return txTrxnStatus;
     }
 
     /**
-     * Gets the beagle score. Defaults to -1 in case of non-Beagle payment methods
-     * or if the response does not contain this field.
-     *
+     * Gets the beagle score. Defaults to -1 in case of non-Beagle payment methods or if the response does not contain
+     * this field.
      * @return The beagle score or -1 if it was not defined in the response
      */
     public double getBeagleScore() {
@@ -117,7 +156,6 @@ public class GatewayResponse {
      * Creates the GatewayResponse object by parsing an xml from a stream. Fills in
      * the fields of the object that are available through getters after this method
      * returns.
-     *
      * @param xmlstream
      *            the stream to parse the response from
      * @throws Exception
@@ -135,7 +173,7 @@ public class GatewayResponse {
         Node rootnode = doc.getDocumentElement();
         String root = rootnode.getNodeName();
 
-        if (root != "ewayResponse") {
+        if ("ewayResponse" != root) {
             throw new Exception("Bad root element in response: " + root);
         }
 
@@ -143,9 +181,9 @@ public class GatewayResponse {
         NodeList list = doc.getElementsByTagName("*");
         int length = list.getLength();
         for (int i = 0; i < length; i++) {
-            Node node = list.item(i);                        
+            Node node = list.item(i);
             String name = node.getNodeName();
-            if (name == "ewayResponse") {
+            if ("ewayResponse" == name) {
                 continue;
             }
             Text textnode = (Text) node.getFirstChild();
@@ -154,7 +192,7 @@ public class GatewayResponse {
                 value = textnode.getNodeValue();
             }
 
-            switch(name) {
+            switch (name) {
             case "ewayTrxnError":
                 txTrxnError = value;
                 break;
@@ -176,7 +214,7 @@ public class GatewayResponse {
                 txTrxnOption3 = value;
                 break;
             case "ewayReturnAmount":
-                if (!value.equals("")) {
+                if (!"".equals(value)) {
                     txReturnAmount = Integer.parseInt(value);
                 }
                 break;
@@ -186,8 +224,8 @@ public class GatewayResponse {
             case "ewayTrxnReference":
                 txTrxnReference = value;
                 break;
-            case "ewayBeagleScore": 
-                if (!value.equals("")) {
+            case "ewayBeagleScore":
+                if (!"".equals(value)) {
                     txBeagleScore = Double.parseDouble(value);
                 }
                 break;
@@ -195,12 +233,10 @@ public class GatewayResponse {
                 throw new Exception("Unknown field in response: " + name);
             }
         }
-            
         if (req.isTestMode()) {
             Debug.logInfo("[eWay Reply]\n" + this.toString(), MODULE);
         }
     }
-    
     @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();

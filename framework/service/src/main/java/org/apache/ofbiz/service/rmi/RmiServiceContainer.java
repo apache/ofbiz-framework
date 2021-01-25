@@ -46,9 +46,9 @@ public class RmiServiceContainer implements Container {
 
     private static final String MODULE = RmiServiceContainer.class.getName();
 
-    protected RemoteDispatcherImpl remote = null;
-    protected String configFile = null;
-    protected String name = null;
+    private RemoteDispatcherImpl remote = null;
+    private String configFile = null;
+    private String name = null;
     private String containerName;
     // Container methods
 
@@ -85,11 +85,11 @@ public class RmiServiceContainer implements Container {
         String useCtx = initialCtxProp == null || initialCtxProp.value() == null ? "false" : initialCtxProp.value();
         String host = lookupHostProp == null || lookupHostProp.value() == null ? "localhost" : lookupHostProp.value();
         String port = lookupPortProp == null || lookupPortProp.value() == null ? "1099" : lookupPortProp.value();
-        if (Start.getInstance().getConfig().portOffset != 0) {
+        if (Start.getInstance().getConfig().getPortOffset() != 0) {
             Integer portValue = Integer.valueOf(port);
-            portValue += Start.getInstance().getConfig().portOffset;
+            portValue += Start.getInstance().getConfig().getPortOffset();
             port = portValue.toString();
-        }                
+        }
         String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);
         String ksType = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-type", "JKS");
         String ksPass = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-pass", null);
@@ -148,7 +148,8 @@ public class RmiServiceContainer implements Container {
             try {
                 Naming.rebind("//" + host + ":" + port + "/" + name, remote);
             } catch (RemoteException e) {
-                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name[" + name + "] - with remote=" + remote , e);
+                throw new ContainerException("Unable to bind RMIDispatcher to RMI on " + "//host[" + host + "]:port[" + port + "]/name["
+                        + name + "] - with remote=" + remote, e);
             } catch (java.net.MalformedURLException e) {
                 throw new ContainerException("Invalid URL for binding", e);
             }

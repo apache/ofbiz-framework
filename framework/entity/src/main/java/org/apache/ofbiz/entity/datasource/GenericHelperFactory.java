@@ -36,15 +36,15 @@ public class GenericHelperFactory {
     private static final String MODULE = GenericHelperFactory.class.getName();
 
     // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);
-    protected static final Map<String, GenericHelper> helperCache = new HashMap<>();
+    protected static final Map<String, GenericHelper> HELPER_CACHE = new HashMap<>();
 
     public static GenericHelper getHelper(GenericHelperInfo helperInfo) {
-        GenericHelper helper = helperCache.get(helperInfo.getHelperFullName());
+        GenericHelper helper = HELPER_CACHE.get(helperInfo.getHelperFullName());
 
         if (helper == null) { // don't want to block here
             synchronized (GenericHelperFactory.class) {
                 // must check if null again as one of the blocked threads can still enter
-                helper = helperCache.get(helperInfo.getHelperFullName());
+                helper = HELPER_CACHE.get(helperInfo.getHelperFullName());
                 if (helper == null) {
                     try {
                         Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
@@ -86,8 +86,9 @@ public class GenericHelperFactory {
                             throw new IllegalStateException("Error loading GenericHelper class \"" + helperClassName + "\": " + e.getMessage());
                         }
 
-                        if (helper != null)
-                            helperCache.put(helperInfo.getHelperFullName(), helper);
+                        if (helper != null) {
+                            HELPER_CACHE.put(helperInfo.getHelperFullName(), helper);
+                        }
                     } catch (SecurityException e) {
                         Debug.logError(e, MODULE);
                         throw new IllegalStateException("Error loading GenericHelper class: " + e.toString());

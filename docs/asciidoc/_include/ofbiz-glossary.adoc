@@ -1,0 +1,174 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+[glossary]
+= General Glossary
+
+[comment]
+It's important to sort glossary entries in alphabetic order to avoid duplication or search failing.
+
+This glossary is intended to help beginners with OFBiz terms and concepts. +
+Some of them come from the https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Book] some are OFBiz specific.
+
+[#APPLICATION]
+Application::
+. **for end users** , an application is a top level menu entry, it's for managing a business object:
+order, accounting GL, accounting AP, facility, project, .... +
+An application can be dedicated for a specifics business and can use part of other applications. +
+With Apache OFBiz OOTB (Out Of The Box) you will find the main application (the <<CORE_APPLICATION_COMPONENTS, Core Application>>)
+and with OFBIZ plugins you can find application more business specifics.
+. **technicaly** , an application is a part of <<COMPONENT, Component>> beginning with the ~webapp directory. +
+A single component may contain several applications each mounted on a unique URL.
+Within each component, the "ofbiz-component.xml" file defines the available applications and how those applications shall be mounted on URLs.
+
+[#COMPONENT]
+Component::
+. **for end users** , an OFBiz component, is an <<APPLICATION, application>> or a group of <<APPLICATION, applications>>. +
+Knowing which component is used by a application can be useful for "key users" to be able to set application parameters or modify configuration files.
+. **technically** , An OFBiz component is a directory used by the OFBiz framework to specify and load application server resources necessary to execute an OFBiz instance. +
+Each OFBiz component must have a unique name (typically the name of the root directory for the component) and
+a configuration file called: "ofbiz-component.xml". +
+Component resources may include, but are not limited to:
+* webapps,
+* Java source/classes,
+* classpath resources,
+* scripts, entity definitions,
+* entity data files,
+* service definitions,
+* service and entity ECA rules,
+* test suites,
+* encryption keystores.
+
+A component contains applications and/or the lower level tools and definitions needed by applications. +
+A component can be used for self-contained extensions, including applications and logic/data modifications,
+to the suite of tools and applications that come with OFBiz. +
+For more detail look at developer-manual.
+
+[#CORE_APPLICATION_COMPONENTS]
+core application components:: The core applications in Apache OFBiz are web applications that serve common
+business needs found in most enterprises. +
+They are included in the ofbiz-framework and each one has one (or more) menu entry. +
+Currently there are :
+* <<_accounting>>, +
+  menu entries: Accounting, Accounting-AP, Accounting-AR
+* <<_catalog>>, to manage products, prices, promotion rules, categories, catalogs, stores and more. +
+  menu entry: Catalog
+* <<_content_management>>,
+* <<_facility>>: Wharehouse management, to manage facilities, inventory, physical inventory, in and out shipment, and more. +
+  menu entry: Facility
+* <<_human_resources>> management, +
+  menu entry: HR
+* <<_manufacturing>>: Materials Resource Planning, define production schemas and tasks, Bill of Materials, Equipment allocation,
+Workers assignment, Job Shop
+* <<_marketing>>: Marketing Communications Management and Sales Force Automation +
+  menu entry: Marketing, <<_sfa>>
+* <<_order>>: Fully featured sales and purchase order management module, including
+  ** request
+  ** requirements
+  ** quote
+  ** order
+  ** statistics
+* <<_party>>, enables organizations to maintain parties (human and other legal entities), their roles and user accounts, and lots more.
+* Work Effort Management, to manage work efforts, tasks, calendar, maintenance assignments and more.
+
+With these core applications multiple others can be build. In ofbiz-plugin you can find some.
+
+[#CRM]
+CRM:: **C**ustomer **R**elationship **M**anagement
+
+[#DEMO_DATA]
+Demo Data:: Demo data are loaded with the command `gradlew loadAll` or `gradlew "ofbiz --load-data readers=dDemo"` +
+ +
+Demo data are present to help understanding ofbiz application process, most of the time it's only the minimum of data,
+For a correct understanding, it's necessary to create more data to have a full functionnal OFBiz.
+
+[#E_COMMERCE]
+E-Commerce:: The buying and selling of goods or services over electronic systems.
+
+[#ENTITY]
+Entity:: An entity represents an important business concept that is stored as a record in the database.
+It is used in the document and OFBiz to generalize about the behavior of persistent information.
+For example employees and employments are important business concepts for HR application, stored in the database.
+We could refer to an action directly on a particular entity by saying "Create a new employee" or "Create a new employment".
+We could alternately describe a general create action by saying "Create a new entity".
+
+[#ENTITY_DATA_MAINTENANCE]
+Entity Data Maintenance:: It's a sub-application of WebTool application, it's necessary to have specifics authorization
+to access it.  +
+Use Entity Data Maintenance to search, look, create, update and delete entities data, most of time it's really not the good solution
+to use it for other think that only looking data. +
+Exceptions are
+
+. when there was a bug and it's necessary to manually do a data correction
+. manage entities, which have'nt a user interface, main example are for StatusType, Enumeration, but there are some
+type entities, like BenefitType for HR. +
+
+[NOTE]
+For creation, as Primary keys must be entered manually apply the ID general advice. +
+In ID only standard characters and without space are authorized. ID length must be less than 20 characters. +
+Generally manual primary keys are all upper case with underscores between words and are a meaningful mnemonic i.e.
+A_PRIMARY_KEY.
+
+[#ERP]
+ERP:: An acronym for **E**nterprise **R**esource **P**lanning, an ERP is basically a category of software used for
+managing a business. It is often a package containing several individual, but integrated, applications.
+Some of those applications might be Accounts Receivable, Accounts Payable, General Ledger, or Point of Sale.
+
+[NOTE]
+Example of ERP: Apache OFBiz, OpenBravo, Odoo
+
+[#INTERNAL_ORGANIZATION]
+Internal Organization::
+An Internal organization is a special term in OFBiz that allows you to flag the main accounting company that is being setup. +
+It can also be used to highlight relationship between a party group (any of your departments, business units or subsidiaries.)
+and your company. +
+This relationship is used to filter party groups as being part of your
+company to distinguish them from other groups which are external. For example your
+marketing department is an internal organization while a suppliers sales department
+is not.
+
+[#MRP]
+MRP:: **M**aterial **R**equirements **P**lanning
+
+[#PARTY]
+Party:: User, person, organization or other entity (where entity is not an OFBiz "Entity" but rather entity in the legal sense)
+implied in at least one process modeled and implemented by OFBiz. +
+Party is a term used to simplify collecting information that used in a common manner
+by different people and things. +
+The most common party types are people and groups. +
+Both people and groups have contact information. +
+A party is identified by a unique Party Id.
+Using this Id OFBiz can collect and find contact (and other information
+and processes) for both people and groups in the same way. This is why you will
+often see Party Id as a field in a form or a filter as you work in OFBiz.
+
+[NOTE]
+Example of party: a administrator of the website; a company dealing goods and/or services via the website;
+ an OFBiz customer assigned a unique party identifier, etc.
+
+[#PARTY_ID]
+Party Id::
+The unique identifier for a party. +
+The id is stored as text so in some cases you will see an id that helps you identify the party it is linked to
+(e.g. Party Id DemoEmployee, or DemoSupplier). +
+In other cases the Id is created by OFBiz and is will be simply a number from a
+sequence(by default it starts from the sequence 10000). +
+In either case the Id is unique.
+
+[#SCM]
+SCM:: **S**upply **C**hain **M**anagement

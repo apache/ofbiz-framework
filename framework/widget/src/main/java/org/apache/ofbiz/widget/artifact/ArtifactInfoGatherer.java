@@ -460,12 +460,12 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         public void visit(MenuField menuField) {
             //TODO
         }
-        
+
         @Override
         public void visit(FormField formField) {
             //TODO
         }
-        
+
         @Override
         public void visit(GridField gridField) {
             //TODO
@@ -503,7 +503,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         @Override
         public void visit(ResetField resetField) {
         }
-        
+
         @Override
         public void visit(ScreenField screenField) {
             //TODO
@@ -538,14 +538,14 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
             }
         }
         for (AutoFieldsEntity autoFieldsEntity : modelForm.getAutoFieldsEntities()) {
-            infoContext.addEntityName(autoFieldsEntity.entityName);
+            infoContext.addEntityName(autoFieldsEntity.getEntityName());
         }
         for (AutoFieldsService autoFieldsService : modelForm.getAutoFieldsServices()) {
-            infoContext.addServiceName(autoFieldsService.serviceName);
+            infoContext.addServiceName(autoFieldsService.getServiceName());
         }
         if (modelForm.getAltTargets() != null) {
             for (AltTarget altTarget : modelForm.getAltTargets()) {
-                String target = altTarget.targetExdr.getOriginal();
+                String target = altTarget.getTargetExdr().getOriginal();
                 String urlMode = "intra-app";
                 try {
                     Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target,

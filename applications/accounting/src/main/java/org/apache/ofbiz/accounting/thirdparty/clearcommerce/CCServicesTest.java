@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
@@ -36,14 +37,14 @@ public class CCServicesTest extends OFBizTestCase {
     private static final String MODULE = CCServicesTest.class.getName();
 
     // test data
-    protected GenericValue emailAddr = null;
-    protected String orderId = null;
-    protected GenericValue creditCard = null;
-    protected GenericValue billingAddress = null;
-    protected GenericValue shippingAddress = null;
-    protected Map<String, Object> pbOrder = null;
-    protected BigDecimal creditAmount = null;
-    protected String configFile = null;
+    private GenericValue emailAddr = null;
+    private String orderId = null;
+    private GenericValue creditCard = null;
+    private GenericValue billingAddress = null;
+    private GenericValue shippingAddress = null;
+    private Map<String, Object> pbOrder = null;
+    private BigDecimal creditAmount = null;
+    private String configFile = null;
 
     public CCServicesTest(String name) {
         super(name);
@@ -51,6 +52,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     @Override
     protected void setUp() throws Exception {
+        Delegator delegator = getDelegator();
         // populate test data
         configFile = "paymentTest.properties";
         creditAmount = new BigDecimal("234.00");
@@ -75,7 +77,7 @@ public class CCServicesTest extends OFBizTestCase {
                 "TotalNumberPayments", "4");
     }
 
-    /*
+    /**
      * Check the authorisation
      */
     public void testAuth() throws Exception {
@@ -90,7 +92,7 @@ public class CCServicesTest extends OFBizTestCase {
             serviceInput.put("processAmount", new BigDecimal("200.00"));
 
             // run the service (make sure in payment
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCAuth", serviceInput);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCAuth", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -109,7 +111,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     }
 
-    /*
+    /**
      * Check the credit action: to deduct a certain amount of a credit card.
      */
     public void testCredit() throws Exception {
@@ -122,7 +124,7 @@ public class CCServicesTest extends OFBizTestCase {
                     "creditCard", creditCard,
                     "creditAmount", new BigDecimal("200.00"));
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCCredit", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCCredit", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -140,7 +142,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     }
 
-    /*
+    /**
      * Test Purchase subscription
      */
     public void testPurchaseSubscription() throws Exception {
@@ -156,7 +158,7 @@ public class CCServicesTest extends OFBizTestCase {
             serviceMap.put("creditAmount", new BigDecimal("200.00"));
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCCredit", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCCredit", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -192,12 +194,11 @@ public class CCServicesTest extends OFBizTestCase {
          * a recurring order expires and a payment is rejected, the order must be
          * cancelled. If the order is to be resumed, a new recurring order must be
          * submitted. --> Orders are cancelled by using the Store Administrator Tool.
-         * 
-         * So cannot by program.
+             * So cannot by program.
          */
     }
 
-    /*
+    /**
      * Test Query subscription transaction status
      */
     public void testCCReport() throws Exception {
@@ -209,7 +210,7 @@ public class CCServicesTest extends OFBizTestCase {
                     "paymentConfig", configFile);
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCReport", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCReport", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);

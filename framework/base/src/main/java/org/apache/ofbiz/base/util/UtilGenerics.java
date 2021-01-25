@@ -25,7 +25,7 @@ public final class UtilGenerics {
 
     private static final String MODULE = UtilMisc.class.getName();
 
-    private UtilGenerics() {}
+    private UtilGenerics() { }
 
     @SuppressWarnings("unchecked")
     public static <V> V cast(Object object) {
@@ -53,7 +53,7 @@ public final class UtilGenerics {
             if (!(object instanceof Map<?, ?>)) {
                 throw new ClassCastException("Not a map");
             }
-            Map<?, ?> map = (Map<?,?>) object;
+            Map<?, ?> map = (Map<?, ?>) object;
             int i = 0;
             for (Map.Entry<?, ?> entry: map.entrySet()) {
                 if (entry.getKey() != null && !keyType.isInstance(entry.getKey())) {

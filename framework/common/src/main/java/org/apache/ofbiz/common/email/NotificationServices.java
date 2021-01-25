@@ -48,7 +48,7 @@ import freemarker.template.TemplateException;
  * via email.
  * <p>
  * To use the NotificationService, a message specific service should be
- * defined for a particular 
+ * defined for a particular
  * <a href="http://freemarker.sourceforge.net/docs/dgui_quickstart_template.html">
  * Freemarker Template</a> mapping the required fields of the template to the
  * required attributes of the service.
@@ -70,7 +70,7 @@ import freemarker.template.TemplateException;
  * }
  * </pre>
  * <p>
- * An optional parameter available to all message templates is 
+ * An optional parameter available to all message templates is
  * <code>baseUrl</code> which can either be specified when the service is
  * invoked or let the <code>NotificationService</code> attempt to resolve it
  * as best it can, see {@link #setBaseUrl(Delegator, String, Map) setBaseUrl(Map)}
@@ -113,7 +113,6 @@ public class NotificationServices {
      * specified body instead. This can be used to combine both service
      * calls in a decoupled manner if other steps are required between
      * generating the message body and sending the notification.
-     *
      * @param ctx   The dispatching context of the service
      * @param context The map containing all the fields associated with
      * the sevice
@@ -145,7 +144,7 @@ public class NotificationServices {
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
-                Map<String, Object> emailContext =  new LinkedHashMap<>();
+                Map<String, Object> emailContext = new LinkedHashMap<>();
                 emailContext.put("sendTo", context.get("sendTo"));
                 emailContext.put("body", body);
                 emailContext.put("sendCc", context.get("sendCc"));
@@ -178,7 +177,6 @@ public class NotificationServices {
      * The result returned will contain the appropriate response
      * messages indicating success or failure and the OUT parameter,
      * "body" containing the generated message.
-     *
      * @param ctx   The dispatching context of the service
      * @param context The map containing all the fields associated with
      * the sevice
@@ -193,7 +191,7 @@ public class NotificationServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
         if (templateData == null) {
-            templateData =  new LinkedHashMap<>();
+            templateData = new LinkedHashMap<>();
         }
 
         try {
@@ -247,7 +245,6 @@ public class NotificationServices {
      * such as the <code>baseUrl</code>, perhaps using the standard
      * <code>ResourceBundle</code> java approach so that both classes
      * and static files may be invoked.
-     *
      * @param context   The context to check and, if necessary, set the
      * <code>baseUrl</code>.
      */

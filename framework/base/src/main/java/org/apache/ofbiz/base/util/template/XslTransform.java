@@ -54,20 +54,19 @@ import org.xml.sax.XMLReader;
 public final class XslTransform {
 
     private static final String MODULE = XslTransform.class.getName();
-    private static final UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
+    private static final UtilCache<String, Templates> XSL_TEMPLATE_CACHE = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
      * @param template the content or url of the xsl template
      * @param data the content or url of the xml data file
      * @throws TransformerException
      */
-    public static String renderTemplate(String template, String data)
-    throws TransformerException {
+    public static String renderTemplate(String template, String data) throws TransformerException {
         String result = null;
         TransformerFactory tfactory = TransformerFactory.newInstance();
         if (tfactory.getFeature(SAXSource.FEATURE)) {
             // setup for xml data file preprocessing to be able to xinclude
-            SAXParserFactory pfactory= SAXParserFactory.newInstance();
+            SAXParserFactory pfactory = SAXParserFactory.newInstance();
             pfactory.setNamespaceAware(true);
             pfactory.setValidating(false);
             pfactory.setXIncludeAware(true);
@@ -83,9 +82,9 @@ public final class XslTransform {
             Transformer transformer = tfactory.newTransformer(new StreamSource(template));
             // and apply the xsl template to the source document and save in a result string
             try (StringWriter sw = new StringWriter()) {
-            StreamResult sr = new StreamResult(sw);
-            transformer.transform(source, sr);
-            result = sw.toString();
+                StreamResult sr = new StreamResult(sw);
+                transformer.transform(source, sr);
+                result = sw.toString();
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
             }
@@ -105,41 +104,41 @@ public final class XslTransform {
         Document outputDocument = null;
         TransformerFactory tFactory = TransformerFactory.newInstance();
         Templates translet = null;
-        String templateName = (String)context.get("templateName");
+        String templateName = (String) context.get("templateName");
         if (UtilValidate.isNotEmpty(templateName)) {
-            translet = xslTemplatesCache.get(templateName);
+            translet = XSL_TEMPLATE_CACHE.get(templateName);
         }
 
         if (translet == null) {
-            String templateUrl = (String)context.get("templateUrl");
-            String templateString = (String)context.get("templateString");
-            Document templateDocument = (Document)context.get("templateDocument");
+            String templateUrl = (String) context.get("templateUrl");
+            String templateString = (String) context.get("templateString");
+            Document templateDocument = (Document) context.get("templateDocument");
             Source templateSource = getSource(templateDocument, templateUrl, templateString);
             translet = tFactory.newTemplates(templateSource);
             if (UtilValidate.isNotEmpty(templateName)) {
-                translet = xslTemplatesCache.putIfAbsentAndGet(templateName, translet);
+                translet = XSL_TEMPLATE_CACHE.putIfAbsentAndGet(templateName, translet);
             }
         }
         if (translet != null) {
             Transformer transformer = translet.newTransformer();
             if (params != null) {
-                for (Map.Entry<String, Object> entry: params.entrySet()) {
-                       String key = entry.getKey();
+                for (Map.Entry<String, Object> entry : params.entrySet()) {
+                    String key = entry.getKey();
                     Object val = entry.getValue();
                     transformer.setParameter(key, val);
-               }
+                }
             }
 
             DOMResult outputResult = new DOMResult(UtilXml.makeEmptyXmlDocument());
 
-            String inputUrl = (String)context.get("inputUrl");
-            String inputString = (String)context.get("inputString");
-            Document inputDocument = (Document)context.get("inputDocument");
+            String inputUrl = (String) context.get("inputUrl");
+            String inputString = (String) context.get("inputString");
+            Document inputDocument = (Document) context.get("inputDocument");
             Source inputSource = getSource(inputDocument, inputUrl, inputString);
 
             transformer.transform(inputSource, outputResult);
             Node nd = outputResult.getNode();
-            outputDocument = (Document)nd;
+            outputDocument = (Document) nd;
         }
 
         return outputDocument;
@@ -160,7 +159,7 @@ public final class XslTransform {
             URL url = FlexibleLocation.resolveLocation(inputUrl);
             URLConnection conn = URLConnector.openConnection(url);
             try (InputStream in = conn.getInputStream()) {
-            source = new StreamSource(in);
+                source = new StreamSource(in);
             }
         }
         return source;

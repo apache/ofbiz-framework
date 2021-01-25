@@ -46,6 +46,16 @@ public class PortalPageWorker {
 
     public PortalPageWorker() { }
 
+    /**
+     * Render portal page as text ext string.
+     * @param delegator the delegator
+     * @param portalPageId the portal page id
+     * @param templateContext the template context
+     * @param cache the cache
+     * @return the string
+     * @throws GeneralException the general exception
+     * @throws IOException the io exception
+     */
     public String renderPortalPageAsTextExt(Delegator delegator, String portalPageId, Map<String, Object> templateContext,
             boolean cache) throws GeneralException, IOException {
         return "success";
@@ -62,7 +72,7 @@ public class PortalPageWorker {
             try {
                 // first get public pages
                 EntityCondition cond =
-                    EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
                         EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parentPortalPageId),
@@ -72,13 +82,12 @@ public class PortalPageWorker {
                 portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 List<GenericValue> userPortalPages = new ArrayList<>();
                 if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                    String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    String userLoginId = ((GenericValue) context.get("userLogin")).getString("userLoginId");
                     // replace with private pages
                     for (GenericValue portalPage : portalPages) {
-                        List<GenericValue> privatePortalPages = EntityQuery.use(delegator)
-                                                                           .from("PortalPage")
-                                                                           .where("ownerUserLoginId", userLoginId, "originalPortalPageId", portalPage.getString("portalPageId"))
-                                                                           .queryList();
+                        List<GenericValue> privatePortalPages = EntityQuery.use(delegator).from("PortalPage")
+                                .where("ownerUserLoginId", userLoginId, "originalPortalPageId", portalPage.getString("portalPageId"))
+                                .queryList();
                         if (UtilValidate.isNotEmpty(privatePortalPages)) {
                             userPortalPages.add(privatePortalPages.get(0));
                         } else {
@@ -86,10 +95,9 @@ public class PortalPageWorker {
                         }
                     }
                     // add any other created private pages
-                    userPortalPages.addAll(EntityQuery.use(delegator)
-                                                      .from("PortalPage")
-                                                      .where("ownerUserLoginId", userLoginId, "originalPortalPageId", null, "parentPortalPageId", parentPortalPageId)
-                                                      .queryList());
+                    userPortalPages.addAll(EntityQuery.use(delegator).from("PortalPage")
+                            .where("ownerUserLoginId", userLoginId, "originalPortalPageId", null, "parentPortalPageId", parentPortalPageId)
+                            .queryList());
                 }
                 portalPages = EntityUtil.orderBy(userPortalPages, UtilMisc.toList("sequenceNum"));
             } catch (GenericEntityException e) {
@@ -111,28 +119,27 @@ public class PortalPageWorker {
                 // Get the current userLoginId
                 String userLoginId = "_NA_";
                 if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                    userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    userLoginId = ((GenericValue) context.get("userLogin")).getString("userLoginId");
                 }
-                
+
                 // Get the PortalPage ensuring that it is either owned by the user or a system page
                 EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalPageId),
-                    EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
-                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
-                        EntityOperator.OR)),
-                    EntityOperator.AND);
-                List <GenericValue> portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
+                        EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalPageId),
+                        EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
+                                EntityOperator.OR)),
+                        EntityOperator.AND);
+                List<GenericValue> portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 if (UtilValidate.isNotEmpty(portalPages)) {
                     portalPage = EntityUtil.getFirst(portalPages);
                 }
-                
                 // If a derived PortalPage private to the user exists, returns this instead of the system one
                 cond = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPageId),
                         EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
                         EntityOperator.AND);
-                List <GenericValue> privateDerivedPortalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
+                List<GenericValue> privateDerivedPortalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
                 if (UtilValidate.isNotEmpty(privateDerivedPortalPages)) {
                     portalPage = EntityUtil.getFirst(privateDerivedPortalPages);
                 }
@@ -146,7 +153,7 @@ public class PortalPageWorker {
     /**
     * Checks if the user is allowed to configure the PortalPage.
     * PortalPage configuration is allowed if he is the PortalPage owner or he has got the PORTALPAGE_ADMIN permission
-    */   
+    */
     public static Boolean userIsAllowedToConfigure(String portalPageId, Map<String, Object> context) {
         Boolean userIsAllowed = false;
 
@@ -171,7 +178,6 @@ public class PortalPageWorker {
             }
         }
 
-        return userIsAllowed;       
+        return userIsAllowed;
     }
-    
 }

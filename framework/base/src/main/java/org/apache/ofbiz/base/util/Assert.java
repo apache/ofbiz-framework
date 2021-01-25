@@ -33,7 +33,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and can be cast to a specified class.
      * <p><code>Assert.isAssignableTo("foo", foo, Foo.class);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -49,7 +48,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is an instance of a specified class.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -65,7 +63,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is an instance of one of the specified classes.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClasses
@@ -92,7 +89,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not an instance of a specified class.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClass
@@ -108,7 +104,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not an instance of one of the specified classes.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @param targetClasses
@@ -127,14 +122,13 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
      */
     public static void notEmpty(String argumentName, String argumentObject) {
         notNull(argumentName, argumentObject);
-        if (argumentObject.length() == 0) {
+        if (argumentObject.isEmpty()) {
             throw new IllegalArgumentException(argumentName + " cannot be empty");
         }
     }
@@ -142,14 +136,13 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
      */
     public static <T extends Map<?, ?>> void notEmpty(String argumentName, T argumentObject) {
         notNull(argumentName, argumentObject);
-        if (argumentObject.size() == 0) {
+        if (argumentObject.isEmpty()) {
             throw new IllegalArgumentException(argumentName + " cannot be empty");
         }
     }
@@ -157,14 +150,13 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
      */
     public static <T extends Collection<?>> void notEmpty(String argumentName, T argumentObject) {
         notNull(argumentName, argumentObject);
-        if (argumentObject.size() == 0) {
+        if (argumentObject.isEmpty()) {
             throw new IllegalArgumentException(argumentName + " cannot be empty");
         }
     }
@@ -172,7 +164,6 @@ public class Assert {
     /**
      * Tests if an argument is not null and is not empty.
      * <p><code>Assert.notEmpty("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param argumentObject
      * @throws IllegalArgumentException
@@ -187,7 +178,6 @@ public class Assert {
     /**
      * Tests a list of arguments for <code>null</code>.
      * <p><code>Assert.notNull("foo", foo, "bar", bar, ...);</code></p>
-     *
      * @param arguments
      * @throws IllegalArgumentException
      */
@@ -200,7 +190,6 @@ public class Assert {
     /**
      * Tests an argument for <code>null</code>.
      * <p><code>Assert.notNull("foo", foo);</code></p>
-     *
      * @param argumentName
      * @param objectToTest
      * @throws IllegalArgumentException
@@ -211,5 +200,5 @@ public class Assert {
         }
     }
 
-    private Assert() {}
+    private Assert() { }
 }

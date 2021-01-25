@@ -26,12 +26,13 @@ under the License.
             <actions>
                 <set field="titleProperty" value="SfaFindOpportunities"/>
                 <set field="headerItem" value="Opportunities"/>
+                <set field="helpAnchor" value="_sfa_salesopportunity_findlist_screen"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <container style="no-clear">
                             <screenlet title="${uiLabelMap.SfaFindOpportunities}">
@@ -117,7 +118,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="OpportunityCommEvent">
         <section>
             <actions>

@@ -67,16 +67,16 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <form name="FindProductionRun" target="FindProductionRun" title="" type="single"
+    <form name="FindProductionRun" target="FindProductionRun" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortTypeId"><hidden value="PROD_ORDER_HEADER"/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingProductionRunId}"><text-find/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PRODUCTION_RUN"/>
                 </entity-options>
-             </check>
+            </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>

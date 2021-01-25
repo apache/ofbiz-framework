@@ -62,8 +62,8 @@ public final class EntityCrypto {
         handlers = new StorageHandler[] {
             new ShiroStorageHandler(kek),
             new SaltedBase64StorageHandler(kek),
-            NormalHashStorageHandler,
-            OldFunnyHashStorageHandler,
+            NORMAL_HASH_STORAGE_HANDLER,
+            OLD_FUNNY_HASH_STORAGE_HANDLER,
         };
     }
 
@@ -133,7 +133,8 @@ public final class EntityCrypto {
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", MODULE);
             for (int i = 1; i < handlers.length; i++) {
                 try {
-                    // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
+                    // try using the old/bad hex encoding approach; this is another path the code may take, ie if there
+                    // is an exception thrown in decrypt
                     return doDecrypt(keyName, encryptMethod, encryptedString, handlers[i]);
                 } catch (GeneralException e1) {
                     // NOTE: this throws the original exception back, not the new one if it fails using the other approach
@@ -152,9 +153,7 @@ public final class EntityCrypto {
         byte[] decryptedBytes = handler.decryptValue(key, encryptMethod, encryptedString);
         try {
             return UtilObject.getObjectException(decryptedBytes);
-        } catch (ClassNotFoundException e) {
-            throw new GeneralException(e);
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new GeneralException(e);
         }
     }
@@ -278,25 +277,25 @@ public final class EntityCrypto {
         @Override
         protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
             switch (encryptMethod) {
-                case SALT:
-                    return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
-                default:
-                    return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+            case SALT:
+                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+            default:
+                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
             }
         }
 
         @Override
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             switch (encryptMethod) {
-                case SALT:
-                    return saltedCipherService.encrypt(objBytes, key).toBase64();
-                default:
-                    return cipherService.encrypt(objBytes, key).toBase64();
+            case SALT:
+                return saltedCipherService.encrypt(objBytes, key).toBase64();
+            default:
+                return cipherService.encrypt(objBytes, key).toBase64();
             }
         }
     }
 
-    protected static abstract class LegacyStorageHandler extends StorageHandler {
+    protected abstract static class LegacyStorageHandler extends StorageHandler {
         @Override
         protected Key generateNewKey() throws EntityCryptoException {
             try {
@@ -327,7 +326,7 @@ public final class EntityCrypto {
         }
     }
 
-    protected static final StorageHandler OldFunnyHashStorageHandler = new LegacyStorageHandler() {
+    protected static final StorageHandler OLD_FUNNY_HASH_STORAGE_HANDLER = new LegacyStorageHandler() {
         @Override
         protected String getHashedKeyName(String originalKeyName) {
             return HashCrypt.digestHashOldFunnyHex(null, originalKeyName);
@@ -339,7 +338,7 @@ public final class EntityCrypto {
         }
     };
 
-    protected static final StorageHandler NormalHashStorageHandler = new LegacyStorageHandler() {
+    protected static final StorageHandler NORMAL_HASH_STORAGE_HANDLER = new LegacyStorageHandler() {
         @Override
         protected String getHashedKeyName(String originalKeyName) {
             return HashCrypt.digestHash("SHA", originalKeyName.getBytes());
@@ -360,7 +359,8 @@ public final class EntityCrypto {
                 try {
                     key = DesCrypt.getDesKey(kek);
                 } catch (GeneralException e) {
-                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably valid for the newer ShiroStorageHandler", MODULE);
+                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably "
+                            + "valid for the newer ShiroStorageHandler", MODULE);
                 }
             }
             this.kek = key;
@@ -415,15 +415,15 @@ public final class EntityCrypto {
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             byte[] saltBytes;
             switch (encryptMethod) {
-                case SALT:
-                    Random random = new SecureRandom();
-                    // random length 5-16
-                    saltBytes = new byte[5 + random.nextInt(11)];
-                    random.nextBytes(saltBytes);
-                    break;
-                default:
-                    saltBytes = new byte[0];
-                    break;
+            case SALT:
+                Random random = new SecureRandom();
+                // random length 5-16
+                saltBytes = new byte[5 + random.nextInt(11)];
+                random.nextBytes(saltBytes);
+                break;
+            default:
+                saltBytes = new byte[0];
+                break;
             }
             byte[] allBytes = new byte[1 + saltBytes.length + objBytes.length];
             allBytes[0] = (byte) saltBytes.length;

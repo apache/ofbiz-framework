@@ -44,7 +44,7 @@ public class URLConnector {
     private boolean trustAnyCert = false;
     private int hostCertLevel = 2;
 
-    protected URLConnector() {}
+    protected URLConnector() { }
     protected URLConnector(URL url, String clientCertAlias, int hostCertLevel, boolean trustAnyCert) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;
@@ -52,6 +52,12 @@ public class URLConnector {
         this.hostCertLevel = hostCertLevel;
     }
 
+    /**
+     * Open connection url connection.
+     * @param timeout the timeout
+     * @return the url connection
+     * @throws IOException the io exception
+     */
     protected synchronized URLConnection openConnection(int timeout) throws IOException {
         Thread t = new Thread(new URLConnectorThread());
         t.start();

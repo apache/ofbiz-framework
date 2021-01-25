@@ -53,15 +53,15 @@ public class FtpServices {
             throws GeneralException {
         FtpClientInterface ftpClient = null;
         switch (serverType) {
-            case "ftp":
-                ftpClient = new SimpleFtpClient();
-                break;
-            case "ftps":
-                //TODO : to implements
-                throw new GeneralException("Ftp secured transfer protocol not yet implemented");
-            case "sftp":
-                ftpClient = new SshFtpClient();
-                break;
+        case "ftp":
+            ftpClient = new SimpleFtpClient();
+            break;
+        case "ftps":
+            //TODO : to implements
+            throw new GeneralException("Ftp secured transfer protocol not yet implemented");
+        case "sftp":
+            ftpClient = new SshFtpClient();
+            break;
         }
         return ftpClient;
     }
@@ -72,8 +72,10 @@ public class FtpServices {
         String contactMechId = (String) context.get("contactMechId");
         String contentId = (String) context.get("contentId");
         String communicationEventId = (String) context.get("communicationEventId");
-        boolean forceTransferControlSuccess = EntityUtilProperties.propertyValueEqualsIgnoreCase("ftp", "ftp.force.transfer.control", "Y", delegator);
-        boolean ftpNotificationEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("ftp", "ftp.notifications.enabled", "Y", delegator);
+        boolean forceTransferControlSuccess = EntityUtilProperties.propertyValueEqualsIgnoreCase("ftp",
+                "ftp.force.transfer.control", "Y", delegator);
+        boolean ftpNotificationEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("ftp",
+                "ftp.notifications.enabled", "Y", delegator);
 
         if (!ftpNotificationEnabled) return ServiceUtil.returnSuccess();
 
@@ -95,7 +97,8 @@ public class FtpServices {
             //Validate content
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             if (null == content) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound",
+                        UtilMisc.toMap("contentId", contentId), locale));
             }
 
             //ftp redirection
@@ -113,9 +116,9 @@ public class FtpServices {
             }
 
             String hostname = ftpAddress.getString("hostname");
-            if (UtilValidate.isEmpty(hostname))
+            if (UtilValidate.isEmpty(hostname)) {
                 return ServiceUtil.returnError("Ftp destination server is null");
-            else if (hostname.indexOf("://") == -1) {
+            } else if (hostname.indexOf("://") == -1) {
                 return ServiceUtil.returnError("No protocol defined in ftp destination address");
             }
 
@@ -132,8 +135,9 @@ public class FtpServices {
             String username = ftpAddress.getString("username");
             String password = ftpAddress.getString("ftpPassword");
 
-            if (Debug.infoOn())
+            if (Debug.infoOn()) {
                 Debug.logInfo("connecting to: " + username + "@" + ftpAddress.getString("hostname") + ":" + port, MODULE);
+            }
             ftpClient.connect(hostname, username, password, port, defaultTimeout);
             boolean binary = "Y".equalsIgnoreCase(ftpAddress.getString("binaryTransfer"));
             ftpClient.setBinaryTransfer(binary);
@@ -148,16 +152,17 @@ public class FtpServices {
             }
 
             String path = ftpAddress.getString("filePath");
-            if (Debug.infoOn())
-                Debug.logInfo("storing local file remotely as: " + (UtilValidate.isNotEmpty(path) ? path + "/" : "") + content.getString("contentName"), MODULE);
-
+            if (Debug.infoOn()) {
+                Debug.logInfo("storing local file remotely as: " + (UtilValidate.isNotEmpty(path) ? path + "/" : "")
+                        + content.getString("contentName"), MODULE);
+            }
             String fileName = content.getString("contentName");
             String remoteFileName = fileName;
             boolean zipFile = "Y".equalsIgnoreCase(ftpAddress.getString("zipFile"));
             if (zipFile) {
                 //Create zip file from content input stream
                 ByteArrayInputStream zipStream = FileUtil.zipFileStream(contentStream, fileName);
-                remoteFileName = fileName + (fileName.endsWith("zip")?"":".zip");
+                remoteFileName = fileName + (fileName.endsWith("zip") ? "" : ".zip");
                 ftpClient.copy(path, remoteFileName, zipStream);
 
                 zipStream.close();
@@ -168,7 +173,9 @@ public class FtpServices {
 
             //test if the file is correctly sent
             if (forceTransferControlSuccess) {
-                if (Debug.infoOn()) Debug.logInfo(" Control if service really success the transfer", MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo(" Control if service really success the transfer", MODULE);
+                }
 
                 //recreate the connection
                 ftpClient.closeConnection();
@@ -179,13 +186,16 @@ public class FtpServices {
 
                 //check the file name previously copy
                 List<String> fileNames = ftpClient.list(path);
-                if (Debug.infoOn()) Debug.logInfo(" For the path " + path + " we found " + fileNames, MODULE);
+                if (Debug.infoOn()) {
+                    Debug.logInfo(" For the path " + path + " we found " + fileNames, MODULE);
+                }
 
                 if (fileNames == null || !fileNames.contains(remoteFileName)) {
                     return ServiceUtil.returnError("DataResource " + content.getString("dataResourceId") + " return an empty stream");
                 }
-                if (Debug.infoOn())
+                if (Debug.infoOn()) {
                     Debug.logInfo(" Ok the file " + content.getString("contentName") + " is present", MODULE);
+                }
             }
         } catch (GeneralException | IOException e) {
             return ServiceUtil.returnError(e.getMessage());

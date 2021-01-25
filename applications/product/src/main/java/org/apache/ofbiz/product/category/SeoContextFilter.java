@@ -52,6 +52,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ControlFilter;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 
@@ -240,7 +241,6 @@ public final class SeoContextFilter implements Filter {
 
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
-     *
      * @param uri String to reverse transform
      * @return String
      */

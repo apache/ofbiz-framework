@@ -616,6 +616,11 @@ under the License.
         <set field="testParams.checkOutPaymentId" value="EXT_COD"/>
         <set field="testParams.is_gift" value="false"/>
         <set field="testParams.may_split" value="false"/>
+        <!-- This is a temporary solution, maybe always needed. It was put in because of OFBIZ-11553-->
+        <script>groovy:
+            request.removeParameter("checkOutPaymentId")
+            request.removeAttribute("checkOutPaymentId")
+        </script>
         <call-object-method method-name="addParameters" obj-field="request">
             <field field="testParams" type="java.util.Map"/>
         </call-object-method>

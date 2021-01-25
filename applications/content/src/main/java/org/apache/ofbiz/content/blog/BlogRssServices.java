@@ -53,8 +53,8 @@ public class BlogRssServices {
 
     private static final String MODULE = BlogRssServices.class.getName();
     private static final String RESOURCE = "ContentUiLabels";
-    public static final String mimeTypeId = "text/html";
-    public static final String mapKey = "SUMMARY";
+    public static final String MIME_TYPE_ID = "text/html";
+    public static final String MAP_KEY = "SUMMARY";
 
     public static Map<String, Object> generateBlogRssFeed(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -80,7 +80,7 @@ public class BlogRssServices {
 
         if (content == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                    "ContentCannotGenerateBlogRssFeed", 
+                    "ContentCannotGenerateBlogRssFeed",
                     UtilMisc.toMap("contentId", contentId), locale));
         }
 
@@ -98,7 +98,8 @@ public class BlogRssServices {
         return resp;
     }
 
-    public static List<SyndEntry> generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
+    public static List<SyndEntry> generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId,
+                                                    String entryLink, Locale locale, GenericValue userLogin) {
         List<SyndEntry> entries = new LinkedList<>();
 
         List<GenericValue> contentRecs = null;
@@ -117,10 +118,8 @@ public class BlogRssServices {
                 String sub = null;
                 try {
                     Map<String, Object> dummy = new HashMap<>();
-                    sub = ContentWorker.renderSubContentAsText(dispatcher, v.getString("contentId"), mapKey, dummy, locale, mimeTypeId, true);
-                } catch (GeneralException e) {
-                    Debug.logError(e, MODULE);
-                } catch (IOException e) {
+                    sub = ContentWorker.renderSubContentAsText(dispatcher, v.getString("contentId"), MAP_KEY, dummy, locale, MIME_TYPE_ID, true);
+                } catch (GeneralException | IOException e) {
                     Debug.logError(e, MODULE);
                 }
                 if (sub != null) {

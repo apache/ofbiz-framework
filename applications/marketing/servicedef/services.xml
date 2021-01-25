@@ -289,21 +289,21 @@ under the License.
     <service name="updateCommStatusFromCommEvent" engine="simple"
             location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="updateCommStatusFromCommEvent">
         <attribute name="communicationEventId" type="String" mode="IN"/>
-        <attribute name="statusId" type="String" mode="IN"/>        
-    </service> 
+        <attribute name="statusId" type="String" mode="IN"/>
+    </service>
     
     <!-- WebSiteContactList services -->
-    <service name="createWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList" 
+    <service name="createWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="createWebSiteContactList">
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="updateWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList" 
+    <service name="updateWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="updateWebSiteContactList">
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList" 
+    <service name="deleteWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="deleteWebSiteContactList">
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
@@ -484,7 +484,10 @@ under the License.
     <service name="createLead" engine="groovy" location="component://marketing/groovyScripts/sfa/lead/LeadServices.groovy" invoke="createLead">
         <description>
             Sales Lead can be just a person or a person representing a company or a company (party group).
-            createLead works 1) If person information is passed. 2) If company (party group) information is passed. 3) If Person and company (party group) information is passed. 
+            createLead works
+            1) If person information is passed.
+            2) If company (party group) information is passed.
+            3) If Person and company (party group) information is passed.
         </description>
         <auto-attributes entity-name="Person" mode="IN" optional="true">
             <exclude field-name="partyId"/>

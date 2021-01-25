@@ -28,7 +28,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;return&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class Return extends MethodOperation {
@@ -48,12 +47,12 @@ public final class Return extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String responseCode = responseCodeFse.expandString(methodContext.getEnvMap());
         if (responseCode.isEmpty()) {
-            responseCode = simpleMethod.getDefaultSuccessCode();
+            responseCode = getSimpleMethod().getDefaultSuccessCode();
         }
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
+            methodContext.putEnv(getSimpleMethod().getEventResponseCodeName(), responseCode);
         } else {
-            methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), responseCode);
+            methodContext.putEnv(getSimpleMethod().getServiceResponseMessageName(), responseCode);
         }
         return false;
     }

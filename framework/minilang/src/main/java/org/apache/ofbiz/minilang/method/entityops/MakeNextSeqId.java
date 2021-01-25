@@ -31,7 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;make-next-seq-id&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class MakeNextSeqId extends MethodOperation {

@@ -50,7 +50,8 @@ import freemarker.template.TemplateTransformModel;
 public class EditRenderSubContentCacheTransform implements TemplateTransformModel {
 
     private static final String MODULE = EditRenderSubContentCacheTransform.class.getName();
-    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    static final String[] SAVED_KEY_NAMES = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",
+            "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -90,9 +91,9 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
-        String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
-        String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        String contentAssocPredicateId = (String) templateCtx.get("contentAssocPredicateId");
+        String strNullThruDatesOnly = (String) templateCtx.get("nullThruDatesOnly");
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE : Boolean.FALSE;
         GenericValue val = null;
         try {
             val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
@@ -109,7 +110,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         }
         String subContentIdSub = (String) view.get("contentId");
         // This order is taken so that the dataResourceType can be overridden in the transform arguments.
-        String subDataResourceTypeId = (String)templateCtx.get("subDataResourceTypeId");
+        String subDataResourceTypeId = (String) templateCtx.get("subDataResourceTypeId");
         if (UtilValidate.isEmpty(subDataResourceTypeId)) {
             try {
                 subDataResourceTypeId = (String) view.get("drDataResourceTypeId");
@@ -128,7 +129,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
         final Map<String, Object> savedValues = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
+        FreeMarkerWorker.saveContextValues(templateCtx, SAVED_KEY_NAMES, savedValues);
 
         return new Writer(out) {
 
@@ -146,7 +147,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
             public void close() throws IOException {
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
                 String wrappedContent = buf.toString();
-                String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
+                String wrapTemplateId = (String) templateCtx.get("wrapTemplateId");
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedContent", wrappedContent);
                     Map<String, Object> templateRoot = null;

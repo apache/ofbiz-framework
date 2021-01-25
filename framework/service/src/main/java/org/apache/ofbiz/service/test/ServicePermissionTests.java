@@ -31,70 +31,98 @@ public class ServicePermissionTests extends OFBizTestCase {
         super(name);
     }
 
+    /**
+     * Test permission success.
+     * @throws Exception the exception
+     */
     public void testPermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"));
-        Map<String, Object> results = dispatcher.runSync("testSimplePermission", testingPermMap);
+        Map<String, Object> results = getDispatcher().runSync("testSimplePermission", testingPermMap);
         assertTrue(ServiceUtil.isSuccess(results));
     }
 
+    /**
+     * Test service permission success.
+     * @throws Exception the exception
+     */
     public void testServicePermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "Y");
-        Map<String, Object> results = dispatcher.runSync("testSimpleServicePermission", testingPermMap);
+        Map<String, Object> results = getDispatcher().runSync("testSimpleServicePermission", testingPermMap);
         assertTrue(ServiceUtil.isSuccess(results));
     }
 
+    /**
+     * Test service permission error.
+     * @throws Exception the exception
+     */
     public void testServicePermissionError() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "N");
         try {
-            Map<String, Object> results = dispatcher.runSync("testSimpleServicePermission", testingPermMap);
+            Map<String, Object> results = getDispatcher().runSync("testSimpleServicePermission", testingPermMap);
             assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
     }
 
+    /**
+     * Test group permission success.
+     * @throws Exception the exception
+     */
     public void testGroupPermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "Y");
-        Map<String, Object> results = dispatcher.runSync("testSimpleGroupAndPermission", testingPermMap);
+        Map<String, Object> results = getDispatcher().runSync("testSimpleGroupAndPermission", testingPermMap);
         assertTrue(ServiceUtil.isSuccess(results));
 
         testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "N");
-        results = dispatcher.runSync("testSimpleGroupOrPermission", testingPermMap);
+        results = getDispatcher().runSync("testSimpleGroupOrPermission", testingPermMap);
         assertTrue(ServiceUtil.isSuccess(results));
     }
 
+    /**
+     * Test permission failed.
+     * @throws Exception the exception
+     */
     public void testPermissionFailed() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser2"));
         try {
-            Map<String, Object> results = dispatcher.runSync("testSimplePermission", testingPermMap);
+            Map<String, Object> results = getDispatcher().runSync("testSimplePermission", testingPermMap);
             assertFalse("The service testSimplePermission don't raise service exception", ServiceUtil.isError(results));
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
     }
 
+    /**
+     * Test service permission failed.
+     * @throws Exception the exception
+     */
     public void testServicePermissionFailed() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser2"), "givePermission", "N");
-        try{
-            Map<String, Object> results = dispatcher.runSync("testSimpleServicePermission", testingPermMap);
+        try {
+            Map<String, Object> results = getDispatcher().runSync("testSimpleServicePermission", testingPermMap);
             assertFalse("The service testServicePermission don't raise service exception", ServiceUtil.isError(results));
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
     }
 
+    /**
+     * Test group permission failed.
+     * @throws Exception the exception
+     */
     public void testGroupPermissionFailed() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser2"), "givePermission", "Y");
-        try{
-            Map<String, Object> results = dispatcher.runSync("testSimpleGroupAndPermission", testingPermMap);
+        try {
+            Map<String, Object> results = getDispatcher().runSync("testSimpleGroupAndPermission", testingPermMap);
             assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
 
         testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "N");
-        try{
-            Map<String, Object> results = dispatcher.runSync("testSimpleGroupOrPermission", testingPermMap);
+        try {
+            Map<String, Object> results = getDispatcher().runSync("testSimpleGroupOrPermission", testingPermMap);
             assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
         } catch (ServiceAuthException e) {
             assertNotNull(e);

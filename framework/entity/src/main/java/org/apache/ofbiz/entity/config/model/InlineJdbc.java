@@ -118,7 +118,8 @@ public final class InlineJdbc extends JdbcElement {
             try {
                 this.softMinEvictableIdleTimeMillis = Integer.parseInt(softMinEvictableIdleTimeMillis);
             } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element soft-min-evictable-idle-time-millis attribute is invalid" + lineNumberText);
+                throw new GenericEntityConfException("<inline-jdbc> element soft-min-evictable-idle-time-millis attribute is invalid"
+                        + lineNumberText);
             }
         }
         String poolSleeptime = element.getAttribute("pool-sleeptime");

@@ -39,7 +39,7 @@ import com.ibm.icu.util.Calendar;
 public final class ExpressionUiHelper {
 
     /** An array of valid DayInMonth occurrence values. */
-    private static final int OCCURRENCE[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
+    private static final int OCCURRENCE[] = {1, 2, 3, 4, 5, -1, -2, -3, -4, -5};
 
     protected ExpressionUiHelper() { }
 
@@ -61,7 +61,7 @@ public final class ExpressionUiHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
         List<Map<String, Object>> result = new ArrayList<>(7);
         for (int i = 0; i < 7; i++) {
-            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", tempCal.get(Calendar.DAY_OF_WEEK)));
+            result.add(UtilMisc.toMap("description", (Object) dateFormat.format(tempCal.getTime()), "value", tempCal.get(Calendar.DAY_OF_WEEK)));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
         }
         return result;
@@ -98,7 +98,7 @@ public final class ExpressionUiHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
         List<Map<String, Object>> result = new ArrayList<>(13);
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
-            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", i));
+            result.add(UtilMisc.toMap("description", (Object) dateFormat.format(tempCal.getTime()), "value", i));
             tempCal.roll(Calendar.MONTH, 1);
         }
         return result;

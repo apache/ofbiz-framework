@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="migrateOldPicklistStatusHistoryToPickListStatus" engine="groovy"
-             location="component://product/groovyScripts/shipment/picklist/PicklistServices.groovy" invoke="migrateOldPicklistStatusHistoryToPickListStatus" auth="true">
+             location="component://product/groovyScripts/shipment/PicklistServices.groovy" invoke="migrateOldPicklistStatusHistoryToPickListStatus" auth="true">
         <description>Migration service to convert entries from OldPicklistStatusHistory to new Entity PickListStatus</description>
     </service>
 </services>

@@ -27,6 +27,15 @@ under the License.
         <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
     </menu>
 
+    <menu name="ApShortcutAppBar" title="${uiLabelMap.AccountingApManager}">
+        <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="/ap/control/FindAgreement" url-mode="inter-app"/></menu-item>
+        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="/ap/control/FindApInvoices" url-mode="inter-app"/></menu-item>
+        <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="/ap/control/findPayments" url-mode="inter-app"/></menu-item>
+        <menu-item name="apPaymentGroups" title="${uiLabelMap.AccountingApPaymentGroupMenu}"><link target="/ap/control/FindApPaymentGroups" url-mode="inter-app"/></menu-item>
+        <menu-item name="findVendors" title="${uiLabelMap.AccountingApPageTitleFindVendors}"><link target="/ap/control/findVendors" url-mode="inter-app"/></menu-item>
+        <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="/ap/control/listReports" url-mode="inter-app"/></menu-item>
+    </menu>
+
     <menu name="ApInvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
             default-menu-item-name="viewInvoices">
         <menu-item name="viewInvoices" title="${uiLabelMap.CommonMain}">

@@ -873,7 +873,7 @@ under the License.
         <field name="origCommEventId"><hidden value="${communicationEvent.origCommEventId}"/></field>
         <field name="my"><hidden value="${my}"/></field>
         <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>
-        <field name="uploadedFile"><file/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
         <field name="send" title="${uiLabelMap.CommonUpload}">
             <submit button-type="button"/>

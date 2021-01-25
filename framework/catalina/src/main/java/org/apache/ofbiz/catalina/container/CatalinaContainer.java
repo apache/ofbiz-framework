@@ -106,21 +106,21 @@ public class CatalinaContainer implements Container {
         Host host = prepareHost(tomcat, null);
 
         // add realm and valve for Tomcat SSO
-        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")){
+        if (EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true")) {
             boolean useEncryption = EntityUtilProperties.propertyValueEquals("security", "password.encrypt", "true");
             OFBizRealm ofBizRealm = new OFBizRealm();
-            if (useEncryption){
+            if (useEncryption) {
                 ofBizRealm.setCredentialHandler(new HashedCredentialHandler());
             } else {
                 ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());
             }
             host.setRealm(ofBizRealm);
-            ((StandardHost)host).addValve(new SingleSignOn());
+            ((StandardHost) host).addValve(new SingleSignOn());
         }
 
         // clustering, valves and connectors setup
         Configuration.Property clusterProps = prepareTomcatClustering(host, engineConfig);
-        prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine)engine).addValve(valve));
+        prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine) engine).addValve(valve));
         prepareTomcatConnectors(configuration).forEach(connector -> tomcat.getService().addConnector(connector));
 
         loadWebapps(tomcat, configuration, clusterProps);
@@ -135,8 +135,8 @@ public class CatalinaContainer implements Container {
         }
 
         for (Connector con: tomcat.getService().findConnectors()) {
-            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
-                (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
+            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - "
+                    + (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", MODULE);
         }
         Debug.logInfo("Started " + ServerInfo.getServerInfo(), MODULE);
         return true;
@@ -171,8 +171,8 @@ public class CatalinaContainer implements Container {
 
     private static Tomcat prepareTomcatServer(ContainerConfig.Configuration cc, Configuration.Property engineConfig)
             throws ContainerException {
-        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/" +
-                    ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
+        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/"
+                + ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina"));
         System.setProperty(Globals.CATALINA_BASE_PROP, System.getProperty(Globals.CATALINA_HOME_PROP));
 
         Tomcat tomcat = new Tomcat();
@@ -216,7 +216,7 @@ public class CatalinaContainer implements Container {
 
         if (UtilValidate.isEmpty(virtualHosts)) {
             host = (Host) tomcat.getEngine().findChild(tomcat.getEngine().getDefaultHost());
-            if(host == null) {
+            if (host == null) {
                 host = tomcat.getHost();
             }
         } else {
@@ -227,7 +227,7 @@ public class CatalinaContainer implements Container {
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
-        ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
+        ((StandardHost) host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
                 "work" + File.separator + host.getName()).getAbsolutePath());
 
         return host;
@@ -249,8 +249,7 @@ public class CatalinaContainer implements Container {
         }
 
         virtualHosts.stream()
-            .filter(virtualHost -> virtualHost != hostName)
-            .forEach(virtualHost -> host.addAlias(virtualHost));
+            .filter(virtualHost -> virtualHost != hostName).forEach(virtualHost -> host.addAlias(virtualHost));
 
         return host;
     }
@@ -310,7 +309,7 @@ public class CatalinaContainer implements Container {
             throws ContainerException {
         ReplicationTransmitter trans = new ReplicationTransmitter();
         try {
-            MultiPointSender mps = (MultiPointSender)Class.forName(ContainerConfig.getPropertyValue(clusterProp,
+            MultiPointSender mps = (MultiPointSender) Class.forName(ContainerConfig.getPropertyValue(clusterProp,
                     "replication-mode", "org.apache.catalina.tribes.transport.bio.PooledMultiSender")).getDeclaredConstructor().newInstance();
             trans.setTransport(mps);
         } catch (Exception exc) {
@@ -348,7 +347,7 @@ public class CatalinaContainer implements Container {
     private static ClusterManager prepareClusterManager(Configuration.Property clusterProp) throws ContainerException {
         String mgrClassName = ContainerConfig.getPropertyValue(clusterProp, "manager-class", "org.apache.catalina.ha.session.DeltaManager");
         try {
-            return (ClusterManager)Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
+            return (ClusterManager) Class.forName(mgrClassName).getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
             throw new ContainerException("Cluster configuration requires a valid manager-class property", e);
         }
@@ -420,30 +419,30 @@ public class CatalinaContainer implements Container {
 
     private static Connector prepareConnector(Configuration.Property connectorProp) {
         Connector connector = new Connector(ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1"));
-        connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset);
+        connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().getPortOffset());
         if ("true".equals(ContainerConfig.getPropertyValue(connectorProp, "upgradeProtocol", "false"))) {
             connector.addUpgradeProtocol(new Http2Protocol());
             Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", MODULE);
         }
         connectorProp.properties().values().stream()
-            .filter(prop -> {
-                String name = prop.name();
-                return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name);
-            })
-            .forEach(prop -> {
-                String name = prop.name();
-                String value = prop.value();
-                if (IntrospectionUtils.setProperty(connector, name, value)) {
-                    if (name.indexOf("Pass") != -1) {
-                        // this property may be a password, do not include its value in the logs
-                        Debug.logInfo("Tomcat " + connector + ": set " + name, MODULE);
+                .filter(prop -> {
+                    String name = prop.name();
+                    return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name);
+                })
+                .forEach(prop -> {
+                    String name = prop.name();
+                    String value = prop.value();
+                    if (IntrospectionUtils.setProperty(connector, name, value)) {
+                        if (name.indexOf("Pass") != -1) {
+                            // this property may be a password, do not include its value in the logs
+                            Debug.logInfo("Tomcat " + connector + ": set " + name, MODULE);
+                        } else {
+                            Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, MODULE);
+                        }
                     } else {
-                        Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, MODULE);
+                        Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
                     }
-                } else {
-                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
-                }
-            });
+                });
         return connector;
     }
 
@@ -459,9 +458,9 @@ public class CatalinaContainer implements Container {
         webResourceInfos.forEach(appInfo -> webappsMounts.addAll(getWebappMounts(appInfo)));
 
         for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
-            if(webappsMounts.removeAll(getWebappMounts(appInfo))) {
+            if (webappsMounts.removeAll(getWebappMounts(appInfo))) {
                 // webapp is not yet loaded
-                if (!appInfo.location.isEmpty()) {
+                if (!appInfo.getLocation().isEmpty()) {
                     futures.add(executor.submit(createCallableContext(tomcat, appInfo, clusterProp, configuration)));
                 }
             } else {
@@ -478,7 +477,7 @@ public class CatalinaContainer implements Container {
 
     private static List<String> getWebappMounts(ComponentConfig.WebappInfo webappInfo) {
         List<String> allAppsMounts = new ArrayList<>();
-        String engineName = webappInfo.server;
+        String engineName = webappInfo.getServer();
         String mount = webappInfo.getContextRoot();
         List<String> virtualHosts = webappInfo.getVirtualHosts();
         if (virtualHosts.isEmpty()) {
@@ -492,7 +491,7 @@ public class CatalinaContainer implements Container {
     private static Callable<Context> createCallableContext(Tomcat tomcat, ComponentConfig.WebappInfo appInfo,
             Configuration.Property clusterProp, ContainerConfig.Configuration configuration) {
 
-        Debug.logInfo("Creating context [" + appInfo.name + "]", MODULE);
+        Debug.logInfo("Creating context [" + appInfo.getName() + "]", MODULE);
         Host host = prepareHost(tomcat, appInfo.getVirtualHosts());
 
         return () -> {
@@ -514,7 +513,7 @@ public class CatalinaContainer implements Container {
 
         context.setParent(host);
         context.setDocBase(location);
-        context.setDisplayName(appInfo.name);
+        context.setDisplayName(appInfo.getName());
         context.setPath(getWebappMountPoint(appInfo));
         context.addLifecycleListener(new ContextConfig());
         context.setJ2EEApplication("OFBiz");
@@ -524,9 +523,9 @@ public class CatalinaContainer implements Container {
         context.setReloadable(ContainerConfig.getPropertyValue(configuration, "apps-context-reloadable", false));
         context.setDistributable(contextIsDistributable);
         context.setCrossContext(ContainerConfig.getPropertyValue(configuration, "apps-cross-context", true));
-        context.setPrivileged(appInfo.privileged);
-        context.getServletContext().setAttribute("_serverId", appInfo.server);
-        context.getServletContext().setAttribute("componentName", appInfo.componentConfig.getComponentName());
+        context.setPrivileged(appInfo.isPrivileged());
+        context.getServletContext().setAttribute("_serverId", appInfo.getServer());
+        context.getServletContext().setAttribute("componentName", appInfo.getComponentConfig().getComponentName());
 
         if (clusterProp != null && contextIsDistributable) {
             context.setManager(prepareClusterManager(clusterProp));
@@ -564,14 +563,14 @@ public class CatalinaContainer implements Container {
     }
 
     private static String getWebappRootLocation(ComponentConfig.WebappInfo appInfo) {
-        return appInfo.componentConfig.rootLocation()
-                .resolve(appInfo.location.replace('\\', '/'))
+        return appInfo.getComponentConfig().rootLocation()
+                .resolve(appInfo.getLocation().replace('\\', '/'))
                 .normalize()
                 .toString();
     }
 
     private static String getWebappMountPoint(ComponentConfig.WebappInfo appInfo) {
-        String mount = appInfo.mountPoint;
+        String mount = appInfo.getMountPoint();
         if (mount.endsWith("/*")) {
             mount = mount.substring(0, mount.length() - 2);
         }

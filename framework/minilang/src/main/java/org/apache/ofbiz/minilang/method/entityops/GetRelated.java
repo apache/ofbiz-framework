@@ -37,7 +37,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;get-related&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class GetRelated extends MethodOperation {
@@ -82,7 +81,7 @@ public final class GetRelated extends MethodOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while finding related values: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

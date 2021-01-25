@@ -42,7 +42,6 @@ import com.ibm.icu.util.Calendar;
 
 /**
  * Implements the &lt;set-calendar&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class SetCalendar extends MethodOperation {
@@ -54,14 +53,14 @@ public final class SetCalendar extends MethodOperation {
         boolean elementModified = false;
         // Correct deprecated default-value attribute
         String defaultAttr = element.getAttribute("default-value");
-        if (defaultAttr.length() > 0) {
+        if (!defaultAttr.isEmpty()) {
             element.setAttribute("default", defaultAttr);
             element.removeAttribute("default-value");
             elementModified = true;
         }
         // Correct deprecated from-field attribute
         String fromAttr = element.getAttribute("from-field");
-        if (fromAttr.length() > 0) {
+        if (!fromAttr.isEmpty()) {
             element.setAttribute("from", fromAttr);
             element.removeAttribute("from-field");
             elementModified = true;
@@ -108,7 +107,8 @@ public final class SetCalendar extends MethodOperation {
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
             MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "set-if-null",
-                    "years", "months", "days", "hours", "minutes", "seconds", "millis", "period-align-start", "period-align-end", "locale", "time-zone");
+                    "years", "months", "days", "hours", "minutes", "seconds", "millis", "period-align-start", "period-align-end", "locale",
+                    "time-zone");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
@@ -189,7 +189,8 @@ public final class SetCalendar extends MethodOperation {
                 locale = Locale.getDefault();
             }
             if (!this.timeZoneFse.isEmpty()) {
-                timeZone = (TimeZone) ObjectType.simpleTypeOrObjectConvert(this.timeZoneFse.expand(methodContext.getEnvMap()), "TimeZone", null, null);
+                timeZone = (TimeZone) ObjectType.simpleTypeOrObjectConvert(this.timeZoneFse.expand(methodContext.getEnvMap()), "TimeZone",
+                        null, null);
             }
             if (timeZone == null) {
                 timeZone = methodContext.getTimeZone();
@@ -199,7 +200,7 @@ public final class SetCalendar extends MethodOperation {
             }
             fromStamp = (Timestamp) MiniLangUtil.convertType(newValue, java.sql.Timestamp.class, locale, timeZone, UtilDateTime.getDateTimeFormat());
             if (!this.yearsFse.isEmpty()) {
-                years= parseInt(this.yearsFse.expandString(methodContext.getEnvMap()));
+                years = parseInt(this.yearsFse.expandString(methodContext.getEnvMap()));
             }
             if (!this.monthsFse.isEmpty()) {
                 months = parseInt(this.monthsFse.expandString(methodContext.getEnvMap()));

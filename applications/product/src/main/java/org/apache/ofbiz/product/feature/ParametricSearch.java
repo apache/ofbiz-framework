@@ -51,7 +51,6 @@ public class ParametricSearch {
     /**
      * Gets all features associated with the specified category through:<br>
      * ProductCategory -&gt; ProductFeatureCategoryAppl -&gt; ProductFeatureCategory -&gt; ProductFeature.
-     *
      * @return a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
      */
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator) {
@@ -61,11 +60,13 @@ public class ParametricSearch {
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator, int perTypeMaxSize) {
         Map<String, Map<String, GenericValue>> productFeaturesByTypeMap = new HashMap<>();
         try {
-            List<GenericValue> productFeatureCategoryAppls = EntityQuery.use(delegator).from("ProductFeatureCategoryAppl").where("productCategoryId", productCategoryId).cache(true).queryList();
+            List<GenericValue> productFeatureCategoryAppls = EntityQuery.use(delegator).from("ProductFeatureCategoryAppl").where("productCategoryId",
+                    productCategoryId).cache(true).queryList();
             productFeatureCategoryAppls = EntityUtil.filterByDate(productFeatureCategoryAppls, true);
             if (productFeatureCategoryAppls != null) {
                 for (GenericValue productFeatureCategoryAppl: productFeatureCategoryAppls) {
-                    List<GenericValue> productFeatures = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")).cache(true).queryList();
+                    List<GenericValue> productFeatures = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureCategoryId",
+                            productFeatureCategoryAppl.get("productFeatureCategoryId")).cache(true).queryList();
                     for (GenericValue productFeature: productFeatures) {
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
                         Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
@@ -84,13 +85,16 @@ public class ParametricSearch {
         }
 
         try {
-            List<GenericValue> productFeatureCatGrpAppls = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where("productCategoryId", productCategoryId).cache(true).queryList();
+            List<GenericValue> productFeatureCatGrpAppls = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where("productCategoryId",
+                    productCategoryId).cache(true).queryList();
             productFeatureCatGrpAppls = EntityUtil.filterByDate(productFeatureCatGrpAppls, true);
             if (productFeatureCatGrpAppls != null) {
                 for (GenericValue productFeatureCatGrpAppl: productFeatureCatGrpAppls) {
-                    List<GenericValue> productFeatureGroupAppls = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")).cache(true).queryList();
+                    List<GenericValue> productFeatureGroupAppls = EntityQuery.use(delegator).from("ProductFeatureGroupAppl")
+                            .where("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")).cache(true).queryList();
                     for (GenericValue productFeatureGroupAppl: productFeatureGroupAppls) {
-                        GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", productFeatureGroupAppl.get("productFeatureId")).cache().queryOne();
+                        GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId",
+                                productFeatureGroupAppl.get("productFeatureId")).cache().queryOne();
 
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
                         Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
@@ -111,7 +115,7 @@ public class ParametricSearch {
         // now before returning, order the features in each list by description
         Map<String, List<GenericValue>> productFeaturesByTypeMapSorted = new HashMap<>();
         for (Map.Entry<String, Map<String, GenericValue>> entry: productFeaturesByTypeMap.entrySet()) {
-            List<GenericValue> sortedFeatures = EntityUtil.orderBy(entry.getValue().values(), UtilMisc.toList("description","defaultSequenceNum"));
+            List<GenericValue> sortedFeatures = EntityUtil.orderBy(entry.getValue().values(), UtilMisc.toList("description", "defaultSequenceNum"));
             productFeaturesByTypeMapSorted.put(entry.getKey(), sortedFeatures);
         }
 
@@ -153,7 +157,8 @@ public class ParametricSearch {
         return makeFeatureIdByTypeMap(parameters);
     }
 
-    /** Handles parameters coming in prefixed with "pft_" where the text in the key following the prefix is a productFeatureTypeId and the value is a productFeatureId; meant to be used with drop-downs and such */
+    /** Handles parameters coming in prefixed with "pft_" where the text in the key following the prefix is a
+     * productFeatureTypeId and the value is a productFeatureId; meant to be used with drop-downs and such */
     public static Map<String, String> makeFeatureIdByTypeMap(Map<String, Object> parameters) {
         Map<String, String> featureIdByType = new HashMap<>();
         if (parameters == null) return featureIdByType;
@@ -173,7 +178,8 @@ public class ParametricSearch {
         return featureIdByType;
     }
 
-    /** Handles parameters coming in prefixed with "SEARCH_FEAT" where the parameter value is a productFeatureId; meant to be used with text entry boxes or check-boxes and such */
+    /** Handles parameters coming in prefixed with "SEARCH_FEAT" where the parameter value is a productFeatureId;
+     * meant to be used with text entry boxes or check-boxes and such */
     public static List<String> makeFeatureIdListFromPrefixed(Map<String, Object> parameters) {
         List<String> featureIdList = new LinkedList<>();
         if (parameters == null) return featureIdList;
@@ -225,7 +231,7 @@ public class ParametricSearch {
             if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT")) {
                 String productFeatureCategoryId = (String) entry.getValue();
                 if (UtilValidate.isNotEmpty(productFeatureCategoryId)) {
-                   prodFeatureCategoryIdList.add(productFeatureCategoryId);
+                    prodFeatureCategoryIdList.add(productFeatureCategoryId);
                 }
             }
         }

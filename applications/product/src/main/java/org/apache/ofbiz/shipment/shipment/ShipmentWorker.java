@@ -45,13 +45,15 @@ import org.apache.ofbiz.service.ServiceUtil;
 public final class ShipmentWorker {
 
     private static final String MODULE = ShipmentWorker.class.getName();
-    private static final MathContext generalRounding = new MathContext(10);
+    private static final MathContext GEN_ROUNDING = new MathContext(10);
 
-    private ShipmentWorker() {}
+    private ShipmentWorker() { }
 
     /*
-     * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all ItemIssuances
-     * for the ShipmentItem then dividing that by the total quantity issued for the same to get an average item value then multiplying that by the package
+     * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all
+     * ItemIssuances
+     * for the ShipmentItem then dividing that by the total quantity issued for the same to get an average item value then multiplying that by
+     * the package
      * content quantity.
      * Note: No rounding of the calculation is performed so you will need to round it to the accuracy that you require
      */
@@ -108,7 +110,8 @@ public final class ShipmentWorker {
         return value;
     }
 
-    public static List<Map<String, BigDecimal>> getPackageSplit(DispatchContext dctx, List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight) {
+    public static List<Map<String, BigDecimal>> getPackageSplit(DispatchContext dctx, List<Map<String, Object>> shippableItemInfo,
+                                                                BigDecimal maxWeight) {
         // create the package list w/ the first package
         List<Map<String, BigDecimal>> packages = new LinkedList<>();
 
@@ -123,9 +126,9 @@ public final class ShipmentWorker {
                 if (pieces < 1) {
                     pieces = 1; // can NEVER be less than one
                 }
-                BigDecimal weight = totalWeight.divide(BigDecimal.valueOf(pieces), generalRounding);
+                BigDecimal weight = totalWeight.divide(BigDecimal.valueOf(pieces), GEN_ROUNDING);
                 for (int z = 1; z <= totalQuantity.intValue(); z++) {
-                    BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
+                    BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), GEN_ROUNDING) : BigDecimal.ONE;
                     for (long x = 0; x < pieces; x++) {
                         if (weight.compareTo(maxWeight) >= 0) {
                             Map<String, BigDecimal> newPackage = new HashMap<>();
@@ -133,8 +136,8 @@ public final class ShipmentWorker {
                             packages.add(newPackage);
                         } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
                             // create the first package
-                            if (packages.size() == 0) {
-                                packages.add(new HashMap<String, BigDecimal>());
+                            if (packages.isEmpty()) {
+                                packages.add(new HashMap<>());
                             }
 
                             // package loop
@@ -163,7 +166,8 @@ public final class ShipmentWorker {
         return packages;
     }
 
-    public static BigDecimal calcPackageWeight(DispatchContext dctx, Map<String, BigDecimal> packageMap, List<Map<String, Object>> shippableItemInfo, BigDecimal additionalWeight) {
+    public static BigDecimal calcPackageWeight(DispatchContext dctx, Map<String, BigDecimal> packageMap, List<Map<String, Object>> shippableItemInfo,
+                                               BigDecimal additionalWeight) {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -179,7 +183,8 @@ public final class ShipmentWorker {
 
             String weightUomId = (String) productInfo.get("weightUomId");
 
-            Debug.logInfo("Product Id : " + productId + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), MODULE);
+            Debug.logInfo("Product Id : " + productId + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : "
+                    + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), MODULE);
 
             if (UtilValidate.isEmpty(weightUomId)) {
                 weightUomId = defaultWeightUomId;
@@ -188,7 +193,8 @@ public final class ShipmentWorker {
                 // attempt a conversion to pounds
                 Map<String, Object> result = new HashMap<>();
                 try {
-                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", productWeight));
+                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb",
+                            "originalValue", productWeight));
                     if (ServiceUtil.isError(result)) {
                         Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
                         return totalWeight;
@@ -196,10 +202,12 @@ public final class ShipmentWorker {
                 } catch (GenericServiceException ex) {
                     Debug.logError(ex, MODULE);
                 }
-                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && UtilValidate.isNotEmpty(result.get("convertedValue"))) {
+                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)
+                        && UtilValidate.isNotEmpty(result.get("convertedValue"))) {
                     productWeight = (BigDecimal) result.get("convertedValue");
                 } else {
-                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",MODULE);
+                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId "
+                            + productId + ", could not find a conversion factor to WT_lb", MODULE);
                 }
             }
 

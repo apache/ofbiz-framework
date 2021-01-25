@@ -45,8 +45,8 @@ import org.apache.ofbiz.base.util.Debug;
  */
 public abstract class JdbcValueHandler<T> {
     private static final String MODULE = JdbcValueHandler.class.getName();
-    private static final Map<String, JdbcValueHandler<?>> JdbcValueHandlerMap = createJdbcValueHandlerMap();
-    private static final Map<String, Integer> SqlTypeMap = createSqlTypeMap();
+    private static final Map<String, JdbcValueHandler<?>> JDBC_VALUE_HANDLER_MAP = createJdbcValueHandlerMap();
+    private static final Map<String, Integer> SQL_TYPE_MAP = createSqlTypeMap();
 
     private static Map<String, JdbcValueHandler<?>> createJdbcValueHandlerMap() {
         /*
@@ -164,16 +164,15 @@ public abstract class JdbcValueHandler<T> {
 
     /** Returns the <code>JdbcValueHandler</code> that corresponds to a field
      * type.
-     *  
      * @param javaType The Java type specified in fieldtype*.xml
      * @param sqlType The SQL type specified in fieldtype*.xml
      * @return A <code>JdbcValueHandler</code> instance
      */
     public static JdbcValueHandler<?> getInstance(String javaType, String sqlType) {
-        JdbcValueHandler<?> handler = JdbcValueHandlerMap.get(javaType);
+        JdbcValueHandler<?> handler = JDBC_VALUE_HANDLER_MAP.get(javaType);
         if (handler != null) {
             String key = parseSqlType(sqlType);
-            Integer sqlTypeInt = SqlTypeMap.get(key);
+            Integer sqlTypeInt = SQL_TYPE_MAP.get(key);
             if (sqlTypeInt != null) {
                 handler = handler.create(sqlTypeInt);
             }
@@ -214,7 +213,6 @@ public abstract class JdbcValueHandler<T> {
      * type. Subclasses override this method to cast <code>obj</code>
      * to the correct data type and call the appropriate
      * <code>PreparedStatement.setXxx</code> method.
-     * 
      * @param ps
      * @param parameterIndex
      * @param obj
@@ -222,6 +220,11 @@ public abstract class JdbcValueHandler<T> {
      */
     protected abstract void castAndSetValue(PreparedStatement ps, int parameterIndex, T obj) throws SQLException;
 
+    /**
+     * Create jdbc value handler.
+     * @param sqlType the sql type
+     * @return the jdbc value handler
+     */
     protected JdbcValueHandler<T> create(int sqlType) {
         if (sqlType == this.getSqlType()) {
             return this;
@@ -241,7 +244,6 @@ public abstract class JdbcValueHandler<T> {
     /** Returns a value from a <code>ResultSet</code>. The returned
      * object is converted to the Java data type specified in the fieldtype
      * file.
-     * 
      * @param rs the ResultSet object
      * @param columnIndex the column index
      * @return get value from result set
@@ -262,7 +264,6 @@ public abstract class JdbcValueHandler<T> {
     /** Sets a value in a <code>PreparedStatement</code>. The
      * <code>obj</code> argument is converted to the correct data
      * type.
-     * 
      * @param ps
      * @param parameterIndex
      * @param obj
@@ -441,7 +442,7 @@ public abstract class JdbcValueHandler<T> {
                 return null;
             }
             try (Reader clobReader = clob.getCharacterStream()) {
-                
+
                 int clobLength = (int) clob.length();
                 char[] charBuffer = new char[clobLength];
                 int offset = 0;
@@ -612,7 +613,7 @@ public abstract class JdbcValueHandler<T> {
         public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
             ObjectInputStream in = null;
             try (InputStream bis = rs.getBinaryStream(columnIndex)) {
-                
+
                 if (bis == null) {
                     return null;
                 }
@@ -743,7 +744,7 @@ public abstract class JdbcValueHandler<T> {
      * don't support sub-second precision. If the date-time field type
      * is a <code>CHAR(30)</code> SQL type, <code>java.sql.Timestamp</code>s
      * will be stored as JDBC timestamp escape format strings
-     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>), referenced to UTC.</p> 
+     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>), referenced to UTC.</p>
      */
     protected static class TimestampJdbcValueHandler extends JdbcValueHandler<java.sql.Timestamp> {
         protected TimestampJdbcValueHandler(int jdbcType) {

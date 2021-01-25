@@ -44,30 +44,30 @@ public final class EntityEcaCondition implements java.io.Serializable {
 
     private static final String MODULE = EntityEcaCondition.class.getName();
 
-    protected String lhsValueName = null;
-    protected String rhsValueName = null;
-    protected String operator = null;
-    protected String compareType = null;
-    protected String format = null;
-    protected boolean constant = false;
-    protected boolean isService = false;
-    protected String conditionService = null;
+    private String lhsValueName = null;
+    private String rhsValueName = null;
+    private String operator = null;
+    private String compareType = null;
+    private String format = null;
+    private boolean constant = false;
+    private boolean isService = false;
+    private String conditionService = null;
 
     public EntityEcaCondition(Element condition, boolean constant, boolean isService) {
         if (isService) {
             this.isService = isService;
             this.conditionService = condition.getAttribute("service-name");
         } else {
-        this.lhsValueName = condition.getAttribute("field-name");
-        this.constant = constant;
-        if (constant) {
-            this.rhsValueName = condition.getAttribute("value");
-        } else {
-            this.rhsValueName = condition.getAttribute("to-field-name");
-        }
-        this.operator = condition.getAttribute("operator");
-        this.compareType = condition.getAttribute("type");
-        this.format = condition.getAttribute("format");
+            this.lhsValueName = condition.getAttribute("field-name");
+            this.constant = constant;
+            if (constant) {
+                this.rhsValueName = condition.getAttribute("value");
+            } else {
+                this.rhsValueName = condition.getAttribute("to-field-name");
+            }
+            this.operator = condition.getAttribute("operator");
+            this.compareType = condition.getAttribute("type");
+            this.format = condition.getAttribute("format");
         }
     }
 
@@ -76,7 +76,9 @@ public final class EntityEcaCondition implements java.io.Serializable {
             throw new GenericEntityException("Cannot have null Value or DispatchContext!");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose(this.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose(this.toString(), MODULE);
+        }
 
         // condition-service; run the service and return the reply result
         if (isService) {
@@ -87,14 +89,14 @@ public final class EntityEcaCondition implements java.io.Serializable {
 
                 Boolean conditionReply = Boolean.FALSE;
                 if (ServiceUtil.isError(conditionServiceResult)) {
-                    Debug.logError("Error in condition-service : " +
-                            ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
+                    Debug.logError("Error in condition-service : "
+                            + ServiceUtil.getErrorMessage(conditionServiceResult), MODULE);
                 } else {
                     conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
                 }
                 return conditionReply;
             } catch (GenericServiceException gse) {
-                throw new GenericEntityException("Error in calling condition service "+conditionService+". "+gse.getMessage());
+                throw new GenericEntityException("Error in calling condition service " + conditionService + ". " + gse.getMessage());
             }
         }
 
@@ -107,14 +109,16 @@ public final class EntityEcaCondition implements java.io.Serializable {
             rhsValue = value.get(rhsValueName);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, MODULE);
+        }
 
         // evaluate the condition & invoke the action(s)
         List<Object> messages = new LinkedList<>();
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out
-        if (messages.size() > 0) {
+        if (!messages.isEmpty()) {
             for (Object message: messages) {
                 Debug.logWarning((String) message, MODULE);
             }
@@ -181,16 +185,15 @@ public final class EntityEcaCondition implements java.io.Serializable {
             return false;
         }
     }
-    
+
     protected List<String> getFieldNames() {
         List<String> fieldNameList = new ArrayList<>();
-        if( UtilValidate.isNotEmpty(lhsValueName) ) {
+        if (UtilValidate.isNotEmpty(lhsValueName)) {
             fieldNameList.add(lhsValueName);
         }
-        if(!constant && UtilValidate.isNotEmpty(rhsValueName)) {
+        if (!constant && UtilValidate.isNotEmpty(rhsValueName)) {
             fieldNameList.add(rhsValueName);
         }
         return fieldNameList;
     }
-
 }

@@ -37,17 +37,53 @@ import java.util.TimeZone;
  */
 public final class Config {
     /** The default directory where log files are stored. */
-    public static final Path DEFAULT_LOG_DIRECTORY = Paths.get("runtime", "logs");
+    private static final Path DEFAULT_LOG_DIRECTORY = Paths.get("runtime", "logs");
 
-    public final Path ofbizHome;
-    public final InetAddress adminAddress;
-    public final String adminKey;
-    public final int portOffset;
-    public final int adminPort;
-    public final List<String> loaders;
-    public final Path logDir;
-    public final boolean shutdownAfterLoad;
-    public final boolean useShutdownHook;
+    private final Path ofbizHome;
+    private final InetAddress adminAddress;
+    private final String adminKey;
+    private final int portOffset;
+    private final int adminPort;
+    private final List<String> loaders;
+    private final Path logDir;
+    private final boolean shutdownAfterLoad;
+    private final boolean useShutdownHook;
+
+    public Path getLogDir() {
+        return logDir;
+    }
+
+    public List<String> getLoaders() {
+        return loaders;
+    }
+
+    public boolean isShutdownAfterLoad() {
+        return shutdownAfterLoad;
+    }
+
+    public boolean isUseShutdownHook() {
+        return useShutdownHook;
+    }
+
+    public InetAddress getAdminAddress() {
+        return adminAddress;
+    }
+
+    public String getAdminKey() {
+        return adminKey;
+    }
+
+    public int getAdminPort() {
+        return adminPort;
+    }
+
+    public int getPortOffset() {
+        return portOffset;
+    }
+
+    public Path getOfbizHome() {
+        return ofbizHome;
+    }
 
     Config(List<StartupCommand> ofbizCommands) throws StartupException {
 
@@ -62,8 +98,8 @@ public final class Config {
         adminPort = getAdminPort(props, 0, portOffset);
         loaders = Arrays.asList(getProperty(props, "ofbiz.start.loaders", "").split(","));
         logDir = getAbsolutePath(props, "ofbiz.log.dir", DEFAULT_LOG_DIRECTORY, ofbizHome);
-        shutdownAfterLoad = getProperty(props, "ofbiz.auto.shutdown", "false").equalsIgnoreCase("true");
-        useShutdownHook = getProperty(props, "ofbiz.enable.hook", "true").equalsIgnoreCase("true");
+        shutdownAfterLoad = "true".equalsIgnoreCase(getProperty(props, "ofbiz.auto.shutdown", "false"));
+        useShutdownHook = "true".equalsIgnoreCase(getProperty(props, "ofbiz.enable.hook", "true"));
 
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 
@@ -107,10 +143,10 @@ public final class Config {
     }
 
     private static String determineOfbizPropertiesFileName(List<StartupCommand> ofbizCommands) {
-        if(ofbizCommands.stream().anyMatch(
+        if (ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.LOAD_DATA.getName()))) {
             return "load-data.properties";
-        } else if(ofbizCommands.stream().anyMatch(
+        } else if (ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))) {
             return "test.properties";
         } else {
@@ -120,13 +156,13 @@ public final class Config {
 
     private static int getPortOffsetValue(List<StartupCommand> ofbizCommands, String defaultOffset) throws StartupException {
         String extractedPortOffset = ofbizCommands.stream()
-            .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))
-            .findFirst()
+                .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))
+                .findFirst()
                 .map(ofbizCommand -> ofbizCommand.getProperties().keySet().iterator().next())
                 .orElse(defaultOffset);
         try {
             return Integer.parseInt(extractedPortOffset);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new StartupException("invalid portoffset number: " + extractedPortOffset, e);
         }
     }
@@ -164,7 +200,8 @@ public final class Config {
             locale = new Locale(locales[0], locales[1], locales[2]);
             break;
         default:
-            throw new IllegalArgumentException("The combination of properties, ofbiz.locale.default and defaultLocale is invalid. " + Arrays.toString(locales));
+            throw new IllegalArgumentException("The combination of properties, ofbiz.locale.default and defaultLocale is invalid. "
+                    + Arrays.toString(locales));
         }
         System.setProperty("user.language", localeString);
         return locale;

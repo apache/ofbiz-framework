@@ -43,7 +43,7 @@ import org.apache.ofbiz.webapp.control.JWTManager;
 public final class SecurityUtil {
 
     private static final String MODULE = SecurityUtil.class.getName();
-    private static final List<String> adminPermissions = UtilMisc.toList(
+    private static final List<String> ADMIN_PERMISSIONS = UtilMisc.toList(
             "IMPERSONATE_ADMIN",
             "ARTIFACT_INFO_VIEW",
             "SERVICE_MAINT",
@@ -53,7 +53,6 @@ public final class SecurityUtil {
 
     /**
      * Return true if given userLogin possess at least one of the adminPermission
-     *
      * @param delegator
      * @param userLoginId
      * @return
@@ -65,7 +64,7 @@ public final class SecurityUtil {
                     .from("UserLoginAndPermission")
                     .where(EntityCondition.makeCondition(
                             EntityCondition.makeCondition("userLoginId", userLoginId),
-                            EntityCondition.makeCondition("permissionId", EntityOperator.IN, adminPermissions)))
+                            EntityCondition.makeCondition("permissionId", EntityOperator.IN, ADMIN_PERMISSIONS)))
                     .filterByDate("fromDate", "thruDate", "permissionFromDate", "permissionThruDate")
                     .queryCount() != 0;
         } catch (GenericEntityException e) {
@@ -76,7 +75,6 @@ public final class SecurityUtil {
 
     /**
      * Return the list of missing permission, if toUserLoginId has more permission thant userLoginId, emptyList either.
-     *
      * @param delegator
      * @param userLoginId
      * @param toUserLoginId
@@ -125,10 +123,8 @@ public final class SecurityUtil {
 
     /**
      * Return {@code true} if an admin permission is valid for the given list of permissions.
-     *
      * @param permissionIds List of admin permission value without "_ADMIN" suffix
      * @param permission permission to be checked with its suffix
-     *
      */
     static boolean checkMultiLevelAdminPermissionValidity(List<String> permissionIds, String permission) {
         while (permission.contains("_")) {
@@ -142,11 +138,11 @@ public final class SecurityUtil {
      * Return a JWToken for authenticate a userLogin with salt the token by userLoginId and currentPassword
      */
     public static String generateJwtToAuthenticateUserLogin(Delegator delegator, String userLoginId)
-    throws GenericEntityException {
+            throws GenericEntityException {
         GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"));
         return JWTManager.createJwt(delegator, claims,
-                userLogin.getString("userLoginId") + userLogin.getString("currentPassword"), - 1);
+                userLogin.getString("userLoginId") + userLogin.getString("currentPassword"), -1);
     }
 
     /**
@@ -158,7 +154,7 @@ public final class SecurityUtil {
                 GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                 Map<String, Object> claims = JWTManager.validateToken(delegator, jwtToken,
                         userLogin.getString("userLoginId") + userLogin.getString("currentPassword"));
-                return (! ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
+                return (!ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
             } catch (GenericEntityException e) {
                 Debug.logWarning("failed to validate a jwToken for user " + userLoginId, MODULE);
             }

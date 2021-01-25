@@ -44,7 +44,7 @@ import org.apache.ofbiz.service.ServiceDispatcher;
 public class HttpEngine extends GenericAsyncEngine {
 
     private static final String MODULE = HttpEngine.class.getName();
-    private static final boolean exportAll = false;
+    private static final boolean EXPORT_ALL = false;
 
     public HttpEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -55,7 +55,7 @@ public class HttpEngine extends GenericAsyncEngine {
      */
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
         String xmlContext = null;
 
         try {
@@ -68,7 +68,7 @@ public class HttpEngine extends GenericAsyncEngine {
         }
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("serviceName", modelService.invoke);
+        parameters.put("serviceName", modelService.getInvoke());
         if (xmlContext != null) {
             parameters.put("serviceContext", xmlContext);
         }
@@ -151,7 +151,7 @@ public class HttpEngine extends GenericAsyncEngine {
         if (!result.containsKey(ModelService.ERROR_MESSAGE)) {
             try {
                 ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
-                if (model.export || exportAll) {
+                if (model.isExport() || EXPORT_ALL) {
                     if ("ASYNC".equals(serviceMode)) {
                         dispatcher.runAsync(serviceName, context);
                     } else {

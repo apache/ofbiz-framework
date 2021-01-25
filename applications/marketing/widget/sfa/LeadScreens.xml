@@ -26,6 +26,7 @@ under the License.
                 <set field="titleProperty" value="MarketingFindLeads"/>
                 <set field="currentUrl" value="FindLeads"/>
                 <set field="headerItem" value="Leads"/>
+                <set field="helpAnchor" value="_sfa_leads_findlist_screen"/>
                 <set field="setLeadtDescription" value="${groovy:session.setAttribute(&quot;leadDescription&quot;,headerItem)}"/>
                 <set field="removeAccountDescription" value="${groovy:session.removeAttribute(&quot;accountDescription&quot;)}"/>
                 <set field="removeContactDescription" value="${groovy:session.removeAttribute(&quot;contactDescription&quot;)}"/>
@@ -34,7 +35,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -194,7 +195,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LeadPartyDataSource">
         <section>
             <actions>
@@ -211,7 +212,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="AddRelatedCompany">
         <section>
             <actions>

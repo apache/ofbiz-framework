@@ -36,7 +36,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-has-permission&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class HasPermissionCondition extends MethodOperation implements Conditional {
@@ -143,9 +142,10 @@ public final class HasPermissionCondition extends MethodOperation implements Con
     }
 
     /**
-     * A &lt;if-has-permission&gt; element factory. 
+     * A &lt;if-has-permission&gt; element factory.
      */
-    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> implements Factory<HasPermissionCondition> {
+    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition>
+            implements Factory<HasPermissionCondition> {
         @Override
         public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new HasPermissionCondition(element, simpleMethod);

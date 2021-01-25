@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.serialize.XmlSerializer;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.CsrfUtil;
-import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics
@@ -47,10 +47,10 @@ public class ControlEventListener implements HttpSessionListener {
     // Debug MODULE name
     private static final String MODULE = ControlEventListener.class.getName();
 
-    protected static long totalActiveSessions = 0;
-    protected static long totalPassiveSessions = 0;
+    private static long totalActiveSessions = 0;
+    private static long totalPassiveSessions = 0;
 
-    public ControlEventListener() {}
+    public ControlEventListener() { }
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
@@ -74,14 +74,15 @@ public class ControlEventListener implements HttpSessionListener {
         HttpSession session = event.getSession();
 
         CsrfUtil.cleanupTokenMap(session);
-        MultiBlockHtmlTemplateUtil.cleanupScriptCache(session);
+        ScriptLinkHelper.cleanupScriptCache(session);
 
         // Finalize the Visit
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
 
-            // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue visit = VisitHandler.getVisit(session);
+            // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue
+            // visit = VisitHandler.getVisit(session);
             GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {
                 Delegator delegator = visit.getDelegator();
@@ -91,7 +92,8 @@ public class ControlEventListener implements HttpSessionListener {
                     visit.store();
                 }
             } else {
-                Debug.logInfo("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session) + "] that is being destroyed", MODULE);
+                Debug.logInfo("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session)
+                        + "] that is being destroyed", MODULE);
             }
 
             // Store the UserLoginSession
@@ -133,6 +135,11 @@ public class ControlEventListener implements HttpSessionListener {
         }
     }
 
+    /**
+     * Log stats.
+     * @param session the session
+     * @param visit the visit
+     */
     public void logStats(HttpSession session, GenericValue visit) {
         if (Debug.verboseOn() || session.getAttribute("org.apache.ofbiz.log.session.stats") != null) {
             Debug.logInfo("<===================================================================>", MODULE);

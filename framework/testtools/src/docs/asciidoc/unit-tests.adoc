@@ -1,0 +1,155 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Unit Test (Using JUnit)
+
+== How to define a unit test?
+
+. Define test-suite in ofbiz-component.xml like this:
++
+[source, xml]
+----
+    <test-suite loader="main" location="testdef/servicetests.xml"/>
+----
+. Create test-case in test-suite file.
++
+[source, xml]
+----
+    <test-suite suite-name="servicetests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+        ....
+        ....
+        <test-case case-name="test-case-name">
+        ...
+        </test-case>
+        ....
+        ....
+    </test-suite>
+----
+
+== How to create a test case?
+Define a test-case in an XML test-suite file like this:
+[source, xml]
+----
+    <test-case case-name="test-case-name">
+        ...
+    </test-case>
+----
+The test-case tag contains details of each test type:
+
+=== Entity XML
+Specific entity xml and its action would like to be tested in entity-xml-url attribute and action attribute
+respectively like this:
+[source, xml]
+----
+    <test-case case-name="service-dead-lock-retry-assert-data">
+        <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceDeadLockRetryAssertData.xml"/>
+    </test-case>
+----
+
+=== JUnit
+Specific class's name which will be tested, in a class-name attribute like this:
+[source, xml]
+----
+    <test-case case-name="service-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.service.test.ServiceEngineTests"/>
+    </test-case>
+----
+
+=== Service
+Specific service's name which will be tested in a service-name attribute like this:
+[source, xml]
+----
+    <test-case case-name="service-lock-wait-timeout-retry-test">
+        <service-test service-name="testServiceLockWaitTimeoutRetry"/>
+    </test-case>
+----
+
+=== Simple Method
+Specific simple method's location and name which will be tested in a location and a name attribute respectively
+like this:
+[source, xml]
+----
+    <test-case case-name="auto-accounting-transaction-tests-PoReceipt">
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/>
+    </test-case>
+----
+
+== How to run a unit test?
+You can run unit test by run 'gradle' with following target:
+
+include::../../../../../README.adoc[tag=testingtasks, leveloffset=-1]
+
+
+== Possible error messages
+Some error messages in the log are not important and often caused by the test.
+
+=== Roll back
+Roll back error message occurred when transaction roll back data.
+This error message will be in between starting and finished test cass line like this:
+[source]
+----
+    [java] 2009-12-22 16:05:28,349 (main) [   TestRunContainer.java:238:INFO ] [JUNIT] : [test case's name] starting...
+    [java] 2009-12-22 16:05:28,355 (main) [    TransactionUtil.java:336:ERROR]
+    ....
+    ....
+    ....
+    [java] ---- exception report ----------------------------------------------------------
+    [java] [TransactionUtil.rollback]
+    [java] Exception: java.lang.Exception
+    [java] Message: Stack Trace
+    [java] ---- stack trace ---------------------------------------------------------------
+    [java] java.lang.Exception: Stack Trace
+    [java] org.apache.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:335)
+    [java] org.apache.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:317)
+    [java] org.apache.ofbiz.entity.test.EntityTestSuite.testTransactionUtilRollback(EntityTestSuite.java:437)
+    [java] sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [java] sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    [java] sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    [java] java.lang.reflect.Method.invoke(Method.java:597)
+    [java] junit.framework.TestCase.runTest(TestCase.java:154)
+    [java] junit.framework.TestCase.runBare(TestCase.java:127)
+    [java] junit.framework.TestResult$1.protect(TestResult.java:106)
+    [java] junit.framework.TestResult.runProtected(TestResult.java:124)
+    [java] junit.framework.TestResult.run(TestResult.java:109)
+    [java] junit.framework.TestCase.run(TestCase.java:118)
+    [java] junit.framework.TestSuite.runTest(TestSuite.java:208)
+    [java] junit.framework.TestSuite.run(TestSuite.java:203)
+    [java] junit.framework.TestSuite.runTest(TestSuite.java:208)
+    [java] junit.framework.TestSuite.run(TestSuite.java:203)
+    [java] org.apache.ofbiz.testtools.TestRunContainer.start(TestRunContainer.java:146)
+    [java] org.apache.ofbiz.base.container.ContainerLoader.start(ContainerLoader.java:100)
+    [java] org.apache.ofbiz.base.start.Start.startStartLoaders(Start.java:272)
+    [java] org.apache.ofbiz.base.start.Start.startServer(Start.java:322)
+    [java] org.apache.ofbiz.base.start.Start.start(Start.java:326)
+    [java] org.apache.ofbiz.base.start.Start.main(Start.java:411)
+    [java] --------------------------------------------------------------------------------
+    [java]
+    ....
+    ....
+    ....
+    [java] 2009-12-22 16:05:28,366 (main) [    TransactionUtil.java:346:INFO ] [TransactionUtil.rollback] transaction rolled back
+    [java] 2009-12-22 16:05:28,370 (main) [   TestRunContainer.java:234:INFO ] [JUNIT] : [test case's name] finished.
+----
+
+== Test result
+After you run unit test, you can see the result of the testing. +
+If you use run-tests target, you can see test result web page by view runtime/logs/test-results/html/index.html
+file in web browser and see JUnit Test Result files for each test suite in runtime/logs/test-results directory. +
+If you use other target you only see JUnit Test Result file in runtime/logs/test-results.

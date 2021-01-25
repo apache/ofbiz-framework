@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Content Management Overview
+= Content Management
 The Document Content Management System (DMS/CMS) is designed to store data once and then allow it to be reused
  in multiple arrangements.
 

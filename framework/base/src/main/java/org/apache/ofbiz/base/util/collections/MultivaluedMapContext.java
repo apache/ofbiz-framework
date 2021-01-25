@@ -40,7 +40,6 @@ public class MultivaluedMapContext<K, V> extends MapContext<K, List<V>> {
     /**
      * Associate {@code key} with the single value {@code value}.
      * If other values are already associated with {@code key} then override them.
-     *
      * @param key the key to associate {@code value} with
      * @param value the value to add to the context
      */
@@ -54,12 +53,11 @@ public class MultivaluedMapContext<K, V> extends MapContext<K, List<V>> {
      * Associate {@code key} with the single value {@code value}.
      * If other values are already associated with {@code key},
      * then add {@code value} to them.
-     *
      * @param key the key to associate {@code value} with
      * @param value the value to add to the context
      */
     public void add(K key, V value) {
-        List<V> cur = contexts.getFirst().get(key);
+        List<V> cur = getContexts().getFirst().get(key);
         if (cur == null) {
             cur = new LinkedList<>();
             /* if this method is called after a context switch, copy the previous values
@@ -75,7 +73,6 @@ public class MultivaluedMapContext<K, V> extends MapContext<K, List<V>> {
 
     /**
      * Get the first value contained in the list of values associated with {@code key}.
-     *
      * @param key a candidate key
      * @return the first value associated with {@code key} or null if no value
      * is associated with it.

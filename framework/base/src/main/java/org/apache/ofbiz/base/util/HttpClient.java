@@ -66,7 +66,7 @@ public class HttpClient {
     private URLConnection con = null;
 
     /** Creates an empty HttpClient object. */
-    public HttpClient() {}
+    public HttpClient() { }
 
     /** Creates a new HttpClient object. */
     public HttpClient(URL url) {
@@ -115,7 +115,7 @@ public class HttpClient {
     }
 
     /** Enables this request to follow redirect 3xx codes (default true) */
-     public void followRedirects(boolean followRedirects) {
+    public void followRedirects(boolean followRedirects) {
         this.followRedirects = followRedirects;
     }
 
@@ -240,6 +240,11 @@ public class HttpClient {
         return this.trustAny;
     }
 
+    /**
+     * Sets basic auth info.
+     * @param basicAuthUsername the basic auth username
+     * @param basicAuthPassword the basic auth password
+     */
     public void setBasicAuthInfo(String basicAuthUsername, String basicAuthPassword) {
         this.basicAuthUsername = basicAuthUsername;
         this.basicAuthPassword = basicAuthPassword;
@@ -327,6 +332,11 @@ public class HttpClient {
         return con.getContentEncoding();
     }
 
+    /**
+     * Gets response code.
+     * @return the response code
+     * @throws HttpClientException the http client exception
+     */
     public int getResponseCode() throws HttpClientException {
         if (con == null) {
             throw new HttpClientException("Connection not yet established");
@@ -342,6 +352,12 @@ public class HttpClient {
         }
     }
 
+    /**
+     * Send http request string.
+     * @param method the method
+     * @return the string
+     * @throws HttpClientException the http client exception
+     */
     public String sendHttpRequest(String method) throws HttpClientException {
         InputStream in = sendHttpRequestStream(method);
         if (in == null) {
@@ -352,8 +368,8 @@ public class HttpClient {
         try {
             if (Debug.verboseOn() || debug) {
                 try {
-                    Debug.logVerbose("ContentEncoding: " + con.getContentEncoding() + "; ContentType: " +
-                            con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), MODULE);
+                    Debug.logVerbose("ContentEncoding: " + con.getContentEncoding() + "; ContentType: "
+                            + con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), MODULE);
                 } catch (IOException ioe) {
                     Debug.logWarning(ioe, "Caught exception printing content debugging information", MODULE);
                 }
@@ -393,23 +409,22 @@ public class HttpClient {
                 }
             }
 
-            try (
-                    BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in)
+            try (BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in)
                             : new InputStreamReader(in, charset))) {
-            String line = "";
+                String line = "";
 
-            if (Debug.verboseOn() || debug) {
-                Debug.logVerbose("---- HttpClient Response Content ----", MODULE);
-            }
-            while ((line = post.readLine()) != null) {
                 if (Debug.verboseOn() || debug) {
-                    Debug.logVerbose("[HttpClient] : " + line, MODULE);
+                    Debug.logVerbose("---- HttpClient Response Content ----", MODULE);
                 }
-                buf.append(line);
-                if (lineFeed) {
-                    buf.append("\n");
+                while ((line = post.readLine()) != null) {
+                    if (Debug.verboseOn() || debug) {
+                        Debug.logVerbose("[HttpClient] : " + line, MODULE);
+                    }
+                    buf.append(line);
+                    if (lineFeed) {
+                        buf.append("\n");
+                    }
                 }
-            }
             }
         } catch (RuntimeException e) {
             throw e;
@@ -489,7 +504,8 @@ public class HttpClient {
 
             // if there is basicAuth info set the request property for it
             if (basicAuthUsername != null) {
-                String basicAuthString = "Basic " + Base64.getMimeEncoder().encodeToString((basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword)).getBytes(StandardCharsets.UTF_8));
+                String basicAuthString = "Basic " + Base64.getMimeEncoder().encodeToString((basicAuthUsername + ":" + (basicAuthPassword == null
+                        ? "" : basicAuthPassword)).getBytes(StandardCharsets.UTF_8));
                 con.setRequestProperty("Authorization", basicAuthString);
                 if (Debug.verboseOn() || debug) {
                     Debug.logVerbose("Header - Authorization: " + basicAuthString, MODULE);

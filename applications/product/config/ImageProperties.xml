@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- 
-    # The uploaded image is scaled in each size tye , you can descrease or increase size types ; size type name doesn't have to contain space
-    # Just one configured dimension on two is allowed to restrict just one image dimension, whatever its proportions 
+<!--
+    # The uploaded image is scaled in each size type , you can decrease or increase size types ; size type name doesn't have to contain space
+    # Just one configured dimension on two is allowed to restrict just one image dimension, whatever its proportions
 -->
 <imageSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <size name="small">

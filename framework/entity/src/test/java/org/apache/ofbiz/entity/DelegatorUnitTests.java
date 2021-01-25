@@ -18,25 +18,23 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.hamcrest.MatcherAssert;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-
-import org.apache.ofbiz.base.util.Debug;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class DelegatorUnitTests {
     private boolean logErrorOn;
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void initialize() {
@@ -52,10 +50,11 @@ public class DelegatorUnitTests {
     }
 
     @Test
-    public void delegatorCreationUsingConstructorFailsIfConfigurationIsMissing() throws GenericEntityException {
-        expectedException.expect(GenericEntityException.class);
-        expectedException.expectMessage("No configuration found for delegator");
-        new GenericDelegator("delegatorNameWithNoConfiguration");
+    public void delegatorCreationUsingConstructorFailsIfConfigurationIsMissing() {
+        GenericEntityException gee = assertThrows(GenericEntityException.class, () ->
+                new GenericDelegator("delegatorNameWithNoConfiguration"));
+
+        MatcherAssert.assertThat(gee.getMessage(), containsString("No configuration found for delegator"));
     }
 
     @Test
@@ -102,5 +101,4 @@ public class DelegatorUnitTests {
         Delegator delegator = df.getInstance("delegatorNameWithNoConfiguration");
         assertNull(delegator);
     }
-
 }

@@ -108,6 +108,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
+    /**
+     * Gets model screen.
+     * @return the model screen
+     */
     public ModelScreen getModelScreen() {
         return this.modelScreen;
     }
@@ -268,11 +272,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context,
-                                       ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
-
-            String location = getModelScreen().getSourceLocation();
-            String name = getModelScreen().getName();
-            MultiBlockHtmlTemplateUtil.storeScreenLocationName(context, location, name);
+                                       ScreenStringRenderer screenStringRenderer) throws GeneralException {
 
             // check the condition, if there is one
             boolean condTrue = true;
@@ -288,8 +288,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 AbstractModelAction.runSubActions(this.actions, context);
 
                 try {
-                    MultiBlockHtmlTemplateUtil.addLinksToLayoutSettingsWhenConditionsAreRight(context);
-
                     // section by definition do not themselves do anything, so this method will generally do nothing, but we'll call it anyway
                     screenStringRenderer.renderSectionBegin(writer, context, this);
 
@@ -777,7 +775,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.nameExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("location"));
             this.shareScopeExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("share-scope"));
-            MultiBlockHtmlTemplateUtil.addChildScreen(modelScreen, this.locationExdr.getOriginal(), this.nameExdr.getOriginal());
         }
 
         @Override
@@ -873,7 +870,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 sectionMap.put(decoratorSection.getName(), decoratorSection);
             }
             this.sectionMap = Collections.unmodifiableMap(sectionMap);
-            MultiBlockHtmlTemplateUtil.addChildScreen(modelScreen, this.locationExdr.getOriginal(), this.nameExdr.getOriginal());
         }
 
         @Override

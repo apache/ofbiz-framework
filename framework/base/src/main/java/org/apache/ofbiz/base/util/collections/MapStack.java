@@ -41,9 +41,9 @@ public class MapStack<K> extends MapContext<K, Object> {
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
         MapStack<K> newValue = new MapStack<>();
         if (baseMap instanceof MapStack) {
-            newValue.contexts.addAll(((MapStack<K>) baseMap).contexts);
+            newValue.getContexts().addAll(((MapStack<K>) baseMap).getContexts());
         } else {
-            newValue.contexts.addFirst(baseMap);
+            newValue.getContexts().addFirst(baseMap);
         }
         return newValue;
     }
@@ -51,7 +51,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     /** Does a shallow copy of the internal stack of the passed MapStack; enables simultaneous stacks that share common parent Maps */
     public static <K> MapStack<K> create(MapStack<K> source) {
         MapStack<K> newValue = new MapStack<>();
-        newValue.contexts.addAll(source.contexts);
+        newValue.getContexts().addAll(source.getContexts());
         return newValue;
     }
 
@@ -113,7 +113,8 @@ public class MapStack<K> extends MapContext<K, Object> {
     public Object put(K key, Object value) {
         if ("context".equals(key)) {
             if (value == null || this != value) {
-                Debug.logWarning("Putting a value in a MapStack with key [context] that is not this MapStack, will be hidden by the current MapStack self-reference: " + value, MODULE);
+                Debug.logWarning("Putting a value in a MapStack with key [context] that is not this MapStack, will be hidden"
+                        + " by the current MapStack self-reference: " + value, MODULE);
             }
         }
 

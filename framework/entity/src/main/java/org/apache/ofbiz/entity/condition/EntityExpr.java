@@ -51,14 +51,13 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Constructs an infix comparison expression.
-     *
      * @param lhs the left hand side of the expression
      * @param operator the comparison operator used to compare the two sides of the expression
      * @param rhs the right hand side of the expression
      * @throws IllegalArgumentException if {@code lhs} or {@code operator} are {@code null},
      *         or if {@code rhs} is null when the operator is not an equality check.
      */
-    public <L,R,LL,RR> EntityExpr(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
+    public <L, R, LL, RR> EntityExpr(L lhs, EntityComparisonOperator<LL, RR> operator, R rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The field name/value cannot be null");
         }
@@ -84,7 +83,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Constructs an simple combination of expression.
-     *
      * @param lhs the expression of the left hand side
      * @param operator the operator used to join the {@code lhs} and {@code rhs} expressions
      * @param rhs the expression of the right hand side
@@ -108,7 +106,6 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Gets the left hand side of the condition expression.
-     *
      * @return the left hand side of the condition expression
      */
     public Object getLhs() {
@@ -117,16 +114,14 @@ public final class EntityExpr implements EntityCondition {
 
     /**
      * Gets the operator used to combine the two sides of the condition expression.
-     *
      * @return the operator used to combine the two sides of the condition expression.
      */
-    public <L,R> EntityOperator<L,R> getOperator() {
+    public <L, R> EntityOperator<L, R> getOperator() {
         return UtilGenerics.cast(operator);
     }
 
     /**
      * Gets the right hand side of the condition expression.
-     *
      * @return the right hand side of the condition expression
      */
     public Object getRhs() {
@@ -173,7 +168,6 @@ public final class EntityExpr implements EntityCondition {
     // TODO: Expand the documentation to explain what is exactly checked.
     /**
      * Ensures that the right hand side of the condition expression is valid.
-     *
      * @param modelEntity the entity model used to check the condition expression
      * @param delegator the delegator used to check the condition expression
      */
@@ -191,7 +185,7 @@ public final class EntityExpr implements EntityCondition {
 
         if (value instanceof Collection<?>) {
             Collection<?> valueCol = UtilGenerics.cast(value);
-            if (valueCol.size() > 0) {
+            if (!valueCol.isEmpty()) {
                 value = valueCol.iterator().next();
             } else {
                 value = null;
@@ -230,10 +224,10 @@ public final class EntityExpr implements EntityCondition {
                     + " probably because there is no datasource (helper) setup for the entity group"
                     + " that this entity is in: [" + deleg.getEntityGroupName(entityName) + "]");
         }
-        if (value instanceof EntityConditionSubSelect){
+        if (value instanceof EntityConditionSubSelect) {
             ModelFieldType valueType = null;
             try {
-                ModelEntity valueModelEntity= ((EntityConditionSubSelect) value).getModelEntity();
+                ModelEntity valueModelEntity = ((EntityConditionSubSelect) value).getModelEntity();
                 valueType = deleg.getEntityFieldType(valueModelEntity,
                         valueModelEntity.getField(((EntityConditionSubSelect) value).getKeyFieldName()).getType());
             } catch (GenericEntityException e) {
@@ -250,7 +244,7 @@ public final class EntityExpr implements EntityCondition {
             // Make sure the type of keyFieldName of EntityConditionSubSelect  matches the field Java type.
             try {
                 if (!ObjectType.instanceOf(ObjectType.loadClass(valueType.getJavaType()), type.getJavaType())) {
-                    String msg = "Warning using ["+ value.getClass().getName() + "]"
+                    String msg = "Warning using [" + value.getClass().getName() + "]"
                             + " and entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "]."
                             + " The Java type of keyFieldName : [" + valueType.getJavaType() + "]"
                             + " is not compatible with the Java type of the field [" + type.getJavaType() + "]";
@@ -260,14 +254,14 @@ public final class EntityExpr implements EntityCondition {
                             "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg, MODULE);
                 }
             } catch (ClassNotFoundException e) {
-                String msg = "Warning using ["+ value.getClass().getName() + "]"
+                String msg = "Warning using [" + value.getClass().getName() + "]"
                         + " and entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "]."
-                        + " The Java type of keyFieldName : [" + valueType.getJavaType()+ "] could not be found]";
+                        + " The Java type of keyFieldName : [" + valueType.getJavaType() + "] could not be found]";
                 // Eventually we should do this, but for now we'll do a "soft" failure:
                 // throw new IllegalArgumentException(msg);
                 Debug.logWarning(e, "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg,
                         MODULE);
-             }
+            }
         } else if (value instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) lhs;
             String rhsFieldName = efv.getFieldName();
@@ -284,7 +278,7 @@ public final class EntityExpr implements EntityCondition {
             }
             try {
                 if (!ObjectType.instanceOf(ObjectType.loadClass(rhsType.getJavaType()), type.getJavaType())) {
-                    String msg = "Warning using ["+ value.getClass().getName() + "]"
+                    String msg = "Warning using [" + value.getClass().getName() + "]"
                             + " and entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "]."
                             + " The Java type [" + rhsType.getJavaType() + "] of rhsFieldName : [" + rhsFieldName + "]"
                             + " is not compatible with the Java type of the field [" + type.getJavaType() + "]";
@@ -294,7 +288,7 @@ public final class EntityExpr implements EntityCondition {
                             "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=- " + msg, MODULE);
                 }
             } catch (ClassNotFoundException e) {
-                String msg = "Warning using ["+ value.getClass().getName() + "]"
+                String msg = "Warning using [" + value.getClass().getName() + "]"
                         + " and entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "]."
                         + " The Java type [" + rhsType.getJavaType() + "]"
                         + " of rhsFieldName : [" + rhsFieldName + "] could not be found]";

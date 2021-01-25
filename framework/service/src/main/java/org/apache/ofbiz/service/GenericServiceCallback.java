@@ -22,8 +22,8 @@ import java.util.Map;
 
 public interface GenericServiceCallback {
 
-    public boolean isEnabled();
-    public void receiveEvent(Map<String, Object> context);
-    public void receiveEvent(Map<String, Object> context, Map<String, Object> result);
-    public void receiveEvent(Map<String, Object> context, Throwable error);
+    boolean isEnabled();
+    void receiveEvent(Map<String, Object> context);
+    void receiveEvent(Map<String, Object> context, Map<String, Object> result);
+    void receiveEvent(Map<String, Object> context, Throwable error);
 }

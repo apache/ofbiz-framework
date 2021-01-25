@@ -17,7 +17,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<Configuration monitorInterval="60">
+<Configuration monitorInterval="60" packages="org.apache.ofbiz.base.log4j">
+    <OFBizDynamicThresholdFilter key="uri" onMatch="ACCEPT" onMismatch="DENY">
+        <KeyValuePair key="/getJs" value="ERROR"/>
+        <KeyValuePair key="/control/getJs" value="ERROR"/>
+    </OFBizDynamicThresholdFilter>
     <!--
       Default configuration for logging; for customizations refer to http://logging.apache.org/log4j/2.x/manual/configuration.html.
       With this configuration the following behavior is defined:

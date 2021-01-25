@@ -67,6 +67,12 @@ under the License.
                 <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="findPayment"/>
                 <set field="helpAnchor" value="_help_for_find_payments"/>
+                <set field="asm_multipleSelectForm" value="FindPayments"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindPayments_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -82,6 +88,9 @@ under the License.
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                        </platform-specific>
                                         <include-form name="FindPayments" location="component://accounting/widget/PaymentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">

@@ -17,56 +17,30 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#-- variable setup -->
-<#assign price = priceMap!/>
+<#assign price = priceMap! />
 <#-- end variable setup -->
 
 <#-- virtual product javascript -->
 ${virtualJavaScript!}
+${virtualVariantJavaScript!}
 <script type="application/javascript">
     var detailImageUrl = null;
-    function setAddProductId(name) {
-        document.addform.add_product_id.value = name;
-        if (document.addform.quantity == null) return;
-        if (name == '' || name == 'NULL' || isVirtual(name) == true) {
-            document.addform.quantity.disabled = true;
-            var elem = document.getElementById('product_id_display');
-            var txt = document.createTextNode('');
-            if(elem.hasChildNodes()) {
-                elem.replaceChild(txt, elem.firstChild);
-            } else {
-                elem.appendChild(txt);
-            }
-        } else {
-            document.addform.quantity.disabled = false;
-            var elem = document.getElementById('product_id_display');
-            var txt = document.createTextNode(name);
-            if(elem.hasChildNodes()) {
-                elem.replaceChild(txt, elem.firstChild);
-            } else {
-                elem.appendChild(txt);
-            }
+    function setAddProductId2(sku, with_bak) {
+        document.addform.add_product_id.value = sku;
+        var disable = (sku == '' || sku == 'NULL' || isVirtual(sku) == true);
+        if (document.addform.quantity != null) {
+            document.addform.quantity.disabled = disable;
+        }
+        var txt = disable ? '' : sku;
+        $('#product_id_display').text(txt);
+        if (with_bak) {
+            document.addform.product_id_bak.value = txt;
         }
     }
-    function setVariantPrice(sku) {
-        if (sku == '' || sku == 'NULL' || isVirtual(sku) == true) {
-            var elem = document.getElementById('variant_price_display');
-            var txt = document.createTextNode('');
-            if(elem.hasChildNodes()) {
-                elem.replaceChild(txt, elem.firstChild);
-            } else {
-                elem.appendChild(txt);
-            }
-        }
-        else {
-            var elem = document.getElementById('variant_price_display');
-            var price = getVariantPrice(sku);
-            var txt = document.createTextNode(price);
-            if(elem.hasChildNodes()) {
-                elem.replaceChild(txt, elem.firstChild);
-            } else {
-                elem.appendChild(txt);
-            }
-        }
+    function setVariantPrice2(sku) {
+        var disable = (sku == '' || sku == 'NULL' || isVirtual(sku) == true);
+        var txt = disable ? '' : getVariantPrice2(sku);
+        $('#variant_price_display').text(txt || '');
     }
     function isVirtual(product) {
         var isVirtual = false;
@@ -158,11 +132,15 @@ ${virtualJavaScript!}
             } else {
                 var Variable1 = eval("list" + OPT[(currentFeatureIndex+1)] + selectedValue + "()");
             }
+
+            // reset uom select
+            $('#product_uom').text('');
+
             // set the product ID to NULL to trigger the alerts
-            setAddProductId('NULL');
+            setAddProductId2('NULL');
 
             // set the variant price to NULL
-            setVariantPrice('NULL');
+            setVariantPrice2('NULL');
         } else {
             // this is the final selection -- locate the selected index of the last selection
             var indexSelected = document.forms["addform"].elements[name].selectedIndex;
@@ -174,13 +152,13 @@ ${virtualJavaScript!}
             ajaxUpdateArea("product_uom", "<@ofbizUrl>ProductUomDropDownOnly</@ofbizUrl>", "productId=" + sku);
 
             // set the product ID
-            setAddProductId(sku);
+            setAddProductId2(sku, true);
 
             // set the variant price
-            setVariantPrice(sku);
+            setVariantPrice2(sku);
 
             // check for amount box
-            toggleAmt(checkAmtReq(sku));
+            toggleAmt(checkAmtReq2(sku));
         }
     }
 
@@ -207,7 +185,7 @@ ${virtualJavaScript!}
     }
 
     function showAlert(msg) {
-        showErrorAlert("${uiLabelMap.CommonErrorMessage2}",msg);
+        showErrorAlert("${uiLabelMap.CommonErrorMessage2}", msg);
     }
 
     function additemSubmit(){
@@ -265,20 +243,10 @@ ${virtualJavaScript!}
             block2.style.display = "none";
         }
     </#if>
-    
-    function displayProductVirtualVariantId(variantId) {
-        document.addform.product_id.value = variantId;
-        var elem = document.getElementById('product_id_display');
-        var txt = document.createTextNode(variantId);
-        if(elem.hasChildNodes()) {
-            elem.replaceChild(txt, elem.firstChild);
-        } else {
-            elem.appendChild(txt);
-        }
-        setVariantPrice(variantId);
-    }
  </script>
 
+${screens.render("component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productvariantjs")}
+${variantInfoJavaScript!}
 <div id="productdetail">
 
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
@@ -319,9 +287,9 @@ ${virtualJavaScript!}
       <#if sizeProductFeatureAndAppls?has_content>
         <div>
           <#if (sizeProductFeatureAndAppls?size == 1)>
-            Size:
+          ${uiLabelMap.OrderSizeAvailableSingle}:
           <#else>
-            Sizes Available:
+          ${uiLabelMap.OrderSizeAvailableMultiple}:
           </#if>
           <#list sizeProductFeatureAndAppls as sizeProductFeatureAndAppl>
             ${sizeProductFeatureAndAppl.description?default(sizeProductFeatureAndAppl.abbrev?default(sizeProductFeatureAndAppl.productFeatureId))}<#if sizeProductFeatureAndAppl_has_next>,</#if>
@@ -433,9 +401,11 @@ ${virtualJavaScript!}
       <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform"  style="margin: 0;">
         <#if requestAttributes.paramMap?has_content>
           <input type="hidden" name="itemComment" value="${requestAttributes.paramMap.itemComment!}" />
+          <input type="hidden" name="useAsDefaultComment" value="${requestAttributes.paramMap.useAsDefaultComment!}" />
           <input type="hidden" name="shipBeforeDate" value="${requestAttributes.paramMap.shipBeforeDate!}" />
           <input type="hidden" name="shipAfterDate" value="${requestAttributes.paramMap.shipAfterDate!}" />
           <input type="hidden" name="itemDesiredDeliveryDate" value="${requestAttributes.paramMap.itemDesiredDeliveryDate!}" />
+          <input type="hidden" name="useAsDefaultDesiredDeliveryDate" value="${requestAttributes.paramMap.useAsDefaultDesiredDeliveryDate!}" />
         </#if>
         <#assign inStock = true>
         <#-- Variant Selection -->
@@ -477,13 +447,14 @@ ${virtualJavaScript!}
                 </select>
               </div>
             </#list>
-            <span id="product_uom"></span>
+            <span id="product_uom"></span><br/>
+            <input type="hidden" name="product_id_bak" value=""/>
+            <div class="variant-price" style="display: inline-block;">
+                <strong><span id="product_id_display" class="product_id_display"> </span></strong>
+                <strong><span id="variant_price_display" class="variant_price_display"> </span></strong>
+            </div>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div>
-              <b><span id="product_id_display"> </span></b>
-              <b><div id="variant_price_display"> </div></b>
-            </div>
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
@@ -494,6 +465,19 @@ ${virtualJavaScript!}
         <#else>
           <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
+          <#if mainProducts?has_content>
+            <select name="productVariantId" class="form-control" onchange="javascript:variantUomSelection(this);">
+              <option value="">${uiLabelMap.CommonSelect} ${uiLabelMap.ProductUnitOfMeasure}</option>
+              <#list mainProducts as mainProduct>
+                <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
+              </#list>
+            </select><br/>
+            <input type="hidden" name="product_id_bak" value="${product.productId}"/>
+            <div class="variant-price" style="display: inline-block;">
+                <strong><span class="product_id_display"> </span></strong>
+                <strong><span class="variant_price_display"> </span></strong>
+            </div>
+          </#if>
           <#if productStoreId??>
             <#assign isStoreInventoryNotAvailable = !(Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
             <#assign isStoreInventoryRequired = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
@@ -536,7 +520,7 @@ ${virtualJavaScript!}
                       <td nowrap="nowrap" align="right">Number of persons</td>
                       <td><input type="text" size="4" name="reservPersons" value="2"/></td>
                     </#if>
-                      <td nowrap="nowrap" align="right">Quantity</td>
+                      <td nowrap="nowrap" align="right">${uiLabelMap.CommonQuantity}</td>
                       <td><input type="text" size="5" name="quantity" value="1"/></td>
                   </tr>
                 </table>

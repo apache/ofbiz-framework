@@ -65,8 +65,8 @@ public class StatusServices {
                 Debug.logError(e, MODULE);
             }
         }
-        Map<String, Object> ret =  new LinkedHashMap<>();
-        ret.put("statusItems",statusItems);
+        Map<String, Object> ret = new LinkedHashMap<>();
+        ret.put("statusItems", statusItems);
         return ret;
     }
 

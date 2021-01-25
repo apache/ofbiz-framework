@@ -64,7 +64,7 @@ if (parameters.pkValues) {
             delegator.getModelEntity(entityName), parameters.pkValues)
     parameters << pkNamesValuesMap
 }
-GenericValue valueFromParameters = delegator.makeValue(entityName)
+GenericValue valueFromParameters = makeValue(entityName)
 valueFromParameters.setPKFields(parameters)
 GenericPK findByPK = valueFromParameters.getPrimaryKey()
 context.currentFindString = UtilFormatOut.encodeQuery(EntityUtil.entityToPath(valueFromParameters))

@@ -32,7 +32,7 @@ public class MiniLangElement {
     private static final String MODULE = MiniLangElement.class.getName();
 
     private final Object lineNumber;
-    protected final SimpleMethod simpleMethod;
+    private final SimpleMethod simpleMethod;
     private final String tagName;
 
     public MiniLangElement(Element element, SimpleMethod simpleMethod) {

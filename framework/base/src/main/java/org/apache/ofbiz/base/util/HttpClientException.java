@@ -25,7 +25,7 @@ package org.apache.ofbiz.base.util;
 @SuppressWarnings("serial")
 public class HttpClientException extends GeneralException {
 
-    Throwable nested = null;
+    private Throwable nested = null;
 
     public HttpClientException() {
         super();

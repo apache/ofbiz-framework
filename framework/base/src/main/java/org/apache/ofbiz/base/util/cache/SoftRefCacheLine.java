@@ -20,7 +20,7 @@ package org.apache.ofbiz.base.util.cache;
 
 @SuppressWarnings("serial")
 public abstract class SoftRefCacheLine<V> extends CacheLine<V> {
-    public final CacheSoftReference<V> ref;
+    private final CacheSoftReference<V> ref;
 
     public SoftRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
         super(loadTimeNanos, expireTimeNanos);

@@ -19818,6 +19818,8 @@
         <value xml:lang="ar">بيزو مكسيكي</value>
         <value xml:lang="de">Peso Mexiko</value>
         <value xml:lang="en">Mexican Peso</value>
+        <value xml:lang="es">Peso Mexicano</value>
+        <value xml:lang="en-MX">Peso Mexicano</value>
         <value xml:lang="fr">Peso du Mexique</value>
         <value xml:lang="it">Peso Messicano </value>
         <value xml:lang="ja">メキシコ・ペソ</value>
@@ -20863,6 +20865,7 @@
         <value xml:lang="de">Dollar Amerika</value>
         <value xml:lang="en">American Dollar</value>
         <value xml:lang="es">Dolar EE.UU.</value>
+        <value xml:lang="es-MX">Dólar Americano</value>
         <value xml:lang="fr">Dollar américain</value>
         <value xml:lang="it">Dollaro Americano</value>
         <value xml:lang="ja">米ドル</value>

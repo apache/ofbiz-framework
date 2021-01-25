@@ -53,6 +53,38 @@ under the License.
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
 
+    <menu name="AccountingShortcutAppBar" title="${uiLabelMap.AccountingManager}">
+        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="/accounting/control/findInvoices" url-mode="inter-app"/></menu-item>
+        <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="/accounting/control/findPayments" url-mode="inter-app"/></menu-item>
+        <menu-item name="PaymentGroup" title="${uiLabelMap.AccountingPaymentGroup}"><link target="/accounting/control/FindPaymentGroup" url-mode="inter-app"/></menu-item>
+        <menu-item name="transaction" title="${uiLabelMap.AccountingTransactions}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MANUAL" action="_PAYMENT"/>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="/accounting/control/FindGatewayResponses" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="PaymentGatewayConfig" title="${uiLabelMap.AccountingPaymentGatewayConfig}">
+            <condition>
+                <or>
+                    <if-has-permission permission="PAYPROC" action="_ADMIN"/>
+                    <if-has-permission permission="ACCOUNTING" action="_ADMIN"/>
+                </or>
+            </condition>
+            <link target="/accounting/control/FindPaymentGatewayConfig" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="billingaccount" title="${uiLabelMap.AccountingBillingMenu}"><link target="/accounting/control/FindBillingAccount" url-mode="inter-app"/></menu-item>
+        <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="/accounting/control/FinAccountMain" url-mode="inter-app"/></menu-item>
+        <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="/accounting/control/FindTaxAuthority" url-mode="inter-app"/></menu-item>
+        <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="/accounting/control/FindAgreement" url-mode="inter-app"/></menu-item>
+        <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="/accounting/control/ListFixedAssets" url-mode="inter-app"/></menu-item>
+        <menu-item name="ListBudgets" title="${uiLabelMap.AccountingBudgets}"><link target="/accounting/control/ListBudgets" url-mode="inter-app"/></menu-item>
+        <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="/accounting/control/globalGLSettings" url-mode="inter-app"/></menu-item>
+        <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="/accounting/control/ListCompanies" url-mode="inter-app"/></menu-item>
+    </menu>
+
     <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findInvoices"/>

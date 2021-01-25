@@ -55,7 +55,8 @@ public class DispatchContext implements Serializable {
 
     private static final String MODULE = DispatchContext.class.getName();
 
-    private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByModel = UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
+    private static final UtilCache<String, Map<String, ModelService>> MODEL_SERVICE_MAP_BY_MODEL =
+            UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
 
     // these four fields represent the immutable state of a DispatchContext object
     private final String name;
@@ -67,11 +68,9 @@ public class DispatchContext implements Serializable {
      * Creates new DispatchContext as an immutable object.
      * The "dispatcher" argument can be null if the "name" argument matches the name of a valid entity model reader.
      * The thread safety of a DispatchContext object is a consequence of its immutability.
-     *
      * @param name The immutable name of the DispatchContext
      * @param loader The immutable class loader
      * @param dispatcher The immutable dispatcher associated to the DispatchContext
-     *
      */
     public DispatchContext(String name, ClassLoader loader, LocalDispatcher dispatcher) {
         this.name = name;
@@ -157,7 +156,8 @@ public class DispatchContext implements Serializable {
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
-    public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
+    public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context)
+            throws GenericServiceException {
         ModelService model = getModelService(serviceName);
         return makeValidContext(model, mode, context);
     }
@@ -171,7 +171,8 @@ public class DispatchContext implements Serializable {
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
-    public static Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
+    public static Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context)
+            throws GenericServiceException {
         Map<String, Object> newContext;
 
         int modeInt = 0;
@@ -185,14 +186,14 @@ public class DispatchContext implements Serializable {
             throw new GenericServiceException("Model service is null! Should never happen.");
         }
         switch (modeInt) {
-            case 1:
-                newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
-                break;
-            case 2:
-                newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
-                break;
-            default:
-                throw new GenericServiceException("Invalid mode, should be either IN or OUT");
+        case 1:
+            newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
+            break;
+        case 2:
+            newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
+            break;
+        default:
+            throw new GenericServiceException("Invalid mode, should be either IN or OUT");
         }
         return newContext;
     }
@@ -215,16 +216,28 @@ public class DispatchContext implements Serializable {
         return retVal;
     }
 
+    /**
+     * Gets all service names.
+     * @return the all service names
+     */
     public Set<String> getAllServiceNames() {
         Set<String> serviceNames = new TreeSet<>();
 
-        Map<String, ModelService> globalServices = modelServiceMapByModel.get(this.model);
+        Map<String, ModelService> globalServices = MODEL_SERVICE_MAP_BY_MODEL.get(this.model);
         if (globalServices != null) {
             serviceNames.addAll(globalServices.keySet());
         }
         return serviceNames;
     }
 
+    /**
+     * Gets wsdl.
+     * @param serviceName the service name
+     * @param locationURI the location uri
+     * @return the wsdl
+     * @throws GenericServiceException the generic service exception
+     * @throws WSDLException the wsdl exception
+     */
     public Document getWSDL(String serviceName, String locationURI) throws GenericServiceException, WSDLException {
         ModelService model = this.getModelService(serviceName);
         return model.toWSDL(locationURI);
@@ -235,7 +248,7 @@ public class DispatchContext implements Serializable {
     }
 
     private Map<String, ModelService> getGlobalServiceMap() {
-        Map<String, ModelService> serviceMap = modelServiceMapByModel.get(this.model);
+        Map<String, ModelService> serviceMap = MODEL_SERVICE_MAP_BY_MODEL.get(this.model);
         if (serviceMap == null) {
             serviceMap = new HashMap<>();
 
@@ -249,7 +262,8 @@ public class DispatchContext implements Serializable {
                 throw new RuntimeException(e.getMessage());
             }
             for (GlobalServices globalServices : globalServicesList) {
-                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), globalServices.getLoader(), globalServices.getLocation());
+                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), globalServices.getLoader(),
+                        globalServices.getLocation());
                 futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
             }
 
@@ -263,7 +277,7 @@ public class DispatchContext implements Serializable {
                 }
             }
 
-            Map<String, ModelService> cachedServiceMap = modelServiceMapByModel.putIfAbsentAndGet(this.model, serviceMap);
+            Map<String, ModelService> cachedServiceMap = MODEL_SERVICE_MAP_BY_MODEL.putIfAbsentAndGet(this.model, serviceMap);
             if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
                 ServiceEcaUtil.reloadConfig();
             }

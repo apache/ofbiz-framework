@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
 
 public interface Delegator {
 
-    enum OperationType {INSERT, UPDATE, DELETE}
+    enum OperationType { INSERT, UPDATE, DELETE }
 
     void clearAllCacheLinesByDummyPK(Collection<GenericPK> dummyPKs);
 
@@ -68,7 +68,6 @@ public interface Delegator {
      * Remove a CACHED Generic Entity from the cache by its primary key, does
      * NOT check to see if the passed GenericPK is a complete primary key. Also
      * tries to clear the corresponding all cache entry.
-     *
      * @param primaryKey
      *            The primary key to clear by.
      */
@@ -81,7 +80,6 @@ public interface Delegator {
      * tries to remove entries from the all cache, the by primary key cache, and
      * the by and cache. This is the ONLY method that tries to clear
      * automatically from the by and cache.
-     *
      * @param value
      *            The GenericValue to clear by.
      */
@@ -91,7 +89,6 @@ public interface Delegator {
 
     /**
      * Remove all CACHED Generic Entity (List) from the cache
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      */
@@ -100,7 +97,6 @@ public interface Delegator {
     /**
      * Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd,
      * or All
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param fields
@@ -112,7 +108,6 @@ public interface Delegator {
     /**
      * Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd,
      * or All
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param fields
@@ -132,7 +127,6 @@ public interface Delegator {
      * complete primary key it will remove the cache line from the andCache. If
      * the fields map is empty, then the allCache for the entity will be
      * cleared.
-     *
      * @param dummyPK
      *            The dummy primary key to clear by.
      */
@@ -147,7 +141,6 @@ public interface Delegator {
     /**
      * Creates a Entity in the form of a GenericValue and write it to the
      * datasource
-     *
      * @param primaryKey
      *            The GenericPK to create a value in the datasource from
      * @return GenericValue instance containing the new instance
@@ -157,7 +150,6 @@ public interface Delegator {
     /**
      * Creates a Entity in the form of a GenericValue and write it to the
      * datasource
-     *
      * @param value
      *            The GenericValue to create a value in the datasource from
      * @return GenericValue instance containing the new instance
@@ -167,7 +159,6 @@ public interface Delegator {
     /**
      * Creates a Entity in the form of a GenericValue and write it to the
      * database
-     *
      * @return GenericValue instance containing the new instance
      */
     GenericValue create(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
@@ -175,14 +166,12 @@ public interface Delegator {
     /**
      * Creates a Entity in the form of a GenericValue and write it to the
      * database
-     *
      * @return GenericValue instance containing the new instance
      */
     GenericValue create(String entityName, Object... fields) throws GenericEntityException;
 
     /**
      * Creates or stores an Entity
-     *
      * @param value
      *            The GenericValue instance containing the new or existing
      *            instance
@@ -195,7 +184,6 @@ public interface Delegator {
      * then does a create in the database as normal. The reason to do it this
      * way is that it will retry and fix the sequence if somehow the sequencer
      * is in a bad state and returning a value that already exists.
-     *
      * @param value
      *            The GenericValue to create a value in the datasource from
      * @return GenericValue instance containing the new instance
@@ -205,7 +193,6 @@ public interface Delegator {
     /**
      * Creates a Entity in the form of a GenericValue and write it to the
      * database
-     *
      * @return GenericValue instance containing the new instance
      */
     GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
@@ -217,7 +204,6 @@ public interface Delegator {
     /**
      * Finds GenericValues by the conditions specified in the EntityCondition
      * object, the the EntityCondition javadoc for more details.
-     *
      * @param entityName
      *            The name of the Entity as defined in the entity XML file
      * @param whereEntityCondition
@@ -243,11 +229,11 @@ public interface Delegator {
      *         ARE DONE WITH IT, AND DON'T LEAVE IT OPEN TOO LONG BEACUSE IT
      *         WILL MAINTAIN A DATABASE CONNECTION.
      */
-    EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
+    EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String>
+            fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
      * Finds all Generic entities
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param useCache
@@ -260,7 +246,6 @@ public interface Delegator {
      * Finds Generic Entity records by all of the specified fields (ie: combined
      * using AND), looking first in the cache; uses orderBy for lookup, but only
      * keys results on the entityName and fields
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param fields
@@ -274,12 +259,12 @@ public interface Delegator {
      *            Whether to cache the results
      * @return List of GenericValue instances that match the query
      */
-    List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy, boolean useCache) throws GenericEntityException;
+    List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy, boolean useCache)
+            throws GenericEntityException;
 
     /**
      * Find a Generic Entity by its Primary Key and only returns the values
      * requested by the passed keys (names).
-     *
      * @param primaryKey
      *            The primary key to find by.
      * @param keys
@@ -291,7 +276,6 @@ public interface Delegator {
 
     /**
      * Gets the hit count of GenericValues for the given EntityCondition objects.
-     *
      * @param entityName
      * @param whereEntityCondition
      * @param havingEntityCondition
@@ -299,12 +283,25 @@ public interface Delegator {
      * @return long value with hit count
      * @throws GenericEntityException
      */
-    long findCountByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
+    long findCountByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition,
+                              EntityFindOptions findOptions) throws GenericEntityException;
+
+    /**
+     * Gets the hit count of GenericValues for the given EntityCondition objects.
+     * @param entityName
+     * @param whereEntityCondition
+     * @param fieldsToSelect
+     * @param havingEntityCondition
+     * @param findOptions
+     * @return long value with hit count
+     * @throws GenericEntityException
+     */
+    long findCountByCondition(String entityName, EntityCondition whereEntityCondition, Set<String> fieldsToSelect,
+                              EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
      * Finds GenericValues by the conditions specified in the EntityCondition
      * object, the the EntityCondition javadoc for more details.
-     *
      * @param entityName
      *            The name of the Entity as defined in the entity XML file
      * @param entityCondition
@@ -323,12 +320,40 @@ public interface Delegator {
      *            options. See the EntityFindOptions JavaDoc for more details.
      * @return List of GenericValue objects representing the result
      */
-    List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException;
+    List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy,
+                                EntityFindOptions findOptions, boolean useCache) throws GenericEntityException;
 
     /**
      * Finds GenericValues by the conditions specified in the EntityCondition
      * object, the the EntityCondition javadoc for more details.
-     *
+     * @param entityName
+     *            The name of the Entity as defined in the entity XML file
+     * @param entityCondition
+     *            The EntityCondition object that specifies how to constrain
+     *            this query before any groupings are done (if this is a view
+     *            entity with group-by aliases)
+     * @param havingEntityCondition
+     *            The EntityCondition object that specifies how to constrain
+     *            this query after any groupings are done (if this is a view
+     *            entity with group-by aliases)
+     * @param fieldsToSelect
+     *            The fields of the named entity to get from the database; if
+     *            empty or null all fields will be retrieved
+     * @param orderBy
+     *            The fields of the named entity to order the query by;
+     *            optionally add a " ASC" for ascending or " DESC" for
+     *            descending
+     * @param findOptions
+     *            An instance of EntityFindOptions that specifies advanced query
+     *            options. See the EntityFindOptions JavaDoc for more details.
+     * @return List of GenericValue objects representing the result
+     */
+    List<GenericValue> findList(String entityName, EntityCondition entityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect,
+                                List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException;
+
+    /**
+     * Finds GenericValues by the conditions specified in the EntityCondition
+     * object, the the EntityCondition javadoc for more details.
      * @param dynamicViewEntity
      *            The DynamicViewEntity to use for the entity model for this
      *            query; generally created on the fly for limited use
@@ -355,11 +380,12 @@ public interface Delegator {
      *         LEAVE IT OPEN TOO LONG BEACUSE IT WILL MAINTAIN A DATABASE
      *         CONNECTION.
      */
-    EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
+    EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition,
+            EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
+            throws GenericEntityException;
 
     /**
      * Find a Generic Entity by its primary key.
-     *
      * @param entityName The Name of the Entity as defined in the entity XML file
      * @param useCache Retrieve the Generic Entity from the cache when <code>true</code>
      * @param fields The fields of the named entity to query by with their corresponding values
@@ -370,7 +396,6 @@ public interface Delegator {
 
     /**
      * Find a Generic Entity by its Primary Key
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param fields
@@ -397,7 +422,6 @@ public interface Delegator {
     /**
      * Gets a field type instance by name from the helper that corresponds to
      * the specified entity
-     *
      * @param entity
      *            The entity
      * @param type
@@ -410,7 +434,6 @@ public interface Delegator {
     /**
      * Gets the helper name that corresponds to this delegator and the specified
      * entityName
-     *
      * @param entityName
      *            The name of the entity to get the helper for
      * @return String with the helper name that corresponds to this delegator
@@ -421,7 +444,6 @@ public interface Delegator {
     /**
      * Gets the an instance of helper that corresponds to this delegator and the
      * specified entity
-     *
      * @param entity
      *            The entity to get the helper for
      * @return GenericHelper that corresponds to this delegator and the
@@ -432,7 +454,6 @@ public interface Delegator {
     /**
      * Gets the an instance of helper that corresponds to this delegator and the
      * specified entityName
-     *
      * @param entityName
      *            The name of the entity to get the helper for
      * @return GenericHelper that corresponds to this delegator and the
@@ -443,7 +464,6 @@ public interface Delegator {
     /**
      * Gets the helper name that corresponds to this delegator and the specified
      * entity
-     *
      * @param entity
      *            The entity to get the helper for
      * @return String with the helper name that corresponds to this delegator
@@ -454,7 +474,6 @@ public interface Delegator {
     /**
      * Gets the helper name that corresponds to this delegator and the specified
      * entityName
-     *
      * @param entityName
      *            The name of the entity to get the helper name for
      * @return String with the helper name that corresponds to this delegator
@@ -467,7 +486,6 @@ public interface Delegator {
     /**
      * Gets the helper name that corresponds to this delegator and the specified
      * entityName
-     *
      * @param groupName
      *            The name of the group to get the helper name for
      * @return String with the helper name that corresponds to this delegator
@@ -480,7 +498,6 @@ public interface Delegator {
     /**
      * Gets the instance of ModelEntity that corresponds to this delegator and
      * the specified entityName
-     *
      * @param entityName
      *            The name of the entity to get
      * @return ModelEntity that corresponds to this delegator and the specified
@@ -491,7 +508,6 @@ public interface Delegator {
     /**
      * Gets a Map of entity name and entity model pairs that are in the named
      * group
-     *
      * @param groupName The name of the group
      * @return Map of entityName String keys and ModelEntity instance values
      */
@@ -501,14 +517,12 @@ public interface Delegator {
 
     /**
      * Gets the instance of ModelGroupReader that corresponds to this delegator
-     *
      * @return ModelGroupReader that corresponds to this delegator
      */
     ModelGroupReader getModelGroupReader();
 
     /**
      * Gets the instance of ModelReader that corresponds to this delegator
-     *
      * @return ModelReader that corresponds to this delegator
      */
     ModelReader getModelReader();
@@ -517,7 +531,6 @@ public interface Delegator {
      * Get the named Related Entity for the GenericValue from the persistent
      * store across another Relation. Helps to get related Values in a
      * multi-to-multi relationship.
-     *
      * @param relationNameOne
      *            String containing the relation name which is the combination
      *            of relation.title and relation.rel-entity-name as specified in
@@ -533,12 +546,12 @@ public interface Delegator {
      * @return List of GenericValue instances as specified in the relation
      *         definition
      */
-    List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo, List<String> orderBy) throws GenericEntityException;
+    List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo, List<String> orderBy)
+            throws GenericEntityException;
 
     /**
      * Get the next guaranteed unique seq id from the sequence with the given
      * sequence name; if the named sequence doesn't exist, it will be created
-     *
      * @param seqName
      *            The name of the sequence to get the next seq id from
      * @return String with the next sequenced id for the given sequence name
@@ -548,7 +561,6 @@ public interface Delegator {
     /**
      * Get the next guaranteed unique seq id from the sequence with the given
      * sequence name; if the named sequence doesn't exist, it will be created
-     *
      * @param seqName
      *            The name of the sequence to get the next seq id from
      * @param staggerMax
@@ -563,7 +575,6 @@ public interface Delegator {
     /**
      * Get the next guaranteed unique seq id from the sequence with the given
      * sequence name; if the named sequence doesn't exist, it will be created
-     *
      * @param seqName
      *            The name of the sequence to get the next seq id from
      * @return Long with the next sequenced id for the given sequence name
@@ -573,7 +584,6 @@ public interface Delegator {
     /**
      * Get the next guaranteed unique seq id from the sequence with the given
      * sequence name; if the named sequence doesn't exist, it will be created
-     *
      * @param seqName
      *            The name of the sequence to get the next seq id from
      * @param staggerMax
@@ -588,7 +598,6 @@ public interface Delegator {
     /**
      * Gets the name of the server configuration that corresponds to this
      * delegator
-     *
      * @return server configuration name
      */
     String getOriginalDelegatorName();
@@ -596,7 +605,6 @@ public interface Delegator {
     /**
      * Get the named Related Entity for the GenericValue from the persistent
      * store
-     *
      * @param relationName
      *            String containing the relation name which is the combination
      *            of relation.title and relation.rel-entity-name as specified in
@@ -614,11 +622,11 @@ public interface Delegator {
      * @return List of GenericValue instances as specified in the relation
      *         definition
      */
-    List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value, boolean useCache) throws GenericEntityException;
+    List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value,
+                                  boolean useCache) throws GenericEntityException;
 
     /**
      * Get a dummy primary key for the named Related Entity for the GenericValue.
-     *
      * @param relationName
      *            String containing the relation name which is the combination
      *            of relation.title and relation.rel-entity-name as specified in
@@ -634,7 +642,6 @@ public interface Delegator {
 
     /**
      * Get related entity where relation is of type one, uses findByPrimaryKey
-     *
      * @param relationName
      *            String containing the relation name which is the combination
      *            of relation.title and relation.rel-entity-name as specified in
@@ -706,7 +713,6 @@ public interface Delegator {
 
     /**
      * Refresh the Entity for the GenericValue from the persistent store
-     *
      * @param value
      *            GenericValue instance containing the entity to refresh
      */
@@ -714,7 +720,6 @@ public interface Delegator {
 
     /**
      * Refresh the Entity for the GenericValue from the cache
-     *
      * @param value
      *            GenericValue instance containing the entity to refresh
      */
@@ -734,7 +739,6 @@ public interface Delegator {
      * primary key, if will behave like the removeByAnd method. </p>
      * <p>These updates all happen in one transaction, so they will either
      * all succeed or all fail, if the data source supports transactions.</p>
-     *
      * @param dummyPKs
      *            Collection of GenericEntity instances containing the entities
      *            or by and fields to remove
@@ -747,7 +751,6 @@ public interface Delegator {
     /**
      * Removes/deletes Generic Entity records found by all of the specified
      * fields (ie: combined using AND)
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param fields
@@ -760,7 +763,6 @@ public interface Delegator {
     /**
      * Removes/deletes Generic Entity records found by all of the specified
      * fields (ie: combined using AND)
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param fields
@@ -772,7 +774,6 @@ public interface Delegator {
 
     /**
      * Removes/deletes Generic Entity records found by the condition
-     *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
      * @param condition
@@ -783,7 +784,6 @@ public interface Delegator {
 
     /**
      * Remove a Generic Entity corresponding to the primaryKey
-     *
      * @param primaryKey
      *            The primary key of the entity to remove.
      * @return int representing number of rows effected by this operation
@@ -793,7 +793,6 @@ public interface Delegator {
     /**
      * Remove the named Related Entity for the GenericValue from the persistent
      * store
-     *
      * @param relationName
      *            String containing the relation name which is the combination
      *            of relation.title and relation.rel-entity-name as specified in
@@ -806,7 +805,6 @@ public interface Delegator {
 
     /**
      * Remove a Generic Value from the database
-     *
      * @param value
      *            The GenericValue object of the entity to remove.
      * @return int representing number of rows effected by this operation
@@ -836,7 +834,6 @@ public interface Delegator {
 
     /**
      * Store the Entity from the GenericValue to the persistent store
-     *
      * @param value
      *            GenericValue instance containing the entity
      * @return int representing number of rows effected by this operation
@@ -854,7 +851,6 @@ public interface Delegator {
      * will either all succeed or all fail, if the data source supports
      * transactions. This is just like to othersToStore feature of the
      * GenericEntity on a create or store.</p>
-     *
      * @param values
      *            List of GenericValue instances containing the entities to
      *            store
@@ -873,7 +869,6 @@ public interface Delegator {
      * will either all succeed or all fail, if the data source supports
      * transactions. This is just like to othersToStore feature of the
      * GenericEntity on a create or store.</p>
-     *
      * @param storeOptions
      *            An instance of EntityStoreOptions that specifies advanced store
      *            options or null for default values.
@@ -887,7 +882,6 @@ public interface Delegator {
 
     /**
      * Store a group of values.
-     *
      * @param entityName
      *            The name of the Entity as defined in the entity XML file
      * @param fieldsToSet

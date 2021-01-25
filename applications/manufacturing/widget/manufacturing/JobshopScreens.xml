@@ -691,6 +691,12 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+                <set field="asm_multipleSelectForm" value="FindProductionRun"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="currentStatusId.asm_multipleSelect" value="FindProductionRun_currentStatusId"/>
+                <set field="currentStatusId.asm_sortable" value="true"/>
+                <set field="currentStatusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="currentStatusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
@@ -704,6 +710,9 @@ under the License.
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                        </platform-specific>
                                         <include-form name="FindProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">

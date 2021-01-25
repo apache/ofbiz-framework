@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -34,7 +35,7 @@ public final class ReportHelper {
 
     private static final String MODULE = ReportHelper.class.getName();
 
-    private ReportHelper() {}
+    private ReportHelper() { }
 
 /**
  * Calculate conversion rates based on a List of visits and orders.  Designed to be used for reporting on
@@ -58,7 +59,7 @@ public final class ReportHelper {
             List<GenericValue> ordersForThisKey = EntityUtil.filterByAnd(orders, UtilMisc.toMap(keyFieldName, visit.getString(keyFieldName)));
 
             // if there are matching orders, then calculate orders, order amount, and conversion rate
-            if ((ordersForThisKey != null) && (ordersForThisKey.size() > 0)) {
+            if ((ordersForThisKey != null) && (!ordersForThisKey.isEmpty())) {
                 // note: there should be only one line of order stats per key, so .get(0) should work
                 GenericValue orderValue = ordersForThisKey.get(0);
 
@@ -68,8 +69,8 @@ public final class ReportHelper {
                 } else {
                     reportValue.put("orderAmount", orderValue.getDouble("grandTotal"));
                 }
-                if ((orderValue.getLong("orderId") == null) || (visit.getLong("visitId") == null) ||
-                    (visit.getLong("visitId").intValue() == 0)) {
+                if ((orderValue.getLong("orderId") == null) || (visit.getLong("visitId") == null)
+                        || (visit.getLong("visitId").intValue() == 0)) {
                     reportValue.put("conversionRate", (double) 0);
                 } else {
                     reportValue.put("conversionRate", orderValue.getLong("orderId").doubleValue() / visit.getLong("visitId").doubleValue());

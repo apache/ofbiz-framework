@@ -50,7 +50,7 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
             return false;
         }
         Collection<?> other = (Collection<?>) o;
-        if (source.size() != other.size()) {
+        if (getSource().size() != other.size()) {
             return false;
         }
         Iterator<V> it = iterator(false);

@@ -27,17 +27,15 @@ import java.util.TimeZone;
  */
 public interface LocalizedConverter<S, T> extends Converter<S, T> {
     /** Converts <code>obj</code> to <code>T</code>.
-     *
      * @param obj The source <code>Object</code> to convert
      * @param locale The locale used for conversion - must not be <code>null</code>
      * @param timeZone The time zone used for conversion - must not be <code>null</code>
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(S obj, Locale locale, TimeZone timeZone) throws ConversionException;
+    T convert(S obj, Locale locale, TimeZone timeZone) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
-     *
      * @param targetClass The <code>Class</code> to convert to
      * @param obj The source <code>Object</code> to convert
      * @param locale The locale used for conversion - must not be <code>null</code>
@@ -45,10 +43,9 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException;
+    T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
-     *
      * @param obj The source <code>Object</code> to convert
      * @param locale The locale used for conversion - must not be <code>null</code>
      * @param timeZone The time zone used for conversion - must not be <code>null</code>
@@ -56,10 +53,9 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
+    T convert(S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
-     *
      * @param targetClass The <code>Class</code> to convert to
      * @param obj The source <code>Object</code> to convert
      * @param locale The locale used for conversion - must not be <code>null</code>
@@ -68,5 +64,5 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
+    T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException;
 }

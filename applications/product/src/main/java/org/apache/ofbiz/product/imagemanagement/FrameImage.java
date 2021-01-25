@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.ImageIcon;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -71,9 +72,12 @@ public class FrameImage {
         Map<String, Object> result;
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
-        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.nameofthumbnail", delegator), context);
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
@@ -98,7 +102,8 @@ public class FrameImage {
 
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
+            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView")
+                    .where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (GenericEntityException gee) {
             Debug.logError(gee, MODULE);
@@ -110,7 +115,7 @@ public class FrameImage {
 
             // Image Frame
             BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
-            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/"+frameImageName));
+            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
 
             int bufImgType;
             if (BufferedImage.TYPE_CUSTOM == bufImg1.getType()) {
@@ -120,7 +125,7 @@ public class FrameImage {
             }
 
             int width = Integer.parseInt(imageWidth);
-            int height= Integer.parseInt(imageHeight);
+            int height = Integer.parseInt(imageHeight);
 
             Map<String, Object> contentCtx = new HashMap<>();
             contentCtx.put("contentTypeId", "DOCUMENT");
@@ -133,7 +138,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -148,7 +153,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -157,8 +162,8 @@ public class FrameImage {
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
             String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
 
-            Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
-            Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
+            Image newImg1 = bufImg1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            Image newImg2 = bufImg2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
@@ -167,7 +172,8 @@ public class FrameImage {
             double imgWidth = bufNewImg.getWidth();
 
             Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
-            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/"
+                    + productId + "/" + filenameTouseThumb));
 
             String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
             String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
@@ -188,7 +194,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -206,7 +212,7 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
 
@@ -220,15 +226,14 @@ public class FrameImage {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
-                result =  ServiceUtil.returnError(e.getMessage());
+                result = ServiceUtil.returnError(e.getMessage());
                 result.putAll(context);
             }
-        }
-         else{
-             String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
-             Debug.logFatal(errMsg, MODULE);
-             result =  ServiceUtil.returnError(errMsg);
-             result.putAll(context);
+        } else {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
+            Debug.logFatal(errMsg, MODULE);
+            result = ServiceUtil.returnError(errMsg);
+            result.putAll(context);
         }
         String successMsg = UtilProperties.getMessage(RESOURCE, "ProductFrameImageSuccessfully", locale);
         result = ServiceUtil.returnSuccess(successMsg);
@@ -242,34 +247,39 @@ public class FrameImage {
 
         // New BufferedImage creation
         BufferedImage bufferedImage = new BufferedImage(image1.getWidth(null), image1.getHeight(null), bufImgType);
-        Graphics2D g = bufferedImage.createGraphics( );
+        Graphics2D g = bufferedImage.createGraphics();
         g.drawImage(image1, null, null);
 
         // Draw Image combine
         Point2D center = new Point2D.Float(bufferedImage.getHeight() / 2f, bufferedImage.getWidth() / 2f);
-        AffineTransform at = AffineTransform.getTranslateInstance(center.getX( ) - (image2.getWidth(null) / 2f), center.getY( ) - (image2.getHeight(null) / 2f));
+        AffineTransform at = AffineTransform.getTranslateInstance(center.getX() - (image2.getWidth(null) / 2f), center.getY()
+                - (image2.getHeight(null) / 2f));
         g.transform(at);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawImage(image2, 0, 0, null);
         Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .35f);
         g.setComposite(c);
-        at = AffineTransform.getTranslateInstance(center.getX( ) - (bufferedImage.getWidth(null) / 2f), center.getY( ) - (bufferedImage.getHeight(null) / 2f));
+        at = AffineTransform.getTranslateInstance(center.getX() - (bufferedImage.getWidth(null) / 2f), center.getY()
+                - (bufferedImage.getHeight(null) / 2f));
         g.setTransform(at);
         g.drawImage(bufferedImage, 0, 0, null);
         g.dispose();
 
-        return( bufferedImage );
+        return (bufferedImage);
     }
 
     public static String uploadFrame(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = dispatcher.getDelegator();
         HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        Locale locale = request.getLocale();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
         Map<String, Object> tempFile = LayoutWorker.uploadImageAndParameters(request, "uploadedFile");
         String imageName = tempFile.get("imageFileName").toString();
         String mimType = tempFile.get("uploadMimeType").toString();
@@ -308,6 +318,11 @@ public class FrameImage {
             RandomAccessFile out = new RandomAccessFile(file, "rw");
             out.write(imageData.array());
             out.close();
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Image", delegator)) {
+                String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
+                return "error";
+            }
 
             //create dataResource
             Map<String, Object> dataResourceCtx = new HashMap<>();
@@ -340,7 +355,7 @@ public class FrameImage {
                 return "error";
             }
             contentId = contentResult.get("contentId").toString();
-        } catch (GenericServiceException | IOException gse) {
+        } catch (GenericServiceException | IOException | ImageReadException gse) {
             request.setAttribute("_ERROR_MESSAGE_", gse.getMessage());
             return "error";
         }
@@ -354,7 +369,8 @@ public class FrameImage {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         HttpSession session = request.getSession();
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
 
         String productId = request.getParameter("productId");
         String imageName = request.getParameter("imageName");
@@ -370,7 +386,8 @@ public class FrameImage {
         }
 
         if (UtilValidate.isEmpty(request.getParameter("frameContentId")) || UtilValidate.isEmpty(request.getParameter("frameDataResourceId"))) {
-            request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID or dataResource ID parameters. Please upload new frame image or choose the exist frame.");
+            request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID or dataResource ID parameters. "
+                    + "Please upload new frame image or choose the exist frame.");
             return "error";
         }
         String frameContentId = request.getParameter("frameContentId");
@@ -386,20 +403,22 @@ public class FrameImage {
 
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
+            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId,
+                    "drDataResourceId", frameDataResourceId).queryOne();
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
-        
+
         if (UtilValidate.isNotEmpty(imageName)) {
-            File file = new File(imageServerPath + "/preview/" +"/previewImage.jpg");
-            if(!file.delete()) {
+            File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
+            if (!file.delete()) {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", MODULE);
             }
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(FileUtil.createFileWithNormalizedPath(imageServerPath + "/" + productId + "/" + imageName)); // cf. OFBIZ-9973
+            BufferedImage bufImg1 = ImageIO.read(FileUtil.createFileWithNormalizedPath(imageServerPath + "/" + productId + "/"
+                    + imageName)); // cf. OFBIZ-9973
             BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
 
             int bufImgType;
@@ -410,18 +429,17 @@ public class FrameImage {
             }
 
             int width = Integer.parseInt(request.getParameter("imageWidth"));
-            int height= Integer.parseInt(request.getParameter("imageHeight"));
+            int height = Integer.parseInt(request.getParameter("imageHeight"));
 
-            Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
-            Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
+            Image newImg1 = bufImg1.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            Image newImg2 = bufImg2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
             ImageIO.write(bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
 
-        }
-         else{
-             String errMsg = "Please select Image.";
-             request.setAttribute("_EVENT_MESSAGE_", errMsg);
+        } else {
+            String errMsg = "Please select Image.";
+            request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "error";
         }
         return "success";
@@ -429,8 +447,9 @@ public class FrameImage {
 
     public static String chooseFrameImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if(UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
-            if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request.getParameter("frameExistDataResourceId"))) {
+        if (UtilValidate.isEmpty(request.getParameter("frameContentId"))) {
+            if (UtilValidate.isNotEmpty(request.getParameter("frameExistContentId")) && UtilValidate.isNotEmpty(request
+                    .getParameter("frameExistDataResourceId"))) {
                 session.setAttribute("frameExistContentId", request.getParameter("frameExistContentId"));
                 session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
             }
@@ -443,7 +462,8 @@ public class FrameImage {
 
         String frameDataResourceId = null;
         try {
-            GenericValue contentDataResource = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId).queryFirst();
+            GenericValue contentDataResource = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId",
+                    frameContentId).queryFirst();
             frameDataResourceId = contentDataResource.getString("dataResourceId");
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -456,7 +476,8 @@ public class FrameImage {
 
     public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", (Delegator) context.get("delegator")), context);
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", (Delegator) context.get("delegator")), context);
         File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
         if (file.exists()) {
             if (!file.delete()) {

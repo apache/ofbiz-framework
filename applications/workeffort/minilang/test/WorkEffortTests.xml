@@ -22,7 +22,7 @@ under the License.
                 xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="testCreateWorkEffortAndPartyAssign" short-description="Test the service createWorkEffortAndPartyAssign" login-required="false">
         <set field="serviceCtx.partyId" value="TestParty-1"/>
-        <set field="serviceCtx.roleTypeId" value="CONTACT"/>
+        <set field="serviceCtx.roleTypeId" value="CAL_OWNER"/>
         <set field="serviceCtx.statusId" value="PRTYASGN_ASSIGNED"/>
         <set field="serviceCtx.workEffortId" value="TestWorkEffort-1"/>
         <set field="serviceCtx.partyTypeId" value="PARTY_GROUP"/>
@@ -39,7 +39,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <set field="lookupKeyValue.workEffortId" from-field="workEffortId"/>
         <set field="lookupKeyValue.partyId"  value="TestParty-1"/>
-        <set field="lookupKeyValue.roleTypeId"  value="CONTACT"/>
+        <set field="lookupKeyValue.roleTypeId"  value="CAL_OWNER"/>
         <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupKeyValue" list="workEffortPartyAssignmentList"/>
         <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignmentList"/>
         <assert>

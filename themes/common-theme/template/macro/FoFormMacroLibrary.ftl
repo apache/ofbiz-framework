@@ -55,7 +55,7 @@ under the License.
 
 <#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable language buttons tabindex language="" disabled=""><@makeBlock className value /></#macro>
 
-<#macro renderDateTimeField name className alert title value size maxlength step timeValues id event action dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled=""><@makeBlock className value /></#macro>
+<#macro renderDateTimeField name className alert title value size maxlength step timeValues id event action dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest=""><@makeBlock className value /></#macro>
 
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex firstInList="" currentValue="" disabled="">
 <#if currentValue?has_content && firstInList?has_content>
@@ -70,7 +70,7 @@ under the License.
 <#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled><@makeBlock "" "" /></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled><@makeBlock "" "" /></#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex><@makeBlock "" "" /></#macro>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title name event confirmation containerId tabindex><@makeBlock "" "" /></#macro>
 <#macro renderResetField className alert name title><@makeBlock "" "" /></#macro>
 
 <#macro renderHiddenField name conditionGroup value id event action><!--hidden--></#macro>

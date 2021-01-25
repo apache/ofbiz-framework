@@ -52,18 +52,19 @@ public class ProposedOrder {
     private static final String MODULE = ProposedOrder.class.getName();
     private static final String RESOURCE = "ManufacturingUiLabels";
 
-    protected GenericValue product;
-    protected boolean isBuilt;
-    protected String productId;
-    protected String facilityId;
-    protected String manufacturingFacilityId;
-    protected String mrpName;
-    protected Timestamp requiredByDate;
-    protected Timestamp requirementStartDate;
-    protected BigDecimal quantity;
+    private GenericValue product;
+    private boolean isBuilt;
+    private String productId;
+    private String facilityId;
+    private String manufacturingFacilityId;
+    private String mrpName;
+    private Timestamp requiredByDate;
+    private Timestamp requirementStartDate;
+    private BigDecimal quantity;
 
 
-    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, BigDecimal quantity) {
+    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate,
+                         BigDecimal quantity) {
         this.product = product;
         this.productId = product.getString("productId");
         this.facilityId = facilityId;
@@ -100,50 +101,53 @@ public class ProposedOrder {
      *   <li>For the bought product, the first ProductFacility.daysToShip is used to calculated the startDate</li>
      * </ul>
      * @return
-     * <ul> 
+     * <ul>
      * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.</li>
      * <li>else null.</li>
      * </ul>
      **/
-    public Map<String, Object> calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
+    public Map<String, Object> calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher,
+                                                  GenericValue userLogin) {
         Map<String, Object> result = null;
-        Timestamp endDate = (Timestamp)requiredByDate.clone();
+        Timestamp endDate = (Timestamp) requiredByDate.clone();
         Timestamp startDate = endDate;
         long timeToShip = daysToShip * 8 * 60 * 60 * 1000;
         if (isBuilt) {
             List<GenericValue> listRoutingTaskAssoc = null;
             if (routing == null) {
                 try {
-                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"), 
+                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"),
                             "ignoreDefaultRouting", "Y", "userLogin", userLogin);
                     Map<String, Object> routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                     if (ServiceUtil.isError(routingOutMap)) {
-                            String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
-                            Debug.logError(errorMessage, MODULE);
+                        String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
+                        Debug.logError(errorMessage, MODULE);
                     }
-                    routing = (GenericValue)routingOutMap.get("routing");
+                    routing = (GenericValue) routingOutMap.get("routing");
                     listRoutingTaskAssoc = UtilGenerics.cast(routingOutMap.get("tasks"));
                     if (routing == null) {
                         // try to find a routing linked to the virtual product
                         BOMTree tree = null;
                         List<BOMNode> components = new LinkedList<>();
                         try {
-                            tree = new BOMTree(product.getString("productId"), "MANUF_COMPONENT", requiredByDate, BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
+                            tree = new BOMTree(product.getString("productId"), "MANUF_COMPONENT", requiredByDate,
+                                    BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
                             tree.setRootQuantity(quantity);
                             tree.print(components, true);
-                            if (components.size() > 0) components.remove(0);
+                            if (!components.isEmpty()) components.remove(0);
                         } catch (Exception exc) {
                             Debug.logWarning(exc.getMessage(), MODULE);
                             tree = null;
                         }
                         if (tree != null && tree.getRoot() != null && tree.getRoot().getProduct() != null) {
-                            routingInMap = UtilMisc.toMap("productId", tree.getRoot().getProduct().getString("productId"), "userLogin", userLogin);
+                            routingInMap = UtilMisc.toMap("productId", tree.getRoot().getProduct().getString("productId"),
+                                    "userLogin", userLogin);
                             routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                             if (ServiceUtil.isError(routingOutMap)) {
                                 String errorMessage = ServiceUtil.getErrorMessage(routingOutMap);
                                 Debug.logError(errorMessage, MODULE);
                             }
-                            routing = (GenericValue)routingOutMap.get("routing");
+                            routing = (GenericValue) routingOutMap.get("routing");
                         }
                     }
                 } catch (GenericServiceException gse) {
@@ -176,7 +180,7 @@ public class ProposedOrder {
                         try {
                             routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort", true);
                         } catch (GenericEntityException e) {
-                            Debug.logError(e.getMessage(),  MODULE);
+                            Debug.logError(e.getMessage(), MODULE);
                         }
                         // Calculate the estimatedStartDate
                         long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
@@ -184,21 +188,22 @@ public class ProposedOrder {
                             // add the daysToShip at the end of the routing
                             totalTime += timeToShip;
                         }
-                        startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask),endDate, totalTime);
+                        startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask), endDate, totalTime);
                         // record the routingTask with the startDate associated
-                        result.put(routingTask.getString("workEffortId"),startDate);
+                        result.put(routingTask.getString("workEffortId"), startDate);
                         endDate = startDate;
                     }
                 }
             } else {
                 // routing is null
-                Debug.logError("No routing found for product = "+ product.getString("productId"), MODULE);
+                Debug.logError("No routing found for product = " + product.getString("productId"), MODULE);
             }
         } else {
             // the product is purchased
             // TODO: REVIEW this code
             try {
-                GenericValue techDataCalendar = product.getDelegator().findOne("TechDataCalendar", UtilMisc.toMap("calendarId", "SUPPLIER"), true);
+                GenericValue techDataCalendar = product.getDelegator().findOne("TechDataCalendar", UtilMisc.toMap("calendarId",
+                        "SUPPLIER"), true);
                 startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), MODULE);
@@ -214,7 +219,7 @@ public class ProposedOrder {
      * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity &lt; reorderQuantity) quantity = reorderQuantity;
      **/
     // FIXME: facilityId
-    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator<GenericValue>  listIterIEP) {
+    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator<GenericValue> listIterIEP) {
         //      TODO : use a better algorithm using Order management cost et Product Stock cost to calculate the re-order quantity
         //                     the variable listIterIEP will be used for that
         if (quantity.compareTo(reorderQuantity) < 0) {
@@ -238,21 +243,22 @@ public class ProposedOrder {
         if (isBuilt) {
             try {
                 List<BOMNode> bom = new LinkedList<>();
-                BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", null, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
+                BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", null, BOMTree.EXPLOSION_MANUFACTURING, delegator,
+                        dispatcher, userLogin);
                 tree.setRootQuantity(quantity);
                 tree.print(bom);
                 requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate, true);
             } catch (Exception e) {
-                Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), MODULE);
+                Debug.logError(e, "Error : computing the requirement start date. " + e.getMessage(), MODULE);
             }
         }
         parameters.put("productId", productId);
         parameters.put("statusId", "REQ_PROPOSED");
-        parameters.put("facilityId", (isBuilt? manufacturingFacilityId: facilityId));
+        parameters.put("facilityId", (isBuilt ? manufacturingFacilityId : facilityId));
         parameters.put("requiredByDate", requiredByDate);
         parameters.put("requirementStartDate", requirementStartDate);
         parameters.put("quantity", quantity);
-        parameters.put("requirementTypeId", (isBuilt? "INTERNAL_REQUIREMENT" : "PRODUCT_REQUIREMENT"));
+        parameters.put("requirementTypeId", (isBuilt ? "INTERNAL_REQUIREMENT" : "PRODUCT_REQUIREMENT"));
         if (mrpName != null) {
             parameters.put("description", "MRP_" + mrpName);
         } else {
@@ -267,11 +273,15 @@ public class ProposedOrder {
             }
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
-            Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), MODULE);
+            Debug.logError(e, "Error : createRequirement with parameters = " + parameters + "--" + e.getMessage(), MODULE);
             return null;
         }
     }
 
+    /**
+     * Sets mrp name.
+     * @param mrpName the mrp name
+     */
     public void setMrpName(String mrpName) {
         this.mrpName = mrpName;
     }

@@ -49,8 +49,8 @@ import groovy.lang.Script;
 public class GroovyEventHandler implements EventHandler {
 
     private static final String MODULE = GroovyEventHandler.class.getName();
-    protected static final Object[] EMPTY_ARGS = {};
-    private static final Set<String> protectedKeys = createProtectedKeys();
+    private static final Object[] EMPTY_ARGS = {};
+    private static final Set<String> PROTECTED_KEYS = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
         Set<String> newSet = new HashSet<>();
@@ -77,7 +77,7 @@ public class GroovyEventHandler implements EventHandler {
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         boolean beganTransaction = false;
         try {
-            int timeout = Integer.max(event.transactionTimeout, 0);
+            int timeout = Integer.max(event.getTransactionTimeout(), 0);
             beganTransaction = TransactionUtil.begin(timeout);
 
             Map<String, Object> context = new HashMap<>();
@@ -91,40 +91,41 @@ public class GroovyEventHandler implements EventHandler {
             context.put("locale", UtilHttp.getLocale(request));
             context.put("timeZone", UtilHttp.getTimeZone(request));
             context.put("userLogin", session.getAttribute("userLogin"));
-            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
+            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security",
+                    "locale", "timeZone", "userLogin")));
             Object result = null;
             try {
-                ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
-                ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
+                ScriptContext scriptContext = ScriptUtil.createScriptContext(context, PROTECTED_KEYS);
+                ScriptHelper scriptHelper = (ScriptHelper) scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
                 if (scriptHelper != null) {
                     context.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
                 }
-                Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(event.path), GroovyUtil.getBinding(context));
-                if (UtilValidate.isEmpty(event.invoke)) {
+                Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(event.getPath()), GroovyUtil.getBinding(context));
+                if (UtilValidate.isEmpty(event.getInvoke())) {
                     result = script.run();
                 } else {
-                    result = script.invokeMethod(event.invoke, EMPTY_ARGS);
+                    result = script.invokeMethod(event.getInvoke(), EMPTY_ARGS);
                 }
                 if (result == null) {
                     result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
             } catch (Exception e) {
-                Debug.logWarning(e, "Error running event " + event.path + ": ", MODULE);
+                Debug.logWarning(e, "Error running event " + event.getPath() + ": ", MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
             // check the result
             if (result instanceof Map) {
                 Map<String, Object> resultMap = UtilGenerics.cast(result);
-                String successMessage = (String)resultMap.get("_event_message_");
+                String successMessage = (String) resultMap.get("_event_message_");
                 if (successMessage != null) {
                     request.setAttribute("_EVENT_MESSAGE_", successMessage);
                 }
-                String errorMessage = (String)resultMap.get("_error_message_");
+                String errorMessage = (String) resultMap.get("_error_message_");
                 if (errorMessage != null) {
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 }
-                return (String)resultMap.get("_response_code_");
+                return (String) resultMap.get("_response_code_");
             }
             if (result != null && !(result instanceof String)) {
                 throw new EventHandlerException("Event did not return a String result, it returned a " + result.getClass().getName());

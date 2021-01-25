@@ -59,16 +59,17 @@ public class ProductPromoContentWrapper implements ContentWrapper {
     private static final String MODULE = ProductPromoContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
-    private static final UtilCache<String, String> productPromoContentCache = UtilCache.createUtilCache("product.promo.content.rendered", true);
+    private static final UtilCache<String, String> PRODUCT_PROMO_CONTENT_CACHE =
+            UtilCache.createUtilCache("product.promo.content.rendered", true);
 
     public static ProductPromoContentWrapper makeProductPromoContentWrapper(GenericValue productPromo, HttpServletRequest request) {
         return new ProductPromoContentWrapper(productPromo, request);
     }
 
-    LocalDispatcher dispatcher;
-    protected GenericValue productPromo;
-    protected Locale locale;
-    protected String mimeTypeId;
+    private LocalDispatcher dispatcher;
+    private GenericValue productPromo;
+    private Locale locale;
+    private String mimeTypeId;
 
     public ProductPromoContentWrapper(LocalDispatcher dispatcher, GenericValue productPromo, Locale locale, String mimeTypeId) {
         this.dispatcher = dispatcher;
@@ -81,19 +82,23 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productPromo = productPromo;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
+        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8",
+                (Delegator) request.getAttribute("delegator"));
     }
 
     @Override
     public StringUtil.StringWrapper get(String productPromoContentTypeId, String encoderType) {
         if (UtilValidate.isEmpty(this.productPromo)) {
-            Debug.logWarning("Tried to get ProductPromoContent for type [" + productPromoContentTypeId + "] but the productPromo field in the ProductPromoContentWrapper is null", MODULE);
+            Debug.logWarning("Tried to get ProductPromoContent for type [" + productPromoContentTypeId
+                    + "] but the productPromo field in the ProductPromoContentWrapper is null", MODULE);
             return null;
         }
-        return StringUtil.makeStringWrapper(getProductPromoContentAsText(this.productPromo, productPromoContentTypeId, locale, mimeTypeId, null, null, this.productPromo.getDelegator(), dispatcher, encoderType));
+        return StringUtil.makeStringWrapper(getProductPromoContentAsText(this.productPromo, productPromoContentTypeId, locale, mimeTypeId, null,
+                null, this.productPromo.getDelegator(), dispatcher, encoderType));
     }
 
-    public static String getProductPromoContentAsText(GenericValue productPromo, String productPromoContentTypeId, HttpServletRequest request, String encoderType) {
+    public static String getProductPromoContentAsText(GenericValue productPromo, String productPromoContentTypeId, HttpServletRequest request,
+                                                      String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         return getProductPromoContentAsText(productPromo, productPromoContentTypeId, UtilHttp.getLocale(request),
@@ -101,11 +106,13 @@ public class ProductPromoContentWrapper implements ContentWrapper {
                 null, null, productPromo.getDelegator(), dispatcher, encoderType);
     }
 
-    public static String getProductContentAsText(GenericValue productPromo, String productPromoContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
+    public static String getProductContentAsText(GenericValue productPromo, String productPromoContentTypeId, Locale locale, LocalDispatcher
+            dispatcher, String encoderType) {
         return getProductPromoContentAsText(productPromo, productPromoContentTypeId, locale, null, null, null, null, dispatcher, encoderType);
     }
 
-    public static String getProductPromoContentAsText(GenericValue productPromo, String productPromoContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
+    public static String getProductPromoContentAsText(GenericValue productPromo, String productPromoContentTypeId, Locale locale, String mimeTypeId,
+               String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         if (UtilValidate.isEmpty(productPromo)) {
             return null;
         }
@@ -115,35 +122,42 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         /* caching: there is one cache created, "product.promo.content"  Each productPromo's content is cached with a key of
          * contentTypeId::locale::mimeType::productPromoId, or whatever the SEPARATOR is defined above to be.
          */
-        String cacheKey = productPromoContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productPromo.get("productPromoId") + SEPARATOR + encoderType + SEPARATOR + delegator;
+        String cacheKey = productPromoContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productPromo.get("productPromoId")
+                + SEPARATOR + encoderType + SEPARATOR + delegator;
         try {
-            String cachedValue = productPromoContentCache.get(cacheKey);
+            String cachedValue = PRODUCT_PROMO_CONTENT_CACHE.get(cacheKey);
             if (cachedValue != null) {
                 return cachedValue;
             }
 
             Writer outWriter = new StringWriter();
-            getProductPromoContentAsText(null, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter, false);
+            getProductPromoContentAsText(null, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId,
+                    delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
-                outString = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName): "";
-                outString = outString == null? "" : outString;
+                outString = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName) : "";
+                outString = outString == null ? "" : outString;
             }
             outString = encoder.sanitize(outString, null);
-            productPromoContentCache.put(cacheKey, outString);
+            PRODUCT_PROMO_CONTENT_CACHE.put(cacheKey, outString);
             return outString;
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", MODULE);
-            String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName) : "";
+            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
         }
     }
 
-    public static void getProductPromoContentAsText(String productPromoId, GenericValue productPromo, String productPromoContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
-        getProductPromoContentAsText(productPromoId, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter, true);
+    public static void getProductPromoContentAsText(String productPromoId, GenericValue productPromo, String productPromoContentTypeId,
+            Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter)
+            throws GeneralException, IOException {
+        getProductPromoContentAsText(productPromoId, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator,
+                dispatcher, outWriter, true);
     }
 
-    public static void getProductPromoContentAsText(String productPromoId, GenericValue productPromo, String productPromoContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter, boolean cache) throws GeneralException, IOException {
+    public static void getProductPromoContentAsText(String productPromoId, GenericValue productPromo, String productPromoContentTypeId,
+            Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter,
+                                                    boolean cache) throws GeneralException, IOException {
         if (UtilValidate.isEmpty(productPromoId) && productPromo != null) {
             productPromoId = productPromo.getString("productPromoId");
         }
@@ -164,7 +178,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         exprs.add(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId));
         exprs.add(EntityCondition.makeCondition("productPromoContentTypeId", EntityOperator.EQUALS, productPromoContentTypeId));
 
-        List<GenericValue> productPromoContentList = EntityQuery.use(delegator).from("ProductPromoContent").where(EntityCondition.makeCondition(exprs, EntityOperator.AND)).orderBy("-fromDate").cache(cache).queryList();
+        List<GenericValue> productPromoContentList = EntityQuery.use(delegator).from("ProductPromoContent").where(EntityCondition
+                .makeCondition(exprs, EntityOperator.AND)).orderBy("-fromDate").cache(cache).queryList();
         GenericValue productPromoContent = null;
         if (UtilValidate.isNotEmpty(productPromoContentList)) {
             productPromoContent = EntityUtil.getFirst(EntityUtil.filterByDate(productPromoContentList));
@@ -175,7 +190,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<>();
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
-            ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
+            ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter,
+                    inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
             return;
         }
 

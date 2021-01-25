@@ -155,7 +155,7 @@ if (fileType) {
                     }
                 }
             } catch (Exception e) {
-                logError(e, "error deleting existing file (not neccessarily a problem)")
+                logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
             }
             file.renameTo(file1)
         } catch (Exception e) {

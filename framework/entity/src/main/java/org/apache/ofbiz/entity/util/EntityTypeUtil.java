@@ -35,7 +35,7 @@ public final class EntityTypeUtil {
 
     private static final String MODULE = EntityTypeUtil.class.getName();
 
-    private EntityTypeUtil() {}
+    private EntityTypeUtil() { }
 
     public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {
         for (GenericValue value: thisCollection) {
@@ -56,7 +56,7 @@ public final class EntityTypeUtil {
      while (iter.hasNext()) {
      if (isType((GenericValue) iter.next(), targetType)) {
      return true;
-     }//else keep looking
+     } //else keep looking
      }
      return false;
      }*/
@@ -92,8 +92,9 @@ public final class EntityTypeUtil {
             Debug.logWarning(e, MODULE);
             return null;
         }
-        if (childrenTypes == null)
+        if (childrenTypes == null) {
             return null;
+        }
 
         // ... and add them as direct descendants
         descendantTypes.addAll(childrenTypes);
@@ -122,7 +123,6 @@ public final class EntityTypeUtil {
     /**
      * A generic method to be used on Type enities, e.g. ProductType.  Recurse to the root level in the type hierarchy
      * and checks if the specified type childType has parentType as its parent somewhere in the hierarchy.
-     *
      * @param delegator       The Delegator object.
      * @param entityName      Name of the Type entity on which check is performed.
      * @param primaryKey      Primary Key field of the Type entity.
@@ -131,12 +131,13 @@ public final class EntityTypeUtil {
      * @param parentType      Value of the parent type against which check is performed.
      * @return boolean value based on the check results.
      */
-    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
+    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField,
+                                        String parentType) {
         GenericValue childTypeValue = null;
         try {
             childTypeValue = EntityQuery.use(delegator).from(entityName).where(primaryKey, childType).cache(true).queryOne();
         } catch (GenericEntityException e) {
-            Debug.logError("Error finding "+entityName+" record for type "+childType, MODULE);
+            Debug.logError("Error finding " + entityName + " record for type " + childType, MODULE);
         }
         if (childTypeValue != null) {
             if (parentType.equals(childTypeValue.getString(primaryKey))) return true;

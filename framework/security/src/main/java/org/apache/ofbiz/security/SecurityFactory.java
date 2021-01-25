@@ -50,21 +50,20 @@ public final class SecurityFactory {
     // The default implementation stores a Delegator reference, so we will cache by delegator name.
     // The goal is to remove Delegator references in the Security interface, then we can use a singleton
     // and eliminate the cache.
-    private static final UtilCache<String, Security> authorizationCache = UtilCache.createUtilCache("security.AuthorizationCache");
+    private static final UtilCache<String, Security> AUTHORIZATION_CACHE = UtilCache.createUtilCache("security.AuthorizationCache");
 
     /**
      * Returns a <code>Security</code> instance. The method uses Java's
      * <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html"><code>ServiceLoader</code></a>
      * to get a <code>Security</code> instance. If no instance is found, a default implementation is used.
      * The default implementation is based on/backed by the OFBiz entity engine.
-     *
      * @param delegator The delegator
      * @return A <code>Security</code> instance
      */
     @SuppressWarnings("deprecation")
     public static Security getInstance(Delegator delegator) throws SecurityConfigurationException {
         Assert.notNull("delegator", delegator);
-        Security security = authorizationCache.get(delegator.getDelegatorName());
+        Security security = AUTHORIZATION_CACHE.get(delegator.getDelegatorName());
         if (security == null) {
             Iterator<Security> iterator = ServiceLoader.load(Security.class).iterator();
             if (iterator.hasNext()) {
@@ -73,31 +72,33 @@ public final class SecurityFactory {
                 security = new OFBizSecurity();
             }
             security.setDelegator(delegator);
-            security = authorizationCache.putIfAbsentAndGet(delegator.getDelegatorName(), security);
+            security = AUTHORIZATION_CACHE.putIfAbsentAndGet(delegator.getDelegatorName(), security);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator " + delegator.getDelegatorName(), MODULE);
+                Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator "
+                        + delegator.getDelegatorName(), MODULE);
             }
         }
         return security;
     }
 
-    private SecurityFactory() {}
+    private SecurityFactory() { }
 
     private static final class OFBizSecurity implements Security {
 
         private Delegator delegator = null;
 
-        private static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
-            "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
-            "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
-            "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
+        private static final Map<String, Map<String, String>> SIMPLE_ROLE_ENT = UtilMisc.toMap(
+                "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
+                "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
+                "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
 
-        private OFBizSecurity() {}
+        private OFBizSecurity() { }
 
         @Override
         public void clearUserData(GenericValue userLogin) {
             if (userLogin != null) {
-                delegator.getCache().remove("UserLoginSecurityGroup", EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
+                delegator.getCache().remove("UserLoginSecurityGroup", EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS,
+                        userLogin.getString("userLoginId")));
             }
         }
 
@@ -105,7 +106,8 @@ public final class SecurityFactory {
         @Deprecated
         public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
             try {
-                List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup").where("userLoginId", userLoginId).cache(true).queryList());
+                List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup")
+                        .where("userLoginId", userLoginId).cache(true).queryList());
                 return collection.iterator();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
@@ -127,10 +129,12 @@ public final class SecurityFactory {
             Iterator<GenericValue> iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
             while (iterator.hasNext()) {
                 GenericValue userLoginSecurityGroup = iterator.next();
-                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), permission))
+                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), permission)) {
                     return true;
-                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), adminPermission))
+                }
+                if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), adminPermission)) {
                     return true;
+                }
             }
 
             return false;
@@ -175,7 +179,6 @@ public final class SecurityFactory {
          * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
          * general administration permission, but also checks action_ROLE and validates the user is a member for the
          * application.
-         *
          * @param application The name of the application corresponding to the desired permission.
          * @param action The action on the application corresponding to the desired permission.
          * @param entityName The name of the role entity to use for validation.
@@ -216,13 +219,13 @@ public final class SecurityFactory {
             if (userLogin == null) {
                 return false;
             }
-            if (primaryKey.equals("") && roles == null) {
+            if ("".equals(primaryKey) && roles == null) {
                 if (hasEntityPermission(application, action, userLogin)) return true;
                 if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
             }
             String entityName = null;
             EntityCondition condition = null;
-            Map<String, String> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
+            Map<String, String> simpleRoleMap = OFBizSecurity.SIMPLE_ROLE_ENT.get(application);
             if (simpleRoleMap != null && roles != null) {
                 entityName = simpleRoleMap.get("name");
                 String pkey = simpleRoleMap.get("pkey");
@@ -250,7 +253,7 @@ public final class SecurityFactory {
         @Override
         public boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin) {
             List<String> roles = null;
-            if (role != null && !role.equals("")) {
+            if (role != null && !"".equals(role)) {
                 roles = UtilMisc.toList(role);
             }
             return hasRolePermission(application, action, primaryKey, roles, userLogin);
@@ -266,7 +269,8 @@ public final class SecurityFactory {
         @Deprecated
         public boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
-                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
+                return EntityQuery.use(delegator).from("SecurityGroupPermission")
+                        .where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
                 return false;

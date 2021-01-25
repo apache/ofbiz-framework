@@ -70,7 +70,7 @@ import org.apache.ofbiz.service.mail.MimeMessageWrapper;
  */
 public class CommonServices {
 
-    public final static String MODULE = CommonServices.class.getName();
+    private static final String MODULE = CommonServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
 
     /**
@@ -82,7 +82,7 @@ public class CommonServices {
     public static Map<String, Object> testService(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        if (context.size() > 0) {
+        if (!context.isEmpty()) {
             for (Map.Entry<String, ?> entry: context.entrySet()) {
                 Object cKey = entry.getKey();
                 Object value = entry.getValue();
@@ -112,7 +112,7 @@ public class CommonServices {
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
         List<GenericValue> testingNodes = new LinkedList<>();
-        for (int i = 0; i < 3; i ++) {
+        for (int i = 0; i < 3; i++) {
             GenericValue testingNode = delegator.makeValue("TestingNode");
             testingNode.put("testingNodeId", "TESTING_NODE" + i);
             testingNode.put("description", "Testing Node " + i);
@@ -126,9 +126,9 @@ public class CommonServices {
     public static Map<String, Object> blockingTestService(DispatchContext dctx, Map<String, ?> context) {
         Long duration = (Long) context.get("duration");
         if (duration == null) {
-            duration = 30000l;
+            duration = 30000L;
         }
-        Debug.logInfo("-----SERVICE BLOCKING----- : " + duration/1000d +" seconds", MODULE);
+        Debug.logInfo("-----SERVICE BLOCKING----- : " + duration / 1000d + " seconds", MODULE);
         try {
             Thread.sleep(duration);
         } catch (InterruptedException e) {
@@ -190,7 +190,8 @@ public class CommonServices {
 
             delegator.create(newValue);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNoteCannotBeUpdated", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNoteCannotBeUpdated",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
@@ -226,12 +227,12 @@ public class CommonServices {
      * Echo service; returns exactly what was sent.
      * This service does not have required parameters and does not validate
      */
-     public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
-         Map<String, Object> result =  new LinkedHashMap<>();
-         result.putAll(context);
-         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-         return result;
-     }
+    public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.putAll(context);
+        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        return result;
+    }
 
     /**
      * Return Error Service; Used for testing error handling
@@ -336,7 +337,7 @@ public class CommonServices {
 
     public static Map<String, Object> displayXaDebugInfo(DispatchContext dctx, Map<String, ?> context) {
         if (TransactionUtil.debugResources()) {
-            if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
+            if (UtilValidate.isNotEmpty(TransactionUtil.DEBUG_RES_MAP)) {
                 TransactionUtil.logRunningTx();
             } else {
                 Debug.logInfo("No running transaction to display.", MODULE);
@@ -356,7 +357,8 @@ public class CommonServices {
         String ofbizHome = System.getProperty("ofbiz.home");
         String outputPath1 = ofbizHome + (fileName1.startsWith("/") ? fileName1 : "/" + fileName1);
         String outputPath2 = ofbizHome + (fileName2.startsWith("/") ? fileName2 : "/" + fileName2);
-        RandomAccessFile file1 = null, file2 = null;
+        RandomAccessFile file1 = null;
+        RandomAccessFile file2 = null;
 
         try {
             file1 = new RandomAccessFile(outputPath1, "rw");
@@ -385,7 +387,7 @@ public class CommonServices {
         String fileName = (String) context.get("_uploadFile_fileName");
         String contentType = (String) context.get("_uploadFile_contentType");
 
-        Map<String, Object> createCtx =  new LinkedHashMap<>();
+        Map<String, Object> createCtx = new LinkedHashMap<>();
         createCtx.put("binData", array);
         createCtx.put("dataResourceTypeId", "OFBIZ_FILE");
         createCtx.put("dataResourceName", fileName);
@@ -407,7 +409,7 @@ public class CommonServices {
 
         GenericValue dataResource = (GenericValue) createResp.get("dataResource");
         if (dataResource != null) {
-            Map<String, Object> contentCtx =  new LinkedHashMap<>();
+            Map<String, Object> contentCtx = new LinkedHashMap<>();
             contentCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
             contentCtx.put("localeString", ((Locale) context.get("locale")).toString());
             contentCtx.put("contentTypeId", "DOCUMENT");
@@ -448,10 +450,10 @@ public class CommonServices {
         MimeMessage message = wrapper.getMessage();
         try {
             if (message.getAllRecipients() != null) {
-               Debug.logInfo("To: " + UtilMisc.toListArray(message.getAllRecipients()), MODULE);
+                Debug.logInfo("To: " + UtilMisc.toListArray(message.getAllRecipients()), MODULE);
             }
             if (message.getFrom() != null) {
-               Debug.logInfo("From: " + UtilMisc.toListArray(message.getFrom()), MODULE);
+                Debug.logInfo("From: " + UtilMisc.toListArray(message.getFrom()), MODULE);
             }
             Debug.logInfo("Subject: " + message.getSubject(), MODULE);
             if (message.getSentDate() != null) {
@@ -516,7 +518,7 @@ public class CommonServices {
         List<Map<String, Object>> metricsMapList = new LinkedList<>();
         Collection<Metrics> metricsList = MetricsFactory.getMetrics();
         for (Metrics metrics : metricsList) {
-            Map<String, Object> metricsMap =  new LinkedHashMap<>();
+            Map<String, Object> metricsMap = new LinkedHashMap<>();
             metricsMap.put("name", metrics.getName());
             metricsMap.put("serviceRate", metrics.getServiceRate());
             metricsMap.put("threshold", metrics.getThreshold());
@@ -530,10 +532,11 @@ public class CommonServices {
 
     public static Map<String, Object> resetMetric(DispatchContext dctx, Map<String, ?> context) {
         String originalName = (String) context.get("name");
-        Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric", UtilMisc.toMap("originalName", originalName), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric",
+                    UtilMisc.toMap("originalName", originalName), locale));
         }
         Metrics metric = MetricsFactory.getMetric(name);
         if (metric != null) {
