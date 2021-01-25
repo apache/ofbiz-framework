@@ -31,7 +31,8 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 /**
  * Java Source Parsing Utilities
  *
- * NOTE: the approach here is not the best and it may be better to use a parser, line one based on antlr, or using a Java Bytecode parser to look at .class files.
+ * NOTE: the approach here is not the best and it may be better to use a parser, line one based on antlr, or using a Java
+ * Bytecode parser to look at .class files.
  *
  */
 public final class UtilJavaParse {

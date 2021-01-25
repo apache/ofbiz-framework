@@ -94,7 +94,7 @@ like this:
 == How to run a unit test?
 You can run unit test by run 'gradle' with following target:
 
-include::../../../../../README.adoc[tag=testingtasks]
+include::../../../../../README.adoc[tag=testingtasks, leveloffset=-1]
 
 
 == Possible error messages

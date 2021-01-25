@@ -66,27 +66,27 @@ public class SQLProcessor implements AutoCloseable {
     private GenericHelperInfo helperInfo;
 
     // / The database resources to be used
-    private Connection _connection = null;
+    private Connection connection = null;
 
     // / The database resources to be used
-    private PreparedStatement _ps = null;
+    private PreparedStatement ps = null;
 
     // / The database resources to be used
-    private ResultSet _rs = null;
+    private ResultSet resultSet = null;
 
-    private ResultSetMetaData _rsmd = null;
+    private ResultSetMetaData resultSetMetaData = null;
 
     // / The SQL String used. Use for debugging only
-    private String _sql;
+    private String sql;
 
-    // / Index to be used with preparedStatement.setValue(_ind, ...)
-    private int _ind;
+    // / Index to be used with preparedStatement.setValue(ind, ...)
+    private int ind;
 
     // / true in case of manual transactions
-    private boolean _manualTX;
+    private boolean manualTx;
 
     // / true in case the connection shall be closed.
-    private boolean _bDeleteConnection = false;
+    private boolean bDeleteConnection = false;
 
     /**
      * Construct an object based on the helper/datasource
@@ -95,7 +95,7 @@ public class SQLProcessor implements AutoCloseable {
     public SQLProcessor(Delegator delegator, GenericHelperInfo helperInfo) {
         this.delegator = delegator;
         this.helperInfo = helperInfo;
-        this._manualTX = true;
+        this.manualTx = true;
     }
 
     /**
@@ -107,33 +107,41 @@ public class SQLProcessor implements AutoCloseable {
     public SQLProcessor(Delegator delegator, GenericHelperInfo helperInfo, Connection connection) {
         this.delegator = delegator;
         this.helperInfo = helperInfo;
-        this._connection = connection;
+        this.connection = connection;
 
         // Do not commit while closing
-        if (_connection != null) {
-            _manualTX = false;
+        if (connection != null) {
+            manualTx = false;
         }
     }
 
+    /**
+     * Gets delegator.
+     * @return the delegator
+     */
     public Delegator getDelegator() {
         return delegator;
     }
 
+    /**
+     * Gets result set meta data.
+     * @return the result set meta data
+     */
     ResultSetMetaData getResultSetMetaData() {
-        if (_rsmd == null) {
+        if (resultSetMetaData == null) {
             // try the ResultSet, if not null, or try the PreparedStatement, also if not null
             try {
-                if (_rs != null) {
-                    _rsmd = _rs.getMetaData();
-                } else if (_ps != null) {
-                    _rsmd = _ps.getMetaData();
+                if (resultSet != null) {
+                    resultSetMetaData = resultSet.getMetaData();
+                } else if (ps != null) {
+                    resultSetMetaData = ps.getMetaData();
                 }
             } catch (SQLException sqle2) {
                 Debug.logWarning("[SQLProcessor.rollback]: SQL Exception while rolling back insert. Error was:" + sqle2, MODULE);
                 Debug.logWarning(sqle2, MODULE);
             }
         }
-        return _rsmd;
+        return resultSetMetaData;
     }
 
     /**
@@ -141,17 +149,17 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericDataSourceException
      */
     public void commit() throws GenericDataSourceException {
-        if (_connection == null) {
+        if (connection == null) {
             return;
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("SQLProcessor:commit() _manualTX=" + _manualTX, MODULE);
+            Debug.logVerbose("SQLProcessor:commit() manualTx=" + manualTx, MODULE);
         }
 
-        if (_manualTX) {
+        if (manualTx) {
             try {
-                _connection.commit();
+                connection.commit();
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("SQLProcessor:commit() : called commit on connection", MODULE);
                 }
@@ -171,25 +179,25 @@ public class SQLProcessor implements AutoCloseable {
      * Rollback all modifications
      */
     public void rollback() throws GenericDataSourceException {
-        if (_connection == null) {
+        if (connection == null) {
             return;
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("SQLProcessor:rollback() _manualTX=" + _manualTX, MODULE);
+            Debug.logVerbose("SQLProcessor:rollback() manualTx=" + manualTx, MODULE);
         }
 
         try {
-            if (_manualTX) {
-                _connection.rollback();
+            if (manualTx) {
+                connection.rollback();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("SQLProcessor:rollback() : _manualTX=" + _manualTX, MODULE);
+                    Debug.logVerbose("SQLProcessor:rollback() : manualTx=" + manualTx, MODULE);
                 }
             } else {
                 try {
                     TransactionUtil.setRollbackOnly("rollback called in Entity Engine SQLProcessor", new Exception("Current Location Stack"));
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("SQLProcessor:rollback() : _manualTX=" + _manualTX, MODULE);
+                        Debug.logVerbose("SQLProcessor:rollback() : manualTx=" + manualTx, MODULE);
                     }
                 } catch (GenericTransactionException e) {
                     Debug.logError(e, "Error setting rollback only", MODULE);
@@ -208,52 +216,52 @@ public class SQLProcessor implements AutoCloseable {
      */
     @Override
     public void close() throws GenericDataSourceException {
-        if (_manualTX) {
+        if (manualTx) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("SQLProcessor:close() calling commit : _manualTX=" + _manualTX, MODULE);
+                Debug.logVerbose("SQLProcessor:close() calling commit : manualTx=" + manualTx, MODULE);
             }
             commit();
         }
 
-        _sql = null;
+        sql = null;
 
-        if (_rs != null) {
+        if (resultSet != null) {
             try {
-                _rs.close();
+                resultSet.close();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("SQLProcessor:close() result close : _manualTX=" + _manualTX, MODULE);
+                    Debug.logVerbose("SQLProcessor:close() result close : manualTx=" + manualTx, MODULE);
                 }
             } catch (SQLException sqle) {
                 Debug.logWarning(sqle.getMessage(), MODULE);
             }
 
-            _rs = null;
+            resultSet = null;
         }
 
-        if (_ps != null) {
+        if (ps != null) {
             try {
-                _ps.close();
+                ps.close();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("SQLProcessor:close() preparedStatement close : _manualTX=" + _manualTX, MODULE);
+                    Debug.logVerbose("SQLProcessor:close() preparedStatement close : manualTx=" + manualTx, MODULE);
                 }
             } catch (SQLException sqle) {
                 Debug.logWarning(sqle.getMessage(), MODULE);
             }
 
-            _ps = null;
+            ps = null;
         }
 
-        if ((_connection != null) && _bDeleteConnection) {
+        if ((connection != null) && bDeleteConnection) {
             try {
-                _connection.close();
+                connection.close();
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("SQLProcessor:close() connection close : _manualTX=" + _manualTX, MODULE);
+                    Debug.logVerbose("SQLProcessor:close() connection close : manualTx=" + manualTx, MODULE);
                 }
             } catch (SQLException sqle) {
                 Debug.logWarning(sqle.getMessage(), MODULE);
             }
 
-            _connection = null;
+            connection = null;
         }
     }
 
@@ -264,34 +272,34 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericEntityException
      */
     public Connection getConnection() throws GenericDataSourceException, GenericEntityException {
-        if (_connection != null) {
-            return _connection;
+        if (connection != null) {
+            return connection;
         }
 
-        _manualTX = true;
+        manualTx = true;
 
         try {
-            _connection = TransactionFactoryLoader.getInstance().getConnection(helperInfo);
+            connection = TransactionFactoryLoader.getInstance().getConnection(helperInfo);
             if (Debug.verboseOn()) {
-                Debug.logVerbose("SQLProcessor:connection() : manualTx=" + _manualTX, MODULE);
+                Debug.logVerbose("SQLProcessor:connection() : manualTx=" + manualTx, MODULE);
             }
         } catch (SQLException sqle) {
             throw new GenericDataSourceException("Unable to establish a connection with the database.", sqle);
         }
 
         // make sure we actually did get a connection
-        if (_connection == null) {
+        if (connection == null) {
             throw new GenericDataSourceException("Unable to establish a connection with the database. Connection was null!");
         }
 
         // test the connection
-        testConnection(_connection);
+        testConnection(connection);
 
         /* causes problems w/ postgres ??
         if (Debug.verboseOn()) {
             int isoLevel = -999;
             try {
-                isoLevel = _connection.getTransactionIsolation();
+                isoLevel = connection.getTransactionIsolation();
             } catch (SQLException e) {
                 Debug.logError(e, "Problems getting the connection's isolation level", MODULE);
             }
@@ -311,14 +319,14 @@ public class SQLProcessor implements AutoCloseable {
 
         // always try to set auto commit to false, but if we can't then later on we won't commit
         try {
-            if (_connection.getAutoCommit()) {
+            if (connection.getAutoCommit()) {
                 try {
-                    _connection.setAutoCommit(false);
+                    connection.setAutoCommit(false);
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("SQLProcessor:setAutoCommit(false) : manualTx=" + _manualTX, MODULE);
+                        Debug.logVerbose("SQLProcessor:setAutoCommit(false) : manualTx=" + manualTx, MODULE);
                     }
                 } catch (SQLException sqle) {
-                    _manualTX = false;
+                    manualTx = false;
                 }
             }
         } catch (SQLException e) {
@@ -330,7 +338,7 @@ public class SQLProcessor implements AutoCloseable {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("[SQLProcessor.getConnection] : active transaction", MODULE);
                 }
-                _manualTX = false;
+                manualTx = false;
             }
         } catch (GenericTransactionException e) {
             // nevermind, don't worry about it, but print the exc anyway
@@ -339,11 +347,11 @@ public class SQLProcessor implements AutoCloseable {
         }
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("[SQLProcessor.getConnection] : con=" + _connection, MODULE);
+            Debug.logVerbose("[SQLProcessor.getConnection] : con=" + connection, MODULE);
         }
 
-        _bDeleteConnection = true;
-        return _connection;
+        bDeleteConnection = true;
+        return connection;
     }
 
     /**
@@ -364,7 +372,8 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericDataSourceException
      * @throws GenericEntityException
      */
-    public void prepareStatement(String sql, boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency) throws GenericDataSourceException, GenericEntityException {
+    public void prepareStatement(String sql, boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency)
+            throws GenericDataSourceException, GenericEntityException {
         this.prepareStatement(sql, specifyTypeAndConcur, resultSetType, resultSetConcurrency, -1, -1);
     }
 
@@ -375,36 +384,37 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericDataSourceException
      * @throws GenericEntityException
      */
-    public void prepareStatement(String sql, boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency, int fetchSize, int maxRows) throws GenericDataSourceException, GenericEntityException {
+    public void prepareStatement(String sql, boolean specifyTypeAndConcur, int resultSetType, int resultSetConcurrency, int fetchSize, int maxRows)
+            throws GenericDataSourceException, GenericEntityException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("[SQLProcessor.prepareStatement] sql=" + sql, MODULE);
         }
 
-        if (_connection == null) {
+        if (connection == null) {
             getConnection();
         }
 
         try {
-            _sql = sql;
-            _ind = 1;
+            sql = sql;
+            ind = 1;
             if (specifyTypeAndConcur) {
-                _ps = _connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
+                ps = connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[SQLProcessor.prepareStatement] _ps=" + _ps, MODULE);
+                    Debug.logVerbose("[SQLProcessor.prepareStatement] ps=" + ps, MODULE);
                 }
             } else {
-                _ps = _connection.prepareStatement(sql);
+                ps = connection.prepareStatement(sql);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[SQLProcessor.prepareStatement] (def) _ps=" + _ps, MODULE);
+                    Debug.logVerbose("[SQLProcessor.prepareStatement] (def) ps=" + ps, MODULE);
                 }
             }
             if (maxRows > 0) {
-                _ps.setMaxRows(maxRows);
+                ps.setMaxRows(maxRows);
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("[SQLProcessor.prepareStatement] max rows set : " + maxRows, MODULE);
                 }
             }
-            this.setFetchSize(_ps, fetchSize);
+            this.setFetchSize(ps, fetchSize);
         } catch (SQLException sqle) {
             throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
         }
@@ -417,14 +427,14 @@ public class SQLProcessor implements AutoCloseable {
      */
     public ResultSet executeQuery() throws GenericDataSourceException {
         try {
-            // if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.executeQuery] ps=" + _ps.toString(), MODULE);
-            _rs = _ps.executeQuery();
+            // if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.executeQuery] ps=" + ps.toString(), MODULE);
+            resultSet = ps.executeQuery();
         } catch (SQLException sqle) {
             this.checkLockWaitInfo(sqle);
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
         }
 
-        return _rs;
+        return resultSet;
     }
 
     /**
@@ -446,13 +456,14 @@ public class SQLProcessor implements AutoCloseable {
      */
     public int executeUpdate() throws GenericDataSourceException {
         try {
-            // if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.executeUpdate] ps=" + _ps.toString(), MODULE);
+            // if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.executeUpdate] ps=" + ps.toString(), MODULE);
             //TransactionUtil.printAllThreadsTransactionBeginStacks();
-            return _ps.executeUpdate();
+            return ps.executeUpdate();
         } catch (SQLException sqle) {
             this.checkLockWaitInfo(sqle);
-            // don't display this here, may not be critical, allow handling further up... Debug.logError(sqle, "SQLProcessor.executeUpdate() : ERROR : ", MODULE);
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
+            // don't display this here, may not be critical, allow handling further up...
+            // Debug.logError(sqle, "SQLProcessor.executeUpdate() : ERROR : ", MODULE);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
         }
     }
 
@@ -463,11 +474,12 @@ public class SQLProcessor implements AutoCloseable {
      */
     public int executeUpdate(String sql) throws GenericDataSourceException {
 
-        try (Statement stmt = _connection.createStatement()) {
+        try (Statement stmt = connection.createStatement()) {
             return stmt.executeUpdate(sql);
         } catch (SQLException sqle) {
-            // passing on this exception as nested, no need to log it here: Debug.logError(sqle, "SQLProcessor.executeUpdate(sql) : ERROR : ", MODULE);
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
+            // passing on this exception as nested, no need to log it here:
+            // Debug.logError(sqle, "SQLProcessor.executeUpdate(sql) : ERROR : ", MODULE);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
         }
     }
 
@@ -478,9 +490,9 @@ public class SQLProcessor implements AutoCloseable {
      */
     public boolean next() throws GenericDataSourceException {
         try {
-            return _rs.next();
+            return resultSet.next();
         } catch (SQLException sqle) {
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
         }
     }
 
@@ -489,7 +501,7 @@ public class SQLProcessor implements AutoCloseable {
      * @return ResultSet
      */
     public ResultSet getResultSet() {
-        return _rs;
+        return resultSet;
     }
 
     /**
@@ -497,7 +509,7 @@ public class SQLProcessor implements AutoCloseable {
      * @return PreparedStatement
      */
     public PreparedStatement getPreparedStatement() {
-        return _ps;
+        return ps;
     }
 
     /**
@@ -508,7 +520,7 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericEntityException
      */
     public void execQuery(String sql, ExecQueryCallbackFunctionIF aListener) throws GenericEntityException {
-        if (_connection == null) {
+        if (connection == null) {
             getConnection();
         }
 
@@ -522,19 +534,19 @@ public class SQLProcessor implements AutoCloseable {
             // each row...
             boolean keepGoing = true;
 
-            while (keepGoing && _rs.next()) {
-                keepGoing = aListener.processNextRow(_rs);
+            while (keepGoing && resultSet.next()) {
+                keepGoing = aListener.processNextRow(resultSet);
             }
 
-            if (_manualTX) {
-                _connection.commit();
+            if (manualTx) {
+                connection.commit();
             }
 
         } catch (SQLException sqle) {
             Debug.logWarning("[SQLProcessor.execQuery]: SQL Exception while executing the following:\n"
                     + sql + "\nError was:", MODULE);
             Debug.logWarning(sqle.getMessage(), MODULE);
-            throw new GenericEntityException("SQL Exception while executing the following:" + _sql, sqle);
+            throw new GenericEntityException("SQL Exception while executing the following:" + sql, sqle);
         } finally {
             close();
         }
@@ -547,8 +559,8 @@ public class SQLProcessor implements AutoCloseable {
      * @throws SQLException
      */
     public <T> void setValue(JdbcValueHandler<T> handler, T field) throws SQLException {
-        handler.setValue(_ps, _ind, field);
-        _ind++;
+        handler.setValue(ps, ind, field);
+        ind++;
     }
 
     /**
@@ -558,31 +570,31 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(String field) throws SQLException {
         //ResultSetMetaData rsmd = this.getResultSetMetaData();
-        //this doesn't seem to work, query not yet parsed: int colType = rsmd.getColumnType(_ind);
+        //this doesn't seem to work, query not yet parsed: int colType = rsmd.getColumnType(ind);
         if (field != null) {
             //if (field.length() > 4000) {
                 //Clob clb = new Cl
-                // doesn't work with Oracle drivers, need the funky work-around: _ps.setCharacterStream(_ind, new StringReader(field), field.length());
-                //_needClobWorkAroundWrite.put(Integer.valueOf(_ind), field);
-                //_ps.setString(_ind, " ");
+                // doesn't work with Oracle drivers, need the funky work-around: ps.setCharacterStream(ind, new StringReader(field), field.length());
+                //_needClobWorkAroundWrite.put(Integer.valueOf(ind), field);
+                //ps.setString(ind, " ");
             //} else {
-                _ps.setString(_ind, field);
+            ps.setString(ind, field);
             //}
         } else {
             // silly workaround for Derby (Cloudscape 10 beta Bug #5928)
             // this should be removed after the know bug is fixed
             try {
-                _ps.setNull(_ind, Types.VARCHAR);
+                ps.setNull(ind, Types.VARCHAR);
             } catch (SQLException e) {
                 try {
-                    _ps.setString(_ind, null);
+                    ps.setString(ind, null);
                 } catch (SQLException e2) {
                     Debug.logError(e2, MODULE);
                     throw e;
                 }
             }
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -592,11 +604,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(java.sql.Timestamp field) throws SQLException {
         if (field != null) {
-            _ps.setTimestamp(_ind, field);
+            ps.setTimestamp(ind, field);
         } else {
-            _ps.setNull(_ind, Types.TIMESTAMP);
+            ps.setNull(ind, Types.TIMESTAMP);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -606,11 +618,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(java.sql.Time field) throws SQLException {
         if (field != null) {
-            _ps.setTime(_ind, field);
+            ps.setTime(ind, field);
         } else {
-            _ps.setNull(_ind, Types.TIME);
+            ps.setNull(ind, Types.TIME);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -620,11 +632,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(java.sql.Date field) throws SQLException {
         if (field != null) {
-            _ps.setDate(_ind, field);
+            ps.setDate(ind, field);
         } else {
-            _ps.setNull(_ind, Types.DATE);
+            ps.setNull(ind, Types.DATE);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -634,11 +646,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Integer field) throws SQLException {
         if (field != null) {
-            _ps.setInt(_ind, field);
+            ps.setInt(ind, field);
         } else {
-            _ps.setNull(_ind, Types.NUMERIC);
+            ps.setNull(ind, Types.NUMERIC);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -648,11 +660,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Long field) throws SQLException {
         if (field != null) {
-            _ps.setLong(_ind, field);
+            ps.setLong(ind, field);
         } else {
-            _ps.setNull(_ind, Types.NUMERIC);
+            ps.setNull(ind, Types.NUMERIC);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -662,11 +674,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Float field) throws SQLException {
         if (field != null) {
-            _ps.setFloat(_ind, field);
+            ps.setFloat(ind, field);
         } else {
-            _ps.setNull(_ind, Types.NUMERIC);
+            ps.setNull(ind, Types.NUMERIC);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -676,11 +688,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Double field) throws SQLException {
         if (field != null) {
-            _ps.setDouble(_ind, field);
+            ps.setDouble(ind, field);
         } else {
-            _ps.setNull(_ind, Types.NUMERIC);
+            ps.setNull(ind, Types.NUMERIC);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -690,11 +702,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(BigDecimal field) throws SQLException {
         if (field != null) {
-            _ps.setBigDecimal(_ind, field);
+            ps.setBigDecimal(ind, field);
         } else {
-            _ps.setNull(_ind, Types.NUMERIC);
+            ps.setNull(ind, Types.NUMERIC);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -704,11 +716,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Boolean field) throws SQLException {
         if (field != null) {
-            _ps.setBoolean(_ind, field);
+            ps.setBoolean(ind, field);
         } else {
-            _ps.setNull(_ind, Types.BOOLEAN);
+            ps.setNull(ind, Types.BOOLEAN);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -718,11 +730,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Object field) throws SQLException {
         if (field != null) {
-            _ps.setObject(_ind, field, Types.JAVA_OBJECT);
+            ps.setObject(ind, field, Types.JAVA_OBJECT);
         } else {
-            _ps.setNull(_ind, Types.JAVA_OBJECT);
+            ps.setNull(ind, Types.JAVA_OBJECT);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -732,16 +744,16 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Blob field) throws SQLException {
         if (field != null) {
-            _ps.setBlob(_ind, field);
+            ps.setBlob(ind, field);
         } else {
             Datasource datasourceInfo = EntityConfig.getDatasource(this.helperInfo.getHelperBaseName());
             if (datasourceInfo.getUseBinaryTypeForBlob()) {
-                _ps.setNull(_ind, Types.BINARY);
+                ps.setNull(ind, Types.BINARY);
             } else {
-                _ps.setNull(_ind, Types.BLOB);
+                ps.setNull(ind, Types.BLOB);
             }
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -751,11 +763,11 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Clob field) throws SQLException {
         if (field != null) {
-            _ps.setClob(_ind, field);
+            ps.setClob(ind, field);
         } else {
-            _ps.setNull(_ind, Types.CLOB);
+            ps.setNull(ind, Types.CLOB);
         }
-        _ind++;
+        ind++;
     }
 
     /**
@@ -775,7 +787,7 @@ public class SQLProcessor implements AutoCloseable {
                 byte[] buf = os.toByteArray();
                 os.close();
                 ByteArrayInputStream is = new ByteArrayInputStream(buf);
-                _ps.setBinaryStream(_ind, is, buf.length);
+                ps.setBinaryStream(ind, is, buf.length);
                 is.close();
             } catch (IOException ex) {
                 throw new SQLException(ex.getMessage());
@@ -783,13 +795,13 @@ public class SQLProcessor implements AutoCloseable {
         } else {
             Datasource datasourceInfo = EntityConfig.getDatasource(this.helperInfo.getHelperBaseName());
             if (datasourceInfo.getUseBinaryTypeForBlob()) {
-                _ps.setNull(_ind, Types.BINARY);
+                ps.setNull(ind, Types.BINARY);
             } else {
-                _ps.setNull(_ind, Types.BLOB);
+                ps.setNull(ind, Types.BLOB);
             }
         }
 
-        _ind++;
+        ind++;
     }
 
     /**
@@ -800,18 +812,23 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setBytes(byte[] bytes) throws SQLException {
         if (bytes != null) {
-            _ps.setBytes(_ind, bytes);
+            ps.setBytes(ind, bytes);
         } else {
             Datasource datasourceInfo = EntityConfig.getDatasource(this.helperInfo.getHelperBaseName());
             if (datasourceInfo.getUseBinaryTypeForBlob()) {
-                _ps.setNull(_ind, Types.BINARY);
+                ps.setNull(ind, Types.BINARY);
             } else {
-                _ps.setNull(_ind, Types.BLOB);
+                ps.setNull(ind, Types.BLOB);
             }
         }
-        _ind++;
+        ind++;
     }
 
+    /**
+     * Test connection.
+     * @param con the con
+     * @throws GenericEntityException the generic entity exception
+     */
     protected void testConnection(Connection con) throws GenericEntityException {
         if (SQLProcessor.ENABLE_TEST) {
             if (SQLProcessor.CONNECTION_TEST_LIST.contains(con.toString())) {
@@ -824,9 +841,15 @@ public class SQLProcessor implements AutoCloseable {
         }
     }
 
+    /**
+     * Sets fetch size.
+     * @param stmt the stmt
+     * @param fetchSize the fetch size
+     * @throws SQLException the sql exception
+     */
     protected void setFetchSize(Statement stmt, int fetchSize) throws SQLException {
         // do not set fetch size when using the cursor connection
-        if (_connection instanceof CursorConnection) return;
+        if (connection instanceof CursorConnection) return;
 
         // check if the statement was called with a specific fetch size, if not grab the default from the datasource
         if (fetchSize < 0) {
@@ -851,7 +874,8 @@ public class SQLProcessor implements AutoCloseable {
         //   the string for Derby is "A lock could not be obtained within the time requested"
         //   the string for MySQL is "Lock wait timeout exceeded; try restarting transaction"
         if (eMsg.indexOf("A lock could not be obtained within the time requested") >= 0 || eMsg.indexOf("Lock wait timeout exceeded") >= 0) {
-            Debug.logWarning(sqle, "Lock wait timeout error found in thread [" + Thread.currentThread().getId() + "]: (" + eMsg + ") when executing the SQL [" + _sql + "]", MODULE);
+            Debug.logWarning(sqle, "Lock wait timeout error found in thread [" + Thread.currentThread().getId() + "]: (" + eMsg
+                    + ") when executing the SQL [" + sql + "]", MODULE);
             TransactionUtil.printAllThreadsTransactionBeginStacks();
         }
     }

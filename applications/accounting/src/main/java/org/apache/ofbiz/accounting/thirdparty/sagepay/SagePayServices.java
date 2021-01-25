@@ -54,7 +54,8 @@ public class SagePayServices {
 
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
+                GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId",
+                        paymentGatewayConfigId).queryOne();
                 if (sagePay != null) {
                     for (Entry<String, Object> set : sagePay.entrySet()) {
                         if (set.getValue() == null) {
@@ -140,7 +141,8 @@ public class SagePayServices {
             errorRequiredParameters.append("Required transaction parameter 'authenticationsTransType' is missing. ");
         }
         if (errorRequiredParameters.length() > 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", errorRequiredParameters), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException",
+                    UtilMisc.toMap("errorString", errorRequiredParameters), locale));
         }
         parameters.put("VPSProtocol", vpsProtocol);
         parameters.put("TxType", txType);
@@ -358,15 +360,18 @@ public class SagePayServices {
         } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters",
+                    UtilMisc.toMap("errorString", uee.getMessage()), locale));
         } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute",
+                    UtilMisc.toMap("errorString", cpe.getMessage()), locale));
         } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse",
+                    UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -450,15 +455,18 @@ public class SagePayServices {
         } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters",
+                    UtilMisc.toMap("errorString", uee.getMessage()), locale));
         } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute",
+                    UtilMisc.toMap("errorString", cpe.getMessage()), locale));
         } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse",
+                    UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -539,15 +547,18 @@ public class SagePayServices {
         } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters",
+                    UtilMisc.toMap("errorString", uee.getMessage()), locale));
         } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute",
+                    UtilMisc.toMap("errorString", cpe.getMessage()), locale));
         } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse",
+                    UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -625,15 +636,18 @@ public class SagePayServices {
         } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters",
+                    UtilMisc.toMap("errorString", uee.getMessage()), locale));
         } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute",
+                    UtilMisc.toMap("errorString", cpe.getMessage()), locale));
         } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse",
+                    UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
         return resultMap;
     }
@@ -731,15 +745,18 @@ public class SagePayServices {
         } catch (UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             Debug.logError(uee, "Error occurred in encoding parameters for HttpPost (" + uee.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters", UtilMisc.toMap("errorString", uee.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorEncodingParameters",
+                    UtilMisc.toMap("errorString", uee.getMessage()), locale));
         } catch (ClientProtocolException cpe) {
             //from httpClient execute
             Debug.logError(cpe, "Error occurred in HttpClient execute(" + cpe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute", UtilMisc.toMap("errorString", cpe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecute",
+                    UtilMisc.toMap("errorString", cpe.getMessage()), locale));
         } catch (IOException ioe) {
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", MODULE);
-            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
+            resultMap = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse",
+                    UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         }
 
         return resultMap;

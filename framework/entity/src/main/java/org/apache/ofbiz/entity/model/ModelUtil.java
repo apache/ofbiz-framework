@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 public final class ModelUtil {
 
     private static final String MODULE = ModelUtil.class.getName();
-    private static final String vowelBag = "aeiouyAEIOUY";
+    private static final String VOWEL_BAG = "aeiouyAEIOUY";
 
     private ModelUtil() { }
 
@@ -145,7 +145,8 @@ public final class ModelUtil {
         return dbName.toString();
     }
 
-    /**  Start by removing all vowels, then pull 1 letter at a time off the end of each _ separated segment, go until it is less than or equal to the desired length
+    /**  Start by removing all vowels, then pull 1 letter at a time off the end of each _ separated segment, go until it is less
+     * than or equal to the desired length
      * @param dbName
      * @param desiredLength
      * @return shortened String
@@ -161,7 +162,7 @@ public final class ModelUtil {
                 }
 
                 char curChar = dbBuf.charAt(i);
-                if (vowelBag.indexOf(curChar) > 0) {
+                if (VOWEL_BAG.indexOf(curChar) > 0) {
                     dbBuf.deleteCharAt(i);
                 }
             }
@@ -270,7 +271,8 @@ public final class ModelUtil {
     public static String induceFieldType(String sqlTypeName, int length, int precision, ModelFieldTypeReader fieldTypeReader) {
         if (sqlTypeName == null) return "invalid";
 
-        if ("VARCHAR".equalsIgnoreCase(sqlTypeName) || "VARCHAR2".equalsIgnoreCase(sqlTypeName) || ("CHAR".equalsIgnoreCase(sqlTypeName) && length > 1)) {
+        if ("VARCHAR".equalsIgnoreCase(sqlTypeName) || "VARCHAR2".equalsIgnoreCase(sqlTypeName)
+                || ("CHAR".equalsIgnoreCase(sqlTypeName) && length > 1)) {
             if (length <= 10) return "very-short";
             if (length <= 60) return "short-varchar";
             if (length <= 255) return "long-varchar";

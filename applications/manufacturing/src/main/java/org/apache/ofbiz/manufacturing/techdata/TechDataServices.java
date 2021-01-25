@@ -57,7 +57,8 @@ public class TechDataServices {
      * Used to retrieve some RoutingTasks (WorkEffort) selected by Name or MachineGroup ordered by Name
      * @param ctx the dispatch context
      * @param context a map containing workEffortName (routingTaskName) and fixedAssetId (MachineGroup or ANY)
-     * @return result a map containing lookupResult (list of RoutingTask &lt;=&gt; workEffortId with currentStatusId = "ROU_ACTIVE" and workEffortTypeId = "ROU_TASK"
+     * @return result a map containing lookupResult (list of RoutingTask &lt;=&gt; workEffortId with currentStatusId =
+     * "ROU_ACTIVE" and workEffortTypeId = "ROU_TASK"
      */
     public static Map<String, Object> lookupRoutingTask(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -85,7 +86,8 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortNotExist",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (listRoutingTask == null) {
             listRoutingTask = new LinkedList<>();
@@ -127,7 +129,8 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortAssocNotExist",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (listRoutingTaskAssoc != null) {
@@ -136,23 +139,31 @@ public class TechDataServices {
                         || !workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo"))
                         || !workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId"))
                         || !sequenceNum.equals(routingTaskAssoc.getLong("sequenceNum"))) {
-                    if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null)
+                    if (routingTaskAssoc.getTimestamp("thruDate") == null && routingTaskAssoc.getTimestamp("fromDate") == null) {
                         sequenceNumNotOk = "Y";
-                    else if (routingTaskAssoc.getTimestamp("thruDate") == null) {
+                    } else if (routingTaskAssoc.getTimestamp("thruDate") == null) {
                         if (thruDate == null) sequenceNumNotOk = "Y";
-                        else if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) sequenceNumNotOk = "Y";
+                        else if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) {
+                            sequenceNumNotOk = "Y";
+                        }
                     } else if (routingTaskAssoc.getTimestamp("fromDate") == null) {
                         if (fromDate == null) sequenceNumNotOk = "Y";
-                        else if (fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
-                    } else if (fromDate == null && thruDate == null) sequenceNumNotOk = "Y";
-                    else if (thruDate == null) {
+                        else if (fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) {
+                            sequenceNumNotOk = "Y";
+                        }
+                    } else if (fromDate == null && thruDate == null) {
+                        sequenceNumNotOk = "Y";
+                    } else if (thruDate == null) {
                         if (fromDate.before(routingTaskAssoc.getTimestamp("thruDate"))) sequenceNumNotOk = "Y";
                     } else if (fromDate == null) {
                         if (thruDate.after(routingTaskAssoc.getTimestamp("fromDate"))) sequenceNumNotOk = "Y";
                     } else if (routingTaskAssoc.getTimestamp("fromDate").before(thruDate) && fromDate.before(routingTaskAssoc.getTimestamp(
-                            "thruDate")))
+                            "thruDate"))) {
                         sequenceNumNotOk = "Y";
-                } else if (createProcess) sequenceNumNotOk = "Y";
+                    }
+                } else if (createProcess) {
+                    sequenceNumNotOk = "Y";
+                }
             }
         }
         result.put("sequenceNumNotOk", sequenceNumNotOk);
@@ -183,7 +194,7 @@ public class TechDataServices {
             } else {
                 try {
                     List<GenericValue> machines = machineGroup.getRelated("ChildFixedAsset", null, null, true);
-                    if (machines != null && machines.size() > 0) {
+                    if (machines != null && !machines.isEmpty()) {
                         GenericValue machine = EntityUtil.getFirst(machines);
                         techDataCalendar = machine.getRelatedOne("TechDataCalendar", true);
                     }
@@ -277,7 +288,8 @@ public class TechDataServices {
         if (moveDay != 0) return 0;
         Time startTime = (Time) position.get("startTime");
         Double capacity = (Double) position.get("capacity");
-        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
+        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime()
+                + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod)) return 0;
         Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime() + capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
@@ -307,7 +319,8 @@ public class TechDataServices {
         Time startTime = (Time) position.get("startTime");
         int moveDay = (Integer) position.get("moveDay");
         dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom, moveDay);
-        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
+        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime()
+                + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.before(startAvailablePeriod)) {
             dateTo = startAvailablePeriod;
         } else {
@@ -355,7 +368,8 @@ public class TechDataServices {
     /** Used to find the last day in the TechDataCalendarWeek where capacity != 0, ending at dayEnd, dayEnd included.
      * @param techDataCalendarWeek        The TechDataCalendarWeek cover
      * @param dayEnd
-     * @return a map with the  capacity (Double) available, the startTime and  moveDay (int): the number of day it's necessary to move to have capacity available
+     * @return a map with the  capacity (Double) available, the startTime and  moveDay (int): the number of day it's
+     * necessary to move to have capacity available
      */
     public static Map<String, Object> dayEndCapacityAvailable(GenericValue techDataCalendarWeek, int dayEnd) {
         Map<String, Object> result = new HashMap<>();
@@ -426,7 +440,8 @@ public class TechDataServices {
         if (moveDay != 0) return 0;
         Time startTime = (Time) position.get("startTime");
         Double capacity = (Double) position.get("capacity");
-        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
+        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime()
+                + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod)) return 0;
         Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime() + capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
@@ -457,7 +472,8 @@ public class TechDataServices {
         int moveDay = (Integer) position.get("moveDay");
         Double capacity = (Double) position.get("capacity");
         dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayEnd(dateFrom, (long) moveDay);
-        Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
+        Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + capacity.longValue()
+                + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.after(endAvailablePeriod)) {
             dateTo = endAvailablePeriod;
         } else {
@@ -468,7 +484,8 @@ public class TechDataServices {
             moveDay = (Integer) position.get("moveDay");
             capacity = (Double) position.get("capacity");
             if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
-            dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
+            dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET)
+                    + cDateTrav.get(Calendar.DST_OFFSET));
         }
         result.put("dateTo", dateTo);
         result.put("previousCapacity", position.get("capacity"));

@@ -117,14 +117,14 @@ public class TaxAuthorityServices {
                     taxAuthoritySet.add(taxAuthority);
                 }
 
-                if (taxAuthoritySet.size() == 0) {
+                if (taxAuthoritySet.isEmpty()) {
                     throw new IllegalArgumentException("Could not find any Tax Authories for store with ID ["
                             + productStoreId + "] for tax calculation; the store settings may need to be corrected.");
                 }
 
                 List<GenericValue> taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null,
                         billToPartyId, taxAuthoritySet, basePrice, quantity, amount, shippingPrice, ZERO_BASE);
-                if (taxAdustmentList.size() == 0) {
+                if (taxAdustmentList.isEmpty()) {
                     // this is something that happens every so often for different products and
                     // such, so don't blow up on it...
                     Debug.logWarning("Could not find any Tax Authories Rate Rules for store with ID [" + productStoreId
@@ -427,9 +427,8 @@ public class TaxAuthorityServices {
             List<GenericValue> lookupList = EntityQuery.use(delegator).from("TaxAuthorityRateProduct")
                     .where(mainCondition).orderBy("minItemPrice", "minPurchase", "fromDate").filterByDate().queryList();
 
-            if (lookupList.size() == 0) {
-                Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition
-                        .toString(), MODULE);
+            if (lookupList.isEmpty()) {
+                Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition.toString(), MODULE);
                 return adjustments;
             }
 
@@ -471,14 +470,13 @@ public class TaxAuthorityServices {
                 // get glAccountId from TaxAuthorityGlAccount entity using the payToPartyId as
                 // the organizationPartyId
                 GenericValue taxAuthorityGlAccount = EntityQuery.use(delegator).from("TaxAuthorityGlAccount")
-                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId",
-                                payToPartyId).queryOne();
+                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId).queryOne();
                 String taxAuthGlAccountId = null;
                 if (taxAuthorityGlAccount != null) {
                     taxAuthGlAccountId = taxAuthorityGlAccount.getString("glAccountId");
                 } else {
-                    // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is
-                    // that done elsewhere later on?
+                    // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is that done elsewhere later on?
+                    Debug.logVerbose("what to do if no TaxAuthorityGlAccount found?", MODULE);
                 }
 
                 GenericValue productPrice = null;
@@ -575,9 +573,8 @@ public class TaxAuthorityServices {
                     handlePartyTaxExempt(taxAdjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount,
                             nowTimestamp, delegator);
                 } else {
-                    Debug.logInfo(
-                            "NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=["
-                                    + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
+                    Debug.logInfo("NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs "
+                            + "considered; billToPartyId=[" + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
                 }
                 if (discountedSalesTax.compareTo(BigDecimal.ZERO) < 0) {
                     GenericValue taxAdjValueNegative = delegator.makeValue("OrderAdjustment");
@@ -702,7 +699,7 @@ public class TaxAuthorityServices {
             productCategoryIdSet.add(pcm.getString("productCategoryId"));
         }
 
-        if (productCategoryIdSet.size() == 0) {
+        if (productCategoryIdSet.isEmpty()) {
             return EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
         }
         return EntityCondition.makeCondition(

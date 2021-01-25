@@ -34,6 +34,20 @@
         <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
         <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
+    <menu name="HumanResShortcutAppBar" title="${uiLabelMap.HumanResManager}">
+        <menu-item name="Employees" title="${uiLabelMap.HumanResEmployees}"><link target="/humanres/control/findEmployees" url-mode="inter-app"/></menu-item>
+        <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="/humanres/control/FindEmployments" url-mode="inter-app"/></menu-item>
+        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="/humanres/control/FindEmplPositions" url-mode="inter-app"/></menu-item>
+        <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="/humanres/control/FindPerfReviews" url-mode="inter-app"/></menu-item>
+        <menu-item name="EmplSkills" title="${uiLabelMap.HumanResSkills}"><link target="/humanres/control/FindPartySkills" url-mode="inter-app"/></menu-item>
+        <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="/humanres/control/FindPartyQuals" url-mode="inter-app"/></menu-item>
+        <menu-item name="Recruitment" title="${uiLabelMap.HumanResRecruitment}"><link target="/humanres/control/FindJobRequisitions" url-mode="inter-app"/></menu-item>        
+        <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="/humanres/control/TrainingCalendar" url-mode="inter-app"/></menu-item>
+        <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="/humanres/control/FindEmploymentApps" url-mode="inter-app"/></menu-item>
+        <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="/humanres/control/FindPartyResumes" url-mode="inter-app"/></menu-item>
+        <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="/humanres/control/FindEmplLeaves" url-mode="inter-app"/></menu-item>
+        <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="/humanres/control/globalHRSettings" url-mode="inter-app"/></menu-item>
+    </menu>
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <actions>

@@ -79,7 +79,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -93,12 +93,14 @@ public class ContactMechServices {
                     "contactmechservices.could_not_create_contact_info_id_generation_failure", locale));
         }
 
-        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
+        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId,
+                "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
         if (!"_NA_".equals(partyId)) {
             toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
-                    "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"), "extension", context.get("extension"))));
+                    "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"),
+                    "extension", context.get("extension"))));
         }
 
         if ("POSTAL_ADDRESS".equals(contactMechTypeId)) {
@@ -144,7 +146,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -226,7 +228,8 @@ public class ContactMechServices {
             newPartyContactMech.set("thruDate", null);
 
             try {
-                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false));
+                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose",
+                        null, null, false));
 
                 while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                     GenericValue tempVal = GenericValue.create(partyContactMechPurposes.next());
@@ -279,7 +282,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_DELETE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -340,7 +343,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -354,7 +357,8 @@ public class ContactMechServices {
                     "contactmechservices.could_not_create_contact_info_id_generation_failure", locale));
         }
 
-        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
+        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId,
+                "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
         // don't create a PartyContactMech if there is no party; we define no party as sending _NA_ as partyId
@@ -414,7 +418,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -525,7 +529,8 @@ public class ContactMechServices {
                 newPartyContactMech.set("thruDate", null);
 
                 try {
-                    Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false));
+                    Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose",
+                            null, null, false));
 
                     while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                         GenericValue tempVal = GenericValue.create(partyContactMechPurposes.next());
@@ -585,7 +590,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_CREATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -599,11 +604,13 @@ public class ContactMechServices {
                     "contactmechservices.could_not_create_contact_info_id_generation_failure", locale));
         }
 
-        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
+        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId,
+                "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
         toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
-                    "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"), "extension", context.get("extension"))));
+                    "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"),
+                "extension", context.get("extension"))));
 
         toBeStored.add(delegator.makeValue("TelecomNumber", UtilMisc.toMap("contactMechId", newCmId,
                     "countryCode", context.get("countryCode"), "areaCode", context.get("areaCode"), "contactNumber", context.get("contactNumber"))));
@@ -641,7 +648,7 @@ public class ContactMechServices {
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_UPDATE");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -730,7 +737,8 @@ public class ContactMechServices {
             newPartyContactMech.set("thruDate", null);
 
             try {
-                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose", null, null, false));
+                Iterator<GenericValue> partyContactMechPurposes = UtilMisc.toIterator(partyContactMech.getRelated("PartyContactMechPurpose",
+                        null, null, false));
 
                 while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                     GenericValue tempVal = GenericValue.create(partyContactMechPurposes.next());
@@ -822,7 +830,7 @@ public class ContactMechServices {
         String errMsg = null;
         Locale locale = (Locale) context.get("locale");
 
-        if (result.size() > 0) {
+        if (!result.isEmpty()) {
             return result;
         }
 
@@ -926,9 +934,10 @@ public class ContactMechServices {
                 String contactMechId = contactMech.getString("contactMechId");
 
                 // create a new party contact mech for the partyIdTo
-                Map<String, Object> serviceResults = dispatcher.runSync("createPartyContactMech", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "userLogin", userLogin,
-                            "contactMechId", contactMechId, "contactMechTypeId", contactMech.getString("contactMechTypeId"), "fromDate", UtilDateTime.nowTimestamp(),
-                            "allowSolicitation", partyContactMech.getString("allowSolicitation"), "extension", partyContactMech.getString("extension")));
+                Map<String, Object> serviceResults = dispatcher.runSync("createPartyContactMech", UtilMisc.<String, Object>toMap("partyId",
+                        partyIdTo, "userLogin", userLogin, "contactMechId", contactMechId, "contactMechTypeId",
+                        contactMech.getString("contactMechTypeId"), "fromDate", UtilDateTime.nowTimestamp(), "allowSolicitation",
+                        partyContactMech.getString("allowSolicitation"), "extension", partyContactMech.getString("extension")));
                 if (ServiceUtil.isError(serviceResults)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
                 }
@@ -969,7 +978,7 @@ public class ContactMechServices {
 
         SecureRandom secureRandom = new SecureRandom();
 
-        synchronized(ContactMechServices.class) {
+        synchronized (ContactMechServices.class) {
             while (true) {
                 Long random = secureRandom.nextLong();
                 verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(StandardCharsets.UTF_8));

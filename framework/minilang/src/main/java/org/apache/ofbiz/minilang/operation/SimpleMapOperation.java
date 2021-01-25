@@ -33,11 +33,11 @@ import org.w3c.dom.Element;
  */
 public abstract class SimpleMapOperation {
 
-    String fieldName;
-    boolean isProperty = false;
-    String message = null;
-    String propertyResource = null;
-    SimpleMapProcess simpleMapProcess;
+    private String fieldName;
+    private boolean isProperty = false;
+    private String message = null;
+    private String propertyResource = null;
+    private SimpleMapProcess simpleMapProcess;
 
     public SimpleMapOperation(Element element, SimpleMapProcess simpleMapProcess) {
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
@@ -54,15 +54,31 @@ public abstract class SimpleMapOperation {
         this.fieldName = simpleMapProcess.getFieldName();
     }
 
+    /**
+     * Gets field name.
+     * @return the field name
+     */
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    /**
+     * Add message.
+     * @param messages the messages
+     * @param loader   the loader
+     * @param locale   the locale
+     */
     public void addMessage(List<Object> messages, ClassLoader loader, Locale locale) {
         if (!isProperty && message != null) {
             messages.add(new MessageString(message, fieldName, true));
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, MODULE);
         } else if (isProperty && propertyResource != null && message != null) {
-            // this one doesn't do the proper i18n: String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
+            // this one doesn't do the proper i18n: String propMsg = UtilProperties.getPropertyValue(UtilURL
+            // .fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, locale);
             if (UtilValidate.isEmpty(propMsg)) {
-                messages.add(new MessageString("Simple Map Processing error occurred, but no message was found, sorry.", fieldName, propertyResource, message, locale, true));
+                messages.add(new MessageString("Simple Map Processing error occurred, but no message was found, sorry.", fieldName,
+                        propertyResource, message, locale, true));
             } else {
                 messages.add(new MessageString(propMsg, fieldName, propertyResource, message, locale, true));
             }

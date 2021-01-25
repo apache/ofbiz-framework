@@ -66,7 +66,8 @@ public final class PreferenceWorker {
             // default to String
             userPrefMap.put(rec.getString("userPrefTypeId"), rec.getString("userPrefValue"));
         } else {
-            userPrefMap.put(rec.getString("userPrefTypeId"), ObjectType.simpleTypeOrObjectConvert(rec.get("userPrefValue"), prefDataType, null, null, false));
+            userPrefMap.put(rec.getString("userPrefTypeId"), ObjectType.simpleTypeOrObjectConvert(rec.get("userPrefValue"),
+                    prefDataType, null, null, false));
         }
         return userPrefMap;
     }
@@ -250,8 +251,10 @@ public final class PreferenceWorker {
      * @throws GeneralException
      * @return field map
      */
-    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupTypeId, Object userPrefValue) throws GeneralException {
-        Map<String, Object> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId, "userPrefValue", ObjectType.simpleTypeOrObjectConvert(userPrefValue, "String", null, null, false));
+    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupTypeId, Object userPrefValue)
+            throws GeneralException {
+        Map<String, Object> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId, "userPrefValue",
+                ObjectType.simpleTypeOrObjectConvert(userPrefValue, "String", null, null, false));
         if (UtilValidate.isNotEmpty(userPrefGroupTypeId)) {
             fieldMap.put("userPrefGroupTypeId", userPrefGroupTypeId);
         }

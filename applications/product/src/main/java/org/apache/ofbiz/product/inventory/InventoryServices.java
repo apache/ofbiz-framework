@@ -655,7 +655,7 @@ public class InventoryServices {
                         }
                         toBeStored.add(orderItem);
                     }
-                    if (toBeStored.size() > 0) {
+                    if (!toBeStored.isEmpty()) {
                         try {
                             delegator.storeAll(toBeStored);
                         } catch (GenericEntityException e) {
@@ -788,7 +788,7 @@ public class InventoryServices {
         for (GenericValue orderItem: orderItems) {
             String productId = orderItem.getString("productId");
 
-            if ((productId == null) || productId.equals("")) {
+            if ((productId == null) || "".equals(productId)) {
                 continue;
             }
 

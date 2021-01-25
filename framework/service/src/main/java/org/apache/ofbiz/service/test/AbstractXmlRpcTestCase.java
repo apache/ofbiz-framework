@@ -34,9 +34,9 @@ public class AbstractXmlRpcTestCase extends TestCase {
 
     private static final String MODULE = AbstractXmlRpcTestCase.class.getName();
 
-    protected String keyStoreComponent;
-    protected String keyStoreName;
-    protected String keyAlias;
+    private String keyStoreComponent;
+    private String keyStoreName;
+    private String keyAlias;
 
     public AbstractXmlRpcTestCase(String name, String keyStoreComponent, String keyStoreName, String keyAlias) {
         super(name);
@@ -53,10 +53,24 @@ public class AbstractXmlRpcTestCase extends TestCase {
     }
 
 
+    /**
+     * Gets rpc client.
+     * @param url the url
+     * @return the rpc client
+     * @throws MalformedURLException the malformed url exception
+     */
     public org.apache.xmlrpc.client.XmlRpcClient getRpcClient(String url) throws MalformedURLException {
         return getRpcClient(url, null, null);
     }
 
+    /**
+     * Gets rpc client.
+     * @param url the url
+     * @param login the login
+     * @param password the password
+     * @return the rpc client
+     * @throws MalformedURLException the malformed url exception
+     */
     public org.apache.xmlrpc.client.XmlRpcClient getRpcClient(String url, String login, String password) throws MalformedURLException {
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
         config.setServerURL(new URL(url));

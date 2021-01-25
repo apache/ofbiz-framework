@@ -71,7 +71,8 @@ public class ProductSearch {
     private static final String RESOURCE = "ProductUiLabels";
     private static final String RES_COMMON = "CommonUiLabels";
 
-    public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator,
+            String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         Set<String> featureIdSet = new HashSet<>();
         if (featureIdByType != null) {
             featureIdSet.addAll(featureIdByType.values());
@@ -80,7 +81,8 @@ public class ProductSearch {
         return parametricKeywordSearch(featureIdSet, keywordsString, delegator, productCategoryId, true, visitId, anyPrefix, anySuffix, isAnd);
     }
 
-    public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String
+            productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         List<ProductSearchConstraint> productSearchConstraintList = new LinkedList<>();
 
         if (UtilValidate.isNotEmpty(productCategoryId)) {
@@ -100,7 +102,8 @@ public class ProductSearch {
         return searchProducts(productSearchConstraintList, new SortKeywordRelevancy(), delegator, visitId);
     }
 
-    public static ArrayList<String> searchProducts(List<ProductSearchConstraint> productSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
+    public static ArrayList<String> searchProducts(List<ProductSearchConstraint> productSearchConstraintList, ResultSortOrder resultSortOrder,
+                                                   Delegator delegator, String visitId) {
         ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
 
         productSearchContext.addProductSearchConstraints(productSearchConstraintList);
@@ -115,14 +118,16 @@ public class ProductSearch {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
 
-        // this will use the Delegator cache as much as possible, but not a dedicated cache because it would get stale to easily and is too much of a pain to maintain in development and production
+        // this will use the Delegator cache as much as possible, but not a dedicated cache because it would get stale to easily and is
+        // too much of a pain to maintain in development and production
 
         // first make sure the current category id is in the Set
         productCategoryIdSet.add(productCategoryId);
 
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
-            List<GenericValue> productCategoryRollupList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", productCategoryId).cache(true).queryList();
+            List<GenericValue> productCategoryRollupList = EntityQuery.use(delegator).from("ProductCategoryRollup")
+                    .where("parentProductCategoryId", productCategoryId).cache(true).queryList();
             for (GenericValue productCategoryRollup: productCategoryRollupList) {
                 String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
                 if (productCategoryIdSet.contains(subProductCategoryId)) {
@@ -185,25 +190,40 @@ public class ProductSearch {
         private Set<String> excludeFeatureGroupIds = new HashSet<>();
         private Set<String> alwaysIncludeFeatureGroupIds = new HashSet<>();
 
+        /**
+         * Gets entity condition list.
+         * @return the entity condition list
+         */
         public List<EntityCondition> getEntityConditionList() {
             return entityConditionList;
         }
 
+        /**
+         * Gets dynamic view entity.
+         * @return the dynamic view entity
+         */
         public DynamicViewEntity getDynamicViewEntity() {
             return dynamicViewEntity;
         }
 
+        /**
+         * Gets order by list.
+         * @return the order by list
+         */
         public List<String> getOrderByList() {
             return orderByList;
         }
 
+        /**
+         * Gets now timestamp.
+         * @return the now timestamp
+         */
         public Timestamp getNowTimestamp() {
             return nowTimestamp;
         }
 
         /**
          * Sets keyword type ids.
-         *
          * @param keywordTypeIds the keyword type ids
          */
         public void setKeywordTypeIds(List<String> keywordTypeIds) {
@@ -214,7 +234,6 @@ public class ProductSearch {
 
         /**
          * Sets status id.
-         *
          * @param statusId the status id
          */
         public void setStatusId(String statusId) {
@@ -233,7 +252,6 @@ public class ProductSearch {
 
         /**
          * Gets delegator.
-         *
          * @return the delegator
          */
         public Delegator getDelegator() {
@@ -242,7 +260,6 @@ public class ProductSearch {
 
         /**
          * Add product search constraints.
-         *
          * @param productSearchConstraintList the product search constraint list
          */
         public void addProductSearchConstraints(List<ProductSearchConstraint> productSearchConstraintList) {
@@ -254,7 +271,6 @@ public class ProductSearch {
 
         /**
          * Sets result sort order.
-         *
          * @param resultSortOrder the result sort order
          */
         public void setResultSortOrder(ResultSortOrder resultSortOrder) {
@@ -263,21 +279,32 @@ public class ProductSearch {
 
         /**
          * Sets result offset.
-         *
          * @param resultOffset the result offset
          */
         public void setResultOffset(Integer resultOffset) {
             this.resultOffset = resultOffset;
         }
 
+        /**
+         * Sets max results.
+         * @param maxResults the max results
+         */
         public void setMaxResults(Integer maxResults) {
             this.maxResults = maxResults;
         }
 
+        /**
+         * Gets total results.
+         * @return the total results
+         */
         public Integer getTotalResults() {
             return this.totalResults;
         }
 
+        /**
+         * Do search array list.
+         * @return the array list
+         */
         public ArrayList<String> doSearch() {
             long startMillis = System.currentTimeMillis();
 
@@ -299,8 +326,11 @@ public class ProductSearch {
             return productIds;
         }
 
+        /**
+         * Finish keyword constraints.
+         */
         public void finishKeywordConstraints() {
-            if (orKeywordFixedSet.size() == 0 && andKeywordFixedSet.size() == 0 && keywordFixedOrSetAndList.size() == 0) {
+            if (orKeywordFixedSet.isEmpty() && andKeywordFixedSet.isEmpty() && keywordFixedOrSetAndList.isEmpty()) {
                 return;
             }
 
@@ -308,7 +338,7 @@ public class ProductSearch {
             this.includedKeywordSearch = true;
 
             // if there is anything in the orKeywordFixedSet add it to the keywordFixedOrSetAndList
-            if (orKeywordFixedSet.size() > 0) {
+            if (!orKeywordFixedSet.isEmpty()) {
                 // put in keywordFixedOrSetAndList to process with other or lists where at least one is required
                 keywordFixedOrSetAndList.add(orKeywordFixedSet);
             }
@@ -317,7 +347,7 @@ public class ProductSearch {
             Iterator<Set<String>> keywordFixedOrSetAndTestIter = keywordFixedOrSetAndList.iterator();
             while (keywordFixedOrSetAndTestIter.hasNext()) {
                 Set<String> keywordFixedOrSet = keywordFixedOrSetAndTestIter.next();
-                if (keywordFixedOrSet.size() == 0) {
+                if (keywordFixedOrSet.isEmpty()) {
                     keywordFixedOrSetAndTestIter.remove();
                 } else if (keywordFixedOrSet.size() == 1) {
                     // treat it as just another and
@@ -326,12 +356,13 @@ public class ProductSearch {
                 }
             }
 
-            boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (keywordFixedOrSetAndList.size() > 0 && andKeywordFixedSet.size() > 0);
+            boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (!keywordFixedOrSetAndList.isEmpty() && !andKeywordFixedSet.isEmpty());
 
-            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
+            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet
+                    + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
 
             ComplexAlias relevancyComplexAlias = new ComplexAlias("+");
-            if (andKeywordFixedSet.size() > 0) {
+            if (!andKeywordFixedSet.isEmpty()) {
                 // add up the relevancyWeight fields from all keyword member entities for a total to sort by
 
                 for (String keyword: andKeywordFixedSet) {
@@ -370,7 +401,8 @@ public class ProductSearch {
                         entityConditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
                     }
 
-                    //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
+                    //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix +
+                    // "RelevancyWeight", "relevancyWeight", null, null, null, null);
                     //needed when doingBothAndOr or will get an SQL error
                     if (doingBothAndOr) {
                         dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, Boolean.TRUE, null);
@@ -384,7 +416,7 @@ public class ProductSearch {
                     dynamicViewEntity.addAlias(null, "totalRelevancy", null, null, null, null, null, relevancyComplexAlias);
                 }
             }
-            if (keywordFixedOrSetAndList.size() > 0) {
+            if (!keywordFixedOrSetAndList.isEmpty()) {
                 for (Set<String> keywordFixedOrSet: keywordFixedOrSetAndList) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
@@ -413,13 +445,16 @@ public class ProductSearch {
             }
         }
 
+        /**
+         * Finish category and feature constraints.
+         */
         public void finishCategoryAndFeatureConstraints() {
-            if (includeCategoryIds.size() == 0 && excludeCategoryIds.size() == 0 && alwaysIncludeCategoryIds.size() == 0
-                    && includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0
-                    && includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0
-                    && includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0
-                    && includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0
-                    && includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
+            if (includeCategoryIds.isEmpty() && excludeCategoryIds.isEmpty() && alwaysIncludeCategoryIds.isEmpty()
+                    && includeCategoryIdOrSetAndList.isEmpty() && alwaysIncludeCategoryIdOrSetAndList.isEmpty()
+                    && includeFeatureIds.isEmpty() && excludeFeatureIds.isEmpty() && alwaysIncludeFeatureIds.isEmpty()
+                    && includeFeatureIdOrSetAndList.isEmpty() && alwaysIncludeFeatureIdOrSetAndList.isEmpty()
+                    && includeFeatureCategoryIds.isEmpty() && excludeFeatureCategoryIds.isEmpty() && alwaysIncludeFeatureCategoryIds.isEmpty()
+                    && includeFeatureGroupIds.isEmpty() && excludeFeatureGroupIds.isEmpty() && alwaysIncludeFeatureGroupIds.isEmpty()) {
                 return;
             }
 
@@ -434,7 +469,7 @@ public class ProductSearch {
 
             EntityCondition topCond = null;
 
-            if (includeCategoryIds.size() > 0) {
+            if (!includeCategoryIds.isEmpty()) {
                 for (String includeCategoryId: includeCategoryIds) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
@@ -452,7 +487,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.EQUALS, includeCategoryId));
                 }
             }
-            if (includeFeatureIds.size() > 0) {
+            if (!includeFeatureIds.isEmpty()) {
                 for (String includeFeatureId: includeFeatureIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -470,7 +505,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.EQUALS, includeFeatureId));
                 }
             }
-            if (includeFeatureCategoryIds.size() > 0) {
+            if (!includeFeatureCategoryIds.isEmpty()) {
                 for (String includeFeatureCategoryId: includeFeatureCategoryIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -494,7 +529,7 @@ public class ProductSearch {
                             includeFeatureCategoryId));
                 }
             }
-            if (includeFeatureGroupIds.size() > 0) {
+            if (!includeFeatureGroupIds.isEmpty()) {
                 for (String includeFeatureGroupId: includeFeatureGroupIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -525,7 +560,7 @@ public class ProductSearch {
                 }
             }
 
-            if (excludeCategoryIds.size() > 0) {
+            if (!excludeCategoryIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -535,7 +570,7 @@ public class ProductSearch {
                         EntityCondition.makeCondition(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
-            if (excludeFeatureIds.size() > 0) {
+            if (!excludeFeatureIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -545,7 +580,7 @@ public class ProductSearch {
                         EntityCondition.makeCondition(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
-            if (excludeFeatureCategoryIds.size() > 0) {
+            if (!excludeFeatureCategoryIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -555,7 +590,7 @@ public class ProductSearch {
                         EntityCondition.makeCondition(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
-            if (excludeFeatureGroupIds.size() > 0) {
+            if (!excludeFeatureGroupIds.isEmpty()) {
                 List<EntityCondition> idExcludeCondList = new LinkedList<>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
                         EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -569,7 +604,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
 
-            if (alwaysIncludeCategoryIds.size() > 0) {
+            if (!alwaysIncludeCategoryIds.isEmpty()) {
                 String categoryPrefix = "pcm" + this.index;
                 String entityAlias = "PCM" + this.index;
                 this.index++;
@@ -585,7 +620,7 @@ public class ProductSearch {
                 alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN, alwaysIncludeCategoryIds));
             }
-            if (alwaysIncludeFeatureIds.size() > 0) {
+            if (!alwaysIncludeFeatureIds.isEmpty()) {
                 String featurePrefix = "pfa" + this.index;
                 String entityAlias = "PFA" + this.index;
                 this.index++;
@@ -601,7 +636,7 @@ public class ProductSearch {
                 alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN, alwaysIncludeFeatureIds));
             }
-            if (alwaysIncludeFeatureCategoryIds.size() > 0) {
+            if (!alwaysIncludeFeatureCategoryIds.isEmpty()) {
                 for (String alwaysIncludeFeatureCategoryId: alwaysIncludeFeatureCategoryIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -611,7 +646,8 @@ public class ProductSearch {
 
                     this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
                     this.dynamicViewEntity.addMemberEntity(otherEntityAlias, "ProductFeature");
-                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ProductFeatureCategoryId", "productFeatureCategoryId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ProductFeatureCategoryId", "productFeatureCategoryId",
+                            null, null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
                     this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
@@ -624,7 +660,7 @@ public class ProductSearch {
                             alwaysIncludeFeatureCategoryId));
                 }
             }
-            if (alwaysIncludeFeatureGroupIds.size() > 0) {
+            if (!alwaysIncludeFeatureGroupIds.isEmpty()) {
                 for (String alwaysIncludeFeatureGroupId: alwaysIncludeFeatureGroupIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -634,7 +670,8 @@ public class ProductSearch {
 
                     this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
                     this.dynamicViewEntity.addMemberEntity(otherEntityAlias, "ProductFeatureGroupAppl");
-                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ProductFeatureGroupId", "productFeatureGroupId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ProductFeatureGroupId", "productFeatureGroupId", null,
+                            null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
                     this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "FromDate", "fromDate", null, null, null, null);
@@ -655,7 +692,7 @@ public class ProductSearch {
             }
 
             // handle includeFeatureIdOrSetAndList and alwaysIncludeFeatureIdOrSetAndList
-            if (includeFeatureIdOrSetAndList.size() > 0) {
+            if (!includeFeatureIdOrSetAndList.isEmpty()) {
                 for (Set<String> includeFeatureIdOrSet: includeFeatureIdOrSetAndList) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -673,7 +710,7 @@ public class ProductSearch {
                     incExcCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN, includeFeatureIdOrSet));
                 }
             }
-            if (alwaysIncludeFeatureIdOrSetAndList.size() > 0) {
+            if (!alwaysIncludeFeatureIdOrSetAndList.isEmpty()) {
                 for (Set<String> alwaysIncludeFeatureIdOrSet: alwaysIncludeFeatureIdOrSetAndList) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
@@ -684,14 +721,17 @@ public class ProductSearch {
                     this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
                     this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    alwIncCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    alwIncCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(featurePrefix + "ThruDate",
+                            EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(featurePrefix + "ThruDate",
+                            EntityOperator.GREATER_THAN, this.nowTimestamp)));
                     alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                    alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN, alwaysIncludeFeatureIdOrSet));
+                    alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN,
+                            alwaysIncludeFeatureIdOrSet));
                 }
             }
 
             // handle includeCategoryIdOrSetAndList and alwaysIncludeCategoryIdOrSetAndList
-            if (includeCategoryIdOrSetAndList.size() > 0) {
+            if (!includeCategoryIdOrSetAndList.isEmpty()) {
                 for (Set<String> includeCategoryIdOrSet: includeCategoryIdOrSetAndList) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
@@ -702,12 +742,15 @@ public class ProductSearch {
                     this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
                     this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    incExcCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(categoryPrefix + "ThruDate",
+                            EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(categoryPrefix
+                            + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                     incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                    incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN, includeCategoryIdOrSet));
+                    incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN,
+                            includeCategoryIdOrSet));
                 }
             }
-            if (alwaysIncludeCategoryIdOrSetAndList.size() > 0) {
+            if (!alwaysIncludeCategoryIdOrSetAndList.isEmpty()) {
                 for (Set<String> alwaysIncludeCategoryIdOrSet: alwaysIncludeCategoryIdOrSetAndList) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
@@ -718,16 +761,19 @@ public class ProductSearch {
                     this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
                     this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
                     this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    alwIncCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    alwIncCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(categoryPrefix + "ThruDate",
+                            EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(categoryPrefix
+                            + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                     alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                    alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN, alwaysIncludeCategoryIdOrSet));
+                    alwIncCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.IN,
+                            alwaysIncludeCategoryIdOrSet));
                 }
             }
 
-            if (incExcCondList.size() > 0) {
+            if (!incExcCondList.isEmpty()) {
                 incExcCond = EntityCondition.makeCondition(incExcCondList, EntityOperator.AND);
             }
-            if (alwIncCondList.size() > 0) {
+            if (!alwIncCondList.isEmpty()) {
                 alwIncCond = EntityCondition.makeCondition(alwIncCondList, EntityOperator.AND);
             }
 
@@ -742,7 +788,8 @@ public class ProductSearch {
             this.entityConditionList.add(topCond);
 
             if (Debug.infoOn()) {
-                Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), MODULE);
+                Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(),
+                        EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), MODULE);
             }
         }
 
@@ -867,7 +914,8 @@ public class ProductSearch {
                     this.totalResults = total;
                 }
 
-                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, MODULE);
+                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults="
+                        + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, MODULE);
 
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting results from the product search query", MODULE);
@@ -966,12 +1014,17 @@ public class ProductSearch {
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductCategoryId", EntityOperator.IN, productCategoryIds));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductCategoryId", EntityOperator.IN,
+                    productCategoryIds));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN,
+                    productSearchContext.nowTimestamp)));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN,
+                    productSearchContext.nowTimestamp));
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.prodCatalogId)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.prodCatalogId)));
         }
 
         /** pretty print for log messages and even UI stuff */
@@ -1050,7 +1103,6 @@ public class ProductSearch {
 
         /**
          * Gets product category id.
-         *
          * @return the product category id
          */
         public String getProductCategoryId() {
@@ -1058,7 +1110,6 @@ public class ProductSearch {
         }
         /**
          * Is include sub categories boolean.
-         *
          * @return the boolean
          */
         public boolean isIncludeSubCategories() {
@@ -1066,7 +1117,6 @@ public class ProductSearch {
         }
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1088,7 +1138,8 @@ public class ProductSearch {
             Set<String> productCategoryIdSet = new HashSet<>();
             if (includeSubCategories) {
                 // find all sub-categories recursively, make a Set of productCategoryId
-                ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, productSearchContext.getDelegator(), productSearchContext.nowTimestamp);
+                ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, productSearchContext.getDelegator(),
+                        productSearchContext.nowTimestamp);
             } else {
                 productCategoryIdSet.add(productCategoryId);
             }
@@ -1103,7 +1154,9 @@ public class ProductSearch {
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productCategoryId, "includeSubCategories", this.includeSubCategories ? "Y" : "N")));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productCategoryId, "includeSubCategories",
+                            this.includeSubCategories ? "Y" : "N")));
         }
 
         /** pretty print for log messages and even UI stuff */
@@ -1219,7 +1272,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature id.
-         *
          * @return the product feature id
          */
         public String getProductFeatureId() {
@@ -1228,7 +1280,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1256,7 +1307,8 @@ public class ProductSearch {
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productFeatureId)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productFeatureId)));
         }
 
         @Override
@@ -1343,7 +1395,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature category id.
-         *
          * @return the product feature category id
          */
         public String getProductFeatureCategoryId() {
@@ -1352,7 +1403,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1380,14 +1430,16 @@ public class ProductSearch {
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productFeatureCategoryId)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productFeatureCategoryId)));
         }
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeatureCategory = null;
             try {
-                productFeatureCategory = EntityQuery.use(delegator).from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureCategoryId).cache().queryOne();
+                productFeatureCategory = EntityQuery.use(delegator).from("ProductFeatureCategory").where("productFeatureCategoryId",
+                        productFeatureCategoryId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeatureCategory and Type information for constraint pretty print", MODULE);
             }
@@ -1448,16 +1500,14 @@ public class ProductSearch {
             }
             return true;
         }
-
-    /* (non-Javadoc)
-     * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher,
-     * boolean, java.util.Locale)
-     */
-    @Override
+        /* (non-Javadoc)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.
+         * LocalDispatcher, boolean, java.util.Locale)
+         */
+        @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
             return null;
         }
-
     }
 
     @SuppressWarnings("serial")
@@ -1469,7 +1519,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature group id.
-         *
          * @return the product feature group id
          */
         public String getProductFeatureGroupId() {
@@ -1478,7 +1527,6 @@ public class ProductSearch {
 
         /**
          * Gets exclude.
-         *
          * @return the exclude
          */
         public Boolean getExclude() {
@@ -1506,14 +1554,16 @@ public class ProductSearch {
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productFeatureGroupId)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.productFeatureGroupId)));
         }
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeatureGroup = null;
             try {
-                productFeatureGroup = EntityQuery.use(delegator).from("ProductFeatureGroup").where("productFeatureGroupId", productFeatureGroupId).cache().queryOne();
+                productFeatureGroup = EntityQuery.use(delegator).from("ProductFeatureGroup").where("productFeatureGroupId", productFeatureGroupId)
+                        .cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeatureGroup and Type information for constraint pretty print", MODULE);
             }
@@ -1575,7 +1625,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.
+         * LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -1622,7 +1673,8 @@ public class ProductSearch {
                 featureIdInfo.append(featureId);
             }
 
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", featureIdInfo.toString())));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", featureIdInfo.toString())));
         }
 
         @Override
@@ -1633,7 +1685,8 @@ public class ProductSearch {
                     if (infoOut.length() > 0) {
                         infoOut.append(", ");
                     }
-                    GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", featureId).cache().queryOne();
+                    GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", featureId)
+                            .cache().queryOne();
                     GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOne("ProductFeatureType", true);
                     if (productFeatureType == null) {
                         infoOut.append(UtilProperties.getMessage(RESOURCE, "ProductFeature", locale)).append(": ");
@@ -1696,7 +1749,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.
+         * LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -1716,7 +1770,6 @@ public class ProductSearch {
 
         /**
          * Gets keywords string.
-         *
          * @return the keywords string
          */
         public String getKeywordsString() {
@@ -1725,7 +1778,6 @@ public class ProductSearch {
 
         /**
          * Is any prefix boolean.
-         *
          * @return the boolean
          */
         public boolean isAnyPrefix() {
@@ -1734,7 +1786,6 @@ public class ProductSearch {
 
         /**
          * Is any suffix boolean.
-         *
          * @return the boolean
          */
         public boolean isAnySuffix() {
@@ -1743,7 +1794,6 @@ public class ProductSearch {
 
         /**
          * Is and boolean.
-         *
          * @return the boolean
          */
         public boolean isAnd() {
@@ -1762,6 +1812,11 @@ public class ProductSearch {
             }
         }
 
+        /**
+         * Make full keyword set set.
+         * @param delegator the delegator
+         * @return the set
+         */
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set<String> fullKeywordSet = new TreeSet<>();
@@ -1825,7 +1880,8 @@ public class ProductSearch {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(RESOURCE, "ProductKeywords", locale)).append(": \"");
             ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ProductKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "ProductKeywordAllWordsMatch", locale) : UtilProperties.getMessage(RESOURCE, "ProductKeywordAnyWordMatches", locale));
+            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "ProductKeywordAllWordsMatch", locale)
+                    : UtilProperties.getMessage(RESOURCE, "ProductKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -1885,8 +1941,8 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class LastUpdatedRangeConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "LastUpdatedRange";
-        protected Timestamp fromDate;
-        protected Timestamp thruDate;
+        private Timestamp fromDate;
+        private Timestamp thruDate;
 
         public LastUpdatedRangeConstraint(Timestamp fromDate, Timestamp thruDate) {
             this.fromDate = fromDate;
@@ -1944,7 +2000,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service
+         * .LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -1956,9 +2013,9 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class StoreGroupPriceConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "StoreGroupPrice";
-        protected String productStoreGroupId;
-        protected String productPriceTypeId;
-        protected String currencyUomId;
+        private String productStoreGroupId;
+        private String productPriceTypeId;
+        private String currencyUomId;
 
         public StoreGroupPriceConstraint(String productStoreGroupId, String productPriceTypeId, String currencyUomId) {
             this.productStoreGroupId = productStoreGroupId;
@@ -1984,8 +2041,11 @@ public class ProductSearch {
             context.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId", EntityOperator.EQUALS, productPriceTypeId));
             context.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId", EntityOperator.EQUALS, "PURCHASE"));
             context.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId", EntityOperator.EQUALS, currencyUomId));
-            context.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId", EntityOperator.EQUALS, productStoreGroupId));
-            context.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, context.nowTimestamp)));
+            context.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId", EntityOperator.EQUALS,
+                    productStoreGroupId));
+            context.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.GREATER_THAN, context.nowTimestamp)));
             context.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, context.nowTimestamp));
         }
 
@@ -2046,7 +2106,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2064,7 +2125,6 @@ public class ProductSearch {
 
         /**
          * Gets low price.
-         *
          * @return the low price
          */
         public BigDecimal getLowPrice() {
@@ -2073,7 +2133,6 @@ public class ProductSearch {
 
         /**
          * Gets high price.
-         *
          * @return the high price
          */
         public BigDecimal getHighPrice() {
@@ -2096,31 +2155,43 @@ public class ProductSearch {
             productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ProductPrice");
 
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPriceTypeId", "productPriceTypeId", null, null, null, null);
-            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId",
+                    null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "CurrencyUomId", "currencyUomId", null, null, null, null);
-            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null,
+                    null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "Price", "price", null, null, null, null);
 
             productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
 
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId", EntityOperator.EQUALS, "LIST_PRICE"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId", EntityOperator.EQUALS, "PURCHASE"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId", EntityOperator.EQUALS, currencyUomId));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId", EntityOperator.EQUALS, "_NA_"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPriceTypeId",
+                    EntityOperator.EQUALS, "LIST_PRICE"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductPricePurposeId",
+                    EntityOperator.EQUALS, "PURCHASE"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "CurrencyUomId",
+                    EntityOperator.EQUALS, currencyUomId));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductStoreGroupId",
+                    EntityOperator.EQUALS, "_NA_"));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate",
+                    EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate",
+                    EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
             if (this.lowPrice != null) {
-                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price", EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
+                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price",
+                        EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
             }
             if (this.highPrice != null) {
-                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price", EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
+                productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "Price",
+                        EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
-                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", "low [" + this.lowPrice + "] high [" + this.highPrice + "] currency [" + this.currencyUomId + "]")));
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", "low [" + this.lowPrice + "] high [" + this.highPrice
+                            + "] currency [" + this.currencyUomId + "]")));
         }
 
         @Override
@@ -2197,7 +2268,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.
+         * LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2213,7 +2285,6 @@ public class ProductSearch {
 
         /**
          * Gets supplier party id.
-         *
          * @return the supplier party id
          */
         public String getSupplierPartyId() {
@@ -2234,15 +2305,18 @@ public class ProductSearch {
             productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "SupplierProduct");
             productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "SupplierPartyId", "partyId", null, null, null, null);
             productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "SupplierPartyId", EntityOperator.EQUALS, supplierPartyId));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "SupplierPartyId",
+                    EntityOperator.EQUALS, supplierPartyId));
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.supplierPartyId)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", this.supplierPartyId)));
         }
 
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(RESOURCE, "ProductSupplier", locale)+": " + PartyHelper.getPartyName(delegator, supplierPartyId, false);
+            return UtilProperties.getMessage(RESOURCE, "ProductSupplier", locale) + ": " + PartyHelper.getPartyName(delegator,
+                    supplierPartyId, false);
         }
 
         @Override
@@ -2276,7 +2350,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.
+         * LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2298,7 +2373,8 @@ public class ProductSearch {
             productSearchContext.entityConditionList.add(EntityCondition.makeCondition("prodIsVariant", EntityOperator.NOT_EQUAL, "Y"));
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", "")));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", "")));
         }
 
         @Override
@@ -2329,7 +2405,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2347,10 +2424,16 @@ public class ProductSearch {
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
             productSearchContext.dynamicViewEntity.addAlias("PROD", "prodIntroductionDate", "introductionDate", null, null, null, null);
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("prodIntroductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("prodIntroductionDate", EntityOperator.LESS_THAN_EQUAL_TO, productSearchContext.nowTimestamp)));
-            productSearchContext.dynamicViewEntity.addAlias("PROD", "prodSalesDiscontinuationDate", "salesDiscontinuationDate", null, null, null, null);
-            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("prodSalesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("prodSalesDiscontinuationDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
-            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", "")));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("prodIntroductionDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("prodIntroductionDate",
+                    EntityOperator.LESS_THAN_EQUAL_TO, productSearchContext.nowTimestamp)));
+            productSearchContext.dynamicViewEntity.addAlias("PROD", "prodSalesDiscontinuationDate", "salesDiscontinuationDate",
+                    null, null, null, null);
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("prodSalesDiscontinuationDate",
+                    EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("prodSalesDiscontinuationDate",
+                    EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAIN_NAME, "infoString", "")));
         }
 
         @Override
@@ -2381,7 +2464,8 @@ public class ProductSearch {
         }
 
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
+         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(
+         * org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
         public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
@@ -2392,9 +2476,9 @@ public class ProductSearch {
     @SuppressWarnings("serial")
     public static class GoodIdentificationConstraint extends ProductSearchConstraint {
         public static final String CONSTRAIN_NAME = "GoodIdentification";
-        protected String goodIdentificationTypeId;
-        protected String goodIdentificationValue;
-        protected Boolean include;
+        private String goodIdentificationTypeId;
+        private String goodIdentificationValue;
+        private Boolean include;
 
         public GoodIdentificationConstraint(String goodIdentificationTypeId, String goodIdentificationValue, Boolean include) {
             this.goodIdentificationTypeId = goodIdentificationTypeId;
@@ -2405,7 +2489,7 @@ public class ProductSearch {
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
             if (UtilValidate.isNotEmpty(goodIdentificationTypeId)
-                || UtilValidate.isNotEmpty(goodIdentificationValue) || UtilValidate.isNotEmpty(include)) {
+                    || UtilValidate.isNotEmpty(goodIdentificationValue) || UtilValidate.isNotEmpty(include)) {
 
                 // make index based values and increment
                 String entityAlias = "GI" + productSearchContext.index;
@@ -2446,7 +2530,7 @@ public class ProductSearch {
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             if (UtilValidate.isEmpty(goodIdentificationTypeId)
-                && UtilValidate.isEmpty(goodIdentificationValue) && UtilValidate.isEmpty(include)) {
+                    && UtilValidate.isEmpty(goodIdentificationValue) && UtilValidate.isEmpty(include)) {
                 return null;
             }
 
@@ -2602,11 +2686,11 @@ public class ProductSearch {
         public void setSortOrder(ProductSearchContext productSearchContext) {
             if (productSearchContext.includedKeywordSearch) {
                 // we have to check this in order to be sure that there is a totalRelevancy to sort by...
-                if (productSearchContext.keywordFixedOrSetAndList.size() > 0 || productSearchContext.andKeywordFixedSet.size() > 0) {
+                if (!productSearchContext.keywordFixedOrSetAndList.isEmpty() || !productSearchContext.andKeywordFixedSet.isEmpty()) {
                     productSearchContext.orderByList.add("-totalRelevancy");
                     productSearchContext.fieldsToSelect.add("totalRelevancy");
                 }
-                if (productSearchContext.keywordFixedOrSetAndList.size() > 0) {
+                if (!productSearchContext.keywordFixedOrSetAndList.isEmpty()) {
                     productSearchContext.productIdGroupBy = true;
                 }
             }
@@ -2635,7 +2719,6 @@ public class ProductSearch {
 
         /**
          * Gets field name.
-         *
          * @return the field name
          */
         public String getFieldName() {
@@ -2702,7 +2785,6 @@ public class ProductSearch {
 
         /**
          * Gets product price type id.
-         *
          * @return the product price type id
          */
         public String getProductPriceTypeId() {
@@ -2779,9 +2861,9 @@ public class ProductSearch {
             if (priceTypeName == null) {
                 priceTypeName = UtilProperties.getMessage(RESOURCE, "ProductPrice", locale) + " (";
                 if (this.ascending) {
-                    priceTypeName += UtilProperties.getMessage(RESOURCE, "ProductLowToHigh", locale)+")";
+                    priceTypeName += UtilProperties.getMessage(RESOURCE, "ProductLowToHigh", locale) + ")";
                 } else {
-                    priceTypeName += UtilProperties.getMessage(RESOURCE, "ProductHighToLow", locale)+")";
+                    priceTypeName += UtilProperties.getMessage(RESOURCE, "ProductHighToLow", locale) + ")";
                 }
             }
 
@@ -2801,7 +2883,6 @@ public class ProductSearch {
 
         /**
          * Gets product feature type id.
-         *
          * @return the product feature type id
          */
         public String getProductFeatureTypeId() {

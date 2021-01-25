@@ -62,17 +62,17 @@ public class OrderListState implements Serializable {
     public static final String VIEW_INDEX_PARAM = "viewIndex";
 
     // state variables
-    protected int viewSize;
-    protected int viewIndex;
-    protected Map<String, String> orderStatusState;
-    protected Map<String, String> orderTypeState;
-    protected Map<String, String> orderFilterState;
-    protected int orderListSize;
+    private int viewSize;
+    private int viewIndex;
+    private Map<String, String> orderStatusState;
+    private Map<String, String> orderTypeState;
+    private Map<String, String> orderFilterState;
+    private int orderListSize;
 
     // parameter to ID maps
-    protected static final Map<String, String> parameterToOrderStatusId;
-    protected static final Map<String, String> parameterToOrderTypeId;
-    protected static final Map<String, String> parameterToFilterId;
+    protected static final Map<String, String> PARAM_TO_ORDER_STATUS_ID;
+    protected static final Map<String, String> PARAM_TO_ORDER_TYPE_ID;
+    protected static final Map<String, String> PARAM_TO_FILTER_ID;
     static {
         Map<String, String> map = new HashMap<>();
         map.put("viewcompleted", "ORDER_COMPLETED");
@@ -82,12 +82,12 @@ public class OrderListState implements Serializable {
         map.put("viewcreated", "ORDER_CREATED");
         map.put("viewprocessing", "ORDER_PROCESSING");
         map.put("viewhold", "ORDER_HOLD");
-        parameterToOrderStatusId = map;
+        PARAM_TO_ORDER_STATUS_ID = map;
 
         map = new HashMap<>();
         map.put("view_SALES_ORDER", "SALES_ORDER");
         map.put("view_PURCHASE_ORDER", "PURCHASE_ORDER");
-        parameterToOrderTypeId = map;
+        PARAM_TO_ORDER_TYPE_ID = map;
 
         map = new HashMap<>();
         map.put("filterInventoryProblems", "filterInventoryProblems");
@@ -95,7 +95,7 @@ public class OrderListState implements Serializable {
         map.put("filterPartiallyReceivedPOs", "filterPartiallyReceivedPOs");
         map.put("filterPOsOpenPastTheirETA", "filterPOsOpenPastTheirETA");
         map.put("filterPOsWithRejectedItems", "filterPOsWithRejectedItems");
-        parameterToFilterId = map;
+        PARAM_TO_FILTER_ID = map;
     }
 
     //=============   Initialization and Request methods   ===================//
@@ -159,12 +159,13 @@ public class OrderListState implements Serializable {
             viewSize = Integer.parseInt(viewSizeParam);
             viewIndex = Integer.parseInt(viewIndexParam);
         } catch (NumberFormatException e) {
-            Debug.logWarning("Values of " + VIEW_SIZE_PARAM + " ["+viewSizeParam+"] and " + VIEW_INDEX_PARAM + " ["+viewIndexParam+"] must both be Integers. Not paginating order list.", MODULE);
+            Debug.logWarning("Values of " + VIEW_SIZE_PARAM + " [" + viewSizeParam + "] and " + VIEW_INDEX_PARAM + " [" + viewIndexParam
+                    + "] must both be Integers. Not paginating order list.", MODULE);
         }
     }
 
     private void changeOrderListStates(HttpServletRequest request) {
-        for (String param : parameterToOrderStatusId.keySet()) {
+        for (String param : PARAM_TO_ORDER_STATUS_ID.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderStatusState.put(param, "Y");
@@ -172,7 +173,7 @@ public class OrderListState implements Serializable {
                 orderStatusState.put(param, "N");
             }
         }
-        for (String param : parameterToOrderTypeId.keySet()) {
+        for (String param : PARAM_TO_ORDER_TYPE_ID.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderTypeState.put(param, "Y");
@@ -180,7 +181,7 @@ public class OrderListState implements Serializable {
                 orderTypeState.put(param, "N");
             }
         }
-        for (String param : parameterToFilterId.keySet()) {
+        for (String param : PARAM_TO_FILTER_ID.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderFilterState.put(param, "Y");
@@ -190,22 +191,80 @@ public class OrderListState implements Serializable {
         }
         viewIndex = 0;
     }
-
-
     //==============   Get and Set methods   =================//
+    /**
+     * Gets order status state.
+     * @return the order status state
+     */
+    public Map<String, String> getOrderStatusState() {
+        return orderStatusState;
+    }
 
+    /**
+     * Gets order type state.
+     * @return the order type state
+     */
+    public Map<String, String> getOrderTypeState() {
+        return orderTypeState;
+    }
 
-    public Map<String, String> getOrderStatusState() { return orderStatusState; }
-    public Map<String, String> getOrderTypeState() { return orderTypeState; }
-    public Map<String, String> getorderFilterState() { return orderFilterState; }
+    /**
+     * Gets filter state.
+     * @return the filter state
+     */
+    public Map<String, String> getorderFilterState() {
+        return orderFilterState;
+    }
 
-    public void setStatus(String param, boolean b) { orderStatusState.put(param, (b ? "Y" : "N")); }
-    public void setType(String param, boolean b) { orderTypeState.put(param, (b ? "Y" : "N")); }
+    /**
+     * Sets status.
+     * @param param the param
+     * @param b     the b
+     */
+    public void setStatus(String param, boolean b) {
+        orderStatusState.put(param, (b ? "Y" : "N"));
+    }
 
-    public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
-    public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
-    public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
+    /**
+     * Sets type.
+     * @param param the param
+     * @param b     the b
+     */
+    public void setType(String param, boolean b) {
+        orderTypeState.put(param, (b ? "Y" : "N"));
+    }
 
+    /**
+     * Has status boolean.
+     * @param param the param
+     * @return the boolean
+     */
+    public boolean hasStatus(String param) {
+        return ("Y".equals(orderStatusState.get(param)));
+    }
+
+    /**
+     * Has type boolean.
+     * @param param the param
+     * @return the boolean
+     */
+    public boolean hasType(String param) {
+        return ("Y".equals(orderTypeState.get(param)));
+    }
+
+    /**
+     * Has filter boolean.
+     * @param param the param
+     * @return the boolean
+     */
+    public boolean hasFilter(String param) {
+        return ("Y".equals(orderFilterState.get(param)));
+    }
+
+    /**
+     * Has all status boolean.
+     * @return the boolean
+     */
     public boolean hasAllStatus() {
         for (String string : orderStatusState.values()) {
             if (!"Y".equals(string)) {
@@ -215,12 +274,45 @@ public class OrderListState implements Serializable {
         return true;
     }
 
-    public int getViewSize() { return viewSize; }
-    public int getViewIndex() { return viewIndex; }
-    public int getSize() { return orderListSize; }
+    /**
+     * Gets view size.
+     * @return the view size
+     */
+    public int getViewSize() {
+        return viewSize;
+    }
 
-    public boolean hasPrevious() { return (viewIndex > 0); }
-    public boolean hasNext() { return (viewIndex < getSize() / viewSize); }
+    /**
+     * Gets view index.
+     * @return the view index
+     */
+    public int getViewIndex() {
+        return viewIndex;
+    }
+
+    /**
+     * Gets size.
+     * @return the size
+     */
+    public int getSize() {
+        return orderListSize;
+    }
+
+    /**
+     * Has previous boolean.
+     * @return the boolean
+     */
+    public boolean hasPrevious() {
+        return (viewIndex > 0);
+    }
+
+    /**
+     * Has next boolean.
+     * @return the boolean
+     */
+    public boolean hasNext() {
+        return (viewIndex < getSize() / viewSize);
+    }
 
     /**
      * Get the OrderHeaders corresponding to the state.
@@ -244,22 +336,22 @@ public class OrderListState implements Serializable {
             if (!hasStatus(status)) {
                 continue;
             }
-            statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
+            statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, PARAM_TO_ORDER_STATUS_ID.get(status)));
         }
         List<EntityCondition> typeConditions = new LinkedList<>();
         for (String type : orderTypeState.keySet()) {
             if (!hasType(type)) {
                 continue;
             }
-            typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
+            typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, PARAM_TO_ORDER_TYPE_ID.get(type)));
         }
 
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions, EntityOperator.OR);
         EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
-        if (statusConditions.size() > 0) {
+        if (!statusConditions.isEmpty()) {
             allConditions.add(statusConditionsList);
         }
-        if (typeConditions.size() > 0) {
+        if (!typeConditions.isEmpty()) {
             allConditions.add(typeConditionsList);
         }
 

@@ -58,7 +58,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
-              result = obj.toString();
+                result = obj.toString();
             }
         }
         return result;
@@ -88,8 +88,8 @@ public class OfbizContentTransform implements TemplateTransformModel {
 
                     String requestUrl = buf.toString();
 
-                    // If the URL starts with http(s) then there is nothing for us to do here
-                    if (requestUrl.startsWith("http")) {
+                    // If the URL starts with http(s) or data then there is nothing for us to do here
+                    if (requestUrl.startsWith("http") || requestUrl.startsWith("data")) {
                         out.write(requestUrl);
                         return;
                     }
@@ -100,7 +100,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     if ((newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/')
-                    && (requestUrl.length()> 0 && requestUrl.charAt(0) != '/')) {
+                            && (!requestUrl.isEmpty() && requestUrl.charAt(0) != '/')) {
                         newURL.append('/');
                     }
 

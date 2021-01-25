@@ -32,8 +32,8 @@ import javax.net.ssl.X509KeyManager;
 public class AliasKeyManager implements X509KeyManager {
     private static final String MODULE = X509KeyManager.class.getName();
 
-    protected X509KeyManager keyManager = null;
-    protected String alias = null;
+    private X509KeyManager keyManager = null;
+    private String alias = null;
 
     protected AliasKeyManager() { }
 
@@ -67,7 +67,13 @@ public class AliasKeyManager implements X509KeyManager {
         return keyManager.chooseServerAlias(keyType, issuers, socket);
     }
 
-    // these just pass through the keyManager
+    /**
+     * Choose server alias string.
+     * @param keyType the key type
+     * @param socket the socket
+     * @param issuers the issuers
+     * @return the string
+     */
     public String chooseServerAlias(String keyType, Socket socket, Principal... issuers) {
         return keyManager.chooseServerAlias(keyType, issuers, socket);
     }
@@ -90,7 +96,8 @@ public class AliasKeyManager implements X509KeyManager {
     public PrivateKey getPrivateKey(String alias) {
         PrivateKey pk = keyManager.getPrivateKey(alias);
         if (Debug.verboseOn()) {
-            Debug.logVerbose("getPrivateKey for alias [" + alias + "] got " + (pk == null ? "[Not Found!]" : "[alg:" + pk.getAlgorithm() + ";format:" + pk.getFormat() + "]"), MODULE);
+            Debug.logVerbose("getPrivateKey for alias [" + alias + "] got " + (pk == null ? "[Not Found!]" : "[alg:" + pk.getAlgorithm()
+                    + ";format:" + pk.getFormat() + "]"), MODULE);
         }
         return pk;
     }

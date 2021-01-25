@@ -268,8 +268,9 @@ public class ModelReader implements Serializable {
                     for (Element extendEntityElement : tempExtendEntityElementList) {
                         String entityName = UtilXml.checkEmpty(extendEntityElement.getAttribute("entity-name"));
                         ModelEntity modelEntity = entityCache.get(entityName);
-                        if (modelEntity == null)
+                        if (modelEntity == null) {
                             throw new GenericEntityConfException("Entity to extend does not exist: " + entityName);
+                        }
                         modelEntity.addExtendEntity(this, extendEntityElement);
                     }
 
@@ -321,7 +322,8 @@ public class ModelReader implements Serializable {
                                 }
                             }
                             for (String perViewMissingEntity : perViewMissingEntities) {
-                                sb.append("\t[").append(curViewEntity.getEntityName()).append("] missing member entity [").append(perViewMissingEntity).append("]\n");
+                                sb.append("\t[").append(curViewEntity.getEntityName()).append("] missing member entity [")
+                                        .append(perViewMissingEntity).append("]\n");
                             }
 
                         }
@@ -333,9 +335,8 @@ public class ModelReader implements Serializable {
                     for (String curEntityName : new TreeSet<>(this.getEntityNames())) {
                         ModelEntity curModelEntity = this.getModelEntity(curEntityName);
                         if (curModelEntity instanceof ModelViewEntity) {
-                            // for view-entities auto-create relationships for all member-entity
-                            // relationships that have all corresponding fields in the view-entity
-
+                            Debug.logVerbose("for view-entities auto-create relationships for all member-entity"
+                                    + "relationships that have all corresponding fields in the view-entity...", MODULE);
                         } else {
                             // for entities auto-create many relationships for all type one relationships
                             // just in case we add a new relation to the same entity, keep in a separate
@@ -353,7 +354,8 @@ public class ModelReader implements Serializable {
                                         relatedEnt = this.getModelEntity(modelRelation.getRelEntityName());
                                     } catch (GenericModelException e) {
                                         throw new GenericModelException(
-                                                "Error getting related entity [" + modelRelation.getRelEntityName() + "] definition from entity [" + curEntityName + "]", e);
+                                                "Error getting related entity [" + modelRelation.getRelEntityName()
+                                                        + "] definition from entity [" + curEntityName + "]", e);
                                     }
                                     // create the new relationship even if one exists so we can show what we are
                                     // looking for in the info message
@@ -393,7 +395,8 @@ public class ModelReader implements Serializable {
                                     } else {
                                         type = "many";
                                     }
-                                    ModelRelation newRel = ModelRelation.create(relatedEnt, description, type, title, relEntityName, fkName, keyMaps, isAutoRelation);
+                                    ModelRelation newRel = ModelRelation.create(relatedEnt, description, type, title, relEntityName,
+                                            fkName, keyMaps, isAutoRelation);
 
                                     ModelRelation existingRelation = relatedEnt.getRelation(title + curModelEntity.getEntityName());
                                     if (existingRelation == null) {
@@ -407,18 +410,22 @@ public class ModelReader implements Serializable {
                                         if (newRel.equals(existingRelation)) {
                                             // don't warn if the target title+entity = current title+entity
                                             if (Debug.infoOn()
-                                                    && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle() + modelRelation.getRelEntityName())) {
+                                                    && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle()
+                                                    + modelRelation.getRelEntityName())) {
                                                 // String errorMsg = "Relation already exists to entity[] with title ["
                                                 // + targetTitle + "], from entity[]";
                                                 String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName()
-                                                        + "] already has identical relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
-                                                        + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
+                                                        + "] already has identical relationship to entity [" + curModelEntity.getEntityName()
+                                                        + "] title [" + title
+                                                        + "]; would auto-create: type [" + newRel.getType() + "] and fields ["
+                                                        + newRel.keyMapString(",", "") + "]";
                                                 orderedMessages.add(message);
                                             }
                                         } else {
-                                            String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity ["
-                                                    + relatedEnt.getEntityName() + "] and relationship to entity [" + curModelEntity.getEntityName() + "] title [" + title
-                                                    + "]; would auto-create: type [" + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
+                                            String message = "Existing relationship with the same name, but different specs found from what would"
+                                                    + " be auto-created for Entity [" + relatedEnt.getEntityName() + "] and relationship to entity ["
+                                                    + curModelEntity.getEntityName() + "] title [" + title + "]; would auto-create: type ["
+                                                    + newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
                                             if (Debug.verboseOn()) {
                                                 Debug.logVerbose(message, MODULE);
                                             }
@@ -427,7 +434,7 @@ public class ModelReader implements Serializable {
                                 }
                             }
 
-                            if (newSameEntityRelations.size() > 0) {
+                            if (!newSameEntityRelations.isEmpty()) {
                                 for (ModelRelation newRel : newSameEntityRelations) {
                                     curModelEntity.addRelation(newRel);
                                 }
@@ -610,10 +617,10 @@ public class ModelReader implements Serializable {
             return null;
         }
         Set<String> allEntities = this.getEntityNames();
-        while (!allEntities.contains(entityName) && entityName.length() > 0) {
+        while (!allEntities.contains(entityName) && !entityName.isEmpty()) {
             entityName = entityName.substring(1);
         }
-        return (entityName.length() > 0 ? entityName : null);
+        return (!entityName.isEmpty() ? entityName : null);
     }
 
     ModelEntity createModelEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {

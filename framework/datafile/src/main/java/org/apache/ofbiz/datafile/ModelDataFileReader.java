@@ -146,7 +146,7 @@ public final class ModelDataFileReader {
         }
         docElement.normalize();
         List<? extends Element> dataFileElements = UtilXml.childElementList(docElement, "data-file");
-        if (dataFileElements.size() == 0) {
+        if (dataFileElements.isEmpty()) {
             Debug.logWarning("No <data-file> elements found in " + this.readerURL, MODULE);
             throw new DataFileException("No <data-file> elements found in " + this.readerURL);
         }

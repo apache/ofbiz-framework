@@ -104,7 +104,6 @@ public class ProductSearchSession {
 
         /**
          * Gets constraint list.
-         *
          * @return the constraint list
          */
         public List<ProductSearchConstraint> getConstraintList() {
@@ -126,7 +125,6 @@ public class ProductSearchSession {
 
         /**
          * Gets result sort order.
-         *
          * @return the result sort order
          */
         public ResultSortOrder getResultSortOrder() {
@@ -270,7 +268,6 @@ public class ProductSearchSession {
 
         /**
          * Gets top product category id.
-         *
          * @return the top product category id
          */
         public String getTopProductCategoryId() {
@@ -284,7 +281,6 @@ public class ProductSearchSession {
 
         /**
          * Sets top product category id.
-         *
          * @param topProductCategoryId the top product category id
          */
         public void setTopProductCategoryId(String topProductCategoryId) {
@@ -303,7 +299,6 @@ public class ProductSearchSession {
 
         /**
          * Search get constraint strings list.
-         *
          * @param detailed  the detailed
          * @param delegator the delegator
          * @param locale    the locale
@@ -331,7 +326,6 @@ public class ProductSearchSession {
 
         /**
          * Search get constraint strings list.
-         *
          * @param detailed   the detailed
          * @param dispatcher the dispatcher
          * @param locale     the locale
@@ -458,7 +452,7 @@ public class ProductSearchSession {
                 }
             }
 
-            if (keywords.size() > 0) {
+            if (!keywords.isEmpty()) {
                 List<GenericValue> productStoreKeywordOvrdList = null;
                 try {
                     productStoreKeywordOvrdList = EntityQuery.use(delegator).from("ProductStoreKeywordOvrd").where("productStoreId", productStoreId)
@@ -483,7 +477,7 @@ public class ProductSearchSession {
                             } else if ("KOTT_OFBURL".equals(targetTypeEnumId)) {
                                 target = rh.makeLink(request, response, target, false, false, false);
                             } else if ("KOTT_AURL".equals(targetTypeEnumId)) {
-                                // do nothing, is absolute URL
+                                Debug.logVerbose("Do nothing, is absolute URL", MODULE);
                             } else {
                                 Debug.logError("The targetTypeEnumId[] is not recognized, not doing keyword override", MODULE);
                                 // might as well see if there are any others...
@@ -644,7 +638,7 @@ public class ProductSearchSession {
         // if there is any category selected try to use catalog and add a constraint for it
         if (UtilValidate.isNotEmpty(parameters.get("SEARCH_CATALOG_ID"))) {
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
-            if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
+            if (searchCatalogId != null && !"".equalsIgnoreCase(searchCatalogId)) {
                 String topCategory = CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId);
                 if (UtilValidate.isEmpty(topCategory)) {
                     topCategory = CatalogWorker.getCatalogTopEbayCategoryId(request, searchCatalogId);
@@ -686,7 +680,8 @@ public class ProductSearchSession {
                 String searchOperator = (String) parameters.get("SEARCH_OPERATOR" + kwNum);
                 // defaults to true/Y, ie anything but N is true/Y
                 boolean anyPrefixSuffix = !"N".equals(parameters.get("SEARCH_ANYPRESUF" + kwNum));
-                searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
+                searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null,
+                        "AND".equals(searchOperator)), session);
                 constraintsChanged = true;
             }
         }
@@ -699,7 +694,8 @@ public class ProductSearchSession {
                     String paramNameExt = parameterName.substring("SEARCH_FEAT".length());
                     String searchCategoryExc = (String) parameters.get("SEARCH_FEAT_EXC" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : !"N".equals(searchCategoryExc);
-                    //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, MODULE);
+                    //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc="
+                    // + searchCategoryExc + ", exclude=" + exclude, MODULE);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -765,7 +761,7 @@ public class ProductSearchSession {
 
         // if features were selected add a constraint for each
         Map<String, String> featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(parameters);
-        if (featureIdByType.size() > 0) {
+        if (!featureIdByType.isEmpty()) {
             constraintsChanged = true;
             searchAddFeatureIdConstraints(featureIdByType.values(), null, request);
         }
@@ -789,14 +785,16 @@ public class ProductSearchSession {
                 try {
                     listPriceLow = new BigDecimal((String) parameters.get("LIST_PRICE_LOW"));
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: " + e.toString(), MODULE);
+                    Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: "
+                            + e.toString(), MODULE);
                 }
             }
             if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_HIGH"))) {
                 try {
                     listPriceHigh = new BigDecimal((String) parameters.get("LIST_PRICE_HIGH"));
                 } catch (NumberFormatException e) {
-                    Debug.logError("Error parsing LIST_PRICE_HIGH parameter [" + (String) parameters.get("LIST_PRICE_HIGH") + "]: " + e.toString(), MODULE);
+                    Debug.logError("Error parsing LIST_PRICE_HIGH parameter [" + (String) parameters.get("LIST_PRICE_HIGH") + "]: "
+                            + e.toString(), MODULE);
                 }
             }
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
@@ -852,7 +850,7 @@ public class ProductSearchSession {
         }
 
         if (UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"))
-            || UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
+                || UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
             String include = (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_INCL");
             if (UtilValidate.isEmpty(include)) {
                 include = "Y";

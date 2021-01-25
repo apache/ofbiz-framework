@@ -75,9 +75,11 @@ public final class ProductDisplayWorker {
             while (cartiter != null && cartiter.hasNext()) {
                 ShoppingCartItem item = cartiter.next();
                 // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
-                List<GenericValue> complementProducts = EntityQuery.use(delegator).from("ProductAssoc").where("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_COMPLEMENT").cache(true).filterByDate().queryList();
+                List<GenericValue> complementProducts = EntityQuery.use(delegator).from("ProductAssoc").where("productId", item.getProductId(),
+                        "productAssocTypeId", "PRODUCT_COMPLEMENT").cache(true).filterByDate().queryList();
 
-                List<GenericValue> productsCategories = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", item.getProductId()).cache(true).filterByDate().queryList();
+                List<GenericValue> productsCategories = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId",
+                        item.getProductId()).cache(true).filterByDate().queryList();
                 if (productsCategories != null) {
                     for (GenericValue productsCategoryMember : productsCategories) {
                         GenericValue productsCategory = productsCategoryMember.getRelatedOne("ProductCategory", true);
@@ -132,7 +134,7 @@ public final class ProductDisplayWorker {
 
             // randomly remove products while there are more than 3
             while (cartAssocs.size() > 3) {
-                int toRemove = (int) (Math.random() *  cartAssocs.size());
+                int toRemove = (int) (Math.random() * cartAssocs.size());
                 cartAssocs.remove(toRemove);
             }
         } catch (GenericEntityException e) {
@@ -160,7 +162,8 @@ public final class ProductDisplayWorker {
 
         try {
             Map<String, GenericValue> products = UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCTS_"));
-            Map<String, BigDecimal> productQuantities = UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_QUANTITIES_"));
+            Map<String, BigDecimal> productQuantities =
+                    UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_QUANTITIES_"));
             Map<String, Integer> productOccurances = UtilGenerics.cast(httpRequest.getSession().getAttribute("_QUICK_REORDER_PRODUCT_OCCURANCES_"));
 
             if (products == null || productQuantities == null || productOccurances == null) {
@@ -170,7 +173,8 @@ public final class ProductDisplayWorker {
                 productOccurances = new HashMap<>();
 
                 // get all order role entities for user by customer role type : PLACING_CUSTOMER
-                List<GenericValue> orderRoles = EntityQuery.use(delegator).from("OrderRole").where("partyId", userLogin.get("partyId"), "roleTypeId", "PLACING_CUSTOMER").queryList();
+                List<GenericValue> orderRoles = EntityQuery.use(delegator).from("OrderRole").where("partyId", userLogin.get("partyId"),
+                        "roleTypeId", "PLACING_CUSTOMER").queryList();
                 Iterator<GenericValue> ordersIter = UtilMisc.toIterator(orderRoles);
 
                 while (ordersIter != null && ordersIter.hasNext()) {
@@ -300,7 +304,7 @@ public final class ProductDisplayWorker {
         if (values == null) {
             return null;
         }
-        if (values.size() == 0) {
+        if (values.isEmpty()) {
             return values;
         }
 

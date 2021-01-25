@@ -23,27 +23,43 @@ import java.io.File;
 public class LabelFile {
     private static final String MODULE = LabelFile.class.getName();
 
-    protected final boolean fileLoaded = false;
-    protected final File file;
-    protected final String componentName;
+    private final boolean fileLoaded = false;
+    private final File file;
+    private final String componentName;
 
     protected LabelFile(File file, String componentName) {
         this.file = file;
         this.componentName = componentName;
     }
 
+    /**
+     * Gets file.
+     * @return the file
+     */
     public File getFile() {
         return this.file;
     }
 
+    /**
+     * Gets file name.
+     * @return the file name
+     */
     public String getFileName() {
         return this.file.getName();
     }
 
+    /**
+     * Gets file path.
+     * @return the file path
+     */
     public String getFilePath() {
         return this.file.getPath();
     }
 
+    /**
+     * Gets component name.
+     * @return the component name
+     */
     public String getComponentName() {
         return componentName;
     }

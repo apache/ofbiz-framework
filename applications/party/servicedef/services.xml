@@ -73,7 +73,7 @@ under the License.
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <!-- First and Last names are here optional. This allows to implement simple create user login screen where user is able create account 
+        <!-- First and Last names are here optional. This allows to implement simple create user login screen where user is able create account
             in system with username and password and then later populate rest of the account information. -->
 <!--        <override name="firstName" optional="false"/>
         <override name="lastName" optional="false"/>
@@ -124,7 +124,7 @@ under the License.
         <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
         <attribute name="phoneContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddressContext" type="Map" mode="IN" optional="true"/>
         <attribute name="emailContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createPersonRoleAndContactMechs" engine="simple"
@@ -1271,7 +1271,7 @@ under the License.
         </description>
         <implements service="permissionInterface"/>
     </service>
-    <service name="basePermissionCheck" engine="groovy" 
+    <service name="basePermissionCheck" engine="groovy"
             location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
         <description>
             Performs a basic security check. The user must have the base PARTYMGR  permission.

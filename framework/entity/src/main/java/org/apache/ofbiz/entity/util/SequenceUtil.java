@@ -73,7 +73,6 @@ public class SequenceUtil {
 
     /**
      * Gets next seq id.
-     *
      * @param seqName        the seq name
      * @param staggerMax     the stagger max
      * @param seqModelEntity the seq model entity
@@ -86,7 +85,6 @@ public class SequenceUtil {
 
     /**
      * Force bank refresh.
-     *
      * @param seqName    the seq name
      * @param staggerMax the stagger max
      */

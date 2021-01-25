@@ -57,8 +57,8 @@ public final class ServiceSemaphore {
 
     public ServiceSemaphore(Delegator delegator, ModelService model) {
         this.delegator = delegator;
-        this.mode = "wait".equals(model.semaphore) ? SEMAPHORE_MODE_WAIT
-                : ("fail".equals(model.semaphore) ? SEMAPHORE_MODE_FAIL : SEMAPHORE_MODE_NONE);
+        this.mode = "wait".equals(model.getSemaphore()) ? SEMAPHORE_MODE_WAIT
+                : ("fail".equals(model.getSemaphore()) ? SEMAPHORE_MODE_FAIL : SEMAPHORE_MODE_NONE);
         this.model = model;
         this.lock = null;
     }
@@ -101,11 +101,11 @@ public final class ServiceSemaphore {
     private void waitOrFail() throws SemaphoreWaitException, SemaphoreFailException {
         if (SEMAPHORE_MODE_FAIL == mode) {
             // fail
-            throw new SemaphoreFailException("Service [" + model.name + "] is locked");
+            throw new SemaphoreFailException("Service [" + model.getName() + "] is locked");
         } else if (SEMAPHORE_MODE_WAIT == mode) {
             // get the wait and sleep values
-            long maxWaitCount = ((model.semaphoreWait * 1000) / model.semaphoreSleep);
-            long sleep = model.semaphoreSleep;
+            long maxWaitCount = ((model.getSemaphoreWait() * 1000) / model.getSemaphoreSleep());
+            long sleep = model.getSemaphoreSleep();
 
             boolean timedOut = true;
             while (wait < maxWaitCount) {
@@ -124,7 +124,7 @@ public final class ServiceSemaphore {
             }
             if (timedOut) {
                 double waitTimeSec = ((System.currentTimeMillis() - lockTime.getTime()) / 1000.0);
-                String errMsg = "Service [" + model.name + "] with wait semaphore exceeded wait timeout, waited ["
+                String errMsg = "Service [" + model.getName() + "] with wait semaphore exceeded wait timeout, waited ["
                         + waitTimeSec + "], wait started at " + lockTime;
                 throw new SemaphoreWaitException(errMsg);
             }
@@ -147,9 +147,9 @@ public final class ServiceSemaphore {
 
         try {
             if (EntityQuery.use(delegator).from("ServiceSemaphore")
-                    .where("serviceName", model.name).queryCount() == 0) {
-                semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.name,
-                        "lockedByInstanceId", JobManager.instanceId, "lockThread", threadName, "lockTime", lockTime);
+                    .where("serviceName", model.getName()).queryCount() == 0) {
+                semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.getName(),
+                        "lockedByInstanceId", JobManager.INSTANCE_ID, "lockThread", threadName, "lockTime", lockTime);
 
                 // use the special method below so we can reuse the unique tx functions
                 // if semaphore successfully owned no need to wait anymore.
@@ -196,7 +196,7 @@ public final class ServiceSemaphore {
                 } else {
                     // Last check before inserting data in this transaction to avoid error log
                     isError = EntityQuery.use(delegator).from("ServiceSemaphore")
-                            .where("serviceName", model.name).queryCount() != 0;
+                            .where("serviceName", model.getName()).queryCount() != 0;
                     if (!isError) {
                         lock = value.create();
                     }

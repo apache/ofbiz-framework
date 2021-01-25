@@ -59,13 +59,16 @@ public final class BillingAccountWorker {
 
     protected BillingAccountWorker() { }
 
-    public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
+    public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId,
+             Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
         List<Map<String, Object>> billingAccountList = new LinkedList<>();
 
-        Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
-                "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT", "includeFromToSwitched", "Y"));
+        Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin,
+                "partyIdFrom", partyId, "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT",
+                "includeFromToSwitched", "Y"));
         if (ServiceUtil.isError(agentResult)) {
-            throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: " + ServiceUtil.getErrorMessage(agentResult));
+            throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: "
+                    + ServiceUtil.getErrorMessage(agentResult));
         }
         List<String> relatedPartyIdList = UtilGenerics.cast(agentResult.get("relatedPartyIdList"));
 
@@ -73,7 +76,7 @@ public final class BillingAccountWorker {
                 .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
                         EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")).filterByDate().queryList();
 
-        if (billingAccountRoleList.size() > 0) {
+        if (!billingAccountRoleList.isEmpty()) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
             for (GenericValue billingAccountRole : billingAccountRoleList) {
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount", false);
@@ -113,7 +116,8 @@ public final class BillingAccountWorker {
     }
 
     /**
-     * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus the balance of outstanding orders
+     * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus
+     * the balance of outstanding orders
      * When trying to figure out how much of a billing account can be used to pay for an outstanding order, use this method
      * @param billingAccount GenericValue object of the billing account
      * @return returns the amount which could be charged to a billing account
@@ -122,7 +126,8 @@ public final class BillingAccountWorker {
     public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
         if ((billingAccount != null) && (billingAccount.get("accountLimit") != null)) {
             BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
-            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(DECIMALS, ROUNDING);
+            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount))
+                    .setScale(DECIMALS, ROUNDING);
             return availableBalance;
         }
         Debug.logWarning("Available balance requested for null billing account, returning zero", MODULE);
@@ -135,7 +140,8 @@ public final class BillingAccountWorker {
     }
 
     /**
-     * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts applied from payments.
+     * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts
+     * applied from payments.
      * When charging or capturing an invoice to a billing account, use this method
      * @param delegator the delegator
      * @param billingAccountId the billing account id
@@ -146,7 +152,8 @@ public final class BillingAccountWorker {
         BigDecimal balance = ZERO;
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
-        List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId", billingAccountId).queryList();
+        List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId",
+                billingAccountId).queryList();
         for (GenericValue paymentAppl : paymentAppls) {
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
             GenericValue invoice = paymentAppl.getRelatedOne("Invoice", false);

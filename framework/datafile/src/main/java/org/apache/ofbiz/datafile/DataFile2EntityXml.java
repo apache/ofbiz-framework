@@ -67,7 +67,7 @@ public class DataFile2EntityXml {
                     }
                     if (value instanceof String) {
                         value = ((String) value).trim();
-                        if (((String) value).length() == 0) {
+                        if (((String) value).isEmpty()) {
                             value = modelField.getDefaultValue();
                         }
                     }

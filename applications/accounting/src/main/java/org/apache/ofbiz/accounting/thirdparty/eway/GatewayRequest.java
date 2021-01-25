@@ -148,183 +148,354 @@ public class GatewayRequest {
             return REQUEST_URL_RT;
         }
     }
-
-    /*
-     * Getters and setters follow for each defined field of the request.
+    /**
+     * Gets customer id.
+     * @return the customer id
      */
-
     public String getCustomerID() {
         return txCustomerID;
     }
 
+    /**
+     * Sets customer id.
+     * @param value the value
+     */
     public void setCustomerID(String value) {
         txCustomerID = value;
     }
 
+    /**
+     * Gets refund password.
+     * @return the refund password
+     */
     public String getRefundPassword() {
         return txRefundPassword;
     }
 
+    /**
+     * Sets refund password.
+     * @param value the value
+     */
     public void setRefundPassword(String value) {
         txRefundPassword = value;
     }
 
+    /**
+     * Gets total amount.
+     * @return the total amount
+     */
     public BigDecimal getTotalAmount() {
         return txTotalAmount;
     }
 
+    /**
+     * Sets total amount.
+     * @param value the value
+     */
     public void setTotalAmount(BigDecimal value) {
         txTotalAmount = value;
     }
 
+    /**
+     * Gets card holders name.
+     * @return the card holders name
+     */
     public String getCardHoldersName() {
         return txCardHoldersName;
     }
 
+    /**
+     * Sets card holders name.
+     * @param value the value
+     */
     public void setCardHoldersName(String value) {
         txCardHoldersName = value;
     }
 
+    /**
+     * Gets card number.
+     * @return the card number
+     */
     public String getCardNumber() {
         return txCardNumber;
     }
 
+    /**
+     * Sets card number.
+     * @param value the value
+     */
     public void setCardNumber(String value) {
         txCardNumber = value;
     }
 
+    /**
+     * Gets card expiry month.
+     * @return the card expiry month
+     */
     public String getCardExpiryMonth() {
         return txCardExpiryMonth;
     }
 
+    /**
+     * Sets card expiry month.
+     * @param value the value
+     */
     public void setCardExpiryMonth(String value) {
         txCardExpiryMonth = value;
     }
 
+    /**
+     * Gets card expiry year.
+     * @return the card expiry year
+     */
     public String getCardExpiryYear() {
         return txCardExpiryYear;
     }
 
+    /**
+     * Sets card expiry year.
+     * @param value the value
+     */
     public void setCardExpiryYear(String value) {
         txCardExpiryYear = value;
     }
 
+    /**
+     * Gets trxn number.
+     * @return the trxn number
+     */
     public String getTrxnNumber() {
         return txTrxnNumber;
     }
 
+    /**
+     * Sets trxn number.
+     * @param value the value
+     */
     public void setTrxnNumber(String value) {
         txTrxnNumber = value;
     }
 
+    /**
+     * Gets customer first name.
+     * @return the customer first name
+     */
     public String getCustomerFirstName() {
         return txCustomerFirstName;
     }
 
+    /**
+     * Sets customer first name.
+     * @param value the value
+     */
     public void setCustomerFirstName(String value) {
         txCustomerFirstName = value;
     }
 
+    /**
+     * Gets customer last name.
+     * @return the customer last name
+     */
     public String getCustomerLastName() {
         return txCustomerLastName;
     }
 
+    /**
+     * Sets customer last name.
+     * @param value the value
+     */
     public void setCustomerLastName(String value) {
         txCustomerLastName = value;
     }
 
+    /**
+     * Gets customer email address.
+     * @return the customer email address
+     */
     public String getCustomerEmailAddress() {
         return txCustomerEmailAddress;
     }
 
+    /**
+     * Sets customer email address.
+     * @param value the value
+     */
     public void setCustomerEmailAddress(String value) {
         txCustomerEmailAddress = value;
     }
 
+    /**
+     * Gets customer address.
+     * @return the customer address
+     */
     public String getCustomerAddress() {
         return txCustomerAddress;
     }
 
+    /**
+     * Sets customer address.
+     * @param value the value
+     */
     public void setCustomerAddress(String value) {
         txCustomerAddress = value;
     }
 
+    /**
+     * Gets customer postcode.
+     * @return the customer postcode
+     */
     public String getCustomerPostcode() {
         return txCustomerPostcode;
     }
 
+    /**
+     * Sets customer postcode.
+     * @param value the value
+     */
     public void setCustomerPostcode(String value) {
         txCustomerPostcode = value;
     }
 
+    /**
+     * Gets customer invoice ref.
+     * @return the customer invoice ref
+     */
     public String getCustomerInvoiceRef() {
         return txCustomerInvoiceRef;
     }
 
+    /**
+     * Sets customer invoice ref.
+     * @param value the value
+     */
     public void setCustomerInvoiceRef(String value) {
         txCustomerInvoiceRef = value;
     }
 
+    /**
+     * Gets customer invoice description.
+     * @return the customer invoice description
+     */
     public String getCustomerInvoiceDescription() {
         return txCustomerInvoiceDescription;
     }
 
+    /**
+     * Sets customer invoice description.
+     * @param value the value
+     */
     public void setCustomerInvoiceDescription(String value) {
         txCustomerInvoiceDescription = value;
     }
 
+    /**
+     * Gets cvn.
+     * @return the cvn
+     */
     public String getCVN() {
         return txCVN;
     }
 
+    /**
+     * Sets cvn.
+     * @param value the value
+     */
     public void setCVN(String value) {
         txCVN = value;
     }
 
+    /**
+     * Gets option 1.
+     * @return the option 1
+     */
     public String getOption1() {
         return txOption1;
     }
 
+    /**
+     * Sets option 1.
+     * @param value the value
+     */
     public void setOption1(String value) {
         txOption1 = value;
     }
 
+    /**
+     * Gets option 2.
+     * @return the option 2
+     */
     public String getOption2() {
         return txOption2;
     }
 
+    /**
+     * Sets option 2.
+     * @param value the value
+     */
     public void setOption2(String value) {
         txOption2 = value;
     }
 
+    /**
+     * Gets option 3.
+     * @return the option 3
+     */
     public String getOption3() {
         return txOption3;
     }
 
+    /**
+     * Sets option 3.
+     * @param value the value
+     */
     public void setOption3(String value) {
         txOption3 = value;
     }
 
+    /**
+     * Gets customer ip address.
+     * @return the customer ip address
+     */
     public String getCustomerIPAddress() {
         return txCustomerIPAddress;
     }
 
+    /**
+     * Sets customer ip address.
+     * @param value the value
+     */
     public void setCustomerIPAddress(String value) {
         txCustomerIPAddress = value;
     }
 
+    /**
+     * Gets customer billing country.
+     * @return the customer billing country
+     */
     public String getCustomerBillingCountry() {
         return txCustomerBillingCountry;
     }
 
+    /**
+     * Sets customer billing country.
+     * @param value the value
+     */
     public void setCustomerBillingCountry(String value) {
         txCustomerBillingCountry = value;
     }
 
+    /**
+     * Is test mode boolean.
+     * @return the boolean
+     */
     public boolean isTestMode() {
         return isTestMode;
     }
 
+    /**
+     * Sets test mode.
+     * @param b the b
+     */
     public void setTestMode(boolean b) {
         isTestMode = b;
     }

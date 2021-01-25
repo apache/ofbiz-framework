@@ -59,9 +59,9 @@ final class StartupControlPanel {
      */
     static void start(Config config, AtomicReference<ServerState> serverState, List<StartupCommand> ofbizCommands,
             ContainerLoader loader) throws StartupException {
-        createLogDirectoryIfMissing(config.logDir.toString());
+        createLogDirectoryIfMissing(config.getLogDir().toString());
 
-        if (config.useShutdownHook) {
+        if (config.isUseShutdownHook()) {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdownServer(loader, serverState)));
         } else {
             System.out.println("Shutdown hook disabled");
@@ -69,7 +69,7 @@ final class StartupControlPanel {
 
         loadContainers(config, loader, ofbizCommands, serverState);
 
-        if (config.shutdownAfterLoad) {
+        if (config.isShutdownAfterLoad()) {
             shutdownServer(loader, serverState);
             System.exit(0);
         } else {
@@ -118,8 +118,8 @@ final class StartupControlPanel {
     private static void loadGlobalOfbizSystemProperties(String globalOfbizPropertiesFileName) throws StartupException {
         String systemProperties = System.getProperty(globalOfbizPropertiesFileName);
         if (systemProperties != null) {
-            try (FileInputStream  stream = new FileInputStream(systemProperties)) {
-            System.getProperties().load(stream);
+            try (FileInputStream stream = new FileInputStream(systemProperties)) {
+                System.getProperties().load(stream);
             } catch (IOException e) {
                 throw new StartupException("Couldn't load global system props", e);
             }

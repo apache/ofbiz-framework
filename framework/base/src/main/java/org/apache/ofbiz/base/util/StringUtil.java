@@ -40,7 +40,7 @@ import org.apache.commons.codec.binary.Hex;
  * Misc String Utility Functions
  *
  */
-public class StringUtil {
+public final class StringUtil {
 
     public static final StringUtil INSTANCE = new StringUtil();
     private static final String MODULE = StringUtil.class.getName();
@@ -269,7 +269,8 @@ public class StringUtil {
         return newMap;
     }
 
-    /** Make sure the string starts with a forward slash but does not end with one; converts back-slashes to forward-slashes; if in String is null or empty, returns zero length string. */
+    /** Make sure the string starts with a forward slash but does not end with one; converts back-slashes to forward-slashes;
+     * if in String is null or empty, returns zero length string. */
     public static String cleanUpPathPrefix(String prefix) {
         if (UtilValidate.isEmpty(prefix)) {
             return "";
@@ -288,7 +289,7 @@ public class StringUtil {
 
     /** Removes all spaces from a string */
     public static String removeSpaces(String str) {
-        return removeRegex(str,"[\\ ]");
+        return removeRegex(str, "[\\ ]");
     }
 
     public static String toHexString(byte[] bytes) {
@@ -314,7 +315,7 @@ public class StringUtil {
         }
     }
 
-    private static char[] hexChar = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static char[] hexChar = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
     public static char[] encodeInt(int i, int j, char digestChars[]) {
         if (i < 16) {
             digestChars[j] = '0';
@@ -329,7 +330,7 @@ public class StringUtil {
 
     /** Removes all non-numbers from str */
     public static String removeNonNumeric(String str) {
-        return removeRegex(str,"[\\D]");
+        return removeRegex(str, "[\\D]");
     }
 
     /**
@@ -399,7 +400,7 @@ public class StringUtil {
         if (theString == null) {
             return null;
         }
-        if (theString.length() == 0) {
+        if (theString.isEmpty()) {
             return StringWrapper.EMPTY_STRING_WRAPPER;
         }
         return new StringWrapper(theString);

@@ -372,7 +372,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <set field="helpAnchor" value="_help_for_the_party_find_screen"/>
+                <set field="helpAnchor" value="_help_for_catalog_main_screen"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

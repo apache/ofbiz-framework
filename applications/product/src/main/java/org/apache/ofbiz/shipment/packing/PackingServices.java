@@ -57,10 +57,12 @@ public class PackingServices {
             quantity = BigDecimal.ONE;
         }
 
-        Debug.logInfo("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", MODULE);
+        Debug.logInfo("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ ["
+                + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight + "]", MODULE);
 
         if (weight == null) {
-            Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", MODULE);
+            Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId
+                    + "] being packed without a weight, assuming 0", MODULE);
             weight = BigDecimal.ZERO;
         }
 
@@ -130,7 +132,8 @@ public class PackingServices {
                 String qtyStr = qtyInfo.get(rowKey);
                 String wgtStr = wgtInfo.get(rowKey);
 
-                Debug.logInfo("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, MODULE);
+                Debug.logInfo("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: "
+                        + pkgStr + " / Weight: " + wgtStr, MODULE);
 
                 // array place holders
                 String[] quantities;
@@ -142,7 +145,7 @@ public class PackingServices {
                     // this is a multi-box update
                     packages = pkgStr.split(",");
                 } else {
-                    packages = new String[] { pkgStr };
+                    packages = new String[] {pkgStr };
                 }
 
                 // check to make sure there is at least one package
@@ -162,12 +165,12 @@ public class PackingServices {
                                 "ProductPackBulkPackagesAndQuantitiesDoNotMatch", locale));
                     }
                 } else {
-                    quantities = new String[] { qtyStr };
+                    quantities = new String[] {qtyStr };
                 }
 
                 // process the weight array
                 if (UtilValidate.isEmpty(wgtStr)) wgtStr = "0";
-                weights = new String[] { wgtStr };
+                weights = new String[] {wgtStr };
 
                 for (int p = 0; p < packages.length; p++) {
                     BigDecimal quantity;
@@ -194,7 +197,8 @@ public class PackingServices {
                             }
                         }
                         for (int numPackage = 0; numPackage < numPackages; numPackage++) {
-                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq + numPackage, weightSeq, updateQuantity);
+                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq
+                                    + numPackage, weightSeq, updateQuantity);
                         }
                     } catch (GeneralException e) {
                         Debug.logError(e, MODULE);
@@ -265,7 +269,8 @@ public class PackingServices {
         String productStoreId = (String) context.get("productStoreId");
 
         BigDecimal shippableWeight = setSessionPackageWeights(session, packageWeights);
-        BigDecimal estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
+        BigDecimal estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId,
+                carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
         session.setAdditionalShippingCharge(estimatedShipCost);
         session.setWeightUomId(weightUomId);
 

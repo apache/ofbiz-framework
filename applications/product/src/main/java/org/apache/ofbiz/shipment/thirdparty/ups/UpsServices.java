@@ -142,7 +142,8 @@ public class UpsServices {
             }
 
             // add ShipmentRouteSegment carrierServiceStatusId, check before all UPS services
-            if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("carrierServiceStatusId")) && !"SHRSCS_NOT_STARTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
+            if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("carrierServiceStatusId"))
+                    && !"SHRSCS_NOT_STARTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsRouteSegmentStatusNotStarted",
                         UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId, "shipmentRouteSegmentStatus",
                                 shipmentRouteSegment.getString("carrierServiceStatusId")), locale));
@@ -161,7 +162,8 @@ public class UpsServices {
             }
             String originPhoneNumber = originTelecomNumber.getString("areaCode") + originTelecomNumber.getString("contactNumber");
             // don't put on country code if not specified or is the US country code (UPS wants it this way)
-            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode")) && !"001".equals(originTelecomNumber.getString("countryCode"))) {
+            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode"))
+                    && !"001".equals(originTelecomNumber.getString("countryCode"))) {
                 originPhoneNumber = originTelecomNumber.getString("countryCode") + originPhoneNumber;
             }
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
@@ -191,7 +193,8 @@ public class UpsServices {
             if (destTelecomNumber != null) {
                 destPhoneNumber = destTelecomNumber.getString("areaCode") + destTelecomNumber.getString("contactNumber");
                 // don't put on country code if not specified or is the US country code (UPS wants it this way)
-                if (UtilValidate.isNotEmpty(destTelecomNumber.getString("countryCode")) && !"001".equals(destTelecomNumber.getString("countryCode"))) {
+                if (UtilValidate.isNotEmpty(destTelecomNumber.getString("countryCode"))
+                        && !"001".equals(destTelecomNumber.getString("countryCode"))) {
                     destPhoneNumber = destTelecomNumber.getString("countryCode") + destPhoneNumber;
                 }
                 destPhoneNumber = StringUtil.replaceString(destPhoneNumber, "-", "");
@@ -238,7 +241,7 @@ public class UpsServices {
                     odBuf.append(orderId);
                 }
                 ordersDescription = odBuf.toString();
-            } else if (orderIdSet.size() > 0) {
+            } else if (!orderIdSet.isEmpty()) {
                 ordersDescription = UtilProperties.getMessage(RES_ORDER, "OrderOrder", locale) + " " + orderIdSet.iterator().next();
             }
 
@@ -277,8 +280,8 @@ public class UpsServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsSurchargeAmountIsNotConfigurated",
                             locale));
                 }
-                codSurchargeCurrencyUomId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeCurrencyUomId", resource
-                        , "shipment.ups.cod.surcharge.currencyUomId", "");
+                codSurchargeCurrencyUomId = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "codSurchargeCurrencyUomId",
+                        resource, "shipment.ups.cod.surcharge.currencyUomId", "");
                 if (UtilValidate.isEmpty(codSurchargeCurrencyUomId)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsSurchargeCurrencyIsNotConfigurated",
                             locale));
@@ -308,10 +311,12 @@ public class UpsServices {
                 }
 
                 if (UtilValidate.isEmpty(destTelecomNumber)) {
-                    Debug.logInfo("Voice notification service will not be requested for COD shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " - missing destination phone number", MODULE);
+                    Debug.logInfo("Voice notification service will not be requested for COD shipmentId " + shipmentId + ", shipmentRouteSegmentId "
+                            + shipmentRouteSegmentId + " - missing destination phone number", MODULE);
                 }
                 if (UtilValidate.isEmpty(shipmentRouteSegment.get("homeDeliveryType"))) {
-                    Debug.logInfo("Voice notification service will not be requested for COD shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " - destination address is not residential", MODULE);
+                    Debug.logInfo("Voice notification service will not be requested for COD shipmentId " + shipmentId + ", shipmentRouteSegmentId "
+                            + shipmentRouteSegmentId + " - destination address is not residential", MODULE);
                 }
             }
 
@@ -530,7 +535,7 @@ public class UpsServices {
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"),
                         null, false);
                 GenericValue carrierShipmentBoxType = null;
-                if (carrierShipmentBoxTypes.size() > 0) {
+                if (!carrierShipmentBoxTypes.isEmpty()) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 
@@ -638,9 +643,9 @@ public class UpsServices {
                     UtilXml.addChildElementValue(codAmountElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
 
                     // Get the value of the package by going back to the orderItems
-                    Map<String, Object> getPackageValueResult = dispatcher.runSync("getShipmentPackageValueFromOrders", UtilMisc.toMap("shipmentId"
-                            , shipmentId, "shipmentPackageSeqId", shipmentPackage.get("shipmentPackageSeqId"), "currencyUomId", currencyCode, "userLogin",
-                            userLogin, "locale", locale));
+                    Map<String, Object> getPackageValueResult = dispatcher.runSync("getShipmentPackageValueFromOrders", UtilMisc.toMap("shipmentId",
+                            shipmentId, "shipmentPackageSeqId", shipmentPackage.get("shipmentPackageSeqId"), "currencyUomId", currencyCode,
+                            "userLogin", userLogin, "locale", locale));
                     if (ServiceUtil.isError(getPackageValueResult)) return getPackageValueResult;
                     BigDecimal packageValue = (BigDecimal) getPackageValueResult.get("packageValue");
 
@@ -654,7 +659,8 @@ public class UpsServices {
 
                     // Add the amount of the surcharge for the package, if the surcharge should be on all packages or the first and this is the
                     // first package
-                    if (codSurchargeApplyToAllPackages || codSurchargeSplitBetweenPackages || (codSurchargeApplyToFirstPackage && shipmentPackageRouteSegIter.previousIndex() <= 0)) {
+                    if (codSurchargeApplyToAllPackages || codSurchargeSplitBetweenPackages || (codSurchargeApplyToFirstPackage
+                            && shipmentPackageRouteSegIter.previousIndex() <= 0)) {
                         packageValue = packageValue.add(codSurchargePackageAmount);
                     }
 
@@ -848,7 +854,7 @@ public class UpsServices {
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUpsShipmentConfirmSucceeded", locale));
 
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentConfirmError", locale));
                 Iterator<Object> errorListIter = errorList.iterator();
@@ -1024,7 +1030,8 @@ public class UpsServices {
     public static Map<String, Object> handleUpsShipmentAcceptResponse(Document shipmentAcceptResponseDocument, GenericValue shipmentRouteSegment,
                                                                       List<GenericValue> shipmentPackageRouteSegs,
                                                                       Delegator delegator, String shipmentGatewayConfigId, String resource,
-                                                                      Map<String, ? extends Object> context, Locale locale) throws GenericEntityException {
+                                                                      Map<String, ? extends Object> context, Locale locale)
+            throws GenericEntityException {
         boolean shipmentUpsSaveCertificationInfo = "true".equals(getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "saveCertInfo",
                 resource, "shipment.ups.save.certification.info", "true"));
         String shipmentUpsSaveCertificationPath = FlexibleStringExpander.expandString(getShipmentGatewayConfigValue(delegator,
@@ -1191,7 +1198,8 @@ public class UpsServices {
                             fileOut.flush();
                         } catch (IOException e) {
                             Debug.logInfo(e,
-                                    "Could not save UPS LabelImage GIF file: [[[" + packageLabelGraphicImageString + "]]] to file: " + outFileName, MODULE);
+                                    "Could not save UPS LabelImage GIF file: [[[" + packageLabelGraphicImageString + "]]] to file: "
+                                            + outFileName, MODULE);
                         }
                     }
                     if (labelInternationalSignatureGraphicImageBytes != null) {
@@ -1201,20 +1209,20 @@ public class UpsServices {
                             fileOut.flush();
                         } catch (IOException e) {
                             Debug.logInfo(e,
-                                    "Could not save UPS IntlSign LabelImage GIF file: [[[" + packageLabelInternationalSignatureGraphicImageString + "]]] "
-                                            + "to file: " + outFileName, MODULE);
+                                    "Could not save UPS IntlSign LabelImage GIF file: [[["
+                                            + packageLabelInternationalSignatureGraphicImageString + "]]] " + "to file: " + outFileName, MODULE);
                         }
                     }
                     if (packageLabelHTMLImageStringDecoded != null) {
                         String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelHTMLImage" + shipmentRouteSegment.getString(
-                                "shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".html";
+                                "shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_"
+                                + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".html";
                         try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                             fileOut.write(packageLabelHTMLImageStringDecoded.getBytes(StandardCharsets.UTF_8));
                             fileOut.flush();
                         } catch (IOException e) {
-                            Debug.logInfo(e,
-                                    "Could not save UPS LabelImage HTML file: [[[" + packageLabelHTMLImageStringDecoded + "]]] to file: " + outFileName,
-                                    MODULE);
+                            Debug.logInfo(e, "Could not save UPS LabelImage HTML file: [[[" + packageLabelHTMLImageStringDecoded + "]]] to file: "
+                                            + outFileName, MODULE);
                         }
                     }
                 }
@@ -1241,7 +1249,8 @@ public class UpsServices {
                     shipmentRouteSegment.set("upsHighValueReport", fileStringDecoded);
                     shipmentRouteSegment.store();
                     String outFileName =
-                            shipmentUpsSaveCertificationPath + "/HighValueReport" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".html";
+                            shipmentUpsSaveCertificationPath + "/HighValueReport" + shipmentRouteSegment.getString("shipmentId")
+                                    + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".html";
                     try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                         fileOut.write(fileStringDecoded.getBytes(StandardCharsets.UTF_8));
                         fileOut.flush();
@@ -1255,7 +1264,7 @@ public class UpsServices {
             // -=-=-=- Okay, now done with that, just return any extra info...
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUpsShipmentAcceptSucceeded", locale));
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentUpsShipmentAcceptError", locale));
@@ -1449,7 +1458,7 @@ public class UpsServices {
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentVoidSucceeded",
                     UtilMisc.toMap("statusTypeCode", statusTypeCode, "statusTypeDescription", statusTypeDescription,
                             "statusCodeCode", statusCodeCode, "statusCodeDescription", statusCodeDescription), locale));
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentVoidError", locale));
                 Iterator<Object> errorListIter = errorList.iterator();
@@ -1618,7 +1627,7 @@ public class UpsServices {
     }
 
     public static Map<String, Object> handleUpsTrackShipmentResponse(Document trackResponseDocument, GenericValue shipmentRouteSegment,
-                                                                     List<GenericValue> shipmentPackageRouteSegs, Locale locale) throws GenericEntityException {
+                                         List<GenericValue> shipmentPackageRouteSegs, Locale locale) throws GenericEntityException {
         // process TrackResponse, update data as needed
         Element trackResponseElement = trackResponseDocument.getDocumentElement();
 
@@ -1668,7 +1677,7 @@ public class UpsServices {
             // -=-=-=- Okay, now done with that, just return any extra info...
             StringBuilder successString = new StringBuilder(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentTrackSucceeded",
                     locale));
-            if (errorList.size() > 0) {
+            if (!errorList.isEmpty()) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUpsShipmentTrackError", locale));
                 Iterator<Object> errorListIter = errorList.iterator();
@@ -1796,7 +1805,8 @@ public class UpsServices {
             String productId = i.next();
             Map<String, Object> productInfo = ShipmentWorker.getProductItemInfo(shippableItemInfo, productId);
             if (productInfo.get("inShippingBox") != null && "Y".equalsIgnoreCase((String) productInfo.get("inShippingBox"))
-                    && productInfo.get("shippingDepth") != null && productInfo.get("shippingWidth") != null && productInfo.get("shippingHeight") != null) {
+                    && productInfo.get("shippingDepth") != null && productInfo.get("shippingWidth") != null
+                    && productInfo.get("shippingHeight") != null) {
                 Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
                 UtilXml.addChildElementValue(dimensionsElement, "Length", productInfo.get("shippingDepth").toString(), requestDoc);
                 UtilXml.addChildElementValue(dimensionsElement, "Width", productInfo.get("shippingWidth").toString(), requestDoc);
@@ -2108,7 +2118,7 @@ public class UpsServices {
         Element shiptoElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
         Element shiptoAddrElement = UtilXml.addChildElement(shiptoElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shiptoAddrElement, "PostalCode", shippingPostalCode, rateRequestDoc);
-        if (shippingCountryCode != null && !shippingCountryCode.equals("")) {
+        if (shippingCountryCode != null && !"".equals(shippingCountryCode)) {
             UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", shippingCountryCode, rateRequestDoc);
         }
 
@@ -2405,7 +2415,8 @@ public class UpsServices {
             }
             String originPhoneNumber = originTelecomNumber.getString("areaCode") + originTelecomNumber.getString("contactNumber");
             // don't put on country code if not specified or is the US country code (UPS wants it this way)
-            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode")) && !"001".equals(originTelecomNumber.getString("countryCode"))) {
+            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode"))
+                    && !"001".equals(originTelecomNumber.getString("countryCode"))) {
                 originPhoneNumber = originTelecomNumber.getString("countryCode") + originPhoneNumber;
             }
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
@@ -2434,7 +2445,8 @@ public class UpsServices {
             if (destTelecomNumber != null) {
                 destPhoneNumber = destTelecomNumber.getString("areaCode") + destTelecomNumber.getString("contactNumber");
                 // don't put on country code if not specified or is the US country code (UPS wants it this way)
-                if (UtilValidate.isNotEmpty(destTelecomNumber.getString("countryCode")) && !"001".equals(destTelecomNumber.getString("countryCode"))) {
+                if (UtilValidate.isNotEmpty(destTelecomNumber.getString("countryCode"))
+                        && !"001".equals(destTelecomNumber.getString("countryCode"))) {
                     destPhoneNumber = destTelecomNumber.getString("countryCode") + destPhoneNumber;
                 }
                 destPhoneNumber = StringUtil.replaceString(destPhoneNumber, "-", "");
@@ -2469,8 +2481,8 @@ public class UpsServices {
                 recipientEmail = (String) destEmail.get("emailAddress");
             }
             String senderEmail = null;
-            Map<String, Object> originEmail = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdFrom"), "userLogin"
-                    , userLogin));
+            Map<String, Object> originEmail = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdFrom"),
+                    "userLogin", userLogin));
             if (ServiceUtil.isError(originEmail)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(originEmail));
             }
@@ -2823,7 +2835,8 @@ public class UpsServices {
             }
             String originPhoneNumber = originTelecomNumber.getString("areaCode") + originTelecomNumber.getString("contactNumber");
             // don't put on country code if not specified or is the US country code (UPS wants it this way)
-            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode")) && !"001".equals(originTelecomNumber.getString("countryCode"))) {
+            if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode"))
+                    && !"001".equals(originTelecomNumber.getString("countryCode"))) {
                 originPhoneNumber = originTelecomNumber.getString("countryCode") + originPhoneNumber;
             }
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
@@ -2853,7 +2866,8 @@ public class UpsServices {
             if (destTelecomNumber != null) {
                 destPhoneNumber = destTelecomNumber.getString("areaCode") + destTelecomNumber.getString("contactNumber");
                 // don't put on country code if not specified or is the US country code (UPS wants it this way)
-                if (UtilValidate.isNotEmpty(destTelecomNumber.getString("countryCode")) && !"001".equals(destTelecomNumber.getString("countryCode"))) {
+                if (UtilValidate.isNotEmpty(destTelecomNumber.getString("countryCode"))
+                        && !"001".equals(destTelecomNumber.getString("countryCode"))) {
                     destPhoneNumber = destTelecomNumber.getString("countryCode") + destPhoneNumber;
                 }
                 destPhoneNumber = StringUtil.replaceString(destPhoneNumber, "-", "");
@@ -2978,7 +2992,7 @@ public class UpsServices {
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"),
                         null, false);
                 GenericValue carrierShipmentBoxType = null;
-                if (carrierShipmentBoxTypes.size() > 0) {
+                if (!carrierShipmentBoxTypes.isEmpty()) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 
@@ -3107,7 +3121,8 @@ public class UpsServices {
                         Map<String, Object> thisUpsRateCodeMap = new HashMap<>();
                         carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
                                 .where("shipmentMethodTypeId", productStoreShipmentMethod.getString("shipmentMethodTypeId"), "partyId",
-                                        productStoreShipmentMethod.getString("partyId"), "roleTypeId", productStoreShipmentMethod.getString("roleTypeId"))
+                                        productStoreShipmentMethod.getString("partyId"), "roleTypeId",
+                                        productStoreShipmentMethod.getString("roleTypeId"))
                                 .queryOne();
                         String serviceCode = carrierShipmentMethod.getString("carrierServiceCode");
                         for (String thisServiceCode : upsRateCodeMap.keySet()) {

@@ -109,7 +109,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public Long convert(java.util.Date obj) throws ConversionException {
-             return obj.getTime();
+            return obj.getTime();
         }
     }
 
@@ -194,7 +194,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public java.math.BigDecimal convert(TimeDuration obj) throws ConversionException {
-             return new java.math.BigDecimal(TimeDuration.toLong(obj));
+            return new java.math.BigDecimal(TimeDuration.toLong(obj));
         }
     }
 
@@ -205,7 +205,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public Double convert(TimeDuration obj) throws ConversionException {
-             return (double) TimeDuration.toLong(obj);
+            return (double) TimeDuration.toLong(obj);
         }
     }
 
@@ -216,7 +216,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public Float convert(TimeDuration obj) throws ConversionException {
-             return (float) TimeDuration.toLong(obj);
+            return (float) TimeDuration.toLong(obj);
         }
     }
 
@@ -233,7 +233,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public Long convert(TimeDuration obj) throws ConversionException {
-             return TimeDuration.toLong(obj);
+            return TimeDuration.toLong(obj);
         }
     }
 
@@ -250,7 +250,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public String convert(TimeDuration obj) throws ConversionException {
-             return obj.toString();
+            return obj.toString();
         }
     }
 
@@ -303,7 +303,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public java.util.Date convert(Number obj) throws ConversionException {
-             return new java.util.Date(obj.longValue());
+            return new java.util.Date(obj.longValue());
         }
     }
 
@@ -314,7 +314,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public TimeDuration convert(Number obj) throws ConversionException {
-             return TimeDuration.fromNumber(obj);
+            return TimeDuration.fromNumber(obj);
         }
     }
 
@@ -350,7 +350,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public java.sql.Time convert(Number obj) throws ConversionException {
-             return new java.sql.Time(obj.longValue());
+            return new java.sql.Time(obj.longValue());
         }
     }
 
@@ -366,7 +366,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public java.sql.Timestamp convert(Number obj) throws ConversionException {
-             return new java.sql.Timestamp(obj.longValue());
+            return new java.sql.Timestamp(obj.longValue());
         }
     }
 
@@ -433,7 +433,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Time convert(java.sql.Date obj) throws ConversionException {
             throw new ConversionException("Conversion from Date to Time not supported");
-       }
+        }
     }
 
     public static class SqlDateToTimestamp extends AbstractConverter<java.sql.Date, java.sql.Timestamp> {
@@ -449,7 +449,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Timestamp convert(java.sql.Date obj) throws ConversionException {
             return new java.sql.Timestamp(obj.getTime());
-       }
+        }
     }
 
     public static class SqlTimeToList extends GenericSingletonToList<java.sql.Time> {
@@ -515,7 +515,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public Calendar convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -541,7 +541,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.util.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -603,7 +603,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -637,7 +637,7 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Time convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            if (trimStr.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
@@ -667,18 +667,18 @@ public class DateTimeConverters implements ConverterLoader {
         @Override
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String str = obj.trim();
-            if (str.length() == 0) {
+            if (str.isEmpty()) {
                 return null;
             }
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
                 // These hacks are a bad idea, but they are included
                 // for backward compatibility.
-                if (str.length() > 0 && !str.contains(":")) {
+                if (!str.isEmpty() && !str.contains(":")) {
                     str = str + " 00:00:00.00";
                 }
                 // hack to mimic Timestamp.valueOf() method
-                if (str.length() > 0 && !str.contains(".")) {
+                if (!str.isEmpty() && !str.contains(".")) {
                     str = str + ".0";
                 } else {
                     // DateFormat has a funny way of parsing milliseconds:

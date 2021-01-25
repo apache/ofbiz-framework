@@ -51,6 +51,12 @@ import freemarker.template.TemplateTransformModel;
 public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
     private static final String MODULE = OfbizCatalogUrlTransform.class.getName();
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -65,6 +71,13 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
         return null;
     }
 
+    /**
+     * Check arg boolean.
+     * @param args the args
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the boolean
+     */
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
@@ -117,7 +130,8 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         if (UtilValidate.isNotEmpty(productId)) {
                             url = CatalogUrlFilter.makeProductUrl(request, previousCategoryId, productCategoryId, productId);
                         } else {
-                            url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize,
+                                    viewIndex, viewSort, searchString);
                         }
                         // make the link
                         if (fullPath) {
@@ -132,18 +146,23 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         Locale locale = (Locale) args.get("locale");
                         if (UtilValidate.isNotEmpty(productId)) {
                             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
-                            ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
-                            url = CatalogUrlFilter.makeProductUrl(wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
+                            ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale,
+                                    EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
+                            url = CatalogUrlFilter.makeProductUrl(wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId,
+                                    productCategoryId, productId);
                         } else {
-                            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
-                            CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
-                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId",
+                                    productCategoryId).queryOne();
+                            CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties
+                                    .getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
+                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId,
+                                    productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
                         out.write(url);
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (TemplateModelException |GenericEntityException | WebAppConfigurationException e) {
+                } catch (TemplateModelException | GenericEntityException | WebAppConfigurationException e) {
                     throw new IOException(e.getMessage());
                 }
             }

@@ -494,7 +494,7 @@ public class EntityDataLoadContainer implements Container {
         return urlList;
     }
 
-    static private List<String> getLoadFiles(String fileProp) {
+    private static List<String> getLoadFiles(String fileProp) {
         List<String> fileList = new ArrayList<>();
         Optional.ofNullable(fileProp)
                 .ifPresent(props -> fileList.addAll(StringUtil.split(props, ",")));

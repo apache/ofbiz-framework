@@ -36,9 +36,9 @@ import org.xml.sax.SAXException;
 public class PcChargeApi {
 
     private static final String MODULE = PcChargeApi.class.getName();
-    public static final String xschema = "x-schema:..\\dtd\\stnd.xdr";
-    public static final String rootElement = "XML_FILE";
-    public static final String reqElement = "XML_REQUEST";
+    public static final String X_SCHEMA = "x-schema:..\\dtd\\stnd.xdr";
+    public static final String ROOT_ELEMENT = "XML_FILE";
+    public static final String REQ_ELEMENT = "XML_REQUEST";
 
     public static final String USER_ID = "USER_ID";
     public static final String USER_PW = "USER_PW";
@@ -77,43 +77,43 @@ public class PcChargeApi {
     public static final String CARD_ID_CODE = "CARD_ID_CODE";
     public static final String CVV2_CODE = "CVV2_CODE";
 
-    private static final String[] validOut = {RESULT, TRANS_DATE, AVS_CODE, CVV2_CODE, CARD_ID_CODE, TICKET };
-    private static final String[] validIn = {PROCESSOR_ID, MERCH_NUM, ACCT_NUM, EXP_DATE, TRANS_AMOUNT, TRACK_DATA,
+    private static final String[] VALID_OUT = {RESULT, TRANS_DATE, AVS_CODE, CVV2_CODE, CARD_ID_CODE, TICKET };
+    private static final String[] VALID_IN = {PROCESSOR_ID, MERCH_NUM, ACCT_NUM, EXP_DATE, TRANS_AMOUNT, TRACK_DATA,
             CUSTOMER_CODE, TAX_AMOUNT, PRINT_RECEIPTS_FLAG, PERIODIC_PAYMENT_FLAG, OFFLINE_FLAG, VOID_FLAG, ZIP_CODE,
             STREET, TICKET_NUM, CARDHOLDER, TRANS_STORE, TOTAL_AUTH, MULTI_FLAG, PRESENT_FLAG, CVV2 };
 
     protected static final int MODE_OUT = 20;
     protected static final int MODE_IN = 10;
 
-    protected Document document = null;
-    protected Element req = null;
-    protected String host = null;
-    protected int port = 0;
-    protected int mode = 0;
+    private Document document = null;
+    private Element req = null;
+    private String host = null;
+    private int port = 0;
+    private int mode = 0;
 
     public PcChargeApi(Document document) {
         this.document = document;
         Element rootElement = this.document.getDocumentElement();
-        if (reqElement.equals(rootElement.getNodeName())) {
+        if (REQ_ELEMENT.equals(rootElement.getNodeName())) {
             this.req = rootElement;
         } else {
-            this.req = UtilXml.firstChildElement(rootElement, reqElement);
+            this.req = UtilXml.firstChildElement(rootElement, REQ_ELEMENT);
         }
         this.mode = MODE_OUT;
     }
 
     public PcChargeApi(boolean isFile) {
         // initialize the document
-        String initialElement = rootElement;
+        String initialElement = ROOT_ELEMENT;
         if (!isFile) {
-            initialElement = reqElement;
+            initialElement = REQ_ELEMENT;
         }
 
         this.document = UtilXml.makeEmptyXmlDocument(initialElement);
         Element root = this.document.getDocumentElement();
         if (isFile) {
-            root.setAttribute("xmlns", xschema);
-            this.req = UtilXml.addChildElement(root, reqElement, document);
+            root.setAttribute("xmlns", X_SCHEMA);
+            this.req = UtilXml.addChildElement(root, REQ_ELEMENT, document);
         } else {
             this.req = root;
         }
@@ -130,6 +130,11 @@ public class PcChargeApi {
         this(true);
     }
 
+    /**
+     * Set.
+     * @param name the name
+     * @param value the value
+     */
     public void set(String name, Object value) {
         if (!checkIn(name)) {
             throw new IllegalArgumentException("Field [" + name + "] is not a valid IN parameter");
@@ -152,6 +157,11 @@ public class PcChargeApi {
         UtilXml.addChildElementValue(req, name, objString, document);
     }
 
+    /**
+     * Get string.
+     * @param name the name
+     * @return the string
+     */
     public String get(String name) {
         if (!checkOut(name)) {
             throw new IllegalArgumentException("Field [" + name + "] is not a valid OUT parameter");
@@ -170,10 +180,20 @@ public class PcChargeApi {
         }
     }
 
+    /**
+     * Gets document.
+     * @return the document
+     */
     public Document getDocument() {
         return this.document;
     }
 
+    /**
+     * Send pc charge api.
+     * @return the pc charge api
+     * @throws IOException the io exception
+     * @throws GeneralException the general exception
+     */
     public PcChargeApi send() throws IOException, GeneralException {
         if (host == null || port == 0) {
             throw new GeneralException("TCP transaction not supported without valid host/port configuration");
@@ -208,7 +228,7 @@ public class PcChargeApi {
     }
 
     private static boolean checkIn(String name) {
-        for (String element : validOut) {
+        for (String element : VALID_OUT) {
             if (name.equals(element)) {
                 return false;
             }
@@ -217,7 +237,7 @@ public class PcChargeApi {
     }
 
     private static boolean checkOut(String name) {
-        for (String element : validIn) {
+        for (String element : VALID_IN) {
             if (name.equals(element)) {
                 return false;
             }

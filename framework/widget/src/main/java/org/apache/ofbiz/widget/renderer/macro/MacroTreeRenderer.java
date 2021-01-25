@@ -325,7 +325,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
             } else {
                 urlString = src;
             }
-        } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+        } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
             if (request != null && response != null) {
                 StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(request, newURL);

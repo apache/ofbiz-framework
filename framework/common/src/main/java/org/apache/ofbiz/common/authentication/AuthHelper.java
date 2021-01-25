@@ -99,11 +99,11 @@ public final class AuthHelper {
 
     public static void loadAuthenticators(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
-            loadAuthenticators_internal(dispatcher);
+            loadAuthenticatorsInternal(dispatcher);
         }
     }
 
-    private synchronized static void loadAuthenticators_internal(LocalDispatcher dispatcher) {
+    private static synchronized void loadAuthenticatorsInternal(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
             Iterator<Authenticator> it = ServiceLoader.load(Authenticator.class, getContextClassLoader()).iterator();
             while (it.hasNext()) {

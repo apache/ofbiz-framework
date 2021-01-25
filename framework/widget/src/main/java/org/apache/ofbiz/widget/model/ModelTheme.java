@@ -236,50 +236,115 @@ public class ModelTheme implements Serializable {
         this.modelCommonMenusMap = Collections.unmodifiableMap(initModelCommonMenusMap);
     }
 
+    /**
+     * Gets name.
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets visual theme ids.
+     * @return the visual theme ids
+     */
     public List<String> getVisualThemeIds() {
         return new ArrayList<>(visualThemes.keySet());
     }
-    public VisualTheme getVisualTheme(String visualThemeId) { return visualThemes.get(visualThemeId); }
 
+    /**
+     * Gets visual theme.
+     * @param visualThemeId the visual theme id
+     * @return the visual theme
+     */
+    public VisualTheme getVisualTheme(String visualThemeId) {
+        return visualThemes.get(visualThemeId);
+    }
+
+    /**
+     * Gets default view size.
+     * @return the default view size
+     */
     public Integer getDefaultViewSize() {
         return defaultViewSize;
     }
 
+    /**
+     * Gets autocompleter default view size.
+     * @return the autocompleter default view size
+     */
     public Integer getAutocompleterDefaultViewSize() {
         return autocompleterDefaultViewSize;
     }
+
+    /**
+     * Gets autocompleter default min length.
+     * @return the autocompleter default min length
+     */
     public Integer getAutocompleterDefaultMinLength() {
         return autocompleterDefaultMinLength;
     }
+
+    /**
+     * Gets autocompleter display return field.
+     * @return the autocompleter display return field
+     */
     public Boolean getAutocompleterDisplayReturnField() {
         return autocompleterDisplayReturnField;
     }
+
+    /**
+     * Gets autocompleter default delay.
+     * @return the autocompleter default delay
+     */
     public Integer getAutocompleterDefaultDelay() {
         return autocompleterDefaultDelay;
     }
 
+    /**
+     * Gets link default layered modal height.
+     * @return the link default layered modal height
+     */
     public Integer getLinkDefaultLayeredModalHeight() {
         return linkDefaultLayeredModalHeight;
     }
+
+    /**
+     * Gets link default layered modal width.
+     * @return the link default layered modal width
+     */
     public Integer getLinkDefaultLayeredModalWidth() {
         return linkDefaultLayeredModalWidth;
     }
 
+    /**
+     * Gets lookup height.
+     * @return the lookup height
+     */
     public Integer getLookupHeight() {
         return lookupHeight;
     }
 
+    /**
+     * Gets lookup width.
+     * @return the lookup width
+     */
     public Integer getLookupWidth() {
         return lookupWidth;
     }
 
+    /**
+     * Gets lookup position.
+     * @return the lookup position
+     */
     public String getLookupPosition() {
         return lookupPosition;
     }
+
+    /**
+     * Gets lookup show description.
+     * @return the lookup show description
+     */
     public String getLookupShowDescription() {
         return lookupShowDescription;
     }
@@ -299,7 +364,8 @@ public class ModelTheme implements Serializable {
                 initWidgetPropertiesMap.put("autocompleterDefaultDelay", Integer.valueOf(childElement.getAttribute("default-delay")));
                 initWidgetPropertiesMap.put("autocompleterDefaultMinLength", Integer.valueOf(childElement.getAttribute("default-min-lenght")));
                 initWidgetPropertiesMap.put("autocompleterDefaultViewSize", Integer.valueOf(childElement.getAttribute("default-view-size")));
-                initWidgetPropertiesMap.put("autocompleterDisplayReturnField", "true".equalsIgnoreCase(childElement.getAttribute("display-return-field")));
+                initWidgetPropertiesMap.put("autocompleterDisplayReturnField", "true"
+                        .equalsIgnoreCase(childElement.getAttribute("display-return-field")));
                 break;
             case "lookup":
                 initWidgetPropertiesMap.put("lookupPosition", childElement.getAttribute("position"));
@@ -335,6 +401,12 @@ public class ModelTheme implements Serializable {
             }
         }
     }
+
+    /**
+     * Gets property.
+     * @param propertyName the property name
+     * @return the property
+     */
     public Object getProperty(String propertyName) {
         if (!themePropertiesMap.containsKey(propertyName)
                 || themePropertiesMap.get(propertyName) == null) {
@@ -351,6 +423,11 @@ public class ModelTheme implements Serializable {
         return themePropertiesMap;
     }
 
+    /**
+     * Gets type.
+     * @param name the name
+     * @return the type
+     */
     public String getType(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -358,6 +435,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets encoder.
+     * @param name the name
+     * @return the encoder
+     */
     public String getEncoder(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -365,6 +448,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets compress.
+     * @param name the name
+     * @return the compress
+     */
     public String getCompress(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -372,6 +461,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets content type.
+     * @param name the name
+     * @return the content type
+     */
     public String getContentType(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -379,6 +474,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets encoding.
+     * @param name the name
+     * @return the encoding
+     */
     public String getEncoding(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -387,6 +488,11 @@ public class ModelTheme implements Serializable {
         return null;
     }
 
+    /**
+     * Gets screen renderer location.
+     * @param name the name
+     * @return the screen renderer location
+     */
     public String getScreenRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -394,6 +500,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets form renderer location.
+     * @param name the name
+     * @return the form renderer location
+     */
     public String getFormRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -401,6 +513,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets tree renderer location.
+     * @param name the name
+     * @return the tree renderer location
+     */
     public String getTreeRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -408,6 +526,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets menu renderer location.
+     * @param name the name
+     * @return the menu renderer location
+     */
     public String getMenuRendererLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -415,6 +539,12 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets error template location.
+     * @param name the name
+     * @return the error template location
+     */
     public String getErrorTemplateLocation(String name) {
         ModelTemplate modelTemplate = modelTemplateMap.get(name);
         if (modelTemplate != null) {
@@ -423,12 +553,26 @@ public class ModelTheme implements Serializable {
         return null;
     }
 
+    /**
+     * Gets model common screens.
+     * @return the model common screens
+     */
     public Map<String, String> getModelCommonScreens() {
         return modelCommonScreensMap;
     }
+
+    /**
+     * Gets model common forms.
+     * @return the model common forms
+     */
     public Map<String, String> getModelCommonForms() {
         return modelCommonFormsMap;
     }
+
+    /**
+     * Gets model common menus.
+     * @return the model common menus
+     */
     public Map<String, String> getModelCommonMenus() {
         return modelCommonMenusMap;
     }

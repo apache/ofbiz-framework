@@ -36,7 +36,10 @@ import org.xml.sax.SAXException;
 
 /**
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
+ *
+ * @deprecated since 2021-01-14
  */
+@Deprecated
 public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
 
     private static final String MODULE = HtmlMenuWrapperImage.class.getName();
@@ -50,7 +53,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
 
     @Override
     public MenuStringRenderer getMenuRenderer() {
-        return new HtmlMenuRendererImage(request, response);
+        return new HtmlMenuRendererImage(getRequest(), getResponse());
     }
 
     @Override
@@ -61,7 +64,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
         Map<String, Object> dummyMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
-            for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
+            for (ModelMenuItem menuItem : getModelMenu().getMenuItemList()) {
                 String contentId = menuItem.getAssociatedContentId(dummyMap);
                 GenericValue webSitePublishPoint =
                         EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).cache().queryOne();

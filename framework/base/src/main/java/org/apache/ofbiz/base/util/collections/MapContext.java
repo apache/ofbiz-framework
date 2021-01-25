@@ -47,9 +47,15 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
-    private static final String MODULE = MapContext.class.getName();
+    private Deque<Map<K, V>> contexts = new LinkedList<>();
 
-    protected Deque<Map<K, V>> contexts = new LinkedList<>();
+    /**
+     * Gets contexts.
+     * @return the contexts
+     */
+    public Deque<Map<K, V>> getContexts() {
+        return contexts;
+    }
 
     /** Puts a new Map on the top of the stack */
     public void push() {
@@ -64,7 +70,8 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         contexts.addFirst(existingMap);
     }
 
-    /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack, ie everything else already there) */
+    /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack,
+     * ie everything else already there) */
     public void addToBottom(Map<K, V> existingMap) {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot add null existing Map to bottom of a MapContext");

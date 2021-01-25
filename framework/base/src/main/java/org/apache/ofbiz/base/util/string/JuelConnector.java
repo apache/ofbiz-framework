@@ -147,8 +147,8 @@ public class JuelConnector {
         @Override
         protected AstEval eval(boolean required, boolean deferred) throws ScanException, ParseException {
             AstEval v = null;
-            Symbol start_eval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
-            if (this.getToken().getSymbol() == start_eval) {
+            Symbol startEval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
+            if (this.getToken().getSymbol() == startEval) {
                 consumeToken();
                 AstNode node = expr(true);
                 try {
@@ -166,7 +166,7 @@ public class JuelConnector {
                 }
                 v = new AstEval(node, deferred);
             } else if (required) {
-                fail(start_eval);
+                fail(startEval);
             }
             return v;
         }

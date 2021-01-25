@@ -64,7 +64,8 @@ public final class KeyStoreUtil {
 
     private KeyStoreUtil() { }
 
-    public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
+    public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store)
+            throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
         File file = FileUtil.getFile(ks.createResourceHandler().getFullLocation());
         try (FileOutputStream out = new FileOutputStream(file)) {
@@ -72,7 +73,8 @@ public final class KeyStoreUtil {
         }
     }
 
-    public static KeyStore getComponentKeyStore(String componentName, String keyStoreName) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static KeyStore getComponentKeyStore(String componentName, String keyStoreName)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
         return getStore(ks.createResourceHandler().getURL(), ks.getPassword(), ks.getType());
     }
@@ -146,7 +148,8 @@ public final class KeyStoreUtil {
         return x500Map;
     }
 
-    public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain) throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
+    public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain)
+            throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         // load the private key
         KeyFactory kf = KeyFactory.getInstance("RSA");
         PKCS8EncodedKeySpec keysp = new PKCS8EncodedKeySpec(keyBytes);
@@ -204,6 +207,7 @@ public final class KeyStoreUtil {
 
         // ignore up to the header
         while ((line = reader.readLine()) != null && !line.equals(header)) {
+            Debug.logVerbose("Ignore up to the header...", MODULE);
         }
 
         // no header found

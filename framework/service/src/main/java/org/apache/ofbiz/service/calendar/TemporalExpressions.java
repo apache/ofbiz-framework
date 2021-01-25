@@ -58,7 +58,7 @@ public class TemporalExpressions implements Serializable {
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
         private static final String MODULE = DateRange.class.getName();
-        protected final org.apache.ofbiz.base.util.DateRange range;
+        private final org.apache.ofbiz.base.util.DateRange range;
 
         public DateRange(Date date) {
             this(date, date);
@@ -66,7 +66,7 @@ public class TemporalExpressions implements Serializable {
 
         public DateRange(Date start, Date end) {
             this.range = new org.apache.ofbiz.base.util.DateRange(start, end);
-            this.sequence = SEQUENCE_DATE_RANGE;
+            this.setSequence(SEQUENCE_DATE_RANGE);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
             }
@@ -159,7 +159,7 @@ public class TemporalExpressions implements Serializable {
                 // Example: Last Monday should come after first Monday
                 result += 11;
             }
-            this.sequence = SEQUENCE_DAY_IN_MONTH + (result * 10) + dayOfWeek;
+            this.setSequence(SEQUENCE_DAY_IN_MONTH + (result * 10) + dayOfWeek);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
             }
@@ -172,7 +172,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Align day of week calendar.
-         *
          * @param cal the cal
          * @return the calendar
          */
@@ -313,7 +312,7 @@ public class TemporalExpressions implements Serializable {
             if (end < 1 || end > 31) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
-            this.sequence = SEQUENCE_DOM_RANGE + start;
+            this.setSequence(SEQUENCE_DOM_RANGE + start);
             this.start = start;
             this.end = end;
             if (Debug.verboseOn()) {
@@ -432,7 +431,7 @@ public class TemporalExpressions implements Serializable {
             if (end < Calendar.SUNDAY || end > Calendar.SATURDAY) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
-            this.sequence = SEQUENCE_DOW_RANGE + start;
+            this.setSequence(SEQUENCE_DOW_RANGE + start);
             this.start = start;
             this.end = end;
             if (Debug.verboseOn()) {
@@ -529,8 +528,8 @@ public class TemporalExpressions implements Serializable {
         public Calendar next(Calendar cal, ExpressionContext context) {
             Calendar next = (Calendar) cal.clone();
             if (includesDate(next)) {
-                if (context.dayBumped) {
-                    context.dayBumped = false;
+                if (context.isDayBumped()) {
+                    context.setDayBumped(false);
                     return next;
                 }
                 next.add(Calendar.DAY_OF_MONTH, 1);
@@ -539,7 +538,7 @@ public class TemporalExpressions implements Serializable {
                 next.add(Calendar.DAY_OF_MONTH, 1);
             }
             if (cal.get(Calendar.MONTH) != next.get(Calendar.MONTH)) {
-                context.monthBumped = true;
+                context.setMonthBumped(true);
             }
             return next;
         }
@@ -565,7 +564,7 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            this.sequence = included.sequence;
+            this.setSequence(included.getSequence());
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
             }
@@ -682,7 +681,7 @@ public class TemporalExpressions implements Serializable {
             } else {
                 this.start = new Date();
             }
-            this.sequence = SEQUENCE_FREQ + freqType;
+            this.setSequence(SEQUENCE_FREQ + freqType);
             this.freqType = freqType;
             this.freqCount = freqCount;
             if (Debug.verboseOn()) {
@@ -781,7 +780,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Prepare cal calendar.
-         *
          * @param cal the cal
          * @return the calendar
          */
@@ -848,7 +846,7 @@ public class TemporalExpressions implements Serializable {
             }
             this.start = start;
             this.end = end;
-            this.sequence = SEQUENCE_HOUR_RANGE + start;
+            this.setSequence(SEQUENCE_HOUR_RANGE + start);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
             }
@@ -902,7 +900,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Gets hour range as set.
-         *
          * @return the hour range as set
          */
         public Set<Integer> getHourRangeAsSet() {
@@ -961,7 +958,7 @@ public class TemporalExpressions implements Serializable {
         public Calendar next(Calendar cal, ExpressionContext context) {
             Calendar next = (Calendar) cal.clone();
             if (includesDate(next)) {
-                if (context.hourBumped) {
+                if (context.isHourBumped()) {
                     return next;
                 }
                 next.add(Calendar.HOUR_OF_DAY, 1);
@@ -970,9 +967,9 @@ public class TemporalExpressions implements Serializable {
                 next.add(Calendar.HOUR_OF_DAY, 1);
             }
             if (cal.get(Calendar.DAY_OF_MONTH) != next.get(Calendar.DAY_OF_MONTH)) {
-                context.dayBumped = true;
+                context.setDayBumped(true);
                 if (cal.get(Calendar.MONTH) != next.get(Calendar.MONTH)) {
-                    context.monthBumped = true;
+                    context.setMonthBumped(true);
                 }
             }
             return next;
@@ -998,16 +995,16 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            if (this.expressionSet.size() > 0) {
+            if (!this.expressionSet.isEmpty()) {
                 // Aggregate member expression sequences in a way that will
                 // ensure the proper evaluation sequence for the entire collection
                 int result = 0;
                 TemporalExpression[] exprArray = this.expressionSet.toArray(new TemporalExpression[this.expressionSet.size()]);
                 for (int i = exprArray.length - 1; i >= 0; i--) {
                     result *= 10;
-                    result += exprArray[i].sequence;
+                    result += exprArray[i].getSequence();
                 }
-                this.sequence = result;
+                this.setSequence(result);
             }
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
@@ -1139,7 +1136,7 @@ public class TemporalExpressions implements Serializable {
             }
             this.start = start;
             this.end = end;
-            this.sequence = SEQUENCE_MINUTE_RANGE + start;
+            this.setSequence(SEQUENCE_MINUTE_RANGE + start);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
             }
@@ -1193,7 +1190,6 @@ public class TemporalExpressions implements Serializable {
 
         /**
          * Gets minute range as set.
-         *
          * @return the minute range as set
          */
         public Set<Integer> getMinuteRangeAsSet() {
@@ -1258,11 +1254,11 @@ public class TemporalExpressions implements Serializable {
                 next.add(Calendar.MINUTE, 1);
             }
             if (cal.get(Calendar.HOUR_OF_DAY) != next.get(Calendar.HOUR_OF_DAY)) {
-                context.hourBumped = true;
+                context.setHourBumped(true);
                 if (cal.get(Calendar.DAY_OF_MONTH) != next.get(Calendar.DAY_OF_MONTH)) {
-                    context.dayBumped = true;
+                    context.setDayBumped(true);
                     if (cal.get(Calendar.MONTH) != next.get(Calendar.MONTH)) {
-                        context.monthBumped = true;
+                        context.setMonthBumped(true);
                     }
                 }
             }
@@ -1298,7 +1294,7 @@ public class TemporalExpressions implements Serializable {
             if (end < Calendar.JANUARY || end > Calendar.UNDECIMBER) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
-            this.sequence = SEQUENCE_MONTH_RANGE + start;
+            this.setSequence(SEQUENCE_MONTH_RANGE + start);
             this.start = start;
             this.end = end;
             if (Debug.verboseOn()) {
@@ -1456,7 +1452,7 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            this.sequence = included.sequence;
+            this.setSequence(included.getSequence());
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);
             }
@@ -1567,9 +1563,9 @@ public class TemporalExpressions implements Serializable {
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
             }
-            if (this.expressionSet.size() > 0) {
+            if (!this.expressionSet.isEmpty()) {
                 TemporalExpression that = this.expressionSet.iterator().next();
-                this.sequence = that.sequence;
+                this.setSequence(that.getSequence());
             }
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, MODULE);

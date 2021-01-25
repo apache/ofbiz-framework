@@ -72,15 +72,15 @@ public final class LayoutWorker {
 
         List<FileItem> lst = null;
         try {
-           lst = UtilGenerics.cast(upload.parseRequest(request));
+            lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e4) {
             return ServiceUtil.returnError(e4.getMessage());
         }
 
-        if (lst.size() == 0 && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
+        if (lst.isEmpty() && UtilValidate.isNotEmpty(request.getAttribute("fileItems"))) {
             lst = UtilGenerics.cast(request.getAttribute("fileItems"));
         }
-        if (lst.size() == 0) {
+        if (lst.isEmpty()) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
                     "layoutEvents.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

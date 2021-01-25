@@ -22,26 +22,42 @@ public class LabelValue {
 
     private static final String MODULE = LabelValue.class.getName();
 
-    protected String labelValue = "";
-    protected String labelComment = "";
+    private String labelValue = "";
+    private String labelComment = "";
 
     public LabelValue(String labelValue, String labelComment) {
         this.labelValue = labelValue;
         this.labelComment = labelComment;
     }
 
+    /**
+     * Gets label value.
+     * @return the label value
+     */
     public String getLabelValue() {
         return labelValue;
     }
 
+    /**
+     * Gets label comment.
+     * @return the label comment
+     */
     public String getLabelComment() {
         return labelComment;
     }
 
+    /**
+     * Sets label value.
+     * @param labelValue the label value
+     */
     public void setLabelValue(String labelValue) {
         this.labelValue = labelValue;
     }
 
+    /**
+     * Sets label comment.
+     * @param labelComment the label comment
+     */
     public void setLabelComment(String labelComment) {
         this.labelComment = labelComment;
     }

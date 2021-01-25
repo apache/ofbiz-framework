@@ -43,11 +43,11 @@ public class ContentSearchSession {
 
     @SuppressWarnings("serial")
     public static class ContentSearchOptions implements java.io.Serializable {
-        protected List<ContentSearchConstraint> constraintList = null;
-        protected ResultSortOrder resultSortOrder = null;
-        protected Integer viewIndex = null;
-        protected Integer viewSize = null;
-        protected boolean changed = false;
+        private List<ContentSearchConstraint> constraintList = null;
+        private ResultSortOrder resultSortOrder = null;
+        private Integer viewIndex = null;
+        private Integer viewSize = null;
+        private boolean changed = false;
         public ContentSearchOptions() { }
 
         /** Basic copy constructor */
@@ -59,6 +59,10 @@ public class ContentSearchSession {
             this.changed = contentSearchOptions.changed;
         }
 
+        /**
+         * Gets constraint list.
+         * @return the constraint list
+         */
         public List<ContentSearchConstraint> getConstraintList() {
             return this.constraintList;
         }
@@ -76,6 +80,10 @@ public class ContentSearchSession {
             }
         }
 
+        /**
+         * Gets result sort order.
+         * @return the result sort order
+         */
         public ResultSortOrder getResultSortOrder() {
             if (this.resultSortOrder == null) {
                 this.resultSortOrder = new SortKeywordRelevancy();
@@ -99,6 +107,9 @@ public class ContentSearchSession {
             contentSearchOptions.resultSortOrder = null;
         }
 
+        /**
+         * Clear view info.
+         */
         public void clearViewInfo() {
             this.viewIndex = null;
             this.viewSize = null;
@@ -129,6 +140,13 @@ public class ContentSearchSession {
             this.viewSize = viewSize;
         }
 
+        /**
+         * Search get constraint strings list.
+         * @param detailed  the detailed
+         * @param delegator the delegator
+         * @param locale    the locale
+         * @return the list
+         */
         public List<String> searchGetConstraintStrings(boolean detailed, Delegator delegator, Locale locale) {
             List<ContentSearchConstraint> contentSearchConstraintList = this.getConstraintList();
             List<String> constraintStrings = new LinkedList<>();
@@ -186,18 +204,18 @@ public class ContentSearchSession {
 
         // add a Content Assoc Type to the search
         if (UtilValidate.isNotEmpty(parameters.get("SEARCH_CONTENT_ID"))) {
-            String contentId=(String) parameters.get("SEARCH_CONTENT_ID");
-            String contentAssocTypeId=(String) parameters.get("contentAssocTypeId");
-            boolean includeAllSubContents =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_CONTENTS"));
+            String contentId = (String) parameters.get("SEARCH_CONTENT_ID");
+            String contentAssocTypeId = (String) parameters.get("contentAssocTypeId");
+            boolean includeAllSubContents = !"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_CONTENTS"));
             searchAddConstraint(new ContentSearch.ContentAssocConstraint(contentId, contentAssocTypeId, includeAllSubContents), session);
             constraintsChanged = true;
         }
 
         // add a Content fromDate thruDate to the search
         if (UtilValidate.isNotEmpty(parameters.get("fromDate")) || UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
-            Timestamp fromDate =null;
+            Timestamp fromDate = null;
             if (UtilValidate.isNotEmpty(parameters.get("fromDate"))) {
-                fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));
+                fromDate = Timestamp.valueOf((String) parameters.get("fromDate"));
             }
 
             Timestamp thruDate = null;
@@ -214,7 +232,8 @@ public class ContentSearchSession {
             String searchOperator = (String) parameters.get("SEARCH_OPERATOR");
             // defaults to true/Y, ie anything but N is true/Y
             boolean anyPrefixSuffix = !"N".equals(parameters.get("SEARCH_ANYPRESUF"));
-            searchAddConstraint(new ContentSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
+            searchAddConstraint(new ContentSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null,
+                    "AND".equals(searchOperator)), session);
             constraintsChanged = true;
         }
         // set the sort order

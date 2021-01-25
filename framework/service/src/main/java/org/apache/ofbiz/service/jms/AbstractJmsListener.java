@@ -42,8 +42,8 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
     private static final String MODULE = AbstractJmsListener.class.getName();
 
-    protected LocalDispatcher dispatcher;
-    protected boolean isConnected = false;
+    private LocalDispatcher dispatcher;
+    private boolean isConnected = false;
 
     /**
      * Initializes the LocalDispatcher for this service listener.
@@ -76,8 +76,9 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
             if (Debug.verboseOn()) {
                 Debug.logVerbose("De-Serialized Context --> " + o, MODULE);
             }
-            if (ObjectType.instanceOf(o, "java.util.Map"))
+            if (ObjectType.instanceOf(o, "java.util.Map")) {
                 context = UtilGenerics.cast(o);
+            }
         } catch (JMSException je) {
             Debug.logError(je, "Problems reading message.", MODULE);
         } catch (Exception e) {
@@ -86,7 +87,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
         try {
             ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
-            if (!model.export) {
+            if (!model.isExport()) {
                 Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
                 return null;
             }

@@ -69,22 +69,22 @@ public class FindServices {
 
     private static final String MODULE = FindServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
-    public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
+    public static final Map<String, EntityComparisonOperator<?, ?>> ENTITY_OPERATORS;
 
     static {
-        entityOperators = new LinkedHashMap<>();
-        entityOperators.put("between", EntityOperator.BETWEEN);
-        entityOperators.put("equals", EntityOperator.EQUALS);
-        entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
-        entityOperators.put("greaterThanEqualTo", EntityOperator.GREATER_THAN_EQUAL_TO);
-        entityOperators.put("in", EntityOperator.IN);
-        entityOperators.put("not-in", EntityOperator.NOT_IN);
-        entityOperators.put("lessThan", EntityOperator.LESS_THAN);
-        entityOperators.put("lessThanEqualTo", EntityOperator.LESS_THAN_EQUAL_TO);
-        entityOperators.put("like", EntityOperator.LIKE);
-        entityOperators.put("notLike", EntityOperator.NOT_LIKE);
-        entityOperators.put("not", EntityOperator.NOT);
-        entityOperators.put("notEqual", EntityOperator.NOT_EQUAL);
+        ENTITY_OPERATORS = new LinkedHashMap<>();
+        ENTITY_OPERATORS.put("between", EntityOperator.BETWEEN);
+        ENTITY_OPERATORS.put("equals", EntityOperator.EQUALS);
+        ENTITY_OPERATORS.put("greaterThan", EntityOperator.GREATER_THAN);
+        ENTITY_OPERATORS.put("greaterThanEqualTo", EntityOperator.GREATER_THAN_EQUAL_TO);
+        ENTITY_OPERATORS.put("in", EntityOperator.IN);
+        ENTITY_OPERATORS.put("not-in", EntityOperator.NOT_IN);
+        ENTITY_OPERATORS.put("lessThan", EntityOperator.LESS_THAN);
+        ENTITY_OPERATORS.put("lessThanEqualTo", EntityOperator.LESS_THAN_EQUAL_TO);
+        ENTITY_OPERATORS.put("like", EntityOperator.LIKE);
+        ENTITY_OPERATORS.put("notLike", EntityOperator.NOT_LIKE);
+        ENTITY_OPERATORS.put("not", EntityOperator.NOT);
+        ENTITY_OPERATORS.put("notEqual", EntityOperator.NOT_EQUAL);
     }
 
     public FindServices() { }
@@ -96,7 +96,8 @@ public class FindServices {
      * @param inputFields     Input parameters run thru UtilHttp.getParameterMap
      * @return a map with field name and operator
      */
-    public static Map<String, Map<String, Map<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
+    public static Map<String, Map<String, Map<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object>
+            queryStringMap, Map<String, List<Object[]>> origValueMap) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
         //    fld0 or fld1, and, then, "op" or "value"
@@ -212,7 +213,8 @@ public class FindServices {
      * @param context
      * @return returns an EntityCondition list
      */
-    public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
+    public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList,
+                                                            Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
         Set<String> processed = new LinkedHashSet<>();
         Set<String> keys = new LinkedHashSet<>();
         Map<String, ModelField> fieldMap = new LinkedHashMap<>();
@@ -306,7 +308,7 @@ public class FindServices {
         for (String groupedConditions : savedGroups.keySet()) {
             orConditions.add(EntityCondition.makeCondition(savedGroups.get(groupedConditions)));
         }
-        if (orConditions.size() > 0) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
+        if (!orConditions.isEmpty()) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
 
         return result;
     }
@@ -321,22 +323,23 @@ public class FindServices {
      * @param context
      * @return return an EntityCondition
      */
-    public static EntityCondition createSingleCondition(ModelField modelField, String operation, Object fieldValue, boolean ignoreCase, Delegator delegator, Map<String, ?> context) {
+    public static EntityCondition createSingleCondition(ModelField modelField, String operation, Object fieldValue, boolean ignoreCase,
+                                                        Delegator delegator, Map<String, ?> context) {
         EntityCondition cond = null;
         String fieldName = modelField.getName();
         Locale locale = (Locale) context.get("locale");
         TimeZone timeZone = (TimeZone) context.get("timeZone");
         EntityComparisonOperator<?, ?> fieldOp = null;
         if (operation != null) {
-            if (operation.equals("contains")) {
+            if ("contains".equals(operation)) {
                 fieldOp = EntityOperator.LIKE;
                 fieldValue = "%" + fieldValue + "%";
             } else if ("not-contains".equals(operation) || "notContains".equals(operation)) {
                 fieldOp = EntityOperator.NOT_LIKE;
                 fieldValue = "%" + fieldValue + "%";
-            } else if (operation.equals("empty")) {
+            } else if ("empty".equals(operation)) {
                 return EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null);
-            } else if (operation.equals("like")) {
+            } else if ("like".equals(operation)) {
                 fieldOp = EntityOperator.LIKE;
                 fieldValue = fieldValue + "%";
             } else if ("not-like".equals(operation) || "notLike".equals(operation)) {
@@ -348,19 +351,22 @@ public class FindServices {
                 fieldOp = EntityOperator.LESS_THAN;
             } else if ("upThruDay".equals(operation)) {
                 fieldOp = EntityOperator.LESS_THAN_EQUAL_TO;
-            } else if (operation.equals("greaterThanFromDayStart")) {
+            } else if ("greaterThanFromDayStart".equals(operation)) {
                 String timeStampString = (String) fieldValue;
-                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0, timeZone, locale), delegator, context);
+                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0,
+                        timeZone, locale), delegator, context);
                 return EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN_EQUAL_TO, startValue);
-            } else if (operation.equals("sameDay")) {
+            } else if ("sameDay".equals(operation)) {
                 String timeStampString = (String) fieldValue;
-                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0, timeZone, locale), delegator, context);
+                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0,
+                        timeZone, locale), delegator, context);
                 EntityCondition startCond = EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN_EQUAL_TO, startValue);
-                Object endValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 1, timeZone, locale), delegator, context);
+                Object endValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 1,
+                        timeZone, locale), delegator, context);
                 EntityCondition endCond = EntityCondition.makeCondition(fieldName, EntityOperator.LESS_THAN, endValue);
                 return EntityCondition.makeCondition(startCond, endCond);
             } else {
-                fieldOp = entityOperators.get(operation);
+                fieldOp = ENTITY_OPERATORS.get(operation);
             }
         } else {
             List<Object> fieldList = (fieldValue instanceof List) ? UtilGenerics.cast(fieldValue) : null;
@@ -375,8 +381,8 @@ public class FindServices {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {
-            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(
-                    ((String) fieldValue).toUpperCase(Locale.getDefault())));
+            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)
+                    fieldValue).toUpperCase(Locale.getDefault())));
         } else {
             if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
                 fieldObject = null;
@@ -397,7 +403,8 @@ public class FindServices {
      * @param normalizedFields list of field the user have populated
      * @return a arrayList usable to create an entityCondition
      */
-    public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, Delegator delegator, Map<String, ?> context) {
+    public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields,
+            Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, Delegator delegator, Map<String, ?> context) {
         Map<String, Map<String, Object>> subMap = null;
         Map<String, Object> subMap2 = null;
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
@@ -474,7 +481,7 @@ public class FindServices {
         List<GenericValue> list = null;
         Integer listSize = 0;
         try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
-            list = it.getPartialList(start+1, viewSize); // list starts at '1'
+            list = it.getPartialList(start + 1, viewSize); // list starts at '1'
             listSize = it.getResultsSizeAfterPartialList();
         } catch (ClassCastException | NullPointerException | GenericEntityException e) {
             Debug.logInfo("Problem getting partial list" + e, MODULE);
@@ -539,10 +546,12 @@ public class FindServices {
         try {
             prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy,
                                                "inputFields", inputFields, "filterByDate", filterByDate, "noConditionFind", noConditionFind,
-                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin, "fromDateName", fromDateName, "thruDateName", thruDateName,
+                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin, "fromDateName", fromDateName,
+                    "thruDateName", thruDateName,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorPreparingConditions",
+                    UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
         EntityConditionList<EntityCondition> exprList = UtilGenerics.cast(prepareResult.get("entityConditionList"));
         List<String> orderByList = checkCollection(prepareResult.get("orderByList"), String.class);
@@ -555,7 +564,8 @@ public class FindServices {
                                                                              "locale", context.get("locale"), "timeZone", context.get("timeZone"),
                                                                              "maxRows", maxRows));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRetrieveIterator", UtilMisc.toMap("errorString", gse.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRetrieveIterator",
+                    UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
 
         if (executeResult.get("listIt") == null) {
@@ -608,7 +618,7 @@ public class FindServices {
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become
          * its own condition.
          */
-        if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
+        if (!tmpList.isEmpty() || "Y".equals(noConditionFind)) {
             if ("Y".equals(filterByDate)) {
                 queryStringMap.put("filterByDate", filterByDate);
                 if (UtilValidate.isEmpty(fromDateName)) {
@@ -633,13 +643,13 @@ public class FindServices {
         }
 
         EntityConditionList<EntityCondition> exprList = null;
-        if (tmpList.size() > 0) {
+        if (!tmpList.isEmpty()) {
             exprList = EntityCondition.makeCondition(tmpList);
         }
 
         List<String> orderByList = null;
         if (UtilValidate.isNotEmpty(orderBy)) {
-            orderByList = StringUtil.split(orderBy,"|");
+            orderByList = StringUtil.split(orderBy, "|");
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -688,7 +698,8 @@ public class FindServices {
                 listSize = listIt.getResultsSizeAfterPartialList();
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRunning", UtilMisc.toMap("entityName", entityName, "errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRunning",
+                    UtilMisc.toMap("entityName", entityName, "errorString", e.getMessage()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -788,7 +799,7 @@ public class FindServices {
         Map<String, Object> result = org.apache.ofbiz.common.FindServices.performFind(dctx, context);
 
         List<GenericValue> list = null;
-        GenericValue item= null;
+        GenericValue item = null;
         try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
             list = it.getPartialList(1, 1); // list starts at '1'
             if (UtilValidate.isNotEmpty(list)) {

@@ -53,6 +53,12 @@ public class EventFactory {
         }
     }
 
+    /**
+     * Gets event handler.
+     * @param type the type
+     * @return the event handler
+     * @throws EventHandlerException the event handler exception
+     */
     public EventHandler getEventHandler(String type) throws EventHandlerException {
         EventHandler handler = handlers.get(type);
         if (handler == null) {

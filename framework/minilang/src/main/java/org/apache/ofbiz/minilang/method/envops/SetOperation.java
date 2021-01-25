@@ -49,14 +49,14 @@ public final class SetOperation extends MethodOperation {
         boolean elementModified = false;
         // Correct deprecated default-value attribute
         String defaultAttr = element.getAttribute("default-value");
-        if (defaultAttr.length() > 0) {
+        if (!defaultAttr.isEmpty()) {
             element.setAttribute("default", defaultAttr);
             element.removeAttribute("default-value");
             elementModified = true;
         }
         // Correct deprecated from-field attribute
         String fromAttr = element.getAttribute("from-field");
-        if (fromAttr.length() > 0) {
+        if (!fromAttr.isEmpty()) {
             element.setAttribute("from", fromAttr);
             element.removeAttribute("from-field");
             elementModified = true;
@@ -90,7 +90,8 @@ public final class SetOperation extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
-            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default",
+                    "format", "type", "set-if-null", "set-if-empty");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
@@ -169,7 +170,7 @@ public final class SetOperation extends MethodOperation {
             }
             return true;
         }
-        if (this.type.length() > 0) {
+        if (!this.type.isEmpty()) {
             if ("NewMap".equals(this.type)) {
                 newValue = new HashMap<String, Object>();
             } else if ("NewList".equals(this.type)) {
@@ -194,13 +195,13 @@ public final class SetOperation extends MethodOperation {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type
                             + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, MODULE);
-                    this.simpleMethod.addErrorMessage(methodContext, errMsg);
+                    this.getSimpleMethod().addErrorMessage(methodContext, errMsg);
                     return false;
                 }
             }
         }
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, MODULE);
+            Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, MODULE);
         }
         this.fieldFma.put(methodContext.getEnvMap(), newValue);
         return true;
@@ -224,7 +225,7 @@ public final class SetOperation extends MethodOperation {
         if (!this.defaultFse.isEmpty()) {
             sb.append("default=\"").append(this.defaultFse).append("\" ");
         }
-        if (this.type.length() > 0) {
+        if (!this.type.isEmpty()) {
             sb.append("type=\"").append(this.type).append("\" ");
         }
         if (this.setIfNull) {

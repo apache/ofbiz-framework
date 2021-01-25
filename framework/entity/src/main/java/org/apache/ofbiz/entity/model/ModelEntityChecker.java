@@ -35,7 +35,6 @@ import org.apache.ofbiz.entity.GenericEntityException;
 
 /**
  * Generic Entity - Entity Definition Checker
- *
  */
 public class ModelEntityChecker {
 
@@ -46,10 +45,10 @@ public class ModelEntityChecker {
 
         Set<String> reservedWords = new HashSet<>();
         if (Debug.infoOn()) {
-            Debug.logInfo("[initReservedWords] array length = " + rwArray.length, MODULE);
+            Debug.logInfo("[initReservedWords] array length = " + RW_ARRAY.length, MODULE);
         }
-        for (int i = 0; i < rwArray.length; i++) {
-            reservedWords.add(rwArray[i]);
+        for (int i = 0; i < RW_ARRAY.length; i++) {
+            reservedWords.add(RW_ARRAY[i]);
         }
 
         Map<String, Set<String>> packages = new HashMap<>();
@@ -64,8 +63,9 @@ public class ModelEntityChecker {
 
             //make sure the table name is in the list of all table names, if
             // not null
-            if (UtilValidate.isNotEmpty(ent.getPlainTableName()))
-                    tableNames.add(ent.getPlainTableName());
+            if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
+                tableNames.add(ent.getPlainTableName());
+            }
 
             Set<String> entities = packages.get(ent.getPackageName());
             if (entities == null) {
@@ -88,16 +88,19 @@ public class ModelEntityChecker {
                 if (helperName == null) {
                     //only show group name warning if helper name not found
                     if (UtilValidate.isEmpty(groupName)) {
-                            warningList.add("[GroupNotFound] No Group Name found for entity " + entity.getEntityName() + ".");
+                        warningList.add("[GroupNotFound] No Group Name found for entity " + entity.getEntityName() + ".");
                     } else {
-                        warningList.add("[HelperNotFound] No Helper (DataSource) definition found for entity [" + entity.getEntityName() + "] because there is no helper (datasource) configured for the entity group it is in: [" + groupName + "]");
+                        warningList.add("[HelperNotFound] No Helper (DataSource) definition found for entity [" + entity.getEntityName()
+                                + "] because there is no helper (datasource) configured for the entity group it is in: [" + groupName + "]");
                     }
                 }
                 if (entity.getPlainTableName() != null && entity.getPlainTableName().length() > 30) {
-                        warningList.add("[TableNameGT30] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName() + " is longer than 30 characters.");
+                    warningList.add("[TableNameGT30] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName()
+                            + " is longer than 30 characters.");
                 }
                 if (entity.getPlainTableName() != null && reservedWords.contains(entity.getPlainTableName().toUpperCase(Locale.getDefault()))) {
-                        warningList.add("[TableNameRW] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName() + " is a reserved word.");
+                    warningList.add("[TableNameRW] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName()
+                            + " is a reserved word.");
                 }
 
                 // don't check columns/relations/keys when never-check is set to "true"
@@ -112,21 +115,27 @@ public class ModelEntityChecker {
                     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
                     if (ufields.contains(field.getName())) {
-                        warningList.add("[FieldNotUnique] Field [" + field.getName() + " of entity " + entity.getEntityName() + " is not unique for that entity.");
+                        warningList.add("[FieldNotUnique] Field [" + field.getName() + " of entity " + entity.getEntityName()
+                                + " is not unique for that entity.");
                     } else {
                         ufields.add(field.getName());
                     }
                     if (field.getColName().length() > 30 && !(entity instanceof ModelViewEntity)) {
-                        warningList.add("[FieldNameGT30] Column name [" + field.getColName() + "] of entity " + entity.getEntityName() + " is longer than 30 characters.");
+                        warningList.add("[FieldNameGT30] Column name [" + field.getColName() + "] of entity " + entity.getEntityName()
+                                + " is longer than 30 characters.");
                     }
                     if (field.getColName().length() == 0) {
-                        warningList.add("[FieldNameEQ0] Column name for field name \"" + field.getName() + "\" of entity " + entity.getEntityName() + " is empty (zero length).");
+                        warningList.add("[FieldNameEQ0] Column name for field name \"" + field.getName() + "\" of entity " + entity.getEntityName()
+                                + " is empty (zero length).");
                     }
-                    if (reservedWords.contains(field.getColName().toUpperCase(Locale.getDefault())))
-                            warningList.add("[FieldNameRW] Column name " + field.getColName() + " of entity " + entity.getEntityName() + " is a reserved word.");
+                    if (reservedWords.contains(field.getColName().toUpperCase(Locale.getDefault()))) {
+                        warningList.add("[FieldNameRW] Column name " + field.getColName() + " of entity " + entity.getEntityName()
+                                + " is a reserved word.");
+                    }
                     if (type == null) {
                         StringBuilder warningMsg = new StringBuilder();
-                        warningMsg.append("[FieldTypeNotFound] Field type " + field.getType() + " of entity " + entity.getEntityName() + " not found in field type definitions");
+                        warningMsg.append("[FieldTypeNotFound] Field type " + field.getType() + " of entity " + entity.getEntityName()
+                                + " not found in field type definitions");
                         if (helperName == null) {
                             warningMsg.append(" (no helper definition found)");
                         }
@@ -178,14 +187,14 @@ public class ModelEntityChecker {
                         }
                         if (relations.contains(relation.getTitle() + relation.getRelEntityName())) {
                             warningList.add("[RelationNameNotUnique] Relation " + relation.getTitle() + relation.getRelEntityName()
-                                            + " of entity "+ entity.getEntityName() + " is not unique for that entity.");
+                                            + " of entity " + entity.getEntityName() + " is not unique for that entity.");
                         } else {
                             relations.add(relation.getTitle() + relation.getRelEntityName());
                         }
 
                         if (relation.getFkName().length() > 0) {
                             if (fkNames.contains(relation.getFkName())) {
-                                warningList.add("[RelationFkDuplicate] Relation to "+ relation.getRelEntityName()
+                                warningList.add("[RelationFkDuplicate] Relation to " + relation.getRelEntityName()
                                                 + " from entity " + entity.getEntityName() + " has a duplicate fk-name \""
                                                 + relation.getFkName() + "\".");
                             } else {
@@ -206,9 +215,9 @@ public class ModelEntityChecker {
                         // make sure all FK names are <= 18 characters
                         if (relation.getFkName().length() > 18) {
                             warningList.add("[RelFKNameGT18] The foreign key named " + relation.getFkName()
-                                            + " (length:" + relation.getFkName().length()
-                                            + ") was greater than 18 characters in length for relation " + relation.getTitle() + relation.getRelEntityName()
-                                            + " of entity " + entity.getEntityName() + ".");
+                                    + " (length:" + relation.getFkName().length()
+                                    + ") was greater than 18 characters in length for relation " + relation.getTitle() + relation.getRelEntityName()
+                                    + " of entity " + entity.getEntityName() + ".");
                         }
 
                         ModelEntity relatedEntity = null;
@@ -221,20 +230,21 @@ public class ModelEntityChecker {
                             //if relation is of type one, make sure keyMaps
                             // match the PK of the relatedEntity
                             if ("one".equals(relation.getType()) || "one-nofk".equals(relation.getType())) {
-                                if (relatedEntity.getPksSize() != relation.getKeyMaps().size())
-                                        warningList.add("[RelatedOneKeyMapsWrongSize] The number of primary keys (" + relatedEntity.getPksSize()
-                                                        + ") of related entity " + relation.getRelEntityName()
-                                                        + " does not match the number of keymaps (" + relation.getKeyMaps().size()
-                                                        + ") for relation of type one \"" + relation.getTitle() + relation.getRelEntityName()
-                                                        + "\" of entity " + entity.getEntityName() + ".");
+                                if (relatedEntity.getPksSize() != relation.getKeyMaps().size()) {
+                                    warningList.add("[RelatedOneKeyMapsWrongSize] The number of primary keys (" + relatedEntity.getPksSize()
+                                            + ") of related entity " + relation.getRelEntityName()
+                                            + " does not match the number of keymaps (" + relation.getKeyMaps().size()
+                                            + ") for relation of type one \"" + relation.getTitle() + relation.getRelEntityName()
+                                            + "\" of entity " + entity.getEntityName() + ".");
+                                }
                                 Iterator<ModelField> pksIter = relatedEntity.getPksIterator();
                                 while (pksIter.hasNext()) {
                                     ModelField pk = pksIter.next();
                                     if (relation.findKeyMapByRelated(pk.getName()) == null) {
                                         warningList.add("[RelationOneRelatedPrimaryKeyMissing] The primary key \"" + pk.getName()
-                                                        + "\" of related entity " + relation.getRelEntityName()
-                                                        + " is missing in the keymaps for relation of type one " + relation.getTitle() + relation.getRelEntityName()
-                                                        + " of entity " + entity.getEntityName() + ".");
+                                                + "\" of related entity " + relation.getRelEntityName()
+                                                + " is missing in the keymaps for relation of type one " + relation.getTitle()
+                                                + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
                                     }
                                 }
                             }
@@ -253,14 +263,14 @@ public class ModelEntityChecker {
                             }
                             if (rfield == null) {
                                 warningList.add("[RelationRelatedFieldNotFound] The field \"" + keyMap.getRelFieldName()
-                                                + "\" of related entity " + relation.getRelEntityName()
-                                                + " was specified in the keymaps but is not found for relation " + relation.getTitle() + relation.getRelEntityName()
-                                                + " of entity " + entity.getEntityName() + ".");
+                                        + "\" of related entity " + relation.getRelEntityName()
+                                        + " was specified in the keymaps but is not found for relation " + relation.getTitle()
+                                        + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
                             }
                             if (field == null) {
                                 warningList.add("[RelationFieldNotFound] The field " + keyMap.getFieldName()
-                                                + " was specified in the keymaps but is not found for relation " + relation.getTitle() + relation.getRelEntityName()
-                                                + " of entity " + entity.getEntityName() + ".");
+                                        + " was specified in the keymaps but is not found for relation " + relation.getTitle()
+                                        + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
                             }
                             if (field != null && rfield != null) {
                                 //this was the old check, now more constrained
@@ -272,11 +282,11 @@ public class ModelEntityChecker {
                                 // !rfield.getType().startsWith(field.getType()))
                                 // {
                                 if (!field.getType().equals(rfield.getType())) {
-                                    warningList.add("[RelationFieldTypesDifferent] The field type ("+ field.getType()
-                                                    + ") of " + field.getName() + " of entity " + entity.getEntityName()
-                                                    + " is not the same as field type (" + rfield.getType() + ") of "
-                                                    + rfield.getName() + " of entity " + relation.getRelEntityName() + " for relation "
-                                                    + relation.getTitle() + relation.getRelEntityName() + ".");
+                                    warningList.add("[RelationFieldTypesDifferent] The field type (" + field.getType()
+                                            + ") of " + field.getName() + " of entity " + entity.getEntityName()
+                                            + " is not the same as field type (" + rfield.getType() + ") of "
+                                            + rfield.getName() + " of entity " + relation.getRelEntityName() + " for relation "
+                                            + relation.getTitle() + relation.getRelEntityName() + ".");
                                 }
                             }
                         }
@@ -286,7 +296,7 @@ public class ModelEntityChecker {
         }
     }
 
-    protected static final String[] rwArray = {"ABORT", "ABS", "ABSOLUTE",
+    protected static final String[] RW_ARRAY = {"ABORT", "ABS", "ABSOLUTE",
             "ACCEPT", "ACCES", "ACCESS", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
             "ADMIN", "AFTER", "AGGREGATE", "ALIAS", "ALL", "ALLOCATE", "ALTER",
             "ANALYZE", "AND", "ANDFILENAME", "ANY", "ANYFINISH", "APPEND",

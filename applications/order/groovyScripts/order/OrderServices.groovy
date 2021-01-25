@@ -64,8 +64,8 @@ def getNextOrderId() {
 
     // use orderIdTemp along with the orderIdPrefix to create the real ID
     String orderId = ''
-    if (productStore) orderId += productStore.orderNumberPrefix
-    if (partyAcctgPreference) orderId += partyAcctgPreference.orderIdPrefix
+    if (productStore) orderId += productStore.orderNumberPrefix ?: ""
+    if (partyAcctgPreference) orderId += partyAcctgPreference.orderIdPrefix ?: ""
     orderId += orderIdTemp.toString()
 
     Map result = success()

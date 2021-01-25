@@ -54,8 +54,10 @@ public class TelecomServices {
         String message = (String) context.get("message");
         String telecomEnabled = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.enabled", delegator);
         if (!"Y".equals(telecomEnabled)) {
-            Debug.logImportant("Telecom message not sent to " + numbers.toString() +" because telecom.notifications.enabled property is set to N or empty", MODULE);
-            return ServiceUtil.returnSuccess("Telecom message not sent to " + numbers.toString() +" because sms.notifications.enabled property is set to N or empty");
+            Debug.logImportant("Telecom message not sent to " + numbers.toString()
+                    + " because telecom.notifications.enabled property is set to N or empty", MODULE);
+            return ServiceUtil.returnSuccess("Telecom message not sent to " + numbers.toString()
+                    + " because sms.notifications.enabled property is set to N or empty");
         }
 
         String redirectNumber = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.redirectTo", delegator);
@@ -103,8 +105,9 @@ public class TelecomServices {
 
                     createCommEventCtx.clear();
                     createCommEventCtx.put("communicationEventId", communicationEventId);
-                    if (UtilValidate.isNotEmpty(createCommEventResult.get("response")))
+                    if (UtilValidate.isNotEmpty(createCommEventResult.get("response"))) {
                         createCommEventCtx.put("note", customMethodResult.get("response"));
+                    }
                     createCommEventCtx.put("statusId", "COM_COMPLETE");
                     createCommEventCtx.put("userLogin", userLogin);
                     dispatcher.runSync("updateCommunicationEvent", createCommEventCtx);

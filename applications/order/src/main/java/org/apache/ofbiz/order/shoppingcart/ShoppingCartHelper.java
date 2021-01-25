@@ -164,7 +164,8 @@ public class ShoppingCartHelper {
             try {
                 java.sql.Timestamp.valueOf((String) context.get("itemDesiredDeliveryDate"));
             } catch (IllegalArgumentException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidDesiredDeliveryDateSyntaxError", this.cart.getLocale()));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidDesiredDeliveryDateSyntaxError",
+                        this.cart.getLocale()));
             }
         } else {
             context.remove("itemDesiredDeliveryDate");
@@ -193,7 +194,7 @@ public class ShoppingCartHelper {
         }
 
         // Create a HashMap of product attributes - From ShoppingCartItem.attributeNames[]
-        for (String attributeName : ShoppingCartItem.attributeNames) {
+        for (String attributeName : Arrays.asList(ShoppingCartItem.ATTRIBUTE_NAMES)) {
             if (attributes == null) {
                 attributes = new HashMap<>();
             }
@@ -253,13 +254,12 @@ public class ShoppingCartHelper {
         int itemId = -1;
         try {
             if (productId != null) {
-
-                       itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength,
-                                                reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate, additionalFeaturesMap, attributes,
-                                                orderItemAttributes, catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
-
+                itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, reservPersons, accommodationMapId,
+                        accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate, additionalFeaturesMap, attributes,
+                        orderItemAttributes, catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
             } else {
-                itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
+                itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId,
+                        itemGroupNumber, dispatcher);
             }
 
             // set the shopping list info
@@ -289,6 +289,15 @@ public class ShoppingCartHelper {
         return result;
     }
 
+    /**
+     * Add to cart from order map.
+     * @param catalogId       the catalog id
+     * @param orderId         the order id
+     * @param itemIds         the item ids
+     * @param addAll          the add all
+     * @param itemGroupNumber the item group number
+     * @return the map
+     */
     public Map<String, Object> addToCartFromOrder(String catalogId, String orderId, String[] itemIds, boolean addAll, String itemGroupNumber) {
         List<String> errorMsgs = new ArrayList<>();
         Map<String, Object> result;
@@ -341,27 +350,31 @@ public class ShoppingCartHelper {
                     BigDecimal amount = orderItem.getBigDecimal("selectedAmount");
                     ProductConfigWrapper configWrapper = null;
                     String aggregatedProdId = null;
-                    if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", ProductWorker.getProductTypeId(delegator, productId), "parentTypeId", "AGGREGATED")) {
+                    if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", ProductWorker.getProductTypeId(delegator, productId),
+                            "parentTypeId", "AGGREGATED")) {
                         try {
                             GenericValue instanceProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                             String configId = instanceProduct.getString("configId");
                             aggregatedProdId = ProductWorker.getInstanceAggregatedId(delegator, productId);
-                            configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, aggregatedProdId, cart.getProductStoreId(), catalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(), cart.getAutoUserLogin());
+                            configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, aggregatedProdId,
+                                    cart.getProductStoreId(), catalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(),
+                                    cart.getAutoUserLogin());
                         } catch (GenericEntityException e) {
                             errorMsgs.add(e.getMessage());
                         }
 
                     }
                     try {
-                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId :  productId, amount, orderItem.getBigDecimal("quantity"),
-                                null, null, null, null, null, null, null, catalogId, configWrapper, orderItemTypeId, itemGroupNumber, null, dispatcher);
+                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId : productId, amount,
+                                orderItem.getBigDecimal("quantity"), null, null, null, null, null, null, null, catalogId, configWrapper,
+                                orderItemTypeId, itemGroupNumber, null, dispatcher);
                         noItems = false;
                     } catch (CartItemModifyException | ItemNotFoundException e) {
                         errorMsgs.add(e.getMessage());
                     }
                 }
             }
-            if (errorMsgs.size() > 0) {
+            if (!errorMsgs.isEmpty()) {
                 result = ServiceUtil.returnError(errorMsgs);
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
                 return result; // don't return error because this is a non-critical error and should go back to the same page
@@ -384,7 +397,8 @@ public class ShoppingCartHelper {
      * Adds all products in a category according to quantity request parameter
      * for each; if no parameter for a certain product in the category, or if
      * quantity is 0, do not add.
-     * If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the request parameter in itemGroupNumber
+     * If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the
+     * request parameter in itemGroupNumber
      * There are 2 options for the syntax:
      *  - name="quantity_${productId}" value="${quantity}
      *  - name="product_${whatever}" value="${productId}" (note: quantity is always 1)
@@ -393,10 +407,12 @@ public class ShoppingCartHelper {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // use this prefix for the main structure such as a checkbox or a text input where name="quantity_${productId}" value="${quantity}"
         String keyPrefix = "quantity_";
-        // use this prefix for a different structure, useful for radio buttons; can have any suffix, name="product_${whatever}" value="${productId}" and quantity is always 1
+        // use this prefix for a different structure, useful for radio buttons; can have any suffix,
+        // name="product_${whatever}" value="${productId}" and quantity is always 1
         String productQuantityKeyPrefix = "product_";
 
-        // If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the request parameter in itemGroupNumber
+        // If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the
+        // request parameter in itemGroupNumber
         String ignSeparator = "_ign_";
 
         // iterate through the context and find all keys that start with "quantity_"
@@ -457,25 +473,30 @@ public class ShoppingCartHelper {
                         if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())) {
                             BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                             if (remainder.compareTo(BigDecimal.ZERO) != 0) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale()));
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed",
+                                        this.cart.getLocale()));
                             }
                             quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
                         } else {
-                            quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
+                            quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"),
+                                    UtilNumber.getRoundingMode("order.rounding"));
                         }
                     } catch (GenericEntityException e) {
                         Debug.logError(e.getMessage(), MODULE);
                         quantity = BigDecimal.ONE;
                     }
                     if (quantity.compareTo(BigDecimal.ZERO) < 0) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.quantity_not_positive_number", this.cart.getLocale()));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "cart.quantity_not_positive_number",
+                                this.cart.getLocale()));
                     }
 
                     try {
                         if (Debug.verboseOn()) {
-                            Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", MODULE);
+                            Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber
+                                    + "]", MODULE);
                         }
-                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, originalProductId, dispatcher);
+                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null,
+                                itemGroupNumberToUse, originalProductId, dispatcher);
                     } catch (CartItemModifyException | ItemNotFoundException e) {
                         return ServiceUtil.returnError(e.getMessage());
                     }
@@ -493,8 +514,7 @@ public class ShoppingCartHelper {
     public Map<String, Object> addToCartBulkRequirements(String catalogId, Map<String, ? extends Object> context) {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // check if we are using per row submit
-        boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
-                "Y".equalsIgnoreCase((String) context.get("_useRowSubmit"));
+        boolean useRowSubmit = (!context.containsKey("_useRowSubmit")) ? false : "Y".equalsIgnoreCase((String) context.get("_useRowSubmit"));
 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(context);
@@ -511,8 +531,8 @@ public class ShoppingCartHelper {
             String quantStr = null;
             String requirementId = null;
             String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
-            boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix))? false :
-                    "Y".equalsIgnoreCase((String) context.get("_rowSubmit" + thisSuffix));
+            boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix)) ? false
+                    : "Y".equalsIgnoreCase((String) context.get("_rowSubmit" + thisSuffix));
 
             // make sure we are to process this row
             if (useRowSubmit && !rowSelected) {
@@ -555,7 +575,8 @@ public class ShoppingCartHelper {
                         }
                         if (requirementAlreadyInCart) {
                             if (Debug.warningOn()) {
-                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId", requirementId), cart.getLocale()), MODULE);
+                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding",
+                                        UtilMisc.toMap("requirementId", requirementId), cart.getLocale()), MODULE);
                             }
                             continue;
                         }
@@ -564,7 +585,9 @@ public class ShoppingCartHelper {
                             if (Debug.verboseOn()) {
                                 Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", MODULE);
                             }
-                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, requirement.getTimestamp("requiredByDate"), null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
+                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null,
+                                    requirement.getTimestamp("requiredByDate"), null, null, null, catalogId, null, null, itemGroupNumber,
+                                    null, dispatcher);
                             ShoppingCartItem sci = this.cart.items().get(index);
                             sci.setRequirementId(requirementId);
                         } catch (CartItemModifyException | ItemNotFoundException e) {
@@ -597,7 +620,8 @@ public class ShoppingCartHelper {
         Collection<GenericValue> prodCatMemberCol = null;
 
         try {
-            prodCatMemberCol = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", categoryId).cache(true).queryList();
+            prodCatMemberCol = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", categoryId).cache(true)
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
@@ -617,7 +641,6 @@ public class ShoppingCartHelper {
         BigDecimal totalQuantity = BigDecimal.ZERO;
         for (GenericValue productCategoryMember : prodCatMemberCol) {
             BigDecimal quantity = productCategoryMember.getBigDecimal("quantity");
-
             if (quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0) {
                 try {
                     this.cart.addOrIncreaseItem(productCategoryMember.getString("productId"),
@@ -629,7 +652,7 @@ public class ShoppingCartHelper {
                 }
             }
         }
-        if (errorMsgs.size() > 0) {
+        if (!errorMsgs.isEmpty()) {
             result = ServiceUtil.returnError(errorMsgs);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             return result; // don't return error because this is a non-critical error and should go back to the same page
@@ -661,7 +684,7 @@ public class ShoppingCartHelper {
             }
         }
 
-        if (errorMsgs.size() > 0) {
+        if (!errorMsgs.isEmpty()) {
             result = ServiceUtil.returnError(errorMsgs);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             return result; // don't return error because this is a non-critical error and should go back to the same page
@@ -672,7 +695,8 @@ public class ShoppingCartHelper {
     }
 
     /** Update the items in the shopping cart. */
-    public Map<String, Object> modifyCart(Security security, GenericValue userLogin, Map<String, ? extends Object> context, boolean removeSelected, String[] selectedItems, Locale locale) {
+    public Map<String, Object> modifyCart(Security security, GenericValue userLogin, Map<String, ? extends Object> context, boolean removeSelected,
+                                          String[] selectedItems, Locale locale) {
         Map<String, Object> result = null;
         if (locale == null) {
             locale = this.cart.getLocale();
@@ -730,9 +754,9 @@ public class ShoppingCartHelper {
                     } else if (parameterName.toUpperCase(Locale.getDefault()).startsWith("DESCRIPTION")) {
                         itemDescription = quantString;  // the quantString is actually the description if the field name starts with DESCRIPTION
                     } else if (parameterName.toUpperCase(Locale.getDefault()).startsWith("COMMENT")) {
-                         itemComment= quantString;  // the quantString is actually the comment if the field name starts with COMMENT
+                        itemComment = quantString;  // the quantString is actually the comment if the field name starts with COMMENT
                     } else if (parameterName.startsWith("reservStart")) {
-                        if (quantString.length() == 0) {
+                        if (quantString.isEmpty()) {
                             // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                             quantString += " 00:00:00.000000000";
                         }
@@ -785,17 +809,20 @@ public class ShoppingCartHelper {
                         quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantString, "BigDecimal", null, locale);
                         //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                         // if not and if quantity is in decimal format then return error.
-                        if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, item.getProductId(), cart.getProductStoreId()) && parameterName.startsWith("update")) {
+                        if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, item.getProductId(), cart.getProductStoreId())
+                                && parameterName.startsWith("update")) {
                             BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                             if (remainder.compareTo(BigDecimal.ZERO) != 0) {
-                                String errMsg = UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale());
+                                String errMsg = UtilProperties.getMessage(RES_ERROR, "cart.addToCart.quantityInDecimalNotAllowed",
+                                        this.cart.getLocale());
                                 errorMsgs.add(errMsg);
                                 result = ServiceUtil.returnError(errorMsgs);
                                 return result;
                             }
                             quantity = quantity.setScale(0, UtilNumber.getRoundingMode("order.rounding"));
                         } else {
-                            quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getRoundingMode("order.rounding"));
+                            quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"),
+                                    UtilNumber.getRoundingMode("order.rounding"));
                         }
                         if (quantity.compareTo(BigDecimal.ZERO) < 0) {
                             String errMsg = UtilProperties.getMessage(RES_ERROR, "cart.quantity_not_positive_number", this.cart.getLocale());
@@ -826,31 +853,36 @@ public class ShoppingCartHelper {
                                             oldPrice = item.getBasePrice();
 
                                             if (UtilValidate.isNotEmpty(item.getProductId())) {
-                                                GenericValue supplierProduct = this.cart.getSupplierProduct(item.getProductId(), quantity, this.dispatcher);
-
+                                                GenericValue supplierProduct = this.cart.getSupplierProduct(item.getProductId(), quantity,
+                                                        this.dispatcher);
                                                 if (supplierProduct == null) {
                                                     if ("_NA_".equals(cart.getPartyId())) {
                                                         // no supplier does not require the supplier product
                                                         item.setQuantity(quantity, dispatcher, this.cart);
                                                         item.setName(item.getProduct().getString("internalName"));
                                                     } else {
-                                                        // in this case, the user wanted to purchase a quantity which is not available (probably below minimum)
-                                                        String errMsg = UtilProperties.getMessage(RES_ERROR, "cart.product_not_valid_for_supplier", this.cart.getLocale());
-                                                        errMsg = errMsg + " (" + item.getProductId() + ", " + quantity + ", " + cart.getCurrency() + ")";
+                                                        // in this case, the user wanted to purchase a quantity which is not available
+                                                        // (probably below minimum)
+                                                        String errMsg = UtilProperties.getMessage(RES_ERROR, "cart.product_not_valid_for_supplier",
+                                                                this.cart.getLocale());
+                                                        errMsg = errMsg + " (" + item.getProductId() + ", " + quantity + ", " + cart.getCurrency()
+                                                                + ")";
                                                         errorMsgs.add(errMsg);
                                                     }
                                                 } else {
                                                     item.setSupplierProductId(supplierProduct.getString("supplierProductId"));
                                                     item.setQuantity(quantity, dispatcher, this.cart);
                                                     item.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
-                                                    item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), supplierProduct, cart.getLocale(), dispatcher));
+                                                    item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), supplierProduct,
+                                                            cart.getLocale(), dispatcher));
                                                 }
                                             } else {
                                                 item.setQuantity(quantity, dispatcher, this.cart);
                                             }
                                         }
                                     } else {
-                                        BigDecimal minQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, item.getBasePrice(), item.getProductId());
+                                        BigDecimal minQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, item.getBasePrice(),
+                                                item.getProductId());
                                         oldQuantity = item.getQuantity();
                                         if (oldQuantity.compareTo(quantity) != 0) {
                                             GenericValue product = item.getProduct();
@@ -972,7 +1004,7 @@ public class ShoppingCartHelper {
         // Promotions are run again.
         ProductPromoWorker.doPromotions(this.cart, dispatcher);
 
-        if (errorMsgs.size() > 0) {
+        if (!errorMsgs.isEmpty()) {
             result = ServiceUtil.returnError(errorMsgs);
             return result;
         }
@@ -991,7 +1023,7 @@ public class ShoppingCartHelper {
     public ShoppingCart getCartObject() {
         return this.cart;
     }
-
+    /** get feature appl */
     public GenericValue getFeatureAppl(String productId, String optionField, String featureId) {
         if (delegator == null) {
             throw new IllegalArgumentException("No delegator available to lookup ProductFeature");
@@ -1024,7 +1056,7 @@ public class ShoppingCartHelper {
 
         return productFeatureAppl;
     }
-
+    /** get remove feature type id*/
     public String getRemoveFeatureTypeId(String optionField) {
         if (optionField != null) {
             int featureTypeStartIndex = optionField.indexOf('^') + 1;
@@ -1044,7 +1076,8 @@ public class ShoppingCartHelper {
         GenericValue agreement = null;
 
         if ((this.delegator == null) || (this.dispatcher == null) || (this.cart == null)) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderDispatcherOrDelegatorOrCartArgumentIsNull", this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderDispatcherOrDelegatorOrCartArgumentIsNull",
+                    this.cart.getLocale()));
             return result;
         }
 
@@ -1057,33 +1090,40 @@ public class ShoppingCartHelper {
             agreement = EntityQuery.use(this.delegator).from("Agreement").where("agreementId", agreementId).cache(true).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError", this.cart.getLocale()) + e.getMessage());
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement",
+                    UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
+                    this.cart.getLocale()) + e.getMessage());
             return result;
         }
 
         if (agreement == null) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId",
+                    agreementId), this.cart.getLocale()));
         } else {
             // set the agreement id in the cart
             cart.setAgreementId(agreementId);
             try {
                 // set the currency based on the pricing agreement
-                List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null, false);
-                if (agreementItems.size() > 0) {
+                List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId",
+                        "AGREEMENT_PRICING_PR"), null, false);
+                if (!agreementItems.isEmpty()) {
                     GenericValue agreementItem = agreementItems.get(0);
                     String currencyUomId = (String) agreementItem.get("currencyUomId");
                     if (UtilValidate.isNotEmpty(currencyUomId)) {
                         try {
                             cart.setCurrency(dispatcher, currencyUomId);
                         } catch (CartItemModifyException ex) {
-                            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSetCurrencyError", this.cart.getLocale()) + ex.getMessage());
+                            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSetCurrencyError", this.cart.getLocale())
+                                    + ex.getMessage());
                             return result;
                         }
                     }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementItemsThrough", UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError", this.cart.getLocale()) + e.getMessage());
+                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementItemsThrough",
+                        UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
+                        this.cart.getLocale()) + e.getMessage());
                 return result;
             }
 
@@ -1092,7 +1132,7 @@ public class ShoppingCartHelper {
                 cart.removeOrderTerms();
                 // set order terms based on agreement terms
                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm", null, null, false));
-                if (agreementTerms.size() > 0) {
+                if (!agreementTerms.isEmpty()) {
                     for (int i = 0; agreementTerms.size() > i; i++) {
                         GenericValue agreementTerm = agreementTerms.get(i);
                         String termTypeId = (String) agreementTerm.get("termTypeId");
@@ -1113,6 +1153,11 @@ public class ShoppingCartHelper {
         return result;
     }
 
+    /**
+     * Sets currency.
+     * @param currencyUomId the currency uom id
+     * @return the currency
+     */
     public Map<String, Object> setCurrency(String currencyUomId) {
         Map<String, Object> result = null;
 
@@ -1126,10 +1171,25 @@ public class ShoppingCartHelper {
         return result;
     }
 
+    /**
+     * Add order term map.
+     * @param termTypeId the term type id
+     * @param termValue  the term value
+     * @param termDays   the term days
+     * @return the map
+     */
     public Map<String, Object> addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays) {
         return addOrderTerm(termTypeId, termValue, termDays, null);
     }
 
+    /**
+     * Add order term map.
+     * @param termTypeId the term type id
+     * @param termValue  the term value
+     * @param termDays   the term days
+     * @param textValue  the text value
+     * @return the map
+     */
     public Map<String, Object> addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays, String textValue) {
         Map<String, Object> result = null;
         this.cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
@@ -1137,6 +1197,11 @@ public class ShoppingCartHelper {
         return result;
     }
 
+    /**
+     * Remove order term map.
+     * @param index the index
+     * @return the map
+     */
     public Map<String, Object> removeOrderTerm(int index) {
         Map<String, Object> result = null;
         this.cart.removeOrderTerm(index);

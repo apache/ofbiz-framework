@@ -39,21 +39,21 @@ public class PurgeJob extends AbstractJob implements Serializable {
 
     @Override
     public void exec() throws InvalidJobException {
-        if (currentState != State.QUEUED) {
+        if (getCurrentState() != State.QUEUED) {
             throw new InvalidJobException("Illegal state change");
         }
-        currentState = State.RUNNING;
+        setCurrentState(State.RUNNING);
         JobUtil.removeJob(jobValue);
     }
 
     @Override
     public boolean isValid() {
-        return currentState == State.CREATED;
+        return getCurrentState() == State.CREATED;
     }
 
     @Override
     public void deQueue() throws InvalidJobException {
-        if (currentState != State.QUEUED) {
+        if (getCurrentState() != State.QUEUED) {
             throw new InvalidJobException("Illegal state change");
         }
     }

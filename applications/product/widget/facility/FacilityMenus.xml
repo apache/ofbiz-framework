@@ -42,6 +42,27 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="FacilityShortcutAppBar" title="${uiLabelMap.ProductFacilityManager}">
+        <menu-item name="facility" title="${uiLabelMap.ProductFacilities}"><link target="/facility/control/FindFacility" url-mode="inter-app"/></menu-item>
+        <menu-item name="facilityGroup" title="${uiLabelMap.ProductFacilityGroups}"><link target="/facility/control/FindFacilityGroup" url-mode="inter-app"/></menu-item>
+        <menu-item name="inventoryItemLabel" title="${uiLabelMap.ProductInventoryItemLabels}"><link target="/facility/control/FindInventoryItemLabels" url-mode="inter-app"/></menu-item>
+        <menu-item name="ShipmentGatewayConfig" title="${uiLabelMap.FacilityShipmentGatewayConfig}">
+            <condition>
+                <if-has-permission permission="FACILITY" action="_ADMIN"/>
+            </condition>
+            <link target="/facility/control/FindShipmentGatewayConfig" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="shipment" title="${uiLabelMap.ProductShipments}"><link target="/facility/control/FindShipment" url-mode="inter-app"/></menu-item>
+        <menu-item name="reports" title="${uiLabelMap.CommonReports}">
+            <condition>
+                <not><if-empty field="facilityId"/></not>
+            </condition>
+            <link target="/facility/control/InventoryReports" url-mode="inter-app">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+    </menu>
+
     <menu name="FacilityActionBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="createNewFacility" title="${uiLabelMap.ProductNewFacility}">
             <condition>

@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 
 /**
@@ -148,7 +149,14 @@ public class ControlFilter extends HttpFilter {
 
             // Check if the requested URI is allowed.
             if (allowedPaths.stream().anyMatch(uri::startsWith)) {
-                chain.doFilter(req, resp);
+                try {
+                    // support OFBizDynamicThresholdFilter in log4j2.xml
+                    ThreadContext.put("uri", uri);
+
+                    chain.doFilter(req, resp);
+                } finally {
+                    ThreadContext.remove("uri");
+                }
             } else {
                 if (redirectPath == null) {
                     resp.sendError(errorCode, uriWithContext);

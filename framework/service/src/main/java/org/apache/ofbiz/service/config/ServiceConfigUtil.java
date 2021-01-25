@@ -46,11 +46,12 @@ import org.w3c.dom.Element;
 public final class ServiceConfigUtil {
 
     private static final String MODULE = ServiceConfigUtil.class.getName();
-    private static final String engine = "default";
+    private static final String ENGINE = "default";
     private static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
-    // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one ServiceConfig instance in the cache.
-    private static final UtilCache<String, ServiceConfig> serviceConfigCache = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
-    private static final List<ServiceConfigListener> configListeners = new CopyOnWriteArrayList<>();
+    // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time.
+    // There will be only one ServiceConfig instance in the cache.
+    private static final UtilCache<String, ServiceConfig> SERVICE_CONFIG_CACHE = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
+    private static final List<ServiceConfigListener> CONFIG_LISTENERS = new CopyOnWriteArrayList<>();
 
     private ServiceConfigUtil() { }
 
@@ -75,13 +76,13 @@ public final class ServiceConfigUtil {
      * @throws GenericConfigException
      */
     public static ServiceConfig getServiceConfig() throws GenericConfigException {
-        ServiceConfig instance = serviceConfigCache.get("instance");
+        ServiceConfig instance = SERVICE_CONFIG_CACHE.get("instance");
         if (instance == null) {
             Element serviceConfigElement = getXmlDocument().getDocumentElement();
             instance = ServiceConfig.create(serviceConfigElement);
-            serviceConfigCache.putIfAbsent("instance", instance);
-            instance = serviceConfigCache.get("instance");
-            for (ServiceConfigListener listener : configListeners) {
+            SERVICE_CONFIG_CACHE.putIfAbsent("instance", instance);
+            instance = SERVICE_CONFIG_CACHE.get("instance");
+            for (ServiceConfigListener listener : CONFIG_LISTENERS) {
                 try {
                     listener.onServiceConfigChange(instance);
                 } catch (Exception e) {
@@ -97,7 +98,7 @@ public final class ServiceConfigUtil {
      * @throws GenericConfigException
      */
     public static ServiceEngine getServiceEngine() throws GenericConfigException {
-        return getServiceConfig().getServiceEngine(engine);
+        return getServiceConfig().getServiceEngine(ENGINE);
     }
 
     /**
@@ -128,11 +129,11 @@ public final class ServiceConfigUtil {
      */
     public static void registerServiceConfigListener(ServiceConfigListener listener) {
         Assert.notNull("listener", listener);
-        configListeners.add(listener);
+        CONFIG_LISTENERS.add(listener);
     }
 
     public static String getEngine() {
-        return engine;
+        return ENGINE;
     }
 
     public static String getServiceEngineXmlFileName() {

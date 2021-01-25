@@ -60,7 +60,7 @@ public final class StatusWorker {
         List<GenericValue> statusItems = new LinkedList<>();
 
         try {
-             List<GenericValue> calItems = EntityQuery.use(delegator)
+            List<GenericValue> calItems = EntityQuery.use(delegator)
                                                       .from("StatusItem")
                                                       .where("statusTypeId", statusTypeIdOne)
                                                       .orderBy("sequenceId")
@@ -84,7 +84,7 @@ public final class StatusWorker {
             Debug.logError(e, MODULE);
         }
 
-        if (statusItems.size() > 0)
+        if (!statusItems.isEmpty())
             pageContext.setAttribute(attributeName, statusItems);
     }
 

@@ -18,35 +18,55 @@ under the License.
 ////
 = Human Resources
 
-The OFBiz Human Resources system is one of the core application components and has
-all of the functionality you need to manage your business employees as well as the
-recruitment process. It is well integrated with other components especially
-Accounting to manage Payroll and any specific  employee agreements.
+The OFBiz Human Resources system is one of the <<CORE_APPLICATION_COMPONENTS,core application components>> and has
+all of the functionality you need to manage your business <<EMPLOYEE,employees>> process :
+organisational hierarchies, recruitment, training, evaluation, ...
+It is well integrated with other components especially
+ Accounting to manage Payroll and any specific  employee agreements.
+
+The HR Application data design, like most of the OFBiz back office administration applications, was inspired by
+the data models in The https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Books]
+by Len Silverston footnote:[silverston-data-model, http://silverston.wiley.com/index.html[Silverston Data Model Resource Companion Site]].
+The sections below introduces some of the concepts in HR App that were derived from the models.
+
+In OFBiz <<PARTY, Party>> is one of the core object, a party is a person (employee, end customer, sub-contractor, contact, ...)
+or an organization (group, department, company, ...). +
+One of the strengths of OFBiz is the rich set of features it has build up to manage information and relationships for parties.
+This makes OFBiz a great platform for HR services because managing people and organizations is a core OFBiz technology.
+
+Important terms in the documentation are defined in a Glossary. In order to promote a consistent usage
+and understanding of terms, links to the Glossary definitions are placed throughout the document.
 
 include::_include/hr-intro.adoc[leveloffset=+1]
 
-include::_include/hr-employee-positions.adoc[leveloffset=+1]
+== HR core object
 
-include::_include/hr-employees.adoc[leveloffset=+1]
+include::_include/hr-employee-positions.adoc[leveloffset=+2]
 
-include::_include/hr-employments.adoc[leveloffset=+1]
+include::_include/hr-employees.adoc[leveloffset=+2]
 
-include::_include/hr-performance-review.adoc[leveloffset=+1]
+include::_include/hr-employments.adoc[leveloffset=+2]
 
-include::_include/hr-qualifications.adoc[leveloffset=+1]
+include::_include/hr-performance-review.adoc[leveloffset=+2]
 
-include::_include/hr-recruitment.adoc[leveloffset=+1]
+include::_include/hr-qualifications.adoc[leveloffset=+2]
 
-include::_include/hr-skills.adoc[leveloffset=+1]
+include::_include/hr-recruitment.adoc[leveloffset=+2]
 
-include::_include/hr-resumes.adoc[leveloffset=+1]
+include::_include/hr-skills.adoc[leveloffset=+2]
 
-include::_include/hr-training.adoc[leveloffset=+1]
+include::_include/hr-resumes.adoc[leveloffset=+2]
 
-include::_include/hr-leave.adoc[leveloffset=+1]
+include::_include/hr-training.adoc[leveloffset=+2]
 
-include::_include/hr-security.adoc[leveloffset=+1]
+include::_include/hr-leave.adoc[leveloffset=+2]
+
+include::_include/hr-security.adoc[leveloffset=+2]
 
 include::_include/hr-global-settings.adoc[leveloffset=+1]
 
+include::_include/hr-data-model.adoc[leveloffset=+1]
+
 include::_include/hr-glossary.adoc[leveloffset=+1]
+
+include::_include/hr-appendix.adoc[leveloffset=+1]

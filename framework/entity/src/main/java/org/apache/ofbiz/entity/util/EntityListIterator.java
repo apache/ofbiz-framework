@@ -47,18 +47,18 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     /** Module Name Used for debugging */
     private static final String MODULE = EntityListIterator.class.getName();
 
-    protected SQLProcessor sqlp;
-    protected ResultSet resultSet;
-    protected ModelEntity modelEntity;
-    protected List<ModelField> selectFields;
-    protected ModelFieldTypeReader modelFieldTypeReader;
-    protected boolean closed = false;
-    protected boolean haveMadeValue = false;
-    protected Delegator delegator = null;
-    protected GenericDAO genericDAO = null;
-    protected EntityCondition whereCondition = null;
-    protected EntityCondition havingCondition = null;
-    protected boolean distinctQuery = false;
+    private SQLProcessor sqlp;
+    private ResultSet resultSet;
+    private ModelEntity modelEntity;
+    private List<ModelField> selectFields;
+    private ModelFieldTypeReader modelFieldTypeReader;
+    private boolean closed = false;
+    private boolean haveMadeValue = false;
+    private Delegator delegator = null;
+    private GenericDAO genericDAO = null;
+    private EntityCondition whereCondition = null;
+    private EntityCondition havingCondition = null;
+    private boolean distinctQuery = false;
 
     private boolean haveShowHasNextWarning = false;
     private Integer resultSize = null;
@@ -67,8 +67,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
         this(sqlp, modelEntity, selectFields, modelFieldTypeReader, null, null, null, false);
     }
 
-    public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader, GenericDAO genericDAO,
-            EntityCondition whereCondition, EntityCondition havingCondition, boolean distinctQuery) {
+    public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader,
+                              GenericDAO genericDAO, EntityCondition whereCondition, EntityCondition havingCondition, boolean distinctQuery) {
         this(sqlp.getResultSet(), modelEntity, selectFields, modelFieldTypeReader);
         this.sqlp = sqlp;
         this.genericDAO = genericDAO;
@@ -77,7 +77,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
         this.distinctQuery = distinctQuery;
     }
 
-    public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
+    public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader
+            modelFieldTypeReader) {
         this.sqlp = null;
         this.resultSet = resultSet;
         this.modelEntity = modelEntity;
@@ -85,6 +86,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
         this.modelFieldTypeReader = modelFieldTypeReader;
     }
 
+    /**
+     * Sets delegator.
+     * @param delegator the delegator
+     */
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
@@ -277,8 +282,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
             // DEJ20050207 To further discourage use of this, and to find existing use, always log a big warning showing where it is used:
             Exception whereAreWe = new Exception();
             Debug.logWarning(whereAreWe,
-                    "For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; see JavaDoc comments in the EntityListIterator class for details and an example",
-                    MODULE);
+                    "For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; "
+                            + "see JavaDoc comments in the EntityListIterator class for details and an example", MODULE);
 
             haveShowHasNextWarning = true;
         }
@@ -312,7 +317,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     }
 
     /**
-     * Moves the cursor to the next position and returns the value for that position; For example, you could use the following to iterate through the results in an
+     * Moves the cursor to the next position and returns the value for that position; For example, you could use the following
+     * to iterate through the results in an
      * EntityListIterator:
      * GenericValue nextValue = null; while ((nextValue = (GenericValue) this.next()) != null) { ... }
      * @return the next element or null, if there is no next element.
@@ -432,8 +438,9 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      */
     public List<GenericValue> getPartialList(int start, int number) throws GenericEntityException {
         try {
-            if (number == 0)
+            if (number == 0) {
                 return new ArrayList<>(0);
+            }
 
             // just in case the caller missed the 1 based thingy
             if (start == 0) start = 1;
@@ -534,7 +541,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
 
     /**
      * Tries to close the {@link EntityListIterator} and logs a warning if it isn't already closed.
-     * Catches the {@link GenericEntityException} thrown by {@link #close()} and logs it. If you want to handle the exception yourself, use {@link #closeWithWarning()}.
+     * Catches the {@link GenericEntityException} thrown by {@link #close()} and logs it. If you want to handle the exception
+     * yourself, use {@link #closeWithWarning()}.
      * @param warningMessage
      *            the warning to be logged.
      */
@@ -543,7 +551,8 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
             try {
                 this.close();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error auto-closing EntityListIterator on error, so info below for more info on original error; close error: %s", MODULE, e.toString());
+                Debug.logError(e, "Error auto-closing EntityListIterator on error, so info below for more info on original error; close error: %s",
+                        MODULE, e.toString());
             }
             Debug.logWarning(warningMessage, MODULE);
         }

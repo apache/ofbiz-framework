@@ -296,7 +296,8 @@ public class PackingSession implements java.io.Serializable {
      * @param packageSeq      the package seq
      * @return the packing session line
      */
-    public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
+    public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId,
+                                       int packageSeq) {
         for (PackingSessionLine line: this.getLines()) {
             if (orderId.equals(line.getOrderId())
                     && orderItemSeqId.equals(line.getOrderItemSeqId())
@@ -887,15 +888,15 @@ public class PackingSession implements java.io.Serializable {
      */
     public void clearLine(PackingSessionLine line) {
         this.packLines.remove(line);
-        BigDecimal packageWeight = this.packageWeights.get(line.packageSeq);
+        BigDecimal packageWeight = this.packageWeights.get(line.getPackageSeq());
         if (packageWeight != null) {
-            packageWeight = packageWeight.subtract(line.weight);
+            packageWeight = packageWeight.subtract(line.getWeight());
             if (packageWeight.compareTo(BigDecimal.ZERO) < 0) {
                 packageWeight = BigDecimal.ZERO;
             }
-            this.packageWeights.put(line.packageSeq, packageWeight);
+            this.packageWeights.put(line.getPackageSeq(), packageWeight);
         }
-        if (line.packageSeq == packageSeq && packageSeq > 1) {
+        if (line.getPackageSeq() == packageSeq && packageSeq > 1) {
             packageSeq--;
         }
     }
@@ -937,7 +938,7 @@ public class PackingSession implements java.io.Serializable {
      */
     public String complete(boolean force) throws GeneralException {
         // check to see if there is anything to process
-        if (this.getLines().size() == 0) {
+        if (this.getLines().isEmpty()) {
             return "EMPTY";
         }
 
@@ -985,7 +986,7 @@ public class PackingSession implements java.io.Serializable {
             }
         }
 
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             if (!ignore) {
                 throw new GeneralException("Attempt to pack order failed.", errors);
             } else {
@@ -1013,7 +1014,7 @@ public class PackingSession implements java.io.Serializable {
      * @param eventCode the event code
      */
     protected void runEvents(int eventCode) {
-        if (this.packEvents.size() > 0) {
+        if (!this.packEvents.isEmpty()) {
             for (PackingEvent event: this.packEvents) {
                 event.runEvent(this, eventCode);
             }
@@ -1525,7 +1526,6 @@ public class PackingSession implements java.io.Serializable {
 
         /**
          * Instantiates a new Item display.
-         *
          * @param v the v
          */
         ItemDisplay(GenericValue v) {
@@ -1548,7 +1548,6 @@ public class PackingSession implements java.io.Serializable {
 
         /**
          * Gets order item.
-         *
          * @return the order item
          */
         public GenericValue getOrderItem() {
@@ -1557,7 +1556,6 @@ public class PackingSession implements java.io.Serializable {
 
         /**
          * Gets quantity.
-         *
          * @return the quantity
          */
         public BigDecimal getQuantity() {

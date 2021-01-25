@@ -135,7 +135,8 @@ public final class OrderChangeHelper {
         return true;
     }
 
-    public static void orderStatusChanges(LocalDispatcher dispatcher, GenericValue userLogin, String orderId, String orderStatus, String fromItemStatus, String toItemStatus, String digitalItemStatus) throws GenericServiceException {
+    public static void orderStatusChanges(LocalDispatcher dispatcher, GenericValue userLogin, String orderId, String orderStatus,
+            String fromItemStatus, String toItemStatus, String digitalItemStatus) throws GenericServiceException {
         // set the status on the order header
         Map<String, Object> statusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", orderStatus, "userLogin", userLogin);
         Map<String, Object> statusResult = dispatcher.runSync("changeOrderStatus", statusFields);
@@ -194,7 +195,8 @@ public final class OrderChangeHelper {
                                 String isDigital = productType.getString("isDigital");
                                 if (isDigital != null && "Y".equalsIgnoreCase(isDigital)) {
                                     // update the status
-                                    Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
+                                    Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId",
+                                            orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
                                     Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
                                     if (ServiceUtil.isError(digitalStatusChange)) {
                                         String errorMessage = ServiceUtil.getErrorMessage(digitalStatusChange);
@@ -207,7 +209,8 @@ public final class OrderChangeHelper {
                             String orderItemType = orderItem.getString("orderItemTypeId");
                             if (!"PRODUCT_ORDER_ITEM".equals(orderItemType)) {
                                 // non-product items don't ship; treat as a digital item
-                                Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
+                                Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId",
+                                        orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
                                 Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
                                 if (ServiceUtil.isError(digitalStatusChange)) {
                                     String errorMessage = ServiceUtil.getErrorMessage(digitalStatusChange);
@@ -222,7 +225,8 @@ public final class OrderChangeHelper {
         }
     }
 
-    public static void cancelInventoryReservations(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericServiceException {
+    public static void cancelInventoryReservations(LocalDispatcher dispatcher, GenericValue userLogin, String orderId)
+            throws GenericServiceException {
         // cancel the inventory reservations
         Map<String, Object> cancelInvFields = UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin);
         Map<String, Object> cancelInvResult = dispatcher.runSync("cancelOrderInventoryReservation", cancelInvFields);
@@ -233,7 +237,8 @@ public final class OrderChangeHelper {
         }
     }
 
-    public static void releasePaymentAuthorizations(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericServiceException {
+    public static void releasePaymentAuthorizations(LocalDispatcher dispatcher, GenericValue userLogin, String orderId)
+            throws GenericServiceException {
         Map<String, Object> releaseFields = UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin);
         Map<String, Object> releaseResult = dispatcher.runSync("releaseOrderPayments", releaseFields);
         if (ServiceUtil.isError(releaseResult)) {
@@ -265,7 +270,8 @@ public final class OrderChangeHelper {
                     if (UtilValidate.isEmpty(payments)) {
                         // only do this one time; if we have payment already for this pref ignore.
                         Map<String, Object> results = dispatcher.runSync("createPaymentFromPreference",
-                                UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"),
+                                UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId",
+                                        opp.getString("orderPaymentPreferenceId"),
                                 "paymentRefNum", UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
                         if (ServiceUtil.isError(results)) {
                             String errorMessage = ServiceUtil.getErrorMessage(results);

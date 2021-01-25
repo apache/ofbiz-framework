@@ -74,9 +74,10 @@ public class SaveLabelsToXmlFile {
             LabelFile labelFile = factory.getLabelFile(fileName);
             if (labelFile == null) {
                 Debug.logError("Invalid file name: " + fileName, MODULE);
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile",
+                        locale));
             }
-            synchronized(SaveLabelsToXmlFile.class) {
+            synchronized (SaveLabelsToXmlFile.class) {
                 factory.findMatchingLabels(null, fileName, null, null, false);
                 Map<String, LabelInfo> labels = factory.getLabels();
                 Set<String> labelsList = factory.getLabelsList();
@@ -86,9 +87,9 @@ public class SaveLabelsToXmlFile {
                 }
                 // Remove a Label
                 if (UtilValidate.isNotEmpty(removeLabel)) {
-                    labels.remove(key + LabelManagerFactory.keySeparator + fileName);
+                    labels.remove(key + LabelManagerFactory.KEY_SEPARATOR + fileName);
                 } else if (UtilValidate.isNotEmpty(confirm)) {
-                    LabelInfo label = labels.get(key + LabelManagerFactory.keySeparator + fileName);
+                    LabelInfo label = labels.get(key + LabelManagerFactory.KEY_SEPARATOR + fileName);
                     // Update a Label
                     if ("Y".equalsIgnoreCase(updateLabel)) {
                         if (UtilValidate.isNotEmpty(label)) {
@@ -97,12 +98,14 @@ public class SaveLabelsToXmlFile {
                         // Insert a new Label
                     } else {
                         if (UtilValidate.isNotEmpty(label)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelExisting", UtilMisc.toMap("key", key, "fileName", fileName), locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelExisting",
+                                    UtilMisc.toMap("key", key, "fileName", fileName), locale));
                         } else {
                             if (UtilValidate.isEmpty(key)) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelEmptyKey", locale));
                             } else {
-                                int notEmptyLabels = factory.updateLabelValue(localeNames, localeValues, localeComments, null, key, keyComment, fileName);
+                                int notEmptyLabels = factory.updateLabelValue(localeNames, localeValues, localeComments, null, key,
+                                        keyComment, fileName);
                                 if (notEmptyLabels == 0) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelEmpty", locale));
                                 }
@@ -143,7 +146,7 @@ public class SaveLabelsToXmlFile {
                             }
                         }
                     }
-                    try (FileOutputStream fos = new FileOutputStream(labelFile.file)) {
+                    try (FileOutputStream fos = new FileOutputStream(labelFile.getFile())) {
                         if (apacheLicenseText != null) {
                             fos.write(apacheLicenseText.getBytes());
                         }

@@ -1,0 +1,77 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+[appendix]
+= HR Data Model Resource Book Difference
+
+PayHistory:: it's not really a difference, more a not explicit detail about fromDate field. +
+PayHistory is a detail of Employment entity (Composition in UML language) and Employment entity has a fromDate field
+(as one of the keyField), and we need fromDate field for information about PayHistory, so it's needed to have one named
+emplFromDate (coming from Employment) and one classical fromDate to be able to have multiple PayHistory for one Employment.
+
+PartyBenefit:: It's exactly the same problem or case than PayHistory, currently in Apache OFBiz entity is exactly the same
+as in https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Book] Difference (only one fromDate field), so it's not possible to have a correct User Interface
+as an Employment subOption. +
+So correct solution should be to have one more field: emplFromDate (coming from Employment).
+
+Resume:: entity in Apache OFBiz is a simplification of the concept explain in the Book
+
+[appendix]
+= HR Enhancement & Bug
+== Functional bug
+This section explain current "Bug" which are waiting some developpment.
+
+=== CreateEmployee
+Currently create an employee should create a Party Relationship between Employer and Employee(cf <<_employments, documentation>>),
+it's not working because a parameters if forgot in service but it's not the major "Bug", and the main question is : +
+create an employee should create a Party Relationship or a Employment (which is a subtype of PartyRelationship) ?
+
+If the create Employee screen is used from HR, it's to use HR functions and for HR component, an employee has an Employment
+(which is a subtype of PartyRelationship), so create an Employee should create an Employment (and so the first PayHistory). +
+Screen and Service should corrected to do these points.
+
+
+
+== Functional Enhancement
+This section explain which developpment should be done to add some features which should be in Apache OFBiz
+
+=== Valid Responsibility
+Entity ValidResponsibility exist in Apache OFBiz, associated controler screens, forms and services exists too,
+but there is no menu to use them !
+
+. Add a entry menu in Employee Position Type sub menu (in Global HR Setting)
+. Correction on screen definition to included GlobalHR decorator and button highlight
+
+JIRA OFBIZ-11045 is for that.
+
+==== Business Rule
+It's suggest in «the https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books#OFBizRelatedBooks-DataModel[Data Model Resource Book]» to have a check before adding some responsibilities to a job Position
+if Position Type has it (in ValidResposibility) with valid date.
+
+=== Position Type Rate amount-and-grade
+For a RateType, it should not be possible to have a amount AND a Grade-Step.
+
+=== EmplPositionTypeClass
+Entity exist but no screen management.
+
+Same for EmplPositonClassType
+
+=== BenefitType
+Entity exist but no screen management. +
+It should be place in Global HR Settings

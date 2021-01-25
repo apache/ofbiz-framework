@@ -31,9 +31,9 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class TestFailAuthenticator implements Authenticator {
 
     private static final String MODULE = TestFailAuthenticator.class.getName();
-    protected Delegator delegator;
-    protected LocalDispatcher dispatcher;
-    protected float weight = 1;
+    private Delegator delegator;
+    private LocalDispatcher dispatcher;
+    private float weight = 1;
 
     /**
      * Method called when authenticator is first initialized (the delegator

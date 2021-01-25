@@ -45,15 +45,15 @@ public class BOMTree {
     public static final int EXPLOSION_MANUFACTURING = 2;
     public static final int IMPLOSION = 3;
 
-    protected LocalDispatcher dispatcher = null;
-    protected Delegator delegator = null;
+    private LocalDispatcher dispatcher = null;
+    private Delegator delegator = null;
 
-    BOMNode root;
-    BigDecimal rootQuantity;
-    BigDecimal rootAmount;
-    Date inDate;
-    String bomTypeId;
-    GenericValue inputProduct;
+    private BOMNode root;
+    private BigDecimal rootQuantity;
+    private BigDecimal rootAmount;
+    private Date inDate;
+    private String bomTypeId;
+    private GenericValue inputProduct;
 
     /** Creates a new instance of BOMTree by reading downward
      * the productId's bill of materials (explosion).
@@ -65,7 +65,8 @@ public class BOMTree {
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.
      */
-    public BOMTree(String productId, String bomTypeId, Date inDate, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    public BOMTree(String productId, String bomTypeId, Date inDate, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin)
+            throws GenericEntityException {
         this(productId, bomTypeId, inDate, EXPLOSION, delegator, dispatcher, userLogin);
     }
 
@@ -83,7 +84,8 @@ public class BOMTree {
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.
      */
-    public BOMTree(String productId, String bomTypeId, Date inDate, int type, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    public BOMTree(String productId, String bomTypeId, Date inDate, int type, Delegator delegator, LocalDispatcher dispatcher, GenericValue
+            userLogin) throws GenericEntityException {
         // If the parameters are not valid, return.
         if (productId == null || bomTypeId == null || delegator == null || dispatcher == null) return;
         // If the date is null, set it to today.
@@ -121,7 +123,8 @@ public class BOMTree {
         // the bill of materials of its virtual product (if the current
         // product is variant).
         if (!hasBom(product, inDate)) {
-            List<GenericValue> virtualProducts = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
+            List<GenericValue> virtualProducts = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId",
+                    "PRODUCT_VARIANT"), null, false);
             virtualProducts = EntityUtil.filterByDate(virtualProducts, inDate);
             GenericValue virtualProduct = EntityUtil.getFirst(virtualProducts);
             if (virtualProduct != null) {
@@ -130,7 +133,8 @@ public class BOMTree {
                 productIdForRules = virtualProduct.getString("productId");
                 manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
                 product = EntityQuery.use(delegator).from("Product")
-                        .where("productId", (manufacturedAsProduct != null ? manufacturedAsProduct.getString("productIdTo") : virtualProduct.get("productId")))
+                        .where("productId", (manufacturedAsProduct != null ? manufacturedAsProduct.getString("productIdTo")
+                                : virtualProduct.get("productId")))
                         .queryOne();
             }
         }
@@ -154,6 +158,10 @@ public class BOMTree {
         rootAmount = BigDecimal.ZERO;
     }
 
+    /**
+     * Gets input product.
+     * @return the input product
+     */
     public GenericValue getInputProduct() {
         return inputProduct;
     }
@@ -166,7 +174,8 @@ public class BOMTree {
     }
 
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
-        List<GenericValue> children = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId), null, false);
+        List<GenericValue> children = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId),
+                null, false);
         children = EntityUtil.filterByDate(children, inDate);
         return UtilValidate.isNotEmpty(children);
     }
@@ -179,7 +188,7 @@ public class BOMTree {
     public boolean isConfigured() {
         List<BOMNode> notConfiguredParts = new LinkedList<>();
         root.isConfigured(notConfiguredParts);
-        return (notConfiguredParts.size() == 0);
+        return (notConfiguredParts.isEmpty());
     }
 
     /** Getter for property rootQuantity.
@@ -252,6 +261,12 @@ public class BOMTree {
         print(arr, initialDepth, true);
     }
 
+    /**
+     * Print.
+     * @param arr the arr
+     * @param initialDepth the initial depth
+     * @param excludeWIPs the exclude wi ps
+     */
     public void print(List<BOMNode> arr, int initialDepth, boolean excludeWIPs) {
         if (root != null) {
             root.print(arr, getRootQuantity(), initialDepth, excludeWIPs);
@@ -267,6 +282,11 @@ public class BOMTree {
         print(arr, 0, false);
     }
 
+    /**
+     * Print.
+     * @param arr the arr
+     * @param excludeWIPs the exclude wi ps
+     */
     public void print(List<BOMNode> arr, boolean excludeWIPs) {
         print(arr, 0, excludeWIPs);
     }
@@ -312,7 +332,8 @@ public class BOMTree {
      * @return returns the work effort id
      * @throws GenericEntityException If a db problem occurs.
      */
-    public String createManufacturingOrders(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipGroupSeqId, String shipmentId, GenericValue userLogin)  throws GenericEntityException {
+    public String createManufacturingOrders(String facilityId, Date date, String workEffortName, String description, String routingId,
+            String orderId, String orderItemSeqId, String shipGroupSeqId, String shipmentId, GenericValue userLogin) throws GenericEntityException {
         String workEffortId = null;
         if (root != null) {
             if (UtilValidate.isEmpty(facilityId)) {
@@ -332,12 +353,17 @@ public class BOMTree {
                     facilityId = shipment.getString("originFacilityId");
                 }
             }
-            Map<String, Object> tmpMap = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId, orderItemSeqId, shipGroupSeqId, shipmentId, true, true);
+            Map<String, Object> tmpMap = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId,
+                    orderItemSeqId, shipGroupSeqId, shipmentId, true, true);
             workEffortId = (String) tmpMap.get("productionRunId");
         }
         return workEffortId;
     }
 
+    /**
+     * Gets products in packages.
+     * @param arr the arr
+     */
     public void getProductsInPackages(List<BOMNode> arr) {
         if (root != null) {
             root.getProductsInPackages(arr, getRootQuantity(), 0, false);

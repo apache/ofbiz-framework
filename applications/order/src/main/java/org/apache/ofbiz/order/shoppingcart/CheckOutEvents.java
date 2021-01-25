@@ -331,8 +331,8 @@ public class CheckOutEvents {
                         amount = new BigDecimal(amountStr);
                     } catch (NumberFormatException e) {
                         Debug.logError(e, MODULE);
-                        errMsg = UtilProperties.getMessage(RES_ERROR, "checkevents.invalid_amount_set_for_payment_method",
-                                (cart != null ? cart.getLocale() : Locale.getDefault()));
+                        errMsg = UtilProperties.getMessage(RES_ERROR, "checkevents.invalid_amount_set_for_payment_method", (cart != null
+                                ? cart.getLocale() : Locale.getDefault()));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return null;
                     }
@@ -398,7 +398,8 @@ public class CheckOutEvents {
         if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
             try {
                 Map<String, Object> createCustomerTaxAuthInfoResult = dispatcher.runSync("createCustomerTaxAuthInfo",
-                        UtilMisc.toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt));
+                        UtilMisc.toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId",
+                                partyTaxId, "isExempt", isExempt));
                 ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                 if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
@@ -901,11 +902,11 @@ public class CheckOutEvents {
             }
             //See whether we need to return an error or not
             callResult = ServiceUtil.returnSuccess();
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
-            if (errorMaps.size() > 0) {
+            if (!errorMaps.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
@@ -968,7 +969,7 @@ public class CheckOutEvents {
             // Verify if a gift card has been selected during order entry
             callResult = checkOutHelper.checkGiftCard(paramMap, selectedPaymentMethods);
             ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
-            if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+            if (errorMessages.isEmpty() && errorMaps.isEmpty()) {
                 String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
                 BigDecimal giftCardAmount = (BigDecimal) callResult.get("amount");
                 // WARNING: if gcPaymentMethodId is not empty, all the previously set payment methods will be removed
@@ -977,11 +978,11 @@ public class CheckOutEvents {
             }
             //See whether we need to return an error or not
             callResult = ServiceUtil.returnSuccess();
-            if (errorMessages.size() > 0) {
+            if (!errorMessages.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
-            if (errorMaps.size() > 0) {
+            if (!errorMaps.isEmpty()) {
                 callResult.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }

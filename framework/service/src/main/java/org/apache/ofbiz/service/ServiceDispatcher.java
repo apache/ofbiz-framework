@@ -67,10 +67,11 @@ import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
 public final class ServiceDispatcher {
 
     private static final String MODULE = ServiceDispatcher.class.getName();
-    public static final int lruLogSize = 200;
+    public static final int LRU_LOG_SIZE = 200;
     public static final int LOCK_RETRIES = 3;
 
-    private static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
+    private static final Map<RunningService, ServiceDispatcher> RUN_LOG = new ConcurrentLinkedHashMap.Builder<RunningService,
+            ServiceDispatcher>().maximumWeightedCapacity(LRU_LOG_SIZE).build();
     private static ConcurrentHashMap<String, ServiceDispatcher> dispatchers = new ConcurrentHashMap<>();
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
     // We need a better design - like have this class query EntityDataLoadContainer if data is being loaded.
@@ -102,7 +103,7 @@ public final class ServiceDispatcher {
 
         // clean up the service semaphores of same instance
             try {
-                int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.instanceId);
+                int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.INSTANCE_ID);
                 if (rn > 0) {
                     Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors.", MODULE);
                 }
@@ -194,7 +195,7 @@ public final class ServiceDispatcher {
     public void deregister(LocalDispatcher local) {
         Debug.logInfo("De-Registering dispatcher: " + local.getName(), MODULE);
         localContext.remove(local.getName());
-        if (localContext.size() == 0) {
+        if (localContext.isEmpty()) {
             try {
                 this.shutdown();
             } catch (GenericServiceException e) {
@@ -234,7 +235,8 @@ public final class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public Map<String, Object> runSync(String localName, ModelService service, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService service, Map<String, ? extends Object> context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         return runSync(localName, service, context, true);
     }
 
@@ -247,7 +249,8 @@ public final class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public void runSyncIgnore(String localName, ModelService service, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService service, Map<String, ? extends Object> context)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runSync(localName, service, context, false);
     }
 
@@ -262,7 +265,8 @@ public final class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, ? extends Object> params, boolean validateOut) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, ? extends Object> params, boolean validateOut)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         long serviceStartTime = System.currentTimeMillis();
         Map<String, Object> result = new HashMap<>();
         ServiceSemaphore lock = null;
@@ -277,15 +281,15 @@ public final class ServiceDispatcher {
         boolean beganTrans = false;
         try {
             // check for semaphore and acquire a lock
-            if ("wait".equals(modelService.semaphore) || "fail".equals(modelService.semaphore)) {
+            if ("wait".equals(modelService.getSemaphore()) || "fail".equals(modelService.getSemaphore())) {
                 lock = new ServiceSemaphore(delegator, modelService);
                 lock.acquire();
             }
 
-            if (Debug.verboseOn() || modelService.debug) {
+            if (Debug.verboseOn() || modelService.isDebug()) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.name + " [" + modelService.location
-                            + "/" + modelService.invoke + "] (" + modelService.engineName + ")", MODULE);
+                    Debug.logVerbose("[ServiceDispatcher.runSync] : invoking service " + modelService.getName() + " [" + modelService.getLocation()
+                            + "/" + modelService.getInvoke() + "] (" + modelService.getEngineName() + ")", MODULE);
                 }
             }
 
@@ -300,31 +304,32 @@ public final class ServiceDispatcher {
             rs = this.logService(localName, modelService, GenericEngine.SYNC_MODE);
 
             // get eventMap once for all calls for speed, don't do event calls if it is null
-            eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
-            engine = this.getGenericEngine(modelService.engineName);
+            eventMap = ServiceEcaUtil.getServiceEventMap(modelService.getName());
+            engine = this.getGenericEngine(modelService.getEngineName());
 
             modelService.informIfDeprecated();
 
             // set IN attributes with default-value as applicable
             modelService.updateDefaultValues(context, ModelService.IN_PARAM);
-            if (modelService.useTransaction) {
+            if (modelService.isUseTransaction()) {
                 if (TransactionUtil.isTransactionInPlace()) {
                     // if a new transaction is needed, do it here; if not do nothing, just use current tx
-                    if (modelService.requireNewTransaction) {
+                    if (modelService.isRequireNewTransaction()) {
                         parentTransaction = TransactionUtil.suspend();
                         if (TransactionUtil.isTransactionInPlace()) {
                             rs.setEndStamp();
-                            throw new GenericTransactionException("In service " + modelService.name + " transaction is still in place after suspend, status is " + TransactionUtil.getStatusString());
+                            throw new GenericTransactionException("In service " + modelService.getName()
+                                    + " transaction is still in place after suspend, status is " + TransactionUtil.getStatusString());
                         }
                         // now start a new transaction
-                        beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
+                        beganTrans = TransactionUtil.begin(modelService.getTransactionTimeout());
                     }
                 } else {
-                    beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
+                    beganTrans = TransactionUtil.begin(modelService.getTransactionTimeout());
                 }
                 // enlist for XAResource debugging
                 if (beganTrans && TransactionUtil.debugResources()) {
-                    DebugXaResource dxa = new DebugXaResource(modelService.name);
+                    DebugXaResource dxa = new DebugXaResource(modelService.getName());
                     try {
                         dxa.enlist();
                     } catch (Exception e) {
@@ -352,15 +357,15 @@ public final class ServiceDispatcher {
 
                     // setup global transaction ECA listeners to execute later
                     if (eventMap != null) {
-                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-rollback", ctx, context, result, isError, isFailure);
+                        ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "global-rollback", ctx, context, result, isError, isFailure);
                     }
                     if (eventMap != null) {
-                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit", ctx, context, result, isError, isFailure);
+                        ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "global-commit", ctx, context, result, isError, isFailure);
                     }
 
                     // pre-auth ECA
                     if (eventMap != null) {
-                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+                        ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "auth", ctx, context, result, isError, isFailure);
                     }
 
                     // check for pre-auth failure/errors
@@ -370,9 +375,10 @@ public final class ServiceDispatcher {
                     context = checkAuth(localName, context, modelService);
                     GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-                    if (modelService.auth && userLogin == null) {
+                    if (modelService.isAuth() && userLogin == null) {
                         rs.setEndStamp();
-                        throw new ServiceAuthException("User authorization is required for this service: " + modelService.name + modelService.debugInfo());
+                        throw new ServiceAuthException("User authorization is required for this service: " + modelService.getName()
+                                + modelService.debugInfo());
                     }
 
                     // now that we have authed, if there is a userLogin, set the EE userIdentifier
@@ -382,7 +388,7 @@ public final class ServiceDispatcher {
 
                     // pre-validate ECA
                     if (eventMap != null) {
-                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
+                        ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "in-validate", ctx, context, result, isError, isFailure);
                     }
 
                     // check for pre-validate failure/errors
@@ -390,13 +396,14 @@ public final class ServiceDispatcher {
                     isError = ServiceUtil.isError(result);
 
                     // validate the context
-                    if (modelService.validate && !isError && !isFailure) {
+                    if (modelService.isValidate() && !isError && !isFailure) {
                         try {
                             // FIXME without this line all simple test failed
-                            context = ctx.makeValidContext(modelService.name, ModelService.IN_PARAM, context);
+                            context = ctx.makeValidContext(modelService.getName(), ModelService.IN_PARAM, context);
                             modelService.validate(context, ModelService.IN_PARAM, locale);
                         } catch (ServiceValidationException e) {
-                            Debug.logError(e, "Incoming context (in runSync : " + modelService.name + ") does not match expected requirements", MODULE);
+                            Debug.logError(e, "Incoming context (in runSync : " + modelService.getName()
+                                    + ") does not match expected requirements", MODULE);
                             rs.setEndStamp();
                             throw e;
                         }
@@ -404,7 +411,7 @@ public final class ServiceDispatcher {
 
                     // pre-invoke ECA
                     if (eventMap != null) {
-                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "invoke", ctx, context, result, isError, isFailure);
+                        ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "invoke", ctx, context, result, isError, isFailure);
                     }
 
                     // check for pre-invoke failure/errors
@@ -419,7 +426,7 @@ public final class ServiceDispatcher {
                         if (invokeResult != null) {
                             result.putAll(invokeResult);
                         } else {
-                            Debug.logWarning("Service (in runSync : " + modelService.name + ") returns null result", MODULE);
+                            Debug.logWarning("Service (in runSync : " + modelService.getName() + ") returns null result", MODULE);
                         }
                     }
 
@@ -428,7 +435,8 @@ public final class ServiceDispatcher {
                     isError = ServiceUtil.isError(result);
 
                     if (beganTrans) {
-                        // crazy stuff here: see if there was a deadlock or other such error and if so retry... which we can ONLY do if we own the transaction!
+                        // crazy stuff here: see if there was a deadlock or other such error and if so retry...
+                        // which we can ONLY do if we own the transaction!
 
                         String errMsg = ServiceUtil.getErrorMessage(result);
 
@@ -444,17 +452,18 @@ public final class ServiceDispatcher {
                         //service is written to not ignore it of course!
                         if (errMsg != null && errMsg.toUpperCase(Locale.getDefault()).indexOf("DEADLOCK") >= 0) {
                             // it's a deadlock! retry...
-                            String retryMsg = "RETRYING SERVICE [" + modelService.name + "]: Deadlock error found in message [" + errMsg + "]; retry [" + (LOCK_RETRIES - lockRetriesRemaining) + "] of [" + LOCK_RETRIES + "]";
+                            String retryMsg = "RETRYING SERVICE [" + modelService.getName() + "]: Deadlock error found in message [" + errMsg
+                                    + "]; retry [" + (LOCK_RETRIES - lockRetriesRemaining) + "] of [" + LOCK_RETRIES + "]";
 
                             // make sure the old transaction is rolled back, and then start a new one
 
                             // if there is an exception in these things, let the big overall thing handle it
                             TransactionUtil.rollback(beganTrans, retryMsg, null);
 
-                            beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
+                            beganTrans = TransactionUtil.begin(modelService.getTransactionTimeout());
                             // enlist for XAResource debugging
                             if (beganTrans && TransactionUtil.debugResources()) {
-                                DebugXaResource dxa = new DebugXaResource(modelService.name);
+                                DebugXaResource dxa = new DebugXaResource(modelService.getName());
                                 try {
                                     dxa.enlist();
                                 } catch (Exception e) {
@@ -477,13 +486,14 @@ public final class ServiceDispatcher {
                                 Debug.logWarning(retryMsg, MODULE);
                             }
 
-                            // look for lock wait timeout error, retry in a different way by running after the parent transaction finishes, ie attach to parent tx
+                            // look for lock wait timeout error, retry in a different way by running after the parent transaction finishes,
+                            // ie attach to parent tx
                             // - Derby 10.2.2.0 lock wait timeout string: "A lock could not be obtained within the time requested"
                             // - MySQL ? lock wait timeout string: "Lock wait timeout exceeded; try restarting transaction"
-                            if (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0
-                                    || errMsg.indexOf("Lock wait timeout exceeded") >= 0) {
+                            //if (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0
+                            //        || errMsg.indexOf("Lock wait timeout exceeded") >= 0) {
                                 // TODO: add to run after parent tx
-                            }
+                            //}
                         }
                     }
                 } while (needsLockRetry && lockRetriesRemaining > 0);
@@ -498,23 +508,24 @@ public final class ServiceDispatcher {
                 modelService.updateDefaultValues(context, ModelService.OUT_PARAM);
 
                 // validate the result
-                if (modelService.validate && validateOut) {
+                if (modelService.isValidate() && validateOut) {
                     // pre-out-validate ECA
                     if (eventMap != null) {
-                        ServiceEcaUtil.evalRules(modelService.name, eventMap, "out-validate", ctx, ecaContext, result, isError, isFailure);
+                        ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "out-validate", ctx, ecaContext, result, isError, isFailure);
                     }
                     try {
-                        result = ctx.makeValidContext(modelService.name, ModelService.OUT_PARAM, result);
+                        result = ctx.makeValidContext(modelService.getName(), ModelService.OUT_PARAM, result);
                         modelService.validate(result, ModelService.OUT_PARAM, locale);
                     } catch (ServiceValidationException e) {
                         rs.setEndStamp();
-                        throw new GenericServiceException("Outgoing result (in runSync : " + modelService.name + ") does not match expected requirements", e);
+                        throw new GenericServiceException("Outgoing result (in runSync : " + modelService.getName()
+                                + ") does not match expected requirements", e);
                     }
                 }
 
                 // pre-commit ECA
                 if (eventMap != null) {
-                    ServiceEcaUtil.evalRules(modelService.name, eventMap, "commit", ctx, ecaContext, result, isError, isFailure);
+                    ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "commit", ctx, ecaContext, result, isError, isFailure);
                 }
 
                 // check for pre-commit failure/errors
@@ -523,18 +534,18 @@ public final class ServiceDispatcher {
 
                 // global-commit-post-run ECA, like global-commit but gets the context after the service is run
                 if (eventMap != null) {
-                    ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit-post-run", ctx, ecaContext, result, isError, isFailure);
+                    ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "global-commit-post-run", ctx, ecaContext, result, isError, isFailure);
                 }
 
                 // check for failure and log on info level; this is used for debugging
                 if (isFailure) {
-                    Debug.logWarning("Service Failure [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result), MODULE);
+                    Debug.logWarning("Service Failure [" + modelService.getName() + "]: " + ServiceUtil.getErrorMessage(result), MODULE);
                 }
             } catch (Throwable t) {
                 if (Debug.timingOn()) {
-                    UtilTimer.closeTimer(localName + " / " + modelService.name, "Sync service failed...", MODULE);
+                    UtilTimer.closeTimer(localName + " / " + modelService.getName(), "Sync service failed...", MODULE);
                 }
-                String errMsg = "Service [" + modelService.name + "] threw an unexpected exception/error";
+                String errMsg = "Service [" + modelService.getName() + "] threw an unexpected exception/error";
                 engine.sendCallbacks(modelService, context, t, GenericEngine.SYNC_MODE);
                 try {
                     TransactionUtil.rollback(beganTrans, errMsg, t);
@@ -549,12 +560,12 @@ public final class ServiceDispatcher {
                 } else if (t instanceof GenericServiceException) {
                     throw (GenericServiceException) t;
                 } else {
-                    throw new GenericServiceException("Service [" + modelService.name + "] Failed" + modelService.debugInfo(), t);
+                    throw new GenericServiceException("Service [" + modelService.getName() + "] Failed" + modelService.debugInfo(), t);
                 }
             } finally {
                 // if there was an error, rollback transaction, otherwise commit
                 if (isError) {
-                    String errMsg = "Error in Service [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result);
+                    String errMsg = "Error in Service [" + modelService.getName() + "]: " + ServiceUtil.getErrorMessage(result);
                     Debug.logError(errMsg, MODULE);
 
                     // rollback the transaction
@@ -569,7 +580,7 @@ public final class ServiceDispatcher {
                         TransactionUtil.commit(beganTrans);
                     } catch (GenericTransactionException e) {
                         GenericDelegator.popUserIdentifier();
-                        String errMsg = "Could not commit transaction for service [" + modelService.name + "] call";
+                        String errMsg = "Could not commit transaction for service [" + modelService.getName() + "] call";
                         Debug.logError(e, errMsg, MODULE);
                         if (e.getMessage() != null) {
                             errMsg = errMsg + ": " + e.getMessage();
@@ -609,7 +620,7 @@ public final class ServiceDispatcher {
 
         // pre-return ECA
         if (eventMap != null) {
-            ServiceEcaUtil.evalRules(modelService.name, eventMap, "return", ctx, ecaContext, result, isError, isFailure);
+            ServiceEcaUtil.evalRules(modelService.getName(), eventMap, "return", ctx, ecaContext, result, isError, isFailure);
         }
 
         rs.setEndStamp();
@@ -619,22 +630,24 @@ public final class ServiceDispatcher {
         long showSlowServiceThreshold = UtilProperties.getPropertyAsLong("service", "showSlowServiceThreshold", 1000);
 
         if (Debug.timingOn() && timeToRun > showServiceDurationThreshold) {
-            Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", MODULE);
+            Debug.logTiming("Sync service [" + localName + "/" + modelService.getName() + "] finished in [" + timeToRun + "] milliseconds", MODULE);
         } else if (Debug.infoOn() && timeToRun > showSlowServiceThreshold) {
-            Debug.logTiming("Slow sync service execution detected: service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", MODULE);
+            Debug.logTiming("Slow sync service execution detected: service [" + localName + "/" + modelService.getName() + "] finished in ["
+                    + timeToRun + "] milliseconds", MODULE);
         }
-        if ((Debug.verboseOn() || modelService.debug) && timeToRun > 50 && !modelService.hideResultInLog) {
+        if ((Debug.verboseOn() || modelService.isDebug()) && timeToRun > 50 && !modelService.isHideResultInLog()) {
             // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
             String resultStr = result.toString();
             if (resultStr.length() > 10240) {
                 resultStr = resultStr.substring(0, 10226) + "...[truncated]";
             }
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Sync service [" + localName + "/" + modelService.name + "] finished with response [" + resultStr + "]", MODULE);
+                Debug.logVerbose("Sync service [" + localName + "/" + modelService.getName() + "] finished with response [" + resultStr
+                        + "]", MODULE);
             }
         }
-        if (modelService.metrics != null) {
-            modelService.metrics.recordServiceRate(1, timeToRun);
+        if (modelService.getMetrics() != null) {
+            modelService.getMetrics().recordServiceRate(1, timeToRun);
         }
         return result;
     }
@@ -650,14 +663,15 @@ public final class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public void runAsync(String localName, ModelService service, Map<String, ? extends Object> params, GenericRequester requester, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public void runAsync(String localName, ModelService service, Map<String, ? extends Object> params, GenericRequester requester, boolean persist)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         if (Debug.timingOn()) {
-            UtilTimer.timerLog(localName + " / " + service.name, "ASync service started...", MODULE);
+            UtilTimer.timerLog(localName + " / " + service.getName(), "ASync service started...", MODULE);
         }
-        if (Debug.verboseOn() || service.debug) {
+        if (Debug.verboseOn() || service.isDebug()) {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.name + " [" + service.location + "/" + service.invoke
-                        + "] (" + service.engineName + ")", MODULE);
+                Debug.logVerbose("[ServiceDispatcher.runAsync] : preparing service " + service.getName() + " [" + service.getLocation()
+                        + "/" + service.getInvoke() + "] (" + service.getEngineName() + ")", MODULE);
             }
         }
 
@@ -678,7 +692,7 @@ public final class ServiceDispatcher {
 
         // setup the engine and context
         DispatchContext ctx = localContext.get(localName);
-        GenericEngine engine = this.getGenericEngine(service.engineName);
+        GenericEngine engine = this.getGenericEngine(service.getEngineName());
 
         // for isolated transactions
         Transaction parentTransaction = null;
@@ -686,20 +700,20 @@ public final class ServiceDispatcher {
         boolean beganTrans = false;
 
         try {
-            if (service.useTransaction) {
+            if (service.isUseTransaction()) {
                 if (TransactionUtil.isTransactionInPlace()) {
                     // if a new transaction is needed, do it here; if not do nothing, just use current tx
-                    if (service.requireNewTransaction) {
+                    if (service.isRequireNewTransaction()) {
                         parentTransaction = TransactionUtil.suspend();
                         // now start a new transaction
-                        beganTrans = TransactionUtil.begin(service.transactionTimeout);
+                        beganTrans = TransactionUtil.begin(service.getTransactionTimeout());
                     }
                 } else {
-                    beganTrans = TransactionUtil.begin(service.transactionTimeout);
+                    beganTrans = TransactionUtil.begin(service.getTransactionTimeout());
                 }
                 // enlist for XAResource debugging
                 if (beganTrans && TransactionUtil.debugResources()) {
-                    DebugXaResource dxa = new DebugXaResource(service.name);
+                    DebugXaResource dxa = new DebugXaResource(service.getName());
                     try {
                         dxa.enlist();
                     } catch (Exception e) {
@@ -710,23 +724,23 @@ public final class ServiceDispatcher {
 
             try {
                 // get eventMap once for all calls for speed, don't do event calls if it is null
-                Map<String, List<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(service.name);
+                Map<String, List<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(service.getName());
 
                 // pre-auth ECA
                 if (eventMap != null) {
-                    ServiceEcaUtil.evalRules(service.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+                    ServiceEcaUtil.evalRules(service.getName(), eventMap, "auth", ctx, context, result, isError, isFailure);
                 }
 
                 context = checkAuth(localName, context, service);
                 Object userLogin = context.get("userLogin");
 
-                if (service.auth && userLogin == null) {
-                    throw new ServiceAuthException("User authorization is required for this service: " + service.name + service.debugInfo());
+                if (service.isAuth() && userLogin == null) {
+                    throw new ServiceAuthException("User authorization is required for this service: " + service.getName() + service.debugInfo());
                 }
 
                 // pre-validate ECA
                 if (eventMap != null) {
-                    ServiceEcaUtil.evalRules(service.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
+                    ServiceEcaUtil.evalRules(service.getName(), eventMap, "in-validate", ctx, context, result, isError, isFailure);
                 }
 
                 // check for pre-validate failure/errors
@@ -734,11 +748,12 @@ public final class ServiceDispatcher {
                 isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
 
                 // validate the context
-                if (service.validate && !isError && !isFailure) {
+                if (service.isValidate() && !isError && !isFailure) {
                     try {
                         service.validate(context, ModelService.IN_PARAM, locale);
                     } catch (ServiceValidationException e) {
-                        Debug.logError(e, "Incoming service context (in runAsync: " + service.name + ") does not match expected requirements", MODULE);
+                        Debug.logError(e, "Incoming service context (in runAsync: " + service.getName()
+                                + ") does not match expected requirements", MODULE);
                         throw e;
                     }
                 }
@@ -754,13 +769,13 @@ public final class ServiceDispatcher {
                 }
 
                 if (Debug.timingOn()) {
-                    UtilTimer.closeTimer(localName + " / " + service.name, "ASync service finished...", MODULE);
+                    UtilTimer.closeTimer(localName + " / " + service.getName(), "ASync service finished...", MODULE);
                 }
             } catch (Throwable t) {
                 if (Debug.timingOn()) {
-                    UtilTimer.closeTimer(localName + " / " + service.name, "ASync service failed...", MODULE);
+                    UtilTimer.closeTimer(localName + " / " + service.getName(), "ASync service failed...", MODULE);
                 }
-                String errMsg = "Service [" + service.name + "] threw an unexpected exception/error";
+                String errMsg = "Service [" + service.getName() + "] threw an unexpected exception/error";
                 Debug.logError(t, errMsg, MODULE);
                 engine.sendCallbacks(service, context, t, GenericEngine.ASYNC_MODE);
                 try {
@@ -775,7 +790,7 @@ public final class ServiceDispatcher {
                 } else if (t instanceof GenericServiceException) {
                     throw (GenericServiceException) t;
                 } else {
-                    throw new GenericServiceException("Service [" + service.name + "] Failed" + service.debugInfo(), t);
+                    throw new GenericServiceException("Service [" + service.getName() + "] Failed" + service.debugInfo(), t);
                 }
             } finally {
                 // always try to commit the transaction since we don't know in this case if its was an error or not
@@ -812,7 +827,8 @@ public final class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public void runAsync(String localName, ModelService service, Map<String, ? extends Object> context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public void runAsync(String localName, ModelService service, Map<String, ? extends Object> context, boolean persist)
+            throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         this.runAsync(localName, service, context, null, persist);
     }
 
@@ -892,7 +908,8 @@ public final class ServiceDispatcher {
     }
 
     // checks if parameters were passed for authentication
-    private Map<String, Object> checkAuth(String localName, Map<String, Object> context, ModelService origService) throws ServiceAuthException, GenericServiceException {
+    private Map<String, Object> checkAuth(String localName, Map<String, Object> context, ModelService origService)
+            throws ServiceAuthException, GenericServiceException {
         String service = null;
         Locale locale = (Locale) context.get("locale");
         try {
@@ -904,7 +921,7 @@ public final class ServiceDispatcher {
         if (service == null) {
             throw new GenericServiceException("No Authentication Service Defined");
         }
-        if (service.equals(origService.name)) {
+        if (service.equals(origService.getName())) {
             // manually calling the auth service, don't continue...
             return context;
         }
@@ -926,9 +943,11 @@ public final class ServiceDispatcher {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
 
             if (userLogin != null) {
-                // Because of encrypted passwords we can't just pass in the encrypted version of the password from the data, so we'll do something different and not run the userLogin service...
+                // Because of encrypted passwords we can't just pass in the encrypted version of the password from the data, so we'll do something
+                // different and not run the userLogin service...
 
-                //The old way: GenericValue newUserLogin = getLoginObject(service, localName, userLogin.getString("userLoginId"), userLogin.getString("currentPassword"), (Locale) context.get("locale"));
+                //The old way: GenericValue newUserLogin = getLoginObject(service, localName, userLogin.getString("userLoginId"),
+                // userLogin.getString("currentPassword"), (Locale) context.get("locale"));
                 GenericValue newUserLogin = null;
                 try {
                     newUserLogin = this.getDelegator().findOne("UserLogin", true, "userLoginId", userLogin.get("userLoginId"));
@@ -940,11 +959,15 @@ public final class ServiceDispatcher {
                 if (newUserLogin == null) {
                     // uh oh, couldn't validate that one...
                     // we'll have to remove it from the incoming context which will cause an auth error later if auth is required
-                    Debug.logInfo("Service auth failed for userLoginId [" + userLogin.get("userLoginId") + "] because UserLogin record not found.", MODULE);
+                    Debug.logInfo("Service auth failed for userLoginId [" + userLogin.get("userLoginId") + "] because UserLogin record not found.",
+                            MODULE);
                     context.remove("userLogin");
-                } else if (newUserLogin.getString("currentPassword") != null && !newUserLogin.getString("currentPassword").equals(userLogin.getString("currentPassword"))) {
+                } else if (newUserLogin.getString("currentPassword") != null && !newUserLogin.getString("currentPassword")
+                        .equals(userLogin.getString("currentPassword"))) {
                     // passwords didn't match, remove the userLogin for failed auth
-                    Debug.logInfo("Service auth failed for userLoginId [" + userLogin.get("userLoginId") + "] because UserLogin record currentPassword fields did not match; note that the UserLogin object passed into a service may need to have the currentPassword encrypted.", MODULE);
+                    Debug.logInfo("Service auth failed for userLoginId [" + userLogin.get("userLoginId") + "] because UserLogin record"
+                            + "currentPassword fields did not match; note that the UserLogin object passed into a service may need to have the"
+                            + "currentPassword encrypted.", MODULE);
                     context.remove("userLogin");
                 }
             }
@@ -953,7 +976,7 @@ public final class ServiceDispatcher {
         // evaluate permissions for the service or throw exception if fail.
         DispatchContext dctx = this.getLocalContext(localName);
         Map<String, Object> permResp = null;
-        if (origService.modelPermission != null) {
+        if (origService.getModelPermission() != null) {
             permResp = origService.evalPermission(dctx, context);
             if (ServiceUtil.isSuccess(permResp)) {
                 //Ok the service have authorization to run, complete the context with the permission response map
@@ -964,14 +987,16 @@ public final class ServiceDispatcher {
         }
         if (ServiceUtil.isFailure(permResp) || ServiceUtil.isError(permResp)) {
             throw new ServiceAuthException(UtilProperties.getMessage("ServiceErrorUiLabels", "ServicePermissionError",
-                    UtilMisc.toMap("serviceName", origService.name, "failMessage", ServiceUtil.getErrorMessage(permResp)), locale));
+                    UtilMisc.toMap("serviceName", origService.getName(), "failMessage", ServiceUtil.getErrorMessage(permResp)), locale));
         }
         return origService.makeValid(context, ModelService.IN_PARAM);
     }
 
     // gets a value object from name/password pair
-    private GenericValue getLoginObject(String service, String localName, String username, String password, String jwtToken, Locale locale) throws GenericServiceException {
-        Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "login.token", jwtToken, "isServiceAuth", true, "locale", locale);
+    private GenericValue getLoginObject(String service, String localName, String username, String password, String jwtToken, Locale locale)
+            throws GenericServiceException {
+        Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "login.token", jwtToken,
+                "isServiceAuth", true, "locale", locale);
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", MODULE);
@@ -982,7 +1007,7 @@ public final class ServiceDispatcher {
         ModelService model = dctx.getModelService(service);
 
         // get the service engine
-        GenericEngine engine = getGenericEngine(model.engineName);
+        GenericEngine engine = getGenericEngine(model.getEngineName());
 
         // invoke the service and get the UserLogin value object
         Map<String, Object> result = engine.runSync(localName, model, context);
@@ -1050,7 +1075,7 @@ public final class ServiceDispatcher {
     private RunningService logService(String localName, ModelService modelService, int mode) {
         // set up the running service log
         RunningService rs = new RunningService(localName, modelService, mode);
-        runLog.put(rs, this);
+        RUN_LOG.put(rs, this);
         return rs;
     }
 
@@ -1082,7 +1107,7 @@ public final class ServiceDispatcher {
     }
 
     public static Map<RunningService, ServiceDispatcher> getServiceLogMap() {
-        return runLog;
+        return RUN_LOG;
     }
 
 }

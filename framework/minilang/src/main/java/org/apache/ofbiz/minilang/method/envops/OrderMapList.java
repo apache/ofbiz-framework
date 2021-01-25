@@ -53,7 +53,7 @@ public final class OrderMapList extends MethodOperation {
         }
         listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
         List<? extends Element> orderByElements = UtilXml.childElementList(element, "order-by");
-        if (orderByElements.size() > 0) {
+        if (!orderByElements.isEmpty()) {
             List<FlexibleMapAccessor<String>> orderByList = new ArrayList<>(orderByElements.size());
             for (Element orderByElement : orderByElements) {
                 FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance(orderByElement.getAttribute("field"));

@@ -204,7 +204,7 @@ public final class CsrfUtil {
             }
         }
         String tokenValue = "";
-        if (requestMap != null && requestMap.securityCsrfToken) {
+        if (requestMap != null && requestMap.isSecurityCsrfToken()) {
             if (tokenMap.containsKey(requestUri)) {
                 tokenValue = tokenMap.get(requestUri);
             } else {

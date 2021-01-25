@@ -33,6 +33,20 @@ under the License.
         <menu-item name="CompDoc" title="${uiLabelMap.ContentCompDoc}"><link target="FindCompDoc"/></menu-item>
     </menu>
 
+    <menu name="ContentShortcutAppBar" title="${uiLabelMap.ContentContentManager}">
+        <menu-item name="websites" title="${uiLabelMap.ContentWebSites}"><link target="FindWebSite" url-mode="inter-app"/></menu-item>
+        <menu-item name="survey" title="${uiLabelMap.ContentSurvey}"><link target="FindSurvey" url-mode="inter-app"/></menu-item>
+        <menu-item name="Forum" title="${uiLabelMap.ContentForum}"><link target="findForumGroups" url-mode="inter-app"/></menu-item>
+        <menu-item name="Blog" title="${uiLabelMap.ContentBlog}"><link target="blogMain" url-mode="inter-app"/></menu-item>
+        <menu-item name="Content" title="${uiLabelMap.ContentContent}"><link target="findContent" url-mode="inter-app"/></menu-item>
+        <menu-item name="DataResource" title="${uiLabelMap.ContentDataResource}"><link target="findDataResource" url-mode="inter-app"/></menu-item>
+        <menu-item name="ContentSetupMenu" title="${uiLabelMap.ContentContentSetup}"><link target="ContentSetupMenu" url-mode="inter-app"/></menu-item>
+        <menu-item name="DataResourceSetupMenu" title="${uiLabelMap.ContentDataSetup}"><link target="DataSetupMenu" url-mode="inter-app"/></menu-item>
+        <menu-item name="Layout" title="${uiLabelMap.ContentTemplate}"><link target="LayoutMenu" url-mode="inter-app"/></menu-item>
+        <menu-item name="CMS" title="${uiLabelMap.ContentCMS}"><link target="CMSContentFind" url-mode="inter-app"/></menu-item>
+        <menu-item name="CompDoc" title="${uiLabelMap.ContentCompDoc}"><link target="FindCompDoc" url-mode="inter-app"/></menu-item>
+    </menu>
+
     <menu name="content"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
         title="" type="simple">

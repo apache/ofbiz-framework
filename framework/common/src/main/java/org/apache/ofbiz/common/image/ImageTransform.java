@@ -65,7 +65,7 @@ public class ImageTransform {
      * @throws  IOException Error prevents the document from being fully parsed
      * @throws  IllegalArgumentException Errors occur in parsing
      */
-    public static  Map<String, Object> getBufferedImage(String fileLocation, Locale locale)
+    public static Map<String, Object> getBufferedImage(String fileLocation, Locale locale)
         throws IllegalArgumentException, IOException {
 
         /* VARIABLES */
@@ -81,7 +81,8 @@ public class ImageTransform {
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
         } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : " + fileLocation + "; " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_occurs_during_reading", locale) + " : "
+                    + fileLocation + "; " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -104,11 +105,14 @@ public class ImageTransform {
      * @param   sizeType        Size type to scale
      * @return                  New scaled buffered image
      */
-    public static Map<String, Object> scaleImage(BufferedImage bufImg, double imgHeight, double imgWidth, Map<String, Map<String, String>> dimensionMap, String sizeType, Locale locale) {
+    public static Map<String, Object> scaleImage(BufferedImage bufImg, double imgHeight, double imgWidth, Map<String, Map<String, String>>
+            dimensionMap, String sizeType, Locale locale) {
 
         /* VARIABLES */
         BufferedImage bufNewImg;
-        double defaultHeight, defaultWidth, scaleFactor;
+        double defaultHeight;
+        double defaultWidth;
+        double scaleFactor;
         Map<String, Object> result = new LinkedHashMap<>();
 
         /* DIMENSIONS from ImageProperties */
@@ -124,7 +128,8 @@ public class ImageTransform {
             defaultWidth = -1;
         }
         if (defaultHeight == 0.0 || defaultWidth == 0.0) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + "; defaultWidth = " + defaultWidth;
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.one_default_dimension_is_null", locale)
+                    + " : defaultHeight = " + defaultHeight + "; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
@@ -135,7 +140,8 @@ public class ImageTransform {
         if (defaultHeight == -1) {
             scaleFactor = defaultWidth / imgWidth;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.width_scale_factor_is_null", locale)
+                        + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -143,7 +149,8 @@ public class ImageTransform {
         } else if (defaultWidth == -1) {
             scaleFactor = defaultHeight / imgHeight;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.height_scale_factor_is_null", locale)
+                        + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -151,7 +158,8 @@ public class ImageTransform {
         } else if (imgHeight > imgWidth) {
             scaleFactor = defaultHeight / imgHeight;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.height_scale_factor_is_null", locale)
+                        + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -163,7 +171,8 @@ public class ImageTransform {
         } else {
             scaleFactor = defaultWidth / imgWidth;
             if (scaleFactor == 0.0) {
-                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
+                String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.width_scale_factor_is_null", locale)
+                        + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
                 Debug.logError(errMsg, MODULE);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
                 return result;
@@ -209,7 +218,7 @@ public class ImageTransform {
      * @param fileFullPath      File path to parse
      * @return Map contains asked attribute values by attribute name
      */
-    public static  Map<String, Object> getXMLValue(String fileFullPath, Locale locale)
+    public static Map<String, Object> getXMLValue(String fileFullPath, Locale locale)
         throws IllegalStateException, IOException {
 
         /* VARIABLES */
@@ -222,12 +231,14 @@ public class ImageTransform {
         try {
             document = UtilXml.readXmlDocument(new FileInputStream(fileFullPath), fileFullPath);
         } catch (ParserConfigurationException | SAXException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.errors_occurred_during_parsing", locale) +  " ImageProperties.xml " + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.errors_occurred_during_parsing", locale)
+                    + " ImageProperties.xml " + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
         } catch (IOException e) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_prevents_the document_from_being_fully_parsed", locale) + e.toString();
+            String errMsg = UtilProperties.getMessage(RESOURCE, "ImageTransform.error_prevents_the document_from_being_fully_parsed",
+                    locale) + e.toString();
             Debug.logError(errMsg, MODULE);
             result.put(ModelService.ERROR_MESSAGE, "error");
             return result;
@@ -243,11 +254,13 @@ public class ImageTransform {
         }
 
         /* get NAME and VALUE */
-        List<? extends Element> children = UtilXml.childElementList(rootElt); // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element> but only List)
+        List<? extends Element> children = UtilXml.childElementList(rootElt);
+        // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element>
+        //  but only List)
         for (Element currentElt : children) {
             Map<String, String> eltMap = new LinkedHashMap<>();
             List<? extends Element> children2 = UtilXml.childElementList(currentElt);
-            if (children2.size() > 0) {
+            if (!children2.isEmpty()) {
                 Map<String, String> childMap = new LinkedHashMap<>();
                 // loop over Children 1st level
                 for (Element currentChild : children2) {

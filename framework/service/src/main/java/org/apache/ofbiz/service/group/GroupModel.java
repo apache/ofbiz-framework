@@ -38,7 +38,8 @@ public class GroupModel {
 
     private static final String MODULE = GroupModel.class.getName();
 
-    private String groupName, sendMode;
+    private String groupName;
+    private String sendMode;
     private List<GroupServiceModel> services;
     private boolean optional = false;
     private int lastServiceRan;
@@ -62,7 +63,7 @@ public class GroupModel {
         }
 
         List<? extends Element> oldServiceTags = UtilXml.childElementList(group, "service");
-        if (oldServiceTags.size() > 0) {
+        if (!oldServiceTags.isEmpty()) {
             for (Element service : oldServiceTags) {
                 services.add(new GroupServiceModel(service));
             }
@@ -71,7 +72,7 @@ public class GroupModel {
         }
 
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Created Service Group Model --> " + this, MODULE);
+            Debug.logVerbose("Created Service Group Model --> " + this, MODULE);
         }
     }
 
@@ -112,6 +113,10 @@ public class GroupModel {
         return this.services;
     }
 
+    /**
+     * Is optional boolean.
+     * @return the boolean
+     */
     public boolean isOptional() {
         return optional;
     }
@@ -162,11 +167,11 @@ public class GroupModel {
         Map<String, Object> result = new HashMap<>();
         for (GroupServiceModel model : services) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Using Context: " + runContext, MODULE);
+                Debug.logVerbose("Using Context: " + runContext, MODULE);
             }
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("Result: " + thisResult, MODULE);
+                Debug.logVerbose("Result: " + thisResult, MODULE);
             }
 
             // make sure we didn't fail

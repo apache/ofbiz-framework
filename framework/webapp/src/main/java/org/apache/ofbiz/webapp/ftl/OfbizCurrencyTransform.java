@@ -65,7 +65,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
                     Debug.logError(e, "Template Exception", MODULE);
                 }
             } else {
-              result = o.toString();
+                result = o.toString();
             }
         }
         return result;
@@ -185,12 +185,15 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
                         BeanModel req = (BeanModel) env.getVariable("request");
                         if (req != null) {
                             HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, UtilHttp.getLocale(request), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, UtilHttp.getLocale(request), rounding));
+                            // we set the max to 10 digits as an hack to not round numbers in the ui
                         } else {
-                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale(), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale(), rounding));
+                            // we set the max to 10 digits as an hack to not round numbers in the ui
                         }
                     } else {
-                        out.write(UtilFormatOut.formatCurrency(amount, isoCode, new Locale(locale), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                        out.write(UtilFormatOut.formatCurrency(amount, isoCode, new Locale(locale), rounding));
+                        // we set the max to 10 digits as an hack to not round numbers in the ui
                     }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());

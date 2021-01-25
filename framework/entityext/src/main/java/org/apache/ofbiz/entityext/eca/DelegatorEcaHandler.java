@@ -45,10 +45,10 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
     private static final String MODULE = DelegatorEcaHandler.class.getName();
 
-    protected Delegator delegator = null;
-    protected String delegatorName = null;
-    protected String entityEcaReaderName = null;
-    protected AtomicReference<Future<DispatchContext>> dctx = new AtomicReference<>();
+    private Delegator delegator = null;
+    private String delegatorName = null;
+    private String entityEcaReaderName = null;
+    private AtomicReference<Future<DispatchContext>> dctx = new AtomicReference<>();
 
     public DelegatorEcaHandler() { }
 
@@ -70,6 +70,11 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         EntityEcaUtil.getEntityEcaCache(this.entityEcaReaderName);
     }
 
+    /**
+     * Gets dispatch context.
+     * @return the dispatch context
+     * @throws GenericEntityException the generic entity exception
+     */
     protected DispatchContext getDispatchContext() throws GenericEntityException {
         Future<DispatchContext> future = this.dctx.get();
         try {
@@ -87,7 +92,8 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     }
 
     @Override
-    public void evalRules(String currentOperation, Map<String, List<EntityEcaRule>> eventMap, String event, GenericEntity value, boolean isError) throws GenericEntityException {
+    public void evalRules(String currentOperation, Map<String, List<EntityEcaRule>> eventMap, String event, GenericEntity value, boolean isError)
+            throws GenericEntityException {
         // if the eventMap is passed we save a HashMap lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = this.getEntityEventMap(value.getEntityName());
         if (UtilValidate.isEmpty(eventMap)) {
@@ -96,7 +102,8 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         }
 
         List<EntityEcaRule> rules = eventMap.get(event);
-        //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0 : rules.size()), MODULE);
+        //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0
+        // : rules.size()), MODULE);
 
         if (UtilValidate.isEmpty(rules)) {
             return;

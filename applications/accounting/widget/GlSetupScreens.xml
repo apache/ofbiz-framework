@@ -104,7 +104,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonImportExport}  ${uiLabelMap.CommonFor}: ${partyGroup.groupName} [${organizationPartyId}]">
+                        <screenlet title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonImportExport} ${uiLabelMap.CommonFor}: ${partyGroup.groupName} [${organizationPartyId}]">
                             <container style="lefthalf">
                                 <label style="h2">${uiLabelMap.CommonImport}</label>
                                 <include-form name="ImportInvoice" location="component://accounting/widget/GlSetupForms.xml"/>

@@ -252,11 +252,7 @@ public class OrderReturnServices {
             }
 
             if (productStoreEmail != null && emailAddress != null) {
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-                }
-                sendMap.put("bodyScreenUri", bodyScreenLocation);
+                sendMap.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
                 String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
                 sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
 
@@ -354,7 +350,8 @@ public class OrderReturnServices {
                             if (returnItemResponse != null) {
                                 String replacementOrderId = returnItemResponse.getString("replacementOrderId");
                                 Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", replacementOrderId, "userLogin", userLogin);
-                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", replacementOrderId).queryOne();
+                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId",
+                                        replacementOrderId).queryOne();
                                 if ("ORDER_HOLD".equals(orderHeader.getString("statusId"))) {
                                     try {
                                         Map<String, Object> result = dispatcher.runSync("cancelOrderItem", svcCtx);
@@ -2030,10 +2027,10 @@ public class OrderReturnServices {
                         }
                     }
                     orderMap.put("orderItems", orderItems);
-                    if (orderItemShipGroupInfo.size() > 0) {
+                    if (!orderItemShipGroupInfo.isEmpty()) {
                         orderMap.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
                     }
-                    if (orderItemAssocs.size() > 0) {
+                    if (!orderItemAssocs.isEmpty()) {
                         orderMap.put("orderItemAssociations", orderItemAssocs);
                     }
                 } else {
@@ -2104,7 +2101,7 @@ public class OrderReturnServices {
                             parties.add(orderRole.getString("partyId"));
                         }
                     }
-                    if (orderRolesMap.size() > 0) {
+                    if (!orderRolesMap.isEmpty()) {
                         orderMap.put("orderAdditionalPartyRoleMap", orderRolesMap);
                     }
                 } catch (GenericEntityException e) {
@@ -2204,7 +2201,7 @@ public class OrderReturnServices {
 
         // create a return message AND create ReturnItemResponse record(s)
         StringBuilder successMessage = new StringBuilder();
-        if (createdOrderIds.size() > 0) {
+        if (!createdOrderIds.isEmpty()) {
             successMessage.append("The following new orders have been created : ");
             Iterator<String> i = createdOrderIds.iterator();
             while (i.hasNext()) {
@@ -2354,7 +2351,7 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "OrderErrorGettingReturnHeaderItemInformation", locale));
         }
-        if ((returnItems != null) && (returnItems.size() > 0)) {
+        if ((returnItems != null) && (!returnItems.isEmpty())) {
             List<String> paymentList = new LinkedList<>();
             for (GenericValue returnItem : returnItems) {
                 String orderId = returnItem.getString("orderId");

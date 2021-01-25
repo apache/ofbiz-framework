@@ -127,7 +127,8 @@ public class GiftCertificateServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(acctResult));
                 }
                 if (acctResult.get("finAccountId") != null) {
-                    finAccountId = cardNumber = (String) acctResult.get("finAccountId");
+                    cardNumber = (String) acctResult.get("finAccountId");
+                    finAccountId = cardNumber;
                 }
                 if (acctResult.get("finAccountCode") != null) {
                     cardNumber = (String) acctResult.get("finAccountCode");
@@ -482,7 +483,8 @@ public class GiftCertificateServices {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         String productStoreId = orh.getProductStoreId();
         try {
-            // if the store requires pin codes, then validate pin code against card number, and the gift certificate's finAccountId is the gift card's card number
+            // if the store requires pin codes, then validate pin code against card number, and the gift certificate's finAccountId is the
+            // gift card's card number
             // otherwise, the gift card's card number is an ecrypted string, which must be decoded to find the FinAccount
             GenericValue giftCertSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
                     .where("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.getGiftCertFinAccountTypeId())
@@ -523,7 +525,8 @@ public class GiftCertificateServices {
                         UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
             }
 
-            // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
+            // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as
+            // transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             Boolean processResult = null;
             String refNum = null;
@@ -880,7 +883,8 @@ public class GiftCertificateServices {
             GenericValue productStoreEmail = null;
             String emailType = "PRDS_GC_PURCHASE";
             try {
-                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
+                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId,
+                        "emailType", emailType).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
             }
@@ -899,11 +903,7 @@ public class GiftCertificateServices {
                     }
                 }
                 Map<String, Object> emailCtx = new HashMap<>();
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-                }
-                emailCtx.put("bodyScreenUri", bodyScreenLocation);
+                emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
                 emailCtx.put("bodyParameters", answerMap);
                 emailCtx.put("sendTo", sendToEmail);
                 emailCtx.put("contentType", productStoreEmail.get("contentType"));
@@ -1112,7 +1112,8 @@ public class GiftCertificateServices {
         GenericValue productStoreEmail = null;
         String emailType = "PRDS_GC_RELOAD";
         try {
-            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
+            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType",
+                    emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
         }
@@ -1122,11 +1123,7 @@ public class GiftCertificateServices {
             answerMap.put("locale", locale);
 
             Map<String, Object> emailCtx = new HashMap<>();
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            emailCtx.put("bodyScreenUri", bodyScreenLocation);
+            emailCtx.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
             emailCtx.put("bodyParameters", answerMap);
             emailCtx.put("sendTo", orh.getOrderEmailString());
             emailCtx.put("contentType", productStoreEmail.get("contentType"));
@@ -1384,7 +1381,7 @@ public class GiftCertificateServices {
         }
         if (ServiceUtil.isError(payResult)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(payResult));
-        } 
+        }
 
         paymentId = (String) payResult.get("paymentId");
 

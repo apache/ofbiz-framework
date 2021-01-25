@@ -34,7 +34,7 @@ import freemarker.template.TemplateTransformModel;
 /**
  * RenderWrappedTextTransform - Freemarker Transform for URLs (links)
  */
-public class RenderWrappedTextTransform implements  TemplateTransformModel {
+public class RenderWrappedTextTransform implements TemplateTransformModel {
 
     private static final String MODULE = RenderWrappedTextTransform.class.getName();
 

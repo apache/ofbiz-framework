@@ -40,10 +40,12 @@ public final class EntityGroupUtil {
 
     private EntityGroupUtil() { }
 
-    public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
+    public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields)
+            throws GenericEntityException {
         Set<String> entityNames = new HashSet<>();
 
-        List<GenericValue> entitySyncGroupIncludes = EntityQuery.use(delegator).from("EntityGroupEntry").where("entityGroupId", entityGroupId).queryList();
+        List<GenericValue> entitySyncGroupIncludes = EntityQuery.use(delegator).from("EntityGroupEntry").where("entityGroupId", entityGroupId)
+                .queryList();
         List<ModelEntity> modelEntities = getModelEntitiesFromRecords(entitySyncGroupIncludes, delegator, requireStampFields);
         for (ModelEntity modelEntity: modelEntities) {
             entityNames.add(modelEntity.getEntityName());
@@ -52,7 +54,8 @@ public final class EntityGroupUtil {
         return entityNames;
     }
 
-    public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
+    public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, Delegator delegator,
+                                                                boolean requireStampFields) throws GenericEntityException {
         List<ModelEntity> entityModelToUseList = new LinkedList<>();
 
         for (String entityName: delegator.getModelReader().getEntityNames()) {
@@ -69,12 +72,13 @@ public final class EntityGroupUtil {
             }
 
             // if there are no includes records, always include; otherwise check each one to make sure at least one matches
-            if (entityGroupEntryValues.size() == 0) {
+            if (entityGroupEntryValues.isEmpty()) {
                 entityModelToUseList.add(modelEntity);
             } else {
                 // we have different types of include applications: ESIA_INCLUDE, ESIA_EXCLUDE, ESIA_ALWAYS
                 // if we find an always we can break right there because this will always be include regardless of excludes, etc
-                // if we find an include or exclude we have to finish going through the rest of them just in case there is something that overrides it (ie an exclude for an include or an always for an exclude)
+                // if we find an include or exclude we have to finish going through the rest of them just in case there is something
+                // that overrides it (ie an exclude for an include or an always for an exclude)
                 boolean matchesInclude = false;
                 boolean matchesExclude = false;
                 boolean matchesAlways = false;

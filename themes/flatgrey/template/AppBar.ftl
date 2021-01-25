@@ -36,24 +36,26 @@ under the License.
           <#assign selected = true>
         </#if>
         <#assign servletPath = Static["org.apache.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
-        <#assign thisURL = StringUtil.wrapString(servletPath)>
-        <#if thisApp != "/">
-          <#assign thisURL = thisURL + "main">
-        </#if>
-        <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
-          <#-- do not display this component-->
-        <#else>
-          <#if appCount % 4 == 0>
-            <#if firstApp>
-              <li class="first">
-              <#assign firstApp = false>
-            <#else>
-              </li>
-              <li>
+        <#if servletPath?has_content>
+            <#assign thisURL = StringUtil.wrapString(servletPath)>
+            <#if thisApp != "/">
+              <#assign thisURL = thisURL + "main">
             </#if>
-          </#if>
-          <a href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if selected> class="selected"</#if><#if uiLabelMap??> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
-          <#assign appCount = appCount + 1>
+            <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
+              <#-- do not display this component-->
+            <#else>
+              <#if appCount % 4 == 0>
+                <#if firstApp>
+                  <li class="first">
+                  <#assign firstApp = false>
+                <#else>
+                  </li>
+                  <li>
+                </#if>
+              </#if>
+              <a href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if selected> class="selected"</#if><#if uiLabelMap??> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
+              <#assign appCount = appCount + 1>
+            </#if>
         </#if>
       </#list>
       <#list displaySecondaryApps as display>

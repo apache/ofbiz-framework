@@ -54,7 +54,7 @@ public class ComponentContainer implements Container {
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
-        init(name, Start.getInstance().getConfig().ofbizHome);
+        init(name, Start.getInstance().getConfig().getOfbizHome());
     }
 
     /**
@@ -93,8 +93,8 @@ public class ComponentContainer implements Container {
      * @throws IOException when component directory loading fails.
      */
     private void loadComponent(Path dir, ComponentDef component) throws IOException {
-        Path location = component.location.isAbsolute() ? component.location : dir.resolve(component.location);
-        switch (component.type) {
+        Path location = component.getLocation().isAbsolute() ? component.getLocation() : dir.resolve(component.getLocation());
+        switch (component.getType()) {
         case COMPONENT_DIRECTORY:
             loadComponentDirectory(location);
             break;

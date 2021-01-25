@@ -47,13 +47,13 @@ public class HtmlMenuWrapper {
 
     private static final String MODULE = HtmlMenuWrapper.class.getName();
 
-    protected String resourceName;
-    protected String menuName;
-    protected HttpServletRequest request;
-    protected HttpServletResponse response;
-    protected ModelMenu modelMenu;
-    protected MenuStringRenderer renderer;
-    protected Map<String, Object> context;
+    private String resourceName;
+    private String menuName;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+    private ModelMenu modelMenu;
+    private MenuStringRenderer renderer;
+    private Map<String, Object> context;
 
     protected HtmlMenuWrapper() { }
 
@@ -62,6 +62,16 @@ public class HtmlMenuWrapper {
         init(resourceName, menuName, request, response);
     }
 
+    /**
+     * Init.
+     * @param resourceName the resource name
+     * @param menuName the menu name
+     * @param request the request
+     * @param response the response
+     * @throws IOException the io exception
+     * @throws SAXException the sax exception
+     * @throws ParserConfigurationException the parser configuration exception
+     */
     public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
         this.resourceName = resourceName;
@@ -97,12 +107,21 @@ public class HtmlMenuWrapper {
         }
     }
 
+    /**
+     * Gets menu renderer.
+     * @return the menu renderer
+     */
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRenderer(request, response);
     }
 
+    /**
+     * Render menu string string.
+     * @return the string
+     * @throws IOException the io exception
+     */
     public String renderMenuString() throws IOException {
-        HttpServletRequest req = ((HtmlMenuRenderer) renderer).request;
+        HttpServletRequest req = ((HtmlMenuRenderer) renderer).getRequest();
         if (req.getServletContext() == null) {
             if (Debug.infoOn()) {
                 Debug.logInfo("in renderMenuString, ctx is null(0)", "");
@@ -112,7 +131,7 @@ public class HtmlMenuWrapper {
         Writer writer = new StringWriter();
         modelMenu.renderMenuString(writer, context, renderer);
 
-        HttpServletRequest req2 = ((HtmlMenuRenderer) renderer).request;
+        HttpServletRequest req2 = ((HtmlMenuRenderer) renderer).getRequest();
         if (req2.getServletContext() == null) {
             if (Debug.infoOn()) {
                 Debug.logInfo("in renderMenuString, ctx is null(2)", "");
@@ -133,6 +152,10 @@ public class HtmlMenuWrapper {
         this.context.put("isError", isError);
     }
 
+    /**
+     * Gets is error.
+     * @return the is error
+     */
     public boolean getIsError() {
         Boolean isErrorBoolean = (Boolean) this.context.get("isError");
         if (isErrorBoolean == null) {
@@ -142,14 +165,29 @@ public class HtmlMenuWrapper {
         }
     }
 
+    /**
+     * Sets menu override name.
+     * @param menuName the menu name
+     */
     public void setMenuOverrideName(String menuName) {
         this.context.put("menuName", menuName);
     }
 
+    /**
+     * Put in context.
+     * @param name  the name
+     * @param value the value
+     */
     public void putInContext(String name, Object value) {
         this.context.put(name, value);
     }
 
+    /**
+     * Put in context.
+     * @param menuItemName the menu item name
+     * @param valueName    the value name
+     * @param value        the value
+     */
     public void putInContext(String menuItemName, String valueName, Object value) {
         Object obj = context.get(menuItemName);
         Map<String, Object> valueMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
@@ -160,10 +198,21 @@ public class HtmlMenuWrapper {
         valueMap.put(valueName, value);
     }
 
+    /**
+     * Gets from context.
+     * @param name the name
+     * @return the from context
+     */
     public Object getFromContext(String name) {
         return this.context.get(name);
     }
 
+    /**
+     * Gets from context.
+     * @param menuItemName the menu item name
+     * @param valueName    the value name
+     * @return the from context
+     */
     public Object getFromContext(String menuItemName, String valueName) {
         Object obj = context.get(menuItemName);
         Map<String, Object> valueMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
@@ -174,43 +223,72 @@ public class HtmlMenuWrapper {
         return valueMap.get(valueName);
     }
 
+    /**
+     * Gets model menu.
+     * @return the model menu
+     */
     public ModelMenu getModelMenu() {
         return modelMenu;
     }
 
+    /**
+     * Gets renderer.
+     * @return the renderer
+     */
     public MenuStringRenderer getRenderer() {
         return renderer;
     }
 
+    /**
+     * Sets renderer.
+     * @param renderer the renderer
+     */
     public void setRenderer(MenuStringRenderer renderer) {
         this.renderer = renderer;
     }
 
+    /**
+     * Sets request.
+     * @param request the request
+     */
     public void setRequest(HttpServletRequest request) {
         this.request = request;
         ((HtmlMenuRenderer) renderer).setRequest(request);
     }
 
+    /**
+     * Sets response.
+     * @param response the response
+     */
     public void setResponse(HttpServletResponse response) {
         this.response = response;
         ((HtmlMenuRenderer) renderer).setResponse(response);
     }
 
+    /**
+     * Gets request.
+     * @return the request
+     */
     public HttpServletRequest getRequest() {
-        return ((HtmlMenuRenderer) renderer).request;
+        return ((HtmlMenuRenderer) renderer).getRequest();
     }
 
+    /**
+     * Gets response.
+     * @return the response
+     */
     public HttpServletResponse getResponse() {
-        return ((HtmlMenuRenderer) renderer).response;
+        return ((HtmlMenuRenderer) renderer).getResponse();
     }
 
-    public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName) {
+    public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                                 String menuDefFile, String menuName, String menuWrapperClassName) {
 
         HtmlMenuWrapper menuWrapper = null;
 
         String menuSig = menuDefFile + "__" + menuName;
         if (session != null) {
-             menuWrapper = (HtmlMenuWrapper) session.getAttribute(menuSig);
+            menuWrapper = (HtmlMenuWrapper) session.getAttribute(menuSig);
         }
 
         if (menuWrapper == null) {
@@ -240,6 +318,10 @@ public class HtmlMenuWrapper {
         return menuWrapper;
     }
 
+    /**
+     * Sets parameters.
+     * @param paramMap the param map
+     */
     public void setParameters(Map<String, Object> paramMap) {
         context.put("parameters", paramMap);
     }

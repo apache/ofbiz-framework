@@ -95,7 +95,8 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist) throws GenericServiceException, RemoteException;
+    void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist)
+            throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.

@@ -37,6 +37,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
+import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.parser.Parser;
@@ -220,7 +221,7 @@ public final class WidgetWorker {
                 ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
                 ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
-                if (requestMap != null && requestMap.event != null) {
+                if (requestMap != null && requestMap.getEvent() != null) {
                     return "hidden-form";
                 }
             }
@@ -254,6 +255,19 @@ public final class WidgetWorker {
             return null;
         }
         return combinedName.substring(pos + 1);
+    }
+
+    /**
+     * Returns the ScreenStack from the context.
+     * If none, init new one and return it.
+     * @param context
+     * @return
+     */
+    public static ScreenRenderer.ScreenStack getScreenStack(Map<String, Object> context) {
+        if (! context.containsKey("screenStack")) {
+            context.put("screenStack", new ScreenRenderer.ScreenStack());
+        }
+        return (ScreenRenderer.ScreenStack) context.get("screenStack");
     }
 
     public static int getPaginatorNumber(Map<String, Object> context) {

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties"
@@ -90,7 +90,7 @@ under the License.
     </form>
 
     <form name="ExportInvoice" type="single" target="ExportInvoiceCsv.csv" title="" >
-        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>
         <field name="startDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
@@ -132,9 +132,9 @@ under the License.
         <field name="amount" title="amount"><display/></field>
     </form>
     
-    <form name="ImportInvoice" type="upload" target="ImportInvoice" title="" >
-        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
-        <field name="uploadedFile"><file/></field>
+    <form name="ImportInvoice" type="upload" target="ImportInvoice" title="">
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit button-type="button"/></field>
     </form>
 
@@ -375,7 +375,7 @@ under the License.
         </field>
         <field name="errorGlJournalId" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
             if((partyAcctgPreference==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('errorGlJournalId')!=null) ||
-            (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('errorGlJournalId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('errorGlJournalId')!=null))return 
+            (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('errorGlJournalId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('errorGlJournalId')!=null))return
             (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlJournal" key-field-name="glJournalId" description="${glJournalName} [${glJournalId}]">
@@ -1188,7 +1188,7 @@ under the License.
         <field name="glAccountClassId"><display-entity entity-name="GlAccountClass" key-field-name="glAccountClassId"/></field>
         <field name="glResourceTypeId"><display-entity entity-name="GlResourceType" key-field-name="glResourceTypeId"/></field>
         <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass" key-field-name="glXbrlClassId"/></field>
-        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${parentGlAccountId}"/></field>            
+        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${parentGlAccountId}"/></field>
         <field name="accountCode" ><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode}"/></field>
         <field name="accountName" ><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="description"><display description="${description}"/></field>
