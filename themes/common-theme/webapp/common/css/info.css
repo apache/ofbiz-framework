@@ -73,6 +73,6 @@ limitations under the License.
     grid-column: 2 / span 3;
 }
 .ofbiz-form .full-width-center {
-    display: flex;
-    justify-items: center;
+    grid-column: 1 / span 4;
+    justify-self: center;
 }
