@@ -8051,7 +8051,7 @@
     <property key="Geo.geoName.SVK">
         <value xml:lang="ar">جمهورية سلوفاكيا</value>
         <value xml:lang="cs">Slovensko</value>
-        <value xml:lang="de">Slovakei</value>
+        <value xml:lang="de">Slowakei</value>
         <value xml:lang="en">Slovakia (slovak Republic)</value>
         <value xml:lang="es">Eslovaquia</value>
         <value xml:lang="fr">Slovaquie (République slovaque</value>
@@ -20338,7 +20338,7 @@
     </property>
     <property key="Uom.description.SKK">
         <value xml:lang="ar">كرونا سلوفاكية</value>
-        <value xml:lang="de">Krone Slovakei</value>
+        <value xml:lang="de">Krone Slowakei</value>
         <value xml:lang="en">Slovakian Krona</value>
         <value xml:lang="fr">Krona de Slovaquie</value>
         <value xml:lang="it">Corona Slovacca</value>
