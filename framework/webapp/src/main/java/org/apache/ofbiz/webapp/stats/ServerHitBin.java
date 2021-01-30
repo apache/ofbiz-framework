@@ -493,7 +493,7 @@ public class ServerHitBin {
             if (visit == null) {
                 // no visit info stored, so don't store the ServerHit
                 Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off"
-                        + "persistance of visits you should also turn off persistence of hits.", MODULE);
+                        + " persistance of visits you should also turn off persistence of hits.", MODULE);
                 return;
             }
             String visitId = visit.getString("visitId");
