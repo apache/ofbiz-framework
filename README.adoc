@@ -23,7 +23,7 @@ The Apache OFBiz Project
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 
-If you are reading this file in AsciiDoc format you may want to see it in
+If you are reading this file in AsciiDoc format you may want to see it at
 https://ci.apache.org/projects/ofbiz/site/trunk/readme/html5/README.html[HTML] +
 or https://ci.apache.org/projects/ofbiz/site/trunk/readme/pdf/README.pdf[PDF] format
 
@@ -67,6 +67,10 @@ The only requirement to run OFBiz is to have the Java Development Kit (JDK)
 version 8 installed on your system (not just the JRE, but the full JDK) which
 you can download from the below link. Make sure of setting the $JAVA_HOME
 environment variable.
+
+__________________________________________________________________________________________________________________________________________
+_Note_: Warning: on Windows don't put OFBiz in a directory with space/s in the path.__________________________________________________________________________________________________________________________________________
+
 
 https://adoptopenjdk.net/[JDK download]
 
