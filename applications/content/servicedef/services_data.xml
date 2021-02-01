@@ -23,8 +23,8 @@
     <vendor>OFBiz</vendor>
 
     <!-- DataResource services -->
-    <service name="createDataResource" default-entity-name="DataResource" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="createDataResource" auth="true">
+    <service name="createDataResource" default-entity-name="DataResource" engine="groovy"
+            location="component://content/groovyScripts/data/DataServices.groovy" invoke="createDataResource" auth="true">
         <description>Create a DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -40,8 +40,8 @@
         <override name="objectInfo" allow-html="safe"/>
         <override name="dataResourceName" allow-html="safe"/>
     </service>
-    <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceAndAssocToContent" auth="true">
+    <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="groovy"
+            location="component://content/groovyScripts/data/DataServices.groovy" invoke="createDataResourceAndAssocToContent" auth="true">
         <description>Create a DataResource and link this data to the content present</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource" optional="true"/>
@@ -147,8 +147,8 @@
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="getElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
+    <service name="getElectronicText" engine="groovy"
+            location="component://content/groovyScripts/data/DataServices.groovy" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
         <description>Get a ElectronicText: Can pass either content value object or contentId</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
         <attribute mode="IN" name="content" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
