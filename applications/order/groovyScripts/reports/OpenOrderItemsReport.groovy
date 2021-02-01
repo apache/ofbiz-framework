@@ -26,10 +26,8 @@
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericEntityException
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.ObjectType
 
-module = "OpenOrderItemsReport.groovy" 
 productStoreId = ObjectType.simpleTypeOrObjectConvert(parameters.productStoreId, "List", null, null)
 orderTypeId = ObjectType.simpleTypeOrObjectConvert(parameters.orderTypeId, "List", null, null)
 orderStatusId = ObjectType.simpleTypeOrObjectConvert(parameters.orderStatusId, "List", null, null)
@@ -144,7 +142,7 @@ try {
         orderItemList.add(orderItemMap)
     }
 } catch (GenericEntityException e) {
-    Debug.logError(e, "Failure in " + module)
+    logError(e, "Failure in " + module)
 } finally {
     listIt.close()
 }

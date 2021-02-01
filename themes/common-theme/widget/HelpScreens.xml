@@ -31,7 +31,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common-theme/template/includes/Lookup.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="${messagesTemplateLocation}"/></html></platform-specific>
                 <container style="contentarea">
                     <container id="column-container">
                         <!-- by default will render left-bar only if leftbarScreen value not empty -->
@@ -177,7 +177,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
                             <container style="left-border">
                                 <container id="EditDocumentTree"/>
-                                <platform-specific><html><html-template location="component://content/template/content/DisplayContentNav.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template multi-block="true" location="component://content/template/content/DisplayContentNav.ftl"/></html></platform-specific>
                             </container>
                             <container style="leftonly">
                                 <include-screen name="showDocumentHelp"/>

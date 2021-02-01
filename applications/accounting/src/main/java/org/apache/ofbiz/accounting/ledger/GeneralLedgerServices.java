@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class GeneralLedgerServices {
 
-    public static final String MODULE = GeneralLedgerServices.class.getName();
+    private static final String MODULE = GeneralLedgerServices.class.getName();
 
     public static Map<String, Object> createUpdateCostCenter(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -56,8 +56,8 @@ public class GeneralLedgerServices {
             }
             try {
                 result = dispatcher.runSync("createGlAcctCatMemFromCostCenters", createGlAcctCatMemFromCostCentersMap);
-                if (ServiceUtil.isError(result )) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result ));
+                if (ServiceUtil.isError(result)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);

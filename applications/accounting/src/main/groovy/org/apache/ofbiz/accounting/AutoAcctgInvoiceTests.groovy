@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -32,11 +31,6 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
     }
 
     void testCreateInvoiceContent() {
-        def userLogin = EntityQuery.use(delegator).from('UserLogin')
-            .where('userLoginId', 'system')
-            .cache()
-            .queryOne()
-
         Map serviceCtx = [
             invoiceId: '1008',
             contentId: '1000',
@@ -47,7 +41,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createInvoiceContent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceContent = EntityQuery.use(delegator).from('InvoiceContent')
+        GenericValue invoiceContent = from('InvoiceContent')
             .where('invoiceId', serviceResult.invoiceId,
                    'contentId', serviceResult.contentId,
                    'invoiceContentTypeId', serviceResult.invoiceContentTypeId)
@@ -56,11 +50,6 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoiceContent.contentId == serviceResult.contentId
     }
     void testCreateSimpleTextContentForInvoice() {
-        def userLogin = EntityQuery.use(delegator).from('UserLogin')
-                .where('userLoginId', 'system')
-                .cache()
-                .queryOne()
-
         Map serviceCtx = [
                 invoiceId: '1009',
                 contentId: '1001',
@@ -73,7 +62,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createSimpleTextContentForInvoice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceContent = EntityQuery.use(delegator).from('InvoiceContent')
+        GenericValue invoiceContent = from('InvoiceContent')
                 .where('invoiceId', '1009',
                 'contentId', '1001',
                 'invoiceContentTypeId', 'COMMENTS')
@@ -128,7 +117,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setInvoiceStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoice = EntityQuery.use(delegator).from('Invoice')
+        GenericValue invoice = from('Invoice')
                 .where('invoiceId', '1002')
                 .queryOne()
 
@@ -171,7 +160,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createInvoiceStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceStatus = EntityQuery.use(delegator).from('InvoiceStatus')
+        GenericValue invoiceStatus = from('InvoiceStatus')
                 .where('invoiceId', '1004',
                         'statusId', 'INVOICE_IN_PROCESS',
                         'statusDate', nowTimestamp)
@@ -190,7 +179,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createInvoiceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceRole = EntityQuery.use(delegator).from('InvoiceRole')
+        GenericValue invoiceRole = from('InvoiceRole')
                 .where('invoiceId', '1006',
                         'partyId', 'DEMO_COMPANY',
                         'roleTypeId', 'INTERNAL_ORGANIZATIO')
@@ -211,7 +200,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createInvoiceTerm', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceTerm = EntityQuery.use(delegator).from('InvoiceTerm')
+        GenericValue invoiceTerm = from('InvoiceTerm')
                 .where('invoiceTermId', serviceResult.invoiceTermId)
                 .queryOne()
 

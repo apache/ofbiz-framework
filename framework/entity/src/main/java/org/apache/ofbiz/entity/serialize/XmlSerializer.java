@@ -67,7 +67,7 @@ import org.xml.sax.SAXException;
  *
  */
 public class XmlSerializer {
-    public static final String MODULE = XmlSerializer.class.getName();
+    private static final String MODULE = XmlSerializer.class.getName();
 
     private volatile static WeakReference<DateFormat> simpleDateFormatter;
 
@@ -82,7 +82,6 @@ public class XmlSerializer {
     /** Deserialize a Java object from an XML string. <p>This method should be used with caution.
      * If the XML string contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
      * then it is possible to unintentionally corrupt the database.</p>
-     *
      * @param content the content
      * @param delegator the delegator
      * @return return a deserialized object from XML string
@@ -109,7 +108,6 @@ public class XmlSerializer {
      * <p>This method should be used with caution. If the DOM <code>Document</code>
      * contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
      * then it is possible to unintentionally corrupt the database.</p>
-     *
      * @param document the document
      * @param delegator the delegator
      * @return returns a deserialized object from a DOM document
@@ -233,11 +231,11 @@ public class XmlSerializer {
             }
 
             Element element = document.createElement(elementName);
-            Map<?,?> value = UtilGenerics.cast(object);
+            Map<?, ?> value = UtilGenerics.cast(object);
             Iterator<Map.Entry<?, ?>> iter = UtilGenerics.cast(value.entrySet().iterator());
 
             while (iter.hasNext()) {
-                Map.Entry<?,?> entry = iter.next();
+                Map.Entry<?, ?> entry = iter.next();
 
                 Element entryElement = document.createElement("map-Entry");
 
@@ -347,8 +345,7 @@ public class XmlSerializer {
                 try {
                     Calendar cal = DatatypeConverter.parseDate(valStr);
                     return new java.sql.Timestamp(cal.getTimeInMillis());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Debug.logWarning("sql-Timestamp does not conform to XML Schema definition, try java.sql.Timestamp format", MODULE);
                     return java.sql.Timestamp.valueOf(valStr);
                 }
@@ -488,7 +485,6 @@ public class XmlSerializer {
      * This format is NOT used to format any of the java.sql subtypes of java.util.Date.
      * A <code>WeakReference</code> is used to maintain a reference to the DateFormat object
      * so that it can be created and garbage collected as needed.
-     *
      * @return the DateFormat used to serialize and deserialize <code>java.util.Date</code> objects.
      */
     private static DateFormat getDateFormat() {

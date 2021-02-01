@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.ofbiz.base.util;
+package org.apache.ofbiz.base.util
 
 import org.apache.commons.io.FileUtils
 import org.junit.Test
@@ -55,7 +55,7 @@ public class FileUtilTests {
         if (readme.exists()) readme.delete()
 
         //validate unzip and compare the two files
-        FileUtil.unzipFileToFolder(readmeZipped, zipFilePath)
+        FileUtil.unzipFileToFolder(readmeZipped, zipFilePath, false)
 
         assert FileUtils.contentEquals(originalReadme, new File(zipFilePath, fileName))
     }

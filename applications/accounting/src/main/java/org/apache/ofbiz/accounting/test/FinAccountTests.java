@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
@@ -37,20 +36,24 @@ public class FinAccountTests extends OFBizTestCase {
         super(name);
     }
 
+    /**
+     * Test fin account operations.
+     * @throws Exception the exception
+     */
     public void testFinAccountOperations() throws Exception {
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
+        GenericValue userLogin = getUserLogin("system");
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("finAccountName", "Test Financial Account");
         ctx.put("finAccountTypeId", "BANK_ACCOUNT");
         ctx.put("userLogin", userLogin);
-        Map<String, Object> resp = dispatcher.runSync("createFinAccount", ctx);
+        Map<String, Object> resp = getDispatcher().runSync("createFinAccount", ctx);
         assertTrue("Service 'createFinAccount' result success", ServiceUtil.isSuccess(resp));
         ctx.clear();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("amount", new BigDecimal("100.00"));
         ctx.put("userLogin", userLogin);
-        resp = dispatcher.runSync("finAccountDeposit", ctx);
+        resp = getDispatcher().runSync("finAccountDeposit", ctx);
         assertTrue("Service 'finAccountDeposit' result success", ServiceUtil.isSuccess(resp));
         BigDecimal balance = (BigDecimal) resp.get("balance");
         assertEquals(balance.toPlainString(), "100.00");
@@ -58,7 +61,7 @@ public class FinAccountTests extends OFBizTestCase {
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("amount", new BigDecimal("50.00"));
         ctx.put("userLogin", userLogin);
-        resp = dispatcher.runSync("finAccountWithdraw", ctx);
+        resp = getDispatcher().runSync("finAccountWithdraw", ctx);
         assertTrue("Service 'finAccountWithdraw' result success", ServiceUtil.isSuccess(resp));
         BigDecimal previousBalance = (BigDecimal) resp.get("previousBalance");
         balance = ((BigDecimal) resp.get("balance"));

@@ -32,9 +32,8 @@ import org.w3c.dom.Element;
  */
 public class InFieldOper extends MakeInStringOperation {
 
-    public static final String MODULE = InFieldOper.class.getName();
-
-    String fieldName;
+    private static final String MODULE = InFieldOper.class.getName();
+    private String fieldName;
 
     public InFieldOper(Element element) {
         super(element);

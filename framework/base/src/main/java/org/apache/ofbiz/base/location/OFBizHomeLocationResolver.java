@@ -31,13 +31,13 @@ import java.net.URL;
 
 public class OFBizHomeLocationResolver implements LocationResolver {
 
-    public static final String envName = "ofbiz.home";
+    public static final String ENV_NAME = "ofbiz.home";
 
     @Override
     public URL resolveLocation(String location) throws MalformedURLException {
-        String propValue = System.getProperty(envName);
+        String propValue = System.getProperty(ENV_NAME);
         if (propValue == null) {
-            String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + envName + " is not set, cannot resolve location.";
+            String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + ENV_NAME + " is not set, cannot resolve location.";
             throw new MalformedURLException(errMsg);
         }
         StringBuilder baseLocation = new StringBuilder(FlexibleLocation.stripLocationType(location));

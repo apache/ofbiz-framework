@@ -36,14 +36,14 @@ import org.apache.xmlrpc.client.XmlRpcClient;
  */
 public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
-    public static final String MODULE = XmlRpcTests.class.getName();
-    public static final String resource = "ServiceErrorUiLabels";
-    private static String url = "http://localhost:8080/webtools/control/xmlrpc";
+    private static final String MODULE = XmlRpcTests.class.getName();
+    private static final String RESOURCE = "ServiceErrorUiLabels";
+    private static String url = "http://localhost:8080/webtools/control/xmlrpc?USERNAME=admin&PASSWORD=ofbiz";
 
     public XmlRpcTests(String name) {
         super(name);
-        if (Start.getInstance().getConfig().portOffset != 0) {
-            Integer port = 8080 + Start.getInstance().getConfig().portOffset;
+        if (Start.getInstance().getConfig().getPortOffset() != 0) {
+            Integer port = 8080 + Start.getInstance().getConfig().getPortOffset();
             url = url.replace("8080", port.toString());
         }
     }
@@ -54,7 +54,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
      */
     public void testXmlRpcRequest() throws Exception {
         XmlRpcClient client = this.getRpcClient(url, "admin", "ofbiz");
-        Object[] params = new Object[] { 55.00, "message from xml-rpc client" };
+        Object[] params = new Object[] {55.00, "message from xml-rpc client" };
         Map<String, Object> result = UtilGenerics.cast(client.execute("testScv", params));
         assertEquals("XML-RPC Service result success", "service done", result.get("resp"));
     }
@@ -68,7 +68,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
         Integer num1 = (Integer) context.get("num1");
         Integer num2 = (Integer) context.get("num2");
         if (UtilValidate.isEmpty(num1) || UtilValidate.isEmpty(num2)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceTestXmlRpcMissingParameters", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestXmlRpcMissingParameters", locale));
         }
         Integer res = num1 + num2;
         response.put("resulting", res);
@@ -88,8 +88,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
             localMap.put("num1", num1);
             localMap.put("num2", num2);
             result = dctx.getDispatcher().runSync("testXmlRpcLocalEngine", localMap);
-        }
-        catch (GenericServiceException e) {
+        } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getLocalizedMessage());
         }
         if (ServiceUtil.isError(result)) {
@@ -97,9 +96,9 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
         }
         Integer res = (Integer) result.get("resulting");
         if (res == (num1 + num2)) {
-            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "ServiceTestXmlRpcCalculationOK", locale) + res);
+            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "ServiceTestXmlRpcCalculationOK", locale) + res);
         } else {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceTestXmlRpcCalculationKO", locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestXmlRpcCalculationKO", locale));
         }
         return result;
     }

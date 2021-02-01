@@ -121,7 +121,11 @@ under the License.
     <service name="getAssociatedProductsList" engine="groovy" auth="false"
         location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="getAssociatedProductsList">
         <description>Set the product options for selected product category, mostly used by getDependentDropdownValues</description>
-        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="productCategoryId" mode="IN" type="String" optional="false">
+            <type-validate>
+                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductCategoryId"/>
+            </type-validate>
+        </attribute>
         <attribute name="products" mode="OUT" type="java.util.List"/>
     </service>
     

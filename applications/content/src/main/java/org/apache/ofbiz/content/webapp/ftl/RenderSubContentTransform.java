@@ -49,13 +49,15 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderSubContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = RenderSubContentTransform.class.getName();
+    private static final String MODULE = RenderSubContentTransform.class.getName();
 
     /**
      * @deprecated use FreeMarkerWorker.getArg()
-     * <p>Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was passed as an argument to the transform.
+     * <p>Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was
+     * passed as an argument to the transform.
      * Secondly, it looks to see if it is passed as a parameter in the template context object.</p>
-     * <p>Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object instead of the template context
+     * <p>Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object
+     * instead of the template context
      * object.</p>
      */
     @Deprecated
@@ -94,7 +96,8 @@ public class RenderSubContentTransform implements TemplateTransformModel {
             List<String> assocTypes = UtilMisc.toList("SUB_CONTENT");
             Timestamp fromDate = UtilDateTime.nowTimestamp();
             try {
-                subContentDataResourceViewTemp = ContentWorker.getSubContent(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate);
+                subContentDataResourceViewTemp = ContentWorker.getSubContent(delegator, contentId, mapKey, subContentId, userLogin,
+                        assocTypes, fromDate);
             } catch (IOException e) {
                 throw new RuntimeException(e.getMessage());
             }
@@ -139,8 +142,6 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
 
                 templateRoot.put("context", templateContext);
-                if (subContentDataResourceView != null) {
-                }
                 try {
                     if (subContentId != null) {
                         ContentWorker.renderContentAsText(dispatcher, subContentId, out, templateRoot, locale, mimeTypeId, null, null, false);

@@ -24,10 +24,10 @@ import org.apache.ofbiz.base.util.Debug;
  * WidgetContentWorker Class
  */
 public final class WidgetContentWorker {
-    public static final String MODULE = WidgetContentWorker.class.getName();
+    private static final String MODULE = WidgetContentWorker.class.getName();
     private static ContentWorkerInterface contentWorker = null;
 
-    private WidgetContentWorker () {}
+    private WidgetContentWorker() { }
 
     static {
         try {

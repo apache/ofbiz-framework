@@ -34,6 +34,12 @@
                     <field-map field-name="mainAction" value="ADMIN"/>
                 </service>
                 <set field="hasAdminPermission" from-field="permResult.hasPermission"/>
+                <set field="asm_multipleSelectForm" value="FindEmplLeaves"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="leaveStatus.asm_multipleSelect" value="FindEmplLeaves_leaveStatus"/>
+                <set field="leaveStatus.asm_sortable" value="true"/>
+                <set field="leaveStatus.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="leaveStatus"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -57,6 +63,11 @@
                                         </section>
                                     </decorator-section>
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html>
+                                                <html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                            </html>
+                                        </platform-specific>
                                         <include-form name="FindEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">

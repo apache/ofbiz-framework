@@ -37,11 +37,11 @@ import org.apache.ofbiz.entity.model.ModelField;
 @SuppressWarnings("serial")
 public abstract class EntityFunction<T extends Comparable<?>> extends EntityConditionValue {
 
-    public static interface Fetcher<T> {
+    public interface Fetcher<T> {
         T getValue(Object value);
     }
 
-    public static enum SQLFunction {
+    public enum SQLFunction {
         LENGTH, TRIM, UPPER, LOWER;
     }
 
@@ -50,25 +50,47 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public static final int ID_UPPER = SQLFunction.UPPER.ordinal();
     public static final int ID_LOWER = SQLFunction.LOWER.ordinal();
 
-    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { return new LENGTH(nested); }
-    public static EntityFunction<Integer> LENGTH(Object value) { return new LENGTH(value); }
-    public static EntityFunction<String> TRIM(EntityConditionValue nested) { return new TRIM(nested); }
-    public static EntityFunction<String> TRIM(Object value) { return new TRIM(value); }
-    public static EntityFunction<String> UPPER(EntityConditionValue nested) { return new UPPER(nested); }
-    public static EntityFunction<String> UPPER(Object value) { return new UPPER(value); }
-    public static EntityFunction<String> UPPER_FIELD(String fieldName) { return new UPPER(EntityFieldValue.makeFieldValue(fieldName)); }
-    public static EntityFunction<String> LOWER(EntityConditionValue nested) { return new LOWER(nested); }
-    public static EntityFunction<String> LOWER(Object value) { return new LOWER(value); }
+    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) {
+        return new LENGTH(nested);
+    }
+
+    public static EntityFunction<Integer> LENGTH(Object value) {
+        return new LENGTH(value);
+    }
+
+    public static EntityFunction<String> TRIM(EntityConditionValue nested) {
+        return new TRIM(nested);
+    }
+
+    public static EntityFunction<String> TRIM(Object value) {
+        return new TRIM(value);
+    }
+
+    public static EntityFunction<String> UPPER(EntityConditionValue nested) {
+        return new UPPER(nested);
+    }
+
+    public static EntityFunction<String> UPPER(Object value) {
+        return new UPPER(value);
+    }
+
+    public static EntityFunction<String> UPPER_FIELD(String fieldName) {
+        return new UPPER(EntityFieldValue.makeFieldValue(fieldName));
+    }
+
+    public static EntityFunction<String> LOWER(EntityConditionValue nested) {
+        return new LOWER(nested);
+    }
+
+    public static EntityFunction<String> LOWER(Object value) {
+        return new LOWER(value);
+    }
 
     /**
      * Length() entity function.
-     *
      */
     public static class LENGTH extends EntityFunctionSingle<Integer> {
-        public static final Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
-            @Override
-            public Integer getValue(Object value) { return value.toString().length(); }
-        };
+        public static final Fetcher<Integer> FETCHER = value -> value.toString().length();
 
         private LENGTH(Object value) {
             super(FETCHER, SQLFunction.LENGTH, value);
@@ -77,13 +99,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Trim() entity function.
-     *
      */
     public static class TRIM extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            @Override
-            public String getValue(Object value) { return value.toString().trim(); }
-        };
+        public static final Fetcher<String> FETCHER = value -> value.toString().trim();
 
         private TRIM(Object value) {
             super(FETCHER, SQLFunction.TRIM, value);
@@ -92,13 +110,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Upper() entity function.
-     *
      */
     public static class UPPER extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            @Override
-            public String getValue(Object value) { return value.toString().toUpperCase(Locale.getDefault()); }
-        };
+        public static final Fetcher<String> FETCHER = value -> value.toString().toUpperCase(Locale.getDefault());
 
         private UPPER(Object value) {
             super(FETCHER, SQLFunction.UPPER, value);
@@ -107,36 +121,32 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     /**
      * Lower() entity function.
-     *
      */
     public static class LOWER extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            @Override
-            public String getValue(Object value) { return value.toString().toLowerCase(Locale.getDefault()); }
-        };
+        public static final Fetcher<String> FETCHER = value -> value.toString().toLowerCase(Locale.getDefault());
 
         private LOWER(Object value) {
             super(FETCHER, SQLFunction.LOWER, value);
         }
     }
 
-    public static abstract class EntityFunctionSingle<T extends Comparable<?>> extends EntityFunction<T> {
+    public abstract static class EntityFunctionSingle<T extends Comparable<?>> extends EntityFunction<T> {
         protected EntityFunctionSingle(Fetcher<T> fetcher, SQLFunction function, Object value) {
             super(fetcher, function, value);
         }
     }
 
-    public static abstract class EntityFunctionNested<T extends Comparable<?>> extends EntityFunction<T> {
+    public abstract static class EntityFunctionNested<T extends Comparable<?>> extends EntityFunction<T> {
         protected EntityFunctionNested(Fetcher<T> fetcher, SQLFunction function, EntityConditionValue nested) {
             super(fetcher, function, nested);
         }
     }
 
-    protected final SQLFunction function;
-    protected final EntityConditionValue nested;
-    protected final Object value;
-    protected final Fetcher<T> fetcher;
-    protected ModelField field;
+    private final SQLFunction function;
+    private final EntityConditionValue nested;
+    private final Object value;
+    private ModelField field;
+    private final Fetcher<T> fetcher;
 
     protected EntityFunction(Fetcher<T> fetcher, SQLFunction function, EntityConditionValue nested) {
         this.fetcher = fetcher;
@@ -160,19 +170,31 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     @Override
     public EntityConditionValue freeze() {
         if (nested != null) {
-            return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) {};
+            return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) { };
         }
-        return new EntityFunctionSingle<T>(fetcher, function, value) {};
+        return new EntityFunctionSingle<T>(fetcher, function, value) { };
     }
 
+    /**
+     * Gets code.
+     * @return the code
+     */
     public String getCode() {
         return function.name();
     }
 
+    /**
+     * Gets original value.
+     * @return the original value
+     */
     public Object getOriginalValue() {
         return this.value;
     }
 
+    /**
+     * Gets id.
+     * @return the id
+     */
     public int getId() {
         return function.ordinal();
     }
@@ -188,13 +210,14 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             return false;
         }
         EntityFunction<?> otherFunc = UtilGenerics.cast(obj);
-        return (this.function == otherFunc.function &&
-            (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&
-            (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
+        return (this.function == otherFunc.function
+            && (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null)
+            && (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
+    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity,
+                            List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
         sql.append(function.name()).append('(');
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);

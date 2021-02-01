@@ -18,13 +18,23 @@ under the License.
 -->
 
 <#if parameters.originUserLogin??>
-    <a href="#impersonateContent" title="${uiLabelMap.CommonImpersonateTitle}" id="impersonateBtn"><img src="/images/img/impersonate-ico.png" alt="${uiLabelMap.CommonImpersonateTitle}"/></a>
-    <div id="impersonateContent">
-        <div class="impersonateModal">
-            <a href="#" class="btn-close" title="${uiLabelMap.CommonClose}">×</a>
-            <h3>${uiLabelMap.CommonImpersonateTitle}</h3>
-            <p>${uiLabelMap.CommonImpersonateUserLogin} : <strong>${context.userLogin.userLoginId!}</strong></p>
-            <a href="depersonateLogin" class="btn" title="${uiLabelMap.CommonImpersonateStop}">${uiLabelMap.CommonImpersonateStop}</a>
-        </div>
+    <div id="impersonateContentBody">
     </div>
+    <script id="impersonateContent-template" type="text/html">
+        <a href="#impersonateContent" title="${uiLabelMap.CommonImpersonateTitle}" id="impersonateBtn"><img src="/images/img/impersonate-ico.png" alt="${uiLabelMap.CommonImpersonateTitle}"/></a>
+        <div id="impersonateContent">
+            <div class="impersonateModal">
+                <a href="#" class="btn-close" title="${uiLabelMap.CommonClose}">×</a>
+                <h3>${uiLabelMap.CommonImpersonateTitle}</h3>
+                <p>${uiLabelMap.CommonImpersonateUserLogin} : <strong>${context.userLogin.userLoginId!}</strong></p>
+                <a href="depersonateLogin" class="btn" title="${uiLabelMap.CommonImpersonateStop}">${uiLabelMap.CommonImpersonateStop}</a>
+            </div>
+        </div>
+    </script>
+    <script>
+        importLibrary(["/common/css/impersonate.css"], function(){
+            var content = jQuery.parseHTML($('#impersonateContent-template').html());
+            $("#impersonateContentBody").append(content);
+        });
+    </script>
 </#if>

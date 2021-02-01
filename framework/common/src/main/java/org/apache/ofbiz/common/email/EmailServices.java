@@ -87,9 +87,9 @@ import freemarker.template.TemplateException;
  */
 public class EmailServices {
 
-    public final static String MODULE = EmailServices.class.getName();
+    private static final String MODULE = EmailServices.class.getName();
 
-    public static final String resource = "CommonUiLabels";
+    private static final String RESOURCE = "CommonUiLabels";
 
     /**
      * Basic JavaMail Service
@@ -118,7 +118,7 @@ public class EmailServices {
         results.put("communicationEventId", communicationEventId);
         results.put("partyId", partyId);
         results.put("subject", subject);
-        
+
         if (UtilValidate.isNotEmpty(orderId)) {
             results.put("orderId", orderId);
         }
@@ -166,8 +166,8 @@ public class EmailServices {
         String sendType = (String) context.get("sendType");
         String port = (String) context.get("port");
         String socketFactoryClass = (String) context.get("socketFactoryClass");
-        String socketFactoryPort  = (String) context.get("socketFactoryPort");
-        String socketFactoryFallback  = (String) context.get("socketFactoryFallback");
+        String socketFactoryPort = (String) context.get("socketFactoryPort");
+        String socketFactoryFallback = (String) context.get("socketFactoryFallback");
         String sendVia = (String) context.get("sendVia");
         String authUser = (String) context.get("authUser");
         String authPass = (String) context.get("authPass");
@@ -179,7 +179,7 @@ public class EmailServices {
         boolean useSmtpAuth = false;
 
         // define some default
-        if (sendType == null || sendType.equals("mail.smtp.host")) {
+        if (sendType == null || "mail.smtp.host".equals(sendType)) {
             sendType = "mail.smtp.host";
             if (UtilValidate.isEmpty(sendVia)) {
                 sendVia = EntityUtilProperties.getPropertyValue("general", "mail.smtp.relay.host", "localhost", delegator);
@@ -206,13 +206,14 @@ public class EmailServices {
                 socketFactoryFallback = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.fallback", "false", delegator);
             }
             if (sendPartial == null) {
-                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator) ? true : false;
+                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator)
+                        ? true : false;
             }
             if (isStartTLSEnabled == null) {
                 isStartTLSEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.starttls.enable", "true", delegator);
             }
         } else if (sendVia == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendMissingParameterSendVia", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMissingParameterSendVia", locale));
         }
 
         if (contentType == null) {
@@ -277,17 +278,17 @@ public class EmailServices {
                 // check for multipart message (with attachments)
                 // BodyParts contain a list of Maps items containing content(String) and type(String) of the attachement
                 MimeMultipart mp = new MimeMultipart();
-                Debug.logInfo(bodyParts.size() + " multiparts found",MODULE);
+                Debug.logInfo(bodyParts.size() + " multiparts found", MODULE);
                 for (Map<String, Object> bodyPart: bodyParts) {
                     Object bodyPartContent = bodyPart.get("content");
                     MimeBodyPart mbp = new MimeBodyPart();
 
                     if (bodyPartContent instanceof String) {
-                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + bodyPart.get("content").toString().length() , MODULE);
+                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + bodyPart.get("content").toString().length(), MODULE);
                         mbp.setText((String) bodyPartContent, "UTF-8", ((String) bodyPart.get("type")).substring(5));
                     } else if (bodyPartContent instanceof byte[]) {
                         ByteArrayDataSource bads = new ByteArrayDataSource((byte[]) bodyPartContent, (String) bodyPart.get("type"));
-                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + ((byte[]) bodyPartContent).length , MODULE);
+                        Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + ((byte[]) bodyPartContent).length, MODULE);
                         mbp.setDataHandler(new DataHandler(bads));
                     } else if (bodyPartContent instanceof DataHandler) {
                         mbp.setDataHandler((DataHandler) bodyPartContent);
@@ -313,17 +314,22 @@ public class EmailServices {
                 mail.saveChanges();
             }
         } catch (MessagingException e) {
-            Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
+            Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc ["
+                    + sendBcc + "] subject [" + subject + "]", MODULE);
             Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo",
+                    sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
 
         // check to see if sending mail is enabled
         String mailEnabled = EntityUtilProperties.getPropertyValue("general", "mail.notifications.enabled", "N", delegator);
         if (!"Y".equalsIgnoreCase(mailEnabled)) {
             // no error; just return as if we already processed
-            Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee [" + sendTo + "]", MODULE);
-            if (Debug.verboseOn()) Debug.logVerbose("What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, MODULE);
+            Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee ["
+                    + sendTo + "]", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, MODULE);
+            }
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             return results;
         }
@@ -342,13 +348,15 @@ public class EmailServices {
             trans.close();
         } catch (SendFailedException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
-            Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
+            Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
+                    + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
             List<SMTPAddressFailedException> failedAddresses = new LinkedList<>();
             Exception nestedException = null;
             while ((nestedException = e.getNextException()) != null && nestedException instanceof MessagingException) {
                 if (nestedException instanceof SMTPAddressFailedException) {
                     SMTPAddressFailedException safe = (SMTPAddressFailedException) nestedException;
-                    Debug.logError("Failed to send message to [" + safe.getAddress() + "], return code [" + safe.getReturnCode() + "], return message [" + safe.getMessage() + "]", MODULE);
+                    Debug.logError("Failed to send message to [" + safe.getAddress() + "], return code [" + safe.getReturnCode()
+                            + "], return message [" + safe.getMessage() + "]", MODULE);
                     failedAddresses.add(safe);
                     break;
                 }
@@ -364,13 +372,16 @@ public class EmailServices {
                     Debug.logError(e1, MODULE);
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendAddressError", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendAddressError", UtilMisc.toMap("sendTo",
+                        sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
             }
         } catch (MessagingException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
-            Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
+            Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
+                    + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
             Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
+                    sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
         return results;
     }
@@ -395,7 +406,8 @@ public class EmailServices {
             url = new URL(bodyUrl);
         } catch (MalformedURLException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl", bodyUrl, "errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl",
+                    bodyUrl, "errorString", e.toString()), locale));
         }
 
         HttpClient httpClient = new HttpClient(url, bodyUrlParameters);
@@ -405,7 +417,8 @@ public class EmailServices {
             body = httpClient.post();
         } catch (HttpClientException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendGettingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendGettingError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         sendMailContext.put("body", body);
@@ -442,7 +455,7 @@ public class EmailServices {
         if (visualTheme == null) {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
         }
-        
+
         List<String> xslfoAttachScreenLocationList = new LinkedList<>();
         List<String> attachmentNameList = new LinkedList<>();
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) {
@@ -457,7 +470,7 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(attachmentNameListParam)) {
             attachmentNameList.addAll(attachmentNameListParam);
         }
-        
+
         List<String> attachmentTypeList = new LinkedList<>();
         String attachmentTypeParam = (String) serviceContext.remove("attachmentType");
         List<String> attachmentTypeListParam = UtilGenerics.cast(serviceContext.remove("attachmentTypeList"));
@@ -467,7 +480,7 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(attachmentTypeListParam)) {
             attachmentTypeList.addAll(attachmentTypeListParam);
         }
-        
+
         Locale locale = (Locale) serviceContext.get("locale");
         Map<String, Object> bodyParameters = UtilGenerics.cast(serviceContext.remove("bodyParameters"));
         if (bodyParameters == null) {
@@ -485,7 +498,7 @@ public class EmailServices {
         String orderId = (String) bodyParameters.get("orderId");
         String returnId = (String) serviceContext.get("returnId");
         String custRequestId = (String) bodyParameters.get("custRequestId");
-        
+
         bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
@@ -500,8 +513,9 @@ public class EmailServices {
         try {
             screenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screen");
         } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering screen for email: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
+            Debug.logError("Error rendering screen for email: " + e.toString(), MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
         ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, screenStringRenderer);
         screens.populateContextForService(dctx, bodyParameters);
@@ -512,7 +526,8 @@ public class EmailServices {
                 screens.render(bodyScreenUri);
             } catch (GeneralException | IOException | SAXException | ParserConfigurationException e) {
                 Debug.logError(e, "Error rendering screen for email: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
+                        UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
@@ -522,12 +537,13 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationList)) {
             List<Map<String, ? extends Object>> bodyParts = new LinkedList<>();
             if (bodyText != null) {
-                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
+                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType
+                        : "text/html"));
             } else {
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType)
+                        ? contentType : "text/html"));
             }
-            
             for (int i = 0; i < xslfoAttachScreenLocationList.size(); i++) {
                 String xslfoAttachScreenLocation = xslfoAttachScreenLocationList.get(i);
                 String attachmentName = "Details.pdf";
@@ -539,17 +555,17 @@ public class EmailServices {
                 if (UtilValidate.isNotEmpty(attachmentTypeList) && attachmentTypeList.size() >= i) {
                     attachmentType = attachmentTypeList.get(i);
                 }
-                
+
                 isMultiPart = true;
                 // start processing fo pdf attachment
                 try (Writer writer = new StringWriter(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     // substitute the freemarker variables...
                     ScreenStringRenderer foScreenStringRenderer = null;
-                    if(MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
+                    if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)) {
                         foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screentext");
-                    }else{
+                    } else {
                         foScreenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screenfop");
-                    } 
+                    }
                     ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenStringRenderer);
                     screensAtt.populateContextForService(dctx, bodyParameters);
                     screensAtt.render(xslfoAttachScreenLocation);
@@ -567,19 +583,20 @@ public class EmailServices {
 
                     // store in the list of maps for sendmail....
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", attachmentType, "filename", attachmentName));
-                    
-                } catch (GeneralException|IOException|SAXException|ParserConfigurationException |TemplateException ge) {
-                    Debug.logError(ge, "Error rendering PDF attachment for email: " + ge.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", ge.toString()), locale));
+
+                } catch (GeneralException | IOException | SAXException | ParserConfigurationException | TemplateException ge) {
+                    Debug.logError("Error rendering PDF attachment for email: " + ge.toString(), MODULE);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenPdfError",
+                            UtilMisc.toMap("errorString", ge.toString()), locale));
                 }
-                
+
                 serviceContext.put("bodyParts", bodyParts);
             }
         } else {
             isMultiPart = false;
             // store body and type for single part message in the context.
             if (bodyText != null) {
-                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
+                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
                 serviceContext.put("body", bodyText);
             } else {
                 serviceContext.put("body", bodyWriter.toString());
@@ -587,7 +604,7 @@ public class EmailServices {
 
             // Only override the default contentType in case of plaintext, since other contentTypes may be multipart
             //    and would require specific handling.
-            if (contentType != null && contentType.equalsIgnoreCase("text/plain")) {
+            if (contentType != null && "text/plain".equalsIgnoreCase(contentType)) {
                 serviceContext.put("contentType", "text/plain");
             } else {
                 serviceContext.put("contentType", "text/html");
@@ -604,14 +621,13 @@ public class EmailServices {
         serviceContext.put("partyId", partyId);
         if (UtilValidate.isNotEmpty(orderId)) {
             serviceContext.put("orderId", orderId);
-        }            
+        }
         if (UtilValidate.isNotEmpty(returnId)) {
             serviceContext.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(custRequestId)) {
             serviceContext.put("custRequestId", custRequestId);
-        }            
-        
+        }
         if (Debug.verboseOn()) {
             Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, MODULE);
         }
@@ -635,7 +651,8 @@ public class EmailServices {
             }
         } catch (Exception e) {
             Debug.logError(e, "Error send email:" + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (ServiceUtil.isError(sendMailResult)) {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendMailResult));
@@ -647,13 +664,13 @@ public class EmailServices {
         result.put("communicationEventId", sendMailResult.get("communicationEventId"));
         if (UtilValidate.isNotEmpty(orderId)) {
             result.put("orderId", orderId);
-        }            
+        }
         if (UtilValidate.isNotEmpty(returnId)) {
             result.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(custRequestId)) {
             result.put("custRequestId", custRequestId);
-        }            
+        }
         return result;
     }
 
@@ -666,20 +683,20 @@ public class EmailServices {
      */
     public static Map<String, Object> sendMailHiddenInLogFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
         Map<String, Object> serviceContext = UtilMisc.makeMapWritable(rServiceContext);
-        serviceContext.put("hideInLog", true);        
+        serviceContext.put("hideInLog", true);
         return sendMailFromScreen(dctx, serviceContext);
     }
-    
-    public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
+    public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message,
+                                               List<SMTPAddressFailedException> failures) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = new LinkedHashMap<>();
         newContext.put("userLogin", context.get("userLogin"));
         newContext.put("sendFailureNotification", false);
         newContext.put("sendFrom", context.get("sendFrom"));
         newContext.put("sendTo", context.get("sendFrom"));
-        newContext.put("subject", UtilProperties.getMessage(resource, "CommonEmailSendUndeliveredMail", locale));
+        newContext.put("subject", UtilProperties.getMessage(RESOURCE, "CommonEmailSendUndeliveredMail", locale));
         StringBuilder sb = new StringBuilder();
-        sb.append(UtilProperties.getMessage(resource, "CommonEmailDeliveryFailed", locale));
+        sb.append(UtilProperties.getMessage(RESOURCE, "CommonEmailDeliveryFailed", locale));
         sb.append("/n/n");
         for (SMTPAddressFailedException failure : failures) {
             sb.append(failure.getAddress());
@@ -687,7 +704,7 @@ public class EmailServices {
             sb.append(failure.getMessage());
             sb.append("/n/n");
         }
-        sb.append(UtilProperties.getMessage(resource, "CommonEmailDeliveryOriginalMessage", locale));
+        sb.append(UtilProperties.getMessage(RESOURCE, "CommonEmailDeliveryOriginalMessage", locale));
         sb.append("/n/n");
         List<Map<String, Object>> bodyParts = new LinkedList<>();
         bodyParts.add(UtilMisc.<String, Object>toMap("content", sb.toString(), "type", "text/plain"));

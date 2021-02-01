@@ -16,18 +16,25 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#assign messageMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("originUserLoginId", impersonator)/>
 <#assign impersonationMessage= Static["org.apache.ofbiz.base.util.UtilProperties"].getMessage("SecurityextUiLabels", "loginevents.impersonation_in_process", messageMap, locale)/>
 <#assign fromDate = Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(impersonationFromDate, "", locale, timeZone)/>
 <div id="impersonateMode">
-  <div class="content">
-      <img src="/images/img/impersonate-ico.png" alt="${uiLabelMap.CommonImpersonateTitle}"/>
-      <p class="user">${impersonationMessage!}<p>
-      <p>${uiLabelMap.CommonSince} ${fromDate!}</p>
-      <p><a id="logout" class="user-pref-btn" href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></p>
-  </div>
 </div>
+<script id="impersonateMode-template" type="text/html">
+    <div class="content">
+        <img src="/images/img/impersonate-ico.png" alt="${uiLabelMap.CommonImpersonateTitle}"/>
+        <p class="user">${impersonationMessage!}<p>
+        <p>${uiLabelMap.CommonSince} ${fromDate!}</p>
+        <p><a id="logout" class="user-pref-btn" href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></p>
+    </div>
+</script>
 <script>
-    setInterval('window.location.reload()', 30000);
+    importLibrary(["/common/css/impersonate.css"], function(){
+        var parsedContent = jQuery.parseHTML($('#impersonateMode-template').html());
+        $("#impersonateMode").append(parsedContent);
+    });
+    setInterval(function (){
+        window.location.reload();
+    }, 30000);
 </script>

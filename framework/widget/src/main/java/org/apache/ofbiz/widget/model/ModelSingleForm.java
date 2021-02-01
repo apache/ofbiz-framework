@@ -42,17 +42,14 @@ public class ModelSingleForm extends ModelForm {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors. All behavior should be contained in model visitors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
-    public static final String MODULE = ModelSingleForm.class.getName();
+    private static final String MODULE = ModelSingleForm.class.getName();
 
     /** XML Constructor */
     public ModelSingleForm(Element formElement, String formLocation, ModelReader entityModelReader,

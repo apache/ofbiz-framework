@@ -41,7 +41,6 @@ public final class ModelRelation extends ModelChild {
 
     /**
      * Returns a new <code>ModelRelation</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this relation is a member of.
      * @param description The relation description.
      * @param type The relation type.
@@ -51,7 +50,8 @@ public final class ModelRelation extends ModelChild {
      * @param keyMaps The key maps included in this relation.
      * @param isAutoRelation <code>true</code> if this relation was generated automatically by the entity engine.
      */
-    public static ModelRelation create(ModelEntity modelEntity, String description, String type, String title, String relEntityName, String fkName, List<ModelKeyMap> keyMaps, boolean isAutoRelation) {
+    public static ModelRelation create(ModelEntity modelEntity, String description, String type, String title, String relEntityName,
+                                       String fkName, List<ModelKeyMap> keyMaps, boolean isAutoRelation) {
         if (description == null) {
             description = "";
         }
@@ -77,7 +77,6 @@ public final class ModelRelation extends ModelChild {
 
     /**
      * Returns a new <code>ModelRelation</code> instance, initialized with the specified values.
-     * 
      * @param modelEntity The <code>ModelEntity</code> this relation is a member of.
      * @param relationElement The <code>&lt;relation&gt;</code> element containing the values for this relation.
      * @param isAutoRelation <code>true</code> if this relation was generated automatically by the entity engine.
@@ -88,7 +87,7 @@ public final class ModelRelation extends ModelChild {
         String relEntityName = relationElement.getAttribute("rel-entity-name").intern();
         String fkName = relationElement.getAttribute("fk-name").intern();
         String description = UtilXml.childElementValue(relationElement, "description");
-        List<ModelKeyMap >keyMaps = Collections.emptyList();
+        List<ModelKeyMap> keyMaps = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(relationElement, "key-map");
         if (!elementList.isEmpty()) {
             keyMaps = new ArrayList<>(elementList.size());
@@ -128,7 +127,8 @@ public final class ModelRelation extends ModelChild {
 
     private final String combinedName;
 
-    private ModelRelation(ModelEntity modelEntity, String description, String type, String title, String relEntityName, String fkName, List<ModelKeyMap> keyMaps, boolean isAutoRelation) {
+    private ModelRelation(ModelEntity modelEntity, String description, String type, String title, String relEntityName, String fkName,
+                          List<ModelKeyMap> keyMaps, boolean isAutoRelation) {
         super(modelEntity, description);
         this.title = title;
         this.type = type;
@@ -198,8 +198,9 @@ public final class ModelRelation extends ModelChild {
     /** Find a KeyMap with the specified relFieldName */
     public ModelKeyMap findKeyMapByRelated(String relFieldName) {
         for (ModelKeyMap keyMap: keyMaps) {
-            if (keyMap.getRelFieldName().equals(relFieldName))
+            if (keyMap.getRelFieldName().equals(relFieldName)) {
                 return keyMap;
+            }
         }
         return null;
     }
@@ -247,11 +248,12 @@ public final class ModelRelation extends ModelChild {
 
     // TODO: Externalize this.
     public String keyMapUpperString(String separator, String afterLast) {
-        if (keyMaps.size() < 1)
+        if (keyMaps.size() < 1) {
             return "";
+        }
 
         StringBuilder returnString = new StringBuilder(keyMaps.size() * 10);
-        int i=0;
+        int i = 0;
         while (true) {
             ModelKeyMap kmap = keyMaps.get(i);
             returnString.append(ModelUtil.upperFirstChar(kmap.getFieldName()));
@@ -270,11 +272,12 @@ public final class ModelRelation extends ModelChild {
 
     // TODO: Externalize this.
     public String keyMapRelatedUpperString(String separator, String afterLast) {
-        if (keyMaps.size() < 1)
+        if (keyMaps.size() < 1) {
             return "";
+        }
 
         StringBuilder returnString = new StringBuilder(keyMaps.size() * 10);
-        int i=0;
+        int i = 0;
         while (true) {
             ModelKeyMap kmap = keyMaps.get(i);
             returnString.append(ModelUtil.upperFirstChar(kmap.getRelFieldName()));

@@ -69,13 +69,20 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindInvoices">
         <section>
             <actions>
                 <set field="headerItem" value="invoices"/>
                 <set field="tabButtonItem" value="find"/>
                 <set field="titleProperty" value="PageTitleFindInvoice"/>
+                <set field="helpAnchor" value="_help_for_find_invoices"/>
+                <set field="asm_multipleSelectForm" value="FindInvoices"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindInvoices_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -88,6 +95,11 @@ under the License.
                                         <container style="clear"/>
                                     </decorator-section>
                                     <decorator-section name="search-options">
+                                        <platform-specific>
+                                            <html>
+                                                <html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                            </html>
+                                        </platform-specific>
                                         <include-form name="FindInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
@@ -106,6 +118,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingCreateNewInvoice"/>
+                <set field="helpAnchor" value="_help_for_new_invoice"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
             </actions>
             <widgets>
@@ -132,6 +145,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditInvoice"/>
                 <set field="tabButtonItem" value="editInvoice"/>
+                <set field="helpAnchor" value="_help_for_edit_invoice_header"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-one entity-name="InvoiceType" value-field="invoiceType">
@@ -169,6 +183,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleInvoiceOverview"/>
                 <set field="tabButtonItem" value="invoiceOverview"/>
+                <set field="helpAnchor" value="_help_for_invoice_overview"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-and entity-name="InvoiceRole" list="invoiceRoles">
@@ -357,6 +372,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListEditInvoiceApplications"/>
                 <set field="tabButtonItem" value="editInvoiceApplications"/>
+                <set field="helpAnchor" value="_help_for_edit_invoice_applications"/>
 
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
@@ -445,6 +461,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.viewSize"/>
                 <set field="titleProperty" value="PageTitleListInvoices"/>
                 <set field="tabButtonItem" value="listInvoiceItems"/>
+                <set field="helpAnchor" value="_help_for_edit_invoice_time_entries"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <set field="invoiceItemSeqd" from-field="parameters.invoiceItemSeqId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
@@ -492,6 +509,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.viewSize"/>
                 <set field="titleProperty" value="PageTitleListInvoiceTimeEntries"/>
                 <set field="tabButtonItem" value="EditInvoiceTimeEntries"/>
+                <set field="helpAnchor" value="_help_for_edit_invoice_time_entries"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-and entity-name="TimeEntry" list="timeEntries">
@@ -516,6 +534,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListInvoiceRoles"/>
                 <set field="tabButtonItem" value="invoiceRoles"/>
+                <set field="helpAnchor" value="_help_for_invoice_roles"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <entity-and entity-name="InvoiceRole" list="invoiceRoles">
@@ -580,6 +599,7 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <set field="tabButtonItem" value="sendPerEmail"/>
+                <set field="helpAnchor" value="_help_for_send_per_email"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">

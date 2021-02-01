@@ -33,31 +33,38 @@ import org.apache.ofbiz.entity.model.ModelRelation;
 import org.apache.ofbiz.entityext.eca.EntityEcaRule;
 
 /**
- *
+ * The type Entity artifact info.
  */
 public class EntityArtifactInfo extends ArtifactInfoBase {
-    protected ModelEntity modelEntity;
-
-    protected Set<EntityArtifactInfo> entitiesRelatedOne = new TreeSet<>();
-    protected Set<EntityArtifactInfo> entitiesRelatedMany = new TreeSet<>();
+    private ModelEntity modelEntity;
+    private Set<EntityArtifactInfo> entitiesRelatedOne = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesRelatedMany = new TreeSet<>();
 
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);
-        this.modelEntity = this.aif.getModelEntity(entityName);
+        this.modelEntity = this.getAif().getModelEntity(entityName);
     }
 
+    /**
+     * Populate all.
+     * @throws GeneralException the general exception
+     */
     public void populateAll() throws GeneralException {
         List<ModelRelation> relationOneList = modelEntity.getRelationsOneList();
         for (ModelRelation relationOne: relationOneList) {
-            this.entitiesRelatedOne.add(this.aif.getEntityArtifactInfo(relationOne.getRelEntityName()));
+            this.entitiesRelatedOne.add(this.getAif().getEntityArtifactInfo(relationOne.getRelEntityName()));
         }
 
         List<ModelRelation> relationManyList = modelEntity.getRelationsManyList();
         for (ModelRelation relationMany: relationManyList) {
-            this.entitiesRelatedMany.add(this.aif.getEntityArtifactInfo(relationMany.getRelEntityName()));
+            this.entitiesRelatedMany.add(this.getAif().getEntityArtifactInfo(relationMany.getRelEntityName()));
         }
     }
 
+    /**
+     * Gets model entity.
+     * @return the model entity
+     */
     public ModelEntity getModelEntity() {
         return this.modelEntity;
     }
@@ -74,7 +81,7 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public String getType() {
-        return ArtifactInfoFactory.EntityInfoTypeId;
+        return ArtifactInfoFactory.ENTITY_INFO_TYPE_ID;
     }
 
     @Override
@@ -96,17 +103,25 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    /**
+     * Gets entities related one.
+     * @return the entities related one
+     */
     public Set<EntityArtifactInfo> getEntitiesRelatedOne() {
         return this.entitiesRelatedOne;
     }
 
+    /**
+     * Gets entities related many.
+     * @return the entities related many
+     */
     public Set<EntityArtifactInfo> getEntitiesRelatedMany() {
         return this.entitiesRelatedMany;
     }
 
     /** Get the Services that use this Entity */
     public Set<ServiceArtifactInfo> getServicesUsingEntity() {
-        return this.aif.allServiceInfosReferringToEntityName.get(this.modelEntity.getEntityName());
+        return this.getAif().getAllServiceInfosReferringToEntityName().get(this.modelEntity.getEntityName());
     }
 
     /** Get the Services called by Entity ECA */
@@ -116,17 +131,29 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
         return serviceSet;
     }
 
+    /**
+     * Gets entity eca rules.
+     * @return the entity eca rules
+     */
     public Set<EntityEcaRule> getEntityEcaRules() {
         Set<EntityEcaRule> eecaSet = new HashSet<>();
         // TODO: implement this
         return eecaSet;
     }
 
+    /**
+     * Gets forms using entity.
+     * @return the forms using entity
+     */
     public Set<FormWidgetArtifactInfo> getFormsUsingEntity() {
-        return this.aif.allFormInfosReferringToEntityName.get(this.modelEntity.getEntityName());
+        return this.getAif().getAllFormInfosReferringToEntityName().get(this.modelEntity.getEntityName());
     }
 
+    /**
+     * Gets screens using entity.
+     * @return the screens using entity
+     */
     public Set<ScreenWidgetArtifactInfo> getScreensUsingEntity() {
-        return this.aif.allScreenInfosReferringToEntityName.get(this.modelEntity.getEntityName());
+        return this.getAif().getAllScreenInfosReferringToEntityName().get(this.modelEntity.getEntityName());
     }
 }

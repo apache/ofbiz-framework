@@ -39,8 +39,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PeriodServices {
 
-    public static final String MODULE = PeriodServices.class.getName();
-    public static final String resource = "AccountingUiLabels";
+    private static final String MODULE = PeriodServices.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
 
     /*
      * find the date of the last closed CustomTimePeriod, or, if none available, the
@@ -91,7 +91,7 @@ public class PeriodServices {
                 if (timePeriod != null && UtilValidate.isNotEmpty(timePeriod.get("fromDate"))) {
                     lastClosedDate = timePeriod.getTimestamp("fromDate");
                 } else {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPeriodCannotGet", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingPeriodCannotGet", locale));
                 }
             }
 

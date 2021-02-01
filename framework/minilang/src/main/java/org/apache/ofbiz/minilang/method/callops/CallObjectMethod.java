@@ -38,12 +38,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;call-object-method&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CallObjectMethod extends MethodOperation {
 
-    public static final String MODULE = CallClassMethod.class.getName();
+    private static final String MODULE = CallClassMethod.class.getName();
 
     private final String methodName;
     private final FlexibleMapAccessor<Object> objFieldFma;
@@ -63,7 +62,7 @@ public final class CallObjectMethod extends MethodOperation {
         this.objFieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("obj-field"));
         this.retFieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("ret-field"));
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
-        if (parameterElements.size() > 0) {
+        if (!parameterElements.isEmpty()) {
             ArrayList<MethodObject<?>> parameterList = new ArrayList<>(parameterElements.size());
             for (Element parameterElement : parameterElements) {
                 if ("string".equals(parameterElement.getNodeName())) {

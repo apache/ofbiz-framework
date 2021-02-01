@@ -41,7 +41,7 @@ import org.apache.ofbiz.base.util.GeneralException;
  */
 public class DesCrypt {
 
-    public static final String MODULE = DesCrypt.class.getName();
+    private static final String MODULE = DesCrypt.class.getName();
 
     public static Key generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("DESede");

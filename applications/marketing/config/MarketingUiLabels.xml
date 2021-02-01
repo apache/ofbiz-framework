@@ -856,6 +856,15 @@
         <value xml:lang="de">Der bevorzugte Kontaktmechanismus für Party [${partyId}] konnte nicht gefunden werden</value>
         <value xml:lang="en">Could not find the preferred contact mechanism for party [${parameters.partyId}]</value>
     </property>
+    <property key="MarketingContactListInvalidVerifyCode">
+        <value xml:lang="en">Invalid verify code for the ${contactList.contactListName}</value>
+    </property>
+    <property key="MarketingContactListAnotherEmailNotExist">
+        <value xml:lang="en">The email address (${parameters.email}) does not have the Other Email Address as contact purpose</value>
+    </property>
+    <property key="MarketingContactListPermissionError">
+        <value xml:lang="en">Security Error: to run sendContactListPartyVerifyEmail you must have the MARKETING_VIEW or MARKETING_ADMIN permissions</value>
+    </property>
     <property key="MarketingContactMechNotRightForContactList">
         <value xml:lang="de">Der bevorzugte Kontaktmechanismus [${preferredContactMechType.description}] ist vom falschen Typ für die Liste [${listContactMechType.description}].</value>
         <value xml:lang="en">The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}].</value>

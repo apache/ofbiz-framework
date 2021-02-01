@@ -1,0 +1,51 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Routing
+Routing is used to Link the tasks (routingTask) together in the sequence they need to be performed
+to produce final product.
+
+Routing is used, when a productionRun is created for a product, the default routing associated to the product
+ is "duplicate" for the productionRun. +
+All its routing-tasks are "duplicated" in the productionRun.
+
+
+== Routing management in UI
+=== Find routing
+This screen displays an overview of all routings available. +
+When select one it's possible to Edit it. +
+From here you can also create a new routing by clicking 'New routing'.
+
+=== Create / Edit Routing
+In this screen you can :
+
+* Create new a new Routing or;
+* Edit an existing Routing.
+
+=== Create / edit route associated task
+In this screen you can connect a task to a routing and modify an existing routing task.
+
+=== Create / Edit Routing associated product-link
+In this screen can you create a link to a product for the routing.
+
+The product specified here will be linked to this routing. +
+This means that when a Production Run  is created for this product, it will automatically use this routing by default.
+
+You can also edit an existing product link.
+
+An overview of the associated products is displayed in the lower section of the screen.

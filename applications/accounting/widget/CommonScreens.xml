@@ -40,13 +40,28 @@ under the License.
                 <set field="applicationMenuName" value="AccountingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/AccountingMenus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.AccountingManagerApplication" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_accounting"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
-
+    <screen name="ShortcutApp">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="AccountingShortcutAppBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="CommonFinAccountDecorator">
         <section>
             <actions>
@@ -273,6 +288,7 @@ under the License.
             </condition>
             <actions>
                 <set field="headerItem" value="main"/>
+                <set field="helpAnchor" value="_help_for_accounting_main_screen"/>
                 <entity-condition entity-name="PaymentType" list="paymentTypes">
                     <order-by field-name="paymentTypeId"/>
                 </entity-condition>

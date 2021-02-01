@@ -52,7 +52,7 @@ import org.xml.sax.SAXException;
  */
 public final class ComponentLoaderConfig {
 
-    public static final String MODULE = ComponentLoaderConfig.class.getName();
+    private static final String MODULE = ComponentLoaderConfig.class.getName();
     public static final String COMPONENT_LOAD_XML_FILENAME = "component-load.xml";
 
     public enum ComponentType { SINGLE_COMPONENT, COMPONENT_DIRECTORY }
@@ -61,7 +61,6 @@ public final class ComponentLoaderConfig {
 
     /**
      * Provides the list of root directory components defined in the classpath.
-     *
      * @return the list of root directory components.
      * @throws ComponentException if the main {@code component-load.xml} file is either invalid
      *         or refer to non-existent component directory.
@@ -73,7 +72,6 @@ public final class ComponentLoaderConfig {
 
     /**
      * Collects the component definitions from a {@code component-load.xml} file
-     *
      * @param configUrl  the location of the {@code component-load.xml} file
      * @return a list of component definitions
      * @throws ComponentException when the {@code component-load.xml} file is invalid.
@@ -94,13 +92,20 @@ public final class ComponentLoaderConfig {
      */
     public static class ComponentDef {
         /** The location of the component. */
-        public final Path location;
+        private final Path location;
         /** The type of component. */
-        public final ComponentType type;
+        private final ComponentType type;
+
+        public Path getLocation() {
+            return location;
+        }
+
+        public ComponentType getType() {
+            return type;
+        }
 
         /**
          * Constructs a component definition.
-         *
          * @param location  the location of the component
          * @param type  the type of the component
          */
@@ -116,7 +121,6 @@ public final class ComponentLoaderConfig {
 
         /**
          * Converts a string based location to a proper {@code Path}.
-         *
          * @param location  the string based location
          * @return the corresponding {@code Path} object.
          */
@@ -127,7 +131,6 @@ public final class ComponentLoaderConfig {
 
         /**
          * Constructs a component definition object from an XML element.
-         *
          * @param element  an XML element which must have either a "load-component" or "load-components" label.
          * @param configUrl  the location of the file containing the XML element
          * @return the corresponding component definition object.
@@ -151,7 +154,6 @@ public final class ComponentLoaderConfig {
 
     /**
      * Parses a {@code component-load.xml} resource.
-     *
      * @param configUrl the {@code component-load.xml} resource.
      * @return the parsed XML document
      * @throws ComponentException when {@code configUrl} is {@code null} or is invalid.

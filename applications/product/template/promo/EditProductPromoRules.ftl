@@ -285,14 +285,20 @@ under the License.
               <td>
                 <div>
                   <b> ${uiLabelMap.ProductAction} ${(productPromoAction.productPromoActionSeqId)!}</b>
-                  <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>" name="updateProductPromoAction">
+                  <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>" name="updateProductPromoAction_${productPromoRule_index}_${productPromoAction_index}">
                     <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)!}" />
                     <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)!}" />
                     <select name="customMethodId" size="1">
       <#if (productPromoAction.customMethodId)??>
-        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
-                      <option value="${(productPromoAction.customMethodId)!}"><#if productPromoActionCurEnum??>${(productPromoActionCurEnum.get("description",locale))!}<#else>[${(productPromoAction.customMethodId)!}]</#if></option>
+        <#assign productPromoActionCustomMethod = productPromoAction.getRelatedOne("CustomMethod", true)>
+                      <option value="${(productPromoAction.customMethodId)!}">
+                        <#if (productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true))??>
+                            ${(productPromoActionCurEnum.get("description",locale))!}
+                        <#else>
+                            ${(productPromoActionCustomMethod.get("description",locale))!}
+                        </#if>
+                      </option>
                       <option value="${(productPromoAction.customMethodId)!}">&nbsp;</option>
         <#elseif (productPromoAction.productPromoActionEnumId)??>
           <#assign actionEnumeration = productPromoAction.getRelatedOne("ActionEnumeration", true)! />
@@ -309,15 +315,14 @@ under the License.
                     ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" value="${(productPromoAction.quantity)!}" />
                     ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" value="${(productPromoAction.amount)!}" />
                     <br/>
-                    ${uiLabelMap.ProductItemId}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.productId)!}" formName="updateProductPromoAction" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                    ${uiLabelMap.ProductItemId}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.productId)!}" formName="updateProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <br/>
-                    ${uiLabelMap.PartyParty}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.partyId)!}" formName="updateProductPromoAction" name="partyId" id="partyId" fieldFormName="LookupUserLoginAndPartyDetails"/>
+                    ${uiLabelMap.PartyParty}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.partyId)!}" formName="updateProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" name="partyId" id="partyId" fieldFormName="LookupUserLoginAndPartyDetails"/>
                     <br/>
                     ${uiLabelMap.ProductServiceName}:&nbsp;<input type="text" size="20" name="serviceName" value="${(productPromoAction.serviceName)!}" />
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
       <#if (productPromoAction.useCartQuantity)??>
-        <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
                       <option value="${(productPromoAction.useCartQuantity)!}"><#if ("Y" == productPromoAction.useCartQuantity)>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
                       <option value="${(productPromoAction.useCartQuantity)!}">&nbsp;</option>
       <#else>
@@ -392,7 +397,7 @@ under the License.
                 <div>
                   ${(actionProduct.internalName)!} [${actionProductPromoProduct.productId}]
                   - ${(actionApplEnumeration.get("description",locale))?default(actionProductPromoProduct.productPromoApplEnumId)}
-                  <form name="deleteProductPromoProductAction_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoProduct_index}" method="post" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>"> 
+                  <form name="deleteProductPromoProductAction_${productPromoRule_index}_${productPromoAction_index}_${actionProductPromoProduct_index}" method="post" action="<@ofbizUrl>deleteProductPromoProduct</@ofbizUrl>">
                     <input type="hidden" name="productPromoId" value="${(actionProductPromoProduct.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(actionProductPromoProduct.productPromoRuleId)!}" />
                     <input type="hidden" name="productPromoCondSeqId" value="${(actionProductPromoProduct.productPromoCondSeqId)!}" />

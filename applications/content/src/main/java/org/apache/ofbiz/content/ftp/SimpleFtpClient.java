@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 
 public class SimpleFtpClient implements FtpClientInterface {
 
-    public static final String MODULE = SimpleFtpClient.class.getName();
+    private static final String MODULE = SimpleFtpClient.class.getName();
     private FTPClient client;
 
     public SimpleFtpClient() {

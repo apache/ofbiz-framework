@@ -37,7 +37,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession.WorkEffort
 
 public class WorkEffortSearchEvents {
 
-    public static final String MODULE = WorkEffortSearchEvents.class.getName();
+    private static final String MODULE = WorkEffortSearchEvents.class.getName();
 
     public static Map<String, Object> getWorkEffortSearchResult(HttpServletRequest request, Delegator delegator) {
 

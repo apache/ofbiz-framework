@@ -17,13 +17,11 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
-
 seqNo = context.caSequenceNum
 if (!seqNo) {
     seqNo = context.sequenceNum
 }
-Debug.logInfo("caSequenceNum:" + seqNo, "")
+logInfo("caSequenceNum:" + seqNo)
 
 if (seqNo) {
     seqNumBefore = seqNo - 1

@@ -40,133 +40,149 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
  * A package of methods for improving efficiency of financial accounts services
- *
  */
-public class FinAccountHelper {
+public final class FinAccountHelper {
+    private static final String MODULE = FinAccountHelper.class.getName();
+    /**
+     * Precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers
+     */
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("finaccount.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("finaccount.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
+    private static final String GC_FIN_ACCOUNT_TYPE = "GIFTCERT_ACCOUNT";
+    // pool of available characters for account codes, here numbers plus uppercase characters
+    private static char[] charPool = new char[10 + 26];
 
-     public static final String MODULE = FinAccountHelper.class.getName();
-     /**
-      * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
-      */
-     public static final int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
-     public static final RoundingMode rounding = UtilNumber.getRoundingMode("finaccount.rounding");
-     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
+    static {
+        int j = 0;
+        for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
+            charPool[j++] = (char) i;
+        }
+        for (int i = "A".charAt(0); i <= "Z".charAt(0); i++) {
+            charPool[j++] = (char) i;
+        }
+    }
 
-     public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
+    protected FinAccountHelper() {
+    }
 
-     // pool of available characters for account codes, here numbers plus uppercase characters
-     static char[] char_pool = new char[10+26];
-     static {
-         int j = 0;
-         for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
-             char_pool[j++] = (char) i;
-         }
-         for (int i = "A".charAt(0); i <= "Z".charAt(0); i++) {
-             char_pool[j++] = (char) i;
-         }
-     }
+    public static int getDecimals() {
+        return DECIMALS;
+    }
 
+    public static RoundingMode getRounding() {
+        return ROUNDING;
+    }
 
-     /**
-      * A convenience method which adds transactions.get(0).get(fieldName) to initialValue, all done in BigDecimal to decimals and rounding
-      * @param initialValue the initial value
-      * @param transactions a List of GenericValue objects of transactions
-      * @param fieldName the field name to get the value from the transaction
-      * @param decimals number of decimals
-      * @param rounding how to rounding
-      * @return the new value in a BigDecimal field
-      * @throws GenericEntityException
-      */
-     public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals, RoundingMode rounding) throws GenericEntityException {
-          if ((transactions != null) && (transactions.size() == 1)) {
-              GenericValue firstEntry = transactions.get(0);
-              if (firstEntry.get(fieldName) != null) {
-                  BigDecimal valueToAdd = firstEntry.getBigDecimal(fieldName);
-                  return initialValue.add(valueToAdd).setScale(decimals, rounding);
-              } else {
-                  return initialValue;
-              }
-          } else {
-              return initialValue;
-          }
-     }
+    public static BigDecimal getZero() {
+        return ZERO;
+    }
 
-     /**
-      * Returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
-      * @param codeLength length of code in number of characters
-      * @param delegator the delegator
-      * @return returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
-      * @throws GenericEntityException
-      */
-     public static String getNewFinAccountCode(int codeLength, Delegator delegator) throws GenericEntityException {
+    public static String getGiftCertFinAccountTypeId() {
+        return GC_FIN_ACCOUNT_TYPE;
+    }
 
-         // keep generating new account codes until a unique one is found
-         Random r = new Random();
-         boolean foundUniqueNewCode = false;
-         StringBuilder newAccountCode = null;
-         long count = 0;
+    /**
+     * A convenience method which adds transactions.get(0).get(fieldName) to initialValue, all done in BigDecimal to decimals and rounding
+     * @param initialValue the initial value
+     * @param transactions a List of GenericValue objects of transactions
+     * @param fieldName    the field name to get the value from the transaction
+     * @param decimals     number of decimals
+     * @param rounding     how to rounding
+     * @return the new value in a BigDecimal field
+     * @throws GenericEntityException
+     */
+    public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals,
+                                                 RoundingMode rounding) throws GenericEntityException {
+        if ((transactions != null) && (transactions.size() == 1)) {
+            GenericValue firstEntry = transactions.get(0);
+            if (firstEntry.get(fieldName) != null) {
+                BigDecimal valueToAdd = firstEntry.getBigDecimal(fieldName);
+                return initialValue.add(valueToAdd).setScale(decimals, rounding);
+            } else {
+                return initialValue;
+            }
+        } else {
+            return initialValue;
+        }
+    }
 
-         while (!foundUniqueNewCode) {
-             newAccountCode = new StringBuilder(codeLength);
-             for (int i = 0; i < codeLength; i++) {
-                 newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
-             }
+    /**
+     * Returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
+     * @param codeLength length of code in number of characters
+     * @param delegator  the delegator
+     * @return returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
+     * @throws GenericEntityException
+     */
+    public static String getNewFinAccountCode(int codeLength, Delegator delegator) throws GenericEntityException {
 
-             GenericValue existingAccountWithCode = EntityQuery.use(delegator).from("FinAccount")
-                     .where("finAccountCode", newAccountCode.toString()).queryFirst();
-             if (existingAccountWithCode == null) {
-                 foundUniqueNewCode = true;
-             }
+        // keep generating new account codes until a unique one is found
+        Random r = new Random();
+        boolean foundUniqueNewCode = false;
+        StringBuilder newAccountCode = null;
+        long count = 0;
 
-             count++;
-             if (count > 999999) {
-                 throw new GenericEntityException("Unable to locate unique FinAccountCode! Length [" + codeLength + "]");
-             }
-         }
+        while (!foundUniqueNewCode) {
+            newAccountCode = new StringBuilder(codeLength);
+            for (int i = 0; i < codeLength; i++) {
+                newAccountCode.append(charPool[r.nextInt(charPool.length)]);
+            }
 
-         return newAccountCode.toString();
-     }
+            GenericValue existingAccountWithCode = EntityQuery.use(delegator).from("FinAccount")
+                    .where("finAccountCode", newAccountCode.toString()).queryFirst();
+            if (existingAccountWithCode == null) {
+                foundUniqueNewCode = true;
+            }
 
-     /**
-      * Gets the first (and should be only) FinAccount based on finAccountCode, which will be cleaned up to be only uppercase and alphanumeric
-      * @param finAccountCode the financial account code
-      * @param delegator the delegator
-      * @return gets the first financial account by code
-      * @throws GenericEntityException
-      */
-     public static GenericValue getFinAccountFromCode(String finAccountCode, Delegator delegator) throws GenericEntityException {
-         if (finAccountCode == null) {
-             return null;
-         }
+            count++;
+            if (count > 999999) {
+                throw new GenericEntityException("Unable to locate unique FinAccountCode! Length [" + codeLength + "]");
+            }
+        }
+
+        return newAccountCode.toString();
+    }
+
+    /**
+     * Gets the first (and should be only) FinAccount based on finAccountCode, which will be cleaned up to be only uppercase and alphanumeric
+     * @param finAccountCode the financial account code
+     * @param delegator      the delegator
+     * @return gets the first financial account by code
+     * @throws GenericEntityException
+     */
+    public static GenericValue getFinAccountFromCode(String finAccountCode, Delegator delegator) throws GenericEntityException {
+        if (finAccountCode == null) {
+            return null;
+        }
         finAccountCode = finAccountCode.toUpperCase(Locale.getDefault()).replaceAll("[^0-9A-Z]", "");
 
-         // now look for the account
-         List<GenericValue> accounts = EntityQuery.use(delegator).from("FinAccount")
-                 .where("finAccountCode", finAccountCode)
-                 .filterByDate().queryList();
-         if (UtilValidate.isEmpty(accounts)) {
-             // OK to display - not a code anyway
-             Debug.logWarning("No fin account found for account code ["  + finAccountCode + "]", MODULE);
-             return null;
-         } else if (accounts.size() > 1) {
-             // This should never happen, but don't display the code if it does -- it is supposed to be encrypted!
-             Debug.logError("Multiple fin accounts found", MODULE);
-             return null;
-         } else {
-             return accounts.get(0);
-         }
-     }
+        // now look for the account
+        List<GenericValue> accounts = EntityQuery.use(delegator).from("FinAccount")
+                .where("finAccountCode", finAccountCode)
+                .filterByDate().queryList();
+        if (UtilValidate.isEmpty(accounts)) {
+            // OK to display - not a code anyway
+            Debug.logWarning("No fin account found for account code [" + finAccountCode + "]", MODULE);
+            return null;
+        } else if (accounts.size() > 1) {
+            // This should never happen, but don't display the code if it does -- it is supposed to be encrypted!
+            Debug.logError("Multiple fin accounts found", MODULE);
+            return null;
+        } else {
+            return accounts.get(0);
+        }
+    }
 
 
-     /**
-      * Sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions whose transactionDate is before asOfDateTime
-      * @param finAccountId the financial account id
-      * @param asOfDateTime the validity date
-      * @param delegator the delegator
-      * @return returns the sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions
-      * @throws GenericEntityException
-      */
-     public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
+    /**
+     * Sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions whose transactionDate is before asOfDateTime
+     * @param finAccountId the financial account id
+     * @param asOfDateTime the validity date
+     * @param delegator    the delegator
+     * @return returns the sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
 
         BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
@@ -181,9 +197,9 @@ public class FinAccountHelper {
                         EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
                                 EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
-                            EntityOperator.OR))
+                                EntityOperator.OR))
                 .queryList();
-        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
+        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (DECIMALS + 1), ROUNDING);
 
         // now find sum of all transactions with decrease the value
         transSums = EntityQuery.use(delegator)
@@ -193,20 +209,20 @@ public class FinAccountHelper {
                         EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                         EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL"))
                 .queryList();
-        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
+        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (DECIMALS + 1), ROUNDING);
 
         // the net balance is just the incrementTotal minus the decrementTotal
-        return incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
+        return incrementTotal.subtract(decrementTotal).setScale(DECIMALS, ROUNDING);
     }
 
-     /**
-      * Returns the net balance (see above) minus the sum of all authorization amounts which are not expired and were authorized by the as of date
-      * @param finAccountId the financial account id
-      * @param asOfDateTime the validity date
-      * @param delegator the delegator
-      * @return returns the net balance (see above) minus the sum of all authorization amounts which are not expired
-      * @throws GenericEntityException
-      */
+    /**
+     * Returns the net balance (see above) minus the sum of all authorization amounts which are not expired and were authorized by the as of date
+     * @param finAccountId the financial account id
+     * @param asOfDateTime the validity date
+     * @param delegator    the delegator
+     * @return returns the net balance (see above) minus the sum of all authorization amounts which are not expired
+     * @throws GenericEntityException
+     */
     public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
 
@@ -220,10 +236,10 @@ public class FinAccountHelper {
                         EntityCondition.makeCondition("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime))
                 .queryList();
 
-        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
+        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (DECIMALS + 1), ROUNDING);
 
         // the total available balance is transactions total minus authorizations total
-        return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
+        return netBalance.subtract(authorizationsTotal).setScale(DECIMALS, ROUNDING);
     }
 
     public static boolean validateFinAccount(GenericValue finAccount) {
@@ -232,9 +248,9 @@ public class FinAccountHelper {
 
     /**
      * Validates a FinAccount's PIN number
-     * @param delegator the delegator
+     * @param delegator    the delegator
      * @param finAccountId the financial account id
-     * @param pinNumber a pin number
+     * @param pinNumber    a pin number
      * @return true if the bin is valid
      */
     public static boolean validatePin(Delegator delegator, String finAccountId, String pinNumber) {
@@ -260,8 +276,8 @@ public class FinAccountHelper {
     /**
      * Generate a random financial number
      * @param delegator the delegator
-     * @param length length of the number to generate (up to 19 digits)
-     * @param isId to be used as an ID (will check the DB to make sure it doesn't already exist)
+     * @param length    length of the number to generate (up to 19 digits)
+     * @param isId      to be used as an ID (will check the DB to make sure it doesn't already exist)
      * @return Generated number
      * @throws GenericEntityException
      */

@@ -72,7 +72,7 @@ under the License.
                 <entity-one entity-name="Quote" value-field="quote"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderCreateOrderQuoteWorkEfforts}">
                             <include-form name="AddQuoteWorkEffort" location="component://order/widget/ordermgr/QuoteWorkEffortForms.xml"/>
@@ -97,7 +97,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteEditWorkEfforts}">
                             <include-form name="EditQuoteWorkEffort" location="component://order/widget/ordermgr/QuoteWorkEffortForms.xml"/>
@@ -120,7 +120,7 @@ under the License.
                 <entity-one entity-name="Quote" value-field="quote"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteWorkEfforts}">
                             <container style="basic-nav">

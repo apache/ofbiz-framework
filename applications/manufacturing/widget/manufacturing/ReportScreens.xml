@@ -25,6 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ManufacturingReports"/>
                 <set field="headerItem" value="ManufacturingReports"/>
+                <set field="helpAnchor" value="_reports"/>
 
                 <set field="mrpName" from-field="parameters.mrpName"/>
             </actions>

@@ -23,7 +23,7 @@ import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
 
-module = "EditProductContent.groovy"
+import org.apache.commons.io.FileUtils
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
@@ -92,7 +92,16 @@ if (fileType) {
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
-    uploadObject.doUpload(request)
+    if (!uploadObject.doUpload(request, "Image")) {
+        try {
+            (new File(imageServerPath + "/" + filePathPrefix, defaultFileName)).delete()
+        } catch (Exception e) {
+            logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
+        }
+        String errorMessage = UtilProperties.getMessage("SecurityUiLabels","SupportedImageFormats", locale)
+        logError(errorMessage)
+        return error(errorMessage)
+    }
 
     clientFileName = uploadObject.getFilename()
     if (clientFileName) {
@@ -132,15 +141,17 @@ if (fileType) {
                 } else {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + ".")) file.delete()
+                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + ".")) {
+                            file.delete()
+                        }
                     }
                 }
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            logError(e, module)
         }
 
         if (imageUrl && imageUrl.length() > 0) {

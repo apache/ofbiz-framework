@@ -37,7 +37,7 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 public class ContentSearchEvents {
 
-    public static final String MODULE = ContentSearchEvents.class.getName();
+    private static final String MODULE = ContentSearchEvents.class.getName();
 
     public static Map<String, Object> getContentSearchResult(HttpServletRequest request, Delegator delegator) {
 

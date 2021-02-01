@@ -37,7 +37,7 @@ import org.apache.ofbiz.base.util.SSLUtil;
 @SuppressWarnings("serial")
 public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializable {
 
-    public static final String MODULE = SSLClientSocketFactory.class.getName();
+    private static final String MODULE = SSLClientSocketFactory.class.getName();
 
     @Override
     public Socket createSocket(String host, int port) throws IOException {

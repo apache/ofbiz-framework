@@ -90,6 +90,7 @@ under the License.
                 <set field="titleProperty" value="AcctgAssignGlAccount"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
                 <set field="tabButtonItem2" value="AssignGlAccount"/>
+                <set field="helpAnchor" value="_help_for_assign_gl_account"/>
                 <set field="labelTitleProperty" value="AcctgAssignGlAccount"/>
 
                 <!-- <set field="accountId" from-field="parameters.accountId"/> -->
@@ -113,6 +114,7 @@ under the License.
                 <set field="titleProperty" value="AcctgNavigateAccts"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
                 <set field="tabButtonItem2" value="GlAccountNavigate"/>
+                <set field="helpAnchor" value="_help_for_navigate_gl_accounts"/>
                 <set field="labelTitleProperty" value="AcctgNavigateAccts"/>
                 <!-- parameters includes requestAttributes and parameter map -->
                 <!-- requestParameters is just the parameter map -->
@@ -220,6 +222,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAccounts"/>
                 <set field="labelTitleProperty" value="PageTitleListAccounts"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
+                <set field="helpAnchor" value="_help_find_global_gl_account"/>
                 <!-- no longer works requies a fieldMap entity-and entity-name="GlAccount" list="entityList" use-cache="true" >
                     <limit-range start="0" size="20"/>
                 </entity-and -->
@@ -321,6 +324,7 @@ under the License.
                 <set field="titleProperty" value="AccountingFX"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingFX"/>
                 <set field="tabButtonItem" value="ViewFXConversions"/>
+                <set field="helpAnchor" value="_help_for_view_foreign_exchange_rates"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
                     stored in UomConversion, we need to change the logic here -->
@@ -350,6 +354,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="tabButtonItem" value="CostCenters"/>
+                <set field="helpAnchor" value="_cost_centers"/>
             </actions>
             <widgets>
                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">

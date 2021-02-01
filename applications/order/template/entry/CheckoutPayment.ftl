@@ -20,7 +20,6 @@ under the License.
 
 <!-- TODO : Need formatting -->
 <script type="application/javascript">
-//<![CDATA[
 function submitForm(form, mode, value) {
     if ("DN" == mode) {
         // done action; checkout
@@ -55,7 +54,6 @@ function submitForm(form, mode, value) {
         form.action="<@ofbizUrl>updateCheckoutOptions/editgiftcard?DONE_PAGE=checkoutpayment&partyId=${shoppingCart.getPartyId()}&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
 }
-//]]>
 </script>
 
  

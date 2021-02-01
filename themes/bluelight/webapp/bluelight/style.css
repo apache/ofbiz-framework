@@ -1199,6 +1199,23 @@ ul#preferences-menu li a.help-link {
     left: 204px;
 }
 
+#main-navigation ul li ul li ul.shortcut,
+#main-navigation ul li ul li ul.shortcut h2 {
+    display: none;
+}
+
+#main-navigation ul li ul li ul.shortcut div {
+    margin-left: -2px;
+}
+
+#main-navigation ul li ul li ul.shortcut:hover,
+#main-navigation ul li ul li a:hover + .shortcut {
+    margin-top: -20px;
+    margin-left: -2px;
+    display: block;
+    left: 104px;
+}
+
 /* ================================================= */
 /* ===== Screenlet Title Bar/Navigation Styles ===== */
 /* ================================================= */

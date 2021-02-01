@@ -47,8 +47,8 @@ public class MiniLangTests extends OFBizTestCase {
     }
 
     private MethodContext createServiceMethodContext() {
-        MethodContext context = new MethodContext(dispatcher.getDispatchContext(), createContext(), null);
-        context.setUserLogin(dispatcher.getDelegator().makeValidValue("UserLogin", UtilMisc.toMap("userLoginId", "system")), "userLogin");
+        MethodContext context = new MethodContext(getDispatcher().getDispatchContext(), createContext(), null);
+        context.setUserLogin(getDispatcher().getDelegator().makeValidValue("UserLogin", UtilMisc.toMap("userLoginId", "system")), "userLogin");
         if (traceEnabled) {
             context.setTraceOn(Debug.INFO);
         }
@@ -59,6 +59,10 @@ public class MiniLangTests extends OFBizTestCase {
         return new SimpleMethod(UtilXml.readXmlDocument(xmlString).getDocumentElement(), MODULE);
     }
 
+    /**
+     * Test assignment operators.
+     * @throws Exception the exception
+     */
     public void testAssignmentOperators() throws Exception {
         // <check-errors> and <add-error> tests
         SimpleMethod methodToTest = createSimpleMethod("<simple-method name=\"testCheckErrors\"><check-errors/></simple-method>");
@@ -67,21 +71,24 @@ public class MiniLangTests extends OFBizTestCase {
         assertEquals("<check-errors> success result", methodToTest.getDefaultSuccessCode(), result);
         List<String> messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
         assertNull("<check-errors> null error message list", messages);
-        methodToTest = createSimpleMethod("<simple-method name=\"testCheckErrors\"><add-error><fail-message message=\"This should fail\"/></add-error><check-errors/></simple-method>");
+        methodToTest = createSimpleMethod("<simple-method name=\"testCheckErrors\"><add-error><fail-message message=\"This should fail\"/>"
+                + "</add-error><check-errors/></simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
         assertEquals("<check-errors> error result", methodToTest.getDefaultErrorCode(), result);
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
         assertNotNull("<check-errors> error message list", messages);
         assertTrue("<check-errors> error message text", messages.contains("This should fail"));
-        // <assert>, <not>,  and <if-empty> tests
-        methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><not><if-empty field=\"locale\"/></not></assert><check-errors/></simple-method>");
+        // <assert>, <not>, and <if-empty> tests
+        methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><not><if-empty field=\"locale\"/></not></assert>"
+                + "<check-errors/></simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
         assertEquals("<assert> success result", methodToTest.getDefaultSuccessCode(), result);
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
         assertNull("<assert> null error message list", messages);
-        methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><if-empty field=\"locale\"/></assert><check-errors/></simple-method>");
+        methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><if-empty field=\"locale\"/></assert><check-errors/>"
+                + "</simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
         assertEquals("<assert> error result", methodToTest.getDefaultErrorCode(), result);
@@ -91,13 +98,17 @@ public class MiniLangTests extends OFBizTestCase {
         assertTrue("<assert> error message text", errorMessage.startsWith("Assertion failed:"));
     }
 
+    /**
+     * Test field to result operation.
+     * @throws Exception the exception
+     */
     public void testFieldToResultOperation() throws Exception {
-        String simpleMethodXml = "<simple-method name=\"testFieldToResult\">" +
-                                 "  <set field=\"resultValue\" value=\"someResultValue\"/>" +
-                                 "  <set field=\"result1\" value=\"dynamicResultName\"/>" +
-                                 "  <field-to-result field=\"resultValue\" result-name=\"constantResultName\"/>" +
-                                 "  <field-to-result field=\"resultValue\" result-name=\"${result1}\"/>" +
-                                 "</simple-method>";
+        String simpleMethodXml = "<simple-method name=\"testFieldToResult\">"
+                + "  <set field=\"resultValue\" value=\"someResultValue\"/>"
+                + "  <set field=\"result1\" value=\"dynamicResultName\"/>"
+                + "  <field-to-result field=\"resultValue\" result-name=\"constantResultName\"/>"
+                + "  <field-to-result field=\"resultValue\" result-name=\"${result1}\"/>"
+                + "</simple-method>";
         SimpleMethod methodToTest = createSimpleMethod(simpleMethodXml);
         MethodContext context = createServiceMethodContext();
         String result = methodToTest.exec(context);

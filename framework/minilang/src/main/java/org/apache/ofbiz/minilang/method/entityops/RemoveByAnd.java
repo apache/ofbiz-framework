@@ -35,12 +35,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;remove-by-and&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class RemoveByAnd extends EntityOperation {
 
-    public static final String MODULE = RemoveByAnd.class.getName();
+    private static final String MODULE = RemoveByAnd.class.getName();
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
 
@@ -68,7 +67,7 @@ public final class RemoveByAnd extends EntityOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

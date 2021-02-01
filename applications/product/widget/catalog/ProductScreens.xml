@@ -540,7 +540,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductQuickAdmin}">
                             <platform-specific>
-                                <html><html-template location="component://product/template/product/QuickAddVariants.ftl"/></html>
+                                <html><html-template multi-block="true" location="component://product/template/product/QuickAddVariants.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -563,7 +563,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/template/product/EditProductQuickAdmin.ftl"/></html>
+                                    <html><html-template multi-block="true" location="component://product/template/product/EditProductQuickAdmin.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -929,7 +929,7 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductOverrideSimpleFields}">
                             <platform-specific>
-                                <html><html-template location="component://product/template/product/EditProductContent.ftl"/></html>
+                                <html><html-template multi-block="true" location="component://product/template/product/EditProductContent.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddAdditionalImages}">
@@ -1318,7 +1318,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/product/ViewProductOrders.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/product/ViewProductOrders.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

@@ -31,9 +31,9 @@ import org.apache.ofbiz.base.util.UtilMisc;
 @SuppressWarnings("serial")
 public class GeneralServiceException extends org.apache.ofbiz.base.util.GeneralException {
 
-    protected List<Object> errorMsgList = null;
-    protected Map<String, ? extends Object> errorMsgMap = null;
-    protected Map<String, ? extends Object> nestedServiceResult = null;
+    private List<Object> errorMsgList = null;
+    private Map<String, ? extends Object> errorMsgMap = null;
+    private Map<String, ? extends Object> nestedServiceResult = null;
 
     public GeneralServiceException() {
         super();
@@ -51,21 +51,31 @@ public class GeneralServiceException extends org.apache.ofbiz.base.util.GeneralE
         super(nested);
     }
 
-    public GeneralServiceException(String str, List<? extends Object> errorMsgList, Map<String, ? extends Object> errorMsgMap, Map<String, ? extends Object> nestedServiceResult, Throwable nested) {
+    public GeneralServiceException(String str, List<? extends Object> errorMsgList, Map<String, ? extends Object> errorMsgMap,
+                                   Map<String, ? extends Object> nestedServiceResult, Throwable nested) {
         super(str, nested);
         this.errorMsgList = UtilMisc.makeListWritable(errorMsgList);
         this.errorMsgMap = errorMsgMap;
         this.nestedServiceResult = nestedServiceResult;
     }
 
-    public Map<String, Object> returnError(String MODULE) {
+    /**
+     * Return error map.
+     * @param module the module
+     * @return the map
+     */
+    public Map<String, Object> returnError(String module) {
         String errMsg = this.getMessage() == null ? "Error in Service" : this.getMessage();
         if (this.getNested() != null) {
-            Debug.logError(this.getNested(), errMsg, MODULE);
+            Debug.logError(this.getNested(), errMsg, module);
         }
         return ServiceUtil.returnError(errMsg, this.errorMsgList, this.errorMsgMap, this.nestedServiceResult);
     }
 
+    /**
+     * Add error messages.
+     * @param errMsgs the err msgs
+     */
     public void addErrorMessages(List<? extends Object> errMsgs) {
         if (this.errorMsgList == null) {
             this.errorMsgList = new LinkedList<>();

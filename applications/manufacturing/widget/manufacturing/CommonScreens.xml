@@ -43,6 +43,7 @@ under the License.
                 <set field="applicationMenuName" value="ManufacturingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.ManufacturingManagerApplication" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_manufacturing"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -66,6 +67,22 @@ under the License.
                                 <label style="h3">${uiLabelMap.ManufacturingViewPermissionError}</label>
                             </fail-widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ShortcutApp">
+        <section>
+            <actions>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="ManufacturingShortcutAppBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

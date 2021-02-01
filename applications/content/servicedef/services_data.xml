@@ -125,8 +125,7 @@
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
         <override name="textData" allow-html="safe"/>
     </service>
-    <service name="createElectronicTextForm" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="createElectronicTextForm" auth="true">
+    <service name="createElectronicTextForm" default-entity-name="ElectronicText" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ElectronicText with Form code</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource"/>
@@ -135,13 +134,12 @@
         <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
         <override name="textData" allow-html="any"/>
     </service>
-    <service name="updateElectronicTextForm" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateElectronicTextForm" auth="true">
+    <service name="updateElectronicTextForm" default-entity-name="ElectronicText" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ElectronicText with Form code</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
+        <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionally know where this text is belonging to -->
         <override name="textData" allow-html="any"/>
     </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="entity-auto" invoke="delete" auth="true">

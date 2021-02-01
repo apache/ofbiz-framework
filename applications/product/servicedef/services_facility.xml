@@ -811,8 +811,8 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="issueImmediatelyFulfilledOrder" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrder" auth="false">
+    <service name="issueImmediatelyFulfilledOrder" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryIssueServices.groovy" invoke="issueImmediatelyFulfilledOrder" auth="false">
         <description>
             Issues the Inventory for an Order that was Immediately Fulfilled.
             Note that this skips the normal inventory reservation process, and the shipment process (no shipment is created).
@@ -823,8 +823,8 @@ under the License.
         </type-validate>
         </attribute>
     </service>
-    <service name="issueImmediatelyFulfilledOrderItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
+    <service name="issueImmediatelyFulfilledOrderItem" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryIssueServices.groovy" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
         <description>
             Issues the Inventory for an Order Item that was Immediately Fulfilled for more info see the issueImmediatelyFulfilledOrder service.
         </description>

@@ -56,6 +56,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindGatewayResponses"/> <!-- shows up in browser title bar -->
                 <set field="tabButtonItem" value="gatewayresponsestab"/>
+                <set field="helpAnchor" value="_help_for_find_gateway_responses"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -87,6 +88,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleViewGatewayResponse"/>
                 <set field="tabButtonItem" value="gatewayresponsestab"/>
+                <set field="helpAnchor" value="_help_for_view_gateway_response"/>
 
                 <set field="paymentGatewayResponseId" from-field="parameters.paymentGatewayResponseId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
@@ -119,6 +121,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingAuthorize"/>
                 <set field="tabButtonItem" value="authorizetransactiontab"/>
+                <set field="helpAnchor" value="_help_for_the_authorize_transaction"/>
 
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
@@ -148,6 +151,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingCapture"/>
                 <set field="tabButtonItem" value="capturetransactiontab"/>
+                <set field="helpAnchor" value="_help_for_capture_transaction"/>
 
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>

@@ -49,9 +49,9 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class EntityAutoEngine extends GenericAsyncEngine {
 
-    public static final String MODULE = EntityAutoEngine.class.getName();
-    public static final String resource = "ServiceErrorUiLabels";
-    private static final List<String> availableInvokeActionNames = UtilMisc.toList("create", "update", "delete", "expire");
+    private static final String MODULE = EntityAutoEngine.class.getName();
+    private static final String RESOURCE = "ServiceErrorUiLabels";
+    private static final List<String> AVAIL_INVOKE_ACTION_NAMES = UtilMisc.toList("create", "update", "delete", "expire");
 
     public EntityAutoEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -71,22 +71,25 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> parameters) throws GenericServiceException {
         // static java service methods should be: public Map<String, Object> methodName(DispatchContext dctx, Map<String, Object> context)
-        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        DispatchContext dctx = getDispatcher().getLocalContext(localName);
         Locale locale = (Locale) parameters.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         // check the package and method names
-        if (modelService.invoke == null || !availableInvokeActionNames.contains(modelService.invoke)) {
-            throw new GenericServiceException("In Service [" + modelService.name + "] the invoke value must be create, update, or delete for entity-auto engine");
+        if (modelService.getInvoke() == null || !AVAIL_INVOKE_ACTION_NAMES.contains(modelService.getInvoke())) {
+            throw new GenericServiceException("In Service [" + modelService.getName()
+                    + "] the invoke value must be create, update, or delete for entity-auto engine");
         }
 
-        if (UtilValidate.isEmpty(modelService.defaultEntityName)) {
-            throw new GenericServiceException("In Service [" + modelService.name + "] you must specify a default-entity-name for entity-auto engine");
+        if (UtilValidate.isEmpty(modelService.getDefaultEntityName())) {
+            throw new GenericServiceException("In Service [" + modelService.getName()
+                    + "] you must specify a default-entity-name for entity-auto engine");
         }
 
-        ModelEntity modelEntity = dctx.getDelegator().getModelEntity(modelService.defaultEntityName);
+        ModelEntity modelEntity = dctx.getDelegator().getModelEntity(modelService.getDefaultEntityName());
         if (modelEntity == null) {
-            throw new GenericServiceException("In Service [" + modelService.name + "] the specified default-entity-name [" + modelService.defaultEntityName + "] is not valid");
+            throw new GenericServiceException("In Service [" + modelService.getName() + "] the specified default-entity-name ["
+                    + modelService.getDefaultEntityName() + "] is not valid");
         }
 
         try {
@@ -110,7 +113,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 }
             }
 
-            switch (modelService.invoke) {
+            switch (modelService.getInvoke()) {
             case "create":
                 result = invokeCreate(dctx, parameters, modelService, modelEntity, allPksInOnly, pkFieldNameOutOnly);
                 break;
@@ -135,14 +138,18 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 result.putAll(modelService.makeValid(crudValue, ModelService.OUT_PARAM));
             }
         } catch (GeneralException e) {
-            Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
+            Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service ["
+                    + modelService.getName() + "]: " + e.toString(), MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation",
+                    UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.getName(), "errorString",
+                            e.toString()), locale));
         }
         result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
         return result;
     }
 
-    private static Map<String, Object> invokeCreate(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly, List<String> pkFieldNameOutOnly)
+    private static Map<String, Object> invokeCreate(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService,
+                                                    ModelEntity modelEntity, boolean allPksInOnly, List<String> pkFieldNameOutOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
 
@@ -173,7 +180,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 doublePkPrimaryInParam = secondPkParam;
                 doublePkSecondaryOutParam = firstPkParam;
                 doublePkSecondaryOutField = firstPkField;
-            } else {
+                // } else {
                 // we don't have an IN and an OUT... so do nothing and leave them null
             }
         }
@@ -215,7 +222,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
              *
              */
 
-            Object pkValue = parameters.get(singlePkModelParam.name);
+            Object pkValue = parameters.get(singlePkModelParam.getName());
             if (UtilValidate.isEmpty(pkValue)) {
                 pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
             } else {
@@ -224,21 +231,24 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (pkValue instanceof String) {
                     StringBuffer errorDetails = new StringBuffer();
                     if (!UtilValidate.isValidDatabaseId((String) pkValue, errorDetails)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceParameterValueNotValid", UtilMisc.toMap("parameterName", singlePkModelParam.name,"errorDetails", errorDetails), locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid",
+                                UtilMisc.toMap("parameterName", singlePkModelParam.getName(), "errorDetails", errorDetails), locale));
                     }
                 }
             }
             newEntity.set(singlePkModeField.getName(), pkValue);
             GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
             if (lookedUpValue != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueFound",
+                        UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
             }
         } else if (isDoublePk && doublePkPrimaryInParam != null && doublePkSecondaryOutParam != null) {
             /*
              **** secondary sequenced primary key ****
              *
             <auto-attributes include="pk" mode="IN" optional="false"/>
-            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the
+            * next sub-sequence ID -->
              *
             <make-value entity-name="ExampleItem" value-name="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -266,7 +276,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             //with all pks present on parameters, check if the entity is not already exists.
             GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
             if (lookedUpValue != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueFound",
+                        UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
             }
         } else {
             /* We haven't all Pk and their are 3 or more, now check if isn't a associate entity with own sequence
@@ -278,22 +289,24 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 newEntity.setPKFields(parameters, true);
                 String pkFieldName = pkFieldNameOutOnly.get(0);
                 //if it's a fromDate, don't update it now, it's will be done next step
-                if (! "fromDate".equals(pkFieldName)) {
+                if (!"fromDate".equals(pkFieldName)) {
                     String pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     newEntity.set(pkFieldName, pkValue);
                 }
             } else {
-                throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the create invoke option: " +
-                        "could not find a valid combination of primary key settings to do a known create operation; options include: " +
-                        "1. a single OUT pk for primary auto-sequencing, " +
-                        "2. a single INOUT pk for primary auto-sequencing with optional override, " +
-                        "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secondary pk to sub-sequence), " +
-                        "4. a N-part pk with N-1 part IN and one party OUT only (missing pk is a sub-sequence mainly for entity assoc), " +
-                        "5. all pk fields are IN for a manually specified primary key");
+                throw new GenericServiceException("In Service [" + modelService.getName()
+                        + "] which uses the entity-auto engine with the create invoke option: "
+                        + "could not find a valid combination of primary key settings to do a known create operation; options include: "
+                        + "1. a single OUT pk for primary auto-sequencing, "
+                        + "2. a single INOUT pk for primary auto-sequencing with optional override, "
+                        + "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secondary pk to sub-sequence), "
+                        + "4. a N-part pk with N-1 part IN and one party OUT only (missing pk is a sub-sequence mainly for entity assoc), "
+                        + "5. all pk fields are IN for a manually specified primary key");
             }
         }
 
-        // handle the case where there is a fromDate in the pk of the entity, and it is optional or undefined in the service def, populate automatically
+        // handle the case where there is a fromDate in the pk of the entity, and it is optional or undefined in the service def,
+        // populate automatically
         ModelField fromDateField = modelEntity.getField("fromDate");
         if (fromDateField != null && fromDateField.getIsPk()) {
             ModelParam fromDateParam = modelService.getParam("fromDate");
@@ -328,7 +341,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             if (userLogin != null) {
                 newEntity.set("changeByUserLoginId", userLogin.get("userLoginId"));
             } else {
-                throw new GenericServiceException("You call a creation on entity that require the userLogin to track the activity, please controle that your service definition has auth='true'");
+                throw new GenericServiceException("You call a creation on entity that require the userLogin to track the activity,"
+                        + " please control that your service definition has auth='true'");
             }
 
             //Oh changeByUserLoginId detected, check if an EntityStatus concept
@@ -356,12 +370,14 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
         newEntity.create();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully",
+                UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         result.put("crudValue", newEntity);
         return result;
     }
 
-    private static Map<String, Object> invokeUpdate(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
+    private static Map<String, Object> invokeUpdate(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService,
+                                                    ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
         Map<String, Object> localContext = new HashMap<>();
@@ -369,7 +385,6 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         /*
          <auto-attributes include="pk" mode="IN" optional="false"/>
-         *
          <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
          <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
          <store-value value-name="lookedUpValue"/>
@@ -377,12 +392,13 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         // check to make sure that all primary key fields are defined as IN attributes
         if (!allPksInOnly) {
-            throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the update invoke option not all pk fields have the mode IN");
+            throw new GenericServiceException("In Service [" + modelService.getName() + "] which uses the entity-auto engine with the update"
+                    + " invoke option not all pk fields have the mode IN");
         }
 
         GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
         if (lookedUpValue == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFound", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFound", locale));
         }
 
         localContext.put("lookedUpValue", lookedUpValue);
@@ -391,12 +407,10 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         /*
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
-         *
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
         OR
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldItemStatusId" type="String" mode="OUT" optional="false"/>
-         *
         <field-to-result field-name="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
          */
         for (String statusField: UtilMisc.toList("statusId", "itemStatusId")) {
@@ -434,10 +448,12 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 String lookedUpStatusId = (String) lookedUpValue.get(statusField);
                 if (UtilValidate.isNotEmpty(lookedUpStatusId) && !statusIdParamValue.equals(lookedUpStatusId)) {
                     // there was an old status, and in this call we are trying to change it, so do the StatusValidChange check
-                    GenericValue statusValidChange = dctx.getDelegator().findOne("StatusValidChange", true, "statusId", lookedUpStatusId, "statusIdTo", statusIdParamValue);
+                    GenericValue statusValidChange = dctx.getDelegator().findOne("StatusValidChange", true, "statusId",
+                            lookedUpStatusId, "statusIdTo", statusIdParamValue);
                     if (statusValidChange == null) {
                         // uh-oh, no valid change...
-                        return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonErrorNoStatusValidChange", localContext, locale));
+                        return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonErrorNoStatusValidChange",
+                                localContext, locale));
                     }
                 }
             }
@@ -465,53 +481,59 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
 
-        if (modelEntity.getField("changeByUserLoginId") != null ) {
+        if (modelEntity.getField("changeByUserLoginId") != null) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
-                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that,"
+                        + "please amazing developer check your service definition;)");
             }
             GenericValue userLogin = (GenericValue) parameters.get("userLogin");
             if (userLogin != null) {
                 lookedUpValue.set("changeByUserLoginId", userLogin.get("userLoginId"));
             } else {
-                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a updating operation on entity that track the activity, sorry I can't do that,"
+                        + "please amazing developer check your service definition;)");
             }
         }
 
         lookedUpValue.store();
         result.put("crudValue", lookedUpValue);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully",
+                UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
 
-    private static Map<String, Object> invokeDelete(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
+    private static Map<String, Object> invokeDelete(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService,
+                                                    ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
         /*
         <auto-attributes include="pk" mode="IN" optional="false"/>
-         *
         <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
          */
 
         // check to make sure that all primary key fields are defined as IN attributes
         if (!allPksInOnly) {
-            throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the delete invoke option not all pk fields have the mode IN");
+            throw new GenericServiceException("In Service [" + modelService.getName() + "] which uses the entity-auto engine with the delete"
+                    + "invoke option not all pk fields have the mode IN");
         }
 
-        if (modelEntity.getField("changeByUserLoginId") != null ) {
+        if (modelEntity.getField("changeByUserLoginId") != null) {
             if (modelEntity.getEntityName().endsWith("Status")) {
                 //Oh update on EntityStatus concept detected ... not possible, return invalid request
-                throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+                throw new GenericServiceException("You call a deleting operation on entity that track the activity, sorry I can't do that,"
+                        + "please amazing developer check your service definition;)");
             }
         }
 
         GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
         if (lookedUpValue == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFoundForRemove", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFoundForRemove", locale));
         }
         lookedUpValue.remove();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully",
+                UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
 
@@ -521,12 +543,12 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
      * @param parameters
      * @param modelService
      * @param modelEntity
-     * @param lookedUpValue
      * @param allPksInOnly
      * @return
      * @throws GeneralException
      */
-    private static Map<String, Object> invokeExpire(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
+    private static Map<String, Object> invokeExpire(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService,
+                                                    ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
         List<String> fieldThruDates = new LinkedList<>();
@@ -535,11 +557,12 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         // check to make sure that all primary key fields are defined as IN attributes
         if (!allPksInOnly) {
-            throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the update invoke option not all pk fields have the mode IN");
+            throw new GenericServiceException("In Service [" + modelService.getName() + "] which uses the entity-auto engine with the update"
+                    + "invoke option not all pk fields have the mode IN");
         }
         GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
         if (lookedUpValue == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFound", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFound", locale));
         }
 
         //check if a non pk date field is present on parameters
@@ -585,7 +608,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (Debug.infoOn()) {
             Debug.logInfo(" parameters OUT  : " + parameters, MODULE);
         }
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully",
+                UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
 }

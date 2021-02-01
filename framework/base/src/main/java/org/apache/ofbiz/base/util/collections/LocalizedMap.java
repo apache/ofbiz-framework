@@ -25,5 +25,5 @@ import java.util.Locale;
  *
  */
 public interface LocalizedMap<V> {
-    public V get(String name, Locale locale);
+    V get(String name, Locale locale);
 }

@@ -105,7 +105,6 @@ package org.apache.ofbiz.entity.condition;
 public interface EntityConditionVisitor {
     /**
      * Visits an entity NOT expression.
-     *
      * @param cond the visited class
      * @see EntityNotCondition
      */
@@ -113,7 +112,6 @@ public interface EntityConditionVisitor {
 
     /**
      * Visits a list of entity conditions.
-     *
      * @param l the visited class
      * @see EntityConditionList
      */
@@ -121,7 +119,6 @@ public interface EntityConditionVisitor {
 
     /**
      * Visits a map of entity fields.
-     *
      * @param m the visited class
      * @see EntityFieldMap
      */
@@ -129,7 +126,6 @@ public interface EntityConditionVisitor {
 
     /**
      * Visits a date filter condition.
-     *
      * @param df the visited class
      * @see EntityDateFilterCondition
      */
@@ -137,7 +133,6 @@ public interface EntityConditionVisitor {
 
     /**
      * Visits an entity expression.
-     *
      * @param expr the visited class
      * @see EntityExpr
      */
@@ -145,7 +140,6 @@ public interface EntityConditionVisitor {
 
     /**
      * Visits a raw string condition.
-     *
      * @param ws the visited class
      * @see EntityWhereString
      */

@@ -34,12 +34,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-empty&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class EmptyCondition extends MethodOperation implements Conditional {
 
-    public static final String MODULE = EmptyCondition.class.getName();
+    private static final String MODULE = EmptyCondition.class.getName();
 
     private final FlexibleMapAccessor<Object> fieldFma;
     // Sub-operations are used only when this is a method operation.
@@ -118,7 +117,7 @@ public final class EmptyCondition extends MethodOperation implements Conditional
     }
 
     /**
-     * A &lt;if-empty&gt; element factory. 
+     * A &lt;if-empty&gt; element factory.
      */
     public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> implements Factory<EmptyCondition> {
         @Override

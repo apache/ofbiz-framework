@@ -34,15 +34,15 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  */
 public class EventFactory {
 
-    public static final String MODULE = EventFactory.class.getName();
+    private static final String MODULE = EventFactory.class.getName();
 
     private final Map<String, EventHandler> handlers = new HashMap<>();
 
     public EventFactory(ServletContext context, URL controllerConfigURL) {
         // load all the event handlers
         try {
-            Map<String,String> handlers = ConfigXMLReader.getControllerConfig(controllerConfigURL).getEventHandlerMap();
-            for (Map.Entry<String,String> handlerEntry: handlers.entrySet()) {
+            Map<String, String> handlers = ConfigXMLReader.getControllerConfig(controllerConfigURL).getEventHandlerMap();
+            for (Map.Entry<String, String> handlerEntry: handlers.entrySet()) {
                 EventHandler handler = (EventHandler) ObjectType.getInstance(handlerEntry.getValue());
                 handler.init(context);
                 this.handlers.put(handlerEntry.getKey(), handler);
@@ -53,6 +53,12 @@ public class EventFactory {
         }
     }
 
+    /**
+     * Gets event handler.
+     * @param type the type
+     * @return the event handler
+     * @throws EventHandlerException the event handler exception
+     */
     public EventHandler getEventHandler(String type) throws EventHandlerException {
         EventHandler handler = handlers.get(type);
         if (handler == null) {

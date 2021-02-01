@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -32,11 +31,11 @@ class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
         Map serviceCtx = [:]
         serviceCtx.paymentGatewayConfigId = 'SAGEPAY_CONFIG'
         serviceCtx.description = 'Test Payment Gateway Config Id'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('updatePaymentGatewayConfig', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue paymentGatewayConfig = EntityQuery.use(delegator).from('PaymentGatewayConfig').where('paymentGatewayConfigId', 'SAGEPAY_CONFIG').queryOne()
+        GenericValue paymentGatewayConfig = from('PaymentGatewayConfig').where('paymentGatewayConfigId', 'SAGEPAY_CONFIG').queryOne()
         assert paymentGatewayConfig
         assert paymentGatewayConfig.description  == 'Test Payment Gateway Config Id'
     }

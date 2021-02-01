@@ -21,13 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <!-- cancel an existing Agreement -->
-    <simple-method method-name="cancelFixedAssetStdCost" short-description="Cancel an existing FixedAssetStdCost">
-        <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
-        <now-timestamp field="fixedAssetStdCost.thruDate"/>
-        <store-value value-field="fixedAssetStdCost"/>
-    </simple-method>
-
     <!--  create/update/delete FixedAssetMaint -->
     <simple-method method-name="createFixedAssetMaint" short-description="create a FixedAssetMaint">
         <make-value entity-name="FixedAssetMaint" value-field="newEntity"/>
@@ -143,26 +136,8 @@ under the License.
             </then>
         </if>
     </simple-method>
-
-    <!--  create/update/delete FixedAssetMeter -->
-    <simple-method method-name="createFixedAssetMeter" short-description="Create a Fixed Asset Meter Reading">
-        <make-value entity-name="FixedAssetMeter" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <check-errors/>
-        <set field="meterValue" from-field="newEntity"/>
-        <call-simple-method method-name="createMaintsFromMeterReading"/>
-    </simple-method>
-    <simple-method method-name="updateFixedAssetMeter" short-description="Update a Fixed Asset Meter Reading">
-        <entity-one entity-name="FixedAssetMeter" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-        <check-errors/>
-        <set field="meterValue" from-field="lookedUpValue"/>
-        <call-simple-method method-name="createMaintsFromMeterReading"/>
-    </simple-method>
     <simple-method method-name="createMaintsFromMeterReading" short-description="Create Fixed Asset Maintenances From A Meter Reading">
+        <set field="meterValue" from-field="parameters"/>
         <if-not-empty field="meterValue.maintHistSeqId">
             <return/>
         </if-not-empty>

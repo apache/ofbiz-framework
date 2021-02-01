@@ -192,9 +192,15 @@ under the License.
                 <field-map field-name="distinct" value="Y"/>
             </service>
         </actions>
+        <row-actions>
+            <set field="statusId" value="${party.statusId}"/>
+        </row-actions>
     </form>
 
     <form name="ListLeads" extends="listLeads">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.SfaAssignToMe}" target="createPartyRelationshipAndRole">
@@ -212,6 +218,7 @@ under the License.
             <sort-field name="city"/>
             <sort-field name="countryGeoId"/>
             <sort-field name="relatedCompany"/>
+            <sort-field name="statusId"/>
             <sort-field name="assignToMe"/>
         </sort-order>
     </form>

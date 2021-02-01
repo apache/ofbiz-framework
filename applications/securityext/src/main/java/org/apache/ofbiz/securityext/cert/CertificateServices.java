@@ -37,7 +37,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class CertificateServices {
 
-    public static final String MODULE = CertificateServices.class.getName();
+    private static final String MODULE = CertificateServices.class.getName();
 
     public static Map<String, Object> importIssuerCertificate(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -58,11 +58,9 @@ public class CertificateServices {
         // read the certificate
         X509Certificate cert;
         try {
-            cert =  (X509Certificate) KeyStoreUtil.pemToCert(certString);
-        } catch (CertificateException e) {
+            cert = (X509Certificate) KeyStoreUtil.pemToCert(certString);
+        } catch (CertificateException | IOException e) {
             return ServiceUtil.returnError(e.getMessage());
-        } catch (IOException e) {
-             return ServiceUtil.returnError(e.getMessage());
         }
 
         // store the cert

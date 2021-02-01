@@ -39,10 +39,10 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/humanres/humanres.css" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/jsTree/jquery.jstree.js" global="true"/>
                 <set field="applicationMenuName" value="HumanResAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://humanres/widget/HumanresMenus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.HumanResManagerApplication" global="true"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_human_resources"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -70,18 +70,33 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="ShortcutApp">
+        <section>
+            <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="HumanResShortcutAppBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="OrgTree">
         <section>
             <actions>
                 <set field="partyId" from-field="defaultOrganizationPartyId"/>
+                <set field="helpAnchor" value="_the_human_resources_main_screen"/>
                 <script location="component://humanres/groovyScripts/category/CategoryTree.groovy"></script>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.FormFieldTitle_company}">
                     <section>
                         <widgets>
-                            <platform-specific><html><html-template location="component://humanres/template/category/CategoryTree.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template multi-block="true" location="component://humanres/template/category/CategoryTree.ftl"/></html></platform-specific>
                         </widgets>
                     </section>
                 </screenlet>

@@ -55,10 +55,10 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class PromoServices {
 
-    public final static String MODULE = PromoServices.class.getName();
-    public static final String resource = "ProductUiLabels";
-    private final static char[] smartChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
-            'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
+    private static final String MODULE = PromoServices.class.getName();
+    private static final String RESOURCE = "ProductUiLabels";
+    private static final char[] SMART_CHARS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+            'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
@@ -79,7 +79,7 @@ public class PromoServices {
 
         String newPromoCodeId = "";
         StringBuilder bankOfNumbers = new StringBuilder();
-        bankOfNumbers.append(UtilProperties.getMessage(resource, "ProductPromoCodesCreated", locale));
+        bankOfNumbers.append(UtilProperties.getMessage(RESOURCE, "ProductPromoCodesCreated", locale));
         for (long i = 0; i < quantity; i++) {
             Map<String, Object> createProductPromoCodeMap = null;
             boolean foundUniqueNewCode = false;
@@ -87,15 +87,15 @@ public class PromoServices {
 
             while (!foundUniqueNewCode) {
                 if (useSmartLayout) {
-                    newPromoCodeId = RandomStringUtils.random(codeLength, smartChars);
+                    newPromoCodeId = RandomStringUtils.random(codeLength, SMART_CHARS);
                 } else if (useNormalLayout) {
                     newPromoCodeId = RandomStringUtils.randomAlphanumeric(codeLength);
                 }
                 GenericValue existingPromoCode = null;
                 try {
-                    existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", newPromoCodeId).cache().queryOne();
-                }
-                catch (GenericEntityException e) {
+                    existingPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId",
+                            newPromoCodeId).cache().queryOne();
+                } catch (GenericEntityException e) {
                     Debug.logWarning("Could not find ProductPromoCode for just generated ID: " + newPromoCodeId, MODULE);
                 }
                 if (existingPromoCode == null) {
@@ -112,11 +112,12 @@ public class PromoServices {
                 newContext.put("productPromoCodeId", newPromoCodeId);
                 createProductPromoCodeMap = dispatcher.runSync("createProductPromoCode", newContext);
             } catch (GenericServiceException err) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeCannotBeCreated", locale), null, null, null);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeCannotBeCreated", locale), null, null, null);
             }
             if (ServiceUtil.isError(createProductPromoCodeMap)) {
                 // what to do here? try again?
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeCannotBeCreated", locale), null, null, createProductPromoCodeMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeCannotBeCreated", locale), null,
+                        null, createProductPromoCodeMap);
             }
             bankOfNumbers.append((String) createProductPromoCodeMap.get("productPromoCodeId"));
             bankOfNumbers.append(",");
@@ -148,7 +149,7 @@ public class PromoServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error removing expired ProductStorePromo records: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeCannotBeRemoved", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -162,7 +163,7 @@ public class PromoServices {
         // check the uploaded file
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         if (fileBytes == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
@@ -190,7 +191,7 @@ public class PromoServices {
         try {
             while ((line = reader.readLine()) != null) {
                 // check to see if we should ignore this line
-                if (line.length() > 0 && !line.startsWith("#")) {
+                if (!line.isEmpty() && !line.startsWith("#")) {
                     if (line.length() <= 20) {
                         // valid promo code
                         Map<String, Object> inContext = new HashMap<>();
@@ -202,7 +203,7 @@ public class PromoServices {
                         }
                     } else {
                         // not valid ignore and notify
-                        errors.add(line + UtilProperties.getMessage(resource, "ProductPromoCodeInvalidCode", locale));
+                        errors.add(line + UtilProperties.getMessage(RESOURCE, "ProductPromoCodeInvalidCode", locale));
                     }
                     ++lines;
                 }
@@ -219,10 +220,10 @@ public class PromoServices {
         }
 
         // return errors or success
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeImportEmptyFile", locale));
         }
 
@@ -238,7 +239,7 @@ public class PromoServices {
         ByteBuffer bytebufferwrapper = (ByteBuffer) context.get("uploadedFile");
 
         if (bytebufferwrapper == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductPromoCodeImportUploadedFileNotValid", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
         byte[] wrapper = bytebufferwrapper.array();
@@ -252,7 +253,7 @@ public class PromoServices {
         // read the uploaded file and process each line
         try {
             while ((line = reader.readLine()) != null) {
-                if (line.length() > 0 && !line.startsWith("#")) {
+                if (!line.isEmpty() && !line.startsWith("#")) {
                     if (UtilValidate.isEmail(line)) {
                         // valid email address
                         GenericValue contactMech;
@@ -307,10 +308,10 @@ public class PromoServices {
         }
 
         // return errors or success
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPromoCodeImportEmptyFile", locale));
         }
 

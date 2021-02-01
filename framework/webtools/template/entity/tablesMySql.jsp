@@ -20,7 +20,7 @@ under the License.
 if(security.hasPermission("ENTITY_MAINT", session)) {
   ModelReader reader = delegator.getModelReader();
   Collection<String> ec = reader.getEntityNames();
-  TreeSet<String> entities = new TreeSet<String>(ec);
+  TreeSet<String> entities = new TreeSet<>(ec);
   Iterator<String> classNamesIterator = entities.iterator();
   while(classNamesIterator != null && classNamesIterator.hasNext()) { ModelEntity entity = reader.getModelEntity((String)classNamesIterator.next());%>
 CREATE TABLE <%=entity.getPlainTableName()%> (<%for (String fieldName : entity.getAllFieldNames()){ModelField field=entity.getField(fieldName); ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());%><%if(field.getIsPk()){%>

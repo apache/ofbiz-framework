@@ -27,7 +27,6 @@ public interface ServiceConfigListener {
 
     /**
      * Processes <code>serviceengine.xml</code> changes.
-     * 
      * @param serviceConfig The new <code>ServiceConfig</code> instance.
      */
     void onServiceConfigChange(ServiceConfig serviceConfig);

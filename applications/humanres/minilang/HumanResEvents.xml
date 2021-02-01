@@ -57,13 +57,13 @@
     <simple-method method-name="createPublicHoliday" short-description="Create Public Holiday">
         <if-empty field="parameters.workEffortName">            
             <add-error>
-                <fail-message message="The Holiday Name is missing."/>
+                <fail-property resource="HumanResErrorUiLabels" property="HumanResHolidayNameMissing"/>
             </add-error>
             <check-errors/>
         </if-empty>     
         <if-empty field="parameters.estimatedStartDate">
             <add-error>
-                <fail-message message="The FromDate is missing"/>
+                <fail-property resource="HumanResErrorUiLabels" property="HumanResFromDateMissing"/>
             </add-error>
             <check-errors/>
         </if-empty>
@@ -82,7 +82,7 @@
             </call-service>
             <else>
                 <add-error>
-                    <fail-message message="This FromDate : ${parameters.estimatedStartDate} already exist."/>
+                    <fail-property resource="HumanResErrorUiLabels" property="HumanResFromDateAlreadyExist"/>
                 </add-error>
                 <check-errors/>
             </else>

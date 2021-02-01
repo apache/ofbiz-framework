@@ -205,6 +205,14 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="app-shortcut-screen" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    This value determines the location of a screen to use as application main menu shortcut.
+                    This can be used to display sub-menu on application main menu hover.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="position"/>
         <xs:attribute type="xs:string" name="server" use="required"/>
         <xs:attribute type="xs:string" name="location" use="required"/>

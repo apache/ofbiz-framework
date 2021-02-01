@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class UpgradeServices {
 
-    public static final String MODULE = UpgradeServices.class.getName();
+    private static final String MODULE = UpgradeServices.class.getName();
 
     public static Map<String, Object> migrateMaritalStatusFromIndicatorToEnum(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();

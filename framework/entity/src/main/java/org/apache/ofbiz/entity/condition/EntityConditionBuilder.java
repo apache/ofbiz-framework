@@ -34,11 +34,11 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 import groovy.util.BuilderSupport;
 
 public class EntityConditionBuilder extends BuilderSupport {
-    public static final String MODULE = EntityConditionBuilder.class.getName();
+    private static final String MODULE = EntityConditionBuilder.class.getName();
 
     @SuppressWarnings("serial")
     private static class ConditionHolder implements EntityCondition {
-        protected EntityCondition condition;
+        private EntityCondition condition;
 
         protected ConditionHolder(EntityCondition condition) {
             this.condition = condition;
@@ -91,7 +91,7 @@ public class EntityConditionBuilder extends BuilderSupport {
 
     @Override
     protected Object createNode(Object methodName) {
-        String operatorName = ((String)methodName).toLowerCase(Locale.getDefault());
+        String operatorName = ((String) methodName).toLowerCase(Locale.getDefault());
         EntityJoinOperator operator = EntityOperator.lookupJoin(operatorName);
         List<EntityCondition> condList = new LinkedList<>();
         return new ConditionHolder(EntityCondition.makeCondition(condList, operator));
@@ -107,7 +107,7 @@ public class EntityConditionBuilder extends BuilderSupport {
     @Override
     protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg) {
         Map<String, Object> fieldValueMap = UtilGenerics.cast(mapArg);
-        String operatorName = ((String)methodName).toLowerCase(Locale.getDefault());
+        String operatorName = ((String) methodName).toLowerCase(Locale.getDefault());
         EntityComparisonOperator<String, Object> operator = EntityOperator.lookupComparison(operatorName);
         List<EntityCondition> conditionList = new LinkedList<>();
         for (Map.Entry<String, Object> entry : fieldValueMap.entrySet()) {
@@ -134,9 +134,9 @@ public class EntityConditionBuilder extends BuilderSupport {
             tempList.add(iterator.next());
         }
         if (child instanceof EntityCondition) {
-            tempList.add((EntityCondition)child);
+            tempList.add((EntityCondition) child);
         } else if (child instanceof ConditionHolder) {
-            tempList.add(((ConditionHolder)child).condition);
+            tempList.add(((ConditionHolder) child).condition);
         } else {
             tempList.addAll(UtilGenerics.cast(child));
         }

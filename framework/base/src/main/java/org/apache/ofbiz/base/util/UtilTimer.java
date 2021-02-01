@@ -29,17 +29,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class UtilTimer {
 
-    public static final String MODULE = UtilTimer.class.getName();
-    protected static final ConcurrentHashMap<String, UtilTimer> staticTimers = new ConcurrentHashMap<>();
+    private static final String MODULE = UtilTimer.class.getName();
+    private static final ConcurrentHashMap<String, UtilTimer> STATIC_TIMERS = new ConcurrentHashMap<>();
 
-    protected String timerName = null;
-    protected String lastMessage = null;
+    private String timerName = null;
+    private String lastMessage = null;
 
-    protected long realStartTime;
-    protected long startTime;
-    protected long lastMessageTime;
-    protected boolean running = false;
-    protected boolean log = false;
+    private long realStartTime;
+    private long startTime;
+    private long lastMessageTime;
+    private boolean running = false;
+    private boolean log = false;
 
     public static UtilTimer makeTimer() {
         return new UtilTimer();
@@ -62,21 +62,33 @@ public class UtilTimer {
         }
     }
 
+    /**
+     * Start timer.
+     */
     public void startTimer() {
         this.lastMessageTime = realStartTime = startTime = System.currentTimeMillis();
         this.lastMessage = "Begin";
         this.running = true;
     }
 
+    /**
+     * Gets name.
+     * @return the name
+     */
     public String getName() {
         return this.timerName;
     }
 
+    /**
+     * Is running boolean.
+     * @return the boolean
+     */
     public boolean isRunning() {
         return this.running;
     }
 
-    /** Creates a string with information including the passed message, the last passed message and the time since the last call, and the time since the beginning
+    /** Creates a string with information including the passed message, the last passed message and the time since the last call,
+     * and the time since the beginning
      * @param message A message to put into the timer String
      * @return A String with the timing information, the timer String
      */
@@ -84,19 +96,24 @@ public class UtilTimer {
         return timerString(message, this.getClass().getName());
     }
 
-    /** Creates a string with information including the passed message, the last passed message and the time since the last call, and the time since the beginning
-     * @param message A message to put into the timer String
-     * @param MODULE The debug/log MODULE/thread to use, can be null for root MODULE
+    /**
+     * Creates a string with information including the passed message, the last passed message and the time since the last call, and the time since
+     * the beginning
+     * @param message
+     *            A message to put into the timer String
+     * @param className
+     *            The debug/log className/thread to use, can be null for root className
      * @return A String with the timing information, the timer String
      */
-    public String timerString(String message, String MODULE) {
+    public String timerString(String message, String className) {
         // time this call to avoid it interfering with the main timer
         long tsStart = System.currentTimeMillis();
 
         StringBuilder retBuf = new StringBuilder();
         retBuf.append("[[").append(message).append("- total:").append(secondsSinceStart());
         if (lastMessage != null) {
-            retBuf.append(",since last(").append(((lastMessage.length() > 20) ? (lastMessage.substring(0, 17) + "...") : lastMessage)).append("):").append(secondsSinceLast());
+            retBuf.append(",since last(").append(((lastMessage.length() > 20) ? (lastMessage.substring(0, 17) + "...")
+                    : lastMessage)).append("):").append(secondsSinceLast());
         }
         retBuf.append("]]");
 
@@ -108,7 +125,7 @@ public class UtilTimer {
         lastMessage = message;
         String retString = retBuf.toString();
         if (log) {
-            Debug.log(Debug.TIMING, null, retString, MODULE, "org.apache.ofbiz.base.util.UtilTimer");
+            Debug.log(Debug.TIMING, null, retString, className, MODULE);
         }
 
         // have lastMessageTime come as late as possible to just time what happens between calls
@@ -173,7 +190,8 @@ public class UtilTimer {
      * @return A String with the timing information, the timer String
      */
     public String timerString(int level, String message) {
-        // String retString =  "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):" + secondsSinceLast() + "]]";
+        // String retString = "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):"
+        // + secondsSinceLast() + "]]";
 
         StringBuilder retStringBuf = new StringBuilder();
 
@@ -212,27 +230,27 @@ public class UtilTimer {
     }
 
     public static UtilTimer getTimer(String timerName, boolean log) {
-        UtilTimer timer = staticTimers.get(timerName);
+        UtilTimer timer = STATIC_TIMERS.get(timerName);
         if (timer == null) {
             timer = new UtilTimer(timerName, false);
             timer.setLog(log);
-            staticTimers.putIfAbsent(timerName, timer);
-            timer = staticTimers.get(timerName);
+            STATIC_TIMERS.putIfAbsent(timerName, timer);
+            timer = STATIC_TIMERS.get(timerName);
         }
         return timer;
     }
 
-    public static void timerLog(String timerName, String message, String MODULE) {
+    public static void timerLog(String timerName, String message, String className) {
         UtilTimer timer = UtilTimer.getTimer(timerName);
         if (!timer.isRunning()) {
             timer.startTimer();
         }
 
         if (timer.getLog()) {
-            if (MODULE == null) {
-                MODULE = timer.getClass().getName();
+            if (className == null) {
+                className = timer.getClass().getName();
             }
-            timer.timerString(message, MODULE);
+            timer.timerString(message, className);
         }
     }
 
@@ -244,10 +262,10 @@ public class UtilTimer {
         UtilTimer.closeTimer(timerName, message, null);
     }
 
-    public static void closeTimer(String timerName, String message, String MODULE) {
+    public static void closeTimer(String timerName, String message, String className) {
         if (message != null) {
-            UtilTimer.timerLog(timerName, message, MODULE);
+            UtilTimer.timerLog(timerName, message, className);
         }
-        staticTimers.remove(timerName);
+        STATIC_TIMERS.remove(timerName);
     }
 }

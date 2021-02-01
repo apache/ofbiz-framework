@@ -19,61 +19,61 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <Geo abbreviation="AGU" geoCode="AGU" geoId="MX-AG" geoName="Aguascalientes" geoTypeId="STATE"/>
-    <Geo abbreviation="BCN" geoCode="BCN" geoId="MX-BN" geoName="Baja California" geoTypeId="STATE"/>
-    <Geo abbreviation="BCS" geoCode="BCS" geoId="MX-BS" geoName="Baja California Sur" geoTypeId="STATE"/>
-    <Geo abbreviation="CAM" geoCode="CAM" geoId="MX-CM" geoName="Campeche" geoTypeId="STATE"/>
-    <Geo abbreviation="CHP" geoCode="CHP" geoId="MX-CP" geoName="Chiapas" geoTypeId="STATE"/>
-    <Geo abbreviation="CHH" geoCode="CHH" geoId="MX-CH" geoName="Chihuahua" geoTypeId="STATE"/>
-    <Geo abbreviation="CMX" geoCode="CMX" geoId="MX-CX" geoName="Ciudad de México" geoTypeId="COUNTY"/>
-    <Geo abbreviation="COA" geoCode="COA" geoId="MX-CA" geoName="Coahuila de Zaragoza" geoTypeId="STATE"/>
-    <Geo abbreviation="COL" geoCode="COL" geoId="MX-CL" geoName="Colima" geoTypeId="STATE"/>
-    <Geo abbreviation="DUR" geoCode="DUR" geoId="MX-DU" geoName="Durango" geoTypeId="STATE"/>
-    <Geo abbreviation="GUA" geoCode="GUA" geoId="MX-GJ" geoName="Guanajuato" geoTypeId="STATE"/>
-    <Geo abbreviation="GRO" geoCode="GRO" geoId="MX-GR" geoName="Guerrero" geoTypeId="STATE"/>
-    <Geo abbreviation="HID" geoCode="HID" geoId="MX-HI" geoName="Hidalgo" geoTypeId="STATE"/>
-    <Geo abbreviation="JAL" geoCode="JAL" geoId="MX-JA" geoName="Jalisco" geoTypeId="STATE"/>
-    <Geo abbreviation="MEX" geoCode="MEX" geoId="MX-MX" geoName="México" geoTypeId="STATE"/>
-    <Geo abbreviation="MIC" geoCode="MIC" geoId="MX-MC" geoName="Michoacán de Ocampo" geoTypeId="STATE"/>
-    <Geo abbreviation="MOR" geoCode="MOR" geoId="MX-MR" geoName="Morelos" geoTypeId="STATE"/>
-    <Geo abbreviation="NAY" geoCode="NAY" geoId="MX-NA" geoName="Nayarit" geoTypeId="STATE"/>
-    <Geo abbreviation="NLE" geoCode="NLE" geoId="MX-NL" geoName="Nuevo León" geoTypeId="STATE"/>
-    <Geo abbreviation="OAX" geoCode="OAX" geoId="MX-OA" geoName="Oaxaca" geoTypeId="STATE"/>
-    <Geo abbreviation="PUE" geoCode="PUE" geoId="MX-PU" geoName="Puebla" geoTypeId="STATE"/>
-    <Geo abbreviation="QUE" geoCode="QUE" geoId="MX-QE" geoName="Querétaro" geoTypeId="STATE"/>
-    <Geo abbreviation="ROO" geoCode="ROO" geoId="MX-QR" geoName="Quintana Roo" geoTypeId="STATE"/>
-    <Geo abbreviation="SLP" geoCode="SLP" geoId="MX-SL" geoName="San Luis Potosí" geoTypeId="STATE"/>
-    <Geo abbreviation="SIN" geoCode="SIN" geoId="MX-SI" geoName="Sinaloa" geoTypeId="STATE"/>
-    <Geo abbreviation="SON" geoCode="SON" geoId="MX-SO" geoName="Sonora" geoTypeId="STATE"/>
-    <Geo abbreviation="TAB" geoCode="TAB" geoId="MX-TB" geoName="Tabasco" geoTypeId="STATE"/>
-    <Geo abbreviation="TAM" geoCode="TAM" geoId="MX-TM" geoName="Tamaulipas" geoTypeId="STATE"/>
-    <Geo abbreviation="TLA" geoCode="TLA" geoId="MX-TL" geoName="Tlaxcala" geoTypeId="STATE"/>
-    <Geo abbreviation="VER" geoCode="VER" geoId="MX-VE" geoName="Veracruz de Ignacio de la Llave" geoTypeId="STATE"/>
-    <Geo abbreviation="YUC" geoCode="YUC" geoId="MX-YU" geoName="Yucatán" geoTypeId="STATE"/>
-    <Geo abbreviation="ZAC" geoCode="ZAC" geoId="MX-ZA" geoName="Zacatecas" geoTypeId="STATE"/>
+    <Geo abbreviation="Ags." geoCode="AGU" geoId="MX-AG" geoName="Aguascalientes" geoTypeId="STATE"/>
+    <Geo abbreviation="B.C." geoCode="BCN" geoId="MX-BC" geoName="Baja California" geoTypeId="STATE"/>
+    <Geo abbreviation="B.C.S." geoCode="BCS" geoId="MX-BS" geoName="Baja California Sur" geoTypeId="STATE"/>
+    <Geo abbreviation="Camp." geoCode="CAM" geoId="MX-CM" geoName="Campeche" geoTypeId="STATE"/>
+    <Geo abbreviation="Chis." geoCode="CHP" geoId="MX-CS" geoName="Chiapas" geoTypeId="STATE"/>
+    <Geo abbreviation="Chih." geoCode="CHH" geoId="MX-CH" geoName="Chihuahua" geoTypeId="STATE"/>
+    <Geo abbreviation="C.D.Mx." geoCode="CMX" geoId="MX-CX" geoName="Ciudad de México" geoTypeId="STATE"/>
+    <Geo abbreviation="Coah." geoCode="COA" geoId="MX-CO" geoName="Coahuila de Zaragoza" geoTypeId="STATE"/>
+    <Geo abbreviation="Col." geoCode="COL" geoId="MX-CL" geoName="Colima" geoTypeId="STATE"/>
+    <Geo abbreviation="Dgo." geoCode="DUR" geoId="MX-DG" geoName="Durango" geoTypeId="STATE"/>
+    <Geo abbreviation="Gto." geoCode="GUA" geoId="MX-GT" geoName="Guanajuato" geoTypeId="STATE"/>
+    <Geo abbreviation="Gro." geoCode="GRO" geoId="MX-GR" geoName="Guerrero" geoTypeId="STATE"/>
+    <Geo abbreviation="Hgo." geoCode="HID" geoId="MX-HG" geoName="Hidalgo" geoTypeId="STATE"/>
+    <Geo abbreviation="Jal." geoCode="JAL" geoId="MX-JC" geoName="Jalisco" geoTypeId="STATE"/>
+    <Geo abbreviation="Edo. Mex." geoCode="MEX" geoId="MX-EM" geoName="México" geoTypeId="STATE"/>
+    <Geo abbreviation="Mich." geoCode="MIC" geoId="MX-MI" geoName="Michoacán de Ocampo" geoTypeId="STATE"/>
+    <Geo abbreviation="Mor." geoCode="MOR" geoId="MX-MO" geoName="Morelos" geoTypeId="STATE"/>
+    <Geo abbreviation="Nay." geoCode="NAY" geoId="MX-NA" geoName="Nayarit" geoTypeId="STATE"/>
+    <Geo abbreviation="N.L." geoCode="NLE" geoId="MX-NL" geoName="Nuevo León" geoTypeId="STATE"/>
+    <Geo abbreviation="Oax." geoCode="OAX" geoId="MX-OA" geoName="Oaxaca" geoTypeId="STATE"/>
+    <Geo abbreviation="Pue." geoCode="PUE" geoId="MX-PU" geoName="Puebla" geoTypeId="STATE"/>
+    <Geo abbreviation="Qro." geoCode="QUE" geoId="MX-QT" geoName="Querétaro" geoTypeId="STATE"/>
+    <Geo abbreviation="Q. Roo" geoCode="ROO" geoId="MX-QR" geoName="Quintana Roo" geoTypeId="STATE"/>
+    <Geo abbreviation="S.L.P." geoCode="SLP" geoId="MX-SL" geoName="San Luis Potosí" geoTypeId="STATE"/>
+    <Geo abbreviation="Sin." geoCode="SIN" geoId="MX-SI" geoName="Sinaloa" geoTypeId="STATE"/>
+    <Geo abbreviation="Son." geoCode="SON" geoId="MX-SO" geoName="Sonora" geoTypeId="STATE"/>
+    <Geo abbreviation="Tab." geoCode="TAB" geoId="MX-TB" geoName="Tabasco" geoTypeId="STATE"/>
+    <Geo abbreviation="Tamps." geoCode="TAM" geoId="MX-TM" geoName="Tamaulipas" geoTypeId="STATE"/>
+    <Geo abbreviation="Tlax." geoCode="TLA" geoId="MX-TL" geoName="Tlaxcala" geoTypeId="STATE"/>
+    <Geo abbreviation="Ver." geoCode="VER" geoId="MX-VE" geoName="Veracruz de Ignacio de la Llave" geoTypeId="STATE"/>
+    <Geo abbreviation="Yuc." geoCode="YUC" geoId="MX-YU" geoName="Yucatán" geoTypeId="STATE"/>
+    <Geo abbreviation="Zac." geoCode="ZAC" geoId="MX-ZA" geoName="Zacatecas" geoTypeId="STATE"/>
 
     <GeoAssoc geoId="MEX" geoIdTo="MX-AG" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-BN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-BC" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-BS" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CM" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-CP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-CS" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CX" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-CA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-CO" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-DU" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-GJ" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-DG" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-GT" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-GR" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-HI" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-JA" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-MX" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-MC" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-MR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-HG" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-JC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-EM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-MI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-MO" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-NA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-NL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-OA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-PU" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-QE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-QT" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-QR" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-SL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-SI" geoAssocTypeId="REGIONS"/>

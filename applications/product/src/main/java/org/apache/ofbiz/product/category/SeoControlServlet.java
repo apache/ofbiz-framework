@@ -32,6 +32,7 @@ import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.jasper.servlet.JspServlet;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.ControlServlet;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 
 /**
  * SeoControlServlet.java - SEO Master servlet for the web application.
@@ -39,11 +40,10 @@ import org.apache.ofbiz.webapp.control.ControlServlet;
 @SuppressWarnings("serial")
 public class SeoControlServlet extends ControlServlet {
 
-    public static final String MODULE = SeoControlServlet.class.getName();
+    private static final String MODULE = SeoControlServlet.class.getName();
 
     private static String defaultPage = null;
     private static String controlServlet = null;
-    
     public static final String REQUEST_IN_ALLOW_LIST = "_REQUEST_IN_ALLOW_LIST_";
 
     public SeoControlServlet() {
@@ -69,12 +69,13 @@ public class SeoControlServlet extends ControlServlet {
 
         SeoConfigUtil.init();
     }
-    
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
+        String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
         if (request.getAttribute(REQUEST_IN_ALLOW_LIST) != null || request.getAttribute("_jsp_" + uri) != null) {
-            if (request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jsp") || request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jspx") ) {
+            if (request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jsp")
+                    || request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jspx")) {
                 JspServlet jspServlet = new JspServlet();
                 jspServlet.init(this.getServletConfig());
                 jspServlet.service(request, response);

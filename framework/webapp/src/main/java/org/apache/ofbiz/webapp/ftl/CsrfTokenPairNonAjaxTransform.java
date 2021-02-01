@@ -36,7 +36,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class CsrfTokenPairNonAjaxTransform implements TemplateTransformModel {
 
-    public static final String MODULE = CsrfTokenPairNonAjaxTransform.class.getName();
+    private static final String MODULE = CsrfTokenPairNonAjaxTransform.class.getName();
 
     @Override
     public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)

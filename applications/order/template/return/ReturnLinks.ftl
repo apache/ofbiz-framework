@@ -41,7 +41,7 @@ under the License.
         <#if returnItems?has_content>
           <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
           <#assign partyId = "${(returnHeader.fromPartyId)!}"/>
-          <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId!}&amp;originOrderId=${orderId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId!}</a>
+          <li><a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId!}&amp;originOrderId=${orderId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId!}</a></li>
         </#if>
         <#if returnHeader.statusId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId>
           <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!).queryList()!/>

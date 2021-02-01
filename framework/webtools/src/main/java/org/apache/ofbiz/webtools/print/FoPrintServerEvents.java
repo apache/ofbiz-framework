@@ -48,7 +48,7 @@ import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 public class FoPrintServerEvents {
 
-    public static final String MODULE = FoPrintServerEvents.class.getName();
+    private static final String MODULE = FoPrintServerEvents.class.getName();
 
     public static String getXslFo(HttpServletRequest req, HttpServletResponse resp) {
         LocalDispatcher dispatcher = (LocalDispatcher) req.getAttribute("dispatcher");
@@ -91,7 +91,7 @@ public class FoPrintServerEvents {
         VisualTheme visualTheme = (VisualTheme) parameters.get("visualTheme");
         if (visualTheme == null) {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
-        }        
+        }
         GenericValue system = null;
         try {
             system = dctx.getDelegator().findOne("UserLogin", false, "userLoginId", "system");
@@ -102,7 +102,6 @@ public class FoPrintServerEvents {
         if (!parameters.containsKey("locale")) {
             parameters.put("locale", Locale.getDefault());
         }
-
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {

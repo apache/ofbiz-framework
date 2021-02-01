@@ -37,12 +37,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;assert&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class Assert extends MethodOperation {
 
-    public static final String MODULE = Assert.class.getName();
+    private static final String MODULE = Assert.class.getName();
 
     private final List<Conditional> conditionalList;
     private final FlexibleMapAccessor<List<Object>> errorListFma;

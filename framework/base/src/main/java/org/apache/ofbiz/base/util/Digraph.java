@@ -47,7 +47,6 @@ public class Digraph<T> {
 
     /**
      * Constructs a directed graph from a specification Map.
-     *
      * @param spec  the map defining a set of source nodes (keys) that are linked to a collection
      *              of adjacent target nodes (values). Both keys and values must not be {@code null}.
      * @throws IllegalArgumentException when a target node is not present in the sources nodes.
@@ -70,7 +69,6 @@ public class Digraph<T> {
      * Sort nodes in a topological ordering assuming that this graph is acyclic.
      * <p>
      * A graph without cycles is often called a <em>Directed Acyclic Graph</em> (DAG).
-     *
      * @return a linear ordering of nodes such for every edge in the graph its target node
      *         is present before its source node.
      * @throws IllegalStateException when this graph contains a cycle.
@@ -91,7 +89,6 @@ public class Digraph<T> {
 
     /**
      * Traverses the graph using <em>Depth First Search</em> (DFS) to construct a topological ordering.
-     *
      * @param res  the ordered list that we are building
      * @param root  the current node we are visiting
      * @param permanents  the nodes that have been successfully been visited

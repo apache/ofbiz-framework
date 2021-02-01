@@ -34,12 +34,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;remove-related&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class RemoveRelated extends MethodOperation {
 
-    public static final String MODULE = RemoveRelated.class.getName();
+    private static final String MODULE = RemoveRelated.class.getName();
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
@@ -67,7 +66,7 @@ public final class RemoveRelated extends MethodOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing related entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

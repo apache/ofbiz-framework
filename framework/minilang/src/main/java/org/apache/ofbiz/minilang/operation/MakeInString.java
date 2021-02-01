@@ -33,10 +33,10 @@ import org.w3c.dom.Element;
  */
 public class MakeInString {
 
-    public static final String MODULE = MakeInString.class.getName();
+    private static final String MODULE = MakeInString.class.getName();
 
-    String fieldName;
-    List<MakeInStringOperation> operations = new ArrayList<>();
+    private String fieldName;
+    private List<MakeInStringOperation> operations = new ArrayList<>();
 
     public MakeInString(Element makeInStringElement) {
         fieldName = makeInStringElement.getAttribute("field");
@@ -57,12 +57,21 @@ public class MakeInString {
         }
     }
 
+    /**
+     * Exec.
+     * @param inMap the in map
+     * @param results the results
+     * @param messages the messages
+     * @param locale the locale
+     * @param loader the loader
+     */
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         StringBuilder buffer = new StringBuilder();
         for (MakeInStringOperation oper : operations) {
             String curStr = oper.exec(inMap, messages, locale, loader);
-            if (curStr != null)
+            if (curStr != null) {
                 buffer.append(curStr);
+            }
         }
         inMap.put(fieldName, buffer.toString());
     }

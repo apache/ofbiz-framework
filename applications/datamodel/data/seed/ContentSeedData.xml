@@ -405,9 +405,15 @@ under the License.
 
     <!-- audio mime types -->
     <MimeType mimeTypeId="audio/basic" description="Basic Audio"/>
-    <MimeType mimeTypeId="audio/mpeg" description="MPEG Audio"/>
+    <MimeType mimeTypeId="audio/mpeg" description="MP3 Audio"/>
+    <MimeType mimeTypeId="audio/mp4" description="MP4 Audio"/>
     <MimeType mimeTypeId="audio/x-ms-wax" description="WAX Audio"/>
-    <MimeType mimeTypeId="audio/x-ms-wma" description="WMA Audio"/>
+    <MimeType mimeTypeId="audio/wav" description="WAV Audio"/>
+    <MimeType mimeTypeId="audio/ogg" description="OGG Audio"/>
+    <MimeType mimeTypeId="audio/x-ogg" description="OGG Audio"/>
+    <MimeType mimeTypeId="audio/vorbis" description="Vorbis Audio"/>
+    <MimeType mimeTypeId="audio/x-flac" description="FLAC Audio"/>
+    <MimeType mimeTypeId="audio/flac" description="FLAC Audio"/>
 
     <!-- image mime types -->
     <MimeType mimeTypeId="image/jpeg" description="JPEG/JPG Image"/>
@@ -415,6 +421,8 @@ under the License.
     <MimeType mimeTypeId="image/gif" description="GIF Image"/>
     <MimeType mimeTypeId="image/tiff" description="TIFF Image"/>
     <MimeType mimeTypeId="image/png" description="PNG Image"/>
+    <MimeType mimeTypeId="image/svg+xml" description="Image SVG"/>
+    
 
     <!-- message mime types -->
     <MimeType mimeTypeId="message/external-body" description="External Body Message"/>
@@ -462,6 +470,7 @@ under the License.
     <MimeType mimeTypeId="video/x-ms-wm" description="WM Video"/>
     <MimeType mimeTypeId="video/x-ms-wmv" description="WMV Video"/>
     <MimeType mimeTypeId="video/x-ms-wmx" description="WMX Video"/>
+    <MimeType mimeTypeId="video/3gpp" description="3GP Mobile Video"/>
 
     <FileExtension fileExtensionId="asf" mimeTypeId="video/x-ms-asf"/>
     <FileExtension fileExtensionId="asx" mimeTypeId="video/x-ms-asf"/>
@@ -473,6 +482,7 @@ under the License.
     <FileExtension fileExtensionId="tif" mimeTypeId="image/tiff"/>
     <FileExtension fileExtensionId="tiff" mimeTypeId="image/tiff"/>
     <FileExtension fileExtensionId="gif" mimeTypeId="image/gif"/>
+    <FileExtension fileExtensionId="svg" mimeTypeId="image/svg+xml"/>
     <FileExtension fileExtensionId="png" mimeTypeId="image/png"/>
     <FileExtension fileExtensionId="mp4" mimeTypeId="video/mp4"/>
     <FileExtension fileExtensionId="m4v" mimeTypeId="video/mp4"/>
@@ -497,6 +507,16 @@ under the License.
     <FileExtension fileExtensionId="wmx" mimeTypeId="video/x-ms-wmx"/>
     <FileExtension fileExtensionId="zip" mimeTypeId="application/zip"/>
     <FileExtension fileExtensionId="vcf" mimeTypeId="text/x-vcard"/>
+    <FileExtension fileExtensionId="wav" mimeTypeId="audio/wav"/>
+    <FileExtension fileExtensionId="mpeg" mimeTypeId="audio/mpeg"/>
+    <FileExtension fileExtensionId="mp3" mimeTypeId="audio/mpeg"/>
+    <FileExtension fileExtensionId="mp4" mimeTypeId="audio/mpeg"/>
+    <FileExtension fileExtensionId="ogg" mimeTypeId="audio/ogg"/>
+    <FileExtension fileExtensionId="flac" mimeTypeId="audio/flac"/>
+    <FileExtension fileExtensionId="vorbis" mimeTypeId="audio/ogg"/>
+    <FileExtension fileExtensionId="dflt" mimeTypeId="application/octet-stream"/>
+    <FileExtension fileExtensionId="3gp" mimeTypeId="video/3gpp"/>
+    
 
     <!-- Registered MIME Types:
     MEDIA TYPES

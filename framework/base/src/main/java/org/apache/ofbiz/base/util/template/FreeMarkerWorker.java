@@ -36,8 +36,8 @@ import java.util.stream.Stream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -52,6 +52,7 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.cache.URLTemplateLoader;
 import freemarker.core.Environment;
+import freemarker.core.TemplateClassResolver;
 import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
@@ -125,6 +126,21 @@ public final class FreeMarkerWorker {
         } catch (TemplateException e) {
             Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, MODULE);
         }
+        String templateClassResolver = UtilProperties.getPropertyValue("security", "templateClassResolver", "SAFER_RESOLVER");
+        switch (templateClassResolver) {
+        case "UNRESTRICTED_RESOLVER":
+            newConfig.setNewBuiltinClassResolver(TemplateClassResolver.UNRESTRICTED_RESOLVER);
+            break;
+        case "SAFER_RESOLVER":
+            newConfig.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);
+            break;
+        case "ALLOWS_NOTHING_RESOLVER":
+            newConfig.setNewBuiltinClassResolver(TemplateClassResolver.ALLOWS_NOTHING_RESOLVER);
+            break;
+        default:
+            Debug.logError("Not a TemplateClassResolver.", MODULE);
+            break;
+        }
         // Transforms properties file set up as key=transform name, property=transform class name
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         transformsURL(loader).forEach(url -> {
@@ -141,7 +157,6 @@ public final class FreeMarkerWorker {
 
     /**
      * Provides the sequence of existing {@code freemarkerTransforms.properties} files.
-     *
      * @return a stream of resource location.
      */
     private static Stream<URL> transformsURL(ClassLoader loader) {
@@ -254,7 +269,6 @@ public final class FreeMarkerWorker {
      * call this method instead of creating its own <code>Configuration</code> instance. The instance
      * returned by this method includes the <code>component://</code> resolver and the OFBiz custom
      * transformations.
-     *
      * @return A <code>Configuration</code> instance.
      */
     public static Configuration getDefaultOfbizConfig() {
@@ -521,7 +535,6 @@ public final class FreeMarkerWorker {
      * Note that exception is still logged.
      * <p>
      * This implements the {@link freemarker.template.TemplateExceptionHandler} functional interface.
-     *
      * @param te  the exception that occurred
      * @param env  the runtime environment of the template
      * @param out  this is where the output of the template is written
@@ -543,7 +556,6 @@ public final class FreeMarkerWorker {
      * Note that exception is still logged.
      * <p>
      * This implements the {@link freemarker.template.TemplateExceptionHandler} functional interface.
-     *
      * @param te  the exception that occurred
      * @param env  the runtime environment of the template
      * @param out  this is where the output of the template is written

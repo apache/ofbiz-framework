@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-<!--
 function toggleInvoiceId(master) {
     var form = document.listSalesInvoices;
     var invoices = form.elements.length;
@@ -71,8 +70,6 @@ function enableSubmitButton() {
         jQuery('#submitButton').attr('disabled', true);
     }
 }
-
--->
 </script>
 
 <#if invoices?has_content >

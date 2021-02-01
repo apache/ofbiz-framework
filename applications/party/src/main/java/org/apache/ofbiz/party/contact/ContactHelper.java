@@ -34,9 +34,9 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class ContactHelper {
 
-    public static final String MODULE = ContactHelper.class.getName();
+    private static final String MODULE = ContactHelper.class.getName();
 
-    private ContactHelper() {}
+    private ContactHelper() { }
 
     public static Collection<GenericValue> getContactMech(GenericValue party, boolean includeOld) {
         return getContactMech(party, null, null, includeOld);
@@ -50,7 +50,8 @@ public class ContactHelper {
         return getContactMech(party, contactMechPurposeTypeId, null, includeOld);
     }
 
-    public static Collection<GenericValue> getContactMech(GenericValue party, String contactMechPurposeTypeId, String contactMechTypeId, boolean includeOld) {
+    public static Collection<GenericValue> getContactMech(GenericValue party, String contactMechPurposeTypeId, String
+            contactMechTypeId, boolean includeOld) {
         if (party == null) {
             return null;
         }

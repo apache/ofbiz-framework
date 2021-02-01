@@ -84,13 +84,6 @@ under the License.
         <property-to-field resource="OrderUiLabels" property="OrderShoppingListUpdatedSuccessfully" field="successMessage"/>
         <field-to-result  field="successMessage"/>
     </simple-method>
-
-    <simple-method method-name="removeShoppingList" short-description="Remove a ShoppingList">
-        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
-
-        <remove-value value-field="shoppingList"/>
-    </simple-method>
-
     <simple-method method-name="createShoppingListItem" short-description="Create a ShoppingList Item" login-required="false">
         <entity-and entity-name="ShoppingListItem" list="shoppingListItems">
             <field-map field-name="productId" from-field="parameters.productId"></field-map>

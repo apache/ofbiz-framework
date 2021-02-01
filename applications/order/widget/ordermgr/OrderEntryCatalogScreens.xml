@@ -38,7 +38,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/catalog/KeywordSearchOptions.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/KeywordSearchBox.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/KeywordSearchBox.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -61,7 +61,15 @@ under the License.
                 <script location="component://order/groovyScripts/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductSummary.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/ProductSummary.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="productvariantjs">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductVariantJS.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -129,7 +137,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/catalog/CategoryDetail.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/CategoryDetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/CategoryDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -170,7 +178,7 @@ under the License.
             <widgets>
                 <include-screen name="breadcrumbs"/>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/EditProduct.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductDetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/ProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -185,7 +193,7 @@ under the License.
             <widgets>
                 <include-screen name="breadcrumbs"/>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/EditProduct.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/ConfigProductDetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/ConfigProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -195,7 +203,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/catalog/InlineProductDetail.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/InlineProductDetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/InlineProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -209,7 +217,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/catalog/KeywordSearch.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template multi-block="true" location="component://order/template/entry/catalog/KeywordSearch.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -289,6 +297,8 @@ under the License.
     <screen name="ProductUomDropDownOnly">
         <section>
             <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://order/groovyScripts/entry/catalog/ProductUomDropDownOnly.groovy"/>
             </actions>
             <widgets>

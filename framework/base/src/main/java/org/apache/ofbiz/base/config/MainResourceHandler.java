@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public final class MainResourceHandler implements ResourceHandler {
 
-    public static final String MODULE = MainResourceHandler.class.getName();
+    private static final String MODULE = MainResourceHandler.class.getName();
     private final String xmlFilename;
     private final String loaderName;
     private final String location;
@@ -103,9 +103,7 @@ public final class MainResourceHandler implements ResourceHandler {
         }
 
         MainResourceHandler other = (MainResourceHandler) obj;
-        return this.loaderName.equals(other.loaderName) &&
-            this.xmlFilename.equals(other.xmlFilename) &&
-                this.location.equals(other.location);
+        return this.loaderName.equals(other.loaderName) && this.xmlFilename.equals(other.xmlFilename) && this.location.equals(other.location);
     }
 
     @Override

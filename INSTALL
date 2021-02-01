@@ -1,0 +1,73 @@
+Welcome to Apache OFBiz! A powerful top level Apache software project. OFBiz
+is an Enterprise Resource Planning (ERP) System written in Java and houses a
+large set of libraries, entities, services and features to run all aspects of
+your business.
+
+System requirements
+
+The only requirement to run OFBiz is to have the Java Development Kit (JDK)
+version 8 installed on your system (not just the JRE, but the full JDK) which
+you can download from the below link. Make sure of setting the $JAVA_HOME
+environment variable.
+
+Warning: on Windows don't put OFBiz in a directory with space/s in the path.
+
+https://adoptopenjdk.net/[JDK download]
+
+
+Quick start
+
+To quickly install and fire-up OFBiz, please follow the below instructions from
+the command line at the OFBiz top level directory (folder).
+
+    Download the Gradle wrapper:
+
+        MS Windows: init-gradle-wrapper
+        Unix-like OS: ./gradle/init-gradle-wrapper
+
+
+    Prepare OFBiz:
+
+         Clean system and load the complete OFBiz data
+_______________________________________________________________________________
+Note: Depending on your Internet connection speed it might take a long time
+for this step to complete if you are using OFBiz for the first time as it needs
+to download all dependencies. So please be patient!
+_______________________________________________________________________________
+
+            MS Windows: gradlew cleanAll loadAll
+            Unix-like OS: ./gradlew cleanAll loadAll
+
+            _______________________________________________________________________________
+            Note:
+            As a later step, to install without the demo data follow:
+            (beware this is for development or production, not trying)
+
+            Windows: gradlew cleanAll "ofbiz --load-data readers=seed,seed-initial" loadAdminUserLogin -PuserLoginId=admin
+            Unix-like OS: ./gradlew cleanAll "ofbiz --load-data readers=seed,seed-initial" loadAdminUserLogin -PuserLoginId=admin
+
+            The OFBiz install will be empty, there will be no chart of accounts, no transactions, no products, no customers and no suppliers.
+            You can't log to the E-Commerce Store.
+            You will get: "A Product Store has not been defined for this ecommerce site.
+            A Product Store can be created using the ofbizsetup wizard."
+            _______________________________________________________________________________
+
+    Start OFBiz:
+
+        MS Windows: gradlew ofbiz
+        Unix-like OS: ./gradlew ofbiz
+
+_______________________________________________________________________________
+Note: Ignore the % progress indicator because this task does not end as long
+as OFBiz is running.
+_______________________________________________________________________________
+
+    Visit OFBiz through your browser:
+
+    https://localhost:8443/webtools
+
+Going further
+To complete your installation and use OFBiz please read README.adoc
+You may prefer to read this AsciiDoc file in HTML format.
+For that simply follow:
+https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html

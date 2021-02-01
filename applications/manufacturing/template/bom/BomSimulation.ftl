@@ -110,7 +110,7 @@ under the License.
           <#list productsData as productData>
             <#assign node = productData.node>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-              <td><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${node.product.productId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">${node.product.productId}</a></td>
+              <td><a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${node.product.productId}</@ofbizUrl>" class="buttontext">${node.product.productId}</a></td>
               <td>${node.product.internalName?default("&nbsp;")}</td>
               <td align="right">${node.quantity}</td>
               <td align="right">${productData.qoh!}</td>
@@ -118,7 +118,7 @@ under the License.
               <#if productData.unitCost?? && (productData.unitCost > 0)>
               <td align="right">${productData.unitCost!}</td>
               <#else>
-              <td align="right"><a href="<@ofbizUrl controlPath="/catalog/control">EditProductCosts?productId=${node.product.productId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext">NA</a></td>
+              <td align="right"><a href="<@ofbizUrl controlPath="/catalog/control">EditProductCosts?productId=${node.product.productId}</@ofbizUrl>" class="buttontext">NA</a></td>
               </#if>
               <td align="right">${productData.totalCost!}</td>
             </tr>

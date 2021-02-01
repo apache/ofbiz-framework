@@ -17,8 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
-<!-- //
+<script>
 function lookupOrders(click) {
     orderIdValue = document.lookuporder.orderId.value;
     if (orderIdValue.length > 1) {
@@ -74,21 +73,18 @@ function toggleOrderIdList() {
     }
     jQuery('#checkAllOrders').attr("checked", isAllSelected);
     if (!isSingle && jQuery('#serviceName').val() != "") {
-        jQuery('#submitButton').removeAttr("disabled"); 
+        jQuery('#submitButton').removeAttr("disabled");
     } else {
         jQuery('#submitButton').attr('disabled', true);
     }
 }
 
-// -->
-
-    function paginateOrderList(viewSize, viewIndex, hideFields) {
-        document.paginationForm.viewSize.value = viewSize;
-        document.paginationForm.viewIndex.value = viewIndex;
-        document.paginationForm.hideFields.value = hideFields;
-        document.paginationForm.submit();
-    }
-
+function paginateOrderList(viewSize, viewIndex, hideFields) {
+    document.paginationForm.viewSize.value = viewSize;
+    document.paginationForm.viewIndex.value = viewIndex;
+    document.paginationForm.hideFields.value = hideFields;
+    document.paginationForm.submit();
+}
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
@@ -159,328 +155,258 @@ function toggleOrderIdList() {
     <br class="clear"/>
   </div>
   <#if parameters.hideFields?default("N") != "Y">
-    <div class="screenlet-body">
-      <table class="basic-table" cellspacing='0'>
-        <tr>
-          <td align='center' width='100%'>
-            <table class="basic-table" cellspacing='0'>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderOrderId}</td>
-                <td><input type='text' name='orderId'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderOrderName}</td>
-                <td ><input type='text' name='orderName'/></td>
-              </tr>
-             <tr>
-                <td class='label'>${uiLabelMap.OrderExternalId}</td>
-                <td ><input type='text' name='externalId'/></td>
-              </tr>
-              <tr>
-                <td  class='label'>${uiLabelMap.OrderCustomerPo}</td>
-                <td ><input type='text' name='correspondingPoId' value='${requestParameters.correspondingPoId!}'/></td>
-              </tr>
-              <tr>
-                <td  class='label'>${uiLabelMap.OrderInternalCode}</td>
-                <td ><input type='text' name='internalCode' value='${requestParameters.internalCode!}'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.ProductProductId}</td>
-                <td >
-                  <@htmlTemplate.lookupField value='${requestParameters.productId!}' formName="lookuporder" name="productId" id="productId" fieldFormName="LookupProduct"/>
-                </td>
-              </tr>
-              <#if goodIdentificationTypes?has_content>
-              <tr>
-                  <td class='label'>${uiLabelMap.ProductGoodIdentificationType}</td>
-                  <td>
-                      <select name='goodIdentificationTypeId'>
-                          <#if currentGoodIdentificationType?has_content>
-                              <option value="${currentGoodIdentificationType.goodIdentificationTypeId}">${currentGoodIdentificationType.get("description", locale)}</option>
-                              <option value="${currentGoodIdentificationType.goodIdentificationTypeId}">---</option>
-                          </#if>
-                          <option value="">${uiLabelMap.ProductAnyGoodIdentification}</option>
-                          <#list goodIdentificationTypes as goodIdentificationType>
-                              <option value="${goodIdentificationType.goodIdentificationTypeId}">${goodIdentificationType.get("description", locale)}</option>
-                          </#list>
-                      </select>
-                  </td>
-              </tr>
-              <tr>
-                  <td  class='label'>${uiLabelMap.ProductGoodIdentification}</td>
-                  <td ><input type='text' name='goodIdentificationIdValue' value='${requestParameters.goodIdentificationIdValue!}'/></td>
-              </tr>
+      <div class="ofbiz-form with-left-right-columns">
+
+          <label for="orderId">${uiLabelMap.OrderOrderId}</label>
+          <input id="orderId" type='text' name='orderId'/>
+
+          <label for="orderName">${uiLabelMap.OrderOrderName}</label>
+          <input id="orderName" type='text' name='orderName'/>
+
+          <label for="orderTypeId">${uiLabelMap.OrderOrderType}</label>
+          <select id='orderTypeId' name='orderTypeId'>
+              <#if currentType?has_content>
+                  <option value="${currentType.orderTypeId}">${currentType.get("description", locale)}</option>
+                  <option value="${currentType.orderTypeId}">---</option>
               </#if>
-              <tr>
-                <td  class='label'>${uiLabelMap.ProductInventoryItemId}</td>
-                <td ><input type='text' name='inventoryItemId' value='${requestParameters.inventoryItemId!}'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.ProductSerialNumber}</td>
-                <td ><input type='text' name='serialNumber' value='${requestParameters.serialNumber!}'/></td>
-              </tr>
-              <tr>
-                <td  class='label'>${uiLabelMap.ProductSoftIdentifier}</td>
-                <td ><input type='text' name='softIdentifier' value='${requestParameters.softIdentifier!}'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.PartyRoleType}</td>
-                <td >
-                  <select name='roleTypeId' id='roleTypeId' multiple="multiple">
-                    <#if currentRole?has_content>
-                    <option value="${currentRole.roleTypeId}">${currentRole.get("description", locale)}</option>
-                    </#if>
-                    <option value="">${uiLabelMap.CommonAnyRoleType}</option>
-                    <#list roleTypes as roleType>
-                      <option value="${roleType.roleTypeId}">${roleType.get("description", locale)}</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.PartyPartyId}</td>
-                <td>
-                  <@htmlTemplate.lookupField value='${requestParameters.partyId!}' formName="lookuporder" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.CommonUserLoginId}</td>
-                <td>
-                  <@htmlTemplate.lookupField value='${requestParameters.userLoginId!}' formName="lookuporder" name="userLoginId" id="userLoginId" fieldFormName="LookupUserLoginAndPartyDetails"/>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderOrderType}</td>
-                <td>
-                  <select name='orderTypeId'>
-                    <#if currentType?has_content>
-                    <option value="${currentType.orderTypeId}">${currentType.get("description", locale)}</option>
-                    <option value="${currentType.orderTypeId}">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.OrderAnyOrderType}</option>
-                    <#list orderTypes as orderType>
-                      <option value="${orderType.orderTypeId}">${orderType.get("description", locale)}</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.AccountingBillingAccount}</td>
-                <td>
-                  <@htmlTemplate.lookupField value='${requestParameters.billingAccountId!}' formName="lookuporder" name="billingAccountId" id="billingAccountId" fieldFormName="LookupBillingAccount"/>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.CommonCreatedBy}</td>
-                <td><input type='text' name='createdBy' value='${requestParameters.createdBy!}'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderSalesChannel}</td>
-                <td>
-                  <select name='salesChannelEnumId'>
-                    <#if currentSalesChannel?has_content>
-                    <option value="${currentSalesChannel.enumId}">${currentSalesChannel.get("description", locale)}</option>
-                    <option value="${currentSalesChannel.enumId}">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.CommonAnySalesChannel}</option>
-                    <#list salesChannels as channel>
-                      <option value="${channel.enumId}">${channel.get("description", locale)}</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.ProductProductStore}</td>
-                <td>
-                  <select name='productStoreId'>
-                    <#if currentProductStore?has_content>
-                    <option value="${currentProductStore.productStoreId}">${currentProductStore.storeName!}</option>
-                    <option value="${currentProductStore.productStoreId}">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.CommonAnyStore}</option>
-                    <#list productStores as store>
-                      <option value="${store.productStoreId}">${store.storeName!}</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.ProductWebSite}</td>
-                <td>
-                  <select name='orderWebSiteId'>
-                    <#if currentWebSite?has_content>
-                    <option value="${currentWebSite.webSiteId}">${currentWebSite.siteName}</option>
-                    <option value="${currentWebSite.webSiteId}">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.CommonAnyWebSite}</option>
-                    <#list webSites as webSite>
-                      <option value="${webSite.webSiteId}">${webSite.siteName!}</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.CommonStatus}</td>
-                <td>
-                  <#list orderStatuses as orderStatus>
-                    <label>
+              <option value="">${uiLabelMap.OrderAnyOrderType}</option>
+              <#list orderTypes as orderType>
+                  <option value="${orderType.orderTypeId}">${orderType.get("description", locale)}</option>
+              </#list>
+          </select>
+
+          <label for="correspondingPoId">${uiLabelMap.OrderCustomerPo}</label>
+          <input id='correspondingPoId' type='text' name='correspondingPoId' value='${requestParameters.correspondingPoId!}'/>
+
+          <label for="correspondingPoId" class="left-column">${uiLabelMap.CommonDateFilter}</label>
+          <div>
+              <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" value="${requestParameters.minDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+              <span class='label'>${uiLabelMap.CommonFrom}</span>
+          </div>
+
+          <label for="externalId" class="right-column">${uiLabelMap.OrderExternalId}</label>
+          <input id='externalId' type='text' name='externalId'/>
+
+          <label class="left-column"></label>
+          <div>
+              <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" value="${requestParameters.maxDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+              <span class='label'>${uiLabelMap.CommonThru}</span>
+          </div>
+
+          <label for="partyId" class="left-column">${uiLabelMap.PartyPartyId}</label>
+          <@htmlTemplate.lookupField value='${requestParameters.partyId!}' formName="lookuporder" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
+
+          <label for="userLoginId" class="right-column">${uiLabelMap.CommonUserLoginId}</label>
+          <@htmlTemplate.lookupField value='${requestParameters.userLoginId!}' formName="lookuporder" name="userLoginId" id="userLoginId" fieldFormName="LookupUserLoginAndPartyDetails"/>
+
+          <label for="roleTypeId" class="left-column">${uiLabelMap.PartyRoleType}</label>
+          <select name='roleTypeId' id='roleTypeId' multiple="multiple">
+              <#if currentRole?has_content>
+                  <option value="${currentRole.roleTypeId}">${currentRole.get("description", locale)}</option>
+              </#if>
+              <option value="">${uiLabelMap.CommonAnyRoleType}</option>
+              <#list roleTypes as roleType>
+                  <option value="${roleType.roleTypeId}">${roleType.get("description", locale)}</option>
+              </#list>
+          </select>
+
+          <label for="createdBy" class="right-column">${uiLabelMap.CommonCreatedBy}</label>
+          <input type='text' id='createdBy' name='createdBy' value='${requestParameters.createdBy!}'/>
+
+          <#if goodIdentificationTypes?has_content>
+              <label for="goodIdentificationTypeId" class="left-column">${uiLabelMap.ProductGoodIdentificationType}</label>
+              <select id="goodIdentificationTypeId" name='goodIdentificationTypeId'>
+                  <#if currentGoodIdentificationType?has_content>
+                      <option value="${currentGoodIdentificationType.goodIdentificationTypeId}">${currentGoodIdentificationType.get("description", locale)}</option>
+                      <option value="${currentGoodIdentificationType.goodIdentificationTypeId}">---</option>
+                  </#if>
+                  <option value="">${uiLabelMap.ProductAnyGoodIdentification}</option>
+                  <#list goodIdentificationTypes as goodIdentificationType>
+                      <option value="${goodIdentificationType.goodIdentificationTypeId}">${goodIdentificationType.get("description", locale)}</option>
+                  </#list>
+              </select>
+
+              <label for="goodIdentificationIdValue" class="right-column">${uiLabelMap.ProductGoodIdentification}</label>
+              <input id='goodIdentificationIdValue' type='text' name='goodIdentificationIdValue' value='${requestParameters.goodIdentificationIdValue!}'/>
+          </#if>
+
+          <label for="productId" class="left-column">${uiLabelMap.ProductProductId}</label>
+          <@htmlTemplate.lookupField value='${requestParameters.productId!}' formName="lookuporder" name="productId" id="productId" fieldFormName="LookupProduct"/>
+
+          <label for="internalCode" class="right-column">${uiLabelMap.OrderInternalCode}</label>
+          <input id='internalCode' type='text' name='internalCode' value='${requestParameters.internalCode!}'/>
+
+          <label for="inventoryItemId" class="left-column">${uiLabelMap.ProductInventoryItemId}</label>
+          <input id='inventoryItemId' type='text' name='inventoryItemId' value='${requestParameters.inventoryItemId!}'/>
+
+          <label for="serialNumber">${uiLabelMap.ProductSerialNumber}</label>
+          <input id='serialNumber' type='text' name='serialNumber' value='${requestParameters.serialNumber!}'/>
+
+          <label for="softIdentifier">${uiLabelMap.ProductSoftIdentifier}</label>
+          <input id='softIdentifier' type='text' name='softIdentifier' value='${requestParameters.softIdentifier!}'/>
+
+          <label class="left-column">${uiLabelMap.CommonStatus}</label>
+          <div class="full-span-field">
+              <#list orderStatuses as orderStatus>
+                  <label>
                       <input type="checkbox" name="orderStatusId" value="${orderStatus.statusId}" <#if currentStatuses?has_content && currentStatuses.contains(orderStatus.statusId)>checked</#if>/>
                       ${orderStatus.get("description", locale)}
-                    </label>
-                  </#list>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderContainsBackOrders}</td>
-                <td>
-                  <select name='hasBackOrders'>
-                    <#if requestParameters.hasBackOrders?has_content>
-                    <option value="Y">${uiLabelMap.OrderBackOrders}</option>
-                    <option value="Y">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.CommonShowAll}</option>
-                    <option value="Y">${uiLabelMap.CommonOnly}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderSelectShippingMethod}</td>
-                <td>
-                  <select name="shipmentMethod">
-                    <#if currentCarrierShipmentMethod?has_content>
-                      <#assign currentShipmentMethodType = currentCarrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
-                      <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">${currentCarrierShipmentMethod.partyId!} ${currentShipmentMethodType.description!}</option>
-                      <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.OrderSelectShippingMethod}</option>
-                    <#list carrierShipmentMethods as carrierShipmentMethod>
-                      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
-                      <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId!} ${shipmentMethodType.description!}</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderViewed}</td>
-                <td>
-                  <select name="isViewed">
-                    <#if requestParameters.isViewed?has_content>
-                      <#assign isViewed = requestParameters.isViewed>
-                      <option value="${isViewed}"><#if "Y" == isViewed>${uiLabelMap.CommonYes}<#elseif "N" == isViewed>${uiLabelMap.CommonNo}</#if></option>
-                    </#if>
-                    <option value=""></option>
-                    <option value="Y">${uiLabelMap.CommonYes}</option>
-                    <option value="N">${uiLabelMap.CommonNo}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderAddressVerification}</td>
-                <td><input type='text' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult!}'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderScore}</td>
-                <td><input type='text' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult!}'/></td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.CommonDateFilter}</td>
-                <td>
-                  <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" value="${requestParameters.minDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                  <span class='label'>${uiLabelMap.CommonFrom}</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="label"/>
-                <td>
-                    <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" value="${requestParameters.maxDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                    <span class='label'>${uiLabelMap.CommonThru}</span>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'><label for="filterInventoryProblems">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterInventoryProblems}</label></td>
-                <td>
-                  <input type="checkbox" id="filterInventoryProblems" name="filterInventoryProblems" value="Y"
-                  <#if "Y" == requestParameters.filterInventoryProblems?default("N")>checked="checked"</#if> />
-                </td>
-              </tr>
-              <tr>
-                <td class='label'><label for="filterPartiallyReceivedPOs">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</label></td>
-                <td>
-                    <input type="checkbox" id="filterPartiallyReceivedPOs" name="filterPartiallyReceivedPOs" value="Y"
-                    <#if "Y" == requestParameters.filterPartiallyReceivedPOs?default("N")>checked="checked"</#if> />
-                </td>
-              </tr>
-              <tr>
-                <td class='label'><label for="filterPOsOpenPastTheirETA">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</label></td>
-                <td>
-                    <input type="checkbox" id="filterPOsOpenPastTheirETA" name="filterPOsOpenPastTheirETA" value="Y"
-                    <#if "Y" == requestParameters.filterPOsOpenPastTheirETA?default("N")>checked="checked"</#if> />
-                </td>
-              </tr>
-              <tr>
-                <td class='label'><label for="filterPOsWithRejectedItems">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsWithRejectedItems}</label></td>
-                <td>
-                        <input type="checkbox" id="filterPOsWithRejectedItems" name="filterPOsWithRejectedItems" value="Y"
-                            <#if "Y" == requestParameters.filterPOsWithRejectedItems?default("N")>checked="checked"</#if> />
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.OrderShipToCountry}</td>
-                <td>
-                  <select name="countryGeoId">
-                    <#if requestParameters.countryGeoId?has_content>
-                        <#assign countryGeoId = requestParameters.countryGeoId>
-                        <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
-                        <option value="${countryGeoId}" selected="selected">${geo.geoName!}</option>
-                        <option value="" >${uiLabelMap.CommonAny}</option>
-                    <#else>
-                        <option value="" selected="selected">${uiLabelMap.CommonAny}</option>
-                    </#if>
-                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-                  </select>
-                  <select name="includeCountry">
-                    <#if requestParameters.includeCountry?has_content>
-                       <#assign includeCountry = requestParameters.includeCountry>
-                       <option value="${includeCountry}"><#if "Y" == includeCountry>${uiLabelMap.OrderOnlyInclude}<#elseif "N" == includeCountry>${uiLabelMap.OrderDoNotInclude}</#if></option>
-                       <option value="${includeCountry}">---</option>
-                    </#if>
-                    <option value="Y">${uiLabelMap.OrderOnlyInclude}</option>
-                    <option value="N">${uiLabelMap.OrderDoNotInclude}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class='label'>${uiLabelMap.AccountingPaymentStatus}</td>
-                <td>
-                    <select name="paymentStatusId">
-                        <option value="">${uiLabelMap.CommonAll}</option>
-                        <#list paymentStatusList as paymentStatus>
-                            <option value="${paymentStatus.statusId}">${paymentStatus.get("description", locale)}</option>
-                        </#list>
-                    </select>
-                </td>
-              </tr>
-              <tr><td colspan="3"><hr /></td></tr>
-              <tr>
-                <td class="label"/>
-                <td>
-                    <input type="hidden" name="showAll" value="Y"/>
-                    <input type='submit' value='${uiLabelMap.CommonFind}'/>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </div>
+                  </label>
+              </#list>
+          </div>
+
+          <label for="billingAccountId" class="left-column">${uiLabelMap.AccountingBillingAccount}</label>
+          <@htmlTemplate.lookupField value='${requestParameters.billingAccountId!}' formName="lookuporder" name="billingAccountId" id="billingAccountId" fieldFormName="LookupBillingAccount"/>
+
+          <label for="paymentStatusId">${uiLabelMap.AccountingPaymentStatus}</label>
+          <select id='paymentStatusId' name="paymentStatusId">
+              <option value="">${uiLabelMap.CommonAll}</option>
+              <#list paymentStatusList as paymentStatus>
+                  <option value="${paymentStatus.statusId}">${paymentStatus.get("description", locale)}</option>
+              </#list>
+          </select>
+
+          <label for="productStoreId" class="left-column">${uiLabelMap.ProductProductStore}</label>
+          <select id='productStoreId' name='productStoreId'>
+              <#if currentProductStore?has_content>
+                  <option value="${currentProductStore.productStoreId}">${currentProductStore.storeName!}</option>
+                  <option value="${currentProductStore.productStoreId}">---</option>
+              </#if>
+              <option value="">${uiLabelMap.CommonAnyStore}</option>
+              <#list productStores as store>
+                  <option value="${store.productStoreId}">${store.storeName!}</option>
+              </#list>
+          </select>
+
+          <label for="salesChannelEnumId">${uiLabelMap.OrderSalesChannel}</label>
+          <select id="salesChannelEnumId" name='salesChannelEnumId'>
+              <#if currentSalesChannel?has_content>
+                  <option value="${currentSalesChannel.enumId}">${currentSalesChannel.get("description", locale)}</option>
+                  <option value="${currentSalesChannel.enumId}">---</option>
+              </#if>
+              <option value="">${uiLabelMap.CommonAnySalesChannel}</option>
+              <#list salesChannels as channel>
+                  <option value="${channel.enumId}">${channel.get("description", locale)}</option>
+              </#list>
+          </select>
+
+          <label for="orderWebSiteId">${uiLabelMap.ProductWebSite}</label>
+          <select id='orderWebSiteId' name='orderWebSiteId'>
+              <#if currentWebSite?has_content>
+                  <option value="${currentWebSite.webSiteId}">${currentWebSite.siteName}</option>
+                  <option value="${currentWebSite.webSiteId}">---</option>
+              </#if>
+              <option value="">${uiLabelMap.CommonAnyWebSite}</option>
+              <#list webSites as webSite>
+                  <option value="${webSite.webSiteId}">${webSite.siteName!}</option>
+              </#list>
+          </select>
+
+          <label for="shipmentMethod" class="left-column">${uiLabelMap.OrderSelectShippingMethod}</label>
+          <select id="shipmentMethod" name="shipmentMethod">
+              <#if currentCarrierShipmentMethod?has_content>
+                  <#assign currentShipmentMethodType = currentCarrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
+                  <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">${currentCarrierShipmentMethod.partyId!} ${currentShipmentMethodType.description!}</option>
+                  <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">---</option>
+              </#if>
+              <option value="">${uiLabelMap.OrderSelectShippingMethod}</option>
+              <#list carrierShipmentMethods as carrierShipmentMethod>
+                  <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
+                  <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId!} ${shipmentMethodType.description!}</option>
+              </#list>
+          </select>
+
+          <label for="countryGeoId">${uiLabelMap.OrderShipToCountry}</label>
+          <div>
+              <select id="countryGeoId" name="countryGeoId">
+                  <#if requestParameters.countryGeoId?has_content>
+                      <#assign countryGeoId = requestParameters.countryGeoId>
+                      <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
+                      <option value="${countryGeoId}" selected="selected">${geo.geoName!}</option>
+                      <option value="" >${uiLabelMap.CommonAny}</option>
+                  <#else>
+                      <option value="" selected="selected">${uiLabelMap.CommonAny}</option>
+                  </#if>
+                  ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+              </select>
+              <select name="includeCountry">
+                  <#if requestParameters.includeCountry?has_content>
+                      <#assign includeCountry = requestParameters.includeCountry>
+                      <option value="${includeCountry}"><#if "Y" == includeCountry>${uiLabelMap.OrderOnlyInclude}<#elseif "N" == includeCountry>${uiLabelMap.OrderDoNotInclude}</#if></option>
+                      <option value="${includeCountry}">---</option>
+                  </#if>
+                  <option value="Y">${uiLabelMap.OrderOnlyInclude}</option>
+                  <option value="N">${uiLabelMap.OrderDoNotInclude}</option>
+              </select>
+          </div>
+
+          <label for="hasBackOrders">${uiLabelMap.OrderContainsBackOrders}</label>
+          <select id="hasBackOrders" name='hasBackOrders'>
+              <#if requestParameters.hasBackOrders?has_content>
+                  <option value="Y">${uiLabelMap.OrderBackOrders}</option>
+                  <option value="Y">---</option>
+              </#if>
+              <option value="">${uiLabelMap.CommonShowAll}</option>
+              <option value="Y">${uiLabelMap.CommonOnly}</option>
+          </select>
+
+          <label for="isViewed">${uiLabelMap.OrderViewed}</label>
+          <select id="isViewed" name="isViewed">
+              <#if requestParameters.isViewed?has_content>
+                  <#assign isViewed = requestParameters.isViewed>
+                  <option value="${isViewed}"><#if "Y" == isViewed>${uiLabelMap.CommonYes}<#elseif "N" == isViewed>${uiLabelMap.CommonNo}</#if></option>
+              </#if>
+              <option value=""></option>
+              <option value="Y">${uiLabelMap.CommonYes}</option>
+              <option value="N">${uiLabelMap.CommonNo}</option>
+          </select>
+
+          <label for="gatewayAvsResult">${uiLabelMap.OrderAddressVerification}</label>
+          <input id="gatewayAvsResult" type='text' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult!}'/>
+
+          <label for="gatewayScoreResult">${uiLabelMap.OrderScore}</label>
+          <input id="gatewayScoreResult" type='text' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult!}'/>
+
+          <label class="left-column">Filter</label>
+          <div>
+              <input type="checkbox" id="filterInventoryProblems" name="filterInventoryProblems" value="Y"
+                     <#if "Y" == requestParameters.filterInventoryProblems?default("N")>checked="checked"</#if> />
+              <label for="filterInventoryProblems">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterInventoryProblems}</label>
+          </div>
+
+          <label class="left-column"></label>
+          <div>
+              <input type="checkbox" id="filterPartiallyReceivedPOs" name="filterPartiallyReceivedPOs" value="Y"
+                     <#if "Y" == requestParameters.filterPartiallyReceivedPOs?default("N")>checked="checked"</#if> />
+              <label for="filterPartiallyReceivedPOs">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</label>
+          </div>
+
+          <label class="left-column"></label>
+          <div>
+              <input type="checkbox" id="filterPOsOpenPastTheirETA" name="filterPOsOpenPastTheirETA" value="Y"
+                     <#if "Y" == requestParameters.filterPOsOpenPastTheirETA?default("N")>checked="checked"</#if> />
+              <label for="filterPOsOpenPastTheirETA">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</label>
+          </div>
+
+          <label class="left-column"></label>
+          <div>
+              <input type="checkbox" id="filterPOsWithRejectedItems" name="filterPOsWithRejectedItems" value="Y"
+                     <#if "Y" == requestParameters.filterPOsWithRejectedItems?default("N")>checked="checked"</#if> />
+              <label for="filterPOsWithRejectedItems">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsWithRejectedItems}</label>
+          </div>
+
+          <input type="hidden" name="showAll" value="Y"/>
+          <div class="full-width-center">
+              <input type='submit' value='${uiLabelMap.CommonFind}'/>
+          </div>
+      </div>
+
       </#if>
 </div>
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
 <script type="application/javascript">
-<!--//
 document.lookuporder.orderId.focus();
-//-->
 </script>
 </#if>
 
@@ -513,6 +439,7 @@ document.lookuporder.orderId.focus();
       <input type="hidden" name="viewSize"/>
       <input type="hidden" name="viewIndex"/>
       <input type="hidden" name="hideFields"/>
+      <input type="hidden" name="showAll" value="Y"/>
       <#if paramIdList?? && paramIdList?has_content>
         <#list paramIdList as paramIds>
           <#assign paramId = paramIds.split("=")/>

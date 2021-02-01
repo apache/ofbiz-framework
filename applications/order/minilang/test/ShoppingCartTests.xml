@@ -616,6 +616,11 @@ under the License.
         <set field="testParams.checkOutPaymentId" value="EXT_COD"/>
         <set field="testParams.is_gift" value="false"/>
         <set field="testParams.may_split" value="false"/>
+        <!-- This is a temporary solution, maybe always needed. It was put in because of OFBIZ-11553-->
+        <script>groovy:
+            request.removeParameter("checkOutPaymentId")
+            request.removeAttribute("checkOutPaymentId")
+        </script>
         <call-object-method method-name="addParameters" obj-field="request">
             <field field="testParams" type="java.util.Map"/>
         </call-object-method>
@@ -720,7 +725,7 @@ under the License.
         <set field="map.fromGroupIndex" value="00001"/>
         <set field="map.toGroupIndex" value="00002"/>
         <set field="map.quantity" value="2" type="BigDecimal"/>
-        <call-service service-name="MoveItemBetweenShipGroups" in-map-name="map"/>
+        <call-service service-name="moveItemBetweenShipGroups" in-map-name="map"/>
         
         <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc1">
             <field-map field-name="orderId" from-field="orderMap.orderId"/>

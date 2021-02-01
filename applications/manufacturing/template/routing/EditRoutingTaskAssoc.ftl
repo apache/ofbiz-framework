@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script type="application/javascript">
-<!-- //
 function copyAndAddRoutingTask() {
     document.addtaskassocform.copyTask.value = "Y";
     document.addtaskassocform.submit();
@@ -27,7 +26,6 @@ function addRoutingTask() {
     document.addtaskassocform.copyTask.value = "N";
     document.addtaskassocform.submit();
 }
-// -->
 </script>
 
 <#if security.hasEntityPermission("MANUFACTURING", "_CREATE", session)>

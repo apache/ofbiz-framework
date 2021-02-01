@@ -26,6 +26,6 @@
     </test-case>
     
     <test-case case-name="rate-tests">
-        <simple-method-test location="component://accounting/minilang/test/RateTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.RateTests"/>
     </test-case>
 </test-suite>

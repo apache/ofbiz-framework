@@ -26,7 +26,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -38,18 +37,20 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.serialize.XmlSerializer;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.CsrfUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics
  */
 public class ControlEventListener implements HttpSessionListener {
     // Debug MODULE name
-    public static final String MODULE = ControlEventListener.class.getName();
+    private static final String MODULE = ControlEventListener.class.getName();
 
-    protected static long totalActiveSessions = 0;
-    protected static long totalPassiveSessions = 0;
+    private static long totalActiveSessions = 0;
+    private static long totalPassiveSessions = 0;
 
-    public ControlEventListener() {}
+    public ControlEventListener() { }
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
@@ -73,13 +74,15 @@ public class ControlEventListener implements HttpSessionListener {
         HttpSession session = event.getSession();
 
         CsrfUtil.cleanupTokenMap(session);
+        ScriptLinkHelper.cleanupScriptCache(session);
 
         // Finalize the Visit
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
 
-            // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue visit = VisitHandler.getVisit(session);
+            // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue
+            // visit = VisitHandler.getVisit(session);
             GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {
                 Delegator delegator = visit.getDelegator();
@@ -89,7 +92,8 @@ public class ControlEventListener implements HttpSessionListener {
                     visit.store();
                 }
             } else {
-                Debug.logInfo("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session) + "] that is being destroyed", MODULE);
+                Debug.logInfo("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session)
+                        + "] that is being destroyed", MODULE);
             }
 
             // Store the UserLoginSession
@@ -131,6 +135,11 @@ public class ControlEventListener implements HttpSessionListener {
         }
     }
 
+    /**
+     * Log stats.
+     * @param session the session
+     * @param visit the visit
+     */
     public void logStats(HttpSession session, GenericValue visit) {
         if (Debug.verboseOn() || session.getAttribute("org.apache.ofbiz.log.session.stats") != null) {
             Debug.logInfo("<===================================================================>", MODULE);
@@ -141,7 +150,7 @@ public class ControlEventListener implements HttpSessionListener {
             Debug.logInfo("--------------------------------------------------------------------", MODULE);
             Debug.logInfo("Total Sessions : " + ControlEventListener.getTotalActiveSessions(), MODULE);
             Debug.logInfo("Total Active   : " + ControlEventListener.getTotalActiveSessions(), MODULE);
-            Debug.logInfo("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(),  MODULE);
+            Debug.logInfo("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(), MODULE);
             Debug.logInfo("** note : this session has been counted as destroyed.", MODULE);
             Debug.logInfo("--------------------------------------------------------------------", MODULE);
             if (visit != null) {

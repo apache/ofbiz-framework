@@ -44,20 +44,6 @@ under the License.
             </else>
         </if-compare>
     </simple-method>
-    <simple-method method-name="deleteOrderAdjustment" short-description="Delete an OrderAdjustment">
-        <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderAdjustement"/></check-permission>
-        <check-errors/>
-        <entity-one entity-name="OrderAdjustment" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-
-        <if-not-empty field="parameters.productPromoCodeId">
-            <entity-one entity-name="OrderProductPromoCode" value-field="lookedUpValue"/>
-            <if-not-empty field="lookedUpValue">
-                <remove-value value-field="lookedUpValue"/>
-            </if-not-empty>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="updateOrderStatusFromReceipt" short-description="Update Order Status From ShipmentReceipt">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderStatusFromReceipt"/></check-permission>
         <check-errors/>
