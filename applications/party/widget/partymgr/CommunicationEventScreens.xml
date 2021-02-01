@@ -536,6 +536,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication"/>
                 <set field="tabButtonItem" value="CommunicationEvent"/>
+                <set field="headerItem" value="comm"/>
                 <set field="my" from-field="parameters.my" default-value=""/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="communicationEvent.partyIdFrom" default-value="${userLogin.partyId}"/>
@@ -543,7 +544,7 @@ under the License.
                 <set field="contactMechIdTo" from-field="parameters.contactMechIdTo" default-value="${communicationEvent.contactMechIdTo}"/>
             </actions>
             <widgets>
-                <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
+                <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <include-screen name="editCommEvent"/>
                     </decorator-section>

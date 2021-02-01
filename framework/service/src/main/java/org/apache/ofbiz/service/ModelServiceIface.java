@@ -24,26 +24,42 @@ package org.apache.ofbiz.service;
  */
 public class ModelServiceIface {
 
-    protected String service;
-    protected boolean optional;
+    private String service;
+    private boolean optional;
 
     public ModelServiceIface(String service, boolean optional) {
         this.service = service;
         this.optional = optional;
     }
 
+    /**
+     * Gets service.
+     * @return the service
+     */
     public String getService() {
         return this.service;
     }
 
+    /**
+     * Sets service.
+     * @param service the service
+     */
     public void setService(String service) {
         this.service = service;
     }
 
+    /**
+     * Is optional boolean.
+     * @return the boolean
+     */
     public boolean isOptional() {
         return this.optional;
     }
 
+    /**
+     * Is optional.
+     * @param optional the optional
+     */
     public void isOptional(boolean optional) {
         this.optional = optional;
     }

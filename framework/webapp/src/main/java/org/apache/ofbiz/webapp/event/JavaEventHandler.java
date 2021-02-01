@@ -36,7 +36,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  */
 public class JavaEventHandler implements EventHandler {
 
-    public static final String MODULE = JavaEventHandler.class.getName();
+    private static final String MODULE = JavaEventHandler.class.getName();
 
     /* Cache for event handler classes. */
     private ConcurrentHashMap<String, Class<?>> classes = new ConcurrentHashMap<>();
@@ -47,7 +47,7 @@ public class JavaEventHandler implements EventHandler {
             ClassLoader l = Thread.currentThread().getContextClassLoader();
             return l.loadClass(path);
         } catch (ClassNotFoundException e) {
-            Debug.logError(e, "Error loading class with name: "+ path
+            Debug.logError(e, "Error loading class with name: " + path
                     + ", will not be able to run event...", MODULE);
             return null;
         }
@@ -61,25 +61,31 @@ public class JavaEventHandler implements EventHandler {
     public String invoke(Event event, RequestMap requestMap,
             HttpServletRequest request, HttpServletResponse response)
                     throws EventHandlerException {
-        Class<?> k = classes.computeIfAbsent(event.path, JavaEventHandler::loadClass);
-        if (Debug.verboseOn()) Debug.logVerbose("*[[Event invocation]]*", MODULE);
+        Class<?> k = classes.computeIfAbsent(event.getPath(), JavaEventHandler::loadClass);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("*[[Event invocation]]*", MODULE);
+        }
         if (k == null) {
             throw new EventHandlerException("Error invoking event, the class "
-                                            + event.path + " was not found");
+                                            + event.getPath() + " was not found");
         }
-        if (event.path == null || event.invoke == null) {
+        if (event.getInvoke() == null || event.getInvoke() == null) {
             throw new EventHandlerException("Invalid event method or path; call initialize()");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: Java Event", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Processing]: Java Event", MODULE);
+        }
         boolean began = false;
         try {
-            int timeout = Integer.max(event.transactionTimeout, 0);
+            int timeout = Integer.max(event.getTransactionTimeout(), 0);
             began = TransactionUtil.begin(timeout);
-            Method m = k.getMethod(event.invoke, HttpServletRequest.class,
+            Method m = k.getMethod(event.getInvoke(), HttpServletRequest.class,
                                    HttpServletResponse.class);
             String ret = (String) m.invoke(null, request, response);
-            if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + ret, MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[Event Return]: " + ret, MODULE);
+            }
             return ret;
         } catch (java.lang.reflect.InvocationTargetException e) {
             Throwable t = e.getTargetException();

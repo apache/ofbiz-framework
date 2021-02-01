@@ -49,7 +49,6 @@ public final class WebSiteProperties {
      * in the application's WebSite entity value. If the application does not have a
      * WebSite entity value then the instance is initialized to the settings found
      * in the <code>url.properties</code> file.
-     * 
      * @param request
      * @throws GenericEntityException
      */
@@ -109,19 +108,18 @@ public final class WebSiteProperties {
                 httpsHost = request.getServerName();
             }
 
-            if (Start.getInstance().getConfig().portOffset != 0) {
+            if (Start.getInstance().getConfig().getPortOffset() != 0) {
                 Integer httpPortValue = Integer.valueOf(httpPort);
-                httpPortValue += Start.getInstance().getConfig().portOffset;
+                httpPortValue += Start.getInstance().getConfig().getPortOffset();
                 httpPort = httpPortValue.toString();
                 if (!dontAddPortoffset) {
                     Integer httpsPortValue = Integer.valueOf(httpsPort);
                     if (!httpsPort.isEmpty()) {
-                        httpsPortValue += Start.getInstance().getConfig().portOffset;
+                        httpsPortValue += Start.getInstance().getConfig().getPortOffset();
                     }
                     httpsPort = httpsPortValue.toString();
                 }
             }
-            
             webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
         }
@@ -131,7 +129,6 @@ public final class WebSiteProperties {
     /**
      * Returns a <code>WebSiteProperties</code> instance initialized to the settings found
      * in the WebSite entity value.
-     * 
      * @param webSiteValue
      */
     public static WebSiteProperties from(GenericValue webSiteValue) {
@@ -147,15 +144,15 @@ public final class WebSiteProperties {
         String webappPath = (webSiteValue.get("webappPath") != null) ? webSiteValue.getString("webappPath") : null;
         boolean enableHttps = (webSiteValue.get("enableHttps") != null) ? webSiteValue.getBoolean("enableHttps") : defaults.getEnableHttps();
 
-        if (Start.getInstance().getConfig().portOffset != 0) {
+        if (Start.getInstance().getConfig().getPortOffset() != 0) {
             Integer httpPortValue = Integer.valueOf(httpPort);
-            httpPortValue += Start.getInstance().getConfig().portOffset;
+            httpPortValue += Start.getInstance().getConfig().getPortOffset();
             httpPort = httpPortValue.toString();
             Integer httpsPortValue = Integer.valueOf(httpsPort);
-            httpsPortValue += Start.getInstance().getConfig().portOffset; // Here unlike above we trust the user and don't rely on the request, no dontAddPortoffset.
+            httpsPortValue += Start.getInstance().getConfig().getPortOffset();
+            // Here unlike above we trust the user and don't rely on the request, no dontAddPortoffset.
             httpsPort = httpsPortValue.toString();
         }
-        
         return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);
     }
 

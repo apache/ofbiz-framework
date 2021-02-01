@@ -183,7 +183,7 @@ under the License.
         <section>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleWebSiteCMSNav}">
-                    <platform-specific><html><html-template location="component://content/template/website/WebSiteCMSNav.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template multi-block="true" location="component://content/template/website/WebSiteCMSNav.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>

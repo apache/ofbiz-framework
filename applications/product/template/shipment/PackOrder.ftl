@@ -58,8 +58,8 @@ under the License.
                     <ul>
                     <#list invoiceIds as invoiceId>
                       <li>
-                        ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="_blank" class="buttontext">${invoiceId}</a>
-                        (<a href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoiceId}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonPdf}</a>)
+                        ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoiceId}</@ofbizUrl>" target="_blank" class="buttontext">${invoiceId}</a>
+                        (<a href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoiceId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonPdf}</a>)
                       </li>
                     </#list>
                     </ul>
@@ -287,9 +287,9 @@ under the License.
                               </#if>
                           </td>
                           <td>
-                              <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${orderProduct.productId!}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext" target="_blank">${(orderProduct.internalName)!}</a>
+                              <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${orderProduct.productId!}</@ofbizUrl>" class="buttontext" target="_blank">${(orderProduct.internalName)!}</a>
                               <#if orderProduct.productId != product.productId>
-                                  &nbsp;[<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId!}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext" target="_blank">${(product.internalName)!}</a>]
+                                  &nbsp;[<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId!}</@ofbizUrl>" class="buttontext" target="_blank">${(product.internalName)!}</a>]
                               </#if>
                           </td>
                           <td align="right">${orderItemQuantity}</td>
@@ -456,7 +456,7 @@ under the License.
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>
                       <td>
-                          <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${line.getProductId()!}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext" target="_blank">${product.internalName!?default("[N/A]")}</a>
+                          <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${line.getProductId()!}</@ofbizUrl>" class="buttontext" target="_blank">${product.internalName!?default("[N/A]")}</a>
                       </td>
                       <td>${line.getInventoryItemId()}</td>
                       <td align="right">${line.getQuantity()}</td>
@@ -500,7 +500,7 @@ under the License.
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>
                       <td>
-                          <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${line.getProductId()!}${StringUtil.wrapString(externalKeyParam)}</@ofbizUrl>" class="buttontext" target="_blank">${product.internalName!?default("[N/A]")}</a>
+                          <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${line.getProductId()!}</@ofbizUrl>" class="buttontext" target="_blank">${product.internalName!?default("[N/A]")}</a>
                       </td>
                       <td>${line.getInventoryItemId()}</td>
                       <td align="right">${line.getQuantity()}</td>

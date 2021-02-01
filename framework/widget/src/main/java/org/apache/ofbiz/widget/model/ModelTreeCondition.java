@@ -26,13 +26,17 @@ import org.w3c.dom.Element;
  * @see <code>widget-tree.xsd</code>
  */
 public class ModelTreeCondition {
-    public static final String MODULE = ModelTreeCondition.class.getName();
+    private static final String MODULE = ModelTreeCondition.class.getName();
     private final ModelCondition condition;
 
     public ModelTreeCondition(ModelTree modelTree, Element conditionElement) {
         this.condition = AbstractModelCondition.DEFAULT_CONDITION_FACTORY.newInstance(modelTree, conditionElement);
     }
 
+    /**
+     * Gets condition.
+     * @return the condition
+     */
     public ModelCondition getCondition() {
         return condition;
     }

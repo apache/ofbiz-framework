@@ -74,6 +74,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindTaxAuthority"/>
                 <set field="tabButtonItem" value="FindTaxAuthority"/>
+                <set field="helpAnchor" value="_help_for_find_tax_authorities"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.taxAuthDecoratorLocation}">
@@ -96,6 +97,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthority"/>
                 <set field="tabButtonItem" value="EditTaxAuthority"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthority"/>
+                <set field="helpAnchor" value="_help_for_edit_tax_authority"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -119,6 +121,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityCategories"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityCategories"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityCategories"/>
+                <set field="helpAnchor" value="_help_for_edit_tax_authority_categories"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -141,6 +144,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityAssocs"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityAssocs"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityAssocs"/>
+                <set field="helpAnchor" value="_help_for_edit_tax_authority_associations"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -163,6 +167,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityGlAccounts"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
+                <set field="helpAnchor" value="_help_for_edit_tax_authority_gl_accounts"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -185,6 +190,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityRateProducts"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityRateProducts"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityRateProducts"/>
+                <set field="helpAnchor" value="_help_for_edit_tax_authority_product_rates"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -208,6 +214,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListTaxAuthorityParties"/>
                 <set field="tabButtonItem" value="ListTaxAuthorityParties"/>
                 <set field="labelTitleProperty" value="Standard costs"/>
+                <set field="helpAnchor" value="_help_for_list_tax_authority_parties"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -237,6 +244,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityPartyInfo"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityPartyInfo"/>
+                <set field="helpAnchor" value="_help_for_edit_tax_authority_party_info"/>
 
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
@@ -262,7 +270,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- reporting -->
     <screen name="FindTaxAuthorityReport">
         <section>
@@ -285,5 +293,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

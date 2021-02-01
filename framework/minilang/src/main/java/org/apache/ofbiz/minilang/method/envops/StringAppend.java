@@ -33,7 +33,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;string-append&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class StringAppend extends MethodOperation {

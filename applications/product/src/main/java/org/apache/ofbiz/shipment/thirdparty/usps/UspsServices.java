@@ -73,8 +73,8 @@ import org.w3c.dom.Element;
  */
 public class UspsServices {
 
-    public final static String MODULE = UspsServices.class.getName();
-    public final static String resourceError = "ProductUiLabels";
+    private static final String MODULE = UspsServices.class.getName();
+    private static final String RES_ERROR = "ProductUiLabels";
 
     private static List<String> domesticCountries = new LinkedList<>();
     // Countries treated as domestic for rate enquiries
@@ -90,12 +90,11 @@ public class UspsServices {
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
         String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
-        
         // check for 0 weight
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
         if (shippableWeight.compareTo(BigDecimal.ZERO) == 0) {
             // TODO: should we return an error, or $0.00 ?
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsShippableWeightMustGreaterThanZero", locale));
         }
 
@@ -103,10 +102,12 @@ public class UspsServices {
         String originationZip = null;
         GenericValue productStore = ProductStoreWorker.getProductStore(((String) context.get("productStoreId")), delegator);
         if (productStore != null && productStore.get("inventoryFacilityId") != null) {
-            GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore.getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+            GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore
+                    .getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
             if (facilityContactMech != null) {
                 try {
-                    GenericValue shipFromAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech.getString("contactMechId")).queryOne();
+                    GenericValue shipFromAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech
+                            .getString("contactMechId")).queryOne();
                     if (shipFromAddress != null) {
                         originationZip = shipFromAddress.getString("postalCode");
                     }
@@ -116,7 +117,7 @@ public class UspsServices {
             }
         }
         if (UtilValidate.isEmpty(originationZip)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsUnableDetermineOriginationZip", locale));
         }
 
@@ -125,10 +126,11 @@ public class UspsServices {
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             try {
-                GenericValue shipToAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne();
+                GenericValue shipToAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
+                        shippingContactMechId).queryOne();
                 if (shipToAddress != null) {
                     if (!domesticCountries.contains(shipToAddress.getString("countryGeoId"))) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                                 "FacilityShipmentUspsRateInquiryOnlyInUsDestinations", locale));
                     }
                     destinationZip = shipToAddress.getString("postalCode");
@@ -138,7 +140,7 @@ public class UspsServices {
             }
         }
         if (UtilValidate.isEmpty(destinationZip)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsUnableDetermineDestinationZip", locale));
         }
 
@@ -157,7 +159,7 @@ public class UspsServices {
             Debug.logError(e, MODULE);
         }
         if (UtilValidate.isEmpty(serviceCode)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsUnableDetermineServiceCode", locale));
         }
 
@@ -166,7 +168,7 @@ public class UspsServices {
 
         // TODO: 70 lb max is valid for Express, Priority and Parcel only - handle other methods
         BigDecimal maxWeight;
-        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", 
+        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight",
                 resource, "shipment.usps.max.estimate.weight", "70");
         try {
             maxWeight = new BigDecimal(maxWeightStr);
@@ -182,7 +184,8 @@ public class UspsServices {
         for (ListIterator<Map<String, BigDecimal>> li = packages.listIterator(); li.hasNext();) {
             Map<String, BigDecimal> packageMap = li.next();
 
-            BigDecimal packageWeight = isOnePackage ? shippableWeight : ShipmentWorker.calcPackageWeight(dctx, packageMap, shippableItemInfo, BigDecimal.ZERO);
+            BigDecimal packageWeight = isOnePackage ? shippableWeight : ShipmentWorker.calcPackageWeight(dctx, packageMap,
+                    shippableItemInfo, BigDecimal.ZERO);
             if (packageWeight.compareTo(BigDecimal.ZERO) == 0) {
                 continue;
             }
@@ -202,7 +205,7 @@ public class UspsServices {
             }
             // (packageWeight % 1) * 16 (Rounded up to 0 dp)
             BigDecimal weightOunces = packageWeight.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, RoundingMode.CEILING);
-            
+
             UtilXml.addChildElementValue(packageElement, "Pounds", weightPounds.toPlainString(), requestDocument);
             UtilXml.addChildElementValue(packageElement, "Ounces", weightOunces.toPlainString(), requestDocument);
 
@@ -226,18 +229,18 @@ public class UspsServices {
             responseDocument = sendUspsRequest("RateV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsRateDomesticSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (responseDocument == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentRateNotAvailable", locale));
         }
 
         List<? extends Element> rates = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
         if (UtilValidate.isEmpty(rates)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentRateNotAvailable", locale));
         }
 
@@ -285,7 +288,7 @@ public class UspsServices {
         // check for 0 weight
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
         if (shippableWeight.compareTo(BigDecimal.ZERO) == 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsShippableWeightMustGreaterThanZero", locale));
         }
 
@@ -294,9 +297,10 @@ public class UspsServices {
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             try {
-                GenericValue shipToAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne();
+                GenericValue shipToAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
+                        shippingContactMechId).queryOne();
                 if (domesticCountries.contains(shipToAddress.get("countryGeoId"))) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsRateInternationCannotBeUsedForUsDestinations", locale));
                 }
                 if (UtilValidate.isNotEmpty(shipToAddress.getString("countryGeoId"))) {
@@ -309,7 +313,7 @@ public class UspsServices {
             }
         }
         if (UtilValidate.isEmpty(destinationCountry)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsUnableDetermineDestinationCountry", locale));
         }
 
@@ -328,12 +332,12 @@ public class UspsServices {
             Debug.logError(e, MODULE);
         }
         if (UtilValidate.isEmpty(serviceCode)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsUnableDetermineServiceCode", locale));
         }
 
         BigDecimal maxWeight;
-        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", 
+        String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight",
                 resource, "shipment.usps.max.estimate.weight", "70");
         try {
             maxWeight = new BigDecimal(maxWeightStr);
@@ -356,7 +360,8 @@ public class UspsServices {
             Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
             packageElement.setAttribute("ID", String.valueOf(li.nextIndex() - 1)); // use zero-based index (see examples)
 
-            BigDecimal packageWeight = isOnePackage ? shippableWeight : ShipmentWorker.calcPackageWeight(dctx, packageMap, shippableItemInfo, BigDecimal.ZERO);
+            BigDecimal packageWeight = isOnePackage ? shippableWeight : ShipmentWorker.calcPackageWeight(dctx, packageMap,
+                    shippableItemInfo, BigDecimal.ZERO);
             if (packageWeight.compareTo(BigDecimal.ZERO) == 0) {
                 continue;
             }
@@ -383,18 +388,18 @@ public class UspsServices {
             responseDocument = sendUspsRequest("IntlRate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsRateInternationalSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (responseDocument == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentRateNotAvailable", locale));
         }
 
         List<? extends Element> packageElements = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
         if (UtilValidate.isEmpty(packageElements)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentRateNotAvailable", locale));
         }
 
@@ -404,7 +409,7 @@ public class UspsServices {
             if (errorElement != null) {
                 String errorDescription = UtilXml.childElementValue(errorElement, "Description");
                 Debug.logInfo("USPS International Rate Calculation returned a package error: " + errorDescription, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentRateNotAvailable", locale));
             }
             List<? extends Element> serviceElements = UtilXml.childElementList(packageElement, "Service");
@@ -417,8 +422,9 @@ public class UspsServices {
                     BigDecimal packageAmount = new BigDecimal(UtilXml.childElementValue(serviceElement, "Postage"));
                     estimateAmount = estimateAmount.add(packageAmount);
                 } catch (NumberFormatException e) {
-                    Debug.logInfo("USPS International Rate Calculation returned an unparsable postage amount: " + UtilXml.childElementValue(serviceElement, "Postage"), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    Debug.logInfo("USPS International Rate Calculation returned an unparsable postage amount: "
+                            + UtilXml.childElementValue(serviceElement, "Postage"), MODULE);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentRateNotAvailable", locale));
                 }
             }
@@ -467,13 +473,13 @@ public class UspsServices {
             responseDocument = sendUspsRequest("TrackV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsTrackingSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         Element trackInfoElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "TrackInfo");
         if (trackInfoElement == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsTrackingIncompleteResponse", locale));
         }
 
@@ -535,10 +541,11 @@ public class UspsServices {
         String city = (String) context.get("city");
         String zip5 = (String) context.get("zip5");
         Locale locale = (Locale) context.get("locale");
-        if ((UtilValidate.isEmpty(state) && UtilValidate.isEmpty(city) && UtilValidate.isEmpty(zip5)) ||    // No state, city or zip5
-             (UtilValidate.isEmpty(zip5) && (UtilValidate.isEmpty(state) || UtilValidate.isEmpty(city)))) {  // Both state and city are required if no zip5
-            Debug.logError("USPS address validation requires either zip5 or city and state",  MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+        if ((UtilValidate.isEmpty(state) && UtilValidate.isEmpty(city) && UtilValidate.isEmpty(zip5)) // No state, city or zip5
+             || (UtilValidate.isEmpty(zip5) && (UtilValidate.isEmpty(state) || UtilValidate.isEmpty(city)))) {
+            // Both state and city are required if no zip5
+            Debug.logError("USPS address validation requires either zip5 or city and state", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsAddressValidationStateAndCityOrZipRqd", locale));
         }
 
@@ -565,20 +572,20 @@ public class UspsServices {
             responseDocument = sendUspsRequest("Verify", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsAddressValidationSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         Element respAddressElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "Address");
         if (respAddressElement == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsAddressValidationIncompleteResponse", locale));
         }
 
         Element respErrorElement = UtilXml.firstChildElement(respAddressElement, "Error");
         if (respErrorElement != null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsAddressValidationIncompleteResponse", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsAddressValidationIncompleteResponse",
                     UtilMisc.toMap("errorString", UtilXml.childElementValue(respErrorElement, "Description")), locale));
         }
 
@@ -651,21 +658,21 @@ public class UspsServices {
             responseDocument = sendUspsRequest("CityStateLookup", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsCityStateLookupSendingError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsCityStateLookupSendingError",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         Element respAddressElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "ZipCode");
         if (respAddressElement == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsCityStateLookupIncompleteResponse", locale));
         }
 
         Element respErrorElement = UtilXml.firstChildElement(respAddressElement, "Error");
         if (respErrorElement != null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsCityStateLookupResponseError", 
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsCityStateLookupResponseError",
                     UtilMisc.toMap("errorString", UtilXml.childElementValue(respErrorElement, "Description")), locale));
         }
 
@@ -673,14 +680,14 @@ public class UspsServices {
 
         String city = UtilXml.childElementValue(respAddressElement, "City");
         if (UtilValidate.isEmpty(city)) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsCityStateLookupIncompleteCityElement", locale));
         }
         result.put("city", city);
 
         String state = UtilXml.childElementValue(respAddressElement, "State");
         if (UtilValidate.isEmpty(state)) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsCityStateLookupIncompleteStateElement", locale));
         }
         result.put("state", state);
@@ -748,8 +755,8 @@ public class UspsServices {
         String type = (String) context.get("serviceType");
         Locale locale = (Locale) context.get("locale");
         if (!type.matches("PriorityMail|StandardB")) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsUnsupporteServiceType", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsUnsupporteServiceType",
                     UtilMisc.toMap("serviceType", type), locale));
         }
 
@@ -765,8 +772,8 @@ public class UspsServices {
             responseDocument = sendUspsRequest(type, requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsServiceStandardSendingError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsServiceStandardSendingError",
                     UtilMisc.toMap("serviceType", type, "errorString", e.getMessage()), locale));
         }
 
@@ -774,8 +781,8 @@ public class UspsServices {
 
         String days = UtilXml.childElementValue(responseDocument.getDocumentElement(), "Days");
         if (UtilValidate.isEmpty(days)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsServiceStandardResponseIncompleteDaysElement", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsServiceStandardResponseIncompleteDaysElement",
                     UtilMisc.toMap("serviceType", type), locale));
         }
         result.put("days", days);
@@ -835,7 +842,7 @@ public class UspsServices {
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
         String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
- 
+
         Document requestDocument = createUspsRequestDocument("RateRequest", true, delegator, shipmentGatewayConfigId, resource);
 
         Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
@@ -870,21 +877,21 @@ public class UspsServices {
             responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
             Debug.logInfo(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsRateDomesticSendingError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsRateDomesticSendingError",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         Element respPackageElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "Package");
         if (respPackageElement == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsRateDomesticResponseIncompleteElementPackage", locale));
         }
 
         Element respErrorElement = UtilXml.firstChildElement(respPackageElement, "Error");
         if (respErrorElement != null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsRateDomesticResponseError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsRateDomesticResponseError",
                     UtilMisc.toMap("errorString", UtilXml.childElementValue(respErrorElement, "Description")), locale));
         }
 
@@ -892,14 +899,14 @@ public class UspsServices {
 
         String zone = UtilXml.childElementValue(respPackageElement, "Zone");
         if (UtilValidate.isEmpty(zone)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsRateDomesticResponseIncompleteElementZone", locale));
         }
         result.put("zone", zone);
 
         String postage = UtilXml.childElementValue(respPackageElement, "Postage");
         if (UtilValidate.isEmpty(postage)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsRateDomesticResponseIncompleteElementPostage", locale));
         }
         result.put("postage", postage);
@@ -927,90 +934,93 @@ public class UspsServices {
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Locale locale = (Locale) context.get("locale");
-        
+
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
         String resource = (String) shipmentGatewayConfig.get("configProps");
         if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsGatewayNotAvailable", locale));
         }
 
         try {
-            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
+            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId,
+                    "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
             if (shipmentRouteSegment == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "ProductShipmentRouteSegmentNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "ProductShipmentRouteSegmentNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
             // ensure the carrier is USPS
             if (!"USPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsNotRouteSegmentCarrier", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsNotRouteSegmentCarrier",
                         UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId), locale));
             }
 
             // get the origin address
             GenericValue originAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (originAddress == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentRouteSegmentOriginPostalAddressNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentRouteSegmentOriginPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
             if (!"USA".equals(originAddress.getString("countryGeoId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
             String originZip = originAddress.getString("postalCode");
             if (UtilValidate.isEmpty(originZip)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsRouteSegmentOriginZipCodeMissing", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsRouteSegmentOriginZipCodeMissing",
                         UtilMisc.toMap("contactMechId", originAddress.getString("contactMechId")), locale));
             }
 
             // get the destination address
             GenericValue destinationAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destinationAddress == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentRouteSegmentDestPostalAddressNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentRouteSegmentDestPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
             if (!"USA".equals(destinationAddress.getString("countryGeoId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
             String destinationZip = destinationAddress.getString("postalCode");
             if (UtilValidate.isEmpty(destinationZip)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsRouteSegmentDestinationZipCodeMissing", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsRouteSegmentDestinationZipCodeMissing",
                         UtilMisc.toMap("contactMechId", destinationAddress.getString("contactMechId")), locale));
             }
 
             // get the service type from the CarrierShipmentMethod
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String partyId = shipmentRouteSegment.getString("carrierPartyId");
-           
-            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
+
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId,
+                    "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
             if (carrierShipmentMethod == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsNoCarrierShipmentMethod", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsNoCarrierShipmentMethod",
                         UtilMisc.toMap("carrierPartyId", partyId, "shipmentMethodTypeId", shipmentMethodTypeId), locale));
             }
             String serviceType = carrierShipmentMethod.getString("carrierServiceCode");
             if (UtilValidate.isEmpty(serviceType)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsNoCarrierServiceCodeFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsNoCarrierServiceCodeFound",
                         UtilMisc.toMap("carrierPartyId", partyId, "shipmentMethodTypeId", shipmentMethodTypeId), locale));
             }
 
             // get the packages for this shipment route segment
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg",
+                    null, UtilMisc.toList("+shipmentPackageSeqId"), false);
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentPackageRouteSegsNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentPackageRouteSegsNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
@@ -1039,9 +1049,9 @@ public class UspsServices {
                 // weight elements - Pounds, Ounces
                 String weightStr = shipmentPackage.getString("weight");
                 if (UtilValidate.isEmpty(weightStr)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "FacilityShipmentUspsWeightNotFound", 
-                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"), 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "FacilityShipmentUspsWeightNotFound",
+                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"),
                                     "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId")), locale));
                 }
 
@@ -1060,22 +1070,23 @@ public class UspsServices {
                     // attempt a conversion to pounds
                     Map<String, Object> result;
                     try {
-                        result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", weight));
+                        result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId,
+                                "uomIdTo", "WT_lb", "originalValue", weight));
                         if (ServiceUtil.isError(result)) {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                         }
                     } catch (GenericServiceException ex) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                                "FacilityShipmentUspsWeightConversionError", 
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                                "FacilityShipmentUspsWeightConversionError",
                                 UtilMisc.toMap("errorString", ex.getMessage()), locale));
                     }
 
                     if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
                         weight = weight.multiply((BigDecimal) result.get("convertedValue"));
                     } else {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                                "FacilityShipmentUspsWeightUnsupported", 
-                                UtilMisc.toMap("weightUomId", weightUomId, "shipmentId", shipmentPackage.getString("shipmentId"), 
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                                "FacilityShipmentUspsWeightUnsupported",
+                                UtilMisc.toMap("weightUomId", weightUomId, "shipmentId", shipmentPackage.getString("shipmentId"),
                                         "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId"),
                                         "weightUom", "WT_lb"), locale));
                     }
@@ -1094,12 +1105,12 @@ public class UspsServices {
                 List<GenericValue> carrierShipmentBoxTypes = null;
                 carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null, false);
 
-                if (carrierShipmentBoxTypes.size() > 0) {
+                if (!carrierShipmentBoxTypes.isEmpty()) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 
-                if (carrierShipmentBoxType != null &&
-                        UtilValidate.isNotEmpty(carrierShipmentBoxType.getString("packagingTypeCode"))) {
+                if (carrierShipmentBoxType != null
+                        && UtilValidate.isNotEmpty(carrierShipmentBoxType.getString("packagingTypeCode"))) {
                     UtilXml.addChildElementValue(packageElement, "Container",
                             carrierShipmentBoxType.getString("packagingTypeCode"), requestDocument);
                 } else {
@@ -1124,28 +1135,28 @@ public class UspsServices {
                     responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
                 } catch (UspsRequestException e) {
                     Debug.logInfo(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "FacilityShipmentUspsRateDomesticSendingError", 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "FacilityShipmentUspsRateDomesticSendingError",
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
 
                 Element respPackageElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "Package");
                 if (respPackageElement == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsRateDomesticResponseIncompleteElementPackage", locale));
                 }
 
                 Element respErrorElement = UtilXml.firstChildElement(respPackageElement, "Error");
                 if (respErrorElement != null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "FacilityShipmentUspsRateDomesticResponseError", 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "FacilityShipmentUspsRateDomesticResponseError",
                             UtilMisc.toMap("errorString", UtilXml.childElementValue(respErrorElement, "Description")), locale));
                 }
 
                 // update the ShipmentPackageRouteSeg
                 String postageString = UtilXml.childElementValue(respPackageElement, "Postage");
                 if (UtilValidate.isEmpty(postageString)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsRateDomesticResponseIncompleteElementPostage", locale));
                 }
 
@@ -1177,7 +1188,7 @@ public class UspsServices {
 
         } catch (GenericEntityException gee) {
             Debug.logInfo(gee, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsRateDomesticReadingError",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
@@ -1225,59 +1236,60 @@ public class UspsServices {
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Locale locale = (Locale) context.get("locale");
-        
+
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
         String resource = (String) shipmentGatewayConfig.get("configProps");
         if (UtilValidate.isEmpty(shipmentGatewayConfigId) && UtilValidate.isEmpty(resource)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsGatewayNotAvailable", locale));
         }
 
         try {
             GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             if (shipment == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "ProductShipmentNotFoundId", locale) + shipmentId);
             }
 
-            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
+            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId,
+                    "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
             if (shipmentRouteSegment == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "ProductShipmentRouteSegmentNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "ProductShipmentRouteSegmentNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
             // ensure the carrier is USPS
             if (!"USPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsNotRouteSegmentCarrier", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsNotRouteSegmentCarrier",
                         UtilMisc.toMap("shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentId", shipmentId), locale));
             }
 
             // get the origin address
             GenericValue originAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
             if (originAddress == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentRouteSegmentOriginPostalAddressNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentRouteSegmentOriginPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
             if (!"USA".equals(originAddress.getString("countryGeoId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
-            
+
             // get the destination address
             GenericValue destinationAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
             if (destinationAddress == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentRouteSegmentDestPostalAddressNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentRouteSegmentDestPostalAddressNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
             if (!"USA".equals(destinationAddress.getString("countryGeoId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
@@ -1285,28 +1297,31 @@ public class UspsServices {
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String partyId = shipmentRouteSegment.getString("carrierPartyId");
 
-            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId, "roleTypeId",
+                    "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
             if (carrierShipmentMethod == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsNoCarrierShipmentMethod", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsNoCarrierShipmentMethod",
                         UtilMisc.toMap("carrierPartyId", partyId, "shipmentMethodTypeId", shipmentMethodTypeId), locale));
             }
             String serviceType = carrierShipmentMethod.getString("carrierServiceCode");
             if (UtilValidate.isEmpty(serviceType)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentUspsUnableDetermineServiceCode", locale));
             }
 
             // get the packages for this shipment route segment
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
+                    UtilMisc.toList("+shipmentPackageSeqId"), false);
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentPackageRouteSegsNotFound", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentPackageRouteSegsNotFound",
                         UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), locale));
             }
 
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
-                Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request", true, delegator, shipmentGatewayConfigId, resource);
+                Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request", true, delegator,
+                        shipmentGatewayConfigId, resource);
                 Element requestElement = requestDocument.getDocumentElement();
 
                 UtilXml.addChildElementValue(requestElement, "Option", "3", requestDocument);
@@ -1343,13 +1358,13 @@ public class UspsServices {
                 UtilXml.addChildElement(requestElement, "ToZip4", requestDocument);
 
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
-                
+
                 // WeightInOunces
                 String weightStr = shipmentPackage.getString("weight");
                 if (UtilValidate.isEmpty(weightStr)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "FacilityShipmentUspsWeightNotFound", 
-                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"), 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "FacilityShipmentUspsWeightNotFound",
+                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"),
                                     "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId")), locale));
                 }
 
@@ -1367,11 +1382,12 @@ public class UspsServices {
                 }
                 if (!"WT_oz".equals(weightUomId)) {
                     // attempt a conversion to pounds
-                    GenericValue uomConversion = EntityQuery.use(delegator).from("UomConversion").where("uomId", weightUomId, "uomIdTo", "WT_oz").queryOne();
+                    GenericValue uomConversion = EntityQuery.use(delegator).from("UomConversion").where("uomId", weightUomId,
+                            "uomIdTo", "WT_oz").queryOne();
                     if (uomConversion == null || UtilValidate.isEmpty(uomConversion.getString("conversionFactor"))) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                                "FacilityShipmentUspsWeightUnsupported", 
-                                UtilMisc.toMap("weightUomId", weightUomId, "shipmentId", shipmentPackage.getString("shipmentId"), 
+                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                                "FacilityShipmentUspsWeightUnsupported",
+                                UtilMisc.toMap("weightUomId", weightUomId, "shipmentId", shipmentPackage.getString("shipmentId"),
                                         "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId"),
                                         "weightUom", "WT_oz"), locale));
                     }
@@ -1387,33 +1403,34 @@ public class UspsServices {
 
                 Document responseDocument = null;
                 try {
-                    responseDocument = sendUspsRequest("DeliveryConfirmationV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
+                    responseDocument = sendUspsRequest("DeliveryConfirmationV2", requestDocument, delegator, shipmentGatewayConfigId,
+                            resource, locale);
                 } catch (UspsRequestException e) {
                     Debug.logInfo(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "FacilityShipmentUspsDeliveryConfirmationSendingError", 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "FacilityShipmentUspsDeliveryConfirmationSendingError",
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
                 Element responseElement = responseDocument.getDocumentElement();
 
                 Element respErrorElement = UtilXml.firstChildElement(responseElement, "Error");
                 if (respErrorElement != null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "FacilityShipmentUspsDeliveryConfirmationResponseError", 
-                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"), 
-                                    "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId"), 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "FacilityShipmentUspsDeliveryConfirmationResponseError",
+                            UtilMisc.toMap("shipmentId", shipmentPackage.getString("shipmentId"),
+                                    "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId"),
                                     "errorString", UtilXml.childElementValue(respErrorElement, "Description")), locale));
                 }
 
                 String labelImageString = UtilXml.childElementValue(responseElement, "DeliveryConfirmationLabel");
                 if (UtilValidate.isEmpty(labelImageString)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsDeliveryConfirmationResponseIncompleteElementDeliveryConfirmationLabel", locale));
                 }
                 shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(StandardCharsets.UTF_8)));
                 String trackingCode = UtilXml.childElementValue(responseElement, "DeliveryConfirmationNumber");
                 if (UtilValidate.isEmpty(trackingCode)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsDeliveryConfirmationResponsenIncompleteElementDeliveryConfirmationNumber", locale));
                 }
                 shipmentPackageRouteSeg.set("trackingCode", trackingCode);
@@ -1422,8 +1439,8 @@ public class UspsServices {
 
         } catch (GenericEntityException gee) {
             Debug.logInfo(gee, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsDeliveryConfirmationReadingError", 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "FacilityShipmentUspsDeliveryConfirmationReadingError",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
 
@@ -1440,16 +1457,18 @@ public class UspsServices {
             String shipmentId = (String) context.get("shipmentId");
             String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
 
-            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
+            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId,
+                    "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
 
-            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg",
+                    null, UtilMisc.toList("+shipmentPackageSeqId"), false);
 
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
                 byte[] labelImageBytes = shipmentPackageRouteSeg.getBytes("labelImage");
 
-                String outFileName = "UspsLabelImage" + shipmentRouteSegment.getString("shipmentId") + "_" +
-                        shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" +
-                        shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".gif";
+                String outFileName = "UspsLabelImage" + shipmentRouteSegment.getString("shipmentId") + "_"
+                        + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_"
+                        + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".gif";
 
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(labelImageBytes);
@@ -1508,12 +1527,13 @@ public class UspsServices {
             Debug.logError(e, MODULE);
         }
         if (originAddress == null || originTelecomNumber == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsPriorityMailLabelOriginAddressMissing", locale));
         }
 
         // Origin Info
-        // USPS wants a separate first name and last, best we can do is split the string on the white space, if that doesn't work then default to putting the attnName in both fields
+        // USPS wants a separate first name and last, best we can do is split the string on the white space, if that doesn't work then
+        // default to putting the attnName in both fields
         String fromAttnName = originAddress.getString("attnName");
         String fromFirstName = StringUtils.defaultIfEmpty(StringUtils.substringBefore(fromAttnName, " "), fromAttnName);
         String fromLastName = StringUtils.defaultIfEmpty(StringUtils.substringAfter(fromAttnName, " "), fromAttnName);
@@ -1543,20 +1563,21 @@ public class UspsServices {
         UtilXml.addChildElementValue(rootElement, "ToPostalCode", destinationAddress.getString("postalCode"), requestDocument);
         // TODO: Figure out how to answer this question accurately
         UtilXml.addChildElementValue(rootElement, "ToPOBoxFlag", "N", requestDocument);
-        String toPhoneNumber = destinationTelecomNumber.getString("countryCode") + destinationTelecomNumber.getString("areaCode") + destinationTelecomNumber.getString("contactNumber");
+        String toPhoneNumber = destinationTelecomNumber.getString("countryCode") + destinationTelecomNumber.getString("areaCode")
+                + destinationTelecomNumber.getString("contactNumber");
         UtilXml.addChildElementValue(rootElement, "ToPhone", toPhoneNumber, requestDocument);
         UtilXml.addChildElementValue(rootElement, "NonDeliveryOption", "RETURN", requestDocument);
 
         for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
             Document packageDocument = (Document) requestDocument.cloneNode(true);
-            // This is our reference and can be whatever we want.  For lack of a better alternative we'll use shipmentId:shipmentPackageSeqId:shipmentRouteSegmentId
+            // This is our reference and can be whatever we want.  For lack of a better alternative we'll use
+            // shipmentId:shipmentPackageSeqId:shipmentRouteSegmentId
             String fromCustomsReference;
             fromCustomsReference = StringUtils.join(
                     UtilMisc.toList(
                             shipmentRouteSegment.get("shipmentId"),
                             shipmentPackageRouteSeg.get("shipmentPackageSeqId"),
-                            shipmentRouteSegment.get("shipmentRouteSegementId")
-                   ), ':');
+                            shipmentRouteSegment.get("shipmentRouteSegementId")), ':');
             UtilXml.addChildElementValue(rootElement, "FromCustomsReference", fromCustomsReference, packageDocument);
             // Determine the container type for this package
             String container = "VARIABLE";
@@ -1568,7 +1589,8 @@ public class UspsServices {
                 shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, null, false);
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
                 if (shipmentBoxType != null) {
-                    GenericValue carrierShipmentBoxType = EntityUtil.getFirst(shipmentBoxType.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "USPS"), null, false));
+                    GenericValue carrierShipmentBoxType = EntityUtil.getFirst(shipmentBoxType.getRelated("CarrierShipmentBoxType",
+                            UtilMisc.toMap("partyId", "USPS"), null, false));
                     if (carrierShipmentBoxType != null) {
                         packageTypeCode = carrierShipmentBoxType.getString("packageTypeCode");
                         // Supported type codes
@@ -1619,8 +1641,10 @@ public class UspsServices {
                 }
 
                 UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
-                UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity").setScale(0, RoundingMode.CEILING).toPlainString(), packageDocument);
-                String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2, RoundingMode.HALF_UP).toPlainString();
+                UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity")
+                        .setScale(0, RoundingMode.CEILING).toPlainString(), packageDocument);
+                String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2,
+                        RoundingMode.HALF_UP).toPlainString();
                 UtilXml.addChildElementValue(itemDetail, "Value", packageContentValue, packageDocument);
                 BigDecimal productWeight = ProductWorker.getProductWeight(product, "WT_lbs", delegator, dispatcher);
                 Integer[] productPoundsOunces = convertPoundsToPoundsOunces(productWeight);
@@ -1637,8 +1661,8 @@ public class UspsServices {
                 responseDocument = sendUspsRequest(api, requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
             } catch (UspsRequestException e) {
                 Debug.logInfo(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentUspsPriorityMailLabelSendingError", 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "FacilityShipmentUspsPriorityMailLabelSendingError",
                         UtilMisc.toMap("errorString", e.getMessage()), locale));
             }
             Element responseElement = responseDocument.getDocumentElement();
@@ -1647,13 +1671,13 @@ public class UspsServices {
 
             String labelImageString = UtilXml.childElementValue(responseElement, "LabelImage");
             if (UtilValidate.isEmpty(labelImageString)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementLabelImage", locale));
             }
             shipmentPackageRouteSeg.setBytes("labelImage", Base64.getMimeDecoder().decode(labelImageString.getBytes(StandardCharsets.UTF_8)));
             String trackingCode = UtilXml.childElementValue(responseElement, "BarcodeNumber");
             if (UtilValidate.isEmpty(trackingCode)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementBarcodeNumber", locale));
             }
             shipmentPackageRouteSeg.set("trackingCode", trackingCode);
@@ -1667,13 +1691,14 @@ public class UspsServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Document createUspsRequestDocument(String rootElement, boolean passwordRequired, Delegator delegator, String shipmentGatewayConfigId, String resource) {
+    private static Document createUspsRequestDocument(String rootElement, boolean passwordRequired, Delegator delegator,
+                                                      String shipmentGatewayConfigId, String resource) {
         Document requestDocument = UtilXml.makeEmptyXmlDocument(rootElement);
         Element requestElement = requestDocument.getDocumentElement();
-        requestElement.setAttribute("USERID", getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, 
+        requestElement.setAttribute("USERID", getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId,
                 "accessUserId", resource, "shipment.usps.access.userid", ""));
         if (passwordRequired) {
-            requestElement.setAttribute("PASSWORD", getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, 
+            requestElement.setAttribute("PASSWORD", getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId,
                     "accessPassword", resource, "shipment.usps.access.password", ""));
         }
         return requestDocument;
@@ -1684,12 +1709,13 @@ public class UspsServices {
         String conUrl = null;
         List<String> labelRequestTypes = UtilMisc.toList("PriorityMailIntl", "PriorityMailIntlCertify");
         if (labelRequestTypes.contains(requestType)) {
-            conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrlLabels", resource, "shipment.usps.connect.url.labels");
+            conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrlLabels", resource,
+                    "shipment.usps.connect.url.labels");
         } else {
             conUrl = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", resource, "shipment.usps.connect.url");
         }
         if (UtilValidate.isEmpty(conUrl)) {
-            throw new UspsRequestException(UtilProperties.getMessage(resourceError, 
+            throw new UspsRequestException(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsConnectUrlIncomplete", locale));
         }
 
@@ -1699,7 +1725,7 @@ public class UspsServices {
             UtilXml.writeXmlDocument(requestDocument, os, "UTF-8", true, false, 0);
         } catch (TransformerException e) {
             throw new UspsRequestException(
-                    UtilProperties.getMessage(resourceError, 
+                    UtilProperties.getMessage(RES_ERROR,
                             "FacilityShipmentUspsSerializingError",
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -1708,7 +1734,7 @@ public class UspsServices {
 
         Debug.logInfo("USPS XML request string: " + xmlString, MODULE);
 
-        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout", 
+        String timeOutStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectTimeout",
                 resource, "shipment.usps.connect.timeout", "60");
         int timeout = 60;
         try {
@@ -1726,7 +1752,7 @@ public class UspsServices {
         try {
             responseString = http.get();
         } catch (HttpClientException e) {
-            throw new UspsRequestException(UtilProperties.getMessage(resourceError, 
+            throw new UspsRequestException(UtilProperties.getMessage(RES_ERROR,
                     "FacilityShipmentUspsConnectionProblem",
                     UtilMisc.toMap("errorString", e), locale));
         }
@@ -1741,7 +1767,8 @@ public class UspsServices {
         try {
             responseDocument = UtilXml.readXmlDocument(responseString, false);
         } catch (Exception e) {
-            throw new UspsRequestException(UtilProperties.getMessage(resourceError, "FacilityShipmentUspsResponseError", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            throw new UspsRequestException(UtilProperties.getMessage(RES_ERROR, "FacilityShipmentUspsResponseError",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         // If a top-level error document is returned, throw exception
@@ -1762,16 +1789,18 @@ public class UspsServices {
         Integer[] poundsOunces = new Integer[2];
         poundsOunces[0] = Integer.valueOf(decimalPounds.setScale(0, RoundingMode.FLOOR).toPlainString());
         // (weight % 1) * 16 rounded up to nearest whole number
-        poundsOunces[1] = Integer.valueOf(decimalPounds.remainder(BigDecimal.ONE).multiply(new BigDecimal("16")).setScale(0, RoundingMode.CEILING).toPlainString());
+        poundsOunces[1] = Integer.valueOf(decimalPounds.remainder(BigDecimal.ONE).multiply(new BigDecimal("16"))
+                .setScale(0, RoundingMode.CEILING).toPlainString());
         return poundsOunces;
     }
-    
-    private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName, 
-            String resource, String parameterName) {
+
+    private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String
+            shipmentGatewayConfigParameterName, String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
-                GenericValue usps = EntityQuery.use(delegator).from("ShipmentGatewayUsps").where("shipmentGatewayConfigId", shipmentGatewayConfigId).queryOne();
+                GenericValue usps = EntityQuery.use(delegator).from("ShipmentGatewayUsps").where("shipmentGatewayConfigId",
+                        shipmentGatewayConfigId).queryOne();
                 if (usps != null) {
                     Object uspsField = usps.get(shipmentGatewayConfigParameterName);
                     if (uspsField != null) {
@@ -1789,10 +1818,11 @@ public class UspsServices {
         }
         return returnValue;
     }
-        
-    private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String shipmentGatewayConfigParameterName, 
-            String resource, String parameterName, String defaultValue) {
-        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName, resource, parameterName);
+
+    private static String getShipmentGatewayConfigValue(Delegator delegator, String shipmentGatewayConfigId, String
+            shipmentGatewayConfigParameterName, String resource, String parameterName, String defaultValue) {
+        String returnValue = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, shipmentGatewayConfigParameterName,
+                resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

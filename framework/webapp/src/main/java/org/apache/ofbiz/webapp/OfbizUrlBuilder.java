@@ -41,11 +41,10 @@ import org.xml.sax.SAXException;
  */
 public final class OfbizUrlBuilder {
 
-    public static final String MODULE = OfbizUrlBuilder.class.getName();
+    private static final String MODULE = OfbizUrlBuilder.class.getName();
 
     /**
      * Returns an <code>OfbizUrlBuilder</code> instance.
-     * 
      * @param request
      * @throws GenericEntityException
      * @throws WebAppConfigurationException
@@ -67,7 +66,6 @@ public final class OfbizUrlBuilder {
     /**
      * Returns an <code>OfbizUrlBuilder</code> instance. Use this method when you
      * don't have a <code>HttpServletRequest</code> object - like in scheduled jobs.
-     * 
      * @param webAppInfo Optional - if <code>null</code>, the builder can only build the host part,
      * and that will be based only on the settings in <code>url.properties</code> (the WebSite
      * entity will be ignored).
@@ -77,7 +75,8 @@ public final class OfbizUrlBuilder {
      * @throws SAXException
      * @throws GenericEntityException
      */
-    public static OfbizUrlBuilder from(WebappInfo webAppInfo, Delegator delegator) throws WebAppConfigurationException, IOException, SAXException, GenericEntityException {
+    public static OfbizUrlBuilder from(WebappInfo webAppInfo, Delegator delegator) throws WebAppConfigurationException, IOException, SAXException,
+                                                                                          GenericEntityException {
         WebSiteProperties webSiteProps = null;
         ControllerConfig config = null;
         String servletPath = null;
@@ -111,7 +110,6 @@ public final class OfbizUrlBuilder {
 
     /**
      * Builds a full URL - including scheme, host, servlet path and resource.
-     * 
      * @param buffer
      * @param url
      * @param useSSL Default value to use - will be replaced by request-map setting
@@ -125,10 +123,9 @@ public final class OfbizUrlBuilder {
         buildPathPart(buffer, url);
         return makeSecure;
     }
-    
+
     /**
      * Builds a partial URL - including the scheme and host, but not the servlet path or resource.
-     * 
      * @param buffer
      * @param url
      * @param useSSL Default value to use - will be replaced by request-map setting
@@ -150,7 +147,7 @@ public final class OfbizUrlBuilder {
             requestMap = config.getRequestMapMap().get(requestMapUri);
         }
         if (!makeSecure && requestMap != null) { // if the request has security="true" then use it
-            makeSecure = requestMap.securityHttps;
+            makeSecure = requestMap.isSecurityHttps();
         }
         makeSecure = webSiteProps.getEnableHttps() & makeSecure;
         if (makeSecure) {
@@ -181,7 +178,6 @@ public final class OfbizUrlBuilder {
 
     /**
      * Builds a partial URL - including the servlet path and resource, but not the scheme or host.
-     * 
      * @param buffer
      * @param url
      * @throws WebAppConfigurationException

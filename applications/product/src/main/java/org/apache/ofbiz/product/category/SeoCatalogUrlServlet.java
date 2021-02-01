@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 @SuppressWarnings("serial")
 public class SeoCatalogUrlServlet extends HttpServlet {
 
-    public static final String MODULE = SeoCatalogUrlServlet.class.getName();
+    private static final String MODULE = SeoCatalogUrlServlet.class.getName();
     public static final String CATALOG_URL_MOUNT_POINT = "products";
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
@@ -72,7 +72,8 @@ public class SeoCatalogUrlServlet extends HttpServlet {
         String productId = null;
         try {
             String lastPathElement = pathElements.get(pathElements.size() - 1);
-            if (lastPathElement.startsWith("p_") || EntityQuery.use(delegator).from("Product").where("productId", lastPathElement).cache().queryOne() != null) {
+            if (lastPathElement.startsWith("p_")
+                    || EntityQuery.use(delegator).from("Product").where("productId", lastPathElement).cache().queryOne() != null) {
                 if (lastPathElement.startsWith("p_")) {
                     productId = lastPathElement.substring(2);
                 } else {
@@ -130,7 +131,8 @@ public class SeoCatalogUrlServlet extends HttpServlet {
             request.setAttribute("productId", productId);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/" + (UtilValidate.isEmpty(SeoControlServlet.getControlServlet()) ? "" : (SeoControlServlet.getControlServlet() + "/"))
+        RequestDispatcher rd = request.getRequestDispatcher("/"
+                + (UtilValidate.isEmpty(SeoControlServlet.getControlServlet()) ? "" : (SeoControlServlet.getControlServlet() + "/"))
                 + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
         rd.forward(request, response);
     }
@@ -162,7 +164,8 @@ public class SeoCatalogUrlServlet extends HttpServlet {
         return urlBuilder.toString();
     }
 
-    public static String makeCatalogUrl(String contextPath, List<String> crumb, String productId, String currentCategoryId, String previousCategoryId) {
+    public static String makeCatalogUrl(String contextPath, List<String> crumb, String productId,
+                                        String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(contextPath);
         if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {

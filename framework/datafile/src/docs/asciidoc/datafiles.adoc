@@ -1,0 +1,111 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= The OFBiz Datafiles
+
+== Intoduction
+There is a data import tool in OFBiz called the DataFile tool. +
+It uses XML files that describe flat file formats (including character delimited, fixed width, etc) and parses the flat files
+based on those definitions. So, by design it is somewhat like the Entity Engine.
+
+It uses a generic object to represent a row in the flat file. +
+It includes features like a line type code for each line and can support hierarchical flat files
+(ie where parent/child relationships are implied by sub-records).
+
+The code is in the ofbiz/framework/datafile directory, and there is an XSD there to describe how the data file definition XML
+file should look.
+
+The DataFile has a web page in WebTools to parse data files and generate entity xml files (that can be imported in OFBiz)
+from them, and to do in/outtesting.
+
+both the import of fixed width flat files and character delimited files are implemented.
+
+== Definitions
+* File : this is an xml file that contains one or more "Data File Definition"s;
+  ** the grammar of the file is defined in framework/datafile/dtd/datafile.xsd
+* Data file Definition : the definition of a data file structure (e.g. names/types of the fields/columns
+  in a "Data File";
+  ** the same "Data File" could have more than one "Data File Definition"s (e.g. the definitions could consider
+     different subsets of all the fields available in the data file).
+* Data file : the text file that contains all the data (a fixed width or a character delimited text file)
+
+== How to use the "Work With Data Files" screen in the Webtools application
+_Prerequisites_: a definition file (containing the fields' definition of the data file) and a data file
+(containing the data you want to parse/import) should be available in the OFBiz server.Steps:
+
+. connect to the Webtools application
+. go to the "Work With Data Files" screen
+. enter the path to the your definition file in the "Definition Filename or URL" input field
+. click on the submit button>
+. the "Data File Definition Name" input field will be changed into a drop down box containing all the definitions
+  available in the definition file
+. select the definition you want to use from the drop down box>
+. enter the path to the your data file in the "Data Filename or URL" input field
+. if you want to generate an entity xml file that can be later imported in OFBiz,  enter a path for it in the
+  "Save to entity xml file:
+. input field and click on the submit button; the file will be created +
+  (see the paragraph "Tips to create Entity Xml Files" for more details)
+
+[source]
+<field name="productId" type="String">
+            </field>
+
+== Examples
+
+=== Sample fixed width CSV file posreport.csv to be imported:
+.An example of fixed width flat file import.
+[source,csv]
+
+021196033702    ,5031BB GLITTER GLUE PENS BRIGH  ,1           ,5031BB      ,       1,     299,
+021196043121    ,BB4312 WONDERFOAM ASSORTED      ,1           ,BB4312      ,       1,     280,
+021196055025    ,9905BB  PLUMAGE MULTICOLOURED   ,1           ,9905BB      ,       4,     396,
+
+=== Sample xml definition file for importing select columns
+.Sample xml definition file for importing select columns posschema.xml:
+[source,xml]
+    <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <data-file name="posreport" separator-style="fixed-length" type-code="text">
+            <record name="tillentry" limit="many">
+                <field name="tillCode" type="String" length="16" position="0"></field>
+                <field name="name" type="String" length="32" position="17"></field>
+                <field name="prodCode" type="String" length="12" position="63"></field>
+                <field name="quantity" type="String" length="8" position="76"></field>
+                <field name="totalPrice" type="String" length="8" position="85"></field>
+            </record>
+        </data-file>
+    </data-files>
+
+.Another example reading fixed record little endian binary files
+[source, xml]
+    <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
+            <record name="stockdataitem" limit="many">
+                <field name="barcode" type="NullTerminatedString" length="12" position="0"></field>
+                <field name="prodCode" type="NullTerminatedString" length="12" position="68"></field>
+                <field name="price" type="LEInteger" length="4" position="80"></field>
+                <field name="name" type="NullTerminatedString" length="30" position="16"></field>
+            </record>
+        </data-file>
+    </data-files>
+
+=== Procedure:
+In the interface enter something like:
+
+. Definition Filename or URL: posschema.xml
+. Data File Definition Name: posreport
+. Data Filename or URL: posreport.csv

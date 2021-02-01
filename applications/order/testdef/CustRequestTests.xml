@@ -21,11 +21,14 @@ under the License.
 <test-suite suite-name="custrequesttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
-        
+
+    <!-- Required for proper cust request status -->
+    <test-case case-name="loadQuoteTestData">
+        <entity-xml action="load" entity-xml-url="component://order/testdef/data/QuoteTestData.xml"/>
+    </test-case>
     <test-case case-name="custrequest-tests">
         <simple-method-test location="component://order/minilang/test/CustRequestTests.xml"/>
     </test-case>
-
     <test-case case-name="test-cust-request-permission-check">
         <junit-test-suite class-name="org.apache.ofbiz.order.TestCustRequestPermissionCheck"/>
     </test-case>

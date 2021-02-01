@@ -22,8 +22,6 @@ import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-module = "EditProductConfigItemContent.groovy"
-
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = "configitems/${configItemId}"
@@ -93,7 +91,16 @@ if (fileType) {
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
-    uploadObject.doUpload(request)
+    if (!uploadObject.doUpload(request, "Image")) {
+        try {
+            (new File(imageServerPath + "/" + filePathPrefix, defaultFileName)).delete()
+        } catch (Exception e) {
+            logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
+        }
+        String errorMessage = UtilProperties.getMessage("SecurityUiLabels","SupportedImageFormats", locale)
+        logError(errorMessage)
+        return error(errorMessage)
+    }
 
     clientFileName = uploadObject.getFilename()
     if (clientFileName) {
@@ -116,11 +123,11 @@ if (fileType) {
             try {
                 file1.delete()
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            logError(e, module)
         }
 
         if (imageUrl) {

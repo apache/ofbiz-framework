@@ -64,7 +64,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="userLoginId" title="${uiLabelMap.ProductReviewBy}" ><display/></field>
         <field name="productRating" ignore-when="${statusId == 'PRR_DELETED'}"><text/></field>
-        <field name="productRating" ignore-when="${statusId != 'PRR_DELETED'}"><text disabled="true"/></field>
+        <field name="productRating" ignore-when="${statusId != 'PRR_DELETED'}" disabled="true"><text/></field>
         <field name="productReview" ignore-when="${statusId == 'PRR_DELETED'}"><textarea/></field>
         <field name="productReview" ignore-when="${statusId != 'PRR_DELETED'}"><textarea read-only="true"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="${statusId != 'PRR_DELETED'}"><submit button-type="button"/></field>

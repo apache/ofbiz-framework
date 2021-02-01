@@ -25,29 +25,27 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class InventoryItemTransferTest extends OFBizTestCase {
 
-    protected GenericValue userLogin = null;
-    static String inventoryTransferId = null;
-    protected BigDecimal transferQty = BigDecimal.ONE;
+    private static String inventoryTransferId = null;
+    private BigDecimal transferQty = BigDecimal.ONE;
 
     public InventoryItemTransferTest(String name) {
         super(name);
     }
 
     @Override
-    protected void setUp() throws Exception {
-        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-    }
-
-    @Override
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test create inventory items transfer.
+     * @throws Exception the exception
+     */
     public void testCreateInventoryItemsTransfer() throws Exception {
+        GenericValue userLogin = getUserLogin("system");
         // create
         Map<String, Object> ctx = new HashMap<>();
         String inventoryItemId = "9005";
@@ -58,7 +56,7 @@ public class InventoryItemTransferTest extends OFBizTestCase {
         ctx.put("receiveDate", UtilDateTime.nowTimestamp());
         ctx.put("xferQty", transferQty);
         ctx.put("userLogin", userLogin);
-        Map<String, Object> resp = dispatcher.runSync("createInventoryTransfer", ctx);
+        Map<String, Object> resp = getDispatcher().runSync("createInventoryTransfer", ctx);
         setInventoryTransferId((String) resp.get("inventoryTransferId"));
         assertNotNull(inventoryTransferId);
 
@@ -68,7 +66,7 @@ public class InventoryItemTransferTest extends OFBizTestCase {
         ctx.put("inventoryItemId", inventoryItemId);
         ctx.put("statusId", "IXF_COMPLETE");
         ctx.put("userLogin", userLogin);
-        resp = dispatcher.runSync("updateInventoryTransfer", ctx);
+        resp = getDispatcher().runSync("updateInventoryTransfer", ctx);
         String respMsg = (String) resp.get("responseMessage");
         assertNotSame("error", respMsg);
     }

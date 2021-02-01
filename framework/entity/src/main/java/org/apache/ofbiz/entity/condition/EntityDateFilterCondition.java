@@ -43,10 +43,8 @@ public final class EntityDateFilterCondition implements EntityCondition {
 
     /**
      * Constructs a condition expression to filter rows that are currently valid.
-     *
      * This means that we remove rows whose from/thru date range does not match the current date.
      * The <i>current date</i> is the one computed when the SQL query is generated.
-     *
      * @param fromDateName the name of the field corresponding to the from date
      * @param thruDateName the name of the field corresponding to the thru date
      */
@@ -109,7 +107,6 @@ public final class EntityDateFilterCondition implements EntityCondition {
 
     /**
      * Constructs a condition expression to filter rows that are valid now.
-     *
      * @return a condition expression filtering rows that are currently valid
      */
     private EntityCondition makeCondition() {
@@ -118,9 +115,7 @@ public final class EntityDateFilterCondition implements EntityCondition {
 
     /**
      * Constructs a condition expression to filter rows that are valid at a given time stamp.
-     *
      * This means that we remove rows whose from/thru date range does not match the time stamp.
-     *
      * @param moment the time stamp used to check validity
      * @param fromDateName the name of the field corresponding to the from date
      * @param thruDateName the name of the field corresponding to the thru date
@@ -147,7 +142,7 @@ public final class EntityDateFilterCondition implements EntityCondition {
      * - fromDate is null and thruDate is equal to or after rangeStart
      * - thruDate is null and fromDate is before rangeEnd
      * - fromDate is null and thruDate is null
-     *
+     * - fromDate is before rangeStart and thruDate is after rangeEnd
      * @param rangeStart    The start of the range to filter against
      * @param rangeEnd      The end of the range to filter against
      * @param fromDateName  The name of the field containing the entity's "fromDate"
@@ -169,6 +164,9 @@ public final class EntityDateFilterCondition implements EntityCondition {
                         EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)),
                 EntityCondition.makeCondition(
                         EntityCondition.makeCondition(thruDateName, null),
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)));
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, rangeStart),
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeEnd)));
     }
 }

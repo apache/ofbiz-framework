@@ -38,7 +38,8 @@ import org.apache.ofbiz.widget.model.ModelFormAction.CallParentActions;
  */
 public class XmlWidgetActionVisitor extends XmlAbstractWidgetVisitor implements ModelActionVisitor {
 
-    public static final String MODULE = XmlWidgetActionVisitor.class.getName();
+    private static final String MODULE = XmlWidgetActionVisitor.class.getName();
+    private final Appendable writer = getWriter();
 
     public XmlWidgetActionVisitor(Appendable writer) {
         super(writer);

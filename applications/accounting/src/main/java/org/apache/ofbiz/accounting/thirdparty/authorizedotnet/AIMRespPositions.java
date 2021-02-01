@@ -36,16 +36,10 @@ public class AIMRespPositions extends AuthorizeResponse.RespPositions {
         positions.put(AuthorizeResponse.TRANSACTION_ID, 7);
         positions.put(AuthorizeResponse.AMOUNT, 10);
     }
-    
     @Override
     public int getPosition(String name) {
-        if (positions.containsKey(name)) {
-            return positions.get(name);
-        } else {
-            return -1;
-        }              
+        return positions.getOrDefault(name, -1);
     }
-    
     @Override
     public String getApprovalString() {
         return "1";

@@ -87,6 +87,7 @@ under the License.
     <screen name="FindAgreement">
         <section>
             <actions>
+                <set field="helpAnchor" value="_help_for_find_agreements"/>
                 <set field="titleProperty" value="PageTitleFindAgreement"/>
             </actions>
             <widgets>
@@ -126,9 +127,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreement"/>
                 <set field="tabButtonItem" value="AgreementMain"/>
+                <set field="helpAnchor" value="_help_for_edit_agreement"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
-                
+
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -150,6 +152,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListAgreementItems"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="helpAnchor" value="_help_agreement_items_list"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-and entity-name="AgreementItem" list="agreementItems">
@@ -178,6 +181,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreementItem"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="helpAnchor" value="_help_for_edit_agreement_item"/>
                 <set field="buttonBarItem" value="EditAgreementItem"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
@@ -208,6 +212,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementTerm"/>
                 <set field="tabButtonItem" value="AgreementTerms"/>
                 <set field="buttonBarItem" value="EditAgreementTerms"/>
+                <set field="helpAnchor" value="_help_for_edit_agreement_terms"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
             </actions>
@@ -230,6 +235,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleAddAgreementContent"/>
                 <set field="tabButtonItem" value="AgreementContents"/>
                 <set field="buttonBarItem" value="EditAgreementContents"/>
+                <set field="helpAnchor" value="_help_for_agreement_content"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-and entity-name="AgreementContentAndInfo" list="contentDataResourceList">
@@ -257,6 +263,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementPromoAppls"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
+                <set field="helpAnchor" value="_help_for_agreements_item_promotions"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
@@ -319,6 +326,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListAgreementItemTerms"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="helpAnchor" value="_help_for_agreements_item_terms"/>
                 <set field="buttonBarItem" value="ListAgreementItemTerms"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
@@ -352,6 +360,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementItemTerm"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemTerms"/>
+                <set field="helpAnchor" value="_help_edit_agreement_item_term"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="agreementTermId" from-field="parameters.agreementTermId"/>
@@ -383,6 +392,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemProducts"/>
+                <set field="helpAnchor" value="_help_for_agreement_item_products"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
@@ -517,6 +527,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="helpAnchor" value="_help_for_agreement_item_products"/>
 
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
@@ -582,6 +593,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemSupplierProducts"/>
+                <set field="helpAnchor" value="_help_for_list_agreement_item_supplier_products"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="SupplierProduct" list="agreementProducts">
@@ -652,6 +664,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemSupplierProducts"/>
+                <set field="helpAnchor" value="_help_for_list_agreement_item_supplier_products"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="productId" from-field="parameters.productId"/>
@@ -702,6 +715,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementItemParties"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemParties"/>
+                <set field="helpAnchor" value="_the_for_agreement_items_parties_help_screen"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementPartyApplic" list="agreementParties">
@@ -733,6 +747,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementItemParty"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemParties"/>
+                <set field="helpAnchor" value="_help_edit_agreement_item_party"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -764,6 +779,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementGeographicalApplic"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementGeographicalApplic"/>
+                <set field="helpAnchor" value="_help_for_list_agreement_geo"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementGeographicalApplic" list="agreementGeographicalApplics">
@@ -795,6 +811,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementGeographicalApplic"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementGeographicalApplic"/>
+                <set field="helpAnchor" value="_help_for_list_agreement_geo"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="geoId" from-field="parameters.geoId"/>
@@ -825,6 +842,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreementWorkEffortApplics"/>
                 <set field="tabButtonItem" value="AgreementWorkEffortApplics"/>
+                <set field="helpAnchor" value="_help_for_agreement_work_effort_applications"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
             </actions>
@@ -845,6 +863,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindAgreementRoles"/>
                 <set field="tabButtonItem" value="AgreementRoles"/>
+                <set field="helpAnchor" value="_help_for_edit_agreements_roles"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>

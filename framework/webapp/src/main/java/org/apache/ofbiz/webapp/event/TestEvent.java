@@ -29,7 +29,7 @@ import org.apache.ofbiz.base.util.HttpClient;
  */
 public class TestEvent {
 
-    public static final String MODULE = TestEvent.class.getName();
+    private static final String MODULE = TestEvent.class.getName();
 
     public static String test(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("MESSAGE", "Test Event Ran Fine.");

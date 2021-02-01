@@ -49,7 +49,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class RenderContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = RenderContentTransform.class.getName();
+    private static final String MODULE = RenderContentTransform.class.getName();
 
     @Override
     @SuppressWarnings("unchecked")
@@ -61,8 +61,8 @@ public class RenderContentTransform implements TemplateTransformModel {
 
         final MapStack<String> templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
         templateRoot.push(args);
-        final String xmlEscape =  (String)templateRoot.get("xmlEscape");
-        final String thisContentId = (String)templateRoot.get("contentId");
+        final String xmlEscape = (String) templateRoot.get("xmlEscape");
+        final String thisContentId = (String) templateRoot.get("contentId");
 
         return new Writer(out) {
 
@@ -90,7 +90,7 @@ public class RenderContentTransform implements TemplateTransformModel {
                     locale = UtilMisc.ensureLocale(localeObject);
                 }
 
-                String editRequestName = (String)templateRoot.get("editRequestName");
+                String editRequestName = (String) templateRoot.get("editRequestName");
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
                     String editStyle = getEditStyle();
@@ -100,7 +100,7 @@ public class RenderContentTransform implements TemplateTransformModel {
                 try {
                     String txt = null;
 
-                    String mapKey = (String)templateRoot.get("mapKey");
+                    String mapKey = (String) templateRoot.get("mapKey");
                     if (UtilValidate.isEmpty(mapKey)) {
                         txt = ContentWorker.renderContentAsText(dispatcher, thisContentId, templateRoot, locale, mimeTypeId, true);
                     } else {
@@ -145,7 +145,7 @@ public class RenderContentTransform implements TemplateTransformModel {
             }
 
             public String getEditStyle() {
-                String editStyle = (String)templateRoot.get("editStyle");
+                String editStyle = (String) templateRoot.get("editStyle");
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = UtilProperties.getPropertyValue("content", "defaultEditStyle");
                 }

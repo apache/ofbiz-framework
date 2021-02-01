@@ -30,11 +30,28 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  */
 public abstract class AbstractJob implements Job {
 
-    public static final String MODULE = AbstractJob.class.getName();
+    private static final String MODULE = AbstractJob.class.getName();
 
     private final String jobId;
     private final String jobName;
-    protected State currentState = State.CREATED;
+    private State currentState = State.CREATED;
+
+    /**
+     * Gets current state.
+     * @return the current state
+     */
+    public State getCurrentState() {
+        return currentState;
+    }
+
+    /**
+     * Sets current state.
+     * @param currentState the current state
+     */
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+    }
+
     private long elapsedTime = 0;
     private final Date startTime = new Date();
 
@@ -116,7 +133,7 @@ public abstract class AbstractJob implements Job {
         return (Date) startTime.clone();
     }
 
-    /* 
+    /*
      * Returns JobPriority.NORMAL, the default setting
      */
     @Override

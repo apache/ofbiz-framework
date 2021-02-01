@@ -27,7 +27,7 @@ type = -1
 try {
     type = Integer.valueOf(typeStr)
 } catch (NumberFormatException nfe) {
-    Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "StatBinsHistory.groovy")
+    logError(nfe, "Caught an exception : " + nfe.toString())
     errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
 }
 

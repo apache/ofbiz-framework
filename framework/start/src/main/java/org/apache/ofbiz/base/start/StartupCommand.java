@@ -32,12 +32,12 @@ import java.util.Map;
  */
 public final class StartupCommand {
     private String name;
-    private Map<String,String> properties;
+    private Map<String, String> properties;
 
     public String getName() {
         return name;
     }
-    public Map<String,String> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
@@ -51,15 +51,28 @@ public final class StartupCommand {
         private final String name;
 
         //optional parameters
-        private Map<String,String> properties;
+        private Map<String, String> properties;
 
         public Builder(String name) {
             this.name = name;
         }
-        public Builder properties(Map<String,String> properties) {
+
+        /**
+         * Properties builder.
+         * @param properties the properties
+         * @return the builder
+         */
+        public Builder properties(Map<String, String> properties) {
             this.properties = properties;
             return this;
         }
+
+        /**
+         * Add property builder.
+         * @param key   the key
+         * @param value the value
+         * @return the builder
+         */
         public Builder addProperty(String key, String value) {
             if (properties == null) {
                 properties = new HashMap<>();
@@ -68,6 +81,10 @@ public final class StartupCommand {
             return this;
         }
 
+        /**
+         * Build startup command.
+         * @return the startup command
+         */
         public StartupCommand build() {
             return new StartupCommand(this);
         }

@@ -191,7 +191,7 @@ var FORMALIZE = (function($, window, document, undefined) {
             }
         }
     };
-})(jQuery, this);
+})(jQuery, this, document);
 
 jQuery(document).ready(function() {
     FORMALIZE.go();

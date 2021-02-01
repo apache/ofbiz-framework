@@ -25,6 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
                 <set field="headerItem" value="costs"/>
+                <set field="helpAnchor" value="_manage_cost_component_calc_entries"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>

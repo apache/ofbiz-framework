@@ -55,11 +55,11 @@ public class TimeDurationTests {
                 TimeDuration.fromNumber(TimeDuration.toLong(duration)));
         assertEquals(label + ".isZero", isZero, duration.isZero());
         if (isZero) {
-            assertEquals(label + ".compareTo(zero) == 0", 0, doCompare(TimeDuration.ZeroTimeDuration, duration));
-            assertEquals(label + ".compareTo(zero) == 0", 0, doCompare(duration, TimeDuration.ZeroTimeDuration));
+            assertEquals(label + ".compareTo(zero) == 0", 0, doCompare(TimeDuration.ZERO_TIME_DURATION, duration));
+            assertEquals(label + ".compareTo(zero) == 0", 0, doCompare(duration, TimeDuration.ZERO_TIME_DURATION));
         } else {
-            assertNotSame(label + ".compareTo(zero) != 0", 0, doCompare(TimeDuration.ZeroTimeDuration, duration));
-            assertNotSame(label + ".compareTo(zero) != 0", 0, doCompare(duration, TimeDuration.ZeroTimeDuration));
+            assertNotSame(label + ".compareTo(zero) != 0", 0, doCompare(TimeDuration.ZERO_TIME_DURATION, duration));
+            assertNotSame(label + ".compareTo(zero) != 0", 0, doCompare(duration, TimeDuration.ZERO_TIME_DURATION));
         }
     }
 
@@ -161,7 +161,7 @@ public class TimeDurationTests {
     @Test
     public void testDuration() throws Exception {
         Calendar now = Calendar.getInstance();
-        TimeDuration zeroDuration = TimeDuration.ZeroTimeDuration;
+        TimeDuration zeroDuration = TimeDuration.ZERO_TIME_DURATION;
         assertFalse("zero equals null", zeroDuration.equals(null));
         Calendar newTime = (Calendar) now.clone();
         zeroDuration.addToCalendar(newTime);

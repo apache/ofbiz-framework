@@ -17,10 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.GenericEntityException
 
-module = "EditSurveyQuestions.groovy"
 surveyQuestionId = parameters.surveyQuestionId
 context.surveyQuestionId = surveyQuestionId
 
@@ -58,7 +56,7 @@ try {
     context.highIndex = highIndex
     context.listSize = listSize
 } catch (GenericEntityException e) {
-    Debug.logError(e, "Failure in " + module)
+    logError(e,  "Failure in " + module)
 } finally {
     listIt.close()
 }

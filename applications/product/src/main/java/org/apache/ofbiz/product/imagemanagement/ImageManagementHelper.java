@@ -33,8 +33,8 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 
 public final class ImageManagementHelper {
 
-    static String MODULE = ImageManagementHelper.class.getName();
-    private ImageManagementHelper() {}
+    private static final String MODULE = ImageManagementHelper.class.getName();
+    private ImageManagementHelper() { }
 
     public static String getInternalImageUrl(HttpServletRequest request, String productId) {
         String internalImageUrl = null;
@@ -43,14 +43,16 @@ public final class ImageManagementHelper {
         }
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
-            List<GenericValue> defaultImageList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();
+            List<GenericValue> defaultImageList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId,
+                    "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();
             if (UtilValidate.isNotEmpty(defaultImageList)) {
                 GenericValue productContent = EntityUtil.getFirst(defaultImageList);
                 if (UtilValidate.isNotEmpty(productContent.get("drObjectInfo"))) {
                     internalImageUrl = (String) productContent.get("drObjectInfo");
                 }
             } else {
-                List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();
+                List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId,
+                        "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();
                 if (UtilValidate.isNotEmpty(productContentList)) {
                     GenericValue productContent = EntityUtil.getFirst(productContentList);
                     if (UtilValidate.isNotEmpty(productContent.get("drObjectInfo"))) {

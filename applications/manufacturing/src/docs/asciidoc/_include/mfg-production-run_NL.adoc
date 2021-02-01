@@ -1,0 +1,146 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= JobShop, or ProductionRun
+Dit is het startscherm van OFBiz:MFG.
+
+Jobshop is the generic term to manage Production Run
+
+The JobShop is used to manage and track all the manufacturing or assembling work. +
+The work (or job) carried out in the JobShop is called a Production Run.
+
+Production Runs can also be called Work Orders.
+
+Production Runs are the work list of the manufacturing department and include details of:
+
+* the product to be manufactured
+* the raw materials or sub assemblies to use
+* the steps needed to make the finished product
+
+“Production Runs” are the to do or work lists of the manufacturing department. +
+Each manufacturing job, batch, or run is done based on a production run.
+
+In OFBiz Jobshop you can
+
+* Create a new ProductionRun
+* Manage ProductionRun
+  ** its tasks
+  ** the materials needed
+  ** fixedAsset need (machine)
+  ** Parties working
+* Associate ProductionRun
+* View cost associated
+* declare all actions done on a ProductionRun
+
+JobShop menu is the default screen for manufacturing.
+
+Productions Runs can be created manually or automatically. +
+To create one manually:
+
+. Click the "Create a Production Run" button
+
+To locate an existing Production Run
+
+. Click "Find"
+. A list of any existing Production Runs will be displayed
+. Click the Production Run Id to view the Production Run details
+
+Production Runs cannot be deleted but they can be cancelled instead.
+
+== ProductionRun management in UI
+=== Productierun aanmaken en vinden
+Dit scherm biedt de mogelijkheid om productieruns aan te maken en te vinden.
+
+==== Productierun aanmaken
+Klik op de knop 'Productierun aanmaken' om een nieuwe productierun te genereren.
+
+==== Productierun zoeken en vinden.
+Vul de parameters in en klik op de 'zoek' knop.
+Worden resultaten gevonden, dan worden deze getoond in de sectie onder het zoek deel.
+
+
+=== Productierun aanmaken
+In dit scherm maak je een nieuwe productierun aan.
+
+Vul de velden in en klik op 'Opslaan'.
+
+. Select the product that needs to be manufactured.
+. Set the quantity to produce and the start date.
+. Subsequently set the warehouse and the routing ID.
+. Give the production run a name and optionally a description.
+. Set the field for 'Create dependent production runs' to yes if you want the system to automatically create
+   the production runs of sub assemblies or components.
+. Click the button 'Submit' to save the changes.
+
+=== Display production run
+This screen provides the details of the production run. +
+It also provides overviews of related orders, tasks, material, equipment and notes.
+
+include::HELP-mfg-EditProductionRun_NL.adoc[leveloffset=+2]
+
+=== Aanmaken en tonen taken productierun
+In dit scherm kun je (werkplan) taken koppelen aan de productierun. +
+Het scherm toont tevens de gekoppelde (werkplan) taken.
+
+==== Werkplan taak toevoegen/wijzigen
+In deze sectie selecteer je een beschikbare werkplan taak en vult de gegevens voor de productierun aan.
+
+==== Overzicht gekoppelde werkplan taken
+Dit overzicht toont de gekoppelde werkplan taken.
+
+
+=== Aanmaken en tonen materialen
+In dit scherm kun je benodigde materialen koppelen aan een productierun. +
+Dit scherm toont tevens de materialen gekoppeld aan de productierun.
+
+==== Materialen toevoegen/wijzigen
+In deze sectie kun je benodigde materialen en/of onderdelen toevoegen aan de productierun.
+
+==== Overzicht materialen
+Deze sectie toont de benodigde materialen en onderdelen die nodig zijn om het product in de productierun
+ te fabriceren.
+Tevens kun je in de regel het benodigde hoeveelheid wijzigen.
+
+
+=== Aanmaken en tonen productiemiddelen
+Dit scherm biedt de mogelijk productiemiddelen te koppelen gekoppeld aan de productierun. +
+Tevens toont het de gekoppelde productiemiddelen.
+
+
+=== Gekoppelde (afhankelijke) productieruns
+Dit scherm toont de verplichte en de afhankelijke productieruns.
+
+==== Verplichte productieruns
+Deze sectie toont een overzicht van de verplichte productieruns.
+
+==== Afhankelijke productieruns
+Deze sectie toont een overzicht van de afhankelijke productieruns.
+
+
+=== Tonen content productierun
+Dit scherm toont de content die gekoppeld is aan productierun.
+
+
+=== Tonen kosten productierun
+Dit scherm toont de kosten van de productierun.
+
+==== Kosten route(s)
+Deze sectie toont de routes en de daarbijhorende kosten.
+
+==== Kosten productierun
+Deze sectie toont kosten van de productierun.

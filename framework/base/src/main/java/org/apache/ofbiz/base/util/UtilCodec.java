@@ -47,13 +47,13 @@ import org.owasp.html.Sanitizers;
 @SuppressWarnings("rawtypes")
 public class UtilCodec {
     private static final String MODULE = UtilCodec.class.getName();
-    private static final HtmlEncoder htmlEncoder = new HtmlEncoder();
-    private static final XmlEncoder xmlEncoder = new XmlEncoder();
-    private static final StringEncoder stringEncoder = new StringEncoder();
-    private static final UrlCodec urlCodec = new UrlCodec();
-    private static final List<Codec> codecs;
-    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers 
-    private static final List<String> jsEventList = Arrays.asList(new String[] { "onAbort", "onActivate",
+    private static final HtmlEncoder HTML_ENCODER = new HtmlEncoder();
+    private static final XmlEncoder XML_ENCODER = new XmlEncoder();
+    private static final StringEncoder STRING_ENCODER = new StringEncoder();
+    private static final UrlCodec URL_CODEC = new UrlCodec();
+    private static final List<Codec> CODECS;
+    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers
+    private static final List<String> JS_EVENT_LIST = Arrays.asList(new String[] {"onAbort", "onActivate",
             "onAfterPrint", "onAfterUpdate", "onBeforeActivate", "onBeforeCopy", "onBeforeCut", "onBeforeDeactivate",
             "onBeforeEditFocus", "onBeforePaste", "onBeforePrint", "onBeforeUnload", "onBeforeUpdate", "onBegin",
             "onBlur", "onBounce", "onCellChange", "onChange", "onClick", "onContextMenu", "onControlSelect", "onCopy",
@@ -74,7 +74,7 @@ public class UtilCodec {
         List<Codec> tmpCodecs = new ArrayList<>();
         tmpCodecs.add(new HTMLEntityCodec());
         tmpCodecs.add(new PercentCodec());
-        codecs = Collections.unmodifiableList(tmpCodecs);
+        CODECS = Collections.unmodifiableList(tmpCodecs);
     }
 
     @SuppressWarnings("serial")
@@ -84,18 +84,18 @@ public class UtilCodec {
         }
     }
 
-    public static interface SimpleEncoder {
-        public String encode(String original);
+    public interface SimpleEncoder {
+        String encode(String original);
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Deprecated
-        public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
-        public String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method
+        String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
+        String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method
     }
 
-    public static interface SimpleDecoder {
-        public String decode(String original);
+    public interface SimpleDecoder {
+        String decode(String original);
     }
 
     public static class HtmlEncoder implements SimpleEncoder {
@@ -109,7 +109,7 @@ public class UtilCodec {
             return htmlCodec.encode(IMMUNE_HTML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -121,10 +121,9 @@ public class UtilCodec {
          * This method will start a configurable sanitizing process. The sanitizer can
          * be turns off through "sanitizer.enable=false", the default value is true. It
          * is possible to configure a custom policy using the properties
-         * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class". 
+         * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class".
          * The custom policy has to implement
          * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
-         *
          * @param original
          * @param contentTypeId
          * @return sanitized HTML-Code if enabled, original HTML-Code when disabled
@@ -177,12 +176,13 @@ public class UtilCodec {
 
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
         // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true.
-        // Note that I was unable to render </html> and </body>. I guess because <html> and <body> 
+        // Note that I was unable to render </html> and </body>. I guess because <html> and <body>
         // are not sanitized in 1st place (else the sanitizer makes some damages I found)
-        // You might even want to adapt the PERMISSIVE_POLICY to your needs... 
+        // You might even want to adapt the PERMISSIVE_POLICY to your needs...
         // Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
         // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
-        // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
+        // If you want another example:
+        // https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
                 .allowAttributes("id", "class").globally()
@@ -193,7 +193,7 @@ public class UtilCodec {
 
         // This is the PolicyFactory used for the Birt Report Builder usage feature. ("FLEXIBLE_REPORT" contentTypeId)
         // It allows to use the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not. 
+        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not.
         // See PERMISSIVE_POLICY above for documentation and examples
         public static final PolicyFactory BIRT_FLEXIBLE_REPORT_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
@@ -204,7 +204,7 @@ public class UtilCodec {
                 .allowAttributes("cols", "rows").onElements("textarea")
                 .allowAttributes("class").onElements("td")
                 .allowAttributes("method").onElements("form")
-                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method", 
+                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method",
                         "name", "novalidate", "target").onElements("form")
                 .toFactory();
     }
@@ -220,7 +220,7 @@ public class UtilCodec {
             return xmlCodec.encode(IMMUNE_XML, original);
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -244,7 +244,7 @@ public class UtilCodec {
             }
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -259,7 +259,7 @@ public class UtilCodec {
         @Override
         public String decode(String original) {
             try {
-                canonicalize(original);
+                canonicalize(original); // This is only used to show warning/s in log in case of multiple encoding/s. See OFBIZ-12014 for more
                 return URLDecoder.decode(original, "UTF-8");
             } catch (UnsupportedEncodingException ee) {
                 Debug.logError(ee, MODULE);
@@ -277,7 +277,7 @@ public class UtilCodec {
             return original;
         }
         /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
+         * @deprecated Use {@link #sanitize(String, String)} instead
          */
         @Override
         @Deprecated
@@ -294,13 +294,13 @@ public class UtilCodec {
 
     public static SimpleEncoder getEncoder(String type) {
         if ("url".equals(type)) {
-            return urlCodec;
+            return URL_CODEC;
         } else if ("xml".equals(type)) {
-            return xmlEncoder;
+            return XML_ENCODER;
         } else if ("html".equals(type)) {
-            return htmlEncoder;
+            return HTML_ENCODER;
         } else if ("string".equals(type)) {
-            return stringEncoder;
+            return STRING_ENCODER;
         } else {
             return null;
         }
@@ -308,7 +308,7 @@ public class UtilCodec {
 
     public static SimpleDecoder getDecoder(String type) {
         if ("url".equals(type)) {
-            return urlCodec;
+            return URL_CODEC;
         }
         return null;
     }
@@ -335,7 +335,7 @@ public class UtilCodec {
             clean = true;
 
             // try each codec and keep track of which ones work
-            Iterator<Codec> i = codecs.iterator();
+            Iterator<Codec> i = CODECS.iterator();
             while (i.hasNext()) {
                 Codec codec = i.next();
                 String old = working;
@@ -377,21 +377,17 @@ public class UtilCodec {
      * Uses a black-list approach for necessary characters for HTML.
      * Does not allow various characters (after canonicalization), including
      * "&lt;", "&gt;", "&amp;" and "%" (if not followed by a space).
-     * 
      * Also does not allow js events as in OFBIZ-10054
-     *
      * @param valueName field name checked
      * @param value value checked
      * @param errorMessageList an empty list passed by and modified in case of issues
      * @param locale
      */
-    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList, 
+    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList,
             Locale locale) {
         if (UtilValidate.isEmpty(value)) {
             return value;
         }
-        
-
         // canonicalize, strict (error on double-encoding)
         try {
             value = canonicalize(value, true);
@@ -404,7 +400,7 @@ public class UtilCodec {
                 issueMsg = "In field [" + valueName + "] found character escaping (mixed or double) "
                         + "that is not allowed or other format consistency error: ";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneMixedOrDouble", 
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneMixedOrDouble",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg + e.toString());
@@ -416,21 +412,21 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) {
                 issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneLess-thanGreater-than", 
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg);
         }
-        
+
         // check for js events
         String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
-        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) 
+        if (JS_EVENT_LIST.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
             if (locale.equals(new Locale("test"))) {
                 issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneJsEvents", 
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg);
@@ -442,23 +438,22 @@ public class UtilCodec {
         // But all our Tomcat connectors use UTF-8
         // We don't care about Flash now rather deprecated
         // AFAIK all others need less-than (<) and greater-than (>) symbols
-        
+
         return value;
     }
 
     /**
      * This method check if the input is safe HTML.
      * It is possible to configure a safe policy using the properties
-     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class". 
+     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class".
      * The safe policy has to implement
      * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
-     *
      * @param valueName field name checked
      * @param value value checked
      * @param errorMessageList an empty list passed by and modified in case of issues
      * @param locale
      */
-    public static String checkStringForHtmlSafe(String valueName, String value, List<String> errorMessageList, 
+    public static String checkStringForHtmlSafe(String valueName, String value, List<String> errorMessageList,
             Locale locale, boolean enableSanitizer) {
         if (!enableSanitizer) {
             return value;
@@ -469,8 +464,7 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) {
                 customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
             } else {
-            customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
-                    "sanitizer.custom.safe.policy.class"));
+                customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
             }
             Object obj = customPolicyClass.getConstructor().newInstance();
             if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
@@ -484,24 +478,26 @@ public class UtilCodec {
                     + "Beware: the result is not rightly checked!", MODULE);
         }
 
-        String filtered = policy.sanitize(value);
-        if (!value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
-            String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
-                issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
-                        + "for security reason. Please check and modify accordingly, thanks.";
-            } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
-                        UtilMisc.toMap("valueName", valueName), locale);
+        if (value != null) {
+            String filtered = policy.sanitize(value);
+            if (filtered != null && !value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(filtered)))) {
+                String issueMsg = null;
+                if (locale.equals(new Locale("test"))) {
+                    issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
+                            + "for security reason. Please check and modify accordingly, thanks.";
+                } else {
+                    issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicySafe",
+                            UtilMisc.toMap("valueName", valueName), locale);
+                }
+                errorMessageList.add(issueMsg);
             }
-            errorMessageList.add(issueMsg);
         }
-        
+
         return value;
     }
-    
+
     /**
-     * A simple Map wrapper class that will do HTML encoding. 
+     * A simple Map wrapper class that will do HTML encoding.
      * To be used for passing a Map to something that will expand Strings with it as a context, etc.
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object> {
@@ -515,27 +511,44 @@ public class UtilCodec {
             return mapWrapper;
         }
 
-        protected Map<K, Object> internalMap = null;
-        protected SimpleEncoder encoder = null;
+        private Map<K, Object> internalMap = null;
+        private SimpleEncoder encoder = null;
         protected HtmlEncodingMapWrapper() { }
 
+        /**
+         * Sets .
+         * @param mapToWrap the map to wrap
+         * @param encoder the encoder
+         */
         public void setup(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
             this.internalMap = mapToWrap;
             this.encoder = encoder;
         }
+
+        /**
+         * Reset.
+         */
         public void reset() {
             this.internalMap = null;
             this.encoder = null;
         }
 
         @Override
-        public int size() { return this.internalMap.size(); }
+        public int size() {
+            return this.internalMap.size();
+        }
         @Override
-        public boolean isEmpty() { return this.internalMap.isEmpty(); }
+        public boolean isEmpty() {
+            return this.internalMap.isEmpty();
+        }
         @Override
-        public boolean containsKey(Object key) { return this.internalMap.containsKey(key); }
+        public boolean containsKey(Object key) {
+            return this.internalMap.containsKey(key);
+        }
         @Override
-        public boolean containsValue(Object value) { return this.internalMap.containsValue(value); }
+        public boolean containsValue(Object value) {
+            return this.internalMap.containsValue(value);
+        }
         @Override
         public Object get(Object key) {
             Object theObject = this.internalMap.get(key);
@@ -549,22 +562,45 @@ public class UtilCodec {
             }
             return theObject;
         }
-        @Override
-        public Object put(K key, Object value) { return this.internalMap.put(key, value); }
-        @Override
-        public Object remove(Object key) { return this.internalMap.remove(key); }
-        @Override
-        public void putAll(Map<? extends K, ? extends Object> arg0) { this.internalMap.putAll(arg0); }
-        @Override
-        public void clear() { this.internalMap.clear(); }
-        @Override
-        public Set<K> keySet() { return this.internalMap.keySet(); }
-        @Override
-        public Collection<Object> values() { return this.internalMap.values(); }
-        @Override
-        public Set<Map.Entry<K, Object>> entrySet() { return this.internalMap.entrySet(); }
-        @Override
-        public String toString() { return this.internalMap.toString(); }
-    }
 
+        @Override
+        public Object put(K key, Object value) {
+            return this.internalMap.put(key, value);
+        }
+
+        @Override
+        public Object remove(Object key) {
+            return this.internalMap.remove(key);
+        }
+
+        @Override
+        public void putAll(Map<? extends K, ? extends Object> arg0) {
+            this.internalMap.putAll(arg0);
+        }
+
+        @Override
+        public void clear() {
+            this.internalMap.clear();
+        }
+
+        @Override
+        public Set<K> keySet() {
+            return this.internalMap.keySet();
+        }
+
+        @Override
+        public Collection<Object> values() {
+            return this.internalMap.values();
+        }
+
+        @Override
+        public Set<Map.Entry<K, Object>> entrySet() {
+            return this.internalMap.entrySet();
+        }
+
+        @Override
+        public String toString() {
+            return this.internalMap.toString();
+        }
+    }
 }

@@ -29,7 +29,7 @@ import org.apache.ofbiz.service.ModelService
  * Create Content For Product Category
  */
 def createCategoryContent() {
-    GenericValue newEntity = delegator.makeValue("ProductCategoryContent")
+    GenericValue newEntity = makeValue("ProductCategoryContent")
     newEntity.setPKFields(parameters, true)
     newEntity.setNonPKFields(parameters, true)
 
@@ -53,7 +53,7 @@ def createCategoryContent() {
  * Update Content For Category
  */
 def updateCategoryContent() {
-    GenericValue lookupPKMap = delegator.makeValue("ProductCategoryContent")
+    GenericValue lookupPKMap = makeValue("ProductCategoryContent")
     lookupPKMap.setPKFields(parameters, true)
     Map lookedUpValue = from("ProductCategoryContent").where(lookupPKMap).queryOne()
     lookedUpValue.setNonPKFields(parameters, true)

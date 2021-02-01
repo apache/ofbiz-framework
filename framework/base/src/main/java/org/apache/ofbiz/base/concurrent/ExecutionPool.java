@@ -40,10 +40,12 @@ import org.apache.ofbiz.base.util.Debug;
 
 @SourceMonitored
 public final class ExecutionPool {
-    public static final String MODULE = ExecutionPool.class.getName();
-    public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
+    private static final String MODULE = ExecutionPool.class.getName();
+    public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<>(),
+            new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
     public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
-    private static final ExecutorService pulseExecutionPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(), new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
+    private static final ExecutorService PULSE_EXECUTION_POOL = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(),
+            new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
@@ -65,7 +67,8 @@ public final class ExecutionPool {
         }
     }
 
-    public static ScheduledExecutorService getScheduledExecutor(ThreadGroup group, String namePrefix, int threadCount, long keepAliveSeconds, boolean preStart) {
+    public static ScheduledExecutorService getScheduledExecutor(ThreadGroup group, String namePrefix, int threadCount, long keepAliveSeconds,
+                                                                boolean preStart) {
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, new ExecutionPoolThreadFactory(group, namePrefix));
         if (keepAliveSeconds > 0) {
             executor.setKeepAliveTime(keepAliveSeconds, TimeUnit.SECONDS);
@@ -90,28 +93,28 @@ public final class ExecutionPool {
     }
 
     public static void addPulse(Pulse pulse) {
-        delayQueue.put(pulse);
+        DELAY_QUEUE.put(pulse);
     }
 
     public static void removePulse(Pulse pulse) {
-        delayQueue.remove(pulse);
+        DELAY_QUEUE.remove(pulse);
     }
 
     static {
         int numberOfExecutionPoolPulseWorkers = Runtime.getRuntime().availableProcessors();
         for (int i = 0; i < numberOfExecutionPoolPulseWorkers; i++) {
-            pulseExecutionPool.execute(new ExecutionPoolPulseWorker());
+            PULSE_EXECUTION_POOL.execute(new ExecutionPoolPulseWorker());
         }
     }
 
-    private static final DelayQueue<Pulse> delayQueue = new DelayQueue<>();
+    private static final DelayQueue<Pulse> DELAY_QUEUE = new DelayQueue<>();
 
     public static class ExecutionPoolPulseWorker implements Runnable {
         @Override
         public void run() {
             try {
                 while (true) {
-                    delayQueue.take().run();
+                    DELAY_QUEUE.take().run();
                 }
             } catch (InterruptedException e) {
                 Debug.logError(e, MODULE);
@@ -119,9 +122,9 @@ public final class ExecutionPool {
         }
     }
 
-    public static abstract class Pulse implements Delayed, Runnable {
-        protected final long expireTimeNanos;
-        protected final long loadTimeNanos;
+    public abstract static class Pulse implements Delayed, Runnable {
+        private final long expireTimeNanos;
+        private final long loadTimeNanos;
 
         protected Pulse(long delayNanos) {
             this(System.nanoTime(), delayNanos);
@@ -132,10 +135,18 @@ public final class ExecutionPool {
             expireTimeNanos = loadTimeNanos + delayNanos;
         }
 
+        /**
+         * Gets load time nanos.
+         * @return the load time nanos
+         */
         public long getLoadTimeNanos() {
             return loadTimeNanos;
         }
 
+        /**
+         * Gets expire time nanos.
+         * @return the expire time nanos
+         */
         public long getExpireTimeNanos() {
             return expireTimeNanos;
         }
@@ -159,7 +170,7 @@ public final class ExecutionPool {
 
         @Override
         public final boolean equals(Object other) {
-            if(other instanceof Pulse) {
+            if (other instanceof Pulse) {
                 return timeDiff((Pulse) other) == 0;
             }
             return false;

@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.*;
  */
 public class SurveyEvents {
 
-    public static final String MODULE = SurveyEvents.class.getName();
+    private static final String MODULE = SurveyEvents.class.getName();
 
     public static String createSurveyResponseAndRestoreParameters(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

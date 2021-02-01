@@ -33,23 +33,21 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;script&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CallScript extends MethodOperation {
 
-    public static final String MODULE = CallScript.class.getName();
+    private static final String MODULE = CallScript.class.getName();
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
         String errorListAttr = element.getAttribute("error-list-name");
-        if (errorListAttr.length() > 0) {
+        if (!errorListAttr.isEmpty()) {
             element.removeAttribute("error-list-name");
             return true;
         }
         return false;
     }
-    
     /*
      * Developers - the location attribute is a constant for security reasons.
      * Script invocations should always be hard-coded.

@@ -82,27 +82,27 @@ import com.paypal.sdk.services.NVPCallerServices;
  */
 public class PayPalServices {
 
-    public static final String MODULE = PayPalServices.class.getName();
-    public final static String resource = "AccountingErrorUiLabels";
-    
+    private static final String MODULE = PayPalServices.class.getName();
+    private static final String RESOURCE = "AccountingErrorUiLabels";
+
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
     // so that we can quickly grab the cart, perform shipment estimates and send the info back to PayPal.
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
     // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the
     // session (i.e. on cart clear or successful checkout) or when the session is destroyed
-    private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<TokenWrapper, WeakReference<ShoppingCart>>();
+    private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<>();
 
     public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Locale locale = cart.getLocale();
         if (cart == null || cart.items().size() <= 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalShoppingCartIsEmpty", locale));
         }
 
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
 
@@ -140,7 +140,7 @@ public class PayPalServices {
             addCartDetails(encoder, cart);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalErrorDuringRetrievingCartDetails", locale));
         }
 
@@ -166,7 +166,7 @@ public class PayPalServices {
         cart.setAttribute("payPalCheckoutToken", token);
         TokenWrapper tokenWrapper = new TokenWrapper(token);
         cart.setAttribute("payPalCheckoutTokenObj", tokenWrapper);
-        PayPalServices.tokenCartMap.put(tokenWrapper, new WeakReference<ShoppingCart>(cart));
+        PayPalServices.tokenCartMap.put(tokenWrapper, new WeakReference<>(cart));
         return ServiceUtil.returnSuccess();
     }
 
@@ -178,7 +178,7 @@ public class PayPalServices {
 
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
 
-        String token = (String)paramMap.get("TOKEN");
+        String token = (String) paramMap.get("TOKEN");
         WeakReference<ShoppingCart> weakCart = tokenCartMap.get(new TokenWrapper(token));
         ShoppingCart cart = null;
         if (weakCart != null) {
@@ -191,7 +191,7 @@ public class PayPalServices {
         // Since most if not all of the shipping estimate codes requires a persisted contactMechId we'll create one and
         // then delete once we're done, now is not the time to worry about updating everything
         String contactMechId = null;
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         inMap.put("address1", paramMap.get("SHIPTOSTREET"));
         inMap.put("address2", paramMap.get("SHIPTOSTREET2"));
         inMap.put("city", paramMap.get("SHIPTOCITY"));
@@ -201,7 +201,7 @@ public class PayPalServices {
             return ServiceUtil.returnSuccess();
         }
         inMap.put("countryGeoId", countryGeoId);
-        inMap.put("stateProvinceGeoId", parseStateProvinceGeoId((String)paramMap.get("SHIPTOSTATE"), countryGeoId, delegator));
+        inMap.put("stateProvinceGeoId", parseStateProvinceGeoId((String) paramMap.get("SHIPTOSTATE"), countryGeoId, delegator));
         inMap.put("postalCode", paramMap.get("SHIPTOZIP"));
 
         try {
@@ -353,7 +353,7 @@ public class PayPalServices {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
 
@@ -363,7 +363,7 @@ public class PayPalServices {
         if (UtilValidate.isNotEmpty(token)) {
             encoder.add("TOKEN", token);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalTokenNotFound", locale));
         }
 
@@ -413,7 +413,7 @@ public class PayPalServices {
             }
         }
 
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         Map<String, Object> outMap = null;
         // Create the person if necessary
         boolean newParty = false;
@@ -447,9 +447,7 @@ public class PayPalServices {
         if (!newParty) {
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(UtilMisc.toMap("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS")),
-                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityComparisonOperator.EQUALS, EntityFunction.UPPER(emailAddress))
-
-           ));
+                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityComparisonOperator.EQUALS, EntityFunction.UPPER(emailAddress))));
             try {
                 GenericValue matchingEmail = EntityQuery.use(delegator).from("PartyAndContactMech").where(cond).orderBy("fromDate").filterByDate().queryFirst();
                 if (matchingEmail != null) {
@@ -458,8 +456,8 @@ public class PayPalServices {
                     // No email found so we'll need to create one but first check if it should be PRIMARY or just BILLING
                     long primaryEmails = EntityQuery.use(delegator)
                             .from("PartyContactWithPurpose")
-                            .where("partyId", partyId, 
-                                    "contactMechTypeId", "EMAIL_ADDRESS", 
+                            .where("partyId", partyId,
+                                    "contactMechTypeId", "EMAIL_ADDRESS",
                                     "contactMechPurposeTypeId", "PRIMARY_EMAIL")
                             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                             .queryCount();
@@ -520,7 +518,7 @@ public class PayPalServices {
         boolean needsShippingPurpose = true;
         // if the cart for some reason already has a billing address, we'll leave it be
         boolean needsBillingPurpose = (cart.getContactMech("BILLING_LOCATION") == null);
-        Map<String, Object> postalMap = new HashMap<String, Object>();
+        Map<String, Object> postalMap = new HashMap<>();
         postalMap.put("toName", decoder.get("SHIPTONAME"));
         postalMap.put("address1", decoder.get("SHIPTOSTREET"));
         postalMap.put("address2", decoder.get("SHIPTOSTREET2"));
@@ -533,9 +531,8 @@ public class PayPalServices {
             // We want an exact match only
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(postalMap),
-                    EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null,"postalCodeGeoId", null)),
-                    EntityCondition.makeCondition("partyId", partyId)
-           ));
+                    EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null, "postalCodeGeoId", null)),
+                    EntityCondition.makeCondition("partyId", partyId)));
             try {
                 GenericValue postalMatch = EntityQuery.use(delegator).from("PartyAndPostalAddress")
                         .where(cond).orderBy("fromDate").filterByDate().queryFirst();
@@ -600,9 +597,9 @@ public class PayPalServices {
             try {
                 GenericValue shipmentMethod = EntityQuery.use(delegator)
                         .from("ProductStoreShipmentMethView")
-                        .where("productStoreId", cart.getProductStoreId(), 
-                                "partyId", shipMethodSplit[0], 
-                                "roleTypeId", "CARRIER", 
+                        .where("productStoreId", cart.getProductStoreId(),
+                                "partyId", shipMethodSplit[0],
+                                "roleTypeId", "CARRIER",
                                 "description", shippingMethodTypeDesc)
                         .queryFirst();
                 cart.setAllShipmentMethodTypeId(shipmentMethod.getString("shipmentMethodTypeId"));
@@ -710,14 +707,14 @@ public class PayPalServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (decoder == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalUnknownError", locale));
         }
 
         Map<String, String> errorMessages = getErrorMessageMap(decoder);
         if (UtilValidate.isNotEmpty(errorMessages)) {
             if (errorMessages.containsKey("10417")) {
-                // "The transaction cannot complete successfully,  Instruct the customer to use an alternative payment method"
+                // "The transaction cannot complete successfully, Instruct the customer to use an alternative payment method"
                 // I've only encountered this once and there's no indication of the cause so the temporary solution is to try again
                 boolean retry = context.get("_RETRY_") == null || (Boolean) context.get("_RETRY_");
                 if (retry) {
@@ -728,7 +725,7 @@ public class PayPalServices {
             return ServiceUtil.returnError(UtilMisc.toList(errorMessages.values()));
         }
 
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         inMap.put("userLogin", userLogin);
         inMap.put("paymentMethodId", payPalPaymentMethod.get("paymentMethodId"));
         inMap.put("transactionId", decoder.get("TRANSACTIONID"));
@@ -776,7 +773,7 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalUnknownError", locale));
         }
 
@@ -829,7 +826,7 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalUnknownError", locale));
         }
 
@@ -860,7 +857,7 @@ public class PayPalServices {
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         Locale locale = (Locale) context.get("locale");
         if (payPalConfig == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -877,7 +874,7 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalUnknownError", locale));
         }
 
@@ -909,7 +906,7 @@ public class PayPalServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -931,7 +928,7 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayPalUnknownError", locale));
         }
 
@@ -1032,7 +1029,7 @@ public class PayPalServices {
 
     private static String parseStateProvinceGeoId(String payPalShipToState, String countryGeoId, Delegator delegator) {
         String lookupField = "geoName";
-        List<EntityCondition> conditionList = new LinkedList<EntityCondition>();
+        List<EntityCondition> conditionList = new LinkedList<>();
         conditionList.add(EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"));
         if ("USA".equals(countryGeoId) || "CAN".equals(countryGeoId)) {
             // PayPal returns two letter code for US and Canadian States/Provinces
@@ -1046,7 +1043,6 @@ public class PayPalServices {
         GenericValue geoAssocAndGeoTo = null;
         try {
             geoAssocAndGeoTo = EntityQuery.use(delegator).from("GeoAssocAndGeoTo").where(cond).cache().queryFirst();
-            
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }

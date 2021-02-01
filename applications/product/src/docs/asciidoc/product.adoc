@@ -1,0 +1,89 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Catalog
+
+The Catalog Manager creates or provides access to a variety of information.
+Whether Products, Catalogs, or Categories, this screen offers search tools and links to get you to the type of information
+you need or are working with quickly and accurately.
+
+The Catalog Manager application is used to manage the products, all what is purchase, sale, build, used, ... by the company.
+A product can be physical or digital.
+
+With catalog application, you can manage all data associated with Product : category, catalog, price, id, ....
+
+== Overview
+TODO
+
+=== Help for Catalog Main screen
+Down the left hand column are 4 sections:
+
+1. Search Products,
+2. Browse Catalogs,
+3. Browse Categories,
+4. Product Categories.
+
+[TIP]
+You can click on the colored '_' to close a section; +
+later, click on the colored '[]' to reopen the section.
+
+
+Each of those sections are discussed below before we begin to explore the Catalog Administration Main Page.
+
+Navigation Panel  The Left-hand Navigation Panel is visible even when working under the other tabs. +
+The content displayed will vary according to what choices you have made.
+
+This document is arranged to walk you through the Navigation Panel search tools (Search Products, Browse Catalogs,
+Browse Categories, and Category Products) and links first.
+
+As you come to the desired Edit or Creation window, jump in this document to the associated 'Edit' discussion.
+
+Some symbols used as shortcuts Brackets []  Application links as found on the screens are represented in this document
+with brackets around them like [this]. When you see a bracketed item, you can know we are referring to a link or
+key or 'button' which will initiate the indicated action.
+
+Greater than symbols >>  The single (>) or double (>>) greater than symbols can be read as 'takes you to' or 'leads to'
+or 'results in.' These are sometimes used in this document to indicate that from this screen, if you click on the
+[Bracketed Link], you will be taken to Next Process.
+
+Within the pop-up calendars, however, the (>>) jumps you ahead one year and the (<<) jumps you back a year.
+
+An asterisk * marks those items which must be completed on a screen before the desired action can occur.
+
+
+
+== Products
+
+
+include::_include/product-catalogs.adoc[leveloffset=+1]
+
+== Categories
+
+include::_include/product-features.adoc[leveloffset=+1]
+
+include::_include/product-promos.adoc[leveloffset=+1]
+
+== Price Rules
+
+include::_include/product-stores.adoc[leveloffset=+1]
+
+== Configurations
+
+include::_include/product-image-management.adoc[leveloffset=+1]
+
+== Miscellaneous

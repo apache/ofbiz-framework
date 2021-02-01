@@ -35,13 +35,27 @@ import org.apache.ofbiz.widget.model.CommonWidgetModels.Parameter;
  */
 public abstract class XmlAbstractWidgetVisitor {
 
-    protected final Appendable writer;
+    private final Appendable writer;
+
+    /**
+     * Gets writer.
+     * @return the writer
+     */
+    public Appendable getWriter() {
+        return writer;
+    }
 
     public XmlAbstractWidgetVisitor(Appendable writer) {
         Assert.notNull("writer", writer);
         this.writer = writer;
     }
 
+    /**
+     * Visit attribute.
+     * @param attributeName  the attribute name
+     * @param attributeValue the attribute value
+     * @throws Exception the exception
+     */
     protected void visitAttribute(String attributeName, Boolean attributeValue) throws Exception {
         if (attributeValue != null) {
             writer.append(" ").append(attributeName).append("=\"");
@@ -50,6 +64,12 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit attribute.
+     * @param attributeName  the attribute name
+     * @param attributeValue the attribute value
+     * @throws Exception the exception
+     */
     protected void visitAttribute(String attributeName, FlexibleMapAccessor<?> attributeValue) throws Exception {
         if (attributeValue != null && !attributeValue.isEmpty()) {
             writer.append(" ").append(attributeName).append("=\"");
@@ -58,6 +78,12 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit attribute.
+     * @param attributeName  the attribute name
+     * @param attributeValue the attribute value
+     * @throws Exception the exception
+     */
     protected void visitAttribute(String attributeName, FlexibleStringExpander attributeValue) throws Exception {
         if (attributeValue != null && !attributeValue.isEmpty()) {
             writer.append(" ").append(attributeName).append("=\"");
@@ -66,6 +92,12 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit attribute.
+     * @param attributeName  the attribute name
+     * @param attributeValue the attribute value
+     * @throws Exception the exception
+     */
     protected void visitAttribute(String attributeName, Integer attributeValue) throws Exception {
         if (attributeValue != null) {
             writer.append(" ").append(attributeName).append("=\"");
@@ -74,6 +106,12 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit attribute.
+     * @param attributeName  the attribute name
+     * @param attributeValue the attribute value
+     * @throws Exception the exception
+     */
     protected void visitAttribute(String attributeName, String attributeValue) throws Exception {
         if (attributeValue != null && !attributeValue.isEmpty()) {
             writer.append(" ").append(attributeName).append("=\"");
@@ -90,6 +128,11 @@ public abstract class XmlAbstractWidgetVisitor {
 
     }
 
+    /**
+     * Visit image.
+     * @param image the image
+     * @throws Exception the exception
+     */
     protected void visitImage(Image image) throws Exception {
         if (image != null) {
             writer.append("<image");
@@ -107,6 +150,11 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit link.
+     * @param link the link
+     * @throws Exception the exception
+     */
     protected void visitLink(Link link) throws Exception {
         if (link != null) {
             writer.append("<link");
@@ -123,6 +171,11 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit link attributes.
+     * @param link the link
+     * @throws Exception the exception
+     */
     protected void visitLinkAttributes(Link link) throws Exception {
         if (link != null) {
             visitAttribute("name", link.getName());
@@ -143,6 +196,11 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit model widget.
+     * @param widget the widget
+     * @throws Exception the exception
+     */
     protected void visitModelWidget(ModelWidget widget) throws Exception {
         if (widget.getName() != null && !widget.getName().isEmpty()) {
             writer.append(" name=\"");
@@ -151,6 +209,11 @@ public abstract class XmlAbstractWidgetVisitor {
         }
     }
 
+    /**
+     * Visit parameters.
+     * @param parameters the parameters
+     * @throws Exception the exception
+     */
     protected void visitParameters(Collection<Parameter> parameters) throws Exception {
         if (parameters != null) {
             for (Parameter parameter : parameters) {

@@ -32,12 +32,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;remove-value&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class RemoveValue extends MethodOperation {
 
-    public static final String MODULE = RemoveValue.class.getName();
+    private static final String MODULE = RemoveValue.class.getName();
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public RemoveValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -62,7 +61,7 @@ public final class RemoveValue extends MethodOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entity value: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

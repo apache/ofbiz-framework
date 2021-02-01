@@ -25,6 +25,7 @@
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="organization"/>
+                <set field="helpAnchor" value="_the_main_ofbiz_setup_overview"/>
                 <set field="titleProperty" value="SetupCreateNewOrganization"/>
                 <set field="target" value="createOrganization"/>
                 <set field="previousParams" from-field="_PREVIOUS_PARAMS_" from-scope="user"/>
@@ -79,6 +80,7 @@
             <actions>
                 <set field="titleProperty" value="ProductNewFacility"/>
                 <set field="tabButtonItemTop" value="facility"/>
+                <set field="helpAnchor" value="_help_for_setup_edit_facility"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <script location="component://commonext/groovyScripts/ofbizsetup/FindFacility.groovy"/>
             </actions>
@@ -122,6 +124,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductStore"/>
                 <set field="tabButtonItemTop" value="productstore"/>
+                <set field="helpAnchor" value="_help_for_setup_edit_product_store"/>
                 <set field="labelTitleProperty" value="PageTitleEditProductStore"/>
                 
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -173,6 +176,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditWebSite"/>
                 <set field="tabButtonItemTop" value="website"/>
+                <set field="helpAnchor" value="_help_for_setup_edit_website"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSite"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <script location="component://commonext/groovyScripts/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
@@ -224,6 +228,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
                 <set field="tabButtonItem" value="productcatalog"/>
+                <set field="helpAnchor" value="_help_for_setup_edit_first_catalog"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
@@ -256,6 +261,7 @@
                 <set field="titleProperty" value="PageTitleEditProductCategories"/>
 
                 <set field="tabButtonItem" value="productcategory"/>
+                <set field="helpAnchor" value="_help_for_setup_edit_first_product_category"/>
                 <set field="labelTitleProperty" value="ProductCategory"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -291,6 +297,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditProduct"/>
                 <set field="tabButtonItem" value="product"/>
+                <set field="helpAnchor" value="_help_for_setup_edit_first_product"/>
                 <set field="labelTitleProperty" value="ProductProduct"/>
                 
                 <set field="partyId" from-field="parameters.partyId"/>           

@@ -45,7 +45,7 @@ if (sqlCommand && selGroup) {
                 rsmd = rs.getMetaData()
                 numberOfColumns = rsmd.getColumnCount()
                 for (i = 1; i <= numberOfColumns; i++) {
-                    columns.add(rsmd.getColumnName(i))
+                    columns.add(rsmd.getColumnLabel(i))
                 }
                 rowLimitReached = false
                 while (rs.next()) {
@@ -64,6 +64,15 @@ if (sqlCommand && selGroup) {
                 rs.close()
             }
         } else {
+            if (sqlCommand.toUpperCase().contains("SYSCS_UTIL.SYSCS_EXPORT_TABLE")
+                    || sqlCommand.toUpperCase().contains("JSP")) {
+                context.resultMessage = "Not executed for security reason"
+                context.groups = groups
+                context.columns = columns
+                context.records = records
+                context.sqlCommand = sqlCommand
+                return
+            }
             du.prepareStatement(sqlCommand)
             numOfAffectedRows = du.executeUpdate()
             resultMessage = "Affected $numOfAffectedRows rows."

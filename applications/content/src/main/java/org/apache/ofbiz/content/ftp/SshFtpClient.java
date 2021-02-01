@@ -35,7 +35,7 @@ import org.apache.sshd.client.subsystem.sftp.SftpClient;
  */
 public class SshFtpClient implements FtpClientInterface {
 
-    public static final String MODULE = SshFtpClient.class.getName();
+    private static final String MODULE = SshFtpClient.class.getName();
 
     private SshClient client;
     private SftpClient sftp;

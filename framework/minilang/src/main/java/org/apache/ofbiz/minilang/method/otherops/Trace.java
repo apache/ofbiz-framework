@@ -31,12 +31,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;trace&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class Trace extends MethodOperation {
 
-    public static final String MODULE = Trace.class.getName();
+    private static final String MODULE = Trace.class.getName();
 
     private final int level;
     private final List<MethodOperation> methodOperations;

@@ -45,17 +45,18 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class RotateImage {
 
-    public static final String MODULE = RotateImage.class.getName();
-    public static final String resourceError = "ProductErrorUiLabels";
-    public static final String resource = "ProductFUiLabels";
+    private static final String MODULE = RotateImage.class.getName();
+    private static final String RES_ERROR = "ProductErrorUiLabels";
+    private static final String RESOURCE = "ProductFUiLabels";
 
     public static Map<String, Object> imageRotate(DispatchContext dctx, Map<String, ? extends Object> context)
             throws IOException {
-    	 Locale locale = (Locale)context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail", delegator), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.nameofthumbnail", delegator), context);
 
         String productId = (String) context.get("productId");
         String imageName = (String) context.get("imageName");
@@ -95,8 +96,10 @@ public class RotateImage {
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
             String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
 
-            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
-            String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                    "image.management.path", delegator), context);
+            String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                    "image.management.url", delegator), context);
             BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
 
             int bufImgType;
@@ -111,7 +114,7 @@ public class RotateImage {
             BufferedImage bufNewImg = new BufferedImage(w, h, bufImgType);
             Graphics2D g = bufNewImg.createGraphics();
             g.rotate(Math.toRadians(Double.parseDouble(angle)), w / 2.0, h / 2.0);
-            g.drawImage(bufImg,0,0,null);
+            g.drawImage(bufImg, 0, 0, null);
             g.dispose();
 
             String mimeType = imageName.substring(imageName.lastIndexOf('.') + 1);
@@ -121,7 +124,8 @@ public class RotateImage {
             double imgWidth = bufNewImg.getWidth();
 
             Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
-            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/"
+                    + productId + "/" + filenameTouseThumb));
 
             String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
             String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
@@ -175,11 +179,11 @@ public class RotateImage {
                 return ServiceUtil.returnError(e.getMessage());
             }
         } else {
-            String errMsg = UtilProperties.getMessage(resourceError, "ProductPleaseSelectImage", locale);
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseSelectImage", locale);
             Debug.logFatal(errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
-        String successMsg = UtilProperties.getMessage(resource, "ProductRotatedImageSuccessfully", locale);
+        String successMsg = UtilProperties.getMessage(RESOURCE, "ProductRotatedImageSuccessfully", locale);
         Map<String, Object> result = ServiceUtil.returnSuccess(successMsg);
         return result;
     }

@@ -26,10 +26,10 @@ import org.apache.ofbiz.base.lang.SourceMonitored;
 
 @SourceMonitored
 public class IndentingWriter extends FilterWriter {
-    protected final StringBuilder indent = new StringBuilder();
-    protected final boolean doSpace;
-    protected final boolean doNewline;
-    protected boolean lastWasNewline;
+    private final StringBuilder indent = new StringBuilder();
+    private final boolean doSpace;
+    private final boolean doNewline;
+    private boolean lastWasNewline;
 
     public static IndentingWriter makeIndentingWriter(Writer writer) {
         return writer instanceof IndentingWriter ? (IndentingWriter) writer : new IndentingWriter(writer);
@@ -45,6 +45,11 @@ public class IndentingWriter extends FilterWriter {
         this(out, true, true);
     }
 
+    /**
+     * Newline indenting writer.
+     * @return the indenting writer
+     * @throws IOException the io exception
+     */
     public IndentingWriter newline() throws IOException {
         lastWasNewline = true;
         if (doNewline) {
@@ -53,6 +58,10 @@ public class IndentingWriter extends FilterWriter {
         return this;
     }
 
+    /**
+     * Check after newline.
+     * @throws IOException the io exception
+     */
     protected void checkAfterNewline() throws IOException {
         if (lastWasNewline) {
             if (doSpace) {
@@ -66,16 +75,29 @@ public class IndentingWriter extends FilterWriter {
         }
     }
 
+    /**
+     * Push indenting writer.
+     * @return the indenting writer
+     */
     public IndentingWriter push() {
         indent.append(' ');
         return this;
     }
 
+    /**
+     * Pop indenting writer.
+     * @return the indenting writer
+     */
     public IndentingWriter pop() {
         indent.setLength(indent.length() - 1);
         return this;
     }
 
+    /**
+     * Space indenting writer.
+     * @return the indenting writer
+     * @throws IOException the io exception
+     */
     public IndentingWriter space() throws IOException {
         checkAfterNewline();
         if (doSpace) {

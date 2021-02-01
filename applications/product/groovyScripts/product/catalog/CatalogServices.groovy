@@ -247,7 +247,7 @@ def imageUrlCheck(prodOrCat, imageType, filesImageMap) {
         filesImageMap."${imageType}Map" = [:]
         filesImageMap."${imageType}Map"."${imageType}" = prodOrCat."${imageType}"
         filesImageMap."${imageType}Map".isExists = isExists
-        if (isExists == "N") {
+        if ("N" == isExists) {
             prodOrCat."${imageType}" = null
         }
     }

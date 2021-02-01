@@ -49,13 +49,12 @@ import org.apache.commons.cli.ParseException;
  */
 public final class StartupCommandUtil {
 
+    private StartupCommandUtil() { }
     /*
      * Make sure of defining the same set of values in:
-     *
      * - The StartupOptions in the StartupOption enum
      * - The commons-cli options (e.g. HELP, START, etc ...)
      * - The getOfbizStartupOptions method
-     *
      * Keeping these items in sync means that OFBiz behaves correctly
      * while being decoupled from the commons-cli library and the only
      * place where commons-cli is used is in this class
@@ -71,7 +70,7 @@ public final class StartupCommandUtil {
         TEST("test");
 
         private String name;
-        private StartupOption(String name) {
+        StartupOption(String name) {
             this.name = name;
         }
         public String getName() {
@@ -118,7 +117,7 @@ public final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "-l repair-columns"
                     + System.lineSeparator()
-                    + "-l continue-on-failure" )
+                    + "-l continue-on-failure")
             .numberOfArgs(2)
             .valueSeparator('=')
             .optionalArg(true)
@@ -162,7 +161,7 @@ public final class StartupCommandUtil {
             .argName("key=value")
             .build();
 
-    static final List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
+    static List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
         CommandLine commandLine = null;
         CommandLineParser parser = new DefaultParser();
         try {
@@ -174,7 +173,7 @@ public final class StartupCommandUtil {
         return mapCommonsCliOptionsToStartupCommands(commandLine);
     }
 
-    static final void printOfbizStartupHelp(final PrintStream printStream) {
+    static void printOfbizStartupHelp(final PrintStream printStream) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
                 new PrintWriter(new OutputStreamWriter(printStream, StandardCharsets.UTF_8), true),
@@ -192,17 +191,16 @@ public final class StartupCommandUtil {
                 true);
     }
 
-    static final void highlightAndPrintErrorMessage(String errorMessage) {
+    static void highlightAndPrintErrorMessage(String errorMessage) {
         System.err.println(
                 "==============================================================================="
                 + System.lineSeparator()
                 + errorMessage
                 + System.lineSeparator()
-                + "==============================================================================="
-                );
+                + "===============================================================================");
     }
 
-    private static final Options getOfbizStartupOptions() {
+    private static Options getOfbizStartupOptions() {
         OptionGroup ofbizCommandOptions = new OptionGroup();
         ofbizCommandOptions.addOption(HELP);
         ofbizCommandOptions.addOption(LOAD_DATA);
@@ -217,7 +215,7 @@ public final class StartupCommandUtil {
         return options;
     }
 
-    private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
+    private static List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
         Set<Option> uniqueOptions = new HashSet<>(Arrays.asList(commandLine.getOptions()));
         return uniqueOptions.stream()
                 .map(option -> new StartupCommand.Builder(option.getLongOpt())
@@ -226,23 +224,23 @@ public final class StartupCommandUtil {
                 .collect(Collectors.toList());
     }
 
-    private static final Map<String,String> populateMapFromProperties(final Properties properties) {
+    private static Map<String, String> populateMapFromProperties(final Properties properties) {
         return properties.entrySet().stream().collect(Collectors.toMap(
                 entry -> String.valueOf(entry.getKey()),
                 entry -> String.valueOf(entry.getValue())));
     }
 
-    private static final void validateAllCommandArguments(CommandLine commandLine) throws StartupException {
+    private static void validateAllCommandArguments(CommandLine commandLine) throws StartupException {
         // Make sure no extra options are passed
-        if(!commandLine.getArgList().isEmpty()) {
+        if (!commandLine.getArgList().isEmpty()) {
             throw new StartupException("unrecognized options / properties: " + commandLine.getArgList());
         }
         // PORTOFFSET validation
-        if(commandLine.hasOption(StartupOption.PORTOFFSET.getName())) {
+        if (commandLine.hasOption(StartupOption.PORTOFFSET.getName())) {
             Properties optionProperties = commandLine.getOptionProperties(StartupOption.PORTOFFSET.getName());
             try {
                 int portOffset = Integer.parseInt(optionProperties.keySet().iterator().next().toString());
-                if(portOffset < 0) {
+                if (portOffset < 0) {
                     throw new StartupException("you can only pass positive integers to the option --" + StartupOption.PORTOFFSET.getName());
                 }
             } catch (NumberFormatException e) {

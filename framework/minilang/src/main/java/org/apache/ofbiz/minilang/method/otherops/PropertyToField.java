@@ -35,7 +35,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;property-to-field&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class PropertyToField extends MethodOperation {
@@ -44,7 +43,7 @@ public final class PropertyToField extends MethodOperation {
     private static boolean autoCorrect(Element element) {
         // Correct deprecated arg-list-name attribute
         String listAttr = element.getAttribute("arg-list-name");
-        if (listAttr.length() > 0) {
+        if (!listAttr.isEmpty()) {
             element.setAttribute("arg-list", listAttr);
             element.removeAttribute("arg-list-name");
             return true;

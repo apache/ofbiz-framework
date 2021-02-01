@@ -23,13 +23,13 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -185,14 +185,16 @@ public class RequestHandlerTests {
 
         @Test
         public void resolveURIBasicOverrideView() throws Exception {
-            RequestMap foobar = new RequestMap(dummyElement);
-            reqMaps.putSingle("foo/bar", foobar);
+            RequestMap foo = new RequestMap(dummyElement);
+            RequestMap bar = new RequestMap(dummyElement);
+            reqMaps.putSingle("foo", foo);
+            reqMaps.putSingle("bar", bar);
 
             viewMaps.put("baz", new ViewMap(dummyElement));
 
             when(req.getPathInfo()).thenReturn("/foo/baz");
-            when(ccfg.getDefaultRequest()).thenReturn("foo/bar");
-            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foobar));
+            when(ccfg.getDefaultRequest()).thenReturn("bar");
+            assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
         }
 
         @Test
@@ -232,11 +234,11 @@ public class RequestHandlerTests {
         @Test
         public void resolveMethodBasic() throws RequestHandlerException {
             RequestMap fooPut = new RequestMap(dummyElement);
-            fooPut.method = "put";
+            fooPut.setMethod("put");
             rmaps.add(fooPut);
 
             RequestMap fooAll = new RequestMap(dummyElement);
-            fooAll.method = "all";
+            fooAll.setMethod("all");
             rmaps.add(fooAll);
 
             assertThat(RequestHandler.resolveMethod("put", rmaps).get(), is(fooPut));
@@ -251,7 +253,7 @@ public class RequestHandlerTests {
             assertFalse(RequestHandler.resolveMethod("delete", rmaps).isPresent());
 
             RequestMap foo = new RequestMap(dummyElement);
-            foo.method = "all";
+            foo.setMethod("all");
             rmaps.add(foo);
             assertTrue(RequestHandler.resolveMethod("get", rmaps).isPresent());
             assertTrue(RequestHandler.resolveMethod("post", rmaps).isPresent());

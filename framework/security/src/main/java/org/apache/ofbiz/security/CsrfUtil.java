@@ -45,10 +45,11 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 public final class CsrfUtil {
 
-    public static final String MODULE = CsrfUtil.class.getName();
+    private static final String MODULE = CsrfUtil.class.getName();
     private static String tokenNameNonAjax = UtilProperties.getPropertyValue("security", "csrf.tokenName.nonAjax",
             "csrf");
     private static ICsrfDefenseStrategy strategy;
+    private static String strategyCanonicalName;
     private static int cacheSize = (int) Long
             .parseLong(UtilProperties.getPropertyValue("security", "csrf.cache.size", "5000"));
     private static LinkedHashMap<String, Map<String, Map<String, String>>> csrfTokenCache =
@@ -68,10 +69,11 @@ public final class CsrfUtil {
             String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy",
                     NoCsrfDefenseStrategy.class.getCanonicalName());
             Class<?> c = Class.forName(className);
+            strategyCanonicalName = c.getCanonicalName();
             setStrategy((ICsrfDefenseStrategy) c.newInstance());
         } catch (Exception e) {
             Debug.logError(e, MODULE);
-            setStrategy(new CsrfDefenseStrategy());
+            setStrategy(new NoCsrfDefenseStrategy());
         }
     }
 
@@ -88,7 +90,7 @@ public final class CsrfUtil {
         if (UtilValidate.isNotEmpty(partyId)) {
             Map<String, Map<String, String>> partyTokenMap = csrfTokenCache.get(partyId);
             if (partyTokenMap == null) {
-                partyTokenMap = new HashMap<String, Map<String, String>>();
+                partyTokenMap = new HashMap<>();
                 csrfTokenCache.put(partyId, partyTokenMap);
             }
 
@@ -125,7 +127,6 @@ public final class CsrfUtil {
 
     /**
      * Reduce number of subfolder from request uri, if needed, before using it to generate CSRF token.
-     *
      * @param requestUri
      * @return
      */
@@ -168,7 +169,6 @@ public final class CsrfUtil {
      * size limit is reached, the eldest entry will be deleted each time a new entry is added. Token only generated for
      * up to 3 subfolders in the path so 'entity/find/Budget/0001' and 'entity/find/Budget/0002' should share the same
      * CSRF token.
-     *
      * @param request
      * @param pathOrRequestUri
      * @return csrf token
@@ -199,10 +199,12 @@ public final class CsrfUtil {
             requestMap = findRequestMap(requestMapMap, pathOrRequestUri);
         }
         if (requestMap == null) {
-            Debug.logError("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+            if (!"org.apache.ofbiz.security.NoCsrfDefenseStrategy".equals(strategyCanonicalName)) {
+                Debug.logWarning("Cannot find the corresponding request map for path: " + pathOrRequestUri, MODULE);
+            }
         }
         String tokenValue = "";
-        if (requestMap != null && requestMap.securityCsrfToken) {
+        if (requestMap != null && requestMap.isSecurityCsrfToken()) {
             if (tokenMap.containsKey(requestUri)) {
                 tokenValue = tokenMap.get(requestUri);
             } else {
@@ -218,7 +220,7 @@ public final class CsrfUtil {
         String requestUri = getRequestUriFromPath(urlWithControlPath);
 
         List<ComponentConfig.WebappInfo> webappInfos = ComponentConfig.getAllWebappResourceInfos().stream()
-                .filter(line -> line.contextRoot.contains(RequestHandler.getRequestUri(urlWithControlPath)))
+                .filter(line -> line.getContextRoot().contains(RequestHandler.getRequestUri(urlWithControlPath)))
                 .collect(Collectors.toList());
 
         ConfigXMLReader.RequestMap requestMap = null;
@@ -265,7 +267,6 @@ public final class CsrfUtil {
 
     /**
      * generate csrf token for AJAX and add it as value to token cache
-     *
      * @param request
      * @return csrf token
      */
@@ -281,7 +282,6 @@ public final class CsrfUtil {
 
     /**
      * get csrf token for AJAX
-     *
      * @param session
      * @return csrf token
      */

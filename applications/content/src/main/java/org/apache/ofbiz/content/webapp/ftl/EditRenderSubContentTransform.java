@@ -48,7 +48,7 @@ import freemarker.template.TemplateTransformModel;
  */
 public class EditRenderSubContentTransform implements TemplateTransformModel {
 
-    public static final String MODULE = EditRenderSubContentTransform.class.getName();
+    private static final String MODULE = EditRenderSubContentTransform.class.getName();
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -114,7 +114,8 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         if (subContentDataResourceViewTemp == null) {
             try {
-                subContentDataResourceViewTemp = ContentWorker.getSubContent(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate);
+                subContentDataResourceViewTemp = ContentWorker.getSubContent(delegator, contentId, mapKey, subContentId, userLogin,
+                        assocTypes, fromDate);
             } catch (IOException e) {
                 Debug.logError(e, "Error getting sub-content", MODULE);
                 throw new RuntimeException(e.getMessage());

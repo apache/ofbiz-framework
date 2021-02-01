@@ -29,15 +29,15 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
  */
 public interface DistributedCacheClear {
 
-    public void setDelegator(Delegator delegator, String userLoginId);
+    void setDelegator(Delegator delegator, String userLoginId);
 
-    public void distributedClearCacheLine(GenericValue value);
+    void distributedClearCacheLine(GenericValue value);
 
-    public void distributedClearCacheLineFlexible(GenericEntity dummyPK);
+    void distributedClearCacheLineFlexible(GenericEntity dummyPK);
 
-    public void distributedClearCacheLineByCondition(String entityName, EntityCondition condition);
+    void distributedClearCacheLineByCondition(String entityName, EntityCondition condition);
 
-    public void distributedClearCacheLine(GenericPK primaryKey);
+    void distributedClearCacheLine(GenericPK primaryKey);
 
-    public void clearAllCaches();
+    void clearAllCaches();
 }

@@ -91,4 +91,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="SendPOEmail">
+        <section>
+            <actions>
+                <entity-one entity-name="PartyNameView" value-field="supplier">
+                    <field-map field-name="partyId" from-field="partyIdTo"/>
+                </entity-one>
+                <entity-one entity-name="PartyNameView" value-field="company">
+                    <field-map field-name="partyId" from-field="partyIdFrom"/>
+                </entity-one>
+                <set field="title" value="Your Purchase Order #${orderId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html>
+                    <html-template location="component://order/template/order/SendPurchaseOrderEmail.ftl"/>
+                </html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

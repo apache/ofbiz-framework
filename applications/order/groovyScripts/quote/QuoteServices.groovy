@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -31,8 +30,6 @@ import org.apache.ofbiz.product.config.ProductConfigWrapper
 import org.apache.ofbiz.service.ExecutionServiceException
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-
-String module = 'QuoteServices.groovy'
 
 /**
  * Set the Quote status to ordered.
@@ -53,14 +50,13 @@ def checkUpdateQuoteStatus() {
 def getNextQuoteId() {
     // Try to find PartyAcctgPreference for parameters.partyId, see if we need any special quote number sequencing
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', parameters.partyId).queryOne()
-    Debug.logInfo("In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}",
-                  module)
+    logInfo("In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
 
     Map customMethod = null
     if (partyAcctgPreference) {
         customMethod = partyAcctgPreference.getRelatedOne('QuoteCustomMethod', false)
     } else {
-        Debug.logWarning("Acctg preference not defined for partyId [${parameters.partyId}]", module)
+        logWarning("Acctg preference not defined for partyId [${parameters.partyId}]")
     }
 
     String customMethodName
@@ -108,7 +104,7 @@ def getNextQuoteId() {
  * Enforced Sequence (no gaps, per organization).
  */
 def quoteSequenceEnforced() {
-    Debug.logInfo('In getNextQuoteId sequence enum Enforced', module)
+    logInfo('In getNextQuoteId sequence enum Enforced')
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     // This is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 
@@ -192,7 +188,7 @@ def updateQuote() {
         GenericValue validChange = from("StatusValidChange").where('statusId', quote.statusId, 'statusIdTo', parameters.statusId).queryOne()
 
         if (!validChange) {
-            Debug.logError("The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change", module)
+            logError("The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change")
             // FIXME : LABEL :D
             return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteStatusChangeIsNotValid', locale))
         }

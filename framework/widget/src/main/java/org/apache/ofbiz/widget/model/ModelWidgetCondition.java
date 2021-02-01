@@ -62,17 +62,14 @@ public abstract class ModelWidgetCondition implements Serializable {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
-    public static final String MODULE = ModelWidgetCondition.class.getName();
+    private static final String MODULE = ModelWidgetCondition.class.getName();
     public static final ConditionFactory DEFAULT_CONDITION_FACTORY = new DefaultConditionFactory();
 
     private final ModelWidget modelWidget;
@@ -84,10 +81,19 @@ public abstract class ModelWidgetCondition implements Serializable {
         this.rootCondition = factory.newInstance(modelWidget, firstChildElement);
     }
 
+    /**
+     * Eval boolean.
+     * @param context the context
+     * @return the boolean
+     */
     public boolean eval(Map<String, Object> context) {
         return rootCondition.eval(context);
     }
 
+    /**
+     * Gets model widget.
+     * @return the model widget
+     */
     public ModelWidget getModelWidget() {
         return modelWidget;
     }
@@ -103,7 +109,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;and&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class And extends ModelWidgetCondition implements Condition {
@@ -126,18 +131,16 @@ public abstract class ModelWidgetCondition implements Serializable {
         }
     }
 
-    public static interface Condition {
+    public interface Condition {
         boolean eval(Map<String, Object> context);
     }
 
     /**
      * A factory for <code>Condition</code> instances.
-     *
      */
-    public static interface ConditionFactory {
+    public interface ConditionFactory {
         /**
          * Returns a new <code>Condition</code> instance built from <code>conditionElement</code>.
-         *
          * @param modelWidget The <code>ModelWidget</code> that contains the <code>Condition</code> instance.
          * @param conditionElement The XML element used to build the <code>Condition</code> instance.
          * @return A new <code>Condition</code> instance built from <code>conditionElement</code>.
@@ -147,57 +150,47 @@ public abstract class ModelWidgetCondition implements Serializable {
     }
 
     public static class DefaultConditionFactory implements ConditionFactory {
-        public static final Condition TRUE = new Condition() {
-            @Override
-            public boolean eval(Map<String, Object> context) {
-                return true;
-            }
-        };
-        public static final Condition FALSE = new Condition() {
-            @Override
-            public boolean eval(Map<String, Object> context) {
-                return false;
-            }
-        };
+        public static final Condition TRUE = context -> true;
+        public static final Condition FALSE = context -> false;
 
         @Override
         public Condition newInstance(ModelWidget modelWidget, Element conditionElement) {
             if (conditionElement == null) {
                 return TRUE;
             }
-            if ("and".equals(conditionElement.getNodeName())) {
+            String nodeName = conditionElement.getLocalName();
+            if ("and".equals(nodeName)) {
                 return new And(this, modelWidget, conditionElement);
-            } else if ("xor".equals(conditionElement.getNodeName())) {
+            } else if ("xor".equals(nodeName)) {
                 return new Xor(this, modelWidget, conditionElement);
-            } else if ("or".equals(conditionElement.getNodeName())) {
+            } else if ("or".equals(nodeName)) {
                 return new Or(this, modelWidget, conditionElement);
-            } else if ("not".equals(conditionElement.getNodeName())) {
+            } else if ("not".equals(nodeName)) {
                 return new Not(this, modelWidget, conditionElement);
-            } else if ("if-service-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-service-permission".equals(nodeName)) {
                 return new IfServicePermission(this, modelWidget, conditionElement);
-            } else if ("if-has-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-has-permission".equals(nodeName)) {
                 return new IfHasPermission(this, modelWidget, conditionElement);
-            } else if ("if-validate-method".equals(conditionElement.getNodeName())) {
+            } else if ("if-validate-method".equals(nodeName)) {
                 return new IfValidateMethod(this, modelWidget, conditionElement);
-            } else if ("if-compare".equals(conditionElement.getNodeName())) {
+            } else if ("if-compare".equals(nodeName)) {
                 return new IfCompare(this, modelWidget, conditionElement);
-            } else if ("if-compare-field".equals(conditionElement.getNodeName())) {
+            } else if ("if-compare-field".equals(nodeName)) {
                 return new IfCompareField(this, modelWidget, conditionElement);
-            } else if ("if-regexp".equals(conditionElement.getNodeName())) {
+            } else if ("if-regexp".equals(nodeName)) {
                 return new IfRegexp(this, modelWidget, conditionElement);
-            } else if ("if-empty".equals(conditionElement.getNodeName())) {
+            } else if ("if-empty".equals(nodeName)) {
                 return new IfEmpty(this, modelWidget, conditionElement);
-            } else if ("if-entity-permission".equals(conditionElement.getNodeName())) {
+            } else if ("if-entity-permission".equals(nodeName)) {
                 return new IfEntityPermission(this, modelWidget, conditionElement);
             } else {
-                throw new IllegalArgumentException("Condition element not supported with name: " + conditionElement.getNodeName());
+                throw new IllegalArgumentException("Condition element not supported with name: " + nodeName);
             }
         }
     }
 
     /**
      * Models the &lt;if-compare&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfCompare extends ModelWidgetCondition implements Condition {
@@ -231,7 +224,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             }
             List<Object> messages = new LinkedList<>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
-            if (messages.size() > 0) {
+            if (!messages.isEmpty()) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value ["
                         + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
@@ -248,7 +241,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-compare-field&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfCompareField extends ModelWidgetCondition implements Condition {
@@ -287,7 +279,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             List<Object> messages = new LinkedList<>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null,
                     false);
-            if (messages.size() > 0) {
+            if (!messages.isEmpty()) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString()
                         + "] with value [" + fieldVal + "] and to-field [" + toFieldAcsr.toString() + "] with value ["
                         + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
@@ -305,7 +297,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-empty&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfEmpty extends ModelWidgetCondition implements Condition {
@@ -329,7 +320,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-entity-permission&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfEntityPermission extends ModelWidgetCondition implements Condition {
@@ -348,7 +338,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-has-permission&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfHasPermission extends ModelWidgetCondition implements Condition {
@@ -387,7 +376,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-regexp&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfRegexp extends ModelWidgetCondition implements Condition {
@@ -434,7 +422,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-service-permission&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfServicePermission extends ModelWidgetCondition implements Condition {
@@ -496,9 +483,8 @@ public abstract class ModelWidgetCondition implements Serializable {
                 // invoke the service
                 Map<String, Object> resp;
                 try {
-                    resp = dispatcher.runSync(permService.name, svcCtx, 300, true);
-                }
-                catch (GenericServiceException e) {
+                    resp = dispatcher.runSync(permService.getName(), svcCtx, 300, true);
+                } catch (GenericServiceException e) {
                     Debug.logError(e, MODULE);
                     return false;
                 }
@@ -517,7 +503,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;if-validate-method&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class IfValidateMethod extends ModelWidgetCondition implements Condition {
@@ -554,8 +539,8 @@ public abstract class ModelWidgetCondition implements Serializable {
             if (fieldString == null) {
                 fieldString = "";
             }
-            Class<?>[] paramTypes = { String.class };
-            Object[] params = new Object[] { fieldString };
+            Class<?>[] paramTypes = {String.class };
+            Object[] params = new Object[] {fieldString };
             Class<?> valClass;
             try {
                 valClass = ObjectType.loadClass(className);
@@ -583,7 +568,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;not&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Not extends ModelWidgetCondition implements Condition {
@@ -603,7 +587,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;or&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Or extends ModelWidgetCondition implements Condition {
@@ -628,7 +611,6 @@ public abstract class ModelWidgetCondition implements Serializable {
 
     /**
      * Models the &lt;xor&gt; element.
-     *
      * @see <code>widget-common.xsd</code>
      */
     public static class Xor extends ModelWidgetCondition implements Condition {

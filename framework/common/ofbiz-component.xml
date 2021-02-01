@@ -25,12 +25,11 @@ under the License.
     <classpath type="dir" location="config"/>
     
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonSystemPropertyData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CurrencyData.xml"/>
-
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CountryCodeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_AU.xml"/>
@@ -56,12 +55,13 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_TH.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_UK.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_US.xml"/>
-    
-
     <entity-resource type="data" reader-name="seed" loader="main" location="data/LanguageData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/UnitData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PeriodData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonPortletData.xml"/>
+
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonSecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonScheduledServicesDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cdyne.xml"/>

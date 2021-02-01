@@ -62,13 +62,13 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
     public XmlWidgetFieldVisitor(Appendable writer) {
         super(writer);
     }
+    private final Appendable writer = getWriter();
 
     @Override
     public void visit(CheckField checkField) throws Exception {
         visitModelField(checkField.getModelFormField());
         writer.append("<check");
         visitAttribute("all-checked", checkField.getAllChecked());
-        visitAttribute("disabled", checkField.getDisabled());
         visitFieldInfoWithOptions(checkField);
         writer.append("</check></field>");
     }
@@ -341,7 +341,6 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
     private void visitTextFieldAttrs(TextField field) throws Exception {
         visitAttribute("client-autocomplete-field", field.getClientAutocompleteField());
         visitAttribute("default-value", field.getDefaultValue());
-        visitAttribute("disabled", field.getDisabled());
         visitAttribute("mask", field.getMask());
         visitAttribute("maxlength", field.getMaxlength());
         visitAttribute("placeholder", field.getPlaceholder());

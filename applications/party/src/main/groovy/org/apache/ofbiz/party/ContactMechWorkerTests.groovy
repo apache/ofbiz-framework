@@ -92,7 +92,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
         }
 
         //Restart a search at 05/13/2001 10:00:00.000, the email 9126 need to have two purposes
-        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, "DemoCustomer", UtilDateTime.toTimestamp("05/13/2001 10:00:00.000"), "EMAIL_ADDRESS")
+        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, "DemoCustomer", UtilDateTime.toTimestamp("05/13/2001 10:00:00"), "EMAIL_ADDRESS")
         partyContactMechValueMaps.forEach {
             Map partyContactMechValueMap ->
                 switch (partyContactMechValueMap?.contactMech?.contactMechId) {

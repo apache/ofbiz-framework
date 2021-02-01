@@ -1274,7 +1274,7 @@ under the License.
         <response name="error" type="view" value="EditFacility"/>
     </request-map>
     
-    <!-- Shipment Gateway Config --> 
+    <!-- Shipment Gateway Config -->
     <request-map uri="FindShipmentGatewayConfig">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindShipmentGatewayConfig"/>
@@ -1359,6 +1359,8 @@ under the License.
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
     <request-map uri="LookupShipment"><security auth="true" https="true"/><response name="success" type="view" value="LookupShipment"/></request-map>
+    <request-map uri="LookupDataResource"><security auth="true" https="true"/><response name="success" type="view" value="LookupDataResource"/></request-map>
+    <request-map uri="LookupFixedAsset"><security auth="true" https="true"/><response name="success" type="view" value="LookupFixedAsset"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1464,7 +1466,8 @@ under the License.
     <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupShipment" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupShipment"/>
-
+    <view-map name="LookupDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource"/>
+    <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <!-- Shipment Gateway Config -->
     <view-map name="FindShipmentGatewayConfig" type="screen" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#FindShipmentGatewayConfig"/>
     <view-map name="EditShipmentGatewayConfig" type="screen" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#EditShipmentGatewayConfig"/>

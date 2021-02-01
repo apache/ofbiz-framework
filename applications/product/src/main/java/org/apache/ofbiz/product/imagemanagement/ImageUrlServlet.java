@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 @SuppressWarnings("serial")
 public class ImageUrlServlet extends HttpServlet {
 
-    public static final String MODULE = ImageUrlServlet.class.getName();
+    private static final String MODULE = ImageUrlServlet.class.getName();
 
     public ImageUrlServlet() {
         super();
@@ -73,7 +73,7 @@ public class ImageUrlServlet extends HttpServlet {
         String lastTagElement = tagElements.get(tagElements.size() - 1);
         String contentId = lastTagElement.substring(0, lastTagElement.lastIndexOf('.'));
         String sizeTagElement = null;
-        if(tagElements.size() > 2){
+        if (tagElements.size() > 2) {
             sizeTagElement = tagElements.get(tagElements.size() - 2);
         }
 

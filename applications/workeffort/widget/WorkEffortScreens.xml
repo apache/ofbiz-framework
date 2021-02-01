@@ -130,6 +130,12 @@ under the License.
                 <set field="headerItem" value="workeffort"/>
                 <set field="titleProperty" value="PageTitleFindWorkEffort"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE"/>
+                <set field="asm_multipleSelectForm" value="FindWorkEffort"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="currentStatusId.asm_multipleSelect" value="FindWorkEffort_currentStatusId"/>
+                <set field="currentStatusId.asm_sortable" value="true"/>
+                <set field="currentStatusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="currentStatusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -144,6 +150,9 @@ under the License.
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
+                                <platform-specific>
+                                    <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                </platform-specific>
                                 <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">

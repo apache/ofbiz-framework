@@ -39,7 +39,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-compare&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class CompareCondition extends MethodOperation implements Conditional {
@@ -75,7 +74,8 @@ public final class CompareCondition extends MethodOperation implements Condition
         Class<?> targetClass = null;
         if (!this.type.isEmpty()) {
             if ("contains".equals(this.operator)) {
-                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).", simpleMethod, element);
+                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).",
+                        simpleMethod, element);
                 targetClass = Object.class;
             } else {
                 try {
@@ -117,7 +117,7 @@ public final class CompareCondition extends MethodOperation implements Condition
             // We use en locale here so constant (literal) values are converted properly.
             return this.compare.doCompare(fieldVal, value, targetClass, Locale.ENGLISH, methodContext.getTimeZone(), format);
         } catch (Exception e) {
-            simpleMethod.addErrorMessage(methodContext, e.getMessage());
+            getSimpleMethod().addErrorMessage(methodContext, e.getMessage());
         }
         return false;
     }
@@ -189,7 +189,7 @@ public final class CompareCondition extends MethodOperation implements Condition
     }
 
     /**
-     * A &lt;if-compare&gt; element factory. 
+     * A &lt;if-compare&gt; element factory.
      */
     public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> implements Factory<CompareCondition> {
         @Override

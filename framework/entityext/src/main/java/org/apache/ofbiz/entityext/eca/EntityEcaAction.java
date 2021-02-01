@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public final class EntityEcaAction implements java.io.Serializable {
-    public static final String MODULE = EntityEcaAction.class.getName();
+    private static final String MODULE = EntityEcaAction.class.getName();
 
     private final String serviceName;
     private final String serviceMode;
@@ -78,7 +78,8 @@ public final class EntityEcaAction implements java.io.Serializable {
             }
 
             //Debug.logInfo("Running Entity ECA action service " + this.serviceName + " triggered by entity: " + value.getEntityName(), MODULE);
-            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + "; value=" + value + "; actionContext=" + actionContext, MODULE);
+            //Debug.logInfo("Running Entity ECA action service " + this.serviceName + "; value=" + value + "; actionContext="
+            // + actionContext, MODULE);
 
             // setup the run-as-user
             GenericValue userLoginToRunAs = null;

@@ -21,7 +21,6 @@ package org.apache.ofbiz.accounting.payment;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -50,30 +49,34 @@ import org.apache.ofbiz.service.ServiceUtil;
 /**
  * Worker methods for BillingAccounts
  */
-public class BillingAccountWorker {
+public final class BillingAccountWorker {
 
-    public static final String MODULE = BillingAccountWorker.class.getName();
-    public static final String resourceError = "AccountingUiLabels";
-    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
+    private static final String MODULE = BillingAccountWorker.class.getName();
+    private static final String RES_ERROR = "AccountingUiLabels";
+    private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
+    private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
+    private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
 
-    public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
+    protected BillingAccountWorker() { }
+
+    public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId,
+             Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
         List<Map<String, Object>> billingAccountList = new LinkedList<>();
 
-        Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
-                "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT", "includeFromToSwitched", "Y"));
+        Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin,
+                "partyIdFrom", partyId, "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT",
+                "includeFromToSwitched", "Y"));
         if (ServiceUtil.isError(agentResult)) {
-            throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: " + ServiceUtil.getErrorMessage(agentResult));
+            throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: "
+                    + ServiceUtil.getErrorMessage(agentResult));
         }
         List<String> relatedPartyIdList = UtilGenerics.cast(agentResult.get("relatedPartyIdList"));
 
         List<GenericValue> billingAccountRoleList = EntityQuery.use(delegator).from("BillingAccountRole")
                 .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
-                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")
-                ).filterByDate().queryList();
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")).filterByDate().queryList();
 
-        if (billingAccountRoleList.size() > 0) {
+        if (!billingAccountRoleList.isEmpty()) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
             for (GenericValue billingAccountRole : billingAccountRoleList) {
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount", false);
@@ -96,7 +99,7 @@ public class BillingAccountWorker {
                     billingAccountList.add(billingAccount);
                 }
             }
-            Collections.sort(billingAccountList, new BillingAccountComparator());
+            billingAccountList.sort(new BillingAccountComparator());
         }
         return billingAccountList;
     }
@@ -109,12 +112,12 @@ public class BillingAccountWorker {
                 .where(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")
-                ).queryList();
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")).queryList();
     }
 
     /**
-     * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus the balance of outstanding orders
+     * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus
+     * the balance of outstanding orders
      * When trying to figure out how much of a billing account can be used to pay for an outstanding order, use this method
      * @param billingAccount GenericValue object of the billing account
      * @return returns the amount which could be charged to a billing account
@@ -123,7 +126,8 @@ public class BillingAccountWorker {
     public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
         if ((billingAccount != null) && (billingAccount.get("accountLimit") != null)) {
             BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
-            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
+            BigDecimal availableBalance = accountLimit.subtract(OrderReadHelper.getBillingAccountBalance(billingAccount))
+                    .setScale(DECIMALS, ROUNDING);
             return availableBalance;
         }
         Debug.logWarning("Available balance requested for null billing account, returning zero", MODULE);
@@ -136,7 +140,8 @@ public class BillingAccountWorker {
     }
 
     /**
-     * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts applied from payments.
+     * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts
+     * applied from payments.
      * When charging or capturing an invoice to a billing account, use this method
      * @param delegator the delegator
      * @param billingAccountId the billing account id
@@ -147,7 +152,8 @@ public class BillingAccountWorker {
         BigDecimal balance = ZERO;
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
-        List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId", billingAccountId).queryList();
+        List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId",
+                billingAccountId).queryList();
         for (GenericValue paymentAppl : paymentAppls) {
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
             GenericValue invoice = paymentAppl.getRelatedOne("Invoice", false);
@@ -161,7 +167,7 @@ public class BillingAccountWorker {
             }
         }
 
-        balance = balance.setScale(decimals, rounding);
+        balance = balance.setScale(DECIMALS, ROUNDING);
         return balance;
     }
 
@@ -169,13 +175,13 @@ public class BillingAccountWorker {
      * Returns the amount of the billing account which could be captured, which is BillingAccount.accountLimit - net balance
      * @param billingAccount GenericValue object of the billing account
      * @return the amount of the billing account which could be captured
-     * @throws GenericEntityException 
+     * @throws GenericEntityException
      */
     public static BigDecimal availableToCapture(GenericValue billingAccount) throws GenericEntityException {
         BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
         BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
 
-        return accountLimit.subtract(netBalance).setScale(decimals, rounding);
+        return accountLimit.subtract(netBalance).setScale(DECIMALS, ROUNDING);
     }
 
     public static Map<String, Object> calcBillingAccountBalance(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -187,7 +193,7 @@ public class BillingAccountWorker {
         try {
             GenericValue billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
             if (billingAccount == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingBillingAccountNotFound",
                         UtilMisc.toMap("billingAccountId", billingAccountId), locale));
             }
@@ -201,17 +207,16 @@ public class BillingAccountWorker {
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingBillingAccountNotFound",
                     UtilMisc.toMap("billingAccountId", billingAccountId), locale));
         }
     }
-    
     @SuppressWarnings("serial")
-    protected static class BillingAccountComparator implements Comparator<Map<String, Object>>, Serializable{
+    protected static class BillingAccountComparator implements Comparator<Map<String, Object>>, Serializable {
         @Override
         public int compare(Map<String, Object> billingAccount1, Map<String, Object> billingAccount2) {
-            return ((BigDecimal)billingAccount1.get("accountBalance")).compareTo((BigDecimal)billingAccount2.get("accountBalance"));
+            return ((BigDecimal) billingAccount1.get("accountBalance")).compareTo((BigDecimal) billingAccount2.get("accountBalance"));
         }
     }
 }

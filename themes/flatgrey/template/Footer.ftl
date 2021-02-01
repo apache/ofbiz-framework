@@ -41,5 +41,6 @@ under the License.
     <script type="application/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
   </#list>
 </#if>
+<@scriptTagsFooter/>
 </body>
 </html>

@@ -33,6 +33,7 @@ under the License.
                     <#include "component://order/template/order/CompanyHeader.fo.ftl"/>
                     <#assign orderId = order.orderId>
                     <#assign orderDate = order.orderDate>
+                    <#assign currencyUomId = order.currencyUom!>
                     <#list orderInfoList as orderInfo>
                         <#if orderInfo.get("${orderId}")??>
                             <#assign orderDetail = orderInfo.get("${orderId}")>

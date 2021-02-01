@@ -30,7 +30,7 @@ def getNextInvoiceId() {
 
     // try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where(parameters).queryOne()
-    if (Debug.infoOn()) Debug.logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}", 'InvoiceServices.groovy')
+    if (Debug.infoOn()) logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
 
     String customMethodName = null;
     String invoiceIdPrefix = '';
@@ -50,7 +50,7 @@ def getNextInvoiceId() {
             }
         }
     } else {
-        Debug.logWarning('Acctg preference not defined for partyId [${parameters.partyId}]', 'InvoiceServices.groovy')
+        logWarning('Acctg preference not defined for partyId [${parameters.partyId}]')
     }
 
     String invoiceIdTemp = ''
@@ -60,7 +60,7 @@ def getNextInvoiceId() {
         if (ServiceUtil.isError(serviceResult)) return serviceResult
         invoiceIdTemp = serviceResult.invoiceId
     } else {
-        Debug.logInfo('In createInvoice sequence enum Standard', 'InvoiceServices.groovy')
+        logInfo('In createInvoice sequence enum Standard')
         //default to the default sequencing: INVSQ_STANDARD
         invoiceIdTemp = parameters.invoiceId
         if (!invoiceIdTemp) {
@@ -83,7 +83,7 @@ def getNextInvoiceId() {
 def invoiceSequenceEnforced() {
     result = success()
 
-    Debug.logInfo('In createInvoice sequence enum Enforced', 'InvoiceServices.groovy')
+    logInfo('In createInvoice sequence enum Enforced')
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     //this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 
@@ -101,7 +101,7 @@ def invoiceSequenceEnforced() {
 def invoiceSequenceRestart() {
     result = success()
 
-    Debug.logInfo('In createInvoice sequence enum Enforced', 'InvoiceServices.groovy')
+    logInfo('In createInvoice sequence enum Enforced')
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     //this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 

@@ -65,7 +65,7 @@ import org.w3c.dom.Document;
  */
 public class SOAPEventHandler implements EventHandler {
 
-    public static final String MODULE = SOAPEventHandler.class.getName();
+    private static final String MODULE = SOAPEventHandler.class.getName();
 
     @Override
     public void init(ServletContext context) throws EventHandlerException {
@@ -118,9 +118,9 @@ public class SOAPEventHandler implements EventHandler {
 
                     for (String scvName: dctx.getAllServiceNames()) {
                         ModelService model = dctx.getModelService(scvName);
-                        if (model.export) {
-                            sb.append("<li><a href=\"").append(locationUri).append("/").append(model.name).append("?wsdl\">");
-                            sb.append(model.name).append("</a></li>");
+                        if (model.isExport()) {
+                            sb.append("<li><a href=\"").append(locationUri).append("/").append(model.getName()).append("?wsdl\">");
+                            sb.append(model.getName()).append("</a></li>");
                         }
                     }
                     sb.append("</ul></p></body></html>");
@@ -159,7 +159,9 @@ public class SOAPEventHandler implements EventHandler {
             throw new EventHandlerException("Cannot get the envelope", e);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SOAP Event", MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[Processing]: SOAP Event", MODULE);
+        }
 
         String serviceName = null;
         try {
@@ -178,14 +180,16 @@ public class SOAPEventHandler implements EventHandler {
                     return null;
                 }
 
-                if (!model.export) {
+                if (!model.isExport()) {
                     sendError(response, "Problem processing the service", serviceName);
                     Debug.logError("Trying to call Service [" + serviceName + "] that is not exported.", MODULE);
                     return null;
                 }
 
                 Map<String, Object> serviceResults = dispatcher.runSync(serviceName, parameters);
-                if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Service invoked", MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[EventHandler] : Service invoked", MODULE);
+                }
 
                 createAndSendSOAPResponse(serviceResults, serviceName, response);
 
@@ -194,7 +198,7 @@ public class SOAPEventHandler implements EventHandler {
                 if (UtilProperties.getPropertyAsBoolean("service", "secureSoapAnswer", true)) {
                     sendError(response, "Problem processing the service, check your parameters.", serviceName);
                 } else {
-                    if(e.getMessageList() == null) {
+                    if (e.getMessageList() == null) {
                         sendError(response, e.getMessage(), serviceName);
                     } else {
                         sendError(response, e.getMessageList(), serviceName);
@@ -228,7 +232,9 @@ public class SOAPEventHandler implements EventHandler {
             HttpServletResponse response) throws EventHandlerException {
         try {
         // setup the response
-            if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Setting up response message", MODULE);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[EventHandler] : Setting up response message", MODULE);
+            }
             String xmlResults = SoapSerializer.serialize(serviceResults);
             //Debug.logInfo("xmlResults ==================" + xmlResults, MODULE);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
@@ -282,7 +288,7 @@ public class SOAPEventHandler implements EventHandler {
         try {
             // setup the response
             res.setContentType("text/xml");
-            String xmlResults= SoapSerializer.serialize(object);
+            String xmlResults = SoapSerializer.serialize(object);
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = (StAXOMBuilder) OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(), xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();

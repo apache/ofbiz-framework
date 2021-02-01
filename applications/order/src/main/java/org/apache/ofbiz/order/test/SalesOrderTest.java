@@ -25,37 +25,39 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class SalesOrderTest extends OFBizTestCase {
-    public static final String MODULE = OFBizTestCase.class.getName();
+    private static final String MODULE = OFBizTestCase.class.getName();
 
-    protected GenericValue userLogin = null;
 
     public SalesOrderTest(String name) {
         super(name);
     }
 
     @Override
-    protected void setUp() throws Exception {
-        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-    }
-
-    @Override
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test create sales order.
+     * @throws Exception the exception
+     */
     public void testCreateSalesOrder() throws Exception {
-        Map<String, Object> ctx = UtilMisc.<String, Object>toMap("partyId", "DemoCustomer", "orderTypeId", "SALES_ORDER", "currencyUom", "USD", "productStoreId", "9000");
+        Delegator delegator = getDelegator();
+        Map<String, Object> ctx = UtilMisc.<String, Object>toMap("partyId", "DemoCustomer", "orderTypeId", "SALES_ORDER", "currencyUom", "USD",
+                "productStoreId", "9000");
 
         List<GenericValue> orderPaymentInfo = new LinkedList<>();
-        GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechId", "9015", "contactMechPurposeTypeId", "BILLING_LOCATION"));
+        GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechId", "9015", "contactMechPurposeTypeId",
+                "BILLING_LOCATION"));
         orderPaymentInfo.add(orderContactMech);
 
-        GenericValue orderPaymentPreference = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("paymentMethodId", "9015", "paymentMethodTypeId", "CREDIT_CARD",
+        GenericValue orderPaymentPreference = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("paymentMethodId", "9015",
+                "paymentMethodTypeId", "CREDIT_CARD",
                 "statusId", "PAYMENT_NOT_AUTH", "overflowFlag", "N", "maxAmount", new BigDecimal("49.26")));
         orderPaymentInfo.add(orderPaymentPreference);
         ctx.put("orderPaymentInfo", orderPaymentInfo);
@@ -64,18 +66,21 @@ public class SalesOrderTest extends OFBizTestCase {
         orderContactMech.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
         orderItemShipGroupInfo.add(orderContactMech);
 
-        GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9015", "isGift", "N",
-                "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
+        GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9015",
+                "isGift", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
         orderItemShipGroupInfo.add(orderItemShipGroup);
 
-        GenericValue orderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", "00001", "quantity", BigDecimal.ONE, "shipGroupSeqId", "00001"));
+        GenericValue orderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", "00001", "quantity",
+                BigDecimal.ONE, "shipGroupSeqId", "00001"));
         orderItemShipGroupInfo.add(orderItemShipGroupAssoc);
 
         GenericValue orderAdjustment = null;
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SHIPPING_CHARGES", "shipGroupSeqId", "00001", "amount", new BigDecimal("12.45")));
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SHIPPING_CHARGES", "shipGroupSeqId",
+                "00001", "amount", new BigDecimal("12.45")));
         orderItemShipGroupInfo.add(orderAdjustment);
 
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001",
+                "overrideGlAccountId", "224153",
                 "primaryGeoId", "UT", "shipGroupSeqId", "00001", "sourcePercentage", BigDecimal.valueOf(4.7)));
         orderAdjustment.set("taxAuthGeoId", "UT");
         orderAdjustment.set("taxAuthPartyId", "UT_TAXMAN");
@@ -84,7 +89,8 @@ public class SalesOrderTest extends OFBizTestCase {
         orderAdjustment.set("comments", "Utah State Sales Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
 
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001",
+                "overrideGlAccountId", "224153",
                 "primaryGeoId", "UT-UTAH", "shipGroupSeqId", "00001", "sourcePercentage", BigDecimal.valueOf(0.1)));
         orderAdjustment.set("taxAuthGeoId", "UT-UTAH");
         orderAdjustment.set("taxAuthPartyId", "UT_UTAH_TAXMAN");
@@ -93,7 +99,8 @@ public class SalesOrderTest extends OFBizTestCase {
         orderAdjustment.set("comments", "Utah County, Utah Sales Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
 
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224000",
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001",
+                "overrideGlAccountId", "224000",
                 "primaryGeoId", "_NA_", "shipGroupSeqId", "00001", "sourcePercentage", BigDecimal.valueOf(1)));
         orderAdjustment.set("taxAuthGeoId", "_NA_");
         orderAdjustment.set("taxAuthPartyId", "_NA_");
@@ -105,12 +112,14 @@ public class SalesOrderTest extends OFBizTestCase {
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
 
         List<GenericValue> orderAdjustments = new LinkedList<>();
-        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", "productPromoActionSeqId", "01", "productPromoId", "9011", "productPromoRuleId", "01", "amount", BigDecimal.valueOf(-3.84)));
+        orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT",
+                "productPromoActionSeqId", "01", "productPromoId", "9011", "productPromoRuleId", "01", "amount", BigDecimal.valueOf(-3.84)));
         orderAdjustments.add(orderAdjustment);
         ctx.put("orderAdjustments", orderAdjustments);
 
         List<GenericValue> orderItems = new LinkedList<>();
-        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-2644", "quantity", BigDecimal.ONE, "selectedAmount", BigDecimal.ZERO));
+        GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00001", "orderItemTypeId", "PRODUCT_ORDER_ITEM",
+                "prodCatalogId", "DemoCatalog", "productId", "GZ-2644", "quantity", BigDecimal.ONE, "selectedAmount", BigDecimal.ZERO));
         orderItem.set("isPromo", "N");
         orderItem.set("isModifiedPrice", "N");
         orderItem.set("unitPrice", new BigDecimal("38.4"));
@@ -118,7 +127,8 @@ public class SalesOrderTest extends OFBizTestCase {
         orderItem.set("statusId", "ITEM_CREATED");
         orderItems.add(orderItem);
 
-        orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00002", "orderItemTypeId", "PRODUCT_ORDER_ITEM", "prodCatalogId", "DemoCatalog", "productId", "GZ-1006-1", "quantity", BigDecimal.ONE, "selectedAmount", BigDecimal.ZERO));
+        orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", "00002", "orderItemTypeId", "PRODUCT_ORDER_ITEM",
+                "prodCatalogId", "DemoCatalog", "productId", "GZ-1006-1", "quantity", BigDecimal.ONE, "selectedAmount", BigDecimal.ZERO));
         orderItem.set("isPromo", "N");
         orderItem.set("isModifiedPrice", "N");
         orderItem.set("unitPrice", new BigDecimal("1.99"));
@@ -131,9 +141,9 @@ public class SalesOrderTest extends OFBizTestCase {
         List<GenericValue> orderTerms = new LinkedList<>();
         ctx.put("orderTerms", orderTerms);
 
-        GenericValue OrderContactMech = delegator.makeValue("OrderContactMech");
-        OrderContactMech.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
-        OrderContactMech.set("contactMechId", "10000");
+        GenericValue orderContactMec = delegator.makeValue("OrderContactMech");
+        orderContactMec.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
+        orderContactMec.set("contactMechId", "10000");
 
         ctx.put("placingCustomerPartyId", "DemoCustomer");
         ctx.put("endUserCustomerPartyId", "DemoCustomer");
@@ -141,8 +151,8 @@ public class SalesOrderTest extends OFBizTestCase {
         ctx.put("billToCustomerPartyId", "DemoCustomer");
         ctx.put("billFromVendorPartyId", "Company");
 
-        ctx.put("userLogin", userLogin);
-        Map<String, Object> resp = dispatcher.runSync("storeOrder", ctx);
+        ctx.put("userLogin", getUserLogin("system"));
+        Map<String, Object> resp = getDispatcher().runSync("storeOrder", ctx);
         if (ServiceUtil.isError(resp)) {
             Debug.logError(ServiceUtil.getErrorMessage(resp), MODULE);
             return;

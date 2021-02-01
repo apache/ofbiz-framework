@@ -190,7 +190,15 @@ under the License.
     <StatusValidChange statusId="FAM_SCHEDULED" statusIdTo="FAM_CANCELLED" transitionName="Scheduled Maintenace Cancelled"/>
     <StatusValidChange statusId="FAM_IN_PROCESS" statusIdTo="FAM_COMPLETED" transitionName="In-Process Maintenance Completed"/>
     
-    <!-- Fixed Asset Maintenance party roles -->
+    
+    <!-- Accounting component role types regarding Budget entities-->
+    <RoleType description="Budget Roles Group (not to be assigned to parties)" roleTypeId="BUDGET" hasTable="Y" />
+    <RoleType description="Budget Application" roleTypeId="BUDGET_APPL" parentTypeId="BUDGET" hasTable="N" />
+    <RoleType description="Budget Manager" roleTypeId="BUDGET_MGR" parentTypeId="BUDGET" hasTable="N" />
+    <RoleType description="Budget Reviewer" roleTypeId="BUDGET_RVR" parentTypeId="BUDGET" hasTable="N" />
+    <RoleType description="Budget Approver" roleTypeId="BUDGET_APPRV" parentTypeId="BUDGET" hasTable="N" />
+    
+    <!-- Accounting component role types regarding Fixed Asset Maintenance party roles -->
     <RoleType description="Fixed Asset Maint Assignee" hasTable="N" roleTypeId="FAM_ASSIGNEE"/>
     <RoleType description="Maintenance Supplier or Service" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_SUPPLIER"/>
     <RoleType description="Maintenance Manager or Supervisor" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_MANAGER"/>
@@ -600,7 +608,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="CRT_REPLACE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="CRT_DISCOUNT_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="CRT_FEE_ADJ"/>
-    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="CRT_MISC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MISC_ADJ" invoiceItemTypeId="CRT_MISC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="CRT_SALES_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="CRT_VAT_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="CRT_VAT_PC_ADJ"/>
@@ -620,7 +628,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="SRT_REPLACE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="SRT_DISCOUNT_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="SRT_FEE_ADJ"/>
-    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="SRT_MISC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MISC_ADJ" invoiceItemTypeId="SRT_MISC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="SRT_SALES_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="SRT_VAT_TAX_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="SRT_VAT_PC_ADJ"/>

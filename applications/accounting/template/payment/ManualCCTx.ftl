@@ -45,9 +45,7 @@ under the License.
       <tr><td>
       ${setRequestAttribute("validTx", "true")}
       <script type="application/javascript">
-      <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processReleaseTransaction</@ofbizUrl>";
-      // -->
       </script>
       </td></tr>
     </#if>
@@ -55,9 +53,7 @@ under the License.
       <tr><td>
       ${setRequestAttribute("validTx", "true")}
       <script type="application/javascript">
-      <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processRefundTransaction</@ofbizUrl>";
-      // -->
       </script>
       </td></tr>
     </#if>
@@ -65,9 +61,7 @@ under the License.
       <tr><td>
       ${setRequestAttribute("validTx", "true")}
       <script type="application/javascript">
-      <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processManualCcTx</@ofbizUrl>";
-      // -->
       </script>
       </td></tr>
       <tr><td colspan="3"><hr/></td></tr>

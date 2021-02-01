@@ -71,7 +71,7 @@ under the License.
                         <container style="h1">
                             <label text="${uiLabelMap.WebtoolsLabelManagerAddNew}"/>
                         </container>
-                            <platform-specific><html><html-template location="component://webtools/template/labelmanager/UpdateLabel.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template multi-block="true" location="component://webtools/template/labelmanager/UpdateLabel.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -57,8 +57,8 @@ import paypal.payflow.SDKProperties;
  */
 public class PayflowPro {
 
-    public static final String MODULE = PayflowPro.class.getName();
-    public final static String resource = "AccountingUiLabels";
+    private static final String MODULE = PayflowPro.class.getName();
+    private static final String RESOURCE = "AccountingUiLabels";
 
     /**
      * Authorize credit card payment service. Service wrapper around PayFlow Pro API.
@@ -90,7 +90,7 @@ public class PayflowPro {
             isPayPal = true;
         }
 
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, String> data = new HashMap<>();
 
         boolean isReAuth = false;
         if (isPayPal) {
@@ -108,7 +108,7 @@ public class PayflowPro {
             data.put("CUSTCODE", party.getString("partyId"));
 
             // transaction type
-            if (comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", configString, "payment.verisign.preAuth",  "Y")) {
+            if (comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "preAuth", configString, "payment.verisign.preAuth", "Y")) {
                 data.put("TRXTYPE", "A");
                 // only support re-auth for auth types; sale types don't do it
                 if (authTrans != null) {
@@ -147,7 +147,7 @@ public class PayflowPro {
             // gather the address info
             if (ps != null) {
                 String street = ps.getString("address1") + ((UtilValidate.isNotEmpty(ps.getString("address2"))) ? " " + ps.getString("address2") : "");
-                data.put("STREET"+"["+street.length()+"]", street);
+                data.put("STREET" + "[" + street.length() + "]", street);
                 data.put("ZIP", ps.getString("postalCode"));
             }
         }
@@ -164,9 +164,11 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        //if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -210,7 +212,7 @@ public class PayflowPro {
         }
 
         if (authTrans == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
 
@@ -247,15 +249,19 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        }
 
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -281,7 +287,7 @@ public class PayflowPro {
         }
 
         if (authTrans == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
@@ -325,15 +331,19 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        }
 
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -356,7 +366,7 @@ public class PayflowPro {
         GenericValue captureTrans = PaymentGatewayServices.getCaptureTransaction(paymentPref);
 
         if (captureTrans == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
@@ -402,15 +412,19 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        }
 
         // check the response
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -429,11 +443,11 @@ public class PayflowPro {
         String configString = "payment.properties";
 
         if (cart == null || cart.items().size() <= 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels",
                     "AccountingPayPalShoppingCartIsEmpty", locale));
         }
 
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, String> data = new HashMap<>();
 
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
@@ -449,7 +463,7 @@ public class PayflowPro {
             addCartDetails(data, cart);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingPayflowErrorRetreivingCartDetails", locale));
         }
 
@@ -462,22 +476,26 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&TOKEN=" + (new Date()).getTime() + "&RESPMSG=Testing";
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Response from Verisign: " + resp, MODULE);
+        }
 
         Map<String, String> responseMap = parseResponse(resp);
         String result = responseMap.get("RESULT");
         if (!"0".equals(result)) {
             String respMsg = responseMap.get("RESPMSG");
             Debug.logError("A problem occurred while requesting an express checkout token from paypal: Result = " + result + ", Message = " + respMsg, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels",
                     "AccountingPayPalCommunicationError", locale));
         }
         token = responseMap.get("TOKEN");
@@ -543,7 +561,7 @@ public class PayflowPro {
         String paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
         String configString = "payment.properties";
 
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, String> data = new HashMap<>();
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
         data.put("ACTION", "G");
@@ -561,9 +579,11 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&PAYERID=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -572,11 +592,11 @@ public class PayflowPro {
         Map<String, String> responseMap = parseResponse(resp);
         if (!"0".equals(responseMap.get("RESULT"))) {
             Debug.logError("A problem occurred while requesting the checkout details from paypal: Result = " + responseMap.get("RESULT") + ", Message = " + responseMap.get("RESPMSG"), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", 
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels",
                     "AccountingPayPalCommunicationError", locale));
         }
 
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         inMap.put("userLogin", cart.getUserLogin());
         inMap.put("partyId", cart.getOrderPartyId());
         inMap.put("contactMechId", cart.getShippingContactMechId());
@@ -622,7 +642,7 @@ public class PayflowPro {
         }
         BigDecimal processAmount = paymentPref.getBigDecimal("maxAmount");
 
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, String> data = new HashMap<>();
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
         data.put("PAYERID", payPalPaymentMethod.getString("payerId"));
@@ -640,9 +660,11 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Sending to Verisign: " + params.toString(), MODULE);
+        }
         String resp;
-        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
+        if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit", "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
         } else {
             resp = "RESULT=0&PAYERID=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -650,7 +672,7 @@ public class PayflowPro {
 
         Map<String, String> responseMap = parseResponse(resp);
 
-        Map<String, Object> inMap = new HashMap<String, Object>();
+        Map<String, Object> inMap = new HashMap<>();
         inMap.put("userLogin", userLogin);
         inMap.put("paymentMethodId", payPalPaymentMethod.get("paymentMethodId"));
         inMap.put("transactionId", responseMap.get("PNREF"));
@@ -670,10 +692,10 @@ public class PayflowPro {
 
     private static Map<String, String> parseResponse(String resp) {
         Debug.logInfo("Verisign response string: " + resp, MODULE);
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
         List<String> params = StringUtil.split(resp, "&");
         for (String str : params) {
-            if (str.length() > 0) {
+            if (!str.isEmpty()) {
                 List<String> kv = StringUtil.split(str, "=");
                 String k = kv.get(0);
                 String v = kv.get(1);
@@ -684,7 +706,8 @@ public class PayflowPro {
         }
         return parameters;
     }
-    private static void parseAuthResponse(Delegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result, String resource, boolean isReAuth, boolean isPayPal) {
+    private static void parseAuthResponse(Delegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result,
+                                          String resource, boolean isReAuth, boolean isPayPal) {
         Map<String, String> parameters = parseResponse(resp);
 
         // txType
@@ -694,7 +717,8 @@ public class PayflowPro {
         boolean avsCheckOkay = true;
         String avsCode = null;
         if (!isReAuth) {
-            boolean checkAvs = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkAvs", resource, "payment.verisign.checkAvs", "Y");
+            boolean checkAvs = comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "checkAvs", resource,
+                    "payment.verisign.checkAvs", "Y");
             if (checkAvs && !isSale) {
                 String addAvs = (String) parameters.get("AVSADDR");
                 String zipAvs = (String) parameters.get("AVSZIP");
@@ -856,8 +880,8 @@ public class PayflowPro {
             String name = (String) i.next();
             Object valueObj = context.get(name);
 
-            if (valueObj == null || (valueObj instanceof String) && ((String) valueObj).length() == 0) {
-                // not valid; do nothing
+            if (valueObj == null || (valueObj instanceof String) && ((String) valueObj).isEmpty()) {
+                Debug.logVerbose("not valid; do nothing", MODULE);
             } else {
                 String value = valueObj.toString();
 
@@ -871,21 +895,21 @@ public class PayflowPro {
         return buf.toString();
     }
 
-    private static StringBuilder makeBaseParams(Delegator delegator, String paymentGatewayConfigId, String resource) {
+    private static StringBuilder makeBaseParams(Delegator delegator, String paymentGatewayConfigId, String RESOURCE) {
         StringBuilder buf = new StringBuilder();
 
         try {
             buf.append("PARTNER=");
-            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "partner", resource, "payment.verisign.partner", "VeriSign"));
+            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "partner", RESOURCE, "payment.verisign.partner", "VeriSign"));
             buf.append("&");
             buf.append("VENDOR=");
-            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "vendor", resource, "payment.verisign.vendor", "nobody"));
+            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "vendor", RESOURCE, "payment.verisign.vendor", "nobody"));
             buf.append("&");
             buf.append("USER=");
-            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "userId", resource, "payment.verisign.user", "nobody"));
+            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "userId", RESOURCE, "payment.verisign.user", "nobody"));
             buf.append("&");
             buf.append("PWD=");
-            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", resource, "payment.verisign.pwd", "password"));
+            buf.append(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", RESOURCE, "payment.verisign.pwd", "password"));
         } catch (Exception e) {
             Debug.logError(e, MODULE);
             return null;
@@ -895,7 +919,7 @@ public class PayflowPro {
 
     private static PayflowAPI init(Delegator delegator, String paymentGatewayConfigId, String resource, Map<String, ? extends Object> context) {
         // No more used
-        // String certsPath = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certsPath", resource, "payment.verisign.certsPath", "pfcerts"), context);
+        // String certsPath = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certsPath", RESOURCE, "payment.verisign.certsPath", "pfcerts"), context);
         String hostAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostAddress", resource, "payment.verisign.hostAddress", "pilot-payflowpro.paypal.com");
         Integer hostPort = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostPort", resource, "payment.verisign.hostPort", "443"));
         Integer timeout = Integer.decode(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "timeout", resource, "payment.verisign.timeout", "80"));

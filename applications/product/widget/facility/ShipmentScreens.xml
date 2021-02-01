@@ -51,12 +51,21 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductFindShipment"/>
                 <set field="headerItem" value="shipment"/>
+                <set field="asm_multipleSelectForm" value="FindShipment"/>
+                <set field="asm_asmListItemPercentOfForm" value="110"/>
+                <set field="statusId.asm_multipleSelect" value="FindShipment_statusId"/>
+                <set field="statusId.asm_sortable" value="true"/>
+                <set field="statusId.asm_title" value=" "/>
+                <set field="asm_listField[]" from-field="statusId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <link target="EditShipment" text="${uiLabelMap.ProductNewShipment}" style="buttontext"></link>
                         <screenlet title="${uiLabelMap.ProductFindShipment}">
+                            <platform-specific>
+                                <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                            </platform-specific>
                             <include-form name="FindShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductShipmentsFound}">
@@ -380,7 +389,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/QuickShipOrder.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/QuickShipOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -400,7 +409,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/VerifyPick.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/VerifyPick.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -419,7 +428,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/PackOrder.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/PackOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -568,7 +577,7 @@ under the License.
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://product/template/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

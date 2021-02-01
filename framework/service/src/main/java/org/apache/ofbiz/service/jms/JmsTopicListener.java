@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.GenericServiceException;
  */
 public class JmsTopicListener extends AbstractJmsListener {
 
-    public static final String MODULE = JmsTopicListener.class.getName();
+    private static final String MODULE = JmsTopicListener.class.getName();
 
     private TopicConnection con = null;
     private TopicSession session = null;
@@ -87,7 +87,9 @@ public class JmsTopicListener extends AbstractJmsListener {
                     subscriber.setMessageListener(this);
                     con.start();
                     this.setConnected(true);
-                    if (Debug.infoOn()) Debug.logInfo("Listening to topic [" + topicName + "] on [" + jndiServer + "]...", MODULE);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Listening to topic [" + topicName + "] on [" + jndiServer + "]...", MODULE);
+                    }
                 } else {
                     throw new GenericServiceException("Topic lookup failed.");
                 }

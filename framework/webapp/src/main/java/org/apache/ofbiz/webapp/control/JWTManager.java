@@ -63,19 +63,14 @@ public class JWTManager {
 
     /**
      * OFBiz controller preprocessor event.
-     *
      * The method is designed to be used in a chain of controller preprocessor event: it always returns "success"
      * even when the Authorization token is missing or the Authorization fails.
      * This in order to move the processing to the next event in the chain.
-     *
      * This works in a similar same way than externalLoginKey but between 2 servers on 2 different domains,
      * not 2 webapps on the same server.
-     *
      * The OFBiz internal Single Sign On (SSO) is ensured by a JWT token,
      * then all is handled as normal by a session on the reached server.
-     *
      * The servers may or may not share a database but the 2 loginUserIds must be the same.
-     *
      * In case of a multitenancy usage, the tenant is verified.
      * @param request The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
@@ -84,8 +79,8 @@ public class JWTManager {
     public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-        if(!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
-            if(Debug.verboseOn()) {
+        if (!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
+            if (Debug.verboseOn()) {
                 Debug.logVerbose("Internal single sign on is disabled.", MODULE);
             }
             return "success";
@@ -107,7 +102,7 @@ public class JWTManager {
         // get userLoginId from the token and retrieve the corresponding userLogin from the database
         GenericValue userLogin = getUserlogin(delegator, claims);
 
-        if(UtilValidate.isNotEmpty(userLogin)) {
+        if (UtilValidate.isNotEmpty(userLogin)) {
             // check userLogin base permission and if it is enabled
             request.getSession().setAttribute("userLogin", userLogin);
             userLogin = LoginWorker.checkLogout(request, response);
@@ -137,13 +132,13 @@ public class JWTManager {
     public static String getJWTKey(Delegator delegator) {
         return getJWTKey(delegator, null);
     }
-    
+
     /**
      * Get the JWT secret key from database or security.properties.
      * @param delegator the delegator
      * @return the JWT secret key
      */
-    
+
     public static String getJWTKey(Delegator delegator, String salt) {
         String key = EntityUtilProperties.getPropertyValue("security", "security.token.key", delegator);
         if (salt != null) {
@@ -155,7 +150,6 @@ public class JWTManager {
      /**
      * Get the authentication token based for user
      * This takes OOTB username/password and if user is authenticated it will generate the JWT token using a secret key.
-     *
      * @param request the http request in which the authentication token is searched and stored
      * @return the authentication token
      */
@@ -163,7 +157,8 @@ public class JWTManager {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-        String username, password;
+        String username;
+        String password;
 
         if (UtilValidate.isNotEmpty(request.getAttribute("USERNAME"))) {
             username = (String) request.getAttribute("USERNAME");
@@ -183,7 +178,8 @@ public class JWTManager {
         }
         Map<String, Object> result;
         try {
-            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request)));
+            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password,
+                    "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -209,9 +205,7 @@ public class JWTManager {
     /**
      * Gets the authentication token from the "Authorization" header if it is
      * in the form {@code Bearer <token>}.
-     *
      * Public for API access from third party code.
-     *
      * @param request the request to get the token from
      * @return the bare JWT token
      */
@@ -220,7 +214,7 @@ public class JWTManager {
         String headerAuthValue = request.getHeader(HttpHeaders.AUTHORIZATION);
         String bearerPrefix = "Bearer ";
 
-        if(UtilValidate.isEmpty(headerAuthValue) || !headerAuthValue.startsWith(bearerPrefix)) {
+        if (UtilValidate.isEmpty(headerAuthValue) || !headerAuthValue.startsWith(bearerPrefix)) {
             return null;
         }
 
@@ -232,7 +226,6 @@ public class JWTManager {
      * If the token is valid it will get the conteined claims and return them.
      * If token validation failed it will return an error.
      * Public for API access from third party code.
-     *
      * @param jwtToken the JWT token
      * @param key the server side key to verify the signature
      * @return Map of the claims contained in the token or an error
@@ -269,7 +262,7 @@ public class JWTManager {
      * @param delegator
      * @param jwtToken
      * @param keySalt
-     * @return Map of the claims contained in the token or an error 
+     * @return Map of the claims contained in the token or an error
      */
     public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
         return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));
@@ -282,12 +275,11 @@ public class JWTManager {
      * @return a JWT token
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims) {
-        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         return createJwt(delegator, claims, expirationTime);
     }
 
     /** Create and return a JWT token using the claims of the provided map and the provided expiration time.
-     *
      * @param delegator
      * @param claims the map containing the JWT claims
      * @param expireTime the expiration time in seconds
@@ -298,7 +290,6 @@ public class JWTManager {
     }
 
     /** Create and return a JWT token using the claims of the provided map and the provided expiration time.
-     *
      * @param delegator
      * @param claims the map containing the JWT claims
      * @param keySalt salt to use as prefix on the encrypt key
@@ -307,7 +298,7 @@ public class JWTManager {
      */
     public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
         if (expireTime <= 0) {
-            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800",  delegator));
+            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         }
 
         String key = JWTManager.getJWTKey(delegator, keySalt);
@@ -377,7 +368,7 @@ public class JWTManager {
     private static GenericValue getUserlogin(Delegator delegator, Map<String, Object> jwtMap) {
         String userLoginId = (String) jwtMap.get("userLoginId");
 
-        if(UtilValidate.isEmpty(userLoginId)) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             Debug.logWarning("No userLoginId found in the JWT token.", MODULE);
             return null;
         }

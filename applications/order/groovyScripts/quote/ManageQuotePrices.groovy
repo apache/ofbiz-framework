@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
-
 costMult = 0.0
 quoteCoefficients.each { quoteCoefficient ->
     value = quoteCoefficient.coeffValue
@@ -60,7 +58,7 @@ quoteItems.each { quoteItem ->
         totalCost += (averageCost * quantity)
         totalPrice += (unitPrice * quantity * selectedAmount)
     } catch (Exception exc) {
-        Debug.logError("Problems getting the averageCost for quoteItem: " + quoteItem)
+        logError("Problems getting the averageCost for quoteItem: " + quoteItem)
     }
 
     quoteItemAndCostInfo = new java.util.HashMap(quoteItem)

@@ -57,7 +57,7 @@ under the License.
                 <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/order/CreateAllocationPlan.ftl"/></html>
@@ -127,7 +127,7 @@ under the License.
                             </widgets>
                         </section>
                         <platform-specific>
-                            <html><html-template location="component://order/template/order/ViewAllocationPlan.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://order/template/order/ViewAllocationPlan.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -160,10 +160,10 @@ under the License.
                             </widgets>
                         </section>
                         <platform-specific>
-                            <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/order/ViewAllocationPlan.ftl"/></html>
+                            <html><html-template multi-block="true" location="component://order/template/order/ViewAllocationPlan.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

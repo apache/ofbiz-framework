@@ -1,0 +1,60 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Help for Order Reports
+
+The Order Reports provide general information about orders in the system.
+
+== Initial steps.
+If your reports look empty it may be required to initialize the warehouse entities in the BI component.
+
+. Go to :https://localhost:8443/bi/control/main[Business Intelligence]
+. Click "Quick Init DataWarehouse". System will automatic initial Data in the warehouse for Reports
+. Go back to : https://localhost:8443/ordermgr/control/OrderPurchaseReportOptions[Order Reports.]
+
+== Reports List
+=== 1. Sales Order By Referrer Report
+There are referrers, link, totals orders, quantity totals and amount totals.
+They are grouped by referrer.
+
+=== 2. Sales Order By Channel Report
+There are total Orders, total Items, quantity totals and amount totals.
+They are grouped by Sales Channel.
+
+=== 3. Sale Orders Discount Code Report
+There are order, product, promotion and discount.
+This report is list of All orders.
+
+=== 4. Last Three Months Sales Report
+There are products, prices, stock, sale out quantity and sale out total amount.
+This report is list of all products, it contains the sales and movements in last 3 months.
+
+=== 5. Coupon Sales Report
+This report lists promotions, total orders, percent of total orders, total orders amount, percent of total orders amount and shipping amounts.
+
+=== 6. Sales Report
+This Sales report contains paid and unpaid sales orders.
+
+=== 7. Net Before Overhead Report
+Net Before Overhead Report is the profit calculation of paid-shipped orders and all the occurred fee excluding the overhead cost.
+They are grouped by Product Store Id.(Demo data for Net Before Overhead Report have in Product Store Id "B2CStore")
+
+=== 8. Product Demand Report
+Product Demand Report is the report to show us which product sells good and which product doesn't sell good or
+not selling at all in one account as well as for all accounts in last 4 weeks.
+They are grouped by Product Store Id.(Demo data for Product Demand Report have in Product Store Id "B2CStore")

@@ -29,12 +29,11 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;field-to-result&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class FieldToResult extends MethodOperation {
 
-    public static final String MODULE = FieldToResult.class.getName();
+    private static final String MODULE = FieldToResult.class.getName();
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleMapAccessor<Object> resultFma;
@@ -49,7 +48,7 @@ public final class FieldToResult extends MethodOperation {
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         String resultNameAttribute = element.getAttribute("result-name");
-        if (resultNameAttribute.length() == 0) {
+        if (resultNameAttribute.isEmpty()) {
             this.resultFma = this.fieldFma;
         } else {
             this.resultFma = FlexibleMapAccessor.getInstance(resultNameAttribute);

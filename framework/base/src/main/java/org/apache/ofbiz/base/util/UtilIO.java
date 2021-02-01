@@ -34,12 +34,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public final class UtilIO {
-    public static final String MODULE = UtilIO.class.getName();
+    private static final String MODULE = UtilIO.class.getName();
 
-    private UtilIO () {}
+    private UtilIO() { }
 
     /** Copy a Reader to an Appendable.
-     *
      * @param reader the Reader to copy from
      * @param out the Appendable to copy to
      * @throws IOException if an error occurs
@@ -55,39 +54,36 @@ public final class UtilIO {
 
     /** Convert a byte array to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param bytes the array of bytes to convert
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes) {
+    public static String readString(byte[] bytes) {
         return readString(bytes, 0, bytes.length, StandardCharsets.UTF_8);
     }
 
     /** Convert a byte array to a string; consistently uses \n line endings
      * in java.  The conversion is limited to the specified offset/length
      * pair, and uses a default {@link Charset UTF-8} charset.
-     *
      * @param bytes the array of bytes to convert
      * @param offset the start of the conversion
      * @param length how many bytes to convert
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length) {
+    public static String readString(byte[] bytes, int offset, int length) {
         return readString(bytes, offset, length, StandardCharsets.UTF_8);
     }
 
     /** Convert a byte array to a string; consistently uses \n line endings
      * in java.  The conversion is limited to the specified offset/length
      * pair, and uses the requested charset to decode the bytes.
-     *
      * @param bytes the array of bytes to convert
      * @param charset the charset to use to convert the raw bytes
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, String charset) {
+    public static String readString(byte[] bytes, String charset) {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -95,7 +91,6 @@ public final class UtilIO {
      * endings in java.  The conversion is limited to the specified
      * offset/length  pair, and uses the requested charset to decode the
      * bytes.
-     *
      * @param bytes the array of bytes to convert
      * @param offset the start of the conversion
      * @param length how many bytes to convert
@@ -103,7 +98,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, String charset) {
+    public static String readString(byte[] bytes, int offset, int length, String charset) {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -115,7 +110,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, Charset charset) {
+    public static String readString(byte[] bytes, Charset charset) {
         return readString(bytes, 0, bytes.length, charset);
     }
 
@@ -123,7 +118,6 @@ public final class UtilIO {
      * endings in java.  The conversion is limited to the specified
      * offset/length  pair, and uses the requested {@link Charset
      * charset} to decode the bytes.
-     *
      * @param bytes the array of bytes to convert
      * @param offset the start of the conversion
      * @param length how many bytes to convert
@@ -131,7 +125,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, Charset charset) {
+    public static String readString(byte[] bytes, int offset, int length, Charset charset) {
         ByteBuffer buf = ByteBuffer.allocate(length);
         buf.put(bytes, offset, length);
         buf.flip();
@@ -140,47 +134,43 @@ public final class UtilIO {
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param stream the stream of bytes to convert
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(InputStream stream) throws IOException {
+    public static String readString(InputStream stream) throws IOException {
         return readString(stream, StandardCharsets.UTF_8);
     }
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param stream the stream of bytes to convert
      * @param charset the charset to use to convert the raw bytes
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(InputStream stream, String charset) throws IOException {
+    public static String readString(InputStream stream, String charset) throws IOException {
         return readString(stream, Charset.forName(charset));
     }
 
     /** Convert an {@link InputStream} to a string; consistently uses \n line endings
      * in java.  This uses a default {@link Charset UTF-8} charset.
-     *
      * @param stream the stream of bytes to convert
      * @param charset the charset to use to convert the raw bytes
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(InputStream stream, Charset charset) throws IOException {
+    public static String readString(InputStream stream, Charset charset) throws IOException {
         return readString(new InputStreamReader(new BufferedInputStream(stream), charset));
     }
 
     /** Convert an {@link Reader} to a string; consistently uses \n line endings
      * in java.
-     *
      * @param reader the stream of characters convert
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(Reader reader) throws IOException {
+    public static String readString(Reader reader) throws IOException {
         try {
             StringBuilder sb = new StringBuilder();
             char[] buf = new char[4096];
@@ -216,7 +206,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses a default
      * {@link Charset UTF-8} charset.
-     *
      * @param file where to write the converted bytes to
      * @param value the value to write
      */
@@ -226,7 +215,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses a default
      * {@link Charset UTF-8} charset.
-     *
      * @param out where to write the converted bytes to
      * @param value the value to write
      */
@@ -236,7 +224,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses the
      * specified charset to extract the raw bytes.
-     *
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write
@@ -247,7 +234,6 @@ public final class UtilIO {
 
     /** Convert a \n string to a platform encoding.  This uses the
      * specified charset to extract the raw bytes.
-     *
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write

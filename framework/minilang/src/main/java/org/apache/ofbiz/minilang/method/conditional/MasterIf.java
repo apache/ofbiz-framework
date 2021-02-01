@@ -121,7 +121,7 @@ public final class MasterIf extends MethodOperation {
     }
 
     /**
-     * A &lt;if&gt; element factory. 
+     * A &lt;if&gt; element factory.
      */
     public static final class MasterIfFactory implements Factory<MasterIf> {
         @Override

@@ -35,12 +35,12 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.category.CatalogUrlFilter;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -52,8 +52,14 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
-    public static final String MODULE = CatalogUrlSeoTransform.class.getName();
+    private static final String MODULE = CatalogUrlSeoTransform.class.getName();
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -68,6 +74,13 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
         return null;
     }
 
+    /**
+     * Check arg boolean.
+     * @param args the args
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the boolean
+     */
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;

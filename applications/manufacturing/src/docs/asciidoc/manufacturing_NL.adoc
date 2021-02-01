@@ -1,0 +1,55 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Manufacturing
+
+The OFBiz Manufacturing component is one of the core application components and has
+all of the functionality you need to manage the cycle of tasks involved in the making of products and ensuring
+ that the material necessary for production is forecast to be available at the right time
+
+It is well integrated with other components especially
+Catalog to manage product definition, whatever its stage of manufacture (raw material, supply, subassembly, service, ...)
+  and Workeffort to manage all means of production.
+
+include::_include/hr-intro.adoc[leveloffset=+1]
+
+include::_include/mfg-production-run_NL.adoc[leveloffset=+1]
+
+include::_include/mfg-routing_NL.adoc[leveloffset=+1]
+
+include::_include/mfg-routing-task_NL.adoc[leveloffset=+1]
+
+include::_include/mfg-calendar_NL.adoc[leveloffset=+1]
+
+== kostencalculatie beheren
+Dit scherm biedt de mogelijkheid om nieuwe kostencalculaties aan te maken en te wijzigen.
+
+=== Cost Component Calc management in UI
+==== Kostencalculatie wijzigen
+Vul het eerste deel van het scherm in om de kostencalculatie aan te maken. +
+Klik vervolgens op 'Opslaan' om de gegevens vast te leggen.
+
+Het scherm wordt ververst en de ingevoerde gegevens worden in het onderste deel getoond
+
+Klik op de ID van de kostencalculatie (in de eerste kolom) om deze te wijzigen. +
+Klik op de knop 'Verwijderen' om een kostencalculatie te verwijderen.
+
+include::_include/mfg-bom_NL.adoc[leveloffset=+1]
+
+include::_include/mfg-mrp_NL.adoc[leveloffset=+1]
+

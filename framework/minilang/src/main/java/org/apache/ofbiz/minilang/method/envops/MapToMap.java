@@ -31,7 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;map-to-map&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
  */
 public final class MapToMap extends MethodOperation {
@@ -61,7 +60,7 @@ public final class MapToMap extends MethodOperation {
                     toMap = new HashMap<>();
                     toMapFma.put(methodContext.getEnvMap(), toMap);
                 }
-               toMap.putAll(fromMap);
+                toMap.putAll(fromMap);
             } else {
                 methodContext.putAllEnv(fromMap);
             }

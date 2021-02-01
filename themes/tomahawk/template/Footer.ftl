@@ -41,5 +41,6 @@ under the License.
 </#if>
 
 </div>
+<@scriptTagsFooter/>
 </body>
 </html>

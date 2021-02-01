@@ -81,7 +81,7 @@ under the License.
         </field>
     </form>
     
-    <form name="FindPurchaseInvoices" type="single" target="FindPurchaseInvoices">
+    <form name="FindPurchaseInvoices" type="single" target="FindPurchaseInvoices" default-map-name="parameters">
         <actions>
             <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
             <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
@@ -93,11 +93,11 @@ under the License.
         </actions>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingVendorParty}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <check all-checked="false">
+            <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="fromInvoiceDate" position="1"><date-time/></field>

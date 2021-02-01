@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
@@ -43,12 +42,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
             paymentMethodTypeId: 'GIFT_CARD',
             organizationPartyId: 'DEMO_COMPANY1',
             glAccountId: '999999',
-            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('addPaymentMethodTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue paymentMethodTypeGlAccount = EntityQuery.use(delegator).from('PaymentMethodTypeGlAccount')
+        GenericValue paymentMethodTypeGlAccount = from('PaymentMethodTypeGlAccount')
                 .where('paymentMethodTypeId', 'GIFT_CARD',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
@@ -60,12 +59,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         Map serviceCtx = [
                 paymentTypeId: 'COMMISSION_PAYMENT',
                 organizationPartyId: 'DEMO_COMPANY1',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removePaymentTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue paymentMethodTypeGlAccount = EntityQuery.use(delegator).from('PaymentGlAccountTypeMap')
+        GenericValue paymentMethodTypeGlAccount = from('PaymentGlAccountTypeMap')
                 .where('paymentTypeId', 'COMMISSION_PAYMENT',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
@@ -76,12 +75,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         Map serviceCtx = [
                 partyId: 'DEMO_COMPANY',
                 refundPaymentMethodId: '9020',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyAcctgPreference', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyAcctgPreference = EntityQuery.use(delegator).from('PartyAcctgPreference')
+        GenericValue partyAcctgPreference = from('PartyAcctgPreference')
                 .where('partyId', 'DEMO_COMPANY')
                 .queryOne()
         assert partyAcctgPreference
@@ -93,12 +92,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         Map serviceCtx = [
                 partyId: 'DEMO_COMPANY1',
                 refundPaymentMethodId: '9020',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyAcctgPreference', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyAcctgPreference = EntityQuery.use(delegator).from('PartyAcctgPreference')
+        GenericValue partyAcctgPreference = from('PartyAcctgPreference')
                 .where('partyId', 'DEMO_COMPANY1')
                 .queryOne()
         assert partyAcctgPreference
@@ -108,7 +107,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
     void testGetPartyAccountingPreferences() {
         Map serviceCtx = [
                 organizationPartyId: 'DEMO_COMPANY1',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPartyAccountingPreferences', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -118,12 +117,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
     void testSetAcctgCompany() {
         Map serviceCtx = [
                 organizationPartyId: 'DEMO_COMPANY1',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setAcctgCompany', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue userPreference = EntityQuery.use(delegator).from('UserPreference')
+        GenericValue userPreference = from('UserPreference')
                 .where('userPrefValue', 'DEMO_COMPANY1')
                 .queryFirst()
         assert userPreference
@@ -136,12 +135,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 uomId: 'INR',
                 uomIdTo: 'USD',
                 conversionFactor: 2.0,
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateFXConversion', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue uomConversionDated = EntityQuery.use(delegator).from('UomConversionDated')
+        GenericValue uomConversionDated = from('UomConversionDated')
                 .where('uomId', 'INR', 'uomIdTo', 'USD')
                 .queryFirst()
         assert uomConversionDated
@@ -153,12 +152,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 glAccountTypeId: 'BALANCE_ACCOUNT',
                 organizationPartyId: 'DEMO_COMPANY1',
                 glAccountId: '999999',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createGlAccountTypeDefault', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue glAccountTypeDefault = EntityQuery.use(delegator).from('GlAccountTypeDefault')
+        GenericValue glAccountTypeDefault = from('GlAccountTypeDefault')
                 .where('glAccountTypeId', 'BALANCE_ACCOUNT', 'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
         assert glAccountTypeDefault
@@ -170,12 +169,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 glAccountTypeId: 'ACCOUNTS_PAYABLE',
                 organizationPartyId: 'DEMO_COMPANY1',
                 glAccountId: '999999',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removeGlAccountTypeDefault', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue glAccountTypeDefault = EntityQuery.use(delegator).from('GlAccountTypeDefault')
+        GenericValue glAccountTypeDefault = from('GlAccountTypeDefault')
                 .where('glAccountTypeId', 'ACCOUNTS_PAYABLE',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
@@ -187,12 +186,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 invoiceItemTypeId: 'PINV_FPROD_ITEM',
                 organizationPartyId: 'DEMO_COMPANY1',
                 glAccountId: '999999',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('addInvoiceItemTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceItemTypeGlAccount = EntityQuery.use(delegator).from('InvoiceItemTypeGlAccount')
+        GenericValue invoiceItemTypeGlAccount = from('InvoiceItemTypeGlAccount')
                 .where('invoiceItemTypeId', 'PINV_FPROD_ITEM',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
@@ -204,12 +203,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         Map serviceCtx = [
                 invoiceItemTypeId: 'PINV_SALES_TAX',
                 organizationPartyId: 'DEMO_COMPANY1',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removeInvoiceItemTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue invoiceItemTypeGlAccount = EntityQuery.use(delegator).from('InvoiceItemTypeGlAccount')
+        GenericValue invoiceItemTypeGlAccount = from('InvoiceItemTypeGlAccount')
                 .where('invoiceItemTypeId', 'PINV_SALES_TAX',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
@@ -221,12 +220,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 paymentTypeId: 'TAX_PAYMENT',
                 organizationPartyId: 'DEMO_COMPANY1',
                 glAccountTypeId: 'TAX_ACCOUNT',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('addPaymentTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue paymentGlAccountTypeMap = EntityQuery.use(delegator).from('PaymentGlAccountTypeMap')
+        GenericValue paymentGlAccountTypeMap = from('PaymentGlAccountTypeMap')
                 .where('paymentTypeId', 'TAX_PAYMENT',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
@@ -238,12 +237,12 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         Map serviceCtx = [
                 paymentMethodTypeId: 'CASH',
                 organizationPartyId: 'DEMO_COMPANY1',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').queryOne()
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removePaymentMethodTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue paymentMethodTypeGlAccount = EntityQuery.use(delegator).from('PaymentMethodTypeGlAccount')
+        GenericValue paymentMethodTypeGlAccount = from('PaymentMethodTypeGlAccount')
                 .where('paymentMethodTypeId', 'CASH',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()

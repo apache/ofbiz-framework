@@ -34,7 +34,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;filter-list-by-date&gt; element.
- * 
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class FilterListByDate extends MethodOperation {
@@ -69,9 +68,11 @@ public final class FilterListByDate extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (!validDateFma.isEmpty()) {
-            toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()), validDateFma.get(methodContext.getEnvMap()), fromFieldName, thruFieldName, true));
+            toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()),
+                    validDateFma.get(methodContext.getEnvMap()), fromFieldName, thruFieldName, true));
         } else {
-            toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()), UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
+            toListFma.put(methodContext.getEnvMap(), EntityUtil.filterByDate(listFma.get(methodContext.getEnvMap()),
+                    UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
         }
         return true;
     }

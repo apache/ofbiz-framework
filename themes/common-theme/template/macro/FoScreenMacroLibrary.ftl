@@ -39,8 +39,14 @@ under the License.
 
 <#escape x as x?xml>
 
-<#macro renderScreenBegin>
+<#macro renderBegin>
 <?xml version="1.0" encoding="UTF-8"?>
+</#macro>
+
+<#macro renderEnd>
+</#macro>
+
+<#macro renderScreenBegin>
 </#macro>
 
 <#macro renderScreenEnd>

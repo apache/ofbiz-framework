@@ -37,17 +37,14 @@ public final class ModelScreenCondition {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
      */
 
-    public static final String MODULE = ModelScreenCondition.class.getName();
+    private static final String MODULE = ModelScreenCondition.class.getName();
     public static final ModelConditionFactory SCREEN_CONDITION_FACTORY = new ScreenConditionFactory();
 
     public static class IfEmptySection extends AbstractModelCondition {
@@ -82,10 +79,10 @@ public final class ModelScreenCondition {
             if (conditionElement == null) {
                 return DefaultConditionFactory.TRUE;
             }
-            if ("if-empty-section".equals(conditionElement.getNodeName())) {
+            if ("if-empty-section".equals(conditionElement.getLocalName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
             }
-            return super.newInstance(this, modelWidget,conditionElement);
+            return super.newInstance(this, modelWidget, conditionElement);
         }
     }
 }

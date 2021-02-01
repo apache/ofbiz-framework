@@ -39,10 +39,10 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("serial")
 public class ComponentResourceHandler implements ResourceHandler {
 
-    public static final String MODULE = ComponentResourceHandler.class.getName();
-    protected String componentName;
-    protected String loaderName;
-    protected String location;
+    private static final String MODULE = ComponentResourceHandler.class.getName();
+    private String componentName;
+    private String loaderName;
+    private String location;
 
     public ComponentResourceHandler(String componentName, Element element) {
         this.componentName = componentName;
@@ -73,7 +73,7 @@ public class ComponentResourceHandler implements ResourceHandler {
     public Document getDocument() throws GenericConfigException {
         try {
             return UtilXml.readXmlDocument(this.getStream(), this.getFullLocation(), true);
-        } catch (SAXException | ParserConfigurationException | IOException  e) {
+        } catch (SAXException | ParserConfigurationException | IOException e) {
             throw new GenericConfigException("Error reading " + this.toString(), e);
         }
     }
@@ -103,9 +103,9 @@ public class ComponentResourceHandler implements ResourceHandler {
         if (obj instanceof ComponentResourceHandler) {
             ComponentResourceHandler other = (ComponentResourceHandler) obj;
 
-            if (this.loaderName.equals(other.loaderName) &&
-                this.componentName.equals(other.componentName) &&
-                this.location.equals(other.location)) {
+            if (this.loaderName.equals(other.loaderName)
+                    && this.componentName.equals(other.componentName)
+                    && this.location.equals(other.location)) {
                 return true;
             }
         }
@@ -120,6 +120,7 @@ public class ComponentResourceHandler implements ResourceHandler {
 
     @Override
     public String toString() {
-        return "ComponentResourceHandler from XML file [" + this.componentName + "] with loaderName [" + loaderName + "] and location [" + location + "]";
+        return "ComponentResourceHandler from XML file [" + this.componentName + "] with loaderName [" + loaderName + "] and location ["
+                + location + "]";
     }
 }

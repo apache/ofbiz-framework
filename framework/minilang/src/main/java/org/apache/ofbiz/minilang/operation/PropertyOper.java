@@ -33,10 +33,10 @@ import org.w3c.dom.Element;
  */
 public class PropertyOper extends MakeInStringOperation {
 
-    public static final String MODULE = PropertyOper.class.getName();
+    private static final String MODULE = PropertyOper.class.getName();
 
-    String property;
-    String resource;
+    private String property;
+    private String resource;
 
     public PropertyOper(Element element) {
         super(element);
@@ -49,7 +49,8 @@ public class PropertyOper extends MakeInStringOperation {
         String propStr = UtilProperties.getPropertyValue(UtilURL.fromResource(resource, loader), property);
 
         if (UtilValidate.isEmpty(propStr)) {
-            Debug.logWarning("[SimpleMapProcessor.PropertyOper.exec] Property " + property + " in resource " + resource + " not found, not appending anything", MODULE);
+            Debug.logWarning("[SimpleMapProcessor.PropertyOper.exec] Property " + property + " in resource " + resource
+                    + " not found, not appending anything", MODULE);
             return null;
         } else {
             return propStr;

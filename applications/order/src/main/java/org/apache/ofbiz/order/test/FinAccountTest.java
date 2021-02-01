@@ -22,17 +22,23 @@ import java.util.Locale;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 public class FinAccountTest extends OFBizTestCase {
-    public static final String MODULE = FinAccountTest.class.getName();
+    private static final String MODULE = FinAccountTest.class.getName();
     public FinAccountTest(String name) {
         super(name);
     }
 
+    /**
+     * Test create fin account basic.
+     * @throws Exception the exception
+     */
     public void testCreateFinAccountBasic() throws Exception {
+        Delegator delegator = getDelegator();
         String finAccountCode;
         GenericValue account;
 

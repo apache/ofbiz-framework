@@ -39,7 +39,6 @@ class AdminClient {
     /**
      * Send a command through network to OFBiz server
      * to show its status (running, stopping, ...)
-     *
      * @param config OFBiz configuration
      * @return status OFBiz server status
      */
@@ -58,7 +57,6 @@ class AdminClient {
     /**
      * Send a command through network to OFBiz server
      * to shut itself down.
-     *
      * @param config OFBiz configuration
      * @return shutdownMessage message from server
      *   on receiving shutdown request
@@ -75,16 +73,16 @@ class AdminClient {
 
     private static String sendSocketCommand(OfbizSocketCommand socketCommand, Config config) throws IOException {
         String response = "OFBiz is Down";
-        try (Socket socket = new Socket(config.adminAddress, config.adminPort);
+        try (Socket socket = new Socket(config.getAdminAddress(), config.getAdminPort());
                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))) {
             // send the command
-            writer.println(config.adminKey + ":" + socketCommand);
+            writer.println(config.getAdminKey() + ":" + socketCommand);
             writer.flush();
             // read the reply
             response = reader.readLine();
         } catch (ConnectException e) {
-            System.out.println("Could not connect to " + config.adminAddress + ":" + config.adminPort);
+            System.out.println("Could not connect to " + config.getAdminAddress() + ":" + config.getAdminPort());
         }
         return response;
     }
