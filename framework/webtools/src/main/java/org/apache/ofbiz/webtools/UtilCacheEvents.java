@@ -102,10 +102,12 @@ public final class UtilCacheEvents {
 
             if (key != null) {
                 utilCache.remove(key);
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.removeElementWithKey", UtilMisc.toMap("key", key.toString()), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.removeElementWithKey", UtilMisc.toMap("key",
+                        key.toString()), locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } else {
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name", name, "numString", numString), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name",
+                        name, "numString", numString), locale) + ".";
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
@@ -172,7 +174,7 @@ public final class UtilCacheEvents {
 
         UtilCache.clearAllCaches();
         errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearAllCaches", locale);
-        request.setAttribute("_EVENT_MESSAGE_", errMsg + " (" + UtilDateTime.nowDateString("yyyy-MM-dd HH:mm:ss")  + ").");
+        request.setAttribute("_EVENT_MESSAGE_", errMsg + " (" + UtilDateTime.nowDateString("yyyy-MM-dd HH:mm:ss") + ").");
         return "success";
     }
     /** An HTTP WebEvent handler that clears the selected caches
@@ -217,7 +219,8 @@ public final class UtilCacheEvents {
                 errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
                 eventList.add(errMsg);
             } else {
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
+                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName",
+                        UtilMisc.toMap("name", name), locale) + ".";
                 eventList.add(errMsg);
             }
         }
@@ -271,10 +274,12 @@ public final class UtilCacheEvents {
         UtilCache<?, ?> utilCache = UtilCache.findCache(name);
 
         if (utilCache != null) {
-            if (maxInMemory != null)
+            if (maxInMemory != null) {
                 utilCache.setMaxInMemory(maxInMemory);
-            if (expireTime != null)
+            }
+            if (expireTime != null) {
                 utilCache.setExpireTime(expireTime);
+            }
             if (useSoftReferenceStr != null) {
                 utilCache.setUseSoftReference("true".equals(useSoftReferenceStr));
             }

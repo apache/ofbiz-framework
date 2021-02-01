@@ -179,7 +179,7 @@ public class EmailServices {
         boolean useSmtpAuth = false;
 
         // define some default
-        if (sendType == null || sendType.equals("mail.smtp.host")) {
+        if (sendType == null || "mail.smtp.host".equals(sendType)) {
             sendType = "mail.smtp.host";
             if (UtilValidate.isEmpty(sendVia)) {
                 sendVia = EntityUtilProperties.getPropertyValue("general", "mail.smtp.relay.host", "localhost", delegator);
@@ -206,7 +206,8 @@ public class EmailServices {
                 socketFactoryFallback = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.fallback", "false", delegator);
             }
             if (sendPartial == null) {
-                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator) ? true : false;
+                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator)
+                        ? true : false;
             }
             if (isStartTLSEnabled == null) {
                 isStartTLSEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.starttls.enable", "true", delegator);
@@ -313,16 +314,19 @@ public class EmailServices {
                 mail.saveChanges();
             }
         } catch (MessagingException e) {
-            Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
+            Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc ["
+                    + sendBcc + "] subject [" + subject + "]", MODULE);
             Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo",
+                    sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
 
         // check to see if sending mail is enabled
         String mailEnabled = EntityUtilProperties.getPropertyValue("general", "mail.notifications.enabled", "N", delegator);
         if (!"Y".equalsIgnoreCase(mailEnabled)) {
             // no error; just return as if we already processed
-            Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee [" + sendTo + "]", MODULE);
+            Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee ["
+                    + sendTo + "]", MODULE);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("What would have been sent, the addressee: " + sendTo + " subject: " + subject + " context: " + context, MODULE);
             }
@@ -344,13 +348,15 @@ public class EmailServices {
             trans.close();
         } catch (SendFailedException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
-            Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
+            Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
+                    + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
             List<SMTPAddressFailedException> failedAddresses = new LinkedList<>();
             Exception nestedException = null;
             while ((nestedException = e.getNextException()) != null && nestedException instanceof MessagingException) {
                 if (nestedException instanceof SMTPAddressFailedException) {
                     SMTPAddressFailedException safe = (SMTPAddressFailedException) nestedException;
-                    Debug.logError("Failed to send message to [" + safe.getAddress() + "], return code [" + safe.getReturnCode() + "], return message [" + safe.getMessage() + "]", MODULE);
+                    Debug.logError("Failed to send message to [" + safe.getAddress() + "], return code [" + safe.getReturnCode()
+                            + "], return message [" + safe.getMessage() + "]", MODULE);
                     failedAddresses.add(safe);
                     break;
                 }
@@ -366,13 +372,16 @@ public class EmailServices {
                     Debug.logError(e1, MODULE);
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendAddressError", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendAddressError", UtilMisc.toMap("sendTo",
+                        sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
             }
         } catch (MessagingException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
-            Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
+            Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
+                    + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
             Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo", sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
+                    sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
         return results;
     }
@@ -397,7 +406,8 @@ public class EmailServices {
             url = new URL(bodyUrl);
         } catch (MalformedURLException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl", bodyUrl, "errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl",
+                    bodyUrl, "errorString", e.toString()), locale));
         }
 
         HttpClient httpClient = new HttpClient(url, bodyUrlParameters);
@@ -407,7 +417,8 @@ public class EmailServices {
             body = httpClient.post();
         } catch (HttpClientException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendGettingError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendGettingError", UtilMisc.toMap("errorString",
+                    e.toString()), locale));
         }
 
         sendMailContext.put("body", body);
@@ -503,7 +514,8 @@ public class EmailServices {
             screenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screen");
         } catch (TemplateException | IOException e) {
             Debug.logError("Error rendering screen for email: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
         ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, screenStringRenderer);
         screens.populateContextForService(dctx, bodyParameters);
@@ -514,7 +526,8 @@ public class EmailServices {
                 screens.render(bodyScreenUri);
             } catch (GeneralException | IOException | SAXException | ParserConfigurationException e) {
                 Debug.logError(e, "Error rendering screen for email: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
+                        UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
 
@@ -525,9 +538,11 @@ public class EmailServices {
             List<Map<String, ? extends Object>> bodyParts = new LinkedList<>();
             if (bodyText != null) {
                 bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType
+                        : "text/html"));
             } else {
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", UtilValidate.isNotEmpty(contentType)
+                        ? contentType : "text/html"));
             }
             for (int i = 0; i < xslfoAttachScreenLocationList.size(); i++) {
                 String xslfoAttachScreenLocation = xslfoAttachScreenLocationList.get(i);
@@ -589,7 +604,7 @@ public class EmailServices {
 
             // Only override the default contentType in case of plaintext, since other contentTypes may be multipart
             //    and would require specific handling.
-            if (contentType != null && contentType.equalsIgnoreCase("text/plain")) {
+            if (contentType != null && "text/plain".equalsIgnoreCase(contentType)) {
                 serviceContext.put("contentType", "text/plain");
             } else {
                 serviceContext.put("contentType", "text/html");
@@ -636,7 +651,8 @@ public class EmailServices {
             }
         } catch (Exception e) {
             Debug.logError(e, "Error send email:" + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendError", UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendError",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (ServiceUtil.isError(sendMailResult)) {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendMailResult));
@@ -670,7 +686,8 @@ public class EmailServices {
         serviceContext.put("hideInLog", true);
         return sendMailFromScreen(dctx, serviceContext);
     }
-    public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
+    public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message,
+                                               List<SMTPAddressFailedException> failures) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = new LinkedHashMap<>();
         newContext.put("userLogin", context.get("userLogin"));

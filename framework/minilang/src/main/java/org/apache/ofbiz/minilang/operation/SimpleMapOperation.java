@@ -73,10 +73,12 @@ public abstract class SimpleMapOperation {
             messages.add(new MessageString(message, fieldName, true));
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, MODULE);
         } else if (isProperty && propertyResource != null && message != null) {
-            // this one doesn't do the proper i18n: String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
+            // this one doesn't do the proper i18n: String propMsg = UtilProperties.getPropertyValue(UtilURL
+            // .fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, locale);
             if (UtilValidate.isEmpty(propMsg)) {
-                messages.add(new MessageString("Simple Map Processing error occurred, but no message was found, sorry.", fieldName, propertyResource, message, locale, true));
+                messages.add(new MessageString("Simple Map Processing error occurred, but no message was found, sorry.", fieldName,
+                        propertyResource, message, locale, true));
             } else {
                 messages.add(new MessageString(propMsg, fieldName, propertyResource, message, locale, true));
             }

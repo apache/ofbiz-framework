@@ -169,6 +169,7 @@ public final class CallService extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        SimpleMethod simpleMethod = getSimpleMethod();
         if (methodContext.isTraceOn()) {
             outputTraceMessage(methodContext, "Begin call-service.");
         }
@@ -319,9 +320,9 @@ public final class CallService extends MethodOperation {
                 }
             } else {
                 ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(),
-                        this.simpleMethod.getServiceErrorMessageListName()),
-                        UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()),
-                        result);
+                        this.getSimpleMethod().getServiceErrorMessageListName()),
+                        UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.getSimpleMethod()
+                                .getServiceErrorMessageMapName()), result);
                 Debug.logError(new Exception(errorMessage), MODULE);
             }
         }

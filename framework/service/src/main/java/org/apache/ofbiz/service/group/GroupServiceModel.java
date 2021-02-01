@@ -36,7 +36,8 @@ public class GroupServiceModel {
 
     private static final String MODULE = GroupServiceModel.class.getName();
 
-    private String serviceName, serviceMode;
+    private String serviceName;
+    private String serviceMode;
     private boolean resultToContext = false;
     private boolean optionalParams = false;
 
@@ -110,7 +111,8 @@ public class GroupServiceModel {
         if ("async".equals(getMode())) {
             List<String> requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);
             if (!requiredOut.isEmpty()) {
-                Debug.logWarning("Grouped service (" + getName() + ") requested 'async' invocation; running sync because of required OUT parameters.", MODULE);
+                Debug.logWarning("Grouped service (" + getName()
+                        + ") requested 'async' invocation; running sync because of required OUT parameters.", MODULE);
                 return dispatcher.runSync(localName, model, thisContext);
             }
             dispatcher.runAsync(localName, model, thisContext, false);

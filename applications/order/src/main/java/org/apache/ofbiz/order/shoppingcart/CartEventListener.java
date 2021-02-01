@@ -42,7 +42,7 @@ public class CartEventListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
-        //for this one do nothing when the session is created...
+        Debug.logVerbose("Do nothing when the session is created.", MODULE);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CartEventListener implements HttpSessionListener {
         HttpSession session = event.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         if (cart == null) {
-            Debug.logInfo("No cart to save, doing nothing.", MODULE);
+            Debug.logVerbose("No cart to save, doing nothing.", MODULE);
             return;
         }
 
@@ -70,11 +70,11 @@ public class CartEventListener implements HttpSessionListener {
 
             GenericValue visit = VisitHandler.getVisit(session);
             if (visit == null) {
-                Debug.logInfo("Could not get the current visit, not saving abandoned cart info.", MODULE);
+                Debug.logVerbose("Could not get the current visit, not saving abandoned cart info.", MODULE);
                 return;
             }
 
-            Debug.logInfo("Saving abandoned cart", MODULE);
+            Debug.logVerbose("Saving abandoned cart", MODULE);
             int seqId = 1;
             for (ShoppingCartItem cartItem : cart) {
                 GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine");

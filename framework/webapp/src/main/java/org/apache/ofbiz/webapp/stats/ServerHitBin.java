@@ -226,9 +226,9 @@ public class ServerHitBin {
                     serverHitBin.set("minTimeMillis", bin.getMinTime());
                     serverHitBin.set("maxTimeMillis", bin.getMaxTime());
                     // get localhost ip address and hostname to store
-                    if (VisitHandler.address != null) {
-                        serverHitBin.set("serverIpAddress", VisitHandler.address.getHostAddress());
-                        serverHitBin.set("serverHostName", VisitHandler.address.getHostName());
+                    if (VisitHandler.ADDRESS != null) {
+                        serverHitBin.set("serverIpAddress", VisitHandler.ADDRESS.getHostAddress());
+                        serverHitBin.set("serverHostName", VisitHandler.ADDRESS.getHostName());
                     }
                     try {
                         delegator.createSetNextSeqId(serverHitBin);
@@ -493,7 +493,7 @@ public class ServerHitBin {
             if (visit == null) {
                 // no visit info stored, so don't store the ServerHit
                 Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off"
-                        + "persistance of visits you should also turn off persistence of hits.", MODULE);
+                        + " persistance of visits you should also turn off persistence of hits.", MODULE);
                 return;
             }
             String visitId = visit.getString("visitId");
@@ -530,9 +530,9 @@ public class ServerHitBin {
             serverHit.set("referrerUrl", referrerUrl);
 
             // get localhost ip address and hostname to store
-            if (VisitHandler.address != null) {
-                serverHit.set("serverIpAddress", VisitHandler.address.getHostAddress());
-                serverHit.set("serverHostName", VisitHandler.address.getHostName());
+            if (VisitHandler.ADDRESS != null) {
+                serverHit.set("serverIpAddress", VisitHandler.ADDRESS.getHostAddress());
+                serverHit.set("serverHostName", VisitHandler.ADDRESS.getHostName());
             }
 
             serverHit.create();

@@ -65,6 +65,10 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
     }
 
+    /**
+     * Populate all.
+     * @throws GeneralException the general exception
+     */
     public void populateAll() throws GeneralException {
         ArtifactInfoContext infoContext = new ArtifactInfoContext();
         ArtifactInfoGatherer infoGatherer = new ArtifactInfoGatherer(infoContext);
@@ -79,13 +83,18 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         populateLinkedRequests(infoContext.getRequestLocations());
     }
 
+    /**
+     * Populate services from name set.
+     * @param allServiceNameSet the all service name set
+     * @throws GeneralException the general exception
+     */
     protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
         for (String serviceName: allServiceNameSet) {
             if (serviceName.contains("${")) {
                 continue;
             }
             try {
-                aif.getModelService(serviceName);
+                getAif().getModelService(serviceName);
             } catch (GeneralException e) {
                 Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
                         + "] does not exist!", MODULE);
@@ -93,19 +102,24 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             // the forward reference
-            this.servicesUsedInThisScreen.add(aif.getServiceArtifactInfo(serviceName));
+            this.servicesUsedInThisScreen.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToServiceName(), serviceName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToServiceName(), serviceName);
         }
     }
 
+    /**
+     * Populate entities from name set.
+     * @param allEntityNameSet the all entity name set
+     * @throws GeneralException the general exception
+     */
     protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
         for (String entityName: allEntityNameSet) {
             if (entityName.contains("${")) {
                 continue;
             }
             // attempt to convert relation names to entity names
-            entityName = aif.getEntityModelReader().validateEntityName(entityName);
+            entityName = getAif().getEntityModelReader().validateEntityName(entityName);
             if (entityName == null) {
                 Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
                         + "] does not exist!", MODULE);
@@ -113,12 +127,17 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             // the forward reference
-            this.entitiesUsedInThisScreen.add(aif.getEntityArtifactInfo(entityName));
+            this.entitiesUsedInThisScreen.add(getAif().getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToEntityName(), entityName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToEntityName(), entityName);
         }
     }
 
+    /**
+     * Populate forms from name set.
+     * @param allFormNameSet the all form name set
+     * @throws GeneralException the general exception
+     */
     protected void populateFormsFromNameSet(Set<String> allFormNameSet) throws GeneralException {
         for (String formName: allFormNameSet) {
             if (formName.contains("${")) {
@@ -126,7 +145,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             try {
-                aif.getModelForm(formName);
+                getAif().getModelForm(formName);
             } catch (Exception e) {
                 Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
                         + "] does not exist!", MODULE);
@@ -134,12 +153,17 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             }
 
             // the forward reference
-            this.formsIncludedInThisScreen.add(aif.getFormWidgetArtifactInfo(formName));
+            this.formsIncludedInThisScreen.add(getAif().getFormWidgetArtifactInfo(formName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToForm(), formName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToForm(), formName);
         }
     }
 
+    /**
+     * Populate linked requests.
+     * @param allRequestUniqueId the all request unique id
+     * @throws GeneralException the general exception
+     */
     protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException {
 
         for (String requestUniqueId: allRequestUniqueId) {
@@ -151,9 +175,9 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
                 // the forward reference
-                this.requestsLinkedToInScreen.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                this.requestsLinkedToInScreen.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.getAllScreenInfosReferringToRequest(), requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToRequest(), requestUniqueId);
             }
         }
     }
@@ -200,7 +224,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
      * @return the views referring to screen
      */
     public Set<ControllerViewArtifactInfo> getViewsReferringToScreen() {
-        return this.aif.getAllViewInfosReferringToScreen().get(this.getUniqueId());
+        return this.getAif().getAllViewInfosReferringToScreen().get(this.getUniqueId());
     }
 
     /**
@@ -241,7 +265,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
      * @return the screens including this screen
      */
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {
-        return this.aif.getAllScreenInfosReferringToScreen().get(this.getUniqueId());
+        return this.getAif().getAllScreenInfosReferringToScreen().get(this.getUniqueId());
     }
 
     /**

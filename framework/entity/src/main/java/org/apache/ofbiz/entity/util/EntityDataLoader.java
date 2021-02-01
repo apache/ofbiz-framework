@@ -308,10 +308,14 @@ public class EntityDataLoader {
                 }
 
                 /*
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_VIEW", "description", "Permission to View a " + entity.getEntityName() + " entity."));
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_CREATE", "description", "Permission to Create a " + entity.getEntityName() + " entity."));
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_UPDATE", "description", "Permission to Update a " + entity.getEntityName() + " entity."));
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_DELETE", "description", "Permission to Delete a " + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_VIEW", "description", "Permission to View a "
+                + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_CREATE", "description", "Permission to Create a "
+                + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_UPDATE", "description", "Permission to Update a "
+                + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_DELETE", "description", "Permission to Delete a "
+                + entity.getEntityName() + " entity."));
 
                 toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_VIEW"));
                 toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_CREATE"));

@@ -70,7 +70,7 @@ public class GenericDAO {
 
     private static final String MODULE = GenericDAO.class.getName();
 
-    private static final ConcurrentHashMap<String, GenericDAO> genericDAOs = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, GenericDAO> GENERIC_DAOS = new ConcurrentHashMap<>();
     private final GenericHelperInfo helperInfo;
     private final ModelFieldTypeReader modelFieldTypeReader;
     private final Datasource datasource;
@@ -83,10 +83,10 @@ public class GenericDAO {
 
     public static GenericDAO getGenericDAO(GenericHelperInfo helperInfo) {
         String cacheKey = helperInfo.getHelperFullName();
-        GenericDAO newGenericDAO = genericDAOs.get(cacheKey);
+        GenericDAO newGenericDAO = GENERIC_DAOS.get(cacheKey);
         if (newGenericDAO == null) {
-            genericDAOs.putIfAbsent(cacheKey, new GenericDAO(helperInfo));
-            newGenericDAO = genericDAOs.get(cacheKey);
+            GENERIC_DAOS.putIfAbsent(cacheKey, new GenericDAO(helperInfo));
+            newGenericDAO = GENERIC_DAOS.get(cacheKey);
         }
         return newGenericDAO;
     }
@@ -101,6 +101,12 @@ public class GenericDAO {
         fieldsToSave.add(modelEntity.getField(fieldName));
     }
 
+    /**
+     * Insert int.
+     * @param entity the entity
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int insert(GenericEntity entity) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
@@ -146,7 +152,8 @@ public class GenericDAO {
         // if we have a STAMP_FIELD or CREATE_STAMP_FIELD then set it with NOW
         boolean stampIsField = modelEntity.isField(ModelEntity.STAMP_FIELD);
         boolean createStampIsField = modelEntity.isField(ModelEntity.CREATE_STAMP_FIELD);
-        if ((stampIsField || createStampIsField) && (!entity.getIsFromEntitySync() || (stampIsField && entity.get(ModelEntity.STAMP_FIELD) == null) || (createStampIsField && entity.get(ModelEntity.CREATE_STAMP_FIELD) == null))) {
+        if ((stampIsField || createStampIsField) && (!entity.getIsFromEntitySync() || (stampIsField && entity.get(ModelEntity.STAMP_FIELD) == null)
+                || (createStampIsField && entity.get(ModelEntity.CREATE_STAMP_FIELD) == null))) {
             Timestamp startStamp = TransactionUtil.getTransactionUniqueNowStamp();
             if (stampIsField && (!entity.getIsFromEntitySync() || entity.get(ModelEntity.STAMP_FIELD) == null)) {
                 entity.set(ModelEntity.STAMP_FIELD, startStamp);
@@ -177,12 +184,24 @@ public class GenericDAO {
         }
     }
 
+    /**
+     * Update all int.
+     * @param entity the entity
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int updateAll(GenericEntity entity) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
         return customUpdate(entity, modelEntity, modelEntity.getNopksCopy());
     }
 
+    /**
+     * Update int.
+     * @param entity the entity
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int update(GenericEntity entity) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
@@ -282,6 +301,15 @@ public class GenericDAO {
         return retVal;
     }
 
+    /**
+     * Update by condition int.
+     * @param delegator the delegator
+     * @param modelEntity the model entity
+     * @param fieldsToSet the fields to set
+     * @param condition the condition
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int updateByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet,
                                  EntityCondition condition) throws GenericEntityException {
 
@@ -295,6 +323,15 @@ public class GenericDAO {
         }
     }
 
+    /**
+     * Update by condition int.
+     * @param modelEntity the model entity
+     * @param fieldsToSet the fields to set
+     * @param condition the condition
+     * @param sqlP the sql p
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int updateByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition, SQLProcessor sqlP)
             throws GenericEntityException {
         if (modelEntity == null || fieldsToSet == null || condition == null) {
@@ -492,12 +529,23 @@ public class GenericDAO {
 
     /* ====================================================================== */
 
+    /**
+     * Select.
+     * @param entity the entity
+     * @throws GenericEntityException the generic entity exception
+     */
     public void select(GenericEntity entity) throws GenericEntityException {
         try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
             select(entity, sqlP);
         }
     }
 
+    /**
+     * Select.
+     * @param entity the entity
+     * @param sqlP the sql p
+     * @throws GenericEntityException the generic entity exception
+     */
     public void select(GenericEntity entity, SQLProcessor sqlP) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
@@ -536,6 +584,12 @@ public class GenericDAO {
         }
     }
 
+    /**
+     * Partial select.
+     * @param entity the entity
+     * @param keys the keys
+     * @throws GenericEntityException the generic entity exception
+     */
     public void partialSelect(GenericEntity entity, Set<String> keys) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
@@ -792,6 +846,15 @@ public class GenericDAO {
                 findOptions.getDistinct());
     }
 
+    /**
+     * Make condition where string string builder.
+     * @param modelEntity the model entity
+     * @param whereEntityCondition the where entity condition
+     * @param viewWhereConditions the view where conditions
+     * @param whereEntityConditionParams the where entity condition params
+     * @return the string builder
+     * @throws GenericEntityException the generic entity exception
+     */
     @Deprecated
     protected StringBuilder makeConditionWhereString(ModelEntity modelEntity, EntityCondition whereEntityCondition,
                                                      List<EntityCondition> viewWhereConditions,
@@ -799,6 +862,17 @@ public class GenericDAO {
         return makeConditionWhereString(new StringBuilder(), "", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
     }
 
+    /**
+     * Make condition where string string builder.
+     * @param whereString the where string
+     * @param prefix the prefix
+     * @param modelEntity the model entity
+     * @param whereEntityCondition the where entity condition
+     * @param viewWhereConditions the view where conditions
+     * @param whereEntityConditionParams the where entity condition params
+     * @return the string builder
+     * @throws GenericEntityException the generic entity exception
+     */
     protected StringBuilder makeConditionWhereString(StringBuilder whereString, String prefix, ModelEntity modelEntity,
                                                      EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions,
                                                      List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
@@ -834,6 +908,15 @@ public class GenericDAO {
         return whereString;
     }
 
+    /**
+     * Make condition having string string builder.
+     * @param modelEntity the model entity
+     * @param havingEntityCondition the having entity condition
+     * @param viewHavingConditions the view having conditions
+     * @param havingEntityConditionParams the having entity condition params
+     * @return the string builder
+     * @throws GenericEntityException the generic entity exception
+     */
     @Deprecated
     protected StringBuilder makeConditionHavingString(ModelEntity modelEntity, EntityCondition havingEntityCondition,
                                                       List<EntityCondition> viewHavingConditions,
@@ -842,6 +925,17 @@ public class GenericDAO {
                 havingEntityConditionParams);
     }
 
+    /**
+     * Make condition having string string builder.
+     * @param havingString the having string
+     * @param prefix the prefix
+     * @param modelEntity the model entity
+     * @param havingEntityCondition the having entity condition
+     * @param viewHavingConditions the view having conditions
+     * @param havingEntityConditionParams the having entity condition params
+     * @return the string builder
+     * @throws GenericEntityException the generic entity exception
+     */
     protected StringBuilder makeConditionHavingString(StringBuilder havingString, String prefix, ModelEntity modelEntity,
                                                       EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions,
                                                       List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
@@ -883,6 +977,12 @@ public class GenericDAO {
         return havingString;
     }
 
+    /**
+     * Make offset string string builder.
+     * @param offsetString the offset string
+     * @param findOptions the find options
+     * @return the string builder
+     */
     protected StringBuilder makeOffsetString(StringBuilder offsetString, EntityFindOptions findOptions) {
         if (UtilValidate.isNotEmpty(datasource.getOffsetStyle())) {
             if ("limit".equals(datasource.getOffsetStyle())) {
@@ -906,6 +1006,17 @@ public class GenericDAO {
         return offsetString;
     }
 
+    /**
+     * Select by multi relation list.
+     * @param value the value
+     * @param modelRelationOne the model relation one
+     * @param modelEntityOne the model entity one
+     * @param modelRelationTwo the model relation two
+     * @param modelEntityTwo the model entity two
+     * @param orderBy the order by
+     * @return the list
+     * @throws GenericEntityException the generic entity exception
+     */
     public List<GenericValue> selectByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
                                                     ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy)
             throws GenericEntityException {
@@ -1006,11 +1117,32 @@ public class GenericDAO {
         return retlist;
     }
 
+    /**
+     * Select count by condition long.
+     * @param delegator the delegator
+     * @param modelEntity the model entity
+     * @param whereEntityCondition the where entity condition
+     * @param havingEntityCondition the having entity condition
+     * @param findOptions the find options
+     * @return the long
+     * @throws GenericEntityException the generic entity exception
+     */
     public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
                                        EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, null, findOptions);
     }
 
+    /**
+     * Select count by condition long.
+     * @param delegator the delegator
+     * @param modelEntity the model entity
+     * @param whereEntityCondition the where entity condition
+     * @param havingEntityCondition the having entity condition
+     * @param selectFields the select fields
+     * @param findOptions the find options
+     * @return the long
+     * @throws GenericEntityException the generic entity exception
+     */
     public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
                                        EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions)
             throws GenericEntityException {
@@ -1087,8 +1219,8 @@ public class GenericDAO {
             viewWhereConditions = new LinkedList<>();
             viewHavingConditions = new LinkedList<>();
             viewOrderByList = new LinkedList<>();
-            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList
-                    , null);
+            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList,
+                    null);
         }
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
@@ -1156,10 +1288,12 @@ public class GenericDAO {
         }
     }
 
-    /* ====================================================================== */
-
-    /* ====================================================================== */
-
+    /**
+     * Delete int.
+     * @param entity the entity
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int delete(GenericEntity entity) throws GenericEntityException {
         try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
             try {
@@ -1171,6 +1305,13 @@ public class GenericDAO {
         }
     }
 
+    /**
+     * Delete int.
+     * @param entity the entity
+     * @param sqlP the sql p
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int delete(GenericEntity entity, SQLProcessor sqlP) throws GenericEntityException {
         ModelEntity modelEntity = entity.getModelEntity();
 
@@ -1190,6 +1331,14 @@ public class GenericDAO {
         return retVal;
     }
 
+    /**
+     * Delete by condition int.
+     * @param delegator the delegator
+     * @param modelEntity the model entity
+     * @param condition the condition
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int deleteByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
         try (SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo)) {
             try {
@@ -1201,9 +1350,18 @@ public class GenericDAO {
         }
     }
 
+    /**
+     * Delete by condition int.
+     * @param modelEntity the model entity
+     * @param condition the condition
+     * @param sqlP the sql p
+     * @return the int
+     * @throws GenericEntityException the generic entity exception
+     */
     public int deleteByCondition(ModelEntity modelEntity, EntityCondition condition, SQLProcessor sqlP) throws GenericEntityException {
-        if (modelEntity == null || condition == null)
+        if (modelEntity == null || condition == null) {
             return 0;
+        }
         if (modelEntity instanceof ModelViewEntity) {
             throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation deleteByCondition not supported yet for view entities");
         }
@@ -1219,8 +1377,12 @@ public class GenericDAO {
         return sqlP.executeUpdate();
     }
 
-    /* ====================================================================== */
-
+    /**
+     * Check db.
+     * @param modelEntities the model entities
+     * @param messages the messages
+     * @param addMissing the add missing
+     */
     public void checkDb(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) {
         DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo);
         dbUtil.checkDb(modelEntities, messages, addMissing);

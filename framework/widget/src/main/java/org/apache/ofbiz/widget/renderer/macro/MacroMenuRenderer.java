@@ -52,6 +52,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
@@ -63,7 +64,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     private final HttpServletResponse response;
     private final VisualTheme visualTheme;
 
-    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
+            throws TemplateException, IOException {
         this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
@@ -212,7 +214,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("width", link.getWidth());
         parameters.put("targetWindow", link.getTargetWindow(context));
         StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
-        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE));
+        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
+                "menuUniqueItemIndex", BigDecimal.ONE));
         if (menuItem.getModelMenu().getExtraIndex(context) != null) {
             uniqueItemName.append("_").append(menuItem.getModelMenu().getExtraIndex(context));
         }
@@ -297,6 +300,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         } catch (TemplateException e) {
             throw new IOException(e);
         }
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Menu", menu.getBoundaryCommentName()));
+        }
     }
 
     @Override
@@ -365,6 +371,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException {
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Menu",
+                    menu.getBoundaryCommentName(), ((HttpServletRequest) context.get("request")).getContextPath()));
+        }
         Map<String, Object> parameters = new HashMap<>();
         if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
             StringBuilder sb = new StringBuilder("Begin Menu Widget ");

@@ -25,7 +25,7 @@ package org.apache.ofbiz.entity.util;
 public class EntityStoreOptions implements java.io.Serializable {
 
     /** Option for creating missing referenced values as dummy (pk-only) entries */
-    protected boolean createDummyFks = false;
+    private boolean createDummyFks = false;
 
     /**
      * Default constructor. Defaults are as follows: createDummyFks = false

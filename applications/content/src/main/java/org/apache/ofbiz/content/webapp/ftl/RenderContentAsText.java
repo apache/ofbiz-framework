@@ -52,8 +52,9 @@ import freemarker.template.TemplateTransformModel;
 public class RenderContentAsText implements TemplateTransformModel {
 
     private static final String MODULE = RenderContentAsText.class.getName();
-    static final String[] upSaveKeyNames = {"globalNodeTrail"};
-    static final String[] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail"};
+    static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",
+            "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     @Override
     @SuppressWarnings("unchecked")
@@ -68,7 +69,7 @@ public class RenderContentAsText implements TemplateTransformModel {
         }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map<String, Object> savedValuesUp = new HashMap<>();
-        FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
+        FreeMarkerWorker.saveContextValues(templateRoot, UP_SAVE_KEY_NAMES, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         if (Debug.verboseOn()) {
             Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
@@ -126,7 +127,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                     Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), MODULE);
                     Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), MODULE);
                 }
-                FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
+                FreeMarkerWorker.saveContextValues(templateRoot, SAVE_KEY_NAMES, savedValues);
                     try {
                         String txt = ContentWorker.renderContentAsText(dispatcher, thisContentId, templateRoot, locale, mimeTypeId, true);
                         if ("true".equals(xmlEscape)) {

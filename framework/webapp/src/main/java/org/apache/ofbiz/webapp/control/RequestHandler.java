@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -78,7 +79,7 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
 /**
  * RequestHandler - Request Processor Object
  */
-public class RequestHandler {
+public final class RequestHandler {
 
     private static final String MODULE = RequestHandler.class.getName();
     private final ViewFactory viewFactory;
@@ -163,7 +164,7 @@ public class RequestHandler {
         }
         if (method.isEmpty()) {
             return Optional.empty();
-        } else if (method.equals("all")) {
+        } else if ("all".equals(method)) {
             return resolveMethod("", rmaps);
         } else {
             return resolveMethod("all", rmaps);
@@ -248,6 +249,12 @@ public class RequestHandler {
                 if (obj instanceof Map) {
                     // See OFBIZ-750 and OFBIZ-11123 for cases where a value in an inner Map is not serializable
                     UtilMisc.makeMapSerializable(UtilGenerics.cast(obj));
+                }
+                if (obj instanceof ArrayList) {
+                    // See OFBIZ-12050 for cases where a value in an ArrayList is not serializable
+                    @SuppressWarnings("unchecked")
+                    ArrayList<Object> arrayList = (ArrayList<Object>) obj;
+                    UtilMisc.makeArrayListSerializable(arrayList);
                 }
                 reqAttrMap.put(name, obj);
             }
@@ -698,7 +705,8 @@ public class RequestHandler {
         if (eventReturnBasedRequestResponse != null) {
             //String eventReturnBasedResponse = requestResponse.value;
             if (Debug.verboseOn()) {
-                Debug.logVerbose("[Response Qualified]: " + eventReturnBasedRequestResponse.getName() + ", " + eventReturnBasedRequestResponse.getType()
+                Debug.logVerbose("[Response Qualified]: " + eventReturnBasedRequestResponse.getName() + ", "
+                        + eventReturnBasedRequestResponse.getType()
                         + ":" + eventReturnBasedRequestResponse.getValue() + showSessionId(request), MODULE);
             }
 
@@ -741,7 +749,7 @@ public class RequestHandler {
                     String key = entry.getKey();
                     if ("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key)
                             || "_WARNING_MESSAGE_LIST_".equals(key) || "_WARNING_MESSAGE_".equals(key)
-                            || "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
+                            || "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key) || "_UNSAFE_EVENT_MESSAGE_".equals(key)) {
                         request.setAttribute(key, entry.getValue());
                     }
                 }
@@ -1050,7 +1058,8 @@ public class RequestHandler {
         return eventFactory;
     }
 
-    private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName) throws RequestHandlerException {
+    private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName)
+            throws RequestHandlerException {
         GenericValue userLogin = (GenericValue) req.getSession().getAttribute("userLogin");
         // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(req);

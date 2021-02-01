@@ -51,7 +51,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
     private static final String MODULE = EntityAutoEngine.class.getName();
     private static final String RESOURCE = "ServiceErrorUiLabels";
-    private static final List<String> availableInvokeActionNames = UtilMisc.toList("create", "update", "delete", "expire");
+    private static final List<String> AVAIL_INVOKE_ACTION_NAMES = UtilMisc.toList("create", "update", "delete", "expire");
 
     public EntityAutoEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -76,7 +76,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         // check the package and method names
-        if (modelService.getInvoke() == null || !availableInvokeActionNames.contains(modelService.getInvoke())) {
+        if (modelService.getInvoke() == null || !AVAIL_INVOKE_ACTION_NAMES.contains(modelService.getInvoke())) {
             throw new GenericServiceException("In Service [" + modelService.getName()
                     + "] the invoke value must be create, update, or delete for entity-auto engine");
         }
@@ -180,7 +180,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 doublePkPrimaryInParam = secondPkParam;
                 doublePkSecondaryOutParam = firstPkParam;
                 doublePkSecondaryOutField = firstPkField;
-            //} else {
+                // } else {
                 // we don't have an IN and an OUT... so do nothing and leave them null
             }
         }
@@ -247,7 +247,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
              **** secondary sequenced primary key ****
              *
             <auto-attributes include="pk" mode="IN" optional="false"/>
-            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the
+            * next sub-sequence ID -->
              *
             <make-value entity-name="ExampleItem" value-name="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>

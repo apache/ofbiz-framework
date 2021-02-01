@@ -42,7 +42,8 @@ public class CrossSubdomainSessionValve extends ValveBase {
         super();
     }
 
-    public @Override void invoke(Request request, Response response) throws IOException, ServletException {
+    @Override
+    public void invoke(Request request, Response response) throws IOException, ServletException {
 
         // this will cause Request.doGetSession to create the session cookie if necessary
         request.getSession(true);
@@ -61,6 +62,12 @@ public class CrossSubdomainSessionValve extends ValveBase {
         getNext().invoke(request, response);
     }
 
+    /**
+     * Replace cookie.
+     * @param request the request
+     * @param response the response
+     * @param cookie the cookie
+     */
     protected void replaceCookie(Request request, Response response, Cookie cookie) {
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -89,7 +96,6 @@ public class CrossSubdomainSessionValve extends ValveBase {
             }
         }
 
-
         if (UtilValidate.isNotEmpty(cookieDomain)) {
             Cookie newCookie = new Cookie(cookie.getName(), cookie.getValue());
             if (cookie.getPath() != null) {
@@ -115,14 +121,13 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 if (mimeHeaders.getName(i).equals("Set-Cookie")) {
                     MessageBytes value = mimeHeaders.getValue(i);
                     if (value.indexOf(cookie.getName()) >= 0) {
-                        String newCookieValue = request.getContext().
-                                getCookieProcessor().generateHeader(newCookie, request);
-                        if (Debug.verboseOn())
-                            Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(),
-                                    MODULE);
-                        if (Debug.verboseOn())
-                            Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + newCookieValue,
-                                    MODULE);
+                        String newCookieValue = request.getContext().getCookieProcessor().generateHeader(newCookie, request);
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), MODULE);
+                        }
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + newCookieValue, MODULE);
+                        }
                         value.setString(newCookieValue);
                     }
                 }

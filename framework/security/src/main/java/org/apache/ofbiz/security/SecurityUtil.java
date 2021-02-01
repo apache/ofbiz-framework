@@ -43,7 +43,7 @@ import org.apache.ofbiz.webapp.control.JWTManager;
 public final class SecurityUtil {
 
     private static final String MODULE = SecurityUtil.class.getName();
-    private static final List<String> adminPermissions = UtilMisc.toList(
+    private static final List<String> ADMIN_PERMISSIONS = UtilMisc.toList(
             "IMPERSONATE_ADMIN",
             "ARTIFACT_INFO_VIEW",
             "SERVICE_MAINT",
@@ -64,7 +64,7 @@ public final class SecurityUtil {
                     .from("UserLoginAndPermission")
                     .where(EntityCondition.makeCondition(
                             EntityCondition.makeCondition("userLoginId", userLoginId),
-                            EntityCondition.makeCondition("permissionId", EntityOperator.IN, adminPermissions)))
+                            EntityCondition.makeCondition("permissionId", EntityOperator.IN, ADMIN_PERMISSIONS)))
                     .filterByDate("fromDate", "thruDate", "permissionFromDate", "permissionThruDate")
                     .queryCount() != 0;
         } catch (GenericEntityException e) {
@@ -138,11 +138,11 @@ public final class SecurityUtil {
      * Return a JWToken for authenticate a userLogin with salt the token by userLoginId and currentPassword
      */
     public static String generateJwtToAuthenticateUserLogin(Delegator delegator, String userLoginId)
-    throws GenericEntityException {
+            throws GenericEntityException {
         GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"));
         return JWTManager.createJwt(delegator, claims,
-                userLogin.getString("userLoginId") + userLogin.getString("currentPassword"), - 1);
+                userLogin.getString("userLoginId") + userLogin.getString("currentPassword"), -1);
     }
 
     /**

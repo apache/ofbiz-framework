@@ -68,7 +68,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/html;charset=UTF-8", http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Html Screen contains Macro on error : see " + screenUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+        assertFalse("Html Screen contains Macro on error : see " + screenUrl + " for more detail",
+                screenOutString.contains("FreeMarker template error:"));
     }
 
     /**
@@ -84,7 +85,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/html;charset=UTF-8", http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Text Screen contains Macro on error : see " + screentextUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+        assertFalse("Text Screen contains Macro on error : see " + screentextUrl + " for more detail",
+                screenOutString.contains("FreeMarker template error:"));
     }
 
     /**
@@ -100,7 +102,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/xml;charset=UTF-8", http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Xml Screen contains Macro on error : see " + screenxmlUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+        assertFalse("Xml Screen contains Macro on error : see " + screenxmlUrl + " for more detail",
+                screenOutString.contains("FreeMarker template error:"));
     }
 
     /**
@@ -116,7 +119,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/csv;charset=UTF-8", http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Csv Screen contains Macro on error : see " + screencsvUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+        assertFalse("Csv Screen contains Macro on error : see " + screencsvUrl + " for more detail",
+                screenOutString.contains("FreeMarker template error:"));
     }
 
     /**
@@ -129,10 +133,12 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         http.setUrl(screenxlsUrl.concat(authentificationQuery));
         String screenOutString = http.post();
         assertNotNull("Response failed from ofbiz", screenOutString);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/vnd.ms-excel;charset=UTF-8", http.getResponseContentType());
+        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/vnd.ms-excel;charset=UTF-8",
+                http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Csv Screen contains Macro on error : see " + screenxlsUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+        assertFalse("Csv Screen contains Macro on error : see " + screenxlsUrl + " for more detail",
+                screenOutString.contains("FreeMarker template error:"));
     }
 
     /**
@@ -146,7 +152,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         //FIXME need to check if the stream is an application-pdf that don't contains ftl stack trace
         InputStream screenInputStream = http.postStream();
         assertNotNull("Response failed from ofbiz", screenInputStream);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/pdf;charset=UTF-8", http.getResponseContentType());
+        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/pdf;charset=UTF-8",
+                http.getResponseContentType());
 
         String screenOutString = "";
         try {
@@ -158,6 +165,7 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
             screenInputStream.close();
         }
         //Test if a ftl macro error is present
-        assertFalse("Fop Screen contains Macro on error : see " + screentextUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+        assertFalse("Fop Screen contains Macro on error : see " + screentextUrl + " for more detail",
+                screenOutString.contains("FreeMarker template error:"));
     }
 }

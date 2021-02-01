@@ -81,6 +81,12 @@ public final class CommonWidgetModels {
             }
         }
 
+        /**
+         * Gets parameters map.
+         * @param context the context
+         * @param defaultEntityName the default entity name
+         * @return the parameters map
+         */
         @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultEntityName) {
             Map<String, String> autEntityParams = new HashMap<>();
@@ -109,7 +115,7 @@ public final class CommonWidgetModels {
                 FlexibleMapAccessor<Object> fma = FlexibleMapAccessor.getInstance(fieldName);
                 boolean shouldExclude = excludeList.contains(fieldName);
                 if ((!shouldExclude) && (!field.getIsAutoCreatedInternal())
-                    && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
+                        && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
                     Object flexibleValue = fma.get(context);
                     if (UtilValidate.isEmpty(flexibleValue) && context.containsKey("parameters")) {
                         flexibleValue = fma.get((Map<String, Object>) context.get("parameters"));
@@ -141,6 +147,12 @@ public final class CommonWidgetModels {
             }
         }
 
+        /**
+         * Gets parameters map.
+         * @param context the context
+         * @param defaultServiceName the default service name
+         * @return the parameters map
+         */
         @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultServiceName) {
             Map<String, String> autServiceParams = new HashMap<>();

@@ -57,7 +57,8 @@ public class InventoryEventPlannedServices {
             createOrUpdateMrpEvent(parameters, quantity, (String) context.get("facilityId"), (String) context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error : findOne(\"MrpEvent\", parameters =)" + parameters, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
+                    UtilMisc.toMap("parameters", parameters), locale));
         }
         return ServiceUtil.returnSuccess();
     }

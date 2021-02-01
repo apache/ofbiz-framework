@@ -33,9 +33,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -69,6 +73,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
@@ -138,7 +144,7 @@ public final class UtilHttp {
      * Creates a canonicalized parameter map from a HTTP request.
      * <p>
      * If parameters are empty, the multi-part parameter map will be used.
-     * @param req  the HTTP request containing the parameters
+     * @param req the HTTP request containing the parameters
      * @param pred the predicate filtering the parameter names
      * @return a canonicalized parameter map.
      */
@@ -159,6 +165,20 @@ public final class UtilHttp {
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", MODULE);
+        }
+
+        // Handles encoded queryStrings
+        String requestURI = req.getRequestURI();
+        if (params.isEmpty() && null != requestURI) {
+            try {
+                List<NameValuePair> nameValuePairs = URLEncodedUtils.parse(new URI(URLDecoder.decode(requestURI, "UTF-8")),
+                        Charset.forName("UTF-8"));
+                for (NameValuePair element : nameValuePairs) {
+                    params.put(element.getName(), element.getValue());
+                }
+            } catch (UnsupportedEncodingException | URISyntaxException e) {
+                Debug.logError("Can't handle encoded queryString " + requestURI, MODULE);
+            }
         }
         return canonicalizeParameterMap(params);
     }
@@ -881,7 +901,7 @@ public final class UtilHttp {
     /**
      * Return the VisualTheme object from the user session
      * @param request
-     * @return
+     * @return VisualTheme
      */
     public static VisualTheme getVisualTheme(HttpServletRequest request) {
         return (VisualTheme) request.getSession().getAttribute(SESSION_KEY_THEME);

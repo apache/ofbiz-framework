@@ -48,7 +48,6 @@ import org.xml.sax.SAXException;
 public class LabelManagerFactory {
 
     private static final String MODULE = LabelManagerFactory.class.getName();
-    private static final String RESOURCE = "WebtoolsUiLabels";
     public static final String KEY_SEPARATOR = "#";
 
     private static Set<String> componentNamesFound = null;
@@ -99,7 +98,7 @@ public class LabelManagerFactory {
             return;
         }
         for (LabelFile fileInfo : filesFound.values()) {
-            if (UtilValidate.isNotEmpty(component) && !component.equals(fileInfo.componentName)) {
+            if (UtilValidate.isNotEmpty(component) && !component.equals(fileInfo.getComponentName())) {
                 continue;
             }
             if (UtilValidate.isNotEmpty(fileName) && !fileName.equals(fileInfo.getFileName())) {
@@ -108,7 +107,7 @@ public class LabelManagerFactory {
             if (Debug.infoOn()) {
                 Debug.logInfo("Current file : " + fileInfo.getFileName(), MODULE);
             }
-            Document resourceDocument = UtilXml.readXmlDocument(fileInfo.file.toURI().toURL(), false);
+            Document resourceDocument = UtilXml.readXmlDocument(fileInfo.getFile().toURI().toURL(), false);
             Element resourceElem = resourceDocument.getDocumentElement();
             String labelKeyComment = "";
             for (Node propertyNode : UtilXml.childNodeList(resourceElem.getFirstChild())) {

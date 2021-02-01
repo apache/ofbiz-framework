@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
@@ -51,6 +52,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     @Override
     protected void setUp() throws Exception {
+        Delegator delegator = getDelegator();
         // populate test data
         configFile = "paymentTest.properties";
         creditAmount = new BigDecimal("234.00");
@@ -90,7 +92,7 @@ public class CCServicesTest extends OFBizTestCase {
             serviceInput.put("processAmount", new BigDecimal("200.00"));
 
             // run the service (make sure in payment
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCAuth", serviceInput);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCAuth", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -122,7 +124,7 @@ public class CCServicesTest extends OFBizTestCase {
                     "creditCard", creditCard,
                     "creditAmount", new BigDecimal("200.00"));
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCCredit", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCCredit", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -156,7 +158,7 @@ public class CCServicesTest extends OFBizTestCase {
             serviceMap.put("creditAmount", new BigDecimal("200.00"));
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCCredit", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCCredit", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -208,7 +210,7 @@ public class CCServicesTest extends OFBizTestCase {
                     "paymentConfig", configFile);
 
             // run the service
-            Map<String, Object> result = dispatcher.runSync("clearCommerceCCReport", serviceMap);
+            Map<String, Object> result = getDispatcher().runSync("clearCommerceCCReport", serviceMap);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);

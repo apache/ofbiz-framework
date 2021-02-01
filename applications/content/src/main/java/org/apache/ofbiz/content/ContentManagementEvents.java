@@ -72,7 +72,8 @@ public class ContentManagementEvents {
         List<Map<String, Object>> valueList = null;
         try {
             allPublishPointList = ContentManagementWorker.getAllPublishPoints(delegator, webSiteId);
-            permittedPublishPointList = ContentManagementWorker.getPermittedPublishPoints(delegator, allPublishPointList, userLogin, security, "_ADMIN", null, null);
+            permittedPublishPointList = ContentManagementWorker.getPermittedPublishPoints(delegator, allPublishPointList, userLogin,
+                    security, "_ADMIN", null, null);
             valueList = ContentManagementWorker.getStaticValues(delegator, parentPlaceholderId, permittedPublishPointList);
         } catch (GeneralException e) {
             Debug.logError(e.getMessage(), MODULE);
@@ -86,7 +87,7 @@ public class ContentManagementEvents {
             for (String[] pubArr : permittedPublishPointList) {
                 String pubContentId = pubArr[0];
                 String pubValue = (String) map.get(pubContentId);
-                String paramName = Integer.toString(counter)  + "_" + pubContentId;
+                String paramName = Integer.toString(counter) + "_" + pubContentId;
                 String paramValue = (String) paramMap.get(paramName);
                 Map<String, Object> serviceIn = new HashMap<>();
                 serviceIn.put("userLogin", userLogin);
@@ -189,7 +190,8 @@ public class ContentManagementEvents {
         try {
             // TODO: this needs to be given author userLogin
             EntityQuery.use(delegator).from("UserLogin").where("userLoginId", authorId).cache().queryOne();
-            origPublishedLinkList = ContentManagementWorker.getPublishedLinks(delegator, targContentId, webSiteId, userLogin, security, permittedAction, permittedOperations, roles);
+            origPublishedLinkList = ContentManagementWorker.getPublishedLinks(delegator, targContentId, webSiteId, userLogin, security,
+                    permittedAction, permittedOperations, roles);
         } catch (GeneralException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";

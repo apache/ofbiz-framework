@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -108,7 +109,8 @@ public final class UtilXml {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static DOMImplementationLS getDomLsImplementation() throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static DOMImplementationLS getDomLsImplementation()
+            throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         return (DOMImplementationLS) registry.getDOMImplementation("LS");
     }
@@ -164,7 +166,8 @@ public final class UtilXml {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static void writeXmlDocument(OutputStream os, Node node, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void writeXmlDocument(OutputStream os, Node node, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint)
+            throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DOMImplementationLS impl = getDomLsImplementation();
         LSOutput out = createLSOutput(impl, os, encoding);
         LSSerializer writer = createLSSerializer(impl, includeXmlDeclaration, enablePrettyPrint);
@@ -186,7 +189,8 @@ public final class UtilXml {
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerConfigurationException
      */
-    public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerConfigurationException {
+    public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)
+            throws TransformerConfigurationException {
         // Developers: This stylesheet strips all formatting space characters from the XML,
         // then indents the XML using the specified indentation.
         StringBuilder sb = new StringBuilder();
@@ -242,7 +246,8 @@ public final class UtilXml {
      * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
      * @throws TransformerException
      */
-    public static void writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerException {
+    public static void writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)
+            throws TransformerException {
         Transformer transformer = createOutputTransformer(encoding, omitXmlDeclaration, indent, indentAmount);
         transformDomDocument(transformer, node, os);
     }
@@ -375,7 +380,12 @@ public final class UtilXml {
             Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", MODULE);
             return null;
         }
-        try (InputStream is = url.openStream()) {
+
+        URLConnection connection = url.openConnection();
+        // OFBIZ-12118: Ensure caching is disabled otherwise we may find another thread has already closed the
+        // underlying file's InputStream when dealing with URLs to JAR resources.
+        connection.setUseCaches(false);
+        try (InputStream is = connection.getInputStream()) {
             return readXmlDocument(is, validate, url.toString());
         }
     }
@@ -490,7 +500,7 @@ public final class UtilXml {
                 try {
                     Node node = (Node) getProperty("http://apache.org/xml/properties/dom/current-element-node");
                     if (node != null) {
-                       setLineColumn(node.getLastChild());
+                        setLineColumn(node.getLastChild());
                     }
                 } catch (SAXException ex) {
                     Debug.logWarning(ex, MODULE);
@@ -516,7 +526,8 @@ public final class UtilXml {
             }
 
             @Override
-            public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
+            public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs)
+                    throws XNIException {
                 super.startDocument(locator, encoding, namespaceContext, augs);
                 this.locator = locator;
                 setLineColumn();
@@ -663,7 +674,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -686,7 +698,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -711,7 +724,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -736,7 +750,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     elements.add(childElement);
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return elements;
     }
@@ -754,7 +769,8 @@ public final class UtilXml {
             if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
                 nodes.add(node);
             }
-        } while ((node = node.getNextSibling()) != null);
+            node = node.getNextSibling();
+        } while (node != null);
         return nodes;
     }
 
@@ -774,7 +790,8 @@ public final class UtilXml {
 
                     return childElement;
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -801,7 +818,8 @@ public final class UtilXml {
 
                     return childElement;
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -828,7 +846,8 @@ public final class UtilXml {
                     Element childElement = (Element) node;
                     return childElement;
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -854,7 +873,8 @@ public final class UtilXml {
                         return childElement;
                     }
                 }
-            } while ((node = node.getNextSibling()) != null);
+                node = node.getNextSibling();
+            } while (node != null);
         }
         return null;
     }
@@ -919,7 +939,8 @@ public final class UtilXml {
             if (textNode.getNodeType() == Node.CDATA_SECTION_NODE || textNode.getNodeType() == Node.TEXT_NODE) {
                 valueBuffer.append(textNode.getNodeValue());
             }
-        } while ((textNode = textNode.getNextSibling()) != null);
+            textNode = textNode.getNextSibling();
+        } while (textNode != null);
         return valueBuffer.toString();
     }
 
@@ -934,7 +955,8 @@ public final class UtilXml {
             if (node.getNodeType() == Node.CDATA_SECTION_NODE || node.getNodeType() == Node.TEXT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
                 valueBuffer.append(node.getNodeValue());
             }
-        } while ((node = node.getNextSibling()) != null);
+            node = node.getNextSibling();
+        } while (node != null);
         return valueBuffer.toString();
     }
 
@@ -993,7 +1015,8 @@ public final class UtilXml {
         StringBuilder sb = new StringBuilder();
         for (int index = 0; index < nodeName.length(); index++) {
             char character = nodeName.charAt(index);
-            if ((sb.length() == 0 && !Character.isJavaIdentifierStart(character)) || (sb.length() != 0 && !Character.isJavaIdentifierPart(character))) {
+            if ((sb.length() == 0 && !Character.isJavaIdentifierStart(character))
+                    || (sb.length() != 0 && !Character.isJavaIdentifierPart(character))) {
                 capitalize = true;
                 continue;
             }

@@ -31,18 +31,19 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHtml;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.parser.ParseError;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
@@ -64,10 +65,14 @@ import java.util.Stack;
 public class HtmlWidget extends ModelScreenWidget {
     private static final String MODULE = HtmlWidget.class.getName();
 
-    private static final UtilCache<String, Template> specialTemplateCache =
+    private static final UtilCache<String, Template> SPECIAL_TEMPLATE_CACHE =
             UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
-
+    protected static final Configuration SPECIAL_CONFIG = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
+    private static final Configuration SPECIAL_CONFIG_SQUARE_INTERPOLATION =
+            FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.VERSION));
+    static {
+        SPECIAL_CONFIG_SQUARE_INTERPOLATION.setInterpolationSyntax(Configuration.SQUARE_BRACKET_INTERPOLATION_SYNTAX);
+    }
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
         public ExtendedWrapper(Version version) {
@@ -136,6 +141,10 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
+    /**
+     * Gets sub widgets.
+     * @return the sub widgets
+     */
     public List<ModelScreenWidget> getSubWidgets() {
         return subWidgets;
     }
@@ -159,19 +168,29 @@ public class HtmlWidget extends ModelScreenWidget {
             try {
                 boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(context);
                 if (insertWidgetBoundaryComments) {
-                    writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
+                    writer.append(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
                 }
-
+                if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && !location.endsWith(".fo.ftl")) {
+                    HttpServletRequest request = ((HttpServletRequest) context.get("request"));
+                    writer.append(HtmlWidgetRenderer.beginNamedBorder("Template", location, request.getContextPath()));
+                }
                 Template template = null;
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
                     template = FreeMarkerWorker.getTemplate(location);
                 } else {
-                    template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
+                    if (location.endsWith(".sqi.ftl")) {
+                        template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG_SQUARE_INTERPOLATION);
+                    } else {
+                        template = FreeMarkerWorker.getTemplate(location, SPECIAL_TEMPLATE_CACHE, SPECIAL_CONFIG);
+                    }
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
 
+                if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && !location.endsWith(".fo.ftl")) {
+                    writer.append(HtmlWidgetRenderer.endNamedBorder("Template", location));
+                }
                 if (insertWidgetBoundaryComments) {
-                    writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
+                    writer.append(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));
                 }
             } catch (IllegalArgumentException | TemplateException | IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
@@ -183,80 +202,6 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    /**
-     * Render html template when multi-block=true. We use stack to store the string writer because a freemarker template may also render a sub screen
-     * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget, ScreenRenderer class will check for the
-     * existence of the stack and retrieve the correct string writer. Inline script tags are removed from the final rendering.
-     * @param writer
-     * @param locationExdr
-     * @param context
-     * @throws IOException
-     */
-    public static void renderHtmlTemplateWithMultiBlock(Appendable writer, FlexibleStringExpander locationExdr,
-                                                        Map<String, Object> context) throws IOException {
-        String location = locationExdr.expandString(context);
-
-        StringWriter stringWriter = new StringWriter();
-        Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
-        if (stringWriterStack == null) {
-            stringWriterStack = new Stack<>();
-        }
-        stringWriterStack.push(stringWriter);
-        context.put(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER, stringWriterStack);
-        renderHtmlTemplate(stringWriter, locationExdr, context);
-        stringWriterStack.pop();
-        // check if no more parent freemarker template before removing from context
-        if (stringWriterStack.empty()) {
-            context.remove(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER);
-        }
-        String data = stringWriter.toString();
-        stringWriter.close();
-
-        Document doc = Jsoup.parseBodyFragment(data);
-
-        // extract js script tags
-        Elements scriptElements = doc.select("script");
-        if (scriptElements != null && scriptElements.size() > 0) {
-            StringBuilder scripts = new StringBuilder();
-            for (org.jsoup.nodes.Element script : scriptElements) {
-                String type = script.attr("type");
-                String src = script.attr("src");
-                if (UtilValidate.isEmpty(src)) {
-                    if (UtilValidate.isEmpty(type) || type.equals("application/javascript")) {
-                        scripts.append(script.data());
-                        script.remove();
-                    }
-                }
-            }
-
-            if (scripts.length() > 0) {
-                // store script for retrieval by the browser
-                String fileName = location;
-                fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-                if (fileName.endsWith(".ftl")) {
-                    fileName = fileName.substring(0, fileName.length() - 4);
-                }
-                String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
-
-                // construct script link
-                String webappName = (String) context.get("webappName");
-                String url = "/" + webappName + "/control/getJs?name=" + key;
-
-                // add csrf token to script link
-                HttpServletRequest request = (HttpServletRequest) context.get("request");
-                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
-                url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
-
-                // store script link to be output by scriptTagsFooter freemarker macro
-                MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
-            }
-        }
-
-        // the 'template' block
-        String body = doc.body().html();
-        writer.append(body);
-    }
-
     // TODO: We can make this more fancy, but for now this is very functional
     public static void writeError(Appendable writer, String message) {
         try {
@@ -266,19 +211,30 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     public static class HtmlTemplate extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
+        private FlexibleStringExpander locationExdr;
         private boolean multiBlock;
+        private String inlineFTL;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
             this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
+            this.inlineFTL = htmlTemplateElement.getTextContent();
         }
 
+        /**
+         * Gets location.
+         * @param context the context
+         * @return the location
+         */
         public String getLocation(Map<String, Object> context) {
             return locationExdr.expandString(context);
         }
 
+        /**
+         * Is multi block boolean.
+         * @return the boolean
+         */
         public boolean isMultiBlock() {
             return this.multiBlock;
         }
@@ -286,10 +242,94 @@ public class HtmlWidget extends ModelScreenWidget {
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
 
+            if (UtilValidate.isNotEmpty(this.inlineFTL)) {
+                try {
+                    FreeMarkerWorker.renderTemplateFromString("", this.inlineFTL, context, writer, 0, false);
+                } catch (TemplateException | IOException e) {
+                    String errMsg = "Error rendering [" + this.inlineFTL + "]: " + e.toString();
+                    Debug.logError(e, errMsg, MODULE);
+                    writeError(writer, errMsg);
+                }
+                return;
+            }
+
+            if (!isMultiBlock() && !Debug.verboseOn()) {
+                renderHtmlTemplate(writer, locationExdr, context);
+                return;
+            }
+
+            /**
+             * We use stack to store the string writer because a freemarker template may also render a sub screen
+             * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget,
+             * ScreenRenderer class will check for the existence of the stack and retrieve the correct string writer.
+             * Inline script tags are removed from the final rendering, if multi-block = true
+             */
+            String location = locationExdr.expandString(context);
+            StringWriter stringWriter = new StringWriter();
+            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(ScriptLinkHelper.FTL_WRITER));
+            if (stringWriterStack == null) {
+                stringWriterStack = new Stack<>();
+            }
+            stringWriterStack.push(stringWriter);
+            context.put(ScriptLinkHelper.FTL_WRITER, stringWriterStack);
+            renderHtmlTemplate(stringWriter, locationExdr, context);
+            stringWriterStack.pop();
+            // check if no more parent freemarker template before removing from context
+            if (stringWriterStack.empty()) {
+                context.remove(ScriptLinkHelper.FTL_WRITER);
+            }
+            String data = stringWriter.toString();
+            stringWriter.close();
+
+            if (Debug.verboseOn()) {
+                List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+                if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+                    // check for unclosed tags
+                    List<String> errorList = UtilHtml.hasUnclosedTag(data);
+                    if (UtilValidate.isNotEmpty(errorList)) {
+                        errorList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a, MODULE));
+                        // check with JSoup Html Parser
+                        List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
+                        if (UtilValidate.isNotEmpty(errList)) {
+                            errList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a.toString(), MODULE));
+                        }
+                    }
+                }
+            }
+
             if (isMultiBlock()) {
-                renderHtmlTemplateWithMultiBlock(writer, this.locationExdr, context);
+                Document doc = Jsoup.parseBodyFragment(data);
+                // extract js script tags
+                Elements scriptElements = doc.select("script");
+                if (scriptElements != null && scriptElements.size() > 0) {
+                    StringBuilder scripts = new StringBuilder();
+                    for (org.jsoup.nodes.Element script : scriptElements) {
+                        String type = script.attr("type");
+                        String src = script.attr("src");
+                        if (UtilValidate.isEmpty(src)) {
+                            if (UtilValidate.isEmpty(type) || "application/javascript".equals(type)) {
+                                scripts.append(script.data());
+                                script.remove();
+                            }
+                        }
+                    }
+
+                    if (scripts.length() > 0) {
+                        // store script for retrieval by the browser
+                        String fileName = location;
+                        fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+                        if (fileName.endsWith(".ftl")) {
+                            fileName = fileName.substring(0, fileName.length() - 4);
+                        }
+                        HttpServletRequest request = (HttpServletRequest) context.get("request");
+                        ScriptLinkHelper.prepareScriptLinkForBodyEnd(request, fileName, scripts.toString());
+                    }
+                }
+                // the 'template' block
+                String body = doc.body().html();
+                writer.append(body);
             } else {
-                renderHtmlTemplate(writer, this.locationExdr, context);
+                writer.append(data);
             }
         }
 
@@ -298,14 +338,18 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location exdr.
+         * @return the location exdr
+         */
         public FlexibleStringExpander getLocationExdr() {
             return locationExdr;
         }
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
-        protected FlexibleStringExpander locationExdr;
-        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
+        private FlexibleStringExpander locationExdr;
+        private Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
@@ -349,17 +393,25 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets location exdr.
+         * @return the location exdr
+         */
         public FlexibleStringExpander getLocationExdr() {
             return locationExdr;
         }
 
+        /**
+         * Gets section map.
+         * @return the section map
+         */
         public Map<String, ModelScreenWidget> getSectionMap() {
             return sectionMap;
         }
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
-        protected List<ModelScreenWidget> subWidgets;
+        private List<ModelScreenWidget> subWidgets;
 
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);
@@ -379,6 +431,10 @@ public class HtmlWidget extends ModelScreenWidget {
             visitor.visit(this);
         }
 
+        /**
+         * Gets sub widgets.
+         * @return the sub widgets
+         */
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
         }

@@ -57,7 +57,8 @@ public class ContentSearch {
     private static final String MODULE = ContentSearch.class.getName();
     private static final String RESOURCE = "ContentUiLabels";
 
-    public static ArrayList<String> searchContents(List<? extends ContentSearchConstraint> contentSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
+    public static ArrayList<String> searchContents(List<? extends ContentSearchConstraint> contentSearchConstraintList,
+                                                   ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
         ContentSearchContext contentSearchContext = new ContentSearchContext(delegator, visitId);
 
         contentSearchContext.addContentSearchConstraints(contentSearchConstraintList);
@@ -215,6 +216,9 @@ public class ContentSearch {
             return contentIds;
         }
 
+        /**
+         * Finish keyword constraints.
+         */
         public void finishKeywordConstraints() {
             if (orKeywordFixedSet.isEmpty() && andKeywordFixedSet.isEmpty() && keywordFixedOrSetAndList.isEmpty()) {
                 return;
@@ -244,7 +248,8 @@ public class ContentSearch {
 
             boolean doingBothAndOr = (keywordFixedOrSetAndList.size() > 1) || (!keywordFixedOrSetAndList.isEmpty() && !andKeywordFixedSet.isEmpty());
 
-            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet=" + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
+            Debug.logInfo("Finished initial setup of keywords, doingBothAndOr=" + doingBothAndOr + ", andKeywordFixedSet="
+                    + andKeywordFixedSet + "\n keywordFixedOrSetAndList=" + keywordFixedOrSetAndList, MODULE);
 
             ComplexAlias relevancyComplexAlias = new ComplexAlias("+");
             if (!andKeywordFixedSet.isEmpty()) {
@@ -261,7 +266,8 @@ public class ContentSearch {
                     dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("contentId"));
                     entityConditionList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
 
-                    //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
+                    //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias,
+                    // prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
                     relevancyComplexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight", null, null));
                 }
 
@@ -335,6 +341,11 @@ public class ContentSearch {
             return eli;
         }
 
+        /**
+         * Make content id list array list.
+         * @param eli the eli
+         * @return the array list
+         */
         public ArrayList<String> makeContentIdList(EntityListIterator eli) {
             ArrayList<String> contentIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
             if (eli == null) {
@@ -409,7 +420,8 @@ public class ContentSearch {
                     this.totalResults = total;
                 }
 
-                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, MODULE);
+                Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults
+                        + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, MODULE);
 
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting results from the content search query", MODULE);
@@ -417,6 +429,11 @@ public class ContentSearch {
             return contentIds;
         }
 
+        /**
+         * Save search result info.
+         * @param numResults the num results
+         * @param secondsTotal the seconds total
+         */
         public void saveSearchResultInfo(Long numResults, Double secondsTotal) {
             // uses entities: ContentSearchResult and ContentSearchConstraint
 
@@ -521,7 +538,9 @@ public class ContentSearch {
             if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
                 assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "ContentAssocTypeId", EntityOperator.EQUALS, contentAssocTypeId));
             }
-            assocConditionFromTo.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, contentSearchContext.nowTimestamp)));
+            assocConditionFromTo.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null),
+                    EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN,
+                            contentSearchContext.nowTimestamp)));
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, contentSearchContext.nowTimestamp));
 
             // do contentId = contentIdTo, contentIdFrom IN contentIdSet
@@ -535,22 +554,27 @@ public class ContentSearch {
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ContentAssocTypeId", "contentAssocTypeId", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             contentSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("contentId", "contentIdTo"));
+            contentSearchContext.dynamicViewEntity.addViewLink("CNT", entityAlias, Boolean.TRUE,
+                    ModelKeyMap.makeKeyMapList("contentId", "contentIdTo"));
 
             List<EntityExpr> assocConditionToFrom = new LinkedList<>();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "ContentIdFrom", EntityOperator.IN, contentIdSet));
             if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
                 assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "ContentAssocTypeId", EntityOperator.EQUALS, contentAssocTypeId));
             }
-            assocConditionToFrom.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, contentSearchContext.nowTimestamp)));
+            assocConditionToFrom.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null),
+                    EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN,
+                            contentSearchContext.nowTimestamp)));
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, contentSearchContext.nowTimestamp));
 
             // now create and add the combined constraint
-            contentSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(assocConditionFromTo, EntityOperator.AND), EntityOperator.OR, EntityCondition.makeCondition(assocConditionToFrom, EntityOperator.AND)));
+            contentSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(assocConditionFromTo,
+                    EntityOperator.AND), EntityOperator.OR, EntityCondition.makeCondition(assocConditionToFrom, EntityOperator.AND)));
 
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.contentId + "," + this.contentAssocTypeId)));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.contentId + "," + this.contentAssocTypeId)));
         }
 
 
@@ -561,7 +585,8 @@ public class ContentSearch {
             GenericValue contentAssocType = null;
             try {
                 content = EntityQuery.use(delegator).from("Content").where("contentId", this.contentId).cache().queryOne();
-                contentAssocType = EntityQuery.use(delegator).from("ContentAssocType").where("contentAssocTypeId", this.contentAssocTypeId).cache().queryOne();
+                contentAssocType = EntityQuery.use(delegator).from("ContentAssocType").where("contentAssocTypeId",
+                        this.contentAssocTypeId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up ContentAssocConstraint pretty print info: " + e.toString(), MODULE);
             }
@@ -657,6 +682,11 @@ public class ContentSearch {
             }
         }
 
+        /**
+         * Make full keyword set set.
+         * @param delegator the delegator
+         * @return the set
+         */
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set<String> fullKeywordSet = new TreeSet<>();
@@ -720,7 +750,8 @@ public class ContentSearch {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(RESOURCE, "ContentKeywords", locale)).append(": \"");
             ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ContentKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "ContentKeywordAllWordsMatch", locale) : UtilProperties.getMessage(RESOURCE, "ContentKeywordAnyWordMatches", locale));
+            ppBuf.append(isAnd ? UtilProperties.getMessage(RESOURCE, "ContentKeywordAllWordsMatch", locale)
+                    : UtilProperties.getMessage(RESOURCE, "ContentKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -782,9 +813,9 @@ public class ContentSearch {
             EntityConditionList<EntityExpr> dateConditions = null;
             EntityExpr dateCondition = null;
             if (fromDate != null && thruDate != null) {
-            dateConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
-                    EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate)), EntityOperator.AND);
+                dateConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
+                        EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate)), EntityOperator.AND);
             }
             if (fromDate != null) {
                 dateCondition = EntityCondition.makeCondition("lastModifiedDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
@@ -807,7 +838,8 @@ public class ContentSearch {
             contentSearchContext.entityConditionList.add(conditions);
 
             // add in contentSearchConstraint, don't worry about the contentSearchResultId or constraintSeqId, those will be fill in later
-            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint", UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
+            contentSearchContext.contentSearchConstraintList.add(contentSearchContext.getDelegator().makeValue("ContentSearchConstraint",
+                    UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", "fromDate : " + fromDate + " thruDate : " + thruDate)));
         }
 
         /** pretty print for log messages and even UI stuff */
@@ -815,7 +847,8 @@ public class ContentSearch {
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(RESOURCE, "ContentLastModified", locale)).append(": \"");
-            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ContentLastModified", locale)).append(" ");
+            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(RESOURCE, "ContentLastModified",
+                    locale)).append(" ");
             return ppBuf.toString();
         }
 

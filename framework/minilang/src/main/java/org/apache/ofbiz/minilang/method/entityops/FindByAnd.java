@@ -56,7 +56,8 @@ public final class FindByAnd extends EntityOperation {
     public FindByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list", "use-iterator", "list", "map", "order-by-list", "delegator-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "entity-name", "use-cache", "fields-to-select-list",
+                    "use-iterator", "list", "map", "order-by-list", "delegator-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "entity-name", "list", "map");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "list", "map", "fields-to-select-list", "order-by-list", "delegator-name");
             MiniLangValidate.noChildElements(simpleMethod, element);
@@ -102,7 +103,7 @@ public final class FindByAnd extends EntityOperation {
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();
             Debug.logWarning(e, errMsg, MODULE);
-            simpleMethod.addErrorMessage(methodContext, errMsg);
+            getSimpleMethod().addErrorMessage(methodContext, errMsg);
             return false;
         }
         return true;

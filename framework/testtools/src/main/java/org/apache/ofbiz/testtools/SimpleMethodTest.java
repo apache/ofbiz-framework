@@ -74,13 +74,13 @@ public class SimpleMethodTest extends OFBizTestCase {
         result.startTest(this);
         try {
             // define request
-            Security security = SecurityFactory.getInstance(delegator);
+            Security security = SecurityFactory.getInstance(getDelegator());
             MockServletContext servletContext = new MockServletContext();
             request.setAttribute("security", security);
             request.setAttribute("servletContext", servletContext);
-            request.setAttribute("delegator", delegator);
-            request.setAttribute("dispatcher", dispatcher);
-            Map<String, Object> serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(),
+            request.setAttribute("delegator", getDelegator());
+            request.setAttribute("dispatcher", getDispatcher());
+            Map<String, Object> serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, getDispatcher().getDispatchContext(),
                     UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault(), "request", request, "response", response));
 
             // do something with the errorMessage

@@ -60,6 +60,7 @@ public final class Paginator {
         int highIndex = 0;
         int listSize = modelForm.getOverrideListSize(context);
         if (listSize > 0) {
+            Debug.logVerbose("If listSize > 0, do nothing", MODULE);
         } else if (entryList instanceof EntityListIterator) {
             EntityListIterator iter = (EntityListIterator) entryList;
             try {
@@ -183,7 +184,7 @@ public final class Paginator {
         Object obj = context.get(lookupName);
         if (obj == null) {
             if (Debug.verboseOn()) {
-                 Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not running pagination.", MODULE);
+                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not running pagination.", MODULE);
             }
             return;
         }

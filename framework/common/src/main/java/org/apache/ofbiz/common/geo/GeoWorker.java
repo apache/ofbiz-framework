@@ -22,7 +22,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
+import com.ibm.icu.util.LocaleData;
+import com.ibm.icu.util.ULocale;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -121,7 +124,8 @@ public final class GeoWorker {
         return geoList.contains(geo);
     }
 
-    public static GenericValue findLatestGeoPoint(Delegator delegator, String entityName, String mainId, String mainValueId, String secondId, String secondValueId) {
+    public static GenericValue findLatestGeoPoint(Delegator delegator, String entityName, String mainId, String mainValueId, String secondId,
+                                                  String secondValueId) {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
             try {
@@ -131,7 +135,8 @@ public final class GeoWorker {
                                      .orderBy("-fromDate")
                                      .queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), MODULE);
+                Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId
+                        + " Id [" + secondValueId + "] " + e.toString(), MODULE);
             }
         } else {
             try {
@@ -145,5 +150,13 @@ public final class GeoWorker {
             return EntityUtil.getFirst(gptList);
         }
         return null;
+    }
+    public static String getMeasurementSystem(Locale locale) {
+        ULocale loc = new ULocale(locale.toString());
+        LocaleData.MeasurementSystem measurementSystem = LocaleData.getMeasurementSystem(loc);
+        if (measurementSystem.equals(LocaleData.MeasurementSystem.US)) {
+            return "IMPERIAL";
+        }
+        return "METRIC";
     }
 }

@@ -156,6 +156,7 @@ under the License.
                         <option value="${orderItemType.orderItemTypeId}">${orderItemType.description}</option>
                         </#list>
                       </select>
+                      <span class="tooltip">${uiLabelMap.OrderDefaultOrderItemTypeValue}</span>
                     </div>
                   </td>
                 </tr>

@@ -284,25 +284,25 @@ public class ModelServiceReader implements Serializable {
         List<? extends Element> n = UtilXml.childElementList(baseElement, "notification");
         // default notification groups
         ModelNotification nSuccess = new ModelNotification();
-        nSuccess.notificationEvent = "success";
-        nSuccess.notificationGroupName = "default.success." + model.getFromLoader();
+        nSuccess.setNotificationEvent("success");
+        nSuccess.setNotificationGroupName("default.success." + model.getFromLoader());
         model.getNotifications().add(nSuccess);
 
         ModelNotification nFail = new ModelNotification();
-        nFail.notificationEvent = "fail";
-        nFail.notificationGroupName = "default.fail." + model.getFromLoader();
+        nFail.setNotificationEvent("fail");
+        nFail.setNotificationGroupName("default.fail." + model.getFromLoader());
         model.getNotifications().add(nFail);
 
         ModelNotification nError = new ModelNotification();
-        nError.notificationEvent = "error";
-        nError.notificationGroupName = "default.error." + model.getFromLoader();
+        nError.setNotificationEvent("error");
+        nError.setNotificationGroupName("default.error." + model.getFromLoader());
         model.getNotifications().add(nError);
 
         if (n != null) {
             for (Element e: n) {
                 ModelNotification notify = new ModelNotification();
-                notify.notificationEvent = e.getAttribute("event");
-                notify.notificationGroupName = e.getAttribute("group");
+                notify.setNotificationEvent(e.getAttribute("event"));
+                notify.setNotificationGroupName(e.getAttribute("group"));
                 model.getNotifications().add(notify);
             }
         }
@@ -333,7 +333,7 @@ public class ModelServiceReader implements Serializable {
     private static void createPermGroups(Element baseElement, ModelService model) {
         for (Element element: UtilXml.childElementList(baseElement, "required-permissions")) {
             ModelPermGroup group = new ModelPermGroup();
-            group.joinType = element.getAttribute("join-type");
+            group.setJoinType(element.getAttribute("join-type"));
             createGroupPermissions(element, group, model);
             model.getPermissionGroups().add(group);
         }
@@ -351,14 +351,14 @@ public class ModelServiceReader implements Serializable {
                 perm.setPermissionType(ModelPermission.getPERMISSION());
             }
             perm.setServiceModel(service);
-            group.permissions.add(perm);
+            group.getPermissions().add(perm);
         }
 
         // Create the permissions based on permission services
         for (Element element : UtilXml.childElementList(baseElement, "permission-service")) {
-            group.permissions.add(createServicePermission(element, service));
+            group.getPermissions().add(createServicePermission(element, service));
         }
-        if (UtilValidate.isNotEmpty(group.permissions)) {
+        if (UtilValidate.isNotEmpty(group.getPermissions())) {
             // auth is always required when permissions are set
             service.setAuth(true);
         }

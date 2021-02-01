@@ -50,7 +50,8 @@ public final class CallSimpleMapProcessor extends MethodOperation {
     public CallSimpleMapProcessor(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "processor-name", "xml-resource", "in-map-name", "out-map-name", "error-list-name");
+            MiniLangValidate.attributeNames(simpleMethod, element, "processor-name", "xml-resource", "in-map-name",
+                    "out-map-name", "error-list-name");
             MiniLangValidate.constantAttributes(simpleMethod, element, "processor-name", "xml-resource", "error-list-name");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "in-map-name", "out-map-name");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "in-map-name", "out-map-name");
@@ -88,7 +89,8 @@ public final class CallSimpleMapProcessor extends MethodOperation {
         // run external map processor first
         if (!this.xmlResource.isEmpty() && !this.processorName.isEmpty()) {
             try {
-                SimpleMapProcessor.runSimpleMapProcessor(xmlResource, processorName, inMap, outMap, messages, methodContext.getLocale(), methodContext.getLoader());
+                SimpleMapProcessor.runSimpleMapProcessor(xmlResource, processorName, inMap, outMap, messages, methodContext.getLocale(),
+                        methodContext.getLoader());
             } catch (MiniLangException e) {
                 messages.add("Error running SimpleMapProcessor in XML file \"" + xmlResource + "\": " + e.toString());
             }

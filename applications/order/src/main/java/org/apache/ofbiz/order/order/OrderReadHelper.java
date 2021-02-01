@@ -3328,7 +3328,8 @@ public class OrderReadHelper {
      * @return the order item statuses
      */
     public static List<GenericValue> getOrderItemStatuses(GenericValue orderItem, List<GenericValue> orderStatuses) {
-        List<EntityExpr> contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItem.get("orderItemSeqId")));
+        List<EntityExpr> contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS,
+                orderItem.get("orderItemSeqId")));
         List<EntityExpr> contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
@@ -3582,21 +3583,26 @@ public class OrderReadHelper {
 
     /**
      * Get orderAdjustments that have no corresponding returnAdjustment
+     * It also handles the case of partial adjustment amount. Check OFBIZ-11185 for details
      * @return return the order adjustments that have no corresponding with return adjustment
      */
     public List<GenericValue> getAvailableOrderHeaderAdjustments() {
         List<GenericValue> orderHeaderAdjustments = this.getOrderHeaderAdjustments();
         List<GenericValue> filteredAdjustments = new LinkedList<>();
         for (GenericValue orderAdjustment : orderHeaderAdjustments) {
-            long count = 0;
+            BigDecimal returnedAmount = BigDecimal.ZERO;
             try {
-                count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition
-                        .makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get(
-                                "orderAdjustmentId")), null, null);
+                List<GenericValue> returnAdjustments = EntityQuery.use(orderHeader.getDelegator()).from("ReturnAdjustment").where("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")).queryList();
+                if (UtilValidate.isNotEmpty(returnAdjustments)) {
+                    for (GenericValue returnAdjustment : returnAdjustments) {
+                        returnedAmount = returnedAmount.add(returnAdjustment.getBigDecimal("amount"));
+                    }
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
             }
-            if (count == 0) {
+            if (orderAdjustment.getBigDecimal("amount").compareTo(returnedAmount) > 0) {
+                orderAdjustment.set("amount", orderAdjustment.getBigDecimal("amount").subtract(returnedAmount));
                 filteredAdjustments.add(orderAdjustment);
             }
         }
@@ -3710,7 +3716,7 @@ public class OrderReadHelper {
                     EntityUtil.filterByAnd(orderItemAttributes,
                             UtilMisc.toMap("orderItemSeqId", orderItemSeqId, "attrName", attributeName)));
         }
-        return orderItemAttribute != null ? orderItemAttribute.getString("attrValue"): null;
+        return orderItemAttribute != null ? orderItemAttribute.getString("attrValue") : null;
     }
 
     /**
@@ -3764,7 +3770,7 @@ public class OrderReadHelper {
                 orderAttribute = orderAttributeMap.get(attributeName);
             }
         }
-        return orderAttribute != null ? orderAttribute.getString("attrValue"): null;
+        return orderAttribute != null ? orderAttribute.getString("attrValue") : null;
     }
 
     /**
@@ -3998,7 +4004,8 @@ public class OrderReadHelper {
                         EntityCondition.makeCondition("quantityAccepted", EntityOperator.GREATER_THAN, BigDecimal.ZERO),
                         EntityCondition.makeCondition("orderItemSeqId", orderItem.getString("orderItemSeqId"))));
                 Delegator delegator = orderItem.getDelegator();
-                List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).select("quantityAccepted", "quantityRejected").from("ShipmentReceiptAndItem").where(cond).queryList();
+                List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).select("quantityAccepted", "quantityRejected")
+                        .from("ShipmentReceiptAndItem").where(cond).queryList();
                 for (GenericValue shipmentReceipt : shipmentReceipts) {
                     if (shipmentReceipt.getBigDecimal("quantityAccepted") != null) {
                         totalReceived = totalReceived.add(shipmentReceipt.getBigDecimal("quantityAccepted"));

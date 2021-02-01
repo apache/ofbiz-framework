@@ -18,12 +18,13 @@ under the License.
 ////
 = Apache OFBiz Developer Manual
 The Apache OFBiz Project
-Release trunk
 :imagesdir: ./images
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
 :source-highlighter: rouge
 endif::[]
+
+image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 == Introduction
 
@@ -188,6 +189,8 @@ A screen is a collection of many different things and can include:
 Continuing the example, the FindInvoices screen contains many details including
 two forms. One form is for entering invoice search fields and the other form
 displays search results.
+
+include::_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
 
 == Web Framework
 

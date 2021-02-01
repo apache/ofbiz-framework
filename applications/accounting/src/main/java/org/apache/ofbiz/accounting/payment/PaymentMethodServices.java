@@ -89,7 +89,8 @@ public class PaymentMethodServices {
 
         // <b>security check</b>: userLogin partyId must equal paymentMethod partyId, or must have PAY_INFO_DELETE permission
         if (paymentMethod.get("partyId") == null || !paymentMethod.getString("partyId").equals(userLogin.getString("partyId"))) {
-            if (!security.hasEntityPermission("PAY_INFO", "_DELETE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_DELETE", userLogin)) {
+            if (!security.hasEntityPermission("PAY_INFO", "_DELETE", userLogin)
+                    && !security.hasEntityPermission("ACCOUNTING", "_DELETE", userLogin)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingPaymentMethodNoPermissionToDelete", locale));
             }
@@ -227,7 +228,8 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId",
+                                contactMechPurposeTypeId, "fromDate", now));
             }
         }
 
@@ -264,7 +266,8 @@ public class PaymentMethodServices {
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
-        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE", "ACCOUNTING", "_UPDATE");
+        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE",
+                "ACCOUNTING", "_UPDATE");
 
         if (!result.isEmpty()) {
             return result;
@@ -292,7 +295,8 @@ public class PaymentMethodServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCreditCardUpdateWithPaymentMethodId", locale) + paymentMethodId);
         }
-        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
+        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE",
+                userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "AccountingCreditCardUpdateWithoutPermission", UtilMisc.toMap("partyId", partyId,
                             "paymentMethodId", paymentMethodId), locale));
@@ -407,7 +411,8 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId",
+                                contactMechPurposeTypeId, "fromDate", now));
             }
         }
 
@@ -585,7 +590,8 @@ public class PaymentMethodServices {
                     "AccountingGiftCardCannotBeUpdated",
                     UtilMisc.toMap("errorString", paymentMethodId), locale));
         }
-        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
+        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin)
+                && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingGiftCardPartyNotAuthorized",
                     UtilMisc.toMap("partyId", partyId, "paymentMethodId", paymentMethodId), locale));
@@ -823,7 +829,8 @@ public class PaymentMethodServices {
                     "AccountingEftAccountCannotBeUpdated",
                     UtilMisc.toMap("errorString", paymentMethodId), locale));
         }
-        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
+        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin)
+                && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingEftAccountCannotBeUpdated",
                     UtilMisc.toMap("partyId", partyId, "paymentMethodId", paymentMethodId), locale));
@@ -1002,7 +1009,8 @@ public class PaymentMethodServices {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "AccountingCheckNotAdded", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "AccountingCheckNotAdded",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         result.put("paymentMethodId", newPm.getString("paymentMethodId"));
@@ -1050,7 +1058,8 @@ public class PaymentMethodServices {
                     "AccountingCheckAccountCannotBeUpdated",
                     UtilMisc.toMap("errorString", paymentMethodId), locale));
         }
-        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
+        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin)
+                && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "AccountingCheckAccountCannotBeUpdated",
                     UtilMisc.toMap("partyId", partyId, "paymentMethodId", paymentMethodId), locale));

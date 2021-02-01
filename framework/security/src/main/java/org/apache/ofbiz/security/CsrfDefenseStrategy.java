@@ -66,7 +66,7 @@ public class CsrfDefenseStrategy implements ICsrfDefenseStrategy {
     @Override
     public boolean modifySecurityCsrfToken(String requestUri, String requestMapMethod, String securityCsrfToken) {
         // main request URI is exempted from CSRF token check
-        if (requestUri.equals("main")) {
+        if ("main".equals(requestUri)) {
             return false;
         } else {
             return !"false".equals(securityCsrfToken);

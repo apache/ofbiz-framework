@@ -34,6 +34,13 @@ public class ClasspathLocationResolver implements LocationResolver {
         return resolveLocation(location, null);
     }
 
+    /**
+     * Resolve location url.
+     * @param location the location
+     * @param loader the loader
+     * @return the url
+     * @throws MalformedURLException the malformed url exception
+     */
     public URL resolveLocation(String location, ClassLoader loader) throws MalformedURLException {
         String baseLocation = FlexibleLocation.stripLocationType(location);
         // if there is a leading forward slash, remove it

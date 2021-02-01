@@ -170,6 +170,16 @@ under the License.
         </section>
     </screen>
 
+    <!-- Global decorator for Shortcut pop-up windows or layered CSS on webapp overview-->
+    <screen name="ShortcutDecorator">
+        <section>
+            <widgets>
+                <include-screen name="GlobalActions" />
+                <include-screen name="ShortcutDecorator" location="${groovy:commonScreenLocations.ShortcutDecorator?commonScreenLocations.ShortcutDecorator:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
     <!-- Simple decorator (no application and menu bars); it can be used:
          * for printer friendly html screens (no logo and no application bar, header and footer); a print button is also available at the top of the screen
          * for simple PDF report (a simple header with the logo/date is rendered and a footer with page numbers)

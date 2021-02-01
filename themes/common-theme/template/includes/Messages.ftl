@@ -41,6 +41,7 @@ under the License.
   <#if !warningMessageList?has_content>
     <#assign warningMessageList = requestAttributes._WARNING_MESSAGE_LIST_?if_exists>
   </#if>
+  <#assign unsafeEventMessage = requestAttributes._UNSAFE_EVENT_MESSAGE_!>
 
   <#-- display the error messages -->
   <#if (errorMessage?has_content || errorMessageList?has_content)>
@@ -59,8 +60,8 @@ under the License.
   </#if>
 
   <#-- display the event messages -->
-  <#if (eventMessage?has_content || eventMessageList?has_content)>
-    <div id="content-messages" class="content-messages eventMessage"
+  <#if (eventMessage?has_content || eventMessageList?has_content || unsafeEventMessage?has_content)>
+    <div id="content-messages" class="content-messages eventMessage hidden"
       onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
     <#noescape><p>${uiLabelMap.CommonFollowingOccurred}:</p></#noescape>
     <#if eventMessage?has_content>
@@ -70,6 +71,9 @@ under the License.
       <#list eventMessageList as eventMsg>
         <p>${StringUtil.wrapString(eventMsg)}</p>
       </#list>
+    </#if>
+    <#if unsafeEventMessage?has_content>
+      <#noescape><p>${StringUtil.wrapString(unsafeEventMessage)}</p></#noescape>
     </#if>
     </div>
   </#if>
@@ -91,14 +95,24 @@ under the License.
   </#if>
 
   <#if (errorMessage?has_content || errorMessageList?has_content
-     || eventMessage?has_content || eventMessageList?has_content
+     || eventMessage?has_content || eventMessageList?has_content || unsafeEventMessage?has_content
      || warningMessage?has_content || warningMessageList?has_content)>
     <#assign jGrowlPosition = modelTheme.getProperty("jgrowlPosition")>
     <#assign jGrowlWidth = modelTheme.getProperty("jgrowlWidth")>
     <#assign jGrowlHeight = modelTheme.getProperty("jgrowlHeight")>
     <#assign jGrowlSpeed = modelTheme.getProperty("jgrowlSpeed")>
-    <script>showjGrowl(
+    <script>
+    <#if unsafeEventMessage?has_content>
+setTimeout(function(){
+  showjGrowl(
           "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
-          "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
+          "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");
+      }, 10);
+    <#else>
+showjGrowl(
+        "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
+        "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");
+    </#if>
+    </script>
   </#if>
 </#escape>

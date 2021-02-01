@@ -17,6 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#macro renderBegin></#macro>
+
+<#macro renderEnd></#macro>
+
 <#macro renderScreenBegin></#macro>
 
 <#macro renderScreenEnd></#macro>

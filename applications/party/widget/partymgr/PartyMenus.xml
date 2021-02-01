@@ -38,6 +38,24 @@
         <menu-item name="importexport" title="${uiLabelMap.CommonImportExport}"><link target="ImportExport"/></menu-item>
     </menu>
 
+    <menu name="PartyShortcutAppBar" title="${uiLabelMap.PartyManager}">
+        <menu-item name="find" title="${uiLabelMap.PartyParties}"><link target="/partymgr/control/findparty" url-mode="inter-app"/></menu-item>
+        <menu-item name="mycomm" title="${uiLabelMap.PartyMyCommunications}"><link target="/partymgr/control/MyCommunicationEvents" url-mode="inter-app"/></menu-item>
+        <menu-item name="comm" title="${uiLabelMap.PartyCommunications}"><link target="/partymgr/control/FindCommunicationEvents" url-mode="inter-app"/></menu-item>
+        <menu-item name="visits" title="${uiLabelMap.PartyVisits}"><link target="/partymgr/control/findVisits" url-mode="inter-app"/></menu-item>
+        <menu-item name="loggedinusers" title="${uiLabelMap.PartyLoggedInUsers}"><link target="/partymgr/control/listLoggedInUsers" url-mode="inter-app"/></menu-item>
+        <menu-item name="classification" title="${uiLabelMap.PartyClassifications}"><link target="/partymgr/control/showclassgroups" url-mode="inter-app"/></menu-item>
+        <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
+            <condition>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+            </condition>
+            <link target="/partymgr/control/FindSecurityGroup" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="addrmap" title="${uiLabelMap.PageTitleAddressMatchMap}"><link target="/partymgr/control/addressMatchMap" url-mode="inter-app"/></menu-item>
+        <menu-item name="partyinv" title="${uiLabelMap.PartyInvitation}"><link target="/partymgr/control/partyInvitation" url-mode="inter-app"/></menu-item>
+        <menu-item name="importexport" title="${uiLabelMap.CommonImportExport}"><link target="/partymgr/control/ImportExport" url-mode="inter-app"/></menu-item>
+    </menu>
+
     <menu name="ProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="viewprofile">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">

@@ -19,60 +19,57 @@
 
 package org.apache.ofbiz.base.start;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThrows;
 
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class OfbizStartupUnitTests {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Test
-    public void commandParserDoesNotAcceptMoreThanOneCommand() throws StartupException {
-        expectedException.expectMessage("an option from this group has already been selected");
-
-        StartupCommandUtil.parseOfbizCommands(new String[]{"--help", "--status"});
+    public void commandParserDoesNotAcceptMoreThanOneCommand() {
+        Exception e = assertThrows(Exception.class, () ->
+                StartupCommandUtil.parseOfbizCommands(new String[]{"--help", "--status"}));
+        assertThat(e.getMessage(), containsString("an option from this group has already been selected"));
     }
 
     @Test
-    public void commandParserDoesNotAcceptPortoffsetWithoutArgument() throws StartupException {
-        expectedException.expectMessage("Missing argument for option");
-
-        StartupCommandUtil.parseOfbizCommands(new String[]{"--portoffset"});
+    public void commandParserDoesNotAcceptPortoffsetWithoutArgument() {
+        Exception e = assertThrows(Exception.class, () ->
+                StartupCommandUtil.parseOfbizCommands(new String[]{"--portoffset"}));
+        assertThat(e.getMessage(), containsString("Missing argument for option"));
     }
 
     @Test
-    public void commandParserDoesNotAcceptPortoffsetWithoutPositiveInteger() throws StartupException {
-        expectedException.expectMessage("you can only pass positive integers");
-
-        StartupCommandUtil.parseOfbizCommands(new String[]{"--portoffset", "ThisMustBeInteger54321"});
+    public void commandParserDoesNotAcceptPortoffsetWithoutPositiveInteger() {
+        Exception e = assertThrows(Exception.class, () ->
+                StartupCommandUtil.parseOfbizCommands(new String[]{"--portoffset", "ThisMustBeInteger54321"}));
+        assertThat(e.getMessage(), containsString("you can only pass positive integers"));
     }
 
     @Test
-    public void commandParserDoesNotAcceptArgumentForStatus() throws StartupException {
-        expectedException.expectMessage("unrecognized options / properties");
-
-        StartupCommandUtil.parseOfbizCommands(new String[]{"--status", "thisArgNotAllowed"});
+    public void commandParserDoesNotAcceptArgumentForStatus() {
+        Exception e = assertThrows(Exception.class, () ->
+                StartupCommandUtil.parseOfbizCommands(new String[]{"--status", "thisArgNotAllowed"}));
+        assertThat(e.getMessage(), containsString("unrecognized options / properties"));
     }
 
     @Test
-    public void commandParserDoesNotAcceptArgumentForStart() throws StartupException {
-        expectedException.expectMessage("unrecognized options / properties");
-
-        StartupCommandUtil.parseOfbizCommands(new String[]{"--start", "thisArgNotAllowed"});
+    public void commandParserDoesNotAcceptArgumentForStart() {
+        Exception e = assertThrows(Exception.class, () ->
+                StartupCommandUtil.parseOfbizCommands(new String[]{"--start", "thisArgNotAllowed"}));
+        assertThat(e.getMessage(), containsString("unrecognized options / properties"));
     }
 
     @Test
-    public void commandParserDoesNotAcceptArgumentForShutdown() throws StartupException {
-        expectedException.expectMessage("unrecognized options / properties");
-
-        StartupCommandUtil.parseOfbizCommands(new String[]{"--shutdown", "thisArgNotAllowed"});
+    public void commandParserDoesNotAcceptArgumentForShutdown() {
+        Exception e = assertThrows(Exception.class, () ->
+                StartupCommandUtil.parseOfbizCommands(new String[]{"--shutdown", "thisArgNotAllowed"}));
+        assertThat(e.getMessage(), containsString("unrecognized options / properties"));
     }
 
     @Test

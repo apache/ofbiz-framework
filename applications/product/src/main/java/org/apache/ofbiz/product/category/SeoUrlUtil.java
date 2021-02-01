@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.category;
 
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 
 public final class SeoUrlUtil {
 

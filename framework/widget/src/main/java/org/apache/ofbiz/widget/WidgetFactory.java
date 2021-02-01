@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 public class WidgetFactory {
 
     private static final String MODULE = WidgetFactory.class.getName();
-    protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = new ConcurrentHashMap<>();
+    protected static final Map<String, Constructor<? extends ModelScreenWidget>> SCREEN_WIDGETS = new ConcurrentHashMap<>();
 
     static {
         loadStandardWidgets();
@@ -70,7 +70,7 @@ public class WidgetFactory {
     public static ModelScreenWidget getModelScreenWidget(ModelScreen modelScreen, Element element) {
         Assert.notNull("modelScreen", modelScreen, "element", element);
         String tagName = UtilXml.getTagNameIgnorePrefix(element);
-        Constructor<? extends ModelScreenWidget> widgetConst = screenWidgets.get(tagName);
+        Constructor<? extends ModelScreenWidget> widgetConst = SCREEN_WIDGETS.get(tagName);
         if (widgetConst == null) {
             throw new IllegalArgumentException("ModelScreenWidget class not found for element " + tagName);
         }
@@ -123,9 +123,10 @@ public class WidgetFactory {
      * @throws SecurityException
      * @throws NoSuchMethodException
      */
-    public static void registerScreenWidget(String tagName, Class<? extends ModelScreenWidget> widgetClass) throws SecurityException, NoSuchMethodException {
+    public static void registerScreenWidget(String tagName, Class<? extends ModelScreenWidget> widgetClass)
+            throws SecurityException, NoSuchMethodException {
         Assert.notNull("tagName", tagName, "widgetClass", widgetClass);
-        screenWidgets.put(tagName, widgetClass.getConstructor(ModelScreen.class, Element.class));
+        SCREEN_WIDGETS.put(tagName, widgetClass.getConstructor(ModelScreen.class, Element.class));
         if (Debug.verboseOn()) {
             Debug.logVerbose("Registered " + widgetClass.getName() + " with tag name " + tagName, MODULE);
         }

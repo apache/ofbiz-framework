@@ -115,7 +115,8 @@ public class CompDocServices {
 
             Map<String, Object> persistRevResult = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
             if (ServiceUtil.isError(persistRevResult)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName", "persistContentRevisionAndItem"), locale), null, null, persistRevResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError",
+                        UtilMisc.toMap("serviceName", "persistContentRevisionAndItem"), locale), null, null, persistRevResult);
             }
 
             result.putAll(persistRevResult);
@@ -198,16 +199,19 @@ public class CompDocServices {
                         if (survey != null) {
                             acroFormContentId = survey.getString("acroFormContentId");
                             if (UtilValidate.isNotEmpty(acroFormContentId)) {
-                                // TODO: is something supposed to be done here?
+                                // TODO: is something supposed to be done here? Adding loginfo to avoid checkstyle
+                                Debug.logInfo("AcroFormContentId:" + acroFormContentId, MODULE);
                             }
                         }
                     }
                     if (surveyResponse != null) {
                         if (UtilValidate.isEmpty(acroFormContentId)) {
                             // Create AcroForm PDF
-                            Map<String, Object> survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyId));
+                            Map<String, Object> survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse",
+                                    UtilMisc.toMap("surveyResponseId", surveyId));
                             if (ServiceUtil.isError(survey2PdfResults)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorBuildingPDF", locale),
+                                        null, null, survey2PdfResults);
                             }
 
                             ByteBuffer outByteBuffer = (ByteBuffer) survey2PdfResults.get("outByteBuffer");
@@ -215,9 +219,11 @@ public class CompDocServices {
                             reader = new PdfReader(inputByteArray);
                         } else {
                             // Fill in acroForm
-                            Map<String, Object> survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+                            Map<String, Object> survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse",
+                                    UtilMisc.toMap("surveyResponseId", surveyResponseId));
                             if (ServiceUtil.isError(survey2AcroFieldResults)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorSettingAcroFields", locale),
+                                        null, null, survey2AcroFieldResults);
                             }
 
                             ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
@@ -319,7 +325,8 @@ public class CompDocServices {
                     if (survey != null) {
                         acroFormContentId = survey.getString("acroFormContentId");
                         if (UtilValidate.isNotEmpty(acroFormContentId)) {
-                            // TODO: is something supposed to be done here?
+                            // TODO: is something supposed to be done here? Adding loginfo to avoid checkstyle
+                            Debug.logInfo("AcroFormContentId:" + acroFormContentId, MODULE);
                         }
                     }
                 }
@@ -327,9 +334,11 @@ public class CompDocServices {
                 if (surveyResponse != null) {
                     if (UtilValidate.isEmpty(acroFormContentId)) {
                         // Create AcroForm PDF
-                        Map<String, Object> survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+                        Map<String, Object> survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse",
+                                UtilMisc.toMap("surveyResponseId", surveyResponseId));
                         if (ServiceUtil.isError(survey2PdfResults)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentSurveyErrorBuildingPDF", locale), null,
+                                    null, survey2PdfResults);
                         }
 
                         ByteBuffer outByteBuffer = (ByteBuffer) survey2PdfResults.get("outByteBuffer");

@@ -49,7 +49,7 @@ EntityFindOptions findOptions = new EntityFindOptions()
 findOptions.setMaxRows(3)
 
 List products = delegator.findList("Product", null, null, null, findOptions, false)
-if (products != null) {  
+if (products != null) {
     recordValues.addAll(products)
 }
 
@@ -85,6 +85,13 @@ def shell = new GroovyShell(loader, binding, configuration)
 
 if (groovyProgram) {
     try {
+        // TODO more can be added...
+        if (groovyProgram.contains("new File")
+                || groovyProgram.contains(".jsp")
+                || groovyProgram.contains("<%=")) {
+            request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
+            return
+        }
         shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)
         recordValues = shell.getVariable("recordValues")
@@ -105,5 +112,5 @@ if (groovyProgram) {
     } catch(Exception e) {
         request.setAttribute("_ERROR_MESSAGE_", e)
         return
-    } 
+    }
 }

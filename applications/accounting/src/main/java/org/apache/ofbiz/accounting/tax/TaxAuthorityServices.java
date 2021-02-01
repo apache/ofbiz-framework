@@ -428,8 +428,7 @@ public class TaxAuthorityServices {
                     .where(mainCondition).orderBy("minItemPrice", "minPurchase", "fromDate").filterByDate().queryList();
 
             if (lookupList.isEmpty()) {
-                Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition
-                        .toString(), MODULE);
+                Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition.toString(), MODULE);
                 return adjustments;
             }
 
@@ -471,14 +470,13 @@ public class TaxAuthorityServices {
                 // get glAccountId from TaxAuthorityGlAccount entity using the payToPartyId as
                 // the organizationPartyId
                 GenericValue taxAuthorityGlAccount = EntityQuery.use(delegator).from("TaxAuthorityGlAccount")
-                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId",
-                                payToPartyId).queryOne();
+                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId).queryOne();
                 String taxAuthGlAccountId = null;
                 if (taxAuthorityGlAccount != null) {
                     taxAuthGlAccountId = taxAuthorityGlAccount.getString("glAccountId");
                 } else {
-                    // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is
-                    // that done elsewhere later on?
+                    // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is that done elsewhere later on?
+                    Debug.logVerbose("what to do if no TaxAuthorityGlAccount found?", MODULE);
                 }
 
                 GenericValue productPrice = null;
@@ -575,9 +573,8 @@ public class TaxAuthorityServices {
                     handlePartyTaxExempt(taxAdjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount,
                             nowTimestamp, delegator);
                 } else {
-                    Debug.logInfo(
-                            "NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=["
-                                    + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
+                    Debug.logInfo("NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs "
+                            + "considered; billToPartyId=[" + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", MODULE);
                 }
                 if (discountedSalesTax.compareTo(BigDecimal.ZERO) < 0) {
                     GenericValue taxAdjValueNegative = delegator.makeValue("OrderAdjustment");

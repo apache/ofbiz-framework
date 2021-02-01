@@ -48,9 +48,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.product.category.CatalogUrlServlet;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
 import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.product.category.SeoUrlUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
@@ -69,7 +69,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
     private static Map<String, String> categoryNameIdMap = null;
     private static Map<String, String> categoryIdNameMap = null;
     private static boolean categoryMapInitialed = false;
-    private static final String asciiRegexp = "^[0-9-_a-zA-Z]*$";
+    private static final String ASCII_REG_EXP = "^[0-9-_a-zA-Z]*$";
     private static Pattern asciiPattern = null;
     public static final String URL_HYPHEN = "-";
 
@@ -79,12 +79,18 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
         try {
             Perl5Compiler perlCompiler = new Perl5Compiler();
-            asciiPattern = perlCompiler.compile(asciiRegexp, Perl5Compiler.READ_ONLY_MASK);
+            asciiPattern = perlCompiler.compile(ASCII_REG_EXP, Perl5Compiler.READ_ONLY_MASK);
         } catch (MalformedPatternException e1) {
             Debug.logWarning(e1, MODULE);
         }
     }
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {

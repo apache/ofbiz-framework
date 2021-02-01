@@ -69,9 +69,9 @@ public class PrimaryKeyFinder extends Finder {
 
     @Override
     public void runFind(Map<String, Object> context, Delegator delegator) throws GeneralException {
-        String entityName = this.entityNameExdr.expandString(context);
+        String entityName = this.getEntityNameExdr().expandString(context);
 
-        String useCacheString = this.useCacheStrExdr.expandString(context);
+        String useCacheString = this.getUseCacheStrExdr().expandString(context);
         // default to false
         boolean useCacheBool = "true".equals(useCacheString);
 

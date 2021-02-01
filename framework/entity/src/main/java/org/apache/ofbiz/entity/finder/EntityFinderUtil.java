@@ -344,14 +344,19 @@ public final class EntityFinderUtil {
 
     @SuppressWarnings("serial")
     public static class LimitRange implements OutputHandler {
-        FlexibleStringExpander startExdr;
-        FlexibleStringExpander sizeExdr;
+        private FlexibleStringExpander startExdr;
+        private FlexibleStringExpander sizeExdr;
 
         public LimitRange(Element limitRangeElement) {
             this.startExdr = FlexibleStringExpander.getInstance(limitRangeElement.getAttribute("start"));
             this.sizeExdr = FlexibleStringExpander.getInstance(limitRangeElement.getAttribute("size"));
         }
 
+        /**
+         * Gets start.
+         * @param context the context
+         * @return the start
+         */
         int getStart(Map<String, Object> context) {
             String startStr = this.startExdr.expandString(context);
             try {
@@ -363,6 +368,11 @@ public final class EntityFinderUtil {
             }
         }
 
+        /**
+         * Gets size.
+         * @param context the context
+         * @return the size
+         */
         int getSize(Map<String, Object> context) {
             String sizeStr = this.sizeExdr.expandString(context);
             try {
@@ -408,14 +418,19 @@ public final class EntityFinderUtil {
 
     @SuppressWarnings("serial")
     public static class LimitView implements OutputHandler {
-        FlexibleStringExpander viewIndexExdr;
-        FlexibleStringExpander viewSizeExdr;
+        private FlexibleStringExpander viewIndexExdr;
+        private FlexibleStringExpander viewSizeExdr;
 
         public LimitView(Element limitViewElement) {
             this.viewIndexExdr = FlexibleStringExpander.getInstance(limitViewElement.getAttribute("view-index"));
             this.viewSizeExdr = FlexibleStringExpander.getInstance(limitViewElement.getAttribute("view-size"));
         }
 
+        /**
+         * Gets index.
+         * @param context the context
+         * @return the index
+         */
         int getIndex(Map<String, Object> context) {
             String viewIndexStr = this.viewIndexExdr.expandString(context);
             try {
@@ -427,6 +442,11 @@ public final class EntityFinderUtil {
             }
         }
 
+        /**
+         * Gets size.
+         * @param context the context
+         * @return the size
+         */
         int getSize(Map<String, Object> context) {
             String viewSizeStr = this.viewSizeExdr.expandString(context);
             try {
@@ -484,7 +504,8 @@ public final class EntityFinderUtil {
 
         @Override
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
-            throw new IllegalArgumentException("Cannot handle output with use-iterator when the query is cached, or the result in general is not an EntityListIterator");
+            throw new IllegalArgumentException("Cannot handle output with use-iterator when the query is cached, "
+                    + "or the result in general is not an EntityListIterator");
         }
     }
     @SuppressWarnings("serial")

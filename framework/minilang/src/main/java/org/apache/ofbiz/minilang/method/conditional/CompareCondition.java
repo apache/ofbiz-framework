@@ -74,7 +74,8 @@ public final class CompareCondition extends MethodOperation implements Condition
         Class<?> targetClass = null;
         if (!this.type.isEmpty()) {
             if ("contains".equals(this.operator)) {
-                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).", simpleMethod, element);
+                MiniLangValidate.handleError("Operator \"contains\" does not support type conversions (remove the type attribute).",
+                        simpleMethod, element);
                 targetClass = Object.class;
             } else {
                 try {
@@ -116,7 +117,7 @@ public final class CompareCondition extends MethodOperation implements Condition
             // We use en locale here so constant (literal) values are converted properly.
             return this.compare.doCompare(fieldVal, value, targetClass, Locale.ENGLISH, methodContext.getTimeZone(), format);
         } catch (Exception e) {
-            simpleMethod.addErrorMessage(methodContext, e.getMessage());
+            getSimpleMethod().addErrorMessage(methodContext, e.getMessage());
         }
         return false;
     }

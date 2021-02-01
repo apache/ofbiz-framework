@@ -32,13 +32,34 @@ import org.apache.ofbiz.base.util.UtilValidate;
 @SuppressWarnings("serial")
 public class ModelPermGroup implements Serializable {
 
-    private static final String MODULE = ModelPermGroup.class.getName();
-
     public static final String PERM_JOIN_AND = "AND";
     public static final String PERM_JOIN_OR = "OR";
 
-    public List<ModelPermission> permissions = new LinkedList<>();
-    public String joinType;
+    private List<ModelPermission> permissions = new LinkedList<>();
+    private String joinType;
+
+    /**
+     * Sets join type.
+     * @param joinType the join type
+     */
+    public void setJoinType(String joinType) {
+        this.joinType = joinType;
+    }
+
+    /**
+     * Gets permissions.
+     * @return the permissions
+     */
+    public List<ModelPermission> getPermissions() {
+        return permissions;
+    }
+
+    /**
+     * Eval permissions map.
+     * @param dctx the dctx
+     * @param context the context
+     * @return the map
+     */
     public Map<String, Object> evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
         List<String> permissionErrors = new ArrayList<>();
         if (UtilValidate.isNotEmpty(permissions)) {

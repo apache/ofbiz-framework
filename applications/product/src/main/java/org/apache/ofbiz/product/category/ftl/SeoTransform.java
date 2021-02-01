@@ -29,8 +29,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 
@@ -49,6 +49,13 @@ public class SeoTransform implements TemplateTransformModel {
 
     private static final String MODULE = SeoTransform.class.getName();
 
+    /**
+     * Check arg boolean.
+     * @param args the args
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the boolean
+     */
     public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
