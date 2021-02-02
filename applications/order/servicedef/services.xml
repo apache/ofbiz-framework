@@ -714,21 +714,21 @@ under the License.
     </service>
 
     <!-- Order Delivery Services -->
-    <service name="createOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="simple"
-            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="createOrderDeliverySchedule">
+    <service name="createOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="groovy"
+            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="createOrderDeliverySchedule">
         <description>Creates a delivery schedule for the specified order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="orderItemSeqId" optional="true"/>
     </service>
-    <service name="updateOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="simple"
-            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="updateOrderDeliverySchedule">
+    <service name="updateOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="groovy"
+            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="updateOrderDeliverySchedule">
         <description>Update an existing delivery schedule for a specified purchase order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="sendOrderDeliveryScheduleNotification" engine="simple"
-            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="sendOrderDeliveryScheduleNotification">
+    <service name="sendOrderDeliveryScheduleNotification" engine="groovy"
+            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="sendOrderDeliveryScheduleNotification">
         <description>Send Order Delivery Schedule Notification</description>
         <attribute name="orderId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -738,8 +738,8 @@ under the License.
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="checkSupplierRelatedOrderPermission" engine="simple"
-            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="checkSupplierRelatedOrderPermissionService">
+    <service name="checkSupplierRelatedOrderPermission" engine="groovy"
+            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="checkSupplierRelatedOrderPermissionService">
         <description>Check Supplier Related Order Permission</description>
         <attribute name="orderId" type="String" mode="IN" optional="false">
             <type-validate>
