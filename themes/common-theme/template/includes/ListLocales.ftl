@@ -31,7 +31,9 @@ under the License.
       <#assign altRow = !altRow>
       <#assign langAttr = availableLocale.toString()?replace("_", "-")>
       <#assign langDir = "ltr">
-      <#if "ar.iw"?contains(langAttr?substring(0, 2))>
+      <#if Static["java.awt.ComponentOrientation"].getOrientation(availableLocale).isLeftToRight()>
+        <#assign langDir = "ltr">
+      <#else>
         <#assign langDir = "rtl">
       </#if>
       <tr <#if altRow>class="alternate-row"</#if>>
