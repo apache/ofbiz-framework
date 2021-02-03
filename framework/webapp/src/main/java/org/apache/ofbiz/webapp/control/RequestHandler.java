@@ -265,13 +265,6 @@ public class RequestHandler {
 
         // Grab data from request object to process
         String defaultRequestUri = RequestHandler.getRequestUri(request.getPathInfo());
-        if (request.getAttribute("targetRequestUri") == null) {
-            if (request.getSession().getAttribute("_PREVIOUS_REQUEST_") != null) {
-                request.setAttribute("targetRequestUri", request.getSession().getAttribute("_PREVIOUS_REQUEST_"));
-            } else {
-                request.setAttribute("targetRequestUri", "/" + defaultRequestUri);
-            }
-        }
 
         String requestMissingErrorMessage = "Unknown request ["
                 + defaultRequestUri
@@ -507,6 +500,17 @@ public class RequestHandler {
                 } else {
                     requestMap = ccfg.getRequestMapMap().getFirst("ajaxCheckLogin");
                 }
+            }
+        } else {
+            // Remove previous request attribute on navigation to non-authenticated request
+            request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
+        }
+
+        if (request.getAttribute("targetRequestUri") == null) {
+            if (request.getSession().getAttribute("_PREVIOUS_REQUEST_") != null) {
+                request.setAttribute("targetRequestUri", request.getSession().getAttribute("_PREVIOUS_REQUEST_"));
+            } else {
+                request.setAttribute("targetRequestUri", "/" + defaultRequestUri);
             }
         }
 
