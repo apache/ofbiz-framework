@@ -443,6 +443,20 @@ under the License.
         <response name="success" type="view" value="ConnectionPoolStatus"/>
     </request-map>
 
+    <!-- ModelInducedFromDb requests-->
+    <request-map uri="CreateModelInduceFromDb">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.WebToolsDbEvents" invoke="modelInduceFromDb"/>
+        <response name="success" type="view" value="ModelInduceFromDb"/>
+        <response name="error" type="view" value="ModelInduceFromDb"/>
+    </request-map>
+
+    <request-map uri="ModelInduceFromDb">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ModelInduceFromDb"/>
+        <response name="error" type="view" value="ModelInduceFromDb"/>
+    </request-map>
+
     <!-- Entity Export/Import requests -->
     <request-map uri="ProgramExport">
         <security https="true" auth="true"/>
@@ -640,7 +654,8 @@ under the License.
     <view-map name="dataMySql" page="template/entity/dataMySql.jsp"/>
     <view-map name="ModelWriter" page="template/entity/ModelWriter.jsp"/>
     <view-map name="ModelGroupWriter" page="template/entity/ModelGroupWriter.jsp"/>
-    <view-map name="ModelInduceFromDb" page="template/entity/ModelInduceFromDb.jsp"/>
+
+    <view-map name="ModelInduceFromDb" type="screen" page="component://webtools/widget/EntityScreens.xml#ModelInduceFromDb"/>
     <view-map name="EntityEoModelBundle" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityEoModelBundle"/>
 
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>
