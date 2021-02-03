@@ -484,6 +484,26 @@ under the License.
         </section>
     </screen>
 
+     <screen name="ModelInduceFromDb">
+        <section>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://webtools/groovyScripts/entity/ModelInduceFromDb.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/ModelInduceFromDb.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ConnectionPoolStatus">
         <section>
             <actions>

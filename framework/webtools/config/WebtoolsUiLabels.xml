@@ -6001,4 +6001,44 @@
         <value xml:lang="de">Typ</value>
         <value xml:lang="en">Type</value>
     </property>
+    <property key="WebtoolsModelInduceFromDb">
+        <value xml:lang="de">Modell-XML aus der Datenbank indizieren</value>
+        <value xml:lang="en">Induce Model XML from Database</value>
+    </property>
+    <property key="ModelInduceDatasourceName">
+        <value xml:lang="de">Datenquelle</value>
+        <value xml:lang="en">Datasource</value>
+    </property>
+    <property key="ModelInduceEntityModel">
+        <value xml:lang="de">Entitäten Model</value>
+        <value xml:lang="en">Entity Model</value>
+    </property>
+    <property key="ModelInduceEntityGroup">
+        <value xml:lang="de">Entitäten Gruppe</value>
+        <value xml:lang="en">Entity Group</value>
+    </property>
+    <property key="ModelInduceInducedText">
+        <value xml:lang="de">Induzierter Text</value>
+        <value xml:lang="en">Induced Text</value>
+    </property>
+    <property key="ModelInducePackageName">
+        <value xml:lang="de">Packet Name</value>
+        <value xml:lang="en">Package Name</value>
+    </property>
+    <property key="ModelInduceInduceTypeError">
+        <value xml:lang="de">Bitte Induzierungs Typen auswählen.</value>
+        <value xml:lang="en">Please select an Induce Type.</value>
+    </property>
+    <property key="ModelInduceDatasourceNameError">
+        <value xml:lang="de">Name der Datenquelle benötigt.</value>
+        <value xml:lang="en">Datasource name required.</value>
+    </property>
+    <property key="ModelInduceEntityGroupError">
+        <value xml:lang="de">Für den Induzierungstyp "EntitätenGruppe" wird der Packet Name benötigt.</value>
+        <value xml:lang="en">Package name required for induce type entitygroup.</value>
+    </property>
+    <property key="ModelInduceDataStructureError">
+        <value xml:lang="de">Ermittlung der Datenstruktur fehlgeschlagen. Bitte gültige Datenquelle angeben.</value>
+        <value xml:lang="en">Could not determine Structure for this datasource. Please choose a valid datasource.</value>
+    </property>
 </resource>
