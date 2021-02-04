@@ -40,8 +40,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class WebToolsDbEvents {
-    private static final String module = WebToolsDbEvents.class.getName();
-    public static final String resource = "WebtoolsUiLabels";
+    private static final String MODULE = WebToolsDbEvents.class.getName();
+    private static final String RESOURCE = "WebtoolsUiLabels";
     private static Document document;
     private static final String TITLE = "Entities of an Apache Open For Business Project (Apache OFBiz) Component";
     private static final String DESCRIPTION = "None";
@@ -54,7 +54,7 @@ public class WebToolsDbEvents {
     private static final String DEFAULTS = "======================== Defaults =======================";
     private static final String HEADER = "======================== Data Model =====================";
     private static final String XMLN_NAME = "xmlns:xsi";
-    private static final String XMLN_VALUE= "http://www.w3.org/2001/XMLSchema-instance";
+    private static final String XMLN_VALUE = "http://www.w3.org/2001/XMLSchema-instance";
     private static final String XSI_NAME = "xsi:noNamespaceSchemaLocation";
     private static final String XSI_VALUE = "http://ofbiz.apache.org/dtds/entitymodel.xsd";
 
@@ -75,15 +75,15 @@ public class WebToolsDbEvents {
         String packageName = (String) params.get("packageName");
 
         if (UtilValidate.isEmpty(induceType)) {
-            errorMessageList.add(UtilProperties.getMessage(resource, "ModelInduceInduceTypeError", locale));
+            errorMessageList.add(UtilProperties.getMessage(RESOURCE, "ModelInduceInduceTypeError", locale));
         }
 
         if (UtilValidate.isEmpty(datasourceName)) {
-            errorMessageList.add(UtilProperties.getMessage(resource, "ModelInduceDatasourceNameError", locale));
+            errorMessageList.add(UtilProperties.getMessage(RESOURCE, "ModelInduceDatasourceNameError", locale));
         }
 
         if ("entitygroup".equals(induceType) && UtilValidate.isEmpty(packageName)) {
-            errorMessageList.add(UtilProperties.getMessage(resource, "ModelInduceEntityGroupError", locale));
+            errorMessageList.add(UtilProperties.getMessage(RESOURCE, "ModelInduceEntityGroupError", locale));
         }
 
         if (UtilValidate.isNotEmpty(errorMessageList)) {
@@ -123,7 +123,7 @@ public class WebToolsDbEvents {
         List<ModelEntity> newEntList = dao.induceModelFromDb(new ArrayList<String>());
         if (UtilValidate.isEmpty(newEntList)) {
             request.setAttribute("errorMessageList",
-                    UtilMisc.toList(UtilProperties.getMessage(resource, "ModelInduceDataStructureError", locale)));
+                    UtilMisc.toList(UtilProperties.getMessage(RESOURCE, "ModelInduceDataStructureError", locale)));
             return "error";
         }
 
