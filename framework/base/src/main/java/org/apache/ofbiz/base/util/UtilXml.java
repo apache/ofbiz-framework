@@ -1218,8 +1218,10 @@ public final class UtilXml {
 
     /**
      * get attribute value ignoring prefix in attribute name
+     *
      * @param element
-     * @return The value of the node, depending on its type; see the table Node class
+     * @return The value of the node, depending on its type; see the table Node
+     *         class
      */
     public static String getAttributeValueIgnorePrefix(Element element, String attributeName) {
         if (element == null) {
@@ -1240,7 +1242,7 @@ public final class UtilXml {
         }
         return "";
     }
-    
+
     public static String convertDocumentToXmlString(Document document) {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer;
@@ -1259,15 +1261,16 @@ public final class UtilXml {
 
         return null;
     }
+
     /**
      * Returns an ASF Licence Header as a Comment Element
-     * 
+     *
      * @param document
      * @return
      */
     public static Comment createApacheLicenceComment(Document document) {
         String lb = "\n";
-        
+
         StringBuilder disclaimer = new StringBuilder();
         disclaimer.append("Licensed to the Apache Software Foundation (ASF) under one");
         disclaimer.append(lb);
@@ -1299,7 +1302,7 @@ public final class UtilXml {
         disclaimer.append(lb);
         disclaimer.append("under the License.");
         disclaimer.append(lb);
-         
+
         return document.createComment(disclaimer.toString());
     }
 }
