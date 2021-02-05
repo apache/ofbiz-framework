@@ -20,7 +20,6 @@
 name: Java CI with Gradle
 
 on:
-  workflow_dispatch:
   push:
     branches: [ trunk ]
   pull_request:
