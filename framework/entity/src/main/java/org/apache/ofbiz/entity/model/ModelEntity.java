@@ -2165,18 +2165,11 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
     /**
-     * To xml element element.
+     * To Group elements of a document in a package
      * @param document the document
+     * @param packageName the name of the package where to group the elements of the document
      * @return the element
      */
-    public Element toXmlElement(Document document) {
-        return this.toXmlElement(document, this.getPackageName());
-    }
-
-    public Element toGroupXmlElement(Document document) {
-        return this.toGroupXmlElement(document, this.getPackageName());
-    }
-
     public Element toGroupXmlElement(Document document, String packageName) {
         if (UtilValidate.isNotEmpty(this.getPackageName()) && !packageName.equals(this.getPackageName())) {
             Debug.logWarning(
