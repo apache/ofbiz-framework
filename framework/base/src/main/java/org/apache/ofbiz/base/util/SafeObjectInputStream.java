@@ -63,9 +63,18 @@ public final class SafeObjectInputStream extends ObjectInputStream {
 
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
-        if (!whitelistPattern.matcher(classDesc.getName()).find()) {
+        String className = classDesc.getName();
+        // BlackList exploits; eg: don't allow RMI here
+        if (className.contains("java.rmi.server")) {
+            Debug.logWarning("***Incompatible class***: "
+                    + classDesc.getName()
+                    + ". java.rmi.server classes are not allowed for security reason",
+                    "SafeObjectInputStream");
+            return null;
+        }
+        if (!whitelistPattern.matcher(className).find()) {
             // DiskFileItem, FileItemHeadersImpl are not serializable.
-            if (classDesc.getName().contains("org.apache.commons.fileupload")) {
+            if (className.contains("org.apache.commons.fileupload")) {
                 return null;
             }
             Debug.logWarning("***Incompatible class***: "
