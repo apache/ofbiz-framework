@@ -20,6 +20,7 @@ package org.apache.ofbiz.webapp;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.common.JsLanguageFilesMappingUtil;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -40,15 +41,21 @@ public class AfterLoginEvents {
     private static final String SCRIPT_SHOW_LAST_VISIT_DATE;
 
     static {
-        SCRIPT_SHOW_LAST_VISIT_DATE = "<span id='showLastLogin'></span><script>"
+        SCRIPT_SHOW_LAST_VISIT_DATE = "<span id='showLastVisit'></span><script>"
                 + "importLibrary(%s, function () {\n"
                 + "var dateFormat = Date.CultureInfo.formatPatterns.shortDate + ' ' + Date.CultureInfo.formatPatterns.longTime;\n"
-                + "var message = 'Your last visit was on '+new Date('%s').toString(dateFormat);\n"
-                + "$('#showLastLogin').replaceWith(message);\n"
+                + "var jsLastVisit = new Date('%s').toString(dateFormat);\n"
+                + "var message = `%s`;\n"
+                + "$('#showLastVisit').replaceWith(message);\n"
                 + "});\n</script>";
     }
 
     public static String showLastVisit(HttpServletRequest request, HttpServletResponse response) {
+
+        boolean show = UtilProperties.getPropertyAsBoolean("security", "afterlogin.lastvisit.show", true);
+        if (!show) {
+            return "success";
+        }
 
         // guard against re-popup while moving to other web application when tomcat SSO is enabled
         if (!"login".equals(request.getAttribute("thisRequestUri"))) {
@@ -78,14 +85,14 @@ public class AfterLoginEvents {
                         String libJs = "['" + JsLanguageFilesMappingUtil.getFile("datejs", locale.toString()) + "']";
                         SimpleDateFormat formatter = new SimpleDateFormat("EE MMM d y H:m:s ZZZ");
                         String dateString = formatter.format(fromDate);
-                        request.setAttribute("_UNSAFE_EVENT_MESSAGE_", String.format(SCRIPT_SHOW_LAST_VISIT_DATE, libJs, dateString));
+                        String lastVisitedOn = UtilProperties.getMessage("SecurityUiLabels", "LastVisitOn", locale);
+                        request.setAttribute("_UNSAFE_EVENT_MESSAGE_", String.format(SCRIPT_SHOW_LAST_VISIT_DATE, libJs, dateString, lastVisitedOn));
                     }
                     count++;
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
         return "success";
