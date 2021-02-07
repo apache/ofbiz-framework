@@ -505,6 +505,11 @@
         <value xml:lang="zh">浏览名称</value>
         <value xml:lang="zh-TW">檢視名稱</value>
     </property>
+    <property key="LastVisitOn">
+        <value xml:lang="en">Your last visit was on ${jsLastVisit}</value>
+        <value xml:lang="zh">您上次访问的时间是 ${jsLastVisit}</value>
+        <value xml:lang="zh-TW">您上次訪問的時間是 ${jsLastVisit}</value>
+    </property>
     <property key="LookupUserLogin">
         <value xml:lang="de">Benutzer Anmeldung suchen</value>
         <value xml:lang="en">Lookup User Login</value>
