@@ -721,8 +721,8 @@ under the License.
     <request-map uri="removeAttachFile">
         <security https="true" auth="true"/>
         <event type="service" invoke="expireCommEventContentAssoc"/>
-        <response name="success" type="request" value="EditCommunicationEvent"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
+        <response name="success" type="request" value="ViewCommunicationEvent"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
     <request-map uri="AddCommContent">
         <security https="true" auth="true"/>
