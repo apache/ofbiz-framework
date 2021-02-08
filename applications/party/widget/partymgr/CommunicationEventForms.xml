@@ -721,7 +721,7 @@ under the License.
     <form name="ListCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
+            <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList" filter-by-date="true">
                 <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
         </actions>
