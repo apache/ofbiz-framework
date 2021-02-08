@@ -242,7 +242,7 @@ public final class ApacheFopWorker {
 
     /** Local URI resolver for the Transformer class.
      */
-    private static class LocalResolver implements URIResolver {
+    private static final class LocalResolver implements URIResolver {
 
         private URIResolver defaultResolver;
 

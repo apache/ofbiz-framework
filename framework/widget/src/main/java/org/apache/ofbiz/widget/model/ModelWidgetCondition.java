@@ -111,7 +111,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;and&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class And extends ModelWidgetCondition implements Condition {
+    public static final class And extends ModelWidgetCondition implements Condition {
         private final List<Condition> subConditions;
 
         private And(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -193,7 +193,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-compare&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfCompare extends ModelWidgetCondition implements Condition {
+    public static final class IfCompare extends ModelWidgetCondition implements Condition {
         private final FlexibleMapAccessor<Object> fieldAcsr;
         private final FlexibleStringExpander formatExdr;
         private final String operator;
@@ -243,7 +243,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-compare-field&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfCompareField extends ModelWidgetCondition implements Condition {
+    public static final class IfCompareField extends ModelWidgetCondition implements Condition {
         private final FlexibleMapAccessor<Object> fieldAcsr;
         private final FlexibleStringExpander formatExdr;
         private final String operator;
@@ -299,7 +299,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-empty&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfEmpty extends ModelWidgetCondition implements Condition {
+    public static final class IfEmpty extends ModelWidgetCondition implements Condition {
         private final FlexibleMapAccessor<Object> fieldAcsr;
 
         private IfEmpty(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -322,7 +322,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-entity-permission&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfEntityPermission extends ModelWidgetCondition implements Condition {
+    public static final class IfEntityPermission extends ModelWidgetCondition implements Condition {
         private final EntityPermissionChecker permissionChecker;
 
         private IfEntityPermission(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -340,7 +340,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-has-permission&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfHasPermission extends ModelWidgetCondition implements Condition {
+    public static final class IfHasPermission extends ModelWidgetCondition implements Condition {
         private final FlexibleStringExpander actionExdr;
         private final FlexibleStringExpander permissionExdr;
 
@@ -378,7 +378,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-regexp&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfRegexp extends ModelWidgetCondition implements Condition {
+    public static final class IfRegexp extends ModelWidgetCondition implements Condition {
         private final FlexibleStringExpander exprExdr;
         private final FlexibleMapAccessor<Object> fieldAcsr;
 
@@ -424,7 +424,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-service-permission&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfServicePermission extends ModelWidgetCondition implements Condition {
+    public static final class IfServicePermission extends ModelWidgetCondition implements Condition {
         private final FlexibleStringExpander actionExdr;
         private final FlexibleStringExpander ctxMapExdr;
         private final FlexibleStringExpander resExdr;
@@ -505,7 +505,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;if-validate-method&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfValidateMethod extends ModelWidgetCondition implements Condition {
+    public static final class IfValidateMethod extends ModelWidgetCondition implements Condition {
         private final FlexibleStringExpander classExdr;
         private final FlexibleMapAccessor<Object> fieldAcsr;
         private final FlexibleStringExpander methodExdr;
@@ -570,7 +570,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;not&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class Not extends ModelWidgetCondition implements Condition {
+    public static final class Not extends ModelWidgetCondition implements Condition {
         private final Condition subCondition;
 
         private Not(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -589,7 +589,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;or&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class Or extends ModelWidgetCondition implements Condition {
+    public static final class Or extends ModelWidgetCondition implements Condition {
         private final List<Condition> subConditions;
 
         private Or(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -613,7 +613,7 @@ public abstract class ModelWidgetCondition implements Serializable {
      * Models the &lt;xor&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class Xor extends ModelWidgetCondition implements Condition {
+    public static final class Xor extends ModelWidgetCondition implements Condition {
         private final List<Condition> subConditions;
 
         private Xor(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {

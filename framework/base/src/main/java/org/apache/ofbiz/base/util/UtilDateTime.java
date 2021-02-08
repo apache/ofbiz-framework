@@ -1154,7 +1154,7 @@ public final class UtilDateTime {
     }
 
     @SuppressWarnings("serial")
-    private static class ImmutableDate extends Date {
+    private static final class ImmutableDate extends Date {
         private ImmutableDate(long date) {
             super(date);
         }

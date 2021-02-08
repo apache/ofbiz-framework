@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  * Generic Service - Service Definition Reader
  */
 @SuppressWarnings("serial")
-public class ModelServiceReader implements Serializable {
+public final class ModelServiceReader implements Serializable {
 
     private static final String MODULE = ModelServiceReader.class.getName();
 
