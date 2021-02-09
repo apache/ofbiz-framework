@@ -1381,7 +1381,7 @@ public class CheckOutHelper {
      * Check order black list map.
      * @return the map
      */
-    public Map<String, Object> checkOrderBlackList() {
+    public Map<String, Object> checkOrderDenyList() {
         if (cart == null) {
             return ServiceUtil.returnSuccess("success");
         }
@@ -1392,10 +1392,10 @@ public class CheckOutHelper {
         String shippingAddress = UtilFormatOut.checkNull(shippingAddressObj.getString("address1")).toUpperCase(Locale.getDefault());
         shippingAddress = UtilFormatOut.makeSqlSafe(shippingAddress);
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition(
-                EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS,
+                EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("denylistString"), EntityOperator.EQUALS,
                 EntityFunction.UPPER(shippingAddress)),
                 EntityOperator.AND,
-                EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
+                EntityCondition.makeCondition("orderDenylistTypeId", EntityOperator.EQUALS, "DENYLIST_ADDRESS")));
         String errMsg = null;
 
         List<GenericValue> paymentMethods = this.cart.getPaymentMethods();
@@ -1416,55 +1416,55 @@ public class CheckOutHelper {
                 if (creditCard != null) {
                     String creditCardNumber = UtilFormatOut.checkNull(creditCard.getString("cardNumber"));
                     exprs.add(EntityCondition.makeCondition(
-                            EntityCondition.makeCondition("blacklistString", EntityOperator.EQUALS, creditCardNumber), EntityOperator.AND,
-                            EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_CREDITCARD")));
+                            EntityCondition.makeCondition("denylistString", EntityOperator.EQUALS, creditCardNumber), EntityOperator.AND,
+                            EntityCondition.makeCondition("orderDenylistTypeId", EntityOperator.EQUALS, "DENYLIST_CREDITCARD")));
                 }
                 if (billingAddress != null) {
                     String address = UtilFormatOut.checkNull(billingAddress.getString("address1").toUpperCase(Locale.getDefault()));
                     address = UtilFormatOut.makeSqlSafe(address);
                     exprs.add(EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS,
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("denylistString"), EntityOperator.EQUALS,
                             EntityFunction.UPPER(address)),
                             EntityOperator.AND,
-                            EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
+                            EntityCondition.makeCondition("orderDenylistTypeId", EntityOperator.EQUALS, "DENYLIST_ADDRESS")));
                 }
             }
         }
 
-        List<GenericValue> blacklistFound = null;
+        List<GenericValue> denylistFound = null;
         if (!exprs.isEmpty()) {
             try {
-                blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
+                denylistFound = EntityQuery.use(this.delegator).from("OrderDenylist").where(exprs).queryList();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Problems with OrderBlacklist lookup.", MODULE);
+                Debug.logError(e, "Problems with OrderDenylist lookup.", MODULE);
                 errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
                 return ServiceUtil.returnError(errMsg);
             }
         }
 
-        if (UtilValidate.isNotEmpty(blacklistFound)) {
+        if (UtilValidate.isNotEmpty(denylistFound)) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "OrderFailed", cart.getLocale()));
         }
         return ServiceUtil.returnSuccess("success");
     }
 
     /**
-     * Check order blacklist map.
+     * Check order denylist map.
      * @param userLogin the user login
      * @return the map
      */
     @Deprecated
-    public Map<String, Object> checkOrderBlacklist(GenericValue userLogin) {
-        return checkOrderBlackList();
+    public Map<String, Object> checkOrderDenylist(GenericValue userLogin) {
+        return checkOrderDenyList();
     }
 
     /**
-     * Failed blacklist check map.
+     * Failed denylist check map.
      * @param userLogin    the user login
      * @param productStore the product store
      * @return the map
      */
-    public Map<String, Object> failedBlacklistCheck(GenericValue userLogin, GenericValue productStore) {
+    public Map<String, Object> failedDenylistCheck(GenericValue userLogin, GenericValue productStore) {
         Map<String, Object> result;
         String errMsg = null;
         String rejectMessage = productStore.getString("authFraudMessage");

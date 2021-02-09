@@ -51,10 +51,10 @@ under the License.
     <OrderAdjustmentType description="Marketing Package Adjustment" hasTable="N" orderAdjustmentTypeId="MKTG_PKG_AUTO_ADJUST"/>
     <OrderAdjustmentType description="Deposit" hasTable="N" orderAdjustmentTypeId="DEPOSIT_ADJUSTMENT"/>
 
-    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_ADDRESS" description="Addresss"/>
-    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_CREDITCARD" description="Credit Card"/>
-    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_EMAIL" description="E-Mail"/>
-    <OrderBlacklistType orderBlacklistTypeId="BLACKLIST_PHONE" description="Phone Number"/>
+    <OrderDenylistType orderDenylistTypeId="DENYLIST_ADDRESS" description="Addresss"/>
+    <OrderDenylistType orderDenylistTypeId="DENYLIST_CREDITCARD" description="Credit Card"/>
+    <OrderDenylistType orderDenylistTypeId="DENYLIST_EMAIL" description="E-Mail"/>
+    <OrderDenylistType orderDenylistTypeId="DENYLIST_PHONE" description="Phone Number"/>
 
     <OrderItemType description="Purchase Order Specific" hasTable="N" orderItemTypeId="PURCHASE_SPECIFIC"/>
     <OrderItemType description="PO: Inventory" hasTable="N" orderItemTypeId="INVENTORY_ORDER_ITEM" parentTypeId="PURCHASE_SPECIFIC"/>
