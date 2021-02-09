@@ -45,7 +45,11 @@ public class JmsTopicListener extends AbstractJmsListener {
     private TopicSession session = null;
     private Topic topic = null;
 
-    private String jndiServer, jndiName, topicName, userName, password;
+    private String jndiServer;
+    private String jndiName;
+    private String topicName;
+    private String userName;
+    private String password;
 
     /**
      * Creates a new JmsTopicListener - Should only be called by the JmsListenerFactory.
