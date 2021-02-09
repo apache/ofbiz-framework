@@ -1909,9 +1909,9 @@ public class OrderServices {
                 }
 
                 BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId),
-                 orh.getAdjustments(), false, false, true);
+                        orh.getAdjustments(), false, false, true);
                 currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustments(orh.getOrderHeaderAdjustments(shipGroupSeqId),
-                 orh.getOrderItemsSubTotal(), false, false, true));
+                        orh.getOrderItemsSubTotal(), false, false, true));
 
                 if (Debug.infoOn()) {
                     Debug.logInfo("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, MODULE);

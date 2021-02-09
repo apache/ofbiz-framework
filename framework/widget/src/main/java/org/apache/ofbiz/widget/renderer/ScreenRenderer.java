@@ -401,7 +401,7 @@ public class ScreenRenderer {
                 Map<String, Object> screenAreaAssociation = UtilMisc.toMap(
                         "modelScreen", modelScreen,
                         "areaId", modelScreen.getSection().getName() + UUID.randomUUID().toString());
-                 visitedScreens.addLast(screenAreaAssociation);
+                visitedScreens.addLast(screenAreaAssociation);
             }
         }
 
