@@ -155,7 +155,7 @@ public class FedexServices {
         String shipmentGatewayConfigId = (String) context.get("shipmentGatewayConfigId");
         String resource = (String) context.get("configProps");
         Locale locale = (Locale) context.get("locale");
-        List<Object> errorList = new LinkedList<> ();
+        List<Object> errorList = new LinkedList<>();
 
         Boolean replaceMeterNumber = (Boolean) context.get("replaceMeterNumber");
 

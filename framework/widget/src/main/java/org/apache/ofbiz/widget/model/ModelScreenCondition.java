@@ -51,7 +51,7 @@ public final class ModelScreenCondition {
         private final FlexibleStringExpander sectionExdr;
 
         private IfEmptySection(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
-            super (factory, modelWidget, condElement);
+            super(factory, modelWidget, condElement);
             this.sectionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("section-name"));
         }
 

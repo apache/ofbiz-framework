@@ -138,7 +138,7 @@ public class OrderContentWrapper implements ContentWrapper {
             orderId = order.getString("orderId");
         }
         if (orderItemSeqId == null && order != null) {
-            orderItemSeqId = ("OrderItem".equals(order.getEntityName())? order.getString("orderItemSeqId") : "_NA_");
+            orderItemSeqId = ("OrderItem".equals(order.getEntityName()) ? order.getString("orderItemSeqId") : "_NA_");
         }
 
         if (delegator == null && order != null) {
