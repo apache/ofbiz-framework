@@ -62,10 +62,12 @@ public class JmsTopicListener extends AbstractJmsListener {
     @Override
     public void close() throws GenericServiceException {
         try {
-            if (session != null)
+            if (session != null) {
                 session.close();
-            if (con != null)
+            }
+            if (con != null) {
                 con.close();
+            }
         } catch (JMSException e) {
             throw new GenericServiceException("Cannot close connection(s).", e);
         }

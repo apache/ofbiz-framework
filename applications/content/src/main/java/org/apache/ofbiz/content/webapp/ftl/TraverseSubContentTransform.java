@@ -133,12 +133,14 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         }
         traverseContext.put("thruDate", thruDate);
         String startContentAssocTypeId = (String) templateCtx.get("contentAssocTypeId");
-        if (startContentAssocTypeId != null)
+        if (startContentAssocTypeId != null) {
             startContentAssocTypeId = "SUB_CONTENT";
+        }
         traverseContext.put("contentAssocTypeId", startContentAssocTypeId);
         String direction = (String) templateCtx.get("direction");
-        if (UtilValidate.isEmpty(direction))
+        if (UtilValidate.isEmpty(direction)) {
             direction = "From";
+        }
         traverseContext.put("direction", direction);
 
 
@@ -189,8 +191,9 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     populateContext(traverseContext, templateCtx);
                     ContentWorker.traceNodeTrail("8", nodeTrail);
                     return TransformControl.REPEAT_EVALUATION;
-                } else
+                } else {
                     return TransformControl.END_EVALUATION;
+                }
             }
 
             @Override
@@ -208,8 +211,9 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     templateRoot.put("context", templateCtx);
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");
                     Locale locale = (Locale) templateCtx.get("locale");
-                    if (locale == null)
+                    if (locale == null) {
                         locale = Locale.getDefault();
+                    }
                     try {
                         ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (GeneralException e) {

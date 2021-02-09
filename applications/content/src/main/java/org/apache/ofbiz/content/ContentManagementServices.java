@@ -421,8 +421,9 @@ public class ContentManagementServices {
         String siteContentId = (String) context.get("contentId");
         String partyId = (String) context.get("partyId");
 
-        if (UtilValidate.isEmpty(siteContentId) || UtilValidate.isEmpty(partyId))
+        if (UtilValidate.isEmpty(siteContentId) || UtilValidate.isEmpty(partyId)) {
             return results;
+        }
 
         List<GenericValue> siteRoles = null;
         try {
@@ -1012,8 +1013,9 @@ public class ContentManagementServices {
         String contentId = (String) context.get("contentId");
         visitedSet.add(contentId);
         String contentTypeId = "PAGE_NODE";
-        if (pageMode != null && pageMode.toLowerCase(Locale.getDefault()).indexOf("outline") >= 0)
+        if (pageMode != null && pageMode.toLowerCase(Locale.getDefault()).indexOf("outline") >= 0) {
             contentTypeId = "OUTLINE_NODE";
+        }
         GenericValue thisContent = null;
         try {
             thisContent = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
