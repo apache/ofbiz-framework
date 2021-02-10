@@ -257,7 +257,8 @@ public final class ModelReader implements Serializable {
                                 } else if (isExtendEntity && curChild.getNodeType() == Node.ELEMENT_NODE) {
                                     tempExtendEntityElementList.add((Element) curChild);
                                 }
-                            } while ((curChild = curChild.getNextSibling()) != null);
+                                curChild = curChild.getNextSibling();
+                            } while (curChild != null);
                         } else {
                             Debug.logWarning("No child nodes found.", MODULE);
                         }

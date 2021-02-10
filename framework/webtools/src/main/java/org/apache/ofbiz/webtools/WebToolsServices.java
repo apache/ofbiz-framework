@@ -534,7 +534,8 @@ public class WebToolsServices {
                                             TransactionUtil.commit(beganTx);
                                             beganTx = TransactionUtil.begin();
                                         }
-                                    } while ((value = values.next()) != null);
+                                        value = values.next();
+                                    } while (value != null);
                                     writer.println("</entity-engine-xml>");
                                 } catch (UnsupportedEncodingException | FileNotFoundException e) {
                                     results.add("[" + fileNumber + "] [xxx] Error when writing " + curEntityName + ": " + e);

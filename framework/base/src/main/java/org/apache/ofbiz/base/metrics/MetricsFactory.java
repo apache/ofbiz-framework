@@ -240,7 +240,8 @@ public final class MetricsFactory {
                 serviceRate = (rate * smoothing) + (serviceRate * (1.0 - smoothing));
                 count = 0;
                 lastTime = curTime;
-                totalEvents = totalServiceTime = 0;
+                totalEvents = 0;
+                totalServiceTime = 0;
             }
         }
 
@@ -249,7 +250,9 @@ public final class MetricsFactory {
             serviceRate = 0.0;
             count = 0;
             lastTime = System.currentTimeMillis();
-            totalEvents = totalServiceTime = cumulativeEvents = 0;
+            totalEvents = 0;
+            totalServiceTime = 0;
+            cumulativeEvents = 0;
         }
 
         @Override
