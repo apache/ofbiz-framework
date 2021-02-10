@@ -104,10 +104,9 @@ public class RegexpCondition extends MethodOperation implements Conditional {
         if (matcher.matches((String) fieldVal, pattern)) {
             //Debug.logInfo("The string [" + fieldVal + "] matched the pattern expr [" + pattern.getPattern() + "]", MODULE);
             return true;
-        } else {
-            //Debug.logInfo("The string [" + fieldVal + "] did NOT match the pattern expr [" + pattern.getPattern() + "]", MODULE);
-            return false;
         }
+        //Debug.logInfo("The string [" + fieldVal + "] did NOT match the pattern expr [" + pattern.getPattern() + "]", MODULE);
+        return false;
     }
 
     @Override
