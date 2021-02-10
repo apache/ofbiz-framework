@@ -21,7 +21,7 @@ import org.apache.ofbiz.entity.GenericValue
 
 /*
  * Migrate all elements present on OldOrderBlacklist and OldOrderBlacklistType to respectively OrderDenylist and OrderDenylistType entities
- * Update service for Deprecate since: branch release
+ * Update service created 2021-02
  */
 def migrateOldOrderBlacklistAndOldOrderBlacklistType() {
     List<GenericValue> oldOrderBlacklist = delegator.findAll("OldOrderBlacklist", false)
