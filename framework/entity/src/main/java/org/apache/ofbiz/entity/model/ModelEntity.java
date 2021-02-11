@@ -1538,6 +1538,25 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return this.toXmlElement(document, this.getPackageName());
     }
 
+    public Element toGroupXmlElement(Document document) {
+        return this.toGroupXmlElement(document, this.getPackageName());
+    }
+
+    public Element toGroupXmlElement(Document document, String packageName) {
+        if (UtilValidate.isNotEmpty(this.getPackageName()) && !packageName.equals(this.getPackageName())) {
+            Debug.logWarning(
+                    "Export EntityModel XML Element [" + this.getEntityName() + "] with a NEW package - " + packageName,
+                    module);
+        }
+
+        Element root = document.createElement("entity-group");
+        root.setAttribute("group", packageName);
+
+        root.setAttribute("entity", this.getEntityName());
+
+        return root;
+    }
+
     /**
      * Writes entity model information in the Apple EOModelBundle format.
      *
