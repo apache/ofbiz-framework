@@ -882,7 +882,7 @@ under the License.
             </drop-down>
         </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
-        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentIdFrom" title="${uiLabelMap.ContentParentContentId}"><lookup target-form-name="LookupContent"/></field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
     

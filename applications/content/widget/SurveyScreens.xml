@@ -339,16 +339,6 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleViewSurveyResponses} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}">
-                            <section>
-                                <condition><not><if-empty field="parameters.rootContentId"/></not></condition>
-                                <widgets>
-                                    <container>
-                                        <link text="${uiLabelMap.ContentCompDocGoBack} [${parameters.rootContentId}]" target="ViewCompDocInstanceTree" style="buttontext">
-                                            <parameter param-name="rootContentId" from-field="parameters.rootContentId"/>
-                                        </link>
-                                    </container>
-                                </widgets>
-                            </section>
                             <platform-specific><html><html-template location="component://content/template/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
