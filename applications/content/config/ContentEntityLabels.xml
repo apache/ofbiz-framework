@@ -216,20 +216,6 @@
         <value xml:lang="zh">作者</value>
         <value xml:lang="zh-TW">作者</value>
     </property>
-    <property key="ContentAssocType.description.COMPDOC_PART">
-        <value xml:lang="da">Sammensat dokumentdel</value>
-        <value xml:lang="de">Zusammengesetzter Dokumentteil</value>
-        <value xml:lang="en">Composite Document Part</value>
-        <value xml:lang="fr">Partie du document composé</value>
-        <value xml:lang="it">Parte Documento Composito</value>
-        <value xml:lang="ja">複合文書の一部</value>
-        <value xml:lang="pt">Parte do documento composto</value>
-        <value xml:lang="ro">Parte Document Compus</value>
-        <value xml:lang="th">ประกอบด้วยส่วนของเอกสาร</value>
-        <value xml:lang="vi">Tài liệu thành phần</value>
-        <value xml:lang="zh">合成文档部分</value>
-        <value xml:lang="zh-TW">複合檔部分</value>
-    </property>
     <property key="ContentAssocType.description.DEPARTMENT">
         <value xml:lang="da">Afdeling</value>
         <value xml:lang="de">Abteilung</value>
@@ -1129,34 +1115,6 @@
         <value xml:lang="vi">Gốc blog</value>
         <value xml:lang="zh">博客的根</value>
         <value xml:lang="zh-TW">部落格的頂層</value>
-    </property>
-    <property key="ContentType.description.COMPDOC_INSTANCE">
-        <value xml:lang="da">Sammensat dokumentinstans</value>
-        <value xml:lang="de">Zusammengesetzte Dokumenteninstanz</value>
-        <value xml:lang="en">Composite Document Instance</value>
-        <value xml:lang="fr">Exemple de document composé</value>
-        <value xml:lang="it">Istanza Documento Composito</value>
-        <value xml:lang="ja">複合文書インスタンス</value>
-        <value xml:lang="pt">Instância de documento composto</value>
-        <value xml:lang="ro">Istanza Document Compus</value>
-        <value xml:lang="th">ตัวอย่างส่วนประกอบของเอกสาร</value>
-        <value xml:lang="vi">Khởi tạo tài liệu kết hợp</value>
-        <value xml:lang="zh">合成文档实例</value>
-        <value xml:lang="zh-TW">複合檔實例</value>
-    </property>
-    <property key="ContentType.description.COMPDOC_TEMPLATE">
-        <value xml:lang="da">Sammensat dokumentskabelon</value>
-        <value xml:lang="de">Zusammengesetzte Dokumentenvorlage</value>
-        <value xml:lang="en">Composite Document Template</value>
-        <value xml:lang="fr">Gabarit de document composé</value>
-        <value xml:lang="it">Template Documento Composito</value>
-        <value xml:lang="ja">複合文書テンプレート</value>
-        <value xml:lang="pt">Modelo de documento composto</value>
-        <value xml:lang="ro">Template Document Compus</value>
-        <value xml:lang="th">รูปแบบส่วนประกอบของเอกสาร</value>
-        <value xml:lang="vi">Biểu mẫu tài liệu kết hợp</value>
-        <value xml:lang="zh">合成文档模板</value>
-        <value xml:lang="zh-TW">複合檔模板</value>
     </property>
     <property key="ContentType.description.CONTENT_LIST">
         <value xml:lang="da">Indholdsfortegnelse</value>

@@ -30,7 +30,6 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.content.compdoc -->
   <!--  - org.apache.ofbiz.content.content -->
   <!--  - org.apache.ofbiz.content.data -->
   <!--  - org.apache.ofbiz.content.document -->
@@ -40,79 +39,6 @@ under the License.
   <!--  - org.apache.ofbiz.content.website -->
   <!-- ========================================================= -->
 
-  <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.content.compdoc -->
-  <!-- ========================================================= -->
-
-    <view-entity entity-name="AssocRevisionItemView"
-                package-name="org.apache.ofbiz.content.compdoc"
-                title="Latest Revision Children">
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
-      <alias entity-alias="CA" name="contentId" group-by="true"/>
-      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
-      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
-      <alias entity-alias="CA" name="thruDate" group-by="true"/>
-      <alias entity-alias="CA" name="fromDate" group-by="true"/>
-      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
-      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
-      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="true"/>
-      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-      <view-link entity-alias="CA" rel-entity-alias="CRI">
-        <key-map field-name="contentId" rel-field-name="itemContentId"/>
-      </view-link>
-    </view-entity>
-    <view-entity entity-name="ContentAssocRevisionItemView"
-                package-name="org.apache.ofbiz.content.compdoc"
-                title="Latest Revision Children">
-      <member-entity entity-alias="C" entity-name="Content"/>
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
-      <alias entity-alias="C" name="instanceOfContentId" group-by="true"/>
-      <alias entity-alias="C" name="dataResourceId" group-by="true"/>
-      <alias entity-alias="CA" name="contentId" group-by="true"/>
-      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
-      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
-      <alias entity-alias="CA" name="thruDate" group-by="true"/>
-      <alias entity-alias="CA" name="fromDate" group-by="true"/>
-      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
-      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
-      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-      <view-link entity-alias="C" rel-entity-alias="CA">
-        <key-map field-name="contentId" rel-field-name="contentId"/>
-      </view-link>
-      <view-link entity-alias="CA" rel-entity-alias="CRI">
-        <key-map field-name="contentId" rel-field-name="itemContentId"/>
-      </view-link>
-    </view-entity>
-    <view-entity entity-name="MaxRevisionItemView"
-                package-name="org.apache.ofbiz.content.compdoc"
-                title="Latest Revision Children">
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
-      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-    </view-entity>
-    <view-entity entity-name="MaxContentApprovalView"
-                package-name="org.apache.ofbiz.content.compdoc"
-                title="Latest ContentApproval">
-      <member-entity entity-alias="C" entity-name="Content"/>
-      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
-      <alias entity-alias="C" name="contentTypeId"  group-by="true"/>
-      <alias entity-alias="CA" name="contentId"  group-by="true"/>
-      <alias entity-alias="CA" name="partyId"  group-by="true"/>
-      <alias entity-alias="CA" name="roleTypeId" group-by="true"/>
-      <alias entity-alias="CA" name="sequenceNum" group-by="false"/>
-      <alias entity-alias="CA" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CA" name="maxContentRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-      <view-link entity-alias="C" rel-entity-alias="CA">
-        <key-map field-name="contentId" rel-field-name="contentId"/>
-      </view-link>
-    </view-entity>
     <view-entity entity-name="ContentAssocOptViewFrom"
                 package-name="org.apache.ofbiz.content.content"
                 title="Main Assoc To">
@@ -1627,24 +1553,6 @@ under the License.
             <key-map field-name="webSiteId"/>
         </relation>
     </entity>
-    <view-entity entity-name="ContentAssocAndContentPurpose"
-            package-name="org.apache.ofbiz.content.compdoc"
-            title="ContentAssoc and ContentPurpose View">
-        <member-entity entity-alias="CNTA" entity-name="ContentAssoc"/>
-        <member-entity entity-alias="CNTP" entity-name="ContentPurpose"/>
-        <alias entity-alias="CNTA" name="contentId"/>
-        <alias entity-alias="CNTA" name="contentIdTo"/>
-        <alias entity-alias="CNTA" name="contentAssocTypeId"/>
-        <alias entity-alias="CNTA" name="fromDate"/>
-        <alias entity-alias="CNTA" name="thruDate"/>
-        <alias entity-alias="CNTA" name="dataSourceId"/>
-        <alias entity-alias="CNTA" name="mapKey"/>
-        <alias entity-alias="CNTP" name="contentPurposeTypeId"/>
-        <alias entity-alias="CNTP" name="sequenceNum"/>
-        <view-link entity-alias="CNTA" rel-entity-alias="CNTP">
-            <key-map field-name="contentIdTo" rel-field-name="contentId"/>
-        </view-link>
-    </view-entity>
 
     <!-- defined as an extend and not directly in common to avoid dependencies between common and content -->
     <extend-entity entity-name="PortalPage">

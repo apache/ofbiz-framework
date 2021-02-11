@@ -30,7 +30,6 @@ under the License.
         <menu-item name="DataResourceSetupMenu" title="${uiLabelMap.ContentDataSetup}"><link target="DataSetupMenu"/></menu-item>
         <menu-item name="Layout" title="${uiLabelMap.ContentTemplate}"><link target="LayoutMenu"/></menu-item>
         <menu-item name="CMS" title="${uiLabelMap.ContentCMS}"><link target="CMSContentFind"/></menu-item>
-        <menu-item name="CompDoc" title="${uiLabelMap.ContentCompDoc}"><link target="FindCompDoc"/></menu-item>
     </menu>
 
     <menu name="ContentShortcutAppBar" title="${uiLabelMap.ContentContentManager}">
@@ -44,7 +43,6 @@ under the License.
         <menu-item name="DataResourceSetupMenu" title="${uiLabelMap.ContentDataSetup}"><link target="DataSetupMenu" url-mode="inter-app"/></menu-item>
         <menu-item name="Layout" title="${uiLabelMap.ContentTemplate}"><link target="LayoutMenu" url-mode="inter-app"/></menu-item>
         <menu-item name="CMS" title="${uiLabelMap.ContentCMS}"><link target="CMSContentFind" url-mode="inter-app"/></menu-item>
-        <menu-item name="CompDoc" title="${uiLabelMap.ContentCompDoc}"><link target="FindCompDoc" url-mode="inter-app"/></menu-item>
     </menu>
 
     <menu name="content"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"

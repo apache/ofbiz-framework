@@ -656,7 +656,7 @@ under the License.
                 <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
             </drop-down>
             </field>-->
-        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
+        <field name="contentIdFrom" title="${uiLabelMap.ContentParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
     <form name="ListCustRequestContent" type="list" list-name="custRequestAndContents"
