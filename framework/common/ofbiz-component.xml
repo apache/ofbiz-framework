@@ -61,7 +61,6 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonPortletData.xml"/>
 
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonSecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonScheduledServicesDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cdyne.xml"/>
