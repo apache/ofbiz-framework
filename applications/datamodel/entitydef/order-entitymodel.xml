@@ -268,7 +268,7 @@ under the License.
       <field name="orderDenylistTypeId" type="id"></field>
       <prim-key field="denylistString"/>
       <prim-key field="orderDenylistTypeId"/>
-      <relation type="one" fk-name="ORDER_BKL_TYPE" rel-entity-name="OrderDenylistType">
+      <relation type="one" fk-name="ORDER_DNY_TYPE" rel-entity-name="OrderDenylistType">
         <key-map field-name="orderDenylistTypeId"/>
       </relation>
     </entity>
