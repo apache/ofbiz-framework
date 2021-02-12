@@ -58,6 +58,7 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" from-field="uiLabelMap.PageTitleLookupOrderHeaderAndShipInfo"/>
+                <set field="paginateTargetUrl" value="LookupOrderHeaderAndShipInfo"/>
                 <set field="parameters.roleTypeId" to-scope="screen" default-value="SHIP_TO_CUSTOMER"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -87,6 +88,7 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" from-field="uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo"/>
+                <set field="paginateTargetUrl" value="LookupPurchaseOrderHeaderAndShipInfo"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
