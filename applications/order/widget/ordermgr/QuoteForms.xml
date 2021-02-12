@@ -454,8 +454,8 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
-        <field name="averageCost" title="${uiLabelMap.OrderOrderQuoteAverageCost}"><display/></field>
         <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"><display type="number" format="amount"/></field>
+        <field name="averageCost" title="${uiLabelMap.OrderOrderQuoteAverageCost}"><display/></field>
         <field name="profit" title="${uiLabelMap.OrderOrderQuoteProfit}"><display/></field>
         <field name="percProfit" title="${uiLabelMap.OrderOrderQuotePercProfit}"><display/></field>
     </form>
