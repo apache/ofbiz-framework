@@ -29,13 +29,20 @@ The following file contains information about the data model changes in the Apac
 == Changes with OFBiz Trunk (Upcoming Branch)
 
 === Entity Changes
-*Added 1 new entity*
+*Added 3 new entities*
 
-1. ProdPromoCodeContactMech
+. ProdPromoCodeContactMech
+. OrderDenylist
+. OrderDenylistType
 
-*Removed/Deprecate 1 entity*
 
-1. ProductPromoCodeEmail
+
+*Removed/Deprecate 3 entities*
+
+. ProductPromoCodeEmail
+. OrderBlacklist
+. OrderBlacklistType
+
 
 === Field Changes
 [cols="<,^,^,^,>",options="header",]

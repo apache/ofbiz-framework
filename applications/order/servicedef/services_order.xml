@@ -69,27 +69,27 @@ under the License.
         <description>Delete an OrderAttribute record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="createOrderBlacklist" default-entity-name="OrderBlacklist" engine="entity-auto" invoke="create" auth="true">
-        <description>Create an OrderBlacklist record</description>
+    <service name="createOrderDenylist" default-entity-name="OrderDenylist" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an OrderDenylist record</description>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteOrderBlacklist" default-entity-name="OrderBlacklist" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete an OrderBlacklist record</description>
+    <service name="deleteOrderDenylist" default-entity-name="OrderDenylist" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an OrderDenylist record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="createOrderBlacklistType" default-entity-name="OrderBlacklistType" engine="entity-auto" invoke="create" auth="true">
-        <description>Create an OrderBlacklistType record</description>
+    <service name="createOrderDenylistType" default-entity-name="OrderDenylistType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an OrderDenylistType record</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateOrderBlacklistType" default-entity-name="OrderBlacklistType" engine="entity-auto" invoke="update" auth="true">
-        <description>Update an OrderBlacklistType record</description>
+    <service name="updateOrderDenylistType" default-entity-name="OrderDenylistType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update an OrderDenylistType record</description>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteOrderBlacklistType" default-entity-name="OrderBlacklistType" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete an OrderBlacklistType record</description>
+    <service name="deleteOrderDenylistType" default-entity-name="OrderDenylistType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an OrderDenylistType record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
 

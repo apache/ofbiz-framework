@@ -634,14 +634,14 @@ public class CheckOutEvents {
         return (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS));
     }
 
-    public static String checkOrderBlacklist(HttpServletRequest request, HttpServletResponse response) {
+    public static String checkOrderDenylist(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         CheckOutHelper checkOutHelper = new CheckOutHelper(null, delegator, cart);
         String result;
 
-        Map<String, Object> callResult = checkOutHelper.checkOrderBlackList();
+        Map<String, Object> callResult = checkOutHelper.checkOrderDenyList();
         if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
             request.setAttribute("_ERROR_MESSAGE_", callResult.get(ModelService.ERROR_MESSAGE));
             result = "error";
@@ -655,7 +655,7 @@ public class CheckOutEvents {
         return result;
     }
 
-    public static String failedBlacklistCheck(HttpServletRequest request, HttpServletResponse response) {
+    public static String failedDenylistCheck(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -668,7 +668,7 @@ public class CheckOutEvents {
         // Load the properties store
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
-        Map<String, Object> callResult = checkOutHelper.failedBlacklistCheck(userLogin, productStore);
+        Map<String, Object> callResult = checkOutHelper.failedDenylistCheck(userLogin, productStore);
 
         //Generate any messages required
         ServiceUtil.getMessages(request, callResult, null);

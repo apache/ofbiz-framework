@@ -242,24 +242,43 @@ under the License.
         <key-map field-name="attrName"/>
       </relation>
     </entity>
-    <entity entity-name="OrderBlacklist"
+    <entity entity-name="OldOrderBlacklist" table-name="ORDER_BLACKLIST"
             package-name="org.apache.ofbiz.order.order"
             title="Order Blacklist">
       <field name="blacklistString" type="long-varchar"></field>
       <field name="orderBlacklistTypeId" type="id"></field>
       <prim-key field="blacklistString"/>
       <prim-key field="orderBlacklistTypeId"/>
-      <relation type="one" fk-name="ORDER_BKL_TYPE" rel-entity-name="OrderBlacklistType">
+      <relation type="one" fk-name="ORDER_BKL_TYPE" rel-entity-name="OldOrderBlacklistType">
         <key-map field-name="orderBlacklistTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="OrderBlacklistType"
+    <entity entity-name="OldOrderBlacklistType" table-name="ORDER_BLACKLIST_TYPE"
             package-name="org.apache.ofbiz.order.order"
             default-resource-name="OrderEntityLabels"
             title="Order Blacklist Type">
       <field name="orderBlacklistTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="orderBlacklistTypeId"/>
+    </entity>
+    <entity entity-name="OrderDenylist"
+            package-name="org.apache.ofbiz.order.order"
+            title="Order Denylist">
+      <field name="denylistString" type="long-varchar"></field>
+      <field name="orderDenylistTypeId" type="id"></field>
+      <prim-key field="denylistString"/>
+      <prim-key field="orderDenylistTypeId"/>
+      <relation type="one" fk-name="ORDER_DNY_TYPE" rel-entity-name="OrderDenylistType">
+        <key-map field-name="orderDenylistTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="OrderDenylistType"
+            package-name="org.apache.ofbiz.order.order"
+            default-resource-name="OrderEntityLabels"
+            title="Order Denylist Type">
+      <field name="orderDenylistTypeId" type="id"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="orderDenylistTypeId"/>
     </entity>
      <entity entity-name="CommunicationEventOrder"
             package-name="org.apache.ofbiz.order.order"
@@ -604,7 +623,7 @@ under the License.
       </relation>
         <relation type="one" fk-name="ORDER_ITEM_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
             <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
-        </relation>      
+        </relation>
       <index name="ORDITMEXT_ID_IDX">
         <index-field name="externalId"/>
       </index>

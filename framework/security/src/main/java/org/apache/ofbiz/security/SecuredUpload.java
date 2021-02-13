@@ -234,9 +234,9 @@ public class SecuredUpload {
         File file = new File(fileName);
         boolean safeState = false;
         boolean fallbackOnApacheCommonsImaging;
-        OutputStream fos = null;
-        try {
-            if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
+
+        if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
+            try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE)) {
                 // Get the image format
                 String formatName;
                 ImageInputStream iis = ImageIO.createImageInputStream(file);
@@ -286,7 +286,7 @@ public class SecuredUpload {
                 Graphics bg = sanitizedImage.getGraphics();
                 bg.drawImage(initialSizedImage, 0, 0, null);
                 bg.dispose();
-                fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE);
+
                 if (!fallbackOnApacheCommonsImaging) {
                     ImageIO.write(sanitizedImage, formatName, fos);
                 } else {
@@ -311,20 +311,11 @@ public class SecuredUpload {
                     }
                     imageParser.writeImage(sanitizedImage, fos, new HashMap<>());
                 }
-            }
-        } catch (IOException | ImageReadException | ImageWriteException e) {
-            safeState = false;
-            Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
-        } finally {
-            // Set state flag
-            try {
-                fos.close();
-            } catch (IOException e) {
-                safeState = false;
+                // Set state flag
+                safeState = true;
+            } catch (IOException | ImageReadException | ImageWriteException e) {
                 Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
             }
-            // This was not correctly handled in the document-upload-protection example, and I did not spot it :/
-            safeState = true;
         }
         return safeState;
     }
