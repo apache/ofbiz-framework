@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Forum"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="pageTitle" from-field="uiLabelMap.[titleProperty]"/>
+                <set field="pageTitle" from-field="uiLabelMap.${titleProperty}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
