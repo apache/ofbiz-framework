@@ -630,8 +630,17 @@ public final class RequestHandler {
                 }
             }
         } else {
-            // Remove previous request attribute on navigation to non-authenticated request
-            request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
+            String[] loginUris = EntityUtilProperties.getPropertyValue("security", "login.uris", delegator).split(",");
+            boolean removePreviousRequest = true;
+            for (int i = 0; i < loginUris.length; i++) {
+                if (requestUri.equals(loginUris[i])) {
+                    removePreviousRequest = false;
+                }
+            }
+            if (removePreviousRequest) {
+                // Remove previous request attribute on navigation to non-authenticated request
+                request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
+            }
         }
 
         if (request.getAttribute("targetRequestUri") == null) {
