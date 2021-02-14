@@ -25,7 +25,10 @@ import org.asciidoctor.gradle.AsciidoctorTask
  * ======================================================== */
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:2.2.1'
@@ -106,8 +109,34 @@ defaultTasks 'build'
 
 allprojects {
     repositories{
-        jcenter()
-        mavenLocal()
+        mavenCentral()
+        // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
+        // this should be checked frequently to remove obsolete configurations if the artifacts are available
+        // on mavenCentral directly
+        maven {
+            // org.restlet and org.restlet.ext.servlet
+            url "https://maven.restlet.talend.com"
+        }
+        maven {
+            // apache-xerces:xercesImpl:2.9.1
+            url "https://maven.repository.redhat.com/ga/"
+        }
+        maven {
+            // net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12
+            url "https://packages.atlassian.com/maven-3rdparty"
+        }
+        maven {
+            // org/milyn/flute/1.3/flute-1.3.jar
+            // need artifact only because of wrong pom metadata in maven central
+            url "https://repo1.maven.org/maven2"
+            metadataSources {
+                artifact()
+            }
+        }
+        maven {
+            // com.springsource.com.sun.syndication
+            url "https://repo.spring.io/plugins-release"
+        }
     }
 }
 
@@ -143,7 +172,7 @@ dependencies {
     compile 'com.ibm.icu:icu4j:63.1'
     compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     compile 'com.sun.mail:javax.mail:1.6.2'
-    compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
+    compile 'com.sun.syndication:com.springsource.com.sun.syndication:1.0.0'
     compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
     compile 'commons-cli:commons-cli:1.4'
     compile 'commons-net:commons-net:3.6'
@@ -154,7 +183,7 @@ dependencies {
     compile 'javax.servlet:javax.servlet-api:4.0.1'
     compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
     compile 'junit:junit-dep:4.11'
-    compile 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
+    compile 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
     compile 'org.apache.ant:ant-junit:1.10.5'
     compile 'org.apache.axis2:axis2-kernel:1.7.8'
     compile 'org.apache.commons:commons-collections4:4.2'
