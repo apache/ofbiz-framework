@@ -236,6 +236,7 @@ dependencies {
     runtime 'org.apache.logging.log4j:log4j-core:2.11.1' // the implementation of the log4j 2 API
     runtime 'org.apache.logging.log4j:log4j-jul:2.11.1' // for external jars using the java.util.logging: routes logging to log4j 2
     runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1' // for external jars using slf4j: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-jcl:2.14.0' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // plugin libs
