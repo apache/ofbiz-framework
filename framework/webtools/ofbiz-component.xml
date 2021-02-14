@@ -29,6 +29,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <webapp name="webtools"
         title="WebTools"
+        position="12"
         menu-name="secondary"
         server="default-server"
         location="webapp/webtools"
