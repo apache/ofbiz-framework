@@ -42,6 +42,7 @@ under the License.
 
     <webapp name="party"
         title="Party"
+        position="1"
         description="PartyComponentDescription"
         server="default-server"
         location="webapp/partymgr"

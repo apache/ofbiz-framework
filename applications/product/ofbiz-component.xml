@@ -75,16 +75,18 @@ under the License.
     <test-suite loader="main" location="testdef/ProductPromoTests.xml"/>
     <test-suite loader="main" location="testdef/ProductConfigTests.xml"/>
 
-        <webapp name="catalog"
-            title="Catalog"
-            description="CatalogComponentDescription"
-            server="default-server"
-            location="webapp/catalog"
-            base-permission="OFBTOOLS,CATALOG"
-            app-shortcut-screen="component://product/widget/catalog/CatalogScreens.xml#ShortcutApp"
-            mount-point="/catalog"/>
+    <webapp name="catalog"
+        title="Catalog"
+        position="2"
+        description="CatalogComponentDescription"
+        server="default-server"
+        location="webapp/catalog"
+        base-permission="OFBTOOLS,CATALOG"
+        app-shortcut-screen="component://product/widget/catalog/CatalogScreens.xml#ShortcutApp"
+        mount-point="/catalog"/>
     <webapp name="facility"
         title="Facility"
+        position="3"
         description="FacilityComponentDescription"
         server="default-server"
         location="webapp/facility"

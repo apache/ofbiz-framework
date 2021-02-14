@@ -45,6 +45,7 @@ under the License.
 
     <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="manufacturing"
+        position="7"
         title="Manufacturing"
         server="default-server"
         location="webapp/manufacturing"

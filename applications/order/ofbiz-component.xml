@@ -57,6 +57,7 @@ under the License.
 
     <webapp name="order"
         title="Order"
+        position="4"
         description="OrderComponentDescription"
         server="default-server"
         app-shortcut-screen="component://order/widget/ordermgr/CommonScreens.xml#ShortcutApp"

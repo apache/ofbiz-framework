@@ -46,6 +46,7 @@ under the License.
 
     <webapp name="content"
         title="Content"
+        position="6"
         server="default-server"
         location="webapp/content"
         base-permission="OFBTOOLS,CONTENTMGR"

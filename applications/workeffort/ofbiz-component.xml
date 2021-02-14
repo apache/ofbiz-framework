@@ -40,6 +40,7 @@ under the License.
 
      <webapp name="workeffort"
         title="WorkEffort"
+        position="9"
         server="default-server"
         location="webapp/workeffort"
         base-permission="OFBTOOLS,WORKEFFORTMGR"
