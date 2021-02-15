@@ -491,7 +491,7 @@ ${variantInfoJavaScript!}
             </#if>
           </#if>
         </#if>
-      </td></tr><tr><td colspan="2" align="right">
+      <div>
         <#-- check to see if introductionDate hasnt passed yet -->
         <#if product.introductionDate?? && nowTimestamp.before(product.introductionDate)>
         <p>&nbsp;</p>
@@ -534,7 +534,10 @@ ${variantInfoJavaScript!}
             <input type="hidden" name="category_id" value="${requestParameters.category_id}"/>
           </#if>
         </#if>
+      </div>
       </form>
+      </td></tr>
+      <tr><td colspan="2" align="right">
     <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
         <hr />
