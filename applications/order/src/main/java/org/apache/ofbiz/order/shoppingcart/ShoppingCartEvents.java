@@ -1775,6 +1775,7 @@ public class ShoppingCartEvents {
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         String itemType = null;
         String itemDescription = "";
+        Locale locale = UtilHttp.getLocale(request);
 
         // Get the parameters as a MAP, remove the productId and quantity params.
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
@@ -1833,6 +1834,16 @@ public class ShoppingCartEvents {
                     quantity = BigDecimal.ONE;
                 }
 
+                // get the renting data if the product quanity is more than 0
+                if (quantity.compareTo(BigDecimal.ZERO) > 0) {
+                    if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId))
+                            || "ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
+                        request.setAttribute("product_id", productId);
+                        request.setAttribute("_EVENT_MESSAGE_",
+                                UtilProperties.getMessage(resource_error, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
+                        return "product";
+                    }
+                }
                 // get the selected amount
                 String selectedAmountStr = null;
                 if (paramMap.containsKey("amount" + thisSuffix)) {

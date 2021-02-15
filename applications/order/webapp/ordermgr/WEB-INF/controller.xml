@@ -704,6 +704,7 @@ under the License.
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProducts"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
+        <response name="product" type="view" value="product"/>
     </request-map>
 
     <request-map uri="bulkAddProductsInApprovedOrder">
