@@ -1804,6 +1804,7 @@ public class ShoppingCartEvents {
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         String itemType = null;
         String itemDescription = "";
+        Locale locale = UtilHttp.getLocale(request);
 
         // Get the parameters as a MAP, remove the productId and quantity params.
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
@@ -1842,7 +1843,6 @@ public class ShoppingCartEvents {
                     Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
                     quantity = BigDecimal.ZERO;
                 }
-
                 try {
                     //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                     // if not and if quantity is in decimal format then return error.
@@ -1861,7 +1861,16 @@ public class ShoppingCartEvents {
                     Debug.logWarning(e.getMessage(), module);
                     quantity = BigDecimal.ONE;
                 }
-
+                // get the renting data if the product quanity is more than 0
+                if (quantity.compareTo(BigDecimal.ZERO) > 0) {
+                    if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId))
+                            || "ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
+                        request.setAttribute("product_id", productId);
+                        request.setAttribute("_EVENT_MESSAGE_",
+                                UtilProperties.getMessage(RES_ERROR, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
+                        return "product";
+                    }
+                }
                 // get the selected amount
                 String selectedAmountStr = null;
                 if (paramMap.containsKey("amount" + thisSuffix)) {
