@@ -48,8 +48,9 @@ public final class StatusWorker {
                                                         .orderBy("sequenceId")
                                                         .cache(true)
                                                         .queryList();
-            if (statusItems != null)
+            if (statusItems != null) {
                 pageContext.setAttribute(attributeName, statusItems);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -66,8 +67,9 @@ public final class StatusWorker {
                                                       .orderBy("sequenceId")
                                                       .cache(true)
                                                       .queryList();
-            if (calItems != null)
+            if (calItems != null) {
                 statusItems.addAll(calItems);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
@@ -78,14 +80,16 @@ public final class StatusWorker {
                                                       .orderBy("sequenceId")
                                                       .cache(true)
                                                       .queryList();
-            if (taskItems != null)
+            if (taskItems != null) {
                 statusItems.addAll(taskItems);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
 
-        if (!statusItems.isEmpty())
+        if (!statusItems.isEmpty()) {
             pageContext.setAttribute(attributeName, statusItems);
+        }
     }
 
     public static void getStatusValidChangeToDetails(PageContext pageContext, String attributeName, String statusId) {
@@ -103,7 +107,8 @@ public final class StatusWorker {
             Debug.logError(e, MODULE);
         }
 
-        if (statusValidChangeToDetails != null)
+        if (statusValidChangeToDetails != null) {
             pageContext.setAttribute(attributeName, statusValidChangeToDetails);
+        }
     }
 }

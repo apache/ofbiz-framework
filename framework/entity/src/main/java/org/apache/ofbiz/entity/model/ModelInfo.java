@@ -88,7 +88,7 @@ public final class ModelInfo {
             copyright = defaultInfo.getCopyright();
         }
         String author = StringUtil.internString(UtilXml.childElementValue(element, "author"));
-        if (author == null ||author.isEmpty()) {
+        if (author == null || author.isEmpty()) {
             author = defaultInfo.getAuthor();
         }
         String version = StringUtil.internString(UtilXml.childElementValue(element, "version"));

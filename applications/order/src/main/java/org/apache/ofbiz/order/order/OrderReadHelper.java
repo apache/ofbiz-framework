@@ -3592,7 +3592,8 @@ public class OrderReadHelper {
         for (GenericValue orderAdjustment : orderHeaderAdjustments) {
             BigDecimal returnedAmount = BigDecimal.ZERO;
             try {
-                List<GenericValue> returnAdjustments = EntityQuery.use(orderHeader.getDelegator()).from("ReturnAdjustment").where("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")).queryList();
+                List<GenericValue> returnAdjustments = EntityQuery.use(orderHeader.getDelegator()).from("ReturnAdjustment")
+                        .where("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")).queryList();
                 if (UtilValidate.isNotEmpty(returnAdjustments)) {
                     for (GenericValue returnAdjustment : returnAdjustments) {
                         returnedAmount = returnedAmount.add(returnAdjustment.getBigDecimal("amount"));

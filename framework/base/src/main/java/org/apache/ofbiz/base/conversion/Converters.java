@@ -31,7 +31,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 
 /** A <code>Converter</code> factory and repository. */
 @SourceMonitored
-public class Converters {
+public final class Converters {
     private static final String MODULE = Converters.class.getName();
     private static final String DELIMITER = "->";
     private static final ConcurrentHashMap<String, Converter<?, ?>> CONVERTER_MAP = new ConcurrentHashMap<>();

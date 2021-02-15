@@ -264,7 +264,7 @@ public final class WidgetWorker {
      * @return
      */
     public static ScreenRenderer.ScreenStack getScreenStack(Map<String, Object> context) {
-        if (! context.containsKey("screenStack")) {
+        if (!context.containsKey("screenStack")) {
             context.put("screenStack", new ScreenRenderer.ScreenStack());
         }
         return (ScreenRenderer.ScreenStack) context.get("screenStack");

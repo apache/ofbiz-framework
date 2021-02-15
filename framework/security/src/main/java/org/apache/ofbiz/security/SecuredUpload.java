@@ -234,6 +234,7 @@ public class SecuredUpload {
         File file = new File(fileName);
         boolean safeState = false;
         boolean fallbackOnApacheCommonsImaging;
+
         if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
             try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE)) {
                 // Get the image format

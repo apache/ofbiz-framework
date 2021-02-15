@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.lang.ThreadSafe;
  *
  */
 @ThreadSafe
-public class Assert {
+public final class Assert {
 
     /**
      * Tests if an argument is not null and can be cast to a specified class.

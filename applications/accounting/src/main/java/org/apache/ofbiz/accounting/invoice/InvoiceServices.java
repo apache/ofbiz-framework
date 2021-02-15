@@ -1051,7 +1051,8 @@ public class InvoiceServices {
                             if (!commissionParties.containsKey(partyIdFromTo)) {
                                 commissionParties.put(partyIdFromTo, UtilMisc.toList(commissionMap));
                             } else {
-                                (commissionParties.get(partyIdFromTo)).add(commissionMap);
+                                List<Map<String, Object>> commissionPartiesPartyIdFromTo = commissionParties.get(partyIdFromTo);
+                                commissionPartiesPartyIdFromTo.add(commissionMap);
                             }
                         }
                     }
@@ -3795,8 +3796,8 @@ public class InvoiceServices {
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemTypeId"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory invoice item type missing for invoice: "
                                     + currentInvoiceId);
-                        } else if (EntityQuery.use(delegator).from("InvoiceItemType").where("invoiceItemTypeId", invoiceItem.get("invoiceItemTypeId"
-                        )).queryOne() == null) {
+                        } else if (EntityQuery.use(delegator).from("InvoiceItemType").where("invoiceItemTypeId",
+                                invoiceItem.get("invoiceItemTypeId")).queryOne() == null) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem Item type id: " + invoiceItem.get(
                                     "invoiceItemTypeId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get(
                                             "invoiceItemSeqId"));

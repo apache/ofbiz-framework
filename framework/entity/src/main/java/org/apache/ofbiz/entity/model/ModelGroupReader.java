@@ -160,7 +160,8 @@ public class ModelGroupReader implements Serializable {
                                     // utilTimer.timerString("  After entityEntityName -- " + i + " --");
                                     i++;
                                 }
-                            } while ((curChild = curChild.getNextSibling()) != null);
+                                curChild = curChild.getNextSibling();
+                            } while (curChild != null);
                         } else {
                             Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", MODULE);
                         }

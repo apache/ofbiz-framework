@@ -69,7 +69,7 @@ public final class ModelIndex extends ModelChild {
         String name = indexElement.getAttribute("name").intern();
         boolean unique = "true".equals(indexElement.getAttribute("unique"));
         String description = UtilXml.childElementValue(indexElement, "description");
-        List<Field>fields = Collections.emptyList();
+        List<Field> fields = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(indexElement, "index-field");
         if (!elementList.isEmpty()) {
             fields = new ArrayList<>(elementList.size());

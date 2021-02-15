@@ -55,7 +55,7 @@ import org.w3c.dom.Node;
  *
  */
 @SuppressWarnings("serial")
-public class ModelReader implements Serializable {
+public final class ModelReader implements Serializable {
 
     private static final String MODULE = ModelReader.class.getName();
     private static final UtilCache<String, ModelReader> READERS = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
@@ -257,7 +257,8 @@ public class ModelReader implements Serializable {
                                 } else if (isExtendEntity && curChild.getNodeType() == Node.ELEMENT_NODE) {
                                     tempExtendEntityElementList.add((Element) curChild);
                                 }
-                            } while ((curChild = curChild.getNextSibling()) != null);
+                                curChild = curChild.getNextSibling();
+                            } while (curChild != null);
                         } else {
                             Debug.logWarning("No child nodes found.", MODULE);
                         }

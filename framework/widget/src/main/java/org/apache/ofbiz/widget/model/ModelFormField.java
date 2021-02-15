@@ -90,7 +90,7 @@ import org.w3c.dom.Element;
  *
  * @see <code>widget-form.xsd</code>
  */
-public class ModelFormField {
+public final class ModelFormField {
 
     /*
      * ----------------------------------------------------------------------- *

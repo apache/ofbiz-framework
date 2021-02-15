@@ -348,8 +348,8 @@ public class ServiceEngineTestServices {
             }
         } catch (Exception e) {
             Debug.logError(e, "Error running sub-service with own tx: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxError", UtilMisc.toMap("errorString", e.toString())
-                    , locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestOwnTxError", UtilMisc.toMap("errorString", e.toString()),
+                    locale));
         }
 
         return ServiceUtil.returnSuccess();

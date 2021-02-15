@@ -1215,7 +1215,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public void updatePrice(LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
         // set basePrice using the calculateProductPrice service
-        if (product != null && isModifiedPrice == false) {
+        if (product != null && !isModifiedPrice) {
             try {
                 Map<String, Object> priceContext = new HashMap<>();
 

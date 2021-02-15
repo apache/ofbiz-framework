@@ -96,7 +96,7 @@ public class ContactMechWorker {
     }
     public static List<Map<String, Object>> getPartyContactMechValueMaps(Delegator delegator, String partyId, boolean showOld,
                                                                          String contactMechTypeId) {
-        Timestamp date = showOld? null: UtilDateTime.nowTimestamp();
+        Timestamp date = showOld ? null : UtilDateTime.nowTimestamp();
         return getPartyContactMechValueMaps(delegator, partyId, date, contactMechTypeId);
     }
     public static List<Map<String, Object>> getPartyContactMechValueMaps(Delegator delegator, String partyId, Timestamp date,
@@ -161,7 +161,7 @@ public class ContactMechWorker {
     }
     public static List<Map<String, Object>> getFacilityContactMechValueMaps(Delegator delegator, String facilityId, boolean showOld,
                                                                             String contactMechTypeId) {
-        Timestamp date = showOld? UtilDateTime.nowTimestamp(): null;
+        Timestamp date = showOld ? UtilDateTime.nowTimestamp() : null;
         return getFacilityContactMechValueMaps(delegator, facilityId, date, contactMechTypeId);
     }
     public static List<Map<String, Object>> getFacilityContactMechValueMaps(Delegator delegator, String facilityId, Timestamp date,

@@ -47,8 +47,8 @@ public class SshFtpClient implements FtpClientInterface {
 
     @Override
     public void connect(String hostname, String username, String password, Long port, Long timeout) throws IOException {
-        if (port == null) port = 22l;
-        if (timeout == null) timeout = 10000l;
+        if (port == null) port = 22L;
+        if (timeout == null) timeout = 10000L;
 
         if (sftp != null) return;
         ClientSession session = client.connect(username, hostname, port.intValue()).verify(timeout.intValue()).getSession();

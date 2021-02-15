@@ -118,7 +118,7 @@ public final class UelUtil {
         ve.setValue(elContext, null);
     }
 
-    private static class BasicContext extends ELContext {
+    private static final class BasicContext extends ELContext {
         private final Map<String, Object> variables;
         private final VariableMapper variableMapper;
         private BasicContext(Map<String, Object> context) {
@@ -139,7 +139,7 @@ public final class UelUtil {
         }
     }
 
-    private static class ReadOnlyContext extends ELContext {
+    private static final class ReadOnlyContext extends ELContext {
         private final Map<String, ? extends Object> variables;
         private final VariableMapper variableMapper;
         private ReadOnlyContext(Map<String, ? extends Object> context) {
@@ -158,7 +158,7 @@ public final class UelUtil {
         public VariableMapper getVariableMapper() {
             return this.variableMapper;
         }
-        private static class ReadOnlyVariableMapper extends VariableMapper {
+        private static final class ReadOnlyVariableMapper extends VariableMapper {
             private final ReadOnlyContext elContext;
             private ReadOnlyVariableMapper(ReadOnlyContext elContext) {
                 this.elContext = elContext;
@@ -178,7 +178,7 @@ public final class UelUtil {
         }
     }
 
-    private static class BasicVariableMapper extends VariableMapper {
+    private static final class BasicVariableMapper extends VariableMapper {
         private final BasicContext elContext;
         private BasicVariableMapper(BasicContext elContext) {
             this.elContext = elContext;
@@ -209,7 +209,7 @@ public final class UelUtil {
     }
 
     @SuppressWarnings("serial")
-    private static class ReadOnlyExpression extends ValueExpression {
+    private static final class ReadOnlyExpression extends ValueExpression {
         private final Object object;
         private ReadOnlyExpression(Object object) {
             this.object = object;
@@ -270,7 +270,7 @@ public final class UelUtil {
     }
 
     @SuppressWarnings("serial")
-    private static class BasicValueExpression extends ValueExpression {
+    private static final class BasicValueExpression extends ValueExpression {
         private final BasicContext elContext;
         private final String varName;
         private BasicValueExpression(String varName, BasicContext elContext) {
@@ -352,7 +352,7 @@ public final class UelUtil {
     /** Custom <code>ListELResolver</code> used to handle OFBiz
      * <code>List</code> syntax.
      */
-    private static class ExtendedListResolver extends ListELResolver {
+    private static final class ExtendedListResolver extends ListELResolver {
         private boolean isReadOnly;
         private ExtendedListResolver(boolean isReadOnly) {
             super(isReadOnly);
@@ -403,7 +403,7 @@ public final class UelUtil {
     /** Custom <code>MapELResolver</code> class used to accommodate
      * <code>LocalizedMap</code> instances.
      */
-    private static class ExtendedMapResolver extends MapELResolver {
+    private static final class ExtendedMapResolver extends MapELResolver {
         private ExtendedMapResolver(boolean isReadOnly) {
             super(isReadOnly);
         }

@@ -45,7 +45,7 @@ import com.ibm.icu.util.Calendar;
  * <p>Handles total stats since the server started and binned
  *  stats according to settings in the serverstats.properties file.
  */
-public class ServerHitBin {
+public final class ServerHitBin {
     // Debug MODULE name
     private static final String MODULE = ServerHitBin.class.getName();
 
