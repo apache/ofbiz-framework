@@ -1867,7 +1867,7 @@ public class ShoppingCartEvents {
                             || "ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
                         request.setAttribute("product_id", productId);
                         request.setAttribute("_EVENT_MESSAGE_",
-                                UtilProperties.getMessage(RES_ERROR, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
+                                UtilProperties.getMessage(resource_error, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
                         return "product";
                     }
                 }
