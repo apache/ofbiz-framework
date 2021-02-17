@@ -310,12 +310,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String name = link.getName(context);
         String text = link.getText(context);
         if (UtilValidate.isNotEmpty(target)) {
-            if (!"hidden-form".equals(linkType)) {
-                final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), link.getParameterMap(context),
-                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
-                        request, response);
-                linkUrl = uri.toString();
-            }
+            linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
         }
         String imgStr = "";
         ModelScreenWidget.ScreenImage img = link.getImage();

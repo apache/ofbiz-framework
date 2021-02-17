@@ -138,20 +138,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         return htmlString.replaceAll("\"", "\\\\\"");
     }
 
-    /**
-     * Extracts parameters from a target URL string, prepares them for an Ajax
-     * JavaScript call. This method is currently set to return a parameter string
-     * suitable for the Prototype.js library.
-     * @param target Target URL string
-     * @return Parameter string
-     */
-    public static String getAjaxParamsFromTarget(String target) {
-        String targetParams = UtilHttp.getQueryStringFromTarget(target);
-        targetParams = targetParams.replace("?", "");
-        targetParams = targetParams.replace("&amp;", "&");
-        return targetParams;
-    }
-
     public boolean getRenderPagination() {
         return this.renderPagination;
     }
@@ -1023,7 +1009,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, "", context);
         }
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
@@ -2118,7 +2104,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendContentUrl(imgSrc, "/images/fieldlookup.gif");
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, "", context);
         }
         String lookupPresentation = lookupField.getLookupPresentation();
         if (UtilValidate.isEmpty(lookupPresentation)) {
@@ -2342,7 +2328,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String ajaxLastUrl = "";
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxFirstUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
+                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 firstUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2350,7 +2336,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxPreviousUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
+                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 previousUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2359,7 +2345,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
+                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
@@ -2371,7 +2357,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Next button
         if (highIndex < listSize) {
             if (ajaxEnabled) {
-                ajaxNextUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
+                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 nextUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2381,7 +2367,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (highIndex < listSize) {
             int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
             if (ajaxEnabled) {
-                ajaxLastUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context);
+                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context);
             } else {
                 linkText = prepLinkText + lastIndex + anchor;
                 lastUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2390,7 +2376,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page size select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectSizeUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkSizeText + anchor, context);
+                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkSizeText + anchor, context);
             } else {
                 linkText = prepLinkSizeText;
                 if (linkText.startsWith("/")) {
@@ -2834,7 +2820,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         UtilHttp.canonicalizeParameterMap(paramMap);
         String linkUrl = null;
         if (ajaxEnabled) {
-            linkUrl = createAjaxParamsFromUpdateAreas(updateAreas, paramMap, null, context);
+            linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, null, context);
         } else {
             StringBuilder sb = new StringBuilder("?");
             Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();
@@ -2870,110 +2856,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append(" />");
         executeMacro(writer, sr.toString());
-    }
-
-    /**
-     * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
-     * <code>OfbizUtil.js</code>.
-     * @param updateAreas
-     * @param extraParams Renderer-supplied additional target parameters
-     * @param context
-     * @return Parameter string or empty string if no UpdateArea objects were found
-     */
-    private String createAjaxParamsFromUpdateAreas(List<ModelForm.UpdateArea> updateAreas, Map<String, Object> extraParams,
-                                                   String anchor, Map<String, ? extends Object> context) {
-        StringBuilder sb = new StringBuilder();
-        Iterator<ModelForm.UpdateArea> updateAreaIter = updateAreas.iterator();
-        while (updateAreaIter.hasNext()) {
-            ModelForm.UpdateArea updateArea = updateAreaIter.next();
-            sb.append(updateArea.getAreaId()).append(",");
-            String ajaxTarget = updateArea.getAreaTarget(context);
-            String urlPath = UtilHttp.removeQueryStringFromTarget(ajaxTarget);
-            sb.append(this.rh.makeLink(this.request, this.response, urlPath)).append(",");
-            String queryString = UtilHttp.getQueryStringFromTarget(ajaxTarget).replace("?", "");
-            Map<String, Object> parameters = UtilHttp.getQueryStringOnlyParameterMap(queryString);
-            Map<String, Object> ctx = UtilGenerics.cast(context);
-            Map<String, Object> updateParams = UtilGenerics.cast(updateArea.getParameterMap(ctx));
-            parameters.putAll(updateParams);
-            UtilHttp.canonicalizeParameterMap(parameters);
-            parameters.putAll(extraParams);
-            Iterator<Map.Entry<String, Object>> paramIter = parameters.entrySet().iterator();
-            while (paramIter.hasNext()) {
-                Map.Entry<String, Object> entry = paramIter.next();
-                sb.append(entry.getKey()).append("=").append(entry.getValue());
-                if (paramIter.hasNext()) {
-                    sb.append("&");
-                }
-            }
-            if (anchor != null) {
-                sb.append("#").append(anchor);
-            }
-            if (updateAreaIter.hasNext()) {
-                sb.append(",");
-            }
-        }
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        return FlexibleStringExpander.expandString(sb.toString(), context, locale);
-    }
-
-    /**
-     * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
-     * <code>OfbizUtil.js</code>.
-     * @param updateAreas
-     * @param extraParams Renderer-supplied additional target parameters
-     * @param context
-     * @return Parameter string or empty string if no UpdateArea objects were found
-     */
-    public String createAjaxParamsFromUpdateAreas(List<ModelForm.UpdateArea> updateAreas, String extraParams, Map<String, ? extends Object> context) {
-        //FIXME copy from HtmlFormRenderer.java
-        if (updateAreas == null) {
-            return "";
-        }
-        String ajaxUrl = "";
-        boolean firstLoop = true;
-        for (ModelForm.UpdateArea updateArea : updateAreas) {
-            if (firstLoop) {
-                firstLoop = false;
-            } else {
-                ajaxUrl += ",";
-            }
-            Map<String, Object> ctx = UtilGenerics.cast(context);
-            Map<String, String> parameters = updateArea.getParameterMap(ctx);
-            String targetUrl = updateArea.getAreaTarget(context);
-            String ajaxParams;
-            StringBuffer ajaxParamsBuffer = new StringBuffer();
-            ajaxParamsBuffer.append(getAjaxParamsFromTarget(targetUrl));
-            //add first parameters from updateArea parameters
-            if (UtilValidate.isNotEmpty(parameters)) {
-                for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                    String key = entry.getKey();
-                    String value = entry.getValue();
-                    //test if ajax parameters are not already into extraParams, if so do not add it
-                    if (UtilValidate.isNotEmpty(extraParams) && extraParams.contains(value)) {
-                        continue;
-                    }
-                    if (ajaxParamsBuffer.length() > 0 && ajaxParamsBuffer.indexOf(key) < 0) {
-                        ajaxParamsBuffer.append("&");
-                    }
-                    if (ajaxParamsBuffer.indexOf(key) < 0) {
-                        ajaxParamsBuffer.append(key).append("=").append(value);
-                    }
-                }
-            }
-            //then add parameters from request. Those parameters could end with an anchor so we must set ajax parameters first
-            if (UtilValidate.isNotEmpty(extraParams)) {
-                if (ajaxParamsBuffer.length() > 0 && !extraParams.startsWith("&")) {
-                    ajaxParamsBuffer.append("&");
-                }
-                ajaxParamsBuffer.append(extraParams);
-            }
-            ajaxParams = ajaxParamsBuffer.toString();
-            ajaxUrl += updateArea.getAreaId() + ",";
-            ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
-            ajaxUrl += "," + ajaxParams;
-        }
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        return FlexibleStringExpander.expandString(ajaxUrl, context, locale);
     }
 
     private void appendTooltip(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
