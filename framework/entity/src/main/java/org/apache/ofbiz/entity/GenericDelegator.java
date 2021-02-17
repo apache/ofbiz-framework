@@ -103,7 +103,7 @@ public class GenericDelegator implements Delegator {
      * and should improve overall stability and consistency */
     private static final boolean ALWAYS_USE_TRANS = true;
     // TODO should this is be handled by tenant?
-    private static final boolean SAVE_ENTITY_SYNC_REMOVE_INFO = UtilProperties.getPropertyAsBoolean("general", "saveEntitySyncRemove", false);
+    private static final boolean SAVE_ENTITY_SYNC_REMOVE_INFO = UtilProperties.getPropertyAsBoolean("general", "saveEntitySyncRemoveInfo", false);
 
     private String delegatorBaseName = null;
     private String delegatorFullName = null;
