@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
@@ -33,9 +34,8 @@ if (parameters.productAssocTypeId) {
     cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId)
     condList.add(cond)
 } else {
-    cond = EntityCondition.makeCondition([EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "ENGINEER_COMPONENT"),
-                                          EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "MANUF_COMPONENT")
-                                          ], EntityOperator.OR)
+    bomAssocTypeIds = EntityUtil.getFieldListFromEntityList(select("productAssocTypeId").from("ProductAssocType").where("parentTypeId", "PRODUCT_COMPONENT").queryList(), "productAssocTypeId", true)
+    cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.IN, bomAssocTypeIds)
     condList.add(cond)
 }
 bomListIterator = select("productId", "internalName", "productAssocTypeId")
