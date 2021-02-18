@@ -21,6 +21,7 @@ package org.apache.ofbiz.securityext.login;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -57,8 +58,6 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.LoginWorker;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * LoginEvents - Events for UserLogin and Security handling.
