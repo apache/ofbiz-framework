@@ -281,13 +281,12 @@ public class ObjectType {
         if (obj == null || UtilValidate.isEmpty(type) || "Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
         }
-        if ("PlainString".equals(type)) {
+        if ("PlainString".equals(type)
+                || ("org.codehaus.groovy.runtime.GStringImpl".equals(obj.getClass().getName()) && "String".equals(type))) {
             return obj.toString();
         }
         if (obj instanceof Node) {
             Node node = (Node) obj;
-
-
             String nodeValue = node.getTextContent();
 
             if (nodeValue == null) {
