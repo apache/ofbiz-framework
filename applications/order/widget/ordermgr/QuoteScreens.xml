@@ -246,7 +246,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.OrderOrderQuoteEdit}">
+                        <screenlet title="${groovy: parameters.quoteId ? uiLabelMap.OrderOrderQuoteEdit : uiLabelMap.OrderNewQuote}">
                             <include-form name="EditQuote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
