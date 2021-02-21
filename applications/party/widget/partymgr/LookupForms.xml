@@ -493,4 +493,11 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
     </form>
+    <form name="LookupGovernmentAgency" type="single" target="LookupGovernmentAgency" default-table-style="basic-table">
+        <field name="roleTypeId"><hidden value="GOV_AGENCY"/></field>
+        <field name="partyId"><text-find/></field>
+        <field name="groupName"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
 </forms>

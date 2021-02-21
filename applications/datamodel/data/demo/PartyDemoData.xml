@@ -118,4 +118,9 @@ under the License.
     <UserLogin userLoginId="auditor" partyId="DemoAuditor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="auditor" fromDate="2001-01-01 12:00:00.0"/>
     
+    <!-- Government Agency Demo Data -->
+    <Party partyId="DemoGovAgency" statusId="PARTY_ENABLED" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="DemoGovAgency" groupName="Demo Government Agency"/>
+    <PartyRole partyId="DemoGovAgency" roleTypeId="GOV_AGENCY"/>
+
 </entity-engine-xml>

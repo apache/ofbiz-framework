@@ -8202,6 +8202,18 @@
         <value xml:lang="zh">查找联系方法</value>
         <value xml:lang="zh-TW">尋找聯絡方法</value>
     </property>
+    <property key="PartyLookupGovernmentAgency">
+        <value xml:lang="ar">إيجاد وكالة حكومية</value>
+        <value xml:lang="de">Regierungsbehörde nachschlagen</value>
+        <value xml:lang="en">Lookup Government Agency</value>
+        <value xml:lang="hi-IN">सरकारी शाखा लुकअप</value>
+        <value xml:lang="it">Ricerca agenzia governativa</value>
+        <value xml:lang="ja">政府機関を探す</value>
+        <value xml:lang="pt-BR">Buscar Agência Governamental</value>
+        <value xml:lang="vi">Tìm một cơ quan chính phủ</value>
+        <value xml:lang="zh">寻找政府机构</value>
+        <value xml:lang="zh-TW">尋找政府機構</value>
+    </property>
     <property key="PartyLookupInternalOrganization">
         <value xml:lang="ar">إيجاد منظمة داخلية</value>
         <value xml:lang="de">Interne Organisation suchen</value>
