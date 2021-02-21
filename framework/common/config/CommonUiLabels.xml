@@ -25,7 +25,7 @@
         <value xml:lang="en">Accounting - AP</value>
         <value xml:lang="es">Compras</value>
         <value xml:lang="es-MX">Compras</value>
-        <value xml:lang="fr">Cpt. fourn.</value>
+        <value xml:lang="fr">Comptabilité fournisseurs</value>
         <value xml:lang="hi-IN">लेखा देय</value>
         <value xml:lang="it">AP</value>
         <value xml:lang="ja">買掛(AP)</value>
@@ -43,7 +43,7 @@
         <value xml:lang="en">Accounting - AR</value>
         <value xml:lang="es">Ventas</value>
         <value xml:lang="es-MX">Ventas</value>
-        <value xml:lang="fr">Cpt. clients</value>
+        <value xml:lang="fr">Comptabilité clients</value>
         <value xml:lang="hi-IN">लेखा प्राप्य</value>
         <value xml:lang="it">AR</value>
         <value xml:lang="ja">売掛(AR)</value>
@@ -103,7 +103,7 @@
         <value xml:lang="es">Información de negocio</value>
         <value xml:lang="es-CL">Inteligencia de Negocio</value>
         <value xml:lang="es-MX">Inteligencia de Negocio</value>
-        <value xml:lang="fr">Informat. décis.</value>
+        <value xml:lang="fr">Informatique décisionelle</value>
         <value xml:lang="hi-IN">व्यापार बुद्धिमत्ता</value>
         <value xml:lang="it">Business intelligence</value>
         <value xml:lang="ja">ビジネスインテリジェンス(BI)</value>
@@ -15104,7 +15104,7 @@
         <value xml:lang="en">HR</value>
         <value xml:lang="es">RR.HH.</value>
         <value xml:lang="es-MX">Recursos Humanos</value>
-        <value xml:lang="fr">Ress. hum.</value>
+        <value xml:lang="fr">Ressources humaines</value>
         <value xml:lang="hi-IN">मानव संसाधन(HR)</value>
         <value xml:lang="it">Risorse umane</value>
         <value xml:lang="ja">人事(HR)</value>
@@ -15156,7 +15156,7 @@
         <value xml:lang="es">Gerente de TICs</value>
         <value xml:lang="es-CL">Es Mgr</value>
         <value xml:lang="es-MX">Gerente de TICs</value>
-        <value xml:lang="fr">Parc info.</value>
+        <value xml:lang="fr">Parc informatique</value>
         <value xml:lang="hi-IN">प्रबंधक है</value>
         <value xml:lang="it">Parco infor.</value>
         <value xml:lang="ja">情報管理者</value>
@@ -15758,7 +15758,7 @@
         <value xml:lang="es">Herramientas web</value>
         <value xml:lang="es-CL">Herramientas Web</value>
         <value xml:lang="es-MX">Herramientas Web</value>
-        <value xml:lang="fr">Adm. Sys.</value>
+        <value xml:lang="fr">Administration du système</value>
         <value xml:lang="hi-IN">वेब टूल्स</value>
         <value xml:lang="it">Strumenti web</value>
         <value xml:lang="ja">Webツール</value>
