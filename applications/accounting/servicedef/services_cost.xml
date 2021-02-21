@@ -81,8 +81,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="updateProductAverageCostOnReceiveInventory" default-entity-name="ProductAverageCost" engine="simple" 
-            location="component://product/minilang/product/cost/CostServices.xml" invoke="updateProductAverageCostOnReceiveInventory" auth="true">
+    <service name="updateProductAverageCostOnReceiveInventory" default-entity-name="ProductAverageCost" engine="groovy" 
+            location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="updateProductAverageCostOnReceiveInventory" auth="true">
         <description>Update a Product Average Cost record on receive inventory</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="UPDATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -91,8 +91,8 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="getProductAverageCost" engine="simple" 
-            location="component://product/minilang/product/cost/CostServices.xml" invoke="getProductAverageCost" auth="true">
+    <service name="getProductAverageCost" engine="groovy" 
+            location="component://product/groovyScripts/product/cost/CostServices.groovy" invoke="getProductAverageCost" auth="true">
         <description>Get Average cost of a product</description>
         <attribute name="inventoryItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="unitCost" type="BigDecimal" mode="OUT" optional="false"/>
