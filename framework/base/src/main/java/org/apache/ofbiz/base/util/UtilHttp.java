@@ -161,8 +161,9 @@ public final class UtilHttp {
         // If nothing is found in the parameters, try to find something in the multi-part map.
         Map<String, Object> multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
         params.putAll(multiPartMap);
-        req.setAttribute("multiPartMap", multiPartMap);
-
+        if (req.getAttribute("multiPartMap") == null) {
+            req.setAttribute("multiPartMap", multiPartMap);
+        }
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", MODULE);
         }
