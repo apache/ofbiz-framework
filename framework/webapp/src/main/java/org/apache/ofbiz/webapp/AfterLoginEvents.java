@@ -18,6 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -27,13 +35,6 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class AfterLoginEvents {
 
@@ -52,7 +53,7 @@ public class AfterLoginEvents {
 
     public static String showLastVisit(HttpServletRequest request, HttpServletResponse response) {
 
-        boolean show = UtilProperties.getPropertyAsBoolean("security", "afterlogin.lastvisit.show", true);
+        boolean show = UtilProperties.getPropertyAsBoolean("security", "afterlogin.lastvisit.show", false);
         if (!show) {
             return "success";
         }
