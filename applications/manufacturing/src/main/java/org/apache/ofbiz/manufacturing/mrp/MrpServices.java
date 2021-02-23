@@ -475,7 +475,8 @@ public class MrpServices {
                             continue;
                         }
                         eventQuantityTmp = eventQuantityTmp.negate();
-                        parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getDate("fromDate"), "mrpEventTypeId", "SALES_FORECAST");
+                        parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getTimestamp("fromDate"),
+                                "mrpEventTypeId", "SALES_FORECAST");
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, sfd.getString("salesForecastDetailId"), false, delegator);
                         } catch (GenericEntityException e) {
