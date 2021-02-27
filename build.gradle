@@ -152,7 +152,6 @@ allprojects {
             // com.springsource.com.sun.syndication
             url "https://repo.spring.io/plugins-release"
         }
-
     }
 }
 
