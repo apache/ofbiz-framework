@@ -21,6 +21,10 @@ under the License.
 The Apache OFBiz Project
 Release trunk
 
+CAUTION: This feature is for now disabled. You may use it locally if you want...
+
+
+
 https://docs.gradle.org/current/userguide/dependency_verification.html[Here is the Gradle documentation about dependency verification]
 
 As it's a long read you might prefer this summary:
