@@ -35,7 +35,7 @@ under the License.
     </#if>
 
     <#if sendingPartyTaxId?? || phone?? || email?? || website?? || eftAccount??>
-    <fo:list-block provisional-distance-between-starts=".5in">
+    <fo:list-block provisional-distance-between-starts="1in">
         <#if sendingPartyTaxId??>
         <fo:list-item>
             <fo:list-item-label>
