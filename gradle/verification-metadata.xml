@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <verification-metadata xmlns="https://schema.gradle.org/dependency-verification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://schema.gradle.org/dependency-verification https://schema.gradle.org/dependency-verification/dependency-verification-1.0.xsd">
    <configuration>
-      <verify-metadata>true</verify-metadata>
-      <verify-signatures>true</verify-signatures>
+      <verify-metadata>false</verify-metadata>
+      <verify-signatures>false</verify-signatures>
       <trusted-keys>
          <trusted-key id="0143e2aa6983731f9d1dd82a2184c00abbcd7e0e" group="org.locationtech.spatial4j" name="spatial4j" version="0.7"/>
          <trusted-key id="015479e1055341431b4545ab72475fd306b9cab7" group="com.googlecode.javaewah" name="JavaEWAH" version="0.7.9"/>
