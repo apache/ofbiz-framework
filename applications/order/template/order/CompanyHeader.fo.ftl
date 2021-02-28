@@ -35,74 +35,46 @@ under the License.
     </#if>
 
     <#if sendingPartyTaxId?? || phone?? || email?? || website?? || eftAccount??>
-    <fo:list-block provisional-distance-between-starts=".5in">
         <#if sendingPartyTaxId??>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.PartyTaxId}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${sendingPartyTaxId}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            <fo:block>${uiLabelMap.PartyTaxId}: ${sendingPartyTaxId}</fo:block>
         </#if>
         <#if phone??>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.CommonTelephoneAbbr}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block><#if phone.countryCode??>${phone.countryCode}-</#if><#if phone.areaCode??>${phone.areaCode}-</#if>${phone.contactNumber!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            <fo:block>${uiLabelMap.CommonTelephoneAbbr}: <#if phone.countryCode??>${phone.countryCode}-</#if><#if phone.areaCode??>${phone.areaCode}-</#if>${phone.contactNumber!}</fo:block>
         </#if>
         <#if email??>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.CommonEmail}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${email.infoString!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            <fo:block>${uiLabelMap.CommonEmail}: ${email.infoString!}</fo:block>
         </#if>
         <#if website??>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.CommonWebsite}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${website.infoString!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            <fo:block>${uiLabelMap.CommonWebsite}: ${website.infoString!}</fo:block>
         </#if>
         <#if eftAccount??>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.CommonFinBankName}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${eftAccount.bankName!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.CommonRouting}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${eftAccount.routingNumber!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
-        <fo:list-item>
-            <fo:list-item-label>
-                <fo:block>${uiLabelMap.CommonBankAccntNrAbbr}:</fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>${eftAccount.accountNumber!}</fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            <fo:list-block provisional-distance-between-starts=".5in">
+                <fo:list-item>
+                    <fo:list-item-label>
+                        <fo:block>${uiLabelMap.CommonFinBankName}:</fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block>${eftAccount.bankName!}</fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+                <fo:list-item>
+                    <fo:list-item-label>
+                        <fo:block>${uiLabelMap.CommonRouting}:</fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block>${eftAccount.routingNumber!}</fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+                <fo:list-item>
+                    <fo:list-item-label>
+                        <fo:block>${uiLabelMap.CommonBankAccntNrAbbr}:</fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block>${eftAccount.accountNumber!}</fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+            </fo:list-block>
         </#if>
-    </fo:list-block>
     </#if>
 </fo:block>
 </#escape>
