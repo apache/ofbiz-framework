@@ -76,6 +76,7 @@ under the License.
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFinAccount" also-hidden="false">
                 <parameter param-name="finAccountId"/>
+                <parameter param-name="thruDate" value="${nowTimestamp}"/>
             </hyperlink>
         </field>
     </form>
