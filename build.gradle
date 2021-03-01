@@ -1,3 +1,4 @@
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -199,10 +200,10 @@ dependencies {
     compile 'org.apache.sshd:sshd-core:1.7.0'
     compile 'org.apache.tika:tika-core:1.24.1'
     compile 'org.apache.tika:tika-parsers:1.24.1'
-    compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.36'
-    compile 'org.apache.tomcat:tomcat-catalina:9.0.36'
-    compile 'org.apache.tomcat:tomcat-jasper:9.0.36'
-    compile 'org.apache.tomcat:tomcat-tribes:9.0.36'
+    compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.43'
+    compile 'org.apache.tomcat:tomcat-catalina:9.0.43'
+    compile 'org.apache.tomcat:tomcat-jasper:9.0.43'
+    compile 'org.apache.tomcat:tomcat-tribes:9.0.43'
     compile 'org.apache.xmlgraphics:fop:2.3'
     compile 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     compile 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
