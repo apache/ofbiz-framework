@@ -69,7 +69,8 @@ you can download from the below link. Make sure of setting the $JAVA_HOME
 environment variable.
 
 __________________________________________________________________________________________________________________________________________
-_Note_: Warning: on Windows don't put OFBiz in a directory with space/s in the path.__________________________________________________________________________________________________________________________________________
+_Note_: Warning: on Windows don't put OFBiz in a directory with space/s in the path.
+__________________________________________________________________________________________________________________________________________
 
 
 https://adoptopenjdk.net/[JDK download]
