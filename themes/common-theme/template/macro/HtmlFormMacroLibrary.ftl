@@ -197,7 +197,7 @@ under the License.
       <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
         <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
         <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked>
-          <#elseif currentValue?has_content && currentValue==item.value> checked="checked"</#if> 
+          <#elseif item.checked?has_content && item.checked?boolean> checked="checked"</#if>
           name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
         ${item.description?default("")}
     </span>

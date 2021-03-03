@@ -300,7 +300,7 @@ public class MacroFormRendererTest {
         assertAndGetMacroString("renderCheckField", ImmutableMap.of(
                 "currentValue", "KEY2",
                 "items", ImmutableList.of("{'value':'KEY1', 'description':'DESC1'}",
-                        "{'value':'KEY2', 'description':'DESC2'}")));
+                        "{'value':'KEY2', 'description':'DESC2', 'checked':'true'}")));
     }
 
     @Test
