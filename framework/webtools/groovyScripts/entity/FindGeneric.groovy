@@ -22,6 +22,8 @@ import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelFieldType
 import org.apache.ofbiz.entity.model.ModelReader
+import org.apache.ofbiz.entity.model.ModelViewEntity
+import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias
 import org.apache.ofbiz.widget.model.FormFactory
 import org.apache.ofbiz.widget.model.ModelForm
 import org.apache.ofbiz.widget.renderer.FormRenderer
@@ -36,6 +38,8 @@ try {
 }
 
 if (modelEntity) {
+    List<String> fieldsToSelect = getFieldsToSelect(modelEntity)
+
     entityName = modelEntity.entityName
     context.entityName = entityName
     ModelReader entityModelReader = delegator.getModelReader()
@@ -90,7 +94,12 @@ if (modelEntity) {
             <actions>
                 <service service-name="performFind">
                     <field-map field-name="inputFields" from-field="parameters"/>
-                    <field-map field-name="entityName" value="${entityName}"/>
+                    <field-map field-name="entityName" value="${entityName}"/>"""
+    if (fieldsToSelect) {
+    dynamicAutoEntityFieldListForm += """
+                    <field-map field-name="fieldList" value="${fieldsToSelect}"/>"""
+    }
+    dynamicAutoEntityFieldListForm += """
                     <field-map field-name="orderBy" from-field="parameters.sortField"/>
                 </service>
             </actions>
@@ -119,4 +128,33 @@ if (modelEntity) {
     Writer writerList = new StringWriter()
     dynamicAutoEntityListFormRenderer.render(writerList, context)
     context.dynamicAutoEntityListForm = writerList
+}
+
+def getFieldsToSelect(ModelEntity modelEntity) {
+    groupByFields = []
+    functionFields = []
+
+    if (modelEntity instanceof ModelViewEntity) {
+        aliases = modelEntity.getAliasesCopy()
+        for (ModelAlias alias : aliases) {
+            if (alias.getGroupBy()) {
+                groupByFields.add(alias.getName())
+            } else if (alias.getFunction()) {
+                functionFields.add(alias.getName())
+            }
+        }
+    }
+    List<String> fieldsToSelect = []
+
+    if (groupByFields || functionFields) {
+
+        for (String groupByField : groupByFields) {
+            fieldsToSelect.add(groupByField)
+        }
+
+        for (String functionField : functionFields) {
+            fieldsToSelect.add(functionField)
+        }
+    }
+    return fieldsToSelect
 }
