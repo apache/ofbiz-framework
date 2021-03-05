@@ -77,7 +77,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         GenericValue finAccount = from('FinAccount')
                 .where('finAccountId', '1002')
                 .queryOne()
-        assert finAccount == null
+        assert finAccount.thruDate != null
     }
 
     void testCreateFinAccountRole() {

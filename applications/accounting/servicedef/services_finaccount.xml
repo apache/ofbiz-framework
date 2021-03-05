@@ -48,7 +48,7 @@ under the License.
         <attribute name="replenishPaymentId" type="String" mode="OUT" optional="true"/>
         <attribute name="replenishLevel" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    <service name="deleteFinAccount" default-entity-name="FinAccount" engine="entity-auto" invoke="delete">
+    <service name="deleteFinAccount" default-entity-name="FinAccount" engine="entity-auto" invoke="expire">
         <description>Delete a Financial Account</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
