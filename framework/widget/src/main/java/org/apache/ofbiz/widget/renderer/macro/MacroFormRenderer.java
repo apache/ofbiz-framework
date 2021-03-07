@@ -2915,7 +2915,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         UtilCodec.SimpleEncoder simpleEncoder = null;
         String encodedDescription = null;
         if (description.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(description)))) {
-            simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            simpleEncoder = internalEncoder;
         } else {
             simpleEncoder = UtilCodec.getEncoder("string");
         }
