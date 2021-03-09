@@ -1,3 +1,4 @@
+## About
 Improved:
 Implemented:
 Documented:
@@ -6,6 +7,6 @@ Reverted:
 Fixed:
 (OFBIZ-)
 
-Explanation
+## Explanation
 
-Thanks:
+## Thanks:
