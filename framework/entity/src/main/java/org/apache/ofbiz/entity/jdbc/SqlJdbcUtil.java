@@ -18,14 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.jdbc;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
-import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -39,7 +35,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialClob;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -152,12 +147,16 @@ public final class SqlJdbcUtil {
                 // left hand alias after the first view-link has already been linked before
 
                 StringBuilder openParens = null;
-                if (useParenthesis) openParens = new StringBuilder();
+                if (useParenthesis) {
+                    openParens = new StringBuilder();
+                }
                 StringBuilder restOfStatement = new StringBuilder();
 
                 for (int i = 0; i < modelViewEntity.getViewLinksSize(); i++) {
                     // don't put starting parenthesis
-                    if (i > 0 && useParenthesis) openParens.append('(');
+                    if (i > 0 && useParenthesis) {
+                        openParens.append('(');
+                    }
 
                     ModelViewEntity.ModelViewLink viewLink = modelViewEntity.getViewLink(i);
 
@@ -171,7 +170,7 @@ public final class SqlJdbcUtil {
                     if (i == 0) {
                         // this is the first referenced member alias, so keep track of it for future use...
                         restOfStatement.append(makeViewTable(linkEntity, modelFieldTypeReader, datasourceInfo));
-                        //another possible one that some dbs might need, but not sure of any yet: restOfStatement.append(" AS ");
+                        // another possible one that some dbs might need, but not sure of any yet: restOfStatement.append(" AS ");
                         restOfStatement.append(" ");
                         restOfStatement.append(viewLink.getEntityAlias());
 
@@ -195,7 +194,7 @@ public final class SqlJdbcUtil {
                     }
 
                     restOfStatement.append(makeViewTable(relLinkEntity, modelFieldTypeReader, datasourceInfo));
-                    //another possible one that some dbs might need, but not sure of any yet: restOfStatement.append(" AS ");
+                    // another possible one that some dbs might need, but not sure of any yet: restOfStatement.append(" AS ");
                     restOfStatement.append(" ");
                     restOfStatement.append(viewLink.getRelEntityAlias());
                     restOfStatement.append(" ON ");
@@ -241,17 +240,23 @@ public final class SqlJdbcUtil {
 
                     if (viewEntityCondition != null) {
                         EntityCondition whereCondition = viewEntityCondition.getWhereCondition(modelFieldTypeReader, null);
-                        if (condBuffer.length() > 0) condBuffer.append(" AND ");
+                        if (condBuffer.length() > 0) {
+                            condBuffer.append(" AND ");
+                        }
                         condBuffer.append(whereCondition.makeWhereString(modelEntity, null, datasourceInfo));
                     }
 
                     restOfStatement.append(condBuffer.toString());
 
                     // don't put ending parenthesis
-                    if (i < (modelViewEntity.getViewLinksSize() - 1) && useParenthesis) restOfStatement.append(')');
+                    if (i < (modelViewEntity.getViewLinksSize() - 1) && useParenthesis) {
+                        restOfStatement.append(')');
+                    }
                 }
 
-                if (useParenthesis) sql.append(openParens.toString());
+                if (useParenthesis) {
+                    sql.append(openParens.toString());
+                }
                 sql.append(restOfStatement.toString());
 
                 // handle tables not included in view-link
@@ -260,7 +265,9 @@ public final class SqlJdbcUtil {
                     ModelEntity fromEntity = modelViewEntity.getMemberModelEntity(aliasName);
 
                     if (!joinedAliasSet.contains(aliasName)) {
-                        if (!fromEmpty) sql.append(", ");
+                        if (!fromEmpty) {
+                            sql.append(", ");
+                        }
                         fromEmpty = false;
 
                         sql.append(makeViewTable(fromEntity, modelFieldTypeReader, datasourceInfo));
@@ -268,7 +275,6 @@ public final class SqlJdbcUtil {
                         sql.append(aliasName);
                     }
                 }
-
 
             } else if ("theta-oracle".equals(datasourceInfo.getJoinStyle()) || "theta-mssql".equals(datasourceInfo.getJoinStyle())) {
                 // FROM clause
@@ -281,7 +287,9 @@ public final class SqlJdbcUtil {
                     sql.append(makeViewTable(fromEntity, modelFieldTypeReader, datasourceInfo));
                     sql.append(" ");
                     sql.append(aliasName);
-                    if (meIter.hasNext()) sql.append(", ");
+                    if (meIter.hasNext()) {
+                        sql.append(", ");
+                    }
                 }
 
                 // JOIN clause(s): none needed, all the work done in the where clause for theta-oracle
@@ -303,7 +311,7 @@ public final class SqlJdbcUtil {
     }
 
     public static StringBuilder makeWhereStringFromFields(StringBuilder sb, List<ModelField> modelFields, Map<String, Object> fields,
-                                                          String operator) {
+            String operator) {
         return makeWhereStringFromFields(sb, modelFields, fields, operator, null);
     }
 
@@ -312,7 +320,7 @@ public final class SqlJdbcUtil {
      */
     @Deprecated
     public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator,
-                                                   List<EntityConditionParam> entityConditionParams) {
+            List<EntityConditionParam> entityConditionParams) {
         return makeWhereStringFromFields(new StringBuilder(), modelFields, fields, operator, entityConditionParams).toString();
     }
 
@@ -320,7 +328,7 @@ public final class SqlJdbcUtil {
      * Makes a WHERE clause String with "&lt;col name&gt;=?" if not null or "&lt;col name&gt; IS null" if null, all AND separated
      */
     public static StringBuilder makeWhereStringFromFields(StringBuilder sb, List<ModelField> modelFields, Map<String, Object> fields,
-                                                          String operator, List<EntityConditionParam> entityConditionParams) {
+            String operator, List<EntityConditionParam> entityConditionParams) {
         if (modelFields.size() < 1) {
             return sb;
         }
@@ -358,7 +366,7 @@ public final class SqlJdbcUtil {
     }
 
     public static String makeWhereClause(ModelEntity modelEntity, List<ModelField> modelFields, Map<String, Object> fields, String operator,
-                                         String joinStyle) throws GenericEntityException {
+            String joinStyle) throws GenericEntityException {
         StringBuilder whereString = new StringBuilder("");
 
         if (UtilValidate.isNotEmpty(modelFields)) {
@@ -433,10 +441,14 @@ public final class SqlJdbcUtil {
 
                         // NOTE: not testing if original table is optional, ONLY if related table is optional; otherwise things get really ugly...
                         // if (isOracleStyle && linkMemberEntity.getOptional()) whereString.append(" (+) ");
-                        if (isMssqlStyle && viewLink.isRelOptional()) whereString.append("*");
+                        if (isMssqlStyle && viewLink.isRelOptional()) {
+                            whereString.append("*");
+                        }
                         whereString.append("=");
                         // if (isMssqlStyle && linkMemberEntity.getOptional()) whereString.append("*");
-                        if (isOracleStyle && viewLink.isRelOptional()) whereString.append(" (+) ");
+                        if (isOracleStyle && viewLink.isRelOptional()) {
+                            whereString.append(" (+) ");
+                        }
 
                         whereString.append(viewLink.getRelEntityAlias());
                         whereString.append(".");
@@ -461,7 +473,7 @@ public final class SqlJdbcUtil {
     public static String makeOrderByClause(ModelEntity modelEntity, List<String> orderBy, boolean includeTablenamePrefix, Datasource datasourceInfo)
             throws GenericModelException {
         StringBuilder sql = new StringBuilder("");
-        //String fieldPrefix = includeTablenamePrefix ? (modelEntity.getTableName(datasourceInfo) + ".") : "";
+        // String fieldPrefix = includeTablenamePrefix ? (modelEntity.getTableName(datasourceInfo) + ".") : "";
 
         if (UtilValidate.isNotEmpty(orderBy)) {
             if (Debug.verboseOn()) {
@@ -541,8 +553,7 @@ public final class SqlJdbcUtil {
     /* ====================================================================== */
 
     /**
-     * The elements (ModelFields) of the list are bound to an SQL statement
-     * (SQL-Processor)
+     * The elements (ModelFields) of the list are bound to an SQL statement (SQL-Processor)
      * @param sqlP
      * @param list
      * @param entity
@@ -556,8 +567,7 @@ public final class SqlJdbcUtil {
     }
 
     /**
-     * The elements (ModelFields) of the list are bound to an SQL statement
-     * (SQL-Processor), but values must not be null.
+     * The elements (ModelFields) of the list are bound to an SQL statement (SQL-Processor), but values must not be null.
      * @param sqlP
      * @param list
      * @param dummyValue
@@ -565,7 +575,7 @@ public final class SqlJdbcUtil {
      * @throws GenericEntityException
      */
     public static void setValuesWhereClause(SQLProcessor sqlP, List<ModelField> list, GenericValue dummyValue,
-                                            ModelFieldTypeReader modelFieldTypeReader)
+            ModelFieldTypeReader modelFieldTypeReader)
             throws GenericEntityException {
         for (ModelField curField : list) {
             // for where clause variables only setValue if not null...
@@ -576,8 +586,7 @@ public final class SqlJdbcUtil {
     }
 
     /**
-     * Get all primary keys from the model entity and bind their values
-     * to the an SQL statement (SQL-Processor)
+     * Get all primary keys from the model entity and bind their values to the an SQL statement (SQL-Processor)
      * @param sqlP
      * @param modelEntity
      * @param entity
@@ -659,8 +668,6 @@ public final class SqlJdbcUtil {
                         if (valueClob != null) {
                             valueReader = valueClob.getCharacterStream();
                         }
-
-                        //Reader valueReader = rs.getCharacterStream(ind);
                         if (valueReader != null) {
                             char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
                             StringBuilder strBuf = new StringBuilder();
@@ -700,47 +707,13 @@ public final class SqlJdbcUtil {
                     break;
 
                 case 11:
-                    Object obj = null;
-
-                    byte[] originalBytes = rs.getBytes(ind);
-                    obj = deserializeField(originalBytes, ind, curField);
-
-                    if (obj != null) {
-                        entity.dangerousSetNoCheckButFast(curField, obj);
-                    } else {
-                        entity.dangerousSetNoCheckButFast(curField, originalBytes);
-                    }
+                    entity.dangerousSetNoCheckButFast(curField, rs.getBytes(ind));
                     break;
+
                 case 12:
-                    Object originalObject;
-                    byte[] fieldBytes;
-                    try {
-                        Blob theBlob = rs.getBlob(ind);
-                        fieldBytes = theBlob != null ? theBlob.getBytes(1, (int) theBlob.length()) : null;
-                        originalObject = theBlob;
-                    } catch (SQLException e) {
-                        // for backward compatibility if getBlob didn't work try getBytes
-                        fieldBytes = rs.getBytes(ind);
-                        originalObject = fieldBytes;
-                    }
-
-                    if (originalObject != null) {
-                        // for backward compatibility, check to see if there is a serialized object and if so return that
-                        Object blobObject = deserializeField(fieldBytes, ind, curField);
-                        if (blobObject != null) {
-                            entity.dangerousSetNoCheckButFast(curField, blobObject);
-                        } else {
-                            if (originalObject instanceof Blob) {
-                                // NOTE using SerialBlob here instead of the Blob from the database to make sure we can pass it around,
-                                // serialize it, etc
-                                entity.dangerousSetNoCheckButFast(curField, new SerialBlob((Blob) originalObject));
-                            } else {
-                                entity.dangerousSetNoCheckButFast(curField, originalObject);
-                            }
-                        }
-                    }
-
+                    entity.dangerousSetNoCheckButFast(curField, rs.getBlob(ind));
                     break;
+
                 case 13:
                     entity.dangerousSetNoCheckButFast(curField, new SerialClob(rs.getClob(ind)));
                     break;
@@ -812,59 +785,6 @@ public final class SqlJdbcUtil {
         }
     }
 
-    private static Object deserializeField(byte[] fieldBytes, int ind, ModelField curField) throws GenericDataSourceException {
-        // NOTE DEJ20071022: the following code is to convert the byte[] back into an object; if that fails
-        //just return the byte[]; this was for the ByteWrapper thing which is now deprecated, so this may
-        //be removed in the near future to enhance performance
-        InputStream binaryInput = null;
-        if (fieldBytes != null && fieldBytes.length > 0) {
-            binaryInput = new ByteArrayInputStream(fieldBytes);
-        }
-
-        if (fieldBytes != null && fieldBytes.length <= 0) {
-            Debug.logWarning("Got bytes back for Object field with length: " + fieldBytes.length + " while getting value : " + curField.getName()
-                    + " [" + curField.getColName() + "] (" + ind + "): ", MODULE);
-        }
-
-        //alt 1: binaryInput = rs.getBinaryStream(ind);
-        //alt 2: Blob blobLocator = rs.getBlob(ind);
-        //if (blobLocator != null) {
-        //    binaryInput = blobLocator.getBinaryStream();
-        //}
-
-        if (binaryInput != null) {
-            ObjectInputStream in = null;
-            try {
-                in = new ObjectInputStream(binaryInput);
-                return in.readObject();
-            } catch (IOException ex) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Unable to read BLOB data from input stream while getting value : " + curField.getName() + " ["
-                            + curField.getColName() + "] (" + ind + "): " + ex.toString(), MODULE);
-                }
-                return null;
-            } catch (ClassNotFoundException ex) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Class not found: Unable to cast BLOB data to an Java object while getting value: " + curField.getName()
-                            + " [" + curField.getColName() + "] (" + ind + "); most likely because it is a straight byte[], "
-                            + "so just using the raw bytes" + ex.toString(), MODULE);
-                }
-                return null;
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        throw new GenericDataSourceException("Unable to close binary input stream while getting value : " + curField.getName() + " ["
-                                + curField.getColName() + "] (" + ind + "): " + e.toString(), e);
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
     public static void setValue(SQLProcessor sqlP, ModelField modelField, GenericEntity entity, ModelFieldTypeReader modelFieldTypeReader)
             throws GenericEntityException {
         Object fieldValue = entity.dangerousGetNoCheckButFast(modelField);
@@ -873,7 +793,7 @@ public final class SqlJdbcUtil {
     }
 
     public static <T> void setValue(SQLProcessor sqlP, ModelField modelField, String entityName, Object fieldValue,
-                                    ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
+            ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
         ModelFieldType mft = modelFieldTypeReader.getModelFieldType(modelField.getType());
 
         if (mft == null) {
@@ -1043,7 +963,9 @@ public final class SqlJdbcUtil {
             }
             buffer.append('\'');
         }
-        if (field != null && params != null) params.add(new EntityConditionParam(field, value));
+        if (field != null && params != null) {
+            params.add(new EntityConditionParam(field, value));
+        }
     }
 
     public static void addValue(StringBuffer buffer, ModelField field, Object value, List<EntityConditionParam> params) {
@@ -1060,7 +982,9 @@ public final class SqlJdbcUtil {
             while (it.hasNext()) {
                 Object thisValue = it.next();
                 addValueSingle(buffer, field, thisValue, params);
-                if (it.hasNext()) buffer.append(", ");
+                if (it.hasNext()) {
+                    buffer.append(", ");
+                }
             }
             buffer.append(")");
         } else {
