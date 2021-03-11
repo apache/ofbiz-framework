@@ -884,7 +884,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @param name the name
      * @return the byte [ ]
      */
-    @SuppressWarnings("deprecation")
     public byte[] getBytes(String name) {
         Object value = get(name);
         if (value == null) {
@@ -902,14 +901,6 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         }
         if (value instanceof byte[]) {
             return (byte[]) value;
-        }
-        if (value instanceof org.apache.ofbiz.entity.util.ByteWrapper) {
-            // NOTE DEJ20071022: the use of ByteWrapper is not recommended and is deprecated, only old data should be stored that way
-            Debug.logWarning("Found a ByteWrapper object in the database for field [" + this.getEntityName() + "." + name
-                    + "]; converting to byte[] and returning, but note that you need to update your database to unwrap these objects for future "
-                    + "compatibility", MODULE);
-            org.apache.ofbiz.entity.util.ByteWrapper wrapper = (org.apache.ofbiz.entity.util.ByteWrapper) value;
-            return wrapper.getBytes();
         }
         // uh-oh, this shouldn't happen...
         throw new IllegalArgumentException("In call to getBytes the value is not a supported type, should be byte[] or ByteWrapper, is: "
