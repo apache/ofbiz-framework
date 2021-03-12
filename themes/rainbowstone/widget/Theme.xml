@@ -30,11 +30,11 @@ under the License.
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_AMBER', locale)}</description>
             <screenshot location="/rainbowstone/images/themeAmber.png"/>
         </visual-theme>
-        <visual-theme id="RAINBOWSTONE_RUBY" display-name="Rainbow Stone - Sapphire">
+        <visual-theme id="RAINBOWSTONE_RUBY" display-name="Rainbow Stone - Ruby">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_RUBY', locale)}</description>
             <screenshot location="/rainbowstone/images/themeRuby.png"/>
         </visual-theme>
-        <visual-theme id="RAINBOWSTONE_EMERALD" display-name="Rainbow Stone - Sapphire">
+        <visual-theme id="RAINBOWSTONE_EMERALD" display-name="Rainbow Stone - Emerald">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.RAINBOWSTONE_EMERALD', locale)}</description>
             <screenshot location="/rainbowstone/images/themeEmerald.png"/>
         </visual-theme>
