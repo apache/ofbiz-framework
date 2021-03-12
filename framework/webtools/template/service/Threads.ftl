@@ -18,7 +18,7 @@ under the License.
 -->
 <#if parameters.maxElements?has_content><#assign maxElements = parameters.maxElements?number/><#else><#assign maxElements = 10/></#if>
 
-    <p>${uiLabelMap.WebtoolsThisThread}<b> ${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b></p>
+    <p>${uiLabelMap.WebtoolsThisThread}<b> ${currentThread.getName()} (${currentThread.getId()})</b></p>
     <br />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
@@ -32,7 +32,7 @@ under the License.
       <#assign alt_row = false>
       <#list allThreadList as javaThread>
       <#if javaThread??>
-        <#assign stackTraceArray = javaThread.getStackTrace()/>
+        <#assign stackTraceArray = allThreadStackTrace.get(javaThread.getName())/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td valign="top">${(javaThread.getThreadGroup().getName())!}</td>
           <td valign="top">${javaThread.getId()?string}</td>
