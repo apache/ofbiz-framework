@@ -15,13 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
-if ((Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\wrapper\gradle-wrapper.jar")) -and (Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\wrapper\gradle-wrapper.properties"))) {
-    Write-Host "The Gradle Wrapper has already been downloaded.";
-    exit
+md -force gradle/wrapper
+
+If ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage") {
+    Set-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -name "__PSLockdownPolicy" -Value 8
+    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v6.5.1/gradle/wrapper/gradle-wrapper.jar
+    Set-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -name "__PSLockdownPolicy" -Value 4
+} else {
+    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v6.5.1/gradle/wrapper/gradle-wrapper.jar
 }
 
-# HTTPS is not used because it gets complicated with Powershell and .Net framework versions
-Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar http://dl.bintray.com/apacheofbiz/GradleWrapper/v6.5.1/gradle-wrapper.jar
-Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.properties http://dl.bintray.com/apacheofbiz/GradleWrapper/v6.5.1/gradle-wrapper.properties
-Invoke-WebRequest -outf gradlew.bat http://dl.bintray.com/apacheofbiz/GradleWrapper/v6.5.1/gradlew.bat
+#Write-Host $ExecutionContext.SessionState.LanguageMode
 
+Start-Sleep -s 3
