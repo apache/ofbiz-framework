@@ -23,12 +23,11 @@ GRADLE_WRAPPER_OFBIZ_PATH="$GRADLE_OFBIZ_PATH/wrapper"
 
 # version and uri to download the wrapper
 RELEASE="5.0.0"
-GRADLE_WRAPPER_URI="https://dl.bintray.com/apacheofbiz/GradleWrapper/v$RELEASE/"
-GRADLE_WRAPPER_URI_BACKUP="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
+GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
 
 # checksum to verify the downloaded file
 SHASUM_GRADLE_WRAPPER_FILES="1d23286bcb9e7d3debff18c1b892b9dbb9a4ec6c  gradle/wrapper/gradle-wrapper.jar
-f9c2ad227ef1fe774cb0e141abfc431b05fc9fd4  gradle/wrapper/gradle-wrapper.properties
+7895f7f8ded9986d4f13b14a35b1842e47771541  gradle/wrapper/gradle-wrapper.properties
 b4a6a7e1dca81a692a775193fada937e035265f3  gradlew"
 
 GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
