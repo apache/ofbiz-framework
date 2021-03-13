@@ -22,18 +22,17 @@ GRADLE_OFBIZ_PATH="$OFBIZ_HOME/gradle"
 GRADLE_WRAPPER_OFBIZ_PATH="$GRADLE_OFBIZ_PATH/wrapper"
 
 # version and uri to download the wrapper
-RELEASE="3.2.1"
-GRADLE_WRAPPER_URI="https://dl.bintray.com/apacheofbiz/GradleWrapper/v$RELEASE/"
-GRADLE_WRAPPER_URI_BACKUP="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
+RELEASE="4.5.1"
+GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
 
 # checksum to verify the downloaded file
-SHASUM_GRADLE_WRAPPER_FILES="12478d9829998a5433231ad971bae52978279a3d  gradle/wrapper/gradle-wrapper.jar
-05d4ab69d3f2143e017710b0917b740f75a75c07  gradle/wrapper/gradle-wrapper.properties
+SHASUM_GRADLE_WRAPPER_FILES="00d0743607178962f8b120da4ccad2c64c698aec  gradle/wrapper/gradle-wrapper.jar
+609c5f1fbbc2ec3feeaf1c8f7183f810e9e8b22e  gradle/wrapper/gradle-wrapper.properties
 aaa5fb4c074407cb4d7f8c89a80342f3130880c3  gradlew"
 
 GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
 GRADLE_WRAPPER_PROPERTIES="gradle-wrapper.properties"
-GRADLE_WRAPPER_FILES="$GRADLE_WRAPPER_JAR $GRADLE_WRAPPER_PROPERTIES"
+GRADLE_WRAPPER_FILES="$GRADLE_WRAPPER_JAR"
 GRADLE_WRAPPER_SCRIPT="gradlew"
 
 whereIsBinary() {
@@ -55,12 +54,9 @@ downloadFile() {
    return 1
 }
 
-# Download the file from the main URI; if the download fails then use the backup URI
+# Download the file from the main URI
 resolveFile() {
    downloadFile $1 $GRADLE_WRAPPER_URI;
-   if [ $? -eq 1 ]; then
-       downloadFile $1 $GRADLE_WRAPPER_URI_BACKUP;
-   fi
 }
 
 echo " === Prepare operation ===";
