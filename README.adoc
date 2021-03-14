@@ -63,11 +63,12 @@ ________________________________________________________________________________
 [[system-requirements]]
 == System requirements
 
-The only requirement to run OFBiz is to have the Java Development Kit (JDK)
-version 8 installed on your system (not just the JRE, but the full JDK) which
-you can download from the below link. Make sure of setting the $JAVA_HOME
-environment variable.
+The only requirements to run OFBiz is
 
+* to have the Java Development Kit (JDK) version 8 installed on your system
+(not just the JRE, but the full JDK) that you can download from the below link.
+Make sure of setting the $JAVA_HOME environment variable. +
+https://adoptopenjdk.net/[JDK download], https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know more about the JDK]
 __________________________________________________________________________________________________________________________________________
 _Note_: Warning: on Windows don't put OFBiz in a directory with space/s in the path.
 __________________________________________________________________________________________________________________________________________
@@ -75,7 +76,10 @@ ________________________________________________________________________________
 
 https://adoptopenjdk.net/[JDK download]
 
-https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know more about the JDK]
+* If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link. +
+https://github.com/PowerShell/PowerShell[Powershell]
+
+
 
 [[quick-start]]
 // tag::quickstart[]
