@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="Ofbiz-rest-jerseyApplication">
+        <value xml:lang="en">OFBiz-rest-jersey Application</value>
+        <value xml:lang="zh">Ofbiz-rest-jersey应用程序</value>
+        <value xml:lang="zh-TW">Ofbiz-rest-jersey應用程式</value>
+    </property>
+    <property key="Ofbiz-rest-jerseyCompanyName">
+        <value xml:lang="en">OFBiz: OFBiz-rest-jersey</value>
+        <value xml:lang="zh-TW">OFBiz: OFBiz-rest-jersey</value>
+    </property>
+    <property key="Ofbiz-rest-jerseyCompanySubtitle">
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
+        <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
+    </property>
+    <property key="Ofbiz-rest-jerseyViewPermissionError">
+        <value xml:lang="en">You are not allowed to view this page.</value>
+        <value xml:lang="zh">不允许你浏览这个页面。</value>
+        <value xml:lang="zh-TW">不允許您檢視這個頁面.</value>
+    </property>
+    <property key="GenericServiceValidationErrorMessage">
+        <value xml:lang="en">${service} validation failed. The request contained invalid information and could not be processed.</value>
+    </property>
+    <property key="GenericServiceExecutionGenericEntityOperationErrorMessage">
+        <value xml:lang="en">${service} execution failed. The request contained invalid information and could not be processed.</value>
+    </property>
+    <property key="GenericServiceExecutionGenericExceptionErrorMessage">
+        <value xml:lang="en">${service} execution failed. The service encountered an error; please try again later.</value>
+    </property>
+    <property key="NoSuchEntityDefaultMessage">
+        <value xml:lang="en">${service} execution failed. The requested entity does not exist.</value>
+    </property>
+     <property key="GenericServiceErrorMessage">
+        <value xml:lang="en">${service} returned error. The request contained invalid information and could not be processed.</value>
+    </property>
+</resource>
