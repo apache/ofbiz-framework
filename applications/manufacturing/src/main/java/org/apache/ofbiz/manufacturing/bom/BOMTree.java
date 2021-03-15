@@ -93,6 +93,7 @@ public class BOMTree {
 
         this.delegator = delegator;
         this.dispatcher = dispatcher;
+        this.bomTypeId = bomTypeId;
 
         inputProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
 
@@ -152,7 +153,7 @@ public class BOMTree {
         } catch (GenericEntityException gee) {
             root = null;
         }
-        this.bomTypeId = bomTypeId;
+
         this.inDate = inDate;
         rootQuantity = BigDecimal.ONE;
         rootAmount = BigDecimal.ZERO;
