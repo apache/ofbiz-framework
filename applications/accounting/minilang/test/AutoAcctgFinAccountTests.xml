@@ -70,7 +70,8 @@ under the License.
             <field-map field-name="finAccountId" value="1002"/>
         </entity-one>
         <assert>
-            <if-empty field="finAccount"/>
+            <not><if-empty field="finAccount"/></not>
+            <not><if-empty field="finAccount.thruDate"/></not>
         </assert>
         <check-errors/>
     </simple-method>
