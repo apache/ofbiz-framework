@@ -29,11 +29,12 @@ The following file contains information about the data model changes in the Apac
 == Changes with OFBiz Trunk (Upcoming Branch)
 
 === Entity Changes
-*Added 3 new entities*
+*Added new entities*
 
 . ProdPromoCodeContactMech
 . OrderDenylist
 . OrderDenylistType
+. AgreementStatus
 
 
 
@@ -49,6 +50,8 @@ The following file contains information about the data model changes in the Apac
 |=======================================================
 |Entity                 |Field   |Action |IsPK |Revision
 | GlXbrlClass | parentGlXbrlClassId | Added | No | 36a123a
+| Agreement | statusId | Added | No | da8817d
+
 |=======================================================
 If in the list above fields are mentioned where 'IsPK' = yes, we advice to follow steps below for a successful upgrade:
 
