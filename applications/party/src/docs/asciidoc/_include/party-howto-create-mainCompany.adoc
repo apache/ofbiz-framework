@@ -29,6 +29,11 @@ NOTE: Party Manager is the application where we create all the entities
 
 This tutorial is quite simple, only 4 step.
 
+This process is running automatically every day in Apache OFBiz demo (trunk) as a GUI process test. +
+The associated video (showing all the actions described in this tutorial) can be visualize at
+https://youtu.be/G3GSXNvxe0M[How to Create the main Company]
+
+
 == step Party
 1. Login to OFBiz
 2. Create Party
