@@ -400,11 +400,8 @@ under the License.
         </actions>
         <alt-target use-when="glReconciliationId != null" target="updateFinAccountGlReconciliation"/>
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
-        <field name="glReconciliationId" use-when="glReconciliationId == null"><ignored/></field>
-        <field name="glReconciliationId" use-when="glReconciliationId != null"><display/></field>
         <field name="glAccountId"><hidden value="${finAccount.postToGlAccountId}"/></field>
         <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="reconciledBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(&quot;${glReconciliation.statusId}&quot;)"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field name="reconciledDate" title="${uiLabelMap.AccountingReconciliationDate}"><date-time/></field>
         <field name="createButton" use-when="glReconciliationId == null" widget-style="smallSubmit">
             <submit button-type="button"/>
