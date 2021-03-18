@@ -136,7 +136,7 @@ under the License.
     <service name="updateGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="update" auth="true">
         <description>Update a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdByUserLogin"/>
             <exclude field-name="lastModifiedByUserLogin"/>
@@ -563,7 +563,7 @@ under the License.
         <attribute name="customTimePeriodId" mode="IN" type="String"/>
         <attribute name="previousTimePeriod" mode="OUT" type="Map" optional="true"/>
     </service>
-    <service name="getAcctgTransEntriesAndTransTotal" engine="simple" invoke="getAcctgTransEntriesAndTransTotal" 
+    <service name="getAcctgTransEntriesAndTransTotal" engine="simple" invoke="getAcctgTransEntriesAndTransTotal"
         location="component://accounting/minilang/ledger/AcctgTransServices.xml" auth="true">
         <description>Given AcctgTransAndEntire and Calculate acctg trans total for specific time period.</description>
         <attribute name="customTimePeriodStartDate" mode="IN" type="Timestamp"/>
@@ -588,7 +588,7 @@ under the License.
         <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT"/>
     </service>
     
-    <service name="revertAcctgTransOnCancelInvoice" engine="simple" 
+    <service name="revertAcctgTransOnCancelInvoice" engine="simple"
             location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="revertAcctgTransOnCancelInvoice" auth="true">
         <description>Reverting Accounting Transaction And Entries on Canceling an Invoice</description>
         <attribute name="invoiceId" mode="IN" type="String" optional="false"/>
@@ -596,7 +596,7 @@ under the License.
     <service name="revertAcctgTransOnRemovePaymentApplications" engine="simple"
            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="revertAcctgTransOnRemovePaymentApplications" auth="true">
         <description>Create Reverse Accounting Transaction and Entries on removing PaymentApplication records.</description>
-        <attribute name="paymentApplicationId" mode="IN" type="String" optional="false"/>       
+        <attribute name="paymentApplicationId" mode="IN" type="String" optional="false"/>
     </service>
 
     <service name="createGlAccountCategory" engine="entity-auto" default-entity-name="GlAccountCategory" invoke="create" auth="true">
@@ -663,7 +663,7 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createUpdateCostCenter" engine="java" auth="true" invoke="createUpdateCostCenter" 
+    <service name="createUpdateCostCenter" engine="java" auth="true" invoke="createUpdateCostCenter"
         location="org.apache.ofbiz.accounting.ledger.GeneralLedgerServices">
         <description>Create Update CostCenters</description>
         <attribute name="glAccountId" mode="IN" type="String"/>
