@@ -20,26 +20,6 @@ under the License.
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="Ofbiz-rest-jerseyApplication">
-        <value xml:lang="en">OFBiz-rest-jersey Application</value>
-        <value xml:lang="zh">Ofbiz-rest-jersey应用程序</value>
-        <value xml:lang="zh-TW">Ofbiz-rest-jersey應用程式</value>
-    </property>
-    <property key="Ofbiz-rest-jerseyCompanyName">
-        <value xml:lang="en">OFBiz: OFBiz-rest-jersey</value>
-        <value xml:lang="zh-TW">OFBiz: OFBiz-rest-jersey</value>
-    </property>
-    <property key="Ofbiz-rest-jerseyCompanySubtitle">
-        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
-        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
-        <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
-    </property>
-    <property key="Ofbiz-rest-jerseyViewPermissionError">
-        <value xml:lang="en">You are not allowed to view this page.</value>
-        <value xml:lang="zh">不允许你浏览这个页面。</value>
-        <value xml:lang="zh-TW">不允許您檢視這個頁面.</value>
-    </property>
     <property key="GenericServiceValidationErrorMessage">
         <value xml:lang="en">${service} validation failed. The request contained invalid information and could not be processed.</value>
     </property>

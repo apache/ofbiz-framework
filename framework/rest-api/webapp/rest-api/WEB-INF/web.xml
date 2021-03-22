@@ -19,17 +19,12 @@ under the License.
 -->
 
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-    <display-name>Apache OFBiz - OFBiz-rest-jersey Component</display-name>
-    <description>OFBiz-rest-jersey Component of the Apache OFBiz Project</description>
+    <display-name>Apache OFBiz - rest-api Component</display-name>
+    <description>rest-api Component of the Apache OFBiz Project</description>
 
-    <!-- context-param>
-        <param-name>webSiteId</param-name>
-        <param-value>ofbiz-rest-jerseySite</param-value>
-        <description>A unique ID used to look up the WebSite entity. Only for component using a WebSite entity, like ecommerce</description>
-    </context-param-->
     <context-param>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-        <param-name>localDispatcherName</param-name><param-value>ofbiz-rest-jersey</param-value>
+        <param-name>localDispatcherName</param-name><param-value>rest-api</param-value>
     </context-param>
     <context-param>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
