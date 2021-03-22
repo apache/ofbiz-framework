@@ -20,7 +20,7 @@ under the License.
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
-    <description>OFBiz-rest-jersey Services</description>
+    <description>rest-api Services</description>
     <vendor></vendor>
     <version>1.0</version>
 
