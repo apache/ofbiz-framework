@@ -1,26 +1,29 @@
 = Apache OFBiz® plugin for REST
 
-This initial implementation helps to expose existing or new OFBiz services as REST. To facilitate this, added a new "action" attribute to service elements that helps to determine how a particular service can be accessed via REST.
+This initial implementation helps to expose existing or new OFBiz services as REST.
+To facilitate this, added a new "action" attribute to service elements that helps to determine how a particular service can be accessed via REST.
 
-==== Important URLs
+== Important URLs
 * API https://localhost:8443/rest
 * WADL https://localhost:8443/rest/application.wadl
 * OpenAPI docs https://localhost:8443/docs/swagger-ui.html
 
-==== Endpoints
+== Endpoints
 Once deployed, following URLs can be accessed
 
 * GET /rest/services
 * GET /rest/services/{serviceName}?inParams=<URLEncodedJSON> 
 * POST /rest/services/{serviceName} (For this endpoint, the service in parameters must be part of Request Body)
 
-==== Authentication
-API is protected by JWT tokens, although other forms of access tokens may be supported in future. An API client must first needs to authenticate itself using Basic Auth using username and password. Username is nothing but OFBiz 'userLogin'. Token can also be generated using Swagger UI.
+== Authentication
+API is protected by JWT tokens, although other forms of access tokens may be supported in future.
+An API client must first needs to authenticate itself using Basic Auth using username and password.
+Username is nothing but OFBiz 'userLogin'. Token can also be generated using Swagger UI.
 [source, json]
 ----
 curl -X POST "https://localhost:8443/rest/auth/token" -H "accept: application/json" -H "Authorization: Basic YWRtaW46b2ZiaXo="
 ----
-If successfully validated, generated token should be received in response -
+If successfully validated, generated token should be received in response
 [source, json]
 ----
 {
@@ -43,7 +46,7 @@ GET /rest/services HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyTG9naW5JZCI6ImFkbWluIiwiaXNzIjoiQXBhY2hlT0ZCaXoiLCJleHAiOjE1OTY3MDk4MjAsImlhdCI6MTU5NjcwODAyMH0.9Hj4pkkeQowAMxPLrI_To0WTohxxgVR6FoViyx5HoboTACQZ4iqDyqiIBodkuCVsZwOTPT1RSAQJ0L_oSVMqBA
 ----
 
-==== Example
+== Example
 
 * List All Services (export="true" and verb = "get|post")
 [source, json]
@@ -152,6 +155,3 @@ Response +
   }
 }
 ----
-
-
-
