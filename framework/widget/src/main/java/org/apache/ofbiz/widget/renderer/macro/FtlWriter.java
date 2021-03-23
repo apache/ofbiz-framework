@@ -18,22 +18,23 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.rmi.server.UID;
-import java.util.Locale;
-import java.util.Map;
-import java.util.WeakHashMap;
+import freemarker.core.Environment;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 /**
  * Processes FTL templates and writes result to Appendables.
@@ -73,7 +74,7 @@ public final class FtlWriter {
             environment.setVariable("modelTheme",
                     FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
             Reader templateReader = new StringReader(ftlString);
-            Template template = new Template(new UID().toString(), templateReader,
+            Template template = new Template(UUID.randomUUID().toString(), templateReader,
                     FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
             environment.include(template);
