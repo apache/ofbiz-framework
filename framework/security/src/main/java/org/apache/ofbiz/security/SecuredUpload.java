@@ -114,7 +114,7 @@ public class SecuredUpload {
             } else if (!file.matches("[a-zA-Z0-9]{1,249}.[a-zA-Z0-9]{1,10}")) {
                 Debug.logError("Uploaded file "
                         + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension."
-                        + "The file name and the extension should not be empty at all",
+                        + "The file name and extension should not be empty at all",
                         MODULE);
                 return false;
             }
@@ -125,7 +125,7 @@ public class SecuredUpload {
             } else if (!file.matches("[a-zA-Z0-9]{1,4086}.[a-zA-Z0-9]{1,10}")) {
                 Debug.logError("Uploaded file "
                         + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension."
-                        + "Tthe file name and the extension should not be empty at all",
+                        + "Tthe file name and extension should not be empty at all",
                         MODULE);
                 return false;
             }
