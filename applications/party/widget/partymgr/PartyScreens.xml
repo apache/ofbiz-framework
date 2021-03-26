@@ -179,6 +179,11 @@ under the License.
                         <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
                             <include-grid name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
+                        <container style="button-bar button-style-2">
+                            <link target="deleteallroles" text="${uiLabelMap.PartyRemoveAllRoles}">
+                                <parameter param-name="partyId" value="${parameters.partyId}"/>
+                            </link>
+                        </container>
                         <section>
                             <condition>
                                 <if-has-permission permission="PARTYMGR" action="_UPDATE"/>

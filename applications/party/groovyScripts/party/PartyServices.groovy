@@ -925,3 +925,18 @@ def getChildRoleTypesInline (List roleTypeIdListName) {
     resultMap.childRoleTypeIdList = newRoleTypeIdList
     return resultMap
 }
+
+/**
+ * Remove all Roles from a Party
+ */
+def deleteAllPartyRoles() {
+    List<GenericValue> partyRoles = from("PartyRole")
+        .where(partyId: parameters.partyId)
+        .queryList()
+    
+    for (GenericValue partyRole : partyRoles) {
+        partyRole.remove()
+    }
+
+    return success()
+}

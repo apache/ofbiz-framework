@@ -11660,6 +11660,9 @@
         <value xml:lang="zh">关系</value>
         <value xml:lang="zh-TW">關連</value>
     </property>
+    <property key="PartyRemoveAllRoles">
+        <value xml:lang="en">Remove all roles</value>
+    </property>
     <property key="PartyRemoveAttributePermissionError">
         <value xml:lang="ar">خطأ أمني: لتشغيل createPartyAttribute يجب أن يكون لديك صلاحية PARTYMGR_DELETE أو PARTYMGR_ADMIN</value>
         <value xml:lang="de">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
