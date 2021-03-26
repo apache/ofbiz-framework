@@ -217,10 +217,10 @@ public class SecuredUpload {
         Path filePath = Paths.get(fileName);
         byte[] bytesFromFile = Files.readAllBytes(filePath);
         ImageFormat imageFormat = Imaging.guessFormat(bytesFromFile);
-        return imageFormat.equals(ImageFormats.PNG)
+        return (imageFormat.equals(ImageFormats.PNG)
                 || imageFormat.equals(ImageFormats.GIF)
                 || imageFormat.equals(ImageFormats.TIFF)
-                || imageFormat.equals(ImageFormats.JPEG)
+                || imageFormat.equals(ImageFormats.JPEG))
                         && imageMadeSafe(fileName);
     }
 
