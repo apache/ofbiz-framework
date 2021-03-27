@@ -1,0 +1,15 @@
+= REST API documentation
+
+You can choose between Swagger UI and Redoc to publish documentation for the REST API.
+
+== Swagger
+
+Current version: swagger-ui-3.45.1
+
+Access: https://localhost:8443/docs/swagger-ui.html
+
+== Redoc
+
+Current version: redoc@2.0.0-rc.50
+
+Accesss: https://localhost:8443/docs/redoc.html
