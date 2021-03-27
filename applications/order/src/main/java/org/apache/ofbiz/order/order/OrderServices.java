@@ -2237,15 +2237,14 @@ public class OrderServices {
                             return ServiceUtil.returnError(e.getMessage());
                         }
                     }
-
+                    String reasonEnumId = null;
+                    if (UtilValidate.isNotEmpty(itemReasonMap)) {
+                        reasonEnumId = itemReasonMap.get(orderItem.getString("orderItemSeqId"));
+                    }
 
                     //  create order item change record
                     if (!"Y".equals(orderItem.getString("isPromo"))) {
-                        String reasonEnumId = null;
                         String changeComments = null;
-                        if (UtilValidate.isNotEmpty(itemReasonMap)) {
-                            reasonEnumId = itemReasonMap.get(orderItem.getString("orderItemSeqId"));
-                        }
                         if (UtilValidate.isNotEmpty(itemCommentMap)) {
                             changeComments = itemCommentMap.get(orderItem.getString("orderItemSeqId"));
                         }
@@ -2298,7 +2297,7 @@ public class OrderServices {
                         }
                         // all items are cancelled -- mark the item as cancelled
                         Map<String, Object> statusCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString(
-                                "orderItemSeqId"), "statusId", itemStatus, "userLogin", userLogin);
+                                "orderItemSeqId"), "statusId", itemStatus, "changeReason", reasonEnumId, "userLogin", userLogin);
                         try {
                             dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
                         } catch (GenericServiceException e) {
@@ -2343,6 +2342,7 @@ public class OrderServices {
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String fromStatusId = (String) context.get("fromStatusId");
         String statusId = (String) context.get("statusId");
+        String changeReason = (String) context.get("changeReason");
         Timestamp statusDateTime = (Timestamp) context.get("statusDateTime");
         Locale locale = (Locale) context.get("locale");
 
@@ -2421,6 +2421,7 @@ public class OrderServices {
                 changeFields.put("statusId", statusId);
                 changeFields.put("orderId", orderId);
                 changeFields.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                changeFields.put("changeReason", changeReason);
                 changeFields.put("statusDatetime", statusDateTime);
                 changeFields.put("statusUserLogin", userLogin.getString("userLoginId"));
                 GenericValue orderStatus = delegator.makeValue("OrderStatus", changeFields);
