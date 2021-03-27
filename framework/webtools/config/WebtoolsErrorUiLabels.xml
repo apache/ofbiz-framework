@@ -244,6 +244,18 @@
         <value xml:lang="zh">验证失败</value>
         <value xml:lang="zh-TW">驗證失敗</value>
     </property>
+    <property key="WebtoolsRequiredFieldMissingEoModeldFullPath">
+        <value xml:lang="en">Required Field Missing : Eo Modeld Full Path</value>
+    </property>
+    <property key="WebtoolsRequiredFieldMissingServiceName">
+        <value xml:lang="en">Required Field Missing : Service Name</value>
+    </property>
+    <property key="WebtoolsRequiredFieldMissingUpdateLabel">
+        <value xml:lang="en">Required Field Missing : Update Label</value>
+    </property>
+    <property key="WebtoolsRequiredFieldMissingFileName">
+        <value xml:lang="en">Required Field Missing : File Name</value>
+    </property>
     <property key="saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile">
         <value xml:lang="en">Exception during saving labels to xml file</value>
         <value xml:lang="fr">Erreur durant la sauvegarde des traductions dans le fichier XML</value>
