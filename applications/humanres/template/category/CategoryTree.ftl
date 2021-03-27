@@ -121,19 +121,7 @@ var rawdata = [
         EmpPosition: { 
             label: "Add Employee Position",
             action: function (NODE, TREE_OBJ) {
-                var dataSet = {};
-                dataSet = {"partyId" : NODE.attr("id")};
-                jQuery.ajax({
-                    type: "GET",
-                    url: "EditEmplPosition",
-                    data: dataSet,
-                    error: function(msg) {
-                        alert("An error occurred loading content! : " + msg);
-                    },
-                    success: function(msg) {
-                        jQuery('div.page-container').html(msg);
-                    }
-                });
+                window.location.href = "EditEmplPosition?partyId=" + NODE.attr("id");
             }
         },
         AddIntOrg: { 
