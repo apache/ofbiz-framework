@@ -71,13 +71,13 @@ under the License.
 
     <service name="groupTest" engine="group" location="testGroup" invoke=""/>
 
-    <service name="testHttp" engine="http" location="main-http" invoke="testScv">
+<!--     <service name="testHttp" engine="http" location="main-http" invoke="testScv">
         <description>HTTP service wrapper around the test service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
-    </service>
+    </service> -->
 
-    <service name="testSoap" engine="soap" export="true" location="main-soap" invoke="testSOAPScv">
+<!--     <service name="testSoap" engine="soap" export="true" location="main-soap" invoke="testSOAPScv">
         <description>SOAP service; calls the OFBiz test SOAP service</description>
         <implements service="testSOAPScv"/>
     </service>
@@ -87,12 +87,12 @@ under the License.
         <implements service="testScv"/>
     </service>
 
-    <!--  test service for local loopback testing (OFBiz Client SOAP -> OFBiz Server SOAP)  
-        https://ofbiz-vm2.apache.org:8443/webtools/control/SOAPService is the ultimate location for the testRemoteSoap 
+     test service for local loopback testing (OFBiz Client SOAP -> OFBiz Server SOAP)
+        https://ofbiz-vm2.apache.org:8443/webtools/control/SOAPService is the ultimate location for the testRemoteSoap
         It's redirected from https://demo-trunk.ofbiz.apache.org/webtools/control/SOAPService by the HTTPD frontend installed by Puppet in the demo server, ie ofbiz-vm2.apache.org
         We could use also http://demo-trunk.ofbiz.apache.org/webtools/control/SOAPService but HSTS would sent it to https anyway
-        So this can be used only against trunk demo and is not in the tests set to avoid a dependency on Internet -->
-    <service name="testRemoteSoap" engine="soap" export="true" 
+        So this can be used only against trunk demo and is not in the tests set to avoid a dependency on Internet
+    <service name="testRemoteSoap" engine="soap" export="true"
         location="https://demo-trunk.ofbiz.apache.org/webtools/control/SOAPService"
         invoke="testSoapSimple">
         <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
@@ -100,12 +100,12 @@ under the License.
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
 
-    <!-- FIXME For now, not sure why, the 4 remote SOAP services below don't work -->
+    FIXME For now, not sure why, the 4 remote SOAP services below don't work
     
-    <!-- the location = endpoint = SOAP action -->
-    <!-- invoke parameter is the name of the operation to invoke, for example LatLonListZipCode -->
-    <!-- invoke parameter is needed when there are several possible operations for the SOAP action  -->
-    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    the location = endpoint = SOAP action
+    invoke parameter is the name of the operation to invoke, for example LatLonListZipCode
+    invoke parameter is needed when there are several possible operations for the SOAP action
+    FIXME For now, not sure why, this remote SOAP service does not work
     <service name="testRemoteSoap1" engine="soap" export="true"
         location="http://www.weather.gov/forecasts/xml/SOAP_server/ndfdXMLserver.php"
         invoke="LatLonListZipCode">
@@ -118,10 +118,10 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
     
-    <!-- the location = endpoint = SOAP action -->
-    <!-- invoke parameter is the name of the operation to invoke, for example LatLonListCityNames -->
-    <!-- invoke parameter is needed when there are several possible operations for the SOAP action  -->
-    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    the location = endpoint = SOAP action
+    invoke parameter is the name of the operation to invoke, for example LatLonListCityNames
+    invoke parameter is needed when there are several possible operations for the SOAP action
+    FIXME For now, not sure why, this remote SOAP service does not work
     <service name="testRemoteSoap2" engine="soap" export="true"
         location="http://www.weather.gov/forecasts/xml/SOAP_server/ndfdXMLserver.php"
         invoke="LatLonListCityNames">
@@ -134,7 +134,7 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    FIXME For now, not sure why, this remote SOAP service does not work
     <service name="testRemoteSoap3" engine="soap" export="true"
         location="http://www.restfulwebservices.net/wcf/EmailValidationService.svc"
         invoke="EmailValidationService">
@@ -143,13 +143,13 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
     
-    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    FIXME For now, not sure why, this remote SOAP service does not work
     <service name="testRemoteSoap4" engine="soap" export="true"
         location="http://www.webservicex.net/geoipservice.asmx"
         invoke="GetGeoIPContext">
         <attribute name="invoke" type="String" mode="IN" />
         <attribute name="result" type="String" mode="OUT"/>
-    </service>
+    </service> -->
 
     <service name="testGroovy" engine="groovy" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
