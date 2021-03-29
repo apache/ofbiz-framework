@@ -105,27 +105,37 @@ public class SecuredUpload {
             return true;
         }
 
+        String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
         String file = p.getFileName().toString();
+        boolean wrongFile = true;
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
             if (fileToCheck.length() > 259) {
                 Debug.logError("Uploaded file name too long", MODULE);
                 return false;
-            } else if (!file.matches("[a-zA-Z0-9]{1,249}.[a-zA-Z0-9]{1,10}")) {
-                Debug.logError("Uploaded file "
-                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension."
-                        + "The file name and extension should not be empty at all",
-                        MODULE);
-                return false;
+            } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
+                if (file.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                    wrongFile = false;
+                } else if (!file.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
+                    wrongFile = false;
+                }
             }
         } else {
             if (fileToCheck.length() > 4096) {
                 Debug.logError("Uploaded file name too long", MODULE);
                 return false;
-            } else if (!file.matches("[a-zA-Z0-9]{1,4086}.[a-zA-Z0-9]{1,10}")) {
+            } else if (p.toString().contains(imageServerUrl)) {
+                if (file.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                    wrongFile = false;
+                } else if (!file.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                    wrongFile = false;
+                }
+            }
+            if (wrongFile) {
                 Debug.logError("Uploaded file "
-                        + " should contain only Alpha-Numeric characters, only 1 dot as an input for the file name and the extension."
-                        + "Tthe file name and extension should not be empty at all",
+                        + " should contain only Alpha-Numeric characters, hyphen, underscore and spaces,"
+                        + " only 1 dot as an input for the file name and the extension."
+                        + "The file name and extension should not be empty at all",
                         MODULE);
                 return false;
             }
