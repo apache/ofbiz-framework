@@ -561,7 +561,6 @@ public class ImageManagementServices {
 
         GenericValue extensionThumb = EntityUtil.getFirst(fileExtensionThumb);
         if (extensionThumb != null) {
-
             filenameToUseThumb += "." + extensionThumb.getString("fileExtensionId");
         }
         result.put("filenameToUseThumb", filenameToUseThumb);

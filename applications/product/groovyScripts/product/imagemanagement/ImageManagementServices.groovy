@@ -20,6 +20,7 @@
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.ScriptUtil
+import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
@@ -32,6 +33,7 @@ import org.apache.ofbiz.service.ServiceUtil
 def uploadProductImages() {
     Map result = success()
     Map serviceResult = [:]
+    result.productId = parameters.productId
     Map addAdditionalViewForProductMap = parameters
     if (parameters._additionalImageOne_fileName) {
         addAdditionalViewForProductMap.productId = parameters.productId
@@ -163,7 +165,6 @@ def uploadProductImages() {
         }
         addAdditionalViewForProductMap.clear()
     }
-    result.productId = parameters.productId
     return result
 }
 
@@ -280,6 +281,7 @@ def setImageDetail() {
  * @return
  */
 def updateStatusImageManagement() {
+    Map result = success()
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     String checkStatusVal = parameters.checkStatusId
     List statusId = StringUtil.split(checkStatusVal, "/")
@@ -361,7 +363,8 @@ def updateStatusImageManagement() {
             }
         }
     }
-    return success()
+    result.put("productId", parameters.productId);
+    return result
 }
 
 /**
