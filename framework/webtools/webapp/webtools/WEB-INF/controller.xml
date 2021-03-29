@@ -86,7 +86,8 @@ under the License.
     </request-map>
 
     <!-- Begin Utility Requests -->
-    <request-map uri="httpService">
+    <!-- The 2 services below have been commented out for security reason, see OFBIZ-12212  -->
+    <!-- <request-map uri="httpService">
         <event type="java" path="org.apache.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
@@ -96,7 +97,7 @@ under the License.
         <event type="soap"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
-    </request-map>
+    </request-map> -->
     <request-map uri="xmlrpc" track-serverhit="false" track-visit="false">
         <security auth="true"/>
         <event type="xmlrpc"/>
