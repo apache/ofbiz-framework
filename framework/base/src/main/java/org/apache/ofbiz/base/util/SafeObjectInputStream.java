@@ -24,6 +24,7 @@ import static org.apache.ofbiz.base.util.UtilProperties.getPropertyValue;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 import java.util.Arrays;
@@ -64,20 +65,11 @@ public final class SafeObjectInputStream extends ObjectInputStream {
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         String className = classDesc.getName();
         // DenyList exploits; eg: don't allow RMI here
-        if (className.contains("java.rmi.server")) {
-            Debug.logWarning("***Incompatible class***: "
-                    + classDesc.getName()
-                    + ". java.rmi.server classes are not allowed for security reason",
-                    "SafeObjectInputStream");
-            return null;
+        if (className.contains("java.rmi")) {
+            throw new InvalidClassException(className, "Unauthorized deserialisation attempt");
         }
         if (!allowlistPattern.matcher(className).find()) {
-            // DiskFileItem, FileItemHeadersImpl are not serializable.
-            if (className.contains("org.apache.commons.fileupload")) {
-                return null;
-            }
-            Debug.logWarning("***Incompatible class***: "
-                    + classDesc.getName()
+            Debug.logWarning("***Incompatible class***: " + className
                     + ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
                     + "Else follow https://s.apache.org/45war",
                     "SafeObjectInputStream");
