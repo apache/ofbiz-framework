@@ -28,6 +28,7 @@ import java.util.TreeSet;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.entity.jdbc.DatabaseUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -38,6 +39,34 @@ import org.w3c.dom.Element;
 @ThreadSafe
 @SuppressWarnings("serial")
 public final class ModelRelation extends ModelChild {
+
+    /*
+     * Developers - this is an immutable class. Once constructed, the object should not change state.
+     * Therefore, 'setter' methods are not allowed. If client code needs to modify the object's
+     * state, then it can create a new copy with the changed values.
+     */
+
+    /** the title, gives a name/description to the relation */
+    private final String title;
+
+    /** the type: either "one" or "many" or "one-nofk" */
+    private final String type;
+
+    /** the name of the related entity */
+    private final String relEntityName;
+
+    /** the name to use for a database foreign key, if applies */
+    private final String fkName;
+
+    /** keyMaps defining how to lookup the relatedTable using columns from this table */
+    private final List<ModelKeyMap> keyMaps;
+
+    private final boolean isAutoRelation;
+
+    /** A String to uniquely identify this relation. */
+    private final String fullName;
+
+    private final String combinedName;
 
     /**
      * Returns a new <code>ModelRelation</code> instance, initialized with the specified values.
@@ -99,33 +128,16 @@ public final class ModelRelation extends ModelChild {
         return new ModelRelation(modelEntity, description, type, title, relEntityName, fkName, keyMaps, isAutoRelation);
     }
 
-    /*
-     * Developers - this is an immutable class. Once constructed, the object should not change state.
-     * Therefore, 'setter' methods are not allowed. If client code needs to modify the object's
-     * state, then it can create a new copy with the changed values.
-     */
+    public static ModelRelation create(ModelEntity modelEntity, DatabaseUtil.ReferenceCheckInfo refInfo, boolean isAutoRelation) {
+        String fkName = refInfo.getFkName();
+        String title = null;
+        String type = null;
+        String description = null;
+        String relEntityName = ModelUtil.dbNameToClassName(refInfo.getPkTableName());
+        List<ModelKeyMap> keyMaps = refInfo.toModelKeyMapList();
 
-    /** the title, gives a name/description to the relation */
-    private final String title;
-
-    /** the type: either "one" or "many" or "one-nofk" */
-    private final String type;
-
-    /** the name of the related entity */
-    private final String relEntityName;
-
-    /** the name to use for a database foreign key, if applies */
-    private final String fkName;
-
-    /** keyMaps defining how to lookup the relatedTable using columns from this table */
-    private final List<ModelKeyMap> keyMaps;
-
-    private final boolean isAutoRelation;
-
-    /** A String to uniquely identify this relation. */
-    private final String fullName;
-
-    private final String combinedName;
+        return new ModelRelation(modelEntity, description, type, title, relEntityName, fkName, keyMaps, isAutoRelation);
+    }
 
     private ModelRelation(ModelEntity modelEntity, String description, String type, String title, String relEntityName, String fkName,
                           List<ModelKeyMap> keyMaps, boolean isAutoRelation) {
@@ -149,7 +161,7 @@ public final class ModelRelation extends ModelChild {
         }
         sb.append("]");
         this.fullName = sb.toString();
-        this.combinedName = title.concat(relEntityName);
+        this.combinedName = title != null ? title.concat(relEntityName) : relEntityName;
     }
 
     /** Returns the combined name (title + related entity name). */

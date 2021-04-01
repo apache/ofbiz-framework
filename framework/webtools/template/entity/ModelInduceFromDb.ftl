@@ -54,6 +54,9 @@ under the License.
     </table>
 </form>
 </hr>
+<div>${uiLabelMap.typeAndTitleDisclaimer}</div>
+<div>${uiLabelMap.pleaseAddManually}</div>
+</hr>
 <div>
     <textarea cols="60" rows="50" name="${uiLabelMap.ModelInduceInducedText}">${inducedText!}</textarea>
 </div>

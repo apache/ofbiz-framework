@@ -6041,4 +6041,12 @@
         <value xml:lang="de">Ermittlung der Datenstruktur fehlgeschlagen. Bitte gültige Datenquelle angeben.</value>
         <value xml:lang="en">Could not determine Structure for this datasource. Please choose a valid datasource.</value>
     </property>
+     <property key="typeAndTitleDisclaimer">
+        <value xml:lang="de">Bitte beachten Sie, dass die Attribute Type und Title der Referenzen nicht aus der Datenbank heraus rekonstruiert werden können.</value>
+        <value xml:lang="en">Please note that the attributes Type and Title for references cannot be derived from the database.</value>
+    </property>
+    <property key="pleaseAddManually">
+        <value xml:lang="de">Diese müssen händisch nachgepflegt werden.</value>
+        <value xml:lang="en">These must be added manually.</value>
+    </property>
 </resource>
