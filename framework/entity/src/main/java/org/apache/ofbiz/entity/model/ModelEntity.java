@@ -247,6 +247,33 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap,
+            Map<String, DatabaseUtil.ReferenceCheckInfo> refMap, ModelFieldTypeReader modelFieldTypeReader,
+            boolean isCaseSensitive) {
+        // if there is a dot in the name, remove it and everything before it, should be
+        // the schema name
+        this.modelReader = null;
+        this.modelInfo = ModelInfo.DEFAULT;
+        this.tableName = tableName;
+        int dotIndex = this.tableName.indexOf('.');
+        if (dotIndex >= 0) {
+            this.tableName = this.tableName.substring(dotIndex + 1);
+        }
+        this.entityName = ModelUtil.dbNameToClassName(this.tableName);
+        for (Map.Entry<String, DatabaseUtil.ColumnCheckInfo> columnEntry : colMap.entrySet()) {
+            DatabaseUtil.ColumnCheckInfo ccInfo = columnEntry.getValue();
+            ModelField newField = ModelField.create(this, ccInfo, modelFieldTypeReader);
+            addField(newField);
+        }
+        if (UtilValidate.isNotEmpty(refMap)) {
+            for (Map.Entry<String, DatabaseUtil.ReferenceCheckInfo> referenceEntry : refMap.entrySet()) {
+                DatabaseUtil.ReferenceCheckInfo rcInfo = referenceEntry.getValue();
+                ModelRelation newRel = ModelRelation.create(this, rcInfo, false);
+                addRelation(newRel);
+            }
+        }
+    }
+
     /**
      * Populate basic info.
      * @param entityElement the entity element
