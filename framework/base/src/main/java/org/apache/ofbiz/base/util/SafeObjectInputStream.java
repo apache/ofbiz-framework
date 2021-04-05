@@ -65,8 +65,9 @@ public final class SafeObjectInputStream extends ObjectInputStream {
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         String className = classDesc.getName();
-        // BlackList exploits; eg: don't allow RMI here
-        if (className.contains("java.rmi")) {
+        // DenyList
+        if (className.contains("java.rmi") // Don't allow RMI
+                || className.contains("<")) { // Prevent generics markup in string type names
             throw new InvalidClassException(className, "Unauthorized deserialisation attempt");
         }
         if (!whitelistPattern.matcher(className).find()) {
