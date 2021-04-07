@@ -21,12 +21,12 @@ package org.apache.ofbiz.base.util;
 import static org.apache.ofbiz.base.util.UtilMisc.toSet;
 import static org.apache.ofbiz.base.util.UtilObject.getObjectException;
 import static org.apache.ofbiz.base.util.UtilObject.getObjectFromFactory;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,7 +51,7 @@ public class UtilObjectTests {
     @After
     public void cleanUp() {
         // Ensure that the default value of allowed deserialization classes is used.
-        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "ListOfSafeObjectsForInputStream", "");
+        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList", "");
     }
 
     public static final class ErrorInjector extends FilterInputStream {
@@ -333,13 +333,11 @@ public class UtilObjectTests {
     // Test reading a valid customized list of string object.
     @Test
     public void testGetObjectExceptionCustomized() throws IOException, ClassNotFoundException {
-        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "ListOfSafeObjectsForInputStream",
-                "java.util.Arrays.ArrayList,java.lang.String");
+        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList", "java.util.Arrays.ArrayList,java.lang.String");
         testGetObjectExceptionSafe();
 
         // With extra whitespace
-        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "ListOfSafeObjectsForInputStream",
-                "java.util.Arrays.ArrayList, java.lang.String");
+        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList", "java.util.Arrays.ArrayList, java.lang.String");
         testGetObjectExceptionSafe();
     }
 
@@ -347,8 +345,7 @@ public class UtilObjectTests {
     @Test(expected = ClassCastException.class)
     public void testGetObjectExceptionUnsafe() throws IOException, ClassNotFoundException {
         // Only allow object of type where the package prefix is 'org.apache.ofbiz'
-        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "ListOfSafeObjectsForInputStream",
-                "org.apache.ofbiz..*");
+        UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList", "org.apache.ofbiz..*");
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(bos)) {
             List<String> forbiddenObject = Arrays.asList("foo", "bar", "baz");
