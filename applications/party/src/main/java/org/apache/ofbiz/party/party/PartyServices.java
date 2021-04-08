@@ -2618,8 +2618,8 @@ public class PartyServices {
                                 currentContactMechPurposeTypeId = "GENERAL_LOCATION";
                             }
                             Map<String, Object> serviceResult = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId,
-                                    "contactMechId", newContactMechId, "contactMechTypeId", currentContactMechTypeId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId,
-                                    "userLogin", userLogin));
+                                    "contactMechId", newContactMechId, "contactMechTypeId", currentContactMechTypeId,
+                                    "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
                             if (ServiceUtil.isError(serviceResult)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                             }
@@ -2635,8 +2635,8 @@ public class PartyServices {
                                 currentContactMechPurposeTypeId = "PHONE_WORK";
                             }
                             Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId,
-                                    "contactMechId", newContactMechId, "contactMechTypeId", currentContactMechTypeId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId,
-                                    "userLogin", userLogin));
+                                    "contactMechId", newContactMechId, "contactMechTypeId", currentContactMechTypeId,
+                                    "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
                             if (ServiceUtil.isError(resultMap)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
@@ -2652,8 +2652,8 @@ public class PartyServices {
                                 currentContactMechPurposeTypeId = "PRIMARY_EMAIL";
                             }
                             Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId,
-                                    "contactMechId", newContactMechId, "contactMechTypeId", currentContactMechTypeId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin",
-                                    userLogin));
+                                    "contactMechId", newContactMechId, "contactMechTypeId", currentContactMechTypeId,
+                                    "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
                             if (ServiceUtil.isError(resultMap)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
