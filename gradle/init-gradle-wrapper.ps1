@@ -25,6 +25,14 @@ If ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage") {
     Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v6.5.1/gradle/wrapper/gradle-wrapper.jar
 }
 
+$expected = "33b0acb4572934fc1dd7d5880c65036724974e06"
+$actual = (Get-FileHash gradle\wrapper\gradle-wrapper.jar -Algorithm SHA1).Hash.ToLower()
+@{$true = 'OK: Checksum match'; $false = "ERROR: Checksum mismatch!`nExpected: $expected`nActual: $actual"}[$actual -eq $expected]
+
+if (!$true) {
+    Remove-Item gradle\wrapper\gradle-wrapper.jar
+}
+
 #Write-Host $ExecutionContext.SessionState.LanguageMode
 
 Start-Sleep -s 3
