@@ -2005,6 +2005,16 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="CreateNewOrderMessage"/>
     </request-map>
+
+    <request-map uri="createPartyGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyGroup"/>
+        <response name="success" type="request-redirect" value="EditQuote">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="view" value="EditQuote"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

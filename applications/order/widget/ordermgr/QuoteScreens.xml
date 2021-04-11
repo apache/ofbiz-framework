@@ -249,6 +249,9 @@ under the License.
                         <screenlet title="${groovy: parameters.quoteId ? uiLabelMap.OrderOrderQuoteEdit : uiLabelMap.OrderNewQuote}">
                             <include-form name="EditQuote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.PartyCreateNewPartyGroup}">
+                            <include-form name="EditPartyGroup2" location="component://party/widget/partymgr/PartyForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
