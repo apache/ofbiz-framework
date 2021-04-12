@@ -300,6 +300,12 @@ under the License.
         </field>
     </form>
 
+    <form name="EditPartyGroup2" type="single" target="createPartyGroup" default-map-name="partyGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="groupName"><text size="6" maxlength="10"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
         <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
         <field name="logo" use-when="partyGroupLogoLinkUrl!=null" title="${uiLabelMap.CommonOrganizationLogo}"><image alternate="${uiLabelMap.CommonOrganizationLogo}" value="${partyGroupLogoLinkUrl}" style="cssImgStandard"/></field>
