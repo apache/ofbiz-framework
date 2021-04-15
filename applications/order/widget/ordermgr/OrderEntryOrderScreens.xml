@@ -50,6 +50,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="orderentry"/>
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_quick_finalize_order"/>
                 <script location="component://order/groovyScripts/entry/CheckoutPayment.groovy"/>
                 <script location="component://order/groovyScripts/entry/CheckoutOptions.groovy"/>
                 <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
@@ -91,6 +92,7 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
                 <set field="stepLabelId" value="FacilityShipping"/>
                 <script location="component://order/groovyScripts/entry/ShipSettings.groovy"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_set_shipping_address_and_group"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -137,6 +139,7 @@ under the License.
                 <set field="stepTitleId" value="SetItemShipGroups"/>
                 <set field="stepLabelId" value="OrderShipGroups"/>
                 <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_set_item_to_shipgroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -156,6 +159,7 @@ under the License.
                 <set field="stepLabelId" value="CommonOptions"/>
                 <script location="component://order/groovyScripts/entry/OptionSettings.groovy"/>
                 <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_order_option_settings"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -184,6 +188,7 @@ under the License.
                 <set field="stepLabelId" value="AccountingPayment"/>
                 <script location="component://order/groovyScripts/entry/BillSettings.groovy"/>
                 <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_payment_setting"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -204,7 +209,8 @@ under the License.
                 <set field="stepLabelId" value="PartyParties"/>
                 <script location="component://order/groovyScripts/entry/SetAdditionalParty.groovy"/>
                 <script location="component://order/groovyScripts/entry/AdditionalPartyListing.groovy"/>
-                
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_additional_party_entry"/>
+
                 <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <!--set field="asm_multipleSelectForm"  value="addAdditionalPartyForm"/>
                 <set field="asm_multipleSelect"  value="additionalRoleTypeId"/>
@@ -212,7 +218,7 @@ under the License.
                 <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="asm_title" value="${uiLabelMap.OrderPartySelectRoleForParty}"/-->                
+                <set field="asm_title" value="${uiLabelMap.OrderPartySelectRoleForParty}"/-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -235,6 +241,7 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderEntryOrderTerms"/>
                 <set field="stepLabelId" value="OrderOrderTerms"/>
                 <script location="component://order/groovyScripts/entry/OrderTerms.groovy"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_order_term"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -254,6 +261,7 @@ under the License.
                 <set field="stepLabelId" value="OrderReviewOrder"/>
                 <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
                 <script location="component://order/groovyScripts/entry/CheckoutReview.groovy"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_order_confirmation"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">

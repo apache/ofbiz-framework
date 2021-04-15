@@ -40,6 +40,7 @@ under the License.
             </condition>
             <actions>
                 <set field="headerItem" value="main"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_orders_of_the_day"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -55,6 +56,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderViewOrder"/>
                 <set field="headerItem" value="findorders"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_order_view"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/order.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/OrderShippingInfo.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
@@ -205,6 +207,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderLookupOrder"/>
                 <set field="headerItem" value="orderlist"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_list_orders"/>
                 <set field="filterDate" type="Timestamp" from-field="parameters.filterDate"/>
                 <script location="component://order/groovyScripts/order/OrderList.groovy"/>
                 <script location="component://order/groovyScripts/order/FilterOrderList.groovy"/>
@@ -249,6 +252,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderFindOrder"/>
                 <set field="headerItem" value="findorders"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_find_orders"/>
                 <script location="component://order/groovyScripts/order/FindOrders.groovy"/>
                 <script location="component://content/groovyScripts/print/FindPrinters.groovy"/>
 

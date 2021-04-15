@@ -1,0 +1,135 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Add Item(s) to cart
+
+Primary order entry screen is complex, and after one item has been entered, promotional items were added automatically and
+so more information.
+
+* _Order Header Info_
+    Before proceeding with the order entry, confirm that the Party is correctly identified, and that the Currency is in
+    the correct denomination. +
+    Click on the Party ID number to go to the Party Manager for confirming or updating information about the Party. +
+    A running total of the current order is displayed for quick reference.
+* _Shortcuts_, +
+    .. _Quotes_ +
+      If the customer refers to a quotation submitted to them from your company, go here to locate the Quote.
+    .. _Create New Quote From Cart_ +
+       Use the items accumulated in the Shopping Cart and, rather than fulfilling an order, prepare a Quotation for
+       the customer. This Quote would go into the system established for Quotes as discussed under the Order Manager.
+    .. _Create a Request for Quote_ +
+       This more formal process provides a vehicle to identify products of interest to the Customer and assemble
+       a Quotation based upon the Request initiated here. The Request is initially based upon products identified
+       in the Customers Cart, and is created for this named Customer.
+       To follow through on this, see the Requests tab under the Order Manager.
+    .. _Find Party_ +
+       Takes you to the Party Manager - Find Party screen.
+    .. _Create Customer_ +
+       If this Order is for a new Customer, here is the link to the Party Manager to establish the information needed
+       in the system.
+    .. _Change Party_ +
+       Cancels the current Sales Order process and takes you to the initial Order Entry screen where you need
+       to identify the Party.
+    .. _Create New Product_ +
+       If your customer asks for a product which has not yet been established in the system, and you know you can get it
+       for them, this link allows you to quickly create the product identity within OFBiz before proceeding with the order.
+    .. _Quick Add_ +
+       Let's say that you are dealing with a customer who knows what he wants and you do not need many of the features
+       and links given on this particular screen. By choosing [Quick Add] you are taken to a simplified ordering screen
+       where the order taking can be quickly accomplished. Compare the current screen  with the Quick Add screen to visualize
+       the differences. +
+       The Quick Add screen removes many of the links and features of the full Order Entry screen, but may easier to use.
+    .. _Shopping List_ +
+       Brings up a table of the Party's existing Lists. It's possible to [Quick Add All] to brings all of the items on a
+       selected List into this current Order, or Choose single items from a selected Shopping List ([View List] button)
+* _Choose Catalog_ +
+    Your customer might be ordering from your Spring catalog, your Outdoor Specials catalog, or whatever Catalog you may
+    have placed into his hands. Establish the Catalog here so that prices reflect the Catalog he sees.
+    This will also govern what products, special offers, discounts, and other details of the marketing process are
+    presented in this screen and for the order itself. +
+    Default value is coming from previous screen.
+* _Search Catalog_ +
+    While talking with the customer, this will give you access to the Catalog to help him locate what he wants.
+* _Browse Categories_ +
+    Here is another way to find products within categories.
+* _Create Sales Order section_ +
+  ** Links to processes +
+       Across the top bar are these link buttons:
+       .. Clear Order which removes all data from the screen except the Party ID.
+       .. Remove selected, remove all items selected
+       .. Recalculate Order which is selected when a quantity or other adjustment has been made.
+       .. Finalize Order which should not be selected until all entries have been made on this page.
+       ..   This one takes you to the next step in the order process.
+       .. Finalize Order with default option, less step than previous button
+       .. Quick Finalize Order which consolidates several steps into one screen for faster completion.
+   ** _ProductId_, +
+        Popup Search tool help you finds products quickly.
+   ** _Quantity_ +
+        How many the customer are wanted
+   ** _Desired delivery date_ (optional) +
+       Note that this does not say Promised delivery dated.
+       If the customer indicates a date when he would like to have the delivery, this date can serve as a guide to when to
+       process the order in house. It also guides you to recommend the appropriate shipping method, ensuring compliance
+       with this date but at the lowest cost to the customer. +
+       You can used the popup calendar to find the date. +
+       Use as default desired delivery date for next entry, if checked, will keep this date for all the items ordered.
+   ** _Ship After Date_ (optional) +
+       This item (and also the shipping group to which it belongs) will not be pick before this date.
+   ** _Ship Before Date_ (optional) +
+       To have warning if it's not possible to pick or to produce before this date.
+   ** _Reserve After Date_ (optional) +
+       No stock reservation will be done before this date.
+   ** _Comment_ +
+       Be judicious what you write here: this may appear on paperwork reaching the customer such as packing slips, invoices,
+       etc.
+       This may be the place for comments such as 'wrap each item separately' when several units of the same item are being
+       sent in an order to the same address but are intended for different recipients, for example. +
+       If the comment applies to more than this item in the order, check the box labeled Use as default comment for next entry
+   ** _Add To Order_ +
+       This button should not be clicked until all details in this section are confirmed: quantity, product, dates, etc.
+       It updates the totals and enters particulars into the next section.
+* _Add Order Items to Shopping List section_ +
+  ** _Add To Shopping list_ +
+       First select a list from the drop-down box, then click on [Add To Shopping List].
+       All of the ordered items to that point will be added to the selected List, in the quantity ordered.
+* _Order Items section_ +
+    All the informations about items in the cart. +
+    In this section it's possible to modify Product description, Quantity, Price, Date, ..., to validate and save modification
+    click on [Recalculate Order] on the Create Sale Order top bar. +
+    In this section there are all items, including those added by promotions (the gift !) and if there are some choice, it's
+    the place to give the answers. +
+    Note the informations beside the Inventory buttons :
+    ** ATP : Available To Promise, quantity in the inventory not yet reserved
+    ** QOH : Quantity On Hand, quantity in the inventory
+* _Promotion/ Coupon Codes_ +
+    Enter the code number from other Promotions or Coupons and click on [Add Code]. Appropriate discounts or promotional
+    consideration will be calculated into the order if the Code is currently valid.
+* _Special Offers_ +
+    Give some promotion which can be applied if you add some product or quantity. It's useful when you have the customer
+    on phone, to propose him additional product to access for a specific promotion. +
+    Click on detail for a promotion to have the detail condition and result.
+* _You might also be interested in_ +
+    Strictly a promotional tool, here is a selection of items which you can offer to the customer before moving past
+    this screen. Simply enter the quantity and [Add to Cart] when he indicates acceptance.
+* _Promotion Information_ +
+    In first, this section, all those Promotions which have been applied to the order are given.
+    Select [Details] to obtain more information. +
+    In second part, the ordered items which made the customer eligible for a promotion are given. +
+    Every item being shipped as a promotional give away is listed as well.
+
+When all items is entered click on [Finalize Order] to give all other order conditions.

@@ -76,6 +76,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="productPromoId"/>
                 </entity-condition>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_add_items_to_cart"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">

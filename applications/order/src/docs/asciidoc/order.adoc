@@ -23,15 +23,145 @@ The order manager allows you to enter and maintain orders, quotes, requests and 
 It allow to manage purchase and sales orders from the creation and approval to the goods packing and shipping.
 
 == Overview
-TODO
 
-== Orders management
+A sales order is an agreement between a business association and a customer concerning the delivery of
+products or provision of services. This process involves order capturing, order status management,
+payment terms and method setup etc.
 
-=== Main screen
-To select Sales and/or Purchase orders
+A customer can place an order from the storefront or a customer service representative (CSR) can place
+the order on behalf of a customer from the back end.
 
-=== Order View
-This screen allow not only to view an order but also to change it
+=== Business Purpose
+
+A Sales Order from the customer notifies the business of customer wants. It tells the business who is
+the customer, what are the products or services ordered, what is the payment term and method, what are
+the billing and shipping addresses, any special instructions for delivery, order priority etc.
+
+Sales Order document is created in the system with a unique reference number that comes in handy for
+better customer service afterward. It enables a business to offer the customer to have a choice
+to change ordered items. The customer also gets the details of the order which can be accessed through
+his profile on the storefront (eCommerce front) at any time if registered or else can use the order
+reference number while contacting the business for reporting any issues.
+
+Order status transitions help business to filter orders based on status (Created, Approved, Rejected,
+Completed etc.) Current order status tells the state of order in the system at any given time
+which is used effectively by CSRs while communicating with customers over the phone.
+
+Order payment terms and method tells the business how the order payment is going to be processed.
+It helps in timely fulfillment of orders, which is key to success for any business.
+Same is with billing and shipping information on the order, it tells the business which address
+to be used for invoicing and which one for shipping. Having an effective order capturing process helps
+to engage your customers.
+
+A customer always provide shipping method details to let the business know about his shipping preference
+to ship the order and in other ends, CSR always captures shipping method along with special instructions
+for delivery.
+
+include::_include/order-create-order-diagrams.adoc[leveloffset=+2]
+
+include::_include/order-status-diagrams.adoc[leveloffset=+2]
+
+== Orders management in UI
+Sales and Purchase management are done on the same screen, so depending on what you want, don't forget to select
+the correct Order Type.
+
+=== Orders of the day
+Upon opening the Order Manager, your first screen will be a short sale "dashboard of the day" with:
+* the new sales orders (enter today)
+* the top 5 of the product sales today
+
+This screen is a portal page, so in some case it's possible to choose which portlet to put.
+
+On the first part, only order with status and type selected in the <Order List> screen appears.
+For example, if you work on purchase department, on Order List screen, if you select purchase type and only
+Approved status, on the main screen you will will see only purchase order created today and already in approved status.
+
+Even if this screen is useful, it's also a example a developer can personalize to give orders to follow in your business situation.
+
+=== List Orders
+The focus of this screen is order status +
+retrieve all orders for one type and a selection of status.
+
+It lists all the current orders in need of processing. You should spot the one prepared above in the list;
+click on the Order Number to proceeed. If too many orders are listed in the first screen (List Orders),
+unclick the 'Approved' checkbox and click on [Submit].
+If still too many, unclick either the 'Created' or the 'Processing' status checkbox and try again.
+
+Using the check boxes and the [Submit] link, you will bring up a list of all orders in any category selected.
+
+Order list give you main information on parties associated  to the order and a link to the order details.
+
+To narrow your search, use the Find Orders tab.
+This brings up a complete search screen which will take any possible parameters to find the one you want to work with.
+
+=== Find Orders
+This screen brings up a complete search screen which will take any possible parameters.
+
+Enter information about the order and click on [Find]. +
+Existing Orders are listed and you can complete it or modify it, if that is what the customer is calling for. +
+Or, reduce the number or Orders presented by entering parameters in the search screen,
+above (you may need to click [Show Lookup Fields] and trying to find what you want more specifically.
+
+There is a direct action button on the top left of the list, to directly change status
+
+* choose the action to be done in the drop-down
+* select one orders or more
+* click on <run action>
+
+In the Order list, there will be a link from that order to the PartyID; +
+click on the ID and you are in the Party Manager > Profile page for the customer. +
+On the profile page, one of the links there is [New Order] which takes you back to the initial Order Entry screen, discussed below.
+
+If specifics about the order are not known, you might prefer to find it through the Party.
+In that case, select [Lookup Party]. The Party Manager can link you back to previous orders.
+
+include::_include/Help-order-view.adoc[leveloffset=+2]
+
+include::_include/Help-order-entry.adoc[leveloffset=+2]
+
+include::_include/Help-order-check-inits.adoc[leveloffset=+2]
+
+include::_include/Help-order-show-cart.adoc[leveloffset=+2]
+
+=== Quick Finalize Order
+In this screen you have a summary of 3 screens for details look at
+
+* <<Set Shipping address and Group>>
+* <<Order Option Settings>>
+* <<Payment setting>>
+
+include::_include/Help-order-ship-setting.adoc[leveloffset=+2]
+
+include::_include/Help-order-option-settings.adoc[leveloffset=+2]
+
+include::_include/Help-order-bill-settings.adoc[leveloffset=+2]
+
+include::_include/Help-order-confirm.adoc[leveloffset=+2]
+
+== Orders Processes
+
+=== Order Entry
+Order entry can come from 2 path, Order management (back office) and eCommerce.
+
+The company's order entry process is discussed below under the Order Manager Path.
+You may jump there directly if you wish. Both the ecommerce entry and the Order Manager entry methods
+are discussed in this section to the point where the order entry is finished and Order Approval is needed before proceeding.
+It is valuable for you to be familiar with the ecommerce order entry process so that when a customer writes
+or calls in with a problem from that process you can be understanding and helpful.
+
+Remember that an order can be canceled anytime up to the final confirmation point!
+Encourage your staff, especially your customer service people, to walk through an on-line order.
+They should try to see what happens when clicking on links or following paths that they wouldn't ordinarily follow,
+just to see what happens! Then, when a customer describes their situation,
+you can relate to what they are seeing on their screen.
+
+==== Order Manager path
+
+Start process with screen https://demo-trunk.ofbiz.apache.org/ordermgr/control/orderentry[Order Entry from Order appl on Apache OFBiz demo site]
+and have a look at <<Create Order Diagrams>>
+
+include::_include/order-ecommerce-entry-path.adoc[leveloffset=+3]
+
 
 include::_include/order_report.adoc[leveloffset=+1]
 
@@ -44,3 +174,5 @@ include::_include/order_report.adoc[leveloffset=+1]
 == Requirements
 
 == Stats
+
+include::_include/order-glossary.adoc[leveloffset=+1]

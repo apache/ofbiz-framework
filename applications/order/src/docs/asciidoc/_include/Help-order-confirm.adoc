@@ -1,0 +1,34 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Order confirmation
+
+If there are any discrepancies in the order, this the time to fix them. Click on the appropriate link on Order Confirmation
+Top Bar to be returned to the applicable screen.
+
+When review is finished and everything meets with the customer's approval then click on [Create Order].
+
+= Order Entry is now completed
+
+Congratulations! You have completed all the aspects of entering an order into the system. Be sure the customer receives
+the Order Confirmation number. You might wish to mail or fax a copy of this screen to the customer for their reference.
+
+Work has just begun behind the scenes for processing the order, however.
+
+The next step will be giving Acceptance and/or Approval for the order which will trigger the processes needed to get
+the product out the door.

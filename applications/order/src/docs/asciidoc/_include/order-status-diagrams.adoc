@@ -1,0 +1,48 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Order Status
+
+An Order Status is an easy visual indication to alert business about the orders requiring actions or not. +
+Order status is indicated on <<Order View>> screen on top of main part and just below there are history of change.
+
+An Order can have the following status:
+
+* Created
+* Approved
+* Processing
+* Sent
+* Held
+* Rejected
+* Completed
+* Cancelled
+
+Status change on actions on order (ex: payment is received) or on direct action button  on  <<Order View>> screen
+on main part in top menu bar.
+
+== Order Status diagram
+image:order/manage-order-status.png[Order Status Change]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+== Approved Order
+f you have an approval process, you will want to check over the details to confirm that the shipping information is complete
+and accurate, that the billing details are acceptable and that the requested shipping dates (if specified) are within
+your company's capabilities.
+
+When all is ok click on the [Approve Order] link in <<Order View>>

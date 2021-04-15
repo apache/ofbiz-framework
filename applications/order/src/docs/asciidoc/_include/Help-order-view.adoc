@@ -1,0 +1,186 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Order View
+
+This screen allow not only to view an order but also to change it
+
+Note the link to [PDF]. This will create a PDF formatted document which can be used internally for paper processing the order
+or sent to the customer as an attachment or hard copy to confirm the order. The customer should be told that the Order Number
+should be referenced in any correspondence regarding the order.
+
+== Order Information Sections
+
+_Status and General Info_ +
+Notice the Status History? This tells you when the order was placed, when it was approved and, later,
+where it is at in the shipping process.
+
+The section labeled 'Created by' will give you the login ID of the person taking or making the order.
+This is who you need to talk with if there are any problems in the original order.
+Remember, it could be your customer service rep or it could be the customer herself if the order came in through ecommerce.
+
+_Payment Information Section_ +
+This section will reflect the type of payment selected by the customer. If Debit or Credit Card, the card number last 4 digits
+will show; if EFT (Electronic Funds Transfer - electronic checking withdrawal), the bank account number will appear.
+
+Shipment of the order against customer payment by check or money order will appear as shown below.
+It might be your practice to withhold shipment until payment is received.
+When it arrives, pull up the order and click on [Receive Payment].
+
+_Order Items Section_ +
+All the products, whether ordered or being sent as promos, are listed here. Note the many details shown in this section.
+
+* What do we need to ship?
+* Product Information links +
+  Click on the [Catalog] or the [Ecommerce] link to get detailed information about the product from either of those sources.
+* Inventory is very important. This shows the Inventory ID for the item and whether enough inventory exists to fill the order.
+  Here the Inventory number given matches the order quantity, indicating sufficient inventory to fulfill the order.
+* Status, The first line gives the current status. Beneath that is the history of status changes.
+* Adjustments, Jurisdictions and rates are given for taxes applied. Amounts of the adjustment are shown in the column
+  to the right.
+* Beneath Adjustments is the Price Rule applied to determine the effective price for the item.
+* The Ship Groups listed, If the order was being split between two or more recipients, each would have its own Ship Group
+   with the quantity going to each one being listed. In this instance, there is only one destination so there is only
+   one Ship Group.
+* Pricing and adjustments information,
+  To the right in this section is all the financial details on each item. When taking back a return,
+  be sure that no more is credited to the customer than what the order shows for a charge.
+
+_Actions Section_ +
+[Quick Ship Entire Order] is a powerful link built on a great many assumptions that everything needful to complete
+the order is in place, including financial arrangements, inventory, manpower to fulfill the order, etc.
+This powerful action will by-pass many of the normal processing screens, accomplishing most steps behind the scenes.
+See the topic <<QuickShip Fulfillment Path>> for more details
+
+
+_Shipment Information Section_ +
+Steps for shipping the order start here.
+
+Remember there are two different uses of the word 'Splitting' and you need to know which meaning is being used.
+When the phrase 'Splitting Preferences' is used here we mean: Does the customer want a part of his order to be shipped
+as soon as any portion is available, allowing the delayed balance to follow at a later date?
+If splitting is not desired, all elements of the order must be gathered together for a unified shipment.
+
+In this order as shown, if you were to click on the link [Allow Split], you would reverse the customer's original choice
+to wait for all items in one order. Do NOT select that link unless the customer has informed you of a change in
+her former preference!
+
+When the next item is considered, 'Ship Group,' we would be looking at a Split Order with part of it going to one destination
+and the other part to another if there were two Ship Groups indicated.
+As the order in this example shows only one Ship Group, you can know that all items are destined for the same location.
+
+The *[Pack Shipment For Ship Group]* button Initiates the preparation of packages for shipping the order under
+the Facility Manager. This is just one of many screens where this step can be triggered.
+
+There are several approaches to having the products Picked and Packed in the system.
+One method is to open the Facility Manager, click on the Facilities tab, select your Facility, then click on the Picking tab. +
+After identifying and submitting orders that need Picking to the floor, you move over to the Packing tab.
+This one is more individualized; you can see the screen shot below. You must enter the Order number,
+then enter the Product ID for each item as it is accepted. +
+A much easier method is right there in the Order Manager. Pull up the Order and look under Shipment Information.
+See the link labeled Pack Shipment For Ship Group [00001]? Click on that and you will see the second screen below.
+
+The link *[New Shipment for Ship Group {00001}]* will bring up a working screen in the Facility Manager to allow you
+to begin the Warehouse Path, discussed below.
+
+== QuickShip Fulfillment Path
+QuickShip presumes several things:
+
+1. That inventory is on hand and ready to be shipped or taken from the premises by the purchaser.
+2. That third parties, such a shipping company, a warehouseman, a picker, etc., are not needed to fulfill the order.
+3. That the method of payment is acceptable: that the customer has paid or that credit has been extended for payment
+   to be received later.
+
+Essentially, QuickShip allows OFBiz to bypass all of the procedures for identifying, picking, packing, billing and
+shipping so that the package is immediately dispatched.
+
+. Click on 'Quick-Ship Entire Order'
+. Confirm Quick-Ship Success
+
+and the screen shows
+
+_Under the ' Order #WS10082 Information' section_
+----
+  Status History Current Status: Completed
+  ________________________________
+  Completed - 2006-02-16 20:18:35.281
+  Approved - 2006-02-16 10:11:26.437
+  Created - 2006-02-16 08:29:56.265
+----
+
+_Under the Payment Information section_
+----
+Invoices # [10060] has been added in a new sub-section.
+Click on the Invoice # to view the invoice in the Accounting Manager.
+----
+
+_Under the Shipment Information section_ +
+Splitting Preference no longer presents an opportunity to change the preference; chosen method is displayed.
+
+Shipments affords two links:
+
+* #[10050] -> Facility Manager > Shipments tab > View Shipment document 10050.
+* [Packing Slip] generates a PDF document for including with the order as a Packing Slip.
+
+_[Quick-Refund Entire Order]_ link could be used to immediately reverse a completed order which had been charged to a
+Credit Card, an Electronics Fund Transfer (EFT), or a Gift Card. Best used before the items leave the Facility.
+If already shipped, use the [Create Return] link.
+
+_[Create Return]_ brings up a working screen to begin the complex process of bringing products from the customer back
+into your facility, reversing charges, etc.
+
+_The Quick-Ship Shipment document_ +
+Even though the 'Shipment' did not follow a complete course through the Facility Manager and elsewhere,
+paperwork is still needed to confirm stock deletions and track where products have gone.
+
+You can see the highlighted 'Shipments #' link. Click on that number to see the details as shown immediately below.
+
+_View Shipment Details_ +
+In so much as shipping methods were specified in the ordering process (UPS Ground), this example is somewhat skewed.
+If you knew the customer was going to retrieve the products personally, you would so indicate in the original order entry
+process.
+
+You will notice in the document that inventory adjustments and other issues are all presented.
+You can bore down into any of the highlighted links or select one of the sub-tabs to bring up further details about
+the order, the products, the customer, etc.
+
+A final link to follow is the 'Generate Shipment Manifest Report' which produces a PDF form to send with the purchaser
+or to serve as a hard copy for your internal purposes. An example is given below.
+
+== Warehouse Fulfillment Path
+The Sales Order process is not complete until the Shipment is generated.
+This is begun by clicking on the link [New Shipment for Ship Group #].
+
+The following screen in the Facility Manager is sometimes brought up with the Order Number and little else completed in it.
+
+When you generate the Shipment by clicking on 'New Shipment For Ship Group [00001]' link,
+your screen might not appear as completed as shown above. Before you enter information in the address fields,
+for example, try clicking on the [Submit] or [Update] link at the bottom of the screen.
+The system usually will retrieve these addresses from the Sales Order and from the Party Profile to enter the address
+ID numbers as you see here.
+
+The Status ID wil generally be updated as you go through the following steps.
+That Status includes Scheduled, Picked, Packed, etc.
+
+If the Order had a desired delivery date, or if you have a good idea what the shipping dates could or should be,
+here and now is a good time to complete them. Those dates would be the Ready date, the Ship date and the Receive date.
+The Latest Cancel Date is the last possible moment the order can be canceled before it is committed to the shipping company.
+
+Destination Facility would seldom be used for retail customers.
+This would be for wholesale customers or established high-volume Business to Business clients.
+
