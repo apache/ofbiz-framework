@@ -116,29 +116,30 @@ public class SecuredUpload {
             } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
                 if (file.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
-                } else if (!file.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
-                    wrongFile = false;
                 }
+            } else if (file.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
+                wrongFile = false;
             }
-        } else {
+        } else { // Suppose a *nix system
             if (fileToCheck.length() > 4096) {
                 Debug.logError("Uploaded file name too long", MODULE);
                 return false;
             } else if (p.toString().contains(imageServerUrl)) {
                 if (file.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
-                } else if (!file.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
-                    wrongFile = false;
                 }
+            } else if (file.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                wrongFile = false;
             }
-            if (wrongFile) {
-                Debug.logError("Uploaded file "
-                        + " should contain only Alpha-Numeric characters, hyphen, underscore and spaces,"
-                        + " only 1 dot as an input for the file name and the extension."
-                        + "The file name and extension should not be empty at all",
-                        MODULE);
-                return false;
-            }
+        }
+
+        if (wrongFile) {
+            Debug.logError("Uploaded file "
+                    + " should contain only Alpha-Numeric characters, hyphen, underscore and spaces,"
+                    + " only 1 dot as an input for the file name and the extension."
+                    + "The file name and extension should not be empty at all",
+                    MODULE);
+            return false;
         }
 
         if (isExecutable(fileToCheck)) {
