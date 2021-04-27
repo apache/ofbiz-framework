@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.party.contact.ContactHelper;
 import org.apache.ofbiz.product.store.ProductStoreWorker
 import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
@@ -33,7 +33,12 @@ if (shoppingCart) {
     context.shippingEstWpr = shippingEstWpr
     context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods()
     // Reassign items requiring drop-shipping to new or existing drop-ship groups
-    shoppingCart.createDropShipGroups(dispatcher)
+    Map<String, Object> createDropShipGroupResult = shoppingCart.createDropShipGroups(dispatcher)
+    if ("error".equals(createDropShipGroupResult.get("responseMessage"))) {
+        Debug.logError((String)createDropShipGroupResult.get("errorMessage"), module)
+        request.setAttribute("_ERROR_MESSAGE_", (String)createDropShipGroupResult.get("errorMessage"))
+        return "error"
+    }
 }
 
 profiledefs = from("PartyProfileDefault").where("partyId", userLogin.partyId, "productStoreId", productStoreId).queryOne()

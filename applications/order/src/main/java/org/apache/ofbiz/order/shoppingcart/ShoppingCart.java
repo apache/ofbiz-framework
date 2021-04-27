@@ -4233,7 +4233,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * @param dispatcher
      * @throws CartItemModifyException
      */
-    public void createDropShipGroups(LocalDispatcher dispatcher) throws CartItemModifyException {
+    public Map<String, Object> createDropShipGroups(LocalDispatcher dispatcher) throws CartItemModifyException {
 
         // Retrieve the facilityId from the cart's productStoreId because ShoppingCart.setFacilityId() doesn't seem to be used anywhere
         String facilityId = null;
@@ -4245,13 +4245,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 storeRequirementMethodEnumId = productStore.getString("requirementMethodEnumId");
             } catch (GenericEntityException gee) {
                 Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), module);
-                return;
+                return ServiceUtil.returnError(
+                    UtilProperties.getMessage(resource_error, "OrderProblemGettingProductStoreRecords", locale) + gee.getMessage());
             }
         }
 
         List<CartShipInfo> shipGroups = getShipGroups();
         if (shipGroups == null) {
-            return;
+            return ServiceUtil.returnSuccess();
         }
 
         // Intermediate structure supplierPartyId -> { ShoppingCartItem = { originalShipGroupIndex = dropShipQuantity } } to collect drop-shippable items
@@ -4316,7 +4317,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         if (ServiceUtil.isError(getProductInventoryAvailableResult)) {
                             String errorMessage = ServiceUtil.getErrorMessage(getProductInventoryAvailableResult);
                             Debug.logError(errorMessage, module);
-                            return;
+                            return ServiceUtil.returnError(errorMessage);
                         }
                         BigDecimal availableToPromise = (BigDecimal) getProductInventoryAvailableResult.get("availableToPromiseTotal");
 
@@ -4346,10 +4347,16 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (ServiceUtil.isError(getSuppliersForProductResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(getSuppliersForProductResult);
                         Debug.logError(errorMessage, module);
-                        return;
+                        return ServiceUtil.returnError(errorMessage);
                     }
+                    
                     List<GenericValue> supplierProducts = UtilGenerics.checkList(getSuppliersForProductResult.get("supplierProducts"));
-
+                    if (supplierProducts.isEmpty()) {
+                        return ServiceUtil.returnError(
+                            "Sorry! No supplier available to droship product #" + productId + " with quantity "
+                            + dropShipQuantity + " and currency " + getCurrency());
+                    }
+                    
                     // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first
                     supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("supplierPrefOrderId"));
                     GenericValue supplierProduct = EntityUtil.getFirst(supplierProducts);
@@ -4409,6 +4416,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
             }
         }
+        return ServiceUtil.returnSuccess();
     }
 
     static class BasePriceOrderComparator implements Comparator<Object>, Serializable {
