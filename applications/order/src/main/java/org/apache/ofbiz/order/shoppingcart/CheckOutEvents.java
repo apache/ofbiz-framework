@@ -93,7 +93,12 @@ public class CheckOutEvents {
         }
         if (curPage == null) {
             try {
-                cart.createDropShipGroups(dispatcher);
+                Map<String, Object> createDropShipGroupResult = cart.createDropShipGroups(dispatcher);
+                if ("error".equals(createDropShipGroupResult.get("responseMessage"))) {
+                    Debug.logError((String) createDropShipGroupResult.get("errorMessage"), MODULE);
+                    request.setAttribute("_ERROR_MESSAGE_", (String) createDropShipGroupResult.get("errorMessage"));
+                    return "error";
+                }
             } catch (CartItemModifyException e) {
                 Debug.logError(e, MODULE);
             }
@@ -778,7 +783,12 @@ public class CheckOutEvents {
         // Reassign items requiring drop-shipping to new or existing drop-ship groups
         if ("init".equals(mode) || "default".equals(mode)) {
             try {
-                cart.createDropShipGroups(dispatcher);
+                Map<String, Object> createDropShipGroupResult = cart.createDropShipGroups(dispatcher);
+                if ("error".equals(createDropShipGroupResult.get("responseMessage"))) {
+                    Debug.logError((String) createDropShipGroupResult.get("errorMessage"), MODULE);
+                    request.setAttribute("_ERROR_MESSAGE_", (String) createDropShipGroupResult.get("errorMessage"));
+                    return "error";
+                }
             } catch (CartItemModifyException e) {
                 Debug.logError(e, MODULE);
             }
