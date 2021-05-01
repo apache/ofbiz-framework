@@ -563,7 +563,7 @@ if (product) {
             }
         }
     }
-    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + UtilFormatOut.formatCurrency(priceMap.basePrice, currencyUomId, locale, 10) + "';\n")
+    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + UtilFormatOut.formatCurrency(priceMap.price, currencyUomId, locale, 10) + "';\n")
     variantInfoJS.append("    });\n</script>\n")
     context.variantInfoJavaScript = variantInfoJS
 
