@@ -457,8 +457,8 @@ public class InvoiceServices {
                 Map<String, Object> createInvoiceItemContext = new HashMap<>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
                 createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
-                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, (orderItem.getString("orderItemTypeId")),
-                        (product == null ? null : product.getString("productTypeId")), invoiceType, "INV_FPROD_ITEM"));
+                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, orderItem.getString("orderItemTypeId"),
+                        product == null ? null : product.getString("productTypeId"), invoiceType, "INV_FPROD_ITEM"));
                 createInvoiceItemContext.put("description", orderItem.get("itemDescription"));
                 createInvoiceItemContext.put("quantity", billingQuantity);
                 createInvoiceItemContext.put("amount", billingAmount);

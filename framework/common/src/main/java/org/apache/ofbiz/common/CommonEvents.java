@@ -275,7 +275,7 @@ public class CommonEvents {
         Map<String, List<String>> uiLabelObject = null;
         if (UtilValidate.isNotEmpty(jsonString)) {
             JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.<Map<String, List<String>>> cast(json.toObject(Map.class));
+            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
             Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
@@ -307,7 +307,7 @@ public class CommonEvents {
         Map<String, String> uiLabelObject = null;
         if (UtilValidate.isNotEmpty(jsonString)) {
             JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.<Map<String, String>> cast(json.toObject(Map.class));
+            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
             Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
@@ -404,8 +404,7 @@ public class CommonEvents {
                 charGraphics.setFont(textFont);
 
                 int charX = (int) (0.5 * charDim - 0.5 * charWidth);
-                charGraphics.drawString("" + captchaCode.charAt(i), charX,
-                        ((charDim - fontMetrics.getAscent()) / 2 + fontMetrics.getAscent()));
+                charGraphics.drawString("" + captchaCode.charAt(i), charX, (charDim - fontMetrics.getAscent()) / 2 + fontMetrics.getAscent());
 
                 float x = horizMargin + spacePerChar * (i) - charDim / 2.0f;
                 int y = ((height - charDim) / 2);

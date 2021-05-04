@@ -304,7 +304,7 @@ public class WebToolsServices {
                 lastUnprocessedFilesCount = unprocessedFiles.size();
                 messages.add("---------------------------------------");
                 messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportSucceededNumberFile", UtilMisc.toMap("succeeded",
-                        (initialListSize - lastUnprocessedFilesCount), "total", initialListSize), locale));
+                        initialListSize - lastUnprocessedFilesCount, "total", initialListSize), locale));
                 messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportFailedNumberFile", UtilMisc.toMap("failed",
                         lastUnprocessedFilesCount, "total", initialListSize), locale));
                 messages.add("---------------------------------------");

@@ -1325,7 +1325,8 @@ public class OrderReturnServices {
                         orderPayPrefDetails.put("orderPaymentPreference", orderPayPref);
                         orderPayPrefDetails.put("availableTotal", orderPayPrefAvailableTotal);
                         if (prefSplitMap.containsKey(paymentMethodTypeId)) {
-                            (prefSplitMap.get(paymentMethodTypeId)).add(orderPayPrefDetails);
+                            List<Map<String, Object>> paymentMethodTypeIds = prefSplitMap.get(paymentMethodTypeId);
+                            paymentMethodTypeIds.add(orderPayPrefDetails);
                         } else {
                             prefSplitMap.put(paymentMethodTypeId, UtilMisc.toList(orderPayPrefDetails));
                         }

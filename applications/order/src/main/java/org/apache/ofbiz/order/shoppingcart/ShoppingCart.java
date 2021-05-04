@@ -1759,8 +1759,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.orderAttributes.clear();
 
         // clear the additionalPartyRole Map
-        for (Map.Entry<String, List<String>> me : this.additionalPartyRole.entrySet()) {
-            ((LinkedList<String>) me.getValue()).clear();
+        for (Entry<String, List<String>> me : this.additionalPartyRole.entrySet()) {
+            me.getValue().clear();
         }
         this.additionalPartyRole.clear();
 
