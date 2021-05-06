@@ -20,7 +20,8 @@ under the License.
 = Apache OFBiz®
 The Apache OFBiz Project
 
-image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
+image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 
 
 If you are reading this file in AsciiDoc format you may want to see it at
