@@ -24,6 +24,13 @@ They can be incoming or outgoing.
 
 Incoming payments are normally from customers and outgoing ones to suppliers.
 
+the Payment screen contains a lot of information not normally at your fingertips. The screen for creating a Payment looks very
+similar to the View Payment screen: you have drop-down boxes for Payment Type, Payment Method Type, and Status.
+The other fields are asking for ID numbers which may be more difficult to obtain.
+
+For the above reasons, it is probably quicker and easier to click on the [Receive Payment] link from the View Order screen
+than to try to create a Payment from the Accounting Manager.
+
 == Payments management in User Interface
 include::HELP_findPayments.adoc[leveloffset=+2]
 
