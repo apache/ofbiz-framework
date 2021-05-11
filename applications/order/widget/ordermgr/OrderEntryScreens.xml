@@ -23,7 +23,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleOrderInits"/>
                 <set field="headerItem" value="orderentry"/>
-                <set field="helpAnchor" from-field="helpAnchor" default-value="_order_entry"/>
+                <set field="helpAnchor" value="_order_entry"/>
                 <script location="component://order/groovyScripts/entry/CheckInits.groovy"/>
             </actions>
             <widgets>
@@ -40,7 +40,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleOrderAgreements"/>
                 <set field="headerItem" value="orderentry"/>
-                <set field="helpAnchor" from-field="helpAnchor" default-value="_order_currency_agreements_and_ship_dates"/>
+                <set field="helpAnchor" value="_order_currency_agreements_and_ship_dates"/>
                 <script location="component://order/groovyScripts/entry/OrderAgreements.groovy"/>
             </actions>
             <widgets>
