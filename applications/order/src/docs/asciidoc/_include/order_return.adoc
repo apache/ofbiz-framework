@@ -1,0 +1,189 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Returns
+
+== Return Process Overview
+Sales Return is merchandise returned back to the seller by a customer. Sales return is a common concept used in sales and
+purchase terminology. The main purpose of the sales return is to provide easy returns to the customers to maintain long
+relationships with them.
+
+While viewing an existing order, you can create a return from that order by clicking on the [Create Return]
+button (in Action section). That will take you to the quickreturn screen, from where
+you identify which item(s) the customers wants to return.
+
+A sales return can be created for one of the following Reasons:
+
+* Excess quantity shipped
+* Excess quantity ordered
+* Defective Goods
+* Goods shipped too late
+* Product specifications are incorrect
+* Wrong items shipped
+
+Sales Return types can be:
+
+* Store credit
+* Refund
+* Exchange
+* Store credit replacement
+
+When a product is returned, the process impacts many different components of your business. Consider:
+
+. Customer must coordinate the physical return of the item(s) with your company.
+   This is controlled by the document called the 'Return'.
+   Be sure the Customer encloses a copy of the Return with his package or at least includes the Return ID on the shipping label
+   and documents.
+. Your Facility needs to be alerted that the item(s) will be coming in from a source other than a regular supplier.
+. The value of the returned item(s) must be credited back to the Customer.
+. Taxes credited to taxing authorities must be reversed.
+. Costs for shipping, handling, perhaps re-shelving, must all be accounted for.
+. Possible replacement of the item must go through the entire Order Fulfillment chain.
+. The returned item(s) must be inspected with a determination made whether to:
+   .. place an item back into Inventory for re-sale; OR
+   .. repair/ re-furbish/ re-packag before return to Inventory; OR
+   .. return a defective product to YOUR supplier for credit or refund; OR
+   .. dispose of it with a loss write-off.
+. Adjustments must be made to Inventory, Sales Figures, perhaps to Sales Commissions, and other records within the company.
+
+As you scroll through the screens, try to envision how each of these areas are impacted within the Company.
+Realize that the Order Manager, Work Effort Manager, Accounting Manager, and Facility Manager are primary players.
+The Marketing Manager and perhaps the Manufacturing Manager might be involved if some adjustments are needed.
+
+Fortunately, the systems set up within Open For Business have automated much of this for you.
+However, by understanding the entire process, you can better stay alert for steps that might be needed as returns come back
+to your company.
+
+== Sales Return Diagrams
+=== Create Sales Return
+
+A customer requests for the return of the product. The reason for returning the merchandise can be defective goods,
+incorrect product specification, excess quantity shipped or wrong items shipped.
+The <<CSR>> accepts the return request and fills out the return details and creates a return with respect to the sales order.
+
+image:order/order-return-create_level3.png[Order Return Create Detail Diagram]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+=== Update Sales Return
+A user can request the CSR to update the return. The reason can be to add/remove items in previously created sales return
+or editing the returnable quantity. A CSR opts to put notes on the return related to communication or conclusion drawn on
+that return.
+
+==== Overview
+image:order/order-return-update_level2.png[Order Return Update Overview Diagram]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+==== Details
+image:order/order-return-update_level3.png[Order Return Update Detail Diagram]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+== Sales Return management in UI
+=== Quick Return
+While viewing an existing order, you can create a return from that order by clicking on the [Create Return] button
+(actions section).That will take you to the quickreturn screen, from where you identify which item(s) the customers wants
+to return.
+
+Be clear about the reason and the quantity to be returned. Also be sure that the Return Price does not exceed how much
+the customer actually paid for the item. +
+Return Type is important because it is always to your advantage to have the purchase price applied as a credit towards
+another purchase rather than having to take money out of your business to pay a refund.
+
+When the information is correctly selected and entered, click the link[Return Selected Items] to create the Return. +
+Next screen show you Return Request creation successful, and you can directly [Accept Return]
+
+That also takes you to the Returns tab, Return Items sub-tab, discussed further below.
+
+Notice you can:
+
+* select All (check box)
+* choose *Return Qty*, just behind Order Qty +
+  Be sure this does not exceed the Order Qty. If that attempt ismade, have them return any surplus against another order
+  from where they probably obtained it.
+* *Return Price*, just behind Unit Price +
+  The Price at which the customer will be credited. This is a mandatory field (*). +
+  For example, if the customer received a promotional discount of 10% on a $100 item, you would not return $100
+  (the Unit Price) but only the discounted price of $90 which they originally paid for it.
+* *Return Reason* +
+  Select the best-stated reason for the return. Remember that Returns need to be approved. Some items may be sold with
+  a re-shelving fee, others may be close-outs with no returns authorized. +
+  If reason you want is not listed, Additional reasons can be programmed into the system as their need develops
+  (or just added by a administrator via webtools if it's only for better information). +
+  Why is a reason needed? This information is used when receiving the return to help decide whether to put the item back
+  into inventory,throw it out, schedule it for repairs, etc. +
+  Choices in the drop-down box might include:
+  ** Defective Item
+  ** Did Not Want Item
+  ** Miss-Shipped Item
+  ** Digital Fulfillment Failed
+* *Return Type* +
+  This establishes how the financial aspects of the return will be handled.
+  Choices in the drop-down box might include:
+  ** Store Credit
+  ** Refund
+  ** Replacement
+  ** Cross-Ship Replacement
+* *Item Status* +
+  What is the current status of the Item? +
+  The status could be one of the following:
+  ** ---, the item status is unknown
+  ** On Order, the item was not yet shipped but is no longer wanted
+  ** Available, the item is in your facility
+  ** Promised,  the item is committed to fulfilling another order
+  ** Delivered, the item is on its way to the Customer now wanting to return it
+  ** Being Transferred, the item is being moved from one location or section to another
+  ** Being Transferred (Promised),  the item is being moved AND it has already been committed to fulfilling another order
+  ** Returned, the item has physically been sent back from the customer to your facilities
+  ** Defective, whatever the location or other status may be, the item itself is considered defective
+     and should not be promised to fulfill another order.
+* *Select a ship from address* +
+  Click on the radio button corresponding with the address from which the items will be returned.
+  This will generally match the ship-to address for the original Sales Order.
+
+=== Find Return
+In the status field, You can select multiple values.
+
+=== Create Return
+If you are not starting from View Order Screen, you can initiate the creation of a new Return from dedicate screen.
+
+_First screen_ is for the header informations
+
+The Return process involves a coordinated effort with Facilities, Accounting, and the Order managers.
+The tab [Receive Return] is not visible on this screen until the Return has been Accepted.
+That tab actually takes you into the Facilities Manager for further processing of the Return.
+
+*Return ID* This is a number assigned by the system when the Return is first requested.
+
+Field *Needs Inventory Receive*: or Auto-Receive means that the item is already here and that when the Return is Accepted,
+it will be processed as an Auto Receive rather than through the normal steps in the facility.
+
+_Second screen, tabs_ is for the return Items
+
+It's not possible to add manually items, you should choose in the drop box Order Id on bottom to load directly Items
+from an existing order. +
+After loading items from an order, select the one you want to add them to this return.
+
+For more details on field, look at <<Quick Return>>.
+
+After loading items, update Status to accepted under Return Header, you now have a new link button [Receive Return].
+When you click on that, you are taken to the Facility Manager > Facilities tab > <<Receive Return>> sub-tab.
+
+
+

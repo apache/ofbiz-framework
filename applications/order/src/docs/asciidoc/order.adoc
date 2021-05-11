@@ -177,7 +177,7 @@ include::_include/order_report.adoc[leveloffset=+1]
 
 == Quotes
 
-== Returns
+include::_include/order_return.adoc[leveloffset=+1]
 
 == Requirements
 

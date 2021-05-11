@@ -809,7 +809,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="ViewContactMechs"/>
                 <script location="component://product/groovyScripts/facility/facility/EditContactMech.groovy"/>
-                
+
                 <set field="dependentForm" value="editcontactmechform"/>
                 <set field="paramKey" value="countryGeoId"/>
                 <set field="mainId" value="countryGeoId"/>
@@ -1040,7 +1040,7 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleTransferInventoryItem"/>
-                
+
                 <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
                 <entity-one entity-name="InventoryItemType" value-field="inventoryItemType">
                     <field-map field-name="inventoryItemTypeId" value="${inventoryItem.inventoryItemTypeId}"/>
@@ -1114,6 +1114,7 @@ under the License.
                 <set field="titleProperty" value="ProductReceiveReturn"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ReceiveReturn"/>
+                <set field="helpAnchor" value="_receive_return"/>
 
                 <script location="component://product/groovyScripts/facility/returns/ReceiveReturn.groovy"/>
             </actions>
