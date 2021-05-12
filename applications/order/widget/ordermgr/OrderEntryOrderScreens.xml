@@ -215,7 +215,6 @@ under the License.
                 <!--set field="asm_multipleSelectForm"  value="addAdditionalPartyForm"/>
                 <set field="asm_multipleSelect"  value="additionalRoleTypeId"/>
                 <set field="asm_formSize" value="700"/>
-                <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="asm_title" value="${uiLabelMap.OrderPartySelectRoleForParty}"/-->

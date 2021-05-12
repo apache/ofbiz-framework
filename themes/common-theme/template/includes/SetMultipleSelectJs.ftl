@@ -58,6 +58,5 @@ jQuery(document).ready(function () {
     <#if asm_multipleSelectForm?? && asm_formSize??>
 jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
     </#if>
-jQuery(".asmListItem").css("width", "${asm_asmListItemPercentOfForm!95}%")
 </script>
 </#if>

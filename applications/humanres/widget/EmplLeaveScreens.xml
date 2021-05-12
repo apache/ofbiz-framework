@@ -35,7 +35,6 @@
                 </service>
                 <set field="hasAdminPermission" from-field="permResult.hasPermission"/>
                 <set field="asm_multipleSelectForm" value="FindEmplLeaves"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="leaveStatus.asm_multipleSelect" value="FindEmplLeaves_leaveStatus"/>
                 <set field="leaveStatus.asm_sortable" value="true"/>
                 <set field="leaveStatus.asm_title" value=" "/>

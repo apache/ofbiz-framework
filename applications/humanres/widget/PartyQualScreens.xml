@@ -30,7 +30,6 @@
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <set field="partyQualCtx" from-field="parameters"/>
                 <set field="asm_multipleSelectForm" value="FindPartyQuals"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="FindPartyQuals_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>
