@@ -60,8 +60,5 @@ under the License.
       ;
       }
 
-      .asmListItem {
-          width: ${asm_asmListItemPercentOfForm!95}%;
-      }
 </style>
 </#if>

@@ -174,7 +174,6 @@ under the License.
                 <set field="asm_multipleSelectForm" value="CommissionRun"/>
                 <set field="asm_multipleSelect" value="CommissionRun_partyId"/>
                 <set field="asm_formSize" value="700"/>
-                <set field="asm_listItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="asm_title" from-field="uiLabelMap.AccountingSelectPartiesForCommissionInvoice"/>

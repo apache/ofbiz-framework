@@ -32,7 +32,6 @@ under the License.
                 <set field="asm_multipleSelectForm" value="LookupParty"/>
                 <set field="asm_multipleSelect" value="LookupParty_partyClassificationGroupId"/>
                 <set field="asm_formSize" value="700"/>
-                <set field="asm_listItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 
                 <set field="initialyCollapsed" value="${groovy:'Y'.equals(parameters.hideFields)}" type="String"/>
