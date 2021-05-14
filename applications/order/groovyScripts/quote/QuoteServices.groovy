@@ -95,7 +95,7 @@ def getNextQuoteId() {
     }
 
     if (partyAcctgPreference) {
-        quoteId = "${partyAcctgPreference.quoteIdPrefix}${quoteId}"
+        quoteId = "${partyAcctgPreference.quoteIdPrefix?:''}${quoteId}"
     }
     return [successMessage: null, quoteId: quoteId]
 }
