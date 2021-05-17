@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -51,6 +52,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoCreateSinglPkEntity() throws Exception {
+        Delegator delegator = getDelegator();
         //test create with given pk
         Map<String, Object> testingPkPresentMap = new HashMap<>();
         testingPkPresentMap.put("testingId", "TESTING_1");
@@ -78,6 +80,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoCreateDoublePkEntity() throws Exception {
+        Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_2");
 
         //test create with given pk
@@ -112,6 +115,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoCreateMultiPkEntity() throws Exception {
+        Delegator delegator = getDelegator();
         delegator.create("TestingNode", "testingNodeId", "NODE_1");
         delegator.create("Testing", "testingId", "TESTING_3");
 
@@ -139,6 +143,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoUpdateEntity() throws Exception {
+        Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_4", "testingName", "entity auto testing");
 
         //test update with exist pk
@@ -160,6 +165,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoDeleteEntity() throws Exception {
+        Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_5");
 
         //test delete with exist pk
@@ -182,6 +188,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoExpireEntity() throws Exception {
+        Delegator delegator = getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
         delegator.create("Testing", "testingId", "TESTING_6");
         delegator.create("TestingNode", "testingNodeId", "TESTNODE_6");
@@ -225,6 +232,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * @throws Exception the exception
      */
     public void testEntityAutoEntityStatusConcept() throws Exception {
+        Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_7");
         delegator.create("StatusType", "statusTypeId", "TESTINGSTATUS");
         delegator.create("StatusItem", "statusId", "TESTING_CREATE", "statusTypeId", "TESTINGSTATUS");

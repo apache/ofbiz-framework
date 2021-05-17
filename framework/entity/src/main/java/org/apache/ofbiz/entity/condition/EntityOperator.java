@@ -174,8 +174,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
         register("lessThanEqualTo", LESS_THAN_EQUAL_TO); }
     static {
         register("<=", LESS_THAN_EQUAL_TO); }
-    public static final EntityComparisonOperator<?, ?> GREATER_THAN_EQUAL_TO = new ComparableEntityComparisonOperator<Object>(ID_GREATER_THAN_EQUAL_TO,
-            ">=") {
+    public static final EntityComparisonOperator<?, ?> GREATER_THAN_EQUAL_TO = new ComparableEntityComparisonOperator<Object>(
+            ID_GREATER_THAN_EQUAL_TO, ">=") {
         @Override
         public boolean compare(Comparable<Object> lhs, Object rhs) {
             return EntityComparisonOperator.compareGreaterThanEqualTo(lhs, rhs); }
@@ -253,8 +253,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
         register("not-in", NOT_IN);
     }
 
-    protected int idInt;
-    protected String codeString;
+    private int idInt;
+    private String codeString;
 
     public EntityOperator(int id, String code) {
         idInt = id;

@@ -72,7 +72,7 @@ public final class LayoutWorker {
 
         List<FileItem> lst = null;
         try {
-           lst = UtilGenerics.cast(upload.parseRequest(request));
+            lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e4) {
             return ServiceUtil.returnError(e4.getMessage());
         }

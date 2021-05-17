@@ -52,6 +52,12 @@ public class URLConnector {
         this.hostCertLevel = hostCertLevel;
     }
 
+    /**
+     * Open connection url connection.
+     * @param timeout the timeout
+     * @return the url connection
+     * @throws IOException the io exception
+     */
     protected synchronized URLConnection openConnection(int timeout) throws IOException {
         Thread t = new Thread(new URLConnectorThread());
         t.start();

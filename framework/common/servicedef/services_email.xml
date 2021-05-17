@@ -129,8 +129,8 @@ under the License.
         <description>Send E-Mail hidden in log (password, etc.) From Screen Widget Service</description>
         <implements service="sendMailFromScreenInterface"/>
     </service>
-    <service name="sendMailFromTemplateSetting" engine="simple"
-        location="component://common/minilang/email/EmailServices.xml" invoke="sendMailFromTemplateSetting">
+    <service name="sendMailFromTemplateSetting" engine="groovy"
+        location="component://common/groovyScripts/email/EmailServices.groovy" invoke="sendMailFromTemplateSetting">
         <description>Send Email From Email Template Setting Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="false"/>

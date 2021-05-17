@@ -62,7 +62,7 @@ import com.googlecode.concurrentlinkedhashmap.EvictionListener;
  *
  */
 @SuppressWarnings("serial")
-public class UtilCache<K, V> implements Serializable, EvictionListener<Object, CacheLine<V>> {
+public final class UtilCache<K, V> implements Serializable, EvictionListener<Object, CacheLine<V>> {
 
     private static final String MODULE = UtilCache.class.getName();
 

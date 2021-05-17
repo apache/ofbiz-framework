@@ -26,4 +26,12 @@ under the License.
         <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}"><link target="FindContactLists"/></menu-item>
         <menu-item name="Reports" title="${uiLabelMap.MarketingReports}"><link target="MarketingReport"/></menu-item>
     </menu>
+    <menu name="MarketingShortcutAppBar" title="${uiLabelMap.MarketingManager}">
+        <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="/marketing/control/FindDataSource" url-mode="inter-app"/></menu-item>
+        <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="/marketing/control/FindMarketingCampaign" url-mode="inter-app"/></menu-item>
+        <menu-item name="Tracking" title="${uiLabelMap.MarketingTracking}"><link target="/marketing/control/FindTrackingCode" url-mode="inter-app"/></menu-item>
+        <menu-item name="Segment" title="${uiLabelMap.MarketingSegment}"><link target="/marketing/control/FindSegmentGroup" url-mode="inter-app"/></menu-item>
+        <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}"><link target="/marketing/control/FindContactLists" url-mode="inter-app"/></menu-item>
+        <menu-item name="Reports" title="${uiLabelMap.MarketingReports}"><link target="/marketing/control/MarketingReport" url-mode="inter-app"/></menu-item>
+    </menu>
 </menus>

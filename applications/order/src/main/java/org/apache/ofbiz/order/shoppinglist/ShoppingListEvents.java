@@ -126,7 +126,7 @@ public class ShoppingListEvents {
             }
 
             // if no list was created throw an error
-            if (shoppingListId == null || shoppingListId.equals("")) {
+            if (shoppingListId == null || "".equals(shoppingListId)) {
                 errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.shoppingListId_is_required_parameter", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }
@@ -337,8 +337,7 @@ public class ShoppingListEvents {
         try {
             quantity = new BigDecimal(quantityStr);
         } catch (NumberFormatException e) {
-            // do nothing, just won't pass to service if it is null
-            Debug.logError(e, MODULE);
+            Debug.logError(e, "do nothing, just won't pass to service if it is null", MODULE);
         }
 
         Map<String, Object> serviceInMap = new HashMap<>();

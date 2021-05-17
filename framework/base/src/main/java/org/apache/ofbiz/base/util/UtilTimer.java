@@ -66,7 +66,9 @@ public class UtilTimer {
      * Start timer.
      */
     public void startTimer() {
-        this.lastMessageTime = realStartTime = startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
+        realStartTime = startTime;
+        this.lastMessageTime = startTime;
         this.lastMessage = "Begin";
         this.running = true;
     }

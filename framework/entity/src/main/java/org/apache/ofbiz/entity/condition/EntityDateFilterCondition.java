@@ -142,6 +142,7 @@ public final class EntityDateFilterCondition implements EntityCondition {
      * - fromDate is null and thruDate is equal to or after rangeStart
      * - thruDate is null and fromDate is before rangeEnd
      * - fromDate is null and thruDate is null
+     * - fromDate is before rangeStart and thruDate is after rangeEnd
      * @param rangeStart    The start of the range to filter against
      * @param rangeEnd      The end of the range to filter against
      * @param fromDateName  The name of the field containing the entity's "fromDate"
@@ -163,6 +164,9 @@ public final class EntityDateFilterCondition implements EntityCondition {
                         EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)),
                 EntityCondition.makeCondition(
                         EntityCondition.makeCondition(thruDateName, null),
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)));
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, rangeStart),
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeEnd)));
     }
 }

@@ -3621,7 +3621,7 @@
         <value xml:lang="zh-TW">在製品</value>
     </property>
     <property key="QuantityBreakType.description.ORDER_VALUE">
-        <value xml:lang="de">Preiskomponente Auftragswert Sprung</value>
+        <value xml:lang="de">Staffelung Preiskomponente Auftragswert</value>
         <value xml:lang="en">Price Component Order Value Break</value>
         <value xml:lang="es">Dividir el valor de la orden en precios de sus componentes</value>
         <value xml:lang="fr">Rupture par valeur à la commande des prix de composant</value>
@@ -3634,7 +3634,7 @@
         <value xml:lang="zh-TW">元件價格訂單價值台階</value>
     </property>
     <property key="QuantityBreakType.description.QUANTITY">
-        <value xml:lang="de">Preiskomponente Menge Sprung</value>
+        <value xml:lang="de">Staffelung Preiskomponente Menge</value>
         <value xml:lang="en">Price Component Quantity Break</value>
         <value xml:lang="es">Dividir la cantidad en el precio de sus componentes</value>
         <value xml:lang="fr">Rupture par quantité des prix de composant</value>
@@ -3647,7 +3647,7 @@
         <value xml:lang="zh-TW">元件價格數量台階</value>
     </property>
     <property key="QuantityBreakType.description.SHIP_PRICE">
-        <value xml:lang="de">Lieferpreis Sprung</value>
+        <value xml:lang="de">Staffelung Lieferpreis</value>
         <value xml:lang="en">Shipping Price Break</value>
         <value xml:lang="es">Dividir precio de envío</value>
         <value xml:lang="fr">Rupture par prix d'expédition</value>
@@ -3660,7 +3660,7 @@
         <value xml:lang="zh-TW">運價台階</value>
     </property>
     <property key="QuantityBreakType.description.SHIP_QUANTITY">
-        <value xml:lang="de">Liefermenge Sprung</value>
+        <value xml:lang="de">Staffelung Liefermenge</value>
         <value xml:lang="en">Shipping Quantity Break</value>
         <value xml:lang="es">Dividir cantidad de envío</value>
         <value xml:lang="fr">Rupture par quantité d'expédition</value>
@@ -3673,7 +3673,7 @@
         <value xml:lang="zh-TW">運送數量台階</value>
     </property>
     <property key="QuantityBreakType.description.SHIP_WEIGHT">
-        <value xml:lang="de">Liefergewicht Sprung</value>
+        <value xml:lang="de">Staffelung Liefergewicht</value>
         <value xml:lang="en">Shipping Weight Break</value>
         <value xml:lang="es">Dividir peso de envío</value>
         <value xml:lang="fr">Rupture par poids à l'expédition</value>

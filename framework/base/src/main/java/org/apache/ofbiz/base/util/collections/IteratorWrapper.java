@@ -74,6 +74,12 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         }
     }
 
+    /**
+     * Is valid boolean.
+     * @param src the src
+     * @param dest the dest
+     * @return the boolean
+     */
     protected boolean isValid(SRC src, DEST dest) {
         return true;
     }

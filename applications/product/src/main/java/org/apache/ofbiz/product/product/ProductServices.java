@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -966,7 +967,7 @@ public class ProductServices {
     }
 
     public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx,
-            Map<String, ? extends Object> context) {
+            Map<String, ? extends Object> context) throws ImageReadException {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -1070,11 +1071,16 @@ public class ProductServices {
             }
             // Write
             try {
-                File file = new File(imageServerPath + "/" + fileLocation + "." + extension.getString("fileExtensionId"));
+                String fileToCheck = imageServerPath + "/" + fileLocation + "." + extension.getString("fileExtensionId");
+                File file = new File(fileToCheck);
                 try {
-                    RandomAccessFile out = new RandomAccessFile(file, "rw");
+                    RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
                     out.write(imageData.array());
                     out.close();
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                        return ServiceUtil.returnError(errorMessage);
+                    }
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -1341,8 +1347,7 @@ public class ProductServices {
             String filePathPrefix = "";
             String filenameToUse = fileLocation;
             if (fileLocation.lastIndexOf('/') != -1) {
-                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include
-                                                                                               // the trailing slash
+                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
                 filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1);
             }
 
@@ -1369,17 +1374,23 @@ public class ProductServices {
                 }
             }
 
-            File file = new File(imageServerPath + "/" + filePathPrefix + filenameToUse);
+            String fileToCheck = imageServerPath + "/" + filePathPrefix + filenameToUse;
+            File file = new File(fileToCheck);
 
             try {
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(imageData.array());
                 out.close();
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                    return ServiceUtil.returnError(errorMessage);
+                }
+
             } catch (FileNotFoundException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
-            } catch (IOException e) {
+            } catch (IOException | ImageReadException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));

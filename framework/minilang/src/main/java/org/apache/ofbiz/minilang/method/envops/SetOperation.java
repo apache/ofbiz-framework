@@ -90,7 +90,8 @@ public final class SetOperation extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
             MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
-            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "format", "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default",
+                    "format", "type", "set-if-null", "set-if-empty");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
@@ -194,13 +195,13 @@ public final class SetOperation extends MethodOperation {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type
                             + "] type for the value [" + newValue + "]: " + e.getMessage();
                     Debug.logWarning(e, errMsg, MODULE);
-                    this.simpleMethod.addErrorMessage(methodContext, errMsg);
+                    this.getSimpleMethod().addErrorMessage(methodContext, errMsg);
                     return false;
                 }
             }
         }
         if (Debug.verboseOn()) {
-             Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, MODULE);
+            Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, MODULE);
         }
         this.fieldFma.put(methodContext.getEnvMap(), newValue);
         return true;

@@ -1809,8 +1809,24 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public static class AltRowStyle {
-        public final String useWhen;
-        public final String style;
+        private final String useWhen;
+        private final String style;
+
+        /**
+         * Gets use when.
+         * @return the use when
+         */
+        public String getUseWhen() {
+            return useWhen;
+        }
+
+        /**
+         * Gets style.
+         * @return the style
+         */
+        public String getStyle() {
+            return style;
+        }
 
         public AltRowStyle(Element altRowStyleElement) {
             this.useWhen = altRowStyleElement.getAttribute("use-when");

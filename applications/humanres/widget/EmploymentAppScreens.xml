@@ -27,7 +27,6 @@
                 <set field="headerItem" value="EmploymentApp"/>
                 <set field="employmentAppCtx" from-field="parameters"/>
                 <set field="asm_multipleSelectForm" value="FindEmploymentApps"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="FindEmploymentApps_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>

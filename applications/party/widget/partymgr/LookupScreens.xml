@@ -432,6 +432,34 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="LookupGovernmentAgency">
+        <section>
+            <condition>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" from-field="uiLabelMap.PartyLookupGovernmentAgency"/>
+                <set field="entityName" value="PartyRoleAndPartyDetail"/>
+                <set field="roleTypeId" value="GOV_AGENCY"/>
+                <set field="searchFields" value="[partyId, groupName, partyGroupComments]"/>
+                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <set field="conditionFields.roleTypeId" value="GOV_AGENCY" />
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="LookupGovernmentAgency" location="component://party/widget/partymgr/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="LookupSupplier">
         <section>
             <condition>

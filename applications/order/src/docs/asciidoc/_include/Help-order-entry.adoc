@@ -1,0 +1,56 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Order Entry
+
+In this screen you can create a Sales order on the first part, or a Purchase Order on the second part.
+
+For Purchase Order entry, all parties with role "SUPPLIER" are listed in the drop down supplier.
+
+Using the top portion labeled Sales Order, identify the Party placing the order, either with their User Login Id
+or Party Id. The search tool can be a help. +
+You have several means to reach the PartyID for the person or company which wishes to place an order.
+
+. Enter the PartyID or LoginID directly if either of those are known. OR
+. Enter the known information, such as name in the search fields; the return will appear in the table as shown below. OR
+. click on the link to the Popup search tool to the right of the User Login and Party ID box in the Sales Order section; +
+  and you have a search tool where you can either scroll the listing of known Parties or enter the information you might
+  have and let the search find the party for you.
+
+If specifics about the order are not known, you might prefer to find it through the Party.
+In that case, select [Lookup Party]. The Party Manager can link you back to previous orders. +
+
+Basically, you cannot place an order until the Party is identified.
+There are several ways to establish the Party ID from within the Order Manager.
+Since several of those ways take you back through the Party Manager, it might be just as easy to begin with the Party Manager.
+
+== Placing a New Order
+Once you click on the [New Order] link, you have begun the order taking <<Create Order Diagrams,process through the Order Manager>>.
+The internal, 'behind the scenes' processing of the order is very similar to the Ecommerce order.
+Unlike the Ecommerce ordering process, the customer will not see all of the screens you have available;
+only the person taking the order can see all the special offers and the details presented.
+This is why it is important when taking an order over the phone or completing a transcription from a hard copy or email order,
+that the processor be alert to special offers or to error messages that might appear.
+
+== Order from eCommerce
+When a customer first enters the Ecommerce website, they are challenged for a Username and a Password.
+If they are first time visitors, they are provided an opportunity to create an account.
+If they have visited before, they are asked for their username and password.
+All of their entries are automatically logged into the OFBiz databases for your review in OFBiz and for their ordering processes.
+They never see any part of OFBiz except the Ecommerce interface which includes the content posted from OFBiz
+to the Ecommerce portion as called up by their preferences.

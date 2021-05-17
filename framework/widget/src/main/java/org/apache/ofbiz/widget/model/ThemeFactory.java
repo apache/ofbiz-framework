@@ -52,7 +52,7 @@ import org.xml.sax.SAXException;
 /**
  * Widget Theme Library - Theme factory class
  */
-public class ThemeFactory {
+public final class ThemeFactory {
 
     private static final String MODULE = ThemeFactory.class.getName();
 
@@ -61,6 +61,7 @@ public class ThemeFactory {
     private static final UtilCache<String, VisualTheme> THEME_VISUAL_THEME_ID_CACHE =
             UtilCache.createUtilCache("widget.theme.idAndVisualTheme", 0, 0, false);
 
+    private ThemeFactory() { }
     /**
      * From a w3c Document return the modelTheme instantiated
      * @param themeFileDoc
@@ -76,18 +77,11 @@ public class ThemeFactory {
     }
 
     /**
-     * Scann all Theme.xml definition to reload all VisualTheme oin cache
+     * Reload all VisualTheme in cache
      */
     private static void pullModelThemesFromXmlToCache() {
-        String ofbizHome = System.getProperty("ofbiz.home");
-        String themeFolderPath = ofbizHome + "/themes";
-        String pluginsFolderPath = ofbizHome + "/plugins";
         try {
-            List<File> xmlThemes = FileUtil.findXmlFiles(themeFolderPath, null, "theme", "widget-theme.xsd");
-            List<File> xmlPluginThemes = FileUtil.findXmlFiles(pluginsFolderPath, null, "theme", "widget-theme.xsd");
-            if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
-                xmlThemes.addAll(xmlPluginThemes);
-            }
+            List<File> xmlThemes = getThemeXmlFiles();
             for (File xmlTheme : xmlThemes) {
                 ModelTheme modelTheme = getModelThemeFromLocation(xmlTheme.toURI().toURL().toString());
                 if (modelTheme != null) {
@@ -99,6 +93,23 @@ public class ThemeFactory {
         } catch (IOException e) {
             Debug.logError("Impossible to initialize models themes in cache throw: " + e, MODULE);
         }
+    }
+
+    /**
+     * Scan all Theme.xml definition
+     * @return
+     * @throws IOException
+     */
+    public static List<File> getThemeXmlFiles() throws IOException {
+        String ofbizHome = System.getProperty("ofbiz.home");
+        String themeFolderPath = ofbizHome + "/themes";
+        String pluginsFolderPath = ofbizHome + "/plugins";
+        List<File> xmlThemes = FileUtil.findXmlFiles(themeFolderPath, null, "theme", "widget-theme.xsd");
+        List<File> xmlPluginThemes = FileUtil.findXmlFiles(pluginsFolderPath, null, "theme", "widget-theme.xsd");
+        if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
+            xmlThemes.addAll(xmlPluginThemes);
+        }
+        return xmlThemes;
     }
 
     /**

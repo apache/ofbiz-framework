@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.service.calendar.TemporalExpressionVisitor;
 import org.apache.ofbiz.service.calendar.TemporalExpressions;
@@ -62,6 +64,7 @@ import net.fortuna.ical4j.model.property.RRule;
  */
 public class ICalRecurConverter implements TemporalExpressionVisitor {
     protected static final WeekDay DAY_OF_WEEK_ARRAY[] = {WeekDay.SU, WeekDay.MO, WeekDay.TU, WeekDay.WE, WeekDay.TH, WeekDay.FR, WeekDay.SA};
+    private static final String MODULE = ObjectType.class.getName();
 
     @SuppressWarnings("unchecked")
     public static void convert(TemporalExpression expr, PropertyList eventProps) {
@@ -97,6 +100,11 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
 
     protected ICalRecurConverter() { }
 
+    /**
+     * Consolidate recurs recur.
+     * @param recurList the recur list
+     * @return the recur
+     */
     @SuppressWarnings("unchecked")
     protected Recur consolidateRecurs(List<Recur> recurList) {
         // Try to consolidate a list of Recur instances into one instance
@@ -204,7 +212,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
 
     @Override
     public void visit(Substitution expr) {
-        // iCalendar format does not support substitutions. Do nothing for now.
+        Debug.logVerbose("iCalendar format does not support substitutions. Do nothing for now", MODULE);
     }
 
     @Override

@@ -74,7 +74,8 @@ public class SaveLabelsToXmlFile {
             LabelFile labelFile = factory.getLabelFile(fileName);
             if (labelFile == null) {
                 Debug.logError("Invalid file name: " + fileName, MODULE);
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile",
+                        locale));
             }
             synchronized (SaveLabelsToXmlFile.class) {
                 factory.findMatchingLabels(null, fileName, null, null, false);
@@ -103,7 +104,8 @@ public class SaveLabelsToXmlFile {
                             if (UtilValidate.isEmpty(key)) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelEmptyKey", locale));
                             } else {
-                                int notEmptyLabels = factory.updateLabelValue(localeNames, localeValues, localeComments, null, key, keyComment, fileName);
+                                int notEmptyLabels = factory.updateLabelValue(localeNames, localeValues, localeComments, null, key,
+                                        keyComment, fileName);
                                 if (notEmptyLabels == 0) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelEmpty", locale));
                                 }
@@ -144,7 +146,7 @@ public class SaveLabelsToXmlFile {
                             }
                         }
                     }
-                    try (FileOutputStream fos = new FileOutputStream(labelFile.file)) {
+                    try (FileOutputStream fos = new FileOutputStream(labelFile.getFile())) {
                         if (apacheLicenseText != null) {
                             fos.write(apacheLicenseText.getBytes());
                         }

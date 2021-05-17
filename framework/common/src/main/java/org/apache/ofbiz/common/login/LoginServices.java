@@ -584,7 +584,8 @@ public class LoginServices {
 
         try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue pwdHist;
-            if ((pwdHist = eli.next()) != null) {
+            pwdHist = eli.next();
+            if (pwdHist != null) {
                 // updating password so set end date on previous password in history
                 pwdHist.set("thruDate", nowTimestamp);
                 pwdHist.store();

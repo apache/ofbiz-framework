@@ -88,6 +88,10 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
         this.modelWidget = modelWidget;
     }
 
+    /**
+     * Gets model widget.
+     * @return the model widget
+     */
     public ModelWidget getModelWidget() {
         return modelWidget;
     }
@@ -108,7 +112,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;and&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class And extends AbstractModelCondition {
+    public static final class And extends AbstractModelCondition {
         private final List<ModelCondition> subConditions;
 
         private And(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -170,6 +174,13 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             return newInstance(this, modelWidget, conditionElement);
         }
 
+        /**
+         * New instance model condition.
+         * @param factory the factory
+         * @param modelWidget the model widget
+         * @param conditionElement the condition element
+         * @return the model condition
+         */
         // TODO: Test extended factory
         protected ModelCondition newInstance(ModelConditionFactory factory, ModelWidget modelWidget, Element conditionElement) {
             if (conditionElement == null) {
@@ -210,7 +221,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-compare&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfCompare extends AbstractModelCondition {
+    public static final class IfCompare extends AbstractModelCondition {
         private final FlexibleMapAccessor<Object> fieldAcsr;
         private final FlexibleStringExpander formatExdr;
         private final String operator;
@@ -285,7 +296,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-compare-field&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfCompareField extends AbstractModelCondition {
+    public static final class IfCompareField extends AbstractModelCondition {
         private final FlexibleMapAccessor<Object> fieldAcsr;
         private final FlexibleStringExpander formatExdr;
         private final String operator;
@@ -366,7 +377,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-empty&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfEmpty extends AbstractModelCondition {
+    public static final class IfEmpty extends AbstractModelCondition {
         private final FlexibleMapAccessor<Object> fieldAcsr;
 
         private IfEmpty(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -399,7 +410,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-entity-permission&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfEntityPermission extends AbstractModelCondition {
+    public static final class IfEntityPermission extends AbstractModelCondition {
         private final EntityPermissionChecker permissionChecker;
 
         private IfEntityPermission(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -426,7 +437,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-has-permission&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfHasPermission extends AbstractModelCondition {
+    public static final class IfHasPermission extends AbstractModelCondition {
         private final FlexibleStringExpander actionExdr;
         private final FlexibleStringExpander permissionExdr;
 
@@ -477,7 +488,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-regexp&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfRegexp extends AbstractModelCondition {
+    public static final class IfRegexp extends AbstractModelCondition {
         private final FlexibleStringExpander exprExdr;
         private final FlexibleMapAccessor<Object> fieldAcsr;
 
@@ -536,7 +547,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-service-permission&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfServicePermission extends AbstractModelCondition {
+    public static final class IfServicePermission extends AbstractModelCondition {
         private final FlexibleStringExpander actionExdr;
         private final FlexibleStringExpander ctxMapExdr;
         private final FlexibleStringExpander resExdr;
@@ -638,7 +649,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;if-validate-method&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class IfValidateMethod extends AbstractModelCondition {
+    public static final class IfValidateMethod extends AbstractModelCondition {
         private final FlexibleStringExpander classExdr;
         private final FlexibleMapAccessor<Object> fieldAcsr;
         private final FlexibleStringExpander methodExdr;
@@ -678,7 +689,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                 fieldString = "";
             }
             Class<?>[] paramTypes = {String.class };
-            Object[] params = new Object[] { fieldString };
+            Object[] params = new Object[] {fieldString };
             Class<?> valClass;
             try {
                 valClass = ObjectType.loadClass(className);
@@ -721,7 +732,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;not&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class Not extends AbstractModelCondition {
+    public static final class Not extends AbstractModelCondition {
         private final ModelCondition subCondition;
 
         private Not(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -749,7 +760,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;or&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class Or extends AbstractModelCondition {
+    public static final class Or extends AbstractModelCondition {
         private final List<ModelCondition> subConditions;
 
         private Or(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
@@ -782,7 +793,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
      * Models the &lt;xor&gt; element.
      * @see <code>widget-common.xsd</code>
      */
-    public static class Xor extends AbstractModelCondition {
+    public static final class Xor extends AbstractModelCondition {
         private final List<ModelCondition> subConditions;
 
         private Xor(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {

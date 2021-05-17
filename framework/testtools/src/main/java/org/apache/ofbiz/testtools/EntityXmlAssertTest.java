@@ -37,8 +37,8 @@ public class EntityXmlAssertTest extends OFBizTestCase {
 
     private static final String MODULE = ServiceTest.class.getName();
 
-    protected String entityXmlUrlString;
-    protected String action;
+    private String entityXmlUrlString;
+    private String action;
 
     /**
      * Tests of entity xml
@@ -57,7 +57,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
         int testCaseCount = 0;
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            EntitySaxReader reader = new EntitySaxReader(delegator);
+            EntitySaxReader reader = new EntitySaxReader(getDelegator());
             testCaseCount += reader.parse(entityXmlURL);
         } catch (Exception e) {
             Debug.logError(e, "Error getting test case count", MODULE);
@@ -74,9 +74,9 @@ public class EntityXmlAssertTest extends OFBizTestCase {
             List<Object> errorMessages = new LinkedList<>();
 
             if ("assert".equals(this.action)) {
-                EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);
+                EntityDataAssert.assertData(entityXmlURL, getDelegator(), errorMessages);
             } else if ("load".equals(this.action)) {
-                EntitySaxReader reader = new EntitySaxReader(delegator);
+                EntitySaxReader reader = new EntitySaxReader(getDelegator());
                 reader.parse(entityXmlURL);
             } else {
                 // uh oh, bad value

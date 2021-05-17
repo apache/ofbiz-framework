@@ -23,9 +23,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
-    
+
     <entity-resource type="data" reader-name="seed" loader="main" location="data/MarketingSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/MarketingHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SfaPortletData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
@@ -38,15 +37,19 @@ under the License.
 
     <webapp name="marketing"
         title="Marketing"
+        position="11"
         server="default-server"
         location="webapp/marketing"
         base-permission="OFBTOOLS,MARKETING"
+        app-shortcut-screen="component://marketing/widget/CommonScreens.xml#ShortcutApp"
         mount-point="/marketing"/>
     <webapp name="SalesForceAutomation"
         title="SFA"
+        position="8"
         server="default-server"
         location="webapp/sfa"
         base-permission="OFBTOOLS,SFA"
+        app-shortcut-screen="component://marketing/widget/sfa/CommonScreens.xml#ShortcutApp"
         mount-point="/sfa"/>
 </ofbiz-component>
 

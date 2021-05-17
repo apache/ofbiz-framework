@@ -103,7 +103,7 @@ public class GenericDelegator implements Delegator {
      * and should improve overall stability and consistency */
     private static final boolean ALWAYS_USE_TRANS = true;
     // TODO should this is be handled by tenant?
-    private static final boolean SAVE_ENTITY_SYNC_REMOVE_INFO = UtilProperties.getPropertyAsBoolean("general", "saveEntitySyncRemove", false);
+    private static final boolean SAVE_ENTITY_SYNC_REMOVE_INFO = UtilProperties.getPropertyAsBoolean("general", "saveEntitySyncRemoveInfo", false);
 
     private String delegatorBaseName = null;
     private String delegatorFullName = null;
@@ -2763,8 +2763,7 @@ public class GenericDelegator implements Delegator {
      * @return the distributed cache clear
      */
     protected DistributedCacheClear createDistributedCacheClear() {
-        // If useDistributedCacheClear is false do nothing: the distributedCacheClear member field with a null value would cause dcc code to do
-        // nothing
+        // If useDistributedCacheClear is false do nothing: the DCC member field with a null value would cause DCC code to do nothing
         if (useDistributedCacheClear()) {
             //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
             ClassLoader loader = Thread.currentThread().getContextClassLoader();

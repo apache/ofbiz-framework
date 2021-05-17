@@ -441,7 +441,7 @@ public final class LoginWorker {
         boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
         if (!unpwErrMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
-            return  requirePasswordChange ? "requirePasswordChange" : "error";
+            return requirePasswordChange ? "requirePasswordChange" : "error";
         }
 
         boolean setupNewDelegatorEtc = false;
@@ -682,7 +682,8 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap,
+                    UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -963,7 +964,7 @@ public final class LoginWorker {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            autoLoginCookie.setPath(applicationName.equals("root") ? "/" : request.getContextPath());
+            autoLoginCookie.setPath("root".equals(applicationName) ? "/" : request.getContextPath());
             autoLoginCookie.setSecure(true);
             autoLoginCookie.setHttpOnly(true);
             response.addCookie(autoLoginCookie);
@@ -984,7 +985,7 @@ public final class LoginWorker {
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(request), userLogin.getString("userLoginId"));
             securedLoginIdCookie.setMaxAge(-1);
             securedLoginIdCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            securedLoginIdCookie.setPath(applicationName.equals("root") ? "/" : request.getContextPath());
+            securedLoginIdCookie.setPath("root".equals(applicationName) ? "/" : request.getContextPath());
             securedLoginIdCookie.setSecure(true);
             securedLoginIdCookie.setHttpOnly(true);
             response.addCookie(securedLoginIdCookie);
@@ -1083,7 +1084,7 @@ public final class LoginWorker {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(0);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            autoLoginCookie.setPath(applicationName.equals("root") ? "/" : request.getContextPath());
+            autoLoginCookie.setPath("root".equals(applicationName) ? "/" : request.getContextPath());
             response.addCookie(autoLoginCookie);
         }
         // remove the session attributes

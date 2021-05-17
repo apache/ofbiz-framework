@@ -35,7 +35,6 @@ under the License.
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
                 <set field="asm_multipleSelectForm" value="FindContent"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="FindContent_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>

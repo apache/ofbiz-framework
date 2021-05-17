@@ -133,7 +133,8 @@ public final class EntityCrypto {
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", MODULE);
             for (int i = 1; i < handlers.length; i++) {
                 try {
-                    // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
+                    // try using the old/bad hex encoding approach; this is another path the code may take, ie if there
+                    // is an exception thrown in decrypt
                     return doDecrypt(keyName, encryptMethod, encryptedString, handlers[i]);
                 } catch (GeneralException e1) {
                     // NOTE: this throws the original exception back, not the new one if it fails using the other approach
@@ -358,7 +359,8 @@ public final class EntityCrypto {
                 try {
                     key = DesCrypt.getDesKey(kek);
                 } catch (GeneralException e) {
-                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably valid for the newer ShiroStorageHandler", MODULE);
+                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably "
+                            + "valid for the newer ShiroStorageHandler", MODULE);
                 }
             }
             this.kek = key;

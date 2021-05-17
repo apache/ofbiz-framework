@@ -29,8 +29,6 @@ under the License.
 
     <!-- entity resources: model(s), eca(s) and group definitions -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingHelpData_EN.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingHelpData_NL.xml"/>
     <!--<entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ManufacturingScheduledServices.xml"/>-->
 
     <!-- service resources: model(s) [definitions], eca(s) and group definitions -->
@@ -47,10 +45,12 @@ under the License.
 
     <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="manufacturing"
+        position="7"
         title="Manufacturing"
         server="default-server"
         location="webapp/manufacturing"
         base-permission="OFBTOOLS,MANUFACTURING"
+        app-shortcut-screen="component://manufacturing/widget/manufacturing/CommonScreens.xml#ShortcutApp"
         mount-point="/manufacturing"/>
 
 </ofbiz-component>

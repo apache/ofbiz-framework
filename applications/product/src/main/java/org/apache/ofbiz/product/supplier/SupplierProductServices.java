@@ -61,7 +61,7 @@ public class SupplierProductServices {
         String productId = (String) context.get("productId");
         String partyId = (String) context.get("partyId");
         String currencyUomId = (String) context.get("currencyUomId");
-        BigDecimal quantity =(BigDecimal) context.get("quantity");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
         String agreementId = (String) context.get("agreementId");
 
@@ -74,7 +74,8 @@ public class SupplierProductServices {
             }
             List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);
 
-            // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
+            // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the
+            // virtual parent product
             if (supplierProducts.isEmpty() && product.getString("isVariant") != null && "Y".equals(product.getString("isVariant"))) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
                 GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", virtualProductId).cache().queryOne();
@@ -102,7 +103,8 @@ public class SupplierProductServices {
             // filter the list down by the minimumOrderQuantity if one is provided
             if (quantity != null) {
                 //minimumOrderQuantity
-                supplierProducts = EntityUtil.filterByCondition(supplierProducts, EntityCondition.makeCondition("minimumOrderQuantity", EntityOperator.LESS_THAN_EQUAL_TO, quantity));
+                supplierProducts = EntityUtil.filterByCondition(supplierProducts, EntityCondition.makeCondition("minimumOrderQuantity",
+                        EntityOperator.LESS_THAN_EQUAL_TO, quantity));
             }
 
             // filter the list down by the canDropShip if one is provided

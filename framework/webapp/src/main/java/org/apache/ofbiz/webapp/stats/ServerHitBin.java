@@ -45,7 +45,7 @@ import com.ibm.icu.util.Calendar;
  * <p>Handles total stats since the server started and binned
  *  stats according to settings in the serverstats.properties file.
  */
-public class ServerHitBin {
+public final class ServerHitBin {
     // Debug MODULE name
     private static final String MODULE = ServerHitBin.class.getName();
 
@@ -493,7 +493,7 @@ public class ServerHitBin {
             if (visit == null) {
                 // no visit info stored, so don't store the ServerHit
                 Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn off"
-                        + "persistance of visits you should also turn off persistence of hits.", MODULE);
+                        + " persistance of visits you should also turn off persistence of hits.", MODULE);
                 return;
             }
             String visitId = visit.getString("visitId");

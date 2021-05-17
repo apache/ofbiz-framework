@@ -68,7 +68,6 @@ under the License.
                 <set field="tabButtonItem" value="findPayment"/>
                 <set field="helpAnchor" value="_help_for_find_payments"/>
                 <set field="asm_multipleSelectForm" value="FindPayments"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="FindPayments_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>

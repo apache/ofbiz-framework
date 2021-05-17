@@ -69,7 +69,8 @@ public class ServiceValidationException extends GenericServiceException {
         this.service = service;
     }
 
-    public ServiceValidationException(String str, Throwable nested, ModelService service, List<String> missingFields, List<String> extraFields, String errorMode) {
+    public ServiceValidationException(String str, Throwable nested, ModelService service, List<String> missingFields,
+                                      List<String> extraFields, String errorMode) {
         super(str, nested);
         this.service = service;
         this.errorMode = errorMode;
@@ -81,7 +82,8 @@ public class ServiceValidationException extends GenericServiceException {
         }
     }
 
-    public ServiceValidationException(List<String> messages, ModelService service, List<String> missingFields, List<String> extraFields, String errorMode) {
+    public ServiceValidationException(List<String> messages, ModelService service, List<String> missingFields, List<String>
+            extraFields, String errorMode) {
         super();
         this.messages = messages;
         this.service = service;

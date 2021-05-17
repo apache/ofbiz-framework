@@ -103,7 +103,7 @@ public class DesCrypt {
 
     // return a cipher for a key - DESede/CBC/PKCS5Padding IV = 0
     protected static Cipher getCipher(Key key, int mode) throws GeneralException {
-        byte[] zeros = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] zeros = {0, 0, 0, 0, 0, 0, 0, 0 };
         IvParameterSpec iv = new IvParameterSpec(zeros);
 
         // create the Cipher - DESede/CBC/NoPadding

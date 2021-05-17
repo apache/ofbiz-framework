@@ -180,7 +180,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 doublePkPrimaryInParam = secondPkParam;
                 doublePkSecondaryOutParam = firstPkParam;
                 doublePkSecondaryOutField = firstPkField;
-            //} else {
+                // } else {
                 // we don't have an IN and an OUT... so do nothing and leave them null
             }
         }
@@ -247,7 +247,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
              **** secondary sequenced primary key ****
              *
             <auto-attributes include="pk" mode="IN" optional="false"/>
-            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+            <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the
+            * next sub-sequence ID -->
              *
             <make-value entity-name="ExampleItem" value-name="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -590,7 +591,9 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             if (parameters.get(fieldDateNameIn) == null) {
                 parameters.put(fieldDateNameIn, UtilDateTime.nowTimestamp());
             }
-        } else if (thruDatePresent && UtilValidate.isEmpty(lookedUpValue.getTimestamp("thruDate"))) {
+        }
+        // Expire thruDate fields
+        if (thruDatePresent && UtilValidate.isEmpty(lookedUpValue.getTimestamp("thruDate"))) {
             if (UtilValidate.isEmpty(parameters.get("thruDate"))) {
                 parameters.put("thruDate", UtilDateTime.nowTimestamp());
             }

@@ -18,12 +18,14 @@ under the License.
 ////
 = Apache OFBiz User Manual
 The Apache OFBiz Project
-Release trunk
+:doctype: book
 :imagesdir: ./images
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
 :source-highlighter: rouge
 endif::[]
+
+image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
 
 == Introduction to OFBiz
 
@@ -120,12 +122,12 @@ update, delete, search, and do many other operations on the data model.
 
 ==== Core Applications
 
-The core applications in Apache OFBiz are web applications that serve common
+The <<CORE_APPLICATION_COMPONENTS,core applications>> in Apache OFBiz are web applications that serve common
 business needs found in most enterprises such as accounting, order management,
 party management and so on.
 
 These core applications are built on top of the data model and service library
-earlier described. The core applications are further described in the relevant
+earlier described. The <<CORE_APPLICATION_COMPONENTS,core applications>> are further described in the relevant
 section.
 
 ==== Plugins
@@ -135,11 +137,13 @@ to the core applications in design and structure, but are not shipped with
 OFBiz by default. Thus to install a plugin a user must add it to the framework
 first.
 
+include::_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
+
 include::../../README.adoc[tags=quickstart]
 
 include::../../applications/commonext/src/docs/asciidoc/ofbiz-setup.adoc[leveloffset=+1]
 
-== Core Business Applications
+= Core Business Applications
 
 Most businesses share universal needs. They require accounting functionality,
 managing customers, placing orders, book-keeping, invoicing and so on.
@@ -153,24 +157,35 @@ This section of the manual will describe each core business application
 starting with a high level overview of design and purpose down to the details
 of how to achieve common tasks.
 
-include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+2]
+include::../../applications/party/src/docs/asciidoc/party.adoc[leveloffset=+1]
 
-include::../../applications/content/src/docs/asciidoc/content.adoc[leveloffset=+2]
+include::../../applications/product/src/docs/asciidoc/product.adoc[leveloffset=+1]
 
-include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+2]
+include::../../applications/product/src/docs/asciidoc/facility.adoc[leveloffset=+1]
 
-include::../../applications/manufacturing/src/docs/asciidoc/manufacturing.adoc[leveloffset=+2]
+include::../../applications/order/src/docs/asciidoc/order.adoc[leveloffset=+1]
 
-include::../../applications/marketing/src/docs/asciidoc/marketing.adoc[leveloffset=+2]
+include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+1]
 
-include::../../applications/marketing/src/docs/asciidoc/sfa.adoc[leveloffset=+2]
+include::../../applications/content/src/docs/asciidoc/content.adoc[leveloffset=+1]
 
-include::../../applications/order/src/docs/asciidoc/order.adoc[leveloffset=+2]
+include::../../applications/manufacturing/src/docs/asciidoc/manufacturing.adoc[leveloffset=+1]
 
-include::../../applications/party/src/docs/asciidoc/party.adoc[leveloffset=+2]
+include::../../applications/marketing/src/docs/asciidoc/sfa.adoc[leveloffset=+1]
 
-include::../../applications/product/src/docs/asciidoc/product.adoc[leveloffset=+2]
+include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+1]
 
+include::../../applications/marketing/src/docs/asciidoc/marketing.adoc[leveloffset=+1]
+
+////
+webtools help should be remove when global glossary exist, and contain a link to developer-manual#webtools
+////
+=== Web tools
+The Webtools application is the UI-gateway to all the framework functions.
+
+include::../../framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
 // Plugins Business Applications
 
-include::../../plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+1]
+include::../../plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+0]
+
+include::_include/ofbiz-glossary.adoc[leveloffset=+1]

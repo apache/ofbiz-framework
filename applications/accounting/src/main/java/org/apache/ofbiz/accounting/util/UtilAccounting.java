@@ -179,8 +179,8 @@ public final class UtilAccounting {
         String parentClassId = glAccountClass.getString("parentClassId");
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentClassId == null)
-                && (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
+        return !(parentClassId == null) && (parentClassId.equals(parentGlAccountClassId)
+                || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
     }
 
     /**
@@ -314,7 +314,8 @@ public final class UtilAccounting {
                 EntityCondition.makeCondition("acctgTransTypeId", "OUTGOING_PAYMENT"),
                 EntityCondition.makeCondition("paymentId", paymentApplication.getString("paymentId")));
         EntityCondition whereCondition = EntityCondition.makeCondition(andConditions, EntityJoinOperator.AND);
-        GenericValue amounts = EntityQuery.use(delegator).select("origAmount", "amount").from("AcctgTransAndEntries").where(whereCondition).queryFirst();
+        GenericValue amounts = EntityQuery.use(delegator).select("origAmount", "amount").from("AcctgTransAndEntries")
+                .where(whereCondition).queryFirst();
         if (amounts == null) {
             return exchangeRate;
         }

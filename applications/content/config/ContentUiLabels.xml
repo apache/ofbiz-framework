@@ -587,186 +587,7 @@
         <value xml:lang="zh">克隆版式</value>
         <value xml:lang="zh-TW">複製佈局</value>
     </property>
-    <property key="ContentCompDoc">
-        <value xml:lang="ar">Composite document</value>
-        <value xml:lang="da">Sammensat dokument</value>
-        <value xml:lang="de">Zusammengesetztes Dokument (CompDoc)</value>
-        <value xml:lang="en">CompDoc</value>
-        <value xml:lang="es">ComponerDoc</value>
-        <value xml:lang="fr">Document composite</value>
-        <value xml:lang="it">Composizione documenti</value>
-        <value xml:lang="ja">複合文書</value>
-        <value xml:lang="nl">Samengesteld document (CompDoc)</value>
-        <value xml:lang="pt">Documento composto (CompDoc)</value>
-        <value xml:lang="ro">CompDoc</value>
-        <value xml:lang="th">เอกสารคอมพิวเตอร์</value>
-        <value xml:lang="vi">Tài liệu kết hợp</value>
-        <value xml:lang="zh">合成文档</value>
-        <value xml:lang="zh-TW">複合檔</value>
-    </property>
-    <property key="ContentCompDocAddDocumentInstancePageForTemplate">
-        <value xml:lang="da">Tilføj sammensat dokument sideforekomst for skabelon</value>
-        <value xml:lang="en">Add Composite Document Instance Page for Template</value>
-        <value xml:lang="fr">Ajouter une page, instance de document composite pour modèle</value>
-        <value xml:lang="it">Aggiungi composizione documenti pagina istanza per template.</value>
-        <value xml:lang="ja">テンプレートに複合文書インスタンスページを追加</value>
-        <value xml:lang="nl">Toevoegen deel samengesteld document aan sjabloon.</value>
-        <value xml:lang="pt">Adicionar instância de página de documento composto para modelo</value>
-        <value xml:lang="vi">Thêm Trang khởi tạo Tài liệu kết hợp (Composite Document Instance Page) cho Biểu mẫu (Template)</value>
-        <value xml:lang="zh">为模板添加合成文档实例页面</value>
-        <value xml:lang="zh-TW">為模板增加複合檔實例頁面</value>
-    </property>
-    <property key="ContentCompDocAfter">
-        <value xml:lang="da">Agter</value>
-        <value xml:lang="en">+Aft</value>
-        <value xml:lang="fr">+Après</value>
-        <value xml:lang="it">+Dopo</value>
-        <value xml:lang="ja">+後</value>
-        <value xml:lang="nl">+Na</value>
-        <value xml:lang="pt">+Depois</value>
-        <value xml:lang="vi">+Sau</value>
-        <value xml:lang="zh">+之后</value>
-        <value xml:lang="zh-TW">+之後</value>
-    </property>
-    <property key="ContentCompDocApprovalStatus">
-        <value xml:lang="da">Status for godkendelse</value>
-        <value xml:lang="en">Approval Status</value>
-        <value xml:lang="fr">Statut de l'approbation</value>
-        <value xml:lang="it">Stato approvazione</value>
-        <value xml:lang="ja">承認ステータス</value>
-        <value xml:lang="pt">Status de aprovação</value>
-        <value xml:lang="vi">Trạng thái duyệt</value>
-        <value xml:lang="zh">审批状态</value>
-        <value xml:lang="zh-TW">審核狀態</value>
-    </property>
-    <property key="ContentCompDocApprovals">
-        <value xml:lang="da">Godkendelser</value>
-        <value xml:lang="de">Genehmigungen</value>
-        <value xml:lang="en">Approvals</value>
-        <value xml:lang="fr">Approbations</value>
-        <value xml:lang="it">Approvazioni</value>
-        <value xml:lang="ja">承認</value>
-        <value xml:lang="nl">Goedkeuringen</value>
-        <value xml:lang="pt">Aprovações</value>
-        <value xml:lang="th">อนุญาต</value>
-        <value xml:lang="vi">Duyệt</value>
-        <value xml:lang="zh">审批</value>
-        <value xml:lang="zh-TW">審核</value>
-    </property>
-    <property key="ContentCompDocApprovalsFor">
-        <value xml:lang="da">Godkendelse af indhold for</value>
-        <value xml:lang="de">Inhalt Genehmigungen für</value>
-        <value xml:lang="en">Content Approvals for</value>
-        <value xml:lang="fr">Approbations de contenu pour</value>
-        <value xml:lang="it">Approvazioni Contenuto</value>
-        <value xml:lang="ja">コンテンツの承認</value>
-        <value xml:lang="nl">Goedkeuringen content voor</value>
-        <value xml:lang="pt">Aprovações de Conteúdo para</value>
-        <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
-        <value xml:lang="vi">Nội dung xét duyệt cho</value>
-        <value xml:lang="zh">内容审批：</value>
-        <value xml:lang="zh-TW">內容審核:</value>
-    </property>
-    <property key="ContentCompDocBefore">
-        <value xml:lang="da">Før</value>
-        <value xml:lang="en">+Bef</value>
-        <value xml:lang="fr">+Avant</value>
-        <value xml:lang="it">+Prima</value>
-        <value xml:lang="ja">+前</value>
-        <value xml:lang="nl">+Voor</value>
-        <value xml:lang="pt">+Antes</value>
-        <value xml:lang="vi">+Sau</value>
-        <value xml:lang="zh">+之前</value>
-        <value xml:lang="zh-TW">+之前</value>
-    </property>
-    <property key="ContentCompDocChild">
-        <value xml:lang="da">Barn</value>
-        <value xml:lang="en">+Child</value>
-        <value xml:lang="fr">+Enfant</value>
-        <value xml:lang="it">+Figlio</value>
-        <value xml:lang="ja">+下位(子)</value>
-        <value xml:lang="pt">+filho</value>
-        <value xml:lang="vi">+Thành phần</value>
-        <value xml:lang="zh">+下级</value>
-        <value xml:lang="zh-TW">+下層</value>
-    </property>
-    <property key="ContentCompDocContentRoleEditPage">
-        <value xml:lang="da">Indholdsrolle redigér side</value>
-        <value xml:lang="en">Content Role Edit Page</value>
-        <value xml:lang="fr">Page d'étition des rôles de contenu</value>
-        <value xml:lang="it">Pagina aggiornamento ruolo contenuto composizione documenti</value>
-        <value xml:lang="ja">コンテンツロール編集ページ</value>
-        <value xml:lang="pt">Página de edição de papel de conteúdo</value>
-        <value xml:lang="vi">Cập nhật vai trò</value>
-        <value xml:lang="zh">内容角色编辑页面</value>
-        <value xml:lang="zh-TW">內容角色編輯頁面</value>
-    </property>
-    <property key="ContentCompDocCurrentInstance">
-        <value xml:lang="da">Sammensat dokument nuværende instans</value>
-        <value xml:lang="en">Comp Doc Current Instance</value>
-        <value xml:lang="fr">Instance courante de document composite</value>
-        <value xml:lang="it">Istanza attuale</value>
-        <value xml:lang="ja">複合文書の現在のインスタンス</value>
-        <value xml:lang="pt">Instância atual do Documento composto (CompDoc)</value>
-        <value xml:lang="vi">Tài liệu kết hợp hiện tại</value>
-        <value xml:lang="zh">合成文档当前实例</value>
-        <value xml:lang="zh-TW">複合檔目前實例</value>
-    </property>
-    <property key="ContentCompDocCurrentTemplate">
-        <value xml:lang="da">Nuværende skabelon sammensat dokument</value>
-        <value xml:lang="en">Current Template CompDoc</value>
-        <value xml:lang="fr">Modèle courant de document composite</value>
-        <value xml:lang="it">Template attuale</value>
-        <value xml:lang="ja">現在のテンプレート複合文書</value>
-        <value xml:lang="pt">Modelo atual de CompDoc</value>
-        <value xml:lang="vi">Biểu mẫu của Tài liệu kết hợp hiện tại</value>
-        <value xml:lang="zh">合成文档当前模板</value>
-        <value xml:lang="zh-TW">複合檔目前模板</value>
-    </property>
-    <property key="ContentCompDocDown">
-        <value xml:lang="da">v Ned</value>
-        <value xml:lang="en">v Dn</value>
-        <value xml:lang="fr">v Bas</value>
-        <value xml:lang="it">v Giù</value>
-        <value xml:lang="ja">v 下</value>
-        <value xml:lang="pt">v Dn</value>
-        <value xml:lang="vi">Tải về (v Dn)</value>
-        <value xml:lang="zh">v 下</value>
-        <value xml:lang="zh-TW">v 下</value>
-    </property>
-    <property key="ContentCompDocGeneratePDF">
-        <value xml:lang="da">Generer sammensat PDF</value>
-        <value xml:lang="en">Generate Composite PDF</value>
-        <value xml:lang="fr">Générer un document PDF composite</value>
-        <value xml:lang="it">Genera PDF composizione</value>
-        <value xml:lang="ja">複合PDFの生成</value>
-        <value xml:lang="pt">Gerar PDF composto</value>
-        <value xml:lang="vi">Sinh định dạng PDF</value>
-        <value xml:lang="zh">生成PDF</value>
-        <value xml:lang="zh-TW">產生PDF</value>
-    </property>
-    <property key="ContentCompDocGoBack">
-        <value xml:lang="da">Gå tilbage til roden af sammensat dokument</value>
-        <value xml:lang="en">Go Back to CompDoc Root</value>
-        <value xml:lang="fr">Retourner à la racine du document composite</value>
-        <value xml:lang="it">Torna indietro alla composizione documenti</value>
-        <value xml:lang="ja">複合文書ルートに戻る</value>
-        <value xml:lang="pt">Voltar à raiz do CompDoc</value>
-        <value xml:lang="vi">Trở về Trang gốc Tài liệu kết hợp</value>
-        <value xml:lang="zh">返回合成文档根目录</value>
-        <value xml:lang="zh-TW">返回複合檔根目錄</value>
-    </property>
-    <property key="ContentCompDocInstanceAlreadyExists">
-        <value xml:lang="en">Instance compdoc Content for ${parameters.rootInstanceContentId} already exists</value>
-        <value xml:lang="fr">L'instance de composition de document pour ${parameters.rootInstanceContentId} existe déjà</value>
-        <value xml:lang="it">Istanza composizione documenti contenuto per ${parameters.rootInstanceContentId} esiste già</value>
-        <value xml:lang="ja">${parameters.rootInstanceContentId} の複合文書コンテンツインスタンスはすでに存在します</value>
-        <value xml:lang="pt">Instância do conteúdo de Compdoc para ${parameters.rootInstanceContentId} já existe</value>
-        <value xml:lang="vi">Tài liệu kết hợp ${parameters.rootInstanceContentId} đã tồn tại</value>
-        <value xml:lang="zh">对应${parameters.rootInstanceContentId}的实例compdoc内容已经存在</value>
-        <value xml:lang="zh-TW">對應${parameters.rootInstanceContentId}的實例compdoc內容已經存在</value>
-    </property>
-    <property key="ContentCompDocParentContentId">
+    <property key="ContentParentContentId">
         <value xml:lang="da">Forældre inholds ID</value>
         <value xml:lang="de">Übergeordneter Inhalt</value>
         <value xml:lang="en">Parent Content ID</value>
@@ -777,130 +598,6 @@
         <value xml:lang="vi">Nội dung cha</value>
         <value xml:lang="zh">上级内容标识</value>
         <value xml:lang="zh-TW">上層內容識別</value>
-    </property>
-    <property key="ContentCompDocRev">
-        <value xml:lang="da">rev.</value>
-        <value xml:lang="de">Ver.</value>
-        <value xml:lang="en">rev.</value>
-        <value xml:lang="fr">Ver.</value>
-        <value xml:lang="it">rev.</value>
-        <value xml:lang="ja">Ver.</value>
-        <value xml:lang="pt">Rev.</value>
-        <value xml:lang="th">รายได้</value>
-        <value xml:lang="vi">Phiên bản</value>
-        <value xml:lang="zh">版本</value>
-        <value xml:lang="zh-TW">版本</value>
-    </property>
-    <property key="ContentCompDocRevisionItemEditPage">
-        <value xml:lang="da">Punkt til revision rediger side</value>
-        <value xml:lang="de">Seite zum Bearbeiten Inhalt Version</value>
-        <value xml:lang="en">Revision Item Edit Page</value>
-        <value xml:lang="fr">Page de modification de révision d'article</value>
-        <value xml:lang="it">Riga Revisione Pagina Aggiornamento per Contenuto</value>
-        <value xml:lang="ja">リビジョンアイテム編集ページ</value>
-        <value xml:lang="pt">Página de edição do Item de revisão</value>
-        <value xml:lang="th">ปรับปรุงรายการในหน้าแก้ไข</value>
-        <value xml:lang="vi">Trang cập nhật phiên bản</value>
-        <value xml:lang="zh">修订明细编辑页面</value>
-        <value xml:lang="zh-TW">修訂細項編輯頁面</value>
-    </property>
-    <property key="ContentCompDocRevisionListPageForContent">
-        <value xml:lang="da">Revisionsliste indholdsside</value>
-        <value xml:lang="de">Seite mit Liste der Versionen des Inhalts</value>
-        <value xml:lang="en">Revision List Page For Content</value>
-        <value xml:lang="fr">Page de liste de révision pour le contenu</value>
-        <value xml:lang="it">Lista Revisioni Pagina per Contenuto</value>
-        <value xml:lang="ja">コンテンツのリビジョン一覧ページ</value>
-        <value xml:lang="pt">Página de lista de revisão para conteúdo</value>
-        <value xml:lang="th">ปรับปรุงหน้ารายการสำหรับหัวข้อ</value>
-        <value xml:lang="vi">Danh sách các phiên bản</value>
-        <value xml:lang="zh">内容的修订列表页面</value>
-        <value xml:lang="zh-TW">內容的修訂清單頁面</value>
-    </property>
-    <property key="ContentCompDocRevisions">
-        <value xml:lang="da">Revisioner</value>
-        <value xml:lang="de">Versionen</value>
-        <value xml:lang="en">Revisions</value>
-        <value xml:lang="fr">Révisions</value>
-        <value xml:lang="it">Revisioni</value>
-        <value xml:lang="ja">リビジョン</value>
-        <value xml:lang="pt">Revisões</value>
-        <value xml:lang="th">ปรับปรุงใหม่</value>
-        <value xml:lang="vi">Phiên bản</value>
-        <value xml:lang="zh">版本</value>
-        <value xml:lang="zh-TW">版本</value>
-    </property>
-    <property key="ContentCompDocStartApprovalProcess">
-        <value xml:lang="da">Start godkendelsesprocess</value>
-        <value xml:lang="en">Start Approval Proces</value>
-        <value xml:lang="fr">Démarrer le processus d'approbation</value>
-        <value xml:lang="it">Inizio processo approvazione</value>
-        <value xml:lang="ja">承認プロセスを開始</value>
-        <value xml:lang="pt">Iniciar o processo de aprovação</value>
-        <value xml:lang="vi">Bắt đầu quá trình xét duyệt</value>
-        <value xml:lang="zh">启动审批流程</value>
-        <value xml:lang="zh-TW">啟動審核流程</value>
-    </property>
-    <property key="ContentCompDocTemplateName">
-        <value xml:lang="da">Sammensat dokument skabelonnavn</value>
-        <value xml:lang="en">Comp Doc Template Name</value>
-        <value xml:lang="fr">Nom du modèle de document composite</value>
-        <value xml:lang="it">Nome template composizione documenti</value>
-        <value xml:lang="ja">複合文書テンプレート名称</value>
-        <value xml:lang="pt">Nome do Modelo de CompDoc </value>
-        <value xml:lang="vi">Tên biểu mẫu Tài liệu kết hợp</value>
-        <value xml:lang="zh">合成文档模板名称</value>
-        <value xml:lang="zh-TW">複合檔模板名稱</value>
-    </property>
-    <property key="ContentCompDocUp">
-        <value xml:lang="da">^ Op</value>
-        <value xml:lang="en">^ Up</value>
-        <value xml:lang="fr">^ Haut</value>
-        <value xml:lang="it">^ Sù</value>
-        <value xml:lang="ja">^ 上</value>
-        <value xml:lang="pt">^ Cima</value>
-        <value xml:lang="vi">Tải lên (^ Up)</value>
-        <value xml:lang="zh">^ 上</value>
-        <value xml:lang="zh-TW">^ 上</value>
-    </property>
-    <property key="ContentCompDocViewInstances">
-        <value xml:lang="da">Se instanser</value>
-        <value xml:lang="de">Instanz Anzeigen</value>
-        <value xml:lang="en">View Instances</value>
-        <value xml:lang="fr">Exemples de vue</value>
-        <value xml:lang="it">Mostra Istanze di CompDoc</value>
-        <value xml:lang="ja">インスタンスの表示</value>
-        <value xml:lang="pt">Exibir Instâncias</value>
-        <value xml:lang="th">ดูตัวอย่าง</value>
-        <value xml:lang="vi">Xem các Khởi tạo</value>
-        <value xml:lang="zh">浏览实例</value>
-        <value xml:lang="zh-TW">檢視實例</value>
-    </property>
-    <property key="ContentCompDocViewTree">
-        <value xml:lang="da">Se træ</value>
-        <value xml:lang="de">Baum anzeigen</value>
-        <value xml:lang="en">View Tree</value>
-        <value xml:lang="fr">Voir l'arborescence</value>
-        <value xml:lang="it">Mostra Albero</value>
-        <value xml:lang="ja">ツリーの表示</value>
-        <value xml:lang="pt">Exibir árvore</value>
-        <value xml:lang="th">แสดงแผนผังรูปต้นไม้</value>
-        <value xml:lang="vi">Xem cây</value>
-        <value xml:lang="zh">树状浏览</value>
-        <value xml:lang="zh-TW">樹狀檢視</value>
-    </property>
-    <property key="ContentCompDocViewWaitingApprovals">
-        <value xml:lang="da">Se manglende godkendelser</value>
-        <value xml:lang="de">Auf Freigabe wartende Genehmigungen zeigen</value>
-        <value xml:lang="en">View Waiting Approvals</value>
-        <value xml:lang="fr">Voir les approbations en attente</value>
-        <value xml:lang="it">Mostra Approvazioni in Attesa</value>
-        <value xml:lang="ja">承認待ちの表示</value>
-        <value xml:lang="pt">Ver aprovações pendentes</value>
-        <value xml:lang="th">รอการอนุมัติ</value>
-        <value xml:lang="vi">Xem các Đợi duyệt</value>
-        <value xml:lang="zh">浏览待审</value>
-        <value xml:lang="zh-TW">檢視待審核</value>
     </property>
     <property key="ContentCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحتوى</value>
@@ -1144,17 +841,6 @@
         <value xml:lang="vi">Tạo mới bài viết Blog</value>
         <value xml:lang="zh">新建文章</value>
         <value xml:lang="zh-TW">新建文章</value>
-    </property>
-    <property key="ContentCreateNewRootCompDocTemplate">
-        <value xml:lang="da">Opret skabelon for nyt sammensat roddokument</value>
-        <value xml:lang="en">Create New Root CompDoc Template</value>
-        <value xml:lang="fr">Créer une nouvelle racine de modèle de document composite</value>
-        <value xml:lang="it">Creare un nuovo template CompDoc Root</value>
-        <value xml:lang="ja">新規ルート複合文書テンプレートを作成</value>
-        <value xml:lang="pt">Criar novo modelo de raiz CompDoc</value>
-        <value xml:lang="vi">Tạo mới biểu mẫu cho tài liệu kết hợp gốc</value>
-        <value xml:lang="zh">新建根合成文档模板</value>
-        <value xml:lang="zh-TW">新建根複合檔模板</value>
     </property>
     <property key="ContentDataBaseText">
         <value xml:lang="da">Database tekst</value>
@@ -5938,17 +5624,6 @@
         <value xml:lang="zh">新建属性</value>
         <value xml:lang="zh-TW">新建屬性</value>
     </property>
-    <property key="PageTitleAddCompDocInstance">
-        <value xml:lang="da">Tilføj sammensat dokument instans</value>
-        <value xml:lang="en">Add CompDoc Instance</value>
-        <value xml:lang="fr">Ajouter une instance de document composite</value>
-        <value xml:lang="it">Aggiungi Istanza CompDoc</value>
-        <value xml:lang="ja">複合文書インスタンスを追加</value>
-        <value xml:lang="pt">Adicionar instância de CompDoc</value>
-        <value xml:lang="vi">Thêm khởi tạo tài liệu</value>
-        <value xml:lang="zh">添加合成文档实例</value>
-        <value xml:lang="zh-TW">增加複合檔實例</value>
-    </property>
     <property key="PageTitleAddCompositeDocumentInstance">
         <value xml:lang="da">Tilføj sammensat dokument instans del side</value>
         <value xml:lang="en">Add Composite Document Instance Part Page</value>
@@ -6188,19 +5863,6 @@
         <value xml:lang="zh">创建这个模板的实例</value>
         <value xml:lang="zh-TW">新建這個模板的實例</value>
     </property>
-    <property key="PageTitleCreateNewRootCompDocTemplate">
-        <value xml:lang="da">Opret ny rodskabelon for sammensat dokument</value>
-        <value xml:lang="de">Neue Basis CompDoc Vorlage erstellen</value>
-        <value xml:lang="en">Create New Root CompDoc Template</value>
-        <value xml:lang="fr">Créer un nouveau modèle de racine de document composite</value>
-        <value xml:lang="it">Nuovo template radice CompDoc</value>
-        <value xml:lang="ja">新規ルート複合文書テンプレートを作成</value>
-        <value xml:lang="pt">Criar novo modelo de raiz de CompDoc</value>
-        <value xml:lang="th">สร้างที่มาของ Template เอกสารใหม่</value>
-        <value xml:lang="vi">Tạo cây gốc Biểu mẫu tài liệu kết hợp</value>
-        <value xml:lang="zh">创建新的根合成文档的模板</value>
-        <value xml:lang="zh-TW">新建的根複合檔的模板</value>
-    </property>
     <property key="PageTitleCreateSurvey">
         <value xml:lang="ar">إستحداث تصويت</value>
         <value xml:lang="da">Opret rundspørge</value>
@@ -6286,32 +5948,6 @@
         <value xml:lang="vi">Cập nhật nội dung CMS</value>
         <value xml:lang="zh">内容管理系统内容编辑</value>
         <value xml:lang="zh-TW">內容管理系統內容編輯</value>
-    </property>
-    <property key="PageTitleEditCompDocInstance">
-        <value xml:lang="da">Ret forekomst af sammensat dokument</value>
-        <value xml:lang="de">CompDoc Instanz bearbeiten</value>
-        <value xml:lang="en">Edit CompDoc Instance</value>
-        <value xml:lang="fr">Modifier l'instance de document composite</value>
-        <value xml:lang="it">Aggiorna Istanza CompDoc</value>
-        <value xml:lang="ja">複合文書インスタンスを編集</value>
-        <value xml:lang="pt">Editar a instância de CompDoc</value>
-        <value xml:lang="th">แก้ไขตัวอย่างเอกสาร</value>
-        <value xml:lang="vi">Cập nhật khởi tạo (của tài liệu kết hợp)</value>
-        <value xml:lang="zh">编辑合成文档实例</value>
-        <value xml:lang="zh-TW">編輯複合檔實例</value>
-    </property>
-    <property key="PageTitleEditCompDocTemplate">
-        <value xml:lang="da">Ret template for sammensat dokument</value>
-        <value xml:lang="de">CompDoc Vorlage bearbeiten</value>
-        <value xml:lang="en">Edit CompDoc Template</value>
-        <value xml:lang="fr">Modifier le modèle de document composite</value>
-        <value xml:lang="it">Aggiorna Template CompDoc</value>
-        <value xml:lang="ja">複合文書テンプレートを編集</value>
-        <value xml:lang="pt">Editar modelo de CompDoc</value>
-        <value xml:lang="th">แก้ไข Template เอกสาร</value>
-        <value xml:lang="vi">Sửa đổi biểu mẫu</value>
-        <value xml:lang="zh">编辑合成文档模板</value>
-        <value xml:lang="zh-TW">編輯複合檔模板</value>
     </property>
     <property key="PageTitleEditContent">
         <value xml:lang="ar">تعرير محتوى</value>
@@ -6863,22 +6499,6 @@
         <value xml:lang="zh">编辑版式子内容</value>
         <value xml:lang="zh-TW">編輯佈局子內容</value>
     </property>
-    <property key="PageTitleEditRootCompDoc">
-        <value xml:lang="ar">تحرير وثيقة مركبة للجذر</value>
-        <value xml:lang="da">Ret sammensat roddokument</value>
-        <value xml:lang="de">Basis zusammengesetztes Dokument bearbeiten</value>
-        <value xml:lang="en">Edit Root Composite Document</value>
-        <value xml:lang="es">Modificar Documento compuesto Raíz</value>
-        <value xml:lang="fr">Modifier la racine du document composite</value>
-        <value xml:lang="it">Aggiorna Radice Documento Composito</value>
-        <value xml:lang="ja">ルート複合文書を編集</value>
-        <value xml:lang="pt">Editar a raiz do documento composto</value>
-        <value xml:lang="ro">Actualizeaza Radacina Document Compus</value>
-        <value xml:lang="th">แก้ไขส่วนประกอบของเอกสาร</value>
-        <value xml:lang="vi">Sửa đổi Gốc của Tài liệu kết hợp</value>
-        <value xml:lang="zh">编辑根合成文档</value>
-        <value xml:lang="zh-TW">編輯根複合檔</value>
-    </property>
     <property key="PageTitleEditSurvey">
         <value xml:lang="ar">تحرير تصويت</value>
         <value xml:lang="da">Ret rundspørge</value>
@@ -7038,22 +6658,6 @@
         <value xml:lang="vi">Cập nhật tìm kiếm</value>
         <value xml:lang="zh">查找内容管理系统内容</value>
         <value xml:lang="zh-TW">尋找內容管理系統內容</value>
-    </property>
-    <property key="PageTitleFindCompDoc">
-        <value xml:lang="ar">إيجاد وثيقة مركبة</value>
-        <value xml:lang="da">Find sammensat dokument</value>
-        <value xml:lang="de">CompDoc suchen</value>
-        <value xml:lang="en">Find CompDoc</value>
-        <value xml:lang="fr">Rechercher le document composite</value>
-        <value xml:lang="it">Ricerca composizione documenti</value>
-        <value xml:lang="ja">複合文書を検索</value>
-        <value xml:lang="nl">Zoeken samengesteld document</value>
-        <value xml:lang="pt">Localizar CompDoc</value>
-        <value xml:lang="ro">Cauta CompDoc</value>
-        <value xml:lang="th">ค้นหาเอกสารคอมพิวเตอร์</value>
-        <value xml:lang="vi">Tìm kiếm tài liệu kết hợp</value>
-        <value xml:lang="zh">查找合成文档</value>
-        <value xml:lang="zh-TW">尋找複合檔</value>
     </property>
     <property key="PageTitleFindContent">
         <value xml:lang="ar">إيجاد محتوى</value>
@@ -7476,61 +7080,6 @@
         <value xml:lang="vi">Tải ảnh</value>
         <value xml:lang="zh">上传图片</value>
         <value xml:lang="zh-TW">上傳圖片</value>
-    </property>
-    <property key="PageTitleViewCompDocContent">
-        <value xml:lang="da">Vis sammensat dokument indhold</value>
-        <value xml:lang="en">View CompDoc Content</value>
-        <value xml:lang="fr">Voir le contenu du document composite</value>
-        <value xml:lang="it">Mostra contenuto composizione documenti</value>
-        <value xml:lang="ja">複合文書の表示</value>
-        <value xml:lang="pt">Exibir o conteúdo de CompDoc</value>
-        <value xml:lang="vi">Xem nội dung tài liệu kết hợp</value>
-        <value xml:lang="zh">浏览合成文档内容</value>
-        <value xml:lang="zh-TW">檢視複合檔內容</value>
-    </property>
-    <property key="PageTitleViewCompDocContentBinary">
-        <value xml:lang="da">Vis sammensat dokument binært</value>
-        <value xml:lang="en">View CompDoc Content Binary</value>
-        <value xml:lang="fr">Voir le contenu du document composite au format binaire</value>
-        <value xml:lang="it">Mostra contenuto binario CompDoc</value>
-        <value xml:lang="ja">複合文書コンテンツバイナリの表示</value>
-        <value xml:lang="pt">Visualizar binário do conteúdo CompDoc</value>
-        <value xml:lang="vi">Xem Tài liệu kiểu nhị phân</value>
-        <value xml:lang="zh">浏览合成文档二进制内容</value>
-        <value xml:lang="zh-TW">檢視複合檔二進位制內容</value>
-    </property>
-    <property key="PageTitleViewCompDocContentHtml">
-        <value xml:lang="da">Vis sammensat dokument Html</value>
-        <value xml:lang="en">View CompDoc Content Html</value>
-        <value xml:lang="fr">Voir le contenu du document composite au format HTML</value>
-        <value xml:lang="it">Mostra contenuto html CompDoc</value>
-        <value xml:lang="ja">複合文書コンテンツHTMLの表示</value>
-        <value xml:lang="pt">Visualizar conteúdo Html do CompDoc</value>
-        <value xml:lang="vi">Xem Tài liệu html</value>
-        <value xml:lang="zh">浏览合成文档网页内容</value>
-        <value xml:lang="zh-TW">檢視複合檔網頁內容</value>
-    </property>
-    <property key="PageTitleViewCompDocTemplateTree">
-        <value xml:lang="da">Vis skabelon træ</value>
-        <value xml:lang="en">View Template Tree</value>
-        <value xml:lang="fr">Voir l'arborescence modèle</value>
-        <value xml:lang="it">Mostra albero template</value>
-        <value xml:lang="ja">テンプレートツリーの表示</value>
-        <value xml:lang="pt">Exibir modelo de árvore</value>
-        <value xml:lang="vi">Duyệt cây biểu mẫu</value>
-        <value xml:lang="zh">浏览模板树</value>
-        <value xml:lang="zh-TW">檢視模板樹</value>
-    </property>
-    <property key="PageTitleViewCompDocTree">
-        <value xml:lang="da">Vis træ</value>
-        <value xml:lang="en">View Tree</value>
-        <value xml:lang="fr">Voir l'arborescence</value>
-        <value xml:lang="it">Mostra albero</value>
-        <value xml:lang="ja">ツリーの表示</value>
-        <value xml:lang="pt">Exibir árvore</value>
-        <value xml:lang="vi">Duyệt cây</value>
-        <value xml:lang="zh">浏览树</value>
-        <value xml:lang="zh-TW">檢視樹</value>
     </property>
     <property key="PageTitleViewSurveyResponses">
         <value xml:lang="ar">مشاهدة أجوبة التصويت</value>

@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,7 +60,7 @@ import org.apache.ofbiz.widget.cache.GenericWidgetOutput;
 import org.apache.ofbiz.widget.cache.ScreenCache;
 import org.apache.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.apache.ofbiz.widget.model.ModelScreen;
-import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
@@ -139,8 +140,8 @@ public class ScreenRenderer {
             }
         } else {
             context.put("renderFormSeqNumber", String.valueOf(renderFormSeqNumber));
-            if (context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER) != null) {
-                Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.MULTI_BLOCK_WRITER));
+            if (context.get(ScriptLinkHelper.FTL_WRITER) != null) {
+                Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(ScriptLinkHelper.FTL_WRITER));
                 modelScreen.renderScreenString(stringWriterStack.peek(), context, screenStringRenderer);
             } else {
                 modelScreen.renderScreenString(writer, context, screenStringRenderer);
@@ -184,6 +185,9 @@ public class ScreenRenderer {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
+
+        // include an object to follow the screen stack during the screen rendering process
+        context.put("screenStack", new ScreenRenderer.ScreenStack());
 
         // make a reference for high level variables, a global context
         context.put("globalContext", context.standAloneStack());
@@ -375,5 +379,75 @@ public class ScreenRenderer {
     public void populateContextForService(DispatchContext dctx, Map<String, Object> serviceContext) {
         this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(),
                 dctx.getSecurity(), (Locale) serviceContext.get("locale"), (GenericValue) serviceContext.get("userLogin"));
+    }
+
+    /**
+     * Contains the stack of screen area ids that are generated during screen rendering
+     * This allow inherent refreshment of the parent screen, when using callback feature
+     * */
+    public static class ScreenStack {
+        LinkedList<Map<String, Object>> visitedScreens;
+
+        public ScreenStack() {
+            visitedScreens = new LinkedList<>();
+        }
+
+        /**
+         * Push a screen id upon the stack
+         * @param modelScreen
+         */
+        public void push(ModelScreen modelScreen) {
+            if (modelScreen != null) {
+                Map<String, Object> screenAreaAssociation = UtilMisc.toMap(
+                        "modelScreen", modelScreen,
+                        "areaId", modelScreen.getSection().getName() + UUID.randomUUID().toString());
+                visitedScreens.addLast(screenAreaAssociation);
+            }
+        }
+
+        /**
+         * Remove the last visited screen from the stack
+         */
+        public void drop() {
+            visitedScreens.removeLast();
+        }
+
+        /**
+         * Return a map with the modelScreen and the unique areaId related to the current screen from the stack
+         *
+         * @return ["modelScreen": {@link ModelScreen}, "areaId": {@link String}]
+         */
+        private Map<String, Object> resolveCurrentScreenMap() {
+            return visitedScreens.getLast();
+        }
+
+        /**
+         * Return the {@link ModelScreen} of the current screen from the stack
+         *
+         * @return {@link ModelScreen}
+         */
+        public ModelScreen resolveCurrentModelScreen() {
+            if (visitedScreens.isEmpty()) return null;
+            return (ModelScreen) resolveCurrentScreenMap().get("modelScreen");
+        }
+
+        /**
+         * Return the area id reference of the current screen on the screen stack
+         * @return
+         */
+        public String resolveCurrentScreenId() {
+            if (visitedScreens.isEmpty()) return null;
+            return (String) resolveCurrentScreenMap().get("areaId");
+        }
+
+        /**
+         * If the given areaId have not consistency, return the current screen
+         * area id on the stack
+         * @return
+         */
+        public String resolveScreenAreaId(String areaId) {
+            if (UtilValidate.isNotEmpty(areaId)) return areaId;
+            return resolveCurrentScreenId();
+        }
     }
 }

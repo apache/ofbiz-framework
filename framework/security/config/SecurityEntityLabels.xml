@@ -65,13 +65,6 @@
         <value xml:lang="zh">有限的目录管理组，具有有限的目录权限。</value>
         <value xml:lang="zh-TW">有限的型錄管理群組,具有有限的型錄權限.</value>
     </property>
-    <property key="SecurityGroup.description.COMPDOCADMIN">
-        <value xml:lang="en">CompDoc admin group, all permissions.</value>
-        <value xml:lang="it">Gruppo permesso amministratore composizione documenti, ha tutti permessi di manutenzione.</value>
-        <value xml:lang="ja">複合文書管理グループは、すべての権限があります。</value>
-        <value xml:lang="zh">合成文档管理组，全部权限。</value>
-        <value xml:lang="zh-TW">複合檔管理群組,全部權限.</value>
-    </property>
     <property key="SecurityGroup.description.CONTENT_USER">
         <value xml:lang="en">Content user group; all limited content permissions.</value>
         <value xml:lang="es">Grupo de usuarios de contenidos; todos los permisos de contenido limitados</value>
@@ -2134,7 +2127,7 @@
     <property key="SecurityPermission.description.WEBTOOLS_VIEW">
         <value xml:lang="en">Permission to access the WebTools Menu.</value>
         <value xml:lang="es">Permisos para acceder el menú de Herramientas Web.</value>
-        <value xml:lang="fr">Autorisation pour accèder au menu Adm. Sys.</value>
+        <value xml:lang="fr">Autorisation pour accèder au menu Admin Système</value>
         <value xml:lang="it">Permessi di accedere ai menu strumenti web.</value>
         <value xml:lang="ja">Webツールメニューにアクセスする権限。</value>
         <value xml:lang="ru">Права на доступ к меню Инструменты.</value>

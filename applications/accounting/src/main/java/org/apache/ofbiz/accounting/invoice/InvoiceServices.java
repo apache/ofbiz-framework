@@ -457,8 +457,8 @@ public class InvoiceServices {
                 Map<String, Object> createInvoiceItemContext = new HashMap<>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
                 createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
-                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, (orderItem.getString("orderItemTypeId")),
-                        (product == null ? null : product.getString("productTypeId")), invoiceType, "INV_FPROD_ITEM"));
+                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, orderItem.getString("orderItemTypeId"),
+                        product == null ? null : product.getString("productTypeId"), invoiceType, "INV_FPROD_ITEM"));
                 createInvoiceItemContext.put("description", orderItem.get("itemDescription"));
                 createInvoiceItemContext.put("quantity", billingQuantity);
                 createInvoiceItemContext.put("amount", billingAmount);
@@ -1051,7 +1051,8 @@ public class InvoiceServices {
                             if (!commissionParties.containsKey(partyIdFromTo)) {
                                 commissionParties.put(partyIdFromTo, UtilMisc.toList(commissionMap));
                             } else {
-                                (commissionParties.get(partyIdFromTo)).add(commissionMap);
+                                List<Map<String, Object>> commissionPartiesPartyIdFromTo = commissionParties.get(partyIdFromTo);
+                                commissionPartiesPartyIdFromTo.add(commissionMap);
                             }
                         }
                     }
@@ -2782,7 +2783,7 @@ public class InvoiceServices {
         // amount available on the payment reduced by the already applied amounts
         GenericValue payment = null;
         String currencyUomId = null;
-        if (paymentId == null || paymentId.equals("")) {
+        if (paymentId == null || "".equals(paymentId)) {
             errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingPaymentIdBlankNotSupplied", locale));
         } else {
             try {
@@ -2813,7 +2814,7 @@ public class InvoiceServices {
         // the "TO" Payment.....
         BigDecimal toPaymentApplyAvailable = BigDecimal.ZERO;
         GenericValue toPayment = null;
-        if (toPaymentId != null && !toPaymentId.equals("")) {
+        if (toPaymentId != null && !"".equals(toPaymentId)) {
             try {
                 toPayment = EntityQuery.use(delegator).from("Payment").where("paymentId", toPaymentId).queryOne();
             } catch (GenericEntityException e) {
@@ -2887,7 +2888,7 @@ public class InvoiceServices {
 
         // billing account
         GenericValue billingAccount = null;
-        if (billingAccountId != null && !billingAccountId.equals("")) {
+        if (billingAccountId != null && !"".equals(billingAccountId)) {
             try {
                 billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
             } catch (GenericEntityException e) {
@@ -3741,8 +3742,8 @@ public class InvoiceServices {
                         }
                         if (isSalesInvoice && !invoice.get("partyIdFrom").equals(organizationPartyId)) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A sales type invoice should have the partyId 'from' being "
-                                    + "the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom") + "! invoice: "
-                                    + currentInvoiceId);
+                                    + "the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom")
+                                    + "! invoice: " + currentInvoiceId);
                         }
 
 
@@ -3795,8 +3796,8 @@ public class InvoiceServices {
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemTypeId"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory invoice item type missing for invoice: "
                                     + currentInvoiceId);
-                        } else if (EntityQuery.use(delegator).from("InvoiceItemType").where("invoiceItemTypeId", invoiceItem.get("invoiceItemTypeId"
-                        )).queryOne() == null) {
+                        } else if (EntityQuery.use(delegator).from("InvoiceItemType").where("invoiceItemTypeId",
+                                invoiceItem.get("invoiceItemTypeId")).queryOne() == null) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem Item type id: " + invoiceItem.get(
                                     "invoiceItemTypeId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get(
                                             "invoiceItemSeqId"));

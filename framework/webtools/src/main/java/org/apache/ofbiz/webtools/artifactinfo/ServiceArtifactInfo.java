@@ -65,7 +65,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
     public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
-        this.modelService = this.aif.getModelService(serviceName);
+        this.modelService = this.getAif().getModelService(serviceName);
     }
 
     /**
@@ -137,16 +137,16 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 continue;
             }
             // attempt to convert relation names to entity names
-            String validEntityName = aif.getEntityModelReader().validateEntityName(entityName);
+            String validEntityName = getAif().getEntityModelReader().validateEntityName(entityName);
             if (validEntityName == null) {
                 Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.getName() + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
-            this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(validEntityName));
+            this.entitiesUsedByThisService.add(getAif().getEntityArtifactInfo(validEntityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllServiceInfosReferringToEntityName(), validEntityName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToEntityName(), validEntityName);
         }
     }
 
@@ -221,15 +221,15 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             if (serviceName.contains("${")) {
                 continue;
             }
-            if (!aif.getDispatchContext().getAllServiceNames().contains(serviceName)) {
+            if (!getAif().getDispatchContext().getAllServiceNames().contains(serviceName)) {
                 Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.getName() + "] does not exist!", MODULE);
                 continue;
             }
 
             // the forward reference
-            this.servicesCalledByThisService.add(aif.getServiceArtifactInfo(serviceName));
+            this.servicesCalledByThisService.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.getAllServiceInfosReferringToServiceName(), serviceName);
+            UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToServiceName(), serviceName);
         }
     }
 
@@ -243,9 +243,9 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         if (serviceEventMap == null) return;
         for (List<ServiceEcaRule> ecaRuleList: serviceEventMap.values()) {
             for (ServiceEcaRule ecaRule: ecaRuleList) {
-                this.serviceEcasTriggeredByThisService.add(aif.getServiceEcaArtifactInfo(ecaRule));
+                this.serviceEcasTriggeredByThisService.add(getAif().getServiceEcaArtifactInfo(ecaRule));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, aif.getAllServiceInfosReferringToServiceEcaRule(), ecaRule);
+                UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToServiceEcaRule(), ecaRule);
             }
         }
     }
@@ -321,7 +321,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
      * @return the services calling service
      */
     public Set<ServiceArtifactInfo> getServicesCallingService() {
-        return aif.getAllServiceInfosReferringToServiceName().get(this.modelService.getName());
+        return getAif().getAllServiceInfosReferringToServiceName().get(this.modelService.getName());
     }
 
     /**
@@ -363,7 +363,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
      * @return the service eca rules calling service
      */
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesCallingService() {
-        return this.aif.getAllServiceEcaInfosReferringToServiceName().get(this.modelService.getName());
+        return this.getAif().getAllServiceEcaInfosReferringToServiceName().get(this.modelService.getName());
     }
 
     /**
@@ -371,7 +371,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
      * @return the forms calling service
      */
     public Set<FormWidgetArtifactInfo> getFormsCallingService() {
-        return this.aif.getAllFormInfosReferringToServiceName().get(this.modelService.getName());
+        return this.getAif().getAllFormInfosReferringToServiceName().get(this.modelService.getName());
     }
 
     /**
@@ -379,7 +379,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
      * @return the forms based on service
      */
     public Set<FormWidgetArtifactInfo> getFormsBasedOnService() {
-        return this.aif.getAllFormInfosBasedOnServiceName().get(this.modelService.getName());
+        return this.getAif().getAllFormInfosBasedOnServiceName().get(this.modelService.getName());
     }
 
     /**
@@ -387,7 +387,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
      * @return the screens calling service
      */
     public Set<ScreenWidgetArtifactInfo> getScreensCallingService() {
-        return this.aif.getAllScreenInfosReferringToServiceName().get(this.modelService.getName());
+        return this.getAif().getAllScreenInfosReferringToServiceName().get(this.modelService.getName());
     }
 
     /**
@@ -395,7 +395,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
      * @return the requests with event calling service
      */
     public Set<ControllerRequestArtifactInfo> getRequestsWithEventCallingService() {
-        return this.aif.getAllRequestInfosReferringToServiceName().get(this.modelService.getName());
+        return this.getAif().getAllRequestInfosReferringToServiceName().get(this.modelService.getName());
     }
 
     /**

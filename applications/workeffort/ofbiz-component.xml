@@ -40,9 +40,11 @@ under the License.
 
      <webapp name="workeffort"
         title="WorkEffort"
+        position="9"
         server="default-server"
         location="webapp/workeffort"
         base-permission="OFBTOOLS,WORKEFFORTMGR"
+        app-shortcut-screen="component://workeffort/widget/CommonScreens.xml#ShortcutApp"
         mount-point="/workeffort"/>
 
      <webapp name="ical"

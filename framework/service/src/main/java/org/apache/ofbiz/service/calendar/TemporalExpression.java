@@ -31,11 +31,27 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     /** Field used to sort expressions. Expression evaluation depends
      * on correct ordering. Expressions are evaluated from lowest value
      * to highest value. */
-    protected int sequence = Integer.MAX_VALUE;
+    private int sequence = Integer.MAX_VALUE;
+
+    /**
+     * Gets sequence.
+     * @return the sequence
+     */
+    public int getSequence() {
+        return sequence;
+    }
+
+    /**
+     * Sets sequence.
+     * @param sequence the sequence
+     */
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
 
     /** A unique ID for this expression. This field is intended to be used by
      * persistence classes. */
-    protected String id = null;
+    private String id = null;
 
     protected TemporalExpression() { }
 
@@ -86,6 +102,11 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
         return result;
     }
 
+    /**
+     * Contains expression boolean.
+     * @param expression the expression
+     * @return the boolean
+     */
     protected boolean containsExpression(TemporalExpression expression) {
         return false;
     }
@@ -173,8 +194,48 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     }
 
     protected class ExpressionContext {
-        public boolean hourBumped = false;
-        public boolean dayBumped = false;
-        public boolean monthBumped = false;
+        private boolean hourBumped = false;
+        private boolean dayBumped = false;
+        private boolean monthBumped = false;
+
+        /**
+         * Is hour bumped boolean.
+         * @return the boolean
+         */
+        public boolean isHourBumped() {
+            return hourBumped;
+        }
+
+        /**
+         * Is day bumped boolean.
+         * @return the boolean
+         */
+        public boolean isDayBumped() {
+            return dayBumped;
+        }
+
+        /**
+         * Sets hour bumped.
+         * @param hourBumped the hour bumped
+         */
+        public void setHourBumped(boolean hourBumped) {
+            this.hourBumped = hourBumped;
+        }
+
+        /**
+         * Sets day bumped.
+         * @param dayBumped the day bumped
+         */
+        public void setDayBumped(boolean dayBumped) {
+            this.dayBumped = dayBumped;
+        }
+
+        /**
+         * Sets month bumped.
+         * @param monthBumped the month bumped
+         */
+        public void setMonthBumped(boolean monthBumped) {
+            this.monthBumped = monthBumped;
+        }
     }
 }

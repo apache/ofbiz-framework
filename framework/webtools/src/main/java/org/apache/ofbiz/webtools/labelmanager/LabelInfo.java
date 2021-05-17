@@ -89,6 +89,14 @@ public class LabelInfo {
         return labelValues.size();
     }
 
+    /**
+     * Sets label value.
+     * @param localeStr the locale str
+     * @param labelValue the label value
+     * @param labelComment the label comment
+     * @param update the update
+     * @return the label value
+     */
     public boolean setLabelValue(String localeStr, String labelValue, String labelComment, boolean update) {
         LabelValue localeFound = getLabelValue(localeStr);
         boolean isDuplicatedLocales = false;

@@ -115,7 +115,7 @@ public class SequenceUtil {
         return bank;
     }
 
-    private class SequenceBank {
+    private final class SequenceBank {
         public static final long DEF_BANK_SIZE = 10;
         public static final long MAX_BANK_SIZE = 5000;
         public static final long START_SEQ_ID = 10000;

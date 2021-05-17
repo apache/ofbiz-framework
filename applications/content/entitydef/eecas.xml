@@ -51,10 +51,10 @@ under the License.
     <eca entity="PartyContent" operation="create-store" event="return">
         <action service="indexContentKeywords" mode="sync"/>
     </eca>
-    <eca entity="WebSiteContent  " operation="create-store" event="return">
+    <eca entity="WebSiteContent" operation="create-store" event="return">
         <action service="indexContentKeywords" mode="sync"/>
     </eca>
-    <eca entity="WorkEffortContent  " operation="create-store" event="return">
+    <eca entity="WorkEffortContent" operation="create-store" event="return">
         <action service="indexContentKeywords" mode="sync"/>
     </eca>
 

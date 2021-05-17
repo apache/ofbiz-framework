@@ -55,7 +55,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -252,11 +251,7 @@ public class OrderReturnServices {
             }
 
             if (productStoreEmail != null && emailAddress != null) {
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-                }
-                sendMap.put("bodyScreenUri", bodyScreenLocation);
+                sendMap.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
                 String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
                 sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
 
@@ -354,7 +349,8 @@ public class OrderReturnServices {
                             if (returnItemResponse != null) {
                                 String replacementOrderId = returnItemResponse.getString("replacementOrderId");
                                 Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", replacementOrderId, "userLogin", userLogin);
-                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", replacementOrderId).queryOne();
+                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId",
+                                        replacementOrderId).queryOne();
                                 if ("ORDER_HOLD".equals(orderHeader.getString("statusId"))) {
                                     try {
                                         Map<String, Object> result = dispatcher.runSync("cancelOrderItem", svcCtx);
@@ -1329,7 +1325,8 @@ public class OrderReturnServices {
                         orderPayPrefDetails.put("orderPaymentPreference", orderPayPref);
                         orderPayPrefDetails.put("availableTotal", orderPayPrefAvailableTotal);
                         if (prefSplitMap.containsKey(paymentMethodTypeId)) {
-                            (prefSplitMap.get(paymentMethodTypeId)).add(orderPayPrefDetails);
+                            List<Map<String, Object>> paymentMethodTypeIds = prefSplitMap.get(paymentMethodTypeId);
+                            paymentMethodTypeIds.add(orderPayPrefDetails);
                         } else {
                             prefSplitMap.put(paymentMethodTypeId, UtilMisc.toList(orderPayPrefDetails));
                         }

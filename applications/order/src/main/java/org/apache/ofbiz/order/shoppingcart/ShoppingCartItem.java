@@ -561,7 +561,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice,
                 reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate,
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
-                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
+                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks,
+                skipProductChecks);
     }
 
     /**
@@ -839,7 +840,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             throws CartItemModifyException {
 
         Delegator delegator = cart.getDelegator();
-        ShoppingCartItem newItem = new ShoppingCartItem(delegator, itemType, itemDescription, productCategoryId, basePrice, attributes, prodCatalogId, cart.getLocale(), itemGroup);
+        ShoppingCartItem newItem = new ShoppingCartItem(delegator, itemType, itemDescription, productCategoryId, basePrice, attributes,
+                prodCatalogId, cart.getLocale(), itemGroup);
 
         // add to cart before setting quantity so that we can get order total, etc
         if (cartLocation == null) {
@@ -866,7 +868,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     /**
      * returns "OK" when the product can be booked or returns a string with the dates the related fixed Asset is not available
      */
-    public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, ShoppingCart cart) {
+    public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength,
+                                           ShoppingCart cart) {
         Delegator delegator = cart.getDelegator();
         // find related fixedAsset
         List<GenericValue> selFixedAssetProduct = null;
@@ -904,7 +907,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         // see if this fixed asset has a calendar, when no create one and attach to fixed asset
-        // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne: GenericValue techDataCalendar = null;
+        // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne:
+        // GenericValue techDataCalendar = null;
         GenericValue techDataCalendar = null;
         try {
             techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar", false);
@@ -1211,7 +1215,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public void updatePrice(LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
         // set basePrice using the calculateProductPrice service
-        if (product != null && isModifiedPrice == false) {
+        if (product != null && !isModifiedPrice) {
             try {
                 Map<String, Object> priceContext = new HashMap<>();
 
@@ -1334,7 +1338,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                         }
 
                         if (priceResult.get("specialPromoPrice") != null) {
-                            this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals, RoundingMode.HALF_UP));
+                            this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals,
+                                    RoundingMode.HALF_UP));
                         }
                     } else {
                         if (priceResult.get("listPrice") != null) {
@@ -1356,7 +1361,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                     // If product is configurable, the price is taken from the configWrapper.
                     if (configWrapper != null) {
-                        // TODO: for configurable products need to do something to make them VAT aware... for now base and display prices are the same
+                        // TODO: for configurable products need to do something to make them VAT aware...
+                        //  for now base and display prices are the same
                         this.setBasePrice(configWrapper.getTotalPrice());
                         // Check if price display with taxes
                         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
@@ -1658,6 +1664,9 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
+    /**
+     * Clear promo rule use info.
+     */
     public synchronized void clearPromoRuleUseInfo() {
         this.quantityUsedPerPromoActual.clear();
         this.quantityUsedPerPromoCandidate.clear();
@@ -2399,6 +2408,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.recurringBasePrice = recurringBasePrice;
     }
 
+    /**
+     * Gets recurring display price.
+     * @return the recurring display price
+     */
     public BigDecimal getRecurringDisplayPrice() {
         if (this.recurringDisplayPrice == null) {
             return this.getRecurringBasePrice();
@@ -2762,6 +2775,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.orderItemAttributes.get(name);
     }
 
+    /**
+     * Gets order item attributes.
+     * @return the order item attributes
+     */
     public Map<String, String> getOrderItemAttributes() {
         Map<String, String> attrs = new HashMap<>();
         if (orderItemAttributes != null) {
@@ -2770,7 +2787,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         return attrs;
     }
 
-    /** Add an adjustment to the order item; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId; they will be set when the order is created */
+    /** Add an adjustment to the order item; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId;
+     * they will be set when the order is created */
     public int addAdjustment(GenericValue adjustment) {
         itemAdjustments.add(adjustment);
         return itemAdjustments.indexOf(adjustment);

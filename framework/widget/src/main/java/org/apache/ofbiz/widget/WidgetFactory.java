@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  * Screen widget factory.<p>Applications can add their own widget implementations
  * to the factory by implementing the {@link org.apache.ofbiz.widget.WidgetLoader} interface.</p>
  */
-public class WidgetFactory {
+public final class WidgetFactory {
 
     private static final String MODULE = WidgetFactory.class.getName();
     protected static final Map<String, Constructor<? extends ModelScreenWidget>> SCREEN_WIDGETS = new ConcurrentHashMap<>();

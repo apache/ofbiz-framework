@@ -39,6 +39,7 @@ public abstract class ModelWidget implements Serializable {
      * set to "widgetVerbose".
      */
     public static final String ENABLE_BOUNDARY_COMMENTS_PARAM = "widgetVerbose";
+    public enum NamedBorderType { NONE, LABEL, SOURCE }
 
     private final String name;
     private final String systemId;
@@ -149,5 +150,13 @@ public abstract class ModelWidget implements Serializable {
             }
         }
         return result;
+    }
+
+    /**
+     * determine how to display named border for development
+     * @return NamedBorderType from <code>widget.dev.namedBorder</code> property
+     */
+    public static NamedBorderType widgetNamedBorderType() {
+        return NamedBorderType.valueOf(UtilProperties.getPropertyValue("widget", "widget.dev.namedBorder", NamedBorderType.NONE.toString()));
     }
 }

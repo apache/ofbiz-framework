@@ -25,16 +25,24 @@ import junit.framework.TestCase;
 
 public class EntityTestCase extends TestCase {
 
-    protected Delegator delegator = null;
+    private Delegator delegator = null;
 
     public EntityTestCase(String name) {
         super(name);
     }
 
+    /**
+     * Sets delegator.
+     * @param delegator the delegator
+     */
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
 
+    /**
+     * Gets delegator.
+     * @return the delegator
+     */
     public Delegator getDelegator() {
         return delegator;
     }

@@ -966,10 +966,10 @@ public class ShoppingCartServices {
                             if (isTaxAdjustment(adj)) {
                                 CartShipItemInfo csii = shipInfo.getShipItemInfo(item);
 
-                                if (csii.itemTaxAdj == null) {
+                                if (csii.getItemTaxAdj() == null) {
                                     shipInfo.setItemInfo(item, UtilMisc.toList(adj));
                                 } else {
-                                    csii.itemTaxAdj.add(adj);
+                                    csii.getItemTaxAdj().add(adj);
                                 }
                             } else {
                                 item.addAdjustment(adj);

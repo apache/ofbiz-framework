@@ -562,6 +562,15 @@ var ButtonModifier = function(lookupDiv) {
                 onChangeEvent.apply(this);
             }
         });
+
+        var navPagersInput = jQuery("#" + lookupDiv + " .nav-pager input");
+        jQuery.each(navPagersInput, function(navPager) {
+            var onChangeEvent = navPagersInput[navPager].onchange;
+            navPagersInput[navPager].onchange = function(){
+                this.setAttribute("data-lookupajax", "true");
+                onChangeEvent.apply(this);
+            }
+        });
     }
 
     function _modifyResultTable() {

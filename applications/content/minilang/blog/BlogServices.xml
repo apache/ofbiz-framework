@@ -101,7 +101,6 @@
             <if-not-empty field="parameters.summaryData">
                 <!-- create the summary data -->
                 <set field="createSummary.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
-                <set field="createSummary.contentPurposeTypeId" value="ARTICLE"/>
                 <set field="createSummary.dataTemplateTypeId" value="NONE"/>
                 <set field="createSummary.mapKey" value="SUMMARY"/>
                 <set field="createSummary.ownerContentId" from-field="ownerContentId"/>

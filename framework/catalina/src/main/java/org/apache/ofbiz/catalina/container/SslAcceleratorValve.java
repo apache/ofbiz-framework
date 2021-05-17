@@ -32,22 +32,31 @@ import org.apache.catalina.valves.ValveBase;
  * <p>
  *    &lt;property name="ssl-accelerator-port" value="8443"/&gt;
  * <p>
- *
- * Once that is done just setup a connector just like the example http-connector and have it listen on the port you set in the ssl-accelerator-port value.
+ * Once that is done just setup a connector just like the example http-connector and have it listen on the port you set in the
+ * ssl-accelerator-port value.
  */
 public class SslAcceleratorValve extends ValveBase {
 
-    protected Integer sslAcceleratorPort = null;
+    private Integer sslAcceleratorPort = null;
 
+    /**
+     * Sets ssl accelerator port.
+     * @param sslAcceleratorPort the ssl accelerator port
+     */
     public void setSslAcceleratorPort(Integer sslAcceleratorPort) {
         this.sslAcceleratorPort = sslAcceleratorPort;
     }
 
+    /**
+     * Gets ssl accelerator port.
+     * @return the ssl accelerator port
+     */
     public Integer getSslAcceleratorPort() {
         return sslAcceleratorPort;
     }
 
-    public @Override void invoke(Request req, Response resp) throws IOException, ServletException {
+    @Override
+    public void invoke(Request req, Response resp) throws IOException, ServletException {
         if (sslAcceleratorPort != null && req.getLocalPort() == sslAcceleratorPort.intValue()) {
             req.setSecure(true);
         }

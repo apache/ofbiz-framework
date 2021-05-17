@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 /**
  * Generic Entity - Entity Definition Checker
  */
-public class ModelEntityChecker {
+public final class ModelEntityChecker {
 
     private static final String MODULE = ModelEntityChecker.class.getName();
 

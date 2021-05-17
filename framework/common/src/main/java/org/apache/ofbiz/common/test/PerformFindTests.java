@@ -28,6 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityListIterator;
@@ -56,6 +57,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private void prepareData() throws Exception {
+        Delegator delegator = getDelegator();
         if (EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "PERFOMFINDTEST").cache().queryOne() == null) {
             delegator.create("TestingType", "testingTypeId", "PERFOMFINDTEST");
             delegator.create("Testing", "testingId", "PERF_TEST_1", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice name one");
@@ -138,7 +140,7 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        List<GenericValue> testingElements = delegator.findAll("Testing", false);
+        List<GenericValue> testingElements = getDelegator().findAll("Testing", false);
         assertEquals("performFind search without condition with equals on testingTypeId", testingElements.size(), foundElements.size());
 
         //fourth test with equals condition on testingId

@@ -70,7 +70,21 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="ShortcutApp">
+        <section>
+            <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="HumanResShortcutAppBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="OrgTree">
         <section>
             <actions>

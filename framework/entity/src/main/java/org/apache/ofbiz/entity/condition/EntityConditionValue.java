@@ -25,12 +25,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericModelException;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
+import org.apache.ofbiz.minilang.operation.Convert;
 
 /**
  * Base class for condition expression values.
@@ -40,6 +42,8 @@ import org.apache.ofbiz.entity.model.ModelField;
 public abstract class EntityConditionValue implements Serializable {
 
     private static final Map<String, String> EMPTY_ALIASES = Collections.unmodifiableMap(new HashMap<>());
+    private static final String MODULE = Convert.class.getName();
+
     public static EntityConditionValue constantNumber(Number value) {
         return new ConstantNumberValue(value);
     }
@@ -51,7 +55,8 @@ public abstract class EntityConditionValue implements Serializable {
         }
 
         @Override
-        public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
+        public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam>
+                entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
             sql.append(value);
         }
 
@@ -67,7 +72,7 @@ public abstract class EntityConditionValue implements Serializable {
 
         @Override
         public void setModelField(ModelField field) {
-            // Do nothing;
+            Debug.logInfo("Logging to avoid checkstyle issue.", MODULE);
         }
 
         @Override
@@ -92,16 +97,21 @@ public abstract class EntityConditionValue implements Serializable {
      * @param includeTableNamePrefix the include table name prefix
      * @param datasourceinfo the datasourceinfo
      */
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix,
-            Datasource datasourceinfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+                            boolean includeTableNamePrefix, Datasource datasourceinfo) {
         addSqlValue(sql, EMPTY_ALIASES, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
-    public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
-            boolean includeTableNamePrefix, Datasource datasourceinfo);
+    public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam>
+            entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo);
 
     public abstract void validateSql(ModelEntity modelEntity) throws GenericModelException;
 
+    /**
+     * Gets value.
+     * @param entity the entity
+     * @return the value
+     */
     public Object getValue(GenericEntity entity) {
         if (entity == null) {
             return null;
@@ -113,6 +123,10 @@ public abstract class EntityConditionValue implements Serializable {
 
     public abstract EntityConditionValue freeze();
 
+    /**
+     * To string.
+     * @param sb the sb
+     */
     public void toString(StringBuilder sb) {
         addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);
     }

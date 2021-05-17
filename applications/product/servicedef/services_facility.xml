@@ -1443,6 +1443,10 @@ under the License.
         <description>Expire a FacilityLocationGeoPoint record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="deleteFacilityLocationGeoPoint" default-entity-name="FacilityLocationGeoPoint" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FacilityLocationGeoPoint record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- InventoryItemType services -->
     <service name="createInventoryItemType" engine="entity-auto" default-entity-name="InventoryItemType" invoke="create" auth="true">

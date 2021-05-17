@@ -118,7 +118,8 @@ public final class MiniLangValidate {
         for (String name : attributeNames) {
             String attributeValue = element.getAttribute(name);
             if (!MiniLangUtil.isConstantPlusExpressionAttribute(attributeValue)) {
-                handleError("Constant+expr attribute \"" + name + "\" is missing a constant value (expression-only constants are not allowed).", method, element);
+                handleError("Constant+expr attribute \"" + name + "\" is missing a constant value (expression-only constants are not allowed).",
+                        method, element);
             }
             if (MiniLangUtil.containsScript(attributeValue)) {
                 handleError("Constant+expr attribute \"" + name + "\" cannot contain a script (remove script).", method, element);
@@ -134,7 +135,8 @@ public final class MiniLangValidate {
      * @param fixInstruction Instructions to fix the deprecated attribute
      * @throws ValidationException If the deprecated attribute is found and <code>validation.level=strict</code>
      */
-    public static void deprecatedAttribute(SimpleMethod method, Element element, String attributeName, String fixInstruction) throws ValidationException {
+    public static void deprecatedAttribute(SimpleMethod method, Element element, String attributeName, String fixInstruction)
+            throws ValidationException {
         String attributeValue = element.getAttribute(attributeName);
         if (!attributeValue.isEmpty()) {
             handleError("Attribute \"" + attributeName + "\" is deprecated (" + fixInstruction + ")", method, element);

@@ -19,8 +19,11 @@
 package org.apache.ofbiz.widget.renderer.html;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.ofbiz.base.util.UtilHtml;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.ofbiz.widget.model.ModelWidget;
 
 /**
@@ -35,6 +38,11 @@ public class HtmlWidgetRenderer {
      * CR/LF.
      */
     public static final String WHITE_SPACE = "\r\n";
+
+    /**
+     * Store property value of widget.dev.namedBorder
+     */
+    public static final ModelWidget.NamedBorderType NAMED_BORDER_TYPE = ModelWidget.widgetNamedBorderType();
 
     /**
      * Sets widget comments enabled.
@@ -68,12 +76,55 @@ public class HtmlWidgetRenderer {
      * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
      * @param widgetName The widget name
      */
-    public String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
-        return formatBoundaryComment(boundaryType, widgetType, widgetName);
+    public static String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
+        return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
     }
 
-    public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
-        return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + WHITE_SPACE;
+    /**
+     * Always check the following condition is true before running the method:
+     * HtmlWidgetRenderer.namedBorderType != ModelWidget.NamedBorderType.NONE
+     * @param widgetType
+     * @param location
+     * @param contextPath
+     * @return
+     */
+    public static String beginNamedBorder(String widgetType, String location, String contextPath) {
+        List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+        if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+            String fileName = location.substring(location.lastIndexOf("/") + 1);
+            switch (NAMED_BORDER_TYPE) {
+            case SOURCE:
+                return "<div class='info-container'><span class='info-overlay-item info-cursor-none info-"
+                        + widgetType.toLowerCase().replaceAll(" ", "-") + "' data-source='"
+                        + location + "' data-target='" + contextPath
+                        + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
+                        + "/openSourceFile'>"
+                        + fileName
+                        + "</span>";
+            case LABEL:
+                return "<div class='info-container'><span class='info-overlay-item'>"
+                        + fileName
+                        + "</span>";
+            default:
+                return "";
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Always check the following condition is true before running the method:
+     * HtmlWidgetRenderer.namedBorderType != ModelWidget.NamedBorderType.NONE
+     * @param widgetType
+     * @param location
+     * @return
+     */
+    public static String endNamedBorder(String widgetType, String location) {
+        List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+        if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+            return "</div>";
+        }
+        return "";
     }
 
     public static String formatBoundaryJsComment(String boundaryType, String widgetType, String widgetName) {
@@ -88,7 +139,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (this.widgetCommentsEnabled) {
-            writer.append(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.append(buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -100,7 +151,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (this.widgetCommentsEnabled) {
-            writer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.append(buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 

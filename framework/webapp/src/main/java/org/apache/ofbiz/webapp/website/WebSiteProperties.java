@@ -149,7 +149,8 @@ public final class WebSiteProperties {
             httpPortValue += Start.getInstance().getConfig().getPortOffset();
             httpPort = httpPortValue.toString();
             Integer httpsPortValue = Integer.valueOf(httpsPort);
-            httpsPortValue += Start.getInstance().getConfig().getPortOffset(); // Here unlike above we trust the user and don't rely on the request, no dontAddPortoffset.
+            httpsPortValue += Start.getInstance().getConfig().getPortOffset();
+            // Here unlike above we trust the user and don't rely on the request, no dontAddPortoffset.
             httpsPort = httpsPortValue.toString();
         }
         return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);

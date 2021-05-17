@@ -100,6 +100,11 @@ public class ModelGroupReader implements Serializable {
         getGroupCache(delegatorName);
     }
 
+    /**
+     * Gets group cache.
+     * @param delegatorName the delegator name
+     * @return the group cache
+     */
     public Map<String, String> getGroupCache(String delegatorName) {
         if (this.groupCache == null) { // don't want to block here
             synchronized (ModelGroupReader.class) {
@@ -155,7 +160,8 @@ public class ModelGroupReader implements Serializable {
                                     // utilTimer.timerString("  After entityEntityName -- " + i + " --");
                                     i++;
                                 }
-                            } while ((curChild = curChild.getNextSibling()) != null);
+                                curChild = curChild.getNextSibling();
+                            } while (curChild != null);
                         } else {
                             Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", MODULE);
                         }

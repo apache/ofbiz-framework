@@ -29,6 +29,5 @@ under the License.
     <!-- NOTE: comment this line out to ensure no resetting of passwords -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PasswordSecurityDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/SecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/SecurityTypeDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/SSOJWTDemoData.xml"/>
 </ofbiz-component>

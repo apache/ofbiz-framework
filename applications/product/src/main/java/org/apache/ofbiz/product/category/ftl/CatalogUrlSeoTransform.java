@@ -48,9 +48,9 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.product.category.CatalogUrlServlet;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
 import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.product.category.SeoUrlUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
@@ -85,6 +85,12 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
     }
 
+    /**
+     * Gets string arg.
+     * @param args the args
+     * @param key the key
+     * @return the string arg
+     */
     public String getStringArg(Map<?, ?> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {

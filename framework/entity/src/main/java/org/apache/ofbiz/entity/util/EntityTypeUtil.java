@@ -92,8 +92,9 @@ public final class EntityTypeUtil {
             Debug.logWarning(e, MODULE);
             return null;
         }
-        if (childrenTypes == null)
+        if (childrenTypes == null) {
             return null;
+        }
 
         // ... and add them as direct descendants
         descendantTypes.addAll(childrenTypes);
@@ -130,7 +131,8 @@ public final class EntityTypeUtil {
      * @param parentType      Value of the parent type against which check is performed.
      * @return boolean value based on the check results.
      */
-    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
+    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField,
+                                        String parentType) {
         GenericValue childTypeValue = null;
         try {
             childTypeValue = EntityQuery.use(delegator).from(entityName).where(primaryKey, childType).cache(true).queryOne();

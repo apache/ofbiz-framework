@@ -1,0 +1,98 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= How to Create the main Company
+
+OFBiz needs to have at least on main company set up that will represent the main business or organization. +
+If you have installed OFBiz with the demo data then the main company already exists. +
+If you have installed OFBiz without the demo data then it will not exist so you will need to create it.
+
+This is is done in Party Manager.
+
+NOTE: Party Manager is the application where we create all the entities
+ (companies, people, groups, departments) that we deal with in the course of doing business.
+
+This tutorial is quite simple, only 4 step.
+
+This process is running automatically every day in Apache OFBiz demo (trunk) as a GUI process test. +
+The associated video (showing all the actions described in this tutorial) can be visualize at
+https://youtu.be/G3GSXNvxe0M[How to Create the main Company]
+
+
+== step Party
+1. Login to OFBiz
+2. Create Party
+   * Select “Party” from the Applications drop down menu if you are not already in
+   * Click “Create New Party Group” +
+     The company we are creating is not an individual (person, customer, prospect or employee).
+     It is an organization and in OFBiz this is called a "party group" (a group of people)
+3. fill in the form fields
+   * Party ID (e.g COMPANY) +
+    (NOTE: that you can enter the Party ID manually. If it is not entered OFBiz will auto generate an ID.
+           If you enter the ID it will make it easier to locate it quickly in future;
+           but it’s dangerous to create wrong ID, in ID only standard characters and without space are authorized. ID length must be less than 20 characters.
+           Best practice is to use only UpperCase.)
+
+   * Group Name (e.g  “My OFBiz Main Company”). This will be the name of your company)
+   * it's possible to leave al other field blank
+4. Click “Save”
+
+You are now on profile page.
+
+== step Address
+Next we need to enter some contact details. Find the "Contact Information" section (box)
+
+1. Click "Create" on the screenlet title
+2. Select "Postal Address"
+3. Click "Create"
+4. fill in the form fields
+   * Address Line 1
+   * Address Line 2 (not mandatory)
+   * City
+   * State / Province (not mandatory)
+   * Zip / Postal Code
+   * Country
+5. Click Save
+
+The address is added - but - there is still some missing setup.
+
+== step Address purpose
+We need to include a purpose (or use) for the address.
+
+1. Click “Update” next to the address details
+2. Select "Primary Address" and Click "Add Purpose
+3. Select "Shipping Origin Address" and Click "Add Purpose"
+4. Select "Shipping Destination Address" and Click "Add Purpose"
+5. click to GoBack or on Profile in the screen-sub-menu
+
+The address purpose is be updated.
+
+== step role
+We now need to add a specific role to this party group to let OFBiz know that is an organization
+that will have an accounting setup.
+
+1. Click "Roles" in screen-sub-menu
+2. In the 'Add to Role : view All' section, use the dropdown box to:
+   * Select the Role Type Id "Internal Organization"
+3. Click "Add"
+
+The internal organization role will be added to our new Party Group.
+
+Now this is done we can begin the Accounting setup.
+
+

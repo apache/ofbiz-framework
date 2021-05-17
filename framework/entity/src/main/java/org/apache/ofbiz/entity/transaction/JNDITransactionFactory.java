@@ -51,8 +51,8 @@ public class JNDITransactionFactory implements TransactionFactory {
     // Debug MODULE name
     private static final String MODULE = JNDITransactionFactory.class.getName();
 
-    volatile TransactionManager transactionManager = null;
-    volatile UserTransaction userTransaction = null;
+    private volatile TransactionManager transactionManager = null;
+    private volatile UserTransaction userTransaction = null;
 
     protected static final ConcurrentHashMap<String, DataSource> DS_CACHE = new ConcurrentHashMap<>();
 

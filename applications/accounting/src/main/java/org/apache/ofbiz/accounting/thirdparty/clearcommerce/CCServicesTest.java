@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
@@ -51,6 +52,7 @@ public class CCServicesTest extends OFBizTestCase {
 
     @Override
     protected void setUp() throws Exception {
+        Delegator delegator = getDelegator();
         // populate test data
         configFile = "paymentTest.properties";
         creditAmount = new BigDecimal("234.00");

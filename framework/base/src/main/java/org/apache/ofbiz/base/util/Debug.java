@@ -46,7 +46,8 @@ public final class Debug {
     public static final int ERROR = 6;
     public static final int FATAL = 7;
 
-    private static final String[] LEVEL_PROPS = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal"};
+    private static final String[] LEVEL_PROPS = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning",
+            "print.error", "print.fatal"};
     private static final Level[] LEVEL_OBJS = {Level.OFF, Level.DEBUG, Level.TRACE, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL};
 
     private static final Map<String, Integer> LEVEL_STRING_MAP = new HashMap<>();

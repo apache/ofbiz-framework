@@ -102,7 +102,7 @@ under the License.
 <#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl!}">
 <body>
   <#include "component://common-theme/template/ImpersonateBanner.ftl"/>
-  <div id="wait-spinner" style="display:none">
+  <div id="wait-spinner" class="hidden">
     <div id="wait-spinner-image"></div>
   </div>
   <div class="page-container">
@@ -157,15 +157,7 @@ under the License.
           <#else>
             <li>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
           </#if>
-          <#if helpAnchor??>
-            <li><a class="alert" href="${userDocUri!Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "userDocUri", delegator)}#${helpAnchor}" target="help">${uiLabelMap.CommonHelp}</a></li>
-          <#else>
-              <#---if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
-              <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-                <#include "component://common-theme/template/includes/HelpLink.ftl" />
-                <li><a <#if pageAvail?has_content>class="alert"</#if> href="javascript:lookup_popup1('<@ofbizUrl>showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}</@ofbizUrl>','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
-              </#if>
-          </#if>
+          <li><a class="alert" href="${userDocUri!Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "userDocUri", delegator)}<#if helpAnchor??>#${helpAnchor}</#if>" target="help">${uiLabelMap.CommonHelp}</a></li>
           </ul>
       </li>
     </ul>

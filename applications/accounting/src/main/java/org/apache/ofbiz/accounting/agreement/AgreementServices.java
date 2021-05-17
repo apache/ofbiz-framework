@@ -145,10 +145,12 @@ public class AgreementServices {
                             }
                         }
                     }
-                    if (commission.compareTo(min) < 0)
+                    if (commission.compareTo(min) < 0) {
                         commission = min;
-                    if (commission.compareTo(max) > 0)
+                    }
+                    if (commission.compareTo(max) > 0) {
                         commission = max;
+                    }
                     commission = negative ? commission.negate() : commission;
                     commission = commission.setScale(DECIMALS, ROUNDING);
 

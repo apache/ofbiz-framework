@@ -34,10 +34,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 
 /**
- * A Filter used to specify a whitelist of allowed paths to the OFBiz application.
+ * A Filter used to specify an allowlist of allowed paths to the OFBiz application.
  * Requests that do not match any of the paths listed in allowedPaths are redirected to redirectPath, or an error code
  * is returned (the error code can be set in errorCode, the default value is 403).
  * If forceRedirectAll is set to Y then allowedPaths is ignored and all requests are redirected to redirectPath; note
@@ -57,7 +58,7 @@ import org.apache.ofbiz.base.util.Debug;
  *   - for its internal logic (to avoid an infinite loop of redirections when forceRedirectAll is set) the filter sets
  *     a session parameter (_FORCE_REDIRECT_=true) before the first redirection; the parameter is removed during the
  *     second pass before the request is forwarded to the next filter in the chain
- *   - the filter skips the check against the whitelist of allowed paths if a request attribute
+ *   - the filter skips the check against the allowlist of allowed paths if a request attribute
  *     with name _FORWARDED_FROM_SERVLET_ is present; this attribute is typically set by the ControlServlet to indicate
  *     that the request path is safe and should not be checked again
  */
@@ -148,7 +149,14 @@ public class ControlFilter extends HttpFilter {
 
             // Check if the requested URI is allowed.
             if (allowedPaths.stream().anyMatch(uri::startsWith)) {
-                chain.doFilter(req, resp);
+                try {
+                    // support OFBizDynamicThresholdFilter in log4j2.xml
+                    ThreadContext.put("uri", uri);
+
+                    chain.doFilter(req, resp);
+                } finally {
+                    ThreadContext.remove("uri");
+                }
             } else {
                 if (redirectPath == null) {
                     resp.sendError(errorCode, uriWithContext);

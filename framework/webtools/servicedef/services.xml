@@ -94,7 +94,6 @@ under the License.
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="results" type="List" mode="OUT" optional="false"/>
     </service>
-
     <service name="getEntityRefData" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="getEntityRefData" auth="true" use-transaction="false">
         <description>Gets the entity reference data - for the entity reference screen. See org.apache.ofbiz.webtools.WebToolsServices.getEntityRefData().</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
@@ -107,34 +106,51 @@ under the License.
             Specify either entityPackageName or entityGroupId, or leave both empty for ALL entities in the data model.
         </description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
-        <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false"/>
+        <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WebtoolsErrorUiLabels" property="WebtoolsRequiredFieldMissingEoModeldFullPath"/>
+            </type-validate>
+        </attribute>
         <attribute name="entityPackageName" type="java.lang.String" mode="IN" optional="true"/>
         <attribute name="entityGroupId" type="java.lang.String" mode="IN" optional="true"/>
         <attribute name="datasourceName" type="java.lang.String" mode="IN" optional="true"/>
         <attribute name="entityNamePrefix" type="java.lang.String" mode="IN" optional="true"/>
     </service>
-
     <service name="entityMaintPermCheck" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityMaintPermCheck">
         <description>Performs an entity maintenance security check. Returns hasPermission=true
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
     </service>
-
     <service name="exportServiceEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
         <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.
         </description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
-        <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false"/>
-        <attribute name="serviceName" type="java.lang.String" mode="IN" optional="false"/>
+        <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WebtoolsErrorUiLabels" property="WebtoolsRequiredFieldMissingEoModeldFullPath"/>
+            </type-validate>
+        </attribute>
+        <attribute name="serviceName" type="java.lang.String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WebtoolsErrorUiLabels" property="WebtoolsRequiredFieldMissingServiceName"/>
+            </type-validate>
+        </attribute>
     </service>
-
     <service name="saveLabelsToXmlFile" engine="java" location="org.apache.ofbiz.webtools.labelmanager.SaveLabelsToXmlFile"
              invoke="saveLabelsToXmlFile" auth="true" use-transaction="false">
         <description>Save labels to xml file</description>
         <attribute name="key" type="String" mode="IN" optional="true"/>
         <attribute name="keyComment" type="String" mode="IN" optional="true"/>
-        <attribute name="update_label" type="String" mode="IN" optional="false"/>
-        <attribute name="fileName" type="String" mode="IN" optional="false"/>
+        <attribute name="update_label" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WebtoolsErrorUiLabels" property="WebtoolsRequiredFieldMissingUpdateLabel"/>
+            </type-validate>
+        </attribute>
+        <attribute name="fileName" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="WebtoolsErrorUiLabels" property="WebtoolsRequiredFieldMissingFileName"/>
+            </type-validate>
+        </attribute>
         <attribute name="confirm" type="String" mode="IN" optional="true"/>
         <attribute name="removeLabel" type="String" mode="IN" optional="true"/>
         <attribute name="localeNames" type="List" mode="IN" optional="true"/>

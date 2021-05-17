@@ -57,7 +57,8 @@ public class InventoryEventPlannedServices {
             createOrUpdateMrpEvent(parameters, quantity, (String) context.get("facilityId"), (String) context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error : findOne(\"MrpEvent\", parameters =)" + parameters, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
+                    UtilMisc.toMap("parameters", parameters), locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -71,14 +72,14 @@ public class InventoryEventPlannedServices {
             mrpEvent.put("quantity", newQuantity.doubleValue());
             mrpEvent.put("eventName", eventName);
             mrpEvent.put("facilityId", facilityId);
-            mrpEvent.put("isLate", (isLate? "Y": "N"));
+            mrpEvent.put("isLate", (isLate ? "Y" : "N"));
             mrpEvent.create();
         } else {
             BigDecimal qties = newQuantity.add(mrpEvent.getBigDecimal("quantity"));
             mrpEvent.put("quantity", qties.doubleValue());
             if (UtilValidate.isNotEmpty(eventName)) {
                 String existingEventName = mrpEvent.getString("eventName");
-                mrpEvent.put("eventName", (UtilValidate.isEmpty(existingEventName)? eventName: existingEventName + ", " + eventName));
+                mrpEvent.put("eventName", (UtilValidate.isEmpty(existingEventName) ? eventName : existingEventName + ", " + eventName));
             }
             if (isLate) {
                 mrpEvent.put("isLate", "Y");

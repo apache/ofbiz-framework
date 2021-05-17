@@ -256,12 +256,12 @@ public final class EntityExpr implements EntityCondition {
             } catch (ClassNotFoundException e) {
                 String msg = "Warning using [" + value.getClass().getName() + "]"
                         + " and entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "]."
-                        + " The Java type of keyFieldName : [" + valueType.getJavaType()+ "] could not be found]";
+                        + " The Java type of keyFieldName : [" + valueType.getJavaType() + "] could not be found]";
                 // Eventually we should do this, but for now we'll do a "soft" failure:
                 // throw new IllegalArgumentException(msg);
                 Debug.logWarning(e, "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + msg,
                         MODULE);
-             }
+            }
         } else if (value instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) lhs;
             String rhsFieldName = efv.getFieldName();

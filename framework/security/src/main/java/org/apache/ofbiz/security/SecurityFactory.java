@@ -219,7 +219,7 @@ public final class SecurityFactory {
             if (userLogin == null) {
                 return false;
             }
-            if (primaryKey.equals("") && roles == null) {
+            if ("".equals(primaryKey) && roles == null) {
                 if (hasEntityPermission(application, action, userLogin)) return true;
                 if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
             }
@@ -253,7 +253,7 @@ public final class SecurityFactory {
         @Override
         public boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin) {
             List<String> roles = null;
-            if (role != null && !role.equals("")) {
+            if (role != null && !"".equals(role)) {
                 roles = UtilMisc.toList(role);
             }
             return hasRolePermission(application, action, primaryKey, roles, userLogin);

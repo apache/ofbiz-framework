@@ -54,7 +54,7 @@ public class RunTestEvents {
 
         TestRunContainer testRunContainer = new TestRunContainer();
         testRunContainer.init(ofbizCommands, "frontend test run", "   ");
-        if (testRunContainer.start() == false) {
+        if (!testRunContainer.start()) {
             result = "error";
         } else {
             result = "success";

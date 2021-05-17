@@ -22,14 +22,13 @@ GRADLE_OFBIZ_PATH="$OFBIZ_HOME/gradle"
 GRADLE_WRAPPER_OFBIZ_PATH="$GRADLE_OFBIZ_PATH/wrapper"
 
 # version and uri to download the wrapper
-RELEASE="5.0.0"
-GRADLE_WRAPPER_URI="https://dl.bintray.com/apacheofbiz/GradleWrapper/v$RELEASE/"
-GRADLE_WRAPPER_URI_BACKUP="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
+RELEASE="6.5.1"
+GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
 
 # checksum to verify the downloaded file
-SHASUM_GRADLE_WRAPPER_FILES="1d23286bcb9e7d3debff18c1b892b9dbb9a4ec6c  gradle/wrapper/gradle-wrapper.jar
-f9c2ad227ef1fe774cb0e141abfc431b05fc9fd4  gradle/wrapper/gradle-wrapper.properties
-b4a6a7e1dca81a692a775193fada937e035265f3  gradlew"
+SHASUM_GRADLE_WRAPPER_FILES="33b0acb4572934fc1dd7d5880c65036724974e06  gradle/wrapper/gradle-wrapper.jar
+b76cfc82d574180f435b4bd9d4b0f29a3c32294b  gradle/wrapper/gradle-wrapper.properties
+67bc176bca816684cf5218570a931f57d5f2b423  gradlew"
 
 GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
 GRADLE_WRAPPER_PROPERTIES="gradle-wrapper.properties"
@@ -48,21 +47,16 @@ downloadFile() {
            return 0;
        fi
    elif [ -n "$(whereIsBinary wget)" ]; then
-       GET_CMD="wget -q -O $GRADLE_WRAPPER_OFBIZ_PATH/$1 --server-response $2/$1";
-       GET_CMD="$GET_CMD"' 2>&1 > /dev/null | grep "HTTP/.* 200"';
-       if [ -n "$($GET_CMD)" ]; then
+       if [[ `wget -q -S -O $GRADLE_WRAPPER_OFBIZ_PATH/$1 $2/$1 2>&1 > /dev/null | grep 'HTTP/1.1 200 OK'` ]]; then
            return 0;
        fi
    fi
    return 1
 }
 
-# Download the file from the main URI; if the download fails then use the backup URI
+# Download the file from the main URI
 resolveFile() {
    downloadFile $1 $GRADLE_WRAPPER_URI;
-   if [ $? -eq 1 ]; then
-       downloadFile $1 $GRADLE_WRAPPER_URI_BACKUP;
-   fi
 }
 
 echo " === Prepare operation ===";

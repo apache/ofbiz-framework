@@ -52,6 +52,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
@@ -63,7 +64,8 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     private final HttpServletResponse response;
     private final VisualTheme visualTheme;
 
-    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+    public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
+            throws TemplateException, IOException {
         this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
@@ -198,21 +200,23 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderLink(Appendable writer, Map<String, Object> context, MenuLink link) throws IOException {
-        Map<String, Object> parameters = new HashMap<>();
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
         if (isDisableIfEmpty(menuItem, context)) {
             target = null;
         }
-        parameters.put("id", link.getId(context));
-        parameters.put("style", link.getStyle(context));
-        parameters.put("name", link.getName(context));
-        parameters.put("text", link.getText(context));
-        parameters.put("height", link.getHeight());
-        parameters.put("width", link.getWidth());
-        parameters.put("targetWindow", link.getTargetWindow(context));
+        Map<String, Object> parameters = UtilMisc.toMap(
+                        "id", link.getId(context),
+                "style", link.getStyle(context),
+                "name", link.getName(context),
+                "text", link.getText(context),
+                "height", link.getHeight(),
+                "width", link.getWidth(),
+                "targetWindow", link.getTargetWindow(context));
+
         StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
-        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE));
+        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
+                "menuUniqueItemIndex", BigDecimal.ONE));
         if (menuItem.getModelMenu().getExtraIndex(context) != null) {
             uniqueItemName.append("_").append(menuItem.getModelMenu().getExtraIndex(context));
         }
@@ -224,6 +228,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             }
         }
         parameters.put("uniqueItemName", uniqueItemName.toString());
+
         String linkType = "";
         if (UtilValidate.isNotEmpty(target)) {
             linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
@@ -231,6 +236,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("linkType", linkType);
         String linkUrl = "";
         String actionUrl = "";
+
         StringBuilder targetParameters = new StringBuilder();
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
@@ -257,13 +263,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             targetParameters.append("\"\"");
         }
         if (UtilValidate.isNotEmpty(target)) {
-            if (!"hidden-form".equals(linkType)) {
-                final URI linkUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
-                        "layered-modal".equals(linkType) ? null : link.getParameterMap(context),
-                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
-                        request, response);
-                linkUrl = linkUri.toString();
-            }
+            linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
         }
         parameters.put("linkUrl", linkUrl);
         parameters.put("actionUrl", actionUrl);
@@ -296,6 +296,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             executeMacro(writer, "renderMenuEnd", parameters);
         } catch (TemplateException e) {
             throw new IOException(e);
+        }
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Menu", menu.getBoundaryCommentName()));
         }
     }
 
@@ -365,6 +368,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException {
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Menu",
+                    menu.getBoundaryCommentName(), ((HttpServletRequest) context.get("request")).getContextPath()));
+        }
         Map<String, Object> parameters = new HashMap<>();
         if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
             StringBuilder sb = new StringBuilder("Begin Menu Widget ");

@@ -41,10 +41,10 @@ public class CollectionConverters implements ConverterLoader {
         @Override
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
             if (!sourceClass.isArray()) {
-               return null;
+                return null;
             }
             if (targetClass != List.class) {
-               return null;
+                return null;
             }
             if (sourceClass.getComponentType() == null) {
                 return null;

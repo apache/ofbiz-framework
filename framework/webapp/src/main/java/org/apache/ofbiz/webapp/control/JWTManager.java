@@ -157,7 +157,8 @@ public class JWTManager {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-        String username, password;
+        String username;
+        String password;
 
         if (UtilValidate.isNotEmpty(request.getAttribute("USERNAME"))) {
             username = (String) request.getAttribute("USERNAME");
@@ -177,7 +178,8 @@ public class JWTManager {
         }
         Map<String, Object> result;
         try {
-            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request)));
+            result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password,
+                    "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());

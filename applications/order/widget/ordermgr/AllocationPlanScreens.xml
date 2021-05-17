@@ -145,7 +145,6 @@ under the License.
                 <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm" value="updateAllocationPlanItems"/>
                 <set field="asm_formSize" value="1000"/>
-                <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <script location="component://order/groovyScripts/allocationplan/ViewAllocationPlan.groovy"/>
             </actions>

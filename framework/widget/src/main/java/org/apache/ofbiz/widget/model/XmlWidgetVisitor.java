@@ -616,8 +616,8 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         }
         for (ModelForm.AltRowStyle rowStyle : modelForm.getAltRowStyles()) {
             writer.append("<alt-row-style");
-            visitAttribute("use-when", rowStyle.useWhen);
-            visitAttribute("style", rowStyle.style);
+            visitAttribute("use-when", rowStyle.getUseWhen());
+            visitAttribute("style", rowStyle.getStyle());
             writer.append("/>");
         }
         for (ModelForm.AltTarget target : modelForm.getAltTargets()) {

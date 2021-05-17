@@ -99,7 +99,8 @@ public class ContentJsonEvents {
                            contentAssocTypeId, "fromDate", fromDate)
                     .queryOne();
             if (oldAssoc == null) {
-                throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: $contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
+                throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: "
+                        + "$contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
             }
             GenericValue newAssoc = (GenericValue) oldAssoc.clone();
 

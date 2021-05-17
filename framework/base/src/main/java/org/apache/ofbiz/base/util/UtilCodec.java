@@ -181,7 +181,8 @@ public class UtilCodec {
         // You might even want to adapt the PERMISSIVE_POLICY to your needs...
         // Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
         // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
-        // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
+        // If you want another example:
+        // https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
                 .allowAttributes("id", "class").globally()
@@ -258,7 +259,7 @@ public class UtilCodec {
         @Override
         public String decode(String original) {
             try {
-                original = canonicalize(original);
+                canonicalize(original); // This is only used to show warning/s in log in case of multiple encoding/s. See OFBIZ-12014 for more
                 return URLDecoder.decode(original, "UTF-8");
             } catch (UnsupportedEncodingException ee) {
                 Debug.logError(ee, MODULE);
@@ -387,8 +388,6 @@ public class UtilCodec {
         if (UtilValidate.isEmpty(value)) {
             return value;
         }
-        
-
         // canonicalize, strict (error on double-encoding)
         try {
             value = canonicalize(value, true);
@@ -465,8 +464,7 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) {
                 customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
             } else {
-            customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
-                    "sanitizer.custom.safe.policy.class"));
+                customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
             }
             Object obj = customPolicyClass.getConstructor().newInstance();
             if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
@@ -482,7 +480,7 @@ public class UtilCodec {
 
         if (value != null) {
             String filtered = policy.sanitize(value);
-            if (filtered != null && !value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
+            if (filtered != null && !value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(filtered)))) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
@@ -513,14 +511,23 @@ public class UtilCodec {
             return mapWrapper;
         }
 
-        protected Map<K, Object> internalMap = null;
-        protected SimpleEncoder encoder = null;
+        private Map<K, Object> internalMap = null;
+        private SimpleEncoder encoder = null;
         protected HtmlEncodingMapWrapper() { }
 
+        /**
+         * Sets .
+         * @param mapToWrap the map to wrap
+         * @param encoder the encoder
+         */
         public void setup(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
             this.internalMap = mapToWrap;
             this.encoder = encoder;
         }
+
+        /**
+         * Reset.
+         */
         public void reset() {
             this.internalMap = null;
             this.encoder = null;
@@ -596,5 +603,4 @@ public class UtilCodec {
             return this.internalMap.toString();
         }
     }
-
 }

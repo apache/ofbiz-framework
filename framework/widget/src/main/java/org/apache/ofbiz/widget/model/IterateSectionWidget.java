@@ -104,12 +104,17 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
     }
 
+    /**
+     * Gets section list.
+     * @return the section list
+     */
     public List<ModelScreenWidget.Section> getSectionList() {
         return sectionList;
     }
 
     @Override
-    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer)
+            throws GeneralException, IOException {
         int viewIndex = 0;
         int locViewSize = this.viewSize;
         int lowIndex = -1;
@@ -118,7 +123,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
         int actualPageSize = 0;
 
         boolean isEntrySet = false;
-        // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
+        // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object
+        // just for it so it is isolated and doesn't follow the stack down
         MapStack<String> contextMs = MapStack.create(context);
 
         String entryName = this.entryNameExdr.expandString(context);
@@ -220,13 +226,21 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
 
     }
-    /*
-     * @return
+
+    /**
+     * Gets paginate target.
+     * @param context the context
+     * @return the paginate target
      */
     public String getPaginateTarget(Map<String, Object> context) {
         return this.paginateTarget.expandString(context);
     }
 
+    /**
+     * Gets paginate.
+     * @param context the context
+     * @return the paginate
+     */
     public boolean getPaginate(Map<String, Object> context) {
         if (!this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
             return Boolean.valueOf(this.paginate.expandString(context));
@@ -234,10 +248,22 @@ public class IterateSectionWidget extends ModelScreenWidget {
         return true;
     }
 
+    /**
+     * Gets view size.
+     * @return the view size
+     */
     public int getViewSize() {
         return viewSize;
     }
 
+    /**
+     * Render next prev.
+     * @param writer the writer
+     * @param context the context
+     * @param listSize the list size
+     * @param actualPageSize the actual page size
+     * @throws IOException the io exception
+     */
     public void renderNextPrev(Appendable writer, Map<String, Object> context, int listSize, int actualPageSize) throws IOException {
         String targetService = this.getPaginateTarget(context);
         if (targetService == null) {
@@ -304,7 +330,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
             if (UtilValidate.isNotEmpty(queryString)) {
                 linkText.append(queryString).append("&amp;");
             }
-            linkText.append("VIEW_SIZE_"+ paginatorNumber + "=").append(viewSize).append("&amp;VIEW_INDEX_" + paginatorNumber + "=").append(viewIndex - 1).append("\"");
+            linkText.append("VIEW_SIZE_" + paginatorNumber + "=").append(viewSize).append("&amp;VIEW_INDEX_" + paginatorNumber
+                    + "=").append(viewIndex - 1).append("\"");
 
             // make the link
             writer.append(rh.makeLink(request, response, linkText.toString(), false, false, false));
@@ -328,7 +355,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
             if (UtilValidate.isNotEmpty(queryString)) {
                 linkText.append(queryString).append("&amp;");
             }
-            linkText.append("VIEW_SIZE_" + paginatorNumber + "=").append(viewSize).append("&amp;VIEW_INDEX_" + paginatorNumber + "=").append(viewIndex + 1).append("\"");
+            linkText.append("VIEW_SIZE_" + paginatorNumber + "=").append(viewSize).append("&amp;VIEW_INDEX_" + paginatorNumber
+                    + "=").append(viewIndex + 1).append("\"");
 
             // make the link
             writer.append(rh.makeLink(request, response, linkText.toString(), false, false, false));
@@ -348,22 +376,42 @@ public class IterateSectionWidget extends ModelScreenWidget {
         visitor.visit(this);
     }
 
+    /**
+     * Gets list name exdr.
+     * @return the list name exdr
+     */
     public FlexibleMapAccessor<Object> getListNameExdr() {
         return listNameExdr;
     }
 
+    /**
+     * Gets entry name exdr.
+     * @return the entry name exdr
+     */
     public FlexibleStringExpander getEntryNameExdr() {
         return entryNameExdr;
     }
 
+    /**
+     * Gets key name exdr.
+     * @return the key name exdr
+     */
     public FlexibleStringExpander getKeyNameExdr() {
         return keyNameExdr;
     }
 
+    /**
+     * Gets paginate target.
+     * @return the paginate target
+     */
     public FlexibleStringExpander getPaginateTarget() {
         return paginateTarget;
     }
 
+    /**
+     * Gets paginate.
+     * @return the paginate
+     */
     public FlexibleStringExpander getPaginate() {
         return paginate;
     }

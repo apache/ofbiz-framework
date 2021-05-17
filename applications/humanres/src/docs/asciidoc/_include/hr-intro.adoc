@@ -31,63 +31,73 @@ building that platform.
 
 include::HELP-hr-main.adoc[leveloffset=+1]
 
-= Human Resources Processes
+= HR Processes
 
 Human Resources Management can be divided into several distinct processes.
 
-* Job Planning and Definition
-* Recruitment
-* Candidate Selection and Hiring
-* Employee Training and Development
-* Employee Evaluation and Performance Management
-* Employee Salary and Benefits
+* <<_organization_job_position_and_definition>>
+* <<_employee_training_and_development>>
+* <<_performance_management_and_employee_evaluation>>
+* <<_employee_salary_and_benefits_administration>>
+* <<_recruitment_candidate_selection_and_hiring>>
 
-== Job Planning and Definition
+== Organization, Job Position and Definition
 
-Generally job positions are authorised by a budget and fulfilled by people. The
+Many companies organize departments in a tree structure.
+There is no special meaning attached to the word department. +
+It is used to describe any sub-division of a business organization.
+
+In each department there are some <<_employee_positions, Employee positions>> (or Job position) +
+Generally <<_employee_positions, Job positions>> are authorized by a budget and fulfilled by people. The
  person fulfilling the position may be a permanent employee, a temporary employee
 or a contractor.
 
-* Positions may be salary or hourly, fulltime or part time.
+* Positions may be salary or hourly, full-time or part time.
 * Positions have responsibilities.
 * Positions are defined by a type of work.
 
-For example there may be 20 job positions in an organization for a administrative
-clerk. Each position is has a job definition and is authorised by a budget request
-from a department in the organization.
-A position can be unfulfilled. (i.e a it exists but no one is currently employed
-to do it).
-In some cases a position could also be considered a full-time equivalent (FTE) and
-can be assigned to more than one person (e.g. job sharing)
+Your Companies organizational tree is shown on the main page of the HR App, and you can manage each part of it
+(view, add, remove departments; assign job position to department or manage its <<EMPLOYMENT, employments>>)
+
+If you need to define one or more department, you must create it in the Party component. +
+Create a Party-Group and associated to it the role type Internal Organization (INTERNAL_ORGANIZATIO).
+After that the department appear in the drop-down when you select "Add Internal Organization" in the contextual menu
+(click right) of the Companies organizational tree in HR component.
+
+If you need to define one or more <<_employee_positions, Job positions>>, you must create it in the Employee Position
+ HR sub-component ( Main HR Menu, option Employee Position) and maybe previously create some <<EMPLOYEE_POSITION_TYPE, Position Type>>
+ in Global HR Settings HR sub-component.
+
+
+== Employee Salary and Benefits Administration
+
+Being able to manage employee salaries and associated benefits is a key part of
+any Human Resources system.
+
+Salary is *not* related to a <<_employee_positions>> (also named Job Position) because when
+a person which fulfill a Job Position change to an other, salary does'nt change in every time. Some organization
+are waiting person demonstrate his capabilities for the new Job Position to change salary.
+
+Salary is *not* related only to a Person, because in some company there are multiple subsidiaries or affiliate company,
+so Salary (and associated benefits) is related to <<_employments>> (a subtype of Party Relationship).
+
+In hightly structured company, Salary is organized with a pay schedule which have normally two level <<_pay_grades, Grade and step>>. +
+In Apache OFBiz, you can manage salary (and other point) directly by amount or with <<_pay_grades, Grade-Step>> or with a mix of them.
 
 In the OFBiz Human Resources application you can:
 
-* Create positions
-* Fulfill positions
-* Define the responsibilities of a position
-* Define a tree reporting structure between positions
-* Track the positions fulfillments over time
+* Create Pay Grades and Salary Steps within each Pay Grade
+* Assign a Pay Grade and Salary Step to a Job Position Type
+* Manage Employment and
+** his Pay History
+** his associated Benefits
+** his Leaves (Holidays, ill, family event,..)
+* Calculate salaries and Generate Payslips
 
-== Recruitment, Candidate Selection and Hiring
-
-Recruitment is about at attracting applicants that match the skills and experience
- you are looking for in a particular job position. Candidates can apply and after
-reviewing their details, those who are the best match in terms of qualifications
-and experience are short listed for interview. The final step is deciding upon the
- final candidate that you want to hire and the employment contract details that
-are related to that.
-
-In the OFBiz Human Resouces application you can:
-
-* Create a Requisition for new job positions
-* Create Internal Job Postings
-* Apply for job positions
-* Review Resumes / CVs
-* Arrange and Grade Interviews
 
 == Employee Training and Development
 
-Training and professional development is important for an organisation because it
+Training and professional development is important for an organization because it
 ensures that your employees have the knowledge they need to perform their work.
 It can also help to fill any gaps in skills and improve their proficiency.
 
@@ -114,19 +124,21 @@ In the OFBiz Human Resources application you can:
 If an evaluation has gone well then the employee can be considered for promotion
 to another job position, or can be given other benefits such as a salary increase.
 
-== Employee Salary and Benefits Administration
+== Recruitment, Candidate Selection and Hiring
 
-Being able to manage employee salaries and associated benefits is a key part of
-any Human Resources system.
+Recruitment is about at attracting applicants that match the skills and experience
+ you are looking for in a particular job position. Candidates can apply and after
+reviewing their details, those who are the best match in terms of qualifications
+and experience are short listed for interview. The final step is deciding upon the
+ final candidate that you want to hire and the employment contract details that
+are related to that.
 
 In the OFBiz Human Resources application you can:
 
-* Create Pay Grades
-* Link Salary Steps within each Pay Grade
-* Assign a Pay Grade and Salary Step to a Job Position filled by an Employee
-* Manage employee holidays (leave)
-* Manage associated benefits
-* Calculate salaries and Generate Payslips
+* Create a Requisition for new job positions
+* Create Internal Job Postings
+* Apply for job positions
+* Review Resumes / CVs
+* Arrange and Grade Interviews
 
-
-
+(add a test to check if createEmployment works for not yet employee (ex: party which are before only candidat)

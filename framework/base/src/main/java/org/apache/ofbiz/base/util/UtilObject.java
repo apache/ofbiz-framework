@@ -77,11 +77,7 @@ public final class UtilObject {
         Object obj = null;
         try {
             obj = getObjectException(bytes);
-            // DiskFileItem, FileItemHeadersImpl are not serializable. So SafeObjectInputStream::resolveClass return null
-            if (obj == null) {
-                return null;
-            }
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (IOException | ClassCastException | ClassNotFoundException e) {
             Debug.logError(e, MODULE);
         }
         return obj;
@@ -94,7 +90,7 @@ public final class UtilObject {
      * @throws ClassNotFoundException when the class can not be deserialized.
      * @throws IOException when a general Input/Output error happen.
      */
-    public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
+    public static Object getObjectException(byte[] bytes) throws ClassCastException, ClassNotFoundException, IOException {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 SafeObjectInputStream wois = new SafeObjectInputStream(bis)) {
             return wois.readObject();

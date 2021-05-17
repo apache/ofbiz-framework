@@ -10,6 +10,8 @@ version 8 installed on your system (not just the JRE, but the full JDK) which
 you can download from the below link. Make sure of setting the $JAVA_HOME
 environment variable.
 
+Warning: on Windows don't put OFBiz in a directory with space/s in the path.
+
 https://adoptopenjdk.net/[JDK download]
 
 

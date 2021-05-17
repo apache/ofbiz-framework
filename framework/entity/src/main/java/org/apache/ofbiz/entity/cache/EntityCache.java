@@ -34,6 +34,11 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         super(delegatorName, "entity");
     }
 
+    /**
+     * Get generic value.
+     * @param pk the pk
+     * @return the generic value
+     */
     public GenericValue get(GenericPK pk) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (entityCache == null) {
@@ -42,6 +47,11 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         return entityCache.get(pk);
     }
 
+    /**
+     * Put generic value.
+     * @param entity the entity
+     * @return the generic value
+     */
     public GenericValue put(GenericValue entity) {
         if (entity == null) {
             return null;
@@ -49,9 +59,16 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         return put(entity.getPrimaryKey(), entity);
     }
 
+    /**
+     * Put generic value.
+     * @param pk the pk
+     * @param entity the entity
+     * @return the generic value
+     */
     public GenericValue put(GenericPK pk, GenericValue entity) {
         if (pk.getModelEntity().getNeverCache()) {
-            Debug.logWarning("Tried to put a value of the " + pk.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", MODULE);
+            Debug.logWarning("Tried to put a value of the " + pk.getEntityName()
+                    + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", MODULE);
             return null;
         }
 
@@ -65,6 +82,11 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         return entityCache.put(pk, entity);
     }
 
+    /**
+     * Remove.
+     * @param entityName the entity name
+     * @param condition the condition
+     */
     public void remove(String entityName, EntityCondition condition) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(entityName);
         if (entityCache == null) {
@@ -81,14 +103,25 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         }
     }
 
+    /**
+     * Remove generic value.
+     * @param entity the entity
+     * @return the generic value
+     */
     public GenericValue remove(GenericValue entity) {
         return remove(entity.getPrimaryKey());
     }
 
+    /**
+     * Remove generic value.
+     * @param pk the pk
+     * @return the generic value
+     */
     public GenericValue remove(GenericPK pk) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), MODULE);
+            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: "
+                    + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), MODULE);
         }
         if (entityCache == null) {
             return null;

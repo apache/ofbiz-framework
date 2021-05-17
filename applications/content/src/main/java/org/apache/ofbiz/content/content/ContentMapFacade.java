@@ -320,10 +320,10 @@ public class ContentMapFacade implements Map<Object, Object> {
             try {
                 Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
-                if (!this.mapKeyFilter.equals("")) {
+                if (!"".equals(this.mapKeyFilter)) {
                     expressions.put("caMapKey", this.mapKeyFilter);
                 }
-                if (!this.statusFilter.equals("")) {
+                if (!"".equals(this.statusFilter)) {
                     expressions.put("statusId", this.statusFilter);
                 }
 
@@ -486,8 +486,8 @@ public class ContentMapFacade implements Map<Object, Object> {
     }
 
     class SubContent extends AbstractInfo {
-        private String sortOrder="-fromDate";
-        private String statusFilter= "";
+        private String sortOrder = "-fromDate";
+        private String statusFilter = "";
         @Override
         public Object get(Object key) {
             if (!(key instanceof String)) {
@@ -505,7 +505,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
                 expressions.put("caMapKey", name);
-                if (!this.statusFilter.equals("")) {
+                if (!"".equals(this.statusFilter)) {
                     expressions.put("statusId", this.statusFilter);
                 }
                 sub = EntityQuery.use(delegator).from("ContentAssocViewTo")
@@ -527,14 +527,14 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Debug.logWarning("sortOrder parameters must be a string", MODULE);
                 return;
             }
-            this.sortOrder=(String) obj;
+            this.sortOrder = (String) obj;
         }
         public void setStatusFilter(Object obj) {
             if (!(obj instanceof String)) {
                 Debug.logWarning("statusFilter parameters must be a string", MODULE);
                 return;
             }
-            this.statusFilter=(String) obj;
+            this.statusFilter = (String) obj;
         }
     }
 

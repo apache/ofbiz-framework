@@ -75,6 +75,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="description" type="description"></field>
       <field name="textData" type="very-long"></field>
+      <field name="statusId" type="id"></field>
       <prim-key field="agreementId"/>
       <relation type="one" fk-name="AGRMNT_PRODUCT" rel-entity-name="Product">
         <key-map field-name="productId"/>
@@ -361,6 +362,27 @@ under the License.
       <relation type="one" fk-name="AGRMNT_ROLE_PRLE" rel-entity-name="PartyRole">
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementStatus"
+            package-name="org.apache.ofbiz.party.agreement"
+            title="Agremeement Status">
+      <field name="agreementId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="statusDate" type="date-time"></field>
+      <field name="comments" type="comment"></field>
+      <field name="changeByUserLoginId" type="id-vlong"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="statusId"/>
+      <prim-key field="statusDate"/>
+      <relation type="one" fk-name="AGRMNT_STTS_AGRMNT" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_STTS_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="AgreementTerm"

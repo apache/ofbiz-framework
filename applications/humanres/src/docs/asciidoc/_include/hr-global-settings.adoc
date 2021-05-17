@@ -26,6 +26,56 @@ here.
 TIP: You need to have 'administrator' or 'create privileges' to update any of
 the Global HR Settings
 
+== Employee Leave Type
+Used by <<_leave, Employee Leave>> management to detail why is employee request a leave.
+
+In this menu option you could manage (create / modify / delete) Leave Type and Leave Reason.
+
+For some example, look at the Tutorial Employment and Salary <<_step_5_employee_leaves>>
+
+=== Reason Type
+To create or request a leave an employee could give the type of leave and the reason.
+
+== Pay Grades
+Useful to define a salary amount table for the company. With this table for each grade and a step
+you have a amount.
+
+It's used in structured entreprise to be more clear on salary definition or supplier cost.
+
+Worksheet PayGrade - SalaryStep is not usable alone, when it's used to define a <<_rates>> it's associated
+with PeriodType (per year, per month, per week, per hour) and RateType (Standard, Average, Hightest, lowest, ...). +
+So sometine it's needed to define multiple Grades if it will be use with a specifics periodType,
+ex: for developper, one Grade for using with «per month» and one Grade for using with «per hours»
+
+=== Salary Steps
+For each Grade, it possible to have multiple step. It's possible to have overlap in step betwwen to grade.
+
+For more detail, look at the Tutorial Employment and Salary <<_step_1_pay_grade_and_salary_step>>
+
+
+== Position Types
+<<_employee_positions>> is associated with a Position Type to "pre-define" some informations about the Job Position.
+
+Position Type can be use for legal purpose, like social classification or Union constrain to be able "classify" Job position.
+
+=== Position Type Rate
+When defining a Employee Position, Salary is one of the important point. Depending of company salary rules, most of time
+there is not a salary associated with a Position but a range and some indicators.
+
+So it's possible to associated to a position type some amount associated to a Rate Type (Standard, Average, Hightest, lowest, …​)
+and a  PeriodType (per year, per month, per week, per hour).
+
+It's also used by WorkEffort Component to manage cost for subcontractor, for example.
+
+=== Position Type Grade
+If company is very structured on the salary management and so mange Salary by <<_pay_grades, Grade-Step>>, it's possible to
+associate a Position Type and a RateType a Grade-Step.
+
+As business rules, it's not possible to have for the same RateType a amount and a Grade-Step.
+
+=== Valid Responsibilities
+It's possible to define some responsibilities for a Position Type, to constrain the responsibilities it is authorized to
+associate to a Employee Position (which is associated to this Position Type).
 
 == Skills Types
 

@@ -108,6 +108,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
+    /**
+     * Gets model screen.
+     * @return the model screen
+     */
     public ModelScreen getModelScreen() {
         return this.modelScreen;
     }

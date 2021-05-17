@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
@@ -54,8 +55,7 @@ public class WebAppCache {
 
     /**
      * Constructs an empty web application cache.
-     * @param supplier the source from which components configurations
-     *        are retrieved
+     * @param supplier the source from which components configurations are retrieved
      */
     public WebAppCache(Supplier<Collection<ComponentConfig>> supplier) {
         ccs = supplier;
@@ -90,7 +90,8 @@ public class WebAppCache {
             webInfos = serverWebApps.get(serverWebAppsKey);
         }
         if (webInfos == null) {
-            TreeMap<String, WebappInfo> tm = ccs.get().stream()
+            AtomicInteger emptyPosition = new AtomicInteger(999);
+            TreeMap<Integer, WebappInfo> tm = ccs.get().stream()
                     .flatMap(cc -> cc.getWebappInfos().stream())
                     .filter(wInfo -> {
                         if (wInfo.getAppBarDisplay()) {
@@ -102,10 +103,17 @@ public class WebAppCache {
                     })
                     // Keep only one WebappInfo per title (the last appearing one).
                     .collect(TreeMap::new, (acc, wInfo) -> {
-                        String key = UtilValidate.isNotEmpty(wInfo.getPosition()) ? wInfo.getPosition() : wInfo.getTitle();
+                        String stringKey = UtilValidate.isNotEmpty(wInfo.getPosition()) ? wInfo.getPosition() : wInfo.getTitle();
+                        Integer key = null;
+                        try {
+                            key = Integer.valueOf(stringKey);
+                            key = (key != null) ? key : emptyPosition.incrementAndGet();
+                        } catch (NumberFormatException e) {
+                            key = emptyPosition.incrementAndGet();
+                        }
                         acc.put(key, wInfo);
                     },
-                    TreeMap::putAll);
+                            TreeMap::putAll);
             // Create the list of WebappInfos ordered by their title/position.
             webInfos = Collections.unmodifiableList(new ArrayList<>(tm.values()));
             synchronized (serverWebApps) {

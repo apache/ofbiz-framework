@@ -331,7 +331,6 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleEditFacilityInventoryItems"/>
                 <set field="asm_multipleSelectForm" value="SearchInventoryItemsParams"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="SearchInventoryItemsParams_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>
@@ -1567,6 +1566,18 @@ under the License.
                         <screenlet title="${uiLabelMap.FacilityAgreements}">
                             <include-form name="ListFacilityAgreements" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ShortcutApp">
+        <section>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="FacilityShortcutAppBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

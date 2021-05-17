@@ -44,11 +44,13 @@ public final class CheckErrors extends MethodOperation {
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         this.errorCodeFse = FlexibleStringExpander.getInstance(element.getAttribute("error-code"));
-        this.errorListNameFse = FlexibleStringExpander.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
+        this.errorListNameFse = FlexibleStringExpander.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"),
+                "error_list"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        SimpleMethod simpleMethod = getSimpleMethod();
         if (methodContext.isTraceOn()) {
             outputTraceMessage(methodContext, "Begin check-errors.");
         }
@@ -56,10 +58,10 @@ public final class CheckErrors extends MethodOperation {
         if (messages != null && !messages.isEmpty()) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), messages);
-                methodContext.putEnv(this.simpleMethod.getEventResponseCodeName(), getErrorCode(methodContext));
+                methodContext.putEnv(this.getSimpleMethod().getEventResponseCodeName(), getErrorCode(methodContext));
             } else {
                 methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), messages);
-                methodContext.putEnv(this.simpleMethod.getServiceResponseMessageName(), getErrorCode(methodContext));
+                methodContext.putEnv(this.getSimpleMethod().getServiceResponseMessageName(), getErrorCode(methodContext));
             }
             if (methodContext.isTraceOn()) {
                 outputTraceMessage(methodContext, "Found error messages. Setting error status and halting script execution.");
@@ -77,7 +79,7 @@ public final class CheckErrors extends MethodOperation {
     private String getErrorCode(MethodContext methodContext) {
         String errorCode = this.errorCodeFse.expandString(methodContext.getEnvMap());
         if (errorCode.isEmpty()) {
-            errorCode = this.simpleMethod.getDefaultErrorCode();
+            errorCode = this.getSimpleMethod().getDefaultErrorCode();
         }
         return errorCode;
     }

@@ -17,13 +17,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderScreenBegin>
+<#macro renderBegin>
 <?xml version="1.0" encoding="UTF-8"?>
 <export>
 </#macro>
 
-<#macro renderScreenEnd>
+<#macro renderEnd>
 </export>
+</#macro>
+
+<#macro renderScreenBegin>
+</#macro>
+
+<#macro renderScreenEnd>
 </#macro>
 
 <#macro renderSectionBegin boundaryComment>

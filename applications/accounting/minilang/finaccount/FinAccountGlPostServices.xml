@@ -78,8 +78,8 @@ under the License.
                     <!-- TODO: somehow determine if this is an order placed against the account or some other type of withdrawal -->
                     <!-- TODO: handle order placed against (paid for with) the account -->
 
-                    <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="glAccountId"/>
-                    <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="parameters.glAccountId"/>
+                    <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="parameters.glAccountId"/>
+                    <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="glAccountId"/>
                     <set field="quickCreateAcctgTransAndEntries.acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
                 </then>
             </else-if>
@@ -89,6 +89,12 @@ under the License.
                     <!-- if positive will go to one account for write-off, if negative will go to another account for a fee -->
                     <!-- these will reverse depending on positive/negative amount -->
                     <if-compare field="finAccountTrans.amount" operator="less" value="0">
+                        <calculate field="quickCreateAcctgTransAndEntries.amount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                            <calcop operator="multiply">
+                                <calcop operator="get" field="quickCreateAcctgTransAndEntries.amount"/>
+                                <number value="-1"/>
+                            </calcop>
+                        </calculate>
                         <set field="quickCreateAcctgTransAndEntries.debitGlAccountId" from-field="parameters.glAccountId"/>
                         <set field="quickCreateAcctgTransAndEntries.creditGlAccountId" from-field="glAccountId"/>
                         <set field="quickCreateAcctgTransAndEntries.acctgTransTypeId" value="OUTGOING_PAYMENT"/>

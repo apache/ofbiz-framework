@@ -489,7 +489,7 @@ public class EntitySyncServices {
             esc.setSplitStartTime(); // just run this the first time, will be updated between each loop automatically
 
             while (esc.hasMoreTimeToSync()) {
-                esc.setTotalSplits(esc.getTotalSplits()+1);
+                esc.setTotalSplits(esc.getTotalSplits() + 1);
 
                 ArrayList<GenericValue> valuesToCreate = esc.assembleValuesToCreate();
                 ArrayList<GenericValue> valuesToStore = esc.assembleValuesToStore();

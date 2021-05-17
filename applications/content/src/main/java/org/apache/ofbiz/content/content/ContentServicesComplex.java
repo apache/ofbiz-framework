@@ -74,11 +74,13 @@ public class ContentServicesComplex {
         String contentId = (String) context.get("contentId");
         String direction = (String) context.get("direction");
         String mapKey = (String) context.get("mapKey");
-        Map<String, Object> results = getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, direction, fromDate, thruDate, fromDateStr, thruDateStr, assocTypes, contentTypes);
+        Map<String, Object> results = getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, direction, fromDate, thruDate,
+                fromDateStr, thruDateStr, assocTypes, contentTypes);
         return results;
     }
 
-    public static Map<String, Object> getAssocAndContentAndDataResourceMethod(Delegator delegator, String contentId, String mapKey, String direction, Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List<String> assocTypes, List<String> contentTypes) {
+    public static Map<String, Object> getAssocAndContentAndDataResourceMethod(Delegator delegator, String contentId, String mapKey, String direction,
+            Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List<String> assocTypes, List<String> contentTypes) {
         List<EntityCondition> exprList = new LinkedList<>();
         EntityExpr joinExpr = null;
         String viewName = null;
@@ -186,15 +188,17 @@ public class ContentServicesComplex {
         Boolean nullThruDatesOnly = (Boolean) context.get("nullThruDatesOnly");
         Map<String, Object> results = null;
         try {
-            results = getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, direction, fromDate, fromDateStr, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
+            results = getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, direction, fromDate, fromDateStr, assocTypes,
+                    contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
         } catch (GenericEntityException | MiniLangException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         return results;
     }
 
-    public static Map<String, Object> getAssocAndContentAndDataResourceCacheMethod(Delegator delegator, String contentId, String mapKey, String direction,
-                          Timestamp fromDate, String fromDateStr, List<String> assocTypes, List<String> contentTypes, Boolean nullThruDatesOnly, String contentAssocPredicateId, String orderBy) throws GenericEntityException, MiniLangException {
+    public static Map<String, Object> getAssocAndContentAndDataResourceCacheMethod(Delegator delegator, String contentId, String mapKey, String
+            direction, Timestamp fromDate, String fromDateStr, List<String> assocTypes, List<String> contentTypes, Boolean nullThruDatesOnly,
+            String contentAssocPredicateId, String orderBy) throws GenericEntityException, MiniLangException {
         EntityExpr joinExpr = null;
         String viewName = null;
         String contentFieldName = null;
@@ -264,8 +268,9 @@ public class ContentServicesComplex {
                 SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut",
                         contentAssoc, contentAssocDataResourceView, new LinkedList<>(), locale);
                 String dataResourceId = content.getString("dataResourceId");
-                if (UtilValidate.isNotEmpty(dataResourceId))
+                if (UtilValidate.isNotEmpty(dataResourceId)) {
                     dataResource = content.getRelatedOne("DataResource", true);
+                }
                 if (dataResource != null) {
                     SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut",
                             dataResource, contentAssocDataResourceView, new LinkedList<>(), locale);

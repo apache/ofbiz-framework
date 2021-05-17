@@ -1,14 +1,7 @@
-<img src="http://ofbiz.apache.org/images/OFBiz-logo.png" alt="Apache OFBiz" />
+<img src="https://camo.githubusercontent.com/b313d4ec52b77b5024e2988aaf76720258233e69/68747470733a2f2f6f6662697a2e6170616368652e6f72672f696d616765732f6f6662697a5f6c6f676f2e706e67" alt="Apache OFBiz" />
 
 # commonext component
-This OFBiz component enables organisations to extend the elements in the common component.
+This component enables organisations to extend the elements of the framework common component.
 
-## more information
-For more information about this component visit the product page in the OFBiz WIKI, 
-which can be found at https://cwiki.apache.org/confluence/display/OFBIZ/Extending+the+common+component
+As the common component in the framework stack is under the control of the project, the need arose to enable adopters to extend the various elements (widgets, labels, etc) that component incorporates. For that purpose the commonext component was created in the application stack.
 
-## issues
-JIRA issues related to this component can be found at https://issues.apache.org/jira/browse/OFBIZ/component/12313162
-
-## commits
-Committed revisions can be viewed at http://svn.apache.org/viewvc/ofbiz/trunk/applications/commonext

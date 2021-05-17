@@ -40,10 +40,65 @@ public class ModelNotification {
 
     private static final String MODULE = ModelNotification.class.getName();
 
-    public String notificationGroupName;
-    public String notificationEvent;
-    public String notificationMode;
+    private String notificationGroupName;
+    private String notificationEvent;
+    private String notificationMode;
 
+    /**
+     * Gets notification group name.
+     * @return the notification group name
+     */
+    public String getNotificationGroupName() {
+        return notificationGroupName;
+    }
+
+    /**
+     * Sets notification group name.
+     * @param notificationGroupName the notification group name
+     */
+    public void setNotificationGroupName(String notificationGroupName) {
+        this.notificationGroupName = notificationGroupName;
+    }
+
+    /**
+     * Gets notification event.
+     * @return the notification event
+     */
+    public String getNotificationEvent() {
+        return notificationEvent;
+    }
+
+    /**
+     * Sets notification event.
+     * @param notificationEvent the notification event
+     */
+    public void setNotificationEvent(String notificationEvent) {
+        this.notificationEvent = notificationEvent;
+    }
+
+    /**
+     * Gets notification mode.
+     * @return the notification mode
+     */
+    public String getNotificationMode() {
+        return notificationMode;
+    }
+
+    /**
+     * Sets notification mode.
+     * @param notificationMode the notification mode
+     */
+    public void setNotificationMode(String notificationMode) {
+        this.notificationMode = notificationMode;
+    }
+
+    /**
+     * Call notify.
+     * @param dctx the dctx
+     * @param model the model
+     * @param context the context
+     * @param result the result
+     */
     public void callNotify(DispatchContext dctx, ModelService model, Map<String, ? extends Object> context, Map<String, Object> result) {
         String thisEvent = (String) result.get(ModelService.RESPONSE_MESSAGE);
         if (notificationEvent.equals(thisEvent)) {
@@ -59,7 +114,16 @@ public class ModelNotification {
         }
     }
 
-    public Map<String, Object> buildContext(Map<String, ? extends Object> context, Map<String, Object> result, ModelService model) throws GenericServiceException {
+    /**
+     * Build context map.
+     * @param context the context
+     * @param result the result
+     * @param model the model
+     * @return the map
+     * @throws GenericServiceException the generic service exception
+     */
+    public Map<String, Object> buildContext(Map<String, ? extends Object> context, Map<String, Object> result, ModelService model)
+            throws GenericServiceException {
         Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
         String partyId = null;
         if (userLogin != null) {
@@ -68,7 +132,8 @@ public class ModelNotification {
 
         String screen = getScreen();
         if (screen == null) {
-            throw new GenericServiceException("SCREEN is a required attribute; check serviceengine.xml group definition; cannot generate notification");
+            throw new GenericServiceException("SCREEN is a required attribute; check serviceengine.xml group definition;"
+                    + "cannot generate notification");
         }
 
         String subject = getSubject();
@@ -102,18 +167,34 @@ public class ModelNotification {
         return notifyContext;
     }
 
+    /**
+     * Build to string.
+     * @return the string
+     */
     public String buildTo() {
         return getCommaSeparatedAddressList("to");
     }
 
+    /**
+     * Build cc string.
+     * @return the string
+     */
     public String buildCc() {
         return getCommaSeparatedAddressList("cc");
     }
 
+    /**
+     * Build bcc string.
+     * @return the string
+     */
     public String buildBcc() {
         return getCommaSeparatedAddressList("bcc");
     }
 
+    /**
+     * Build from string.
+     * @return the string
+     */
     public String buildFrom() {
         return getCommaSeparatedAddressList("from");
     }
@@ -148,6 +229,10 @@ public class ModelNotification {
         return l;
     }
 
+    /**
+     * Gets subject.
+     * @return the subject
+     */
     public String getSubject() {
         try {
             NotificationGroup group = getNotificationGroup(notificationGroupName);
@@ -160,6 +245,10 @@ public class ModelNotification {
         return null;
     }
 
+    /**
+     * Gets screen.
+     * @return the screen
+     */
     public String getScreen() {
         try {
             NotificationGroup group = getNotificationGroup(notificationGroupName);
@@ -172,6 +261,10 @@ public class ModelNotification {
         return null;
     }
 
+    /**
+     * Gets service.
+     * @return the service
+     */
     public String getService() {
         try {
             NotificationGroup group = getNotificationGroup(notificationGroupName);

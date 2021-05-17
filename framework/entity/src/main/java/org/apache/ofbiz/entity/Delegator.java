@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
 
 public interface Delegator {
 
-    enum OperationType {INSERT, UPDATE, DELETE}
+    enum OperationType { INSERT, UPDATE, DELETE }
 
     void clearAllCacheLinesByDummyPK(Collection<GenericPK> dummyPKs);
 
@@ -229,7 +229,8 @@ public interface Delegator {
      *         ARE DONE WITH IT, AND DON'T LEAVE IT OPEN TOO LONG BEACUSE IT
      *         WILL MAINTAIN A DATABASE CONNECTION.
      */
-    EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
+    EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String>
+            fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
      * Finds all Generic entities
@@ -258,7 +259,8 @@ public interface Delegator {
      *            Whether to cache the results
      * @return List of GenericValue instances that match the query
      */
-    List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy, boolean useCache) throws GenericEntityException;
+    List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy, boolean useCache)
+            throws GenericEntityException;
 
     /**
      * Find a Generic Entity by its Primary Key and only returns the values
@@ -281,7 +283,8 @@ public interface Delegator {
      * @return long value with hit count
      * @throws GenericEntityException
      */
-    long findCountByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException;
+    long findCountByCondition(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition,
+                              EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
      * Gets the hit count of GenericValues for the given EntityCondition objects.
@@ -317,7 +320,8 @@ public interface Delegator {
      *            options. See the EntityFindOptions JavaDoc for more details.
      * @return List of GenericValue objects representing the result
      */
-    List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException;
+    List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy,
+                                EntityFindOptions findOptions, boolean useCache) throws GenericEntityException;
 
     /**
      * Finds GenericValues by the conditions specified in the EntityCondition
@@ -376,7 +380,9 @@ public interface Delegator {
      *         LEAVE IT OPEN TOO LONG BEACUSE IT WILL MAINTAIN A DATABASE
      *         CONNECTION.
      */
-    EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
+    EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition,
+            EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
+            throws GenericEntityException;
 
     /**
      * Find a Generic Entity by its primary key.
@@ -540,7 +546,8 @@ public interface Delegator {
      * @return List of GenericValue instances as specified in the relation
      *         definition
      */
-    List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo, List<String> orderBy) throws GenericEntityException;
+    List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo, List<String> orderBy)
+            throws GenericEntityException;
 
     /**
      * Get the next guaranteed unique seq id from the sequence with the given
@@ -615,7 +622,8 @@ public interface Delegator {
      * @return List of GenericValue instances as specified in the relation
      *         definition
      */
-    List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value, boolean useCache) throws GenericEntityException;
+    List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value,
+                                  boolean useCache) throws GenericEntityException;
 
     /**
      * Get a dummy primary key for the named Related Entity for the GenericValue.

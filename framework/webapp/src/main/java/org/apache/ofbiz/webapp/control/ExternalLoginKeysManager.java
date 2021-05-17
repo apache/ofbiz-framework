@@ -164,14 +164,14 @@ public class ExternalLoginKeysManager {
      * @return indicator
      */
     private static boolean isAjax(HttpServletRequest request) {
-       return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
     /**
      * Check if using externalLoginKey
      * @return
      */
-    public static boolean isExternalLoginKeyEnabled (HttpServletRequest request) {
+    public static boolean isExternalLoginKeyEnabled(HttpServletRequest request) {
         if (UtilValidate.isEmpty(isExternalLoginKeyEnabled)) {
             isExternalLoginKeyEnabled = EntityUtilProperties.getPropertyValue("security",
                     "security.login.externalLoginKey.enabled", "true",

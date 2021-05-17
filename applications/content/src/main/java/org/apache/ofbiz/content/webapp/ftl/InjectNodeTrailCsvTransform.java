@@ -88,7 +88,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
 
         return new LoopWriter(out) {
 
-            final String passedCsv = (String) templateCtx.get("nodeTrailCsv");
+            private final String passedCsv = (String) templateCtx.get("nodeTrailCsv");
 
             @Override
             public void write(char cbuf[], int off, int len) {

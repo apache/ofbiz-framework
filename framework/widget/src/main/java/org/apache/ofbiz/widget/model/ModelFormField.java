@@ -41,6 +41,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
 import org.apache.ofbiz.base.conversion.DateTimeConverters.StringToTimestamp;
@@ -89,7 +90,7 @@ import org.w3c.dom.Element;
  *
  * @see <code>widget-form.xsd</code>
  */
-public class ModelFormField {
+public final class ModelFormField {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -126,16 +127,16 @@ public class ModelFormField {
     private final FlexibleMapAccessor<Object> entryAcsr;
     private final String event;
     private final FieldInfo fieldInfo;
-    protected final String fieldName;
+    private final String fieldName;
     private final String headerLink;
     private final String headerLinkStyle;
     private final String idName;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr;
-    protected final ModelForm modelForm;
-    protected final String name;
+    private final ModelForm modelForm;
+    private final String name;
     private final List<UpdateArea> onChangeUpdateAreas;
     private final List<UpdateArea> onClickUpdateAreas;
-    protected final FlexibleStringExpander parameterName;
+    private final FlexibleStringExpander parameterName;
     private final Integer position;
     private final String redWhen;
     private final Boolean requiredField;
@@ -335,8 +336,9 @@ public class ModelFormField {
                     GenericEntity genEnt = (GenericEntity) dataMap;
                     if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
                         retVal = genEnt.get(this.entryAcsr.getOriginalName(), locale);
-                    } else {
-                        //TODO: this may never come up, but if necessary use the FlexibleStringExander to eval the name first: String evaled = this.entryAcsr
+                    // } else {
+                        //TODO: this may never come up, but if necessary use the FlexibleStringExander
+                        // to eval the name first:String evaled = this.entryAcsr
                     }
                 } else {
                     retVal = this.entryAcsr.get(dataMap, locale);
@@ -681,7 +683,7 @@ public class ModelFormField {
         // So if a label ends with " Id", replace with " ID".
         // If there is another locale that doesn't follow this rule, we can add condition for this locale to exempt from the change.
         if (autoTitlewriterString.endsWith(" Id")) {
-                autoTitlewriterString = autoTitlewriterString.subSequence(0, autoTitlewriterString.length() - 3) + " ID";
+            autoTitlewriterString = autoTitlewriterString.subSequence(0, autoTitlewriterString.length() - 3) + " ID";
         }
 
         return autoTitlewriterString;
@@ -711,7 +713,12 @@ public class ModelFormField {
             tooltipString = tooltip.expandString(context);
         }
         if (this.getEncodeOutput()) {
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = null;
+            if (tooltipString.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(tooltipString)))) {
+                simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            } else {
+                simpleEncoder = UtilCodec.getEncoder("string");
+            }
             if (simpleEncoder != null) {
                 tooltipString = simpleEncoder.encode(tooltipString);
             }
@@ -986,34 +993,66 @@ public class ModelFormField {
             this.fullSearch = element.getAttribute("full-search");
         }
 
+        /**
+         * Gets auto select.
+         * @return the auto select
+         */
         public String getAutoSelect() {
             return this.autoSelect;
         }
 
+        /**
+         * Gets choices.
+         * @return the choices
+         */
         public String getChoices() {
             return this.choices;
         }
 
+        /**
+         * Gets frequency.
+         * @return the frequency
+         */
         public String getFrequency() {
             return this.frequency;
         }
 
+        /**
+         * Gets full search.
+         * @return the full search
+         */
         public String getFullSearch() {
             return this.fullSearch;
         }
 
+        /**
+         * Gets ignore case.
+         * @return the ignore case
+         */
         public String getIgnoreCase() {
             return this.ignoreCase;
         }
 
+        /**
+         * Gets min chars.
+         * @return the min chars
+         */
         public String getMinChars() {
             return this.minChars;
         }
 
+        /**
+         * Gets partial chars.
+         * @return the partial chars
+         */
         public String getPartialChars() {
             return this.partialChars;
         }
 
+        /**
+         * Gets partial search.
+         * @return the partial search
+         */
         public String getPartialSearch() {
             return this.partialSearch;
         }
@@ -1057,10 +1096,19 @@ public class ModelFormField {
             return new CheckField(this, modelFormField);
         }
 
+        /**
+         * Gets all checked.
+         * @return the all checked
+         */
         public FlexibleStringExpander getAllChecked() {
             return allChecked;
         }
 
+        /**
+         * Is all checked boolean.
+         * @param context the context
+         * @return the boolean
+         */
         public Boolean isAllChecked(Map<String, Object> context) {
             String allCheckedStr = this.allChecked.expandString(context);
             if (!allCheckedStr.isEmpty()) {
@@ -1153,10 +1201,19 @@ public class ModelFormField {
             return new DateFindField(this, modelFormField);
         }
 
+        /**
+         * Gets default option from.
+         * @return the default option from
+         */
         public String getDefaultOptionFrom() {
             return this.defaultOptionFrom;
         }
 
+        /**
+         * Gets default option from.
+         * @param context the context
+         * @return the default option from
+         */
         public String getDefaultOptionFrom(Map<String, Object> context) {
             String defaultOption = getDefaultOptionFrom();
 
@@ -1170,10 +1227,19 @@ public class ModelFormField {
             return defaultOption;
         }
 
+        /**
+         * Gets default option thru.
+         * @return the default option thru
+         */
         public String getDefaultOptionThru() {
             return this.defaultOptionThru;
         }
 
+        /**
+         * Gets default option thru.
+         * @param context the context
+         * @return the default option thru
+         */
         public String getDefaultOptionThru(Map<String, Object> context) {
             String defaultOption = getDefaultOptionThru();
 
@@ -1417,6 +1483,10 @@ public class ModelFormField {
             return new DisplayEntityField(this, modelFormField);
         }
 
+        /**
+         * Gets cache.
+         * @return the cache
+         */
         public boolean getCache() {
             return cache;
         }
@@ -1462,7 +1532,12 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
             } else if (this.getModelFormField().getEncodeOutput()) {
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (retVal.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(retVal)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     retVal = simpleEncoder.encode(retVal);
                 }
@@ -1665,7 +1740,8 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
-                retVal = retVal.replaceAll("&nbsp;", " "); // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
+                retVal = retVal.replaceAll("&nbsp;", " ");
+                // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {
                     locale = Locale.getDefault();
@@ -1678,7 +1754,8 @@ public class ModelFormField {
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(retVal, "BigDecimal", null, null, locale,
                             true);
-                    retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
+                    retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10);
+                    // we set the max to 10 digits as an hack to not round numbers in the ui
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, MODULE);
@@ -1753,7 +1830,12 @@ public class ModelFormField {
                 }
             }
             if (UtilValidate.isNotEmpty(this.description) && retVal != null && this.getModelFormField().getEncodeOutput()) {
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (retVal.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(retVal)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     retVal = simpleEncoder.encode(retVal);
                 }
@@ -1761,10 +1843,19 @@ public class ModelFormField {
             return retVal;
         }
 
+        /**
+         * Gets image location.
+         * @return the image location
+         */
         public FlexibleStringExpander getImageLocation() {
             return imageLocation;
         }
 
+        /**
+         * Gets image location.
+         * @param context the context
+         * @return the image location
+         */
         public String getImageLocation(Map<String, Object> context) {
             if (this.imageLocation != null) {
                 return this.imageLocation.expandString(context);
@@ -1772,14 +1863,26 @@ public class ModelFormField {
             return "";
         }
 
+        /**
+         * Gets in place editor.
+         * @return the in place editor
+         */
         public InPlaceEditor getInPlaceEditor() {
             return this.inPlaceEditor;
         }
 
+        /**
+         * Gets size.
+         * @return the size
+         */
         public String getSize() {
             return this.size;
         }
 
+        /**
+         * Gets type.
+         * @return the type
+         */
         public String getType() {
             return this.type;
         }
@@ -2149,7 +2252,8 @@ public class ModelFormField {
                 }
 
                 for (GenericValue value : values) {
-                    // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
+                    // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to
+                    // expand value string because it won't be found in the Entity
                     MapStack<String> localContext = MapStack.create(context);
                     // Rendering code might try to modify the GenericEntity instance,
                     // so we make a copy of it.
@@ -2420,18 +2524,36 @@ public class ModelFormField {
             return new FormField(this, modelFormField);
         }
 
+        /**
+         * Gets form name.
+         * @param context the context
+         * @return the form name
+         */
         public String getFormName(Map<String, Object> context) {
             return this.formName.expandString(context);
         }
 
+        /**
+         * Gets form name.
+         * @return the form name
+         */
         public FlexibleStringExpander getFormName() {
             return formName;
         }
 
+        /**
+         * Gets form location.
+         * @param context the context
+         * @return the form location
+         */
         public String getFormLocation(Map<String, Object> context) {
             return this.formLocation.expandString(context);
         }
 
+        /**
+         * Gets form location.
+         * @return the form location
+         */
         public FlexibleStringExpander getFormLocation() {
             return formLocation;
         }
@@ -2452,6 +2574,11 @@ public class ModelFormField {
             }
         }
 
+        /**
+         * Gets model form.
+         * @param context the context
+         * @return the model form
+         */
         public ModelForm getModelForm(Map<String, Object> context) {
             String name = this.getFormName(context);
             String location = this.getFormLocation(context);
@@ -2554,6 +2681,11 @@ public class ModelFormField {
             }
         }
 
+        /**
+         * Gets model grid.
+         * @param context the context
+         * @return the model grid
+         */
         public ModelForm getModelGrid(Map<String, Object> context) {
             String name = this.getGridName(context);
             String location = this.getGridLocation(context);
@@ -2613,14 +2745,28 @@ public class ModelFormField {
             return new HiddenField(this, modelFormField);
         }
 
+        /**
+         * Gets value.
+         * @return the value
+         */
         public FlexibleStringExpander getValue() {
             return value;
         }
 
+        /**
+         * Gets value.
+         * @param context the context
+         * @return the value
+         */
         public String getValue(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.value)) {
                 String valueEnc = this.value.expandString(context);
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (valueEnc.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(valueEnc)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     valueEnc = simpleEncoder.encode(valueEnc);
                 }

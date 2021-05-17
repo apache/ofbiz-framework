@@ -65,12 +65,14 @@ public final class EntityWhereString implements EntityCondition {
     }
 
     @Override
-    public void checkCondition(ModelEntity modelEntity) throws GenericModelException { // no nothing, this is always assumed to be fine... could do funky SQL syntax checking, but hey this is a HACK anyway
+    public void checkCondition(ModelEntity modelEntity) throws GenericModelException { // no nothing, this is always assumed to be fine...
+        // could do funky SQL syntax checking, but hey this is a HACK anyway
     }
 
     @Override
     public boolean entityMatches(GenericEntity entity) {
-        throw new UnsupportedOperationException("Cannot do entityMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
+        throw new UnsupportedOperationException("Cannot do entityMatches on a WhereString, ie no SQL evaluation in EE; Where String is: "
+                + sqlString);
     }
 
     @Override

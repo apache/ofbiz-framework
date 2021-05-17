@@ -38,3 +38,4 @@ desktop.ini
 .*.swo
 *.patch
 node_modules/
+/docs/asciidoc/images/

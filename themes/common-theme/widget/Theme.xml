@@ -61,13 +61,9 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.format-1.2.3-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/miscAjaxFunctions.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/selectMultipleRelatedValues.js"/>
@@ -77,7 +73,7 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/application.js"/>
         <!--Css styles: don't load them since they differ depending on theme -->
         <property name="VT_STYLESHEET['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css"/>
-        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css"/>
+        <property name="VT_STYLESHEET['add']" value="/common/css/info.css"/>
     </theme-properties>
 
     <templates><!-- Freemarker template use by this theme to render widget model-->
@@ -122,6 +118,7 @@ under the License.
             <screen name="GlobalActions"/>
             <screen name="GlobalDecorator"/>
             <screen name="LookupDecorator"/>
+            <screen name="ShortcutDecorator"/>
             <screen name="SimpleDecorator"/>
             <screen name="FoReportDecorator"/>
             <screen name="GlobalFoDecorator"/>

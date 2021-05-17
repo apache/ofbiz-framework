@@ -24,7 +24,6 @@ under the License.
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
 
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/HumanResHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/HumanResSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/HumanResPortletData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
@@ -34,10 +33,12 @@ under the License.
 
     <webapp name="humanres"
         title="HR"
+        position="10"
         description="HumanResourceApplication"
         server="default-server"
         location="webapp/humanres"
         base-permission="OFBTOOLS,HUMANRES"
         mount-point="/humanres"
+        app-shortcut-screen="component://humanres/widget/CommonScreens.xml#ShortcutApp"
         app-bar-display="true"/>
 </ofbiz-component>

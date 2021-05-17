@@ -133,7 +133,7 @@ public class OrderServices {
             GenericValue placingCustomer = null;
             try {
                 placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "partyId", userLogin.getString("partyId"),
-                 "roleTypeId", "PLACING_CUSTOMER").queryOne();
+                        "roleTypeId", "PLACING_CUSTOMER").queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError("Could not select OrderRoles for order " + orderId + " due to " + e.getMessage(), MODULE);
             }
@@ -153,7 +153,7 @@ public class OrderServices {
                     List<GenericValue> repsCustomers = new LinkedList<>();
                     try {
                         repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship",
-                         UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
+                                UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                     } catch (GenericEntityException ex) {
                         Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due"
                                 + " to " + ex.getMessage(), MODULE);
@@ -166,7 +166,7 @@ public class OrderServices {
                         // check sales sales rep/customer relationship
                         try {
                             repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party", false).getRelated("FromPartyRelationship",
-                             UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
+                                    UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId), null, false));
                         } catch (GenericEntityException ex) {
                             Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId")
                                     + " due to " + ex.getMessage(), MODULE);
@@ -409,7 +409,8 @@ public class OrderServices {
                         List<GenericValue> selFixedAssetProduct = null;
                         try {
                             selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", orderItem.getString(
-                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate", "thruDate").queryList();
+                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate",
+                                    "thruDate").queryList();
                         } catch (GenericEntityException e) {
                             String excMsg = "Could not find related Fixed Asset for the product: " + orderItem.getString("productId");
                             Debug.logError(excMsg, MODULE);
@@ -717,13 +718,15 @@ public class OrderServices {
                 }
                 if (techDataCalendar == null) {
                     for (GenericValue currentValue : tempList) {
-                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId").equals(workEffort.getString("fixedAssetId"))) {
+                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId")
+                                .equals(workEffort.getString("fixedAssetId"))) {
                             fixedAsset = currentValue;
                             break;
                         }
                     }
                     for (GenericValue currentValue : tempList) {
-                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))) {
+                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId")
+                                .equals(fixedAsset.getString("calendarId"))) {
                             techDataCalendar = currentValue;
                             break;
                         }
@@ -1433,8 +1436,8 @@ public class OrderServices {
                                     }
                                 }
 
-                                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"),
-                                       "parentTypeId", "MARKETING_PKG_AUTO")) {
+                                if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId",
+                                        product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_AUTO")) {
                                     GenericValue permUserLogin =
                                             EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                                     Map<String, Object> inputMap = new HashMap<>();
@@ -1731,7 +1734,7 @@ public class OrderServices {
                         String facilityId = orderHeader.getString("originFacilityId");
                         if (facilityId != null) {
                             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId,
-                             UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                                    UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                             if (facilityContactMech != null) {
                                 try {
                                     shippingAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
@@ -1747,7 +1750,7 @@ public class OrderServices {
                     // bad and we don't have a way to find an address to check tax for
                     if (shippingAddress == null) {
                         Debug.logWarning("Not calculating tax for Order [" + orderId + "] because there is no shippingAddress, and no address on "
-                         + "the origin facility [" + orderHeader.getString("originFacilityId") + "]", MODULE);
+                                + "the origin facility [" + orderHeader.getString("originFacilityId") + "]", MODULE);
                         continue;
                     }
 
@@ -1891,7 +1894,7 @@ public class OrderServices {
                 }
 
                 Map<String, Object> shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
-                BigDecimal shippingTotal = null;
+                BigDecimal shippingTotal;
                 if (UtilValidate.isEmpty(orh.getValidOrderItems(shipGroupSeqId))) {
                     shippingTotal = ZERO;
                     Debug.logInfo("No valid order items found - " + shippingTotal, MODULE);
@@ -1906,9 +1909,9 @@ public class OrderServices {
                 }
 
                 BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId),
-                 orh.getAdjustments(), false, false, true);
+                        orh.getAdjustments(), false, false, true);
                 currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustments(orh.getOrderHeaderAdjustments(shipGroupSeqId),
-                 orh.getOrderItemsSubTotal(), false, false, true));
+                        orh.getOrderItemsSubTotal(), false, false, true));
 
                 if (Debug.infoOn()) {
                     Debug.logInfo("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, MODULE);
@@ -2037,7 +2040,7 @@ public class OrderServices {
                             if (UtilValidate.isNotEmpty(headerApprovedStatus)) {
                                 if (headerApprovedStatus.equals(orderHeaderStatusId)) {
                                     List<GenericValue> orderStatusList = EntityQuery.use(delegator).from("OrderStatus").where("orderId", orderId,
-                                    "statusId", headerApprovedStatus, "orderItemSeqId", null).queryList();
+                                            "statusId", headerApprovedStatus, "orderItemSeqId", null).queryList();
                                     // should be 1 in the history, but just in case accept 0 too
                                     if (orderStatusList.size() <= 1) {
                                         changeToApprove = false;
@@ -2234,15 +2237,14 @@ public class OrderServices {
                             return ServiceUtil.returnError(e.getMessage());
                         }
                     }
-
+                    String reasonEnumId = null;
+                    if (UtilValidate.isNotEmpty(itemReasonMap)) {
+                        reasonEnumId = itemReasonMap.get(orderItem.getString("orderItemSeqId"));
+                    }
 
                     //  create order item change record
                     if (!"Y".equals(orderItem.getString("isPromo"))) {
-                        String reasonEnumId = null;
                         String changeComments = null;
-                        if (UtilValidate.isNotEmpty(itemReasonMap)) {
-                            reasonEnumId = itemReasonMap.get(orderItem.getString("orderItemSeqId"));
-                        }
                         if (UtilValidate.isNotEmpty(itemCommentMap)) {
                             changeComments = itemCommentMap.get(orderItem.getString("orderItemSeqId"));
                         }
@@ -2295,7 +2297,7 @@ public class OrderServices {
                         }
                         // all items are cancelled -- mark the item as cancelled
                         Map<String, Object> statusCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString(
-                                "orderItemSeqId"), "statusId", itemStatus, "userLogin", userLogin);
+                                "orderItemSeqId"), "statusId", itemStatus, "changeReason", reasonEnumId, "userLogin", userLogin);
                         try {
                             dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
                         } catch (GenericServiceException e) {
@@ -2340,6 +2342,7 @@ public class OrderServices {
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String fromStatusId = (String) context.get("fromStatusId");
         String statusId = (String) context.get("statusId");
+        String changeReason = (String) context.get("changeReason");
         Timestamp statusDateTime = (Timestamp) context.get("statusDateTime");
         Locale locale = (Locale) context.get("locale");
 
@@ -2418,6 +2421,7 @@ public class OrderServices {
                 changeFields.put("statusId", statusId);
                 changeFields.put("orderId", orderId);
                 changeFields.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                changeFields.put("changeReason", changeReason);
                 changeFields.put("statusDatetime", statusDateTime);
                 changeFields.put("statusUserLogin", userLogin.getString("userLoginId"));
                 GenericValue orderStatus = delegator.makeValue("OrderStatus", changeFields);
@@ -2486,7 +2490,7 @@ public class OrderServices {
             }
             try {
                 GenericValue statusChange = EntityQuery.use(delegator).from("StatusValidChange").where("statusId",
-                 orderHeader.getString("statusId"), "statusIdTo", statusId).cache(true).queryOne();
+                        orderHeader.getString("statusId"), "statusIdTo", statusId).cache(true).queryOne();
                 if (statusChange == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderErrorCouldNotChangeOrderStatusStatusIsNotAValidChange", locale) + ": [" + orderHeader.getString("statusId") + "] "
@@ -2740,7 +2744,7 @@ public class OrderServices {
                     orderHeader.get("productStoreId"), "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + orderHeader.get("productStoreId") + " and "
-            + "emailType=" + emailType, MODULE);
+                    + "emailType=" + emailType, MODULE);
         }
         if (productStoreEmail == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
@@ -2751,17 +2755,13 @@ public class OrderServices {
 
         // the override screenUri
         if (UtilValidate.isEmpty(screenUri)) {
-            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-            if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
-            }
-            sendMap.put("bodyScreenUri", bodyScreenLocation);
+            sendMap.put("bodyScreenUri", productStoreEmail.getString("bodyScreenLocation"));
 
             String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
             sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
             // add attachmentName param to get an attachment namend "[oderId].pdf" instead of default "Details.pdf"
             sendMap.put("attachmentName", (UtilValidate.isNotEmpty(shipGroupSeqId) ? orderId + "-" + StringUtils.stripStart(shipGroupSeqId, "0")
-            : orderId) + ".pdf");
+                    : orderId) + ".pdf");
             sendMap.put("attachmentType", MimeConstants.MIME_PDF);
         } else {
             sendMap.put("bodyScreenUri", screenUri);
@@ -3562,7 +3562,8 @@ public class OrderServices {
                         } else if ("DIGITAL_DOWNLOAD".equals(fulfillmentType)) {
                             // digital download fulfillment
                             // Nothing to do for here. Downloads are made available to the user
-                            // though a query of OrderItems with related ProductContent.
+                            // though a query of OrderItems with related ProductContent. Adding log to avoid checkstyle issue
+                            Debug.logInfo("Fulfillment type : " + fulfillmentType, MODULE);
                         } else {
                             Debug.logError("Invalid fulfillment type : " + fulfillmentType + " not supported.", MODULE);
                         }
@@ -3734,7 +3735,8 @@ public class OrderServices {
                             null, dispatcher, cart, supplierProduct, itemDesiredDeliveryDate, itemDesiredDeliveryDate, null);
                     cart.addItem(0, item);
                 } else {
-                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity [" + quantity + "], cannot add to cart.");
+                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity ["
+                            + quantity + "], cannot add to cart.");
                 }
 
                 if (basePrice != null) {
@@ -5221,7 +5223,9 @@ public class OrderServices {
                             coh.createOrder(userLogin);
                         } else {
                             // if there are no items to drop ship, then clear out the supplier partyId
-                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group [" + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId") + "].  Supplier party information will be cleared for this ship group", MODULE);
+                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group ["
+                                    + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId")
+                                    + "].  Supplier party information will be cleared for this ship group", MODULE);
                             shipGroup.set("supplierPartyId", null);
                             shipGroup.store();
 
@@ -5230,7 +5234,7 @@ public class OrderServices {
                 }
             }
         } catch (GenericEntityException exc) {
-            // TODO: imporve error handling
+            // TODO: improve error handling
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "OrderOrderCreatingDropShipmentsError",
                     UtilMisc.toMap("orderId", orderId, "errorString", exc.getMessage()),
@@ -5746,7 +5750,7 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         try {
             GenericValue orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId",
-             orderPaymentPreferenceId).queryOne();
+                    orderPaymentPreferenceId).queryOne();
             String orderId = orderPaymentPreference.getString("orderId");
             String statusUserLogin = orderPaymentPreference.getString("createdByUserLogin");
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
@@ -5829,7 +5833,8 @@ public class OrderServices {
                         } else if ("TF_yr".equals(subscription.getString("canclAutmExtTimeUomId"))) {
                             field = Calendar.YEAR;
                         } else {
-                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", MODULE);
+                            Debug.logWarning("Don't know anything about canclAutmExtTimeUomId [" + subscription.getString("canclAutmExtTimeUomId")
+                                    + "], defaulting to month", MODULE);
                         }
 
                         endDate.add(field, Integer.parseInt(subscription.getString("canclAutmExtTime")));
@@ -6183,8 +6188,8 @@ public class OrderServices {
         }
 
         //find OISG Assoc
-        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId",
-                shipGroupSeqId).queryOne();
+        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId,
+                "shipGroupSeqId", shipGroupSeqId).queryOne();
         if (UtilValidate.isEmpty(oisga)) {
             String errMsg = mainErrorMessage + " : Order Item Ship Group Assoc Does Not Exist";
             Debug.logError(errMsg, MODULE);

@@ -143,7 +143,8 @@ public class ContentPermissionServices {
             passedPurposes.addAll(purposesFromString);
         }
 
-        EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker.StdAuxiliaryValueGetter("ContentPurpose", "contentPurposeTypeId", "contentId");
+        EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker
+                .StdAuxiliaryValueGetter("ContentPurpose", "contentPurposeTypeId", "contentId");
         // Sometimes permissions need to be checked before an entity is created, so
         // there needs to be a method for setting a purpose list
         auxGetter.setList(passedPurposes);
@@ -156,10 +157,13 @@ public class ContentPermissionServices {
             }
             targetOperations.addAll(operationsFromString);
         }
-        EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker.StdPermissionConditionGetter("ContentPurposeOperation", "contentOperationId", "roleTypeId", "statusId", "contentPurposeTypeId", "privilegeEnumId");
+        EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker
+                .StdPermissionConditionGetter("ContentPurposeOperation", "contentOperationId", "roleTypeId",
+                "statusId", "contentPurposeTypeId", "privilegeEnumId");
         permCondGetter.setOperationList(targetOperations);
 
-        EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content", "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
+        EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",
+                "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         List<String> passedRoles = UtilGenerics.cast(context.get("roleTypeList"));
         if (passedRoles == null) passedRoles = new LinkedList<>();
         String roleTypeString = (String) context.get("roleTypeString");
@@ -201,7 +205,8 @@ public class ContentPermissionServices {
                 }
             }
             try {
-                boolean check = EntityPermissionChecker.checkPermissionMethod(delegator, partyId, "Content", entityIds, auxGetter, roleGetter, permCondGetter);
+                boolean check = EntityPermissionChecker.checkPermissionMethod(delegator, partyId, "Content",
+                        entityIds, auxGetter, roleGetter, permCondGetter);
                 if (check) {
                     results.put("permissionStatus", "granted");
                 } else {

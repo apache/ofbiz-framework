@@ -251,7 +251,8 @@ public class ObjectType {
     }
 
     /** See also {@link #simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)}. */
-    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail)
+            throws GeneralException {
         return simpleTypeOrObjectConvert(obj, type, format, null, locale, noTypeFail);
     }
 
@@ -275,17 +276,17 @@ public class ObjectType {
      */
     @SourceMonitored
     @SuppressWarnings("unchecked")
-    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)
+            throws GeneralException {
         if (obj == null || UtilValidate.isEmpty(type) || "Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
         }
-        if ("PlainString".equals(type)) {
+        if ("PlainString".equals(type)
+                || ("org.codehaus.groovy.runtime.GStringImpl".equals(obj.getClass().getName()) && "String".equals(type))) {
             return obj.toString();
         }
         if (obj instanceof Node) {
             Node node = (Node) obj;
-
-
             String nodeValue = node.getTextContent();
 
             if (nodeValue == null) {
@@ -353,14 +354,17 @@ public class ObjectType {
         }
         // we can pretty much always do a conversion to a String, so do that here
         if (targetClass.equals(String.class)) {
-            Debug.logWarning("No special conversion available for " + obj.getClass().getName() + " to String, returning object.toString().", MODULE);
+            if (Debug.infoOn()) {
+                Debug.logInfo("No special conversion required for " + obj.getClass().getName() + " to String, returning object.toString().", MODULE);
+            }
             return obj.toString();
         }
         if (noTypeFail) {
             throw new GeneralException("Conversion from " + obj.getClass().getName() + " to " + type + " not currently supported");
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + targetClass.getName() + ", returning original object.", MODULE);
+            Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + targetClass.getName()
+                    + ", returning original object.", MODULE);
         }
         return obj;
     }
@@ -371,7 +375,7 @@ public class ObjectType {
     }
 
     public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format,
-        List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
+            List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) {
@@ -384,7 +388,8 @@ public class ObjectType {
                 type = clz.getName();
             }
         } catch (ClassNotFoundException e) {
-            Debug.logWarning("The specified type [" + type + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), MODULE);
+            Debug.logWarning("The specified type [" + type
+                    + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), MODULE);
         }
 
         if (value1 == null) {
@@ -435,7 +440,8 @@ public class ObjectType {
             } else if ("not-equals".equals(operator)) {
                 return convertedValue1 == null && convertedValue2 == null ? Boolean.FALSE : Boolean.TRUE;
             } else if ("is-not-empty".equals(operator) || "is-empty".equals(operator)) {
-                // do nothing, handled later...
+                // do nothing, handled later...Logging to avoid checkstyle issue.
+                Debug.logInfo("Operator not handled:" + operator, MODULE);
             } else {
                 if (convertedValue1 == null) {
                     messages.add("Left value is null, cannot complete compare for the operator " + operator);
@@ -502,7 +508,8 @@ public class ObjectType {
                 }
             }
             result = str1.compareTo(str2);
-        } else if ("java.lang.Double".equals(type) || "java.lang.Float".equals(type) || "java.lang.Long".equals(type) || "java.lang.Integer".equals(type) || "java.math.BigDecimal".equals(type)) {
+        } else if ("java.lang.Double".equals(type) || "java.lang.Float".equals(type) || "java.lang.Long".equals(type)
+                || "java.lang.Integer".equals(type) || "java.math.BigDecimal".equals(type)) {
             Number tempNum = (Number) convertedValue1;
             double value1Double = tempNum.doubleValue();
 

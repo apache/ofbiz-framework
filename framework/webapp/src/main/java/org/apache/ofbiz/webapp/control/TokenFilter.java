@@ -30,7 +30,12 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,10 +43,10 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
-public class TokenFilter implements Filter  {
+public class TokenFilter implements Filter {
     private static final String MODULE = TokenFilter.class.getName();
 
-    protected FilterConfig config = null;
+    private FilterConfig config = null;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -62,7 +67,8 @@ public class TokenFilter implements Filter  {
             String userLoginId = (String) result.get("userLoginId");
             if (UtilValidate.isNotEmpty(result.get(ModelService.ERROR_MESSAGE))) {
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels", "loginservices.sorry_problem_processing_request_error", locale));
+                httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels",
+                        "loginservices.sorry_problem_processing_request_error", locale));
                 CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
             } else if (UtilValidate.isNotEmpty(userLoginId)) {
                 try {
@@ -74,12 +80,14 @@ public class TokenFilter implements Filter  {
                         chain.doFilter(httpRequest, httpResponse);
                     } else {
                         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                        httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels", "loginservices.sorry_problem_processing_request_error", locale));
+                        httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels",
+                                "loginservices.sorry_problem_processing_request_error", locale));
                         CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
-                    httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels", "loginservices.sorry_problem_processing_request_error_try_later", locale));
+                    httpRequest.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("SecurityextUiLabels",
+                            "loginservices.sorry_problem_processing_request_error_try_later", locale));
                     CommonEvents.jsonResponseFromRequestAttributes(httpRequest, httpResponse);
                 }
             }

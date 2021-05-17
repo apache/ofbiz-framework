@@ -44,7 +44,21 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="ShortcutApp">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="ContentShortcutAppBar" location="component://content/widget/content/ContentMenus.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="commonCmsDecorator">
         <section>
             <actions>
@@ -212,29 +226,6 @@ under the License.
                                 <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
                             </fail-widgets>
                         </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="commonCompDocDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="CompDoc"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="pre-body">
-                        <include-menu name="${menuName}" location="component://content/widget/compdoc/CompDocMenus.xml"/>
-                    </decorator-section>
-                    <decorator-section name="body">
-                        <label text="${title}" style="h1"/>
-                        <container style="button-bar">
-                            <link target="AddRootCompDocTemplate" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext create"/>
-                            <link target="ListWaitingContentApproval" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext"/>
-                        </container>
-                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

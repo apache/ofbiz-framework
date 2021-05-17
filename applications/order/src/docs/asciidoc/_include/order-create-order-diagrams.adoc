@@ -1,0 +1,65 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Create Order Diagrams
+CSR creates a sales order for the customer from the backend as per the given information like personal
+details, contact information, billing and shipping information, and payment terms and methods.
+A customer can create a sales order from the storefront (ecommerce) as well.
+
+Start process with screen https://demo-trunk.ofbiz.apache.org/ordermgr/control/orderentry?USERNAME=admin&PASSWORD=ofbiz[Order
+ Entry from Order appl on Apache OFBiz demo site,window=_blank]
+
+== Sales Order from Backend Level 1
+image:order/create-sales-order_level1.png[Level 1]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+
+. <<Order Entry Init,Product Store and Customer Details>>
+. <<Add Item(s) to cart>>
+. <<Quick Finalize Order,Set Shipping Method and Payment Term>>
+. <<Order confirmation,Create Order>>
+
+== Sales Order from Backend Level 2
+image:order/create-sales-order_level2.png[Level 2]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+
+. <<Order Entry Init,Product Store and Customer Details>>
+. <<_order_currency_agreements_and_ship_dates,Order Name and other Information>>
+. <<Add Item(s) to cart>>
+. <<Set Shipping address and Group,Set Shipping Address>>
+. <<Order Option Settings,Select Shipping Method>>
+. <<Order Term,Payment Terms>>
+. <<Additional Party Entry>>
+. <<Order confirmation,Create Order>>
+
+== Sales Order from Backend Level 3
+image:order/create-sales-order_level3.png[Level 3]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+. <<Order Entry Init,Product Store and Customer Details>>
+. <<_order_currency_agreements_and_ship_dates,Add Additional Information>>
+. <<Add Item(s) to cart>>
+. <<Set Shipping address and Group,Set Shipping Address>>
+. <<Order Option Settings,Select Shipping Method>>
+. <<Order Term,Order Terms>>
+. <<Payment setting,Payment Method>>
+. <<Order confirmation,Create Order>>

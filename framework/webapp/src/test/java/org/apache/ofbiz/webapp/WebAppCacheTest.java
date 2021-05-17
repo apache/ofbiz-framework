@@ -18,12 +18,12 @@
  */
 package org.apache.ofbiz.webapp;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.ArrayList;
 
@@ -92,8 +92,22 @@ public class WebAppCacheTest {
         assertThat(wac.getAppBarWebInfos("foo"), is(empty()));
     }
 
-    // Checks that when a position is provided by the `WebappInfo` instance
-    // it is used instead of its title.
+    // Checks that when the same position is provided by the `WebappInfo` instance
+    // only one is retrieved
+    @Test
+    public void getAppBarWebInfosSamePosition() {
+        WebappInfo wInfo0 = new WebappInfo.Builder().server("foo").title("foo").position("1").create();
+        wInfos.add(wInfo0);
+        WebappInfo wInfo1 = new WebappInfo.Builder().server("foo").title("foo").position("1").create();
+        wInfos.add(wInfo1);
+
+        // Ensure that there is a collision between `wInfo0` and `wInfo1`
+        // and only one of them are retrieved.
+        assertThat(wac.getAppBarWebInfos("foo").size(), is(1));
+    }
+
+    // Checks that when the same title with no position is provided by the `WebappInfo` instance
+    // 2 instances are retrieved
     @Test
     public void getAppBarWebInfosSameTitle() {
         WebappInfo wInfo0 = new WebappInfo.Builder().server("foo").title("foo").create();
@@ -101,9 +115,9 @@ public class WebAppCacheTest {
         WebappInfo wInfo1 = new WebappInfo.Builder().server("foo").title("foo").create();
         wInfos.add(wInfo1);
 
-        // Ensure that there is a collision between `wInfo0` and `wInfo1`
-        // and only one of them are retrieved.
-        assertThat(wac.getAppBarWebInfos("foo").size(), is(1));
+        // Ensure that there is no collision between `wInfo0` and `wInfo1`
+        // though they use the same title only position allows collision
+        assertThat(wac.getAppBarWebInfos("foo").size(), is(2));
     }
 
     // Checks that when a position is provided by the `WebappInfo` instance
