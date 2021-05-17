@@ -334,7 +334,7 @@ checkstyle {
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
     tasks.checkstyleMain.maxErrors = 116
-    // Currently there are a lot of errors so we need to temporarily
+    // Currently there are still errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
 }
