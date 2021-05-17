@@ -428,6 +428,11 @@
         <value xml:lang="zh">额外费用</value>
         <value xml:lang="zh-TW">額外費用</value>
     </property>
+    <property key="OrderAdjustmentType.description.VAT_TAX">
+        <value xml:lang="de">MwSt</value>
+        <value xml:lang="en">VAT</value>
+        <value xml:lang="nl">BTW</value>
+    </property>
     <property key="OrderAdjustmentType.description.WARRANTY_ADJUSTMENT">
         <value xml:lang="ar">الضمان</value>
         <value xml:lang="de">Garantie</value>
