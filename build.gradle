@@ -36,7 +36,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.36.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version "2.2.4"
+    id "com.github.node-gradle.node" version "3.1.0"
 }
 
 /* OWASP plugin
@@ -118,7 +118,6 @@ node {
 }
 
 
-
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -130,6 +129,8 @@ tasks.withType(JavaCompile) {
     // Exclude varargs warnings which are not silenced by @SafeVarargs.
         options.compilerArgs << "-Xlint:-varargs"
     }
+    // Executes on each compilation so that if dependencies are not downloaded yet or some new dependencies are added they get automatically downloaded
+    if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
 }
 
 // defines the footer files for svn and git info
