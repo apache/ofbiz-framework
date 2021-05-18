@@ -171,13 +171,13 @@ and have a look at <<Create Order Diagrams>>
 include::_include/order-ecommerce-entry-path.adoc[leveloffset=+3]
 
 
-include::_include/order_report.adoc[leveloffset=+1]
+include::_include/order-report.adoc[leveloffset=+1]
 
 == Requests
 
 == Quotes
 
-include::_include/order_return.adoc[leveloffset=+1]
+include::_include/order-return.adoc[leveloffset=+1]
 
 == Requirements
 
