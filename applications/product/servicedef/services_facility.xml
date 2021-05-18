@@ -1439,6 +1439,11 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
     </service>
+    <service name="updateFacilityLocationGeoPoint" default-entity-name="FacilityLocationGeoPoint" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FacilityLocationGeoPoint record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="expireFacilityLocationGeoPoint" default-entity-name="FacilityLocationGeoPoint" engine="entity-auto" invoke="expire" auth="true">
         <description>Expire a FacilityLocationGeoPoint record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
