@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -2278,6 +2279,7 @@ public abstract class ModelForm extends ModelWidget {
      * elements used in form widgets.
      */
     public static class UpdateArea {
+        public static final List<String> EVENT_TYPES_FOR_LIST_REFRESH = UtilMisc.toList("paginate", "sort-column");
         private final String eventType;
         private final String areaId;
         private final String areaTarget;

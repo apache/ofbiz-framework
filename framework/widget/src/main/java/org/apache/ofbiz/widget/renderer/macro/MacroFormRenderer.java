@@ -1022,7 +1022,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
@@ -2117,7 +2117,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendContentUrl(imgSrc, "/images/fieldlookup.gif");
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String lookupPresentation = lookupField.getLookupPresentation();
         if (UtilValidate.isEmpty(lookupPresentation)) {
@@ -2341,7 +2341,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String ajaxLastUrl = "";
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
+                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, prepLinkText + 0 + anchor, context);
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 firstUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2349,7 +2349,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
+                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + (viewIndex - 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 previousUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2358,7 +2359,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
+                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + "' + this.value + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
@@ -2370,7 +2372,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Next button
         if (highIndex < listSize) {
             if (ajaxEnabled) {
-                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
+                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + (viewIndex + 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 nextUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2380,7 +2383,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (highIndex < listSize) {
             int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
             if (ajaxEnabled) {
-                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context);
+                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + lastIndex + anchor, context);
             } else {
                 linkText = prepLinkText + lastIndex + anchor;
                 lastUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2389,7 +2393,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page size select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkSizeText + anchor, context);
+                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkSizeText + anchor, context);
             } else {
                 linkText = prepLinkSizeText;
                 if (linkText.startsWith("/")) {
@@ -2833,7 +2838,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         UtilHttp.canonicalizeParameterMap(paramMap);
         String linkUrl = null;
         if (ajaxEnabled) {
-            linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, null, context);
+            linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, modelForm, null, context);
         } else {
             StringBuilder sb = new StringBuilder("?");
             Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();
