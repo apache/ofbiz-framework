@@ -1391,7 +1391,7 @@ public final class RequestHandler {
         if (url != null && !url.startsWith("/")) {
             newURL.append("/");
         }
-        newURL.append(url == null ? "": url);
+        newURL.append(url == null ? "" : url);
 
         String encodedUrl;
         if (encode) {
