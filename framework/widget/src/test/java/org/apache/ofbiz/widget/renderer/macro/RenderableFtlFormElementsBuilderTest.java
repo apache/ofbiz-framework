@@ -235,4 +235,51 @@ public class RenderableFtlFormElementsBuilderTest {
                         "areaId1,http://host.domain/target1,param1=ThisIsParam1&param2=ThisIsParam2,"
                                 + "areaId2,http://host.domain/target2,")));
     }
+
+    @Test
+    public void fieldGroupOpenRendersCollapsibleAreaId(@Mocked final ModelForm.FieldGroup fieldGroup) {
+        new Expectations() {
+            {
+                fieldGroup.getStyle();
+                result = "GROUPSTYLE";
+
+                fieldGroup.getTitle();
+                result = "TITLE${title}";
+
+                fieldGroup.getId();
+                result = "FIELDGROUPID";
+
+                fieldGroup.initiallyCollapsed();
+                result = true;
+            }
+        };
+
+        final Map<String, Object> context = new HashMap<>();
+        context.put("title", "ABC");
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupOpen(context, fieldGroup);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderFieldGroupOpen"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("title", "TITLEABC")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("style", "GROUPSTYLE")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue(
+                "collapsibleAreaId", "FIELDGROUPID_body")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("collapsed", true)));
+    }
+
+    @Test
+    public void fieldGroupCloseRendersStyle(@Mocked final ModelForm.FieldGroup fieldGroup) {
+        new Expectations() {
+            {
+                fieldGroup.getStyle();
+                result = "GROUPSTYLE";
+            }
+        };
+
+        final Map<String, Object> context = new HashMap<>();
+        context.put("title", "ABC");
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderFieldGroupClose"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("style", "GROUPSTYLE")));
+    }
 }

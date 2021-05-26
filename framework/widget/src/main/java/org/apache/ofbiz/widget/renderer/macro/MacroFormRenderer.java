@@ -2640,71 +2640,15 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle();
-        String id = fieldGroup.getId();
-        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
-        String title = titleNotExpanded.expandString(context);
-        Boolean collapsed = fieldGroup.initiallyCollapsed();
-        String collapsibleAreaId = fieldGroup.getId() + "_body";
-        Boolean collapsible = fieldGroup.collapsible();
-        String expandToolTip = "";
-        String collapseToolTip = "";
-        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
-            if (fieldGroup.collapsible()) {
-                Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
-                if (uiLabelMap != null) {
-                    expandToolTip = (String) uiLabelMap.get("CommonExpand");
-                    collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
-                }
-            }
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFieldGroupOpen ");
-        sr.append(" style=\"");
-        if (style != null) {
-            sr.append(style);
-        }
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" title=\"");
-        sr.append(title);
-        sr.append("\" collapsed=");
-        sr.append(Boolean.toString(collapsed));
-        sr.append(" collapsibleAreaId=\"");
-        sr.append(collapsibleAreaId);
-        sr.append("\" collapsible=");
-        sr.append(Boolean.toString(collapsible));
-        sr.append(" expandToolTip=\"");
-        sr.append(expandToolTip);
-        sr.append("\" collapseToolTip=\"");
-        sr.append(collapseToolTip);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupOpen(context, fieldGroup);
+        ftlWriter.processFtl(writer, renderableFtl);
     }
 
     @Override
-    public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle();
-        String id = fieldGroup.getId();
-        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
-        String title = titleNotExpanded.expandString(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFieldGroupClose ");
-        sr.append(" style=\"");
-        if (style != null) {
-            sr.append(style);
-        }
-        sr.append("\" id=\"");
-        if (id != null) {
-            sr.append(id);
-        }
-        sr.append("\" title=\"");
-        if (title != null) {
-            sr.append(title);
-        }
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
+        ftlWriter.processFtl(writer, renderableFtl);
     }
 
     @Override

@@ -496,6 +496,49 @@ public final class RenderableFtlFormElementsBuilder {
                 .build();
     }
 
+    public RenderableFtlMacroCall fieldGroupOpen(final Map<String, Object> context, final ModelForm.FieldGroup fieldGroup) {
+        final String style = fieldGroup.getStyle();
+        final String id = fieldGroup.getId();
+        final FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
+        final String title = titleNotExpanded.expandString(context);
+
+        String expandToolTip = "";
+        String collapseToolTip = "";
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
+            if (fieldGroup.collapsible()) {
+                Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+                if (uiLabelMap != null) {
+                    expandToolTip = (String) uiLabelMap.get("CommonExpand");
+                    collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
+                }
+            }
+        }
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder().name("renderFieldGroupOpen")
+                .stringParameter("id", id)
+                .stringParameter("title", title)
+                .stringParameter("style", style)
+                .stringParameter("collapsibleAreaId", fieldGroup.getId() + "_body")
+                .booleanParameter("collapsible", fieldGroup.collapsible())
+                .booleanParameter("collapsed", fieldGroup.initiallyCollapsed())
+                .stringParameter("expandToolTip", expandToolTip)
+                .stringParameter("collapseToolTip", collapseToolTip);
+
+        return macroCallBuilder.build();
+    }
+
+    public RenderableFtlMacroCall fieldGroupClose(final Map<String, Object> context, final ModelForm.FieldGroup fieldGroup) {
+        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
+        final String title = titleNotExpanded.expandString(context);
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder().name("renderFieldGroupClose")
+                .stringParameter("id", fieldGroup.getId())
+                .stringParameter("title", title)
+                .stringParameter("style", fieldGroup.getStyle());
+
+        return macroCallBuilder.build();
+    }
+
     private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
         if (UtilValidate.isEmpty(value)) {
             return value;
