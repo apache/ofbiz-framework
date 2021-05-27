@@ -745,49 +745,28 @@ public class MacroFormRendererTest {
 
     @Test
     public void fieldGroupOpenMacroRendered(@Mocked ModelForm.FieldGroup fieldGroup) throws IOException {
-
         new Expectations() {
             {
-                fieldGroup.getStyle();
-                result = "GROUPSTYLE";
-
-                fieldGroup.getTitle();
-                result = "TITLE${title}";
-
-                fieldGroup.initiallyCollapsed();
-                result = true;
+                renderableFtlFormElementsBuilder.fieldGroupOpen(withNotNull(), withNotNull());
+                result = genericMacroCall;
             }
         };
 
-        final Map<String, Object> context = new HashMap<>();
-        context.put("title", "ABC");
-
-        macroFormRenderer.renderFieldGroupOpen(appendable, context, fieldGroup);
-
-        assertAndGetMacroString("renderFieldGroupOpen", ImmutableMap.of(
-                "title", "TITLEABC",
-                "collapsed", true));
+        macroFormRenderer.renderFieldGroupOpen(appendable, ImmutableMap.of(), fieldGroup);
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void fieldGroupCloseMacroRendered(@Mocked ModelForm.FieldGroup fieldGroup) throws IOException {
-
         new Expectations() {
             {
-                fieldGroup.getStyle();
-                result = "GROUPSTYLE";
-
-                fieldGroup.getTitle();
-                result = "TITLE${title}";
+                renderableFtlFormElementsBuilder.fieldGroupClose(withNotNull(), withNotNull());
+                result = genericMacroCall;
             }
         };
 
-        final Map<String, Object> context = new HashMap<>();
-        context.put("title", "ABC");
-
-        macroFormRenderer.renderFieldGroupClose(appendable, context, fieldGroup);
-
-        assertAndGetMacroString("renderFieldGroupClose", ImmutableMap.of("title", "TITLEABC"));
+        macroFormRenderer.renderFieldGroupClose(appendable, ImmutableMap.of(), fieldGroup);
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
