@@ -30,7 +30,7 @@ def createProductConfigItemContent() {
     Map result = success()
     GenericValue newEntity = makeValue("ProdConfItemContent", parameters)
     if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.nowTimestamp()
+        newEntity.fromDate = UtilDateTime.getTimestamp(System.currentTimeSeconds() * 1000)
     }
     newEntity.create()
 
@@ -47,7 +47,10 @@ def createProductConfigItemContent() {
  * Update Content For ProductConfigItem
  */
 def updateProductConfigItemContent() {
-    GenericValue lookedUpValue = from("ProdConfItemContent").where(parameters).queryOne()
+    GenericValue pkParameters = makeValue("ProdConfItemContent")
+    pkParameters.setPKFields(parameters)
+
+    GenericValue lookedUpValue = from("ProdConfItemContent").where(pkParameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
 
