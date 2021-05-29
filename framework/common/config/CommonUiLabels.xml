@@ -7692,6 +7692,10 @@
         <value xml:lang="zh">没有可用的地理位置(作为演示，你可以使用演示客户会员资料)</value>
         <value xml:lang="zh-TW">沒有可用的地理位置(若作為Demo,你可以使用 DemoCustomer 團體相關資料)</value>
     </property>
+    <property key="CommonNoGoogleAPIkeyAvailable">
+        <value xml:lang="en">No Google API key Available</value>
+        <value xml:lang="fr">Aucune clef d'API Google disponible</value>
+    </property>
     <property key="CommonNoOptions">
         <value xml:lang="ar">لا يوجد خيار: _NA_</value>
         <value xml:lang="cs">Žádné volby: _NA_</value>
