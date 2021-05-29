@@ -286,8 +286,8 @@ under the License.
         <field name="geoPointTypeEnumId" type="id"/>
         <field name="description" type="description"></field>
         <field name="dataSourceId" type="id"></field>
-        <field name="latitude" type="short-varchar" not-null="true"></field>
-        <field name="longitude" type="short-varchar" not-null="true"></field>
+        <field name="latitude" type="fixed-point" not-null="true"></field>
+        <field name="longitude" type="fixed-point" not-null="true"></field>
         <field name="elevation" type="fixed-point"></field>
         <field name="elevationUomId" type="id"><description>UOM for elevation (feet, meters, etc.)</description></field>
         <field name="information" type="comment"><description>To enter any related information</description></field>
