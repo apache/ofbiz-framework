@@ -46,7 +46,7 @@ under the License.
           <h2>${uiLabelMap.CommonNoGoogleAPIkeyAvailable}</h2>
           <script src="https://maps.googleapis.com/maps/api/js" type="application/javascript"></script>
         <#else>
-          <script src="https://maps.googleapis.com/maps/api/js?key=googleApiKey" type="application/javascript"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=${googleApiKey}" type="application/javascript"></script>
         </#if>
     </#if>
   <#-- ========================== Here we go with different types of maps renderer ===========================-->
