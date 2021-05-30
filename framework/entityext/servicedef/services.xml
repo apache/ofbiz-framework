@@ -224,7 +224,7 @@ under the License.
             location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="cleanSyncRemoveInfo" auth="true" transaction-timeout="600">
         <description>Clean EntitySyncRemove Info - Generally should be run asynchronously after each sync run, or periodically run on a schedule</description>
     </service>
-    <service name="resetEntitySyncStatus" engine="simple"
+    <service name="resetEntitySyncStatus" engine="groovy"
             location="component://entityext/groovyScripts/EntitySyncServices.groovy" invoke="resetEntitySyncStatus" auth="true" transaction-timeout="600">
         <description>Generally run manually to reset the status of an EntitySync when it has "crashed". Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
@@ -446,7 +446,7 @@ under the License.
         <description>Delete a ServerHitType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="entitySyncPermissionCheck" engine="simple"
+    <service name="entitySyncPermissionCheck" engine="groovy"
              location="component://entityext/groovyScripts/EntitySyncServices.groovy" invoke="entitySyncPermissionCheck">
         <description>Entity sync permission Checking Logic</description>
         <implements service="permissionInterface"/>
