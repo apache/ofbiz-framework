@@ -262,7 +262,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         if (targetParameters.length() == 0) {
             targetParameters.append("\"\"");
         }
-        if (UtilValidate.isNotEmpty(target)) {
+        if (UtilValidate.isNotEmpty(target) && !"hidden-form".equals(linkType)) {
             linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
         }
         parameters.put("linkUrl", linkUrl);
