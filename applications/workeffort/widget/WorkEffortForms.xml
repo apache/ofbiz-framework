@@ -403,7 +403,7 @@ under the License.
     <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <set field="fieldList" value="${groovy:['workEffortId','workEffortTypeId','currentStatusId','workEffortPurposeTypeId','description','priority','lastModifiedDate','estimatedStartDate','estimatedCompletionDate','actualStartDate','actualCompletionDate']}" type="List"/>
+            <set field="fieldList" value="${groovy:['workEffortId','workEffortName','workEffortTypeId','currentStatusId','workEffortPurposeTypeId','description','priority','lastModifiedDate','estimatedStartDate','estimatedCompletionDate','actualStartDate','actualCompletionDate']}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffortFindView"/>
