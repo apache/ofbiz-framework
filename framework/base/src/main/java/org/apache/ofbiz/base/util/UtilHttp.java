@@ -62,7 +62,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -78,10 +77,6 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.SameSiteFilter;
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Matcher;
 
 import com.ibm.icu.util.Calendar;
 
@@ -405,7 +400,30 @@ public final class UtilHttp {
     public static Map<String, Object> canonicalizeParameterMap(Map<String, Object> paramMap) {
         for (Map.Entry<String, Object> paramEntry: paramMap.entrySet()) {
             if (paramEntry.getValue() instanceof String) {
-                paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
+                String paramEntries = (String) paramEntry.getValue();
+                String[] stringValues = paramEntries.split(" ");
+                String params = "";
+                // Handles textareas, see OFBIZ-12249
+                if (stringValues.length > 0) {
+                    for (String s : stringValues) {
+                        // if the string contains only an URL beginning by http or ftp => no change to keep special chars
+                        if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
+                            params = params + s + " " ;
+                        } else if (UtilValidate.isUrl(s) && !s.isEmpty()) {
+                            // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
+                            String url = extractUrls(s).get(0); // THere should be only 1 URL in a block, makes no sense else
+                            int start = s.indexOf(url);
+                            String after = (String) s.subSequence(start + url.length(), s.length());
+                            params = params + canonicalizeParameter((String) s.subSequence(0, start)) + url + canonicalizeParameter(after) + " ";
+                        } else {
+                            // Simple string to canonicalize
+                            params = params + canonicalizeParameter(s) + " ";
+                        }
+                    }
+                    paramEntry.setValue(params.trim());
+                } else {
+                    paramEntry.setValue(canonicalizeParameter(paramEntries));
+                }
             } else if (paramEntry.getValue() instanceof Collection<?>) {
                 List<String> newList = new LinkedList<>();
                 for (String listEntry: UtilGenerics.<String>checkCollection(paramEntry.getValue())) {
@@ -1147,7 +1165,7 @@ public final class UtilHttp {
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private"); // HTTP/1.1
         response.setHeader("Pragma", "no-cache"); // HTTP/1.0
     }
-    
+
     public static void setResponseBrowserDefaultSecurityHeaders(HttpServletResponse resp, ConfigXMLReader.ViewMap viewMap) {
         // See https://cwiki.apache.org/confluence/display/OFBIZ/How+to+Secure+HTTP+Headers for details and how to test
         String xFrameOption = null;
@@ -1176,29 +1194,31 @@ public final class UtilHttp {
                 resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
             }
         }
-        
-        /** The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
-         This also applies to Google Chrome, when downloading extensions. */
+
+        /**
+         * The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared
+         * content-type. This also applies to Google Chrome, when downloading extensions.
+         */
         resp.addHeader("x-content-type-options", "nosniff");
-        
-         /** This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. 
-         It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user. 
-         This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
-         FireFox has still an open bug entry and "offers" only the noscript plugin
-         https://wiki.mozilla.org/Security/Features/XSS_Filter 
-         https://bugzilla.mozilla.org/show_bug.cgi?id=528661
+
+        /**
+         * This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. It's usually enabled by default anyway, so
+         * the role of this header is to re-enable the filter for this particular website if it was disabled by the user. This header is supported in
+         * IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
+         * FireFox has still an open bug entry and "offers" only the noscript plugin https://wiki.mozilla.org/Security/Features/XSS_Filter
+         * https://bugzilla.mozilla.org/show_bug.cgi?id=528661
          **/
-        resp.addHeader("X-XSS-Protection","1; mode=block"); 
-        
+        resp.addHeader("X-XSS-Protection", "1; mode=block");
+
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
-        
+
         resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
-        
+
         SameSiteFilter.addSameSiteCookieAttribute(resp);
-        
+
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
     }
-    
+
 
     public static String getContentTypeByFileName(String fileName) {
         FileNameMap mime = URLConnection.getFileNameMap();
@@ -1557,45 +1577,6 @@ public final class UtilHttp {
         HttpSession session = request.getSession();
         return (session == null ? "unknown" : session.getId());
     }
-    /**
-     * checks, if the current request comes from a searchbot
-     *
-     * @param request
-     * @return whether the request is from a web searchbot
-     */
-    public static boolean checkURLforSpiders(HttpServletRequest request) {
-        boolean result = false;
-
-        String spiderRequest = (String) request.getAttribute("_REQUEST_FROM_SPIDER_");
-        if (UtilValidate.isNotEmpty(spiderRequest)) {
-            return "Y".equals(spiderRequest);
-        }
-        String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
-        List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
-
-        if (UtilValidate.isNotEmpty(spiderList)) {
-            for (String spiderNameElement : spiderList) {
-                Pattern pattern = null;
-                try {
-                    pattern = PatternFactory.createOrGetPerl5CompiledPattern(spiderNameElement, false);
-                } catch (MalformedPatternException e) {
-                    Debug.logError(e, module);
-                }
-                PatternMatcher matcher = new Perl5Matcher();
-                if (matcher.contains(initialUserAgent, pattern)) {
-                    request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
-                    result = true;
-                    break;
-                }
-            }
-        }
-
-        if (!result) {
-            request.setAttribute("_REQUEST_FROM_SPIDER_", "N");
-        }
-
-        return result;
-    }
 
     /** Returns true if the user has JavaScript enabled.
      * @param request
@@ -1727,5 +1708,30 @@ public final class UtilHttp {
 
     public static String getRowSubmitPrefix() {
         return ROW_SUBMIT_PREFIX;
+    }
+
+    // From https://stackoverflow.com/questions/1806017/extracting-urls-from-a-text-document-using-java-regular-expressions/1806161#answer-1806161
+    // If you need more Internet top-level domains: https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains
+    public static List<String> extractUrls(String input) {
+        List<String> result = new ArrayList<String>();
+
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+                "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" +
+                        "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" +
+                        "|mil|biz|info|mobi|name|aero|jobs|museum" +
+                        "|travel|[a-z]{2}))(:[\\d]{1,5})?" +
+                        "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" +
+                        "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" +
+                        "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" +
+                        "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" +
+                        "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" +
+                        "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
+
+        java.util.regex.Matcher matcher = pattern.matcher(input);
+        while (matcher.find()) {
+            result.add(matcher.group());
+        }
+
+        return result;
     }
 }
