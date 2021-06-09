@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.ofbiz.base.lang.IsEmpty;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -628,6 +629,18 @@ public final class UtilValidate {
             return DEFAULT_EMPTY_OK;
         }
         return s.indexOf("://") != -1;
+    }
+
+    /**
+     * isValidUrl returns true if the string is a valid URL (using Commons UrlValidator)
+     * @param s String to validate
+     * @return true if s contains if the string is a valid URL (using Commons UrlValidator)
+     */
+    public static boolean isValidUrl(String s) {
+        if (isEmpty(s)) {
+            return DEFAULT_EMPTY_OK;
+        }
+        return UrlValidator.getInstance().isValid(s);
     }
 
     /** isYear returns true if string s is a valid
