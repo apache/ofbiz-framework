@@ -743,7 +743,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
            data-dialog-url="${linkUrl}"
         <#if text?has_content>data-dialog-title="${text}"</#if>
         <#if linkStyle?has_content>class="${linkStyle}"</#if>>
-        <#if description?has_content>${description}</#if></a>
+        <#if description?has_content>${description?html}</#if></a>
     <#else>
     <a <#if linkStyle?has_content && (description?has_content || imgSrc?has_content)>class="${linkStyle}"</#if>
       href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if>
@@ -751,6 +751,6 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       <#if confirmation?has_content> data-confirm-message="${confirmation}"</#if>
       <#if id?has_content> id="${id}"</#if>
       <#if imgSrc?length == 0 && title?has_content> title="${title}"</#if>>
-      <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description}</a>
+      <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description?html}</a>
     </#if>
 </#macro>
