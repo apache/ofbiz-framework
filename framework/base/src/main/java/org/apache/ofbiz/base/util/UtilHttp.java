@@ -412,7 +412,7 @@ public final class UtilHttp {
                     for (String s : stringValues) {
                         // if the string contains only an URL beginning by http or ftp => no change to keep special chars
                         if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
-                            params = params + s + " " ;
+                            params = params + s + " ";
                         } else if (UtilValidate.isUrl(s) && !s.isEmpty()) {
                             // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
                             String url = extractUrls(s).get(0); // THere should be only 1 URL in a block, makes no sense else
@@ -1725,16 +1725,16 @@ public final class UtilHttp {
         List<String> result = new ArrayList<String>();
 
         Pattern pattern = Pattern.compile(
-                "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" +
-                        "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" +
-                        "|mil|biz|info|mobi|name|aero|jobs|museum" +
-                        "|travel|[a-z]{2}))(:[\\d]{1,5})?" +
-                        "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" +
-                        "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" +
-                        "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" +
-                        "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" +
-                        "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" +
-                        "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
+                "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)"
+                        + "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov"
+                        + "|mil|biz|info|mobi|name|aero|jobs|museum"
+                        + "|travel|[a-z]{2}))(:[\\d]{1,5})?"
+                        + "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?"
+                        + "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
+                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
+                        + "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
+                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
+                        + "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
 
         Matcher matcher = pattern.matcher(input);
         while (matcher.find()) {
