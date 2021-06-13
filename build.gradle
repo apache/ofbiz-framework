@@ -173,7 +173,7 @@ dependencies {
     compile 'org.apache.shiro:shiro-core:1.4.0'
     compile 'org.apache.tika:tika-core:1.26'
     compile 'org.apache.tika:tika-parsers:1.26'
-    compile 'org.apache.pdfbox:pdfbox:2.0.23'
+    compile 'org.apache.pdfbox:pdfbox:2.0.24'
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.43'
     compile 'org.apache.tomcat:tomcat-catalina:9.0.43'
