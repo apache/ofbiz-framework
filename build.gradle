@@ -196,7 +196,7 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.6'
     compile 'org.apache.logging.log4j:log4j-api:2.11.1' // the API of log4j 2
     compile 'org.apache.poi:poi:3.17'
-    compile 'org.apache.pdfbox:pdfbox:2.0.23'
+    compile 'org.apache.pdfbox:pdfbox:2.0.24'
     compile 'org.apache.shiro:shiro-core:1.4.0'
     compile 'org.apache.sshd:sshd-core:1.7.0'
     compile 'org.apache.tika:tika-core:1.26'
