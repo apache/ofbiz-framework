@@ -135,12 +135,11 @@ public class UtilCodec {
                 return null;
             }
             if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.enable", true)) {
-                PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
-                        Sanitizers.LINKS).and(Sanitizers.STYLES);
+                PolicyFactory sanitizer = null;
                 // TODO to be improved to use a (or several) contentTypeId/s when necessary.
                 // Below is an example with BIRT_FLEXIBLE_REPORT_POLICY
                 if ("FLEXIBLE_REPORT".equals(contentTypeId)) {
-                    sanitizer = sanitizer.and(BIRT_FLEXIBLE_REPORT_POLICY);
+                    sanitizer = BIRT_FLEXIBLE_REPORT_POLICY;
                 }
 
                 // Check if custom policy should be used and if so don't use PERMISSIVE_POLICY
@@ -162,8 +161,20 @@ public class UtilCodec {
                     }
 
                     if (policy != null) {
+                        if (UtilValidate.isNotEmpty(sanitizer)) {
                         sanitizer = sanitizer.and(policy);
+                        } else {
+                            sanitizer = policy;
+                        }
                         return sanitizer.sanitize(original);
+                    }
+                } else {
+                    if (UtilValidate.isNotEmpty(sanitizer)) {
+                        sanitizer = sanitizer.and(Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
+                                Sanitizers.LINKS).and(Sanitizers.STYLES));
+                    } else {
+                        sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
+                            Sanitizers.LINKS).and(Sanitizers.STYLES);
                     }
                 }
 
