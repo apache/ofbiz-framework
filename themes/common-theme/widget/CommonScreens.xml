@@ -686,10 +686,109 @@ under the License.
                 </screenlet>
                 <screenlet padded="false">
                     <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
-                    <container id="search-results">
+                    <container id="${screen:id(screenStack)}">
                         <decorator-section-include name="search-results"/>
                     </container>
                 </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="DetailScreenDecorator">
+        <section>
+            <actions>
+                <set field="detailAreaId" value="${groovy:UUID.randomUUID().toString()}" global="true"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-empty field="titleProperty"/>
+                    </condition>
+                    <widgets>
+                        <container style="page-title"><label text="${title}"></label></container>
+                    </widgets>
+                    <fail-widgets>
+                        <container style="page-title"><label text="${uiLabelMap[titleProperty]}"></label></container>
+                    </fail-widgets>
+                </section>
+                <container style="clear"/>
+                <container style="menu-bar">
+                    <decorator-section-include name="menu-bar"/>
+                </container>
+                <container style="breadcrumbs">
+                    <decorator-section-include name="breadcrumbs"/>
+                </container>
+                <container style="summary">
+                    <decorator-section-include name="summary"/>
+                </container>
+                <container style="actions">
+                    <decorator-section-include name="actions"/>
+                </container>
+                <container style="tab-bar">
+                    <decorator-section-include name="tab-bar"/>
+                </container>
+                <container style="details" id="${detailAreaId}">
+                    <decorator-section-include name="details"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EmbeddedDecorator">
+        <section name="embedded">
+            <widgets>
+                <container style="embeddedScreen" id="${screen:id(screenStack)}">
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="actions"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="actions">
+                                <decorator-section-include name="actions"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="menu-bar"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="menu-bar">
+                                <decorator-section-include name="menu-bar"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="single"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="single">
+                                <decorator-section-include name="single"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="content"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="content">
+                                <decorator-section-include name="content"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="list"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="list">
+                                <decorator-section-include name="list"/>
+                            </container>
+                        </widgets>
+                    </section>
+                </container>
             </widgets>
         </section>
     </screen>

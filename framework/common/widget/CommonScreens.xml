@@ -295,11 +295,52 @@ under the License.
         </section>
     </screen>
 
+    <!--FindScreenDecorator: Sub Screen to display a search sub screen area.
+        contains sections :
+          * menu-bar
+          * search-options: option for the search
+          * search-results: result displayed after a search
+          -->
     <screen name="FindScreenDecorator">
         <section>
             <widgets>
                 <include-screen name="MinimalActions" />
                 <include-screen name="FindScreenDecorator" location="${groovy:commonScreenLocations.FindScreenDecorator?commonScreenLocations.FindScreenDecorator:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!--DetailScreenDecorator: Sub Screen to show a sum up of
+        an object and its related data. Composed in six sections :
+          * menu-bar
+          * breadcrumbs: the pathway of this object
+          * summary: that display main data of the object
+          * action: action cover the object (modification, duplicate, ...)
+          * tab-bar: to give access to related data into detail section
+          * detail: area that will display related data
+          -->
+    <screen name="DetailScreenDecorator">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="DetailScreenDecorator" location="${groovy:commonScreenLocations.DetailScreenDecorator?commonScreenLocations.DetailScreenDecorator:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!--EmbeddedDecorator: Decorator can be use as main decorator or sub screen decorator to display a  sub screen area.
+        contains sections :
+          * menu-bar
+          * action: search filtering, history display…
+          * single: display element as single
+          * content: display element as content
+          * list: display element as list
+          -->
+    <screen name="EmbeddedDecorator">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions"/>
+                <include-screen name="EmbeddedDecorator" location="${groovy:commonScreenLocations.EmbeddedDecorator?commonScreenLocations.EmbeddedDecorator:commonDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
