@@ -506,6 +506,7 @@ public class CatalinaContainer implements Container {
             ComponentConfig.WebappInfo appInfo, Configuration.Property clusterProp) throws ContainerException {
 
         StandardContext context = new StandardContext();
+        context.setDefaultWebXml(System.getProperty("ofbiz.home") + "/framework/catalina/config/web.xml");
         Tomcat.initWebappDefaults(context);
 
         String location = getWebappRootLocation(appInfo);
