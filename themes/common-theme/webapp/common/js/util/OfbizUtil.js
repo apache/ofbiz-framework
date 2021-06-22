@@ -708,11 +708,11 @@ function submitFormInBackground(form, areaId, submitUrl) {
 }
 
 /** Submit form, update multiple areas (HTML container elements).
- * @param form The form element
+ * @param formName The form name
  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
-function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
+function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
    waitSpinnerShow();
    hideErrorContainer = function() {
        jQuery('#content-messages').html('');
@@ -745,7 +745,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
        waitSpinnerHide();
    }
 
-   var $form = jQuery("#" + form),
+   var $form = jQuery("form[name='" + formName + "']"),
        data = null,
        processData = true,
        enctype = $form.attr("enctype"),
