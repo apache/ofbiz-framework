@@ -162,7 +162,7 @@ public class UtilCodec {
 
                     if (policy != null) {
                         if (UtilValidate.isNotEmpty(sanitizer)) {
-                        sanitizer = sanitizer.and(policy);
+                            sanitizer = sanitizer.and(policy);
                         } else {
                             sanitizer = policy;
                         }
