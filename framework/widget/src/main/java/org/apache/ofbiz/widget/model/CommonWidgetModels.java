@@ -32,6 +32,7 @@ import java.util.TimeZone;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -53,6 +54,7 @@ import org.w3c.dom.Element;
 public final class CommonWidgetModels {
 
     private static final String MODULE = CommonWidgetModels.class.getName();
+    public static final String JWT_CALLBACK = "JWT_CALLBACK";
 
     private CommonWidgetModels() {
     }
@@ -345,6 +347,7 @@ public final class CommonWidgetModels {
         // FIXME: These don't belong in this class (might have been used for image)
         private final String height;
         private final String width;
+        private final ModelForm.UpdateArea callback;
 
         public Link(Element linkElement) {
             this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
@@ -408,12 +411,18 @@ public final class CommonWidgetModels {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("confirmation-message"));
             this.width = linkElement.getAttribute("width");
             this.height = linkElement.getAttribute("height");
+
+            Element updateAreaElement = UtilXml.firstChildElement(linkElement, "set-callback");
+            this.callback = updateAreaElement != null
+                    ? new ModelForm.UpdateArea(updateAreaElement)
+                    : null;
         }
 
         // Portal constructor
         public Link(GenericValue portalPage, List<Parameter> parameterList, String target, Locale locale) {
             this.autoEntityParameters = null;
             this.autoServiceParameters = null;
+            this.callback = null;
             this.encode = false;
             this.fullPath = false;
             this.idExdr = FlexibleStringExpander.getInstance("");
@@ -441,6 +450,10 @@ public final class CommonWidgetModels {
 
         public AutoServiceParameters getAutoServiceParameters() {
             return autoServiceParameters;
+        }
+
+        public ModelForm.UpdateArea getCallback() {
+            return callback;
         }
 
         public String getConfirmationMsg(Map<String, Object> context) {
@@ -495,7 +508,16 @@ public final class CommonWidgetModels {
             return parameterList;
         }
 
-        public Map<String, String> getParameterMap(Map<String, Object> context, String defaultEntityName, String defaultServiceName) {
+        public Map<String, String> getParameterMap(Map<String, Object> context,
+                                                   String defaultEntityName,
+                                                   String defaultServiceName) {
+            return getParameterMap(context, defaultEntityName, defaultServiceName, true);
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context,
+                                                   String defaultEntityName,
+                                                   String defaultServiceName,
+                                                   boolean propagateMyCallback) {
             Map<String, String> fullParameterMap = new HashMap<>();
             for (Parameter parameter : this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
@@ -506,21 +528,32 @@ public final class CommonWidgetModels {
             if (autoEntityParameters != null) {
                 fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, defaultEntityName));
             }
+            propagateCallbackInParameterMap(context, propagateMyCallback, fullParameterMap);
             return fullParameterMap;
         }
 
+        // If a call back is present on link or present on context, adding it to the parameters list
+        private void propagateCallbackInParameterMap(Map<String, Object> context, boolean propagateMyCallback, Map<String, String> fullParameterMap) {
+            if (getCallback() != null && propagateMyCallback) {
+                fullParameterMap.put(JWT_CALLBACK, getCallback().toJwtToken(context));
+            } else if (context.containsKey(JWT_CALLBACK)) {
+                fullParameterMap.put(JWT_CALLBACK, (String) context.get(JWT_CALLBACK));
+            } else {
+                if (context.containsKey("parameters")) {
+                    Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+                    if (parameters.containsKey(JWT_CALLBACK)) {
+                        fullParameterMap.put(JWT_CALLBACK, (String) parameters.get(JWT_CALLBACK));
+                    }
+                }
+            }
+        }
+
         public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<>();
-            for (Parameter parameter : this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
-            }
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, null));
-            }
-            return fullParameterMap;
+            return getParameterMap(context, null, null, true);
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context, boolean propagateMyCallback) {
+            return getParameterMap(context, null, null, propagateMyCallback);
         }
 
         public String getPrefix(Map<String, Object> context) {

@@ -1754,6 +1754,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return link.getParameterMap(context);
         }
 
+        public Map<String, String> getParameterMap(Map<String, Object> context, boolean propagateCallback) {
+            return link.getParameterMap(context, propagateCallback);
+        }
+
         public FlexibleStringExpander getTextExdr() {
             return link.getTextExdr();
         }

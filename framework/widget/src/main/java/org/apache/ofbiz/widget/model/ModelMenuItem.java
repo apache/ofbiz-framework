@@ -791,6 +791,16 @@ public class ModelMenuItem extends ModelWidget {
         }
 
         /**
+         * Gets parameter map.
+         * @param context the context
+         * @param propagateCallback indicate if we need to propagate callback element
+         * @return the parameter map
+         */
+        public Map<String, String> getParameterMap(Map<String, Object> context, boolean propagateCallback) {
+            return link.getParameterMap(context, propagateCallback);
+        }
+
+        /**
          * Gets prefix.
          * @param context the context
          * @return the prefix

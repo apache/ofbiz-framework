@@ -122,7 +122,7 @@ public class MacroCommonRenderer {
      * @return
      */
     public static String getLinkUrl(CommonWidgetModels.Link link, Map<String, Object> context) {
-        String linkUrl;
+        String linkUrl = "";
 
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
@@ -134,12 +134,22 @@ public class MacroCommonRenderer {
             linkUrl = createAjaxParamsFromUpdateAreas(UtilMisc.toList(resolveUpdateArea),
                     UtilGenerics.cast(link.getParameterMap(context)), null, null, context);
             break;
+        case "hidden-form":
+            if (link.getCallback() != null) {
+                // we assume that the post request
+                // wait an immediate response, so we execute the callback directly
+                linkUrl = createAjaxParamsFromUpdateAreas(UtilMisc.toList(link.getCallback()), null, null, null, context);
+            }
+            break;
         default:
-            final URI linkUri = WidgetWorker.buildHyperlinkUri(link.getTarget(context), link.getUrlMode(),
-                    "layered-modal".equals(link.getLinkType()) ? null : link.getParameterMap(context), link.getPrefix(context),
-                    link.getFullPath(), link.getSecure(), link.getEncode(),
-                    request, response);
-            linkUrl = linkUri.toString();
+            String target = link.getTarget(context);
+            if (UtilValidate.isNotEmpty(target)) {
+                final URI linkUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
+                        "layered-modal".equals(link.getLinkType()) ? null : link.getParameterMap(context), link.getPrefix(context),
+                        link.getFullPath(), link.getSecure(), link.getEncode(),
+                        request, response);
+                linkUrl = linkUri.toString();
+            }
         }
         return linkUrl;
     }

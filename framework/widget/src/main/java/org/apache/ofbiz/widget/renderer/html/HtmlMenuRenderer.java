@@ -428,7 +428,8 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     + UtilMisc.<String>addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
 
             String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
-            if ("hidden-form".equals(linkType)) {
+            boolean isHiddenForm = "hidden-form".equals(linkType);
+            if (isHiddenForm) {
                 writer.append("<form method=\"post\"");
                 writer.append(" action=\"");
                 // note that this passes null for the parameterList on purpose so they won't be put into the URL
@@ -449,7 +450,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append("\">");
 
                 UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-                for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
+                for (Map.Entry<String, String> parameter: link.getParameterMap(context, false).entrySet()) {
                     writer.append("<input name=\"");
                     writer.append(parameter.getKey());
                     writer.append("\" value=\"");
@@ -484,7 +485,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append(name);
                 writer.append("\"");
             }
-            if (!"hidden-form".equals(linkType)) {
+            if (!isHiddenForm) {
                 if (UtilValidate.isNotEmpty(targetWindow)) {
                     writer.append(" target=\"");
                     writer.append(targetWindow);
@@ -493,7 +494,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
 
             writer.append(" href=\"");
-            if ("hidden-form".equals(linkType)) {
+            if (isHiddenForm) {
                 writer.append("javascript:document.");
                 writer.append(uniqueItemName);
                 writer.append(".submit()");

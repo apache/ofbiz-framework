@@ -234,18 +234,19 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         }
         parameters.put("linkType", linkType);
-        String linkUrl = "";
         String actionUrl = "";
-
         StringBuilder targetParameters = new StringBuilder();
-        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
+
+        boolean isModal = "layered-modal".equals(linkType);
+        if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
                     request, response);
             actionUrl = actionUri.toString();
 
             targetParameters.append("[");
-            for (Map.Entry<String, String> parameter : link.getParameterMap(context).entrySet()) {
+            // Callback propagation only if displaying a modal
+            for (Map.Entry<String, String> parameter : link.getParameterMap(context, isModal).entrySet()) {
                 if (targetParameters.length() > 1) {
                     targetParameters.append(",");
                 }
@@ -262,10 +263,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         if (targetParameters.length() == 0) {
             targetParameters.append("\"\"");
         }
-        if (UtilValidate.isNotEmpty(target) && !"hidden-form".equals(linkType)) {
-            linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
-        }
-        parameters.put("linkUrl", linkUrl);
+        parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), context));
         parameters.put("actionUrl", actionUrl);
         parameters.put("parameterList", targetParameters);
         String imgStr = "";

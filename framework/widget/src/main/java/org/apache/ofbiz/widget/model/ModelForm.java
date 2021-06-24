@@ -31,6 +31,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import java.util.stream.Collectors;
+import org.apache.ofbiz.base.conversion.ConversionException;
+import org.apache.ofbiz.base.conversion.JSONConverters;
+import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -42,6 +46,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
@@ -50,6 +55,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -2342,6 +2348,23 @@ public abstract class ModelForm extends ModelWidget {
             this.autoEntityParameters = null;
         }
 
+        /** String constructor.
+         * @param areaId The id of the widget element to be updated
+         * @param areaTarget The target URL called to update the area
+         * @param parameterList The list of parameters
+         */
+        public UpdateArea(String eventType, String areaId, String areaTarget,
+                          List<CommonWidgetModels.Parameter> parameterList) {
+            this.eventType = eventType;
+            this.areaId = areaId;
+            this.areaTarget = areaTarget;
+            this.defaultServiceName = null;
+            this.defaultEntityName = null;
+            this.parameterList = parameterList;
+            this.autoServiceParameters = null;
+            this.autoEntityParameters = null;
+        }
+
         @Override
         public boolean equals(Object obj) {
             return obj instanceof UpdateArea && obj.hashCode() == this.hashCode();
@@ -2443,6 +2466,69 @@ public abstract class ModelForm extends ModelWidget {
          */
         public List<CommonWidgetModels.Parameter> getParameterList() {
             return parameterList;
+        }
+
+        /**
+         * Extract updateArea information as a Jwt token
+         * @return the Jwt token
+         */
+        public String toJwtToken(Map<String, Object> context) {
+            Delegator delegator = (Delegator) context.get("delegator");
+
+            Map<String, String> claims = UtilMisc.toMap(
+                    "areaId", WidgetWorker.getScreenStack(context).resolveScreenAreaId(getAreaId()),
+                    "areaTarget", getAreaTarget());
+
+            JSONConverters.MapToJSON converter = new JSONConverters.MapToJSON();
+            Map<String, Object> parameters = UtilGenerics.cast(getParameterMap(context));
+            try {
+                claims.put("parameters", converter.convert(parameters).toString());
+            } catch (ConversionException e) {
+                Debug.logWarning("Failed to convert parameters to JSON with " + parameters, MODULE);
+            }
+            return JWTManager.createJwt(delegator, claims, -1);
+        }
+
+        /**
+         * Retrieva Jwt from context, validate it and generate UpdateArea Object
+         * @return UpdateArea object
+         */
+        public static ModelForm.UpdateArea fromJwtToken(Map<String, Object> context) {
+            Delegator delegator = (Delegator) context.get("delegator");
+
+            String jwtToken = (String) context.get(CommonWidgetModels.JWT_CALLBACK);
+            if (jwtToken == null && context.containsKey("parameters")) {
+                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+                jwtToken = (String) parameters.get(CommonWidgetModels.JWT_CALLBACK);
+            }
+            if (jwtToken == null) return null;
+
+            Map<String, Object> claims = JWTManager.validateToken(jwtToken, JWTManager.getJWTKey(delegator));
+            if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
+                // Something unexpected happened here
+                Debug.logWarning("There was a problem with the JWT token, signature not valid.", MODULE);
+                return null;
+            }
+
+            String areaId = (String) claims.remove("areaId");
+            String areaTarget = (String) claims.remove("areaTarget");
+
+            Map<String, Object> parameters = null;
+            if (claims.containsKey("parameters")) {
+                JSONConverters.JSONToMap converter = new JSONConverters.JSONToMap();
+                try {
+                    parameters = converter.convert(JSON.from((String) claims.get("parameters")));
+                } catch (ConversionException e) {
+                    Debug.logWarning("Failed to convert JSON to with " + claims.get("parameters"), MODULE);
+                }
+            }
+            return new UpdateArea("", areaId, areaTarget,
+                    parameters != null
+                            ? parameters.entrySet()
+                            .stream()
+                            .map(entry -> new CommonWidgetModels.Parameter(entry.getKey(), (String) entry.getValue(), true))
+                            .collect(Collectors.toList())
+                            : new ArrayList<>());
         }
     }
 }
