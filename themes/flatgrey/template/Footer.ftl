@@ -28,7 +28,6 @@ under the License.
         <a href="http://www.apache.org" class="noicon">The Apache Software Foundation - www.apache.org</a></span> 
         <span class="footerTextColour">
             ${uiLabelMap.CommonRelease} <#include "ofbizhome://VERSION" ignore_missing=true/>
-            <#include "ofbizhome://runtime/SvnInfo.ftl" ignore_missing=true/>
             <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
         </span>
     </div>

@@ -76,7 +76,7 @@
                 </para>
             </listitem>
             <listitem>
-                <para>Committer les changements dans le référentiel SVN ou créez un fichier diff et joignez-le à un jira.</para>
+                <para>Committer les changements dans le référentiel GIT ou créez un fichier diff et joignez-le à un jira.</para>
             </listitem>
             <listitem>
                 <para>Si le texte d'aide est utile à la documentation d'OFBiz, incluez-le dans les fichiers du répertoire où se trouve le document.</para>
