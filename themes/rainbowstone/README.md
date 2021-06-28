@@ -11,4 +11,4 @@ The Rainbowstone theme uses the Quicksand font which is licensed under the [SIL 
 
 ## more information
 For more information about this component visit the product page in the OFBiz WIKI, 
-which can be found at https://cwiki.apache.org/confluence/display/OFBIZ/Rainbowstone
+which can be found at https://cwiki.apache.org/confluence/display/OFBIZ/Visual+Themes+Gallery
