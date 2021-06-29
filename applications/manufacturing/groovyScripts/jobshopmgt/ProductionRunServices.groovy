@@ -299,6 +299,11 @@ def issueProductionRunTaskComponentInline(Map parameters,
                                           GenericValue inventoryItem,
                                           GenericValue lastNonSerInventoryItem) {
 
+    facilityLocations = from("FacilityLocation").where("facilityId", inventoryItem?.facilityId, "locationSeqId", inventoryItem?.locationSeqId, "locked", "Y").queryList()
+    if (facilityLocations) {
+        return error("The affected LTN# " + inventoryItem.inventoryItemId + " belong to the locked locations under active counting session to prevent any inbound and outbound inventory movement. Please choose different LTN from any free location or wait till lock is released.")
+    }
+
     if (parameters.quantityNotIssued > 0) {
         if ("SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId &&
                 "INV_AVAILABLE" == inventoryItem.statusId) {

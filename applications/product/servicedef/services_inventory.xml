@@ -84,4 +84,76 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- Inventory Count services -->
+    <service name="createInventoryCount" engine="entity-auto" invoke="create" default-entity-name="InventoryCount" auth="true">
+        <description>Create Inventory Count Record</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createInventoryCountItem" engine="java" invoke="createInventoryCountItem" default-entity-name="InventoryCountItem"
+             location="org.apache.ofbiz.product.inventory.InventoryServices" auth="true">
+        <description>Create Inventory Count Item Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryCountItemSeqId" mode="OUT"/>
+    </service>
+    <service name="approveInventoryCountAndItems" engine="java"
+             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="approveInventoryCountAndItems" auth="true">
+        <attribute name="inventoryCountId" mode="INOUT" type="String" optional="true"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="updateCountItemAndCreateCountVariance" engine="java"
+             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="updateCountItemAndCreateCountVariance" auth="true">
+        <attribute name="inventoryCountId" mode="INOUT" type="String" optional="false"/>
+        <attribute name="inventoryCountItemSeqId" mode="IN" type="String" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryCount" engine="entity-auto" invoke="update" default-entity-name="InventoryCount" auth="true">
+        <description>Update Inventory Count Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryCountItem" engine="simple" invoke="updateInventoryCountItem" default-entity-name="InventoryCountItem"
+         location="component://product/minilang/product/inventory/InventoryServices.xml" auth="true">
+        <description>Update Inventory Count Item Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="oldItemStatusId" mode="OUT" optional="true" type="String"/>
+        <override name="itemStatusId" mode="INOUT" optional="true" type="String"/>
+    </service>
+    <service name="createInventoryCountVariance" engine="java" invoke="createInventoryCountVariance" default-entity-name="InventoryCountVariance"
+         location="org.apache.ofbiz.product.inventory.InventoryServices" auth="true">
+        <description>Create Inventory Count Variance Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryCountVariance" engine="simple" invoke="updateInventoryCountVariance" default-entity-name="InventoryCountVariance"
+         location="component://product/minilang/product/inventory/InventoryServices.xml" auth="true">
+        <description>Update Inventory Count Variance Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryCountItemAndRecordVariance" engine="java"
+         location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="updateInventoryCountItemAndRecordVariance" auth="true">
+        <attribute name="inventoryCountId" mode="INOUT" type="String" optional="true"/>
+        <attribute name="inventoryCountItemSeqId" mode="IN" type="String" optional="true"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+        <attribute name="nextCountDay" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="recordProductVariance" engine="java"
+             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="recordProductVariance" auth="true">
+        <attribute name="inventoryCountId" mode="IN" type="String" optional="false"/>
+        <attribute name="inventoryCountItemSeqId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="addLocationItemsToCycleCount" engine="java"
+             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="addLocationItemsToCycleCount" auth="true">
+        <attribute name="locationSeqId" mode="IN" type="String" optional="false"/>
+        <attribute name="facilityId" mode="IN" type="String" optional="false"/>
+        <attribute name="inventoryCountId" mode="INOUT" type="String" optional="true"/>
+    </service>
+    <service name="addInventoryItemToCycleCount" engine="java"
+             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="addInventoryItemToCycleCount" auth="true">
+        <attribute name="inventoryItemId" mode="IN" type="String" optional="true"/>
+        <attribute name="inventoryCountId" mode="INOUT" type="String" optional="true"/>
+    </service>
 </services>

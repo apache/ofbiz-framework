@@ -588,6 +588,21 @@ under the License.
     <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_CANCELLED" transitionName="Scheduled Inventory Cancelled"/>
     <StatusValidChange statusId="IXF_EN_ROUTE" statusIdTo="IXF_COMPLETE" transitionName="In Route Transfer Completed"/>
 
+    <!-- inventory cycle count status -->
+    <StatusType statusTypeId="INV_CNT_STTS" description="Inventory Count Status" hasTable="N"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="INV_COUNT_CREATED" statusTypeId="INV_CNT_STTS"/>
+    <StatusItem description="Pending For Review" sequenceId="02" statusCode="APPROVED" statusId="INV_COUNT_APPROVED" statusTypeId="INV_CNT_STTS"/>
+    <StatusItem description="Completed" sequenceId="03" statusCode="COMPLETED" statusId="INV_COUNT_COMPLETED" statusTypeId="INV_CNT_STTS"/>
+    <StatusItem description="Rejected" sequenceId="04" statusCode="REJECTED" statusId="INV_COUNT_REJECTED" statusTypeId="INV_CNT_STTS"/>
+    <StatusItem description="Closed" sequenceId="05" statusCode="CLOSED" statusId="INV_COUNT_CLOSED" statusTypeId="INV_CNT_STTS"/>
+    
+    <StatusValidChange statusId="INV_COUNT_CREATED" statusIdTo="INV_COUNT_COMPLETED" transitionName="Complete Inventory Count"/>
+    <StatusValidChange statusId="INV_COUNT_CREATED" statusIdTo="INV_COUNT_REJECTED" transitionName="Reject Inventory Count"/>
+    <StatusValidChange statusId="INV_COUNT_CREATED" statusIdTo="INV_COUNT_APPROVED" transitionName="Approved Inventory Count"/>
+    <StatusValidChange statusId="INV_COUNT_APPROVED" statusIdTo="INV_COUNT_COMPLETED" transitionName="Complete Inventory Count"/>
+    <StatusValidChange statusId="INV_COUNT_APPROVED" statusIdTo="INV_COUNT_REJECTED" transitionName="Reject Inventory Count"/>
+    <StatusValidChange statusId="INV_COUNT_REJECTED" statusIdTo="INV_COUNT_CLOSED" transitionName="Closed Inventory Count"/>
+    
     <!-- product review status -->
     <StatusType description="Product Review" hasTable="N" statusTypeId="PRODUCT_REVIEW_STTS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="PRR_PENDING" statusTypeId="PRODUCT_REVIEW_STTS"/>

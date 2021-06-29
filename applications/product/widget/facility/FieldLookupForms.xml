@@ -148,4 +148,32 @@ under the License.
         <field name="quantityOnHandTotal" title="${uiLabelMap.ProductQoh}"><display/></field>
         <field name="availableToPromiseTotal" title="${uiLabelMap.ProductAtp}"><display/></field>
     </form>
+    <form name="LookupInventoryItem" type="single" target="LookupInventoryItem"
+          header-row-style="header-row" default-table-style="basic-table">
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find default-option="contains" /></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains" /></field>
+        <field name="description" title="${uiLabelMap.ProductProductDescription}"><text-find default-option="contains" /></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="ownerPartyId"><hidden/></field>
+        <field name="noConditionFind"><hidden value="N"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button" /></field>
+    </form>
+
+    <form name="ListInventoryItem" list-name="listIt" title="" type="list" paginate-target="LookupInventoryItem"
+          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="InventoryItemAndLocation"/>
+            </service>
+        </actions>
+        <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItemId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${inventoryItemId}" target="javascript:set_value('${inventoryItemId}')"/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="serialNumber" title="${uiLabelMap.ProductSerialNumber}"><display/></field>
+        <field name="description" title="${uiLabelMap.ProductProductDescription}"><display/></field>
+        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
+        <field name="qohAtp" title="${uiLabelMap.ProductAtpQoh}"><display description="${availableToPromiseTotal}/${quantityOnHandTotal}"/></field>
+    </form>
 </forms>
