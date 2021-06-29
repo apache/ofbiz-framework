@@ -30,16 +30,16 @@ under the License.
         <auto-attributes mode="IN" entity-name="ShoppingList" include="nonpk" optional="true"/>
         <attribute name="shippingMethodString" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createShoppingList" engine="simple" auth="false"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingList">
+    <service name="createShoppingList" engine="groovy" auth="false"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="createShoppingList">
         <description>Create a shopping list entity</description>
         <permission-service service-name="checkShoppingListSecurity" main-action="CREATE"/>
         <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateShoppingList" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
+    <service name="updateShoppingList" engine="groovy" auth="true"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="updateShoppingList">
         <description>Update a shopping list entity</description>
         <permission-service service-name="checkShoppingListSecurity" main-action="UPDATE"/>
         <implements service="createShoppingListRecurrence"/>
@@ -51,14 +51,14 @@ under the License.
         <permission-service service-name="checkShoppingListSecurity" main-action="DELETE"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="checkShoppingListSecurity" engine="simple" auth="false"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="checkShoppingListSecurity">
+    <service name="checkShoppingListSecurity" engine="groovy" auth="false"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="checkShoppingListSecurity">
         <description>Checks security on a ShoppingList</description>
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="calculateShoppingListDeepTotalPrice" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="calculateShoppingListDeepTotalPrice">
+    <service name="calculateShoppingListDeepTotalPrice" engine="groovy" auth="true"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="calculateShoppingListDeepTotalPrice">
         <description>Remove a shopping list entity</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
@@ -116,8 +116,8 @@ under the License.
         <attribute name="quantityPurchased" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="configId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createShoppingListItem" engine="simple" auth="false"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
+    <service name="createShoppingListItem" engine="groovy" auth="false"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="createShoppingListItem">
         <description>Create a shopping list item</description>
         <permission-service service-name="checkShoppingListItemSecurity" main-action="CREATE"/>
         <implements service="shoppingListItemInterface"/>
@@ -126,34 +126,34 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateShoppingListItem" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
+    <service name="updateShoppingListItem" engine="groovy" auth="true"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="updateShoppingListItem">
         <description>Update a shopping list item</description>
         <permission-service service-name="checkShoppingListItemSecurity" main-action="UPDATE"/>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="removeShoppingListItem" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingListItem">
+    <service name="removeShoppingListItem" engine="groovy" auth="true"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="removeShoppingListItem">
         <description>Remove a shopping list item</description>
         <permission-service service-name="checkShoppingListItemSecurity" main-action="DELETE"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="checkShoppingListItemSecurity" engine="simple" auth="false"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="checkShoppingListItemSecurity">
+    <service name="checkShoppingListItemSecurity" engine="groovy" auth="false"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="checkShoppingListItemSecurity">
         <description>Checks security on a ShoppingListItem</description>
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="addSuggestionsToShoppingList" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="addSuggestionsToShoppingList">
+    <service name="addSuggestionsToShoppingList" engine="groovy" auth="true"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="addSuggestionsToShoppingList">
         <description>Add suggestions to a shopping list</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="addDistinctShoppingListItem" engine="simple" auth="true"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="addDistinctShoppingListItem">
+    <service name="addDistinctShoppingListItem" engine="groovy" auth="true"
+            location="component://order/groovyScripts/shoppinglist/ShoppingListServices.groovy" invoke="addDistinctShoppingListItem">
         <description>Adds a shopping list item if one with the same productId does not exist</description>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
