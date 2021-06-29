@@ -602,6 +602,12 @@ under the License.
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
     </request-map>
+    <request-map uri="deleteallroles">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteAllPartyRoles"/>
+        <response name="success" type="view" value="viewroles"/>
+        <response name="error" type="view" value="viewroles"/>
+    </request-map>
     <request-map uri="createroletype">
         <security https="true" auth="true"/>
         <event type="service" invoke="createRoleType"/>
