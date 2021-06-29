@@ -235,8 +235,8 @@ under the License.
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
 
-    <service name="createPaymentFromOrder" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentFromOrder" auth="true">
+    <service name="createPaymentFromOrder" engine="groovy"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentFromOrder" auth="true">
         <description>Create Payment from Order when payment does exist yet and not disabled by accounting config</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
