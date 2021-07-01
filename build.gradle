@@ -119,9 +119,8 @@ tasks.withType(JavaCompile) {
     }
 }
 
-// defines the footer files for svn and git info
+// defines the footer files for git info
 def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
-def File svnFooterFile = file("${rootDir}/runtime/SvnInfo.ftl")
 
 // root and subproject settings
 defaultTasks 'jar', 'test'
@@ -720,32 +719,6 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
     }
 }
 
-task svnInfoFooter(group: sysadminGroup, description: 'Update the Subversion revision info in the footer if Subversion is used') {
-    doLast {
-        def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-        def svnOutput = new ByteArrayOutputStream()
-        def svnFolder = new File('.svn')
-
-        if (!svnFolder.exists()) {
-          println ("Subversion is not used")
-          return
-        }
-
-        exec{
-            commandLine 'svn', 'info', '--xml'
-            standardOutput = svnOutput
-        }
-        def info = new XmlParser().parseText(svnOutput.toString())
-        svnFooterFile.delete()
-        svnFooterFile.createNewFile()
-        svnFooterFile <<  System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonBranch} : ' + "${info.entry.url.text()}" + System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonRevision} : ' + "${info.entry.commit.@revision}" + System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
-        svnFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
-    }
-}
-
 // ========== OFBiz Plugin Management ==========
 task createPlugin(group: ofbizPlugin, description: 'create a new plugin component based on specified templates') {
     doLast {
@@ -942,6 +915,7 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
 task pullPluginSource(group: ofbizPlugin, description: 'Download and install a plugin from source control') {
 
     if (project.hasProperty('pluginId')) {
+        // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
         task pullPluginFromSvn(type: SvnCheckout) {
             svnUrl = "https://github.com/apache/ofbiz-plugins/trunk/${pluginId}"
             workspaceDir = "${pluginsDir}/${pluginId}"
@@ -960,6 +934,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
         doLast { delete "${pluginsDir}" }
     }
     task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
+        // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
         svnUrl = "https://github.com/apache/ofbiz-plugins/trunk"
         workspaceDir = "${pluginsDir}"
     }
@@ -1020,7 +995,6 @@ task cleanXtra(group: cleanupGroup, description: 'Clean extra generated files li
 task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer files') {
     doLast {
         delete gitFooterFile
-        delete svnFooterFile
     }
 }
 /*

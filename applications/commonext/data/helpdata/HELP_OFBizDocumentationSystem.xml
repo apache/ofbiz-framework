@@ -92,7 +92,7 @@
             </listitem>
             <listitem>
                 <para>
-                    Submit the change to the svn repository or create a diff file and attach it to a jira issue.
+                    Submit the change to the git repository or create a diff file and attach it to a jira issue.
                 </para>
             </listitem>
             <listitem>
