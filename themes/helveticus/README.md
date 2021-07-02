@@ -3,6 +3,8 @@ The Helveticus theme is based on the Rainbowstone Saphir theme
 For more information about this component visit the product page in the OFBiz WIKI, 
 which can be found at https://cwiki.apache.org/confluence/display/OFBIZ/Visual+Themes+Gallery
 
+## License
+The Helveticus theme dynamically download the Quicksand font licensed under the SIL OPEN FONT LICENSE (no license issue)
 
 ## Icones 
 https://heroicons.dev/
