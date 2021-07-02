@@ -197,6 +197,9 @@ function bindObservers(bind_element) {
             }
         });
         dialogContainer.dialog("open");
+        dialogContainer.on("closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess", function() {
+            dialogContainer.dialog("destroy");
+        });
     });
     jQuery(bind_element).on("click", "[data-confirm-message]", function(e){
         var element = jQuery(this);
@@ -605,19 +608,28 @@ function ajaxUpdateArea(areaId, target, targetParams) {
         window.location.assign(targetUrl);
         return;
     }
-    waitSpinnerShow();
+    waitSpinnerShow(areaId);
     setTimeout(function() {
         jQuery.ajax({
             url: target,
             type: "POST",
             data: targetParams,
             success: function(data) {
-                jQuery("#" + areaId).html(data);
-                waitSpinnerHide();
+                updateArea(areaId, data)
+                waitSpinnerHide(areaId);
             },
-            error: function(data) {waitSpinnerHide()}
+        error: function(data) { waitSpinnerHide(areaId) }
         });
     }, 0);
+}
+
+function updateArea(areaId, data) {
+    // If the area is indicate as embedded why replace the area instead inject into
+    if (/^embedded/.test(areaId)) {
+        jQuery("#" + areaId).replaceWith(data);
+    } else {
+        jQuery("#" + areaId).html(data);
+    }
 }
 
 /** Update multiple areas (HTML container elements).
@@ -707,6 +719,67 @@ function submitFormInBackground(form, areaId, submitUrl) {
     });
 }
 
+function containsErrorMessages(data) {
+    return data.ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined
+}
+function displayErrorMessages(data) {
+    if (!jQuery('#content-messages').length) {
+        //add this div just after app-navigation
+        if(jQuery('#content-main-section')){
+            jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
+        }
+    }
+    jQuery('#content-messages').addClass('errorMessage');
+    if (data._ERROR_MESSAGE_LIST_ != undefined && data._ERROR_MESSAGE_ != undefined) {
+        jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
+    } else if (data._ERROR_MESSAGE_LIST_ != undefined) {
+        jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_);
+    } else {
+        jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
+    }
+    showjGrowl();
+}
+
+function containsEventMessage(data) {
+    return data.EVENT_MESSAGE_LIST_ != undefined || data._EVENT_MESSAGE_ != undefined
+}
+function displayEventMessage(data) {
+    if (!jQuery('#content-messages').length) {
+        //add this div just after app-navigation
+        if(jQuery('#content-main-section')){
+            jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
+        }
+    }
+    jQuery('#content-messages').addClass('eventMessage');
+    if (data._EVENT_MESSAGE_LIST_ != undefined && data._EVENT_MESSAGE_ != undefined) {
+        jQuery('#content-messages' ).html(data._EVENT_MESSAGE_LIST_ + " " + data._EVENT_MESSAGE_);
+    } else if (data._EVENT_MESSAGE_LIST_ != undefined) {
+        jQuery('#content-messages' ).html(data._EVENT_MESSAGE_LIST_);
+    } else {
+        jQuery('#content-messages' ).html(data._EVENT_MESSAGE_);
+    }
+    showjGrowl();
+}
+function clearErrorMessages() {
+    if (jQuery('#content-messages').length) {
+        jQuery('#content-messages').html('');
+        jQuery('#content-messages').removeClass('errorMessage').fadeIn('fast');
+    }
+    if (jQuery('#jGrowl').length) {
+        jQuery('[class$=errorMessageJGrowl]').hide();
+    }
+}
+
+function errorRetrievingResponseFromServer(xhr, status, exception) {
+    if(exception != 'abort') {
+        var errorMessage = '<p> No response from Apache OFBiz</p>';
+        if (status !== undefined) {
+            errorMessage += '<p> (state: ' + status + ')</p>';
+        }
+        displayErrorMessages({_ERROR_MESSAGE_: errorMessage});
+    }
+}
+
 /** Submit form, update multiple areas (HTML container elements).
  * @param formName The form name
  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
@@ -714,43 +787,35 @@ function submitFormInBackground(form, areaId, submitUrl) {
 */
 function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
    waitSpinnerShow();
-   hideErrorContainer = function() {
-       jQuery('#content-messages').html('');
-       jQuery('#content-messages').removeClass('errorMessage').fadeIn('fast');
-   }
-   updateFunction = function(data) {
-       if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
-           if (!jQuery('#content-messages').length) {
-              //add this div just after app-navigation
-              if(jQuery('#content-main-section')){
-                  jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
-              }
-           }
-           jQuery('#content-messages').addClass('errorMessage');
-          if (data._ERROR_MESSAGE_LIST_ != undefined && data._ERROR_MESSAGE_ != undefined) {
-              jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
-          } else if (data._ERROR_MESSAGE_LIST_ != undefined) {
-              jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_);
-          } else {
-              jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
-          }
-          showjGrowl();
-       } else {
-           if (jQuery('#content-messages').length) {
-               jQuery('#content-messages').html('');
-               jQuery('#content-messages').removeClass('errorMessage').fadeIn("fast");
-           }
-           ajaxUpdateAreas(areaCsvString);
-       }
-       waitSpinnerHide();
-   }
 
-   var $form = jQuery("form[name='" + formName + "']"),
-       data = null,
+   var $form = jQuery("form[name='" + formName + "']");
+   hideErrorContainer = function() {
+       clearErrorMessages()
+   }
+   updateFunction = function(data, status, response) {
+       if (response.getResponseHeader("content-type").indexOf("application/json") === -1) {
+           var areaId = areaCsvString.substring(0, areaCsvString.indexOf(','));
+           if (areaId === "") {
+               areaId = $form[0].target
+           }
+           updateArea(areaId, data)
+       } else {
+           if (containsErrorMessages(data)) {
+               displayErrorMessages(data)
+           } else {
+               clearErrorMessages()
+               if (containsEventMessage(data)) {
+                   displayEventMessage(data)
+               }
+               ajaxUpdateAreas(areaCsvString);
+               $form.trigger("closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess");
+           }
+       }
+   }
+   var data = null,
        processData = true,
        enctype = $form.attr("enctype"),
        contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-
    if (enctype && enctype.indexOf("multipart") !== -1) {
        data = new FormData($form[0]);
        contentType = false;
@@ -765,8 +830,13 @@ function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
        url: $form.attr("action"),
        data: data,
        processData: processData,
-       success: function(data) {
-               updateFunction(data);
+       success: function(data, status, response) {
+           updateFunction(data, status, response);
+           waitSpinnerHide();
+       },
+       error: function(xhr, status, exception) {
+           errorRetrievingResponseFromServer(xhr, status, exception)
+           waitSpinnerHide();
        }
    });
 }
@@ -1240,8 +1310,21 @@ function setUserLayoutPreferences(userPrefGroupTypeId, userPrefTypeId, userPrefV
     });
 }
 
-function waitSpinnerShow() {
-    jSpinner = jQuery("#wait-spinner");
+/**
+ * if an id is present, return the area attendee the wait-spinner
+ * else use generic wait-spinner area
+ * @param id
+ * @returns {string}
+ */
+function resolveWaitSpinnerId(id) {
+    if (id === undefined) {
+        return 'wait-spinner';
+    }
+    return id + '-wait-spinner';
+}
+
+function waitSpinnerShow(id) {
+    jSpinner = jQuery("#" + resolveWaitSpinnerId(id));
     if (!jSpinner.length) return
 
     bdy = document.body;
@@ -1257,8 +1340,8 @@ function waitSpinnerShow() {
     jSpinner.show();
 }
 
-function waitSpinnerHide() {
-    jQuery("#wait-spinner").hide()
+function waitSpinnerHide(id) {
+    jQuery("#" + resolveWaitSpinnerId(id)).hide()
 }
 
 /**
@@ -1515,7 +1598,7 @@ var importLibrary = function() {
                 }
             })
         ).then(onSuccessFn).catch(onErrorFn || function (err) {
-            alert('Error:\n'+err+'\n\nFile(s): \n' + urls.join('\n'))
+            console.error('Error:\n'+err+'\n\nFile(s): \n' + urls.join('\n'))
         });
     }
 }();
