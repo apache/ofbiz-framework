@@ -2285,7 +2285,6 @@ public abstract class ModelForm extends ModelWidget {
      * elements used in form widgets.
      */
     public static class UpdateArea {
-        public static final List<String> EVENT_TYPES_FOR_LIST_REFRESH = UtilMisc.toList("paginate", "sort-column");
         private final String eventType;
         private final String areaId;
         private final String areaTarget;
@@ -2479,8 +2478,14 @@ public abstract class ModelForm extends ModelWidget {
                     "areaId", WidgetWorker.getScreenStack(context).resolveScreenAreaId(getAreaId()),
                     "areaTarget", getAreaTarget());
 
+            // Propagate on the callback parameters use by pagination list
+            Map<String, Object> parameters = WidgetWorker.resolveParametersMapFromQueryString(context);
+            if (parameters == null) {
+                parameters = new HashMap<>();
+            }
+            parameters.putAll(getParameterMap(context));
+
             JSONConverters.MapToJSON converter = new JSONConverters.MapToJSON();
-            Map<String, Object> parameters = UtilGenerics.cast(getParameterMap(context));
             try {
                 claims.put("parameters", converter.convert(parameters).toString());
             } catch (ConversionException e) {

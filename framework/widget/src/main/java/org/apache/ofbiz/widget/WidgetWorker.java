@@ -312,4 +312,16 @@ public final class WidgetWorker {
     public static Delegator getDelegator(Map<String, Object> context) {
         return (Delegator) context.get("delegator");
     }
+
+    /**
+     * Analyse the context to found the _QBESTRING_ parameter and return it as Map
+     * @param context
+     * @return
+     */
+    public static Map<String, Object> resolveParametersMapFromQueryString(Map<String, Object> context) {
+        String qbeString = (String) context.get("_QBESTRING_");
+        return qbeString != null
+                ? UtilHttp.getQueryStringOnlyParameterMap(qbeString.replaceAll("&amp;", "&"))
+                : null;
+    }
 }

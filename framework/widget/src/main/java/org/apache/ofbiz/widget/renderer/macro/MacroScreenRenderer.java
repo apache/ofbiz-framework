@@ -310,7 +310,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String style = link.getStyle(context);
         String name = link.getName(context);
         String text = link.getText(context);
-        String linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
+        String linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context);
         String imgStr = "";
         ModelScreenWidget.ScreenImage img = link.getImage();
         if (img != null) {

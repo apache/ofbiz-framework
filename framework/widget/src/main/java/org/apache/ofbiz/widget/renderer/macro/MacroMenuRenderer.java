@@ -263,7 +263,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         if (targetParameters.length() == 0) {
             targetParameters.append("\"\"");
         }
-        parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), context));
+        parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context));
         parameters.put("actionUrl", actionUrl);
         parameters.put("parameterList", targetParameters);
         String imgStr = "";

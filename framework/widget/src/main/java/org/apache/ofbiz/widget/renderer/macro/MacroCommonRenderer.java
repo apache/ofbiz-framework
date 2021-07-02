@@ -61,9 +61,7 @@ public class MacroCommonRenderer {
             ModelForm.UpdateArea updateArea = updateAreaIter.next();
 
             //For each update area we need to resolve three information below
-            String areaIdToUpdate;
-            String targetToCall;
-            String parametersToForward;
+            String areaIdToUpdate, targetToCall, parametersToForward;
 
             // 1. areaId to update, use the screen stack with the potential area given by the update area element
             areaIdToUpdate = WidgetWorker.getScreenStack(ctx).resolveScreenAreaId(updateArea.getAreaId());
@@ -73,7 +71,7 @@ public class MacroCommonRenderer {
             String ajaxTarget = updateArea.getAreaTarget(context);
             if (UtilValidate.isEmpty(ajaxTarget)
                     && parentModelForm != null) {
-                if (ModelForm.UpdateArea.EVENT_TYPES_FOR_LIST_REFRESH.contains(updateArea.getEventType())) {
+                if (UtilMisc.toList("multi", "list").contains(parentModelForm.getType())) {
                     ajaxTarget = parentModelForm.getPaginateTarget(ctx);
                 } else {
                     ajaxTarget = parentModelForm.getTarget(ctx, parentModelForm.getTargetType());
@@ -84,14 +82,12 @@ public class MacroCommonRenderer {
             // 3. Build parameters to forward
             String queryString = UtilHttp.getQueryStringFromTarget(ajaxTarget).replace("?", "");
             Map<String, Object> parameters = UtilHttp.getQueryStringOnlyParameterMap(queryString);
+            if (extraParams != null) {
+                parameters.putAll(UtilGenerics.cast(extraParams));
+            }
             parameters.putAll(UtilGenerics.cast(updateArea.getParameterMap(ctx)));
             UtilHttp.canonicalizeParameterMap(parameters);
             parametersToForward = UtilHttp.urlEncodeArgs(parameters, false);
-            if (UtilValidate.isNotEmpty(parametersToForward)
-                    && UtilValidate.isNotEmpty(extraParams)) {
-                parametersToForward += "&";
-            }
-            parametersToForward += buildParamStringFromMap(extraParams);
 
             // 4. build the final string
             sb.append(areaIdToUpdate).append(",")
@@ -118,15 +114,17 @@ public class MacroCommonRenderer {
 
     /**
      * Analyze the context against the link type to resolve the url to call
+     * @param link generic link object
+     * @param linkType link type is resolved from execution context and not directly on the link object
      * @param context
      * @return
      */
-    public static String getLinkUrl(CommonWidgetModels.Link link, Map<String, Object> context) {
+    public static String getLinkUrl(CommonWidgetModels.Link link, String linkType, Map<String, Object> context) {
         String linkUrl = "";
 
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
-        switch (link.getLinkType()) {
+        switch (linkType) {
         case "update-area":
             ModelForm.UpdateArea resolveUpdateArea = new ModelForm.UpdateArea("onclick",
                     WidgetWorker.getScreenStack(context).resolveScreenAreaId(link.getTargetWindow(context)),
@@ -136,9 +134,11 @@ public class MacroCommonRenderer {
             break;
         case "hidden-form":
             if (link.getCallback() != null) {
-                // we assume that the post request
+                // we assume that the request post
                 // wait an immediate response, so we execute the callback directly
-                linkUrl = createAjaxParamsFromUpdateAreas(UtilMisc.toList(link.getCallback()), null, null, null, context);
+                linkUrl = createAjaxParamsFromUpdateAreas(UtilMisc.toList(link.getCallback()),
+                        WidgetWorker.resolveParametersMapFromQueryString(context),
+                        null, null, context);
             }
             break;
         default:

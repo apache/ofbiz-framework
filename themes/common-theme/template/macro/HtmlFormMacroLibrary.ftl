@@ -233,6 +233,16 @@ under the License.
       <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     </#if>/>
+    <#if containerId?has_content>
+    <#-- the form will be submit by ajax, we inform that perss enter need to call  -->
+    <script>
+        $("form[name='${formName}']").keypress(function(e) {
+          if (e.which === 13 && ! $(e.target).is('textarea')) {
+            e.preventDefault();
+            $("#${id!}").click();
+          }});
+    </script>
+  </#if>
   </#if>
 </#macro>
 
