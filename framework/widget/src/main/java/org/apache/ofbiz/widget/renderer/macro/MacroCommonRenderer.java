@@ -24,8 +24,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -61,7 +63,9 @@ public class MacroCommonRenderer {
             ModelForm.UpdateArea updateArea = updateAreaIter.next();
 
             //For each update area we need to resolve three information below
-            String areaIdToUpdate, targetToCall, parametersToForward;
+            String areaIdToUpdate;
+            String targetToCall;
+            String parametersToForward;
 
             // 1. areaId to update, use the screen stack with the potential area given by the update area element
             areaIdToUpdate = WidgetWorker.getScreenStack(ctx).resolveScreenAreaId(updateArea.getAreaId());
