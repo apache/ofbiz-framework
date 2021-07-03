@@ -295,28 +295,6 @@ public class SQLProcessor implements AutoCloseable {
         // test the connection
         testConnection(connection);
 
-        /* causes problems w/ postgres ??
-        if (Debug.verboseOn()) {
-            int isoLevel = -999;
-            try {
-                isoLevel = connection.getTransactionIsolation();
-            } catch (SQLException e) {
-                Debug.logError(e, "Problems getting the connection's isolation level", MODULE);
-            }
-            if (isoLevel == Connection.TRANSACTION_NONE) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'None'.", MODULE);
-            } else if (isoLevel == Connection.TRANSACTION_READ_COMMITTED) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'ReadCommited'.", MODULE);
-            } else if (isoLevel == Connection.TRANSACTION_READ_UNCOMMITTED) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'ReadUncommitted'.", MODULE);
-            } else if (isoLevel == Connection.TRANSACTION_REPEATABLE_READ) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'RepeatableRead'.", MODULE);
-            } else if (isoLevel == Connection.TRANSACTION_SERIALIZABLE) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'Serializable'.", MODULE);
-            }
-        }
-        */
-
         // always try to set auto commit to false, but if we can't then later on we won't commit
         try {
             if (connection.getAutoCommit()) {

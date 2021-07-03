@@ -365,13 +365,6 @@ public abstract class EntityOperator<L, R> implements Serializable {
         }
     }
 
-
-    /*
-    public T eval(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
-        return castBoolean(mapMatches(delegator, map, lhs, rhs));
-    }
-    */
-
     public abstract boolean isEmpty(L lhs, R rhs);
     public abstract boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs);
     public abstract void validateSql(ModelEntity entity, L lhs, R rhs) throws GenericModelException;

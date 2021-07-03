@@ -1365,20 +1365,6 @@ public class DatabaseUtil {
             return null;
         }
 
-        /*
-         * try { if (Debug.infoOn()) Debug.logInfo("Database Product Name is " +
-         * dbData.getDatabaseProductName(), MODULE); if (Debug.infoOn())
-         * Debug.logInfo("Database Product Version is " +
-         * dbData.getDatabaseProductVersion(), MODULE); } catch (SQLException e) {
-         * Debug.logWarning("Unable to get Database name & version information",
-         * MODULE); } try { if (Debug.infoOn()) Debug.logInfo("Database Driver Name is "
-         * + dbData.getDriverName(), MODULE); if (Debug.infoOn())
-         * Debug.logInfo("Database Driver Version is " + dbData.getDriverVersion(),
-         * MODULE); } catch (SQLException e) {
-         * Debug.logWarning("Unable to get Driver name & version information", MODULE);
-         * }
-         */
-
         if (Debug.infoOn()) {
             Debug.logInfo("Getting Foreign Key (Reference) Info From Database", MODULE);
         }
@@ -1386,8 +1372,6 @@ public class DatabaseUtil {
         Map<String, Map<String, ReferenceCheckInfo>> retMap = new HashMap<>();
 
         try {
-            // ResultSet rsCols = dbData.getCrossReference(null, null, null, null, null,
-            // null);
             String lookupSchemaName = getSchemaName(dbData);
             boolean needsUpperCase = false;
             try {
@@ -1406,7 +1390,6 @@ public class DatabaseUtil {
                 String shortTableName = tableName.split("\\.").length > 0 ? tableName.split("\\.")[tableName.split(
                         "\\.").length - 1] : tableName;
                 ResultSet rsCols = dbData.getImportedKeys(null, lookupSchemaName, shortTableName);
-                // ResultSetMetaData rsMeta = rsCols.getMetaData();
 
                 Map<String, ReferenceCheckInfo> tableRefInfo = retMap.get(tableName);
                 if (tableRefInfo == null) {
@@ -1747,11 +1730,7 @@ public class DatabaseUtil {
 
         // if there is a tableType, add the TYPE arg here
         if (UtilValidate.isNotEmpty(this.datasourceInfo.getTableType())) {
-            // jaz:20101229 - This appears to be only used by mysql and now mysql has
-            // deprecated (and in 5.5.x removed) the use of the TYPE keyword. This is
-            // changed to ENGINE which is supported starting at 4.1
             sqlBuf.append(" ENGINE ");
-            //sqlBuf.append(" TYPE ");
             sqlBuf.append(this.datasourceInfo.getTableType());
         }
 
