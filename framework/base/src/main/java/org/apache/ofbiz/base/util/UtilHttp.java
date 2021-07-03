@@ -415,7 +415,7 @@ public final class UtilHttp {
                             params = params + s + " ";
                         } else if (UtilValidate.isUrl(s) && !s.isEmpty()) {
                             // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
-                            String url = extractUrls(s).get(0); // THere should be only 1 URL in a block, makes no sense else
+                            String url = extractUrls(s).get(0); // There should be only 1 URL in a block, makes no sense else
                             int start = s.indexOf(url);
                             String after = (String) s.subSequence(start + url.length(), s.length());
                             params = params + canonicalizeParameter((String) s.subSequence(0, start)) + url + canonicalizeParameter(after) + " ";
@@ -1736,9 +1736,15 @@ public final class UtilHttp {
                         + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
                         + "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
 
-        Matcher matcher = pattern.matcher(input);
-        while (matcher.find()) {
-            result.add(matcher.group());
+        if (input.contains("component://")
+                || input.contains("https://localhost") // We consider localhost a safe dev env
+                || input.contains("https://127.0.0.1")) {
+            result.add(input);
+        } else {
+            Matcher matcher = pattern.matcher(input);
+            while (matcher.find()) {
+                result.add(matcher.group());
+            }
         }
 
         return result;
