@@ -408,7 +408,7 @@ public final class UtilHttp {
                 String[] stringValues = paramEntries.split(" ");
                 String params = "";
                 // Handles textareas, see OFBIZ-12249
-                if (stringValues.length > 0) {
+                if (stringValues.length > 0 && !paramEntry.getKey().equals("DUMMYPAGE")) {
                     for (String s : stringValues) {
                         // if the string contains only an URL beginning by http or ftp => no change to keep special chars
                         if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
