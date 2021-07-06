@@ -255,12 +255,6 @@ public class EntityDataLoader {
         }
 
         try {
-            /* The OLD way
-              List toBeStored = delegator.readXmlDocument(url);
-              delegator.storeAll(toBeStored);
-              rowsChanged += toBeStored.size();
-             */
-
             EntitySaxReader reader = null;
             if (txTimeout > 0) {
                 reader = new EntitySaxReader(delegator, txTimeout);
@@ -306,22 +300,6 @@ public class EntityDataLoader {
                 } catch (GenericEntityException e) {
                     errorMessages.add("[generateData] ERROR: Failed Security Generation for entity \"" + baseName + "\"");
                 }
-
-                /*
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_VIEW", "description", "Permission to View a "
-                + entity.getEntityName() + " entity."));
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_CREATE", "description", "Permission to Create a "
-                + entity.getEntityName() + " entity."));
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_UPDATE", "description", "Permission to Update a "
-                + entity.getEntityName() + " entity."));
-                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_DELETE", "description", "Permission to Delete a "
-                + entity.getEntityName() + " entity."));
-
-                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_VIEW"));
-                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_CREATE"));
-                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_UPDATE"));
-                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_DELETE"));
-                */
             }
         }
 

@@ -158,7 +158,6 @@ public final class ModelReader implements Serializable {
         entityResourceHandlerMap.put(entityName, entityResourceHandler);
 
         // utilTimer.timerString(" After entityEntityName -- " + i + " --");
-        // ModelEntity entity = createModelEntity(curEntity, utilTimer);
 
         ModelEntity modelEntity = null;
         if (isEntity) {
@@ -225,8 +224,7 @@ public final class ModelReader implements Serializable {
                             throw new GenericEntityConfException("Could not get document for " + entityResourceHandler.toString());
                         }
 
-                        // utilTimer.timerString("Before getDocumentElement in " +
-                        // entityResourceHandler.toString());
+                        // utilTimer.timerString("Before getDocumentElement in " + entityResourceHandler.toString());
                         Element docElement = document.getDocumentElement();
 
                         if (docElement == null) {
@@ -413,8 +411,6 @@ public final class ModelReader implements Serializable {
                                             if (Debug.infoOn()
                                                     && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle()
                                                     + modelRelation.getRelEntityName())) {
-                                                // String errorMsg = "Relation already exists to entity[] with title ["
-                                                // + targetTitle + "], from entity[]";
                                                 String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName()
                                                         + "] already has identical relationship to entity [" + curModelEntity.getEntityName()
                                                         + "] title [" + title
