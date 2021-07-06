@@ -1736,11 +1736,14 @@ public final class UtilHttp {
                         + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
                         + "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
 
-        if (input.contains("component://")
-                || input.contains("https://localhost") // We consider localhost a safe dev env
-                || input.contains("https://127.0.0.1")) {
-            result.add(input);
-        } else {
+        List<String> allowedProtocols = getAllowedProtocols();
+        for (String protocol : allowedProtocols) {
+            if (input.contains(protocol)) {
+                result.add(input);
+            }
+        }
+
+        if (result.isEmpty()) {
             Matcher matcher = pattern.matcher(input);
             while (matcher.find()) {
                 result.add(matcher.group());
@@ -1749,4 +1752,18 @@ public final class UtilHttp {
 
         return result;
     }
+
+    private static List<String> getAllowedProtocols() {
+        List<String> allowedProtocolList = new LinkedList<>();
+        allowedProtocolList.add("component://");
+        String allowedProtocols = UtilProperties.getPropertyValue("security", "allowedProtocols");
+        if (UtilValidate.isNotEmpty(allowedProtocols)) {
+            List<String> allowedProtocolsList = StringUtil.split(allowedProtocols, ",");
+            for (String protocol : allowedProtocolsList) {
+                allowedProtocolList.add(protocol);
+            }
+        }
+        return allowedProtocolList;
+    }
+
 }
