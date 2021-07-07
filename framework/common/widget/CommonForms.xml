@@ -25,6 +25,8 @@ under the License.
     commonFormLocations.CommonSimpleGrid ?: 'component://common-theme/widget/CommonForms.xml'}"/>
     <grid name="CommonBasicGrid" extends="CommonBasicGrid" extends-resource="${groovy:
     commonFormLocations.CommonBasicGrid ?: 'component://common-theme/widget/CommonForms.xml'}"/>
+    <grid name="CommonDynamicGrid" extends="CommonDynamicGrid" extends-resource="${groovy:
+    commonFormLocations.CommonDynamicGrid ?: 'component://common-theme/widget/CommonForms.xml'}"/>
 
     <form name="CommonSimpleList" extends="CommonSimpleList" extends-resource="${groovy:
     commonFormLocations.CommonSimpleList ?: 'component://common-theme/widget/CommonForms.xml'}"/>
@@ -35,6 +37,7 @@ under the License.
 
     <form name="CommonBasicSingle" extends="CommonBasicSingle" extends-resource="${groovy:
     commonFormLocations.CommonBasicSingle ?: 'component://common-theme/widget/CommonForms.xml'}"/>
-
+    <form name="CommonDynamicSingle" extends="CommonDynamicSingle" extends-resource="${groovy:
+    commonFormLocations.CommonDynamicSingle ?: 'component://common-theme/widget/CommonForms.xml'}"/>
 
 </forms>

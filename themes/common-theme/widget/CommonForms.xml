@@ -44,5 +44,8 @@ under the License.
           odd-row-style="alternate-row" header-row-style="header-row-2" separate-columns="true"/>
 
     <form name="CommonBasicSingle" type="single"/>
+    <form name="CommonDynamicSingle" type="single">
+        <on-event-update-area event-type="submit"/>
+    </form>
 
 </forms>
