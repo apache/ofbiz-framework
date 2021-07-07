@@ -37,4 +37,5 @@ desktop.ini
 .*.swp
 .*.swo
 *.patch
+node_modules/
 /docs/asciidoc/images/
