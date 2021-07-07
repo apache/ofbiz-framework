@@ -2531,7 +2531,7 @@ public abstract class ModelForm extends ModelWidget {
                     parameters != null
                             ? parameters.entrySet()
                             .stream()
-                            .map(entry -> new CommonWidgetModels.Parameter(entry.getKey(), (String) entry.getValue(), true))
+                            .map(entry -> new CommonWidgetModels.Parameter(entry.getKey(), (String) entry.getValue(), false))
                             .collect(Collectors.toList())
                             : new ArrayList<>());
         }
