@@ -986,18 +986,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
-    /* DEJ20060125 This is private but not used locally, so just commenting it out for now... may remove later
-    private void copyParams(Collection params) {
-        if (params != null) {
-            Iterator i = params.iterator();
-            while (i.hasNext()) {
-                ModelParam param = (ModelParam) i.next();
-                addParam(param);
-            }
-        }
-    }
-    */
-
     /**
      * Adds a clone of a parameter definition to this service
      */
