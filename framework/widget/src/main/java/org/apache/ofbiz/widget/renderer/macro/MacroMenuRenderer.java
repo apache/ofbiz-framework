@@ -35,7 +35,9 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
@@ -233,6 +235,15 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         String linkUrl = "";
         String actionUrl = "";
         StringBuilder targetParameters = new StringBuilder();
+
+        String confirmationMessage = link.getLink().getConfirmationMsg(context);
+        if (link.getLink().getRequestConfirmation() && UtilValidate.isEmpty(confirmationMessage)) {
+            String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
+                    "${uiLabelMap.CommonConfirm}");
+            confirmationMessage = FlexibleStringExpander.expandString(defaultMessage, context);
+        }
+        parameters.put("confirmation", confirmationMessage);
+
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
             StringBuilder sb = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
