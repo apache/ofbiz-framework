@@ -68,6 +68,8 @@ public interface ModelWidgetVisitor {
 
     void visit(ModelScreenWidget.Label label) throws Exception;
 
+    void visit(ModelScreenWidget.VueJs vuejs) throws Exception;
+
     void visit(ModelScreenWidget.ScreenLink link) throws Exception;
 
     void visit(ModelScreenWidget.Menu menu) throws Exception;

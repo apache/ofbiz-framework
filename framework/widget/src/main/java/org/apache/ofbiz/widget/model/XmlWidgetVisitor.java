@@ -44,6 +44,7 @@ import org.apache.ofbiz.widget.model.ModelScreenWidget.ScreenLink;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Screenlet;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Section;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Tree;
+import org.apache.ofbiz.widget.model.ModelScreenWidget.VueJs;
 import org.apache.ofbiz.widget.model.ModelTree.ModelNode;
 import org.apache.ofbiz.widget.model.ModelTree.ModelNode.ModelSubNode;
 
@@ -227,6 +228,16 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("style", label.getStyleExdr());
         writer.append(">");
         writer.append(label.getTextExdr().getOriginal());
+        writer.append("</label>");
+    }
+
+    @Override
+    public void visit(VueJs vuejs) throws Exception {
+        writer.append("<vuejs");
+        visitModelWidget(vuejs);
+        visitAttribute("component-name", vuejs.getComponentNameExdr());
+        writer.append(">");
+        visitParameters(vuejs.getParameterList());
         writer.append("</label>");
     }
 

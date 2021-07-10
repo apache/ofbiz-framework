@@ -101,6 +101,7 @@ import org.apache.ofbiz.widget.model.ModelScreenWidget.ScreenLink;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Screenlet;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Section;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Tree;
+import org.apache.ofbiz.widget.model.ModelScreenWidget.VueJs;
 import org.apache.ofbiz.widget.model.ModelSingleForm;
 import org.apache.ofbiz.widget.model.ModelTree;
 import org.apache.ofbiz.widget.model.ModelTree.ModelNode;
@@ -239,6 +240,10 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(Label label) throws Exception {
+    }
+
+    @Override
+    public void visit(VueJs vuejs) throws Exception {
     }
 
     @Override

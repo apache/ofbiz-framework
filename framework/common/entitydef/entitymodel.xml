@@ -827,6 +827,7 @@ under the License.
         <field name="portletSeqId" type="id"><description>Identify the portalPortlet instance in case more copy of the same portalPortlet are present in the same portalPage</description></field>
         <field name="columnSeqId" type="id"></field>
         <field name="sequenceNum" type="numeric"></field>
+        <field name="watcherName" type="value"></field>
         <prim-key field="portalPageId"/>
         <prim-key field="portalPortletId"/>
         <prim-key field="portletSeqId"/>

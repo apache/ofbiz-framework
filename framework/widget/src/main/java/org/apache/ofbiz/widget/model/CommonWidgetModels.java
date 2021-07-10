@@ -379,13 +379,21 @@ public final class CommonWidgetModels {
                 this.linkType = linkElement.getAttribute("link-type");
             }
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
-            if (parameterElementList.isEmpty()) {
+            boolean autoPortletParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-portlet") == null ? false : true;
+            if (parameterElementList.isEmpty() && ! autoPortletParamsElement) {
                 this.parameterList = Collections.emptyList();
             } else {
+                int paramListSize = parameterElementList.size() + (autoPortletParamsElement ? 4 : 0);
                 List<Parameter> parameterList = new ArrayList<>(
-                        parameterElementList.size());
+                        paramListSize);
                 for (Element parameterElement : parameterElementList) {
                     parameterList.add(new Parameter(parameterElement));
+                }
+                if (autoPortletParamsElement) {
+                    parameterList.add(new CommonWidgetModels.Parameter("portalPageId",    "parameters.portalPageId",    true));
+                    parameterList.add(new CommonWidgetModels.Parameter("portalPortletId", "parameters.portalPortletId", true));
+                    parameterList.add(new CommonWidgetModels.Parameter("portletSeqId",    "parameters.portletSeqId",    true));
+                    parameterList.add(new CommonWidgetModels.Parameter("currentAreaId",   "parameters.currentAreaId",   true));
                 }
                 this.parameterList = Collections.unmodifiableList(parameterList);
             }
