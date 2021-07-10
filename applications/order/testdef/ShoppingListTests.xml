@@ -27,6 +27,6 @@ under the License.
     </test-case>
 
     <test-case case-name="shoppingList-test">
-        <simple-method-test location="component://order/minilang/test/ShoppingListTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.ShoppingListTests"/>
     </test-case>
 </test-suite>
