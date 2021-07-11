@@ -57,7 +57,20 @@ under the License.
         </td>
       </tr>
       <#else>
-      <tr><td colspan="4">&nbsp;<input type='hidden' name='hasAgreements' value='N'/></td></tr>
+      <tr>
+      	<td colspan="4">&nbsp;
+      	  <input type='hidden' name='hasAgreements' value='N'/></td>
+       </tr>
+       <tr>
+         <td class="label">
+           <label>${uiLabelMap.OrderSelectAgreement}</label>
+        </td>
+        <td valign='middle'>
+        <div class='tabletext' valign='top'>
+        	${uiLabelMap.CommonNone} ${uiLabelMap.CommonAvailable}
+        </div>
+      </td>
+      </tr>
       </#if>
       <#if agreementRoles??>
         <tr>
