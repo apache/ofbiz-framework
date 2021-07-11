@@ -1294,9 +1294,9 @@ under the License.
       <field name="productFeatureId" type="id"></field>
       <field name="parentInvoiceId" type="id"></field>
       <field name="parentInvoiceItemSeqId" type="id"></field>
-      <field name="uomId" type="id"></field>
       <field name="taxableFlag" type="indicator"></field>
       <field name="quantity" type="fixed-point"></field>
+      <field name="quantityUomId" type="id"></field>
       <field name="amount" type="currency-precise"></field>
       <field name="description" type="description"></field>
       <field name="taxAuthPartyId" type="id"/>
@@ -1331,8 +1331,8 @@ under the License.
         <key-map field-name="invoiceId" rel-field-name="parentInvoiceId"/>
         <key-map field-name="invoiceItemSeqId" rel-field-name="parentInvoiceItemSeqId"/>
       </relation>
-      <relation type="one" fk-name="INVCE_ITM_UOM" rel-entity-name="Uom">
-        <key-map field-name="uomId"/>
+      <relation type="one" fk-name="INVCE_ITM_QUOM" rel-entity-name="Uom">
+        <key-map field-name="quantityUomId"/>
       </relation>
       <relation type="one" fk-name="INVCE_ITM_ORGLA" title="Override" rel-entity-name="GlAccount">
         <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>

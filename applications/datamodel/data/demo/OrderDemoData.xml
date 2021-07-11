@@ -2460,7 +2460,7 @@ under the License.
     <ItemIssuance itemIssuanceId="9000" orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9997" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="2.000000"/>
 
     <Invoice invoiceId="8008" invoiceTypeId="PURCHASE_INVOICE" description="Purchase Order Invoice" partyIdFrom="DemoSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-08-13 17:47:47.929" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="8008" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FPROD_ITEM" productId="GZ-2644" quantity="2.000000" amount="24.000" description="GZ-2644-0 Round Gizmo"/>
+    <InvoiceItem invoiceId="8008" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FPROD_ITEM" productId="GZ-2644" quantity="2.000000" quantityUomId="OTH_ea" amount="24.000" description="GZ-2644-0 Round Gizmo"/>
     <OrderItemBilling orderId="Demo1001" orderItemSeqId="00001" invoiceId="8008" invoiceItemSeqId="00001" shipmentReceiptId="9000" quantity="2.000000" amount="24.00"/>
     <AcctgTrans acctgTransId="9001" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-08-13 18:58:34.65" isPosted="Y" postedDate="2009-08-13 18:58:35.08" glFiscalTypeId="ACTUAL" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" invoiceId="8008"/>
     <AcctgTransEntry acctgTransId="9001" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" productId="GZ-2644" glAccountId="214000" organizationPartyId="Company" amount="48.00" currencyUomId="USD" origAmount="48.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
@@ -2529,11 +2529,11 @@ under the License.
     <ItemIssuance itemIssuanceId="9002" orderId="Demo1002" orderItemSeqId="00004" shipGroupSeqId="00001" inventoryItemId="9005" shipmentId="9996" shipmentItemSeqId="00001" issuedDateTime="2009-08-17 14:57:01.872" issuedByUserLoginId="admin" quantity="1.000000"/>
 
     <Invoice invoiceId="8009" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_PAID" invoiceDate="2009-08-17 14:57:03.614" paidDate="2009-08-17 14:57:04.99" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="2.000000" amount="59.990" description="Micro Chrome Widget"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="2.000000" amount="59.990" quantityUomId="OTH_ea" description="Micro Chrome Widget"/>
     <InvoiceItem invoiceId="8009" invoiceItemSeqId="00002" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="0.120" description="Utah County, Utah Sales Tax" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthGeoId="UT-UTAH" taxAuthorityRateSeqId="9005"/>
     <InvoiceItem invoiceId="8009" invoiceItemSeqId="00003" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224153" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="5.699" description="Utah State Sales Tax" taxAuthPartyId="UT_TAXMAN" taxAuthGeoId="UT" taxAuthorityRateSeqId="9004"/>
     <InvoiceItem invoiceId="8009" invoiceItemSeqId="00004" invoiceItemTypeId="ITM_SALES_TAX" overrideGlAccountId="224000" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00001" quantity="1.000000" amount="1.200" description="1% OFB _NA_ Tax" taxAuthPartyId="_NA_" taxAuthGeoId="_NA_" taxAuthorityRateSeqId="9000"/>
-    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00005" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="1.000000" amount="59.990" description="Micro Chrome Widget"/>
+    <InvoiceItem invoiceId="8009" invoiceItemSeqId="00005" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="1.000000" quantityUomId="OTH_ea" amount="59.990" description="Micro Chrome Widget"/>
     <InvoiceItem invoiceId="8009" invoiceItemSeqId="00006" invoiceItemTypeId="ITM_PROMOTION_ADJ" productId="WG-1111" parentInvoiceId="8009" parentInvoiceItemSeqId="00005" quantity="1.000000" amount="-59.990"/>
     <InvoiceItem invoiceId="8009" invoiceItemSeqId="00007" invoiceItemTypeId="ITM_PROMOTION_ADJ" quantity="1.000000" amount="-12.000"/>
     <InvoiceItem invoiceId="8009" invoiceItemSeqId="00008" invoiceItemTypeId="ITM_SHIPPING_CHARGES" quantity="1.000000" amount="12.100"/>
@@ -2574,7 +2574,7 @@ under the License.
     <OrderItemBilling orderId="Demo1002" orderItemSeqId="00004" invoiceId="8009" invoiceItemSeqId="00005" itemIssuanceId="9002" quantity="1.000000" amount="59.99"/>
 
     <Invoice invoiceId="8010" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_APPROVED" invoiceDate="2009-09-17 14:57:03.614" currencyUomId="USD"/>
-    <InvoiceItem invoiceId="8010" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="3.000000" amount="59.990" description="Micro Chrome Widget"/>
+    <InvoiceItem invoiceId="8010" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="3.000000" quantityUomId="OTH_ea" amount="59.990" description="Micro Chrome Widget"/>
     <AcctgTrans acctgTransId="9007" acctgTransTypeId="SALES_INVOICE" transactionDate="2009-09-17 14:57:06.129" isPosted="Y" postedDate="2009-09-17 14:57:06.587" glFiscalTypeId="ACTUAL" invoiceId="8010"/>
     <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
