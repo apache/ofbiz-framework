@@ -68,7 +68,7 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+        <menu-item name="viewroles" title="${uiLabelMap.CommonRoles}">
             <link target="viewroles">
                 <parameter param-name="partyId"/>
             </link>
@@ -98,11 +98,6 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
-            <link target="EditPartyRates">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
         <menu-item name="editShoppingList" title="${uiLabelMap.PartyShoppingLists}">
             <link target="editShoppingList">
                 <parameter param-name="partyId"/>
@@ -118,28 +113,8 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="ContactList" title="${uiLabelMap.PartyContactLists}">
-            <link target="ListPartyContactLists">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
             <link target="EditPartyContents">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditPartySkills" title="${uiLabelMap.CommonPartySkills}">
-            <link target="EditPartySkills">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditPartyResumes" title="${uiLabelMap.HumanResPartyResume}">
-            <link target="EditPartyResumes">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
-            <link target="EditEmploymentApps">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
@@ -153,11 +128,6 @@
         </menu-item>
         <menu-item name="PartyGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="PartyGeoLocation">
-                <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="productStoreRoles" title="${uiLabelMap.ProductProductStoreRoles}">
-            <link target="ViewProductStoreRoles">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
@@ -182,56 +152,6 @@
         <menu-item name="PartyCommEvents" title="${uiLabelMap.PartyCommunications}" >
             <link target="ListPartyCommEvents">
                 <parameter param-name="partyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="findRequest" title="${uiLabelMap.PartyPartyRequests}" >
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-            </condition>
-            <link target="/ordermgr/control/FindRequest" url-mode="inter-app">
-                <parameter param-name="lookupFlag" value="Y"/>
-                <parameter param-name="fromPartyId" from-field="partyId"/>
-                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link>
-        </menu-item>
-        <menu-item name="findQuote" title="${uiLabelMap.OrderOrderQuotes}" >
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-            </condition>
-            <link target="/ordermgr/control/FindQuote" url-mode="inter-app">
-                <parameter param-name="partyId"/>
-                <parameter param-name="externalLoginKey"/>
-            </link>
-        </menu-item>
-        <menu-item name="searchOrder" title="${uiLabelMap.OrderOrders}" >
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-            </condition>
-            <link target="/ordermgr/control/searchorders" url-mode="inter-app" link-type="hidden-form">
-                <parameter param-name="lookupFlag" value="Y"/>
-                <parameter param-name="hideFields" value="Y"/>
-                <parameter param-name="partyId"/>
-                <parameter param-name="externalLoginKey"/>
-                <parameter param-name="viewIndex" value="1"/>
-                <parameter param-name="viewSize" value="20"/>
-            </link>
-        </menu-item>
-        <menu-item name="newQuote" title="${uiLabelMap.OrderNewQuote}">
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
-            </condition>
-            <link target="/ordermgr/control/EditQuote" url-mode="inter-app">
-                <parameter param-name="partyId"/>
-                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link>
-        </menu-item>
-        <menu-item name="newOrder" title="${uiLabelMap.OrderNewOrder}">
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
-            </condition>
-            <link target="/ordermgr/control/checkinits" url-mode="inter-app">
-                <parameter param-name="partyId"/>
-                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
             </link>
         </menu-item>
     </menu>
