@@ -143,10 +143,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="PartyGroup">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="PCATRLE_PTYRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="PCATRLE_CATALOG" rel-entity-name="ProdCatalog">
         <key-map field-name="prodCatalogId"/>
       </relation>
@@ -443,10 +439,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="PROD_CRLE_PTYRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PROD_CRLE_CATEGORY" rel-entity-name="ProductCategory">
@@ -1125,7 +1117,9 @@ under the License.
         <prim-key field="facilityCalendarTypeId"/>
     </entity>
 
-    <entity entity-name="FacilityCarrierShipment" package-name="org.apache.ofbiz.product.facility" title="Facility Role Type">
+    <entity entity-name="FacilityCarrierShipment" 
+            package-name="org.apache.ofbiz.product.facility" 
+            title="Facility Role Type">
         <field name="facilityId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -1227,7 +1221,9 @@ under the License.
             <key-map field-name="facilityGroupId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityGroupRole" package-name="org.apache.ofbiz.product.facility" title="Facility Group Role">
+    <entity entity-name="FacilityGroupRole" 
+            package-name="org.apache.ofbiz.product.facility" 
+            title="Facility Group Role">
         <field name="facilityGroupId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -1236,10 +1232,6 @@ under the License.
         <prim-key field="roleTypeId"/>
         <relation type="one" fk-name="FGROUP_RLE_FGRP" rel-entity-name="FacilityGroup">
             <key-map field-name="facilityGroupId"/>
-        </relation>
-        <relation type="one" fk-name="FGROUP_RLE_PTRLE" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="Party">
             <key-map field-name="partyId"/>
@@ -1365,10 +1357,6 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
         <relation type="one" fk-name="FACILITY_RLE_ROL" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one" fk-name="FACILITY_PRTY_ROLE" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
@@ -3024,10 +3012,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="PROD_RLE_PTYRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="PROD_RLE_PRODUCT" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
@@ -4151,10 +4135,6 @@ under the License.
       <relation type="one" fk-name="PSGRP_RLE_PSGP" rel-entity-name="ProductStoreGroup">
         <key-map field-name="productStoreGroupId"/>
       </relation>
-      <relation type="one" fk-name="PSGRP_RLE_PTRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
@@ -4305,10 +4285,6 @@ under the License.
       </relation>
       <relation type="one-nofk" rel-entity-name="PartyGroup">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PRDSTRRLE_PRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PRDSTRRLE_PRDS" rel-entity-name="ProductStore">
         <key-map field-name="productStoreId"/>
@@ -4624,18 +4600,10 @@ under the License.
         <relation type="one" fk-name="SUBSC_ROLE_TYPE" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
         </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
         <relation type="one" fk-name="SUBSC_OPARTY" title="OriginatedFrom" rel-entity-name="Party">
             <key-map field-name="originatedFromPartyId" rel-field-name="partyId"/>
         </relation>
         <relation type="one" fk-name="SUBSC_OROLE_TYPE" title="OriginatedFrom" rel-entity-name="RoleType">
-            <key-map field-name="originatedFromRoleTypeId" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" title="OriginatedFrom" rel-entity-name="PartyRole">
-            <key-map field-name="originatedFromPartyId" rel-field-name="partyId"/>
             <key-map field-name="originatedFromRoleTypeId" rel-field-name="roleTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="PartyNeed">

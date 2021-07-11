@@ -145,16 +145,8 @@ under the License.
       <relation type="one" fk-name="PERF_REV_EPTY" title="Employee" rel-entity-name="Party">
         <key-map field-name="employeePartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="PERF_REV_EPTRL" title="Employee" rel-entity-name="PartyRole">
-        <key-map field-name="employeePartyId" rel-field-name="partyId"/>
-        <key-map field-name="employeeRoleTypeId" rel-field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="PERF_REV_MPTY" title="Manager" rel-entity-name="Party">
         <key-map field-name="managerPartyId" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" fk-name="PERF_REV_MPTRL" title="Manager" rel-entity-name="PartyRole">
-        <key-map field-name="managerPartyId" rel-field-name="partyId"/>
-        <key-map field-name="managerRoleTypeId" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PERF_REV_PMNT" rel-entity-name="Payment">
         <key-map field-name="paymentId"/>
@@ -184,10 +176,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="PERF_RVITM_EPTY" title="Employee" rel-entity-name="Party">
         <key-map field-name="employeePartyId" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PERF_RVITM_EPTRL" title="Employee" rel-entity-name="PartyRole">
-        <key-map field-name="employeePartyId" rel-field-name="partyId"/>
-        <key-map field-name="employeeRoleTypeId" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one-nofk" fk-name="PERF_RVITM_PRTTP" rel-entity-name="PerfRatingType">
         <key-map field-name="perfRatingTypeId"/>
@@ -222,10 +210,6 @@ under the License.
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="PERF_NOTE_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PERF_NOTE_PRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
     <entity entity-name="PersonTraining"
@@ -346,16 +330,8 @@ under the License.
       <relation type="one" fk-name="EMPLMNT_TPTY" title="To" rel-entity-name="Party">
         <key-map field-name="partyIdTo" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_TPTRL" title="To" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="EMPLMNT_FPTY" title="From" rel-entity-name="Party">
         <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="EMPLMNT_FPTRL" title="From" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one-nofk" fk-name="EMPLMNT_TNRN" rel-entity-name="TerminationReason">
         <key-map field-name="terminationReasonId"/>
@@ -493,16 +469,8 @@ under the License.
       <relation type="one" fk-name="PTY_BNFT_TPTY" title="To" rel-entity-name="Party">
         <key-map field-name="partyIdTo" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="PTY_BNFT_TPTRL" title="To" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="PTY_BNFT_FPTY" title="From" rel-entity-name="Party">
         <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PTY_BNFT_FPTRL" title="From" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PTY_BNFT_BNFTTP" rel-entity-name="BenefitType">
         <key-map field-name="benefitTypeId"/>
@@ -580,10 +548,6 @@ under the License.
       <prim-key field="payrollPreferenceSeqId"/>
       <relation type="one" fk-name="PRL_PREF_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PRL_PREF_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one-nofk" fk-name="PRL_PREF_DNTP" rel-entity-name="DeductionType">
         <key-map field-name="deductionTypeId"/>
