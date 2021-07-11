@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -2866,16 +2865,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        UtilCodec.SimpleEncoder simpleEncoder = null;
-        String encodedDescription = null;
-        if (description.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(description)))) {
-            simpleEncoder = internalEncoder;
-        } else {
-            simpleEncoder = UtilCodec.getEncoder("string");
-        }
-        if (simpleEncoder != null) {
-            encodedDescription = simpleEncoder.encode(description);
-        }
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();
@@ -2895,7 +2884,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             parameterMap.put(viewSizeField, Integer.toString(viewSize));
             if ("multi".equals(modelForm.getType())) {
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
-                        encodedDescription, confirmation, modelFormField, request, context);
+                        description, confirmation, modelFormField, request, context);
                 writer.append(anchorElement.outerHtml());
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place,
                 // but put the actual form def elsewhere, ie after the big form is closed
@@ -2914,7 +2903,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                         targetWindow, parameterMap, modelFormField, request, response, context);
                 writer.append(hiddenFormElement.outerHtml());
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
-                        encodedDescription, confirmation, modelFormField, request, context);
+                        description, confirmation, modelFormField, request, context);
                 writer.append(anchorElement.outerHtml());
             }
         } else {
@@ -2931,13 +2920,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     this.request.setAttribute("height", height);
                 }
                 this.request.setAttribute("uniqueItemName", uniqueItemName);
-                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request,
+                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, description, confirmation, modelFormField, request,
                         response, context, targetWindow);
                 this.request.removeAttribute("uniqueItemName");
                 this.request.removeAttribute("height");
                 this.request.removeAttribute("width");
             } else {
-                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request,
+                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, description, confirmation, modelFormField, request,
                         response, context, targetWindow);
             }
         }
@@ -2994,57 +2983,26 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 width = request.getAttribute("width").toString();
                 height = request.getAttribute("height").toString();
             }
-            StringBuilder targetParameters = new StringBuilder();
-            if (UtilValidate.isNotEmpty(parameterMap)) {
-                targetParameters.append("{");
-                for (Map.Entry<String, String> parameter : parameterMap.entrySet()) {
-                    if (targetParameters.length() > 1) {
-                        targetParameters.append(",");
-                    }
-                    targetParameters.append("'");
-                    targetParameters.append(parameter.getKey());
-                    targetParameters.append("':'");
-                    targetParameters.append(parameter.getValue());
-                    targetParameters.append("'");
-                }
-                targetParameters.append("}");
-            }
-            StringWriter sr = new StringWriter();
-            sr.append("<@makeHyperlinkString ");
-            sr.append("linkStyle=\"");
-            sr.append(linkStyle == null ? "" : linkStyle);
-            sr.append("\" hiddenFormName=\"");
-            sr.append(hiddenFormName);
-            sr.append("\" event=\"");
-            sr.append(event);
-            sr.append("\" action=\"");
-            sr.append(action);
-            sr.append("\" imgSrc=\"");
-            sr.append(imgSrc);
-            sr.append("\" title=\"");
-            sr.append(imgTitle);
-            sr.append("\" alternate=\"");
-            sr.append(alt);
-            sr.append("\" targetParameters=\"");
-            sr.append(targetParameters.toString());
-            sr.append("\" linkUrl=\"");
-            sr.append(linkUrl.toString());
-            sr.append("\" targetWindow=\"");
-            sr.append(targetWindow);
-            sr.append("\" description=\"");
-            sr.append(description);
-            sr.append("\" confirmation =\"");
-            sr.append(confirmation);
-            sr.append("\" uniqueItemName=\"");
-            sr.append(uniqueItemName);
-            sr.append("\" height=\"");
-            sr.append(height);
-            sr.append("\" width=\"");
-            sr.append(width);
-            sr.append("\" id=\"");
-            sr.append(id);
-            sr.append("\" />");
-            executeMacro(writer, sr.toString());
+
+            ftlWriter.processWithArgs(writer,
+                                      (Locale) context.get("locale"),
+                                      "makeHyperlinkString",
+                                      UtilMisc.toMap("linkStyle", linkStyle == null ? "" : linkStyle,
+                                                     "hiddenFormName", hiddenFormName,
+                                                     "event", event,
+                                                     "action", action,
+                                                     "imgSrc", imgSrc,
+                                                     "title", imgTitle,
+                                                     "alternate", alt,
+                                                     "targetParameters", parameterMap,
+                                                     "linkUrl", linkUrl.toString(),
+                                                     "targetWindow", targetWindow,
+                                                     "description", description,
+                                                     "confirmation", confirmation,
+                                                     "uniqueItemName", uniqueItemName,
+                                                     "height", height,
+                                                     "width", width,
+                                                     "id", id));
         }
     }
 

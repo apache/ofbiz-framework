@@ -33,6 +33,8 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 
 import freemarker.core.Environment;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -42,6 +44,7 @@ import freemarker.template.TemplateException;
 public final class FtlWriter {
     private static final String MODULE = FtlWriter.class.getName();
 
+    private final DefaultObjectWrapper defaultObjectWrapper = new DefaultObjectWrapperBuilder(FreeMarkerWorker.VERSION).build();
     private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private final Template macroLibrary;
     private final VisualTheme visualTheme;
@@ -80,6 +83,26 @@ public final class FtlWriter {
             environment.include(template);
         } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering ftl, ftlString: " + ftlString, MODULE);
+        }
+    }
+
+    /**
+     * Process the given function or macro with arguments and write the result to the Appendable.
+     *
+     * @param writer The Appendable to write the result of the template processing to.
+     * @param locale Current locale.
+     * @param name   Name of function or macro to be processed.
+     * @param args   An arguments map to be applied to macro.
+     */
+    public void processWithArgs(Appendable writer, Locale locale, String name, Map<String, Object> args) {
+        try {
+            Environment environment = getEnvironment(writer, locale);
+
+            environment.setVariable("$args$" + name, defaultObjectWrapper.wrap(args));
+
+            processFtlString(writer, locale, String.format("<@%s?with_args($args$%s)/>", name, name));
+        } catch (TemplateException | IOException e) {
+            Debug.logError(e, "Error rendering ftl function or macro: " + name, MODULE);
         }
     }
 
