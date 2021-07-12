@@ -27,6 +27,13 @@ under the License.
                 </or>
             </condition>
             <link target="FindRequest"/>
+            <menu-item name="test">
+            <link target="CreateNewOrderMessage" link-type="layered-modal" >
+                <parameter param-name="orderId"/>
+                <parameter param-name="communicationEventPrpTypId"/>
+            </link>
+            </menu-item>
+
         </menu-item>
 
         <menu-item name="quote" title="${uiLabelMap.OrderOrderQuotes}">
