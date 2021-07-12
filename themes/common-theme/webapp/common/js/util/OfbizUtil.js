@@ -720,7 +720,7 @@ function submitFormInBackground(form, areaId, submitUrl) {
 }
 
 function containsErrorMessages(data) {
-    return data.ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined
+    return data._ERROR_MESSAGE_LIST_ !== undefined || data._ERROR_MESSAGE_ !== undefined
 }
 function displayErrorMessages(data) {
     if (!jQuery('#content-messages').length) {
@@ -730,9 +730,9 @@ function displayErrorMessages(data) {
         }
     }
     jQuery('#content-messages').addClass('errorMessage');
-    if (data._ERROR_MESSAGE_LIST_ != undefined && data._ERROR_MESSAGE_ != undefined) {
+    if (data._ERROR_MESSAGE_LIST_ !== undefined && data._ERROR_MESSAGE_ !== undefined) {
         jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
-    } else if (data._ERROR_MESSAGE_LIST_ != undefined) {
+    } else if (data._ERROR_MESSAGE_LIST_ !== undefined) {
         jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_);
     } else {
         jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
@@ -741,7 +741,7 @@ function displayErrorMessages(data) {
 }
 
 function containsEventMessage(data) {
-    return data.EVENT_MESSAGE_LIST_ != undefined || data._EVENT_MESSAGE_ != undefined
+    return data._EVENT_MESSAGE_LIST_ !== undefined || data._EVENT_MESSAGE_ !== undefined
 }
 function displayEventMessage(data) {
     if (!jQuery('#content-messages').length) {
@@ -751,7 +751,7 @@ function displayEventMessage(data) {
         }
     }
     jQuery('#content-messages').addClass('eventMessage');
-    if (data._EVENT_MESSAGE_LIST_ != undefined && data._EVENT_MESSAGE_ != undefined) {
+    if (data._EVENT_MESSAGE_LIST_ !== undefined && data._EVENT_MESSAGE_ !== undefined) {
         jQuery('#content-messages' ).html(data._EVENT_MESSAGE_LIST_ + " " + data._EVENT_MESSAGE_);
     } else if (data._EVENT_MESSAGE_LIST_ != undefined) {
         jQuery('#content-messages' ).html(data._EVENT_MESSAGE_LIST_);
