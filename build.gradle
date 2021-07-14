@@ -151,6 +151,9 @@ allprojects {
             // com.springsource.com.sun.syndication
             url "https://repo.spring.io/plugins-release"
         }
+        maven {
+            url "https://clojars.org/repo"
+        }
     }
 }
 
