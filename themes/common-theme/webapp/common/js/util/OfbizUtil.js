@@ -1203,50 +1203,67 @@ function submitFormDisableSubmits(form) {
 }
 
 function showjGrowl(showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
+    var contentMessages = jQuery("#content-messages");
+    if (contentMessages.length) {
+        jQuery("#content-messages").hide();
+        var errMessage = jQuery("#content-messages").html();
+        var classEvent = "";
+        var classList = jQuery("#content-messages").attr('class').split(/\s+/);
+        var stickyValue = false;
+        jQuery(classList).each(function (index) {
+            var localClass = classList[index];
+            if (localClass === "eventMessage" || localClass === "errorMessage") {
+                classEvent = localClass + "JGrowl";
+            }
+        });
+        if (classEvent === "errorMessageJGrowl") {
+            stickyValue = true;
+        }
+
+        if (errMessage == null || errMessage === "" || errMessage === undefined) {
+            // No Error Message Information is set, Error Msg Box can't be created
+            return;
+        }
+        showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed);
+        contentMessages.remove();
+    }
+}
+
+function showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
+    if (!showAllLabel || !collapseLabel || !hideAllLabel) {
+        var jGrowlLabelObject = {
+            "CommonUiLabels": ["CommonHideAllNotifications", "CommonShowAll", "CommonCollapse"],
+        };
+        getJSONuiLabels(jGrowlLabelObject, function (result) {
+            jGrowlLabelObject = result.responseJSON.CommonUiLabels;
+        });
+
+        if (!showAllLabel) showAllLabel = jGrowlLabelObject[2];
+        if (!collapseLabel) collapseLabel = jGrowlLabelObject[1];
+        if (!hideAllLabel) hideAllLabel = jGrowlLabelObject[0];
+    }
+
     var libraryFiles = ["/common/js/jquery/plugins/Readmore.js-master/readmore.js",
         "/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js"];
     importLibrary(libraryFiles, function() {
-        var contentMessages = jQuery("#content-messages");
-        if (contentMessages.length) {
-            jQuery("#content-messages").hide();
-            var errMessage = jQuery("#content-messages").html();
-            var classEvent = "";
-            var classList = jQuery("#content-messages").attr('class').split(/\s+/);
-            var stickyValue = false;
-            jQuery(classList).each(function (index) {
-                var localClass = classList[index];
-                if (localClass == "eventMessage" || localClass == "errorMessage") {
-                    classEvent = localClass + "JGrowl";
-                }
-            });
-            if (classEvent == "errorMessageJGrowl") {
-                stickyValue = true;
-            }
+        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
+        if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
+        $.jGrowl(errMessage, {
+            theme: classEvent, sticky: stickyValue,
+            beforeOpen: function (e, m, o) {
+                if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
+                if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
+            },
+            afterOpen: function (e, m) {
+                jQuery(".jGrowl-message").readmore({
+                    moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
+                    lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
 
-            if (errMessage == null || errMessage == "" || errMessage == undefined) {
-                // No Error Message Information is set, Error Msg Box can't be created
-                return;
-            }
-            $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
-            if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
-            $.jGrowl(errMessage, {
-                theme: classEvent, sticky: stickyValue,
-                beforeOpen: function (e, m, o) {
-                    if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
-                    if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
-                },
-                afterOpen: function (e, m) {
-                    jQuery(".jGrowl-message").readmore({
-                        moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
-                        lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
-
-                        maxHeight: 75
-                    });
-                },
-                speed: jGrowlSpeed
-            });
-            contentMessages.remove();
-        }
+                    maxHeight: 75
+                });
+            },
+            speed: jGrowlSpeed
+        });
     });
 }
 
@@ -1356,6 +1373,7 @@ function getJSONuiLabels(requiredLabels, callback) {
         jQuery.ajax({
             url: "getJSONuiLabelArray",
             type: "POST",
+            async: false,
             data: {"requiredLabels" : requiredLabelsStr},
             complete: function(data) {
                 callback(data);
@@ -1380,6 +1398,7 @@ function getJSONuiLabel(uiResource, errUiLabel) {
         jQuery.ajax({
             url: "getJSONuiLabel",
             type: "POST",
+            async: false,
             data: {"requiredLabel" : requiredLabelStr},
             success: function(data) {
                 returnVal = data;
@@ -1387,70 +1406,6 @@ function getJSONuiLabel(uiResource, errUiLabel) {
         });
     }
     return returnVal[arguments[0]];
-}
-
-/**
- * Opens an alert alert box with an i18n error message
- * @param errBoxTitleResource String - Can be empty
- * @param errBoxTitleLabel String - Can be empty
- * @param uiResource String - Required
- * @param errUiLabel String - Required
- */
-function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiResource, errUiLabel) {
-    if (uiResource == null || uiResource == "" || uiResource == undefined || errUiLabel == null || errUiLabel == "" || errUiLabel == undefined) {
-        // No Label Information are set, Error Msg Box can't be created
-        return;
-    }
-
-    var labels = {};
-    var useTitle = false;
-    // title can only be set when the resource and the label are set
-    if (errBoxTitleResource != null && errBoxTitleResource != "" && errBoxTitleLabel != null && errBoxTitleLabel != "") {
-        // create the JSON Object
-        if (errBoxTitleResource == uiResource) {
-            labels[errBoxTitleResource] = [errBoxTitleLabel, errUiLabel];
-        } else {
-            labels[errBoxTitleResource] = [errBoxTitleLabel];
-            labels[uiResource] = [errUiLabel];
-        }
-        useTitle = true;
-    } else {
-        labels[uiResource] = [errUiLabel];
-    }
-    // request the labels
-    getJSONuiLabels(labels, function(result){
-        labels = result.responseJSON;
-    });
-
-    var errMsgBox = jQuery("#contentarea").after(jQuery("<div id='errorAlertBox'></div>"));
-
-    if (errMsgBox.length) {
-        errMsgBox.dialog({
-            modal: true,
-            title: function() {
-                if (useTitle) {
-                    return labels[errBoxTitleResource][0]
-                } else {
-                    return ""
-                }
-            },
-            open : function() {
-                var positionInArray = 0;
-                if (errBoxTitleResource == uiResource) {
-                    positionInArray = 1;
-                }
-                errMsgBox.html(labels[uiResource][positionInArray]);
-            },
-            buttons: {
-                Ok: function() {
-                    errMsgBox.remove();
-                    jQuery( this ).dialog( "close" );
-                }
-            }
-        });
-    } else {
-      alert(labels[uiResource][0]);
-    }
 }
 
 /**
