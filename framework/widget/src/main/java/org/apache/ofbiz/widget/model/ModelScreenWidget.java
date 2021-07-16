@@ -33,8 +33,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -1327,6 +1329,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static final class PlatformSpecific extends ModelScreenWidget {
+        private static final List<String> PLATEFORM_SPECIFIC_SUPPORT_RENDERING_TYPE = UtilMisc.toList("html", "xsl-fo", "xml", "text", "csv", "xls");
         public static final String TAG_NAME = "platform-specific";
         private final Map<String, ModelScreenWidget> subWidgets;
 
@@ -1336,18 +1339,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
             List<? extends Element> childElements = UtilXml.childElementList(platformSpecificElement);
             if (childElements != null) {
                 for (Element childElement: childElements) {
-                    if ("html".equals(childElement.getNodeName())) {
-                        subWidgets.put("html", new HtmlWidget(modelScreen, childElement));
-                    } else if ("xsl-fo".equals(childElement.getNodeName())) {
-                        subWidgets.put("xsl-fo", new HtmlWidget(modelScreen, childElement));
-                    } else if ("xml".equals(childElement.getNodeName())) {
-                        subWidgets.put("xml", new HtmlWidget(modelScreen, childElement));
-                    } else if ("text".equals(childElement.getNodeName())) {
-                        subWidgets.put("text", new HtmlWidget(modelScreen, childElement));
-                    } else if ("csv".equals(childElement.getNodeName())) {
-                        subWidgets.put("csv", new HtmlWidget(modelScreen, childElement));
-                    } else if ("xls".equals(childElement.getNodeName())) {
-                        subWidgets.put("xls", new HtmlWidget(modelScreen, childElement));
+                    String renderingType = childElement.getNodeName();
+
+                    // Remove the namespace if is present
+                    if (renderingType.contains(":")) {
+                        renderingType = StringUtil.split(renderingType, ":").get(1);
+                    }
+                    if (PLATEFORM_SPECIFIC_SUPPORT_RENDERING_TYPE.contains(renderingType)) {
+                        subWidgets.put(renderingType, new HtmlWidget(modelScreen, childElement));
                     } else {
                         throw new IllegalArgumentException("Tag not supported under the platform-specific tag with name: "
                                 + childElement.getNodeName());
