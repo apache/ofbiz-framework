@@ -40,7 +40,7 @@
                 <programlisting>
                     &lt;test-suite suite-name="servicetests"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd"&gt;
+                        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd"&gt;
                         ....
                         ....
                         &lt;test-case case-name="test-case-name"&gt;

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entitymodel.xsd">
     
     <view-entity entity-name="ContentApprovalProductContentAndInfo"
             package-name="org.apache.ofbiz.content.content"

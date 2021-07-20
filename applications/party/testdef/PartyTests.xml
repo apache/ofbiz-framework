@@ -19,7 +19,7 @@
   -->
 <test-suite suite-name="partytests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="party-tests-data-load">
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyTestsData.xml"/>

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="testServiceEcaGlobalEventExec" event="global-commit">
         <action service="testServiceEcaGlobalEventExecOnCommit" mode="sync"/>
     </eca>
