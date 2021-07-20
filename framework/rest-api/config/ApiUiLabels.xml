@@ -19,7 +19,7 @@ under the License.
 -->
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+          xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="GenericServiceValidationErrorMessage">
         <value xml:lang="en">${service} validation failed. The request contained invalid information and could not be processed.</value>
     </property>
