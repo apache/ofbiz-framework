@@ -19,7 +19,7 @@
   -->
 <test-suite suite-name="workefforttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
     <!-- TODO: Move these test implementations to a separate simple methods document -->
     <test-case case-name="workeffort-tests-data-load">
         <entity-xml action="load" entity-xml-url="component://workeffort/testdef/data/WorkEffortTestData.xml"/>

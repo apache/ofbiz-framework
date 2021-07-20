@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitygroup.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entitygroup.xsd">
 
     <entity-group group="org.apache.ofbiz.stats" entity="BrowserType"/>
     <entity-group group="org.apache.ofbiz.stats" entity="PlatformType"/>

@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="PartyErrorCreatePermissionError">
         <value xml:lang="ar">خطأ أمني: يجب أن يكون لديك أذن PARTYMGR_CREATE أو PARTYMGR_UPDATE لتشغل ${resourceDescription}</value>
         <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man PARTYMGR_CREATE oder PARTYMGR_UPDATE Berechtigungen haben</value>

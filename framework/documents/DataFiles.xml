@@ -120,7 +120,7 @@ enter a path for it in the "Save to entity xml file:
                 <example>
                     <title> posschema.xml:</title>
                     <programlisting><![CDATA[
-    <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <data-files xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <data-file name="posreport" separator-style="fixed-length" type-code="text">
             <record name="tillentry" limit="many">
                 <field name="tillCode" type="String" length="16" position="0">
@@ -146,7 +146,7 @@ enter a path for it in the "Save to entity xml file:
                 <example>
                     <title>Another example reading fixed record little endian binary files</title>
                     <programlisting><![CDATA[
-                    <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <data-files xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                         <data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
                             <record name="stockdataitem" limit="many">
                                 <field name="barcode" type="NullTerminatedString" length="12" position="0">
@@ -190,7 +190,7 @@ enter a path for it in the "Save to entity xml file:
 
                 <title>Sample xml definition file for importing select columns posschema.xml:</title>
                 <programlisting><![CDATA[
-                <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <data-files xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                     <data-file name="posreport" separator-style="fixed-length" type-code="text">
                         <record name="tillentry" limit="many">
                             <field name="tillCode" type="String" length="16" position="0">
@@ -216,7 +216,7 @@ enter a path for it in the "Save to entity xml file:
 
                 <title> Another example reading fixed record little endian binary files</title>
                 <programlisting><![CDATA[
-                <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <data-files xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                     <data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
                         <record name="stockdataitem" limit="many">
                             <field name="barcode" type="NullTerminatedString" length="12" position="0">
