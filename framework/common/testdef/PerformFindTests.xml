@@ -20,7 +20,7 @@
 
 <test-suite suite-name="performfindtests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="performfind-tests">
         <junit-test-suite class-name="org.apache.ofbiz.common.test.PerformFindTests"/>

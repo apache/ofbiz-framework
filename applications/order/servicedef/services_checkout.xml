@@ -19,7 +19,7 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://www.ofbiz.org/dtds/services.xsd">
 
     <service name="createUpdateCustomerAndShippingAddress" engine="groovy" location="component://order/groovyScripts/order/CheckoutServices.groovy" auth="false" invoke="createUpdateCustomerAndShippingAddress">
         <implements service="createUpdateShippingAddress"/>

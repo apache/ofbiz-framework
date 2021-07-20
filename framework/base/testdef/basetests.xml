@@ -20,7 +20,7 @@
 
 <test-suite suite-name="basetests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilObjectTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
