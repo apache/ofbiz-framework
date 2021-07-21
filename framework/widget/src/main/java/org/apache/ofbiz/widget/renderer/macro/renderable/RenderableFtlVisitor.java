@@ -16,21 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.widget.renderer.macro.parameter;
+package org.apache.ofbiz.widget.renderer.macro.renderable;
 
-public final class MacroCallParameterStringValue implements MacroCallParameterValue {
-    private final String value;
-
-    public MacroCallParameterStringValue(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public String toFtlString() {
-        return "\"" + value.replaceAll("\"", "\\\\\"") + "\"";
-    }
+public interface RenderableFtlVisitor {
+    void visit(RenderableFtlMacroCall renderableFtlMacroCall);
+    void visit(RenderableFtlNoop renderableFtlNoop);
+    void visit(RenderableFtlString renderableFtlString);
 }

@@ -25,7 +25,7 @@ public final class RenderableFtlNoop implements RenderableFtl {
     }
 
     @Override
-    public String toFtlString() {
-        return "";
+    public void accept(final RenderableFtlVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -18,27 +18,26 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterValue;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import java.util.Map;
 
-public final class MacroCallParameterMatcher extends TypeSafeMatcher<Map.Entry<String, MacroCallParameterValue>> {
+public final class MacroCallParameterMatcher extends TypeSafeMatcher<Map.Entry<String, Object>> {
     private final String name;
-    private final Matcher<MacroCallParameterValue> valueMatcher;
+    private final Matcher<Object> valueMatcher;
 
     private boolean nameMatches = true;
     private boolean valueMatches = true;
 
-    public MacroCallParameterMatcher(final String name, final Matcher<MacroCallParameterValue> valueMatcher) {
+    public MacroCallParameterMatcher(final String name, final Matcher<Object> valueMatcher) {
         this.name = name;
         this.valueMatcher = valueMatcher;
     }
 
     @Override
-    protected boolean matchesSafely(final Map.Entry<String, MacroCallParameterValue> item) {
+    protected boolean matchesSafely(final Map.Entry<String, Object> item) {
         if (name != null) {
             nameMatches = name.equals(item.getKey());
         }
@@ -62,7 +61,7 @@ public final class MacroCallParameterMatcher extends TypeSafeMatcher<Map.Entry<S
     }
 
     @Override
-    protected void describeMismatchSafely(final Map.Entry<String, MacroCallParameterValue> item,
+    protected void describeMismatchSafely(final Map.Entry<String, Object> item,
                                           final Description mismatchDescription) {
         if (name != null) {
             mismatchDescription.appendText("has name '" + item.getKey() + "' ");
