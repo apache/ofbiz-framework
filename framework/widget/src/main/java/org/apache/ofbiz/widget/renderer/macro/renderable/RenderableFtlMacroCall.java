@@ -18,23 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterBooleanValue;
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterMapValue;
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterStringValue;
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterValue;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Represents an FTL macro call.
  */
 public final class RenderableFtlMacroCall implements RenderableFtl {
     private final String name;
-    private final Map<String, MacroCallParameterValue> parameters;
+    private final Map<String, Object> parameters;
 
-    private RenderableFtlMacroCall(String name, Map<String, MacroCallParameterValue> parameters) {
+    private RenderableFtlMacroCall(String name, Map<String, Object> parameters) {
         if (name == null) {
             throw new NullPointerException("RenderableFtlMacroCall name cannot be null");
         }
@@ -43,23 +37,16 @@ public final class RenderableFtlMacroCall implements RenderableFtl {
     }
 
     @Override
-    public String toFtlString() {
-        return parameters.entrySet()
-                .stream()
-                .map((entry) -> createFtlMacroParameter(entry.getKey(), entry.getValue()))
-                .collect(Collectors.joining(" ", "<@" + name + " ", " />"));
+    public void accept(final RenderableFtlVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String getName() {
         return name;
     }
 
-    public Map<String, MacroCallParameterValue> getParameters() {
+    public Map<String, Object> getParameters() {
         return parameters;
-    }
-
-    private String createFtlMacroParameter(final String parameterName, final MacroCallParameterValue parameterValue) {
-        return parameterName + "=" + parameterValue.toFtlString();
     }
 
     public static RenderableFtlMacroCallBuilder builder() {
@@ -68,7 +55,7 @@ public final class RenderableFtlMacroCall implements RenderableFtl {
 
     public static final class RenderableFtlMacroCallBuilder {
         private String name;
-        private Map<String, MacroCallParameterValue> parameters = new HashMap<>();
+        private Map<String, Object> parameters = new HashMap<>();
 
         private RenderableFtlMacroCallBuilder() {
         }
@@ -79,22 +66,22 @@ public final class RenderableFtlMacroCall implements RenderableFtl {
         }
 
         public RenderableFtlMacroCallBuilder stringParameter(final String parameterName, final String parameterValue) {
-            return parameter(parameterName, new MacroCallParameterStringValue(parameterValue));
+            return parameter(parameterName, parameterValue);
         }
 
         public RenderableFtlMacroCallBuilder booleanParameter(final String parameterName, final boolean parameterValue) {
-            return parameter(parameterName, new MacroCallParameterBooleanValue(parameterValue));
+            return parameter(parameterName, parameterValue);
         }
 
         public RenderableFtlMacroCallBuilder mapParameter(final String parameterName, final Map<String, String> parameterValue) {
-            return parameter(parameterName, new MacroCallParameterMapValue(parameterValue));
+            return parameter(parameterName, parameterValue);
         }
 
         public RenderableFtlMacroCall build() {
             return new RenderableFtlMacroCall(name, parameters);
         }
 
-        private RenderableFtlMacroCallBuilder parameter(final String name, final MacroCallParameterValue value) {
+        private RenderableFtlMacroCallBuilder parameter(final String name, final Object value) {
             parameters.put(name, value);
             return this;
         }

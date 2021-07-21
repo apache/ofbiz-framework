@@ -18,23 +18,19 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterStringValue;
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterValue;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-public final class MacroCallParameterStringValueMatcher extends TypeSafeMatcher<MacroCallParameterValue> {
+public final class MacroCallParameterStringValueMatcher extends TypeSafeMatcher<Object> {
     private final String value;
 
     public MacroCallParameterStringValueMatcher(final String value) {
-        super(MacroCallParameterStringValue.class);
         this.value = value;
     }
 
     @Override
-    protected boolean matchesSafely(final MacroCallParameterValue item) {
-        final MacroCallParameterStringValue stringValue = (MacroCallParameterStringValue) item;
-        return value.equals(stringValue.getValue());
+    protected boolean matchesSafely(final Object item) {
+        return value.equals(item);
     }
 
     @Override
@@ -43,8 +39,7 @@ public final class MacroCallParameterStringValueMatcher extends TypeSafeMatcher<
     }
 
     @Override
-    protected void describeMismatchSafely(final MacroCallParameterValue item, final Description mismatchDescription) {
-        final MacroCallParameterStringValue stringValue = (MacroCallParameterStringValue) item;
-        mismatchDescription.appendText("with string value '" + stringValue.getValue() + "'");
+    protected void describeMismatchSafely(final Object item, final Description mismatchDescription) {
+        mismatchDescription.appendText("with string value '" + item + "'");
     }
 }

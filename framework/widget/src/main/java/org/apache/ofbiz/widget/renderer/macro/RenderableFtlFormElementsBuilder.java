@@ -31,9 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -64,7 +62,6 @@ import org.jsoup.nodes.Element;
  */
 public final class RenderableFtlFormElementsBuilder {
     private static final String MODULE = RenderableFtlFormElementsBuilder.class.getName();
-    private final UtilCodec.SimpleEncoder internalEncoder = UtilCodec.getEncoder("string");
     private final VisualTheme visualTheme;
     private final RequestHandler requestHandler;
     private final HttpServletRequest request;
@@ -330,7 +327,6 @@ public final class RenderableFtlFormElementsBuilder {
                                              HttpServletRequest request, HttpServletResponse response,
                                              Map<String, Object> context) {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        String encodedDescription = encode(description, modelFormField, context);
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();
@@ -354,7 +350,7 @@ public final class RenderableFtlFormElementsBuilder {
 
             if ("multi".equals(modelForm.getType())) {
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
-                        encodedDescription, confirmation, modelFormField, request, context);
+                        description, confirmation, modelFormField, request, context);
                 htmlStringBuilder.append(anchorElement.outerHtml());
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the
@@ -371,7 +367,7 @@ public final class RenderableFtlFormElementsBuilder {
                         targetWindow, parameterMap, modelFormField, request, response, context);
                 htmlStringBuilder.append(hiddenFormElement.outerHtml());
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
-                        encodedDescription, confirmation, modelFormField, request, context);
+                        description, confirmation, modelFormField, request, context);
                 htmlStringBuilder.append(anchorElement.outerHtml());
             }
 
@@ -392,13 +388,13 @@ public final class RenderableFtlFormElementsBuilder {
                 }
                 request.setAttribute("uniqueItemName", uniqueItemName);
                 RenderableFtl renderableFtl = hyperlinkMacroCall(linkStyle, targetType, target, parameterMap,
-                        encodedDescription, confirmation, modelFormField, request, response, context, targetWindow);
+                        description, confirmation, modelFormField, request, response, context, targetWindow);
                 request.removeAttribute("uniqueItemName");
                 request.removeAttribute("height");
                 request.removeAttribute("width");
                 return renderableFtl;
             } else {
-                return hyperlinkMacroCall(linkStyle, targetType, target, parameterMap, encodedDescription, confirmation,
+                return hyperlinkMacroCall(linkStyle, targetType, target, parameterMap, description, confirmation,
                         modelFormField, request, response, context, targetWindow);
             }
         }
@@ -537,20 +533,6 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("style", fieldGroup.getStyle());
 
         return macroCallBuilder.build();
-    }
-
-    private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
-        if (UtilValidate.isEmpty(value)) {
-            return value;
-        }
-        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-        boolean alreadyEncoded = value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(value)));
-        if (modelFormField.getEncodeOutput() && encoder != null && !alreadyEncoded) {
-            value = encoder.encode(value);
-        } else {
-            value = internalEncoder.encode(value);
-        }
-        return value;
     }
 
     /**
