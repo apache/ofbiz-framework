@@ -29,6 +29,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHtml;
@@ -128,13 +129,19 @@ public class HtmlWidget extends ModelScreenWidget {
         } else {
             List<ModelScreenWidget> subWidgets = new ArrayList<>(childElementList.size());
             for (Element childElement : childElementList) {
-                if ("html-template".equals(childElement.getNodeName())) {
+                String childNodeName = childElement.getNodeName().contains(":")
+                        ? StringUtil.split(childElement.getNodeName(), ":").get(1)
+                        : childElement.getNodeName();
+                switch (childNodeName) {
+                case "html-template":
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
-                } else if ("html-template-decorator".equals(childElement.getNodeName())) {
+                    break;
+                case "html-template-decorator":
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
-                } else {
-                    throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
-                            + childElement.getNodeName());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: " +
+                            childElement.getNodeName());
                 }
             }
             this.subWidgets = Collections.unmodifiableList(subWidgets);
