@@ -18,15 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.Version;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -48,16 +51,15 @@ import org.jsoup.parser.ParseError;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.ext.beans.StringModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 
 /**
  * Widget Library - Screen model HTML class.
