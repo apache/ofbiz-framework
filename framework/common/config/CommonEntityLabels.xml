@@ -21927,9 +21927,21 @@
         <value xml:lang="zh">电子商务的替代视觉风格</value>
         <value xml:lang="zh-TW">電子商務的替代視覺風格</value>
     </property>
-    <property key="VisualTheme.description.HELVETICUS">
-        <value xml:lang="en">: a Rainbowstone evolution</value>
-        <value xml:lang="fr"> : une évolution de Rainbowstone</value>
+    <property key="VisualTheme.description.HELVETICUS_AMBER">
+        <value xml:lang="en">: a Rainbowstone evolution in orange</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en orange</value>
+    </property>
+    <property key="VisualTheme.description.HELVETICUS_RUBY">
+        <value xml:lang="en">: a Rainbowstone evolution in red</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en rouge</value>
+    </property>
+    <property key="VisualTheme.description.HELVETICUS_EMERALD">
+        <value xml:lang="en">: a Rainbowstone evolution in green</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en vert</value>
+    </property>
+    <property key="VisualTheme.description.HELVETICUS_SAPHIR">
+        <value xml:lang="en">: a Rainbowstone evolution in blue</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en bleu</value>
     </property>
     <property key="VisualTheme.description.RAINBOWSTONE_AMBER">
         <value xml:lang="en">: Rainbowstone theme in orange</value>
