@@ -140,8 +140,8 @@ public class HtmlWidget extends ModelScreenWidget {
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
                     break;
                 default:
-                    throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: " +
-                            childElement.getNodeName());
+                    throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
+                            + childElement.getNodeName());
                 }
             }
             this.subWidgets = Collections.unmodifiableList(subWidgets);
