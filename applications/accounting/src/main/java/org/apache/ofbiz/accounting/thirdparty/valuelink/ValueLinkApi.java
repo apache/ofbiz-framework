@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -59,7 +60,9 @@ import javax.crypto.spec.DHPrivateKeySpec;
 import javax.crypto.spec.DHPublicKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -154,14 +157,23 @@ public class ValueLinkApi {
      * @return Hex String of the encrypted pin (EAN) for transmission to ValueLink
      */
     public String encryptPin(String pin) {
+        byte[] rawIv = new byte[8];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(rawIv);
+        IvParameterSpec iv = new IvParameterSpec(rawIv);
         // get the Cipher
-        Cipher mwkCipher = this.getCipher(this.getMwkKey(), Cipher.ENCRYPT_MODE);
+        Cipher mwkCipher = null;
+        try {
+            mwkCipher = getCipher(this.getMwkKey(), Cipher.ENCRYPT_MODE, iv);
+        } catch (GeneralException e1) {
+            Debug.logError(e1, module);
+        }
 
         // pin to bytes
         byte[] pinBytes = pin.getBytes(StandardCharsets.UTF_8);
 
         // 7 bytes of random data
-        byte[] random = this.getRandomBytes(7);
+        byte[] randomBytes = this.getRandomBytes(7);
 
         // pin checksum
         byte[] checkSum = this.getPinCheckSum(pinBytes);
@@ -169,8 +181,8 @@ public class ValueLinkApi {
         // put all together
         byte[] eanBlock = new byte[16];
         int i;
-        for (i = 0; i < random.length; i++) {
-            eanBlock[i] = random[i];
+        for (i = 0; i < randomBytes.length; i++) {
+            eanBlock[i] = randomBytes[i];
         }
         eanBlock[7] = checkSum[0];
         for (i = 0; i < pinBytes.length; i++) {
@@ -200,11 +212,26 @@ public class ValueLinkApi {
     /**
      * Decrypt an encrypted pin using the configured keys
      * @param pin Hex String of the encrypted pin (EAN)
-     * @return Plain text String of the pin
+     * @return Plain text String of the pin @
      */
     public String decryptPin(String pin) {
-        // get the Cipher
-        Cipher mwkCipher = this.getCipher(this.getMwkKey(), Cipher.DECRYPT_MODE);
+        // separate prefix with IV from the rest of encrypted data
+        byte[] encryptedPayload = Base64.decodeBase64(pin.getBytes());
+        byte[] iv = new byte[8];
+        byte[] encryptedBytes = new byte[encryptedPayload.length - iv.length];
+
+        // populate iv with bytes:
+        System.arraycopy(encryptedPayload, 0, iv, 0, iv.length);
+
+        // populate encryptedBytes with bytes:
+        System.arraycopy(encryptedPayload, iv.length, encryptedBytes, 0, encryptedBytes.length);
+
+        Cipher mwkCipher = null;
+        try {
+            mwkCipher = getCipher(getMwkKey(), Cipher.ENCRYPT_MODE, new IvParameterSpec(iv));
+        } catch (GeneralException e1) {
+            Debug.logError(e1, module);
+        }
 
         // decrypt pin
         String decryptedPinString = null;
@@ -271,7 +298,7 @@ public class ValueLinkApi {
     }
 
     /**
-     * Output the creation of public/private keys + KEK to the console for manual database update
+     * Output the creation of public/private keys + KEK to the console for manual database update @
      */
     public StringBuffer outputKeyCreation(boolean kekOnly, String kekTest) {
         return this.outputKeyCreation(0, kekOnly, kekTest);
@@ -340,8 +367,18 @@ public class ValueLinkApi {
         byte[] loadKekBytes = loadedKek.getEncoded();
 
         // test the KEK
-        Cipher cipher = this.getCipher(this.getKekKey(), Cipher.ENCRYPT_MODE);
-        byte[] kekTestB = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        byte[] rawIv = new byte[8];
+        SecureRandom secRandom = new SecureRandom();
+        secRandom.nextBytes(rawIv);
+        IvParameterSpec iv = new IvParameterSpec(rawIv);
+
+        Cipher cipher = null;
+        try {
+            cipher = getCipher(this.getKekKey(), Cipher.ENCRYPT_MODE, iv);
+        } catch (GeneralException e1) {
+            Debug.logError(e1, module);
+        }
+        byte[] kekTestB = {0, 0, 0, 0, 0, 0, 0, 0 };
         byte[] kekTestC = new byte[0];
         if (kekTest != null) {
             kekTestB = StringUtil.fromHexString(kekTest);
@@ -496,7 +533,7 @@ public class ValueLinkApi {
 
     /**
      * Generate a new MWK
-     * @return Hex String of the new encrypted MWK ready for transmission to ValueLink
+     * @return Hex String of the new encrypted MWK ready for transmission to ValueLink @
      */
     public byte[] generateMwk() {
         KeyGenerator keyGen = null;
@@ -535,7 +572,7 @@ public class ValueLinkApi {
     /**
      * Generate a new MWK
      * @param desBytes byte array of the DES key (24 bytes)
-     * @return Hex String of the new encrypted MWK ready for transmission to ValueLink
+     * @return Hex String of the new encrypted MWK ready for transmission to ValueLink @
      */
     public byte[] generateMwk(byte[] desBytes) {
         if (debug) {
@@ -570,7 +607,7 @@ public class ValueLinkApi {
     /**
      * Generate a new MWK
      * @param mwkdes3 pre-generated DES3 SecretKey
-     * @return Hex String of the new encrypted MWK ready for transmission to ValueLink
+     * @return Hex String of the new encrypted MWK ready for transmission to ValueLink @
      */
     public byte[] generateMwk(SecretKey mwkdes3) {
         // zeros for checksum
@@ -581,9 +618,18 @@ public class ValueLinkApi {
         Random ran = new SecureRandom();
         ran.nextBytes(random);
 
+        byte[] rawIv = new byte[8];
+        SecureRandom secRandom = new SecureRandom();
+        secRandom.nextBytes(rawIv);
+        IvParameterSpec iv = new IvParameterSpec(rawIv);
 
         // open a cipher using the new mwk
-        Cipher cipher = this.getCipher(mwkdes3, Cipher.ENCRYPT_MODE);
+        Cipher cipher = null;
+        try {
+            cipher = getCipher(mwkdes3, Cipher.ENCRYPT_MODE, iv);
+        } catch (GeneralException e1) {
+            Debug.logError(e1, module);
+        }
 
         // make the checksum - encrypted 8 bytes of 0's
         byte[] encryptedZeros = new byte[0];
@@ -617,7 +663,12 @@ public class ValueLinkApi {
      * @return encrypted byte array
      */
     public byte[] encryptViaKek(byte[] content) {
-        return cryptoViaKek(content, Cipher.ENCRYPT_MODE);
+        try {
+            return cryptoViaKek(content, Cipher.ENCRYPT_MODE);
+        } catch (GeneralException e1) {
+            Debug.logError(e1, module);
+        }
+        return null;
     }
 
     /**
@@ -626,7 +677,12 @@ public class ValueLinkApi {
      * @return decrypted byte array
      */
     public byte[] decryptViaKek(byte[] content) {
-        return cryptoViaKek(content, Cipher.DECRYPT_MODE);
+        try {
+            return cryptoViaKek(content, Cipher.DECRYPT_MODE);
+        } catch (GeneralException e1) {
+            Debug.logError(e1, module);
+        }
+        return null;
     }
 
     /**
@@ -772,46 +828,50 @@ public class ValueLinkApi {
         return dhParamSpec;
     }
 
-    // actual kek encryption/decryption code
-    protected byte[] cryptoViaKek(byte[] content, int mode) {
+    /**
+     * actual kek encryption/decryption code
+     * @throws GeneralException
+     */
+    protected byte[] cryptoViaKek(byte[] content, int mode) throws GeneralException {
         // open a cipher using the kek for transport
-        Cipher cipher = this.getCipher(this.getKekKey(), mode);
-        byte[] dec = new byte[0];
+        byte[] rawIv = new byte[8];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(rawIv);
+        IvParameterSpec iv = new IvParameterSpec(rawIv);
+
+        // Create the Cipher - DESede/CBC/PKCS5Padding
+        byte[] encBytes = null;
+        Cipher cipher = getCipher(getKekKey(), mode, iv);
         try {
-            dec = cipher.doFinal(content);
-        } catch (IllegalStateException e) {
-            Debug.logError(e, module);
-        } catch (IllegalBlockSizeException e) {
-            Debug.logError(e, module);
-        } catch (BadPaddingException e) {
+            encBytes = cipher.doFinal(content);
+        } catch (IllegalStateException | BadPaddingException | IllegalBlockSizeException e) {
             Debug.logError(e, module);
         }
-        return dec;
+        // Prepend iv as a prefix to use it during decryption
+        byte[] combinedPayload = new byte[rawIv.length + encBytes.length];
+
+        // populate payload with prefix iv and encrypted data
+        System.arraycopy(iv, 0, combinedPayload, 0, rawIv.length);
+        System.arraycopy(cipher, 0, combinedPayload, 8, encBytes.length);
+
+        return encBytes;
     }
 
-    // return a cipher for a key - DESede/CBC/NoPadding IV = 0
-    protected Cipher getCipher(SecretKey key, int mode) {
-        byte[] zeros = { 0, 0, 0, 0, 0, 0, 0, 0 };
-        IvParameterSpec iv = new IvParameterSpec(zeros);
-
+    // return a cipher for a key - DESede/CBC/NoPadding with random IV
+    protected static Cipher getCipher(Key key, int mode, IvParameterSpec iv) throws GeneralException {
         // create the Cipher - DESede/CBC/NoPadding
-        Cipher mwkCipher = null;
+        Cipher cipher = null;
         try {
-            mwkCipher = Cipher.getInstance("DESede/CBC/NoPadding");
-        } catch (NoSuchAlgorithmException e) {
-            Debug.logError(e, module);
-            return null;
-        } catch (NoSuchPaddingException e) {
-            Debug.logError(e, module);
+            cipher = Cipher.getInstance("DESede/CBC/NoPadding");
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            throw new GeneralException(e);
         }
         try {
-            mwkCipher.init(mode, key, iv);
-        } catch (InvalidKeyException e) {
-            Debug.logError(e, "Invalid key", module);
-        } catch (InvalidAlgorithmParameterException e) {
-            Debug.logError(e, module);
+            cipher.init(mode, key, iv);
+        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
+            throw new GeneralException(e);
         }
-        return mwkCipher;
+        return cipher;
     }
 
     protected byte[] getPinCheckSum(byte[] pinBytes) {

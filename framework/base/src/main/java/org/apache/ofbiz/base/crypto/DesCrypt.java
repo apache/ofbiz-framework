@@ -76,8 +76,6 @@ public class DesCrypt {
     }
 
     public static byte[] decrypt(Key key, byte[] bytes) throws GeneralException {
-        // create the Cipher - DESede/CBC/PKCS5Padding
-
         // separate prefix with IV from the rest of encrypted data
         byte[] encryptedPayload = Base64.decodeBase64(bytes);
         byte[] iv = new byte[8];
