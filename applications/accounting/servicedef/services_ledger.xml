@@ -137,7 +137,7 @@ under the License.
             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="updateGlReconciliation" auth="true">
         <description>Update a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdByUserLogin"/>
             <exclude field-name="lastModifiedByUserLogin"/>
