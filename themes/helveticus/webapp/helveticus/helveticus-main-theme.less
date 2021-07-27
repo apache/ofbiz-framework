@@ -1,3 +1,22 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
+
 /**COMMON COLOR**/
 @grey-lighter: #f2f3f7;
 @grey-light: #dfe0e4;
@@ -30,7 +49,7 @@
 html{font-size: 10px;}
 
 body {
-	font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight:400;
   font-size: 1.2rem;
   background: @grey-lighter;
@@ -78,14 +97,14 @@ span.label{
 }
 
 /*** BUTTON /LINK / NAV STYLES ***/
-a, a:hover, * { 
+a, a:hover, * {
   text-decoration:none;
-	-o-transition:.5s;
-	-ms-transition:.5s;
-	-moz-transition:.5s;
-	-webkit-transition:.5s;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
 }
-a { 
+a {
   color:@main-color-theme;
   font-weight:500;
   &:hover{
@@ -191,7 +210,7 @@ input[type="submit"], .smallSubmit{
     flex-wrap: wrap;
     align-items: center;
     column-gap: 0.5rem;
-    row-gap: 1rem;  
+    row-gap: 1rem;
     li {
       a {
         display:block;
@@ -213,7 +232,7 @@ input[type="submit"], .smallSubmit{
         color:@main-color-theme;
         &:hover{
           color: @light-color-theme;
-          background:@main-color-theme; 
+          background:@main-color-theme;
         }
       }
     }
@@ -229,8 +248,8 @@ input[type="submit"], .smallSubmit{
     font-weight: 600;
     &:hover{
       color: @light-color-theme;
-      background:@main-color-theme; 
-    }      
+      background:@main-color-theme;
+    }
   }
   &.button-style-2 > a{
     background: white;
@@ -243,8 +262,8 @@ input[type="submit"], .smallSubmit{
     font-weight: 600;
     &:hover{
       color: @light-color-theme;
-      background:@main-color-theme; 
-    }      
+      background:@main-color-theme;
+    }
   }
 }
 
@@ -260,8 +279,8 @@ a.buttontext{
   margin:0.3rem;
   &:hover{
     color: @light-color-theme;
-    background:@main-color-theme; 
-  }      
+    background:@main-color-theme;
+  }
 }
 
 /*** HEADER STYLE ***/
@@ -294,15 +313,15 @@ a.buttontext{
       align-items: center;
       margin-left: 1rem;
       .app-btn{
-        opacity:0.85; 
+        opacity:0.85;
         padding:1.8rem 0.9rem;
         border-top-left-radius :0.4rem;
         border-top-right-radius :0.4rem;
         &.selected{
-          opacity:1; 
+          opacity:1;
           background-color:white;
           &:hover{
-            opacity:1; 
+            opacity:1;
             background-color:white;
           }
           #app-selected {
@@ -310,7 +329,7 @@ a.buttontext{
               color: @font-color-for-main
             }
           }
-        } 
+        }
         &:hover{
           opacity:1;
         }
@@ -340,7 +359,7 @@ a.buttontext{
         font-weight: 500;
         span{
           width:4rem;
-          opacity:0.85; 
+          opacity:0.85;
           padding:0.5rem 0.9rem;
           border-top-left-radius :0.4rem;
           border-top-right-radius :0.4rem;
@@ -351,10 +370,10 @@ a.buttontext{
           background-color: @light-color-theme;
           color: @font-color-for-main;
         }
-      }    
+      }
       #more-app:hover #more-app-list {
         display: block;
-      }    
+      }
       #more-app-list {
         display: none;
         position: absolute;
@@ -364,8 +383,8 @@ a.buttontext{
         border-radius: 4px;
         padding:0 2rem;
         box-shadow: 0 0 50px 0 @shadow-color;
-        li {  
-          margin:1rem 0.5rem;  
+        li {
+          margin:1rem 0.5rem;
           a {
             display:block;
             padding:0.2rem 0.5rem;
@@ -374,7 +393,7 @@ a.buttontext{
               color: @main-color-theme;
             }
           }
-        }    
+        }
         li.selected {
           background-color: rgba(255, 255, 255, .9);
           a {
@@ -385,7 +404,7 @@ a.buttontext{
             background-color: @light-color-theme;
           }
         }
-      }    
+      }
     }
   }
   #main-nav-bar-right {
@@ -421,7 +440,7 @@ a.buttontext{
         font-size: 1.4rem;
         position: absolute;
         top:@app-bar-height;
-        right:2rem;  
+        right:2rem;
         background-color: rgba(255, 255, 255, .9);
         border-radius: 4px;
         padding:0 2rem;
@@ -434,7 +453,7 @@ a.buttontext{
           justify-content: center;
           align-items: center;
         }
-        #user-lang{          
+        #user-lang{
           span{
             padding-left: 2rem;
             background-position: left center;
@@ -443,7 +462,7 @@ a.buttontext{
         #logout {
           color: @main-color-theme;
         }
-      }      
+      }
     }
   }
 }
@@ -460,8 +479,8 @@ a.buttontext{
     column-gap: 0.5rem;
     padding: 1rem;
     li {
-      li{       
-        &.selected, &:hover{          
+      li{
+        &.selected, &:hover{
           a{
             background-color: @light-color-theme;
             border-radius: 0.5rem;
@@ -474,7 +493,7 @@ a.buttontext{
           font-weight: 600;
           font-size:1.2rem;
         }
-      }      
+      }
     }
   }
 }
@@ -496,9 +515,9 @@ a.buttontext{
       margin-left:1%
     }
   }
-  .left { 
-    float:left; 
-    width: 12%;    
+  .left {
+    float:left;
+    width: 12%;
     input[type="text"]{
       width: ~"calc(100% - 2rem)"
     }
@@ -522,7 +541,7 @@ a.buttontext{
   }
   .nocolumns {
     width: auto;
-  }  
+  }
 }
 .lefthalf {
   float: left;
@@ -582,7 +601,7 @@ a.buttontext{
             color: white;
             font-size: 1.2rem;
             font-weight: 600;
-            background: @main-color-theme; 
+            background: @main-color-theme;
             border-radius:0.3rem;
             text-transform: uppercase;
             &:hover{
@@ -607,7 +626,7 @@ a.buttontext{
       }
       .disabled {
         opacity:0.75;
-      }  
+      }
       .collapsed, .collapsed:hover {
         background: url("images/plus-circle.svg") no-repeat center center / cover;
         display: inline-block;
@@ -662,8 +681,8 @@ a.buttontext{
           label{
             color:@grey-dark;
             font-weight:500;
-            font-size:1.3rem;        
-          }    
+            font-size:1.3rem;
+          }
         }
       }
     }
@@ -775,7 +794,7 @@ a.buttontext{
           background-color: @main-color-theme ;
         }
       }
-    } 
+    }
     .nav-first-disabled,
     .nav-previous-disabled,
     .nav-next-disabled,
@@ -790,7 +809,7 @@ a.buttontext{
         background-position: center center;
         background-size: 16px;
       }
-    } 
+    }
     .nav-first a,
     .nav-first-disabled span{
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%233699ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>');
@@ -819,7 +838,7 @@ a.buttontext{
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23e1f0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>');
       }
     }
-    
+
     .nav-first-disabled,
     .nav-previous-disabled,
     .nav-next-disabled,
@@ -945,11 +964,11 @@ span.tooltip{
   color: #000000;
   margin-bottom: 1em;
   width: 100%;
-  tr{    
-    th{      
+  tr{
+    th{
       font-weight: 600;
       text-align: left;
-    }    
+    }
     &.header-row{
       font-weight: 600;
       text-align: left;
@@ -979,13 +998,13 @@ span.tooltip{
         color: white;
         font-size: 1.2rem;
         font-weight: 600;
-        background: @main-color-theme; 
+        background: @main-color-theme;
         border-radius:0.3rem;
         text-transform: uppercase;
         margin:0.5rem 0;
         &:hover{
           background: @light-color-theme;
-          color: @main-color-theme 
+          color: @main-color-theme
         }
       }
     }
@@ -1018,7 +1037,7 @@ span.tooltip{
   }
   .alternate-rowValidate {
     background: @successLight;
-  }  
+  }
   .Warn {
     background: @danger;
   }
@@ -1037,15 +1056,15 @@ span.tooltip{
       background-color: @grey-light;
       .sort-order-asc{
         background: url(/images/arrow-gr-up.png) no-repeat right;
-        padding-right: 20px; 
+        padding-right: 20px;
       }
       .sort-order-desc{
         background: url(/images/arrow-gr-dw.png) no-repeat right;
-        padding-right: 20px; 
+        padding-right: 20px;
       }
       .sort-order{
         background: url(/images/arrow-gr.png) no-repeat right;
-        padding-right: 20px; 
+        padding-right: 20px;
         color:@grey-dark;
       }
     }
@@ -1065,10 +1084,10 @@ form .basic-table,
   width: auto;
   tr {
     >td {
-      padding:0.5rem; 
+      padding:0.5rem;
       &.has-tooltip{
         padding-bottom:1.7rem;
-      }     
+      }
     }
     &.has-tooltip td{
       padding-bottom: 2.5rem;
@@ -1169,7 +1188,7 @@ form .basic-table,
     font-weight: 600;
     color:@dark-color-theme
   }
-} 
+}
 .webToolList{
   margin-left:2rem;
   li{
