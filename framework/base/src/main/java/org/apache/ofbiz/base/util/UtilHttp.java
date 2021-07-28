@@ -397,20 +397,20 @@ public final class UtilHttp {
     }
 
     public static Map<String, Object> canonicalizeParameterMap(Map<String, Object> paramMap) {
-        for (Map.Entry<String, Object> paramEntry: paramMap.entrySet()) {
+        for (Map.Entry<String, Object> paramEntry : paramMap.entrySet()) {
             if (paramEntry.getValue() instanceof String) {
                 String paramEntries = (String) paramEntry.getValue();
                 String[] stringValues = paramEntries.split(" ");
                 String params = "";
                 // Handles textareas, see OFBIZ-12249
-                if (stringValues.length > 0) {
+                if (stringValues.length > 0 && !paramEntry.getKey().equals("DUMMYPAGE")) {
                     for (String s : stringValues) {
                         // if the string contains only an URL beginning by http or ftp => no change to keep special chars
                         if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
-                            params = params + s + " " ;
+                            params = params + s + " ";
                         } else if (UtilValidate.isUrl(s) && !s.isEmpty()) {
                             // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
-                            String url = extractUrls(s).get(0); // THere should be only 1 URL in a block, makes no sense else
+                            String url = extractUrls(s).get(0); // There should be only 1 URL in a block, makes no sense else
                             int start = s.indexOf(url);
                             String after = (String) s.subSequence(start + url.length(), s.length());
                             params = params + canonicalizeParameter((String) s.subSequence(0, start)) + url + canonicalizeParameter(after) + " ";
@@ -1722,11 +1722,34 @@ public final class UtilHttp {
                         "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" +
                         "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
 
-        java.util.regex.Matcher matcher = pattern.matcher(input);
-        while (matcher.find()) {
-            result.add(matcher.group());
+        List<String> allowedProtocols = getAllowedProtocols();
+        for (String protocol : allowedProtocols) {
+            if (input.contains(protocol)) {
+                result.add(input);
+            }
+        }
+
+        if (result.isEmpty()) {
+            java.util.regex.Matcher matcher = pattern.matcher(input);
+            while (matcher.find()) {
+                result.add(matcher.group());
+            }
         }
 
         return result;
     }
+
+    private static List<String> getAllowedProtocols() {
+        List<String> allowedProtocolList = new LinkedList<>();
+        allowedProtocolList.add("component://");
+        String allowedProtocols = UtilProperties.getPropertyValue("security", "allowedProtocols");
+        if (UtilValidate.isNotEmpty(allowedProtocols)) {
+            List<String> allowedProtocolsList = StringUtil.split(allowedProtocols, ",");
+            for (String protocol : allowedProtocolsList) {
+                allowedProtocolList.add(protocol);
+            }
+        }
+        return allowedProtocolList;
+    }
+
 }
