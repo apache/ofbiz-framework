@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <!-- Request Mappings -->
+        <sc:request-map uri="WorkEffortTimeEntry/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortTimeEntry/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffortTimeEntry/Invoice/Add"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortTimeEntry/Invoice/Add"/></sc:request-map>
+        <sc:request-map uri="WorkEffortTimeEntry/Invoice/Create"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortTimeEntry/Invoice/Create"/></sc:request-map>
+        <sc:request-map uri="WorkEffortTimeEntry/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortTimeEntry/List"/></sc:request-map>
+
+        <sc:request-map uri="WorkEffortTimeEntry/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createTimeEntry"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortTimeEntry/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateTimeEntry"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortTimeEntry/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteTimeEntry"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="WorkEffortTimeEntry/Invoice/add">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="addWorkEffortTimeToInvoice"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortTimeEntry/Invoice/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="addWorkEffortTimeToNewInvoice"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <!-- View Mappings -->
+        <sc:view-map name="WorkEffortTimeEntry/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml#AddWorkEffortTimeEntry"/>
+        <sc:view-map name="WorkEffortTimeEntry/Invoice/Add" type="screen" page="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml#AddWorkEffortTimeToInvoice"/>
+        <sc:view-map name="WorkEffortTimeEntry/Invoice/Create" type="screen" page="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml#AddWorkEffortTimeToNewInvoice"/>
+        <sc:view-map name="WorkEffortTimeEntry/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml#ListWorkEffortTimeEntries"/>
+    </sc:site-conf>
+
+    <ws:screens>
+        <ws:screen name="ListWorkEffortTimeEntries">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListWorkEffortTimeEntries"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="WorkEffortTimeEntriesTabBar" location="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListWorkEffortTimeEntries" location="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="AddWorkEffortTimeEntry">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortTimeEntry"/>
+                    <ws:entity-one entity-name="TimeEntry" value-field="workEffortTimeEntry"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="AddWorkEffortTimeEntry" location="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="AddWorkEffortTimeToInvoice">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortTimeToInvoice"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="AddWorkEffortTimeToInvoice" location="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="AddWorkEffortTimeToNewInvoice">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortTimeToNewInvoice"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="AddWorkEffortTimeToNewInvoice" location="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wm:menus>
+        <wm:menu name="WorkEffortTimeEntriesTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddWorkEffortTimeEntry" title="${uiLabelMap.PageTitleAddWorkEffortTimeEntry}">
+                <wm:link target="WorkEffortTimeEntry/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortTimeEntry/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="AddWorkEffortTimeToInvoice" title="${uiLabelMap.PageTitleAddWorkEffortTimeToInvoice}">
+                <wm:link target="WorkEffortTimeEntry/Invoice/Add" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortTimeEntry/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="AddWorkEffortTimeToNewInvoice" title="${uiLabelMap.PageTitleAddWorkEffortTimeToNewInvoice}">
+                <wm:link target="WorkEffortTimeEntry/Invoice/Create" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortTimeEntry/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortTimeEntriesInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="EditWorkEffortTimeEntry" title="${uiLabelMap.CommonUpdate}">
+                <wm:link target="WorkEffortTimeEntry/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:parameter param-name="timeEntryId"/>
+                    <wm:set-callback area-target="WorkEffortTimeEntry/List"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="DeleteWorkEffortTimeEntry" title="${uiLabelMap.CommonDelete}">
+                <wm:link target="WorkEffortTimeEntry/delete" request-confirmation="true">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:parameter param-name="timeEntryId"/>
+                    <wm:set-callback area-target="WorkEffortTimeEntry/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+    </wm:menus>
+
+    <wf:forms>
+       <wf:grid name="ListWorkEffortTimeEntries" paginate-target="WorkEffortTimeEntry/List"
+                extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                 <wf:entity-condition entity-name="TimeEntry">
+                    <wf:condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                    <wf:order-by field-name="timesheetId"/>
+                    <wf:order-by field-name="partyId"/>
+                    <wf:order-by field-name="rateTypeId"/>
+                    <wf:order-by field-name="-fromDate"/>
+                </wf:entity-condition>
+            </wf:actions>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="timeEntryId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceItemSeqId"><wf:hidden/></wf:field>
+            <wf:field name="timesheetId">
+                <wf:hyperlink description="${uiLabelMap.WorkEffortTimesheet}:${timesheetId}" target="EditTimesheet" target-type="inter-app">
+                    <wf:parameter param-name="timesheetId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="partyId" title="${uiLabelMap.PartyParty}"><wf:display-entity entity-name="PartyNameView"/></wf:field>
+            <wf:field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><wf:display-entity entity-name="RateType"/></wf:field>
+            <wf:field name="invoiceInfo"><wf:display description="${invoiceId}:${invoiceItemSeqId}" also-hidden="false"/></wf:field>
+            <wf:field name="comments"><wf:display/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListWorkEffortTimeEntriesInLineBar" location="component://workeffort/widget/workeffort/WorkEffortTimeEntriesCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+
+        <wf:form name="AddWorkEffortTimeEntry" target="WorkEffortTimeEntry/update"
+                 focus-field-name="timesheetId" default-map-name="workEffortTimeEntry"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:alt-target use-when="workEffortTimeEntry == null" target="WorkEffortTimeEntry/create"/>
+            <wf:auto-fields-service service-name="createTimeEntry"/>
+            <wf:field name="timeEntryId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceItemSeqId"><wf:hidden/></wf:field>
+            <wf:field name="timesheetId"><wf:lookup size="10" target-form-name="LookupTimesheet"/></wf:field>
+            <wf:field name="partyId" title="${uiLabelMap.PartyParty}"><wf:lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></wf:field>
+            <wf:field name="fromDate"><wf:date-time default-value="${nowTimestamp}"/></wf:field>
+            <wf:field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
+                <wf:drop-down no-current-selected-key="STANDARD">
+                    <wf:entity-options entity-name="RateType">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="submitButton"><wf:submit/></wf:field>
+        </wf:form>
+
+        <wf:form name="AddWorkEffortTimeToInvoice" target="WorkEffortTimeEntry/Invoice/add"
+                 focus-field-name="invoiceId" default-map-name="workEffortTimeEntry"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceId"><wf:lookup target-form-name="LookupInvoice"/></wf:field>
+            <wf:field name="addButton"><wf:submit/></wf:field>
+        </wf:form>
+
+        <wf:form name="AddWorkEffortTimeToNewInvoice" target="WorkEffortTimeEntry/Invoice/create"
+                 focus-field-name="partyIdFrom" default-map-name="workEffortTimeEntry"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><wf:lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></wf:field>
+            <wf:field name="submitButton"><wf:submit/></wf:field>
+        </wf:form>
+
+    </wf:forms>
+
+</compound-widgets>

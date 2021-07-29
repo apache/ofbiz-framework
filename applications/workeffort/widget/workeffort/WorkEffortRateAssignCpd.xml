@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <sc:request-map uri="WorkEffortRate/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortRate/List"/></sc:request-map>
+        <sc:request-map uri="WorkEffortRate/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortRate/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffortRate/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateRateAmount"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortRate/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="expireRateAmount"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:view-map name="WorkEffortRate/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortRateAssignCpd.xml#ListWorkEffortRates"/>
+        <sc:view-map name="WorkEffortRate/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortRateAssignCpd.xml#EditWorkEffortRate"/>
+    </sc:site-conf>
+
+    <ws:screens>
+        <ws:screen name="ListWorkEffortRates">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortAssignmentRate"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="WorkEffortRateTabBar" location="component://workeffort/widget/workeffort/WorkEffortRateAssignCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListWorkEffortRates" location="component://workeffort/widget/workeffort/WorkEffortRateAssignCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="EditWorkEffortRate">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortAssignmentRate"/>
+                    <ws:entity-one entity-name="RateAmount" value-field="workEffortRateAmount"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditWorkEffortRate" location="component://workeffort/widget/workeffort/WorkEffortRateAssignCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wm:menus>
+        <wm:menu name="WorkEffortRateTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddWorkEffortRate" title="${uiLabelMap.CommonAdd}">
+                <wm:link target="WorkEffortRate/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortRate/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortRatesInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="EditWorkEffortRate" title="${uiLabelMap.CommonUpdate}">
+                <wm:link target="WorkEffortRate/Edit" link-type="layered-modal">
+                    <wm:auto-parameters-service service-name="updateRateAmount"/>
+                    <wm:set-callback area-target="WorkEffortRate/List"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="DeleteWorkEffortRate" title="${uiLabelMap.CommonExpire}">
+                <wm:condition>
+                    <wm:if-empty field="thruDate"/>
+                </wm:condition>
+                <wm:link target="WorkEffortRate/delete" request-confirmation="true">
+                    <wm:auto-parameters-service service-name="expireRateAmount"/>
+                    <wm:set-callback area-target="WorkEffortRate/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+    </wm:menus>
+
+    <wf:forms>
+        <wf:grid name="ListWorkEffortRates" paginate-target="WorkEffortRate/List"
+                 extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:entity-condition entity-name="RateAmount" filter-by-date="true">
+                    <wf:condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                    <wf:order-by field-name="rateTypeId"/>
+                    <wf:order-by field-name="periodTypeId"/>
+                    <wf:order-by field-name="rateCurrencyUomId"/>
+                </wf:entity-condition>
+            </wf:actions>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="fromDate"><wf:hidden/></wf:field>
+            <wf:field name="rateCurrencyUomId"><wf:hidden/></wf:field>
+            <wf:field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><wf:display-entity entity-name="RateType"/></wf:field>
+            <wf:field name="rateAmount"><wf:display type="currency" currency="${rateCurrencyUomId}"/></wf:field>
+            <wf:field name="periodTypeId"><wf:display-entity entity-name="PeriodType"/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListWorkEffortRatesInLineBar" location="component://workeffort/widget/workeffort/WorkEffortRateAssignCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+        <wf:form name="EditWorkEffortRate" target="WorkEffortRate/update"
+                 focus-field-name="rateTypeId" default-map-name="workEffortRateAmount"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+                <wf:set field="periodTypeId" value="RATE_HOUR"/>
+            </wf:actions>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
+                <wf:drop-down no-current-selected-key="STANDARD">
+                    <wf:entity-options entity-name="RateType">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="periodTypeId" position="2">
+                <wf:drop-down>
+                    <wf:entity-options entity-name="PeriodType">
+                        <wf:entity-constraint name="periodTypeId" operator="like" value="RATE_%"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="rateAmount"  tooltip="${uiLabelMap.WorkEffortOverrideDefaultRateAmount}"><wf:text/></wf:field>
+            <wf:field name="rateCurrencyUomId" position="2">
+                <wf:drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
+                    <wf:entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                        <wf:entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                        <wf:entity-order-by field-name="abbreviation"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="submitButton"><wf:submit/></wf:field>
+        </wf:form>
+    </wf:forms>
+
+</compound-widgets>
