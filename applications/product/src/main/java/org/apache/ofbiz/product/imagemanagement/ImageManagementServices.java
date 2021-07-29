@@ -157,7 +157,7 @@ public class ImageManagementServices {
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
                     out.write(imageData.array());
                     out.close();
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
@@ -181,7 +181,7 @@ public class ImageManagementServices {
                     RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
                     outFile.write(imageData.array());
                     outFile.close();
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileOriginal.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
