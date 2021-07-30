@@ -109,7 +109,7 @@ body {
     color: #000;
     min-width: 780px;
     margin: 0;
-    width: expression(document.body.clientWidth < 782px? "780px" : "auto");
+    width: expression(document.body.clientWidth < 782? "780px" : "auto");
 }
 
 hr {
@@ -227,7 +227,7 @@ th, th a {
 /* ===== Used to align elements ===== */
 /* ================================== */
 .align-bottom {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
 .align-center {
     text-align: center;
@@ -239,7 +239,7 @@ th, th a {
     text-align: left;
 }
 .align-middle {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
 .align-right {
     text-align: right;
@@ -479,7 +479,6 @@ th, th a {
     padding: 0.1em 0.3em 0.1em 0.3em;
 }
 
-#app-navigation ul .selected,
 #app-navigation ul .selected {
     background-color: #f5f5f5;
     border: 0.1em solid;
@@ -751,10 +750,6 @@ th, th a {
 .button-style-2 ul li ul li {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
-}
-
-.button-style-2 {
-    display: table;
 }
 
 /* ===== In line bar ===== */
