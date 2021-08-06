@@ -918,7 +918,7 @@ form .basic-table,
     border-radius: 1em;
     background: #ddd url(images/button.png) repeat-x;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
-    background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+    background: -moz-linear-gradient(to left bottom, #fff 0%, #ddd 100%);
     border: 0.1em solid;
     border-color: #ddd #bbb #999;
     cursor: pointer;
@@ -1502,7 +1502,7 @@ input[type="button"] {
     border-radius: 1.1em;
     background: #ddd url(images/button.png) repeat-x;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
-    background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+    background: -moz-linear-gradient(to left bottom, #fff 0%, #ddd 100%);
     border: 0.1em solid;
     border-color: #ddd #bbb #999;
     cursor: pointer;
