@@ -22,6 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/workeffort-controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/icalendar-controller.xml"/>
     <description>Work Manager Module Site Configuration File</description>
     
@@ -117,273 +118,27 @@ under the License.
     <request-map uri="deleteWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view" value="FindWorkEffort"/>
-        <response name="error" type="view" value="FindWorkEffort"/>
-    </request-map>
-    
-    <request-map uri="ListWorkEffortFixedAssetAssigns">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-    </request-map>
-    <request-map uri="createWorkEffortFixedAssetAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortFixedAssetAssign"/>
-        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-    </request-map>
-    <request-map uri="updateWorkEffortFixedAssetAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortFixedAssetAssign"/>
-        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortFixedAssetAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="removeWorkEffortFixedAssetAssign"/>
-        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
-    </request-map>
-    <request-map uri="ListWorkEffortPartyAssigns">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-    </request-map>
-    <request-map uri="createWorkEffortPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="assignPartyToWorkEffort"/>
-        <response name="success" type="view-home" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view-home" value="ListWorkEffortPartyAssigns"/>
-    </request-map>
-    <request-map uri="updateWorkEffortPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deletePartyToWorkEffortAssignment"/>
-        <response name="success" type="view-home" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view-home" value="ListWorkEffortPartyAssigns"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
-    <request-map uri="EditWorkEffortRates">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditWorkEffortRates"/>
-    </request-map>
-    <request-map uri="updateWorkEffortRate">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateRateAmount"/>
-        <response name="success" type="view" value="EditWorkEffortRates"/>
-        <response name="error" type="view" value="EditWorkEffortRates"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortRate">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="expireRateAmount"/>
-        <response name="success" type="view" value="EditWorkEffortRates"/>
-        <response name="error" type="view" value="EditWorkEffortRates"/>
-    </request-map>
-
-    <!--  WorkEffort CommunicationEvents requests -->
+    <!--  WorkEffort request mappings -->
+    <request-map uri="ListWorkEffortFixedAssetAssigns"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/></request-map>
+    <request-map uri="ListWorkEffortPartyAssigns"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortPartyAssigns"/></request-map>
+    <request-map uri="EditWorkEffortRates"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffortRates"/></request-map>
     <request-map uri="ListWorkEffortCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortCommEvents"/></request-map>
-    <request-map uri="createCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEventWorkEff"/>
-        <response name="success" type="view" value="ListWorkEffortCommEvents"/>
-        <response name="error" type="view" value="ListWorkEffortCommEvents"/>
-    </request-map>
-    <request-map uri="createWorkEffortCommEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEventWorkEff"/>
-        <response name="success" type="view" value="ListWorkEffortCommEvents"/>
-        <response name="error" type="view" value="ListWorkEffortCommEvents"/>
-    </request-map>
-    <request-map uri="updateCommunicationEventWorkEff">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateCommunicationEventWorkEff"/>
-        <response name="success" type="view" value="ListWorkEffortCommEvents"/>
-        <response name="error" type="view" value="ListWorkEffortCommEvents"/>
-    </request-map>
-    <request-map uri="deleteCommunicationEventWorkEff">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEventWorkEff"/>
-        <response name="success" type="view" value="ListWorkEffortCommEvents"/>
-        <response name="error" type="view" value="ListWorkEffortCommEvents"/>
-    </request-map>
-
-    <!--  WorkEffort CustRequest request mappings -->
     <request-map uri="ListWorkEffortRequests"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortRequests"/></request-map>
-    <request-map uri="createWorkEffortRequest">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortRequest"/>
-        <response name="success" type="view" value="ListWorkEffortRequests"/>
-        <response name="error" type="view" value="ListWorkEffortRequests"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortRequest">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortRequest"/>
-        <response name="success" type="view" value="ListWorkEffortRequests"/>
-        <response name="error" type="view" value="ListWorkEffortRequests"/>
-    </request-map>
-
-   <!--  WorkEffort CustRequestItem request mappings -->
-    <request-map uri="createWorkEffortRequestItem">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortRequestItemAndRequestItem"/>
-        <response name="success" type="view" value="ListWorkEffortRequests"/>
-        <response name="error" type="view" value="ListWorkEffortRequests"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortRequestItem">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortRequestItem"/>
-        <response name="success" type="view" value="ListWorkEffortRequests"/>
-        <response name="error" type="view" value="ListWorkEffortRequests"/>
-    </request-map>
-
-    <!--  WorkEffort Quote request mappings -->
     <request-map uri="ListWorkEffortQuotes"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortQuotes"/></request-map>
-    <request-map uri="createWorkEffortQuote">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortQuote"/>
-        <response name="success" type="view" value="ListWorkEffortQuotes"/>
-        <response name="error" type="view" value="ListWorkEffortQuotes"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortQuote">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortQuote"/>
-        <response name="success" type="view" value="ListWorkEffortQuotes"/>
-        <response name="error" type="view" value="ListWorkEffortQuotes"/>
-    </request-map>
-
-   <!--  WorkEffort QuoteItem request mappings -->
-    <request-map uri="createWorkEffortQuoteItem">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createQuoteItem"/>
-        <response name="success" type="view" value="ListWorkEffortQuotes"/>
-        <response name="error" type="view" value="ListWorkEffortQuotes"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortQuoteItem">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="removeQuoteItem"/>
-        <response name="success" type="view" value="ListWorkEffortQuotes"/>
-        <response name="error" type="view" value="ListWorkEffortQuotes"/>
-    </request-map>
-
-    <!--  WorkEffort Attribute request mappings -->
-    <request-map uri="ListWorkEffortAttributes">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListWorkEffortAttributes"/>
-    </request-map>
-    <request-map uri="createWorkEffortAttribute">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createWorkEffortAttribute"/>
-        <response name="success" type="view" value="ListWorkEffortAttributes"/>
-        <response name="error" type="view" value="ListWorkEffortAttributes"/>
-    </request-map>
-    <request-map uri="updateWorkEffortAttribute">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateWorkEffortAttribute"/>
-        <response name="success" type="view" value="ListWorkEffortAttributes"/>
-        <response name="error" type="view" value="ListWorkEffortAttributes"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortAttribute">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteWorkEffortAttribute"/>
-        <response name="success" type="view" value="ListWorkEffortAttributes"/>
-        <response name="error" type="view" value="ListWorkEffortAttributes"/>
-    </request-map>
-
-    <!--  WorkEffort Requirement request mappings -->
+    <request-map uri="ListWorkEffortAttributes"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortAttributes"/></request-map>
     <request-map uri="ListWorkEffortRequirements"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortRequirements"/></request-map>
-    <request-map uri="createWorkEffortRequirement">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkRequirementFulfillment"/>
-        <response name="success" type="view" value="ListWorkEffortRequirements"/>
-        <response name="error" type="view" value="ListWorkEffortRequirements"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortRequirement">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkRequirementFulfillment"/>
-        <response name="success" type="view" value="ListWorkEffortRequirements"/>
-        <response name="error" type="view" value="ListWorkEffortRequirements"/>
-    </request-map>
-
-    <!--  WorkEffort ShopList request mappings -->
     <request-map uri="ListWorkEffortShopLists"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortShopLists"/></request-map>
-    <request-map uri="createShoppingListWorkEffort">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createShoppingListWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEffortShopLists"/>
-        <response name="error" type="view" value="ListWorkEffortShopLists"/>
-    </request-map>
-    <request-map uri="deleteShoppingListWorkEffort">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteShoppingListWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEffortShopLists"/>
-        <response name="error" type="view" value="ListWorkEffortShopLists"/>
-    </request-map>
-
-    <!--  WorkEffort OrderHeader request mappings -->
     <request-map uri="ListWorkEffortOrderHeaders"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortOrderHeaders"/></request-map>
-    <request-map uri="createWorkEffortOrderHeader">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createOrderHeaderWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEffortOrderHeaders"/>
-        <response name="error" type="view" value="ListWorkEffortOrderHeaders"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortOrderHeader">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteOrderHeaderWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEffortOrderHeaders"/>
-        <response name="error" type="view" value="ListWorkEffortOrderHeaders"/>
-    </request-map>
-
     <request-map uri="EditWorkEffortTimeEntries"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffortTimeEntries"/></request-map>
-    <request-map uri="createWorkEffortTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createTimeEntry"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="updateWorkEffortTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateTimeEntry"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteTimeEntry"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="addWorkEffortTimeToInvoice">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="addWorkEffortTimeToInvoice"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="addWorkEffortTimeToNewInvoice">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="addWorkEffortTimeToNewInvoice"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-
+    <request-map uri="EditAgreementWorkEffortApplics"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementWorkEffortApplics"/></request-map>
+    <request-map uri="listWorkEffortEventReminders"><security auth="true" https="true"/><response name="success" type="view" value="ListWorkEffortEventReminders"/></request-map>
 
     <!-- Timesheet Requests -->
     <request-map uri="MyTimesheets"><security https="true" auth="true"/><response name="success" type="view" value="MyTimesheets"/></request-map>
-    <request-map uri="createTimesheetForThisWeek">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createTimesheetForThisWeek"/>
-        <response name="success" type="view" value="MyTimesheets"/>
-        <response name="error" type="view" value="MyTimesheets"/>
-    </request-map>
-    <request-map uri="createQuickTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createTimeEntry"/>
-        <response name="success" type="view" value="MyTimesheets"/>
-        <response name="error" type="view" value="MyTimesheets"/>
-    </request-map>
 
     <request-map uri="FindTimesheet"><security https="true" auth="true"/><response name="success" type="view" value="FindTimesheet"/></request-map>
     <request-map uri="EditTimesheet"><security https="true" auth="true"/><response name="success" type="view" value="EditTimesheet"/></request-map>
@@ -460,115 +215,25 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEffortNotes"/>
     </request-map>
-
-    <request-map uri="createWorkEffortNote">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortNote"/>
-        <response name="success" type="view" value="EditWorkEffortNotes"/>
-        <response name="error" type="view" value="EditWorkEffortNotes"/>
-    </request-map>
-    <request-map uri="updateWorkEffortNote">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortNote"/>
-        <response name="success" type="view" value="EditWorkEffortNotes"/>
-        <response name="error" type="view" value="EditWorkEffortNotes"/>
-    </request-map>
-
-    <!-- WorkEffort Content Requests -->
     <request-map uri="EditWorkEffortContents">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
     </request-map>
 
-    <request-map uri="createWorkEffortContent">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="createWorkEffortContent" path=""/>
-        <response name="success" type="view" value="EditWorkEffortContents"/>
-        <response name="error" type="view" value="EditWorkEffortContents"/>
-    </request-map>
-
-    <request-map uri="updateWorkEffortContent">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="updateWorkEffortContent" path=""/>
-        <response name="success" type="view" value="EditWorkEffortContents"/>
-        <response name="error" type="view" value="EditWorkEffortContents"/>
-    </request-map>
-
-    <request-map uri="deleteWorkEffortContent">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="deleteWorkEffortContent" path=""/>
-        <response name="success" type="view" value="EditWorkEffortContents"/>
-        <response name="error" type="view" value="EditWorkEffortContents"/>
-    </request-map>
-
-    <!-- WorkEffort Good Standard Requests -->
     <request-map uri="EditWorkEffortGoodStandards">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>
 
-    <request-map uri="createWorkEffortGoodStandard">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="createWorkEffortGoodStandard" path=""/>
-        <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
-        <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
-    </request-map>
-
-    <request-map uri="updateWorkEffortGoodStandard">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="updateWorkEffortGoodStandard" path=""/>
-        <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
-        <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
-    </request-map>
-
-    <request-map uri="removeWorkEffortGoodStandard">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="removeWorkEffortGoodStandard" path=""/>
-        <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
-        <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
-    </request-map>
-
-    <!-- WorkEffort Review -->
-
     <request-map uri="EditWorkEffortReviews">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEffortReviews"/>
-    </request-map>
-    <request-map uri="createWorkEffortReview">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortReview"/>
-        <response name="success" type="view" value="EditWorkEffortReviews"/>
-        <response name="error" type="view" value="EditWorkEffortReviews"/>
-    </request-map>
-    <request-map uri="updateWorkEffortReview">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortReview"/>
-        <response name="success" type="view" value="EditWorkEffortReviews"/>
-        <response name="error" type="view" value="EditWorkEffortReviews"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortReview">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortReview"/>
-        <response name="success" type="view" value="EditWorkEffortReviews"/>
-        <response name="error" type="view" value="EditWorkEffortReviews"/>
     </request-map>
 
     <!-- WorkEffort Keyword -->
     <request-map uri="EditWorkEffortKeywords">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEffortKeywords"/>
-    </request-map>
-    <request-map uri="createWorkEffortKeyword">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortKeyword"/>
-        <response name="success" type="view" value="EditWorkEffortKeywords"/>
-        <response name="error" type="view" value="EditWorkEffortKeywords"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortKeyword">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortKeyword"/>
-        <response name="success" type="view" value="EditWorkEffortKeywords"/>
-        <response name="error" type="view" value="EditWorkEffortKeywords"/>
     </request-map>
     <request-map uri="createWorkEffortKeywords">
         <security https="true" auth="true"/>
@@ -650,48 +315,6 @@ under the License.
     <request-map uri="LookupAgreement"><security https="true" auth="true"/><response name="success" type="view" value="LookupAgreement"/></request-map>
     <request-map uri="LookupAgreementItem"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementItem"/></request-map>
 
-    <!--WorkEffort Agreements-->
-    <request-map uri="EditAgreementWorkEffortApplics">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditAgreementWorkEffortApplics"/>
-    </request-map>
-    <request-map uri="createAgreementWorkEffortApplic">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createAgreementWorkEffortApplic"/>
-        <response name="success" type="view" value="EditAgreementWorkEffortApplics"/>
-        <response name="error" type="view" value="EditAgreementWorkEffortApplics"/>
-    </request-map>
-    <request-map uri="deleteAgreementWorkEffortApplic">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteAgreementWorkEffortApplic"/>
-        <response name="success" type="view" value="EditAgreementWorkEffortApplics"/>
-        <response name="error" type="view" value="EditAgreementWorkEffortApplics"/>
-    </request-map>
-
-    <!--WorkEffort Event Reminders -->
-    <request-map uri="createWorkEffortEventReminder">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortEventReminder"/>
-        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
-        <response name="error" type="view" value="ListWorkEffortEventReminders"/>
-    </request-map>
-    <request-map uri="updateWorkEffortEventReminder">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortEventReminder"/>
-        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
-        <response name="error" type="view" value="ListWorkEffortEventReminders"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortEventReminder">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortEventReminder"/>
-        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
-        <response name="error" type="view" value="ListWorkEffortEventReminders"/>
-    </request-map>
-    <request-map uri="listWorkEffortEventReminders">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
-    </request-map>
-
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -708,6 +331,8 @@ under the License.
     <view-map name="WorkEffortSummary" type="screen" page="component://workeffort/widget/WorkEffortRelatedSummaryScreens.xml#WorkEffortSummary"/>
 
     <view-map name="FindWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#FindWorkEffort"/>
+    <view-map name="SearchWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#SearchWorkEffort"/>
+    <view-map name="FoundWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#FoundWorkEfforts"/>
     <view-map name="EditWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffort"/>
     <view-map name="ListWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEfforts"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ChildWorkEfforts"/>
