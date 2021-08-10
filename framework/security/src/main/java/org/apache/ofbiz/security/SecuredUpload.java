@@ -604,7 +604,7 @@ public class SecuredUpload {
                                                               // Else "template.utility.Execute" is a good replacement but not as much catching, who
                                                               // knows...
                 || content.toLowerCase().contains("import=\"java")
-                || content.toLowerCase().contains("Runtime.getRuntime().exec(")
+                || content.toLowerCase().contains("runtime.getruntime().exec(")
                 || content.toLowerCase().contains("<%@ page")
                 || content.toLowerCase().contains("<script")
                 || content.toLowerCase().contains("<body>")
@@ -629,9 +629,9 @@ public class SecuredUpload {
                 || content.toLowerCase().contains("new file")
                 || content.toLowerCase().contains("import")
                 || content.toLowerCase().contains("upload")
-                || content.toLowerCase().contains("getFileName")
-                || content.toLowerCase().contains("Download")
-                || content.toLowerCase().contains("getOutputString")
+                || content.toLowerCase().contains("getfilename")
+                || content.toLowerCase().contains("download")
+                || content.toLowerCase().contains("getoutputstring")
                 || content.toLowerCase().contains("readfile"));
         // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
         // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
