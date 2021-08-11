@@ -723,7 +723,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
      b. If using an old version of the driver, beware of this resource leak:
       http://support.microsoft.com/kb/820773/
      c. Demo data are in conflict with Entity Unique Index when loading data
-      This is a known issue with MsSQL since http://ofbiz.135035.n4.nabble.com/Unique-constraint-on-Person-cardId-breaks-ofbiz-on-SQL-Server-td4656840.html
+      This is a known issue with MsSQL since https://markmail.org/message/mezqxb3eyzz3xpv6
       The problem does not exist with Derby, nor with the mostly open source DBMS used with OFBiz: Postres, MySQL, MariaDB, etc.
       So we will not change the current OOTB setting and suggest to simply change your own configuration. See OFBIZ-11998 for more.
     -->
