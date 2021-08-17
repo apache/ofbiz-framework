@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.util
 
 import org.apache.commons.io.FileUtils
+import org.junit.Ignore
 import org.junit.Test
 
 public class FileUtilTests {
@@ -26,6 +27,7 @@ public class FileUtilTests {
      * Test FileUtil zipFileStream and unzipFileToFolder methods, using README.adoc
      */
     @Test
+    @Ignore
     void zipReadme() {
         String zipFilePath = UtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp")
         String zipName = 'README.adoc.zip'

@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+    id 'maven-publish'
+}
+
+dependencies {
+
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20200713.1'
+    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.15'
+    implementation 'com.ibm.icu:icu4j:68.1'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.15'
+    implementation 'commons-io:commons-io:2.8.0'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'commons-lang:commons-lang:2.6'
+    implementation 'commons-validator:commons-validator:1.7'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.3'
+    implementation 'de.odysseus.juel:juel-impl:2.2.7'
+    implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'net.lingala.zip4j:zip4j:2.6.4'
+    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.13'
+    implementation 'org.apache.tomcat:tomcat-el-api:9.0.43'
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-text:1.9'
+    implementation 'org.apache.commons:commons-imaging:1.0-alpha2' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.0' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    implementation 'org.apache.shiro:shiro-core:1.4.1' // So far we did not update from 1.4.1 because of a compile issue or w/ 1.7.0 an EntityCrypto exception when loading data. You may try w/ a newer version than  1.7.0
+    implementation 'org.codehaus.groovy:groovy-all:2.5.11' // Compile issue with commons-cli and Groovy 3. Remember to change the version number in javadoc block.
+    implementation 'org.freemarker:freemarker:2.3.31' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'org.owasp.esapi:esapi:2.2.2.0'
+    implementation 'oro:oro:2.0.8'
+    implementation 'xerces:xercesImpl:2.12.0'
+
+    runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
+}

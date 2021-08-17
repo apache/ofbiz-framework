@@ -1,0 +1,59 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+import java.util.stream.Stream
+import java.util.stream.Collectors
+
+// The ‘file’ argument can be either a string or a file.
+Stream<Node> xmlChildren(file) {
+    new XmlParser().parse(file).children().stream()
+}
+
+Stream<File> subdirs(File dir) {
+    def res = []
+    dir.eachDir res.&add
+    res.stream()
+}
+
+boolean isComponentEnabled(File componentDir) {
+    File componentFile = file(componentDir.toString() + '/ofbiz-component.xml')
+    componentFile.exists() && new XmlParser().parse(componentFile)
+                                             .with { it.@enabled in [null, 'true'] }
+}
+
+List<File> activeComponents() {
+    xmlChildren("${rootDir}/component-load.xml")
+        .map { "${rootDir}"}
+        .flatMap({ dir ->
+            File loader = file(dir + '/component-load.xml')
+            println("Scan component ${loader}")
+            if (loader.exists()) {
+                xmlChildren(loader).map { file dir + '/' + it.@'component-location' }
+            } else {
+                subdirs file(dir)
+            }
+        })
+        .filter(this.&isComponentEnabled)
+        .collect(Collectors.toList()) + file("${rootDir}/start")
+}
+
+//ext {
+//    subdirs = this.&subdirs
+//    activeComponents = this.&activeComponents.memoize()
+//    isComponentEnabled = this.&isComponentEnabled.memoize()
+//}

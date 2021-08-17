@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation project(":base")
+    implementation 'oro:oro:2.0.8'
+}

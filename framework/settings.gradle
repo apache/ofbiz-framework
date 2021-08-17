@@ -1,0 +1,21 @@
+rootProject.name = 'ofbiz-framework'
+
+apply from: 'common.gradle'
+
+def fileSep = System.getProperty("file.separator")
+def isWindows = System.getProperty('os.name').toLowerCase().contains("windows")
+
+//activeComponents().each { File component ->
+//    println("Activate ${component}")
+//    def subProject = (component.toString() - rootDir)
+//    if (isWindows)
+//        include subProject.replaceAll('\\' + fileSep, ':')
+//    else
+//        include subProject.replaceAll(fileSep, ':')
+//}
+
+include 'start'
+include 'base'
+include 'common'
+include 'entity'
+include 'entityext'
