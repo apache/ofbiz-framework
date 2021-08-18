@@ -53,7 +53,7 @@ def createTextAndUploadedContent() {
 }
 
 def updateSingleContentPurpose() {
-    delegator.removeByAnd("ContentPurpose", ["contentId": parameters.contentId])
+    delegator.removeByAnd("ContentPurpose", [contentId: parameters.contentId])
     run service : "createContentPurpose", with: parameters
 }
 
