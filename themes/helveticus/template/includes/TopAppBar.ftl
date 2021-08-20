@@ -50,6 +50,7 @@ under the License.
         <ul id="app-bar-list">
             <#assign appCount = 0>
             <#assign firstApp = true>
+            <#if displayApps??>
             <#list displayApps as display>
                 <#assign thisApp = display.getContextRoot()>
                 <#assign permission = true>
@@ -91,6 +92,8 @@ under the License.
                     </#if>
                 </#if>
             </#list>
+            </#if>
+            <#if displaySecondaryApps??>
             <#list displaySecondaryApps as display>
                 <#assign thisApp = display.getContextRoot()>
                 <#assign permission = true>
@@ -128,6 +131,7 @@ under the License.
                     <#assign appCount = appCount + 1>
                 </#if>
             </#list>
+            </#if>
         </ul>
         <!-- If the number of applications is greater than the maximum number of applications that can be displayed, the rest is put
         in a drop-down menu. The code is deliberately doubled because otherwise, reading the code during maintenance
@@ -135,6 +139,7 @@ under the License.
     <div class="container-more-app">
         <#assign appCount = 0>
         <#assign moreApp = false>
+        <#if displayApps??>
         <#list displayApps as display>
             <#assign thisApp = display.getContextRoot()>
             <#assign permission = true>
@@ -180,6 +185,8 @@ under the License.
                 </#if>
             </#if>
         </#list>
+        </#if>
+        <#if displaySecondaryApps??>
         <#list displaySecondaryApps as display>
             <#assign thisApp = display.getContextRoot()>
             <#assign permission = true>
@@ -221,6 +228,7 @@ under the License.
                 <#assign appCount = appCount + 1>
             </#if>
         </#list>
+        </#if>
         <#if moreApp>
         </ul> <!-- more-app-list -->
         </div> <!-- more-app -->

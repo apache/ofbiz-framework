@@ -36,13 +36,30 @@ function selectOrgaOK(orgaName){
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var tooltips = document.querySelectorAll('.tooltip');
-    var checkboxs = document.querySelectorAll('input[type=checkbox]');
-    var radios = document.querySelectorAll('input[type=radio]');
-    var lefts = document.querySelectorAll('.lefthalf');
+    let tooltips = document.querySelectorAll('.tooltip'),
+        checkboxs = document.querySelectorAll('input[type=checkbox]'),
+        radios = document.querySelectorAll('input[type=radio]'),
+        lefts = document.querySelectorAll('.lefthalf');
+
     tooltips.forEach(tooltip => {
-        tooltip.parentNode.classList.add('has-tooltip');
+        tooltip.classList.add('hidden');
+
+        let ParentTooltip = tooltip.parentNode;
+        ParentTooltip.classList.add('has-tooltip');
+
+        let infoTooltips = ParentTooltip.querySelectorAll('i');
+
+        infoTooltips.forEach(infoTooltip => {
+            infoTooltip.classList.remove("hidden");
+            infoTooltip.addEventListener("mouseenter", function( event ) {
+                tooltip.classList.remove('hidden');
+            });
+            infoTooltip.addEventListener("mouseout", function( event ) {
+                tooltip.classList.add('hidden');
+            })
+        })
     });
+
     checkboxs.forEach(checkbox => {
         checkbox.parentNode.classList.add('has-checkbox');
     });

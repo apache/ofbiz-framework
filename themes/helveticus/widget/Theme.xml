@@ -54,6 +54,7 @@ under the License.
         <!--javascript lib-->
         <property name="VT_HDR_JAVASCRIPT['add']" value="/helveticus/js/less.min.js"/>
         <property name="VT_FTR_JAVASCRIPT['add']" value="/helveticus/js/helveticus.js"/>
+        <property name="VT_FTR_JAVASCRIPT['add']" value="/helveticus/js/OfbizUtil.js"/>
         <!--Css style-->
         <property name="VT_STYLESHEET['add']" value="/helveticus/flag-icon.min.css"/>
         <property name="VT_STYLESHEET['add']" value="/helveticus/javascript.css"/>
@@ -65,6 +66,7 @@ under the License.
     <templates>
         <template name="screen" type="html" content-type="UTF-8" encoding="none" encoder="html" compress="false">
             <template-file widget="menu" location="component://helveticus/template/macro/HtmlMenuMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://helveticus/template/macro/HtmlFormMacroLibrary.ftl"/>
         </template>
     </templates>
 </theme>
