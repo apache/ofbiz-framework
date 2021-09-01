@@ -41,6 +41,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityTypeUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -414,6 +415,36 @@ public final class ProductWorker {
             features = new LinkedList<>();
         }
         return features;
+    }
+
+    public static List<GenericValue> getProductFeaturesApplIncludeMarketingPackage(GenericValue product) {
+        Delegator delegator = product.getDelegator();
+        if (product != null) {
+            try {
+                List<String> productIds = UtilMisc.toList(product.getString("productId"));
+
+                // For marketing package, resolve each features contains in the package
+                if (EntityTypeUtil.hasParentType(delegator, "ProductType",
+                        "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_PICK")) {
+                    productIds.addAll(EntityQuery.use(delegator).from("ProductAndAssocTo")
+                            .where("productId", product.get("productId"),
+                                    "productAssocTypeId", "PRODUCT_COMPONENT")
+                            .filterByDate()
+                            .cache()
+                            .getFieldList("productIdTo"));
+                }
+                return EntityQuery.use(delegator).from("ProductFeatureAppl")
+                        .where(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds),
+                                EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.IN,
+                                        UtilMisc.toList("REQUIRED_FEATURE", "DISTINGUISHING_FEAT", "STANDARD_FEATURE")))
+                        .filterByDate()
+                        .cache()
+                        .queryList();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Unable to get features from product : " + product.get("productId"), MODULE);
+            }
+        }
+        return null;
     }
 
     public static String getProductVirtualVariantMethod(Delegator delegator, String productId) {
