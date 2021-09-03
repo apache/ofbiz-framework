@@ -47,16 +47,16 @@ import org.xml.sax.SAXException;
  * OfbizScreenTransform - Freemarker Transform to display a screen by is location and name
  *
  * You can call a Ofbiz screen with the ftl context with simple macro
- *    <@ofbizScreen>component://mycomponent/widget/MyComponentScreens.xml#MyScreen</@ofbizScreen>
+ *    &lt;&#064;ofbizScreen&gt;component://mycomponent/widget/MyComponentScreens.xml#MyScreen&lt;/&#064;ofbizScreen&gt;
  *
  * You can also write
- *    <@ofbizScreen location="component://mycomponent/widget/MyComponentScreens.xml" name="MyScreen"/>
+ *    &lt;&#064;ofbizScreen location="component://mycomponent/widget/MyComponentScreens.xml" name="MyScreen"/&gt;
  *
  * Or set a default location on your context
  *    action :
  *        context.defaultTemplateLocation = "component://mycomponent/widget/MyComponentScreens.xml"
  *    widget :
- *        <@ofbizScreen>MyScreen</@ofbizScreen>
+ *        &lt;&#064;ofbizScreen&gt;MyScreen&lt;/&#064;ofbizScreen&gt;
  *
  */
 public class OfbizScreenTransform implements TemplateTransformModel {
