@@ -807,6 +807,13 @@ function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
                if (containsEventMessage(data)) {
                    displayEventMessage(data)
                }
+               while (areaCsvString.indexOf("_JS_EVENT_RESULT_") !== -1) {
+                   temp = areaCsvString;
+                   areaCsvString = temp.substring(0, areaCsvString.indexOf("_JS_EVENT_RESULT_"))
+                   endString = temp.substring(temp.indexOf("_JS_EVENT_RESULT_") + 17)
+                   variableName = endString.substring(0, endString.indexOf("_"))
+                   areaCsvString += data[variableName] + endString.substring(endString.indexOf("_") + 1)
+               }
                ajaxUpdateAreas(areaCsvString);
                $form.trigger("closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess");
            }

@@ -72,6 +72,20 @@ under the License.
     <request-map uri="EditWorkEffortAndAssoc"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffortAndAssoc"/></request-map>
     <request-map uri="AddWorkEffortAndAssoc"><security https="true" auth="true"/><response name="success" type="view" value="AddWorkEffortAndAssoc"/></request-map>
 
+    <request-map uri="WorkEffort/Edit"><security https="true" auth="true"/><response name="success" type="view" value="WorkEffort/Edit"/></request-map>
+
+    <request-map uri="WorkEffort/create">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="WorkEffort/update">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
     <request-map uri="EditWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffort"/></request-map>
     <request-map uri="createWorkEffort">
         <security https="true" auth="true"/>
@@ -334,6 +348,7 @@ under the License.
     <view-map name="SearchWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#SearchWorkEffort"/>
     <view-map name="FoundWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#FoundWorkEfforts"/>
     <view-map name="EditWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffort"/>
+    <view-map name="WorkEffort/Edit" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#AddWorkEffort"/>
     <view-map name="ListWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEfforts"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ChildWorkEfforts"/>
     <view-map name="AddWorkEffortAndAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#AddWorkEffortAndAssoc"/>

@@ -120,6 +120,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="AddWorkEffort">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditWorkEffort"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="thisWorkEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                    <decorator-section name="single">
+                        <section>
+                            <widgets>
+                                <screenlet>
+                                    <include-form name="AddWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="FindWorkEffort">
         <section>

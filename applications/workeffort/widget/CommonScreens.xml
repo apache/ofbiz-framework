@@ -89,8 +89,11 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
-                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                    <link text="${uiLabelMap.WorkEffortCreate}" target="WorkEffort/Edit"
+                                          style="buttontext" link-type="layered-modal">
+                                        <set-callback area-target="WorkEffortSummary" area-id="window">
+                                            <parameter param-name="workEffortId" from-event-result="workEffortId"/>
+                                        </set-callback>
                                     </link>
                                 </container>
                                 <section>
