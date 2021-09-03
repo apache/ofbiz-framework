@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -60,8 +61,12 @@ import org.apache.commons.imaging.formats.jpeg.JpegImageParser;
 import org.apache.commons.imaging.formats.png.PngImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -91,6 +96,7 @@ public class SecuredUpload {
     // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
+    private static final List<String> deniedFileExtensions = deniedFileExtensions();
 
     /**
      * @param fileToCheck
@@ -107,28 +113,33 @@ public class SecuredUpload {
 
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
-        String file = p.getFileName().toString();
+        String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
+
+        if (deniedFileExtensions.contains(FilenameUtils.getExtension(fileToCheck))) {
+            Debug.logError("This file extension is not allowed for security reason", MODULE);
+            deleteBadFile(fileToCheck);
+            return false;
+        }
+
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            if (fileToCheck.length() > 259) {
+            if (fileToCheck.length() < 259) {
                 Debug.logError("Uploaded file name too long", MODULE);
-                return false;
             } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
-                if (file.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
-            } else if (file.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
+            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
                 wrongFile = false;
             }
         } else { // Suppose a *nix system
             if (fileToCheck.length() > 4096) {
                 Debug.logError("Uploaded file name too long", MODULE);
-                return false;
             } else if (p.toString().contains(imageServerUrl)) {
-                if (file.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
-            } else if (file.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
                 wrongFile = false;
             }
         }
@@ -139,10 +150,12 @@ public class SecuredUpload {
                     + " only 1 dot as an input for the file name and the extension."
                     + "The file name and extension should not be empty at all",
                     MODULE);
+            deleteBadFile(fileToCheck);
             return false;
         }
 
         if (isExecutable(fileToCheck)) {
+            deleteBadFile(fileToCheck);
             return false;
         }
 
@@ -210,11 +223,7 @@ public class SecuredUpload {
             }
             break;
         }
-        Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
-        File badFile = new File(fileToCheck);
-        if (!badFile.delete()) {
-            Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
-        }
+        deleteBadFile(fileToCheck);
         return false;
     }
 
@@ -641,5 +650,25 @@ public class SecuredUpload {
                 || content.toLowerCase().contains("readfile"));
         // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
         // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
+    }
+
+    private static void deleteBadFile(String fileToCheck) {
+        Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
+        File badFile = new File(fileToCheck);
+        if (!badFile.delete()) {
+            Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
+        }
+    }
+
+    private static List<String> deniedFileExtensions() {
+        List<String> deniedFileExtensions = new LinkedList<>();
+        String deniedExtensions = UtilProperties.getPropertyValue("security", "deniedFileExtensions");
+        if (UtilValidate.isNotEmpty(deniedExtensions)) {
+            List<String> deniedFileExtensionsList = StringUtil.split(deniedExtensions, ",");
+            for (String deniedExtension : deniedFileExtensionsList) {
+                deniedFileExtensions.add(deniedExtension);
+            }
+        }
+        return deniedFileExtensions;
     }
 }
