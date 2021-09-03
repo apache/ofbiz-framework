@@ -96,7 +96,7 @@ public class SecuredUpload {
     // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
-    private static final List<String> deniedFileExtensions = deniedFileExtensions();
+    private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
 
     /**
      * @param fileToCheck
@@ -116,7 +116,7 @@ public class SecuredUpload {
         String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
 
-        if (deniedFileExtensions.contains(FilenameUtils.getExtension(fileToCheck))) {
+        if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
             Debug.logError("This file extension is not allowed for security reason", MODULE);
             deleteBadFile(fileToCheck);
             return false;
