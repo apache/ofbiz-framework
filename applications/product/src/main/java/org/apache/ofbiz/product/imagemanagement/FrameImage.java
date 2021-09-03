@@ -315,14 +315,14 @@ public class FrameImage {
                 request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
                 return "error";
             }
-            RandomAccessFile out = new RandomAccessFile(file, "rw");
-            out.write(imageData.array());
-            out.close();
             if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 return "error";
             }
+            RandomAccessFile out = new RandomAccessFile(file, "rw");
+            out.write(imageData.array());
+            out.close();
 
             //create dataResource
             Map<String, Object> dataResourceCtx = new HashMap<>();

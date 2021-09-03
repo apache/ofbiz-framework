@@ -156,13 +156,13 @@ public class ImageManagementServices {
             if (UtilValidate.isEmpty(imageResize)) {
                 // Create image file original to folder product id.
                 try {
-                    RandomAccessFile out = new RandomAccessFile(file, "rw");
-                    out.write(imageData.array());
-                    out.close();
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    RandomAccessFile out = new RandomAccessFile(file, "rw");
+                    out.write(imageData.array());
+                    out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -180,14 +180,13 @@ public class ImageManagementServices {
                 fileOriginal = checkExistsImage(fileOriginal);
 
                 try {
-                    RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
-                    outFile.write(imageData.array());
-                    outFile.close();
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileOriginal.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-
+                    RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
+                    outFile.write(imageData.array());
+                    outFile.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -568,14 +567,13 @@ public class ImageManagementServices {
         String fileToCheck = imageServerPath + "/" + productId + "/" + filenameToUseThumb;
         File fileOriginalThumb = new File(fileToCheck);
         try {
-            RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
-            outFileThumb.write(imageData.array());
-            outFileThumb.close();
             if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                 return ServiceUtil.returnError(errorMessage);
             }
-
+            RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
+            outFileThumb.write(imageData.array());
+            outFileThumb.close();
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
