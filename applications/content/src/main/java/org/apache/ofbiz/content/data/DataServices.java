@@ -258,14 +258,14 @@ public class DataServices {
             }
         } else if (binData != null) {
             try {
-                RandomAccessFile out = new RandomAccessFile(file, "rw");
-                out.write(binData.array());
-                out.close();
                 // Check if a webshell is not uploaded
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
+                RandomAccessFile out = new RandomAccessFile(file, "rw");
+                out.write(binData.array());
+                out.close();
 
             } catch (FileNotFoundException | ImageReadException e) {
                 Debug.logError(e, module);
@@ -458,15 +458,15 @@ public class DataServices {
                 }
             } else if (binData != null) {
                 try {
-                    RandomAccessFile out = new RandomAccessFile(file, "rw");
-                    out.setLength(binData.array().length);
-                    out.write(binData.array());
-                    out.close();
                     // Check if a webshell is not uploaded
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    RandomAccessFile out = new RandomAccessFile(file, "rw");
+                    out.setLength(binData.array().length);
+                    out.write(binData.array());
+                    out.close();
                 } catch (FileNotFoundException | ImageReadException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
