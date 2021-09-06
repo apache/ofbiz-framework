@@ -23,13 +23,13 @@ project.rootProject.configurations.all {
 }
 
 dependencies {
-    pluginLibsCompile 'org.glassfish.jersey.containers:jersey-container-servlet:2.31'
+    pluginLibsCompile 'org.glassfish.jersey.containers:jersey-container-servlet:2.31' // Compilation issues with 3.0.2: package javax.ws.rs does not exist
     pluginLibsCompile 'org.glassfish.jersey.media:jersey-media-multipart:2.31'
     pluginLibsCompile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.31'
     pluginLibsCompile 'org.glassfish.jersey.inject:jersey-hk2:2.31'
-    pluginLibsCompile 'io.swagger.core.v3:swagger-jaxrs2:2.1.6'
-    pluginLibsCompile 'io.swagger.core.v3:swagger-jaxrs2-servlet-initializer:2.1.6'
-    pluginLibsCompile 'io.swagger.core.v3:swagger-annotations:2.1.6'
+    pluginLibsCompile 'io.swagger.core.v3:swagger-jaxrs2:2.1.10'
+    pluginLibsCompile 'io.swagger.core.v3:swagger-jaxrs2-servlet-initializer:2.1.10'
+    pluginLibsCompile 'io.swagger.core.v3:swagger-annotations:2.1.10'
 }
 
 task install {
