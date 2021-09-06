@@ -95,7 +95,7 @@ public final class UtilXml {
          *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
          *  and could be removed them
          */
-        XStream.setupDefaultSecurity(xstream);
+        // XStream.setupDefaultSecurity(xstream);
         /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5)
          * using xstream::allowTypesByWildcard with your own classes
          */
