@@ -1300,6 +1300,95 @@ form .basic-table,
   border-color: @border-color !important
 }
 
+#loginBar {
+  width: 30%;
+  margin:0 auto;
+  #company-logo {
+    background: url("images/ofbiz_logo.svg") no-repeat center center / auto 100%;
+    height: 12rem;
+    width: 100%;
+    margin:0.7rem 0 1.2rem 0;
+  }
+}
+
+.login-screenlet{
+  padding:5rem;
+  width: 400px;
+  margin:0 auto;
+  box-shadow: 0 0 15px 15px @shadow-color !important;
+  background-color: white;
+  h3{
+    text-align: center;
+    font-size:2.2rem;
+    font-weight: 600;
+  }
+  p{
+    text-align:center;
+    font-size: 1.5rem;
+    color:@grey;
+    font-weight: 500;
+  }
+  form[name="loginform"], form[name="forgotpassword"]{
+    margin-top:3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap:4rem;
+    label{
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column; 
+      gap:1rem;
+      span{
+        display:flex;
+        justify-content: space-between;
+        align-items: end;
+        a{
+          text-align:right;
+          font-size:1rem;
+        }
+      }
+    }
+    input[type="text"], input[type="password"]{
+      border:none;
+      background-color:@grey-light;
+      padding:1rem;
+      font-size:1.2rem;
+      opacity: 0.5;
+      outline: none !important;
+      &:focus{
+        opacity: 0.75;
+        border:none;        
+      }
+    }
+    input[type="submit"]{
+      font-size:1.5rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 800;
+      padding:1rem;
+    }
+    .button-group{
+      display:flex;
+      justify-content: center;
+      gap:1rem;
+      .buttontext{
+        font-size: 1.5rem;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 800;
+        padding: 1rem;
+        margin:0;
+      }
+    }
+    .link{
+      background: transparent;
+      padding:0;
+      color:@main-color-theme;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+}
 .ui-dialog{
   left: ~"calc(50% - 320px)" !important;
   top: 2rem !important;
