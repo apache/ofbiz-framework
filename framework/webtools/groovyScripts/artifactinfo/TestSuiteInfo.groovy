@@ -21,40 +21,27 @@ import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.config.GenericConfigException
 import org.apache.ofbiz.base.config.ResourceHandler
 import org.apache.ofbiz.base.util.UtilXml
-import org.apache.ofbiz.base.util.UtilMisc
-
-import org.w3c.dom.Document
 import org.w3c.dom.Element
 
 List testList = []
 for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(parameters.compName)) {
-    String componentName = testSuiteInfo.componentConfig.getComponentName()
     ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler()
 
     try {
-        Document testSuiteDocument = testSuiteResource.getDocument()
-        Element documentElement = testSuiteDocument.getDocumentElement()
-        suiteName =  documentElement.getAttribute("suite-name")
-        firstLine = true
-        for (Element testCaseElement : UtilXml.childElementList(documentElement, UtilMisc.toSet("test-case", "test-group"))) {
-            testMap = [:]
-            String caseName = testCaseElement.getAttribute("case-name")
-            if (firstLine == true) {
-                testMap = UtilMisc.toMap("suiteName", suiteName, "suiteNameSave", suiteName, "caseName", caseName)
-                firstLine = false
-            } else {
-                testMap = UtilMisc.toMap("suiteNameSave", suiteName, "caseName", caseName)
-            }
-            testList.add(testMap)
+        Element documentElement = testSuiteResource.getDocument().getDocumentElement()
+        String suiteName = testSuiteResource.getDocument().getDocumentElement().getAttribute("suite-name")
+        boolean firstLine = true
+        for (Element testCaseElement : UtilXml.childElementList(documentElement, ["test-case", "test-group"] as Set)) {
+            testList << [suiteName     : suiteName,
+                         caseName      : testCaseElement.getAttribute("case-name"),
+                         firstSuiteLine: firstLine ? 'Y' : 'N']
+            firstLine = false
         }
     } catch (GenericConfigException e) {
-        String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]"
+        String errMsg = "Error reading XML document from ResourceHandler for loader [${testSuiteResource.getLoaderName()}] and location [${testSuiteResource.getLocation()}]"
         logError(e, errMsg)
         throw new IllegalArgumentException(errMsg)
     }
-
-
-
 }
 
 context.suits = testList

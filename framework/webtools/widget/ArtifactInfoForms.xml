@@ -20,28 +20,40 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-        <form name="ComponentList" type="list" separate-columns="true" title="Component List" list-name="componentList" target=""
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <grid name="ComponentList" separate-columns="true" title="Component List" list-name="componentList" target=""
+          extends="CommonBasicGrid" extends-resource="component://common/widget/CommonForms.xml">
         <field name="compName">
-            <hyperlink description="${compName}" target="TestSuiteInfo?compName=${compName}" ></hyperlink>
+            <hyperlink description="${compName}" target="TestSuiteInfo/${compName}" ></hyperlink>
         </field>
         <field name="rootLocation"><display/></field>
         <field name="enabled"><display/></field>
         <field name="webAppName"><display/></field>
         <field name="contextRoot"><display/></field>
         <field name="location"><display/></field>
-    </form>
+    </grid>
 
-    <form name="TestSuiteInfo" type="list" separate-columns="true" title="Component List" list-name="suits" target=""
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <grid name="TestSuiteInfo" separate-columns="true" title="Component List" list-name="suits" target=""
+          extends="CommonBasicGrid" extends-resource="component://common/widget/CommonForms.xml">
         <field name="compName"><hidden value="${parameters.compName}"/></field>
-        <field name="suiteName"><display/></field>
-        <field name="runSuite" use-when="suiteName!=void">
-            <hyperlink description="run suite" target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}"/>
+        <field name="suiteName" use-when="firstSuiteLine == 'Y'"><display/></field>
+        <field name="runSuite" use-when="firstSuiteLine == 'Y'">
+            <hyperlink description="run suite" target="RunTest/${parameters.compName}/${suiteName}"/>
         </field>
         <field name="caseName"><display/></field>
         <field name="runCase">
-            <hyperlink description="run case" target="RunTest?compName=${parameters.compName}&amp;suiteName=${suiteNameSave}&amp;caseName=${caseName}"/>
+            <hyperlink description="run case" target="RunTest/${parameters.compName}/${suiteName}/${caseName}"/>
         </field>
-    </form>
+    </grid>
+
+    <grid name="TestSuiteResults" title="Component Suite Results"
+          list-name="results" separate-columns="true" paginate="false"
+          extends="CommonBasicGrid" extends-resource="component://common/widget/CommonForms.xml">
+        <alt-row-style use-when="!success" style="error"/>
+        <field name="compName"><hidden value="${parameters.compName}"/></field>
+        <field name="suiteName"><display description="${groovy: displaySuiteName ? suiteName : ''}"/></field>
+        <field name="testName"><display/></field>
+        <field name="success"><display/></field>
+        <field name="time"><display/></field>
+        <field name="details"><display/></field>
+    </grid>
 </forms>
