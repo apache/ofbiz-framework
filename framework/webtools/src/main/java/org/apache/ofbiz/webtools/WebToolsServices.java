@@ -143,7 +143,7 @@ public class WebToolsServices {
         // #############################
         // FM Template
         // #############################
-        if (UtilValidate.URLInString(fulltext)) {
+        if (UtilValidate.urlInString(fulltext)) {
             Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12304", MODULE);
             Debug.logInfo("Rather load your data from a file", MODULE);
             return null;
