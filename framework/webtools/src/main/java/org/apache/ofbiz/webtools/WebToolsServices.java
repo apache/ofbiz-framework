@@ -143,6 +143,11 @@ public class WebToolsServices {
         // #############################
         // FM Template
         // #############################
+        if (UtilValidate.URLInString(fulltext)) {
+            Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12304", MODULE);
+            Debug.logInfo("Rather load your data from a file", MODULE);
+            return null;
+        }
         if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
             File fmFile = new File(fmfilename);
             if (!fmFile.exists()) {
