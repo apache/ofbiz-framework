@@ -146,8 +146,8 @@ public final class UtilURL {
         try {
             url = new URL(urlString);
         } catch (MalformedURLException e) {
+            // We purposely don't want to do anything here
         }
-
         return url;
     }
 
