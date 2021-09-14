@@ -485,3 +485,19 @@ def forceIndexContentKeywords() {
     ContentKeywordIndex.forceIndexKeywords(content)
     return success()
 }
+
+def createSimpleTextContent() {
+    Map serviceResult = run service: 'createDataResource', with: [*                 : parameters,
+                                                                  dataResourceTypeId: 'ELECTRONIC_TEXT',
+                                                                  dataTemplateTypeId: 'FTL']
+
+    run service: 'createElectronicText', with: [*             : parameters,
+                                                textData      : parameters.text,
+                                                dataResourceId: serviceResult.dataResourceId]
+
+    serviceResult = run service: 'createContent', with: [*             : parameters,
+                                                         contentTypeId : 'DOCUMENT',
+                                                         dataResourceId: serviceResult.dataResourceId]
+
+    return serviceResult
+}

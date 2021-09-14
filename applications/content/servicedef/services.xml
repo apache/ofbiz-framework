@@ -159,7 +159,7 @@
         <attribute name="file" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createSimpleTextContent">
+    <service name="createSimpleTextContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createSimpleTextContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe">
