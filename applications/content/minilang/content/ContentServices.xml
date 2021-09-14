@@ -136,32 +136,6 @@
         <check-errors/>
     </simple-method>
 
-    <!-- Util -->
-    <simple-method method-name="findAssocContent" short-description="Find associated content">
-        <set from-field="parameters.contentId" field="queryMap.contentId"/>
-        <set field="mapKeys" from-field="parameters.mapKeys"/>
-        <field-to-list field="mapKey" list="mapKeys"/>
-        <iterate list="mapKeys" entry="mapKey">
-            <set from-field="mapKey" field="queryMap.mapKey"/>
-            <find-by-and list="resultMap" entity-name="ContentAssoc" map="queryMap"/>
-            <filter-list-by-date list="resultMap" to-list="validContent"/>
-            <iterate list="validContent" entry="contentAssoc">
-                <field-to-list field="contentAssoc" list="result"/>
-            </iterate>
-        </iterate>
-        <if>
-            <condition>
-                <if-empty field="parameters.mapKey"/>
-            </condition>
-            <then>
-                <field-to-result field="result" result-name="contentAssocs"/>
-            </then>
-            <else>
-                <field-to-result field="result" result-name="contentAssoc"/>
-            </else>
-        </if>
-    </simple-method>
-
     <simple-method method-name="updateSimpleTextContent" short-description="Update Simple Text Content">
         <if-not-empty field="parameters.textDataResourceId">
             <set from-field="parameters.textDataResourceId" field="updateSimpleText.dataResourceId"/>

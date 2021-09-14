@@ -28,6 +28,7 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityListIterator
 import org.apache.ofbiz.service.GenericServiceException
 
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -49,6 +50,22 @@ def createTextAndUploadedContent() {
     }
 
     result.contentId = parameters.parentContentId
+    return result
+}
+
+def findAssocContent() {
+    EntityCondition condition = new EntityConditionBuilder().AND() {
+        EQUALS(contentId: parameters.contentId)
+        IN(mapKey: parameters.mapKeys)
+    }
+    List contentAssocs = from("ContentAssoc")
+            .where(condition)
+            .filterByDate()
+            .cache()
+            .queryList()
+
+    Map result = success()
+    if (contentAssocs) result.contentAssocs = contentAssocs
     return result
 }
 

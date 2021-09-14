@@ -176,19 +176,10 @@
     </service>
 
     <!-- Util -->
-    <service name="findAssocContent" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="findAssocContent" auth="true">
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="mapKeys" type="List" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingMapKeys"/>
-            </type-validate>
-        </attribute>
-        <attribute name="contentAssocs" type="List" mode="OUT" optional="true"/>
+    <service name="findAssocContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="findAssocContent" auth="true">
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+        <attribute name="mapKeys" mode="IN" type="List" optional="false"/>
+        <attribute name="contentAssocs" mode="OUT" type="List" optional="true"/>
     </service>
 
     <!-- Complex Contentservices -->
