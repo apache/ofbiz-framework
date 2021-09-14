@@ -518,3 +518,15 @@ def createSimpleTextContent() {
 
     return serviceResult
 }
+
+def updateSimpleTextContent() {
+    Map result = success()
+
+    if (parameters.textDataResourceId) {
+        run service: 'updateElectronicText', with: [dataResourceId: parameters.textDataResourceId,
+                                                    textData      : parameters.text]
+        result.dataResourceId = parameters.textdataResourceId
+        result.textData = parameters.text
+    }
+    return result
+}

@@ -136,14 +136,6 @@
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="updateSimpleTextContent" short-description="Update Simple Text Content">
-        <if-not-empty field="parameters.textDataResourceId">
-            <set from-field="parameters.textDataResourceId" field="updateSimpleText.dataResourceId"/>
-            <set from-field="parameters.text" field="updateSimpleText.textData"/>
-            <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
-        </if-not-empty>
-    </simple-method>
-
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
          by calling persistContentAndAssoc.
 
