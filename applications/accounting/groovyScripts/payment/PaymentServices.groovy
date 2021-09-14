@@ -627,6 +627,7 @@ def createPaymentFromOrder() {
         return result
     }
 }
+
 def createPaymentApplication() {
     // Create a Payment Application
     if (!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId) {
@@ -675,10 +676,9 @@ def createPaymentApplication() {
         }
     }
 
-    if (!paymentAppl.amountApplied) {
-        if (parameters.billingAccountId || parameters.taxAuthGeoId) {
-            paymentAppl.amountApplied = notAppliedPayment
-        }
+    if (!paymentAppl.amountApplied &&
+            (parameters.billingAccountId || parameters.taxAuthGeoId)) {
+        paymentAppl.amountApplied = notAppliedPayment
     }
     paymentAppl.paymentApplicationId = delegator.getNextSeqId("PaymentApplication")
     paymentAppl.create()
