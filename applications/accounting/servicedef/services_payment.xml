@@ -163,8 +163,8 @@ under the License.
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createPaymentAndPaymentGroupForInvoices" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
+    <service name="createPaymentAndPaymentGroupForInvoices" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
         <description>Creates Payments, Payment Application and Payment Group for the same</description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
@@ -172,7 +172,6 @@ under the License.
         <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
-        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
     <service name="createPaymentAndApplicationForParty" engine="groovy"
             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplicationForParty" auth="true">

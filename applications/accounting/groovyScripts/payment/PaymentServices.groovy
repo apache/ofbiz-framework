@@ -18,9 +18,9 @@
  */
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.accounting.payment.PaymentWorker
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -505,6 +505,47 @@ def cancelCheckRunPayments() {
         }
     }
     return success()
+}
+
+def createPaymentAndPaymentGroupForInvoices() {
+    Map result
+    GenericValue paymentMethod = from("PaymentMethod").where("paymentMethodId", parameters.paymentMethodId).queryOne()
+
+    if (paymentMethod) {
+        GenericValue finAccount = from("FinAccount").where("finAccountId", paymentMethod.finAccountId).queryOne()
+        if (finAccount.statusId == "FNACT_MANFROZEN") {
+            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingFinAccountInactiveStatusError', locale))
+        } else if (finAccount.statusId == "FNACT_CANCELLED") {
+            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingFinAccountStatusNotValidError', locale))
+        }
+    }
+    Map partyInvoices = [:]
+    parameters.invoiceIds.each {invoiceId ->
+        GenericValue invoice = from("Invoice").where("invoiceId", invoiceId).queryOne()
+        UtilMisc.addToListInMap(invoice, partyInvoices, invoice.partyIdFrom)
+    }
+    List paymentIds = []
+    partyInvoices.each { partyId, invoice ->
+        if (parameters.checkStartNumber) {
+            parameters.checkStartNumber = parameters.checkStartNumber + 1
+        }
+        result = run service: 'createPaymentAndApplicationForParty', with: [*                  : parameters,
+                                                                            paymentMethodTypeId: paymentMethod.paymentMethodTypeId,
+                                                                            finAccountId       : paymentMethod.finAccountId,
+                                                                            partyId            : partyId,
+                                                                            invoices           : invoice]
+        paymentIds << result.paymentId
+    }
+    if (paymentIds) {
+        result = run service: 'createPaymentGroupAndMember', with: [paymentIds        : paymentIds,
+                                                                    paymentGroupTypeId: 'CHECK_RUN',
+                                                                    paymentGroupName  : "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
+        paymentGroupId = result.paymentGroupId
+    }
+    if (!result.paymentGroupId) {
+        return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingNoInvoicesReadyOrOutstandingAmountZero", parameters.locale))
+    }
+    return result
 }
 
 def createPaymentFromOrder() {
