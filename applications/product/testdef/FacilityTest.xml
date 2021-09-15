@@ -35,6 +35,11 @@ under the License.
         <junit-test-suite class-name="org.apache.ofbiz.product.ShipmentTests"/>
     </test-case>
 
+    <test-group case-name="shipmentcost-tests">
+        <entity-xml action="load" entity-xml-url="component://product/testdef/data/ShipmentCostTestData.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.shipment.ShipmentCostTests"/>
+    </test-group>
+
     <test-case case-name="loadIssuanceTestData">
         <entity-xml action="load" entity-xml-url="component://product/testdef/data/IssuanceTestData.xml"/>
     </test-case>
