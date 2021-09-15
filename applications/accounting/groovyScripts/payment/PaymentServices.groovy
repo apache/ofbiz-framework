@@ -23,23 +23,22 @@ import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
+
 import java.sql.Timestamp
 
 def createPayment() {
     if (!security.hasEntityPermission("ACCOUNTING", "_CREATE", parameters.userLogin) &&
             (!security.hasEntityPermission("PAY_INFO", "_CREATE", parameters.userLogin) &&
                     userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
-        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingCreatePaymentPermissionError)
+        return error(label("AccountingUiLabels", "AccountingCreatePaymentPermissionError"))
     }
 
     GenericValue payment = makeValue("Payment")
     payment.paymentId = parameters.paymentId ?: delegator.getNextSeqId("Payment")
-    paymentId = payment.paymentId
     parameters.statusId = parameters.statusId ?: "PMNT_NOT_PAID"
 
     if (parameters.paymentMethodId) {
@@ -57,95 +56,85 @@ def createPayment() {
     }
 
     if (!parameters.paymentMethodTypeId) {
-        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPaymentMethodIdPaymentMethodTypeIdNullError)
+        return error(label("AccountingUiLabels", "AccountingPaymentMethodIdPaymentMethodTypeIdNullError"))
     }
 
     payment.setNonPKFields(parameters)
     payment.effectiveDate = payment.effectiveDate ?: UtilDateTime.nowTimestamp()
-    delegator.create(payment)
-    Map result = success()
-    result.paymentId = paymentId
-    return result
+    payment.create()
+    return success(paymentId: payment.paymentId)
 }
+
 def getInvoicePaymentInfoList() {
     // Create a list with information on payment due dates and amounts for the invoice
-    GenericValue invoice;
+    GenericValue invoice = parameters.invoice ?: from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
     List invoicePaymentInfoList = []
-    if (!parameters.invoice) {
-        invoice = from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
-    } else {
-        invoice = parameters.invoice
-    }
 
     BigDecimal invoiceTotalAmount = InvoiceWorker.getInvoiceTotal(invoice)
     BigDecimal invoiceTotalAmountPaid = InvoiceWorker.getInvoiceApplied(invoice)
 
-    List invoiceTerms = from("InvoiceTerm").where("invoiceId", invoice.invoiceId).queryList()
+    List invoiceTerms = from("InvoiceTerm")
+            .where("invoiceId", invoice.invoiceId)
+            .queryList()
 
     BigDecimal remainingAppliedAmount = invoiceTotalAmountPaid
     BigDecimal computedTotalAmount = (BigDecimal) 0
 
-    Map invoicePaymentInfo = [:]
-
     for (invoiceTerm in invoiceTerms) {
-        termType = from("TermType").where("termTypeId", invoiceTerm.termTypeId).cache(true).queryOne()
+        GenericValue termType = from("TermType").where("termTypeId", invoiceTerm.termTypeId).cache().queryOne()
         if ("FIN_PAYMENT_TERM" == termType.parentTypeId) {
-            invoicePaymentInfo = [:]
-            invoicePaymentInfo.invoiceId = invoice.invoiceId
-            invoicePaymentInfo.invoiceTermId = invoiceTerm.invoiceTermId
-            invoicePaymentInfo.termTypeId = invoiceTerm.termTypeId
-            invoicePaymentInfo.dueDate = UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)
+            Map invoicePaymentInfo = [invoiceId    : invoice.invoiceId,
+                                      invoiceTermId: invoiceTerm.invoiceTermId,
+                                      termTypeId   : invoiceTerm.termTypeId,
+                                      dueDate      : UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)]
 
             BigDecimal invoiceTermAmount = (invoiceTerm.termValue * invoiceTotalAmount ) / 100
             invoicePaymentInfo.amount = invoiceTermAmount
-            computedTotalAmount = computedTotalAmount + (BigDecimal) invoicePaymentInfo.amount
+            computedTotalAmount += invoicePaymentInfo.amount as BigDecimal
 
             if (remainingAppliedAmount >= invoiceTermAmount) {
                 invoicePaymentInfo.paidAmount = invoiceTermAmount
-                remainingAppliedAmount = remainingAppliedAmount - invoiceTermAmount
+                remainingAppliedAmount -= invoiceTermAmount
             } else {
                 invoicePaymentInfo.paidAmount = remainingAppliedAmount
                 remainingAppliedAmount = (BigDecimal) 0
             }
             invoicePaymentInfo.outstandingAmount = invoicePaymentInfo.amount - invoicePaymentInfo.paidAmount
-            invoicePaymentInfoList.add(invoicePaymentInfo)
+            invoicePaymentInfoList << invoicePaymentInfo
         }
     }
 
     if (remainingAppliedAmount > 0.0 || invoiceTotalAmount <= 0.0 || computedTotalAmount < invoiceTotalAmount) {
-        invoicePaymentInfo = [:]
-        invoiceTerm = from("InvoiceTerm").where("invoiceId", invoice.invoiceId, "termTypeId", "FIN_PAYMENT_TERM").queryFirst()
+        Map invoicePaymentInfo = [invoiceId: invoice.invoiceId,
+                                  amount: invoiceTotalAmount - computedTotalAmount,
+                                  paidAmount: remainingAppliedAmount]
+        invoicePaymentInfo.outstandingAmount = invoicePaymentInfo.amount - invoicePaymentInfo.paidAmount
+        GenericValue invoiceTerm = from("InvoiceTerm")
+                .where("invoiceId", invoice.invoiceId,
+                        "termTypeId", "FIN_PAYMENT_TERM")
+                .queryFirst()
         if (invoiceTerm) {
             invoicePaymentInfo.termTypeId = invoiceTerm.termTypeId
             invoicePaymentInfo.dueDate = UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)
         } else {
             invoicePaymentInfo.dueDate = UtilDateTime.getDayEnd(invoice.invoiceDate)
         }
-        invoicePaymentInfo.invoiceId = invoice.invoiceId
-        invoicePaymentInfo.amount = invoiceTotalAmount - computedTotalAmount
-        invoicePaymentInfo.paidAmount = remainingAppliedAmount
-        invoicePaymentInfo.outstandingAmount = invoicePaymentInfo.amount - invoicePaymentInfo.paidAmount
-        invoicePaymentInfoList.add(invoicePaymentInfo)
+        invoicePaymentInfoList << invoicePaymentInfo
     }
-    Map result = success()
-    result.invoicePaymentInfoList = invoicePaymentInfoList
-    return result
+    return success(invoicePaymentInfoList: invoicePaymentInfoList)
 }
+
 def updatePayment() {
-    Map lookupPayment = makeValue("Payment")
-    lookupPayment.setPKFields(parameters)
-    GenericValue payment = from("Payment").where("paymentId", lookupPayment.paymentId).queryOne()
+    GenericValue payment = from("Payment").where(parameters).queryOne()
     if (!security.hasEntityPermission("ACCOUNTING", "_UPDATE", parameters.userLogin) &&
         (!security.hasEntityPermission("PAY_INFO", "_UPDATE", parameters.userLogin) &&
         userLogin.partyId != payment.partyIdFrom && userLogin.partyId != payment.partyIdTo)) {
-        return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingUpdatePaymentPermissionError)
+        return error(label("AccountingUiLabels", "AccountingUpdatePaymentPermissionError"))
     }
     if ("PMNT_NOT_PAID" != payment.statusId) {
         // check if only status change
-        GenericValue newPayment = makeValue("Payment")
-        GenericValue oldPayment = makeValue("Payment")
-        newPayment.setNonPKFields(payment)
-        oldPayment.setNonPKFields(payment)
+        GenericValue oldPayment = makeValue("Payment", payment)
+        GenericValue newPayment = makeValue("Payment", payment)
         newPayment.setNonPKFields(parameters)
 
         // fields :- comments, paymentRefNum, finAccountTransId, statusIhStatus does not allow an update of the information are editable for Payment
@@ -154,15 +143,15 @@ def updatePayment() {
         oldPayment.paymentRefNum = newPayment.paymentRefNum ?: null
         oldPayment.finAccountTransId = newPayment.finAccountTransId ?: null
         if (!oldPayment.equals(newPayment)) {
-            return error(UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)?.AccountingPSUpdateNotAllowedBecauseOfStatus)
+            return error(label("AccountingUiLabels", "AccountingPSUpdateNotAllowedBecauseOfStatus"))
         }
     }
-    statusIdSave = payment.statusId  // do not allow status change here
+    String statusIdSave = payment.statusId  // do not allow status change here
     payment.setNonPKFields(parameters)
     payment.statusId = statusIdSave  // do not allow status change here
     payment.effectiveDate = payment.effectiveDate ?: UtilDateTime.nowTimestamp()
     if (payment.paymentMethodId) {
-        paymentMethod = from("PaymentMethod").where("paymentMethodId", payment.paymentMethodId).queryOne()
+        GenericValue paymentMethod = from("PaymentMethod").where("paymentMethodId", payment.paymentMethodId).queryOne()
         if (payment.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
             logInfo("Replacing passed payment method type [" + parameters.paymentMethodTypeId + "] with payment method type [" +
                 paymentMethod.paymentMethodTypeId + "] for payment method [" + parameters.paymentMethodId +"]")
@@ -170,338 +159,284 @@ def updatePayment() {
         payment.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
     }
     payment.store()
-    if (parameters.statusId) {
-        if (parameters.statusId != statusIdSave) {
-            Map param = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', ModelService.IN_PARAM, parameters)
-            param.paymentId = payment.paymentId
-            serviceResult = run service: 'setPaymentStatus', with: param
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult)
-        }
+    if (parameters.statusId &&
+            parameters.statusId != statusIdSave) {
+        Map serviceResult = run service: 'setPaymentStatus', with: [*        : parameters,
+                                                                    paymentId: payment.paymentId]
+        if (!ServiceUtil.isSuccess(serviceResult)) return serviceResult
     }
     return success()
 }
+
 def createPaymentAndApplicationForParty() {
-    paymentAmount = 0
+    BigDecimal paymentAmount = 0
     List invoiceIds = []
-    Map result = success()
-    parameters.invoices.each { invoice ->
+    String paymentId
+    parameters.invoices.each { GenericValue invoice ->
         if ("INVOICE_READY" == invoice.statusId) {
-            Map serviceContext = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoList', ModelService.IN_PARAM, invoice)
-            serviceContext.userLogin = userLogin
-            serviceResult = run service: 'getInvoicePaymentInfoList', with: serviceContext
+            Map serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
             if (ServiceUtil.isError(serviceResult)) return serviceResult
-            invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
-            paymentAmount += invoicePaymentInfo.outstandingAmount
+            paymentAmount += serviceResult.invoicePaymentInfoList[0].outstandingAmount
         } else {
-            return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingInvoicesRequiredInReadyStatus", parameters.locale))
+            return error(label("AccountingUiLabels", "AccountingInvoicesRequiredInReadyStatus"))
         }
     }
     if (paymentAmount > 0) {
-        serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
+        Map serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
         if (ServiceUtil.isError(serviceResult)) return serviceResult
-        partyAcctgPreference = serviceResult.partyAccountingPreference
-        Map createPaymentMap = [:]
-        createPaymentMap.paymentTypeId = "VENDOR_PAYMENT"
-        createPaymentMap.partyIdFrom = parameters.organizationPartyId
-        createPaymentMap.currencyUomId = partyAcctgPreference.baseCurrencyUomId
-        createPaymentMap.partyIdTo = parameters.partyId
-        createPaymentMap.statusId = "PMNT_SENT"
-        createPaymentMap.amount = paymentAmount
-        createPaymentMap.paymentMethodTypeId = parameters.paymentMethodTypeId
-        createPaymentMap.paymentMethodId = parameters.paymentMethodId
-        createPaymentMap.paymentRefNum = parameters.checkStartNumber
-        createPaymentMap.userLogin = userLogin
-        serviceResult = run service: 'createPayment', with: createPaymentMap
+        serviceResult = run service: 'createPayment', with: [paymentTypeId      : "VENDOR_PAYMENT",
+                                                             partyIdFrom        : parameters.organizationPartyId,
+                                                             currencyUomId      : serviceResult.partyAccountingPreference.baseCurrencyUomId,
+                                                             partyIdTo          : parameters.partyId,
+                                                             statusId           : "PMNT_SENT",
+                                                             amount             : paymentAmount,
+                                                             paymentMethodTypeId: parameters.paymentMethodTypeId,
+                                                             paymentMethodId    : parameters.paymentMethodId,
+                                                             paymentRefNum      : parameters.checkStartNumber]
         if (ServiceUtil.isError(serviceResult)) return serviceResult
         paymentId = serviceResult.paymentId
-        result.paymentId = paymentId
 
-        parameters.invoices.each {invoice ->
-        if ("INVOICE_READY" == invoice.statusId) {
-            Map serviceContext = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoList', ModelService.IN_PARAM, invoice)
-            serviceContext.userLogin = userLogin
-            serviceResult = run service: 'getInvoicePaymentInfoList', with: serviceContext
-            if (ServiceUtil.isError(serviceResult)) return serviceResult
-            invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
-            if (invoicePaymentInfo.outstandingAmount > 0) {
-                Map createPaymentApplicationMap = [:]
-                createPaymentApplicationMap.paymentId =  paymentId
-                createPaymentApplicationMap.amountApplied = invoicePaymentInfo.outstandingAmount
-                createPaymentApplicationMap.invoiceId = invoice.invoiceId
-                serviceResult = run service: 'createPaymentApplication', with: createPaymentApplicationMap
+        parameters.invoices.each { GenericValue invoice ->
+            if ("INVOICE_READY" == invoice.statusId) {
+                serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
                 if (ServiceUtil.isError(serviceResult)) return serviceResult
+                Map invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
+                if (invoicePaymentInfo.outstandingAmount > 0) {
+                    serviceResult = run service: 'createPaymentApplication', with: [paymentId    : paymentId,
+                                                                                    amountApplied: invoicePaymentInfo.outstandingAmount,
+                                                                                    invoiceId    : invoice.invoiceId]
+                    if (ServiceUtil.isError(serviceResult)) return serviceResult
+                }
             }
-        }
-        invoiceIds.add(invoice.invoiceId)
+            invoiceIds << invoice.invoiceId
         }
     }
-    result.invoiceIds = invoiceIds
-    result.amount =  paymentAmount
-    return result
+    return success([paymentId : paymentId,
+                    invoiceIds: invoiceIds,
+                    amount    : paymentAmount])
 }
+
 def getPaymentRunningTotal(){
-    paymentIds = parameters.paymentIds;
-    runningTotal = 0;
-    payments = from("Payment").where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, paymentIds)).queryList()
-    if (payments) {
-        for (GenericValue payment : payments) {
-            runningTotal = runningTotal + payment.amount;
-        }
-    }
+    String currencyUomId
+    List paymentIds = parameters.paymentIds
+    BigDecimal runningTotal = 0
+    from("Payment")
+            .where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, paymentIds))
+            .queryList()
+            .each {
+                runningTotal += it.amount
+            }
 
     if (parameters.organizationPartyId) {
-        serviceCtx = [
-                organizationPartyId: parameters.organizationPartyId,
-                userLogin: userLogin
-        ]
-        serviceResult = dispatcher.runSync('getPartyAccountingPreferences', serviceCtx);
-        partyAcctgPreference = serviceResult.partyAccountingPreference;
-
-        if (partyAcctgPreference.baseCurrencyUomId) {
-            currencyUomId = partyAcctgPreference.baseCurrencyUomId;
-        } else {
-            currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default');
-        }
+        Map serviceResult = run service: 'getPartyAccountingPreferences', with: [organizationPartyId: parameters.organizationPartyId]
+        GenericValue partyAcctgPreference = serviceResult.partyAccountingPreference
+        currencyUomId = partyAcctgPreference.baseCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     } else  {
-        currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default');
+        currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     }
-
-    paymentRunningTotal = UtilFormatOut.formatCurrency(runningTotal, currencyUomId, locale);
-
-    result = success()
-    result.paymentRunningTotal = paymentRunningTotal
-    return result
+    return success(paymentRunningTotal: UtilFormatOut.formatCurrency(runningTotal, currencyUomId, locale))
 }
-def createPaymentContent() {
-    GenericValue newEntity = makeValue("PaymentContent")
-    newEntity.setPKFields(parameters, true)
-    newEntity.setNonPKFields(parameters, true)
 
-    if (!newEntity.fromDate) {
-        Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-        newEntity.fromDate  = nowTimestamp
-    }
+def createPaymentContent() {
+    GenericValue newEntity = makeValue("PaymentContent", parameters)
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
 
-    result = run service: 'updateContent', with: parameters
+    Map result = run service: 'updateContent', with: parameters
     if (ServiceUtil.isError(result)) return result
 
-    Map result = success()
-    result.contentId = newEntity.contentId
-    result.paymentId = newEntity.paymentId
-    result.paymentContentTypeId = newEntity.paymentContentTypeId
-    return result
+    return success([contentId           : newEntity.contentId,
+                    paymentId           : newEntity.paymentId,
+                    paymentContentTypeId: newEntity.paymentContentTypeId])
 }
+
 //TODO: This can be converted into entity-auto with a seca rule for updateContent
 def updatePaymentContent() {
-    serviceResult = success()
-    GenericValue lookupPKMap = makeValue("PaymentContent")
-    lookupPKMap.setPKFields(parameters, true)
-
-    GenericValue lookedUpValue = findOne("PaymentContent", lookupPKMap, false)
+    GenericValue lookedUpValue = from("PaymentContent").where(parameters).queryOne()
     if (lookedUpValue) {
         lookedUpValue.setNonPKFields(parameters)
         lookedUpValue.store()
-        result = run service: 'updateContent', with: parameters
+        Map result = run service: 'updateContent', with: parameters
         if (ServiceUtil.isError(result)) return result
-        return serviceResult
-    } else {
-        return ServiceUtil.returnError("Error getting Payment Content")
+        return success()
     }
+    return error("Error getting Payment Content")
 }
+
 def massChangePaymentStatus() {
-    serviceResult = success()
-    Map setPaymentStatusMap = [:]
     parameters.paymentIds.each{ paymentId ->
-        setPaymentStatusMap.paymentId = paymentId
-        setPaymentStatusMap.statusId = parameters.statusId
-        setPaymentStatusMap.userLogin = parameters.userLogin
-        result = run service: 'setPaymentStatus', with: setPaymentStatusMap
+        Map result = run service: 'setPaymentStatus', with: [paymentId: paymentId,
+                                                             statusId : parameters.statusId]
         if (ServiceUtil.isError(result)) return result
-        setPaymentStatusMap.clear()
     }
-    return serviceResult
+    return success()
 }
-def getInvoicePaymentInfoListByDueDateOffset(){
 
-    filteredInvoicePaymentInfoList = []
+def getInvoicePaymentInfoListByDueDateOffset() {
 
-    Timestamp asOfDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), (long) parameters.daysOffset);
-
-    exprList = [EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, parameters.invoiceTypeId),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_PAID")
-    ]
+    List filteredInvoicePaymentInfoList = []
+    Timestamp asOfDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), (long) parameters.daysOffset)
+    EntityCondition condition = new EntityConditionBuilder().AND() {
+        EQUALS(invoiceTypeId: parameters.invoiceTypeId)
+        NOT_IN(statusId: ["INVOICE_CANCELLED", "INVOICE_PAID"])
+    }
     if (parameters.partyId) {
-        exprList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, parameters.partyId))
+        condition = new EntityConditionBuilder().AND(condition) {
+            EQUALS(partyId: parameters.partyId)
+        }
     }
     if (parameters.partyIdFrom) {
-        exprList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyIdFrom))
-    }
-
-    condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-
-    invoices = from("Invoice").where(condition).orderBy("invoiceDate").queryList();
-
-    if (invoices) {
-        for (GenericValue invoice : invoices) {
-            getInvoicePaymentInfoListInMap = [:]
-            getInvoicePaymentInfoListInMap.put("invoice", invoice);
-            getInvoicePaymentInfoListInMap.put("userLogin", userLogin);
-            serviceResult = run service: 'getInvoicePaymentInfoList', with: getInvoicePaymentInfoListInMap
-            if (ServiceUtil.isError(serviceResult)) return result
-            invoicePaymentInfoList = serviceResult.invoicePaymentInfoList;
-            if (invoicePaymentInfoList) {
-                invoicePaymentInfoList.each { invoicePaymentInfo ->
-                    if (invoicePaymentInfo.outstandingAmount.compareTo(BigDecimal.ZERO) > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
-                        filteredInvoicePaymentInfoList.add(invoicePaymentInfo);
-                    }
-                }
-            }
+        condition = new EntityConditionBuilder().AND(condition) {
+            EQUALS(partyIdFrom: parameters.partyIdFrom)
         }
     }
 
-    result = success()
-    result.invoicePaymentInfoList = filteredInvoicePaymentInfoList
-    return result
+    from("Invoice")
+            .where(condition)
+            .orderBy("invoiceDate")
+            .queryList()
+            .each {
+                Map serviceResult = run service: 'getInvoicePaymentInfoList', with: [invoice: it]
+                if (ServiceUtil.isError(serviceResult)) return serviceResult
+                invoicePaymentInfoList = serviceResult.invoicePaymentInfoList
+                if (invoicePaymentInfoList) {
+                    invoicePaymentInfoList.each { Map invoicePaymentInfo ->
+                        if (invoicePaymentInfo.outstandingAmount.compareTo(BigDecimal.ZERO) > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
+                            filteredInvoicePaymentInfoList << invoicePaymentInfo
+                        }
+                    }
+                }
+            }
+
+    return success(invoicePaymentInfoList: filteredInvoicePaymentInfoList)
 }
 
 def getPaymentGroupReconciliationId() {
-    paymentGroupMember = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).queryFirst()
-    glReconciliationId = null;
-    Map result = success()
+    GenericValue paymentGroupMember = from("PaymentGroupMember")
+            .where("paymentGroupId", parameters.paymentGroupId)
+            .queryFirst()
+    String glReconciliationId = null
     if (paymentGroupMember) {
-        payment = paymentGroupMember.getRelatedOne('Payment', false)
-        finAccountTrans = payment.getRelatedOne('FinAccountTrans', false)
+        GenericValue payment = paymentGroupMember.getRelatedOne('Payment', false)
+        GenericValue finAccountTrans = payment.getRelatedOne('FinAccountTrans', false)
         if (finAccountTrans) {
             glReconciliationId = finAccountTrans.glReconciliationId
         }
     }
-    result.glReconciliationId = glReconciliationId
-    return result
+    return success(glReconciliationId: glReconciliationId)
 }
 
 def createPaymentAndApplication() {
-    Map result = success()
-    Map createPaymentCtx = dispatcher.getDispatchContext().makeValidContext('createPayment', 'IN', parameters)
-    Map createPaymentResp = dispatcher.runSync('createPayment', createPaymentCtx)
-
+    Map createPaymentResp = run service: 'createPayment', with: parameters
     if (ServiceUtil.isError(createPaymentResp)) return createPaymentResp
 
-    Map createPaymentApplicationCtx = dispatcher.getDispatchContext().makeValidContext('createPaymentApplication', 'IN', parameters)
-    createPaymentApplicationCtx.paymentId = createPaymentResp.paymentId
-    createPaymentApplicationCtx.amountApplied = parameters.amount
-    Map createPaymentApplicationResp = dispatcher.runSync('createPaymentApplication', createPaymentApplicationCtx)
-
+    Map createPaymentApplicationResp = run service: 'createPaymentApplication', with: [*            : parameters,
+                                                                                       paymentId    : createPaymentResp.paymentId,
+                                                                                       amountApplied: parameters.amount]
     if (ServiceUtil.isError(createPaymentApplicationResp)) return createPaymentApplicationResp
 
-    result.put("paymentId", createPaymentResp.paymentId)
-    result.put("paymentApplicationId", createPaymentApplicationResp.paymentApplicationId)
-    return result
-
+    return success([paymentId           : createPaymentResp.paymentId,
+                    paymentApplicationId: createPaymentApplicationResp.paymentApplicationId])
 }
 
 def createFinAccoutnTransFromPayment() {
-    serviceResult = success()
-    Map createFinAccountTransMap = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', ModelService.IN_PARAM, parameters)
-    createFinAccountTransMap.finAccountTransTypeId = 'WITHDRAWAL'
-    createFinAccountTransMap.partyId  = parameters.organizationPartyId
-    createFinAccountTransMap.transactionDate = UtilDateTime.nowTimestamp()
-    createFinAccountTransMap.entryDate = UtilDateTime.nowTimestamp()
-    createFinAccountTransMap.statusId = 'FINACT_TRNS_CREATED'
-    createFinAccountTransMap.comments = "Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"
-    result = run service: 'createFinAccountTrans', with: createFinAccountTransMap
+    Map result = run service: 'createFinAccountTrans', with: [*                    : parameters,
+                                                              finAccountTransTypeId: 'WITHDRAWAL',
+                                                              partyId              : parameters.organizationPartyId,
+                                                              transactionDate      : UtilDateTime.nowTimestamp(),
+                                                              entryDate            : UtilDateTime.nowTimestamp(),
+                                                              statusId             : 'FINACT_TRNS_CREATED',
+                                                              comments             : "Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"]
+
     if (ServiceUtil.isError(result)) {
-        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result))
+        return result
     }
-    Map updatePaymentMap = [:]
-    updatePaymentMap.finAccountTransId = result.finAccountTransId
-    updatePaymentMap.paymentId = parameters.paymentId
-    result = run service: 'updatePayment', with: updatePaymentMap
+    String finAccountTransId = result.finAccountTransId
+    result = run service: 'updatePayment', with: [finAccountTransId: finAccountTransId,
+                                                  paymentId        : parameters.paymentId]
     if (ServiceUtil.isError(result)) {
-        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result))
+        return result
     }
-    return serviceResult
+    return success(finAccountTransId: finAccountTransId)
 }
 
 def quickSendPayment() {
-    Map result = success()
-    Map updatePaymentCtx = dispatcher.getDispatchContext().makeValidContext('updatePayment', 'IN', parameters)
-    Map updatePaymentResp = dispatcher.runSync('updatePayment', updatePaymentCtx)
-
+    Map updatePaymentResp = run service: 'updatePayment', with: parameters
     if (ServiceUtil.isError(updatePaymentResp)) return updatePaymentResp
 
-    Map setPaymentStatusCtx = dispatcher.getDispatchContext().makeValidContext('setPaymentStatus', 'IN', parameters)
-    setPaymentStatusCtx.statusId = "PMNT_SENT"
-    Map setPaymentStatusResp = dispatcher.runSync('setPaymentStatus', setPaymentStatusCtx)
-
+    Map setPaymentStatusResp = run service: 'setPaymentStatus', with: [*       : parameters,
+                                                                       statusId: "PMNT_SENT"]
     if (ServiceUtil.isError(setPaymentStatusResp)) return setPaymentStatusResp
 
-    return result
-
+    return success()
 }
 
 /**
  * Service to cancel payment batch
  */
 def cancelPaymentBatch() {
-    List<GenericValue> paymentGroupMemberAndTransList = from("PmtGrpMembrPaymentAndFinAcctTrans").where("paymentGroupId", parameters.paymentGroupId).queryList()
+    List<GenericValue> paymentGroupMemberAndTransList = from("PmtGrpMembrPaymentAndFinAcctTrans")
+            .where("paymentGroupId", parameters.paymentGroupId)
+            .queryList()
 
     if (paymentGroupMemberAndTransList) {
-        GenericValue paymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
-        if ("FINACT_TRNS_APPROVED" == paymentGroupMemberAndTrans.finAccountTransStatusId) {
-            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled', locale))
+        if ("FINACT_TRNS_APPROVED" == paymentGroupMemberAndTransList[0].finAccountTransStatusId) {
+            return error(label('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled'))
         }
 
         for (GenericValue paymentGroupMember : paymentGroupMemberAndTransList) {
-            Map expirePaymentGroupMemberMap = dispatcher.getDispatchContext().makeValidContext("expirePaymentGroupMember", "IN", paymentGroupMember)
-            result = runService("expirePaymentGroupMember", expirePaymentGroupMemberMap)
+            Map result = run service: "expirePaymentGroupMember", with: paymentGroupMember.getAllFields()
             if (ServiceUtil.isError(result)) return result
 
             GenericValue finAccountTrans = from("FinAccountTrans").where("finAccountTransId", paymentGroupMember.finAccountTransId).queryOne()
             if (finAccountTrans) {
-                Map setFinAccountTransStatusMap = dispatcher.getDispatchContext().makeValidContext("setFinAccountTransStatus", "IN", finAccountTrans)
-                setFinAccountTransStatusMap.statusId = "FINACT_TRNS_CANCELED"
-                result = runService("setFinAccountTransStatus", setFinAccountTransStatusMap)
+                finAccountTrans.statusId = "FINACT_TRNS_CANCELED"
+                result = run service: "setFinAccountTransStatus", with: [*       : finAccountTrans.getAllFields(),
+                                                                         statusId: 'FINACT_TRNS_CANCELED']
                 if (ServiceUtil.isError(result)) return result
             }
         }
     }
+    return success()
 }
 
 def getPayments() {
-    payments = []
+    List payments = []
     if (parameters.paymentGroupId) {
-        paymentGroupMembers = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).filterByDate().queryList()
-        if (paymentGroupMembers) {
-            paymentIds = EntityUtil.getFieldListFromEntityList(paymentGroupMembers, "paymentId", true)
-            payments = from("Payment").where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, paymentIds)).queryList()
+        List paymentIds = from("PaymentGroupMember")
+                .where("paymentGroupId", parameters.paymentGroupId)
+                .filterByDate()
+                .distinct()
+                .getFieldList("paymentId")
+        if (paymentIds) {
+            payments = from("Payment")
+                    .where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, paymentIds))
+                    .queryList()
         }
     }
     if (parameters.finAccountTransId) {
-        payments = from("Payment").where("finAccountTransId", parameters.finAccountTransId).queryList()
+        payments = from("Payment")
+                .where("finAccountTransId", parameters.finAccountTransId)
+                .queryList()
     }
-    result = success()
-    result.payments = payments
-    return result
+    return success(payments: payments)
 }
 
 def cancelCheckRunPayments() {
-    paymentGroupMemberAndTransList = from("PmtGrpMembrPaymentAndFinAcctTrans").where("paymentGroupId", parameters.paymentGroupId).queryList()
+    List paymentGroupMemberAndTransList = from("PmtGrpMembrPaymentAndFinAcctTrans")
+            .where("paymentGroupId", parameters.paymentGroupId)
+            .queryList()
     if (paymentGroupMemberAndTransList) {
-        paymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
-        if ("FINACT_TRNS_APPROVED" != paymentGroupMemberAndTrans.finAccountTransStatusId) {
+        if ("FINACT_TRNS_APPROVED" != paymentGroupMemberAndTransList[0].finAccountTransStatusId) {
             for (GenericValue paymentGroupMemberAndTrans : paymentGroupMemberAndTransList) {
-                payment = from("Payment").where("paymentId", paymentGroupMemberAndTrans.paymentId).queryOne()
-                Map voidPaymentMap = dispatcher.getDispatchContext().makeValidContext("voidPayment", "IN", payment)
-                result = runService("voidPayment", voidPaymentMap)
+                GenericValue payment = from("Payment").where("paymentId", paymentGroupMemberAndTrans.paymentId).queryOne()
+                Map result = run service: "voidPayment", with: payment.getAllFields()
                 if (ServiceUtil.isError(result)) return result
-                Map expirePaymentGroupMemberMap = dispatcher.getDispatchContext().makeValidContext("expirePaymentGroupMember", "IN", paymentGroupMemberAndTrans)
-                result = runService("expirePaymentGroupMember", expirePaymentGroupMemberMap)
+                result = run service: "expirePaymentGroupMember", with: paymentGroupMemberAndTrans.getAllFields()
                 if (ServiceUtil.isError(result)) return result
             }
         } else {
-            return error(UtilProperties.getMessage("AccountingErrorUiLabels", "AccountingCheckIsAlreadyIssued", locale))
+            return error(label("AccountingErrorUiLabels", "AccountingCheckIsAlreadyIssued"))
         }
     }
     return success()
@@ -514,9 +449,9 @@ def createPaymentAndPaymentGroupForInvoices() {
     if (paymentMethod) {
         GenericValue finAccount = from("FinAccount").where("finAccountId", paymentMethod.finAccountId).queryOne()
         if (finAccount.statusId == "FNACT_MANFROZEN") {
-            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingFinAccountInactiveStatusError', locale))
+            return error(label('AccountingErrorUiLabels', 'AccountingFinAccountInactiveStatusError'))
         } else if (finAccount.statusId == "FNACT_CANCELLED") {
-            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingFinAccountStatusNotValidError', locale))
+            return error(label('AccountingErrorUiLabels', 'AccountingFinAccountStatusNotValidError'))
         }
     }
     Map partyInvoices = [:]
@@ -543,14 +478,12 @@ def createPaymentAndPaymentGroupForInvoices() {
         paymentGroupId = result.paymentGroupId
     }
     if (!result.paymentGroupId) {
-        return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingNoInvoicesReadyOrOutstandingAmountZero", parameters.locale))
+        return error(label("AccountingUiLabels", "AccountingNoInvoicesReadyOrOutstandingAmountZero"))
     }
     return result
 }
 
 def createPaymentFromOrder() {
-    Map serviceResult = success()
-
     GenericValue orderHeader = from("OrderHeader").where(parameters).queryOne()
     if (orderHeader) {
         if ("PURCHASE_ORDER" == orderHeader.orderTypeId) {
@@ -583,6 +516,7 @@ def createPaymentFromOrder() {
                 .queryFirst()
 
         GenericValue agreement
+        String organizationPartyId
         if ("PURCHASE_ORDER" == orderHeader.orderTypeId) {
             agreement = from("Agreement")
                     .where(partyIdFrom: orderRoleFrom.partyId,
@@ -672,14 +606,13 @@ def createPaymentFromOrder() {
 def createPaymentApplication() {
     // Create a Payment Application
     if (!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId) {
-        return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentApplicationParameterMissing", locale))
+        return error(label("AccountingUiLabels", "AccountingPaymentApplicationParameterMissing"))
     }
-    GenericValue paymentAppl = delegator.makeValue("PaymentApplication")
-    paymentAppl.setNonPKFields(parameters)
+    GenericValue paymentAppl = makeValue("PaymentApplication", parameters)
 
     GenericValue payment = from("Payment").where("paymentId", parameters.paymentId).queryOne()
     if (!payment) {
-        return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentApplicationParameterMissing", locale))
+        return error(label("AccountingUiLabels", "AccountingPaymentApplicationParameterMissing"))
     }
 
     BigDecimal notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
@@ -689,7 +622,7 @@ def createPaymentApplication() {
         GenericValue invoice = from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
         // check the currencies if they are compatible
         if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId != payment.actualCurrencyUomId) {
-            return error(UtilProperties.getMessage("AccountingUiLabels", "AccountingCurrenciesOfInvoiceAndPaymentNotCompatible", locale))
+            return error(label("AccountingUiLabels", "AccountingCurrenciesOfInvoiceAndPaymentNotCompatible"))
         }
         if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId == payment.actualCurrencyUomId) {
             // if required get the payment amount in foreign currency (local we already have)
@@ -698,7 +631,7 @@ def createPaymentApplication() {
         // get the amount that has not been applied yet for the invoice (outstanding amount)
         BigDecimal notAppliedInvoice = InvoiceWorker.getInvoiceNotApplied(invoice)
         paymentAppl.amountApplied = notAppliedInvoice <= notAppliedPayment
-            ? notAppliedInvoice : notAppliedPayment
+                ? notAppliedInvoice : notAppliedPayment
 
         if (invoice.billingAccountId) {
             paymentAppl.billingAccountId = invoice.billingAccountId
@@ -712,8 +645,8 @@ def createPaymentApplication() {
         if (!parameters.amountApplied) {
             notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
             BigDecimal notAppliedToPayment = PaymentWorker.getPaymentNotApplied(toPayment)
-             paymentAppl.amountApplied = notAppliedPayment < notAppliedToPayment
-                ? notAppliedPayment : notAppliedToPayment
+            paymentAppl.amountApplied = notAppliedPayment < notAppliedToPayment
+                    ? notAppliedPayment : notAppliedToPayment
         }
     }
 
@@ -724,9 +657,7 @@ def createPaymentApplication() {
     paymentAppl.paymentApplicationId = delegator.getNextSeqId("PaymentApplication")
     paymentAppl.create()
 
-    Map serviceResult = success()
-    serviceResult.amountApplied = paymentAppl.amountApplied
-    serviceResult.paymentApplicationId = paymentAppl.paymentApplicationId
-    serviceResult.paymentTypeId = payment.paymentTypeId
-    return serviceResult
+    return success([amountApplied       : paymentAppl.amountApplied,
+                    paymentApplicationId: paymentAppl.paymentApplicationId,
+                    paymentTypeId       : payment.paymentTypeId])
 }
