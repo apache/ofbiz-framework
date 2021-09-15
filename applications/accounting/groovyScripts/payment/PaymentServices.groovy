@@ -26,6 +26,8 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
@@ -712,4 +714,119 @@ def setPaymentStatus() {
     payment.statusId = parameters.statusId
     payment.store()
     return success(oldStatusId: oldStatusId)
+}
+
+def createMatchingPaymentApplication() {
+    String autoCreate = EntityUtilProperties.getPropertyValue("accounting", "accounting.payment.application.autocreate", "Y", delegator)
+    if ("Y" != autoCreate) {
+        logInfo("payment application not automatically created because config is not set to Y")
+        return success()
+    }
+
+    Map createPaymentApplicationCtx = [:]
+    if (parameters.invoiceId) {
+        GenericValue invoice = from("Invoice").where("invoiceId", parameters.invoiceId).queryOne()
+        if (invoice) {
+            BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
+
+            Map isInvoiceInForeignCurrencyResp = run service: 'isInvoiceInForeignCurrency', with: [invoiceId: invoice.invoiceId]
+            if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) return isInvoiceInForeignCurrencyResp
+
+            EntityConditionBuilder exprBldr = new EntityConditionBuilder()
+            EntityCondition expr = exprBldr.AND() {
+                NOT_EQUAL(statusId: 'PMNT_CONFIRMED')
+                EQUALS(partyIdFrom: invoice.partyId)
+                EQUALS(partyIdTo: invoice.partyIdFrom)
+            }
+            if (isInvoiceInForeignCurrencyResp.isForeign) {
+                expr = exprBldr.AND(expr) {
+                    EQUALS(actualCurrencyAmount: invoiceTotal)
+                    EQUALS(actualCurrencyUomId: invoice.currencyUomId)
+                }
+            } else {
+                expr = exprBldr.AND(expr) {
+                    EQUALS(amount: invoiceTotal)
+                    EQUALS(currencyUomId: invoice.currencyUomId)
+                }
+            }
+
+            GenericValue payment = from('Payment')
+                    .where(expr)
+                    .orderBy('effectiveDate')
+                    .queryFirst()
+
+            if (payment && from('PaymentApplication')
+                    .where('paymentId', payment.paymentId)
+                    .queryCount() == 0) {
+                createPaymentApplicationCtx.paymentId = payment.paymentId
+                createPaymentApplicationCtx.invoiceId = parameters.invoiceId
+                createPaymentApplicationCtx.amountApplied = isInvoiceInForeignCurrencyResp.isForeign
+                        ? payment.actualCurrencyAmount
+                        : payment.amount
+            }
+        }
+    }
+
+    if (parameters.paymentId) {
+        GenericValue payment = from("Payment").where(paymentId: parameters.paymentId).queryOne()
+
+        if (payment) {
+            EntityCondition expr = new EntityConditionBuilder().AND() {
+                NOT_IN(statusId: ['INVOICE_READY','INVOICE_PAID','INVOICE_CANCELLED','INVOICE_WRITEOFF'])
+                EQUALS(partyIdFrom: payment.partyIdTo)
+                EQUALS(partyId: payment.partyIdFrom)
+            }
+
+            List invoices = from('Invoice')
+                    .where(expr)
+                    .orderBy('invoiceDate')
+                    .queryList()
+            String invoiceId
+            BigDecimal amountApplied
+            for (GenericValue invoice: invoices) {
+                boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.invoiceTypeId, 'parentTypeId', 'PURCHASE_INVOICE')
+                boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.invoiceTypeId, 'parentTypeId', 'SALES_INVOICE')
+
+                if (isPurchaseInvoice || isSalesInvoice) {
+                    BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
+
+                    Map isInvoiceInForeignCurrencyResp = run service: 'isInvoiceInForeignCurrency', with: [invoiceId: invoice.invoiceId]
+                    if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) return isInvoiceInForeignCurrencyResp
+
+                    if (isInvoiceInForeignCurrencyResp.isForeign
+                            && invoiceTotal.compareTo(payment.actualCurrencyAmount) == 0
+                            && invoice.currencyUomId == payment.actualCurrencyUomId) {
+                        invoiceId = invoice.invoiceId
+                        amountApplied = payment.actualCurrencyAmount
+                    } else if (invoiceTotal.compareTo(payment.amount) == 0 && invoice.currencyUomId == payment.currencyUomId) {
+                        invoiceId = invoice.invoiceId
+                        amountApplied = payment.amount
+                    }
+
+                }
+            }
+
+            if (invoiceId) {
+                if (from('PaymentApplication')
+                        .where(invoiceId: invoiceId)
+                        .queryCount()) {
+                    createPaymentApplicationCtx.paymentId = parameters.paymentId
+                    createPaymentApplicationCtx.invoiceId = invoiceId
+                    createPaymentApplicationCtx.amountApplied = amountApplied
+                }
+            }
+        }
+    }
+
+    if (createPaymentApplicationCtx.paymentId &&
+            createPaymentApplicationCtx.invoiceId) {
+        Map createPaymentApplicationResp = run service: 'createPaymentApplication', with: createPaymentApplicationCtx
+        if (ServiceUtil.isError(createPaymentApplicationResp)) return createPaymentApplicationResp
+
+        logInfo("payment application automatically created between invoiceId: $createPaymentApplicationCtx.invoiceId}" +
+                " and paymentId: ${createPaymentApplicationCtx.paymentId} for" +
+                " the amount: ${createPaymentApplicationCtx.amountApplied} (can be disabled in accounting.properties)")
+    }
+    return success()
+
 }

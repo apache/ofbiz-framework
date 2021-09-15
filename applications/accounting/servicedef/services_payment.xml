@@ -244,8 +244,8 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createMatchingPaymentApplication" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createMatchingPaymentApplication" auth="true">
+    <service name="createMatchingPaymentApplication" engine="groovy"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createMatchingPaymentApplication" auth="true">
         <description>Create a payment application if either the invoice of payment could be found</description>
         <attribute name="paymentId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
