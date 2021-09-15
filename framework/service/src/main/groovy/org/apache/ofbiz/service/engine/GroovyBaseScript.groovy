@@ -19,6 +19,7 @@
 package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
 import org.apache.ofbiz.service.LocalDispatcher
@@ -141,5 +142,19 @@ abstract class GroovyBaseScript extends Script {
     }
     def logVerbose(String message) {
         Debug.logVerbose(message, getModule())
+    }
+
+    def label(String ressource, String message) {
+        return label(ressource, message, null)
+    }
+    def label(String ressource, String message, Map context) {
+        Locale locale = this.binding.getVariable('locale')
+        if (!locale) {
+            locale = Locale.getDefault()
+        }
+        if (context) {
+            return UtilProperties.getMessage(ressource, message, context, locale)
+        }
+        return UtilProperties.getMessage(ressource, message, locale)
     }
 }
