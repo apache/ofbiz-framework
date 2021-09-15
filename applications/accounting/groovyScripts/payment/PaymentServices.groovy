@@ -661,3 +661,55 @@ def createPaymentApplication() {
                     paymentApplicationId: paymentAppl.paymentApplicationId,
                     paymentTypeId       : payment.paymentTypeId])
 }
+
+def setPaymentStatus() {
+    GenericValue payment = from("Payment").where("paymentId", parameters.paymentId).queryOne()
+    if (!payment) {
+        return error("No payment found with ID ${parameters.paymentId}")
+    }
+    String oldStatusId = payment.statusId
+    GenericValue statusItem = from("StatusItem").where("statusId", parameters.statusId).cache().queryOne()
+    if (!statusItem) {
+        return error("No status found with status ID ${parameters.statusId}")
+    }
+
+    if (oldStatusId != parameters.statusId) {
+        GenericValue statusChange = from("StatusValidChange").where("statusId", oldStatusId, "statusIdTo", parameters.statusId).cache().queryOne()
+        if (! statusChange) {
+            return error(label("CommonUiLabels", "CommonErrorNoStatusValidChange"))
+        }
+
+        // payment method is mandatory when set to sent or received
+        if (["PMNT_RECEIVED", "PMNT_SENT"].contains(parameters.statusId) && !payment.paymentMethodId) {
+            return failure(label("AccountingUiLabels", "AccountingMissingPaymentMethod", [statusItem: statusItem]))
+        }
+
+        // check if the payment fully applied when set to confirmed
+        if ("PMNT_CONFIRMED" == parameters.statusId &&
+                PaymentWorker.getPaymentNotApplied(payment) != 0) {
+            return failure(label("AccountingUiLabels", "AccountingPSNotConfirmedNotFullyApplied"))
+        }
+    }
+
+    // if new status is cancelled delete existing payment applications
+    if ("PMNT_CANCELLED" == parameters.statusId) {
+        from("PaymentApplication")
+                .where(paymentId: payment.paymentId)
+                .queryList()
+                .each {
+                    run service: 'removePaymentApplication', with: [paymentApplicationId: it.paymentApplicationId]
+                }
+
+        // if new status is cancelled and the payment is associated to an OrderPaymentPreference, update the status of that record too
+        GenericValue orderPayPref = payment.getRelatedOne("OrderPaymentPreference", false)
+        if (orderPayPref) {
+            run service: 'updateOrderPaymentPreference', with: [orderPaymentPreferenceId: orderPayPref.orderPaymentPreferenceId,
+                                                                statusId                : "PAYMENT_CANCELLED"]
+        }
+    }
+
+    // everything ok, so now change the status field
+    payment.statusId = parameters.statusId
+    payment.store()
+    return success(oldStatusId: oldStatusId)
+}
