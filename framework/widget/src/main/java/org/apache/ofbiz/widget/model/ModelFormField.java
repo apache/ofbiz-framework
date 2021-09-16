@@ -41,6 +41,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
 import org.apache.ofbiz.base.conversion.DateTimeConverters.StringToTimestamp;
@@ -89,7 +90,7 @@ import org.w3c.dom.Element;
  *
  * @see <code>widget-form.xsd</code>
  */
-public class ModelFormField {
+public final class ModelFormField {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -712,7 +713,12 @@ public class ModelFormField {
             tooltipString = tooltip.expandString(context);
         }
         if (this.getEncodeOutput()) {
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = null;
+            if (tooltipString.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(tooltipString)))) {
+                simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            } else {
+                simpleEncoder = UtilCodec.getEncoder("string");
+            }
             if (simpleEncoder != null) {
                 tooltipString = simpleEncoder.encode(tooltipString);
             }
@@ -1526,7 +1532,12 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
             } else if (this.getModelFormField().getEncodeOutput()) {
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (retVal.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(retVal)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     retVal = simpleEncoder.encode(retVal);
                 }
@@ -1819,7 +1830,12 @@ public class ModelFormField {
                 }
             }
             if (UtilValidate.isNotEmpty(this.description) && retVal != null && this.getModelFormField().getEncodeOutput()) {
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (retVal.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(retVal)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     retVal = simpleEncoder.encode(retVal);
                 }
@@ -2745,7 +2761,12 @@ public class ModelFormField {
         public String getValue(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.value)) {
                 String valueEnc = this.value.expandString(context);
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = null;
+                if (valueEnc.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(valueEnc)))) {
+                    simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                } else {
+                    simpleEncoder = UtilCodec.getEncoder("string");
+                }
                 if (simpleEncoder != null) {
                     valueEnc = simpleEncoder.encode(valueEnc);
                 }

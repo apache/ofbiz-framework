@@ -303,7 +303,7 @@ def setShipmentSettingsFromPrimaryOrder() {
         List destTelecomOrdercontactMechs = EntityUtil.filterByAnd(orderContactMechs,
                 [contactMechPurposeTypeId: "PHONE_SHIPPING"])
         if (destTelecomOrdercontactMechs) {
-            shipment.destinationTeelcomNumberId = destTelecomOrdercontactMechs[0].contactMechId
+            shipment.destinationTelecomNumberId = destTelecomOrdercontactMechs[0].contactMechId
         } else {
             // use the first unexpired phone number of the shipment partyIdTo
             GenericValue phoneNumber = from("PartyAndTelecomNumber")

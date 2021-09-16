@@ -20,6 +20,9 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonOrderReturnDecorator">
         <section>
+            <actions>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_returns"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -43,11 +46,11 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindReturn"/>
                 <set field="headerItem" value="return"/>
+                <set field="helpAnchor" value="_find_return"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="asm_multipleSelectForm" value="FindReturns"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="FindReturns_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>
@@ -76,6 +79,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindQuickReturn"/>
                 <set field="headerItem" value="return"/>
+                <set field="helpAnchor" value="_quick_return"/>
                 <script location="component://order/groovyScripts/return/QuickReturn.groovy"/>
             </actions>
             <widgets>
@@ -97,6 +101,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleReturnHeader"/>
                 <set field="headerItem" value="return"/>
                 <set field="tabButtonItem" value="OrderReturnHeader"/>
+                <set field="helpAnchor" value="_create_return"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/ordermgr-js/return.js" global="true"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <script location="component://order/groovyScripts/return/ReturnHeader.groovy"/>
@@ -121,6 +126,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleReturnList"/>
                 <set field="headerItem" value="return"/>
+                <set field="helpAnchor" value="_find_return"/>
                 <entity-condition entity-name="ReturnHeader" list="returnList"/>
             </actions>
             <widgets>
@@ -142,6 +148,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleReturnItems"/>
                 <set field="headerItem" value="return"/>
                 <set field="tabButtonItem" value="OrderReturnItems"/>
+                <set field="helpAnchor" value="_create_return"/>
                 <script location="component://order/groovyScripts/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
@@ -214,7 +221,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ReturnTypeHistory">
         <section>
             <actions>

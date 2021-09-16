@@ -47,7 +47,10 @@ import freemarker.template.TemplateException;
 
 /**
  * Widget Library - HTML Tree Renderer implementation
+ *
+ * @deprecated since 2021-01-14
  */
+@Deprecated
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
     private ScreenStringRenderer screenStringRenderer = null;

@@ -478,6 +478,13 @@ under the License.
             <xs:attribute type="xs:string" name="param-name" use="required" />
             <xs:attribute type="xs:string" name="from-field" />
             <xs:attribute type="xs:string" name="value" />
+            <xs:attribute type="xs:string" name="from-event-result">
+                <xs:annotation>
+                    <xs:documentation>For set-callback only, indicates the event return variable from where the
+                        parameter value is retrieved.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="auto-parameters-service">
@@ -526,6 +533,7 @@ under the License.
             <xs:element minOccurs="0" ref="auto-parameters-entity"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
             <xs:element minOccurs="0" name="image" type="image" />
+            <xs:element minOccurs="0" ref="set-callback"/>
         </xs:sequence>
         <xs:attribute type="xs:string" name="text" />
         <xs:attribute type="xs:string" name="id">
@@ -559,6 +567,13 @@ under the License.
                     <xs:enumeration value="anchor" />
                     <xs:enumeration value="hidden-form" />
                     <xs:enumeration value="layered-modal" />
+                    <xs:enumeration value="update-area">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Specify a specific area to update with a screen injection.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -606,4 +621,24 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
+    <xs:element name="set-callback">
+        <xs:annotation>
+            <xs:documentation>When actions behind a link are terminated, follow the given information
+                to update a screen</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="auto-parameters-service"/>
+                <xs:element minOccurs="0" ref="auto-parameters-entity"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
+            </xs:sequence>
+            <xs:attribute name="area-id" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Identification of the area to update. If empty, by default the screen engine
+                        auto resolve it on the first parent referent screen present in the widget hierarchy</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="area-target" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

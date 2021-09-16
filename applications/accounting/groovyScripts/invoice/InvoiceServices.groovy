@@ -32,10 +32,10 @@ def getNextInvoiceId() {
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where(parameters).queryOne()
     if (Debug.infoOn()) logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
 
-    String customMethodName = null;
-    String invoiceIdPrefix = '';
+    String customMethodName = null
+    String invoiceIdPrefix = ''
     if (partyAcctgPreference) {
-        invoiceIdPrefix = partyAcctgPreference.invoiceIdPrefix
+        invoiceIdPrefix = partyAcctgPreference.invoiceIdPrefix ?: ''
         //see OFBIZ-3765 beware of OFBIZ-3557
         GenericValue customMethod = partyAcctgPreference.getRelatedOne('InvoiceCustomMethod', true)
         if (customMethod) {
@@ -75,8 +75,7 @@ def getNextInvoiceId() {
     }
 
     // use invoiceIdTemp along with the invoiceIdPrefix to create the real ID
-    String invoiceId = invoiceIdPrefix + invoiceIdTemp
-    result.invoiceId = invoiceId
+    result.invoiceId = invoiceIdPrefix + invoiceIdTemp
     return result
 }
 

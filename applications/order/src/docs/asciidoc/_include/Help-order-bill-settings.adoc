@@ -1,0 +1,63 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Order Term
+
+If there are multiple "payment" term, it's the place to enter them. It's optional and you can enter as many as you want.
+
+Various payment terms in OFBiz are:
+
+* Financial
+* Payment Net Days
+* Late Fee (percent)
+* Penalty for Collection Agency
+* Non-compete etc.
+
+= Payment setting
+*Payment method*
+
+How will the customer pay ? Select the radio button to correspond with he payment method preferred by the customer. +
+Billing information is to completed when credit card or eft payments are not used.
+
+Various payment methods in OFBiz are:
+
+* Billing Account
+* Cash
+* Cash on Delivery
+* Certified Check
+* Company Account
+* Company Check
+* Credit Card
+* Electronic Fund Transfer
+* Financial Account
+* Gift Card
+* Gift Certificate
+* Money Order
+* Offline Payment
+* Paypal
+* Personal Check etc.
+
+= Additional Party Entry
+
+There may be reasons for associating another Party or Group with the order. For example, the person placing the order
+might be an member of an existing customer group, such as a shopping club, or they might be a purchasing agent for
+a company and need to be identified with that company.
+
+When you select to identify another group or individual for association, a process will be followed. +
+Select a Party (use the lookup or auto-completion in field) and after the apply button you have to select which role for this
+party for this order. Only Existing role associated with the party selected appear.

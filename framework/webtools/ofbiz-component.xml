@@ -20,7 +20,7 @@ under the License.
 
 <ofbiz-component name="webtools"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
     
@@ -29,7 +29,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <webapp name="webtools"
         title="WebTools"
-        menu-name="secondary"
+        position="12"
         server="default-server"
         location="webapp/webtools"
         base-permission="OFBTOOLS,WEBTOOLS"

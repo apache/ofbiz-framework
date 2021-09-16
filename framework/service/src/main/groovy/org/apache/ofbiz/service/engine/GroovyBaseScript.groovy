@@ -19,6 +19,7 @@
 package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
 import org.apache.ofbiz.service.LocalDispatcher
@@ -83,21 +84,35 @@ abstract class GroovyBaseScript extends Script {
         return from(entityName).where(fields).cache(useCache).queryOne()
     }
 
+    def success() {
+        return success(null, null)
+    }
     def success(String message) {
+        return success(message, null)
+    }
+    def success(Map returnValues) {
+        return success(null, returnValues)
+    }
+    def success(String message, Map returnValues) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
                 this.binding.getVariable('request').setAttribute("_EVENT_MESSAGE_", message)
             }
+            if (returnValues) {
+                returnValues.each {
+                    this.binding.getVariable('request').setAttribute(it.getKey(), it.getValue())
+                }
+            }
             return 'success'
         } else {
             // the script is invoked as a "service"
-            if (message) {
-                return ServiceUtil.returnSuccess(message)
-            } else {
-                return ServiceUtil.returnSuccess()
+            Map result = message ? ServiceUtil.returnSuccess(message) : ServiceUtil.returnSuccess()
+            if (returnValues) {
+                result.putAll(returnValues)
             }
+            return result
         }
     }
     Map failure(String message) {
@@ -124,6 +139,7 @@ abstract class GroovyBaseScript extends Script {
             }
         }
     }
+
     def logInfo(String message) {
         Debug.logInfo(message, getModule())
     }
@@ -141,5 +157,19 @@ abstract class GroovyBaseScript extends Script {
     }
     def logVerbose(String message) {
         Debug.logVerbose(message, getModule())
+    }
+
+    def label(String ressource, String message) {
+        return label(ressource, message, null)
+    }
+    def label(String ressource, String message, Map context) {
+        Locale locale = this.binding.getVariable('locale')
+        if (!locale) {
+            locale = Locale.getDefault()
+        }
+        if (context) {
+            return UtilProperties.getMessage(ressource, message, context, locale)
+        }
+        return UtilProperties.getMessage(ressource, message, locale)
     }
 }

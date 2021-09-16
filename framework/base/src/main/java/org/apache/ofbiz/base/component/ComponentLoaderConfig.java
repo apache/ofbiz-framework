@@ -90,7 +90,7 @@ public final class ComponentLoaderConfig {
     /**
      * Represents a simple component or a component directory.
      */
-    public static class ComponentDef {
+    public static final class ComponentDef {
         /** The location of the component. */
         private final Path location;
         /** The type of component. */

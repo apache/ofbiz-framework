@@ -247,6 +247,33 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
+    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap,
+            Map<String, DatabaseUtil.ReferenceCheckInfo> refMap, ModelFieldTypeReader modelFieldTypeReader,
+            boolean isCaseSensitive) {
+        // if there is a dot in the name, remove it and everything before it, should be
+        // the schema name
+        this.modelReader = null;
+        this.modelInfo = ModelInfo.DEFAULT;
+        this.tableName = tableName;
+        int dotIndex = this.tableName.indexOf('.');
+        if (dotIndex >= 0) {
+            this.tableName = this.tableName.substring(dotIndex + 1);
+        }
+        this.entityName = ModelUtil.dbNameToClassName(this.tableName);
+        for (Map.Entry<String, DatabaseUtil.ColumnCheckInfo> columnEntry : colMap.entrySet()) {
+            DatabaseUtil.ColumnCheckInfo ccInfo = columnEntry.getValue();
+            ModelField newField = ModelField.create(this, ccInfo, modelFieldTypeReader);
+            addField(newField);
+        }
+        if (UtilValidate.isNotEmpty(refMap)) {
+            for (Map.Entry<String, DatabaseUtil.ReferenceCheckInfo> referenceEntry : refMap.entrySet()) {
+                DatabaseUtil.ReferenceCheckInfo rcInfo = referenceEntry.getValue();
+                ModelRelation newRel = ModelRelation.create(this, rcInfo, false);
+                addRelation(newRel);
+            }
+        }
+    }
+
     /**
      * Populate basic info.
      * @param entityElement the entity element
@@ -1790,25 +1817,6 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
-    /*
-     public String httpRelationArgList(ModelRelation relation) {
-     String returnString = "";
-     if (relation.keyMaps.size() < 1) { return ""; }
-
-     int i = 0;
-     for (; i < relation.keyMaps.size() - 1; i++) {
-     ModelKeyMap keyMap = (ModelKeyMap)relation.keyMaps.get(i);
-     if (keyMap != null)
-     returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName)
-     + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "() + \"&\" + ";
-     }
-     ModelKeyMap keyMap = (ModelKeyMap)relation.keyMaps.get(i);
-     returnString = returnString + "\"" + tableName + "_" + keyMap.relColName + "=\" + " + ModelUtil.lowerFirstChar(relation.mainEntity.entityName)
-     + ".get" + ModelUtil.upperFirstChar(keyMap.fieldName) + "()";
-     return returnString;
-     }
-     */
-
     /**
      * Type name string related no mapped string.
      * @param relation the relation
@@ -1896,39 +1904,6 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     @Override
     public int compareTo(ModelEntity otherModelEntity) {
-
-        /* This DOESN'T WORK, so forget it... using two passes
-         //sort list by fk dependencies
-
-         if (this.getEntityName().equals(otherModelEntity.getEntityName())) {
-         return 0;
-         }
-
-         //look through relations for dependencies from this entity to the other
-         Iterator relationsIter = this.getRelationsIterator();
-         while (relationsIter.hasNext()) {
-         ModelRelation modelRelation = (ModelRelation) relationsIter.next();
-
-         if ("one".equals(modelRelation.getType()) && modelRelation.getRelEntityName().equals(otherModelEntity.getEntityName())) {
-         //this entity is dependent on the other entity, so put that entity earlier in the list
-         return -1;
-         }
-         }
-
-         //look through relations for dependencies from the other to this entity
-         Iterator otherRelationsIter = otherModelEntity.getRelationsIterator();
-         while (otherRelationsIter.hasNext()) {
-         ModelRelation modelRelation = (ModelRelation) otherRelationsIter.next();
-
-         if ("one".equals(modelRelation.getType()) && modelRelation.getRelEntityName().equals(this.getEntityName())) {
-         //the other entity is dependent on this entity, so put that entity later in the list
-         return 1;
-         }
-         }
-
-         return 0;
-         */
-
         return this.getEntityName().compareTo(otherModelEntity.getEntityName());
     }
 
@@ -2165,12 +2140,24 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
     /**
-     * To xml element element.
+     * To Group elements of a document in a package
      * @param document the document
+     * @param packageName the name of the package where to group the elements of the document
      * @return the element
      */
-    public Element toXmlElement(Document document) {
-        return this.toXmlElement(document, this.getPackageName());
+    public Element toGroupXmlElement(Document document, String packageName) {
+        if (UtilValidate.isNotEmpty(this.getPackageName()) && !packageName.equals(this.getPackageName())) {
+            Debug.logWarning(
+                    "Export EntityModel XML Element [" + this.getEntityName() + "] with a NEW package - " + packageName,
+                    MODULE);
+        }
+
+        Element root = document.createElement("entity-group");
+        root.setAttribute("group", packageName);
+
+        root.setAttribute("entity", this.getEntityName());
+
+        return root;
     }
 
     /**

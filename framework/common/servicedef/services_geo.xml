@@ -19,7 +19,7 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>OFBiz Geo Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
@@ -82,5 +82,13 @@ under the License.
     <service name="deleteCountryAddressFormat" engine="entity-auto" invoke="delete" default-entity-name="CountryAddressFormat" auth="true">
         <description>Delete a Country Address Format</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="getDistanceBetweenGeoPoints" engine="java" location="org.apache.ofbiz.common.geo.GeoServices" auth="false" invoke="getDistanceBetweenGeoPoints">
+        <attribute name="fromLatitude" mode="IN" type="Double"/>
+        <attribute name="fromLongitude" mode="IN" type="Double"/>
+        <attribute name="toLatitude" mode="IN" type="Double"/>
+        <attribute name="toLongitude" mode="IN" type="Double"/>
+        <attribute name="distance" mode="OUT" type="Double"/>
     </service>
 </services>

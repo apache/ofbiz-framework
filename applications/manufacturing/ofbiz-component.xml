@@ -20,7 +20,7 @@ under the License.
 
 <ofbiz-component name="manufacturing"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
 
     <!-- place the config directory on the classpath to access configuration files -->
@@ -45,10 +45,12 @@ under the License.
 
     <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="manufacturing"
+        position="7"
         title="Manufacturing"
         server="default-server"
         location="webapp/manufacturing"
         base-permission="OFBTOOLS,MANUFACTURING"
+        app-shortcut-screen="component://manufacturing/widget/manufacturing/CommonScreens.xml#ShortcutApp"
         mount-point="/manufacturing"/>
 
 </ofbiz-component>

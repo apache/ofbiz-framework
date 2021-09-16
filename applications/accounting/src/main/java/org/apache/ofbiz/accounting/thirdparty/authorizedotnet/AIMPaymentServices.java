@@ -276,7 +276,7 @@ public class AIMPaymentServices {
     }
 
     public static Map<String, Object> ccCredit(DispatchContext ctx, Map<String, Object> context) {
-    	Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = new HashMap<>();
         results.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE, "AccountingAuthorizeNetccCreditUnsupported", locale));
@@ -337,13 +337,11 @@ public class AIMPaymentServices {
             AuthorizeResponse ar = new AuthorizeResponse(httpResponse, apiType);
             if (ar.isApproved()) {
                 result.put("authResult", Boolean.TRUE);
-            }
-
-            // When the transaction is already expired in Authorize.net, then the response is an error message with reason code 16
-            // (i.e. "The transaction cannot be found");
-            // in this case we proceed without generating an error in order to void/cancel the transaction record in OFBiz as well.
-            // This else if block takes care of the expired transaction.
-            else if ("VOID".equals(props.get("transType")) && "16".equals(ar.getReasonCode())) {
+            } else if ("VOID".equals(props.get("transType")) && "16".equals(ar.getReasonCode())) {
+                // When the transaction is already expired in Authorize.net, then the response is an error message with reason code 16
+                // (i.e. "The transaction cannot be found");
+                // in this case we proceed without generating an error in order to void/cancel the transaction record in OFBiz as well.
+                // This else if block takes care of the expired transaction.
                 result.put("authResult", Boolean.TRUE);
             } else {
                 result.put("authResult", Boolean.FALSE);

@@ -43,6 +43,7 @@ import org.apache.ofbiz.entity.model.ModelField.EncryptMethod;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.shiro.crypto.AesCipherService;
 import org.apache.shiro.crypto.OperationMode;
+import org.apache.shiro.crypto.PaddingScheme;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.HashService;
@@ -236,6 +237,7 @@ public final class EntityCrypto {
             hashService = new DefaultHashService();
             cipherService = new AesCipherService();
             cipherService.setMode(OperationMode.ECB);
+            cipherService.setPaddingScheme(PaddingScheme.PKCS5);
             saltedCipherService = new AesCipherService();
             this.kek = kek;
         }

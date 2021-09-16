@@ -20,7 +20,7 @@ under the License.
 
 <ofbiz-component name="order"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
 
@@ -45,6 +45,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_return.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_checkout.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
     <test-suite loader="main" location="testdef/FinAccountTests.xml"/>
@@ -56,8 +57,10 @@ under the License.
 
     <webapp name="order"
         title="Order"
+        position="4"
         description="OrderComponentDescription"
         server="default-server"
+        app-shortcut-screen="component://order/widget/ordermgr/CommonScreens.xml#ShortcutApp"
         location="webapp/ordermgr"
         base-permission="OFBTOOLS,ORDERMGR"
         mount-point="/ordermgr"/>

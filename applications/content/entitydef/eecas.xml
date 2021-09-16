@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entity-eca.xsd">
 
     <!-- If the text in the database has changed for the data resource, we need to clear out anything depending on this cached value -->
     <eca entity="ElectronicText" operation="store-remove" event="return">
@@ -51,10 +51,10 @@ under the License.
     <eca entity="PartyContent" operation="create-store" event="return">
         <action service="indexContentKeywords" mode="sync"/>
     </eca>
-    <eca entity="WebSiteContent  " operation="create-store" event="return">
+    <eca entity="WebSiteContent" operation="create-store" event="return">
         <action service="indexContentKeywords" mode="sync"/>
     </eca>
-    <eca entity="WorkEffortContent  " operation="create-store" event="return">
+    <eca entity="WorkEffortContent" operation="create-store" event="return">
         <action service="indexContentKeywords" mode="sync"/>
     </eca>
 

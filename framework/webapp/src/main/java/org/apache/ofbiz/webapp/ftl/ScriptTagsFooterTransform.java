@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -51,7 +51,7 @@ public class ScriptTagsFooterTransform implements TemplateTransformModel {
                     BeanModel req = (BeanModel) env.getVariable("request");
                     if (req != null) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                        Set<String> scriptSrcSet = MultiBlockHtmlTemplateUtil.getScriptLinksForFoot(request);
+                        Set<String> scriptSrcSet = ScriptLinkHelper.getScriptLinksForBodyEnd(request);
                         if (scriptSrcSet != null) {
                             String srcList = "";
                             for (String scriptSrc : scriptSrcSet) {

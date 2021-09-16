@@ -39,6 +39,10 @@ under the License.
         <!-- Events to run on every request after all other processing (chains exempt) -->
     </postprocessor>
 
+    <after-login>
+        <event name="showLastVisit" type="java" path="org.apache.ofbiz.webapp.AfterLoginEvents" invoke="showLastVisit"/>
+    </after-login>
+
     <!-- Security Mappings -->
     <request-map uri="checkLogin">
         <description>Verify a user is logged in.</description>

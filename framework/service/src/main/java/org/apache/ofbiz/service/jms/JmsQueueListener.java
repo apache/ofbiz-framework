@@ -45,7 +45,11 @@ public class JmsQueueListener extends AbstractJmsListener {
     private QueueSession session = null;
     private Queue queue = null;
 
-    private String jndiServer, jndiName, queueName, userName, password;
+    private String jndiServer;
+    private String jndiName;
+    private String queueName;
+    private String userName;
+    private String password;
 
     /**
      * Creates a new JmsQueueListener - Should only be called by the JmsListenerFactory.

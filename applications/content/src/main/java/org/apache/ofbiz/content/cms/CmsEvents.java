@@ -51,15 +51,15 @@ import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 
-import freemarker.template.TemplateException;
-
-
 /**
  * CmsEvents
  */
 public class CmsEvents {
 
     private static final String MODULE = CmsEvents.class.getName();
+
+    private CmsEvents() {
+    }
 
     public static String cms(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -331,9 +331,6 @@ public class CmsEvents {
                             ContentWorker.renderSubContentAsText(dispatcher, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                         }
 
-                    } catch (TemplateException e) {
-                        throw new GeneralRuntimeException(String.format(
-                                "Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                     } catch (IOException e) {
                         throw new GeneralRuntimeException(String.format(
                                 "Error in the response writer/output stream while rendering content [%s] with path alias [%s]",

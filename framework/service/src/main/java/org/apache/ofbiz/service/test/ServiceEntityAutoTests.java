@@ -107,7 +107,6 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test collision
         results = getDispatcher().runSync("testEntityAutoCreateTestingItemPkPresent", testingItemPkPresentMap, 10, true);
         assertTrue(ServiceUtil.isError(results));
-        //assertEquals("", ServiceUtil.getErrorMessage(results));
     }
 
     /**

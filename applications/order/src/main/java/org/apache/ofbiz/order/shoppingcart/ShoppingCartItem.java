@@ -1215,7 +1215,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public void updatePrice(LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
         // set basePrice using the calculateProductPrice service
-        if (product != null && isModifiedPrice == false) {
+        if (product != null && !isModifiedPrice) {
             try {
                 Map<String, Object> priceContext = new HashMap<>();
 
@@ -2695,17 +2695,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         Map<String, BigDecimal> featureMap = new HashMap<>();
         GenericValue product = this.getProduct();
         if (product != null) {
-            List<GenericValue> featureAppls = null;
-            try {
-                featureAppls = product.getRelated("ProductFeatureAppl", null, null, false);
-                List<EntityExpr> filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId",
-                        EntityOperator.EQUALS, "STANDARD_FEATURE"));
-                filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
-                filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "DISTINGUISHING_FEAT"));
-                featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Unable to get features from product : " + product.get("productId"), MODULE);
-            }
+            List<GenericValue> featureAppls = ProductWorker.getProductFeaturesApplIncludeMarketingPackage(product);
             if (featureAppls != null) {
                 for (GenericValue appl : featureAppls) {
                     BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));

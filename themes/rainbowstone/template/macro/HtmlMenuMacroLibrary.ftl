@@ -19,7 +19,7 @@ under the License.
 
 <#include "component://common-theme/template/macro/HtmlMenuMacroLibrary.ftl"/>
 
-<#macro renderLink linkUrl parameterList targetWindow uniqueItemName actionUrl linkType="" id="" style="" name="" height="600" width="800" text="" imgStr="">
+<#macro renderLink linkUrl parameterList targetWindow uniqueItemName actionUrl confirmation="" linkType="" id="" style="" name="" height="600" width="800" text="" imgStr="">
     <#if linkType?has_content && "hidden-form" == linkType>
     <form method="post" action="${actionUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
         <#list parameterList as parameter>
@@ -45,7 +45,7 @@ under the License.
         <#if text?has_content>${text}</#if></a>
     <#else>
         <#if (linkType?has_content && "hidden-form" == linkType) || linkUrl?has_content>
-        <a<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if name?has_content> name="${name}"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType>javascript:document.${uniqueItemName}.submit()<#else>${linkUrl}</#if>"><#rt/>
+        <a<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if name?has_content> name="${name}"</#if><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if><#if targetWindow?has_content && "update-area" != linkType> target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType><#if linkUrl?has_content>javascript:ajaxSubmitFormUpdateAreas('${uniqueItemName}', '${linkUrl}')<#else>javascript:document.${uniqueItemName}.submit()</#if><#else><#if "update-area" == linkType>javascript:ajaxUpdateAreas('${linkUrl}')<#else>${linkUrl}</#if></#if>"><#rt/>
         </#if>
         <#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if><#rt/>
         <#if (linkType?has_content && "hidden-form" == linkType) || linkUrl?has_content></a><#rt/></#if>

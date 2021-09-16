@@ -116,7 +116,6 @@ under the License.
                 </entity-and>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="asm_multipleSelectForm" value="FindPurchaseInvoices"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="FindPurchaseInvoices_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>

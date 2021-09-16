@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public class LabelManagerFactory {
+public final class LabelManagerFactory {
 
     private static final String MODULE = LabelManagerFactory.class.getName();
     public static final String KEY_SEPARATOR = "#";

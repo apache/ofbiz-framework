@@ -50,4 +50,13 @@ Thread[] allThreadArray = new Thread[1000]
 topThreadGroup.enumerate(allThreadArray)
 allThreadList = Arrays.asList(allThreadArray)
 
+allThreadStackTrace = [:]
+for (thread in allThreadList) {
+    if (thread) {
+        allThreadStackTrace.put(thread.getName(), thread.getStackTrace())
+    }
+}
+
+context.currentThread = currentThread
+context.allThreadStackTrace = allThreadStackTrace
 context.allThreadList = allThreadList

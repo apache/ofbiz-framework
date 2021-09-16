@@ -1,0 +1,154 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= ECommerce Entry path
+On default main screen https://demo-trunk.ofbiz.apache.org/ecommerce/control/main[eCommerce appl from Apache OFBiz demo site]
+there are multiple widgets
+
+* Customer-centered widgets
+  ** _language_, If your site is available in more than one language, this user-friendly feature should be very much appreciated.
+  ** _Mini-Poll Poll_, you can do surveys with your customers here
+  ** _Did you know?_ Marketing facts, comparisons, plugs, promos, whatever, can be introduced here in a low-key setting.
+  ** _Browse Forums_, links to forums, boards, or other websites are gathered here.
+  ** _Special Offers_, discounts and special promotions are presented here to reward the customer for purchases she has made and
+     to encourage additional purchases. He can click on the link [View All Promotions] to see even more offers
+     than what are presented here.
+* Ordering Process
+  ** _Choose catalog_, +
+     your customer might be ordering from your Spring catalog, your Outdoor Specials catalog,
+     or whatever electronic Catalog he may have come across online or through email. Establish or confirm the Catalog here
+     so that details (including prices!) reflect the Catalog he has seen. +
+     You might need additional login programming to arrive at the correct catalog if the customer is referred here through
+     internet solicitation and linkage; asking the customer to specify the catalog he saw in the ad is not always productive.
+     The catalog specified here will govern what products, special offers, discounts, and other details of the marketing process
+     are presented in this screen and for the order itself. All of your marketing efforts must be coordinated with
+     the presentation now seen by the customer. Your default catalog needs to be broad enough to cover all the instances where
+     a customer's choices or the login protocol bring him to the default.
+  ** _Find Product_, +
+     opportunities to select and order product abound on this screen.
+     The customer can follow whichever path attracts his interest or matches his needs.
+     Those sections of the screen are each discussed below, not necessarily in order of appearance.
+     *** _Featured Products_, +
+         the center of the screen is a list of all or most of the products under the heading of
+         Featured Products. These can include a photo, description, price, promotional information, discounts,
+         links to the catalog page, link from Virtual products to their variations, place to specify quantity being ordered
+         and the most important link: [Add To Cart]. If more than one page of products is needed, scrolling links are given. +
+         This section of the page is replaced by other functions when in use, such as search engines, category lists, etc.
+         The customer can always return to this portion of the screen by clicking on the Main link on the upper Menu bar.
+       **** _Additional information_ +
+            Clicking on the product name either here or anywhere in the screen will bring up the product detail screen. +
+            Every product name is hotkey to this information which drops into the center of the screen. You can establish
+            what information will appear for each of your feature products.
+     *** _Last Products_, +
+         Shows the product which the customer has looked at more closely by clicking on the product name; cumulative until
+         [Clear] is pressed.
+     *** _Quick Reorder_, +
+         Items from previous orders are listed here with a link to add them to this order in the same quantity as before.
+       **** _Why offer re-order ?_ +
+         Previously ordered items are displayed here. Studies have indicated that repeat customers are like gold.
+         By presenting them with reminders of their previous purchases, you are both flattering them and providing an opportunity
+         for another purchase of the same items. +
+         This section also saves the customer from having to lookup the items she previously ordered. All are presented here. +
+         Doesn't this make the Shopping List concept unnecessary? Not really, because the Shopping Lists can carry
+         'Wish Lists' as well as previously ordered items. Also, Shopping Lists can be plugged into the order 'en masse'
+         rather than item by item. There could be dozens of different Lists, each tailor-designed for a specific purpose. +
+         For regular, heavy-hitter customers, you might want to limit the list of previously-ordered items to only
+         the most recent 10 or so.
+     *** _Browse Categories_, +
+         Categories are collections of related items. If the customer is looking for Books, for example, this would quickly
+         get him to that portion of the inventory with presentations of Book titles or sub-catgories from which to choose. +
+         Another way to consider this section: whereas the initial screen might show all the products (with scrolling),
+         the Category selection will eliminate all products displayed except those in the Category he has chosen.
+     *** _Search in Category_, +
+         A click on [Advanced Search] to have a dedicated search sub-screen +
+         When the [Search In Category] link is selected, a simple but powerful search tool opens in the center screen.
+         By making a few choices and entering a keyword or two, the customer can look for products that exist in the Featured
+         Products category. +
+         After a successful find, the customer is presented with a second screen, titled productFound.
+         Here she has a couple of choices. If the returns are too extensive, she could refine the search.
+         If she sees what she wants, a quick click on [Add To Cart] will select the product in whatever quantity she enters.
+     *** _Last Categories_, +
+         As the Customer browses around the screen, looking into various products, categories, or other content, this section
+         is constantly updated with links back to previously-viewed screens.
+         Therefore, he will be able to quickly return to something that has stayed in his memory.
+     *** _Browse Content_, +
+         Brings up a powerful tool for searching Content which could be documents, case studies, test results, testimonials,
+         additional graphics, specifications, or whatever Content you choose to have accessible to the customer.
+     *** _Search Catalog_, +
+         Entering a term in the search Catalog field resulted in a Product Search screen with some results. +
+         Customers will use this to search the catalog by keywords, such as the name of the product or one of its features.
+         You can help their search by keeping the Thesaurus updated.
+* Walk through an order +
+  Let's assume that our phantom customer, Sherry Shopper, has logged in, selected the Demo Catalog, and is ready to order.
+  We will now follow her through the ordering process.
+  . From previous orders, a click on the Order History link +
+    Shopper repeats previous Order Items by calling [Order History]. Click on [view] to select +
+    A complete order detail is shown. +
+    Clearly still within the ecommerce website, here the shopper sees details of the previous order. She has options to
+    [Add All to Cart], [Add Checked to Cart] or request an auto-ship [Send me this every month]. +
+    By checking on the item she wants to re-order, then clicking on [Add Checked to Cart], the item (in the same quantity
+    as before) is added to her shopping cart. The screen will not clear out the earlier order, however, until she selects
+    another process for finding her items. This gives her time to consider possibly re-ordering another item from the same list.
+  . with Quick Add screen +
+    Now Sherry can select from the drop-down screen to find a different Quick Add screen, she can add all of the items
+    on this screen, or she can do what she wants, directly enter quantity for each she want. +
+    If she elects to click on the link to the Giant Widget, the configuration screen appear, to be able to choose among the
+    variants. +
+    Sherry has choosen Silver over Black in the 4-Wheel version and can now click to [Add to Cart]
+    (or to the [Add to Shopping List] link).
+  . Final Choices +
+    For her last two items, Sherry chose a His/Her Gizmo (GZ-9290) from the list of Quick Reorder items in the left-hand panel.
+    Note how each time an item is selected, the display of that item is removed from the panel. Finally, on impulse,
+    she added a Round Gizmo from the items listed under 'You might be interested in these as well:'
+    You can see all these purchases now reflected in the Cart Summary. +
+    Four Items were selected; four other were added by the system at no cost as promos.
+  . View Cart +
+    When [View Cart] is selected, all details of the order-in-progress are displayed to the shopper. She can change quantities,
+    remove selected items, or even add more products as desired. +
+    .. First, note how even at this point of viewing the cart, there is an option to quick add another product!
+       From here, the customer can recalculate her cart or continue shopping (which returns her to the previous screen),
+       or proceed with Checkout.
+    .. Second, there are various promotional messages around this screen to encourage further shopping.
+    .. Finally, many primary links are available. Notice that the shopper can go into her Profile, she can view established
+       Shopping Lists that she might have created before, she can look at her own Shopping History, etc.
+  . Proceed to Checkout
+    .. Confirm the shipping address, using the radio buttons. If a tax exemption applies, enter details.
+    .. Shipping address and details, confirm the shipping information, method, split, gift, and other details.
+    .. Payment particulars, both general methods and those on file for Sherry are shown. Use links to [Single use Credit Card],
+       [Single use ..], etc.., when the order is being billed to an account not associated with the customer.
+    .. Review the Order to Checkout, Final Review gives the customer the opportunity to review and confirm all details about the
+       order.
+    .. Submit the order, when the Submit button was selected, behind the scenes wheels were placed in motion, and the order is
+       prepared to Accepted or Approved. Note the Order #WS10070 near the upper LH corner, that is the customer's link to this
+       order as well as your tracking number for processing through the Picking, Packing and Shipping processes.
+
+_Some comments on the process_ +
+The process is or should be as intuitive as possible so the customer is not frustrated or confused.
+Note the many links provided for shopping, searching for products, finding promotions, and so forth.
+You might want to add a link to a Customer Service bot where on-line help could answer their immediate questions.
+The final screen even shows a large [Continue Shopping] link, but the [logout] link is rather inconspicuous.
+
+Also not discussed yet are the links to [Requests] and [Quotes]. Mechanisms are in place to let the customer go from
+the ecommerce screen to check on a Request or to view a Quote using links on the top menu bar.
+
+_Final discussion of the Ecommerce Path_ +
+What we show here is the generic look and feel of an on-line ordering system.
+The applications are there for you to make this reflect your image while maintaining the underlying tools.
+You do not need to use all of the marketing or redundant convenience processes shown, but it is good to practice
+running through this system as a shopper to understand how the customer will interface with your store.
+Let your customer be treated as you would like to be when you shop online.

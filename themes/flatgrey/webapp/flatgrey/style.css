@@ -109,7 +109,7 @@ body {
     color: #000;
     min-width: 780px;
     margin: 0;
-    width: expression(document.body.clientWidth < 782? "780px" : "auto");
+    width: expression(document.body.clientWidth < 782 ? "780px" : "auto");
 }
 
 hr {
@@ -227,7 +227,7 @@ th, th a {
 /* ===== Used to align elements ===== */
 /* ================================== */
 .align-bottom {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
 .align-center {
     text-align: center;
@@ -239,7 +239,7 @@ th, th a {
     text-align: left;
 }
 .align-middle {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
 .align-right {
     text-align: right;
@@ -255,9 +255,6 @@ th, th a {
     margin-bottom: 0.5em;
     font-size: 1.6em;
     font-weight: bold;
-}
-
-.contentarea {
 }
 
 /* ------------------------ */
@@ -479,7 +476,6 @@ th, th a {
     padding: 0.1em 0.3em 0.1em 0.3em;
 }
 
-#app-navigation ul .selected,
 #app-navigation ul .selected {
     background-color: #f5f5f5;
     border: 0.1em solid;
@@ -753,10 +749,6 @@ th, th a {
     margin-bottom: 0.5em;
 }
 
-.button-style-2 {
-    display: table;
-}
-
 /* ===== In line bar ===== */
 .in-line-bar ul {
     display: inline; /* IE Fix */
@@ -926,7 +918,7 @@ form .basic-table,
     border-radius: 1em;
     background: #ddd url(images/button.png) repeat-x;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
-    background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+    background: -moz-linear-gradient(bottom, #fff 0%, #ddd 100%);
     border: 0.1em solid;
     border-color: #ddd #bbb #999;
     cursor: pointer;
@@ -1510,7 +1502,7 @@ input[type="button"] {
     border-radius: 1.1em;
     background: #ddd url(images/button.png) repeat-x;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
-    background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+    background: -moz-linear-gradient(bottom, #fff 0%, #ddd 100%);
     border: 0.1em solid;
     border-color: #ddd #bbb #999;
     cursor: pointer;

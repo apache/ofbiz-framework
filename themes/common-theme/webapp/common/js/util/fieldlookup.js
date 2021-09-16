@@ -562,6 +562,15 @@ var ButtonModifier = function(lookupDiv) {
                 onChangeEvent.apply(this);
             }
         });
+
+        var navPagersInput = jQuery("#" + lookupDiv + " .nav-pager input");
+        jQuery.each(navPagersInput, function(navPager) {
+            var onChangeEvent = navPagersInput[navPager].onchange;
+            navPagersInput[navPager].onchange = function(){
+                this.setAttribute("data-lookupajax", "true");
+                onChangeEvent.apply(this);
+            }
+        });
     }
 
     function _modifyResultTable() {
@@ -632,7 +641,6 @@ function lookupFormAjaxRequest(formAction, form) {
         },
         success : function(result) {
             if (result.search(/loginform/) != -1) {
-                window.location.href = window.location.href;
                 return;
             }
             // Here we are removing the spinner.
@@ -669,7 +677,6 @@ function lookupPaginationAjaxRequest(navAction, type) {
         },
         success : function(result) {
             if (result.search(/loginform/) != -1) {
-                window.location.href = window.location.href;
                 return;
             }
             // Here we are removing the spinner.

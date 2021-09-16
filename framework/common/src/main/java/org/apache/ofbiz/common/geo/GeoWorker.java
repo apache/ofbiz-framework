@@ -22,7 +22,10 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
+import com.ibm.icu.util.LocaleData;
+import com.ibm.icu.util.ULocale;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -147,5 +150,13 @@ public final class GeoWorker {
             return EntityUtil.getFirst(gptList);
         }
         return null;
+    }
+    public static String getMeasurementSystem(Locale locale) {
+        ULocale loc = new ULocale(locale.toString());
+        LocaleData.MeasurementSystem measurementSystem = LocaleData.getMeasurementSystem(loc);
+        if (measurementSystem.equals(LocaleData.MeasurementSystem.US)) {
+            return "IMPERIAL";
+        }
+        return "METRIC";
     }
 }

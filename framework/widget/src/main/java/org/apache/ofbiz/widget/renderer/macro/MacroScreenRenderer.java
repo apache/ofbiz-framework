@@ -62,8 +62,10 @@ import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
+import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
@@ -150,12 +152,26 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     @Override
-    public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
+    public void renderBegin(Appendable writer, Map<String, Object> context) throws IOException {
+        executeMacro(writer, "renderBegin", null);
+    }
+
+    @Override
+    public void renderEnd(Appendable writer, Map<String, Object> context) throws IOException {
+        executeMacro(writer, "renderEnd", null);
+    }
+
+    @Override
+    public void renderScreenBegin(Appendable writer, Map<String, Object> context, ModelScreen modelScreen) throws IOException {
+        ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+        screenStack.push(modelScreen);
         executeMacro(writer, "renderScreenBegin", null);
     }
 
     @Override
-    public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
+    public void renderScreenEnd(Appendable writer, Map<String, Object> context, ModelScreen modelScreen) throws IOException {
+        ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+        screenStack.drop();
         executeMacro(writer, "renderScreenEnd", null);
     }
 
@@ -165,24 +181,36 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = new HashMap<>();
-            StringBuilder sb = new StringBuilder("Begin ");
-            sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
-            sb.append(section.getBoundaryCommentName());
-            parameters.put("boundaryComment", sb.toString());
-            executeMacro(writer, "renderSectionBegin", parameters);
+            StringBuilder sb = new StringBuilder("Begin section widget")
+                    .append(section.getBoundaryCommentName());
+            if (section.isMainSection()) {
+                ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+                sb.append(" id ")
+                        .append(screenStack.resolveCurrentScreenId());
+            }
+            executeMacro(writer, "renderSectionBegin", UtilMisc.toMap("boundaryComment", sb.toString()));
+        }
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && section.isMainSection()) {
+            // render start of named border for screen
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Screen",
+                    section.getBoundaryCommentName(), ((HttpServletRequest) context.get("request")).getContextPath()));
         }
     }
     @Override
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE && section.isMainSection()) {
+            // render end of named border for screen
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Screen", section.getBoundaryCommentName()));
+        }
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = new HashMap<>();
-            StringBuilder sb = new StringBuilder();
-            sb.append("End ");
-            sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
-            sb.append(section.getBoundaryCommentName());
-            parameters.put("boundaryComment", sb.toString());
-            executeMacro(writer, "renderSectionEnd", parameters);
+            StringBuilder sb = new StringBuilder("End section Widget ")
+                    .append(section.getBoundaryCommentName());
+            if (section.isMainSection()) {
+                ScreenRenderer.ScreenStack screenStack = WidgetWorker.getScreenStack(context);
+                sb.append(" id ")
+                        .append(screenStack.resolveCurrentScreenId());
+            }
+            executeMacro(writer, "renderSectionEnd", UtilMisc.toMap("boundaryComment", sb.toString()));
         }
     }
 
@@ -247,7 +275,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
-        String linkUrl = "";
         String actionUrl = "";
         StringBuilder parameters = new StringBuilder();
         String width = link.getWidth();
@@ -258,13 +285,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isEmpty(height)) {
             height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
         }
-        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
+        boolean isModal = "layered-modal".equals(linkType);
+        if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
                     request, response);
             actionUrl = actionUri.toString();
             parameters.append("[");
-            for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
+            // Callback propagation only if displaying a modal
+            for (Map.Entry<String, String> parameter: link.getParameterMap(context, isModal).entrySet()) {
                 if (parameters.length() > 1) {
                     parameters.append(",");
                 }
@@ -281,14 +310,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String style = link.getStyle(context);
         String name = link.getName(context);
         String text = link.getText(context);
-        if (UtilValidate.isNotEmpty(target)) {
-            if (!"hidden-form".equals(linkType)) {
-                final URI uri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), link.getParameterMap(context),
-                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
-                        request, response);
-                linkUrl = uri.toString();
-            }
-        }
+        String linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context);
         String imgStr = "";
         ModelScreenWidget.ScreenImage img = link.getImage();
         if (img != null) {
@@ -703,12 +725,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 globalCtx.put("NO_PAGINATOR", true);
                 FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");
-                MacroFormRenderer renderer = null;
-                try {
-                    renderer = new MacroFormRenderer(modelTheme.getFormRendererLocation("screen"), request, response);
-                } catch (TemplateException e) {
-                    Debug.logError("Not rendering content, error on MacroFormRenderer creation.", MODULE);
-                }
+                MacroFormRenderer renderer = new MacroFormRenderer(
+                        modelTheme.getFormRendererLocation("screen"), request, response);
                 renderer.setRenderPagination(false);
                 context.put("formStringRenderer", renderer);
                 subWidget.renderWidgetString(writer, context, this);

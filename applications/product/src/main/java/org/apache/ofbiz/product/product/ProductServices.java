@@ -1074,13 +1074,13 @@ public class ProductServices {
                 String fileToCheck = imageServerPath + "/" + fileLocation + "." + extension.getString("fileExtensionId");
                 File file = new File(fileToCheck);
                 try {
-                    RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
-                    out.write(imageData.array());
-                    out.close();
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
+                    out.write(imageData.array());
+                    out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -1378,14 +1378,13 @@ public class ProductServices {
             File file = new File(fileToCheck);
 
             try {
-                RandomAccessFile out = new RandomAccessFile(file, "rw");
-                out.write(imageData.array());
-                out.close();
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
-
+                RandomAccessFile out = new RandomAccessFile(file, "rw");
+                out.write(imageData.array());
+                out.close();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,

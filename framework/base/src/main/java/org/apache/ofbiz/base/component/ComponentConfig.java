@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.Digraph;
 import org.apache.ofbiz.base.util.KeyStoreUtil;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -901,6 +902,7 @@ public final class ComponentConfig {
         private final String title;
         private final String description;
         private final String menuName;
+        private final String appShortcutScreen;
         private final String server;
         private final String mountPoint;
         private final String contextRoot;
@@ -951,6 +953,7 @@ public final class ComponentConfig {
             this.title = b.title;
             this.description = b.description;
             this.menuName = b.menuName;
+            this.appShortcutScreen = b.appShortcutScreen;
             this.server = b.server;
             this.mountPoint = b.mountPoint;
             this.contextRoot = b.contextRoot;
@@ -974,6 +977,7 @@ public final class ComponentConfig {
             private String title;
             private String description;
             private String menuName;
+            private String appShortcutScreen;
             private String server;
             private String mountPoint = "";
             private String contextRoot;
@@ -1052,6 +1056,16 @@ public final class ComponentConfig {
              */
             public Builder menuName(String menuName) {
                 this.menuName = menuName;
+                return this;
+            }
+
+            /**
+             * Server builder.
+             * @param appShortcutScreen the shortscreen to use
+             * @return the builder
+             */
+            public Builder appShortcutScreen(String appShortcutScreen) {
+                this.appShortcutScreen = appShortcutScreen;
                 return this;
             }
 
@@ -1212,10 +1226,7 @@ public final class ComponentConfig {
             }
             // trim the permissions (remove spaces)
             for (int i = 0; i < this.basePermission.length; i++) {
-                this.basePermission[i] = this.basePermission[i].trim();
-                if (this.basePermission[i].indexOf('_') != -1) {
-                    this.basePermission[i] = this.basePermission[i].substring(0, this.basePermission[i].indexOf('_'));
-                }
+                this.basePermission[i] = StringUtil.removeSpaces(this.basePermission[i]);
             }
             String menuNameStr = element.getAttribute("menu-name");
             if (UtilValidate.isNotEmpty(menuNameStr)) {
@@ -1223,6 +1234,7 @@ public final class ComponentConfig {
             } else {
                 this.menuName = "main";
             }
+            this.appShortcutScreen = element.getAttribute("app-shortcut-screen");
             this.position = element.getAttribute("position");
             // load the virtual hosts
             List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
@@ -1278,6 +1290,10 @@ public final class ComponentConfig {
 
         public String getName() {
             return name;
+        }
+
+        public String getAppShortcutScreen() {
+            return appShortcutScreen;
         }
 
         public String getMountPoint() {

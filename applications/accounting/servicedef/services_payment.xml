@@ -19,7 +19,7 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
@@ -44,8 +44,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="setPaymentStatus" engine="simple" default-entity-name="Payment"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="setPaymentStatus" auth="true">
+    <service name="setPaymentStatus" engine="groovy" default-entity-name="Payment"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="setPaymentStatus" auth="true">
         <description>Change the status of a Payment</description>
         <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -66,8 +66,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="createPaymentApplication" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
+    <service name="createPaymentApplication" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentApplication" auth="true">
         <description>Create a payment application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
         <attribute name="toPaymentId" type="String" mode="IN" optional="true"/>
@@ -163,8 +163,8 @@ under the License.
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createPaymentAndPaymentGroupForInvoices" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
+    <service name="createPaymentAndPaymentGroupForInvoices" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
         <description>Creates Payments, Payment Application and Payment Group for the same</description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
@@ -172,7 +172,6 @@ under the License.
         <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
-        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
     <service name="createPaymentAndApplicationForParty" engine="groovy"
             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplicationForParty" auth="true">
@@ -235,8 +234,8 @@ under the License.
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
 
-    <service name="createPaymentFromOrder" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentFromOrder" auth="true">
+    <service name="createPaymentFromOrder" engine="groovy"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentFromOrder" auth="true">
         <description>Create Payment from Order when payment does exist yet and not disabled by accounting config</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
@@ -245,8 +244,8 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createMatchingPaymentApplication" engine="simple"
-        location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createMatchingPaymentApplication" auth="true">
+    <service name="createMatchingPaymentApplication" engine="groovy"
+        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createMatchingPaymentApplication" auth="true">
         <description>Create a payment application if either the invoice of payment could be found</description>
         <attribute name="paymentId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>

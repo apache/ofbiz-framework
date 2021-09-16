@@ -19,7 +19,7 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>Common Application Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
@@ -43,7 +43,11 @@ under the License.
 
     <service name="echoService" engine="java" validate="false"
             location="org.apache.ofbiz.common.CommonServices" invoke="echoService">
-        <description>Echos back all passed parameters</description>
+        <description>Echoes back all passed parameters</description>
+    </service>
+    <service name="echoClojureService" engine="clojure" validate="false"
+             location="org.apache.ofbiz.common.clojure-test" invoke="echo-service">
+        <description>Echoes back all passed parameters</description>
     </service>
     <service name="returnErrorService" engine="java" validate="false"
             location="org.apache.ofbiz.common.CommonServices" invoke="returnErrorService">

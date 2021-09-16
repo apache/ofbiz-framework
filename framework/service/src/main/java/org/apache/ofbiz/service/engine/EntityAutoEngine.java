@@ -591,7 +591,9 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             if (parameters.get(fieldDateNameIn) == null) {
                 parameters.put(fieldDateNameIn, UtilDateTime.nowTimestamp());
             }
-        } else if (thruDatePresent && UtilValidate.isEmpty(lookedUpValue.getTimestamp("thruDate"))) {
+        }
+        // Expire thruDate fields
+        if (thruDatePresent && UtilValidate.isEmpty(lookedUpValue.getTimestamp("thruDate"))) {
             if (UtilValidate.isEmpty(parameters.get("thruDate"))) {
                 parameters.put("thruDate", UtilDateTime.nowTimestamp());
             }

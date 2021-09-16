@@ -20,10 +20,11 @@ under the License.
 = Apache OFBiz®
 The Apache OFBiz Project
 
-image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://www.apache.org/licenses/LICENSE-2.0"]
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
+image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 
 
-If you are reading this file in AsciiDoc format you may want to see it in
+If you are reading this file in AsciiDoc format you may want to see it at
 https://ci.apache.org/projects/ofbiz/site/trunk/readme/html5/README.html[HTML] +
 or https://ci.apache.org/projects/ofbiz/site/trunk/readme/pdf/README.pdf[PDF] format
 
@@ -63,14 +64,23 @@ ________________________________________________________________________________
 [[system-requirements]]
 == System requirements
 
-The only requirement to run OFBiz is to have the Java Development Kit (JDK)
-version 8 installed on your system (not just the JRE, but the full JDK) which
-you can download from the below link. Make sure of setting the $JAVA_HOME
-environment variable.
+The only requirements to run OFBiz is
+
+* to have the Java Development Kit (JDK) version 8 installed on your system
+(not just the JRE, but the full JDK) that you can download from the below link.
+Make sure of setting the $JAVA_HOME environment variable. +
+https://adoptopenjdk.net/[JDK download], https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know more about the JDK]
+__________________________________________________________________________________________________________________________________________
+_Note_: Warning: on Windows don't put OFBiz in a directory with space/s in the path.
+__________________________________________________________________________________________________________________________________________
+
 
 https://adoptopenjdk.net/[JDK download]
 
-https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know more about the JDK]
+* If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link. +
+https://github.com/PowerShell/PowerShell[Powershell]
+
+
 
 [[quick-start]]
 // tag::quickstart[]
@@ -132,9 +142,12 @@ In case of problems visit our link:#further-reading[Further reading section].
 [[security]]
 == Security
 
-If you find a security issue, please report it to: security @ ofbiz.apache.org.
+* If you find a pre-auth security issue, please report it to: security @ ofbiz.apache.org.
 Once proper mitigations to the security issues are complete the OFBiz team will
 disclose this information to the public mailing list.
+* If you find a post-auth security issue, please https://s.apache.org/dsj2p[create a bug in our issue tracker (Jira)] .
+
+
 
 You can find more information about security in OFBiz at
 https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
@@ -665,16 +678,11 @@ latest version of a plugin.
 
 `gradlew pullPluginSource -PpluginId=ecommerce`
 
-________________________________________________________________________________________
-_Note_: This plugin will have its own .svn directory placed inside the plugin
-directory.
-________________________________________________________________________________________
-
 [[pull-all-official-plugins-from-source-control]]
 === Pull all official plugins from source control
 
 Download all officially supported plugins from source control (currently
-subversion) and place them inclusive of their ".svn" directory in /plugins.
+git) and place them in /plugins.
 WARNING! This task deletes the /plugins directory and replaces it with the
 official plugins.
 
@@ -685,11 +693,6 @@ is mostly used by developers or individuals working on the trunk branch. We do
 not recommend using this task on releases of OFBiz, instead consider using the
 "pullPlugin" task to get the correct version of a plugin compatible with your
 release.
-
-____________________________________________________________________________________
-_Note_: All the plugins will share a .svn directory placed in the plugins
-directory.
-____________________________________________________________________________________
 
 [[install-a-plugin]]
 === Install a plugin

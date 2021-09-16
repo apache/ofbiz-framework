@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 /**
  * Generic Entity - Entity Definition Checker
  */
-public class ModelEntityChecker {
+public final class ModelEntityChecker {
 
     private static final String MODULE = ModelEntityChecker.class.getName();
 
@@ -273,14 +273,6 @@ public class ModelEntityChecker {
                                         + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
                             }
                             if (field != null && rfield != null) {
-                                //this was the old check, now more constrained
-                                // to keep things cleaner:
-                                // if (!field.getType().equals(rfield.getType())
-                                // &&
-                                // !field.getType().startsWith(rfield.getType())
-                                // &&
-                                // !rfield.getType().startsWith(field.getType()))
-                                // {
                                 if (!field.getType().equals(rfield.getType())) {
                                     warningList.add("[RelationFieldTypesDifferent] The field type (" + field.getType()
                                             + ") of " + field.getName() + " of entity " + entity.getEntityName()

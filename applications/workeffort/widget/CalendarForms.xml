@@ -72,8 +72,9 @@ under the License.
 
     <form name="EditCalEvent" type="single" default-map-name="workEffort">
         <actions>
-            <set field="statusTypeIds[]" value="EVENT_STATUS"/>
             <set field="statusTypeIds[]" value="CALENDAR_STATUS"/>
+            <set field="statusTypeIds[]" value="EVENT_STATUS"/>
+            <set field="statusTypeIds[]" value="TASK_STATUS"/>
             <!-- Allow containing screens to specify the create and update URLs -->
             <set field="createCalEventUrl" from-field="createCalEventUrl" default-value="createWorkEffortAndPartyAssign" />
             <set field="updateCalEventUrl" from-field="updateCalEventUrl" default-value="updateWorkEffort" />

@@ -30,14 +30,14 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
     <title>ModelInduceFromDB</title>
 </head>
 <body>
-<div class='h3'><b>Put the name of the Datasource in the EntityEngine.xml to induce from:</b></div>
+<div class='h3'><strong>Put the name of the Datasource in the EntityEngine.xml to induce from:</strong></div>
 <form action='' method="post">
     <input type='text' class='inputBox' size='40' name='helperName' />
     <input type='submit' value='Induce!' />
 </form>
 It's the datasource name. It doesn't need to be associated with a
  delegator, just defined in entityengine.xml.<br/>
-   <b> Use the browser to view the source and see the entities that were created.</b>
+   <strong> Use the browser to view the source and see the entities that were created.</strong>
 
 </body>
 </html>

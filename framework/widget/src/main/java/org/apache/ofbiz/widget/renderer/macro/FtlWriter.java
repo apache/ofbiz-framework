@@ -18,22 +18,27 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.rmi.server.UID;
-import java.util.Locale;
-import java.util.Map;
-import java.util.WeakHashMap;
+import freemarker.core.Environment;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
+/**
+ * Processes FTL templates and writes result to Appendables.
+ */
 public final class FtlWriter {
     private static final String MODULE = FtlWriter.class.getName();
 
@@ -46,17 +51,35 @@ public final class FtlWriter {
         this.visualTheme = visualTheme;
     }
 
-    public void executeMacro(Appendable writer, Locale locale, String macro) {
+    /**
+     * Process the given RenderableFTL as a template and write the result to the Appendable.
+     *
+     * @param writer        The Appendable to write the result of the template processing to.
+     * @param renderableFtl The Renderable FTL to process as a template.
+     */
+    public void processFtl(final Appendable writer, final RenderableFtl renderableFtl) {
+        processFtlString(writer, null, renderableFtl.toFtlString());
+    }
+
+    /**
+     * Process the given FTL string as a template and write the result to the Appendable.
+     *
+     * @param writer    The Appendable to write the result of the template processing to.
+     * @param ftlString The FTL string to process as a template.
+     */
+    public void processFtlString(Appendable writer, Locale locale, String ftlString) {
         try {
-            Environment environment = getEnvironment(writer, locale);
+            final Environment environment = getEnvironment(writer, locale);
             environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
-            environment.setVariable("modelTheme", FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
-            Reader templateReader = new StringReader(macro);
-            Template template = new Template(new UID().toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
+            environment.setVariable("modelTheme",
+                    FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
+            Reader templateReader = new StringReader(ftlString);
+            Template template = new Template(UUID.randomUUID().toString(), templateReader,
+                    FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
             environment.include(template);
         } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering screen thru ftl, macro: " + macro, MODULE);
+            Debug.logError(e, "Error rendering ftl, ftlString: " + ftlString, MODULE);
         }
     }
 

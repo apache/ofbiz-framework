@@ -35,7 +35,9 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
@@ -52,6 +54,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
@@ -199,19 +202,24 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderLink(Appendable writer, Map<String, Object> context, MenuLink link) throws IOException {
-        Map<String, Object> parameters = new HashMap<>();
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
         if (isDisableIfEmpty(menuItem, context)) {
             target = null;
         }
-        parameters.put("id", link.getId(context));
-        parameters.put("style", link.getStyle(context));
-        parameters.put("name", link.getName(context));
-        parameters.put("text", link.getText(context));
-        parameters.put("height", link.getHeight());
-        parameters.put("width", link.getWidth());
-        parameters.put("targetWindow", link.getTargetWindow(context));
+        Map<String, Object> parameters = UtilMisc.toMap(
+                        "id", link.getId(context),
+                "style", link.getStyle(context),
+                "name", link.getName(context),
+                "text", link.getText(context),
+                "targetWindow", link.getTargetWindow(context));
+
+        String linkHeight = link.getHeight();
+        if (UtilValidate.isNotEmpty(linkHeight)) parameters.put("height", linkHeight);
+
+        String linkWidth = link.getWidth();
+        if (UtilValidate.isNotEmpty(linkWidth)) parameters.put("width", linkWidth);
+
         StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
         uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
                 "menuUniqueItemIndex", BigDecimal.ONE));
@@ -226,22 +234,33 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             }
         }
         parameters.put("uniqueItemName", uniqueItemName.toString());
+
         String linkType = "";
         if (UtilValidate.isNotEmpty(target)) {
             linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         }
         parameters.put("linkType", linkType);
-        String linkUrl = "";
         String actionUrl = "";
         StringBuilder targetParameters = new StringBuilder();
-        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
+
+        String confirmationMessage = link.getLink().getConfirmationMsg(context);
+        if (link.getLink().getRequestConfirmation() && UtilValidate.isEmpty(confirmationMessage)) {
+            String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
+                    "${uiLabelMap.CommonConfirm}");
+            confirmationMessage = FlexibleStringExpander.expandString(defaultMessage, context);
+        }
+        parameters.put("confirmation", confirmationMessage);
+
+        boolean isModal = "layered-modal".equals(linkType);
+        if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
                     request, response);
             actionUrl = actionUri.toString();
 
             targetParameters.append("[");
-            for (Map.Entry<String, String> parameter : link.getParameterMap(context).entrySet()) {
+            // Callback propagation only if displaying a modal
+            for (Map.Entry<String, String> parameter : link.getParameterMap(context, isModal).entrySet()) {
                 if (targetParameters.length() > 1) {
                     targetParameters.append(",");
                 }
@@ -258,16 +277,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         if (targetParameters.length() == 0) {
             targetParameters.append("\"\"");
         }
-        if (UtilValidate.isNotEmpty(target)) {
-            if (!"hidden-form".equals(linkType)) {
-                final URI linkUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
-                        "layered-modal".equals(linkType) ? null : link.getParameterMap(context),
-                        link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
-                        request, response);
-                linkUrl = linkUri.toString();
-            }
-        }
-        parameters.put("linkUrl", linkUrl);
+        parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context));
         parameters.put("actionUrl", actionUrl);
         parameters.put("parameterList", targetParameters);
         String imgStr = "";
@@ -298,6 +308,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             executeMacro(writer, "renderMenuEnd", parameters);
         } catch (TemplateException e) {
             throw new IOException(e);
+        }
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.endNamedBorder("Menu", menu.getBoundaryCommentName()));
         }
     }
 
@@ -367,6 +380,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
 
     @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu menu) throws IOException {
+        if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
+            writer.append(HtmlWidgetRenderer.beginNamedBorder("Menu",
+                    menu.getBoundaryCommentName(), ((HttpServletRequest) context.get("request")).getContextPath()));
+        }
         Map<String, Object> parameters = new HashMap<>();
         if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
             StringBuilder sb = new StringBuilder("Begin Menu Widget ");

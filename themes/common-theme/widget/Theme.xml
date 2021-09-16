@@ -118,13 +118,16 @@ under the License.
             <screen name="GlobalActions"/>
             <screen name="GlobalDecorator"/>
             <screen name="LookupDecorator"/>
+            <screen name="ShortcutDecorator"/>
             <screen name="SimpleDecorator"/>
+            <screen name="EmbeddedDecorator"/>
             <screen name="FoReportDecorator"/>
             <screen name="GlobalFoDecorator"/>
             <screen name="LookupHelpDecorator" location="component://common-theme/widget/HelpScreens.xml"/>
         </root-decorator>
         <subtype-decorator default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="FindScreenDecorator"/>
+            <screen name="DetailScreenDecorator"/>
         </subtype-decorator>
         <generic-screen default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="geoChart"/>
@@ -158,10 +161,13 @@ under the License.
         <root-decorator default-location="component://common-theme/widget/CommonForms.xml">
             <form name="CommonSimpleGrid"/>
             <form name="CommonBasicGrid"/>
+            <form name="CommonDynamicGrid"/>
             <form name="CommonSimpleList"/>
             <form name="CommonBasicList"/>
+            <form name="CommonDynamicList"/>
             <form name="CommonInLineEditList"/>
             <form name="CommonBasicSingle"/>
+            <form name="CommonDynamicSingle"/>
         </root-decorator>
     </common-forms>
     <common-menus><!--list all common menu to each application that each theme can be surcharge or not and use the menu present on common theme-->

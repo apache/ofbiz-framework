@@ -417,6 +417,26 @@ under the License.
         </section>
     </screen>
 
+    <!-- Global decorator for Shortcut pop-up windows or layered CSS on webapp overview-->
+    <screen name="ShortcutDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                </service>
+                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
+
+                <property-map resource="general" map-name="generalProperties" global="true"/>
+                <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
+
+                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
+            </actions>
+            <widgets>
+                <decorator-section-include name="body"/>
+            </widgets>
+        </section>
+    </screen>
     <!-- Simple decorator (no application and menu bars); it can be used:
          * for printer friendly html screens (no logo and no application bar, header and footer); a print button is also available at the top of the screen
          * for simple PDF report (a simple header with the logo/date is rendered and a footer with page numbers)
@@ -646,6 +666,42 @@ under the License.
     <screen name="FindScreenDecorator">
         <section>
             <widgets>
+                <container id="${screen:id(screenStack)}">
+                    <section>
+                        <condition>
+                            <if-empty field="titleProperty"/>
+                        </condition>
+                        <widgets>
+                            <container style="page-title"><label text="${title}"></label></container>
+                        </widgets>
+                        <fail-widgets>
+                            <container style="page-title"><label text="${uiLabelMap[titleProperty]}"></label></container>
+                        </fail-widgets>
+                    </section>
+                    <decorator-section-include name="menu-bar"/>
+                    <container style="clear"/>
+                    <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
+                        <container id="search-options">
+                            <decorator-section-include name="search-options" />
+                        </container>
+                    </screenlet>
+                    <screenlet padded="false">
+                        <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
+                        <container id="search-results">
+                            <decorator-section-include name="search-results"/>
+                        </container>
+                    </screenlet>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="DetailScreenDecorator">
+        <section>
+            <actions>
+                <set field="detailAreaId" value="${groovy:UUID.randomUUID().toString()}" global="true"/>
+            </actions>
+            <widgets>
                 <section>
                     <condition>
                         <if-empty field="titleProperty"/>
@@ -657,19 +713,84 @@ under the License.
                         <container style="page-title"><label text="${uiLabelMap[titleProperty]}"></label></container>
                     </fail-widgets>
                 </section>
-                <decorator-section-include name="menu-bar"/>
                 <container style="clear"/>
-                <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
-                    <container id="search-options">
-                        <decorator-section-include name="search-options" />
-                    </container>
-                </screenlet>
-                <screenlet padded="false">
-                    <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
-                    <container id="search-results">
-                        <decorator-section-include name="search-results"/>
-                    </container>
-                </screenlet>
+                <container style="menu-bar">
+                    <decorator-section-include name="menu-bar"/>
+                </container>
+                <container style="breadcrumbs">
+                    <decorator-section-include name="breadcrumbs"/>
+                </container>
+                <container style="summary">
+                    <decorator-section-include name="summary"/>
+                </container>
+                <container style="actions">
+                    <decorator-section-include name="actions"/>
+                </container>
+                <container style="tab-bar">
+                    <decorator-section-include name="tab-bar"/>
+                </container>
+                <container style="details" id="${detailAreaId}">
+                    <decorator-section-include name="details"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EmbeddedDecorator">
+        <section name="embedded">
+            <widgets>
+                <container style="embeddedScreen" id="${screen:id(screenStack)}">
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="actions"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="actions">
+                                <decorator-section-include name="actions"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="menu-bar"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="menu-bar">
+                                <decorator-section-include name="menu-bar"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="single"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="single">
+                                <decorator-section-include name="single"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="content"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="content">
+                                <decorator-section-include name="content"/>
+                            </container>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="list"/></not>
+                        </condition>
+                        <widgets>
+                            <container style="list">
+                                <decorator-section-include name="list"/>
+                            </container>
+                        </widgets>
+                    </section>
+                </container>
             </widgets>
         </section>
     </screen>

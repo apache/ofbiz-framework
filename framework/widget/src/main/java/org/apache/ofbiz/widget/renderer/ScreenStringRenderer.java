@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
 
 /**
@@ -30,8 +31,10 @@ import org.apache.ofbiz.widget.model.ModelScreenWidget;
  */
 public interface ScreenStringRenderer {
     String getRendererName();
-    void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException;
-    void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException;
+    void renderBegin(Appendable writer, Map<String, Object> context) throws IOException;
+    void renderEnd(Appendable writer, Map<String, Object> context) throws IOException;
+    void renderScreenBegin(Appendable writer, Map<String, Object> context, ModelScreen modelScreen) throws IOException;
+    void renderScreenEnd(Appendable writer, Map<String, Object> context, ModelScreen modelScreen) throws IOException;
     void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException;
     void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException;
     void renderColumnContainer(Appendable writer, Map<String, Object> context, ModelScreenWidget.ColumnContainer columnContainer) throws IOException;

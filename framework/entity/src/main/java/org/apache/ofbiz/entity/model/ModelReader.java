@@ -55,7 +55,7 @@ import org.w3c.dom.Node;
  *
  */
 @SuppressWarnings("serial")
-public class ModelReader implements Serializable {
+public final class ModelReader implements Serializable {
 
     private static final String MODULE = ModelReader.class.getName();
     private static final UtilCache<String, ModelReader> READERS = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
@@ -158,7 +158,6 @@ public class ModelReader implements Serializable {
         entityResourceHandlerMap.put(entityName, entityResourceHandler);
 
         // utilTimer.timerString(" After entityEntityName -- " + i + " --");
-        // ModelEntity entity = createModelEntity(curEntity, utilTimer);
 
         ModelEntity modelEntity = null;
         if (isEntity) {
@@ -225,8 +224,7 @@ public class ModelReader implements Serializable {
                             throw new GenericEntityConfException("Could not get document for " + entityResourceHandler.toString());
                         }
 
-                        // utilTimer.timerString("Before getDocumentElement in " +
-                        // entityResourceHandler.toString());
+                        // utilTimer.timerString("Before getDocumentElement in " + entityResourceHandler.toString());
                         Element docElement = document.getDocumentElement();
 
                         if (docElement == null) {
@@ -257,7 +255,8 @@ public class ModelReader implements Serializable {
                                 } else if (isExtendEntity && curChild.getNodeType() == Node.ELEMENT_NODE) {
                                     tempExtendEntityElementList.add((Element) curChild);
                                 }
-                            } while ((curChild = curChild.getNextSibling()) != null);
+                                curChild = curChild.getNextSibling();
+                            } while (curChild != null);
                         } else {
                             Debug.logWarning("No child nodes found.", MODULE);
                         }
@@ -412,8 +411,6 @@ public class ModelReader implements Serializable {
                                             if (Debug.infoOn()
                                                     && !(title + curModelEntity.getEntityName()).equals(modelRelation.getTitle()
                                                     + modelRelation.getRelEntityName())) {
-                                                // String errorMsg = "Relation already exists to entity[] with title ["
-                                                // + targetTitle + "], from entity[]";
                                                 String message = "Entity [" + relatedEnt.getPackageName() + ":" + relatedEnt.getEntityName()
                                                         + "] already has identical relationship to entity [" + curModelEntity.getEntityName()
                                                         + "] title [" + title

@@ -51,25 +51,6 @@ public final class EntityTypeUtil {
         return false;
     }
 
-    /* public static boolean isType(Collection thisTypeCollection, GenericValue targetType) {
-     Iterator iter = thisTypeCollection.iterator();
-     while (iter.hasNext()) {
-     if (isType((GenericValue) iter.next(), targetType)) {
-     return true;
-     } //else keep looking
-     }
-     return false;
-     }*/
-
-    /* private static Object getTypeID(GenericValue typeValue) {
-     Collection keys = typeValue.getAllKeys();
-     if (keys.size() == 1) {
-     return keys.iterator().next();
-     } else {
-     throw new IllegalArgumentException("getTypeID expecting value with single key");
-     }
-     }*/
-
     private static GenericValue getParentType(GenericValue typeValue) {
         // assumes Parent relation is "Parent<entityName>"
         try {

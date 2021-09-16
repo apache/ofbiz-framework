@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindFinAccounts" type="single" target="FindFinAccount"
@@ -73,7 +73,7 @@ under the License.
                 <parameter param-name="partyId" from-field="ownerPartyId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="thruDate==null">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteFinAccount" also-hidden="false">
                 <parameter param-name="finAccountId"/>
             </hyperlink>
@@ -336,7 +336,7 @@ under the License.
         <field name="glReconciliationId" position="2">
             <drop-down allow-empty="true">
                 <option key="_NA_" description="${uiLabelMap.CommonNotAssigned}"/>
-                <list-options list-name="glReconciliations" key-name="glReconciliationId" 
+                <list-options list-name="glReconciliations" key-name="glReconciliationId"
                     description="${glReconciliationName}[[${glReconciliationId}] [${reconciledDate}] [${reconciledBalance}]]"/>
             </drop-down>
         </field>
@@ -346,17 +346,17 @@ under the License.
         <field name="thruEntryDate" position="2"><date-time/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="FindBankReconciliationFinAcctTrans" target="BankReconciliation" 
+    <form name="FindBankReconciliationFinAcctTrans" target="BankReconciliation"
             extends="FindFinAccountTransactions">
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="glReconciliationId" position="2">
             <drop-down>
-                <list-options list-name="glReconciliations" key-name="glReconciliationId" 
+                <list-options list-name="glReconciliations" key-name="glReconciliationId"
                     description="${glReconciliationName}[[${glReconciliationId}] [${reconciledDate}] [${reconciledBalance}]]"/>
             </drop-down>
         </field>
     </form>
-    <form name="EditDepositPayment" extends="EditPayment" 
+    <form name="EditDepositPayment" extends="EditPayment"
             extends-resource="component://accounting/widget/PaymentForms.xml" target="createDepositPayment">
         <actions>
             <entity-one entity-name="FinAccount" value-field="finAccount"/>
@@ -400,12 +400,8 @@ under the License.
         </actions>
         <alt-target use-when="glReconciliationId != null" target="updateFinAccountGlReconciliation"/>
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
-        <field name="glReconciliationId" use-when="glReconciliationId == null"><ignored/></field>
-        <field name="glReconciliationId" use-when="glReconciliationId != null"><display/></field>
         <field name="glAccountId"><hidden value="${finAccount.postToGlAccountId}"/></field>
         <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="reconciledBalance" use-when="${reconciledBalance == null}"><hidden/></field>
-        <field name="reconciledBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(&quot;${glReconciliation.statusId}&quot;)"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field name="reconciledDate" title="${uiLabelMap.AccountingReconciliationDate}"><date-time/></field>
         <field name="createButton" use-when="glReconciliationId == null" widget-style="smallSubmit">
             <submit button-type="button"/>

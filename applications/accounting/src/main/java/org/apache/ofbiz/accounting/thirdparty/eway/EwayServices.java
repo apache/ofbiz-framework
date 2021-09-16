@@ -163,7 +163,7 @@ public class EwayServices {
         result.put("refundMessage", reply.getTrxnError());
         result.put("refundCode", reply.getAuthCode());
         result.put("refundRefNum", reply.getTrxnNumber());
-        result.put("refundAmount", reply.getTransactionAmount());          
+        result.put("refundAmount", reply.getTransactionAmount());
 
         return result;
     }

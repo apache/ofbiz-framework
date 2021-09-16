@@ -145,6 +145,11 @@ public class WebToolsServices {
         // #############################
         // FM Template
         // #############################
+        if (UtilValidate.urlInString(fulltext)) {
+            Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12304", MODULE);
+            Debug.logInfo("Rather load your data from a file", MODULE);
+            return null;
+        }
         if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
             File fmFile = new File(fmfilename);
             if (!fmFile.exists()) {
@@ -304,7 +309,7 @@ public class WebToolsServices {
                 lastUnprocessedFilesCount = unprocessedFiles.size();
                 messages.add("---------------------------------------");
                 messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportSucceededNumberFile", UtilMisc.toMap("succeeded",
-                        (initialListSize - lastUnprocessedFilesCount), "total", initialListSize), locale));
+                        initialListSize - lastUnprocessedFilesCount, "total", initialListSize), locale));
                 messages.add(UtilProperties.getMessage(RESOURCE, "EntityImportFailedNumberFile", UtilMisc.toMap("failed",
                         lastUnprocessedFilesCount, "total", initialListSize), locale));
                 messages.add("---------------------------------------");
@@ -534,7 +539,8 @@ public class WebToolsServices {
                                             TransactionUtil.commit(beganTx);
                                             beganTx = TransactionUtil.begin();
                                         }
-                                    } while ((value = values.next()) != null);
+                                        value = values.next();
+                                    } while (value != null);
                                     writer.println("</entity-engine-xml>");
                                 } catch (UnsupportedEncodingException | FileNotFoundException e) {
                                     results.add("[" + fileNumber + "] [xxx] Error when writing " + curEntityName + ": " + e);

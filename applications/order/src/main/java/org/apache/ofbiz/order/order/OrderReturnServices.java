@@ -55,7 +55,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -1326,7 +1325,8 @@ public class OrderReturnServices {
                         orderPayPrefDetails.put("orderPaymentPreference", orderPayPref);
                         orderPayPrefDetails.put("availableTotal", orderPayPrefAvailableTotal);
                         if (prefSplitMap.containsKey(paymentMethodTypeId)) {
-                            (prefSplitMap.get(paymentMethodTypeId)).add(orderPayPrefDetails);
+                            List<Map<String, Object>> paymentMethodTypeIds = prefSplitMap.get(paymentMethodTypeId);
+                            paymentMethodTypeIds.add(orderPayPrefDetails);
                         } else {
                             prefSplitMap.put(paymentMethodTypeId, UtilMisc.toList(orderPayPrefDetails));
                         }

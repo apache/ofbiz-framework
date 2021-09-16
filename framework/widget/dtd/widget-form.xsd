@@ -597,8 +597,24 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="area-id" type="xs:string" use="required" />
-            <xs:attribute name="area-target" type="xs:string" use="required" />
+            <xs:attribute name="area-id" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Mandatory in classic usage.
+                        This has been made optional for template needs (common-theme) and automatic area-id
+                        definition, based on calling widget.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="area-target" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Mandatory in classic usage.
+                        This has been made optional for template needs (common-theme) and automatic area-id
+                        definition, based on calling widget.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 

@@ -35,13 +35,6 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class Datasource {
 
-/*
-    public static final int TYPE_JNDI_JDBC = 1;
-    public static final int TYPE_INLINE_JDBC = 2;
-    public static final int TYPE_TYREX_DATA_SOURCE = 3;
-    public static final int TYPE_OTHER = 4;
-*/
-
     private final String name; // type = xs:string
     private final String helperClass; // type = xs:string
     private final String fieldTypeName; // type = xs:string

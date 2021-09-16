@@ -28,7 +28,6 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="entityName" value="CustRequest"/>
                 <set field="asm_multipleSelectForm" value="FindRequests"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="custRequestType.asm_multipleSelect" value="FindRequests_custRequestTypeId"/>
                 <set field="custRequestType.asm_sortable" value="true"/>
                 <set field="custRequestType.asm_title" value=" "/>

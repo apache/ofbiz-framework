@@ -56,6 +56,19 @@ In the "Main Roletype" column the role is listed which is a child of the "Main r
 It is currently set to "Organisation" and "SFA Role". The later to be prepared to use he party in he SFA component.
 See the <<_marketing,marketing application>> for more information
 
+==== From Party to Order
+This screen can be a starting point for Order management (view existing, create a new one, ...).
+
+For each Parties listed, there are links to Order management action.
+
+Before taking the order, you might want to update the party's information:
+is the address and phone number current, how will they be paying for the order (credit card number current?
+EFT information correct?), or perhaps review their ordering history (are there an excessive number of returns?).
+To look at their file, either click on the [Party ID] or the [Details] link.
+
+If the contact from your customer is specifically about a previous order, you can click on the [Orders]
+link which will take you to a table of all their previous orders.
+
 == Parties Processes
 
 include::_include/party-howto-create-mainCompany.adoc[leveloffset=+2]

@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.serialize.XmlSerializer;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.CsrfUtil;
-import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics
@@ -74,7 +74,7 @@ public class ControlEventListener implements HttpSessionListener {
         HttpSession session = event.getSession();
 
         CsrfUtil.cleanupTokenMap(session);
-        MultiBlockHtmlTemplateUtil.cleanupScriptCache(session);
+        ScriptLinkHelper.cleanupScriptCache(session);
 
         // Finalize the Visit
         boolean beganTransaction = false;

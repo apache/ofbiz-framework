@@ -44,6 +44,7 @@ import java.util.concurrent.Future;
 
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -57,6 +58,7 @@ import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
 import org.apache.ofbiz.entity.model.ModelIndex;
 import org.apache.ofbiz.entity.model.ModelKeyMap;
 import org.apache.ofbiz.entity.model.ModelRelation;
+import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.model.ModelViewEntity;
 import org.apache.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
@@ -857,21 +859,22 @@ public class DatabaseUtil {
         // get ALL tables from this database
         TreeSet<String> tableNames = this.getTableNames(messages);
 
-        // get ALL column info, put into hashmap by table name
-        Map<String, Map<String, ColumnCheckInfo>> colInfo = getColumnInfo(tableNames, true, messages, executor);
-
-        // go through each table and make a ModelEntity object, add to list
-        // for each entity make corresponding ModelField objects
-        // then print out XML for the entities/fields
         List<ModelEntity> newEntList = new LinkedList<>();
-
-        boolean isCaseSensitive = getIsCaseSensitive(messages);
-
-        // iterate over the table names is alphabetical order
-        for (String tableName : new TreeSet<>(colInfo.keySet())) {
-            Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
-            ModelEntity newEntity = new ModelEntity(tableName, colMap, modelFieldTypeReader, isCaseSensitive);
-            newEntList.add(newEntity);
+        if (UtilValidate.isNotEmpty(tableNames)) {
+            // get ALL column info, put into hashmap by table name
+            Map<String, Map<String, ColumnCheckInfo>> colInfo = getColumnInfo(tableNames, true, messages, executor);
+            Map<String, Map<String, ReferenceCheckInfo>> refInfo = getReferenceInfo(tableNames, messages);
+            // go through each table and make a ModelEntity object, add to list
+            // for each entity make corresponding ModelField objects
+            // then print out XML for the entities/fields
+            boolean isCaseSensitive = getIsCaseSensitive(messages);
+            // iterate over the table names is alphabetical order
+            for (String tableName : new TreeSet<>(colInfo.keySet())) {
+                Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
+                Map<String, ReferenceCheckInfo> refMap = refInfo.get(tableName);
+                ModelEntity newEntity = new ModelEntity(tableName, colMap, refMap, modelFieldTypeReader, isCaseSensitive);
+                newEntList.add(newEntity);
+            }
         }
 
         executor.shutdown();
@@ -1109,7 +1112,7 @@ public class DatabaseUtil {
     private Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages,
                                                                     ExecutorService executor) {
         // if there are no tableNames, don't even try to get the columns
-        if (tableNames.isEmpty()) {
+        if (UtilValidate.isEmpty(tableNames)) {
             return new HashMap<>();
         }
 
@@ -1329,7 +1332,11 @@ public class DatabaseUtil {
      * @param messages the messages
      * @return the reference info
      */
-    public Map<String, Map<String, ReferenceCheckInfo>> getReferenceInfo(Set<String> tableNames, Collection<String> messages) {
+    public Map<String, Map<String, ReferenceCheckInfo>> getReferenceInfo(Set<String> tableNames,
+            Collection<String> messages) {
+        if (UtilValidate.isEmpty(tableNames)) {
+            return new HashMap<>();
+        }
         Connection connection = getConnectionLogged(messages);
         if (connection == null) {
             return null;
@@ -1341,41 +1348,30 @@ public class DatabaseUtil {
         } catch (SQLException e) {
             String message = "Unable to get database meta data... Error was:" + e.toString();
             Debug.logError(message, MODULE);
-            if (messages != null) messages.add(message);
+            if (messages != null) {
+                messages.add(message);
+            }
 
             try {
                 connection.close();
             } catch (SQLException e2) {
-                String message2 = "Unable to close database connection, continuing anyway... Error was:" + e2.toString();
+                String message2 = "Unable to close database connection, continuing anyway... Error was:" + e2
+                        .toString();
                 Debug.logError(message2, MODULE);
-                if (messages != null) messages.add(message2);
+                if (messages != null) {
+                    messages.add(message2);
+                }
             }
             return null;
         }
-
-        /*
-         try {
-         if (Debug.infoOn()) Debug.logInfo("Database Product Name is " + dbData.getDatabaseProductName(), MODULE);
-         if (Debug.infoOn()) Debug.logInfo("Database Product Version is " + dbData.getDatabaseProductVersion(), MODULE);
-         } catch (SQLException e) {
-         Debug.logWarning("Unable to get Database name & version information", MODULE);
-         }
-         try {
-         if (Debug.infoOn()) Debug.logInfo("Database Driver Name is " + dbData.getDriverName(), MODULE);
-         if (Debug.infoOn()) Debug.logInfo("Database Driver Version is " + dbData.getDriverVersion(), MODULE);
-         } catch (SQLException e) {
-         Debug.logWarning("Unable to get Driver name & version information", MODULE);
-         }
-         */
 
         if (Debug.infoOn()) {
             Debug.logInfo("Getting Foreign Key (Reference) Info From Database", MODULE);
         }
 
-        Map<String, Map<String, ReferenceCheckInfo>> refInfo = new HashMap<>();
+        Map<String, Map<String, ReferenceCheckInfo>> retMap = new HashMap<>();
 
         try {
-            // ResultSet rsCols = dbData.getCrossReference(null, null, null, null, null, null);
             String lookupSchemaName = getSchemaName(dbData);
             boolean needsUpperCase = false;
             try {
@@ -1383,99 +1379,109 @@ public class DatabaseUtil {
             } catch (SQLException e) {
                 String message = "Error getting identifier case information... Error was:" + e.toString();
                 Debug.logError(message, MODULE);
-                if (messages != null) messages.add(message);
-            }
-
-            ResultSet rsCols = dbData.getImportedKeys(null, lookupSchemaName, null);
-            int totalFkRefs = 0;
-
-            // Iterator tableNamesIter = tableNames.iterator();
-            // while (tableNamesIter.hasNext()) {
-            // String tableName = (String) tableNamesIter.next();
-            // ResultSet rsCols = dbData.getImportedKeys(null, null, tableName);
-            // Debug.logVerbose("Getting imported keys for table " + tableName, MODULE);
-
-            while (rsCols.next()) {
-                try {
-                    ReferenceCheckInfo rcInfo = new ReferenceCheckInfo();
-
-                    rcInfo.pkTableName = rsCols.getString("PKTABLE_NAME");
-                    if (needsUpperCase && rcInfo.pkTableName != null) {
-                        rcInfo.pkTableName = rcInfo.pkTableName.toUpperCase();
-                    }
-                    rcInfo.pkColumnName = rsCols.getString("PKCOLUMN_NAME");
-                    if (needsUpperCase && rcInfo.pkColumnName != null) {
-                        rcInfo.pkColumnName = rcInfo.pkColumnName.toUpperCase();
-                    }
-
-                    rcInfo.fkTableName = rsCols.getString("FKTABLE_NAME");
-                    if (needsUpperCase && rcInfo.fkTableName != null) {
-                        rcInfo.fkTableName = rcInfo.fkTableName.toUpperCase();
-                    }
-                    // ignore the column info if the FK table name is not in the list we are concerned with
-                    if (!tableNames.contains(rcInfo.fkTableName)) {
-                        continue;
-                    }
-                    rcInfo.fkColumnName = rsCols.getString("FKCOLUMN_NAME");
-                    if (needsUpperCase && rcInfo.fkColumnName != null) {
-                        rcInfo.fkColumnName = rcInfo.fkColumnName.toUpperCase();
-                    }
-                    rcInfo.fkName = rsCols.getString("FK_NAME");
-                    if (needsUpperCase && rcInfo.fkName != null) {
-                        rcInfo.fkName = rcInfo.fkName.toUpperCase();
-                    }
-
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("Got: " + rcInfo.toString(), MODULE);
-                    }
-
-                    Map<String, ReferenceCheckInfo> tableRefInfo = refInfo.get(rcInfo.fkTableName);
-                    if (tableRefInfo == null) {
-                        tableRefInfo = new HashMap<>();
-                        refInfo.put(rcInfo.fkTableName, tableRefInfo);
-                        if (Debug.verboseOn()) {
-                            Debug.logVerbose("Adding new Map for table: " + rcInfo.fkTableName, MODULE);
-                        }
-                    }
-                    if (!tableRefInfo.containsKey(rcInfo.fkName)) totalFkRefs++;
-                    tableRefInfo.put(rcInfo.fkName, rcInfo);
-                } catch (SQLException e) {
-                    String message = "Error getting fk reference info for table. Error was:" + e.toString();
-                    Debug.logError(message, MODULE);
-                    if (messages != null) messages.add(message);
-                    continue;
+                if (messages != null) {
+                    messages.add(message);
                 }
             }
 
-            // if (Debug.infoOn()) {
-            // Debug.logInfo("There are " + totalFkRefs + " in the database", MODULE)
-            // };
-            try {
-                rsCols.close();
-            } catch (SQLException e) {
-                String message = "Unable to close ResultSet for fk reference list, continuing anyway... Error was:" + e.toString();
-                Debug.logError(message, MODULE);
-                if (messages != null) messages.add(message);
+            int totalFkRefs = 0;
+
+            for (String tableName : tableNames) {
+                String shortTableName = tableName.split("\\.").length > 0 ? tableName.split("\\.")[tableName.split(
+                        "\\.").length - 1] : tableName;
+                ResultSet rsCols = dbData.getImportedKeys(null, lookupSchemaName, shortTableName);
+
+                Map<String, ReferenceCheckInfo> tableRefInfo = retMap.get(tableName);
+                if (tableRefInfo == null) {
+                    tableRefInfo = new HashMap<>();
+                    totalFkRefs++;
+                }
+                while (rsCols.next()) {
+                    try {
+                        String fkName = toUpper(rsCols.getString("FK_NAME"), needsUpperCase);
+                        int seq = rsCols.getInt("KEY_SEQ");
+                        String fkTableName = toUpper(rsCols.getString("FKTABLE_NAME"), needsUpperCase);
+                        String fkColumnName = toUpper(rsCols.getString("FKCOLUMN_NAME"), needsUpperCase);
+                        String pkTableName = toUpper(rsCols.getString("PKTABLE_NAME"), needsUpperCase);
+                        String pkColumnName = toUpper(rsCols.getString("PKCOLUMN_NAME"), needsUpperCase);
+
+                        ReferenceCheckInfo rcInfo = tableRefInfo.get(fkName);
+                        if (rcInfo == null) {
+                            rcInfo = new ReferenceCheckInfo();
+
+                        }
+
+                        rcInfo.fkName = fkName;
+                        rcInfo.fkTableName = fkTableName;
+                        rcInfo.pkTableName = pkTableName;
+
+                        if (seq > 1) {
+                            rcInfo.pkColumnName = rcInfo.pkColumnName.concat(",").concat(pkColumnName);
+                            rcInfo.fkColumnName = rcInfo.fkColumnName.concat(",").concat(fkColumnName);
+                        } else {
+                            rcInfo.pkColumnName = pkColumnName;
+                            rcInfo.fkColumnName = fkColumnName;
+                        }
+
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("Got: " + rcInfo.toString(), MODULE);
+                        }
+                        tableRefInfo.put(fkName, rcInfo);
+                        retMap.put(tableName, tableRefInfo);
+                    } catch (SQLException e) {
+                        String message = "Error getting fk reference info for table. Error was:" + e.toString();
+                        Debug.logError(message, MODULE);
+                        if (messages != null) {
+                            messages.add(message);
+                        }
+                        continue;
+                    }
+                }
+                // if (Debug.infoOn()) {
+                // Debug.logInfo("There are " + totalFkRefs + " in the database", MODULE)
+                // };
+                try {
+                    rsCols.close();
+                } catch (SQLException e) {
+                    String message = "Unable to close ResultSet for fk reference list, continuing anyway... Error was:"
+                            + e.toString();
+                    Debug.logError(message, MODULE);
+                    if (messages != null) {
+                        messages.add(message);
+                    }
+                }
             }
             if (Debug.infoOn()) {
                 Debug.logInfo("There are " + totalFkRefs + " foreign key refs in the database", MODULE);
             }
 
         } catch (SQLException e) {
-            String message = "Error getting fk reference meta data Error was:" + e.toString() + ". Not checking fk refs.";
+            String message = "Error getting fk reference meta data Error was:" + e.toString()
+                    + ". Not checking fk refs.";
             Debug.logError(message, MODULE);
-            if (messages != null) messages.add(message);
-            refInfo = null;
+            if (messages != null) {
+                messages.add(message);
+            }
+            retMap = null;
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
                 String message = "Unable to close database connection, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, MODULE);
-                if (messages != null) messages.add(message);
+                if (messages != null) {
+                    messages.add(message);
+                }
             }
         }
-        return refInfo;
+        return retMap;
+    }
+
+    private String toUpper(String string, boolean needsUpperCase) {
+        if (needsUpperCase && string != null) {
+            string = string.toUpperCase();
+        }
+        return string;
     }
 
     /**
@@ -1696,8 +1702,8 @@ public class DatabaseUtil {
                 if ("one".equals(modelRelation.getType())) {
                     ModelEntity relModelEntity = modelEntities.get(modelRelation.getRelEntityName());
                     if (relModelEntity == null) {
-                        Debug.logError("Error adding foreign key: ModelEntity was null for related entity name " + modelRelation.getRelEntityName()
-                                , MODULE);
+                        Debug.logError("Error adding foreign key: ModelEntity was null for related entity name " + modelRelation.getRelEntityName(),
+                                MODULE);
                         continue;
                     }
                     if (relModelEntity instanceof ModelViewEntity) {
@@ -1724,11 +1730,7 @@ public class DatabaseUtil {
 
         // if there is a tableType, add the TYPE arg here
         if (UtilValidate.isNotEmpty(this.datasourceInfo.getTableType())) {
-            // jaz:20101229 - This appears to be only used by mysql and now mysql has
-            // deprecated (and in 5.5.x removed) the use of the TYPE keyword. This is
-            // changed to ENGINE which is supported starting at 4.1
             sqlBuf.append(" ENGINE ");
-            //sqlBuf.append(" TYPE ");
             sqlBuf.append(this.datasourceInfo.getTableType());
         }
 
@@ -3231,9 +3233,79 @@ public class DatabaseUtil {
          */
         private String fkColumnName;
 
+        /**
+         * Gets pk table name
+         * @return the pk table name
+         */
+        public String getPkTableName() {
+            return pkTableName;
+        }
+
+        /**
+         * Gets pk column name
+         * @return the pk column name
+         */
+        public String getPkColumnName() {
+            return pkColumnName;
+        }
+
+        /**
+         * Gets fk name
+         * @return the fk name
+         */
+        public String getFkName() {
+            return fkName;
+        }
+
+        /**
+         * Gets fk table name
+         * @return the fk table name
+         */
+        public String getFkTableName() {
+            return fkTableName;
+        }
+
+        /**
+         * Gets fk column name
+         * @return the fk column name
+         */
+        public String getFkColumnName() {
+            return fkColumnName;
+        }
+
         @Override
         public String toString() {
-            return "FK Reference from table " + fkTableName + " called " + fkName + " to PK in table " + pkTableName;
+            StringBuilder ret = new StringBuilder();
+            ret.append("FK Reference from table ");
+            ret.append(fkTableName);
+            ret.append(" called ");
+            ret.append(fkName);
+            ret.append(" to PK in table ");
+            ret.append(pkTableName);
+            return ret.toString();
+        }
+
+        /**
+         * Converts the column information into ModelKeyMaps
+         * @return a list of ModelKeyMaps
+         */
+        public List<ModelKeyMap> toModelKeyMapList() {
+            List<ModelKeyMap> keyMaps = new ArrayList<>();
+
+            List<String> fieldNames = StringUtil.split(fkColumnName, ",");
+            List<String> relFieldNames = StringUtil.split(pkColumnName, ",");
+            if (fieldNames.size() != relFieldNames.size()) {
+                Debug.logError("Count of related fields for relation does not match!", MODULE);
+                return null;
+            }
+            for (int i = 0; i < fieldNames.size(); i++) {
+                String fieldName = ModelUtil.dbNameToVarName(fieldNames.get(i));
+                String relFieldName = ModelUtil.dbNameToVarName(relFieldNames.get(i));
+                ModelKeyMap keyMap = new ModelKeyMap(fieldName, relFieldName);
+                keyMaps.add(keyMap);
+            }
+
+            return keyMaps;
         }
     }
 

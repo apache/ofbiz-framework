@@ -1759,8 +1759,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.orderAttributes.clear();
 
         // clear the additionalPartyRole Map
-        for (Map.Entry<String, List<String>> me : this.additionalPartyRole.entrySet()) {
-            ((LinkedList<String>) me.getValue()).clear();
+        for (Entry<String, List<String>> me : this.additionalPartyRole.entrySet()) {
+            me.getValue().clear();
         }
         this.additionalPartyRole.clear();
 
@@ -4878,7 +4878,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * @param dispatcher
      * @throws CartItemModifyException
      */
-    public void createDropShipGroups(LocalDispatcher dispatcher) throws CartItemModifyException {
+    public Map<String, Object> createDropShipGroups(LocalDispatcher dispatcher) throws CartItemModifyException {
 
         // Retrieve the facilityId from the cart's productStoreId because ShoppingCart.setFacilityId() doesn't seem to be used anywhere
         String facilityId = null;
@@ -4891,13 +4891,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 storeRequirementMethodEnumId = productStore.getString("requirementMethodEnumId");
             } catch (GenericEntityException gee) {
                 Debug.logError(UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), MODULE);
-                return;
+                return ServiceUtil.returnError(
+                    UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingProductStoreRecords", locale) + gee.getMessage());
             }
         }
 
         List<CartShipInfo> shipGroups = getShipGroups();
         if (shipGroups == null) {
-            return;
+            return ServiceUtil.returnSuccess();
         }
 
         // Intermediate structure supplierPartyId -> { ShoppingCartItem = { originalShipGroupIndex = dropShipQuantity } }
@@ -4965,7 +4966,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         if (ServiceUtil.isError(getProductInventoryAvailableResult)) {
                             String errorMessage = ServiceUtil.getErrorMessage(getProductInventoryAvailableResult);
                             Debug.logError(errorMessage, MODULE);
-                            return;
+                            return ServiceUtil.returnError(errorMessage);
                         }
                         BigDecimal availableToPromise = (BigDecimal) getProductInventoryAvailableResult.get("availableToPromiseTotal");
 
@@ -4998,10 +4999,16 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     if (ServiceUtil.isError(getSuppliersForProductResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(getSuppliersForProductResult);
                         Debug.logError(errorMessage, MODULE);
-                        return;
+                        return ServiceUtil.returnError(errorMessage);
                     }
+
                     List<GenericValue> supplierProducts = UtilGenerics.cast(getSuppliersForProductResult.get("supplierProducts"));
 
+                    if (supplierProducts.isEmpty()) {
+                        return ServiceUtil.returnError(
+                            "Sorry! No supplier available to droship product #" + productId + " with quantity "
+                            + dropShipQuantity + " and currency " + getCurrency());
+                    }
                     // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first
                     supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("supplierPrefOrderId"));
                     GenericValue supplierProduct = EntityUtil.getFirst(supplierProducts);
@@ -5062,6 +5069,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
             }
         }
+        return ServiceUtil.returnSuccess();
     }
 
     static class BasePriceOrderComparator implements Comparator<Object>, Serializable {

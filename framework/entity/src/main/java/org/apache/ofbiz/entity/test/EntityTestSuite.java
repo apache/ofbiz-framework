@@ -43,7 +43,12 @@ import org.apache.ofbiz.base.util.Observer;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
+import org.apache.ofbiz.entity.GenericEntity;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericPK;
+import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.config.model.Datasource;
@@ -987,102 +992,6 @@ public class EntityTestSuite extends EntityTestCase {
         strBufTemp.append(iNum);
         return strBufTemp.toString();
     }
-
-
-    /**
-     * This test will verify that the LIMIT and OFFSET options can work properly.
-     * Commented out because it makes the framework dependent on the content component
-     */
-    /*public void testLimitOffsetOptions() throws Exception {
-        String entityName = "Content";
-        Datasource datasourceInfo = EntityConfig.getDatasource(delegator.getEntityHelper(entityName).getHelperName());
-        if (UtilValidate.isEmpty(datasourceInfo.offsetStyle) || "none".equals(datasourceInfo.offsetStyle)) {
-            Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ", this test is skipped.", MODULE);
-            return;
-        } else {
-            Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ".", MODULE);
-        }
-        try {
-            EntityFindOptions findOptions = new EntityFindOptions();
-            long count = delegator.findCountByCondition("Content", null, null, null);
-            Debug.logInfo("Content entity has " + count + " rows", MODULE);
-            int rowsPerPage = 10;
-            // use rows/page as limit option
-            findOptions.setLimit(rowsPerPage);
-            int pages = (int) count/rowsPerPage;
-            if (count > pages * rowsPerPage) {
-                pages += 1;
-            }
-            Debug.logInfo("These rows will be displayed in " + pages + " pages, each page has " + rowsPerPage + " rows.", MODULE);
-            ModelEntity modelEntity = delegator.getModelEntity(entityName);
-
-            long start = UtilDateTime.nowTimestamp().getTime();
-            for (int page = 1; page <= pages; page++) {
-                Debug.logInfo("Page " + page + ":", MODULE);
-                // set offset option
-                findOptions.setOffset((page - 1) * rowsPerPage);
-                EntityListIterator iterator = null;
-                try {
-                    iterator = delegator.getEntityHelper(entityName).findListIteratorByCondition(modelEntity, null,
-                    null, null, UtilMisc.toList("lastUpdatedStamp DESC"), findOptions);
-                    while (iterator != null) {
-                        GenericValue gv = iterator.next();
-                        if (gv == null) {
-                            break;
-                        }
-                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "
-                        (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, MODULE);
-                } finally {
-                    if (iterator != null) {
-                        iterator.close();
-                    }
-                }
-            }
-            long end = UtilDateTime.nowTimestamp().getTime();
-            long time1 = end - start;
-            Debug.logInfo("Time consumed WITH limit and offset option (ms): " + time1, MODULE);
-
-            start = UtilDateTime.nowTimestamp().getTime();
-            for (int page = 1; page <= pages; page++) {
-                Debug.logInfo("Page " + page + ":", MODULE);
-                EntityListIterator iterator = null;
-                try {
-                    iterator = ((GenericHelperDAO) delegator.getEntityHelper(entityName))
-                    .findListIteratorByCondition(modelEntity, null, null, null, UtilMisc.toList("lastUpdatedStamp DESC"), null);
-                    if (iterator == null) {
-                        continue;
-                    }
-                    iterator.setDelegator(delegator);
-                    List<GenericValue> gvs = iterator.getCompleteList();
-                    int fromIndex = (page - 1) * rowsPerPage;
-                    int toIndex = fromIndex + rowsPerPage;
-                    if (toIndex > count) {
-                        toIndex = (int) count;
-                    }
-                    gvs = gvs.subList(fromIndex, toIndex);
-                    for (GenericValue gv : gvs) {
-                        Debug.logInfo(gv.getString("contentId") + ": " + gv.getString("contentName") + "
-                        (updated: " + gv.getTimestamp("lastUpdatedStamp") + ")", MODULE);
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, MODULE);
-                } finally {
-                    if (iterator != null) {
-                        iterator.close();
-                    }
-                }
-            }
-            end = UtilDateTime.nowTimestamp().getTime();
-            long time2 = end - start;
-            Debug.logInfo("Time consumed WITHOUT limit and offset option (ms): " + time2, MODULE);
-            Debug.logInfo("Time saved (ms): " + (time2 - time1), MODULE);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-        }
-    }*/
 
     /**
      * Tests EntitySaxReader, verification loading data with tag create, create-update, create-replace, delete

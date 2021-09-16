@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="CustomMethod.description.6000">
         <value xml:lang="cs">Příklad vzorce pro splnění úkolu (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="de">Beispiel Formel für Aufgabe (qty * estimatedMilliSeconds * 10)</value>
@@ -8051,7 +8051,7 @@
     <property key="Geo.geoName.SVK">
         <value xml:lang="ar">جمهورية سلوفاكيا</value>
         <value xml:lang="cs">Slovensko</value>
-        <value xml:lang="de">Slovakei</value>
+        <value xml:lang="de">Slowakei</value>
         <value xml:lang="en">Slovakia (slovak Republic)</value>
         <value xml:lang="es">Eslovaquia</value>
         <value xml:lang="fr">Slovaquie (République slovaque</value>
@@ -20338,7 +20338,7 @@
     </property>
     <property key="Uom.description.SKK">
         <value xml:lang="ar">كرونا سلوفاكية</value>
-        <value xml:lang="de">Krone Slovakei</value>
+        <value xml:lang="de">Krone Slowakei</value>
         <value xml:lang="en">Slovakian Krona</value>
         <value xml:lang="fr">Krona de Slovaquie</value>
         <value xml:lang="it">Corona Slovacca</value>
@@ -21927,17 +21927,21 @@
         <value xml:lang="zh">电子商务的替代视觉风格</value>
         <value xml:lang="zh-TW">電子商務的替代視覺風格</value>
     </property>
-    <property key="VisualTheme.description.TOMAHAWK">
-        <value xml:lang="cs">: evoluční verze BlueLight</value>
-        <value xml:lang="en">Tomahawk: the evolution of the BlueLight theme</value>
-        <value xml:lang="es">Tomahawk: la evolución del tema BlueLight</value>
-        <value xml:lang="fr"> : évolution de BlueLight dans les tons noir et orange</value>
-        <value xml:lang="ja">トマホーク: パンくずの改良</value>
-        <value xml:lang="pt-BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
-        <value xml:lang="ru">Томахавк: эволюция падающих крамбов темы</value>
-        <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the BlueLight theme</value>
-        <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
-        <value xml:lang="zh-TW">印第安戰斧:下拉多級風格的演化版</value>
+    <property key="VisualTheme.description.HELVETICUS_AMBER">
+        <value xml:lang="en">: a Rainbowstone evolution in orange</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en orange</value>
+    </property>
+    <property key="VisualTheme.description.HELVETICUS_RUBY">
+        <value xml:lang="en">: a Rainbowstone evolution in red</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en rouge</value>
+    </property>
+    <property key="VisualTheme.description.HELVETICUS_EMERALD">
+        <value xml:lang="en">: a Rainbowstone evolution in green</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en vert</value>
+    </property>
+    <property key="VisualTheme.description.HELVETICUS_SAPHIR">
+        <value xml:lang="en">: a Rainbowstone evolution in blue</value>
+        <value xml:lang="fr"> : une évolution de Rainbowstone en bleu</value>
     </property>
     <property key="VisualTheme.description.RAINBOWSTONE_AMBER">
         <value xml:lang="en">: Rainbowstone theme in orange</value>
@@ -21954,5 +21958,17 @@
     <property key="VisualTheme.description.RAINBOWSTONE_SAPHIR">
         <value xml:lang="en">: Rainbowstone theme in blue</value>
         <value xml:lang="fr"> : le thème Rainbowstone en bleu</value>
+    </property>
+    <property key="VisualTheme.description.TOMAHAWK">
+        <value xml:lang="cs">: evoluční verze BlueLight</value>
+        <value xml:lang="en">Tomahawk: the evolution of the BlueLight theme</value>
+        <value xml:lang="es">Tomahawk: la evolución del tema BlueLight</value>
+        <value xml:lang="fr"> : évolution de BlueLight dans les tons noir et orange</value>
+        <value xml:lang="ja">トマホーク: パンくずの改良</value>
+        <value xml:lang="pt-BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
+        <value xml:lang="ru">Томахавк: эволюция падающих крамбов темы</value>
+        <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the BlueLight theme</value>
+        <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
+        <value xml:lang="zh-TW">印第安戰斧:下拉多級風格的演化版</value>
     </property>
 </resource>

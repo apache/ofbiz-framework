@@ -18,38 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.Version;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilCodec;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilHtml;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.collections.MapStack;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.security.CsrfUtil;
-import org.apache.ofbiz.webapp.SeoConfigUtil;
-import org.apache.ofbiz.widget.renderer.ScreenRenderer;
-import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.parser.ParseError;
-import org.jsoup.select.Elements;
-import org.w3c.dom.Element;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -59,6 +27,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHtml;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.apache.ofbiz.base.util.collections.MapStack;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.widget.renderer.ScreenRenderer;
+import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.ParseError;
+import org.jsoup.select.Elements;
+import org.w3c.dom.Element;
+
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.ext.beans.StringModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -130,11 +131,17 @@ public class HtmlWidget extends ModelScreenWidget {
         } else {
             List<ModelScreenWidget> subWidgets = new ArrayList<>(childElementList.size());
             for (Element childElement : childElementList) {
-                if ("html-template".equals(childElement.getNodeName())) {
+                String childNodeName = childElement.getNodeName().contains(":")
+                        ? StringUtil.split(childElement.getNodeName(), ":").get(1)
+                        : childElement.getNodeName();
+                switch (childNodeName) {
+                case "html-template":
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
-                } else if ("html-template-decorator".equals(childElement.getNodeName())) {
+                    break;
+                case "html-template-decorator":
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
-                } else {
+                    break;
+                default:
                     throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
                             + childElement.getNodeName());
                 }
@@ -268,17 +275,17 @@ public class HtmlWidget extends ModelScreenWidget {
              */
             String location = locationExdr.expandString(context);
             StringWriter stringWriter = new StringWriter();
-            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(MultiBlockHtmlTemplateUtil.FTL_WRITER));
+            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(ScriptLinkHelper.FTL_WRITER));
             if (stringWriterStack == null) {
                 stringWriterStack = new Stack<>();
             }
             stringWriterStack.push(stringWriter);
-            context.put(MultiBlockHtmlTemplateUtil.FTL_WRITER, stringWriterStack);
+            context.put(ScriptLinkHelper.FTL_WRITER, stringWriterStack);
             renderHtmlTemplate(stringWriter, locationExdr, context);
             stringWriterStack.pop();
             // check if no more parent freemarker template before removing from context
             if (stringWriterStack.empty()) {
-                context.remove(MultiBlockHtmlTemplateUtil.FTL_WRITER);
+                context.remove(ScriptLinkHelper.FTL_WRITER);
             }
             String data = stringWriter.toString();
             stringWriter.close();
@@ -323,24 +330,8 @@ public class HtmlWidget extends ModelScreenWidget {
                         if (fileName.endsWith(".ftl")) {
                             fileName = fileName.substring(0, fileName.length() - 4);
                         }
-                        String key = MultiBlockHtmlTemplateUtil.putScriptInCache(context, fileName, scripts.toString());
-
                         HttpServletRequest request = (HttpServletRequest) context.get("request");
-                        // construct script link
-                        String contextPath = request.getContextPath();
-                        String url = null;
-                        if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
-                            url = contextPath + "/getJs?name=" + key;
-                        } else {
-                            url = contextPath + "/control/getJs?name=" + key;
-                        }
-
-                        // add csrf token to script link
-                        String tokenValue = CsrfUtil.generateTokenForNonAjax(request, "getJs");
-                        url = CsrfUtil.addOrUpdateTokenInUrl(url, tokenValue);
-
-                        // store script link to be output by scriptTagsFooter freemarker macro
-                        MultiBlockHtmlTemplateUtil.addScriptLinkForFoot(request, url);
+                        ScriptLinkHelper.prepareScriptLinkForBodyEnd(request, fileName, scripts.toString());
                     }
                 }
                 // the 'template' block

@@ -18,7 +18,7 @@
   -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>Content Component Content Services</description>
     <vendor>OFBiz</vendor>
 
@@ -80,8 +80,8 @@
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
     </service>
 
-    <service name="attachUploadToDataResource" engine="simple" transaction-timeout="300"
-             location="component://content/minilang/data/DataServices.xml" invoke="attachUploadToDataResource">
+    <service name="attachUploadToDataResource" engine="groovy" transaction-timeout="300"
+             location="component://content/groovyScripts/data/DataServices.groovy" invoke="attachUploadToDataResource">
         <description>Accepts uploaded content and attaches to an existing data resource</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>

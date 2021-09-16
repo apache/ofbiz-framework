@@ -1016,12 +1016,8 @@ public class OrderReadHelper {
                 List<GenericValue> featureAppls = null;
                 if (item.get("productId") != null) {
                     try {
-                        featureAppls = item.getDelegator().findByAnd("ProductFeatureAppl",
-                                UtilMisc.toMap("productId", item.getString("productId")), null, true);
-                        List<EntityExpr> filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId",
-                                EntityOperator.EQUALS, "STANDARD_FEATURE"));
-                        filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
-                        featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
+                        featureAppls = ProductWorker.getProductFeaturesApplIncludeMarketingPackage(
+                                item.getRelatedOne("Product", true));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, MODULE);
                     }
@@ -3592,7 +3588,8 @@ public class OrderReadHelper {
         for (GenericValue orderAdjustment : orderHeaderAdjustments) {
             BigDecimal returnedAmount = BigDecimal.ZERO;
             try {
-                List<GenericValue> returnAdjustments = EntityQuery.use(orderHeader.getDelegator()).from("ReturnAdjustment").where("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")).queryList();
+                List<GenericValue> returnAdjustments = EntityQuery.use(orderHeader.getDelegator()).from("ReturnAdjustment")
+                        .where("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")).queryList();
                 if (UtilValidate.isNotEmpty(returnAdjustments)) {
                     for (GenericValue returnAdjustment : returnAdjustments) {
                         returnedAmount = returnedAmount.add(returnAdjustment.getBigDecimal("amount"));

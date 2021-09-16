@@ -236,7 +236,7 @@ DIV.column-left-wide {
 
 #main-navigation ul a:hover,
 #main-navigation ul .selected a,
-#main-navigation ui .selected a:hover {
+#main-navigation ul .selected a:hover {
     background-image: url(/images/rtl/main_sel_left.gif);
     background-position: top left;
 }

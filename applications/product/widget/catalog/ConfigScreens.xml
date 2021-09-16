@@ -263,7 +263,7 @@ under the License.
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
 
-                <set field="fromDate" from-field="requetParameters.fromDate" type="Timestamp"/>
+                <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
 
                 <script location="component://product/groovyScripts/catalog/config/EditProductConfigItemContentContent.groovy"/>
             </actions>

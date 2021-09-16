@@ -331,7 +331,6 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleEditFacilityInventoryItems"/>
                 <set field="asm_multipleSelectForm" value="SearchInventoryItemsParams"/>
-                <set field="asm_asmListItemPercentOfForm" value="110"/>
                 <set field="statusId.asm_multipleSelect" value="SearchInventoryItemsParams_statusId"/>
                 <set field="statusId.asm_sortable" value="true"/>
                 <set field="statusId.asm_title" value=" "/>
@@ -810,7 +809,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="ViewContactMechs"/>
                 <script location="component://product/groovyScripts/facility/facility/EditContactMech.groovy"/>
-                
+
                 <set field="dependentForm" value="editcontactmechform"/>
                 <set field="paramKey" value="countryGeoId"/>
                 <set field="mainId" value="countryGeoId"/>
@@ -1041,7 +1040,7 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleTransferInventoryItem"/>
-                
+
                 <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
                 <entity-one entity-name="InventoryItemType" value-field="inventoryItemType">
                     <field-map field-name="inventoryItemTypeId" value="${inventoryItem.inventoryItemTypeId}"/>
@@ -1115,6 +1114,7 @@ under the License.
                 <set field="titleProperty" value="ProductReceiveReturn"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ReceiveReturn"/>
+                <set field="helpAnchor" value="_receive_return"/>
 
                 <script location="component://product/groovyScripts/facility/returns/ReceiveReturn.groovy"/>
             </actions>
@@ -1567,6 +1567,18 @@ under the License.
                         <screenlet title="${uiLabelMap.FacilityAgreements}">
                             <include-form name="ListFacilityAgreements" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ShortcutApp">
+        <section>
+            <widgets>
+                <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="FacilityShortcutAppBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

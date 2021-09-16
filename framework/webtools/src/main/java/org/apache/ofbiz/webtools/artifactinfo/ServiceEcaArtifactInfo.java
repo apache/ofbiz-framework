@@ -175,24 +175,6 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             }
         }
 
-        /* going to try this without any attributes...
-        // attributes
-        List<Map<String, Object>> attributesList = new LinkedList();
-        topLevelMap.put("attributes", attributesList);
-        for (ModelParam param: this.modelService.getModelParamList()) {
-            Map<String, Object> attributeMap = new HashMap();
-            attributesList.add(attributeMap);
-
-            if (useMoreDetailedNames) {
-                attributeMap.put("name", param.getShortDisplayDescription());
-            } else {
-                attributeMap.put("name", param.name);
-            }
-            attributeMap.put("valueClassName", param.type);
-            attributeMap.put("externalType", param.type);
-        }
-        */
-
         // relationships
         List<Map<String, Object>> relationshipsMapList = new LinkedList<>();
 

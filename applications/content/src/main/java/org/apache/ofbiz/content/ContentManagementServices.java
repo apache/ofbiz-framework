@@ -421,8 +421,9 @@ public class ContentManagementServices {
         String siteContentId = (String) context.get("contentId");
         String partyId = (String) context.get("partyId");
 
-        if (UtilValidate.isEmpty(siteContentId) || UtilValidate.isEmpty(partyId))
+        if (UtilValidate.isEmpty(siteContentId) || UtilValidate.isEmpty(partyId)) {
             return results;
+        }
 
         List<GenericValue> siteRoles = null;
         try {
@@ -1012,8 +1013,9 @@ public class ContentManagementServices {
         String contentId = (String) context.get("contentId");
         visitedSet.add(contentId);
         String contentTypeId = "PAGE_NODE";
-        if (pageMode != null && pageMode.toLowerCase(Locale.getDefault()).indexOf("outline") >= 0)
+        if (pageMode != null && pageMode.toLowerCase(Locale.getDefault()).indexOf("outline") >= 0) {
             contentTypeId = "OUTLINE_NODE";
+        }
         GenericValue thisContent = null;
         try {
             thisContent = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
@@ -1579,72 +1581,6 @@ public class ContentManagementServices {
         List<GenericValue> kids = ContentWorker.getAssociatedContent(content, "from", contentAssocTypeIdList, null, null, null);
         for (GenericValue kidContent : kids) {
             followNodeChildrenMethod(kidContent, dispatcher, serviceName, context);
-        }
-        return result;
-    }
-
-    public static Map<String, Object> persistContentWithRevision(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = null;
-        Delegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue dataResource = null;
-        String masterRevisionContentId = (String) context.get("masterRevisionContentId");
-        String oldDataResourceId = (String) context.get("drDataResourceId");
-        if (UtilValidate.isEmpty(oldDataResourceId)) {
-            oldDataResourceId = (String) context.get("dataResourceId");
-        }
-        if (UtilValidate.isNotEmpty(oldDataResourceId)) {
-            try {
-                dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", oldDataResourceId).queryOne();
-            } catch (GenericEntityException e) {
-                Debug.logError(e.toString(), MODULE);
-                return ServiceUtil.returnError(e.toString());
-            }
-        }
-
-        try {
-            ModelService persistContentAndAssocModel = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
-            Map<String, Object> ctx = persistContentAndAssocModel.makeValid(context, ModelService.IN_PARAM);
-            if (dataResource != null) {
-                ctx.remove("dataResourceId");
-                ctx.remove("drDataResourceId");
-            }
-            result = dispatcher.runSync("persistContentAndAssoc", ctx);
-            if (ServiceUtil.isError(result)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-            }
-            String contentId = (String) result.get("contentId");
-            List<String> parentList = new LinkedList<>();
-            if (UtilValidate.isEmpty(masterRevisionContentId)) {
-                Map<String, Object> traversMap = new HashMap<>();
-                traversMap.put("contentId", contentId);
-                traversMap.put("direction", "To");
-                traversMap.put("contentAssocTypeId", "COMPDOC_PART");
-                Map<String, Object> traversResult = dispatcher.runSync("traverseContent", traversMap);
-                if (ServiceUtil.isError(traversResult)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(traversResult));
-                }
-                parentList = UtilGenerics.cast(traversResult.get("parentList"));
-            } else {
-                parentList.add(masterRevisionContentId);
-            }
-
-            // Update ContentRevision and ContentRevisionItem
-            Map<String, Object> contentRevisionMap = new HashMap<>();
-            contentRevisionMap.put("itemContentId", contentId);
-            contentRevisionMap.put("newDataResourceId", result.get("dataResourceId"));
-            contentRevisionMap.put("oldDataResourceId", oldDataResourceId);
-            // need committedByPartyId
-            for (String thisContentId : parentList) {
-                contentRevisionMap.put("contentId", thisContentId);
-                result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
-                if (ServiceUtil.isError(result)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                }
-            }
-        } catch (GenericServiceException e) {
-            Debug.logError(e.toString(), MODULE);
-            return ServiceUtil.returnError(e.toString());
         }
         return result;
     }

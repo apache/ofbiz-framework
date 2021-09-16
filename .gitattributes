@@ -39,3 +39,4 @@ rc.ofbiz.*   text
 *.zip        binary
 *.jks        binary
 *.ttf        binary
+*.gpg        binary

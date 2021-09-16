@@ -17,7 +17,10 @@ rem KIND, either express or implied.  See the License for the
 rem specific language governing permissions and limitations
 rem under the License.
 rem #####################################################################
-rem interactive DOS version of mergefromtrunk.sh.
-rem to use : launch and pass the trunk version number to merge in release
 
-Powershell.exe -executionpolicy bypass -File  gradle\init-gradle-wrapper.ps1
+if exist "%~dp0gradle\wrapper\gradle-wrapper.jar" (
+    echo The Gradle Wrapper has already been downloaded.
+    exit /b
+)
+
+pwsh  -command "  Start-Process pwsh -Verb RunAs \""-Command `\""cd '%cd%'; & 'gradle\init-gradle-wrapper.ps1';`\""\""   "

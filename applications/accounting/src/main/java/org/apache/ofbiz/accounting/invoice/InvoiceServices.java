@@ -457,8 +457,8 @@ public class InvoiceServices {
                 Map<String, Object> createInvoiceItemContext = new HashMap<>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
                 createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
-                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, (orderItem.getString("orderItemTypeId")),
-                        (product == null ? null : product.getString("productTypeId")), invoiceType, "INV_FPROD_ITEM"));
+                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, orderItem.getString("orderItemTypeId"),
+                        product == null ? null : product.getString("productTypeId"), invoiceType, "INV_FPROD_ITEM"));
                 createInvoiceItemContext.put("description", orderItem.get("itemDescription"));
                 createInvoiceItemContext.put("quantity", billingQuantity);
                 createInvoiceItemContext.put("amount", billingAmount);
@@ -1051,7 +1051,8 @@ public class InvoiceServices {
                             if (!commissionParties.containsKey(partyIdFromTo)) {
                                 commissionParties.put(partyIdFromTo, UtilMisc.toList(commissionMap));
                             } else {
-                                (commissionParties.get(partyIdFromTo)).add(commissionMap);
+                                List<Map<String, Object>> commissionPartiesPartyIdFromTo = commissionParties.get(partyIdFromTo);
+                                commissionPartiesPartyIdFromTo.add(commissionMap);
                             }
                         }
                     }
@@ -3795,8 +3796,8 @@ public class InvoiceServices {
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemTypeId"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory invoice item type missing for invoice: "
                                     + currentInvoiceId);
-                        } else if (EntityQuery.use(delegator).from("InvoiceItemType").where("invoiceItemTypeId", invoiceItem.get("invoiceItemTypeId"
-                        )).queryOne() == null) {
+                        } else if (EntityQuery.use(delegator).from("InvoiceItemType").where("invoiceItemTypeId",
+                                invoiceItem.get("invoiceItemTypeId")).queryOne() == null) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem Item type id: " + invoiceItem.get(
                                     "invoiceItemTypeId") + " not found for invoice: " + currentInvoiceId + " Item seqId:" + invoiceItem.get(
                                             "invoiceItemSeqId"));

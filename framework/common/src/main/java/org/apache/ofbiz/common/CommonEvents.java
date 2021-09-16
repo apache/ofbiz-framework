@@ -62,7 +62,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.widget.model.ModelWidget;
-import org.apache.ofbiz.widget.model.MultiBlockHtmlTemplateUtil;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -189,7 +189,7 @@ public class CommonEvents {
     public static String jsResponseFromRequest(HttpServletRequest request, HttpServletResponse response) {
 
         String fileName = request.getParameter("name");
-        String script = MultiBlockHtmlTemplateUtil.getScriptFromCache(request.getSession(), fileName);
+        String script = ScriptLinkHelper.getScriptFromCache(request.getSession(), fileName);
 
         // return the JS String
         Writer out;
@@ -275,7 +275,7 @@ public class CommonEvents {
         Map<String, List<String>> uiLabelObject = null;
         if (UtilValidate.isNotEmpty(jsonString)) {
             JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.<Map<String, List<String>>> cast(json.toObject(Map.class));
+            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
             Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
@@ -307,7 +307,7 @@ public class CommonEvents {
         Map<String, String> uiLabelObject = null;
         if (UtilValidate.isNotEmpty(jsonString)) {
             JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.<Map<String, String>> cast(json.toObject(Map.class));
+            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
         }
         if (UtilValidate.isEmpty(uiLabelObject)) {
             Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
@@ -404,8 +404,7 @@ public class CommonEvents {
                 charGraphics.setFont(textFont);
 
                 int charX = (int) (0.5 * charDim - 0.5 * charWidth);
-                charGraphics.drawString("" + captchaCode.charAt(i), charX,
-                        ((charDim - fontMetrics.getAscent()) / 2 + fontMetrics.getAscent()));
+                charGraphics.drawString("" + captchaCode.charAt(i), charX, (charDim - fontMetrics.getAscent()) / 2 + fontMetrics.getAscent());
 
                 float x = horizMargin + spacePerChar * (i) - charDim / 2.0f;
                 int y = ((height - charDim) / 2);

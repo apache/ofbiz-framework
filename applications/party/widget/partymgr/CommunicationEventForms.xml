@@ -504,9 +504,6 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <row-actions>
-            <set field="toComplete" value="${groovy: 'COM_ROLE_READ'.equals(roleStatusId) ? 'PartyToComplete' : ' '}"/>
-        </row-actions>
         <field name="deleteCommEventIfLast"><hidden value="Y"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="partyId"><hidden/></field>
@@ -541,7 +538,7 @@ under the License.
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem">
                 <sub-hyperlink target="setCommunicationEventRoleStatus"
-                    description="${uiLabelMap.${toComplete}}">
+                    description="${groovy: 'COM_ROLE_READ'.equals(roleStatusId) ? 'uiLabelMap.PartyToComplete' : ' '}">
                     <parameter param-name="communicationEventId"/>
                     <parameter param-name="partyId"/>
                     <parameter param-name="roleTypeId"/>
@@ -724,7 +721,7 @@ under the License.
     <form name="ListCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
+            <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList" filter-by-date="true">
                 <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
         </actions>
@@ -874,7 +871,7 @@ under the License.
         <field name="my"><hidden value="${my}"/></field>
         <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>
         <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
-        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
+        <field name="contentIdFrom" title="${uiLabelMap.ContentParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
         <field name="send" title="${uiLabelMap.CommonUpload}">
             <submit button-type="button"/>
         </field>

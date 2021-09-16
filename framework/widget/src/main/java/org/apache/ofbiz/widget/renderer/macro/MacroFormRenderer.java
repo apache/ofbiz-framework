@@ -30,7 +30,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,17 +38,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
-import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
@@ -93,12 +91,11 @@ import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.UtilHelpText;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.jsoup.nodes.Element;
 
 import com.ibm.icu.util.Calendar;
-
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
 /**
  * Widget Library - Form Renderer implementation based on Freemarker macros
@@ -106,12 +103,11 @@ import freemarker.template.TemplateException;
 public final class MacroFormRenderer implements FormStringRenderer {
 
     private static final String MODULE = MacroFormRenderer.class.getName();
-    @SuppressWarnings("unused")
-    private final Template macroLibrary;
     private final UtilCodec.SimpleEncoder internalEncoder;
     private final RequestHandler rh;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
+    private final RenderableFtlFormElementsBuilder renderableFtlFormElementsBuilder;
     private final boolean javaScriptEnabled;
     private final VisualTheme visualTheme;
     private final FtlWriter ftlWriter;
@@ -119,13 +115,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
     private boolean widgetCommentsEnabled = false;
 
     public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
-            throws TemplateException, IOException {
-        this(macroLibraryPath, request, response, null);
+            throws IOException {
+        this(macroLibraryPath, request, response, null, null);
     }
 
     public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response,
-                             FtlWriter ftlWriter) throws TemplateException, IOException {
-        this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
+                             FtlWriter ftlWriter, RenderableFtlFormElementsBuilder renderableFtlFormElementsBuilder)
+            throws IOException {
         this.request = request;
         this.response = response;
         this.visualTheme = ThemeFactory.resolveVisualTheme(request);
@@ -133,30 +129,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = UtilCodec.getEncoder("string");
         this.ftlWriter = ftlWriter != null ? ftlWriter : new FtlWriter(macroLibraryPath, this.visualTheme);
-    }
-
-    @Deprecated
-    public MacroFormRenderer(String macroLibraryPath, Appendable writer, HttpServletRequest request, HttpServletResponse response)
-            throws TemplateException, IOException {
-        this(macroLibraryPath, request, response);
+        this.renderableFtlFormElementsBuilder = renderableFtlFormElementsBuilder != null
+                ? renderableFtlFormElementsBuilder
+                : new RenderableFtlFormElementsBuilder(this.visualTheme, rh, request, response);
     }
 
     private static String encodeDoubleQuotes(String htmlString) {
         return htmlString.replaceAll("\"", "\\\\\"");
-    }
-
-    /**
-     * Extracts parameters from a target URL string, prepares them for an Ajax
-     * JavaScript call. This method is currently set to return a parameter string
-     * suitable for the Prototype.js library.
-     * @param target Target URL string
-     * @return Parameter string
-     */
-    public static String getAjaxParamsFromTarget(String target) {
-        String targetParams = UtilHttp.getQueryStringFromTarget(target);
-        targetParams = targetParams.replace("?", "");
-        targetParams = targetParams.replace("&amp;", "&");
-        return targetParams;
     }
 
     public boolean getRenderPagination() {
@@ -167,8 +146,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.renderPagination = renderPagination;
     }
 
+    public void writeFtlElement(final Appendable writer, final RenderableFtl renderableFtl) {
+        ftlWriter.processFtl(writer, renderableFtl);
+    }
+
     private void executeMacro(Appendable writer, String macro) {
-        ftlWriter.executeMacro(writer, null, macro);
+        ftlWriter.processFtlString(writer, null, macro);
     }
 
     /**
@@ -178,7 +161,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
      * @param macro
      */
     private void executeMacro(Appendable writer, Locale locale, String macro) {
-        ftlWriter.executeMacro(writer, locale, macro);
+        ftlWriter.processFtlString(writer, locale, macro);
     }
 
     private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
@@ -195,139 +178,23 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) {
-        String labelText = label.getText(context);
-        if (UtilValidate.isEmpty(labelText)) {
-            // nothing to render
-            return;
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderLabel ");
-        sr.append("text=\"");
-        sr.append(labelText);
-        sr.append("\"");
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.label(context, label);
+        writeFtlElement(writer, renderableFtl);
     }
 
     @Override
-    public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
-        ModelFormField modelFormField = displayField.getModelFormField();
-        String idName = modelFormField.getCurrentContainerId(context);
-        String description = displayField.getDescription(context);
-        String type = displayField.getType();
-        String imageLocation = displayField.getImageLocation(context);
-        Integer size = Integer.valueOf("0");
-        String title = "";
-        if (UtilValidate.isNotEmpty(displayField.getSize())) {
-            try {
-                size = Integer.parseInt(displayField.getSize());
-            } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error reading size of a field fieldName=" + displayField.getModelFormField().getFieldName() + " FormName= "
-                        + displayField.getModelFormField().getModelForm().getName(), MODULE);
-            }
-        }
-        ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
-        boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
-        if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
-            title = description;
-            description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderDisplayField ");
-        sr.append("type=\"");
-        sr.append(type);
-        sr.append("\" imageLocation=\"");
-        sr.append(imageLocation);
-        sr.append("\" idName=\"");
-        sr.append(idName);
-        sr.append("\" description=\"");
-        sr.append(encodeDoubleQuotes(description));
-        sr.append("\" title=\"");
-        sr.append(title);
-        sr.append("\" class=\"");
-        sr.append(modelFormField.getWidgetStyle());
-        sr.append("\" alert=\"");
-        sr.append(modelFormField.shouldBeRed(context) ? "true" : "false");
-        if (ajaxEnabled) {
-            String url = inPlaceEditor.getUrl(context);
-            StringBuffer extraParameterBuffer = new StringBuffer();
-            String extraParameter;
+    public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) {
+        writeFtlElement(writer,
+                renderableFtlFormElementsBuilder.displayField(context, displayField, this.javaScriptEnabled));
 
-            Map<String, Object> fieldMap = inPlaceEditor.getFieldMap(context);
-            Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
-            Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
-            int count = 0;
-            extraParameterBuffer.append("{");
-            while (fieldIterator.hasNext()) {
-                count++;
-                Entry<String, Object> field = fieldIterator.next();
-                extraParameterBuffer.append(field.getKey() + ":'" + (String) field.getValue() + "'");
-                if (count < fieldSet.size()) {
-                    extraParameterBuffer.append(',');
-                }
-
-            }
-            extraParameterBuffer.append("}");
-            extraParameter = extraParameterBuffer.toString();
-            sr.append("\" inPlaceEditorUrl=\"");
-            sr.append(url);
-            sr.append("\" inPlaceEditorParams=\"");
-            StringWriter inPlaceEditorParams = new StringWriter();
-            inPlaceEditorParams.append("{name: '");
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getParamName())) {
-                inPlaceEditorParams.append(inPlaceEditor.getParamName());
-            } else {
-                inPlaceEditorParams.append(modelFormField.getFieldName());
-            }
-            inPlaceEditorParams.append("'");
-            inPlaceEditorParams.append(", method: 'POST'");
-            inPlaceEditorParams.append(", submitdata: " + extraParameter);
-            inPlaceEditorParams.append(", type: 'textarea'");
-            inPlaceEditorParams.append(", select: 'true'");
-            inPlaceEditorParams.append(", onreset: function(){jQuery('#cc_" + idName + "').css('background-color', 'transparent');}");
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelText())) {
-                inPlaceEditorParams.append(", cancel: '" + inPlaceEditor.getCancelText() + "'");
-            } else {
-                inPlaceEditorParams.append(", cancel: 'Cancel'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getClickToEditText())) {
-                inPlaceEditorParams.append(", tooltip: '" + inPlaceEditor.getClickToEditText() + "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getFormClassName())) {
-                inPlaceEditorParams.append(", cssclass: '" + inPlaceEditor.getFormClassName() + "'");
-            } else {
-                inPlaceEditorParams.append(", cssclass: 'inplaceeditor-form'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingText())) {
-                inPlaceEditorParams.append(", indicator: '" + inPlaceEditor.getLoadingText() + "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getOkControl())) {
-                inPlaceEditorParams.append(", submit: ");
-                if (!"false".equals(inPlaceEditor.getOkControl())) {
-                    inPlaceEditorParams.append("'");
-                }
-                inPlaceEditorParams.append(inPlaceEditor.getOkControl());
-                if (!"false".equals(inPlaceEditor.getOkControl())) {
-                    inPlaceEditorParams.append("'");
-                }
-            } else {
-                inPlaceEditorParams.append(", submit: 'OK'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getRows())) {
-                inPlaceEditorParams.append(", rows: '" + inPlaceEditor.getRows() + "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getCols())) {
-                inPlaceEditorParams.append(", cols: '" + inPlaceEditor.getCols() + "'");
-            }
-            inPlaceEditorParams.append("}");
-            sr.append(inPlaceEditorParams.toString());
-        }
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
         if (displayField instanceof DisplayEntityField) {
-            makeHyperlinkString(writer, ((DisplayEntityField) displayField).getSubHyperlink(), context);
+            writeFtlElement(writer,
+                    renderableFtlFormElementsBuilder.makeHyperlinkString(((DisplayEntityField) displayField).getSubHyperlink(),
+                            context));
         }
-        this.appendTooltip(writer, context, modelFormField);
+
+        final ModelFormField modelFormField = displayField.getModelFormField();
+        appendTooltip(writer, context, modelFormField);
     }
 
     @Override
@@ -357,107 +224,18 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) throws IOException {
-        ModelFormField modelFormField = textField.getModelFormField();
-        String name = modelFormField.getParameterName(context);
-        String className = "";
-        String alert = "false";
-        String mask = "";
-        String placeholder = textField.getPlaceholder(context);
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
-        String textSize = Integer.toString(textField.getSize());
-        String maxlength = "";
-        if (textField.getMaxlength() != null) {
-            maxlength = Integer.toString(textField.getMaxlength());
-        }
-        String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);
-        String id = modelFormField.getCurrentContainerId(context);
-        String clientAutocomplete = "false";
-        //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
-            String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) {
-                requiredStyle = "required";
-            }
-            if (UtilValidate.isEmpty(className)) {
-                className = requiredStyle;
-            } else {
-                className = requiredStyle + " " + className;
-            }
-        }
-        List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
-        boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
-        if (textField.getClientAutocompleteField() || ajaxEnabled) {
-            clientAutocomplete = "true";
-        }
-        if (UtilValidate.isNotEmpty(textField.getMask())) {
-            mask = textField.getMask();
-        }
-        String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
-        boolean disabled = modelFormField.getDisabled();
-        boolean readonly = textField.getReadonly();
-        String tabindex = modelFormField.getTabindex();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderTextField ");
-        sr.append("name=\"");
-        sr.append(name);
-        sr.append("\" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" textSize=\"");
-        sr.append(textSize);
-        sr.append("\" maxlength=\"");
-        sr.append(maxlength);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" event=\"");
-        if (event != null) {
-            sr.append(event);
-        }
-        sr.append("\" action=\"");
-        if (action != null) {
-            sr.append(action);
-        }
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" readonly=");
-        sr.append(Boolean.toString(readonly));
-        sr.append(" clientAutocomplete=\"");
-        sr.append(clientAutocomplete);
-        sr.append("\" ajaxUrl=\"");
-        sr.append(ajaxUrl);
-        sr.append("\" ajaxEnabled=");
-        sr.append(Boolean.toString(ajaxEnabled));
-        sr.append(" mask=\"");
-        sr.append(mask);
-        sr.append("\" placeholder=\"");
-        sr.append(placeholder);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" delegatorName=\"");
-        sr.append(((HttpSession) context.get("session")).getAttribute("delegatorName").toString());
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
-        ModelFormField.SubHyperlink subHyperlink = textField.getSubHyperlink();
-        if (subHyperlink != null && subHyperlink.shouldUse(context)) {
-            makeHyperlinkString(writer, subHyperlink, context);
-        }
+    public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) {
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.textField(context, textField, javaScriptEnabled));
+
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.makeHyperlinkString(textField.getSubHyperlink(), context));
+
+        final ModelFormField modelFormField = textField.getModelFormField();
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
 
     @Override
-    public void renderTextareaField(Appendable writer, Map<String, Object> context, TextareaField textareaField) throws IOException {
+    public void renderTextareaField(Appendable writer, Map<String, Object> context, TextareaField textareaField) {
         ModelFormField modelFormField = textareaField.getModelFormField();
         String name = modelFormField.getParameterName(context);
         String cols = Integer.toString(textareaField.getCols());
@@ -1083,6 +861,16 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         String tabindex = modelFormField.getTabindex();
+
+        List<String> currentValueList = null;
+        if (UtilValidate.isNotEmpty(currentValue)) {
+            if (currentValue.startsWith("[")) {
+                currentValueList = StringUtil.toList(currentValue);
+            } else {
+                currentValueList = UtilMisc.toList(currentValue);
+            }
+        }
+
         List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         items.append("[");
         for (ModelFormField.OptionValue optionValue : allOptionValues) {
@@ -1092,6 +880,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
             items.append("{'value':'");
             items.append(optionValue.getKey());
             items.append("', 'description':'" + encode(optionValue.getDescription(), modelFormField, context));
+            if (UtilValidate.isNotEmpty(currentValueList) && currentValueList.contains(optionValue.getKey())) {
+                items.append("', 'checked':'" + Boolean.TRUE);
+            }
             items.append("'}");
         }
         items.append("]");
@@ -1108,7 +899,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" conditionGroup=\"");
         sr.append(conditionGroup);
         sr.append("\" allChecked=");
-        sr.append((allChecked != null ? Boolean.toString(allChecked) : "\"\""));
+        sr.append((allChecked != null && currentValueList == null ? Boolean.toString(allChecked) : "\"\""));
         sr.append(" currentValue=\"");
         sr.append(currentValue);
         sr.append("\" name=\"");
@@ -1221,17 +1012,22 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // This is here for backwards compatibility. Use on-event-update-area
         // elements instead.
         String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
+        ModelForm.UpdateArea jwtCallback = ModelForm.UpdateArea.fromJwtToken(context);
         if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
             if (updateAreas == null) {
                 updateAreas = new LinkedList<>();
             }
             updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
         }
-        boolean ajaxEnabled = (UtilValidate.isNotEmpty(updateAreas) || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget))
-                && this.javaScriptEnabled;
+
+        // In context a callback is present and no other update area to call after the submit, so trigger it.
+        if (UtilValidate.isEmpty(updateAreas) && jwtCallback != null) {
+            updateAreas = UtilMisc.toList(jwtCallback);
+        }
+        boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
@@ -2326,7 +2122,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendContentUrl(imgSrc, "/images/fieldlookup.gif");
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String lookupPresentation = lookupField.getLookupPresentation();
         if (UtilValidate.isEmpty(lookupPresentation)) {
@@ -2550,7 +2346,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String ajaxLastUrl = "";
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxFirstUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
+                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, prepLinkText + 0 + anchor, context);
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 firstUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2558,7 +2354,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxPreviousUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
+                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + (viewIndex - 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 previousUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2567,7 +2364,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
+                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + "' + this.value + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
@@ -2579,7 +2377,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Next button
         if (highIndex < listSize) {
             if (ajaxEnabled) {
-                ajaxNextUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
+                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + (viewIndex + 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 nextUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2589,7 +2388,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (highIndex < listSize) {
             int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
             if (ajaxEnabled) {
-                ajaxLastUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context);
+                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + lastIndex + anchor, context);
             } else {
                 linkText = prepLinkText + lastIndex + anchor;
                 lastUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2598,7 +2398,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page size select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectSizeUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkSizeText + anchor, context);
+                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkSizeText + anchor, context);
             } else {
                 linkText = prepLinkSizeText;
                 if (linkText.startsWith("/")) {
@@ -2844,71 +2645,15 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle();
-        String id = fieldGroup.getId();
-        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
-        String title = titleNotExpanded.expandString(context);
-        Boolean collapsed = fieldGroup.initiallyCollapsed();
-        String collapsibleAreaId = fieldGroup.getId() + "_body";
-        Boolean collapsible = fieldGroup.collapsible();
-        String expandToolTip = "";
-        String collapseToolTip = "";
-        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
-            if (fieldGroup.collapsible()) {
-                Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
-                if (uiLabelMap != null) {
-                    expandToolTip = (String) uiLabelMap.get("CommonExpand");
-                    collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
-                }
-            }
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFieldGroupOpen ");
-        sr.append(" style=\"");
-        if (style != null) {
-            sr.append(style);
-        }
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" title=\"");
-        sr.append(title);
-        sr.append("\" collapsed=");
-        sr.append(Boolean.toString(collapsed));
-        sr.append(" collapsibleAreaId=\"");
-        sr.append(collapsibleAreaId);
-        sr.append("\" collapsible=");
-        sr.append(Boolean.toString(collapsible));
-        sr.append(" expandToolTip=\"");
-        sr.append(expandToolTip);
-        sr.append("\" collapseToolTip=\"");
-        sr.append(collapseToolTip);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupOpen(context, fieldGroup);
+        ftlWriter.processFtl(writer, renderableFtl);
     }
 
     @Override
-    public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle();
-        String id = fieldGroup.getId();
-        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
-        String title = titleNotExpanded.expandString(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFieldGroupClose ");
-        sr.append(" style=\"");
-        if (style != null) {
-            sr.append(style);
-        }
-        sr.append("\" id=\"");
-        if (id != null) {
-            sr.append(id);
-        }
-        sr.append("\" title=\"");
-        if (title != null) {
-            sr.append(title);
-        }
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
+        ftlWriter.processFtl(writer, renderableFtl);
     }
 
     @Override
@@ -3042,7 +2787,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         UtilHttp.canonicalizeParameterMap(paramMap);
         String linkUrl = null;
         if (ajaxEnabled) {
-            linkUrl = createAjaxParamsFromUpdateAreas(updateAreas, paramMap, null, context);
+            linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, modelForm, null, context);
         } else {
             StringBuilder sb = new StringBuilder("?");
             Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();
@@ -3080,121 +2825,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
-    /**
-     * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
-     * <code>OfbizUtil.js</code>.
-     * @param updateAreas
-     * @param extraParams Renderer-supplied additional target parameters
-     * @param context
-     * @return Parameter string or empty string if no UpdateArea objects were found
-     */
-    private String createAjaxParamsFromUpdateAreas(List<ModelForm.UpdateArea> updateAreas, Map<String, Object> extraParams,
-                                                   String anchor, Map<String, ? extends Object> context) {
-        StringBuilder sb = new StringBuilder();
-        Iterator<ModelForm.UpdateArea> updateAreaIter = updateAreas.iterator();
-        while (updateAreaIter.hasNext()) {
-            ModelForm.UpdateArea updateArea = updateAreaIter.next();
-            sb.append(updateArea.getAreaId()).append(",");
-            String ajaxTarget = updateArea.getAreaTarget(context);
-            String urlPath = UtilHttp.removeQueryStringFromTarget(ajaxTarget);
-            sb.append(this.rh.makeLink(this.request, this.response, urlPath)).append(",");
-            String queryString = UtilHttp.getQueryStringFromTarget(ajaxTarget).replace("?", "");
-            Map<String, Object> parameters = UtilHttp.getQueryStringOnlyParameterMap(queryString);
-            Map<String, Object> ctx = UtilGenerics.cast(context);
-            Map<String, Object> updateParams = UtilGenerics.cast(updateArea.getParameterMap(ctx));
-            parameters.putAll(updateParams);
-            UtilHttp.canonicalizeParameterMap(parameters);
-            parameters.putAll(extraParams);
-            Iterator<Map.Entry<String, Object>> paramIter = parameters.entrySet().iterator();
-            while (paramIter.hasNext()) {
-                Map.Entry<String, Object> entry = paramIter.next();
-                sb.append(entry.getKey()).append("=").append(entry.getValue());
-                if (paramIter.hasNext()) {
-                    sb.append("&");
-                }
-            }
-            if (anchor != null) {
-                sb.append("#").append(anchor);
-            }
-            if (updateAreaIter.hasNext()) {
-                sb.append(",");
-            }
-        }
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        return FlexibleStringExpander.expandString(sb.toString(), context, locale);
-    }
-
-    /**
-     * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
-     * <code>OfbizUtil.js</code>.
-     * @param updateAreas
-     * @param extraParams Renderer-supplied additional target parameters
-     * @param context
-     * @return Parameter string or empty string if no UpdateArea objects were found
-     */
-    public String createAjaxParamsFromUpdateAreas(List<ModelForm.UpdateArea> updateAreas, String extraParams, Map<String, ? extends Object> context) {
-        //FIXME copy from HtmlFormRenderer.java
-        if (updateAreas == null) {
-            return "";
-        }
-        String ajaxUrl = "";
-        boolean firstLoop = true;
-        for (ModelForm.UpdateArea updateArea : updateAreas) {
-            if (firstLoop) {
-                firstLoop = false;
-            } else {
-                ajaxUrl += ",";
-            }
-            Map<String, Object> ctx = UtilGenerics.cast(context);
-            Map<String, String> parameters = updateArea.getParameterMap(ctx);
-            String targetUrl = updateArea.getAreaTarget(context);
-            String ajaxParams;
-            StringBuffer ajaxParamsBuffer = new StringBuffer();
-            ajaxParamsBuffer.append(getAjaxParamsFromTarget(targetUrl));
-            //add first parameters from updateArea parameters
-            if (UtilValidate.isNotEmpty(parameters)) {
-                for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                    String key = entry.getKey();
-                    String value = entry.getValue();
-                    //test if ajax parameters are not already into extraParams, if so do not add it
-                    if (UtilValidate.isNotEmpty(extraParams) && extraParams.contains(value)) {
-                        continue;
-                    }
-                    if (ajaxParamsBuffer.length() > 0 && ajaxParamsBuffer.indexOf(key) < 0) {
-                        ajaxParamsBuffer.append("&");
-                    }
-                    if (ajaxParamsBuffer.indexOf(key) < 0) {
-                        ajaxParamsBuffer.append(key).append("=").append(value);
-                    }
-                }
-            }
-            //then add parameters from request. Those parameters could end with an anchor so we must set ajax parameters first
-            if (UtilValidate.isNotEmpty(extraParams)) {
-                if (ajaxParamsBuffer.length() > 0 && !extraParams.startsWith("&")) {
-                    ajaxParamsBuffer.append("&");
-                }
-                ajaxParamsBuffer.append(extraParams);
-            }
-            ajaxParams = ajaxParamsBuffer.toString();
-            ajaxUrl += updateArea.getAreaId() + ",";
-            ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
-            ajaxUrl += "," + ajaxParams;
-        }
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        return FlexibleStringExpander.expandString(ajaxUrl, context, locale);
-    }
-
-    public void appendTooltip(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
+    private void appendTooltip(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
         // render the tooltip, in other methods too
-        String tooltip = modelFormField.getTooltip(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderTooltip ");
-        sr.append("tooltip=\"");
-        sr.append(encodeDoubleQuotes(tooltip));
-        sr.append("\" tooltipStyle=\"");
-        sr.append(modelFormField.getTooltipStyle());
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.tooltip(context, modelFormField));
     }
 
     public void makeHyperlinkString(Appendable writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
@@ -3217,21 +2850,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
-    public void addAsterisks(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
-        String requiredField = "false";
-        String requiredStyle = "";
-        if (modelFormField.getRequiredField()) {
-            requiredField = "true";
-            requiredStyle = modelFormField.getRequiredFieldStyle();
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderAsterisks ");
-        sr.append("requiredField=\"");
-        sr.append(requiredField);
-        sr.append("\" requiredStyle=\"");
-        sr.append(requiredStyle);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    private void addAsterisks(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.asterisks(context, modelFormField);
+        writeFtlElement(writer, renderableFtl);
     }
 
     public void appendContentUrl(Appendable writer, String location) throws IOException {
@@ -3245,7 +2866,16 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        String encodedDescription = internalEncoder.encode(description);
+        UtilCodec.SimpleEncoder simpleEncoder = null;
+        String encodedDescription = null;
+        if (description.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(description)))) {
+            simpleEncoder = internalEncoder;
+        } else {
+            simpleEncoder = UtilCodec.getEncoder("string");
+        }
+        if (simpleEncoder != null) {
+            encodedDescription = simpleEncoder.encode(description);
+        }
         // get the parameterized pagination index and size fields
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         ModelForm modelForm = modelFormField.getModelForm();
@@ -3418,52 +3048,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
-    public void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String confirmation, ModelFormField modelFormField,
-                                         HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-            String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
-            String event = "";
-            String action = "";
-            String imgSrc = "";
-            if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
-                event = modelFormField.getEvent();
-                action = modelFormField.getAction(context);
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                imgSrc = request.getAttribute("image").toString();
-            }
-            StringWriter sr = new StringWriter();
-            sr.append("<@makeHiddenFormLinkAnchor ");
-            sr.append("linkStyle=\"");
-            sr.append(linkStyle == null ? "" : linkStyle);
-            sr.append("\" hiddenFormName=\"");
-            sr.append(hiddenFormName);
-            sr.append("\" event=\"");
-            sr.append(event);
-            sr.append("\" action=\"");
-            sr.append(action);
-            sr.append("\" imgSrc=\"");
-            sr.append(imgSrc);
-            sr.append("\" description=\"");
-            sr.append(description);
-            sr.append("\" confirmation =\"");
-            sr.append(confirmation);
-            sr.append("\" />");
-            executeMacro(writer, sr.toString());
-        }
-    }
-
     @Override
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
-        final String id = containerField.getModelFormField().getCurrentContainerId(context);
-        String className = UtilFormatOut.checkNull(containerField.getModelFormField().getWidgetStyle());
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderContainerField ");
-        sr.append("id=\"");
-        sr.append(id);
-        sr.append("\" className=\"");
-        sr.append(className);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        final RenderableFtlMacroCall containerMc = renderableFtlFormElementsBuilder.containerMacroCall(context, containerField);
+        writeFtlElement(writer, containerMc);
     }
 }

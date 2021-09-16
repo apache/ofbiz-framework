@@ -197,7 +197,7 @@ under the License.
       <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
         <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
         <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked>
-          <#elseif currentValue?has_content && currentValue==item.value> checked="checked"</#if> 
+          <#elseif item.checked?has_content && item.checked?boolean> checked="checked"</#if>
           name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
         ${item.description?default("")}
     </span>
@@ -229,10 +229,20 @@ under the License.
     <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert />
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if name??> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
-    <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"
+    <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}')"
       <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     </#if>/>
+    <#if containerId?has_content>
+    <#-- the form will be submit by ajax, we inform that perss enter need to call  -->
+    <script>
+        $("form[name='${formName}']").keypress(function(e) {
+          if (e.which === 13 && ! $(e.target).is('textarea')) {
+            e.preventDefault();
+            $("#${id!}").click();
+          }});
+    </script>
+  </#if>
   </#if>
 </#macro>
 
@@ -743,7 +753,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
            data-dialog-url="${linkUrl}"
         <#if text?has_content>data-dialog-title="${text}"</#if>
         <#if linkStyle?has_content>class="${linkStyle}"</#if>>
-        <#if description?has_content>${description}</#if></a>
+        <#if description?has_content>${description?html}</#if></a>
     <#else>
     <a <#if linkStyle?has_content && (description?has_content || imgSrc?has_content)>class="${linkStyle}"</#if>
       href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if>
@@ -751,6 +761,6 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       <#if confirmation?has_content> data-confirm-message="${confirmation}"</#if>
       <#if id?has_content> id="${id}"</#if>
       <#if imgSrc?length == 0 && title?has_content> title="${title}"</#if>>
-      <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description}</a>
+      <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description?html}</a>
     </#if>
 </#macro>

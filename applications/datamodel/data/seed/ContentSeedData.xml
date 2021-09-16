@@ -39,7 +39,6 @@ under the License.
     <ContentAssocType contentAssocTypeId="AUTHOR" description="Author"/>
     <ContentAssocType contentAssocTypeId="SUMMARY" description="Summary"/>
 
-    <ContentAssocType contentAssocTypeId="COMPDOC_PART" description="Composite Document Part"/>
     <ContentAssocType contentAssocTypeId="INSTANCE" description="Instance Of"/>
     <ContentAssocType contentAssocTypeId="ALTERNATIVE_URL" description="Alternative URL"/>
 
@@ -85,9 +84,6 @@ under the License.
     <ContentType contentTypeId="PEOPLE" description="People" parentTypeId="PLACEHOLDER"/>
     <ContentType contentTypeId="PERSON" description="Person" parentTypeId="PLACEHOLDER"/>
     <ContentType contentTypeId="TOPIC" description="Topic" parentTypeId="PLACEHOLDER"/>
-
-    <ContentType contentTypeId="COMPDOC_TEMPLATE" description="Composite Document Template"/>
-    <ContentType contentTypeId="COMPDOC_INSTANCE" description="Composite Document Instance"/>
 
     <DataResourceType dataResourceTypeId="LOCAL_FILE" description="Local File" hasTable="N"/>
     <DataResourceType dataResourceTypeId="OFBIZ_FILE" description="File (rel to OFBIZ_HOME)" hasTable="N"/>

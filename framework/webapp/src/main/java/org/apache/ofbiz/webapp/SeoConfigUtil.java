@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -106,7 +107,7 @@ public final class SeoConfigUtil {
         forwardResponseCodes = new HashMap<>();
         userExceptionPatterns = new LinkedList<>();
         specialProductIds = new HashMap<>();
-        charFilters = new HashMap<>();
+        charFilters = new LinkedHashMap<>();
         try {
             URL seoConfigFilename = UtilURL.fromResource(SEO_CONFIG_FILENAME);
             Document configDoc = UtilXml.readXmlDocument(seoConfigFilename, false);

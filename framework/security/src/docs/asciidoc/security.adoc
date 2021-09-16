@@ -19,6 +19,28 @@ under the License.
 
 = Security
 
+== OFBiz in production
+
+In matter of security, to be sure to be up to date, the first place to look at is
+https://ofbiz.apache.org/security.html
+
+For more details you may be also interested by
+https://issues.apache.org/jira/browse/OFBIZ-1525
+
+If you look for how to handle access permissions, this page should help you:
+https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Security+Permissions
+
+
+Last but not least, you will certainly find useful, the security section of
+https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+Technical+Production+Setup+Guide#ApacheOFBizTechnicalProductionSetupGuide-SecuritySettings[The Apache OFBiz Technical Production Setup Guide]
+
+=== Gradle Update
+OFBiz uses Gradle for many things, including building and running OFBiz.
+
+Out Of The Box (OOTB) you get versions of third parties libraries which might need to be updated from time to time.
+For that you may take as an example to follow https://issues.apache.org/jira/browse/OFBIZ-10213
+
 include::_include/sy-password-and-JWT.adoc[leveloffset=+1]
-include::_include/sy-impersonation.adoc[leveloffset=+1]
 include::_include/sy-CSRF-defense.adoc[leveloffset=+1]
+include::_include/sy-impersonation.adoc[leveloffset=+1]
+include::_include/sy-dependency-verification.adoc[leveloffset=+1]

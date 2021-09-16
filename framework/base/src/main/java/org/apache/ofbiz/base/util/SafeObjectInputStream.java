@@ -24,6 +24,7 @@ import static org.apache.ofbiz.base.util.UtilProperties.getPropertyValue;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 import java.util.Arrays;
@@ -36,14 +37,15 @@ import java.util.regex.Pattern;
  * only authorized class can be read from it.
  */
 public final class SafeObjectInputStream extends ObjectInputStream {
-    private static final String[] DEFAULT_WHITELIST_PATTERN = {
+    private static final String[] DEFAULT_ALLOWLIST_PATTERN = {
             "byte\\[\\]", "foo", "SerializationInjector",
             "\\[Z", "\\[B", "\\[S", "\\[I", "\\[J", "\\[F", "\\[D", "\\[C",
             "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*",
             "org.codehaus.groovy.runtime.GStringImpl", "groovy.lang.GString"};
+    private static final String[] DEFAULT_DENYLIST = {"rmi", "<"};
 
     /** The regular expression used to match serialized types. */
-    private final Pattern whitelistPattern;
+    private final Pattern allowlistPattern;
 
     /**
      * Instantiates a safe object input stream.
@@ -52,9 +54,9 @@ public final class SafeObjectInputStream extends ObjectInputStream {
      */
     public SafeObjectInputStream(InputStream in) throws IOException {
         super(in);
-        String safeObjectsProp = getPropertyValue("SafeObjectInputStream", "ListOfSafeObjectsForInputStream", "");
-        String[] whitelist = safeObjectsProp.isEmpty() ? DEFAULT_WHITELIST_PATTERN : safeObjectsProp.split(",");
-        whitelistPattern = Arrays.stream(whitelist)
+        String allowListProp = getPropertyValue("SafeObjectInputStream", "allowList", "");
+        String[] allowList = allowListProp.isEmpty() ? DEFAULT_ALLOWLIST_PATTERN : allowListProp.split(",");
+        allowlistPattern = Arrays.stream(allowList)
                 .map(String::trim)
                 .filter(str -> !str.isEmpty())
                 .collect(collectingAndThen(joining("|", "(", ")"), Pattern::compile));
@@ -62,13 +64,18 @@ public final class SafeObjectInputStream extends ObjectInputStream {
 
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
-        if (!whitelistPattern.matcher(classDesc.getName()).find()) {
-            // DiskFileItem, FileItemHeadersImpl are not serializable.
-            if (classDesc.getName().contains("org.apache.commons.fileupload")) {
-                return null;
+        String className = classDesc.getName();
+        // DenyList
+        String rejectedObjectsProp = getPropertyValue("security", "denyList", "");
+        String[] denyList = rejectedObjectsProp.isEmpty() ? DEFAULT_DENYLIST : rejectedObjectsProp.split(",");
+        // For now DEFAULT_DENYLIST: don't allow RMI, prevent generics markup in string type names
+        for (String deny : denyList) {
+            if (className.contains(deny)) {
+                throw new InvalidClassException(className, "Unauthorized deserialisation attempt");
             }
-            Debug.logWarning("***Incompatible class***: "
-                    + classDesc.getName()
+        }
+        if (!allowlistPattern.matcher(className).find()) {
+            Debug.logWarning("***Incompatible class***: " + className
                     + ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
                     + "Else follow https://s.apache.org/45war",
                     "SafeObjectInputStream");

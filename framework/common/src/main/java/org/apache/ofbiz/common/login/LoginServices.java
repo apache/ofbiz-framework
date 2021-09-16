@@ -49,6 +49,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityFunction;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityListIterator;
@@ -345,9 +346,12 @@ public class LoginServices {
                                         }
 
                                         // ONLY save the password if it was incorrect
+                                        // we will check in the hash size isn't too huge for the store other wise store a fix string
                                         if ("N".equals(successfulLogin) && !"false".equals(EntityUtilProperties.getPropertyValue("security",
                                                 "store.login.history.incorrect.password", delegator))) {
-                                            ulhCreateMap.put("passwordUsed", password);
+                                            ulhCreateMap.put("passwordUsed", isGivenPasswordCanBeStored(delegator, password)
+                                                    ? " TOO LONG FOR STORAGE "
+                                                    : password);
                                         }
 
                                         delegator.create("UserLoginHistory", ulhCreateMap);
@@ -358,7 +362,6 @@ public class LoginServices {
                                 if (doStore) {
                                     geeErrMsg += " and updating login status to reset hasLoggedOut, unsuccessful login count, etc.";
                                 }
-                                geeErrMsg += ": " + e.toString();
                                 try {
                                     TransactionUtil.rollback(beganTransaction, geeErrMsg, e);
                                 } catch (GenericTransactionException e2) {
@@ -445,6 +448,30 @@ public class LoginServices {
             result.put(ModelService.ERROR_MESSAGE, errMsg);
         }
         return result;
+    }
+
+    /**
+     * To escape an exception when the password store due to limitation size for passwordUsed field, we analyse if it's possible.
+     * @param delegator
+     * @param password
+     * @return
+     * @throws GenericEntityException
+     */
+    private static boolean isGivenPasswordCanBeStored(Delegator delegator, String password)
+            throws GenericEntityException {
+        ModelEntity modelEntityUserLoginHistory = delegator.getModelEntity("UserLoginHistory");
+        ModelField passwordUsedField = modelEntityUserLoginHistory.getField("passwordUsed");
+        int maxPasswordSize = delegator.getEntityFieldType(
+                modelEntityUserLoginHistory,
+                passwordUsedField.getType()).stringLength();
+        int passwordUsedCurrentSize = password.length();
+
+        // if the field is encrypted, we check the size of the hashed result
+        ModelField.EncryptMethod encryptMethod = passwordUsedField.getEncryptMethod();
+        if (encryptMethod.isEncrypted()) {
+            passwordUsedCurrentSize = delegator.encryptFieldValue("UserLoginHistory", encryptMethod, password).toString().length();
+        }
+        return passwordUsedCurrentSize > maxPasswordSize;
     }
 
     /**
@@ -584,7 +611,8 @@ public class LoginServices {
 
         try (EntityListIterator eli = eq.queryIterator()) {
             GenericValue pwdHist;
-            if ((pwdHist = eli.next()) != null) {
+            pwdHist = eli.next();
+            if (pwdHist != null) {
                 // updating password so set end date on previous password in history
                 pwdHist.set("thruDate", nowTimestamp);
                 pwdHist.store();

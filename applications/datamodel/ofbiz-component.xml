@@ -20,7 +20,7 @@ under the License.
 
 <ofbiz-component name="datamodel"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/accounting-entitymodel.xml"/>
@@ -58,6 +58,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/WorkEffortDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/ProductDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/ManufacturingDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/GlAccountDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/AccountingDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/HumanresDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/OrderDemoData.xml"/>

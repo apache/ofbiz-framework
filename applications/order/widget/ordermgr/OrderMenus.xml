@@ -93,6 +93,81 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="OrderShortcutAppBar" title="${uiLabelMap.OrderManager}">
+        <menu-item name="request" title="${uiLabelMap.OrderRequests}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                    <if-has-permission permission="ORDERMGR" action="_PURCHASE_VIEW"/>
+                </or>
+            </condition>
+            <link target="/ordermgr/control/FindRequest" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="quote" title="${uiLabelMap.OrderOrderQuotes}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                    <if-has-permission permission="ORDERMGR" action="_PURCHASE_VIEW"/>
+                </or>
+            </condition>
+            <link target="/ordermgr/control/FindQuote" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="orderlist" title="${uiLabelMap.OrderOrderList}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
+            <link target="/ordermgr/control/orderlist" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="findorders" title="${uiLabelMap.OrderFindOrder}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
+            <link target="/ordermgr/control/findorders" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="orderentry" title="${uiLabelMap.OrderOrderEntry}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    <if-has-permission permission="ORDERMGR" action="_PURCHASE_CREATE"/>
+                </or>
+            </condition>
+            <link target="/ordermgr/control/orderentry" link-type="anchor" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="return" title="${uiLabelMap.OrderOrderReturns}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_RETURN"/>
+            </condition>
+            <link target="/ordermgr/control/findreturn" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="requirement" title="${uiLabelMap.OrderRequirements}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                    <if-has-permission permission="ORDERMGR_ROLE" action="_VIEW"/>
+                </or>
+            </condition>
+            <link target="/ordermgr/control/FindRequirements" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="reports" title="${uiLabelMap.CommonReports}">
+            <link target="/ordermgr/control/OrderPurchaseReportOptions" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="stats" title="${uiLabelMap.CommonStats}">
+            <link target="/ordermgr/control/orderstats" url-mode="inter-app"/>
+        </menu-item>
+
+        <menu-item name="allocationPlan" title="${uiLabelMap.OrderAllocationPlan}">
+            <link target="/ordermgr/control/FindAllocationPlan" url-mode="inter-app"/>
+        </menu-item>
+    </menu>
+
     <menu name="RequirementsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="FindRequirements" title="${uiLabelMap.OrderRequirements}">
             <link target="FindRequirements"/>
@@ -321,9 +396,6 @@ under the License.
 
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
-        <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
-            <link target="EditRequest"/>
-        </menu-item>
         <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <condition>
                 <and>

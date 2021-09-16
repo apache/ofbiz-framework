@@ -102,7 +102,7 @@ var j = 1;
 /*********************
 JQuery Formalize
 *********************/
-var FORMALIZE = (function($, window, document, undefined) {
+var FORMALIZE = (function($, window, document, notDefined) {
     var PLACEHOLDER_SUPPORTED = 'placeholder' in document.createElement('input');
     var AUTOFOCUS_SUPPORTED = 'autofocus' in document.createElement('input');
     var WEBKIT = 'webkitAppearance' in document.createElement('select').style;

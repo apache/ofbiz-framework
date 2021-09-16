@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.common.JsLanguageFilesMapping;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
