@@ -444,6 +444,28 @@ def cancelCheckRunPayments() {
     return success()
 }
 
+def createPaymentGroupAndMember() {
+    serviceResult = success()
+    parameters.fromDate = parameters.fromDate ?:  UtilDateTime. nowTimestamp()
+    parameters.paymentGroupName = parameters.paymentGroupName ?: 'Payment Group Name'
+
+    Map result = run service: 'createPaymentGroup', with: parameters
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
+    String paymentGroupId = result.paymentGroupId
+
+    parameters.paymentIds.each { paymentId ->
+        result = run service: 'createPaymentGroupMember', with: [paymentGroupId: paymentGroupId,
+                                                                 fromDate      : parameters.fromDate,
+                                                                 paymentId     : paymentId]
+        if (ServiceUtil.isError(result)) {
+            return result
+        }
+    }
+    return success(paymentGroupId: paymentGroupId)
+}
+
 def createPaymentAndPaymentGroupForInvoices() {
     Map result
     GenericValue paymentMethod = from("PaymentMethod").where("paymentMethodId", parameters.paymentMethodId).queryOne()

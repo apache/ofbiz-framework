@@ -187,8 +187,8 @@ under the License.
         <attribute name="invoiceIds" type="List" mode="OUT" optional="true"/>
         <attribute name="amount" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    <service name="createPaymentGroupAndMember" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="createPaymentGroupAndMember" auth="true">
+    <service name="createPaymentGroupAndMember" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentGroupAndMember" auth="true">
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="paymentGroupTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
