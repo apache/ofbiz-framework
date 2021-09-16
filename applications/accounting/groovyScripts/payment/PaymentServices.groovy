@@ -31,6 +31,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
+import org.apache.ofbiz.accounting.util.UtilAccounting
 
 def createPayment() {
     if (!security.hasEntityPermission("ACCOUNTING", "_CREATE", parameters.userLogin) &&
@@ -216,6 +217,29 @@ def createPaymentAndApplicationForParty() {
     return success([paymentId : paymentId,
                     invoiceIds: invoiceIds,
                     amount    : paymentAmount])
+}
+
+def checkAndCreateBatchForValidPayments() {
+    List disbursementPaymentIds = from("Payment")
+            .where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, parameters.paymentIds))
+            .queryList()
+            .stream()
+            .filter {!UtilAccounting.isReceipt(it)}
+            .map {it.paymentId}
+            .collect()
+            .toList()
+    if (disbursementPaymentIds) {
+        return error(label("AccountingUiLabels", "AccountingCannotIncludeApPaymentError", [disbursementPaymentIds: disbursementPaymentIds]))
+    }
+    List batchPaymentIds = from("PaymentGroupMember")
+            .where(EntityCondition.makeCondition("paymentId", EntityOperator.IN, parameters.paymentIds))
+            .distinct()
+            .getFieldList('paymentId')
+    if (batchPaymentIds) {
+        return error(label("AccountingUiLabels", "AccountingPaymentsAreAlreadyBatchedError", [batchPaymentIds: batchPaymentIds]))
+    }
+    Map result = run service: 'createPaymentGroupAndMember', with: parameters
+    return result
 }
 
 def getPaymentRunningTotal(){

@@ -220,8 +220,8 @@ under the License.
         <attribute name="glReconciliationId" type="String" mode="OUT" optional="true"/>
     </service>
     
-    <service name="checkAndCreateBatchForValidPayments" engine="simple"
-            location="component://accounting/minilang/payment/PaymentServices.xml" invoke="checkAndCreateBatchForValidPayments" auth="true">
+    <service name="checkAndCreateBatchForValidPayments" engine="groovy"
+            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="checkAndCreateBatchForValidPayments" auth="true">
         <description>Check the valid(unbatched) payment and create batch for same</description>
         <implements service="createPaymentGroupAndMember"/>
     </service>
