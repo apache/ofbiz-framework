@@ -66,11 +66,11 @@ abstract class GroovyBaseScript extends Script {
     }
 
     Map makeValue(String entityName) throws ExecutionServiceException {
-        return result = binding.getVariable('delegator').makeValue(entityName)
+        return binding.getVariable('delegator').makeValue(entityName)
     }
 
     Map makeValue(String entityName, Map inputMap) throws ExecutionServiceException {
-        return result = binding.getVariable('delegator').makeValidValue(entityName, inputMap)
+        return binding.getVariable('delegator').makeValidValue(entityName, inputMap)
     }
 
     EntityQuery from(def entity) {
