@@ -36,13 +36,19 @@ abstract class GroovyBaseScript extends Script {
         LocalDispatcher dispatcher = binding.getVariable('dispatcher');
         DispatchContext dctx = dispatcher.getDispatchContext();
         if (!inputMap.userLogin) {
-            inputMap.userLogin = this.binding.getVariable('parameters').userLogin
+            inputMap.userLogin = this.binding.hasVariable('userLogin')
+                    ? this.binding.getVariable('userLogin')
+                    : this.binding.getVariable('parameters').userLogin
         }
         if (!inputMap.timeZone) {
-            inputMap.timeZone = this.binding.getVariable('parameters').timeZone
+            inputMap.timeZone = this.binding.hasVariable('timeZone')
+                    ? this.binding.getVariable('timeZone')
+                    : this.binding.getVariable('parameters').timeZone
         }
         if (!inputMap.locale) {
-            inputMap.locale = this.binding.getVariable('parameters').locale
+            inputMap.locale = this.binding.hasVariable('locale')
+                    ? this.binding.getVariable('locale')
+                    : this.binding.getVariable('parameters').locale
         }
         Map serviceContext = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
         Map result = dispatcher.runSync(serviceName, serviceContext)
