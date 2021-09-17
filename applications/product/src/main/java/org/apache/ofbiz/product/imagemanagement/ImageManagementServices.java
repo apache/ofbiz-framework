@@ -27,6 +27,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -149,12 +152,16 @@ public class ImageManagementServices {
             }
 
             if (UtilValidate.isEmpty(imageResize)) {
-                // Create image file original to folder product id.
+                // check file content
                 try {
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.toString(), "Image", delegator)) {
+                    Path tempFile = Files.createTempFile(null, null);
+                    Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    Files.delete(tempFile);
+                    // Create image file original to folder product id.
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
                     out.write(imageData.array());
                     out.close();
@@ -175,10 +182,13 @@ public class ImageManagementServices {
                 fileOriginal = checkExistsImage(fileOriginal);
 
                 try {
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileOriginal.toString(), "Image", delegator)) {
+                    Path tempFile = Files.createTempFile(null, null);
+                    Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    Files.delete(tempFile);
                     RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
                     outFile.write(imageData.array());
                     outFile.close();
@@ -528,10 +538,13 @@ public class ImageManagementServices {
         String fileToCheck = imageServerPath + "/" + productId + "/" + filenameToUseThumb;
         File fileOriginalThumb = new File(fileToCheck);
         try {
-            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+            Path tempFile = Files.createTempFile(null, null);
+            Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                 return ServiceUtil.returnError(errorMessage);
             }
+            Files.delete(tempFile);
             RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
             outFileThumb.write(imageData.array());
             outFileThumb.close();

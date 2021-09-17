@@ -123,7 +123,7 @@ public class SecuredUpload {
         }
 
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            if (fileToCheck.length() < 259) {
+            if (fileToCheck.length() > 259) { // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
                 Debug.logError("Uploaded file name too long", MODULE);
             } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
                 if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
@@ -615,6 +615,10 @@ public class SecuredUpload {
             return false;
         }
         String content = new String(bytesFromFile);
+        return isValidText(content);
+    }
+
+    public static boolean isValidText(String content) throws IOException {
         return !(content.toLowerCase().contains("freemarker") // Should be OK, should not be used in Freemarker templates, not part of the syntax.
                                                               // Else "template.utility.Execute" is a good replacement but not as much catching, who
                                                               // knows...

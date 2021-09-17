@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1323,10 +1326,13 @@ public class ProductServices {
             File file = new File(fileToCheck);
 
             try {
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                Path tempFile = Files.createTempFile(null, null);
+                Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
+                Files.delete(tempFile);
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(imageData.array());
                 out.close();

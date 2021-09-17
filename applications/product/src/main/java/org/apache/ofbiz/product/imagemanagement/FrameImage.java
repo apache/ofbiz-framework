@@ -31,6 +31,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -292,11 +295,14 @@ public class FrameImage {
                 request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
                 return "error";
             }
-            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Image", delegator)) {
+            Path tmpFile = Files.createTempFile(null, null);
+            Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tmpFile.toString(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 return "error";
             }
+            Files.delete(tmpFile);
             RandomAccessFile out = new RandomAccessFile(file, "rw");
             out.write(imageData.array());
             out.close();
