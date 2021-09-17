@@ -20,6 +20,7 @@ import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.base.util.*
+
 import org.w3c.dom.Document
 
 import org.codehaus.groovy.control.customizers.ImportCustomizer
@@ -31,8 +32,7 @@ String groovyProgram = null
 recordValues = []
 errMsgList = []
 
-if (UtilValidate.isEmpty(parameters.groovyProgram)) {
-    
+if (!parameters.groovyProgram) {
     groovyProgram = '''
 // Use the List variable recordValues to fill it with GenericValue maps.
 // full groovy syntaxt is available
@@ -73,10 +73,7 @@ def shell = new GroovyShell(loader, binding, configuration)
 
 if (UtilValidate.isNotEmpty(groovyProgram)) {
     try {
-        // TODO more can be added...
-        if (groovyProgram.contains("new File")
-                || groovyProgram.contains(".jsp")
-                || groovyProgram.contains("<%=")) {
+        if (!org.apache.ofbiz.security.SecuredUpload.isValidText(groovyProgram,["import"])) {
             request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
             return
         }

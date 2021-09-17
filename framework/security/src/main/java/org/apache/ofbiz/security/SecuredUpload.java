@@ -34,6 +34,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -615,45 +616,51 @@ public class SecuredUpload {
             return false;
         }
         String content = new String(bytesFromFile);
-        return isValidText(content);
+        ArrayList<String> allowed = new ArrayList<>();
+        return isValidText(content, allowed);
     }
 
-    public static boolean isValidText(String content) throws IOException {
-        return !(content.toLowerCase().contains("freemarker") // Should be OK, should not be used in Freemarker templates, not part of the syntax.
-                                                              // Else "template.utility.Execute" is a good replacement but not as much catching, who
-                                                              // knows...
-                || content.toLowerCase().contains("import=\"java")
-                || content.toLowerCase().contains("runtime.getruntime().exec(")
-                || content.toLowerCase().contains("<%@ page")
-                || content.toLowerCase().contains("<script")
-                || content.toLowerCase().contains("<body>")
-                || content.toLowerCase().contains("<form")
-                || content.toLowerCase().contains("php")
-                || content.toLowerCase().contains("javascript")
-                || content.toLowerCase().contains("%eval")
-                || content.toLowerCase().contains("@eval")
-                || content.toLowerCase().contains("import os") // Python
-                || content.toLowerCase().contains("passthru")
-                || content.toLowerCase().contains("exec")
-                || content.toLowerCase().contains("shell_exec")
-                || content.toLowerCase().contains("assert")
-                || content.toLowerCase().contains("str_rot13")
-                || content.toLowerCase().contains("system")
-                || content.toLowerCase().contains("phpinfo")
-                || content.toLowerCase().contains("base64_decode")
-                || content.toLowerCase().contains("chmod")
-                || content.toLowerCase().contains("mkdir")
-                || content.toLowerCase().contains("fopen")
-                || content.toLowerCase().contains("fclose")
-                || content.toLowerCase().contains("new file")
-                || content.toLowerCase().contains("import")
-                || content.toLowerCase().contains("upload")
-                || content.toLowerCase().contains("getfilename")
-                || content.toLowerCase().contains("download")
-                || content.toLowerCase().contains("getoutputstring")
-                || content.toLowerCase().contains("readfile"));
+    public static boolean isValidText(String content, List<String> allowed) throws IOException {
+        // "freemarker" should be OK, should not be used in Freemarker templates, not part of the syntax.
+        // Else "template.utility.Execute" is a good replacement but not as much catching, who knows...
+        return isValid(content, "freemarker", allowed)
+                && isValid(content, "freemarker", allowed)
+                && isValid(content, "import=\"java", allowed)
+                && isValid(content, "runtime.getruntime().exec(", allowed)
+                && isValid(content, "<%@ page", allowed)
+                && isValid(content, "<script", allowed)
+                && isValid(content, "<body>", allowed)
+                && isValid(content, "<form", allowed)
+                && isValid(content, "php", allowed)
+                && isValid(content, "javascript", allowed)
+                && isValid(content, "%eval", allowed)
+                && isValid(content, "@eval", allowed)
+                && isValid(content, "import os", allowed) // Python
+                && isValid(content, "passthru", allowed)
+                && isValid(content, "exec", allowed)
+                && isValid(content, "shell_exec", allowed)
+                && isValid(content, "assert", allowed)
+                && isValid(content, "str_rot13", allowed)
+                && isValid(content, "system", allowed)
+                && isValid(content, "phpinfo", allowed)
+                && isValid(content, "base64_decode", allowed)
+                && isValid(content, "chmod", allowed)
+                && isValid(content, "mkdir", allowed)
+                && isValid(content, "fopen", allowed)
+                && isValid(content, "fclose", allowed)
+                && isValid(content, "new file", allowed)
+                && isValid(content, "import", allowed)
+                && isValid(content, "upload", allowed)
+                && isValid(content, "getfilename", allowed)
+                && isValid(content, "download", allowed)
+                && isValid(content, "getoutputstring", allowed)
+                && isValid(content, "readfile", allowed);
         // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
         // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
+    }
+
+    private static boolean isValid(String content, String string, List<String> allowed) {
+        return !content.toLowerCase().contains(string) || allowed.contains(string);
     }
 
     private static void deleteBadFile(String fileToCheck) {
