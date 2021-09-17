@@ -28,6 +28,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -263,10 +266,13 @@ public class DataServices {
         } else if (binData != null) {
             try {
                 // Check if a webshell is not uploaded
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                Path tempFile = Files.createTempFile(null, null);
+                Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
+                Files.delete(tempFile);
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(binData.array());
                 out.close();
@@ -466,10 +472,13 @@ public class DataServices {
             } else if (binData != null) {
                 try {
                     // Check if a webshell is not uploaded
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                    Path tempFile = Files.createTempFile(null, null);
+                    Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    Files.delete(tempFile);
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
                     out.setLength(binData.array().length);
                     out.write(binData.array());
