@@ -98,6 +98,7 @@ public class SecuredUpload {
 
     private static final String MODULE = SecuredUpload.class.getName();
     private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
+    private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
 
     /**
      * @param fileToCheck
@@ -621,42 +622,12 @@ public class SecuredUpload {
     }
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        // "freemarker" should be OK, should not be used in Freemarker templates, not part of the syntax.
-        // Else "template.utility.Execute" is a good replacement but not as much catching, who knows...
-        return isValid(content, "freemarker", allowed)
-                && isValid(content, "freemarker", allowed)
-                && isValid(content, "import=\"java", allowed)
-                && isValid(content, "runtime.getruntime().exec(", allowed)
-                && isValid(content, "<%@ page", allowed)
-                && isValid(content, "<script", allowed)
-                && isValid(content, "<body>", allowed)
-                && isValid(content, "<form", allowed)
-                && isValid(content, "php", allowed)
-                && isValid(content, "javascript", allowed)
-                && isValid(content, "%eval", allowed)
-                && isValid(content, "@eval", allowed)
-                && isValid(content, "import os", allowed) // Python
-                && isValid(content, "passthru", allowed)
-                && isValid(content, "exec", allowed)
-                && isValid(content, "shell_exec", allowed)
-                && isValid(content, "assert", allowed)
-                && isValid(content, "str_rot13", allowed)
-                && isValid(content, "system", allowed)
-                && isValid(content, "phpinfo", allowed)
-                && isValid(content, "base64_decode", allowed)
-                && isValid(content, "chmod", allowed)
-                && isValid(content, "mkdir", allowed)
-                && isValid(content, "fopen", allowed)
-                && isValid(content, "fclose", allowed)
-                && isValid(content, "new file", allowed)
-                && isValid(content, "import", allowed)
-                && isValid(content, "upload", allowed)
-                && isValid(content, "getfilename", allowed)
-                && isValid(content, "download", allowed)
-                && isValid(content, "getoutputstring", allowed)
-                && isValid(content, "readfile", allowed);
-        // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
-        // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
+        for (String token : DENIEDWEBSHELLTOKENS) {
+            if (!isValid(content, token, allowed)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static boolean isValid(String content, String string, List<String> allowed) {
@@ -681,5 +652,17 @@ public class SecuredUpload {
             }
         }
         return deniedFileExtensions;
+    }
+
+    private static List<String> deniedWebShellTokens() {
+        List<String> deniedWebShellTokens = new LinkedList<>();
+        String deniedTokens = UtilProperties.getPropertyValue("security", "deniedWebShellTokens");
+        if (UtilValidate.isNotEmpty(deniedTokens)) {
+            List<String> deniedWebShellTokensList = StringUtil.split(deniedTokens, ",");
+            for (String deniedToken : deniedWebShellTokensList) {
+                deniedWebShellTokens.add(deniedToken);
+            }
+        }
+        return deniedWebShellTokens;
     }
 }
