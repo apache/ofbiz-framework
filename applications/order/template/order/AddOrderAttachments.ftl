@@ -49,7 +49,7 @@ under the License.
         </select>
       </div>
       <div>
-        <input type="file" name="uploadedFile" class="required" size="25">
+        <input type="file" name="uploadedFile" class="required" size="25" accept=".png,.gif,.jpg,.jpeg,.tiff,.tif"/>
       </div>
       <div>
         <button type="submit">

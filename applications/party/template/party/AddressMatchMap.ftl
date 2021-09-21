@@ -52,7 +52,7 @@ under the License.
           <td></td>
           <td>
             <form name="importaddrmap" method="post" enctype="multipart/form-data" action="<@ofbizUrl>importAddressMatchMapCsv</@ofbizUrl>">
-            <input type="file" name="uploadedFile" size="14"/>
+            <input type="file" name="uploadedFile" size="14" accept=".csv"/>
             <input type="submit" value="${uiLabelMap.CommonUpload} CSV"/>
             <p>${uiLabelMap.PartyAddressMatchMessage1}</p>
             </form>
@@ -87,11 +87,11 @@ under the License.
               <td>${map.sequenceNum!}</td>
               <td class="button-col">
                 <form name="removeAddressMatchMap_${map_index}" method="post" action="<@ofbizUrl>removeAddressMatchMap</@ofbizUrl>">
-	              <input type="hidden" name="mapKey" value="${map.mapKey}" />
-	              <input type="hidden" name="mapValue" value="${map.mapValue}" />
-	              <input type="submit" value="${uiLabelMap.CommonDelete}" />
-	            </form>
-	          </td>
+                <input type="hidden" name="mapKey" value="${map.mapKey}" />
+                <input type="hidden" name="mapValue" value="${map.mapValue}" />
+                <input type="submit" value="${uiLabelMap.CommonDelete}" />
+              </form>
+            </td>
             </tr>
             <#-- toggle the row color -->
 
