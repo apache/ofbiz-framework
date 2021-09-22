@@ -39,7 +39,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -622,12 +621,7 @@ public class SecuredUpload {
     }
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        for (String token : DENIEDWEBSHELLTOKENS) {
-            if (!isValid(content, token, allowed)) {
-                return false;
-            }
-        }
-        return true;
+        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
     }
 
     private static boolean isValid(String content, String string, List<String> allowed) {
@@ -643,26 +637,12 @@ public class SecuredUpload {
     }
 
     private static List<String> deniedFileExtensions() {
-        List<String> deniedFileExtensions = new LinkedList<>();
         String deniedExtensions = UtilProperties.getPropertyValue("security", "deniedFileExtensions");
-        if (UtilValidate.isNotEmpty(deniedExtensions)) {
-            List<String> deniedFileExtensionsList = StringUtil.split(deniedExtensions, ",");
-            for (String deniedExtension : deniedFileExtensionsList) {
-                deniedFileExtensions.add(deniedExtension);
-            }
-        }
-        return deniedFileExtensions;
+        return UtilValidate.isNotEmpty(deniedExtensions) ? StringUtil.split(deniedExtensions, ",") : new ArrayList<>();
     }
 
     private static List<String> deniedWebShellTokens() {
-        List<String> deniedWebShellTokens = new LinkedList<>();
         String deniedTokens = UtilProperties.getPropertyValue("security", "deniedWebShellTokens");
-        if (UtilValidate.isNotEmpty(deniedTokens)) {
-            List<String> deniedWebShellTokensList = StringUtil.split(deniedTokens, ",");
-            for (String deniedToken : deniedWebShellTokensList) {
-                deniedWebShellTokens.add(deniedToken);
-            }
-        }
-        return deniedWebShellTokens;
+        return UtilValidate.isNotEmpty(deniedTokens) ? StringUtil.split(deniedTokens, ",") : new ArrayList<>();
     }
 }
