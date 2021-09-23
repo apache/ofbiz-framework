@@ -59,8 +59,10 @@ public class SecurityUtilTest {
     @Test
     public void webShellTokensTesting() {
         try {
-            assertTrue(SecuredUpload.isValidText("hack.getFileName", List.of("getfilename")));
             List<String> allowed = new ArrayList<>();
+            allowed.add("getfilename");
+            assertTrue(SecuredUpload.isValidText("hack.getFileName", allowed));
+            allowed = new ArrayList<>();
             assertFalse(SecuredUpload.isValidText("hack.getFileName", allowed));
             assertFalse(SecuredUpload.isValidText("freemarker", allowed));
             assertFalse(SecuredUpload.isValidText("import=\"java", allowed));
