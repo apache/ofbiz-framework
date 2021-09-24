@@ -303,18 +303,18 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
         if (UtilValidate.isNotEmpty(productId)) {
             if (product != null) {
-                String productName = product.getString("productName");
-                productName = SeoUrlUtil.replaceSpecialCharsUrl(productName);
-                if (UtilValidate.isNotEmpty(productName)) {
-                    urlBuilder.append(productName + URL_HYPHEN);
+                ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
+                StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
+                if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
+                    String productName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
+                    if (UtilValidate.isNotEmpty(productName)) {
+                        urlBuilder.append(productName + URL_HYPHEN);
+                    }
                 } else {
-                    ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
-                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
-                    if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
-                        productName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
-                        if (UtilValidate.isNotEmpty(productName)) {
-                            urlBuilder.append(productName + URL_HYPHEN);
-                        }
+                    String productName = product.getString("productName");
+                    productName = SeoUrlUtil.replaceSpecialCharsUrl(productName);
+                    if (UtilValidate.isNotEmpty(productName)) {
+                        urlBuilder.append(productName + URL_HYPHEN);
                     }
                 }
             }
@@ -752,17 +752,17 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
 
         if (UtilValidate.isNotEmpty(productId)) {
             if (product != null) {
-                String productName = product.getString("productName");
-                productName = SeoUrlUtil.replaceSpecialCharsUrl(productName);
-                if (UtilValidate.isNotEmpty(productName)) {
-                    urlBuilder.append(productName + URL_HYPHEN);
+                StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
+                if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
+                    String productName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
+                    if (UtilValidate.isNotEmpty(productName)) {
+                        urlBuilder.append(productName + URL_HYPHEN);
+                    }
                 } else {
-                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
-                    if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
-                        productName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
-                        if (UtilValidate.isNotEmpty(productName)) {
-                            urlBuilder.append(productName + URL_HYPHEN);
-                        }
+                    String productName = product.getString("productName");
+                    productName = SeoUrlUtil.replaceSpecialCharsUrl(productName);
+                    if (UtilValidate.isNotEmpty(productName)) {
+                        urlBuilder.append(productName + URL_HYPHEN);
                     }
                 }
             }
