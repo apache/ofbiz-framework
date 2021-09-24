@@ -197,30 +197,28 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                 Collection<GenericValue> allCategories = delegator.findList("ProductCategory", null,
                         UtilMisc.toSet("productCategoryId", "categoryName"), null, null, false);
                 for (GenericValue category : allCategories) {
-                    String categoryName = category.getString("categoryName");
                     String categoryNameId = null;
                     String categoryIdName = null;
                     String categoryId = category.getString("productCategoryId");
-                    if (UtilValidate.isNotEmpty(categoryName)) {
-                        categoryName = SeoUrlUtil.replaceSpecialCharsUrl(categoryName.trim());
-                        if (matcher.matches(categoryName, asciiPattern)) {
-                            categoryIdName = categoryName.replaceAll(" ", URL_HYPHEN);
-                            categoryNameId = categoryIdName + URL_HYPHEN
-                                    + categoryId.trim().replaceAll(" ", URL_HYPHEN);
-                        } else {
-                            categoryIdName = categoryId.trim().replaceAll(" ", URL_HYPHEN);
-                            categoryNameId = categoryIdName;
-                        }
+                    CategoryContentWrapper wrapper = new CategoryContentWrapper(category, request);
+                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
+                    if (UtilValidate.isNotEmpty(alternativeUrl)
+                            && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
+                        categoryIdName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
+                        categoryNameId = categoryIdName + URL_HYPHEN
+                                + categoryId.trim().replaceAll(" ", URL_HYPHEN);
                     } else {
-                        GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory")
-                                .where("productCategoryId", categoryId).cache().queryOne();
-                        CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
-                        StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
-                        if (UtilValidate.isNotEmpty(alternativeUrl)
-                                && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
-                            categoryIdName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
-                            categoryNameId = categoryIdName + URL_HYPHEN
-                                    + categoryId.trim().replaceAll(" ", URL_HYPHEN);
+                        String categoryName = category.getString("categoryName");
+                        if (UtilValidate.isNotEmpty(categoryName)) {
+                            categoryName = SeoUrlUtil.replaceSpecialCharsUrl(categoryName.trim());
+                            if (matcher.matches(categoryName, asciiPattern)) {
+                                categoryIdName = categoryName.replaceAll(" ", URL_HYPHEN);
+                                categoryNameId = categoryIdName + URL_HYPHEN
+                                        + categoryId.trim().replaceAll(" ", URL_HYPHEN);
+                            } else {
+                                categoryIdName = categoryId.trim().replaceAll(" ", URL_HYPHEN);
+                                categoryNameId = categoryIdName;
+                            }
                         } else {
                             categoryNameId = categoryId.trim().replaceAll(" ", URL_HYPHEN);
                             categoryIdName = categoryNameId;
