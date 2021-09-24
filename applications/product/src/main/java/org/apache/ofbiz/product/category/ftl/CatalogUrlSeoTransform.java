@@ -339,7 +339,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
     public static String makeCategoryUrl(HttpServletRequest request, String currentCategoryId,
             String previousCategoryId, String viewSize, String viewIndex, String viewSort, String searchString) {
 
-        if (!isCategoryMapInitialed()) {
+        if (!isCategoryMapInitialed() || "true".equals(request.getAttribute("fromSetSessionLocale"))) {
             initCategoryMap(request);
         }
 
