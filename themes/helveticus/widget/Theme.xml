@@ -39,7 +39,7 @@ under the License.
             <screenshot location="/helveticus/images/themeHelveticus_emerald.png"/>
         </visual-theme>
     </visual-themes>
-    
+
     <extends location="component://common-theme/widget/Theme.xml"/>
     <theme-properties>
         <!--header image -->
@@ -60,7 +60,6 @@ under the License.
         <property name="VT_STYLESHEET['add']" value="/helveticus/javascript.css"/>
         <property name="VT_RTL_STYLESHEET['add']" value="/helveticus/stylertl.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/helveticus/help.css"/>
-        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/helveticus/webapp/helveticus/docbook.css"/>
     </theme-properties>
 
     <templates>

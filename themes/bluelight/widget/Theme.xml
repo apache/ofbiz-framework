@@ -35,7 +35,6 @@ under the License.
         <!--Css style-->
         <property name="VT_STYLESHEET['add']" value="/bluelight/style.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/bluelight/help.css"/>
-        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/bluelight/webapp/bluelight/docbook.css"/>
         <!--header image -->
         <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.png"/>
         <!--template location-->
