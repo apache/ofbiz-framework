@@ -57,7 +57,7 @@ under the License.
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <include-form name="ComponentList" location="component://webtools/widget/ArtifactInfoForms.xml"/>
+                            <include-grid name="ComponentList" location="component://webtools/widget/ArtifactInfoForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -71,12 +71,16 @@ under the License.
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
                 <set field="tabButtonItem" value="viewents"/>
                 <script location="component://webtools/groovyScripts/artifactinfo/TestSuiteInfo.groovy"/>
+                <script location="component://webtools/groovyScripts/artifactinfo/TestSuiteResults.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="Component: ${parameters.compName}">
-                            <include-form name="TestSuiteInfo" location="component://webtools/widget/ArtifactInfoForms.xml"/>
+                            <include-grid name="TestSuiteInfo" location="component://webtools/widget/ArtifactInfoForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Last Results: ${parameters.suiteName}">
+                            <include-grid name="TestSuiteResults" location="component://webtools/widget/ArtifactInfoForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

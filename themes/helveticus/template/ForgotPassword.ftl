@@ -24,50 +24,47 @@ under the License.
         <#assign userLoginId = autoUserLogin.userLoginId>
     </#if>
 </#if>
-<div id="loginBar"><span>${messageTitle}</span><div id="company-logo"></div></div>
-<center>
+    <div id="loginBar">
+        <div id="company-logo"></div>
+    </div>
+
     <div class="screenlet login-screenlet">
-        <div class="screenlet-title-bar">
-            <h3>${messageTitle}</h3>
-        </div>
+        <h3>${messageTitle}</h3>
         <div class="screenlet-body">
+            <p>${uiLabelMap.CommonReceivePasswordEmail}
             <form method="post" action="<@ofbizUrl>${forgotPasswordTarget?default("forgotPassword")}</@ofbizUrl>" name="forgotpassword">
-                <table class="basic-table" cellspacing="0">
-                    <tr>
-                        <td class="label">${uiLabelMap.CommonUsername}</td>
-                        <td><input type="text" size="20" name="USERNAME" value="${userLoginId!}"/></td>
-                    </tr>
-                  <#if requestParameters.token??>
-                      <input type="hidden" name="token" value="${requestParameters.token}"/>
-                      <tr>
-                          <td class="label">${uiLabelMap.CommonNewPassword}</td>
-                          <td><input type="password" name="newPassword" autocomplete="off" value="" size="20"/></td>
-                      </tr>
-                      <tr>
-                          <td class="label">${uiLabelMap.CommonNewPasswordVerify}</td>
-                          <td><input type="password" name="newPasswordVerify" autocomplete="off" value="" size="20"/></td>
-                      </tr>
-                      <tr>
-                          <td colspan="2" align="center">
-                              <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonContinue}"/>
-                          </td>
-                      </tr>
-                  <#else>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="submit" name="GET_PASSWORD_HINT" class="smallSubmit" value="${uiLabelMap.CommonGetPasswordHint}" />&nbsp;
-                            <input type="submit" name="EMAIL_PASSWORD" class="smallSubmit" value="${uiLabelMap.CommonEmailPassword}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <a href='#' class="buttontext" onclick="window.history.back();">${uiLabelMap.CommonGoBack}</a>
-                        </td>
-                    </tr>
-                  </#if>
-                </table>
+                <label>
+                    ${uiLabelMap.CommonUsername}
+                    <input type="text" name="USERNAME" value="${userLoginId!}"/>
+                </label>
+        
+                <#if requestParameters.token??>
+                    <input type="hidden" name="token" value="${requestParameters.token}"/>
+                <label>
+                    ${uiLabelMap.CommonNewPassword}
+                    <input type="password" name="newPassword" autocomplete="off" value=""/>
+                </label>
+
+                <label>
+                    ${uiLabelMap.CommonNewPassword}
+                    <input type="password" name="newPassword" autocomplete="off" value=""/>
+                </label>
+
+                <label>
+                    ${uiLabelMap.CommonNewPasswordVerify}
+                    <input type="password" name="newPasswordVerify" autocomplete="off" value=""/>
+                </label>
+
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonContinue}"/>
+
+                <#else>
+                <div class="button-group">
+                    <a href='#' class="buttontext" onclick="window.history.back();">${uiLabelMap.CommonGoBack}</a>
+                    <input type="submit" name="EMAIL_PASSWORD" class="smallSubmit" value="${uiLabelMap.CommonSend}" />
+                </div>                
+                <input type="submit" name="GET_PASSWORD_HINT" value="${uiLabelMap.CommonGetPasswordHint}" class="link" />
+                </#if>
                 <input type="hidden" name="JavaScriptEnabled" value="N" />
             </form>
         </div>
     </div>
-</center>

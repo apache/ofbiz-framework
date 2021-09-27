@@ -1016,12 +1016,8 @@ public class OrderReadHelper {
                 List<GenericValue> featureAppls = null;
                 if (item.get("productId") != null) {
                     try {
-                        featureAppls = item.getDelegator().findByAnd("ProductFeatureAppl",
-                                UtilMisc.toMap("productId", item.getString("productId")), null, true);
-                        List<EntityExpr> filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId",
-                                EntityOperator.EQUALS, "STANDARD_FEATURE"));
-                        filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
-                        featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
+                        featureAppls = ProductWorker.getProductFeaturesApplIncludeMarketingPackage(
+                                item.getRelatedOne("Product", true));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, MODULE);
                     }

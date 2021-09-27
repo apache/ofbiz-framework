@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <!-- Request Mappings -->
+        <sc:request-map uri="WorkEffortGoodStandard/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortGoodStandard/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffortGoodStandard/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortGoodStandard/List"/></sc:request-map>
+
+        <sc:request-map uri="WorkEffortGoodStandard/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createWorkEffortGoodStandard"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortGoodStandard/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateWorkEffortGoodStandard"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortGoodStandard/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="removeWorkEffortGoodStandard"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <!-- View Mappings -->
+        <sc:view-map name="WorkEffortGoodStandard/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml#EditWorkEffortGoodStandard"/>
+        <sc:view-map name="WorkEffortGoodStandard/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml#ListWorkEffortGoodStandards"/>
+    </sc:site-conf>
+
+    <ws:screens>
+        <ws:screen name="ListWorkEffortGoodStandards">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListWorkEffortGoodStandards"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="WorkEffortGoodStandardsTabBar" location="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="list">
+                            <ws:include-form name="ListWorkEffortGoodStandards" location="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="EditWorkEffortGoodStandard">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="WorkEffortAddGoodStandard"/>
+                    <ws:entity-one entity-name="WorkEffortGoodStandard" value-field="workEffortGoodStandard"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:section>
+                                <ws:condition>
+                                    <ws:if-empty field="workEffortGoodStandard"/>
+                                </ws:condition>
+                                <ws:widgets>
+                                    <ws:include-form name="AddWorkEffortGoodStandard" location="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml"/>
+                                </ws:widgets>
+                                <ws:fail-widgets>
+                                    <ws:include-form name="EditWorkEffortGoodStandard" location="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml"/>
+                                </ws:fail-widgets>
+                            </ws:section>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wm:menus>
+        <wm:menu name="WorkEffortGoodStandardsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddWorkEffortGoodStandard" title="${uiLabelMap.CommonAdd}">
+                <wm:link target="WorkEffortGoodStandard/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortGoodStandard/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortGoodStandardsInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="EditWorkEffortGoodStandard" title="${uiLabelMap.CommonUpdate}">
+                <wm:link target="WorkEffortGoodStandard/Edit" link-type="layered-modal">
+                    <wm:auto-parameters-service service-name="updateWorkEffortGoodStandard"/>
+                    <wm:set-callback area-target="WorkEffortGoodStandard/List"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="DeleteWorkEffortGoodStandard" title="${uiLabelMap.CommonDelete}">
+                <wm:link target="WorkEffortGoodStandard/delete" request-confirmation="true">
+                    <wm:auto-parameters-service service-name="removeWorkEffortGoodStandard"/>
+                    <wm:set-callback area-target="WorkEffortGoodStandard/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+    </wm:menus>
+
+    <wf:forms>
+       <wf:form name="ListWorkEffortGoodStandards" paginate-target="WorkEffortGoodStandard/List"
+                 extends="CommonDynamicList" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:entity-condition entity-name="WorkEffortGoodStandard">
+                    <wf:condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                    <wf:order-by field-name="productId"/>
+                </wf:entity-condition>
+            </wf:actions>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="productId"><wf:display-entity entity-name="Product"/></wf:field>
+            <wf:field name="workEffortGoodStdTypeId"><wf:display-entity entity-name="WorkEffortGoodStandardType"/></wf:field>
+            <wf:field name="fromDate"><wf:display type="date-time"/></wf:field>
+            <wf:field name="thruDate"><wf:display type="date-time"/></wf:field>
+            <wf:field name="statusId" title="${uiLabelMap.CommonStatus}"><wf:display-entity entity-name="StatusItem"/></wf:field>
+            <wf:field name="estimatedQuantity"><wf:display type="number" format="quantity"/></wf:field>
+            <wf:field name="estimatedCost"><wf:display type="number" format="price"/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListWorkEffortGoodStandardsInLineBar" location="component://workeffort/widget/workeffort/WorkEffortGoodStandardsCpd.xml"/>
+            </wf:field>
+        </wf:form>
+
+        <wf:form name="AddWorkEffortGoodStandard" target="WorkEffortGoodStandard/create"
+                 focus-field-name="productId"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:auto-fields-service service-name="createWorkEffortGoodStandard"/>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="productId" required-field="true"><wf:lookup target-form-name="LookupProduct"/></wf:field>
+            <wf:field name="workEffortGoodStdTypeId">
+                <wf:drop-down no-current-selected-key="">
+                    <wf:entity-options entity-name="WorkEffortGoodStandardType">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="fromDate"><wf:date-time default-value="${nowTimestamp}"/></wf:field>
+            <wf:field name="statusId" title="${uiLabelMap.CommonStatus}">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="StatusItem">
+                        <wf:entity-constraint name="statusTypeId" value="WEFG_STATUS"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="submitButton"><wf:submit/></wf:field>
+        </wf:form>
+        <wf:form name="EditWorkEffortGoodStandard" target="WorkEffortGoodStandard/update"
+                 focus-field-name="statusId" default-map-name="WorkEffortGoodStandard"
+                 extends="AddWorkEffortGoodStandard">
+            <wf:auto-fields-service service-name="updateWorkEffortGoodStandard"/>
+            <wf:field name="workEffortId"><wf:hidden/></wf:field>
+            <wf:field name="productId"><wf:display-entity entity-name="Product"/></wf:field>
+            <wf:field name="workEffortGoodStdTypeId"><wf:display-entity entity-name="WorkEffortGoodStandardType"/></wf:field>
+            <wf:field name="fromDate" ><wf:display type="date-time"/></wf:field>
+            <wf:field name="statusId" title="${uiLabelMap.CommonStatus}">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="StatusItem">
+                        <wf:entity-constraint name="statusTypeId" value="WEFG_STATUS"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="submitButton"><wf:submit/></wf:field>
+        </wf:form>
+    </wf:forms>
+
+</compound-widgets>

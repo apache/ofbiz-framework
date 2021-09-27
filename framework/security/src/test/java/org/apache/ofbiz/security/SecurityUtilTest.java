@@ -18,6 +18,8 @@
  */
 package org.apache.ofbiz.security;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +27,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 public class SecurityUtilTest {
     @Test
@@ -51,5 +54,49 @@ public class SecurityUtilTest {
         assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(
                     adminPermissions, "SPECIFIC_MULTI_LEVEL_EXAMPLE_VIEW"));
         assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "HOTDEP_PARTYMGR_ADMIN"));
+    }
+
+    @Test
+    public void webShellTokensTesting() {
+        try {
+            List<String> allowed = new ArrayList<>();
+            allowed.add("getfilename");
+            assertTrue(SecuredUpload.isValidText("hack.getFileName", allowed));
+            allowed = new ArrayList<>();
+            assertFalse(SecuredUpload.isValidText("hack.getFileName", allowed));
+            assertFalse(SecuredUpload.isValidText("freemarker", allowed));
+            assertFalse(SecuredUpload.isValidText("import=\"java", allowed));
+            assertFalse(SecuredUpload.isValidText("runtime.getruntime().exec(", allowed));
+            assertFalse(SecuredUpload.isValidText("<%@ page", allowed));
+            assertFalse(SecuredUpload.isValidText("<script", allowed));
+            assertFalse(SecuredUpload.isValidText("<body>", allowed));
+            assertFalse(SecuredUpload.isValidText("<form", allowed));
+            assertFalse(SecuredUpload.isValidText("php", allowed));
+            assertFalse(SecuredUpload.isValidText("javascript", allowed));
+            assertFalse(SecuredUpload.isValidText("%eval", allowed));
+            assertFalse(SecuredUpload.isValidText("@eval", allowed));
+            assertFalse(SecuredUpload.isValidText("import os", allowed));
+            assertFalse(SecuredUpload.isValidText("passthru", allowed));
+            assertFalse(SecuredUpload.isValidText("exec", allowed));
+            assertFalse(SecuredUpload.isValidText("shell_exec", allowed));
+            assertFalse(SecuredUpload.isValidText("assert", allowed));
+            assertFalse(SecuredUpload.isValidText("str_rot13", allowed));
+            assertFalse(SecuredUpload.isValidText("system", allowed));
+            assertFalse(SecuredUpload.isValidText("phpinfo", allowed));
+            assertFalse(SecuredUpload.isValidText("base64_decode", allowed));
+            assertFalse(SecuredUpload.isValidText("chmod", allowed));
+            assertFalse(SecuredUpload.isValidText("mkdir", allowed));
+            assertFalse(SecuredUpload.isValidText("fopen", allowed));
+            assertFalse(SecuredUpload.isValidText("fclose", allowed));
+            assertFalse(SecuredUpload.isValidText("new file", allowed));
+            assertFalse(SecuredUpload.isValidText("import", allowed));
+            assertFalse(SecuredUpload.isValidText("upload", allowed));
+            assertFalse(SecuredUpload.isValidText("getfilename", allowed));
+            assertFalse(SecuredUpload.isValidText("download", allowed));
+            assertFalse(SecuredUpload.isValidText("getoutputstring", allowed));
+            assertFalse(SecuredUpload.isValidText("readfile", allowed));
+        } catch (IOException e) {
+            fail(String.format("IOException occured : %s", e.getMessage()));
+        }
     }
 }

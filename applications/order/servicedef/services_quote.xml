@@ -180,6 +180,28 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <!-- QuoteTerm -->
+    <service name="createQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="create">
+        <description>
+            Create a new Quate term.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="quoteItemSeqId" type="String" mode="IN" default-value="_NA_"/>
+    </service>
+    <service name="updateQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="update">
+        <description>
+            Edit the Quate term.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="delete">
+        <description>
+            delete the Quate term.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
     <!-- Specialized Quote services -->
     <service name="createQuoteAndQuoteItemForRequest" engine="groovy" default-entity-name="QuoteItem"
                 location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteAndQuoteItemForRequest" auth="true">
@@ -291,7 +313,7 @@ under the License.
         <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
-     <service name="storeQuote" engine="java" default-entity-name="Quote" validate="true" auth="true"
+    <service name="storeQuote" engine="java" default-entity-name="Quote" validate="true" auth="true"
             location="org.apache.ofbiz.order.quote.QuoteServices" invoke="storeQuote">
         <description>Creates quote entities</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

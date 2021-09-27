@@ -42,6 +42,5 @@ under the License.
         <!--Css style-->
         <property name="VT_STYLESHEET['add']" value="/tomahawk/css/style.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/tomahawk/css/help.css"/>
-        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/tomahawk/webapp/tomahawk/css/docbook.css"/>
     </theme-properties>
 </theme>

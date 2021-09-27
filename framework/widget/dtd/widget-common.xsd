@@ -478,6 +478,13 @@ under the License.
             <xs:attribute type="xs:string" name="param-name" use="required" />
             <xs:attribute type="xs:string" name="from-field" />
             <xs:attribute type="xs:string" name="value" />
+            <xs:attribute type="xs:string" name="from-event-result">
+                <xs:annotation>
+                    <xs:documentation>For set-callback only, indicates the event return variable from where the
+                        parameter value is retrieved.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="auto-parameters-service">

@@ -294,22 +294,25 @@
            }
         </script>
 
-        <set field="acctgPreferenceCtx.partyId" from-field="partyId"/>
-        <set field="acctgPreferenceCtx.taxFormId" value="US_IRS_1120"/>
-        <set field="acctgPreferenceCtx.cogsMethodId" value="COGS_AVG_COST"/>
-        <set field="acctgPreferenceCtx.baseCurrencyUomId" value="USD"/>
-        <set field="acctgPreferenceCtx.oldInvoiceSequenceEnumId" value="INVSQ_ENF_SEQ"/>
-        <set field="acctgPreferenceCtx.invoiceIdPrefix" from-field="parameters.invoiceIdPrefix"/>
-        <set field="acctgPreferenceCtx.oldQuoteSequenceEnumId" value="INVSQ_ENF_SEQ"/>
-        <set field="acctgPreferenceCtx.quoteIdPrefix" value="QU"/>
-        <set field="acctgPreferenceCtx.oldOrderSequenceEnumId" value="INVSQ_ENF_SEQ"/>
-        <set field="acctgPreferenceCtx.orderIdPrefix" value="OD"/>
-        <call-service service-name="createPartyAcctgPreference" in-map-name="acctgPreferenceCtx"/>
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
+        <if-empty field="partyAcctgPreference">
+            <set field="acctgPreferenceCtx.partyId" from-field="partyId"/>
+            <set field="acctgPreferenceCtx.taxFormId" value="US_IRS_1120"/>
+            <set field="acctgPreferenceCtx.cogsMethodId" value="COGS_AVG_COST"/>
+            <set field="acctgPreferenceCtx.baseCurrencyUomId" value="USD"/>
+            <set field="acctgPreferenceCtx.oldInvoiceSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+            <set field="acctgPreferenceCtx.invoiceIdPrefix" from-field="parameters.invoiceIdPrefix"/>
+            <set field="acctgPreferenceCtx.oldQuoteSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+            <set field="acctgPreferenceCtx.quoteIdPrefix" value="QU"/>
+            <set field="acctgPreferenceCtx.oldOrderSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+            <set field="acctgPreferenceCtx.orderIdPrefix" value="OD"/>
+            <call-service service-name="createPartyAcctgPreference" in-map-name="acctgPreferenceCtx"/>
+        </if-empty>
 
         <!-- run demo General Chart Of Accounts  -->
         <entity-condition entity-name="GlAccount" list="glAccountList"/>
         <if-empty field="glAccountList">
-            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/accounting/data/OfbizSetupChartOfAccountsData.xml"/>
+            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/datamodel/data/demo/GlAccountDemoData.xml"/>
             <session-to-field field="importChartOfAccountCtx.userLogin" session-name="userLogin"/>
             <call-service service-name="entityImport" in-map-name="importChartOfAccountCtx"/>
             <check-errors/>

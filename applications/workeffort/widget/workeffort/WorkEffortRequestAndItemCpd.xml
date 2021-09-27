@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+
+        <!--Header-->
+        <sc:request-map uri="WorkEffortRequests/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortRequests/List"/></sc:request-map>
+        <sc:request-map uri="WorkEffortRequests/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortRequests/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffortRequests/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createWorkEffortRequest"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortRequests/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteWorkEffortRequest"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <!--Item-->
+        <sc:request-map uri="WorkEffortRequestItem/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortRequestItem/List"/></sc:request-map>
+        <sc:request-map uri="WorkEffortRequestItem/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortRequestItem/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffortRequestItem/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createWorkEffortRequestItemAndRequestItem"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortRequestItem/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteWorkEffortRequestItem"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <!--Header-->
+        <sc:view-map name="WorkEffortRequests/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml#ListWorkEffortRequests"/>
+        <sc:view-map name="WorkEffortRequests/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml#EditWorkEffortRequest"/>
+
+        <!--Item-->
+        <sc:view-map name="WorkEffortRequestItem/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml#ListWorkEffortRequestItems"/>
+        <sc:view-map name="WorkEffortRequestItem/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml#EditWorkEffortRequestItem"/>
+    </sc:site-conf>
+
+    <ws:screens>
+
+        <!--Header-->
+        <ws:screen name="ListWorkEffortRequests">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="WorkEffortRequestTabBar" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListWorkEffortRequests" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="EditWorkEffortRequest">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortRequest"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditWorkEffortRequest" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <!--Item-->
+        <ws:screen name="ListWorkEffortRequestItems">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListWorkEffortRequestItems"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="WorkEffortRequestItemTabBar" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListWorkEffortRequestItems" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="EditWorkEffortRequestItem">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortRequestItem"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditWorkEffortRequestItem" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wm:menus>
+
+        <!--Header-->
+        <wm:menu name="WorkEffortRequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddWorkEffortRequest" title="${uiLabelMap.CommonAdd}">
+                <wm:link target="WorkEffortRequests/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortRequests/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortRequestsInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="DeleteWorkEffortRequest" title="${uiLabelMap.CommonDelete}">
+                <wm:link target="WorkEffortRequests/delete" request-confirmation="true">
+                    <wm:auto-parameters-service service-name="deleteWorkEffortRequest"/>
+                    <wm:set-callback area-target="WorkEffortRequests/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+        <!--Item-->
+        <wm:menu name="WorkEffortRequestItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddWorkEffortRequestItem" title="${uiLabelMap.CommonAdd}">
+                <wm:link target="WorkEffortRequestItem/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortRequestItem/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortRequestItemsInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="DeleteWorkEffortRequestItem" title="${uiLabelMap.CommonDelete}">
+                <wm:link target="WorkEffortRequestItem/delete" request-confirmation="true">
+                    <wm:auto-parameters-service service-name="deleteWorkEffortRequestItem"/>
+                    <wm:set-callback area-target="WorkEffortRequestItem/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+    </wm:menus>
+
+    <wf:forms>
+
+        <!--Header-->
+        <wf:grid name="ListWorkEffortRequests" paginate-target="WorkEffortRequests/List"
+                 default-map-name="workEffortRequest" list-name="listIt"
+                 extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:entity-and entity-name="WorkEffortCustRequestView">
+                    <wf:field-map field-name="workEffortId"/>
+                </wf:entity-and>
+            </wf:actions>
+            <wf:field name="workEffortId"><wf:hidden /></wf:field>
+            <wf:field name="custRequestId">
+                <wf:hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
+                    <wf:parameter param-name="custRequestId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="description"><wf:display/></wf:field>
+            <wf:field name="custRequestTypeDescription"><wf:display/></wf:field>
+            <wf:field name="statusItemDescription"><wf:display/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListWorkEffortRequestsInLineBar" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+        <wf:form name="EditWorkEffortRequest" target="WorkEffortRequests/create"
+                 focus-field-name="custRequestId"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="workEffortId"><wf:hidden /></wf:field>
+            <wf:field name="custRequestId"><wf:lookup target-form-name="LookupCustRequest"/></wf:field>
+            <wf:field name="addButton"><wf:submit/></wf:field>
+        </wf:form>
+
+        <!--Item-->
+        <wf:grid name="ListWorkEffortRequestItems" paginate-target="WorkEffortRequestItem/List"
+                 default-map-name="workEffortRequest" list-name="listIt"
+                 extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:entity-and entity-name="WorkEffortCustRequestItemView">
+                    <wf:field-map field-name="workEffortId"/>
+                </wf:entity-and>
+            </wf:actions>
+            <wf:field name="workEffortId"><wf:hidden /></wf:field>
+            <wf:field name="custRequestId">
+                <wf:hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
+                    <wf:parameter param-name="custRequestId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="custRequestItemSeqId" widget-style="buttontext"><wf:display/></wf:field>
+            <wf:field name="description"><wf:display/></wf:field>
+            <wf:field name="custRequestTypeDescription"><wf:display/></wf:field>
+            <wf:field name="statusItemDescription"><wf:display/></wf:field>
+            <wf:field name="priority"><wf:display/></wf:field>
+            <wf:field name="productId"><wf:display/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListWorkEffortRequestItemsInLineBar" location="component://workeffort/widget/workeffort/WorkEffortRequestAndItemCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+        <wf:form name="EditWorkEffortRequestItem" target="WorkEffortRequestItem/create"
+                 focus-field-name="custRequestId"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="workEffortId"><wf:hidden /></wf:field>
+            <wf:field name="custRequestId"><wf:lookup target-form-name="LookupCustRequest"/></wf:field>
+            <wf:field name="custRequestItemSeqId"><wf:lookup target-form-name="LookupCustRequestItem" target-parameter="custRequestId"/></wf:field>
+            <wf:field name="addButton"><wf:submit/></wf:field>
+        </wf:form>
+    </wf:forms>
+
+</compound-widgets>

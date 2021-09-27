@@ -1497,28 +1497,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="create">
-        <description>
-            Create a new Quate term.
-        </description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="quoteItemSeqId" type="String" mode="IN" default-value="_NA_"/>
-    </service>
-    <service name="updateQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="update">
-        <description>
-            Edit the Quate term.
-        </description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="deleteQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="delete">
-        <description>
-            delete the Quate term.
-        </description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-    
     <!-- Use for link the payment and the invoice When Received Payment -->
     <service name="createOrderPaymentApplication" engine="simple" auth="true"
             location="component://order/minilang/order/OrderServices.xml" invoke="createOrderPaymentApplication">

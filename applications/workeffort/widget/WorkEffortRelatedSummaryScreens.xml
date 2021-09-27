@@ -20,13 +20,26 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="WorkEffortSummary">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleWorkEffortRelatedSummary"/>
                 <set field="tabButtonItem" value="WorkEffortRelatedSummary"/>
                 <set field="labelTitleProperty" value="PageTitleWorkEffortRelatedSummary"/>
-
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="WorkEffortSummaryEmbedded"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="WorkEffortSummaryEmbedded">
+        <section>
+            <actions>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <get-related-one value-field="workEffort" relation-name="WorkEffortType" to-value-field="workEffortType"/>
@@ -54,8 +67,8 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                <decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                    <decorator-section name="list">
                         <container style="screenlet-body">
                             <label text="${uiLabelMap.CommonName} " style="label"/><label text="${workEffort.workEffortName}"/>
                             <label text="${uiLabelMap.CommonType} " style="label"/><label text="${workEffortType.description}"/>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <sc:request-map uri="WorkEffort/Find"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffort/Find"/></sc:request-map>
+        <sc:request-map uri="WorkEffort/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffort/List"/></sc:request-map>
+        <sc:request-map uri="WorkEffort/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffort/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffort/Duplicate"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffort/Duplicate"/></sc:request-map>
+        <sc:request-map uri="WorkEffort/Summary"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffort/Summary"/></sc:request-map>
+        <sc:request-map uri="WorkEffort/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createWorkEffort"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffort/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateWorkEffort"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffort/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteWorkEffort"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffort/duplicate">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="duplicateWorkEffort"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:view-map name="WorkEffort/Find" type="screen" page="component://workeffort/widget/workeffort/WorkEffortCpd.xml#FindWorkEfforts"/>
+        <sc:view-map name="WorkEffort/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortCpd.xml#ListWorkEfforts"/>
+        <sc:view-map name="WorkEffort/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortCpd.xml#EditWorkEffort"/>
+        <sc:view-map name="WorkEffort/Duplicate" type="screen" page="component://workeffort/widget/workeffort/WorkEffortCpd.xml#DuplicateWorkEffort"/>
+        <sc:view-map name="WorkEffort/Summary" type="screen" page="component://workeffort/widget/WorkEffortRelatedSummaryScreens.xml#WorkEffortSummaryEmbedded"/>
+    </sc:site-conf>
+
+    <ws:screens>
+        <ws:screen name="FindWorkEfforts">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleFindWorkEffort"/>
+                    <ws:set field="asm_multipleSelectForm" value="FindWorkEffort"/>
+                    <ws:set field="currentStatusId.asm_multipleSelect" value="FindWorkEffort_currentStatusId"/>
+                    <ws:set field="currentStatusId.asm_sortable" value="true"/>
+                    <ws:set field="currentStatusId.asm_title" value=" "/>
+                    <ws:set field="asm_listField[]" from-field="currentStatusId"/>
+                    <ws:set field="noConditionFind" value="Y"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                <ws:decorator-section name="menu-bar">
+                                    <ws:include-menu name="FindWorkEffortMenuBar" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="search-options">
+                                    <ws:platform-specific>
+                                        <ws:html><ws:html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></ws:html>
+                                    </ws:platform-specific>
+                                    <ws:include-form name="FindWorkEffort" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="search-results">
+                                    <ws:include-screen name="ListWorkEfforts" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+                                </ws:decorator-section>
+                            </ws:decorator-screen>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="ListWorkEfforts">
+            <ws:section>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListWorkEfforts" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="EditWorkEffort">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleEditWorkEffort"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditWorkEffort" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="DuplicateWorkEffort">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleEditWorkEffort"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="DuplicateWorkEffort" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wm:menus>
+        <wm:menu name="FindWorkEffortMenuBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="WorkEffortCreate" title="${uiLabelMap.WorkEffortCreate}">
+                <wm:condition>
+                    <wm:if-service-permission service-name="workEffortManagerPermission" main-action="VIEW"/>
+                </wm:condition>
+                <wm:link target="WorkEffort/Edit" link-type="layered-modal" width="800" height="1024">
+                    <wm:set-callback area-target="WorkEffort/Find"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="WorkEffortSearchOptions" title="${uiLabelMap.CommonAdvancedSearch}">
+                <wm:link target="WorkEffortSearchOptions"/>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortsInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="WorkEffortSummary" title="${uiLabelMap.CommonSummary}">
+                <wm:link target="WorkEffort/Summary" link-type="layered-modal" width="800" height="1024">
+                    <wm:parameter param-name="workEffortId"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="WorkEffortUpdate" title="${uiLabelMap.CommonUpdate}">
+                <wm:condition>
+                    <wm:if-service-permission service-name="workEffortManagerPermission" main-action="VIEW"/>
+                </wm:condition>
+                <wm:link target="WorkEffort/Edit" link-type="layered-modal" width="800" height="1024">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffort/List"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="WorkEffortDuplicate" title="${uiLabelMap.CommonDuplicate}">
+                <wm:condition>
+                    <wm:if-service-permission service-name="workEffortManagerPermission" main-action="VIEW"/>
+                </wm:condition>
+                <wm:link target="WorkEffort/Duplicate" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffort/List"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="WorkEffortDelete" title="${uiLabelMap.CommonDelete}">
+                <wm:condition>
+                    <wm:if-service-permission service-name="workEffortManagerPermission" main-action="VIEW"/>
+                </wm:condition>
+                <wm:link target="WorkEffort/delete" confirmation-message="${uiLabelMap.CommonConfirmDelete}">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffort/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+    </wm:menus>
+
+    <wf:forms>
+        <wf:form name="EditWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
+                 target="WorkEffort/update" focus-field-name="workEffortName">
+            <wf:alt-target target="WorkEffort/create" use-when="workEffort==null"/>
+        </wf:form>
+        <wf:form name="DuplicateWorkEffort" extends="EditWorkEffortDuplicate" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
+                 target="WorkEffort/duplicate"/>
+        <wf:grid name="ListWorkEfforts" extends="ListWorkEfforts" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
+                 paginate-target="WorkEffort/List">
+            <wf:field name="deleteLink" title=" ">
+                <wf:include-menu name="ListWorkEffortsInLineBar" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+        <wf:form name="FindWorkEffort" default-map-name="parameters" target="WorkEffort/Find"
+              extends="CommonDynamicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="noConditionFind"><wf:hidden value="Y"/></wf:field>
+            <wf:field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><wf:text-find/></wf:field>
+            <wf:field name="workEffortParentId" position="2"><wf:text-find/></wf:field>
+            <wf:field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="workEffortPurposeTypeId" position="2" title="${uiLabelMap.CommonPurpose}">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+                <wf:drop-down allow-multiple="true">
+                    <wf:entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
+                        <wf:entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                    <wf:entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortTask}] ${description}">
+                        <wf:entity-constraint name="statusTypeId" value="TASK_STATUS"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                    <wf:entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortEvent}] ${description}">
+                        <wf:entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="priority" position="2">
+                <wf:drop-down allow-empty="true">
+                    <wf:option key="9"/>
+                    <wf:option key="8"/>
+                    <wf:option key="7"/>
+                    <wf:option key="6"/>
+                    <wf:option key="5"/>
+                    <wf:option key="4"/>
+                    <wf:option key="3"/>
+                    <wf:option key="2"/>
+                    <wf:option key="1"/>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="workEffortName"><wf:text-find/></wf:field>
+            <wf:field name="description" position="2"><wf:text-find/></wf:field>
+            <wf:field name="facilityId"><wf:lookup target-form-name="LookupFacility"/></wf:field>
+            <wf:field name="fixedAssetId" position="2"><wf:lookup target-form-name="LookupFixedAsset"/></wf:field>
+            <wf:field name="scopeEnumId">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="Enumeration" key-field-name="enumId">
+                        <wf:entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="moneyUomId" title="${uiLabelMap.CommonCurrency}" position="2">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                        <wf:entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                        <wf:entity-order-by field-name="abbreviation"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="partyId"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            
+            <wf:field name="workflowPackageId"><wf:ignored/></wf:field>
+            <wf:field name="workflowPackageVersion"><wf:ignored/></wf:field>
+            <wf:field name="workflowProcessId"><wf:ignored/></wf:field>
+            <wf:field name="workflowProcessVersion"><wf:ignored/></wf:field>
+            <wf:field name="workflowActivityId"><wf:ignored/></wf:field>
+            <wf:field name="recurrenceInfoId"><wf:ignored/></wf:field>
+            <wf:field name="runtimeDataId"><wf:ignored/></wf:field>
+            <wf:field name="noteId"><wf:ignored/></wf:field>
+
+            <wf:field name="searchButton" ><wf:submit /></wf:field>
+        </wf:form>
+    </wf:forms>
+
+</compound-widgets>

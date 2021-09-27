@@ -423,15 +423,20 @@ under the License.
         <response name="success" type="view" value="ViewComponents"/>
     </request-map>
 
-    <request-map uri="TestSuiteInfo">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="TestSuiteInfo"/>
-    </request-map>
+    <request-map uri="TestSuiteInfo"><security https="true" auth="true"/><response name="success" type="view" value="TestSuiteInfo"/></request-map>
+    <request-map uri="TestSuiteInfo/{compName}"><security https="true" auth="true"/><response name="success" type="view" value="TestSuiteInfo"/></request-map>
 
-    <request-map uri="RunTest">
+    <request-map uri="RunTest/{compName}/{suiteName}">
         <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
-        <response name="success" type="request-redirect" value="TestSuiteInfo"/>
+        <response name="success" type="request" value="TestSuiteInfo"/>
+        <response name="error" type="request" value="TestSuiteInfo"/>
+    </request-map>
+    <request-map uri="RunTest/{compName}/{suiteName}/{caseName}">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
+        <response name="success" type="request" value="TestSuiteInfo"/>
+        <response name="error" type="request" value="TestSuiteInfo"/>
     </request-map>
     <!-- EntitySQL requests -->
     <request-map uri="EntitySQLProcessor">

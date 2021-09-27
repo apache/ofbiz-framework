@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1074,13 +1077,13 @@ public class ProductServices {
                 String fileToCheck = imageServerPath + "/" + fileLocation + "." + extension.getString("fileExtensionId");
                 File file = new File(fileToCheck);
                 try {
-                    RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
-                    out.write(imageData.array());
-                    out.close();
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
+                    out.write(imageData.array());
+                    out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -1378,14 +1381,16 @@ public class ProductServices {
             File file = new File(fileToCheck);
 
             try {
-                RandomAccessFile out = new RandomAccessFile(file, "rw");
-                out.write(imageData.array());
-                out.close();
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                Path tempFile = Files.createTempFile(null, null);
+                Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
-
+                Files.delete(tempFile);
+                RandomAccessFile out = new RandomAccessFile(file, "rw");
+                out.write(imageData.array());
+                out.close();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,

@@ -18,7 +18,7 @@
  */
 
 /* ----------------------------------------------------------------------- */
-/* This CSS file is used for the Helveticus visual theme JavaScript styles.*/
+/* This CSS file is used for the Flat Grey visual theme JavaScript styles. */
 /* ----------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
@@ -1032,9 +1032,8 @@ body .ui-tooltip {
 }
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    border: 1px solid #79b7e7;
+    border: 0px solid #79b7e7;
     background: #d0e5f5 url(images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x;
-    font-weight: bold;
     color: #1d5987;
 }
 
@@ -1044,9 +1043,8 @@ body .ui-tooltip {
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-    border: 1px solid #79b7e7;
+    border: 0px solid #79b7e7;
     background: #f5f8f9 url(images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x;
-    font-weight: bold;
     color: #e17009;
 }
 

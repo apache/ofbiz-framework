@@ -638,6 +638,7 @@ public final class CommonWidgetModels {
         private FlexibleMapAccessor<Object> fromField;
         private String name;
         private FlexibleStringExpander value;
+        private String fromEventResult;
 
         public Parameter(Element element) {
             this.name = element.getAttribute("param-name");
@@ -645,6 +646,8 @@ public final class CommonWidgetModels {
                     .getAttribute("value")) : null;
             this.fromField = UtilValidate.isNotEmpty(element.getAttribute("from-field")) ? FlexibleMapAccessor
                     .getInstance(element.getAttribute("from-field")) : null;
+            this.fromEventResult = UtilValidate.isEmpty(element.getAttribute("from-event-result")) ? null
+                    : element.getAttribute("from-event-result");
         }
 
         public Parameter(String paramName, String paramValue, boolean isField) {
@@ -688,6 +691,9 @@ public final class CommonWidgetModels {
         public String getValue(Map<String, Object> context) {
             if (this.value != null) {
                 return this.value.expandString(context);
+            }
+            if (this.fromEventResult != null) {
+                return "_JS_EVENT_RESULT_" + this.fromEventResult + "_";
             }
             Object retVal = null;
             if (this.fromField != null && this.fromField.get(context) != null) {

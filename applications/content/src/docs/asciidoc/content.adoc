@@ -50,6 +50,19 @@ The ContentAssoc entity has a four part primary key and other fields that are us
 The key specifies the 'to' Content and the 'from' Content, as well as the type of association and its effective date.
 See the discussion of the ContentAssoc entity for more information on how content is related.
 
+== Security
+All services defined in the content component are safely secured. If you are in a safe environment, want to save more complex contents and get blocked by the security policy you might want to override the security only in the content component.
+
+Typically when using content/control/WebSiteCms?webSiteId=CmsSite (ie "Edit[ing] WebSite CMS For: CMS Web Site [CmsSite]"), the service updateTextContent may prevent you to save contents with a message like
+
+[WARNING]
+The Following Errors Occurred:
+In field [textData] by our input policy, your input has not been accepted for security reason. Please check and modify accordingly, thanks.
+
+To override the security you can change definitions of other content services by changing the security on field "textData" from "safe" to "any". That's of course an example and you may find other similar cases. 
+
+You may also prefer to change the security policy at an upper level. See owasp.properties file.
+
 == Major CMS entities
 
 === DataResource

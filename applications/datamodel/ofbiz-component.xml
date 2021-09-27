@@ -58,6 +58,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/WorkEffortDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/ProductDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/ManufacturingDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/GlAccountDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/AccountingDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/HumanresDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/OrderDemoData.xml"/>

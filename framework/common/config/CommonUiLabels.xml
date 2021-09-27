@@ -9852,6 +9852,10 @@
         <value xml:lang="zh-CN">接收到的</value>
         <value xml:lang="zh-TW">已接收</value>
     </property>
+    <property key="CommonReceivePasswordEmail">
+        <value xml:lang="en">To receive your password, enter your user name.</value>
+        <value xml:lang="fr">Pour recevoir votre mot de passe par email, renseignez votre nom d'utilisateur.</value>
+    </property>
     <property key="CommonRed">
         <value xml:lang="ar">أحمر</value>
         <value xml:lang="cs">Červený</value>

@@ -30,7 +30,7 @@ under the License.
       <br />
       <div>${uiLabelMap.WebtoolsNoteAntRunInstall}</div>
       <br />
-      <div><a href="<@ofbizUrl>checkLogin</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></div>
+      <div><a class="buttontext" href="<@ofbizUrl>checkLogin</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></div>
     </#if>
     <#if userLogin?has_content>
       <ul class="webToolList">

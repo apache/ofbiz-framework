@@ -620,13 +620,26 @@ public final class UtilValidate {
         return true;
     }
 
-    /** isUrl returns true if the string contains ://
-     * @param s String to validate
+    /**
+     * isUrl returns true if the string contains ://
+     * @param s String to validate Note: this does not handle "component://" specific to OFBiz
      * @return true if s contains ://
      */
     public static boolean isUrl(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
+        }
+        return s.indexOf("://") != -1;
+    }
+
+    /**
+     * urlInString returns true if the string contains :// and not "component://"
+     * @param s String to validate
+     * @return true if s contains :// and not "component://"
+     */
+    public static boolean urlInString(String s) {
+        if (isEmpty(s) || s.contains("component://")) {
+            return false;
         }
         return s.indexOf("://") != -1;
     }
@@ -642,6 +655,7 @@ public final class UtilValidate {
         }
         return UrlValidator.getInstance().isValid(s);
     }
+
 
     /** isYear returns true if string s is a valid
      *  Year number.  Must be 2 or 4 digits only.
