@@ -192,7 +192,7 @@ def createContentAlternativeUrl() {
                     if (uri) {
                         try {
                             serviceResult = run service: "updateDataResource", with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
-                                                                                      objectInfo: "/${uri}'${content.contentId}-content"]
+                                                                                      objectInfo: "${uri}'${content.contentId}-content"]
                             if (ServiceUtil.isSuccess(serviceResult)) {
                                 contentIdTo = serviceResult.contentId
                             }
