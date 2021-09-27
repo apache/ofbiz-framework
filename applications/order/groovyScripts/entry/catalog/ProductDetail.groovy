@@ -446,9 +446,9 @@ if (product) {
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
                             variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: "N") + "';\n")
-                            if (variantPriceMap && variantPriceMap.basePrice) {
-                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
-                                variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
+                            if (variantPriceMap && variantPriceMap.price) {
+                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                             }
                             
                             // make a list of virtual variants sku with requireAmount
@@ -487,8 +487,8 @@ if (product) {
                                             }
                                         }
                                         variantPriceList.add(virtualPriceMap)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
-                                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     } else {
                                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
                                         variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
@@ -545,8 +545,8 @@ if (product) {
                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price")
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "\"; ")
-                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.basePrice, currencyUomId, locale, 10) + "';\n")
+                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     } else {
                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
                         variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")

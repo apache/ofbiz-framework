@@ -288,8 +288,8 @@ if (inlineProduct) {
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
                             variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: "N") + "';\n")
-                            variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ")
-                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + numberFormat.format(variantPriceMap.basePrice) + "';\n")
+                            variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.price) + "\"; ")
+                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + numberFormat.format(variantPriceMap.price) + "';\n")
                         }
                         amt.append(" } ")
                         variantPriceJS.append(" } ")
