@@ -575,6 +575,7 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <override name="contactNumber" optional="false"/>
     </service>
     <service name="updatePartyTelecomNumber" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="updatePartyTelecomNumber" auth="true">
@@ -583,6 +584,7 @@ under the License.
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <override name="contactNumber" optional="false"/>
     </service>
     <service name="createPartyEmailAddress" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="createPartyEmailAddress" auth="true">
