@@ -4413,6 +4413,16 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 result.add(orderItem);
                 // don't do anything with adjustments here, those will be added below in makeAllAdjustments
             }
+            // Recalculate tax only if items are exploded.
+            if (explodeItems) {
+                // calc the sales tax
+                CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, this);
+                try {
+                    coh.calcAndAddTax();
+                } catch (GeneralException e) {
+                    Debug.logError(e, MODULE);
+                }
+            }
             return result;
         }
     }
