@@ -134,8 +134,8 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
                     .orderBy("-caFromDate")
                     .cache()
                     .queryList();
-            GenericValue contentAssocDataResource = EntityUtil.filterByCondition(contentAssocDataResources,
-                    EntityCondition.makeCondition("localeString", request.getLocale().toString()));
+            GenericValue contentAssocDataResource = EntityUtil.getFirst(EntityUtil.filterByCondition(contentAssocDataResources,
+                    EntityCondition.makeCondition("localeString", request.getLocale().toString())));
             if (UtilValidate.isEmpty(contentAssocDataResource)) {
                 contentAssocDataResource = EntityUtil.getFirst(contentAssocDataResources);
             }
