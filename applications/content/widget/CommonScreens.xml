@@ -37,7 +37,7 @@ under the License.
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.ContentContentManagerApplication"/>
-                <set field="helpAnchor" from-field="helpAnchor" default-value="_content_management_overview"/>
+                <set field="helpAnchor" from-field="helpAnchor" default-value="_content_management"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -503,7 +503,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonWebAnalyticsDecorator">
         <section>
             <actions>
@@ -542,5 +542,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>
