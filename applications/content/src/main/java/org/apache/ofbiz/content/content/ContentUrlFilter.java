@@ -59,17 +59,23 @@ public class ContentUrlFilter implements Filter {
         String urlContentId = null;
         String pathInfo = UtilHttp.getFullRequestUrl(httpRequest);
         if (UtilValidate.isNotEmpty(pathInfo)) {
-            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf('/'));
+            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf('/') + 1);
             if (alternativeUrl.endsWith("-content")) {
                 try {
                     GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView")
                             .where("drObjectInfo", alternativeUrl)
-                            .orderBy("createdDate DESC").queryFirst();
+                            .orderBy("createdDate DESC").cache().queryFirst();
+                    if (contentDataResourceView == null) {
+                        // backward compatibility
+                        contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView")
+                                .where("drObjectInfo", "/" + alternativeUrl)
+                                .orderBy("createdDate DESC").cache().queryFirst();
+                    }
                     if (contentDataResourceView != null) {
                         GenericValue content = EntityQuery.use(delegator).from("ContentAssoc")
                                 .where("contentAssocTypeId", "ALTERNATIVE_URL",
                                         "contentIdTo", contentDataResourceView.get("contentId"))
-                                .filterByDate().queryFirst();
+                                .filterByDate().cache().queryFirst();
                         if (content != null) {
                             urlContentId = content.getString("contentId");
                         }
