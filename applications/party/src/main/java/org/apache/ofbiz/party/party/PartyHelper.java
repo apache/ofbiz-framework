@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 /**
  * PartyHelper
  */
-public class PartyHelper {
+public final class PartyHelper {
 
     private static final String MODULE = PartyHelper.class.getName();
 
@@ -43,7 +43,10 @@ public class PartyHelper {
     public static String getPartyName(Delegator delegator, String partyId, boolean lastNameFirst) {
         GenericValue partyObject = null;
         try {
-            partyObject = EntityQuery.use(delegator).from("PartyNameView").where("partyId", partyId).queryOne();
+            partyObject = EntityQuery.use(delegator).from("PartyNameView")
+                    .where("partyId", partyId)
+                    .cache()
+                    .queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding PartyNameView in getPartyName", MODULE);
         }
