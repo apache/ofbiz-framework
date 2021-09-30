@@ -95,16 +95,13 @@ def createReturnHeader() {
                                                                             userLogin: systemLogin]
     GenericValue partyAcctgPreference = serviceResult.partyAccountingPreference
 
-    if (partyAcctgPreference) {
-        if ("Y" == partyAcctgPreference.useInvoiceIdForReturns) {
+    if (partyAcctgPreference && "Y" == partyAcctgPreference.useInvoiceIdForReturns) {
             Map serviceResultInvoice = run service: "getNextInvoiceId", with: [partyId: parameters.toPartyId]
             newEntity.returnId = serviceResultInvoice.invoiceId
-        } else {
-            newEntity.returnId = delegator.getNextSeqId("ReturnHeader")
-        }
     } else {
         newEntity.returnId = delegator.getNextSeqId("ReturnHeader")
     }
+
     result.returnId = newEntity.returnId
 
     boolean hasCreatePermission = security.hasEntityPermission("ORDERMGR", "_CREATE", parameters.userLogin)
