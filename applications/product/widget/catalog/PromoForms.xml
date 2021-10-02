@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListProductPromos" type="list" title="" list-name="productPromos"
         paginate-target="FindProductPromo" odd-row-style="alternate-row" default-table-style="basic-table">
@@ -41,6 +41,12 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productPromo==null" target="createProductPromo"/>
         <auto-fields-service service-name="updateProductPromo" map-name=""/>
+
+        <field name="createdDate"><hidden/></field>
+        <field name="createdByUserLogin"><hidden/></field>
+        <field name="lastModifiedDate"><hidden/></field>
+        <field name="lastModifiedByUserLogin"><hidden/></field>
+
 
         <field use-when="productPromo!=null" name="productPromoId" title="${uiLabelMap.ProductPromotion}" tooltip=""><display/></field>
         <field use-when="productPromo==null&amp;&amp;productPromoId!=null" name="productPromoId" title="${uiLabelMap.ProductPromotion}" tooltip="${uiLabelMap.ProductCouldNotFindProductPromotion} [${productPromoId}]"><display/></field>
@@ -118,7 +124,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="EditProductPromoContentImage" type="upload" target="addImageContentForProductPromo" default-map-name="productPromoContent">
         <field name="productPromoId"><hidden/></field>
         <field use-when="productPromoContent != null" name="contentId"><display/></field>
