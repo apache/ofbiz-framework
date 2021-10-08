@@ -97,7 +97,7 @@ public class ContextFilter implements Filter {
 
         String body = request.getReader().lines().collect(Collectors.joining());
         if (body.contains("</serializable>")) {
-            Debug.logError("Content not authorised for security reason", MODULE); // Cf. OFBIZ-12332
+            Debug.logError("Content not authorised for security reason", module); // Cf. OFBIZ-12332
             return;
         }
 
@@ -142,7 +142,7 @@ public class ContextFilter implements Filter {
                 if(UtilValidate.isNotEmpty(tenantDomainName)) {
                     tenantId = tenantDomainName.getString("tenantId");
                 }
-                
+
                 if(UtilValidate.isEmpty(tenantId)) {
                     tenantId = (String) httpRequest.getAttribute("userTenantId");
                 }
@@ -181,14 +181,14 @@ public class ContextFilter implements Filter {
                     request.setAttribute("delegator", delegator);
                     request.setAttribute("dispatcher", dispatcher);
                     request.setAttribute("security", security);
-                    
+
                     request.setAttribute("userTenantId", tenantId);
                 }
 
-                // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 
-                // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field 
-                // is found this will change the user's delegator back to the base one instead of the one for the 
-                // tenant specified on login 
+                // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may
+                // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field
+                // is found this will change the user's delegator back to the base one instead of the one for the
+                // tenant specified on login
                 // httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Unable to get Tenant", module);
