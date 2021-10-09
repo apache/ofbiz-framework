@@ -46,4 +46,14 @@ public class ServiceEngineTests extends OFBizTestCase {
         Map<String, Object> result = getDispatcher().runSync("testScv", UtilMisc.toMap("message", "Unit Test"));
         assertEquals("Service result success", ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE));
     }
+
+    /**
+     * Test a basic clojure invocation
+     * @throws Exception the exception
+     */
+    public void testBasicClojureInvocation() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testClojureSvc", UtilMisc.toMap("message", "Unit Test"));
+        assertEquals("Service result success", ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE));
+    }
+
 }

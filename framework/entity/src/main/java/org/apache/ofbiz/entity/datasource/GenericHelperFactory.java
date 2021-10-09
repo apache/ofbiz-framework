@@ -35,7 +35,6 @@ public class GenericHelperFactory {
 
     private static final String MODULE = GenericHelperFactory.class.getName();
 
-    // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);
     protected static final Map<String, GenericHelper> HELPER_CACHE = new HashMap<>();
 
     public static GenericHelper getHelper(GenericHelperInfo helperInfo) {

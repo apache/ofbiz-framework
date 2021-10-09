@@ -31,6 +31,21 @@ All operations relating to stock:
 * physical inventory
 * ...
 
+== Facility management in UI
+
+=== Receive Return
+For details about Sale Return look at <<Return Process Overview>>
+
+IMPORTANT: What the customer needs from you at this point are three pieces of information to include on the _outside_ of
+the package he is returning:
+
+. His original *OrderNumber*.
+. This *Return Number* (shown in the screen after the words 'Receive Return'and highlighted inside the link box).
+. The exact *Return Address* where you want him to return the item(s). +
+  That may be different from the address shown on the package he received.
+
+They should keep this information available for themselves in case they need to call back to check on the status of their return.
+
 [glossary]
 == Facility Glossary
 

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <sc:request-map uri="WorkEffortCommEvent/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortCommEvent/List"/></sc:request-map>
+        <sc:request-map uri="WorkEffortCommEvent/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="WorkEffortCommEvent/Edit"/></sc:request-map>
+        <sc:request-map uri="WorkEffortCommEvent/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createCommunicationEventWorkEff"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortCommEvent/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateCommunicationEventWorkEff"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:request-map uri="WorkEffortCommEvent/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteCommunicationEventWorkEff"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+        <sc:view-map name="WorkEffortCommEvent/List" type="screen" page="component://workeffort/widget/workeffort/WorkEffortCommEventCpd.xml#ListWorkEffortCommEvents"/>
+        <sc:view-map name="WorkEffortCommEvent/Edit" type="screen" page="component://workeffort/widget/workeffort/WorkEffortCommEventCpd.xml#EditWorkEffortCommEvent"/>
+    </sc:site-conf>
+
+    <ws:screens>
+        <ws:screen name="ListWorkEffortCommEvents">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortAssignmentRate"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="WorkEffortCommEventTabBar" location="component://workeffort/widget/workeffort/WorkEffortCommEventCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListWorkEffortCommEvents" location="component://workeffort/widget/workeffort/WorkEffortCommEventCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="EditWorkEffortCommEvent">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleAddWorkEffortCommEvent"/>
+                    <ws:entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                    <ws:entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                    <ws:set field="workEffortId" from-field="workEffort.workEffortId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://workeffort/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditWorkEffortCommEvent" location="component://workeffort/widget/workeffort/WorkEffortCommEventCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+    </ws:screens>
+
+    <wm:menus>
+        <wm:menu name="WorkEffortCommEventTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddWorkEffortCommEvent" title="${uiLabelMap.CommonAdd}">
+                <wm:link target="WorkEffortCommEvent/Edit" link-type="layered-modal">
+                    <wm:parameter param-name="workEffortId"/>
+                    <wm:set-callback area-target="WorkEffortCommEvent/List">
+                        <wm:parameter param-name="workEffortId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+        <wm:menu name="ListWorkEffortCommEventsInLineBar" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="EditWorkEffortCommEvent" title="${uiLabelMap.CommonUpdate}">
+                <wm:link target="WorkEffortCommEvent/Edit" link-type="layered-modal">
+                    <wm:auto-parameters-service service-name="updateCommunicationEventWorkEff"/>
+                    <wm:set-callback area-target="WorkEffortCommEvent/List"/>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="DeleteWorkEffortCommEvent" title="${uiLabelMap.CommonExpire}">
+                <wm:condition>
+                    <wm:if-empty field="thruDate"/>
+                </wm:condition>
+                <wm:link target="WorkEffortCommEvent/delete" request-confirmation="true">
+                    <wm:auto-parameters-service service-name="deleteCommunicationEventWorkEff"/>
+                    <wm:set-callback area-target="WorkEffortCommEvent/List"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+    </wm:menus>
+
+    <wf:forms>
+        <wf:grid name="ListWorkEffortCommEvents" paginate-target="WorkEffortCommEvent/List"
+                 default-map-name="workEffortCommEvent" list-name="listIt"
+                 extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:service result-map-list="listIt" result-map="result" service-name="performFind">
+                    <wf:field-map field-name="inputFields" from-field="requestParameters"/>
+                    <wf:field-map field-name="entityName" value="WorkEffortCommunicationEventView"/>
+                    <wf:field-map field-name="orderBy" from-field="parameters.sortField"/>
+                </wf:service>
+            </wf:actions>
+            <wf:field name="communicationEventId" sort-field="true">
+                <wf:hyperlink description="${communicationEventId}" target="EditWorkEffortCommEvent">
+                    <wf:parameter param-name="communicationEventId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="partyIdFrom" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonFrom}" sort-field="true">
+                <wf:display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>
+            </wf:field>
+            <wf:field name="partyIdTo" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonTo}" sort-field="true">
+                <wf:display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>
+            </wf:field>
+            <wf:field name="statusId" sort-field="true">
+                <wf:display-entity entity-name="StatusItem" key-field-name="statusId"/>
+            </wf:field>
+            <wf:field name="contactMechTypeId" sort-field="true">
+                <wf:display-entity entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
+            </wf:field>
+            <wf:field name="roleTypeIdFrom" sort-field="true">
+                <wf:display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+            </wf:field>
+            <wf:field name="roleTypeIdTo" sort-field="true">
+                <wf:display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+            </wf:field>
+            <wf:field name="custRequestId" sort-field="true"><wf:display-entity entity-name="CustRequest" description="${custRequestName} [${custRequestId}]"/></wf:field>
+            <wf:field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}" sort-field="true"><wf:display/></wf:field>
+            <wf:field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}" sort-field="true"><wf:display/></wf:field>
+            <wf:field map-name="subjectMap" name="subject" sort-field="true"><wf:display size="30"/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListWorkEffortCommEventsInLineBar" location="component://workeffort/widget/workeffort/WorkEffortCommEventCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+        <wf:form name="EditWorkEffortCommEvent" target="WorkEffortCommEvent/update"
+                 focus-field-name="communicationEventTypeId" default-map-name="communicationEvent"
+                 extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:alt-target target="WorkEffortCommEvent/create" use-when="communicationEvent == null"/>
+            <wf:field name="communicationEventId" use-when="communicationEvent != null"><wf:display/></wf:field>
+            <wf:field name="communicationEventTypeId">
+                <wf:drop-down>
+                    <wf:entity-options entity-name="CommunicationEventType">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+
+            <wf:field name="partyIdFrom" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonFrom}"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field name="partyIdTo" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonTo}"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
+                <wf:drop-down>
+                    <wf:entity-options entity-name="StatusItem" key-field-name="statusId">
+                        <wf:entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}">
+                <wf:drop-down current="first-in-list" current-description="${currentStatus.description}">
+                    <wf:entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                        <wf:entity-constraint name="statusId" value="${communicationEvent.statusId}"/>
+                        <wf:entity-order-by field-name="sequenceId"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+
+            <wf:field name="contactMechTypeId">
+                <wf:drop-down>
+                    <wf:entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+
+            <wf:field name="roleTypeIdFrom">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="RoleType" key-field-name="roleTypeId">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="roleTypeIdTo">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="RoleType" key-field-name="roleTypeId">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+
+            <wf:field name="custRequestId">
+                <wf:lookup size="20" target-form-name="LookupCustRequest">
+                    <wf:sub-hyperlink target="/ordermgr/control/EditRequest" target-type="inter-app">
+                        <wf:parameter param-name="custRequestId" from-field="communicationEvent.custRequestId"/>
+                    </wf:sub-hyperlink>
+                </wf:lookup>
+            </wf:field>
+
+            <wf:field name="workEffortId" use-when="workEffort == null">
+                <wf:lookup size="20" target-form-name="LookupWorkEffort"/>
+            </wf:field>
+            <wf:field name="workEffortId" use-when="workEffort != null" map-name="workEffort"><wf:hidden /></wf:field>
+            <wf:field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><wf:date-time/></wf:field>
+            <wf:field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><wf:date-time/></wf:field>
+            <wf:field name="subject"><wf:text size="30"/></wf:field>
+            <wf:field name="note" title="${uiLabelMap.CommonNote}"><wf:textarea/></wf:field>
+            <wf:field name="content" title="${uiLabelMap.CommonContent}"><wf:textarea rows="10"/></wf:field>
+            <wf:field name="submitButton"><wf:submit/></wf:field>
+        </wf:form>
+    </wf:forms>
+
+</compound-widgets>

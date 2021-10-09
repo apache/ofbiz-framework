@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<theme name="helveticus"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
+    <visual-themes>
+        <visual-theme id="HELVETICUS_SAPHIR" display-name="Helveticus - Sapphire">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.HELVETICUS_SAPHIR', locale)}</description>
+            <screenshot location="/helveticus/images/themeHelveticus_saphir.png"/>
+        </visual-theme>
+        <visual-theme id="HELVETICUS_AMBER" display-name="Helveticus - Amber">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.HELVETICUS_AMBER', locale)}</description>
+            <screenshot location="/helveticus/images/themeHelveticus_amber.png"/>
+        </visual-theme>
+        <visual-theme id="HELVETICUS_RUBY" display-name="Helveticus - Ruby">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.HELVETICUS_RUBY', locale)}</description>
+            <screenshot location="/helveticus/images/themeHelveticus_ruby.png"/>
+        </visual-theme>
+        <visual-theme id="HELVETICUS_EMERALD" display-name="Helveticus - Emerald">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.HELVETICUS_EMERALD', locale)}</description>
+            <screenshot location="/helveticus/images/themeHelveticus_emerald.png"/>
+        </visual-theme>
+    </visual-themes>
+
+    <extends location="component://common-theme/widget/Theme.xml"/>
+    <theme-properties>
+        <!--header image -->
+        <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.png"/>
+        <!--template location-->
+        <property name="VT_HDR_TMPLT_LOC" value="component://helveticus/template/includes/Header.ftl"/>
+        <property name="VT_FTR_TMPLT_LOC" value="component://helveticus/template/includes/Footer.ftl"/>
+        <property name="VT_NAV_TMPLT_LOC" value="component://helveticus/template/includes/TopAppBar.ftl"/>
+        <property name="VT_CHPWD_TMPLT_LOC" value="component://helveticus/template/ChangePassword.ftl"/>
+        <property name="VT_FGPWD_TMPLT_LOC" value="component://helveticus/template/ForgotPassword.ftl"/>
+        <property name="VT_LOGIN_TMPLT_LOC" value="component://helveticus/template/Login.ftl"/>
+        <!--javascript lib-->
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/helveticus/js/less.min.js"/>
+        <property name="VT_FTR_JAVASCRIPT['add']" value="/helveticus/js/helveticus.js"/>
+        <property name="VT_FTR_JAVASCRIPT['add']" value="/helveticus/js/OfbizUtil.js"/>
+        <!--Css style-->
+        <property name="VT_STYLESHEET['add']" value="/helveticus/flag-icon.min.css"/>
+        <property name="VT_STYLESHEET['add']" value="/helveticus/javascript.css"/>
+        <property name="VT_RTL_STYLESHEET['add']" value="/helveticus/stylertl.css"/>
+        <property name="VT_HELPSTYLESHEET['add']" value="/helveticus/help.css"/>
+    </theme-properties>
+
+    <templates>
+        <template name="screen" type="html" content-type="UTF-8" encoding="none" encoder="html" compress="false">
+            <template-file widget="menu" location="component://helveticus/template/macro/HtmlMenuMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://helveticus/template/macro/HtmlFormMacroLibrary.ftl"/>
+        </template>
+    </templates>
+</theme>

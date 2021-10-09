@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="CustRequestResolution.description.DUPLICATE">
         <value xml:lang="ar">نسخة مكررة</value>
         <value xml:lang="de">Duplikat</value>
@@ -427,6 +427,11 @@
         <value xml:lang="vi">Phụ phí</value>
         <value xml:lang="zh">额外费用</value>
         <value xml:lang="zh-TW">額外費用</value>
+    </property>
+    <property key="OrderAdjustmentType.description.VAT_TAX">
+        <value xml:lang="de">MwSt</value>
+        <value xml:lang="en">VAT</value>
+        <value xml:lang="nl">BTW</value>
     </property>
     <property key="OrderAdjustmentType.description.WARRANTY_ADJUSTMENT">
         <value xml:lang="ar">الضمان</value>

@@ -136,61 +136,6 @@
         <check-errors/>
     </simple-method>
 
-    <!-- Util -->
-    <simple-method method-name="findAssocContent" short-description="Find associated content">
-        <set from-field="parameters.contentId" field="queryMap.contentId"/>
-        <set field="mapKeys" from-field="parameters.mapKeys"/>
-        <field-to-list field="mapKey" list="mapKeys"/>
-        <iterate list="mapKeys" entry="mapKey">
-            <set from-field="mapKey" field="queryMap.mapKey"/>
-            <find-by-and list="resultMap" entity-name="ContentAssoc" map="queryMap"/>
-            <filter-list-by-date list="resultMap" to-list="validContent"/>
-            <iterate list="validContent" entry="contentAssoc">
-                <field-to-list field="contentAssoc" list="result"/>
-            </iterate>
-        </iterate>
-        <if>
-            <condition>
-                <if-empty field="parameters.mapKey"/>
-            </condition>
-            <then>
-                <field-to-result field="result" result-name="contentAssocs"/>
-            </then>
-            <else>
-                <field-to-result field="result" result-name="contentAssoc"/>
-            </else>
-        </if>
-    </simple-method>
-
-    <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
-        <set-service-fields service-name="createContent" map="parameters" to-map="createSimpleTextContent"/>
-        <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>
-
-        <set from-field="parameters.text" field="createSimpleText.textData"/>
-
-        <set-service-fields service-name="createDataResource" map="parameters" to-map="createSimpleTextDataResource"/>
-        <set value="ELECTRONIC_TEXT" field="createSimpleTextDataResource.dataResourceTypeId"/>
-        <set value="FTL" field="createSimpleTextDataResource.dataTemplateTypeId"/>
-
-        <call-service service-name="createDataResource" in-map-name="createSimpleTextDataResource">
-            <result-to-field result-name="dataResourceId" field="createSimpleText.dataResourceId"/>
-            <result-to-field result-name="dataResourceId" field="createSimpleTextContent.dataResourceId"/>
-        </call-service>
-
-        <call-service service-name="createElectronicText" in-map-name="createSimpleText"/>
-
-        <call-service service-name="createContent" in-map-name="createSimpleTextContent">
-            <result-to-result result-name="contentId"/>
-        </call-service>
-    </simple-method>
-    <simple-method method-name="updateSimpleTextContent" short-description="Update Simple Text Content">
-        <if-not-empty field="parameters.textDataResourceId">
-            <set from-field="parameters.textDataResourceId" field="updateSimpleText.dataResourceId"/>
-            <set from-field="parameters.text" field="updateSimpleText.textData"/>
-            <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
-        </if-not-empty>
-    </simple-method>
-
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
          by calling persistContentAndAssoc.
 

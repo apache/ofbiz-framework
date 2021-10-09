@@ -163,10 +163,6 @@ public final class SqlJdbcUtil {
                     ModelEntity linkEntity = modelViewEntity.getMemberModelEntity(viewLink.getEntityAlias());
                     ModelEntity relLinkEntity = modelViewEntity.getMemberModelEntity(viewLink.getRelEntityAlias());
 
-                    // ModelViewEntity.ModelMemberEntity linkMemberEntity = modelViewEntity.getMemberModelMemberEntity(viewLink.getEntityAlias());
-                    // ModelViewEntity.ModelMemberEntity relLinkMemberEntity =
-                    // modelViewEntity.getMemberModelMemberEntity(viewLink.getRelEntityAlias());
-
                     if (i == 0) {
                         // this is the first referenced member alias, so keep track of it for future use...
                         restOfStatement.append(makeViewTable(linkEntity, modelFieldTypeReader, datasourceInfo));
@@ -419,10 +415,6 @@ public final class SqlJdbcUtil {
                                 + modelViewEntity.getEntityName());
                     }
 
-                    // ModelViewEntity.ModelMemberEntity linkMemberEntity = modelViewEntity.getMemberModelMemberEntity(viewLink.getEntityAlias());
-                    // ModelViewEntity.ModelMemberEntity relLinkMemberEntity =
-                    // modelViewEntity.getMemberModelMemberEntity(viewLink.getRelEntityAlias());
-
                     for (int j = 0; j < viewLink.getKeyMapsSize(); j++) {
                         ModelKeyMap keyMap = viewLink.getKeyMap(j);
                         ModelField linkField = linkEntity.getField(keyMap.getFieldName());
@@ -473,7 +465,6 @@ public final class SqlJdbcUtil {
     public static String makeOrderByClause(ModelEntity modelEntity, List<String> orderBy, boolean includeTablenamePrefix, Datasource datasourceInfo)
             throws GenericModelException {
         StringBuilder sql = new StringBuilder("");
-        // String fieldPrefix = includeTablenamePrefix ? (modelEntity.getTableName(datasourceInfo) + ".") : "";
 
         if (UtilValidate.isNotEmpty(orderBy)) {
             if (Debug.verboseOn()) {
@@ -954,6 +945,8 @@ public final class SqlJdbcUtil {
     public static void addValueSingle(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         if (field != null) {
             buffer.append('?');
+        } else if (value instanceof Number) {
+            buffer.append(value);
         } else {
             buffer.append('\'');
             if (value instanceof String) {

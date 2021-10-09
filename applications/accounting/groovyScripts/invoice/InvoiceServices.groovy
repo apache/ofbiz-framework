@@ -125,7 +125,6 @@ def invoiceSequenceRestart() {
 
     //get the current year string for prefix, etc; simple 4 digit year date string (using system defaults)
     Integer curYearString = UtilDateTime.getYear(partyAcctgPreference.lastInvoiceRestartDate, timeZone, locale)
-    result.invoiceId = "${curYearString}-${partyAcctgPreference.lastInvoiceNumber}"
-    return result
+    return success(invoiceId: "${curYearString}-${partyAcctgPreference.lastInvoiceNumber}")
 }
 

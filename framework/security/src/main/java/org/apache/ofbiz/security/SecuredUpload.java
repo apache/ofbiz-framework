@@ -34,6 +34,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,8 +61,12 @@ import org.apache.commons.imaging.formats.jpeg.JpegImageParser;
 import org.apache.commons.imaging.formats.png.PngImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -91,6 +96,8 @@ public class SecuredUpload {
     // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
+    private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
+    private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
 
     /**
      * @param fileToCheck
@@ -107,28 +114,33 @@ public class SecuredUpload {
 
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
-        String file = p.getFileName().toString();
+        String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
+
+        if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
+            Debug.logError("This file extension is not allowed for security reason", MODULE);
+            deleteBadFile(fileToCheck);
+            return false;
+        }
+
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            if (fileToCheck.length() > 259) {
+            if (fileToCheck.length() > 259) { // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
                 Debug.logError("Uploaded file name too long", MODULE);
-                return false;
             } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
-                if (file.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
-            } else if (file.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
+            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
                 wrongFile = false;
             }
         } else { // Suppose a *nix system
             if (fileToCheck.length() > 4096) {
                 Debug.logError("Uploaded file name too long", MODULE);
-                return false;
             } else if (p.toString().contains(imageServerUrl)) {
-                if (file.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
-            } else if (file.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
                 wrongFile = false;
             }
         }
@@ -139,10 +151,12 @@ public class SecuredUpload {
                     + " only 1 dot as an input for the file name and the extension."
                     + "The file name and extension should not be empty at all",
                     MODULE);
+            deleteBadFile(fileToCheck);
             return false;
         }
 
         if (isExecutable(fileToCheck)) {
+            deleteBadFile(fileToCheck);
             return false;
         }
 
@@ -210,11 +224,7 @@ public class SecuredUpload {
             }
             break;
         }
-        Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
-        File badFile = new File(fileToCheck);
-        if (!badFile.delete()) {
-            Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
-        }
+        deleteBadFile(fileToCheck);
         return false;
     }
 
@@ -600,40 +610,33 @@ public class SecuredUpload {
             return false;
         }
         String content = new String(bytesFromFile);
-        return !(content.toLowerCase().contains("freemarker") // Should be OK, should not be used in Freemarker templates, not part of the syntax.
-                                                              // Else "template.utility.Execute" is a good replacement but not as much catching, who
-                                                              // knows...
-                || content.toLowerCase().contains("import=\"java")
-                || content.toLowerCase().contains("Runtime.getRuntime().exec(")
-                || content.toLowerCase().contains("<%@ page")
-                || content.toLowerCase().contains("<script")
-                || content.toLowerCase().contains("<body>")
-                || content.toLowerCase().contains("<form")
-                || content.toLowerCase().contains("php")
-                || content.toLowerCase().contains("javascript")
-                || content.toLowerCase().contains("%eval")
-                || content.toLowerCase().contains("@eval")
-                || content.toLowerCase().contains("import os") // Python
-                || content.toLowerCase().contains("passthru")
-                || content.toLowerCase().contains("exec")
-                || content.toLowerCase().contains("shell_exec")
-                || content.toLowerCase().contains("assert")
-                || content.toLowerCase().contains("str_rot13")
-                || content.toLowerCase().contains("system")
-                || content.toLowerCase().contains("phpinfo")
-                || content.toLowerCase().contains("base64_decode")
-                || content.toLowerCase().contains("chmod")
-                || content.toLowerCase().contains("mkdir")
-                || content.toLowerCase().contains("fopen")
-                || content.toLowerCase().contains("fclose")
-                || content.toLowerCase().contains("new file")
-                || content.toLowerCase().contains("import")
-                || content.toLowerCase().contains("upload")
-                || content.toLowerCase().contains("getFileName")
-                || content.toLowerCase().contains("Download")
-                || content.toLowerCase().contains("getOutputString")
-                || content.toLowerCase().contains("readfile"));
-        // TODO.... to be continued with known webshell contents... a complete allow list is impossible anyway...
-        // eg: https://www.acunetix.com/blog/articles/detection-prevention-introduction-web-shells-part-5/
+        ArrayList<String> allowed = new ArrayList<>();
+        return isValidText(content, allowed);
+    }
+
+    public static boolean isValidText(String content, List<String> allowed) throws IOException {
+        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
+    }
+
+    private static boolean isValid(String content, String string, List<String> allowed) {
+        return !content.toLowerCase().contains(string) || allowed.contains(string);
+    }
+
+    private static void deleteBadFile(String fileToCheck) {
+        Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
+        File badFile = new File(fileToCheck);
+        if (!badFile.delete()) {
+            Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
+        }
+    }
+
+    private static List<String> deniedFileExtensions() {
+        String deniedExtensions = UtilProperties.getPropertyValue("security", "deniedFileExtensions");
+        return UtilValidate.isNotEmpty(deniedExtensions) ? StringUtil.split(deniedExtensions, ",") : new ArrayList<>();
+    }
+
+    private static List<String> deniedWebShellTokens() {
+        String deniedTokens = UtilProperties.getPropertyValue("security", "deniedWebShellTokens");
+        return UtilValidate.isNotEmpty(deniedTokens) ? StringUtil.split(deniedTokens, ",") : new ArrayList<>();
     }
 }

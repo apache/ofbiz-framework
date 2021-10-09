@@ -20,10 +20,37 @@ under the License.
 
 If there are multiple "payment" term, it's the place to enter them. It's optional and you can enter as many as you want.
 
+Various payment terms in OFBiz are:
+
+* Financial
+* Payment Net Days
+* Late Fee (percent)
+* Penalty for Collection Agency
+* Non-compete etc.
+
 = Payment setting
+*Payment method*
 
 How will the customer pay ? Select the radio button to correspond with he payment method preferred by the customer. +
 Billing information is to completed when credit card or eft payments are not used.
+
+Various payment methods in OFBiz are:
+
+* Billing Account
+* Cash
+* Cash on Delivery
+* Certified Check
+* Company Account
+* Company Check
+* Credit Card
+* Electronic Fund Transfer
+* Financial Account
+* Gift Card
+* Gift Certificate
+* Money Order
+* Offline Payment
+* Paypal
+* Personal Check etc.
 
 = Additional Party Entry
 

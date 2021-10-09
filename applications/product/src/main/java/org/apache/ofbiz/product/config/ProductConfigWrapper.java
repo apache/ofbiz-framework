@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import java.util.stream.Collectors;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -694,6 +695,22 @@ public class ProductConfigWrapper implements Serializable {
             return null;
         }
 
+        private boolean isConfigOptionsSelectionEqual(ConfigItem other) {
+            List<ConfigOption> mineOptions = getOptions().stream().filter(x -> x.isSelected()).collect(Collectors.toList());
+            List<ConfigOption> otherOptions = other.getOptions().stream().filter(x -> x.isSelected()).collect(Collectors.toList());
+
+            if (otherOptions != null && mineOptions != null
+                    && otherOptions.size() != mineOptions.size()) {
+                return false;
+            }
+            for (int i = 0; i < mineOptions.size(); i++) {
+                if (!mineOptions.get(i).equals(otherOptions.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -701,7 +718,7 @@ public class ProductConfigWrapper implements Serializable {
             ConfigItem that = (ConfigItem) o;
             return Objects.equals(getConfigItem(), that.getConfigItem())
                     && Objects.equals(getConfigItemAssoc(), that.getConfigItemAssoc())
-                    && Objects.equals(getOptions(), that.getOptions());
+                    && isConfigOptionsSelectionEqual(that);
         }
 
         @Override
@@ -1074,7 +1091,9 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigOption that = (ConfigOption) o;
-            return Objects.equals(availabilityDate, that.availabilityDate)
+            return that.getId() == getId()
+                    && that.isSelected() == isSelected()
+                    && Objects.equals(availabilityDate, that.availabilityDate)
                     && Objects.equals(componentList, that.componentList)
                     && Objects.equals(getComponentOptions(), that.getComponentOptions())
                     && Objects.equals(configOption, that.configOption);

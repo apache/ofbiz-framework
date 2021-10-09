@@ -142,9 +142,12 @@ In case of problems visit our link:#further-reading[Further reading section].
 [[security]]
 == Security
 
-If you find a security issue, please report it to: security @ ofbiz.apache.org.
+* If you find a pre-auth security issue, please report it to: security @ ofbiz.apache.org.
 Once proper mitigations to the security issues are complete the OFBiz team will
 disclose this information to the public mailing list.
+* If you find a post-auth security issue, please https://s.apache.org/dsj2p[create a bug in our issue tracker (Jira)] .
+
+
 
 You can find more information about security in OFBiz at
 https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
@@ -675,16 +678,11 @@ latest version of a plugin.
 
 `gradlew pullPluginSource -PpluginId=ecommerce`
 
-________________________________________________________________________________________
-_Note_: This plugin will have its own .svn directory placed inside the plugin
-directory.
-________________________________________________________________________________________
-
 [[pull-all-official-plugins-from-source-control]]
 === Pull all official plugins from source control
 
 Download all officially supported plugins from source control (currently
-subversion) and place them inclusive of their ".svn" directory in /plugins.
+git) and place them in /plugins.
 WARNING! This task deletes the /plugins directory and replaces it with the
 official plugins.
 
@@ -695,11 +693,6 @@ is mostly used by developers or individuals working on the trunk branch. We do
 not recommend using this task on releases of OFBiz, instead consider using the
 "pullPlugin" task to get the correct version of a plugin compatible with your
 release.
-
-____________________________________________________________________________________
-_Note_: All the plugins will share a .svn directory placed in the plugins
-directory.
-____________________________________________________________________________________
 
 [[install-a-plugin]]
 === Install a plugin

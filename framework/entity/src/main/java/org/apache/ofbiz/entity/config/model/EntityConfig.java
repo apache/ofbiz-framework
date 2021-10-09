@@ -326,11 +326,6 @@ public final class EntityConfig {
     }
 
     /** Returns the specified <code>&lt;datasource&gt;</code> child element or <code>null</code> if it does not exist. */
-    /*
-    public Datasource getDatasource(String name) {
-        return this.datasourceMap.get(name);
-    }
-    */
     public static Datasource getDatasource(String name) {
         try {
             return getInstance().datasourceMap.get(name);

@@ -613,12 +613,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             relationshipMap.put("destination", sai.getDisplayPrefixedName());
             relationshipMap.put("isToMany", "N");
             relationshipMap.put("isMandatory", "Y");
-
-            // not sure if we can use these, or need them, for this type of diagram
-            //relationshipMap.put("joinSemantic", "EOInnerJoin");
-            //relationshipMap.put("joins", joinsMapList);
-            //joinsMap.put("sourceAttribute", keyMap.getFieldName());
-            //joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
         }
         for (ServiceArtifactInfo sai: calledServiceSet) {
             Map<String, Object> relationshipMap = new HashMap<>();
@@ -628,12 +622,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             relationshipMap.put("destination", sai.getDisplayPrefixedName());
             relationshipMap.put("isToMany", "Y");
             relationshipMap.put("isMandatory", "Y");
-
-            // not sure if we can use these, or need them, for this type of diagram
-            //relationshipMap.put("joinSemantic", "EOInnerJoin");
-            //relationshipMap.put("joins", joinsMapList);
-            //joinsMap.put("sourceAttribute", keyMap.getFieldName());
-            //joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
         }
 
         for (ServiceEcaArtifactInfo seai: callingServiceEcaSet) {

@@ -1,0 +1,47 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Payment Terms and Method
+
+Payment Terms are conditions agreed between business and customers for the payment of invoices.
+
+Selecting Payment Terms and Methods are key things in fulfillment of any order process.
+
+
+== Payment process diagram
+image:order/payment-terms_level2.png[Payment Terms and Methods]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+. <<Order Term,Select Payment Term>>
+. <<Payment setting, Select Payment Method>>
+
+== Payment Method diagram
+Depending on payment method process is not exactly the same.
+
+=== Credit Card
+image:order/credit-card.png[Payment Terms and Credit Card]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+=== Billing Account
+image:order/billing-account.png[Payment Terms and Billing Account]
+// diagram have been created with ofbiz.apache wiki
+//on page https://cwiki.apache.org/confluence/display/OFBIZ/Sales+Order+Management+Process+Overview
+
+For information about Billing Account look at <<_billing_accounts, Accounting - Billing Accounts>>

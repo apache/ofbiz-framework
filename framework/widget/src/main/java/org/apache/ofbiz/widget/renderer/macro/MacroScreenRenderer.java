@@ -275,7 +275,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
-        String linkUrl = "";
         String actionUrl = "";
         StringBuilder parameters = new StringBuilder();
         String width = link.getWidth();
@@ -286,13 +285,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isEmpty(height)) {
             height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
         }
-        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
+        boolean isModal = "layered-modal".equals(linkType);
+        if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
                     request, response);
             actionUrl = actionUri.toString();
             parameters.append("[");
-            for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
+            // Callback propagation only if displaying a modal
+            for (Map.Entry<String, String> parameter: link.getParameterMap(context, isModal).entrySet()) {
                 if (parameters.length() > 1) {
                     parameters.append(",");
                 }
@@ -309,9 +310,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String style = link.getStyle(context);
         String name = link.getName(context);
         String text = link.getText(context);
-        if (UtilValidate.isNotEmpty(target)) {
-            linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
-        }
+        String linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context);
         String imgStr = "";
         ModelScreenWidget.ScreenImage img = link.getImage();
         if (img != null) {

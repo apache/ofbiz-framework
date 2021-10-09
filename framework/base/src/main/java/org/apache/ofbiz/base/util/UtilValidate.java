@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.ofbiz.base.lang.IsEmpty;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -619,8 +620,9 @@ public final class UtilValidate {
         return true;
     }
 
-    /** isUrl returns true if the string contains ://
-     * @param s String to validate
+    /**
+     * isUrl returns true if the string contains ://
+     * @param s String to validate Note: this does not handle "component://" specific to OFBiz
      * @return true if s contains ://
      */
     public static boolean isUrl(String s) {
@@ -629,6 +631,31 @@ public final class UtilValidate {
         }
         return s.indexOf("://") != -1;
     }
+
+    /**
+     * urlInString returns true if the string contains :// and not "component://"
+     * @param s String to validate
+     * @return true if s contains :// and not "component://"
+     */
+    public static boolean urlInString(String s) {
+        if (isEmpty(s) || s.contains("component://")) {
+            return false;
+        }
+        return s.indexOf("://") != -1;
+    }
+
+    /**
+     * isValidUrl returns true if the string is a valid URL (using Commons UrlValidator)
+     * @param s String to validate
+     * @return true if s contains if the string is a valid URL (using Commons UrlValidator)
+     */
+    public static boolean isValidUrl(String s) {
+        if (isEmpty(s)) {
+            return DEFAULT_EMPTY_OK;
+        }
+        return UrlValidator.getInstance().isValid(s);
+    }
+
 
     /** isYear returns true if string s is a valid
      *  Year number.  Must be 2 or 4 digits only.

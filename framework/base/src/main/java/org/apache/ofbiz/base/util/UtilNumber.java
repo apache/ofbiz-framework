@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import com.ibm.icu.text.RuleBasedNumberFormat;
+import java.util.Map;
 
 public final class UtilNumber {
 
@@ -388,5 +389,28 @@ public final class UtilNumber {
      */
     public static BigDecimal safeAdd(BigDecimal left, BigDecimal right) {
         return right != null ? left.add(right) : left;
+    }
+
+    /**
+     * Resolve a BigDecimal for a given field present on context map and return default value if not present
+     * @param context
+     * @param field
+     * @param defaultValue
+     * @return
+     */
+    public static BigDecimal getBigDecimal(Map<String, ?> context, String field, BigDecimal defaultValue) {
+        if (context != null && field != null && context.get(field) != null) {
+            Object fieldValue = context.get(field);
+            if (fieldValue instanceof BigDecimal) {
+                return (BigDecimal) context.get(field);
+            }
+            if (fieldValue instanceof Double) {
+                return BigDecimal.valueOf((Double) context.get(field));
+            }
+            if (fieldValue instanceof Long) {
+                return BigDecimal.valueOf((Long) context.get(field));
+            }
+        }
+        return defaultValue;
     }
 }

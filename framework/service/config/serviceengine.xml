@@ -19,7 +19,7 @@ under the License.
 -->
 
 <service-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-config.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/service-config.xsd">
 
     <service-engine name="default">
         <!-- Name of the service to use for authorization -->
@@ -45,6 +45,7 @@ under the License.
         <engine name="group" class="org.apache.ofbiz.service.group.ServiceGroupEngine"/>
         <engine name="interface" class="org.apache.ofbiz.service.engine.InterfaceEngine"/>
         <engine name="java" class="org.apache.ofbiz.service.engine.StandardJavaEngine"/>
+        <engine name="clojure" class="org.apache.ofbiz.service.engine.StandardClojureEngine"/>
         <engine name="simple" class="org.apache.ofbiz.minilang.SimpleServiceEngine"/>
         <engine name="script" class="org.apache.ofbiz.service.engine.ScriptEngine"/>
         <!-- Engines that can be replaced by the generic script engine -->

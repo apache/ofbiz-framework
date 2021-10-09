@@ -21,7 +21,7 @@ under the License.
 <!-- www.advantagedatabase.com -->
 
 <fieldtypemodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/fieldtypemodel.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/fieldtypemodel.xsd">
 
     <!-- ===================== field-type-def ==================== -->
     <!-- General Types -->

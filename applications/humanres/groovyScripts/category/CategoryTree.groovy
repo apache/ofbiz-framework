@@ -17,43 +17,40 @@
  * under the License.
  */
 
-/*
- * This script is also referenced by the ecommerce's screens and
- * should not contain order component's specific code.
- */
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.party.party.PartyHelper
 
-// Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
-// The separateRootType function will return the list of category of given catalog.
 // PLEASE NOTE : The structure of the list of separateRootType function is according to the JSON_DATA plugin of the jsTree.
 
-completedTree =  []
-completedTreeContext = []
-subtopLists = []
+List completedTree =  []
+List completedTreeContext = []
+List subTopList = []
 
 //internalOrg list
-partyRelationships = from("PartyRelationship").where("partyIdFrom", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").filterByDate().queryList()
+List partyRelationships = from("PartyRelationship")
+        .where(partyIdFrom: partyId,
+                partyRelationshipTypeId: "GROUP_ROLLUP")
+        .filterByDate()
+        .cache()
+        .queryList()
 if (partyRelationships) {
     //root
-    partyRoot = from("PartyGroup").where("partyId", partyId).queryOne()
-    partyRootMap = [:]
-    partyRootMap.put("partyId", partyId)
-    partyRootMap.put("groupName", partyRoot.getString("groupName"))
+    GenericValue partyRoot = from("PartyGroup").where(partyId: partyId).cache().queryOne()
+    Map partyRootMap = [partyId  : partyId,
+                        groupName: partyRoot.groupName]
 
     //child
-    for(partyRelationship in partyRelationships) {
-        partyGroupMap = [:]
-        partyGroupMap.put("partyId", partyRelationship.getString("partyIdTo"))
-        partyGroupMap.put("groupName", PartyHelper.getPartyName(delegator, partyRelationship.getString("partyIdTo"), false))
-        completedTreeContext.add(partyGroupMap)
+    partyRelationships.each {
+        completedTreeContext << [partyId  : it.partyIdTo,
+                                 groupName: PartyHelper.getPartyName(delegator, it.partyIdTo, false)]
 
-        subtopLists.addAll(partyRelationship.getString("partyIdTo"))
+        subTopList << it.partyIdTo
     }
 
-    partyRootMap.put("child", completedTreeContext)
-    completedTree.add(partyRootMap)
+    partyRootMap.child = completedTreeContext
+    completedTree << partyRootMap
 }
 
 // The complete tree list for the category tree
 context.completedTree = completedTree
-context.subtopLists = subtopLists
+context.subtopLists = subTopList

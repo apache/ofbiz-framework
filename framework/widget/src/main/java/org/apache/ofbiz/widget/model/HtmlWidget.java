@@ -18,17 +18,21 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.Version;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHtml;
@@ -47,16 +51,15 @@ import org.jsoup.parser.ParseError;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.ext.beans.StringModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -128,11 +131,17 @@ public class HtmlWidget extends ModelScreenWidget {
         } else {
             List<ModelScreenWidget> subWidgets = new ArrayList<>(childElementList.size());
             for (Element childElement : childElementList) {
-                if ("html-template".equals(childElement.getNodeName())) {
+                String childNodeName = childElement.getNodeName().contains(":")
+                        ? StringUtil.split(childElement.getNodeName(), ":").get(1)
+                        : childElement.getNodeName();
+                switch (childNodeName) {
+                case "html-template":
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
-                } else if ("html-template-decorator".equals(childElement.getNodeName())) {
+                    break;
+                case "html-template-decorator":
                     subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
-                } else {
+                    break;
+                default:
                     throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
                             + childElement.getNodeName());
                 }

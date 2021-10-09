@@ -19,8 +19,8 @@
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
 /**
- * Component that can be rendered to an FTL (FreeMarker Template Language) string.
+ * Represents an FTL element such as an FTL string or macro call.
  */
 public interface RenderableFtl {
-    String toFtlString();
+    void accept(RenderableFtlVisitor visitor);
 }

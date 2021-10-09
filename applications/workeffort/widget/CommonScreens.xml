@@ -89,8 +89,11 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
-                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                    <link text="${uiLabelMap.WorkEffortCreate}" target="WorkEffort/Edit"
+                                          style="buttontext" link-type="layered-modal">
+                                        <set-callback area-target="WorkEffortSummary" area-id="window">
+                                            <parameter param-name="workEffortId" from-event-result="workEffortId"/>
+                                        </set-callback>
                                     </link>
                                 </container>
                                 <section>
@@ -181,6 +184,24 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonEmbeddedDecorator">
+        <section>
+            <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="TemporalExpressionUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="EmbeddedDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>

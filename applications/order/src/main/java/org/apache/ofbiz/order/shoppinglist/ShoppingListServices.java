@@ -20,7 +20,6 @@ package org.apache.ofbiz.order.shoppinglist;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -35,6 +34,8 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityListIterator;
@@ -58,7 +59,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 
-import com.ibm.icu.util.Calendar;
+import javax.transaction.Transaction;
+import org.apache.ofbiz.base.util.collections.PagedList;
 
 /**
  * Shopping List Services
@@ -587,62 +589,204 @@ public class ShoppingListServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List<GenericValue> shoppingList = null;
-        Map<String, Object> result = new HashMap<>();
+
+        //set an upper limit for the number of pages to delete each run
+        final int maxDeletePages = 50;
+
+        int slProcessed = 0;
+        int deleted = 0;
+        int totPages = 0;
+        int page = 1;
+        int currentPage = page;
+
+        //page size
+        int limit;
+        String limitStr = EntityUtilProperties.getPropertyValue("order", "autosave.delete.viewsize", "500", delegator);
         try {
-            shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("partyId", null, "shoppingListTypeId", "SLT_SPEC_PURP").queryList();
-        } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), MODULE);
+            limit = Integer.parseInt(limitStr);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to get limit init it to 500", MODULE);
+            limit = 500;
         }
-        String maxDaysStr = EntityUtilProperties.getPropertyValue("order", "autosave.max.age", "30", delegator);
+        int viewSize = limit;
+
         int maxDays = 0;
+        String maxDaysStr = EntityUtilProperties.getPropertyValue("order", "autosave.max.age", "30", delegator);
         try {
             maxDays = Integer.parseInt(maxDaysStr);
         } catch (NumberFormatException e) {
             Debug.logError(e, "Unable to get maxDays", MODULE);
         }
-        for (GenericValue sl : shoppingList) {
-            if (maxDays > 0) {
-                Timestamp lastModified = sl.getTimestamp("lastAdminModified");
-                if (lastModified == null) {
-                    lastModified = sl.getTimestamp("lastUpdatedStamp");
+        if (maxDays <= 0) {
+            return ServiceUtil.returnFailure("MaxDays define to " + maxDays + " nothing todo");
+        }
+
+        EntityListIterator iterator = null;
+        Transaction parent = null;
+        Timestamp deleteAllBefore = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -maxDays);
+        EntityCondition condDate = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(
+                                EntityCondition.makeCondition("lastAdminModified", null),
+                                EntityOperator.AND,
+                                EntityCondition.makeCondition("lastUpdatedStamp", EntityOperator.LESS_THAN_EQUAL_TO, deleteAllBefore)),
+                        EntityCondition.makeCondition("lastAdminModified", EntityOperator.LESS_THAN_EQUAL_TO, deleteAllBefore))),
+                EntityOperator.OR);
+        EntityCondition condParty = EntityCondition.makeConditionMap("partyId", null,
+                        "shoppingListTypeId", "SLT_SPEC_PURP");
+        EntityCondition cond = EntityCondition.makeCondition(condParty, condDate);
+
+        try {
+            iterator = EntityQuery.use(delegator)
+                    .from("ShoppingList")
+                    .where(cond)
+                    .cursorScrollInsensitive()
+                    .queryIterator();
+
+            PagedList<GenericValue> shoppingListsPaged = null;
+            List<GenericValue> shoppingLists = null;
+
+            //initial values: upper limits for pages
+            if (iterator != null) {
+
+                shoppingListsPaged = EntityUtil.getPagedList(iterator, page, viewSize);
+                int pagedListSize = shoppingListsPaged.getSize();
+
+                totPages = pagedListSize / viewSize;
+                if ((pagedListSize % viewSize) > 0) {
+                    totPages++;
                 }
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(lastModified.getTime());
-                cal.add(Calendar.DAY_OF_YEAR, maxDays);
-                Date expireDate = cal.getTime();
-                Date nowDate = new Date();
-                if (expireDate.equals(nowDate) || nowDate.after(expireDate)) {
-                    List<GenericValue> shoppingListItems = null;
+
+                //close the iterator
+                iterator.close();
+                iterator = null;
+            }
+
+            if (shoppingListsPaged != null) {
+
+                //suspend the current transaction; use an  internal one to commit the deletion of each page
+                if (TransactionUtil.getStatus() != TransactionUtil.STATUS_NO_TRANSACTION) {
+                    parent = TransactionUtil.suspend();
+                }
+
+                shoppingLists = shoppingListsPaged.getData();
+
+                while (page <= maxDeletePages && page <= totPages) {
+                    boolean beganTx = false;
                     try {
-                        shoppingListItems = sl.getRelated("ShoppingListItem", null, null, false);
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e.getMessage(), MODULE);
-                    }
-                    for (GenericValue sli : shoppingListItems) {
-                        try {
-                            result = dispatcher.runSync("removeShoppingListItem", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
-                                    "shoppingListItemSeqId", sli.getString("shoppingListItemSeqId"),
-                                    "userLogin", userLogin));
-                            if (ServiceUtil.isError(result)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+
+                        // begin transaction for this page: set a timeout of 300 (default is 60)
+                        beganTx = TransactionUtil.begin(300);
+                        if (page > currentPage) {
+
+                            //Retrieve another page
+                            iterator = EntityQuery.use(delegator)
+                                    .from("ShoppingList")
+                                    .where(cond)
+                                    .cursorScrollInsensitive()
+                                    .queryIterator();
+
+                            shoppingListsPaged = EntityUtil.getPagedList(iterator, page, viewSize);
+                            shoppingLists = shoppingListsPaged.getData();
+
+                            iterator.close();
+                            iterator = null;
+                        }
+
+                        //processing shopping lists
+                        for (GenericValue sl : shoppingLists) {
+
+                            List<GenericValue> shoppingListItems = null;
+                            try {
+                                shoppingListItems = sl.getRelated("ShoppingListItem", null, null, false);
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e.getMessage(), MODULE);
+                                TransactionUtil.rollback();
+                                break;
                             }
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e.getMessage(), MODULE);
+
+                            for (GenericValue sli : shoppingListItems) {
+                                try {
+                                    dispatcher.runSync("removeShoppingListItem",
+                                            UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
+                                                    "shoppingListItemSeqId", sli.getString("shoppingListItemSeqId"),
+                                                    "userLogin", userLogin));
+                                } catch (GenericServiceException e) {
+                                    Debug.logError(e.getMessage(), MODULE);
+                                    TransactionUtil.rollback();
+                                    break;
+                                }
+                            }
+                            try {
+                                dispatcher.runSync("removeShoppingList",
+                                        UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
+                                                "userLogin", userLogin));
+                                deleted++;
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e.getMessage(), MODULE);
+                                TransactionUtil.rollback();
+                                break;
+                            }
+                            slProcessed++;
+                        }
+                    } catch (GenericTransactionException gte) {
+                        Debug.logError(gte.getMessage(), MODULE);
+                        TransactionUtil.rollback();
+                        break;
+                    } finally {
+                        //commit this page
+                        if (beganTx) {
+                            try {
+                                TransactionUtil.commit(beganTx);
+                            } catch (GenericTransactionException gte) {
+                                Debug.logError(gte, "Unable to commit page " + page, MODULE);
+                                TransactionUtil.rollback();
+                                break;
+                            }
                         }
                     }
-                    try {
-                        result = dispatcher.runSync("removeShoppingList", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
-                                "userLogin", userLogin));
-                        if (ServiceUtil.isError(result)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                        }
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e.getMessage(), MODULE);
-                    }
+                    currentPage = page;
+                    page++;
+
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), MODULE);
+            if (iterator != null) {
+                try {
+                    iterator.close();
+                } catch (GenericEntityException ex) {
+                    Debug.logError(ex, "Error occured in closing iterator.", MODULE);
+                }
+            }
+
+            try {
+                TransactionUtil.rollback();
+            } catch (GenericTransactionException ex) {
+                Debug.logError(ex, "Error in rolling back transaction", MODULE);
+            }
+
+            return ServiceUtil.returnError(e.getMessage());
+        } finally {
+
+            if (iterator != null) {
+                try {
+                    iterator.close();
+                } catch (GenericEntityException ex) {
+                    Debug.logError(ex, "Error occured in closing iterator.", MODULE);
+                }
+            }
+
+            if (parent != null) {
+                try {
+                    TransactionUtil.resume(parent);
+                } catch (GenericTransactionException e) {
+                    Debug.logWarning(e, MODULE);
                 }
             }
         }
-        return ServiceUtil.returnSuccess();
+        return ServiceUtil.returnSuccess(
+                "Total shopping list processed [" + slProcessed + "] - "
+                        + "shopping list deleted [" + deleted + "].");
     }
 }

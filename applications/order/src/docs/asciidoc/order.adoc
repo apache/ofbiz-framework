@@ -53,6 +53,9 @@ Same is with billing and shipping information on the order, it tells the busines
 to be used for invoicing and which one for shipping. Having an effective order capturing process helps
 to engage your customers.
 
+The Accounting manager keeps track of financial charges, credit card processes, and receipts of payment.
+The link from the Order Manager to the Accounting Manager is the Invoice Number
+
 A customer always provide shipping method details to let the business know about his shipping preference
 to ship the order and in other ends, CSR always captures shipping method along with special instructions
 for delivery.
@@ -60,6 +63,11 @@ for delivery.
 include::_include/order-create-order-diagrams.adoc[leveloffset=+2]
 
 include::_include/order-status-diagrams.adoc[leveloffset=+2]
+
+include::_include/order-update-order-diagrams.adoc[leveloffset=+2]
+
+include::_include/order-payment-diagrams.adoc[leveloffset=+2]
+
 
 == Orders management in UI
 Sales and Purchase management are done on the same screen, so depending on what you want, don't forget to select
@@ -163,13 +171,13 @@ and have a look at <<Create Order Diagrams>>
 include::_include/order-ecommerce-entry-path.adoc[leveloffset=+3]
 
 
-include::_include/order_report.adoc[leveloffset=+1]
+include::_include/order-report.adoc[leveloffset=+1]
 
 == Requests
 
 == Quotes
 
-== Returns
+include::_include/order-return.adoc[leveloffset=+1]
 
 == Requirements
 

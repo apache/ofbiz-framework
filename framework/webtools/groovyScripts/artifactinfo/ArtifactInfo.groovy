@@ -17,12 +17,16 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.Delegator
-import org.apache.ofbiz.webtools.artifactinfo.*
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilURL
+import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory
 
 name = parameters.name
 location = parameters.location
+if (UtilURL.fromUrlString(location)) {
+    Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12306", "ArtifactInfo.groovy")
+    return
+}
 type = parameters.type
 uniqueId = parameters.uniqueId
 delegatorName = delegator.getDelegatorName()

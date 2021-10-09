@@ -270,7 +270,7 @@ under the License.
     </menu>
     <menu name="Upcoming" extends="Calendar">
     </menu>
-    <menu name="Calendar">
+    <menu name="Calendar" menu-container-style="basic-nav">
         <menu-item name="upcoming">
             <condition>
                 <and>

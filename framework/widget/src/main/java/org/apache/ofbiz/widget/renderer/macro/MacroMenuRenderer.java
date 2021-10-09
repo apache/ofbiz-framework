@@ -35,7 +35,9 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
@@ -210,9 +212,13 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 "style", link.getStyle(context),
                 "name", link.getName(context),
                 "text", link.getText(context),
-                "height", link.getHeight(),
-                "width", link.getWidth(),
                 "targetWindow", link.getTargetWindow(context));
+
+        String linkHeight = link.getHeight();
+        if (UtilValidate.isNotEmpty(linkHeight)) parameters.put("height", linkHeight);
+
+        String linkWidth = link.getWidth();
+        if (UtilValidate.isNotEmpty(linkWidth)) parameters.put("width", linkWidth);
 
         StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
         uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
@@ -234,18 +240,27 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         }
         parameters.put("linkType", linkType);
-        String linkUrl = "";
         String actionUrl = "";
-
         StringBuilder targetParameters = new StringBuilder();
-        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
+
+        String confirmationMessage = link.getLink().getConfirmationMsg(context);
+        if (link.getLink().getRequestConfirmation() && UtilValidate.isEmpty(confirmationMessage)) {
+            String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
+                    "${uiLabelMap.CommonConfirm}");
+            confirmationMessage = FlexibleStringExpander.expandString(defaultMessage, context);
+        }
+        parameters.put("confirmation", confirmationMessage);
+
+        boolean isModal = "layered-modal".equals(linkType);
+        if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
                     request, response);
             actionUrl = actionUri.toString();
 
             targetParameters.append("[");
-            for (Map.Entry<String, String> parameter : link.getParameterMap(context).entrySet()) {
+            // Callback propagation only if displaying a modal
+            for (Map.Entry<String, String> parameter : link.getParameterMap(context, isModal).entrySet()) {
                 if (targetParameters.length() > 1) {
                     targetParameters.append(",");
                 }
@@ -262,10 +277,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         if (targetParameters.length() == 0) {
             targetParameters.append("\"\"");
         }
-        if (UtilValidate.isNotEmpty(target)) {
-            linkUrl = MacroCommonRenderer.getLinkUrl(link.getLink(), context);
-        }
-        parameters.put("linkUrl", linkUrl);
+        parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context));
         parameters.put("actionUrl", actionUrl);
         parameters.put("parameterList", targetParameters);
         String imgStr = "";

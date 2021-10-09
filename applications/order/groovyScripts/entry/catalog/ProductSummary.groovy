@@ -191,13 +191,13 @@ if (product) {
                 } else {
                     virtualPriceMap = runService('calculatePurchasePrice', priceContext)
                 }
-                if (virtualPriceMap.basePrice) {
-                    basePrice = numberFormat.format(virtualPriceMap.basePrice)
+                if (virtualPriceMap.price) {
+                    price = numberFormat.format(virtualPriceMap.price)
                 } else {
-                    basePrice = UtilProperties.getResourceBundleMap("CommonUiLabels", locale).get("CommonNA")
+                    price = UtilProperties.getResourceBundleMap("CommonUiLabels", locale).get("CommonNA")
                 }
-                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + basePrice + "\"; ")
-                variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + basePrice + "';\n")
+                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + price + "\"; ")
+                variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + price + "';\n")
             }
             variantPriceJS.append(" } ")
             
@@ -208,7 +208,7 @@ if (product) {
             context.virtualJavaScript = jsBuf
         }
     }
-    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + numberFormat.format(priceMap.basePrice) + "';\n")
+    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + numberFormat.format(priceMap.price) + "';\n")
     variantInfoJS.append("    });\n</script>\n")
     context.variantInfoJavaScript = variantInfoJS
 

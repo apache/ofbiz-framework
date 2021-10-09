@@ -1012,17 +1012,22 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // This is here for backwards compatibility. Use on-event-update-area
         // elements instead.
         String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
+        ModelForm.UpdateArea jwtCallback = ModelForm.UpdateArea.fromJwtToken(context);
         if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
             if (updateAreas == null) {
                 updateAreas = new LinkedList<>();
             }
             updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
         }
-        boolean ajaxEnabled = (UtilValidate.isNotEmpty(updateAreas) || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget))
-                && this.javaScriptEnabled;
+
+        // In context a callback is present and no other update area to call after the submit, so trigger it.
+        if (UtilValidate.isEmpty(updateAreas) && jwtCallback != null) {
+            updateAreas = UtilMisc.toList(jwtCallback);
+        }
+        boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
@@ -2117,7 +2122,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendContentUrl(imgSrc, "/images/fieldlookup.gif");
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, "", context);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String lookupPresentation = lookupField.getLookupPresentation();
         if (UtilValidate.isEmpty(lookupPresentation)) {
@@ -2341,7 +2346,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String ajaxLastUrl = "";
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context);
+                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, prepLinkText + 0 + anchor, context);
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 firstUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2349,7 +2354,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (viewIndex > 0) {
             if (ajaxEnabled) {
-                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context);
+                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + (viewIndex - 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 previousUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2358,7 +2364,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
+                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + "' + this.value + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
@@ -2370,7 +2377,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Next button
         if (highIndex < listSize) {
             if (ajaxEnabled) {
-                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context);
+                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + (viewIndex + 1) + anchor, context);
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 nextUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2380,7 +2388,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (highIndex < listSize) {
             int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
             if (ajaxEnabled) {
-                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + lastIndex + anchor, context);
+                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + lastIndex + anchor, context);
             } else {
                 linkText = prepLinkText + lastIndex + anchor;
                 lastUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
@@ -2389,7 +2398,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page size select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, prepLinkSizeText + anchor, context);
+                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkSizeText + anchor, context);
             } else {
                 linkText = prepLinkSizeText;
                 if (linkText.startsWith("/")) {
@@ -2635,71 +2645,15 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle();
-        String id = fieldGroup.getId();
-        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
-        String title = titleNotExpanded.expandString(context);
-        Boolean collapsed = fieldGroup.initiallyCollapsed();
-        String collapsibleAreaId = fieldGroup.getId() + "_body";
-        Boolean collapsible = fieldGroup.collapsible();
-        String expandToolTip = "";
-        String collapseToolTip = "";
-        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
-            if (fieldGroup.collapsible()) {
-                Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
-                if (uiLabelMap != null) {
-                    expandToolTip = (String) uiLabelMap.get("CommonExpand");
-                    collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
-                }
-            }
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFieldGroupOpen ");
-        sr.append(" style=\"");
-        if (style != null) {
-            sr.append(style);
-        }
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" title=\"");
-        sr.append(title);
-        sr.append("\" collapsed=");
-        sr.append(Boolean.toString(collapsed));
-        sr.append(" collapsibleAreaId=\"");
-        sr.append(collapsibleAreaId);
-        sr.append("\" collapsible=");
-        sr.append(Boolean.toString(collapsible));
-        sr.append(" expandToolTip=\"");
-        sr.append(expandToolTip);
-        sr.append("\" collapseToolTip=\"");
-        sr.append(collapseToolTip);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupOpen(context, fieldGroup);
+        ftlWriter.processFtl(writer, renderableFtl);
     }
 
     @Override
-    public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle();
-        String id = fieldGroup.getId();
-        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());
-        String title = titleNotExpanded.expandString(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFieldGroupClose ");
-        sr.append(" style=\"");
-        if (style != null) {
-            sr.append(style);
-        }
-        sr.append("\" id=\"");
-        if (id != null) {
-            sr.append(id);
-        }
-        sr.append("\" title=\"");
-        if (title != null) {
-            sr.append(title);
-        }
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+    public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
+        ftlWriter.processFtl(writer, renderableFtl);
     }
 
     @Override
@@ -2833,7 +2787,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         UtilHttp.canonicalizeParameterMap(paramMap);
         String linkUrl = null;
         if (ajaxEnabled) {
-            linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, null, context);
+            linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, modelForm, null, context);
         } else {
             StringBuilder sb = new StringBuilder("?");
             Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();

@@ -188,7 +188,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr>
                 <td width="20%" align="right" valign="top">
-                    <input type="file" size="50" name="fname"/>
+                    <input type="file" size="50" name="fname" accept=".png,.gif,.jpg,.jpeg,.tiff,.tif"/>
                 </td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">

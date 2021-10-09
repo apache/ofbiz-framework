@@ -21,6 +21,7 @@ package org.apache.ofbiz.webtools.artifactinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,28 +39,22 @@ public class RunTestEvents {
 
     public static String runTest(HttpServletRequest request, HttpServletResponse response) throws ContainerException {
 
-        String component = request.getParameter("compName");
-        String suiteName = request.getParameter("suiteName");
-        String caseName = request.getParameter("caseName");
-        String result = null;
+        String component = (String) request.getAttribute("compName");
+        String suiteName = (String) request.getAttribute("suiteName");
+        String caseName = (String) request.getAttribute("caseName");
 
         List<StartupCommand> ofbizCommands = new ArrayList<>();
+        Map cmdArgs = UtilMisc.toMap("component", component, "suitename", suiteName);
         if (caseName == null) {
-            ofbizCommands.add(new StartupCommand.Builder("test").properties(
-                    UtilMisc.toMap("component", component, "suitename", suiteName)).build());
-        } else {
-            ofbizCommands.add(new StartupCommand.Builder("test").properties(
-                    UtilMisc.toMap("component", component, "suitename", suiteName, "case", caseName)).build());
+            cmdArgs.put("case", caseName);
         }
+        ofbizCommands.add(new StartupCommand.Builder("test").properties(cmdArgs).build());
 
         TestRunContainer testRunContainer = new TestRunContainer();
         testRunContainer.init(ofbizCommands, "frontend test run", "   ");
         if (!testRunContainer.start()) {
-            result = "error";
-        } else {
-            result = "success";
+            return "error";
         }
-
-        return result;
+        return "success";
     }
 }

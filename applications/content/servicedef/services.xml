@@ -19,7 +19,7 @@
   -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
 
@@ -143,7 +143,7 @@
         <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
 
-    <service name="createDownloadContent" engine="simple" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createDownloadContent">
+    <service name="createDownloadContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createDownloadContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="false">
@@ -153,13 +153,13 @@
         </attribute>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateDownloadContent" engine="simple" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateDownloadContent">
+    <service name="updateDownloadContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateDownloadContent">
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createSimpleTextContent">
+    <service name="createSimpleTextContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createSimpleTextContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe">
@@ -169,26 +169,17 @@
         </attribute>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateSimpleTextContent">
+    <service name="updateSimpleTextContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateSimpleTextContent">
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
 
     <!-- Util -->
-    <service name="findAssocContent" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="findAssocContent" auth="true">
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="mapKeys" type="List" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingMapKeys"/>
-            </type-validate>
-        </attribute>
-        <attribute name="contentAssocs" type="List" mode="OUT" optional="true"/>
+    <service name="findAssocContent" engine="groovy" location="component://content/groovyScripts/content/ContentServices.groovy" invoke="findAssocContent" auth="true">
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+        <attribute name="mapKeys" mode="IN" type="List" optional="false"/>
+        <attribute name="contentAssocs" mode="OUT" type="List" optional="true"/>
     </service>
 
     <!-- Complex Contentservices -->
@@ -918,16 +909,16 @@
     </service>
 
     <!-- content permission services -->
-    <service name="contentManagerRolePermission" engine="simple" auth="true"
-            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerRolePermission">
+    <service name="contentManagerRolePermission" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="contentManagerRolePermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="contentManagerPermission" engine="simple" auth="true"
-            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerPermission">
+    <service name="contentManagerPermission" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="contentManagerPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="genericContentPermission" engine="simple" auth="true"
-            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="genericContentPermission">
+    <service name="genericContentPermission" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="genericContentPermission">
         <description>Generic Content Permission Service; Takes mainAction to determine the mode.</description>
         <implements service="permissionInterface"/>
         <attribute name="ownerContentId" type="String" mode="IN" optional="true"/>
@@ -938,6 +929,15 @@
         <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contentOperationId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="checkOwnership" engine="groovy" auth="true"
+            location="component://content/groovyScripts/permission/ContentPermissionServices.groovy" invoke="checkOwnership">
+        <description>Generic DataResource Permission Service; Takes mainAction to determine the mode.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="roleEntity" type="String" mode="IN" optional="true"/>
+        <attribute name="roleEntityField" type="String" mode="IN" optional="true"/>
+        <attribute name="checkId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="genericDataResourcePermission" engine="simple" auth="true"
             location="component://content/minilang/permission/DataResourcePermissionServices.xml" invoke="genericDataResourcePermission">
         <description>Generic DataResource Permission Service; Takes mainAction to determine the mode.</description>

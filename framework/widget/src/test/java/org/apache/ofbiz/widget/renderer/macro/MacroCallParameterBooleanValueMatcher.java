@@ -18,23 +18,19 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterBooleanValue;
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterValue;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-public final class MacroCallParameterBooleanValueMatcher extends TypeSafeMatcher<MacroCallParameterValue> {
+public final class MacroCallParameterBooleanValueMatcher extends TypeSafeMatcher<Object> {
     private final boolean value;
 
     public MacroCallParameterBooleanValueMatcher(final boolean value) {
-        super(MacroCallParameterBooleanValue.class);
         this.value = value;
     }
 
     @Override
-    protected boolean matchesSafely(final MacroCallParameterValue item) {
-        final MacroCallParameterBooleanValue booleanValue = (MacroCallParameterBooleanValue) item;
-        return value == booleanValue.isValue();
+    protected boolean matchesSafely(final Object item) {
+        return item.equals(value);
     }
 
     @Override
@@ -43,8 +39,7 @@ public final class MacroCallParameterBooleanValueMatcher extends TypeSafeMatcher
     }
 
     @Override
-    protected void describeMismatchSafely(final MacroCallParameterValue item, final Description mismatchDescription) {
-        final MacroCallParameterBooleanValue booleanValue = (MacroCallParameterBooleanValue) item;
-        mismatchDescription.appendText("with boolean value '" + booleanValue.isValue() + "'");
+    protected void describeMismatchSafely(final Object item, final Description mismatchDescription) {
+        mismatchDescription.appendText("with boolean value '" + item + "'");
     }
 }

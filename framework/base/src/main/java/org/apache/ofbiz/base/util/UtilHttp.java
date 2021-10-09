@@ -42,6 +42,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,6 +61,8 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -401,7 +404,30 @@ public final class UtilHttp {
     public static Map<String, Object> canonicalizeParameterMap(Map<String, Object> paramMap) {
         for (Map.Entry<String, Object> paramEntry : paramMap.entrySet()) {
             if (paramEntry.getValue() instanceof String) {
-                paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
+                String paramEntries = (String) paramEntry.getValue();
+                String[] stringValues = paramEntries.split(" ");
+                String params = "";
+                // Handles textareas, see OFBIZ-12249
+                if (stringValues.length > 0 && !paramEntry.getKey().equals("DUMMYPAGE")) {
+                    for (String s : stringValues) {
+                        // if the string contains only an URL beginning by http or ftp => no change to keep special chars
+                        if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
+                            params = params + s + " ";
+                        } else if (UtilValidate.isUrl(s) && !s.isEmpty()) {
+                            // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
+                            String url = extractUrls(s).get(0); // There should be only 1 URL in a block, makes no sense else
+                            int start = s.indexOf(url);
+                            String after = (String) s.subSequence(start + url.length(), s.length());
+                            params = params + canonicalizeParameter((String) s.subSequence(0, start)) + url + canonicalizeParameter(after) + " ";
+                        } else {
+                            // Simple string to canonicalize
+                            params = params + canonicalizeParameter(s) + " ";
+                        }
+                    }
+                    paramEntry.setValue(params.trim());
+                } else {
+                    paramEntry.setValue(canonicalizeParameter(paramEntries));
+                }
             } else if (paramEntry.getValue() instanceof Collection<?>) {
                 List<String> newList = new LinkedList<>();
                 for (String listEntry : UtilGenerics.<Collection<String>>cast(paramEntry.getValue())) {
@@ -1692,4 +1718,52 @@ public final class UtilHttp {
     public static String getRowSubmitPrefix() {
         return ROW_SUBMIT_PREFIX;
     }
+
+    // From https://stackoverflow.com/questions/1806017/extracting-urls-from-a-text-document-using-java-regular-expressions/1806161#answer-1806161
+    // If you need more Internet top-level domains: https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains
+    public static List<String> extractUrls(String input) {
+        List<String> result = new ArrayList<String>();
+
+        Pattern pattern = Pattern.compile(
+                "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)"
+                        + "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov"
+                        + "|mil|biz|info|mobi|name|aero|jobs|museum"
+                        + "|travel|[a-z]{2}))(:[\\d]{1,5})?"
+                        + "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?"
+                        + "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
+                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
+                        + "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
+                        + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*"
+                        + "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
+
+        List<String> allowedProtocols = getAllowedProtocols();
+        for (String protocol : allowedProtocols) {
+            if (input.contains(protocol)) {
+                result.add(input);
+            }
+        }
+
+        if (result.isEmpty()) {
+            Matcher matcher = pattern.matcher(input);
+            while (matcher.find()) {
+                result.add(matcher.group());
+            }
+        }
+
+        return result;
+    }
+
+    private static List<String> getAllowedProtocols() {
+        List<String> allowedProtocolList = new LinkedList<>();
+        allowedProtocolList.add("component://");
+        String allowedProtocols = UtilProperties.getPropertyValue("security", "allowedProtocols");
+        if (UtilValidate.isNotEmpty(allowedProtocols)) {
+            List<String> allowedProtocolsList = StringUtil.split(allowedProtocols, ",");
+            for (String protocol : allowedProtocolsList) {
+                allowedProtocolList.add(protocol);
+            }
+        }
+        return allowedProtocolList;
+    }
+
 }

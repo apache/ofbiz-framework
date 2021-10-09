@@ -20,7 +20,7 @@ under the License.
 
 <test-suite suite-name="shoppingcarttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="shoppingCart-test">
         <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testCreateShoppingCart"/>

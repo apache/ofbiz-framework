@@ -49,8 +49,8 @@ public final class RenderableFtlString implements RenderableFtl {
     }
 
     @Override
-    public String toFtlString() {
-        return ftlString;
+    public void accept(final RenderableFtlVisitor visitor) {
+        visitor.visit(this);
     }
 
     public static final class RenderableFtlStringBuilder {

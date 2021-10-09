@@ -111,7 +111,7 @@ body {
     color: #000;
     min-width: 780px;
     margin: 0;
-    width: expression(document.body.clientWidth < 782? "780px" : "auto");
+    width: expression(document.body.clientWidth < 782 ? "780px" : "auto");
 }
 
 hr {

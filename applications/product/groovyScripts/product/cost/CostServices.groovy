@@ -140,7 +140,7 @@ def getProductCost() {
         if (productCost == (BigDecimal) 0) {
             costsAndMap = [productId: parameters.productId]
             priceCosts = from("SupplierProduct").where(costsAndMap).orderBy(orderByList).queryList()
-            priceCosts = EntityUtil.filterByDate(priceCosts, UtilDateTime.nowTimestamp(), "avalableFromDate", "availableThruDate", true)
+            priceCosts = EntityUtil.filterByDate(priceCosts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true)
             if (priceCosts) {
                 GenericValue priceCost = priceCosts.get(0)
                 if (priceCost.lastPrice) {

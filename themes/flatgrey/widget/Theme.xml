@@ -40,7 +40,6 @@ under the License.
         <property name="VT_STYLESHEET['add']" value="/flatgrey/style.css"/>
         <property name="VT_STYLESHEET['add']" value="/flatgrey/javascript.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/flatgrey/help.css"/>
-        <property name="VT_DOCBOOKSTYLESHEET['add']" value="/flatgrey/webapp/flatgrey/docbook.css"/>
         <property name="VT_RTL_STYLESHEET['add']" value="/flatgrey/stylertl.css"/>
     </theme-properties>
 

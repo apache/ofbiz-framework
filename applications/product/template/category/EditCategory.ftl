@@ -216,7 +216,7 @@ function insertImageName(type,nameValue) {
             <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId!}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
                 <table cellspacing="0" class="basic-table">
                     <tr><td>
-                        <input type="file" size="50" name="fname"/>
+                        <input type="file" size="50" name="fname" accept=".png,.gif,.jpg,.jpeg,.tiff,.tif"/>
                         <br />
                         <span>
                             <label><input type="radio" name="upload_file_type_bogus" value="category" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=category</@ofbizUrl>");'/>${uiLabelMap.ProductCategoryImageUrl}</label>

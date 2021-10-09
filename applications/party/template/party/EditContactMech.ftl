@@ -165,14 +165,14 @@ under the License.
       
       <td>     
         <select name="countryGeoId" id="editcontactmechform_countryGeoId">
-          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
           <#if (mechMap.postalAddress??) && (mechMap.postalAddress.countryGeoId??)>
             <#assign defaultCountryGeoId = mechMap.postalAddress.countryGeoId>
           <#else>
            <#assign defaultCountryGeoId = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
           </#if>
+          <@ofbizScreen>countries</@ofbizScreen>
           <option selected="selected" value="${defaultCountryGeoId}">
-            <#assign countryGeo = delegator.findOne("Geo",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
+            <#assign countryGeo = delegator.findOne("Geo", {"geoId": defaultCountryGeoId}, false)>
             ${countryGeo.get("geoName",locale)}
           </option>
         </select>

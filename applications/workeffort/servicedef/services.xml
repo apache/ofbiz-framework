@@ -19,7 +19,7 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
     <description>Common Application Shared WorkEffort Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
@@ -755,6 +755,7 @@ under the License.
         <permission-service service-name="workEffortManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CommunicationEventWorkEff"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEvent"/>
         <override name="communicationEventId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCommunicationEventId"/>
@@ -833,12 +834,10 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="createWorkEffortRequestItem" engine="entity-auto" invoke="create" auth="true">
+    <service name="createWorkEffortRequestItem" engine="entity-auto" default-entity-name="CustRequestItemWorkEffort" invoke="create" auth="true" >
         <description>Creates a CustRequestItemWorkEffort</description>
-        <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
-        <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItem"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CustRequestItem"/>
-        <attribute name="custRequestItemExists" type="java.lang.String" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" entity-name="CustRequestItemWorkEffort"/>
+        <auto-attributes include="pk" mode="IN" entity-name="CustRequestItem"/>
         <override name="custRequestId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
@@ -855,9 +854,9 @@ under the License.
             </type-validate>
         </override>
     </service>
-    <service name="deleteWorkEffortRequestItem" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteWorkEffortRequestItem" engine="entity-auto" default-entity-name="CustRequestItemWorkEffort" invoke="delete" auth="true">
         <description>Deletes a CustRequestItemWorkEffort</description>
-        <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
+        <auto-attributes include="pk" mode="IN" entity-name="CustRequestItemWorkEffort"/>
         <override name="custRequestId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingCustRequestId"/>
@@ -918,11 +917,6 @@ under the License.
         <override name="workEffortId" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
-            </type-validate>
-        </override>
-        <override name="requirementId" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingRequirementId"/>
             </type-validate>
         </override>
     </service>

@@ -18,26 +18,22 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro;
 
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterMapValue;
-import org.apache.ofbiz.widget.renderer.macro.parameter.MacroCallParameterValue;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import java.util.Map;
 
-public final class MacroCallParameterMapValueMatcher extends TypeSafeMatcher<MacroCallParameterValue> {
+public final class MacroCallParameterMapValueMatcher extends TypeSafeMatcher<Object> {
     private final Matcher<Map<String, String>> matcher;
 
     public MacroCallParameterMapValueMatcher(final Matcher<Map<String, String>> matcher) {
-        super(MacroCallParameterMapValue.class);
         this.matcher = matcher;
     }
 
     @Override
-    protected boolean matchesSafely(final MacroCallParameterValue item) {
-        final MacroCallParameterMapValue mapValue = (MacroCallParameterMapValue) item;
-        return matcher.matches(mapValue.getValue());
+    protected boolean matchesSafely(final Object item) {
+        return matcher.matches(item);
     }
 
     @Override
@@ -48,10 +44,9 @@ public final class MacroCallParameterMapValueMatcher extends TypeSafeMatcher<Mac
     }
 
     @Override
-    protected void describeMismatchSafely(final MacroCallParameterValue item, final Description mismatchDescription) {
-        final MacroCallParameterMapValue mapValue = (MacroCallParameterMapValue) item;
+    protected void describeMismatchSafely(final Object item, final Description mismatchDescription) {
         mismatchDescription.appendText("with map value '");
-        matcher.describeMismatch(mapValue, mismatchDescription);
+        matcher.describeMismatch(item, mismatchDescription);
         mismatchDescription.appendText("' ");
     }
 }

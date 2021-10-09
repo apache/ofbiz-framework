@@ -1388,10 +1388,10 @@ public final class RequestHandler {
         }
 
         // now add the actual passed url, but if it doesn't start with a / add one first
-        if (!url.startsWith("/")) {
+        if (url != null && !url.startsWith("/")) {
             newURL.append("/");
         }
-        newURL.append(url);
+        newURL.append(url == null ? "" : url);
 
         String encodedUrl;
         if (encode) {

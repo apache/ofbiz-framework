@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.Digraph;
 import org.apache.ofbiz.base.util.KeyStoreUtil;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -1225,10 +1226,7 @@ public final class ComponentConfig {
             }
             // trim the permissions (remove spaces)
             for (int i = 0; i < this.basePermission.length; i++) {
-                this.basePermission[i] = this.basePermission[i].trim();
-                if (this.basePermission[i].indexOf('_') != -1) {
-                    this.basePermission[i] = this.basePermission[i].substring(0, this.basePermission[i].indexOf('_'));
-                }
+                this.basePermission[i] = StringUtil.removeSpaces(this.basePermission[i]);
             }
             String menuNameStr = element.getAttribute("menu-name");
             if (UtilValidate.isNotEmpty(menuNameStr)) {

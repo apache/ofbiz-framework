@@ -197,6 +197,9 @@ function bindObservers(bind_element) {
             }
         });
         dialogContainer.dialog("open");
+        dialogContainer.on("closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess", function() {
+            dialogContainer.dialog("destroy");
+        });
     });
     jQuery(bind_element).on("click", "[data-confirm-message]", function(e){
         var element = jQuery(this);
@@ -605,19 +608,28 @@ function ajaxUpdateArea(areaId, target, targetParams) {
         window.location.assign(targetUrl);
         return;
     }
-    waitSpinnerShow();
+    waitSpinnerShow(areaId);
     setTimeout(function() {
         jQuery.ajax({
             url: target,
             type: "POST",
             data: targetParams,
             success: function(data) {
-                jQuery("#" + areaId).html(data);
-                waitSpinnerHide();
+                updateArea(areaId, data)
+                waitSpinnerHide(areaId);
             },
-            error: function(data) {waitSpinnerHide()}
+        error: function(data) { waitSpinnerHide(areaId) }
         });
     }, 0);
+}
+
+function updateArea(areaId, data) {
+    // If the area is indicate as embedded why replace the area instead inject into
+    if (/^embedded/.test(areaId)) {
+        jQuery("#" + areaId).replaceWith(data);
+    } else {
+        jQuery("#" + areaId).html(data);
+    }
 }
 
 /** Update multiple areas (HTML container elements).
@@ -707,50 +719,110 @@ function submitFormInBackground(form, areaId, submitUrl) {
     });
 }
 
+function containsErrorMessages(data) {
+    return data._ERROR_MESSAGE_LIST_ !== undefined || data._ERROR_MESSAGE_ !== undefined
+}
+function displayErrorMessages(data) {
+    if (!jQuery('#content-messages').length) {
+        //add this div just after app-navigation
+        if(jQuery('#content-main-section')){
+            jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
+        }
+    }
+    jQuery('#content-messages').addClass('errorMessage');
+    if (data._ERROR_MESSAGE_LIST_ !== undefined && data._ERROR_MESSAGE_ !== undefined) {
+        jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
+    } else if (data._ERROR_MESSAGE_LIST_ !== undefined) {
+        jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_);
+    } else {
+        jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
+    }
+    showjGrowl();
+}
+
+function containsEventMessage(data) {
+    return data._EVENT_MESSAGE_LIST_ !== undefined || data._EVENT_MESSAGE_ !== undefined
+}
+function displayEventMessage(data) {
+    if (!jQuery('#content-messages').length) {
+        //add this div just after app-navigation
+        if(jQuery('#content-main-section')){
+            jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
+        }
+    }
+    jQuery('#content-messages').addClass('eventMessage');
+    if (data._EVENT_MESSAGE_LIST_ !== undefined && data._EVENT_MESSAGE_ !== undefined) {
+        jQuery('#content-messages' ).html(data._EVENT_MESSAGE_LIST_ + " " + data._EVENT_MESSAGE_);
+    } else if (data._EVENT_MESSAGE_LIST_ != undefined) {
+        jQuery('#content-messages' ).html(data._EVENT_MESSAGE_LIST_);
+    } else {
+        jQuery('#content-messages' ).html(data._EVENT_MESSAGE_);
+    }
+    showjGrowl();
+}
+function clearErrorMessages() {
+    if (jQuery('#content-messages').length) {
+        jQuery('#content-messages').html('');
+        jQuery('#content-messages').removeClass('errorMessage').fadeIn('fast');
+    }
+    if (jQuery('#jGrowl').length) {
+        jQuery('[class$=errorMessageJGrowl]').hide();
+    }
+}
+
+function errorRetrievingResponseFromServer(xhr, status, exception) {
+    if(exception != 'abort') {
+        var errorMessage = '<p> No response from Apache OFBiz</p>';
+        if (status !== undefined) {
+            errorMessage += '<p> (state: ' + status + ')</p>';
+        }
+        displayErrorMessages({_ERROR_MESSAGE_: errorMessage});
+    }
+}
+
 /** Submit form, update multiple areas (HTML container elements).
- * @param form The form element
+ * @param formName The form name
  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
-function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
+function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
    waitSpinnerShow();
-   hideErrorContainer = function() {
-       jQuery('#content-messages').html('');
-       jQuery('#content-messages').removeClass('errorMessage').fadeIn('fast');
-   }
-   updateFunction = function(data) {
-       if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
-           if (!jQuery('#content-messages').length) {
-              //add this div just after app-navigation
-              if(jQuery('#content-main-section')){
-                  jQuery('#content-main-section' ).before('<div id="content-messages" onclick="hideErrorContainer()"></div>');
-              }
-           }
-           jQuery('#content-messages').addClass('errorMessage');
-          if (data._ERROR_MESSAGE_LIST_ != undefined && data._ERROR_MESSAGE_ != undefined) {
-              jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
-          } else if (data._ERROR_MESSAGE_LIST_ != undefined) {
-              jQuery('#content-messages' ).html(data._ERROR_MESSAGE_LIST_);
-          } else {
-              jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
-          }
-          showjGrowl();
-       } else {
-           if (jQuery('#content-messages').length) {
-               jQuery('#content-messages').html('');
-               jQuery('#content-messages').removeClass('errorMessage').fadeIn("fast");
-           }
-           ajaxUpdateAreas(areaCsvString);
-       }
-       waitSpinnerHide();
-   }
 
-   var $form = jQuery("#" + form),
-       data = null,
+   var $form = jQuery("form[name='" + formName + "']");
+   hideErrorContainer = function() {
+       clearErrorMessages()
+   }
+   updateFunction = function(data, status, response) {
+       if (response.getResponseHeader("content-type").indexOf("application/json") === -1) {
+           var areaId = areaCsvString.substring(0, areaCsvString.indexOf(','));
+           if (areaId === "") {
+               areaId = $form[0].target
+           }
+           updateArea(areaId, data)
+       } else {
+           if (containsErrorMessages(data)) {
+               displayErrorMessages(data)
+           } else {
+               clearErrorMessages()
+               if (containsEventMessage(data)) {
+                   displayEventMessage(data)
+               }
+               while (areaCsvString.indexOf("_JS_EVENT_RESULT_") !== -1) {
+                   temp = areaCsvString;
+                   areaCsvString = temp.substring(0, areaCsvString.indexOf("_JS_EVENT_RESULT_"))
+                   endString = temp.substring(temp.indexOf("_JS_EVENT_RESULT_") + 17)
+                   variableName = endString.substring(0, endString.indexOf("_"))
+                   areaCsvString += data[variableName] + endString.substring(endString.indexOf("_") + 1)
+               }
+               ajaxUpdateAreas(areaCsvString);
+               $form.trigger("closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess");
+           }
+       }
+   }
+   var data = null,
        processData = true,
        enctype = $form.attr("enctype"),
        contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-
    if (enctype && enctype.indexOf("multipart") !== -1) {
        data = new FormData($form[0]);
        contentType = false;
@@ -765,8 +837,13 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
        url: $form.attr("action"),
        data: data,
        processData: processData,
-       success: function(data) {
-               updateFunction(data);
+       success: function(data, status, response) {
+           updateFunction(data, status, response);
+           waitSpinnerHide();
+       },
+       error: function(xhr, status, exception) {
+           errorRetrievingResponseFromServer(xhr, status, exception)
+           waitSpinnerHide();
        }
    });
 }
@@ -1133,50 +1210,67 @@ function submitFormDisableSubmits(form) {
 }
 
 function showjGrowl(showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
+    var contentMessages = jQuery("#content-messages");
+    if (contentMessages.length) {
+        jQuery("#content-messages").hide();
+        var errMessage = jQuery("#content-messages").html();
+        var classEvent = "";
+        var classList = jQuery("#content-messages").attr('class').split(/\s+/);
+        var stickyValue = false;
+        jQuery(classList).each(function (index) {
+            var localClass = classList[index];
+            if (localClass === "eventMessage" || localClass === "errorMessage") {
+                classEvent = localClass + "JGrowl";
+            }
+        });
+        if (classEvent === "errorMessageJGrowl") {
+            stickyValue = true;
+        }
+
+        if (errMessage == null || errMessage === "" || errMessage === undefined) {
+            // No Error Message Information is set, Error Msg Box can't be created
+            return;
+        }
+        showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed);
+        contentMessages.remove();
+    }
+}
+
+function showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
+    if (!showAllLabel || !collapseLabel || !hideAllLabel) {
+        var jGrowlLabelObject = {
+            "CommonUiLabels": ["CommonHideAllNotifications", "CommonShowAll", "CommonCollapse"],
+        };
+        getJSONuiLabels(jGrowlLabelObject, function (result) {
+            jGrowlLabelObject = result.responseJSON.CommonUiLabels;
+        });
+
+        if (!showAllLabel) showAllLabel = jGrowlLabelObject[2];
+        if (!collapseLabel) collapseLabel = jGrowlLabelObject[1];
+        if (!hideAllLabel) hideAllLabel = jGrowlLabelObject[0];
+    }
+
     var libraryFiles = ["/common/js/jquery/plugins/Readmore.js-master/readmore.js",
         "/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js"];
     importLibrary(libraryFiles, function() {
-        var contentMessages = jQuery("#content-messages");
-        if (contentMessages.length) {
-            jQuery("#content-messages").hide();
-            var errMessage = jQuery("#content-messages").html();
-            var classEvent = "";
-            var classList = jQuery("#content-messages").attr('class').split(/\s+/);
-            var stickyValue = false;
-            jQuery(classList).each(function (index) {
-                var localClass = classList[index];
-                if (localClass == "eventMessage" || localClass == "errorMessage") {
-                    classEvent = localClass + "JGrowl";
-                }
-            });
-            if (classEvent == "errorMessageJGrowl") {
-                stickyValue = true;
-            }
+        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
+        if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
+        $.jGrowl(errMessage, {
+            theme: classEvent, sticky: stickyValue,
+            beforeOpen: function (e, m, o) {
+                if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
+                if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
+            },
+            afterOpen: function (e, m) {
+                jQuery(".jGrowl-message").readmore({
+                    moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
+                    lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
 
-            if (errMessage == null || errMessage == "" || errMessage == undefined) {
-                // No Error Message Information is set, Error Msg Box can't be created
-                return;
-            }
-            $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
-            if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
-            $.jGrowl(errMessage, {
-                theme: classEvent, sticky: stickyValue,
-                beforeOpen: function (e, m, o) {
-                    if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
-                    if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
-                },
-                afterOpen: function (e, m) {
-                    jQuery(".jGrowl-message").readmore({
-                        moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
-                        lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
-
-                        maxHeight: 75
-                    });
-                },
-                speed: jGrowlSpeed
-            });
-            contentMessages.remove();
-        }
+                    maxHeight: 75
+                });
+            },
+            speed: jGrowlSpeed
+        });
     });
 }
 
@@ -1240,8 +1334,21 @@ function setUserLayoutPreferences(userPrefGroupTypeId, userPrefTypeId, userPrefV
     });
 }
 
-function waitSpinnerShow() {
-    jSpinner = jQuery("#wait-spinner");
+/**
+ * if an id is present, return the area attendee the wait-spinner
+ * else use generic wait-spinner area
+ * @param id
+ * @returns {string}
+ */
+function resolveWaitSpinnerId(id) {
+    if (id === undefined) {
+        return 'wait-spinner';
+    }
+    return id + '-wait-spinner';
+}
+
+function waitSpinnerShow(id) {
+    jSpinner = jQuery("#" + resolveWaitSpinnerId(id));
     if (!jSpinner.length) return
 
     bdy = document.body;
@@ -1257,8 +1364,8 @@ function waitSpinnerShow() {
     jSpinner.show();
 }
 
-function waitSpinnerHide() {
-    jQuery("#wait-spinner").hide()
+function waitSpinnerHide(id) {
+    jQuery("#" + resolveWaitSpinnerId(id)).hide()
 }
 
 /**
@@ -1273,6 +1380,7 @@ function getJSONuiLabels(requiredLabels, callback) {
         jQuery.ajax({
             url: "getJSONuiLabelArray",
             type: "POST",
+            async: false,
             data: {"requiredLabels" : requiredLabelsStr},
             complete: function(data) {
                 callback(data);
@@ -1297,6 +1405,7 @@ function getJSONuiLabel(uiResource, errUiLabel) {
         jQuery.ajax({
             url: "getJSONuiLabel",
             type: "POST",
+            async: false,
             data: {"requiredLabel" : requiredLabelStr},
             success: function(data) {
                 returnVal = data;
@@ -1304,70 +1413,6 @@ function getJSONuiLabel(uiResource, errUiLabel) {
         });
     }
     return returnVal[arguments[0]];
-}
-
-/**
- * Opens an alert alert box with an i18n error message
- * @param errBoxTitleResource String - Can be empty
- * @param errBoxTitleLabel String - Can be empty
- * @param uiResource String - Required
- * @param errUiLabel String - Required
- */
-function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiResource, errUiLabel) {
-    if (uiResource == null || uiResource == "" || uiResource == undefined || errUiLabel == null || errUiLabel == "" || errUiLabel == undefined) {
-        // No Label Information are set, Error Msg Box can't be created
-        return;
-    }
-
-    var labels = {};
-    var useTitle = false;
-    // title can only be set when the resource and the label are set
-    if (errBoxTitleResource != null && errBoxTitleResource != "" && errBoxTitleLabel != null && errBoxTitleLabel != "") {
-        // create the JSON Object
-        if (errBoxTitleResource == uiResource) {
-            labels[errBoxTitleResource] = [errBoxTitleLabel, errUiLabel];
-        } else {
-            labels[errBoxTitleResource] = [errBoxTitleLabel];
-            labels[uiResource] = [errUiLabel];
-        }
-        useTitle = true;
-    } else {
-        labels[uiResource] = [errUiLabel];
-    }
-    // request the labels
-    getJSONuiLabels(labels, function(result){
-        labels = result.responseJSON;
-    });
-
-    var errMsgBox = jQuery("#contentarea").after(jQuery("<div id='errorAlertBox'></div>"));
-
-    if (errMsgBox.length) {
-        errMsgBox.dialog({
-            modal: true,
-            title: function() {
-                if (useTitle) {
-                    return labels[errBoxTitleResource][0]
-                } else {
-                    return ""
-                }
-            },
-            open : function() {
-                var positionInArray = 0;
-                if (errBoxTitleResource == uiResource) {
-                    positionInArray = 1;
-                }
-                errMsgBox.html(labels[uiResource][positionInArray]);
-            },
-            buttons: {
-                Ok: function() {
-                    errMsgBox.remove();
-                    jQuery( this ).dialog( "close" );
-                }
-            }
-        });
-    } else {
-      alert(labels[uiResource][0]);
-    }
 }
 
 /**
@@ -1515,7 +1560,7 @@ var importLibrary = function() {
                 }
             })
         ).then(onSuccessFn).catch(onErrorFn || function (err) {
-            alert('Error:\n'+err+'\n\nFile(s): \n' + urls.join('\n'))
+            console.error('Error:\n'+err+'\n\nFile(s): \n' + urls.join('\n'))
         });
     }
 }();

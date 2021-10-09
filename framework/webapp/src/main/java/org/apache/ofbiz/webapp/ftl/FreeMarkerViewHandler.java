@@ -96,9 +96,6 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         // add the application object (for transforms) to the context as a BeanModel
         root.put("application", servletContext);
 
-        // add the servlet context -- this has been deprecated, and now requires servlet, do we really need it?
-        //root.put("applicationAttributes", new ServletContextHashModel(servletContext, FreeMarkerWorker.getDefaultOfbizWrapper()));
-
         // add the session object (for transforms) to the context as a BeanModel
         root.put("session", session);
 
