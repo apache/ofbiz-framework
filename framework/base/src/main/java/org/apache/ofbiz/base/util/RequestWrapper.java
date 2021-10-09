@@ -42,11 +42,14 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     private boolean firstTime = true;
     private Map<String, String[]> parameterMap = null;
 
-    public RequestWrapper(HttpServletRequest arg0) {
-        super(arg0);
-        origRequest = arg0;
+    public RequestWrapper(HttpServletRequest arg) {
+        super(arg);
+        origRequest = arg;
     }
 
+    /**
+     * The default behavior of this method is to return getReader() on the wrapped request object.
+     */
     public BufferedReader getReader() throws IOException {
 
         getBytes();
@@ -54,9 +57,11 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         InputStreamReader dave = new InputStreamReader(new ByteArrayInputStream(reqBytes));
         BufferedReader br = new BufferedReader(dave);
         return br;
-
     }
 
+    /**
+     * The default behavior of this method is to return getInputStream() on the wrapped request object.
+     */
     public ServletInputStream getInputStream() throws IOException {
 
         getBytes();
@@ -72,7 +77,6 @@ public class RequestWrapper extends HttpServletRequestWrapper {
                 } else {
                     b = -1;
                 }
-
                 return b;
             }
 
@@ -89,22 +93,27 @@ public class RequestWrapper extends HttpServletRequestWrapper {
                 return len;
             }
 
+            /**
+             * Needed by Servlet 3.1 No worry this is not used in OFBiz code
+             */
             @Override
             public boolean isFinished() {
-                // TODO Auto-generated method stub
                 return false;
             }
 
+            /**
+             * Needed by Servlet 3.1 No worry this is not used in OFBiz code
+             */
             @Override
             public boolean isReady() {
-                // TODO Auto-generated method stub
                 return false;
             }
 
+            /**
+             * Needed by Servlet 3.1 No worry this is not used in OFBiz code
+             */
             @Override
             public void setReadListener(ReadListener listener) {
-                // TODO Auto-generated method stub
-
             }
 
         };
@@ -112,10 +121,13 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         return sis;
     }
 
+    /**
+     * Returns the bytes taken from the original request getInputStream
+     */
     public byte[] getBytes() throws IOException {
         if (firstTime) {
             firstTime = false;
-            // Read the parameters first, because they can get reachless after the inputStream is read.
+            // Read the parameters first, because they can't be reached after the inputStream is read.
             getParameterMap();
             int initialSize = origRequest.getContentLength();
             if (initialSize < INITIAL_BUFFER_SIZE) {
