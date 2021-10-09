@@ -20,7 +20,6 @@ package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.stream.Collectors;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -94,13 +93,6 @@ public class ContextFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
-        String body = request.getReader().lines().collect(Collectors.joining());
-        if (body.contains("</serializable>")) {
-            Debug.logError("Content not authorised for security reason", module); // Cf. OFBIZ-12332
-            return;
-        }
-
 
         // ----- Servlet Object Setup -----
 
