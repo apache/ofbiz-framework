@@ -59,6 +59,11 @@ under the License.
         </init-param>
     </filter>
     <filter>
+        <display-name>CacheFilter</display-name>
+        <filter-name>CacheFilter</filter-name>
+        <filter-class>org.apache.ofbiz.base.util.CacheFilter</filter-class>
+    </filter>
+    <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>
         <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
@@ -70,6 +75,10 @@ under the License.
     </filter>
     <filter-mapping>
         <filter-name>ControlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CacheFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
