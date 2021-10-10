@@ -44,7 +44,12 @@ public class CacheFilter implements Filter {
      * 3. Optionally wrap the response object with a custom implementation to filter content or headers for output filtering <br>
      * 4. a) <strong>Either</strong> invoke the next entity in the chain using the FilterChain object (<code>chain.doFilter()</code>), <br>
      * 4. b) <strong>or</strong> not pass on the request/response pair to the next entity in the filter chain to block the request processing<br>
-     * 5. Directly set headers on the response after invocation of the next entity in the filter chain.
+     * 5. Directly set headers on the response after invocation of the next entity in the filter chain. <br>
+     * <br>
+     * ----------------------------------------------------------------------------------------------------<br>
+     * Actually its goal in OFBiz is simply to prevent a post-auth security issue described in OFBIZ-12332 <br>
+     * ----------------------------------------------------------------------------------------------------<br>
+     * <br>
      * @param request The request to process
      * @param response The response associated with the request
      * @param chain Provides access to the next filter in the chain for this filter to pass the request and response to for further processing
