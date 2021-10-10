@@ -57,7 +57,7 @@ public class CacheFilter implements Filter {
         String uriWithContext = ((HttpServletRequest) request).getRequestURI();
         String uri = uriWithContext.substring(context.length());
 
-        if ("xmlrpc".equals(uri.toLowerCase())) {
+        if ("/control/xmlrpc".equals(uri.toLowerCase())) {
             // Read request.getReader() as many time you need
             request = new RequestWrapper((HttpServletRequest) request);
             String body = request.getReader().lines().collect(Collectors.joining());
