@@ -24,10 +24,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+//import java.util.Collections;
+//import java.util.Enumeration;
+//import java.util.HashMap;
+//import java.util.Map;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -40,7 +40,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     private HttpServletRequest origRequest;
     private byte[] reqBytes;
     private boolean firstTime = true;
-    private Map<String, String[]> parameterMap = null;
+    // private Map<String, String[]> parameterMap = null;
 
     public RequestWrapper(HttpServletRequest arg) {
         super(arg);
@@ -148,37 +148,37 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         return reqBytes;
     }
 
-    @Override
-    public String getParameter(String name) {
-        parameterMap = UtilMisc.toMap(getParameterMap());
-        if (parameterMap != null) {
-            String[] a = parameterMap.get(name);
-            if (a == null || a.length == 0) {
-                return null;
-            }
-            return a[0];
-        }
-        return null;
-    }
-
-    @Override
-    public Map<String, String[]> getParameterMap() {
-        if (parameterMap == null) {
-            parameterMap = new HashMap<String, String[]>();
-            parameterMap.putAll(super.getParameterMap());
-        }
-        return parameterMap;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Enumeration getParameterNames() {
-        return Collections.enumeration(parameterMap.values());
-    }
-
-    @Override
-    public String[] getParameterValues(String name) {
-        return parameterMap.get(name);
-    }
-
+    // Those are not used, just kept in case
+    // @Override
+    // public String getParameter(String name) {
+    // parameterMap = UtilMisc.toMap(getParameterMap());
+    // if (parameterMap != null) {
+    // String[] a = parameterMap.get(name);
+    // if (a == null || a.length == 0) {
+    // return null;
+    // }
+    // return a[0];
+    // }
+    // return null;
+    // }
+    //
+    // @Override
+    // public Map<String, String[]> getParameterMap() {
+    // if (parameterMap == null) {
+    // parameterMap = new HashMap<String, String[]>();
+    // parameterMap.putAll(super.getParameterMap());
+    // }
+    // return parameterMap;
+    // }
+    //
+    // @SuppressWarnings("unchecked")
+    // @Override
+    // public Enumeration getParameterNames() {
+    // return Collections.enumeration(parameterMap.values());
+    // }
+    //
+    // @Override
+    // public String[] getParameterValues(String name) {
+    // return parameterMap.get(name);
+    // }
 }
