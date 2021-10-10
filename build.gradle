@@ -1015,6 +1015,11 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
         delete gitFooterFile
     }
 }
+task cleanNpm(group: cleanupGroup, description: 'clean node modules') {
+    doLast {
+        delete "${project.projectDir}/themes/common-theme/webapp/common/js/node_modules"
+    }
+}
 /*
  * Keep this task below all other clean tasks  The location of
  * declaration is important because it means that it will automatically
