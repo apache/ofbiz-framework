@@ -79,7 +79,7 @@ public class CacheFilter implements Filter {
      * <li>Does not return within a time period defined by the web container</li>
      * </ul>
      * The default implementation is a NO-OP.
-     * @param filterConfig The configuration information associated with the filter instance being initialised
+     * @param filterConfiguration The configuration information associated with the filter instance being initialised
      * @throws ServletException if the initialisation fails
      */
     public void init(FilterConfig filterConfiguration) throws ServletException {
