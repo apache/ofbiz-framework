@@ -70,7 +70,7 @@ under the License.
         <!-- Checks for Size Violations -->
         <module name="MethodLength">
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="500"/>
+            <property name="max" value="784"/>
             <property name="countEmpty" value="false"/>
         </module>
         <module name="ParameterNumber">
