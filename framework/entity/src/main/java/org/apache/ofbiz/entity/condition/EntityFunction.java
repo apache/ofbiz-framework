@@ -50,39 +50,39 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public static final int ID_UPPER = SQLFunction.UPPER.ordinal();
     public static final int ID_LOWER = SQLFunction.LOWER.ordinal();
 
-    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) {
+    public static EntityFunction<Integer> length(EntityConditionValue nested) {
         return new LENGTH(nested);
     }
 
-    public static EntityFunction<Integer> LENGTH(Object value) {
+    public static EntityFunction<Integer> length(Object value) {
         return new LENGTH(value);
     }
 
-    public static EntityFunction<String> TRIM(EntityConditionValue nested) {
+    public static EntityFunction<String> trim(EntityConditionValue nested) {
         return new TRIM(nested);
     }
 
-    public static EntityFunction<String> TRIM(Object value) {
+    public static EntityFunction<String> trim(Object value) {
         return new TRIM(value);
     }
 
-    public static EntityFunction<String> UPPER(EntityConditionValue nested) {
+    public static EntityFunction<String> upper(EntityConditionValue nested) {
         return new UPPER(nested);
     }
 
-    public static EntityFunction<String> UPPER(Object value) {
+    public static EntityFunction<String> upper(Object value) {
         return new UPPER(value);
     }
 
-    public static EntityFunction<String> UPPER_FIELD(String fieldName) {
+    public static EntityFunction<String> upperField(String fieldName) {
         return new UPPER(EntityFieldValue.makeFieldValue(fieldName));
     }
 
-    public static EntityFunction<String> LOWER(EntityConditionValue nested) {
+    public static EntityFunction<String> lower(EntityConditionValue nested) {
         return new LOWER(nested);
     }
 
-    public static EntityFunction<String> LOWER(Object value) {
+    public static EntityFunction<String> lower(Object value) {
         return new LOWER(value);
     }
 

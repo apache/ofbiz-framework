@@ -1392,8 +1392,8 @@ public class CheckOutHelper {
         String shippingAddress = UtilFormatOut.checkNull(shippingAddressObj.getString("address1")).toUpperCase(Locale.getDefault());
         shippingAddress = UtilFormatOut.makeSqlSafe(shippingAddress);
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition(
-                EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("denylistString"), EntityOperator.EQUALS,
-                EntityFunction.UPPER(shippingAddress)),
+                EntityCondition.makeCondition(EntityFunction.upperField("denylistString"), EntityOperator.EQUALS,
+                EntityFunction.upper(shippingAddress)),
                 EntityOperator.AND,
                 EntityCondition.makeCondition("orderDenylistTypeId", EntityOperator.EQUALS, "DENYLIST_ADDRESS")));
         String errMsg = null;
@@ -1423,8 +1423,8 @@ public class CheckOutHelper {
                     String address = UtilFormatOut.checkNull(billingAddress.getString("address1").toUpperCase(Locale.getDefault()));
                     address = UtilFormatOut.makeSqlSafe(address);
                     exprs.add(EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("denylistString"), EntityOperator.EQUALS,
-                            EntityFunction.UPPER(address)),
+                            EntityCondition.makeCondition(EntityFunction.upperField("denylistString"), EntityOperator.EQUALS,
+                            EntityFunction.upper(address)),
                             EntityOperator.AND,
                             EntityCondition.makeCondition("orderDenylistTypeId", EntityOperator.EQUALS, "DENYLIST_ADDRESS")));
                 }

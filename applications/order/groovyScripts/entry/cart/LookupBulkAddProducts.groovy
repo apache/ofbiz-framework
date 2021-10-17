@@ -30,7 +30,7 @@ mainConditionList = []
 
 if (productId) {
     //make sure the look up is case insensitive
-    conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
+    conditionList.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue("productId")),
             EntityOperator.LIKE, productId.toUpperCase() + "%"))
 }
 

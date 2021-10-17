@@ -147,10 +147,10 @@ public class OrderByItem implements Comparator<GenericEntity> {
         EntityConditionValue value = EntityFieldValue.makeFieldValue(text);
         switch (caseSensitivity) {
         case UPPER:
-            value = EntityFunction.UPPER(value);
+            value = EntityFunction.upper(value);
             break;
         case LOWER:
-            value = EntityFunction.LOWER(value);
+            value = EntityFunction.lower(value);
             break;
         default:
             break;

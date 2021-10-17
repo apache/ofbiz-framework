@@ -707,8 +707,8 @@ public class LoginServices {
         }
 
         try {
-            EntityCondition condition = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.EQUALS,
-                    EntityFunction.UPPER(userLoginId));
+            EntityCondition condition = EntityCondition.makeCondition(EntityFunction.upperField("userLoginId"), EntityOperator.EQUALS,
+                    EntityFunction.upper(userLoginId));
             if (UtilValidate.isNotEmpty(EntityQuery.use(delegator).from("UserLogin").where(condition).queryList())) {
                 Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);

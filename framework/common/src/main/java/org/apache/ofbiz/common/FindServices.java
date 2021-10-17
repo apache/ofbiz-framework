@@ -381,7 +381,7 @@ public class FindServices {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {
-            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)
+            cond = EntityCondition.makeCondition(EntityFunction.upperField(fieldName), fieldOp, EntityFunction.upper(((String)
                     fieldValue).toUpperCase(Locale.getDefault())));
         } else {
             if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {

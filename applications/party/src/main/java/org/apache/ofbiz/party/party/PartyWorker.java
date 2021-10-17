@@ -364,7 +364,7 @@ public class PartyWorker {
             addrExprs.add(EntityCondition.makeCondition("postalCodeExt", EntityOperator.EQUALS, postalCodeExt));
         }
 
-        addrExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
+        addrExprs.add(EntityCondition.makeCondition(EntityFunction.upperField("city"), EntityOperator.EQUALS, EntityFunction.upper(city)));
 
         if (countryGeoId != null) {
             addrExprs.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase(Locale.getDefault())));

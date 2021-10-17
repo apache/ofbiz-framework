@@ -1580,7 +1580,7 @@ public class ModelViewEntity extends ModelEntity {
                 // "or-null" attribute that is true by default
                 if (ignoreCase) {
                     entityCondition = EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER(lhs), this.operator, EntityFunction.UPPER(rhs)),
+                            EntityCondition.makeCondition(EntityFunction.upper(lhs), this.operator, EntityFunction.upper(rhs)),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 } else {
@@ -1595,7 +1595,7 @@ public class ModelViewEntity extends ModelEntity {
             } else {
                 if (ignoreCase) {
                     // use the stuff to upper case both sides
-                    entityCondition = EntityCondition.makeCondition(EntityFunction.UPPER(lhs), this.operator, EntityFunction.UPPER(rhs));
+                    entityCondition = EntityCondition.makeCondition(EntityFunction.upper(lhs), this.operator, EntityFunction.upper(rhs));
                 } else {
                     entityCondition = EntityCondition.makeCondition(lhs, this.operator, rhs);
                 }

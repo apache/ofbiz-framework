@@ -88,7 +88,7 @@ if (searchFields && fieldValue) {
             orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue))
             return //in case of EQUALS, we search only a match for the returned field
         } else {
-            orExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue))
+            orExprs.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue))
         }        
     }
 }

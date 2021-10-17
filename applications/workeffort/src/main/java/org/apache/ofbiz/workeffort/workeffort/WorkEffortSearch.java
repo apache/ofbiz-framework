@@ -709,8 +709,8 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortReview");
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ReviewText", "reviewText", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(prefix + "ReviewText"),
-                    EntityOperator.LIKE, EntityFunction.UPPER("%" + reviewTextString + "%")));
+            workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityFunction.upperField(prefix + "ReviewText"),
+                    EntityOperator.LIKE, EntityFunction.upper("%" + reviewTextString + "%")));
             Map<String, String> valueMap = UtilMisc.toMap("constraintName", CONSTRAINT_NAME, "infoString", this.reviewTextString);
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator()
                     .makeValue("WorkEffortSearchConstraint", valueMap));

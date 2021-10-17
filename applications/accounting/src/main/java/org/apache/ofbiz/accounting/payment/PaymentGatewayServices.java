@@ -2780,8 +2780,8 @@ public class PaymentGatewayServices {
             List<GenericValue> transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order, false);
             List<EntityExpr> exprs = UtilMisc.toList(
                     EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE),
-                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("referenceNum"), EntityComparisonOperator.NOT_EQUAL,
-                            EntityFunction.UPPER("ERROR")));
+                    EntityCondition.makeCondition(EntityFunction.upperField("referenceNum"), EntityComparisonOperator.NOT_EQUAL,
+                            EntityFunction.upper("ERROR")));
             List<GenericValue> capTransactions = EntityUtil.filterByAnd(transactions, exprs);
             capTrans = EntityUtil.getFirst(capTransactions);
         } catch (GenericEntityException e) {
