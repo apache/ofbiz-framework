@@ -242,6 +242,11 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
     /**
      * Gets entities used in form.
      * @return the entities used in form

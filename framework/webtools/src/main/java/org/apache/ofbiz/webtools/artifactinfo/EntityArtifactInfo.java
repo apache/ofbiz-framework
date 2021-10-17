@@ -103,6 +103,11 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
     /**
      * Gets entities related one.
      * @return the entities related one

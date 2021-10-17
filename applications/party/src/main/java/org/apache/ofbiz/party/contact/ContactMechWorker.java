@@ -53,7 +53,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 /**
  * Worker methods for Contact Mechanisms
  */
-public class ContactMechWorker {
+public final class ContactMechWorker {
 
     private static final String MODULE = ContactMechWorker.class.getName();
 

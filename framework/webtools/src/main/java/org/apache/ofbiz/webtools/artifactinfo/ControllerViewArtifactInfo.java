@@ -126,6 +126,11 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
     /**
      * Gets requests that this view is response to.
      * @return the requests that this view is response to

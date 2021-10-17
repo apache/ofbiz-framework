@@ -48,7 +48,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 /**
  * Worker methods for Party Information
  */
-public class PartyWorker {
+public final class PartyWorker {
 
     private static final String MODULE = PartyWorker.class.getName();
 

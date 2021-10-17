@@ -218,6 +218,11 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
     /**
      * Gets views referring to screen.
      *

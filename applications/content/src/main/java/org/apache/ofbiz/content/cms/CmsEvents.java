@@ -54,7 +54,7 @@ import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 /**
  * CmsEvents
  */
-public class CmsEvents {
+public final class CmsEvents {
 
     private static final String MODULE = CmsEvents.class.getName();
 

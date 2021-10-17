@@ -1596,5 +1596,10 @@ public class PackingSession implements java.io.Serializable {
                 return false;
             }
         }
+
+        @Override
+        public int hashCode() {
+            return toString().hashCode();
+        }
     }
 }

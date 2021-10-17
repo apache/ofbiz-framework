@@ -213,4 +213,9 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
 }
