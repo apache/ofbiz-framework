@@ -154,7 +154,9 @@ public class URLConnector {
     // closes the HttpURLConnection does nothing to others
     private static void close(URLConnection con) {
         if (con instanceof HttpURLConnection) {
+            // CHECKSTYLE_OFF: ALMOST_ALL
             ((HttpURLConnection) con).disconnect();
+            // CHECKSTYLE_ON: ALMOST_ALL
         }
     }
 }

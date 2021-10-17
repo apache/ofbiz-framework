@@ -544,7 +544,9 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
 
         if (newInMemory > 0) {
             if (this.memoryTable instanceof ConcurrentLinkedHashMap<?, ?>) {
+                // CHECKSTYLE_OFF: ALMOST_ALL
                 ((ConcurrentLinkedHashMap<?, ?>) this.memoryTable).setCapacity(newInMemory);
+                // CHECKSTYLE_ON: ALMOST_ALL
                 return;
             }
             this.memoryTable = new Builder<Object, CacheLine<V>>()

@@ -253,7 +253,9 @@ public class HtmlMenuWrapper {
      */
     public void setRequest(HttpServletRequest request) {
         this.request = request;
+        // CHECKSTYLE_OFF: ALMOST_ALL
         ((HtmlMenuRenderer) renderer).setRequest(request);
+        // CHECKSTYLE_ON: ALMOST_ALL
     }
 
     /**
@@ -262,7 +264,9 @@ public class HtmlMenuWrapper {
      */
     public void setResponse(HttpServletResponse response) {
         this.response = response;
+        // CHECKSTYLE_OFF: ALMOST_ALL
         ((HtmlMenuRenderer) renderer).setResponse(response);
+        // CHECKSTYLE_ON: ALMOST_ALL
     }
 
     /**

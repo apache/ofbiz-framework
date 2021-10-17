@@ -38,6 +38,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -57,8 +59,6 @@ import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelGrid;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * A form rendering engine.
@@ -895,7 +895,9 @@ public class FormRenderer {
 
             if (iter instanceof EntityListIterator) {
                 try {
+                    // CHECKSTYLE_OFF: ALMOST_ALL
                     ((EntityListIterator) iter).close();
+                    // CHECKSTYLE_ON: ALMOST_ALL
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error closing list form render EntityListIterator: " + e.toString(), MODULE);
                 }
@@ -1024,7 +1026,9 @@ public class FormRenderer {
                 List<FieldGroupBase> inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
                 for (FieldGroupBase obj : inbetweenList) {
                     if (obj instanceof ModelForm.Banner) {
+                        // CHECKSTYLE_OFF: ALMOST_ALL
                         ((ModelForm.Banner) obj).renderString(writer, context, formStringRenderer);
+                        // CHECKSTYLE_ON: ALMOST_ALL
                     }
                 }
                 if (currentFieldGroup != null && (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName))) {
@@ -1069,7 +1073,9 @@ public class FormRenderer {
                         List<FieldGroupBase> inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
                         for (FieldGroupBase obj : inbetweenList) {
                             if (obj instanceof ModelForm.Banner) {
+                                // CHECKSTYLE_OFF: ALMOST_ALL
                                 ((ModelForm.Banner) obj).renderString(writer, context, formStringRenderer);
+                                // CHECKSTYLE_ON: ALMOST_ALL
                             }
                         }
                     }

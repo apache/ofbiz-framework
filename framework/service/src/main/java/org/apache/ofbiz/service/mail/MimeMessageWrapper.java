@@ -633,7 +633,9 @@ public class MimeMessageWrapper implements java.io.Serializable {
         StringBuilder builder = new StringBuilder();
         byte[] buffer = new byte[4096];
         try {
+            // CHECKSTYLE_OFF: ALMOST_ALL
             for (int n; (n = stream.read(buffer)) != -1;) {
+                // CHECKSTYLE_ON: ALMOST_ALL
                 builder.append(new String(buffer, 0, n, "UTF-8"));
             }
         } catch (IOException e) {
@@ -651,7 +653,9 @@ public class MimeMessageWrapper implements java.io.Serializable {
     protected ByteBuffer getByteBufferFromStream(InputStream stream) {
         byte[] buffer = new byte[4096];
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            // CHECKSTYLE_OFF: ALMOST_ALL
             for (int n; (n = stream.read(buffer)) != -1;) {
+                // CHECKSTYLE_ON: ALMOST_ALL
                 baos.write(buffer, 0, n);
             }
             return ByteBuffer.wrap(baos.toByteArray());

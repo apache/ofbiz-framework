@@ -49,6 +49,11 @@ under the License.
 
     <module name="TreeWalker">
         <!-- Naming conventions -->
+        <module name="SuppressionCommentFilter">
+            <!-- see OFBIZ-12340 for details -->
+            <property name="offCommentFormat" value="CHECKSTYLE_OFF: ALMOST_ALL"/>
+            <property name="onCommentFormat" value="CHECKSTYLE_ON: ALMOST_ALL"/>
+        </module>
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>

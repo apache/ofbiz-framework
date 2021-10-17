@@ -199,10 +199,12 @@ public class ModelTestSuite {
                 prepareTest(subTests.nextElement());
             }
         } else if (test instanceof EntityTestCase) {
+            // CHECKSTYLE_OFF: ALMOST_ALL
             ((EntityTestCase) test).setDelegator(delegator);
             if (test instanceof OFBizTestCase) {
                 ((OFBizTestCase) test).setDispatcher(dispatcher);
             }
+            // CHECKSTYLE_ON: ALMOST_ALL
         } else if (test instanceof GroovyScriptTestCase) {
             prepareGroovyScriptTestCase((GroovyScriptTestCase) test);
         }

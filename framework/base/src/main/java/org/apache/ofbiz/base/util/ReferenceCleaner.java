@@ -42,7 +42,9 @@ public final class ReferenceCleaner {
         public void run() {
             while (keepRunning) {
                 try {
+                    // CHECKSTYLE_OFF: ALMOST_ALL
                     ((Removable) QUEUE.remove()).remove();
+                    // CHECKSTYLE_ON: ALMOST_ALL
                 } catch (Throwable t) {
                     // ignore
                 }

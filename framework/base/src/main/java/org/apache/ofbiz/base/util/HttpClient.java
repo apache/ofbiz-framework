@@ -477,7 +477,9 @@ public class HttpClient {
             }
 
             if ((con instanceof HttpURLConnection)) {
+                // CHECKSTYLE_OFF: ALMOST_ALL
                 ((HttpURLConnection) con).setInstanceFollowRedirects(followRedirects);
+                // CHECKSTYLE_ON: ALMOST_ALL
                 if (Debug.verboseOn() || debug) {
                     Debug.logVerbose("Connection is of type HttpURLConnection, more specifically: " + con.getClass().getName(), MODULE);
                 }

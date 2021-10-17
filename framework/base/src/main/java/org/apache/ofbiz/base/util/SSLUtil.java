@@ -115,7 +115,9 @@ public final class SSLUtil {
         for (TrustManager mgr : mgrs) {
             if (mgr instanceof X509TrustManager) {
                 try {
+                    // CHECKSTYLE_OFF: ALMOST_ALL
                     ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
+                    // CHECKSTYLE_ON: ALMOST_ALL
                     return true;
                 } catch (CertificateException e) {
                     Debug.logError(e, MODULE);

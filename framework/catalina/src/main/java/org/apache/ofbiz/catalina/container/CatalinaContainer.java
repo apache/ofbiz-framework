@@ -115,7 +115,9 @@ public class CatalinaContainer implements Container {
                 ofBizRealm.setCredentialHandler(new SimpleCredentialHandler());
             }
             host.setRealm(ofBizRealm);
+            // CHECKSTYLE_OFF: ALMOST_ALL
             ((StandardHost) host).addValve(new SingleSignOn());
+            // CHECKSTYLE_ON: ALMOST_ALL
         }
 
         // clustering, valves and connectors setup
@@ -227,8 +229,10 @@ public class CatalinaContainer implements Container {
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
+        // CHECKSTYLE_OFF: ALMOST_ALL
         ((StandardHost) host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP),
                 "work" + File.separator + host.getName()).getAbsolutePath());
+        // CHECKSTYLE_ON: ALMOST_ALL
 
         return host;
     }

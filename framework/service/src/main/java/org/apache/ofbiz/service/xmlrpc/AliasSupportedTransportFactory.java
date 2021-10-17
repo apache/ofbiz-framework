@@ -115,7 +115,9 @@ public class AliasSupportedTransportFactory extends XmlRpcTransportFactoryImpl {
         @Override
         protected void close() throws XmlRpcClientException {
             if (con instanceof HttpURLConnection) {
+                // CHECKSTYLE_OFF: ALMOST_ALL
                 ((HttpURLConnection) con).disconnect();
+                // CHECKSTYLE_ON: ALMOST_ALL
             }
         }
 

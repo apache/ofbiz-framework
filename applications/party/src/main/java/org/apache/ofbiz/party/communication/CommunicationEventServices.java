@@ -467,7 +467,9 @@ public class CommunicationEventServices {
             try (EntityListIterator eli = eq.queryIterator()) {
                 // Send an email to each contact list member
                 // loop through the list iterator
+                // CHECKSTYLE_OFF: ALMOST_ALL
                 for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
+                    // CHECKSTYLE_N: ALMOST_ALL
                     Debug.logInfo("Contact info: " + contactListPartyAndContactMech, MODULE);
                     // Any exceptions thrown in this inner block will only relate to a single email of the list, so should
                     //  only be logged and not cause the service to return an error

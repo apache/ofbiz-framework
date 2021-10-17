@@ -34,7 +34,9 @@ public class NumberConverters implements ConverterLoader {
     protected static Number fromString(String str, Locale locale) throws ConversionException {
         NumberFormat nf = NumberFormat.getNumberInstance(locale);
         if (nf instanceof DecimalFormat) {
+            // CHECKSTYLE_OFF: ALMOST_ALL
             ((DecimalFormat) nf).setParseBigDecimal(true);
+            // CHECKSTYLE_ON: ALMOST_ALL
         }
         try {
             return nf.parse(str);

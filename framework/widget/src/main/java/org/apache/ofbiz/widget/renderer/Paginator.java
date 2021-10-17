@@ -235,7 +235,9 @@ public final class Paginator {
             // The EntityListIterator will be closed at the end of FormRenderer.renderItemRows()
             // Note: it's also used in MacroScreenRenderer.renderScreenletPaginateMenu() but I could not find where it's then closed, nor issues...
             try {
+                // CHECKSTYLE_OFF: ALMOST_ALL
                 ((EntityListIterator) iter).beforeFirst();
+                // CHECKSTYLE_ON: ALMOST_ALL
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error rewinding list form render EntityListIterator: " + e.toString(), MODULE);
             }

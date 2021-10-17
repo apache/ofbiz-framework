@@ -150,8 +150,10 @@ public final class EntityExpr implements EntityCondition {
     @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         if (lhs instanceof EntityCondition) {
+            // CHECKSTYLE_OFF: ALMOST_ALL
             ((EntityCondition) lhs).checkCondition(modelEntity);
             ((EntityCondition) rhs).checkCondition(modelEntity);
+            // CHECKSTYLE_ON: ALMOST_ALL
         }
     }
 
