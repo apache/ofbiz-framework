@@ -27,8 +27,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-
 import java.util.UUID;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,8 +60,8 @@ import org.apache.ofbiz.widget.cache.GenericWidgetOutput;
 import org.apache.ofbiz.widget.cache.ScreenCache;
 import org.apache.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.apache.ofbiz.widget.model.ModelScreen;
-import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ScreenFactory;
+import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
@@ -386,7 +386,21 @@ public class ScreenRenderer {
      * This allow inherent refreshment of the parent screen, when using callback feature
      * */
     public static class ScreenStack {
-        LinkedList<Map<String, Object>> visitedScreens;
+        private LinkedList<Map<String, Object>> visitedScreens;
+
+        /**
+         * @return the visitedScreens
+         */
+        public LinkedList<Map<String, Object>> getVisitedScreens() {
+            return visitedScreens;
+        }
+
+        /**
+         * @param visitedScreens the visitedScreens to set
+         */
+        public void setVisitedScreens(LinkedList<Map<String, Object>> visitedScreens) {
+            this.visitedScreens = visitedScreens;
+        }
 
         public ScreenStack() {
             visitedScreens = new LinkedList<>();

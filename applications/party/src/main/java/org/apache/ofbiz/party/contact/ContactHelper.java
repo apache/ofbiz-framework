@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 /**
  * Accessors for Contact Mechanisms
  */
-public class ContactHelper {
+public final class ContactHelper {
 
     private static final String MODULE = ContactHelper.class.getName();
 

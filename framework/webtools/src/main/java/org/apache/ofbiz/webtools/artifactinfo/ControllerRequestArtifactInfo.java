@@ -170,6 +170,11 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
     /** Get the Services that are called by this Request */
     public ServiceArtifactInfo getServiceCalledByRequestEvent() {
         return serviceCalledByRequestEvent;
