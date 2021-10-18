@@ -61,6 +61,7 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
      * Gets info.
      * @return the info
      */
+    @SuppressWarnings("deprecation")
     public Map<String, Object> getInfo() {
         Map<String, Object> dataSourceInfo = new HashMap<>();
         dataSourceInfo.put("poolNumActive", super.getPool().getNumActive());

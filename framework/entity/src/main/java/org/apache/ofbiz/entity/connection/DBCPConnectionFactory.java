@@ -59,6 +59,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> DS_CACHE =
             new ConcurrentHashMap<>();
 
+    @SuppressWarnings("deprecation")
     @Override
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
         String cacheKey = helperInfo.getHelperFullName();

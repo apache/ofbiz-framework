@@ -20,8 +20,8 @@ package org.apache.ofbiz.webtools.artifactinfo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,8 +35,6 @@ import org.apache.ofbiz.testtools.TestRunContainer;
  */
 public class RunTestEvents {
 
-    private static final String MODULE = RunTestEvents.class.getName();
-
     public static String runTest(HttpServletRequest request, HttpServletResponse response) throws ContainerException {
 
         String component = (String) request.getAttribute("compName");
@@ -44,7 +42,7 @@ public class RunTestEvents {
         String caseName = (String) request.getAttribute("caseName");
 
         List<StartupCommand> ofbizCommands = new ArrayList<>();
-        Map cmdArgs = UtilMisc.toMap("component", component, "suitename", suiteName);
+        Map<String, String> cmdArgs = UtilMisc.toMap("component", component, "suitename", suiteName);
         if (caseName == null) {
             cmdArgs.put("case", caseName);
         }
