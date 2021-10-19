@@ -21,7 +21,6 @@ package org.apache.ofbiz.base.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.util.Iterator;
@@ -39,22 +38,7 @@ public final class UtilObject {
     private UtilObject() {
     }
 
-    public static final String module = UtilObject.class.getName();
-
-    public static byte[] getBytes(InputStream is) {
-        byte[] buffer = new byte[4 * 1024];
-        byte[] data = null;
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()){
-            int numBytesRead;
-            while ((numBytesRead = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, numBytesRead);
-            }
-            data = bos.toByteArray();
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        }
-        return data;
-    }
+    private static final String module = UtilObject.class.getName();
 
     /** Serialize an object to a byte array */
     public static byte[] getBytes(Object obj) {
@@ -93,24 +77,20 @@ public final class UtilObject {
         Object obj = null;
         try {
             obj = getObjectException(bytes);
-        } catch (IOException e) {
+        } catch (IOException | ClassCastException | ClassNotFoundException e) {
             Debug.logError(e, module);
-        } catch (ClassNotFoundException e1) {
-            // DiskFileItem, FileItemHeadersImpl are not serializable. So SafeObjectInputStream::resolveClass return ClassNotFoundException
-            return null;
         }
         return obj;
     }
 
     /**
      * Deserializes a byte array back to an object.
-     *
      * @param bytes  the array of bytes
      * @return the deserialized object.
      * @throws ClassNotFoundException when the class can not be deserialized.
      * @throws IOException when a general Input/Output error happen.
      */
-    public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
+    public static Object getObjectException(byte[] bytes) throws ClassCastException, ClassNotFoundException, IOException {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 SafeObjectInputStream wois = new SafeObjectInputStream(bis)) {
             return wois.readObject();
