@@ -135,6 +135,15 @@ under the License.
         <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <!-- get inventoryItem -->
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+        <entity-and entity-name="FacilityLocation" list="facilityLocations">
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="inventoryItem.locationSeqId"/>
+            <field-map field-name="locked" value="Y"/>
+        </entity-and>
+        <if-not-empty field="facilityLocations">
+            <add-error><fail-message message="The affected LTN# ${parameters.inventoryItemId} belong to the locked locations under active counting session to prevent any inbound and outbound inventory movement. Please choose different LTN from any free location or wait till lock is released."/></add-error>
+            <check-errors/>
+        </if-not-empty>
         <!-- get shipment -->
         <entity-one entity-name="Shipment" value-field="shipment"/>
         <!-- get orderShipment -->
@@ -610,6 +619,15 @@ under the License.
         <set field="shipmentId" from-field="parameters.shipmentId"/>
         <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+        <entity-and entity-name="FacilityLocation" list="facilityLocations">
+            <field-map field-name="facilityId" from-field="inventoryItem.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="inventoryItem.locationSeqId"/>
+            <field-map field-name="locked" value="Y"/>
+        </entity-and>
+        <if-not-empty field="facilityLocations">
+            <add-error><fail-message message="The affected LTN# ${parameters.inventoryItemId} belong to the locked locations under active counting session to prevent any inbound and outbound inventory movement. Please choose different LTN from any free location or wait till lock is released."/></add-error>
+            <check-errors/>
+        </if-not-empty>
         <entity-and entity-name="ReturnItemShipment" list="returnItemShipments">
           <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
           <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>

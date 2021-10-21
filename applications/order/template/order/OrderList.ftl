@@ -33,7 +33,7 @@ under the License.
         if (jQuery('#allcheck').is(':checked')) {
             jQuery('.statuscheck').attr ('checked', true);
         } else {
-            jQuery('.statuscheck').attr ('checked', false );
+            jQuery('.statuscheck').attr ('checked', false);
         }
     }
     function setAllCheckbox() {
