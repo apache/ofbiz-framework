@@ -2567,6 +2567,7 @@ under the License.
       <field name="thruDate" type="date-time"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="PARTY_RLE_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
