@@ -2559,9 +2559,12 @@ under the License.
     
     <entity entity-name="PartyRole"
             package-name="org.apache.ofbiz.party.party"
-            title="Party Role">
-      <field name="partyId" type="id"></field>
-      <field name="roleTypeId" type="id"></field>
+            title="Party Role"
+            description="RoleTypes associated to a Party">
+      <field name="partyId" type="id"/>
+      <field name="roleTypeId" type="id"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
       <relation type="one" fk-name="PARTY_RLE_PARTY" rel-entity-name="Party">
