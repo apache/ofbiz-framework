@@ -1189,21 +1189,16 @@ under the License.
         <field position="1" name="totalToBeReceived" use-when="finanSummary.get(&quot;totalToBeReceived&quot;)!=null" title="${uiLabelMap.PartyToBePaidTo} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
     
-    <grid name="ViewPartyRoles" list-name="partyRoles" target="viewroles"
+    <grid name="ViewPartyRoles" list-name="partyRoles" paginate-target="viewroles" target="expirePartyRole"
         default-title-style="tableheadtext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
-        <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
+        <field name="partyId"><hidden/></field>
+        <field name="roleTypeId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="fromDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
-        <field name="thruDate" title ="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
-        <field name="expire" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonExpire}" target="expirePartyRole">
-                <parameter param-name="partyId"/>
-                <parameter param-name="roleTypeId"/>
-                <parameter param-name="fromDate"/>
-            </hyperlink>
-        </field>
+        <field name="thruDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="expire" title="${uiLabelMap.CommonExpire}"><submit/></field>
     </grid>
     
     <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
