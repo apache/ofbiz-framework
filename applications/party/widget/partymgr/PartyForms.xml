@@ -1195,10 +1195,13 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="remove">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleterole">
+        <field name="fromDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title ="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+        <field name="expire" title=" " widget-style="smallSubmit">
+            <hyperlink description="${uiLabelMap.CommonExpire}" target="expirePartyRole">
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </grid>

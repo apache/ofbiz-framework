@@ -2902,8 +2902,7 @@ under the License.
             title="Party Role View">
       <member-entity entity-alias="PR" entity-name="PartyRole"/>
       <member-entity entity-alias="RT" entity-name="RoleType"/>
-      <alias entity-alias="PR" name="partyId"/>
-      <alias entity-alias="RT" name="roleTypeId"/>
+      <alias-all entity-alias="PR"/>
       <alias entity-alias="RT" name="parentTypeId"/>
       <alias entity-alias="RT" name="description"/>
       <view-link entity-alias="RT" rel-entity-alias="PR">
