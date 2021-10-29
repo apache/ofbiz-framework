@@ -142,6 +142,7 @@ defaultTasks 'jar', 'test'
 
 allprojects {
     repositories{
+        jcenter() // temporary fix
         mavenCentral()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
@@ -203,7 +204,7 @@ dependencies {
     implementation 'com.ibm.icu:icu4j:69.1'
     implementation 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     implementation 'com.sun.mail:javax.mail:1.6.2'
-    implementation 'com.sun.syndication:com.springsource.com.sun.syndication:1.0.0'
+    implementation 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.18'
     implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'commons-net:commons-net:3.8.0'
