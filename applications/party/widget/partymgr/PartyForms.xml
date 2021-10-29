@@ -1215,6 +1215,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole">
@@ -1227,6 +1228,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddPartySecondaryRoles" type="single" title="${uiLabelMap.PartyAddToSecondRole}" target="addrole">
@@ -1238,7 +1240,7 @@ under the License.
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field>
+        </field><field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddRoleType" type="single" title="Add a new roletype" target="createroletype"  list-name="parentRoleList">
