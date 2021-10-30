@@ -1197,7 +1197,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="fromDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
-        <field name="thruDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title ="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
         <field name="expire" title="${uiLabelMap.CommonExpire}"><submit/></field>
     </grid>
     
