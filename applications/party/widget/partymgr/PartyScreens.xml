@@ -171,12 +171,14 @@ under the License.
                         <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
                         <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
                     </condition-list>
+                    <order-by field-name="roleTypeId"/>
+                    <order-by field-name="fromDate"/>
                 </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
+                        <screenlet title="${uiLabelMap.CommonRoles}" navigation-form-name="ViewPartyRoles">
                             <include-grid name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <section>

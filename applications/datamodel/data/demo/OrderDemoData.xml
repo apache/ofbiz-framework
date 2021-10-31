@@ -149,9 +149,9 @@ under the License.
     <CustRequest custRequestId="9002" custRequestDate="2008-07-19 18:45:31.928" custRequestTypeId="RF_SUPPORT" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer2" priority="9" custRequestName="Customer Same company" description="This will contain a request from the same company?" productStoreId="9000" createdDate="2008-07-28 11:45:31.928" createdByUserLogin="admin" lastModifiedDate="2008-07-28 11:45:31.928" lastModifiedByUserLogin="admin"/>
     <!-- Employees assigned to handle these incoming customer requests-->
     <CustRequestType custRequestTypeId="RF_SUPPORT" partyId="Company"/>
-    <PartyRole partyId="admin" roleTypeId="REQ_TAKER"/>
+    <PartyRole partyId="admin" roleTypeId="REQ_TAKER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="admin" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so admin can hadle incoming cust request 'support' types -->
-    <PartyRole partyId="DemoEmployee" roleTypeId="REQ_TAKER"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="REQ_TAKER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoEmployee" roleTypeIdTo="REQ_TAKER" fromDate="2000-01-01 00:00:00"/><!-- so DemoEmployee can hadle incoming cust request 'support' types -->
 
     <!-- Order Quote Demo Data -->
@@ -898,7 +898,7 @@ under the License.
     <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="DS-1000" lastPrice="9.0" supplierProductId="DS-1000_A" supplierProductName="Drop SP" availableFromDate="2005-01-01 00:00:00.000" canDropShip="Y"/>
     <ProductCategoryMember productCategoryId="200" productId="DS-1000" fromDate="2011-08-02 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
     <Agreement agreementId="DS-1000-SALES" agreementTypeId="SALES_AGREEMENT" description="Agreement with DemoCustomer for drop ship" partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2011-08-02 12:00:00.0"/>
     <AgreementItem agreementId="DS-1000-SALES" agreementItemSeqId="00001" agreementItemTypeId="AGREEMENT_PRICING_PR" currencyUomId="USD"/>
     <AgreementProductAppl agreementId="DS-1000-SALES" agreementItemSeqId="00001" price="12" productId="DS-1000"/>
@@ -1904,10 +1904,10 @@ under the License.
     <PartyGroup partyId="USPS" groupName="USPS"/>
     <PartyGroup partyId="UPS" groupName="UPS"/>
 
-    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="Company" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+    <PartyRole partyId="USPS" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="UPS" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Company" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
 
     <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
     <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
@@ -1955,13 +1955,13 @@ under the License.
     <PartyGroup partyId="DHL" groupName="DHL"/>
     <PartyGroup partyId="FEDEX" groupName="Federal Express"/>
 
-    <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
-    <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
-    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
+    <PartyRole partyId="USPS" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="UPS" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DHL" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="FEDEX" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
 
-    <PartyRole partyId="Company" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
+    <PartyRole partyId="Company" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="_NA_" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
 
     <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
     <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
@@ -2175,7 +2175,7 @@ under the License.
     <!-- this person can view any order but only place purchase orders -->
     <Party partyId="DemoBuyer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoBuyer" firstName="Demo" lastName="Buyer"/>
-    <PartyRole partyId="DemoBuyer" roleTypeId="BUYER"/>
+    <PartyRole partyId="DemoBuyer" roleTypeId="BUYER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DemoBuyer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoBuyer" userLoginId="DemoBuyer"/>
     <UserLoginSecurityGroup userLoginId="DemoBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
@@ -2183,7 +2183,7 @@ under the License.
     <!-- this person can create sales orders for any store -->
     <Party partyId="DemoRepAll" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoRepAll" firstName="Demo" lastName="Sales Rep for All Stores"/>
-    <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DemoRepAll" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoRepAll" userLoginId="DemoRepAll"/>
     <UserLoginSecurityGroup userLoginId="DemoRepAll" groupId="ORDERENTRY_ALL" fromDate="2001-05-13 00:00:00"/>
@@ -2191,7 +2191,7 @@ under the License.
     <!-- this person can only create sales orders for stores for which he is a sales rep -->
     <Party partyId="DemoRepStore" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoRepStore" firstName="Demo" lastName="Sales Rep for Specified Stores Only"/>
-    <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DemoRepStore" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore"/>
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
@@ -2210,13 +2210,13 @@ under the License.
 
     <!-- DemoCustCompany -->
     <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
     <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
 
     <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
@@ -2250,9 +2250,9 @@ under the License.
     <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustAgent" firstName="Demo" lastName="Agent"/>
     <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DemoCustAgent" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
@@ -2276,9 +2276,9 @@ under the License.
     <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
     <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
@@ -2309,8 +2309,8 @@ under the License.
     <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="EuroCustomer" firstName="Euro" lastName="Customer"/>
     <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
-    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
 
@@ -2335,8 +2335,8 @@ under the License.
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
     <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
-    <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
-    <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
 
@@ -2365,9 +2365,9 @@ under the License.
     <OrderItem orderId="DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
     <OrderItemPriceInfo orderItemPriceInfoId="9000" orderId="DEMO10090" orderItemSeqId="00001" productPriceRuleId="9000" productPriceActionSeqId="01" modifyAmount="-9.600" description="[PRODUCT_CATEGORY_IDIsPROMOTIONS] [list:48.0;avgCost:48.0;margin:0.0] [type:PRICE_POL]"/>
 
-    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
 
     <OrderRole orderId="DEMO10090" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="DEMO10090" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
@@ -2470,9 +2470,9 @@ under the License.
     <OrderHeader orderId="Demo1002" orderTypeId="SALES_ORDER" orderName="Demo Sales Order" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2009-08-17 14:23:49.475" priority="2" entryDate="2009-08-17 14:23:49.475" visitId="10000" statusId="ORDER_COMPLETED" createdBy="admin" currencyUom="USD" productStoreId="9000" remainingSubTotal="107.98" grandTotal="127.09" webSiteId="WebStore"/>
     <OrderItem orderId="Demo1002" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
     <OrderItem orderId="Demo1002" orderItemSeqId="00004" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="WG-1111" isPromo="Y" quantity="1.000000" selectedAmount="0.000000" unitPrice="59.99" unitListPrice="60.00" isModifiedPrice="N" itemDescription="Micro Chrome Widget" statusId="ITEM_COMPLETED"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="END_USER_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="SHIP_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoCustomer" roleTypeId="PLACING_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
 
     <OrderRole orderId="Demo1002" partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
     <OrderRole orderId="Demo1002" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
