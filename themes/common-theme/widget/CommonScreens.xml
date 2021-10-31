@@ -344,7 +344,7 @@ under the License.
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
                         <set field="layoutSettings.styleSheets[]" value="/common/js/jquery/plugins/featherlight/featherlight-1.7.13.min.css" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/featherlight/featherlight-1.7.13.min.js" global="true"/>
-                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.13.0.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js" global="true"/>
@@ -449,13 +449,13 @@ under the License.
                 <!-- Load available JS Language Files -->
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.Validation.getFilePath(initialLocaleComplete)}" global="true"/>
 
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/jquery-ui-1.13.0.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery/dist/jquery.min.js" global="true"/>
                 <!-- jQuery CSSs -->
-                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.13.0.min.css" global="true" />
 
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/fieldlookup.js" global="true"/>
