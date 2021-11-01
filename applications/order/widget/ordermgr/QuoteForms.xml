@@ -273,7 +273,7 @@ under the License.
             </drop-down>
         </field>
         <field name="workEffortId" title="${uiLabelMap.OrderOrderQuoteWorkEffortId}"></field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"></field>
         <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"><display type="number" format="amount"/></field>
         <field name="estimatedDeliveryDate" title="${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}"></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"></field>
