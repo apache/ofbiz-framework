@@ -134,10 +134,10 @@ under the License.
     <!-- The main Company Internal Organization -->
     <Party partyId="Company" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="Company" groupName="Your Company Name Here" logoImageUrl="/images/ofbiz_logo.png"/>
-    <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
-    <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="Company" roleTypeId="_NA_"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Company" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="Company" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <ContactMech contactMechId="9000" contactMechTypeId="POSTAL_ADDRESS"/>
     <PartyContactMech partyId="Company" contactMechId="9000" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
@@ -156,90 +156,90 @@ under the License.
     <!-- Sub-Organizations -->
     <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="MARKETING" groupName="Marketing department"/>
-    <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MARKETING" roleTypeId="_NA_"/>
+    <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="MARKETING" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="MARKETING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="_NA_"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="ACCOUNTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="SALES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SALES" groupName="Sales department"/>
-    <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="SALES" roleTypeId="_NA_"/>
+    <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="SALES" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="SALES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DEV" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
-    <PartyGroup partyId="DEV" groupName="Development department"/>
-    <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="DEV" roleTypeId="_NA_"/>
+    <PartyGroup partyId="DEV" groupName="Development department" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DEV" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DEV" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="DEV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="TESTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="TESTING" groupName="Testing department"/>
-    <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="TESTING" roleTypeId="_NA_"/>
+    <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TESTING" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="TESTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Development Teams -->
     <Party partyId="DevTeam1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam1" groupName="Development Team1"/>
-    <PartyRole partyId="DevTeam1" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="DevTeam1" roleTypeId="_NA_"/>
+    <PartyRole partyId="DevTeam1" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DevTeam1" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DevTeam1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DevTeam2" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam2" groupName="Development Team2"/>
-    <PartyRole partyId="DevTeam2" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="DevTeam2" roleTypeId="_NA_"/>
+    <PartyRole partyId="DevTeam2" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DevTeam2" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DevTeam2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DevTeam3" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam3" groupName="Development Team3"/>
-    <PartyRole partyId="DevTeam3" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="DevTeam3" roleTypeId="_NA_"/>
+    <PartyRole partyId="DevTeam3" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DevTeam3" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DevTeam3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam3" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DevTeam4" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam4" groupName="Development Team4"/>
-    <PartyRole partyId="DevTeam4" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="DevTeam4" roleTypeId="_NA_"/>
+    <PartyRole partyId="DevTeam4" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DevTeam4" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="DevTeam4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam4" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Testing Teams-->
     <Party partyId="TestingTeam1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="TestingTeam1" groupName="Testing Team1"/>
-    <PartyRole partyId="TestingTeam1" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="TestingTeam1" roleTypeId="_NA_"/>
+    <PartyRole partyId="TestingTeam1" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TestingTeam1" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="TestingTeam1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="TestingTeam2" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="TestingTeam2" groupName="Testing Team2"/>
-    <PartyRole partyId="TestingTeam2" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="TestingTeam2" roleTypeId="_NA_"/>
+    <PartyRole partyId="TestingTeam2" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TestingTeam2" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="TestingTeam2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <!--Team Members -->
     <Party partyId="Developer1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="Developer1" firstName="Developer1"/>
-    <PartyRole partyId="Developer1" roleTypeId="_NA_"/>
-    <PartyRole partyId="Developer1" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="Developer1" roleTypeId="MANAGER"/>
+    <PartyRole partyId="Developer1" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Developer1" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Developer1" roleTypeId="MANAGER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="Developer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="Developer1" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
                        fromDate="2001-05-02 00:00:00.000"/>
@@ -250,8 +250,8 @@ under the License.
 
     <Party partyId="Developer2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="Developer2" firstName="Developer2"/>
-    <PartyRole partyId="Developer2" roleTypeId="_NA_"/>
-    <PartyRole partyId="Developer2" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="Developer2" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Developer2" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="Developer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="Developer2" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
                        fromDate="2001-05-02 00:00:00.000"/>
@@ -260,8 +260,8 @@ under the License.
 
     <Party partyId="Developer3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="Developer3" firstName="Developer3"/>
-    <PartyRole partyId="Developer3" roleTypeId="_NA_"/>
-    <PartyRole partyId="Developer3" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="Developer3" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Developer3" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="Developer3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="Developer3" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
                        fromDate="2001-05-02 00:00:00.000"/>
@@ -270,9 +270,9 @@ under the License.
 
     <Party partyId="TestingTeamMember1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestingTeamMember1" firstName="TestingTeamMember1"/>
-    <PartyRole partyId="TestingTeamMember1" roleTypeId="_NA_"/>
-    <PartyRole partyId="TestingTeamMember1" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="TestingTeamMember1" roleTypeId="MANAGER"/>
+    <PartyRole partyId="TestingTeamMember1" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TestingTeamMember1" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TestingTeamMember1" roleTypeId="MANAGER" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="TestingTeamMember1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="TestingTeamMember1" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
                        fromDate="2001-05-02 00:00:00.000"/>
@@ -283,8 +283,8 @@ under the License.
 
     <Party partyId="TestingTeamMember2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestingTeamMember2" firstName="TestingTeamMember2"/>
-    <PartyRole partyId="TestingTeamMember2" roleTypeId="_NA_"/>
-    <PartyRole partyId="TestingTeamMember2" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="TestingTeamMember2" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TestingTeamMember2" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="TestingTeamMember2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="TestingTeamMember2" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
                        fromDate="2001-05-02 00:00:00.000"/>
@@ -293,8 +293,8 @@ under the License.
 
     <Party partyId="TestingTeamMember3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestingTeamMember3" firstName="TestingTeamMember3"/>
-    <PartyRole partyId="TestingTeamMember3" roleTypeId="_NA_"/>
-    <PartyRole partyId="TestingTeamMember3" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="TestingTeamMember3" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="TestingTeamMember3" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="TestingTeamMember3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="TestingTeamMember3" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE"
                        fromDate="2001-05-02 00:00:00.000"/>
@@ -310,30 +310,30 @@ under the License.
 
     <Party partyId="Enterprise" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="Enterprise" groupName="Large Enterprise, Inc." logoImageUrl="/images/ofbiz_logo.png"/>
-    <PartyRole partyId="Enterprise" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="Enterprise" roleTypeId="PARENT_ORGANIZATION"/>
+    <PartyRole partyId="Enterprise" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="Enterprise" roleTypeId="PARENT_ORGANIZATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="Enterprise" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <!-- Top tier divisions -->
 
     <Party partyId="bu_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="bu_div" groupName="Business Unit Division"/>
-    <PartyRole partyId="bu_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="bu_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="bu_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="bu_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="bu_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Enterprise" partyIdTo="bu_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="md_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="md_div" groupName="Market Development Division"/>
-    <PartyRole partyId="md_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="md_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="md_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="md_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="md_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Enterprise" partyIdTo="md_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="cf_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="cf_div" groupName="Corporate Functions Division"/>
-    <PartyRole partyId="cf_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="cf_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="cf_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="cf_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="cf_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Enterprise" partyIdTo="cf_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="PARENT_ORGANIZATION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -341,15 +341,15 @@ under the License.
 
     <Party partyId="gizmo_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="gizmo_div" groupName="Gizmo Business Unit"/>
-    <PartyRole partyId="gizmo_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="gizmo_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="gizmo_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="gizmo_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="gizmo_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="bu_div" partyIdTo="gizmo_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="widget_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="widget_div" groupName="Widget Business Unit"/>
-    <PartyRole partyId="widget_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="widget_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="widget_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="widget_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="widget_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="bu_div" partyIdTo="widget_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -357,43 +357,43 @@ under the License.
 
     <Party partyId="na_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="na_div" groupName="North America"/>
-    <PartyRole partyId="na_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="na_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="na_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="na_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="na_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="na_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="sa_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sa_div" groupName="Central and South America"/>
-    <PartyRole partyId="sa_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="sa_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="sa_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="sa_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="sa_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="sa_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="we_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="we_div" groupName="Western Europe"/>
-    <PartyRole partyId="we_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="we_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="we_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="we_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="we_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="we_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="asia_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="asia_div" groupName="Asia"/>
-    <PartyRole partyId="asia_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="asia_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="asia_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="asia_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="asia_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="asia_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="anz_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="anz_div" groupName="Australia and New Zealand"/>
-    <PartyRole partyId="anz_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="anz_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="anz_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="anz_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="anz_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="anz_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="india_div" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="india_div" groupName="India"/>
-    <PartyRole partyId="india_div" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="india_div" roleTypeId="DIVISION"/>
+    <PartyRole partyId="india_div" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="india_div" roleTypeId="DIVISION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="india_div" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="md_div" partyIdTo="india_div" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DIVISION" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -401,32 +401,32 @@ under the License.
 
     <Party partyId="RECEIVING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="RECEIVING" groupName="Receiving Department"/>
-    <PartyRole partyId="RECEIVING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="RECEIVING" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="RECEIVING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="RECEIVING" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="RECEIVING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="RECEIVING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="RECEIVING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="PRODUCTION" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="PRODUCTION" groupName="Production Department"/>
-    <PartyRole partyId="PRODUCTION" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="PRODUCTION" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="PRODUCTION" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="PRODUCTION" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="PRODUCTION" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="PRODUCTION" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="PRODUCTION" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="SHIPPING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SHIPPING" groupName="Shipping Department"/>
-    <PartyRole partyId="SHIPPING" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="SHIPPING" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="SHIPPING" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="SHIPPING" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="SHIPPING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="SHIPPING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="SHIPPING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="MAINTENANCE" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="MAINTENANCE" groupName="Maintenance Department"/>
-    <PartyRole partyId="MAINTENANCE" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="MAINTENANCE" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="MAINTENANCE" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="MAINTENANCE" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="MAINTENANCE" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="gizmo_div" partyIdTo="MAINTENANCE" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
     <PartyRelationship partyIdFrom="widget_div" partyIdTo="MAINTENANCE" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
@@ -435,43 +435,43 @@ under the License.
 
     <Party partyId="LEGAL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="LEGAL" groupName="Legal Department"/>
-    <PartyRole partyId="LEGAL" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="LEGAL" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="LEGAL" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="LEGAL" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="LEGAL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="LEGAL" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="PUBLIC_REL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="PUBLIC_REL" groupName="Public Relations"/>
-    <PartyRole partyId="PUBLIC_REL" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="PUBLIC_REL" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="PUBLIC_REL" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="PUBLIC_REL" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="PUBLIC_REL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="PUBLIC_REL" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="HUMAN_RES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="HUMAN_RES" groupName="Human Resources"/>
-    <PartyRole partyId="HUMAN_RES" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="HUMAN_RES" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="HUMAN_RES" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="HUMAN_RES" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="HUMAN_RES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="HUMAN_RES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="INFO_TECH" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="INFO_TECH" groupName="Information Technology"/>
-    <PartyRole partyId="INFO_TECH" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="INFO_TECH" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="INFO_TECH" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="INFO_TECH" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="INFO_TECH" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="INFO_TECH" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="R_AND_D" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="R_AND_D" groupName="Research and Development"/>
-    <PartyRole partyId="R_AND_D" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="R_AND_D" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="R_AND_D" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="R_AND_D" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="R_AND_D" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="R_AND_D" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="LOGISTICS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="LOGISTICS" groupName="Logistics"/>
-    <PartyRole partyId="LOGISTICS" roleTypeId="INTERNAL_ORGANIZATIO"/>
-    <PartyRole partyId="LOGISTICS" roleTypeId="DEPARTMENT"/>
+    <PartyRole partyId="LOGISTICS" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="LOGISTICS" roleTypeId="DEPARTMENT" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="LOGISTICS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="cf_div" partyIdTo="LOGISTICS" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="DIVISION" roleTypeIdTo="DEPARTMENT" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -898,7 +898,7 @@ under the License.
     <!-- Tax Authority Demo Data -->
     <Party partyId="USA_IRS" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="USA_IRS" groupName="United States of America - Internal Revenue Service"/>
-    <PartyRole partyId="USA_IRS" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="USA_IRS" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
 
     <Party partyId="CA_BOE" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="CA_BOE" groupName="State of California Board of Equalization"/>
@@ -907,7 +907,7 @@ under the License.
     <PartyContactMech partyId="CA_BOE" contactMechId="CA_BOE_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
     <PartyContactMechPurpose partyId="CA_BOE" contactMechId="CA_BOE_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="CA_BOE" contactMechId="CA_BOE_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyRole partyId="CA_BOE" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="CA_BOE" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
 
     <Party partyId="NY_DTF" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="NY_DTF" groupName="New York Department of Taxation and Finance"/>
@@ -916,25 +916,25 @@ under the License.
     <PartyContactMech partyId="NY_DTF" contactMechId="NY_DTF_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
     <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyRole partyId="NY_DTF" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="NY_DTF" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
 
     <Party partyId="TX_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="TX_TAXMAN" groupName="Texas Sales Tax Authority"/>
-    <PartyRole partyId="TX_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="TX_TAXMAN" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
 
     <Party partyId="UT_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="UT_TAXMAN" groupName="Utah Sales Tax Authority"/>
-    <PartyRole partyId="UT_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="UT_TAXMAN" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <Party partyId="UT_UTAH_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="UT_UTAH_TAXMAN" groupName="Utah County, Utah Sales Tax Authority"/>
-    <PartyRole partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
 
     <Party partyId="CAN_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="CAN_TAXMAN" groupName="Canada Tax Authority"/>
-    <PartyRole partyId="CAN_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="CAN_TAXMAN" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <Party partyId="ON_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="ON_TAXMAN" groupName="Ontario Sales Tax (VAT) Authority"/>
-    <PartyRole partyId="ON_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="ON_TAXMAN" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
 
     <!-- _NA_ TaxAuthority defs -->
     <ProductCategory productCategoryId="20111"/>
@@ -995,7 +995,7 @@ under the License.
     <!-- China TaxAuthority defs -->
     <Party partyId="CHN_STA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="CNY" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="CHN_STA" groupName="State Taxation Administration"/>
-    <PartyRole partyId="CHN_STA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="CHN_STA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthGeoId="CHN" taxAuthPartyId="CHN_STA" includeTaxInPrice="N" requireTaxIdForExemption="Y"
         taxIdFormatPattern=""/>
     <TaxAuthorityGlAccount taxAuthGeoId="CHN" taxAuthPartyId="CHN_STA" organizationPartyId="Company" glAccountId="224209"/>
@@ -1015,142 +1015,142 @@ under the License.
     <!-- EU tax authorities -->
     <Party partyId="AUT_BMF" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="AUT_BMF" groupName="Bundesministerium für Finanzen"/>
-    <PartyRole partyId="AUT_BMF" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="AUT_BMF" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="AUT_BMF" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="AUT" taxIdFormatPattern="^(AT-?)[U]\d{9}$"/>
 
     <Party partyId="BEL_FOD" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="BEL_FOD" groupName="Federale OverheidsDienst FINANCIËN"/>
-    <PartyRole partyId="BEL_FOD" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="BEL_FOD" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="BEL_FOD" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="BEL" taxIdFormatPattern="^(BE-?)\d{10}$"/>
 
     <Party partyId="BGR_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="BGN" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="BGR_TA" groupName="Tax Authority of Bulgaria"/>
-    <PartyRole partyId="BGR_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="BGR_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="BGR_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="BGR" taxIdFormatPattern="^(BG-?)\d{10}$"/>
 
     <Party partyId="DEU_BZSt" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="DEU_BZSt" groupName="Bundeszentralamt für Steuern"/>
-    <PartyRole partyId="DEU_BZSt" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="DEU_BZSt" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="DEU_BZSt" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="DEU" taxIdFormatPattern="^(DE-?)?{0,1}[0-9]{9}$"/>
 
     <Party partyId="DNK_SKAT" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="DKK" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="DNK_SKAT" groupName="SKAT"/>
-    <PartyRole partyId="DNK_SKAT" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="DNK_SKAT" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="DNK_SKAT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="DNK" taxIdFormatPattern="^(DK-?)?([0-9]{2}\ ?){3}[0-9]{2}$"/>
 
     <Party partyId="CYP_ΤΕΠ" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="CYP_ΤΕΠ" groupName="Τμήματος Εσωτερικών Προσόδων"/>
-    <PartyRole partyId="CYP_ΤΕΠ" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="CYP_ΤΕΠ" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="CYP_ΤΕΠ" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="CYP" taxIdFormatPattern="^(CY-?)?[0-9]{8}[A-Z]$"/>
 
     <Party partyId="CZE_CDS" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="CZK" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="CZE_CDS" groupName="Česká daňová správa - Ministerstvo financí ČR"/>
-    <PartyRole partyId="CZE_CDS" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="CZE_CDS" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="CZE_CDS" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="CZE" taxIdFormatPattern="^(CZ-?)?[0-9]{8,10}$"/>
 
     <Party partyId="ESP_AT" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="ESP_AT" groupName="Agenzia Tributaria"/>
-    <PartyRole partyId="ESP_AT" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="ESP_AT" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="ESP_AT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ESP" taxIdFormatPattern="^(ES-?)?([0-9A-Z][0-9]{7}[A-Z])|([A-Z][0-9]{7}[0-9A-Z])$"/>
 
     <Party partyId="EST_EMTA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="EST_EMTA" groupName="Maksu- ja Tolliamet"/>
-    <PartyRole partyId="EST_EMTA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="EST_EMTA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="EST_EMTA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="EST" taxIdFormatPattern="^(EE-?)?{0,1}[0-9]{9}$"/>
 
     <Party partyId="FIN_VERO" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="FIN_VERO" groupName="Verohallinto"/>
-    <PartyRole partyId="FIN_VERO" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="FIN_VERO" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="FIN_VERO" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="FIN" taxIdFormatPattern="^(FI-?)?{0,1}[0-9]{8}$"/>
 
     <Party partyId="FRA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="FRA_TA" groupName="Ministère de l'économie et des finances"/>
-    <PartyRole partyId="FRA_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="FRA_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="FRA_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="FRA" taxIdFormatPattern="^(FR-?)?[0-9A-Z]{2}\ ?[0-9]{9}$"/>
 
     <Party partyId="GBR_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="GBP" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="GBR_TA" groupName="HM Revenue and Customs"/>
-    <PartyRole partyId="GBR_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="GBR_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="GBR_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="GBR" taxIdFormatPattern="^(GB)?([0-9]{9}|[0-9]{12}|(GD|HA)[0-9]{3})$"/>
 
     <Party partyId="GRC_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="GRC_TA" groupName="Tax Authority of Greece"/>
-    <PartyRole partyId="GRC_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="GRC_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="GRC_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="GRC" taxIdFormatPattern="^(EL-?)?{0,1}[0-9]{9}$"/>
 
     <Party partyId="HRV_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="HRV_TA" groupName="Porezna Uprava"/>
-    <PartyRole partyId="HRV_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="HRV_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="HRV_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="HRV" taxIdFormatPattern="^(HR-?)?{0,1}[0-9]{11}$"/>
 
     <Party partyId="HUN_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="HUF" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="HUN_TA" groupName="Tax Authority of Hungary"/>
-    <PartyRole partyId="HUN_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="HUN_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="HUN_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="HUN" taxIdFormatPattern="^(HU-?)?{0,1}[0-9]{8}$"/>
 
     <Party partyId="IRL_ITC" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="IRL_ITC" groupName="Irish Tax and Customs"/>
-    <PartyRole partyId="IRL_ITC" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="IRL_ITC" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="IRL_ITC" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="IRL" taxIdFormatPattern="^(IE-?)?[0-9][0-9A-Z\+\*][0-9]{5}[A-Z]$"/>
 
     <Party partyId="ITA_ADE" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="ITA_ADE" groupName="Agenzia delle Entrata"/>
-    <PartyRole partyId="ITA_ADE" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="ITA_ADE" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="ITA_ADE" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ITA" taxIdFormatPattern="^(IT-?)?{0,1}[0-9]{11}$"/>
 
     <Party partyId="LVA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="LVA_TA" groupName="Tax Authority of Lativa"/>
-    <PartyRole partyId="LVA_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="LVA_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="LVA_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LVA" taxIdFormatPattern="^(LV-?)?{0,1}[0-9]{11}$"/>
 
     <Party partyId="LTU_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="LTU_TA" groupName="Tax Authority of Lithuania"/>
-    <PartyRole partyId="LTU_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="LTU_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="LTU_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LTU" taxIdFormatPattern="^(LT-?)?([0-9]{9}|[0-9]{12})$"/>
 
     <Party partyId="LUX_ACD" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="LUX_ACD" groupName="Administration des Contributions Directe"/>
-    <PartyRole partyId="LUX_ACD" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="LUX_ACD" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="LUX_ACD" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LUX" taxIdFormatPattern="^(LU-?)?{0,1}[0-9]{8}$"/>
 
     <Party partyId="MLT_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="MLT_TA" groupName="Tax Authority of MT (Malta)"/>
-    <PartyRole partyId="MLT_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="MLT_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="MLT_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="MLT" taxIdFormatPattern="^(MT-?)?{0,1}[0-9]{8}$"/>
 
     <Party partyId="NLD_NBD" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="NLD_NBD" groupName="Ned. Belastingdienst"/>
-    <PartyRole partyId="NLD_NBD" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="NLD_NBD" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="NLD_NBD" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="NLD" taxIdFormatPattern="^(NL-?)?[0-9]{9}B[0-9]{2}$"/>
 
     <Party partyId="POL_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="PLN" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="POL_TA" groupName="Tax Authority of PL"/>
-    <PartyRole partyId="POL_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="POL_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="POL_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="POL" taxIdFormatPattern="^(PL-?)?{0,1}[0-9]{10}$"/>
 
     <Party partyId="PRT_AT" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="PRT_AT" groupName="Autoritade Tributária e Aduaneira"/>
-    <PartyRole partyId="PRT_AT" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="PRT_AT" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="PRT_AT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="PRT" taxIdFormatPattern="^(PT-?)?{0,1}[0-9]{9}$"/>
 
     <Party partyId="ROM_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="RON" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="ROM_TA" groupName="Tax Authority of Romania"/>
-    <PartyRole partyId="ROM_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="ROM_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="ROM_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ROU"/>
 
     <Party partyId="SVK_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="SVK_TA" groupName="Tax Authority of Slovakia"/>
-    <PartyRole partyId="SVK_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="SVK_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="SVK_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SVK" taxIdFormatPattern="^(SK-?)?{0,1}[0-9]{10}$"/>
 
     <Party partyId="SVN_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="SVN_TA" groupName="Tax Authority of Slovenia"/>
-    <PartyRole partyId="SVN_TA" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="SVN_TA" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="SVN_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SVN" taxIdFormatPattern="^(SI-?)?{0,1}[0-9]{8}$"/>
 
     <Party partyId="SWE_SV" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="SEK" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
     <PartyGroup partyId="SWE_SV" groupName="Skatteverket"/>
-    <PartyRole partyId="SWE_SV" roleTypeId="TAX_AUTHORITY"/>
+    <PartyRole partyId="SWE_SV" roleTypeId="TAX_AUTHORITY" fromDate="2000-01-01 00:00:00.000"/>
     <TaxAuthority taxAuthPartyId="SWE_SV" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SWE" taxIdFormatPattern="^(SE-?)?{0,1}[0-9]{12}$"/>
 
     <!-- Accounting Transaction Demo Data -->
@@ -1279,14 +1279,14 @@ under the License.
     <!-- Invoice Payment Demo Data -->
     <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
     <Person partyId="AcctBuyer" firstName="Acct" lastName="Buyer"/>
-    <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
+    <PartyRole partyId="AcctBuyer" roleTypeId="BUYER" fromDate="2000-01-01 00:00:00.000"/>
     <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
     <SecurityGroup groupId="ORDERPURCH"/><!-- is needed because accounting is before order -->
     <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
     <Party partyId="AcctBigSupplier" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="AcctBigSupplier" groupName="Acct Big Supplier"/>
-    <PartyRole partyId="AcctBigSupplier" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="AcctBigSupplier" roleTypeId="SUPPLIER" fromDate="2000-01-01 00:00:00.000"/>
 
     <Payment paymentId="demo10000" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="AcctBuyer" partyIdTo="Company" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="190.97" currencyUomId="USD"/>
     <Payment paymentId="demo10010" paymentTypeId="CUSTOMER_REFUND" paymentMethodTypeId="EXT_BILLACT" partyIdFrom="Company" partyIdTo="AcctBuyer" statusId="PMNT_SENT" effectiveDate="2006-04-25 13:11:05.94" amount="20.0" currencyUomId="USD" />
@@ -1410,7 +1410,7 @@ under the License.
 
     <!-- Demo invoice data for sales invoice with INVOICE_PAID status -->
     <Party partyId="DemoCustAgent"/>
-    <PartyRole partyId="DemoCustAgent" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="DemoCustAgent" roleTypeId="SALES_REP" fromDate="2000-01-01 00:00:00.000"/>
     <Product productId="WG-9943" productTypeId="FINISHED_GOOD"/>
     <Product productId="WG-9943-B3" productTypeId="FINISHED_GOOD"/>
 
@@ -1484,16 +1484,16 @@ under the License.
     <!-- Accounting User Demo Data -->
     <Party partyId="accountant_group" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="accountant_group" groupName="Accountant Group"/>
-    <PartyRole partyId="accountant_group" roleTypeId="ORGANIZATION_ROLE"/>
-    <PartyRole partyId="accountant_group" roleTypeId="_NA_"/>
+    <PartyRole partyId="accountant_group" roleTypeId="ORGANIZATION_ROLE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="accountant_group" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="accountant_group" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="accountingadmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="accountingadmin" firstName="Accounting" lastName="Administrator"/>
-    <PartyRole partyId="accountingadmin" roleTypeId="ACCOUNTANT"/>
-    <PartyRole partyId="accountingadmin" roleTypeId="EMPLOYEE"/>
-    <PartyRole partyId="accountingadmin" roleTypeId="_NA_"/>
+    <PartyRole partyId="accountingadmin" roleTypeId="ACCOUNTANT" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="accountingadmin" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="accountingadmin" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
     <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="accountingadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin"/>
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="accountingadmin" fromDate="2001-01-01 12:00:00.0"/>
@@ -1608,5 +1608,4 @@ under the License.
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
                    inventoryItemId="9030" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_B_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="7.0"/>
     <InventoryItemDetail inventoryItemId="9030" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20" accountingQuantityDiff="20"/>
-
 </entity-engine-xml>

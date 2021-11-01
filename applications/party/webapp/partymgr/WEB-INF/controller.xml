@@ -589,10 +589,13 @@ under the License.
         <response name="error" type="view" value="ViewSegmentRoles"/>
     </request-map>
 
-    <request-map uri="addsecondaryroles"><security https="true" auth="true"/><response name="success" type="view" value="addsecondaryroles"/></request-map>
+    <request-map uri="addsecondaryroles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="addsecondaryroles"/>
+    </request-map>
     <request-map uri="addrole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createPartyRole"/>
+        <event type="service" path="" invoke="updatePartyRole"/>
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
     </request-map>
@@ -605,6 +608,12 @@ under the License.
     <request-map uri="createroletype">
         <security https="true" auth="true"/>
         <event type="service" invoke="createRoleType"/>
+        <response name="success" type="view" value="viewroles"/>
+        <response name="error" type="view" value="viewroles"/>
+    </request-map>
+    <request-map uri="expirePartyRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="expirePartyRole"/>
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
     </request-map>
