@@ -925,25 +925,3 @@ def getChildRoleTypesInline (List roleTypeIdListName) {
     resultMap.childRoleTypeIdList = newRoleTypeIdList
     return resultMap
 }
-
-
-/**
- * Service to create a PartyRole record. If an existing record is present, expire it before creating the new one.
- */
-def updatePartyRole() {
-    GenericValue newEntityRecord = delegator.makeValidValue('PartyRole', parameters)
-    if (!newEntityRecord.fromDate) newEntityRecord.fromDate = UtilDateTime.nowTimestamp()
-
-    //Check if the entry already exist with a different fromDate (and without an thruDate), else expire the older to create the new one
-    boolean updating = false
-    GenericValue partyRoleLookedUpValue = from('PartyRole').where('partyId', newEntityRecord.partyId,
-            'roleTypeId', newEntityRecord.roleTypeId).filterByDate().queryFirst()
-    if (partyRoleLookedUpValue) {
-        updating = (partyRoleLookedUpValue.fromDate.compareTo(newEntityRecord.fromDate) == 0)
-        result = run service: 'expirePartyRole', with: partyRoleLookedUpValue.getAllFields()
-        if (ServiceUtil.isError(result)) return result
-    }
-    if (updating) newEntityRecord.store()
-    else newEntityRecord.create()
-    return success()
-}

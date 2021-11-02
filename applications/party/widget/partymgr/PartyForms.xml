@@ -1189,16 +1189,18 @@ under the License.
         <field position="1" name="totalToBeReceived" use-when="finanSummary.get(&quot;totalToBeReceived&quot;)!=null" title="${uiLabelMap.PartyToBePaidTo} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
     
-    <grid name="ViewPartyRoles" list-name="partyRoles" paginate-target="viewroles" target="expirePartyRole"
+    <grid name="ViewPartyRoles" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="partyId"><hidden/></field>
-        <field name="roleTypeId" title="${uiLabelMap.CommonId}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonRole}"><display/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
+        <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="fromDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
-        <field name="thruDate" title ="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
-        <field name="expire" title="${uiLabelMap.CommonExpire}"><submit/></field>
+        <field name="remove">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleterole">
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+            </hyperlink>
+        </field>
     </grid>
     
     <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
@@ -1210,7 +1212,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole">
@@ -1223,7 +1224,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddPartySecondaryRoles" type="single" title="${uiLabelMap.PartyAddToSecondRole}" target="addrole">
@@ -1236,7 +1236,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddRoleType" type="single" title="Add a new roletype" target="createroletype"  list-name="parentRoleList">

@@ -33,7 +33,7 @@ under the License.
         <!--simple case-->
         <Party partyId="UPS_SIMPLE" partyTypeId="PARTY_GROUP"/>
         <PartyGroup partyId="UPS_SIMPLE" groupName="UPS_SIMPLE"/>
-        <PartyRole partyId="UPS_SIMPLE" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+        <PartyRole partyId="UPS_SIMPLE" roleTypeId="CARRIER"/>
 
         <CarrierShipmentMethod partyId="UPS_SIMPLE" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="1" carrierServiceCode="01"/>
         <CarrierShipmentMethod partyId="UPS_SIMPLE" roleTypeId="CARRIER" shipmentMethodTypeId="ROAD" sequenceNumber="2" carrierServiceCode="02"/>
@@ -61,7 +61,7 @@ under the License.
 
         <Party partyId="UPS_BREAK" partyTypeId="PARTY_GROUP"/>
         <PartyGroup partyId="UPS_BREAK" groupName="UPS_BREAK"/>
-        <PartyRole partyId="UPS_BREAK" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+        <PartyRole partyId="UPS_BREAK" roleTypeId="CARRIER"/>
 
         <CarrierShipmentMethod partyId="UPS_BREAK" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="1" carrierServiceCode="01"/>
         <CarrierShipmentMethod partyId="UPS_BREAK" roleTypeId="CARRIER" shipmentMethodTypeId="ROAD" sequenceNumber="2" carrierServiceCode="02"/>
@@ -96,7 +96,7 @@ under the License.
         <Party partyId="UPS_MULTI" partyTypeId="PARTY_GROUP"/>
         <Party partyId="RECEIVER" partyTypeId="PARTY_GROUP"/>
         <PartyGroup partyId="UPS_MULTI" groupName="UPS_MULTI"/>
-        <PartyRole partyId="UPS_MULTI" roleTypeId="CARRIER" fromDate="2000-01-01 00:00:00.000"/>
+        <PartyRole partyId="UPS_MULTI" roleTypeId="CARRIER"/>
 
         <CarrierShipmentMethod partyId="UPS_MULTI" roleTypeId="CARRIER" shipmentMethodTypeId="ROAD" sequenceNumber="2" carrierServiceCode="02"/>
         <ProductStoreShipmentMeth productStoreShipMethId="M9002" productStoreId="ShipCost" partyId="UPS_MULTI" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="ROAD" sequenceNumber="2"/>

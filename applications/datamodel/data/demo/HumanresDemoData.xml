@@ -46,7 +46,7 @@ under the License.
 
     <!-- Humanres Demo Data -->
     <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
-    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
     <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="DemoEmployee" emplPositionTypeId="_NA_" fromDate="2000-01-30 17:58:56.038" rateAmount="2300"/>
