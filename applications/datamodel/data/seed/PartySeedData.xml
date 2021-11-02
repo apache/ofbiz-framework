@@ -287,7 +287,7 @@ under the License.
     <PartyRelationshipType hasTable="N" partyRelationshipName="Lead Owned by" partyRelationshipTypeId="LEAD_OWNER"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Customer" partyRelationshipTypeId="CUSTOMER_REL" roleTypeIdValidFrom="CUSTOMER"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Distributor" partyRelationshipTypeId="DISTRIBUTION_CHANNEL"/>
-    <PartyRelationshipType hasTable="Y" partyRelationshipName="Employee" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationshipType hasTable="Y" partyRelationshipName="Employment" partyRelationshipTypeId="EMPLOYMENT"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Friend" partyRelationshipTypeId="FRIEND"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Group Member" partyRelationshipTypeId="GROUP_ROLLUP"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Host Server Visitor" partyRelationshipTypeId="HOST_SERVER_VISITOR"/>
