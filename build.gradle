@@ -352,10 +352,9 @@ checkstyle {
     // the sum of errors found last time it was changed after using the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    tasks.checkstyleMain.maxErrors = 10
-    // Currently there are still errors so we need to temporarily
-    // hide them to avoid polluting the terminal output.
-    showViolations = false
+    tasks.checkstyleMain.maxErrors = 0
+    // Currently there are no errors so we can show new one when they appear
+    showViolations = true
 }
 gitHooks {
     hooks = ['pre-push': 'checkstyleMain']
