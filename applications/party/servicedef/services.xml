@@ -369,6 +369,16 @@ under the License.
         </attribute>
         <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="updatePartyRole" default-entity-name="PartyRole" engine="groovy" auth="true"
+        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="updatePartyRole">
+        <description>Create/update PartyRole record</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <override name="partyId" optional="false"/>
+        <override name="roleTypeId" optional="false"/>
+        <override name="partyId" default-value="_NA_"/>
+        <override name="roleTypeId" default-value="_NA_"/>
+    </service>
 
     <!-- Party Relationship services -->
     <service name="createPartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
