@@ -617,6 +617,12 @@ under the License.
         <response name="success" type="view" value="viewroles"/>
         <response name="error" type="view" value="viewroles"/>
     </request-map>
+    <request-map uri="getValidRoleParties">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getValidRoleParties"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
 
     <request-map uri="createPartyIdentification">
         <security https="true" auth="true"/>

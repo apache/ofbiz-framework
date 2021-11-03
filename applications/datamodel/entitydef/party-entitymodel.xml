@@ -343,13 +343,17 @@ under the License.
     </entity>
     <entity entity-name="AgreementRole"
             package-name="org.apache.ofbiz.party.agreement"
-            title="Agreement Role">
+            title="Agreement Role"
+            description="Parties with a role associated with an Agreement">
       <field name="agreementId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
       <prim-key field="agreementId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="AGRMNT_ROLE_AGR" rel-entity-name="Agreement">
         <key-map field-name="agreementId"/>
       </relation>
@@ -362,6 +366,7 @@ under the License.
       <relation type="one" fk-name="AGRMNT_ROLE_PRLE" rel-entity-name="PartyRole">
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
+        <key-map field-name="fromDate"/>
       </relation>
     </entity>
     <entity entity-name="AgreementStatus"
@@ -931,11 +936,11 @@ under the License.
     </entity>
     <entity entity-name="CommunicationEventRole"
             package-name="org.apache.ofbiz.party.communication"
-            title="Communication Event Role Entity showing all participants of the communication event.">
+            title="Communication Event Role Entity">
       <field name="communicationEventId" type="id"></field>
-        <field name="partyId" type="id"></field>
+      <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
-      <field name="contactMechId" type="id"><description>For communication event participants this represents the contactMechId of the ContactMech used.</description></field>
+      <field name="contactMechId" type="id"></field>
       <field name="statusId" type="id"></field>
       <prim-key field="communicationEventId"/>
       <prim-key field="partyId"/>
@@ -952,6 +957,7 @@ under the License.
       <relation type="one" fk-name="COM_EVRL_PRLE" rel-entity-name="PartyRole">
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
+        <key-map field-name="fromDate"/>
       </relation>
       <relation type="one" fk-name="COM_EVRL_CMCH" rel-entity-name="ContactMech">
         <key-map field-name="contactMechId"/>
@@ -2900,13 +2906,19 @@ under the License.
     <view-entity entity-name="RoleTypeAndParty"
             package-name="org.apache.ofbiz.party.party"
             title="Party Role View">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="PR" entity-name="PartyRole"/>
       <member-entity entity-alias="RT" entity-name="RoleType"/>
       <alias-all entity-alias="PR"/>
+      <alias entity-alias="PTY" name="partyTypeId"/>
+      <alias entity-alias="PTY" name="statusId"/>
       <alias entity-alias="RT" name="parentTypeId"/>
       <alias entity-alias="RT" name="description"/>
       <view-link entity-alias="RT" rel-entity-alias="PR">
         <key-map field-name="roleTypeId"/>
+      </view-link>
+      <view-link entity-alias="PR" rel-entity-alias="PTY">
+        <key-map field-name="partyId"/>
       </view-link>
     </view-entity>
     <entity entity-name="RoleTypeAttr"

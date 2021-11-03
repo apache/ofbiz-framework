@@ -259,6 +259,15 @@ under the License.
 
     <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
 
+    <!-- Role types regarding Agreement entities-->
+    <RoleType description="Agreement Roles Group (not to be assigned to parties)" roleTypeId="AGREEMENT" hasTable="Y" />
+    <RoleType description="Agreement Owner" roleTypeId="AGRMNT_OWNER" parentTypeId="AGREEMENT" hasTable="N" />
+    <RoleType description="Agreement Creator" roleTypeId="AGRMNT_CREATOR" parentTypeId="AGREEMENT" hasTable="N" />
+    <RoleType description="Agreement Editor" roleTypeId="AGRMNT_EDITOR" parentTypeId="AGREEMENT" hasTable="N" />
+    <RoleType description="Agreement Manager" roleTypeId="AGRMNT_MANAGER" parentTypeId="AGREEMENT" hasTable="N" />
+    <RoleType description="Agreement Reviewer" roleTypeId="AGRMNT_REVIEWER" parentTypeId="AGREEMENT" hasTable="N" />
+    <RoleType description="Agreement Approver" roleTypeId="AGRMNT_APPROVER" parentTypeId="AGREEMENT" hasTable="N" />
+    
     <PartyClassificationType description="EEOC (Equal Opportunity)" hasTable="N" partyClassificationTypeId="EEOC_CLASSIFICATION"/>
     <PartyClassificationType description="Minority" hasTable="N" partyClassificationTypeId="MINORITY_CLASSIFICAT"/>
     <PartyClassificationType description="Income" hasTable="N" partyClassificationTypeId="INCOME_CLASSIFICATIO"/>

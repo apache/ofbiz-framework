@@ -705,35 +705,29 @@ under the License.
         </field>
     </grid>
     
-    <grid name="ListAgreementRoles" list-name="agreementRoles" paginate-target="EditAgreementRoles"
+    <grid name="ListAgreementRoles" list-name="agreementRoles" paginate-target="EditAgreementRoles" target="expireAgreementRole"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-and entity-name="AgreementRole" use-cache="true" list="agreementRoles">
-                <field-map field-name="agreementId" from-field="agreementId"/>
-            </entity-and>
-        </actions>
-        <auto-fields-entity entity-name="AgreementRole" default-field-type="display"/>
+        
         <field name="agreementId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAgreementRole" also-hidden="false">
-                <parameter param-name="agreementId"/>
-                <parameter param-name="partyId"/>
-                <parameter param-name="roleTypeId"/>
-            </hyperlink>
-        </field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}"><display/></field>
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}"><display/></field>
+        <field name="fromDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title ="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+        <field name="expire" title="${uiLabelMap.CommonExpire}" use-when="thruDate == null"><submit/></field>
     </grid>
-    <form name="AddAgreementRole" type="single" target="createAgreementRole"
+    <form name="NewAgreementRole" type="single" target="updateAgreementRole"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="AgreementRole" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" required-field="true">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}" required-field="true">
+            <drop-down no-current-selected-key="${defaultAgreementRoleId}">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
+                    <entity-constraint name="parentTypeId" operator="equals" value="AGREEMENT"/>
+                </entity-options>
             </drop-down>
         </field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}" required-field="true"><drop-down allow-empty="false"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}" position="2"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

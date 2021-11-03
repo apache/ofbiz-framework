@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -74,4 +76,25 @@ def copyAgreement() {
         serviceResult.agreementId = agreementIdTo
     }
     return serviceResult
+}
+
+def updateAgreementRole() {
+    if (Debug.infoOn()) logInfo("In updateAgreementRole")
+    GenericValue newEntityRecord = delegator.makeValidValue('AgreementRole', parameters)
+    if (Debug.infoOn()) logInfo("In updateAgreementRole, newEntityRecord = " + newEntityRecord)
+    if (!newEntityRecord.fromDate) newEntityRecord.fromDate = UtilDateTime.nowTimestamp()
+
+    //Check if the entry already exist with a different fromDate (and without an thruDate), else expire the older to create the new one
+    boolean updating = false
+    GenericValue AgreementRoleLookedUpValue = from('AgreementRole').where('partyId', newEntityRecord.partyId,
+            'roleTypeId', newEntityRecord.roleTypeId).filterByDate().queryFirst()
+    if (AgreementRoleLookedUpValue) {
+        if (Debug.infoOn()) logInfo("In updateAgreementRole, AgreementRoleLookedUpValue = " + AgreementRoleLookedUpValue)
+        updating = (AgreementRoleLookedUpValue.fromDate.compareTo(newEntityRecord.fromDate) == 0)
+        result = run service: 'expireAgreementRole', with: AgreementRoleLookedUpValue.getAllFields()
+        if (ServiceUtil.isError(result)) return result
+    }
+    if (updating) newEntityRecord.store()
+    else newEntityRecord.create()
+    return success()
 }

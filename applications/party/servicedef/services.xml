@@ -374,10 +374,9 @@ under the License.
         <description>Create/update PartyRole record</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
-        <override name="partyId" optional="false"/>
-        <override name="roleTypeId" optional="false"/>
-        <override name="partyId" default-value="_NA_"/>
-        <override name="roleTypeId" default-value="_NA_"/>
+        <override name="partyId" optional="false" default-value="_NA_"/>
+        <override name="roleTypeId" optional="false" default-value="_NA_"/>
+        <override name="fromDate" type="Timestamp" optional="false" default-value="${date:nowTimestamp()}"/>
     </service>
 
     <!-- Party Relationship services -->

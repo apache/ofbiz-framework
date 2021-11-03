@@ -2597,5 +2597,10 @@ under the License.
     <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="9000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
     <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
     <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
-
-</entity-engine-xml>
+    <PartyRole partyId="SALES" roleTypeId="AGRMNT_OWNER" fromDate="2000-01-01 00:00:00.000" />
+    <AgreementRole agreementId="AGR_SALES" partyId="SALES" roleTypeId="AGRMNT_OWNER" fromDate="2000-01-01 00:00:00.000" />
+    <PartyRole partyId="DemoEmployee" roleTypeId="AGRMNT_CREATOR" fromDate="2000-01-01 00:00:00.000" />
+    <PartyRole partyId="DemoEmployee" roleTypeId="AGRMNT_EDITOR" fromDate="2000-01-01 00:00:00.000" />
+    <AgreementRole agreementId="AGR_SALES" partyId="DemoEmployee" roleTypeId="AGRMNT_CREATOR" fromDate="2000-01-01 00:00:00.000"/>
+    <AgreementRole agreementId="AGR_SALES" partyId="DemoEmployee" roleTypeId="AGRMNT_EDITOR" fromDate="2000-01-01 00:00:00.000"/>
+ </entity-engine-xml>

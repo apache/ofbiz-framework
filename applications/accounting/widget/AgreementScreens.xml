@@ -858,29 +858,62 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditAgreementRoles">
+    <screen name="AgreementRoles">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindAgreementRoles"/>
+                <set field="titleProperty" value="PageTitleAgreementRoles"/>
                 <set field="tabButtonItem" value="AgreementRoles"/>
                 <set field="helpAnchor" value="_help_for_edit_agreements_roles"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-condition entity-name="AgreementRole" list="agreementRoles">
+                    <condition-list combine="and">
+                        <condition-expr field-name="agreementId" operator="equals" value="${parameters.agreementId}"/>
+                    </condition-list>
+                    <order-by field-name="roleTypeId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="add-agreement-roles"  title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
+                        <screenlet id="agreement-roles" title="${uiLabelMap.CommonRoles}">
                             <section>
                                 <widgets>
-                                    <include-form name="AddAgreementRole" location="component://accounting/widget/AgreementForms.xml"/>
+                                    <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
-                        <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                        <include-screen name="AddAgreementRole"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddAgreementRole">
+        <section>
+            <actions>
+                <script location="component://ecommerce/groovyScripts/customer/EditContactMech.groovy"/>
+                <set field="descName" value="partyName"/>
+                <set field="dependentForm" value="NewAgreementRole"/>
+                <set field="dependentId" value="partyId"/>
+                <set field="dependentKeyName" value="partyId"/>
+                <set field="mainId" value="roleTypeId"/>
+                <set field="paramKey" value="roleTypeId"/>
+                <set field="reqName" from-field="requestName" />
+                <set field="requestName" value="getValidRoleParties"/>
+                <set field="responseName" value="partyList"/>
+                <set field="selectedDependentOption" default-value="_none_"/>
+            </actions>
+            <widgets>
+                <screenlet id="add-agreement-roles" title="${uiLabelMap.AddParty}">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/>
+                       </html>
+                    </platform-specific>
+                    <include-form name="NewAgreementRole" location="component://accounting/widget/AgreementForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
