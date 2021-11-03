@@ -1198,7 +1198,7 @@ under the License.
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="fromDate" title ="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
         <field name="thruDate" title ="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
-        <field name="expire" title="${uiLabelMap.CommonExpire}"><submit/></field>
+        <field name="expire" title="${uiLabelMap.CommonExpire}" use-when="thruDate == Null"><submit/></field>
     </grid>
     
     <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
