@@ -30,9 +30,9 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 
-import com.sun.syndication.feed.WireFeed;
-import com.sun.syndication.io.FeedException;
-import com.sun.syndication.io.WireFeedOutput;
+import com.rometools.rome.feed.WireFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.WireFeedOutput;
 
 /**
  * RomeEventHandler
