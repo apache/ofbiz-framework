@@ -81,3 +81,9 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+
+paths:
+  - '**/*.java'
+#paths-ignore:
+#  - src/node_modules
+#  - '**/*.test.js'
