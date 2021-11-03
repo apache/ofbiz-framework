@@ -26,9 +26,18 @@ name: "CodeQL"
 on:
   push:
     branches: [ trunk, release* ]
+    paths:
+        - '**.java'
+        - '**.js'
+    #paths-ignore:
+    #  - src/node_modules
+    #  - '**/*.test.js'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ trunk ]
+    paths:
+        - '**.java'
+        - '**.js'
   schedule:
     - cron: '27 15 * * 1'
 
@@ -82,8 +91,3 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
 
-paths:
-  - '**/*.java'
-#paths-ignore:
-#  - src/node_modules
-#  - '**/*.test.js'
