@@ -350,6 +350,10 @@ under the License.
       <field name="roleTypeId" type="id"></field>
       <field name="fromDate" type="date-time"/>
       <field name="thruDate" type="date-time"/>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="agreementId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -2571,6 +2575,10 @@ under the License.
       <field name="roleTypeId" type="id"/>
       <field name="fromDate" type="date-time"/>
       <field name="thruDate" type="date-time"/>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
       <prim-key field="fromDate"/>
