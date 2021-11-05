@@ -893,7 +893,7 @@ under the License.
     <screen name="AddAgreementRole">
         <section>
             <actions>
-                <script location="component://ecommerce/groovyScripts/customer/EditContactMech.groovy"/>
+                <set field="fromDate" value="${nowTimestamp}"/>
                 <set field="descName" value="partyName"/>
                 <set field="dependentForm" value="NewAgreementRole"/>
                 <set field="dependentId" value="partyId"/>
