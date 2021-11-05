@@ -367,11 +367,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="AGRMNT_ROLE_PRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-        <key-map field-name="fromDate"/>
-      </relation>
     </entity>
     <entity entity-name="AgreementStatus"
             package-name="org.apache.ofbiz.party.agreement"
