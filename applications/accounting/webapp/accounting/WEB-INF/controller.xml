@@ -22,6 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
     <description>Accounting Manager Module Site Configuration File</description>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -2199,27 +2200,21 @@ under the License.
         <response name="success" type="view" value="EditPaymentMethodType"/>
         <response name="error" type="view" value="EditPaymentMethodType"/>
     </request-map>
-    <request-map uri="EditAgreementRoles">
+    <request-map uri="AgreementRoles">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditAgreementRoles"/>
-    </request-map>
-    <request-map uri="createAgreementRole">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createAgreementRole"/>
-        <response name="success" type="view" value="EditAgreementRoles"/>
-        <response name="error" type="view" value="EditAgreementRoles"/>
+        <response name="success" type="view" value="AgreementRoles"/>
     </request-map>
     <request-map uri="updateAgreementRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateAgreementRole"/>
-        <response name="success" type="view" value="EditAgreementRoles"/>
-        <response name="error" type="view" value="EditAgreementRoles"/>
+        <response name="success" type="view" value="AgreementRoles"/>
+        <response name="error" type="view" value="AgreementRoles"/>
     </request-map>
-    <request-map uri="deleteAgreementRole">
+    <request-map uri="expireAgreementRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteAgreementRole"/>
-        <response name="success" type="view" value="EditAgreementRoles"/>
-        <response name="error" type="view" value="EditAgreementRoles"/>
+        <event type="service" invoke="expireAgreementRole"/>
+        <response name="success" type="view" value="AgreementRoles"/>
+        <response name="error" type="view" value="AgreementRoles"/>
     </request-map>
     <request-map uri="voidPayment">
         <security https="true" auth="true"/>
@@ -2886,7 +2881,7 @@ under the License.
     <view-map name="EditPaymentMethodType" type="screen" page="component://accounting/widget/PaymentMethodTypeScreens.xml#EditPaymentMethodType"/>
 
     <!-- Agreements Views   -->
-    <view-map name="EditAgreementRoles" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementRoles"/>
+    <view-map name="AgreementRoles" type="screen" page="component://accounting/widget/AgreementScreens.xml#AgreementRoles"/>
 
     <view-map name="FixedAssetGeoLocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeoLocation"/>
     <view-map name="AcctgTransEntriesSearchResultsCsv" type="screencsv" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsCsv" content-type="text/csv" encoding="none"/>

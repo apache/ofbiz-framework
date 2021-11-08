@@ -1207,8 +1207,8 @@ under the License.
                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
             </link>
         </menu-item>
-        <menu-item name="AgreementRoles" title="${uiLabelMap.AccountingAgreementRoles}">
-            <link target="EditAgreementRoles">
+        <menu-item name="AgreementRoles" title="${uiLabelMap.CommonRoles}">
+            <link target="AgreementRoles">
                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
             </link>
         </menu-item>

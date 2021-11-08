@@ -218,19 +218,17 @@ under the License.
     </service>
 
     <!-- AgreementRole -->
-    <service name="createAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="create" auth="true">
-        <description>Create an Agreement Role</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    <service name="updateAgreementRole" default-entity-name="AgreementRole" engine="groovy" auth="true"
+        location="component://accounting/groovyScripts/agreement/AgreementServices.groovy" invoke="updateAgreementRole">
+        <description>Create/Update an Agreement Role</description>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <override name="agreementId" optional="false"/>
+        <override name="roleTypeId" optional="false"/>
     </service>
-    <service name="updateAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="update" auth="true">
-        <description>Update an Agreement Role</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="deleteAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete an Agreement Role</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
+    <service name="expireAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expires an AgreementRole record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- AgreementType -->

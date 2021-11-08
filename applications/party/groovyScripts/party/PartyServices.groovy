@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -946,4 +948,39 @@ def updatePartyRole() {
     if (updating) newEntityRecord.store()
     else newEntityRecord.create()
     return success()
+}
+
+def getValidRoleParties() {
+    roleTypeId = parameters.roleTypeId
+    if (Debug.infoOn()) logInfo("In getValidRoleParties, roleTypeId = "+ roleTypeId)
+    Map result = success()
+    List partyList = []
+    List partyRoles = from("PartyRole").where(roleTypeId: roleTypeId).filterByDate().queryList()
+    if (Debug.infoOn()) logInfo("In getValidRoleParties, list partyRoles = " + partyRoles)
+    for (GenericValue partyRole : partyRoles) {
+        partyId = partyRole.partyId
+        party = from("Party").where(partyId: partyId).queryOne()
+        switch (party.partyTypeId) {
+                case "PERSON":
+                    partyDetails = from("Person").where(partyId: partyId).queryOne()
+                    partyName = partyDetails.lastName
+                    if(partyDetails.firstName){
+                        partyName = partyName + ", " + partyDetails.firstName
+                    }
+                    break
+                case "PARTY_GROUP":
+                    partyDetails = from("PartyGroup").where(partyId: partyId).queryOne()
+                    partyName = partyDetails.groupName
+                    break
+            }
+        String listPartyDetail = partyName + ": " + partyRole.partyId
+        partyList << listPartyDetail
+    }
+    if (!partyList) {
+        partyList << UtilProperties.getMessage("CommonUiLabels", "CommonDataNotAvailable", parameters.locale)
+    }
+    if (Debug.infoOn()) logInfo("In getValidRoleParties, list partyList = " + partyList)
+    result.partyList = partyList
+    return result
+
 }

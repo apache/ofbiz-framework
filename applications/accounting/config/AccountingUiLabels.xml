@@ -23833,17 +23833,17 @@
         <value xml:lang="zh">查找合同</value>
         <value xml:lang="zh-TW">尋找合約</value>
     </property>
-    <property key="PageTitleFindAgreementRoles">
+    <property key="PageTitleAgreementRoles">
         <value xml:lang="ar">إيجاد أطراف الإتفاقية</value>
-        <value xml:lang="de">Vereinbarungsrollen suchen</value>
-        <value xml:lang="en">Find Agreement Roles</value>
+        <value xml:lang="de">Vereinbarungsrollen</value>
+        <value xml:lang="en">Agreement Roles</value>
         <value xml:lang="es">Encontrar Roles en Acuerdo</value>
-        <value xml:lang="es-CL"> Buscar Roles en Contrato</value>
-        <value xml:lang="fr">Chercher les rôles d'accords commerciaux</value>
+        <value xml:lang="es-CL">Buscar Roles en Contrato</value>
+        <value xml:lang="fr">Rôles d'accords</value>
         <value xml:lang="hi-IN">अनुबंध की भूमिकाए खोजें</value>
         <value xml:lang="it">Ricerca Ruoli Contratto</value>
         <value xml:lang="ja">契約ロールを検索</value>
-        <value xml:lang="nl">Vind rollen overeenkomst</value>
+        <value xml:lang="nl">Rollen Overeenkomst</value>
         <value xml:lang="pt">Buscar papéis de acordo</value>
         <value xml:lang="vi">Tìm Vai trò</value>
         <value xml:lang="zh">查找合同角色</value>
@@ -24309,13 +24309,13 @@
     </property>
     <property key="PageTitleListAgreementRoles">
         <value xml:lang="de">Vereinbarungsrollen auflisten</value>
-        <value xml:lang="en">List Agreement Roles</value>
+        <value xml:lang="en">Agreement Roles</value>
         <value xml:lang="es">Lista de Acuerdos</value>
         <value xml:lang="fr">Liste des rôles d'accords commerciaux</value>
         <value xml:lang="hi-IN">अनुबंध की भूमिकाए की सूची</value>
         <value xml:lang="it">Lista Ruoli Contratto</value>
         <value xml:lang="ja">契約ロール一覧</value>
-        <value xml:lang="nl">Toon rollen overeenkomst</value>
+        <value xml:lang="nl">Rollen Overeenkomst</value>
         <value xml:lang="pt">Listar papéis do acordo</value>
         <value xml:lang="vi">Danh sách Vai trò</value>
         <value xml:lang="zh">列出合同角色</value>

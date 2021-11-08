@@ -169,12 +169,12 @@ under the License.
     <PartyStatus partyId="ACCOUNTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
-    <Party partyId="SALES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Party partyId="SALES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2000-01-01 00:00:00.000" createdByUserLogin="admin" lastModifiedDate="2000-01-01 00:00:00.000" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SALES" groupName="Sales department"/>
     <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2000-01-01 00:00:00.000"/>
     <PartyRole partyId="SALES" roleTypeId="_NA_" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyStatus partyId="SALES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyStatus partyId="SALES" statusId="PARTY_ENABLED" statusDate="2000-01-01 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00.000"/>
 
     <Party partyId="DEV" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DEV" groupName="Development department" fromDate="2000-01-01 00:00:00.000"/>

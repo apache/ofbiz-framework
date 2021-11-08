@@ -19,11 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="AddParty">
-        <value xml:lang="en">Add Party</value>
-        <value xml:lang="nl">Partij toevoegen</value>
-        <value xml:lang="zh">添加会员</value>
-    </property>
     <property key="FormFieldTitle_allocatedCost">
         <value xml:lang="de">Verrechnete Kosten</value>
         <value xml:lang="en">Allocated Cost</value>

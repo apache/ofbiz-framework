@@ -254,4 +254,21 @@ under the License.
             </type-validate>
         </attribute>
     </service>
+    <service name="getValidRoleParties" default-entity-name="PartyRole" engine="groovy"
+        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getValidRoleParties" auth="true">
+        <description>Get valid PartyId records for given RoleTypeId record</description>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="compareDate" type="Timestamp" mode="IN" optional="true"><!-- defaults to now --></attribute>
+        <attribute name="lastNameFirst" type="String" mode="IN" optional="true"><!-- Y or N, defaults to N --></attribute>
+        <attribute name="useCache" type="String" mode="IN" optional="true"/>
+        <attribute name="partyList" type="List" mode="OUT" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingRelatedPartyIdList"/>
+            </type-validate>
+        </attribute>
+    </service>
 </services>
