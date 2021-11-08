@@ -57,8 +57,8 @@ under the License.
     <UserLogin userLoginId="WorkEffortUser" partyId="WorkEffortUser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" />
     <UserLoginSecurityGroup groupId="WORKEFFORT_USER" userLoginId="WorkEffortUser" fromDate="2011-01-01 00:00:00.0" />
 
-    <PartyRole partyId="admin" roleTypeId="CAL_OWNER" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyRole partyId="admin" roleTypeId="CAL_ATTENDEE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="admin" roleTypeId="CAL_OWNER"/>
+    <PartyRole partyId="admin" roleTypeId="CAL_ATTENDEE"/>
 
     <!-- Publish the staff meeting calendar event in iCalendar format -->
     <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PUBLIC" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
@@ -70,9 +70,9 @@ under the License.
     <Party partyId="DemoEmployee2" statusId="PARTY_ENABLED"/>
     <Party partyId="DemoEmployee3" statusId="PARTY_ENABLED"/>
 
-    <PartyRole partyId="DemoEmployee1" roleTypeId="CAL_OWNER" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyRole partyId="DemoEmployee2" roleTypeId="CAL_ATTENDEE" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyRole partyId="DemoEmployee3" roleTypeId="CAL_ATTENDEE" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="DemoEmployee1" roleTypeId="CAL_OWNER"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="CAL_ATTENDEE"/>
+    <PartyRole partyId="DemoEmployee3" roleTypeId="CAL_ATTENDEE"/>
 
     <WorkEffort workEffortId="PROJECT_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PRIVATE" description="Demo Project 1 Customer 1" workEffortName="Project iCalendar Publish Demonstration"/>
     <WorkEffortPartyAssignment workEffortId="PROJECT_PUB_DEMO" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" fromDate="2008-01-01 00:00:00.0"/>

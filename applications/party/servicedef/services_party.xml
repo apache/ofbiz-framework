@@ -151,10 +151,5 @@ under the License.
         <description>Delete a PriorityType Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
-    <!-- PartyRole services -->
-    <service name="expirePartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="expire" auth="true">
-        <description>Expires a PartyRole record</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
+
 </services>
