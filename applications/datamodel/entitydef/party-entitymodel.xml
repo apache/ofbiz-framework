@@ -2565,7 +2565,7 @@ under the License.
     <entity entity-name="PartyRole"
             package-name="org.apache.ofbiz.party.party"
             title="Party Role"
-            description="RoleTypes associated to a Party">
+            description="RoleTypes associated with a Party">
       <field name="partyId" type="id"/>
       <field name="roleTypeId" type="id"/>
       <field name="fromDate" type="date-time"/>
