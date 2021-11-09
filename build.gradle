@@ -142,7 +142,6 @@ defaultTasks 'jar', 'test'
 
 allprojects {
     repositories{
-        jcenter() // temporary fix as we need it for GH actions and Buildbot (no fail)
         mavenCentral()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
