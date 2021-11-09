@@ -35,7 +35,7 @@ under the License.
         </field>
         <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId">
+                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${description} ${categoryName} [${productCategoryId}]">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
