@@ -29,16 +29,14 @@ on:
     paths:
         - '**.java'
         - '**.js'
-    paths-ignore:
-        - '**/node_modules/**'
+        - '!**/node_modules/**'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ trunk ]
     paths:
         - '**.java'
         - '**.js'
-    paths-ignore:
-        - '**/node_modules/**'
+        - '!**/node_modules/**'
   schedule:
     - cron: '27 15 * * 1'
 
