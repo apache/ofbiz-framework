@@ -7,6 +7,7 @@
     "jquery": "^3.5.1",
     "jquery-migrate": "^3.3.1",
     "jquery-validation": "^1.19.3",
-    "jquery.browser": "^0.1.0"
+    "jquery.browser": "^0.1.0",
+    "dompurify": "^2.3.3"
   }
 }

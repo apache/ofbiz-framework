@@ -349,6 +349,7 @@ under the License.
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery/dist/jquery.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/node_modules/dompurify/dist/purify.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                     </actions>
                     <widgets>
@@ -454,6 +455,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js" global="true" />
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery/dist/jquery.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/node_modules/dompurify/dist/purify.min.js" global="true"/>
                 <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.13.0.min.css" global="true" />
 

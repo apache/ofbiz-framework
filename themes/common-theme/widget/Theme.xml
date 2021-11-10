@@ -62,6 +62,7 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/jquery-ui-1.13.0.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/dompurify/dist/purify.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>

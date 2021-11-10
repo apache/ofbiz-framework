@@ -304,7 +304,7 @@ var Lookup = function(options) {
         var queryArgs = "presentation=" + options.presentation;
         if (typeof options.args == "object" && jQuery.isArray(options.args)) {
             for ( var i = 0; i < options.args.length; i++) {
-                queryArgs += "&parm" + i + "=" + jQuery(jQuery.find(options.args[i]).val());
+                queryArgs += DOMPurify.sanitize("&parm" + i + "=" + jQuery(options.args[i]).val());
             }
         }
 
