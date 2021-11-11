@@ -210,7 +210,7 @@ function bindObservers(bind_element) {
     });
     jQuery(bind_element).find("[data-lookup-presentation]").each(function(){
         var element = jQuery(this);
-        var form = element._form();
+        var form = element.form();
         var formName = form.attr("name");
         if (!formName) {
             console.log("Developer: For lookups to work you must provide a form name!");
@@ -1010,7 +1010,7 @@ function ajaxAutoCompleteDropDown() {
                     change: function( event, ui ) {
                         var element = jQuery(this);
                         if (element.data('other-field-name') != undefined) {
-                            var otherField = (element._form()).find("input[name=" + element.data('other-field-name') + "]");
+                            var otherField = (element.form()).find("input[name=" + element.data('other-field-name') + "]");
                             if (otherField != undefined) {
                                 process_choice(element, jQuery(otherField));
                             }
