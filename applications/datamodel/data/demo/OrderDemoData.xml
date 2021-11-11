@@ -2305,14 +2305,15 @@ under the License.
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
     <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2100" firstNameOnCard="DEMO" lastNameOnCard="CUSTOMER" contactMechId="9015"/>
 
-    <!-- EuroCustomer want invoices in euro and be located in Amsterdam -->
+    <!-- EuroCustomer wants invoices in Euro(s), located in Amsterdam (Netherlands) -->
     <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="EuroCustomer" firstName="Euro" lastName="Customer"/>
-    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
+    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="nl_NL"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-05-13 00:00:00.000"/>
+    <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2001-05-13 00:00:00.000"/>
 
     <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD" geoPointId="9001"/>
