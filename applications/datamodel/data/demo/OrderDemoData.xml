@@ -2335,7 +2335,7 @@ under the License.
     <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
-    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
+    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="fr_FR"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
