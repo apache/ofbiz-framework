@@ -2053,6 +2053,7 @@
         <value xml:lang="fr">Affilié</value>
         <value xml:lang="it">Affiliato</value>
         <value xml:lang="ja">アフェリエイト</value>
+        <value xml:lang="nl">Affiliatie</value>
         <value xml:lang="pt-BR">Afiliado</value>
         <value xml:lang="vi">Liên kết</value>
         <value xml:lang="zh">分支机构</value>
@@ -2077,24 +2078,31 @@
     </property>
     <property key="OrderAllocated">
         <value xml:lang="en">Allocated</value>
+        <value xml:lang="nl">Toegewezen</value>
     </property>
     <property key="OrderAllocatedUnits">
         <value xml:lang="en">Allocated Units</value>
+        <value xml:lang="nl">Toegewezen eenheden</value>
     </property>
     <property key="OrderAllocatedValue">
         <value xml:lang="en">Allocated Value</value>
+        <value xml:lang="nl">Toegewezen waarde</value>
     </property>
     <property key="OrderAllocation">
         <value xml:lang="en">Allocation</value>
+        <value xml:lang="nl">Allocatie</value>
     </property>
     <property key="OrderAllocationPlan">
         <value xml:lang="en">Allocation Plan</value>
+        <value xml:lang="nl">Allocatieplan</value>
     </property>
     <property key="OrderAllocationPlanNotFound">
         <value xml:lang="en">Allocation Plan Not Found.</value>
+        <value xml:lang="nl">Allocatieplan niet gevonden.</value>
     </property>
     <property key="OrderAllocationPlanViewPermissionError">
         <value xml:lang="en">You do not have the permission to view the allocation plan.</value>
+        <value xml:lang="nl">U heeft geen permissies om het allocatieplan te zien.</value>
     </property>
     <property key="OrderAllowSolicitation">
         <value xml:lang="ar">السماح بالإستدعاءات</value>
@@ -2269,6 +2277,7 @@
     </property>
     <property key="OrderApprovePlan">
         <value xml:lang="en">Approve Plan</value>
+        <value xml:lang="nl">Plan goedkeuren</value>
     </property>
     <property key="OrderApproveOrder">
         <value xml:lang="ar">الموافقة على أمر البيع\الشراء</value>
@@ -2419,6 +2428,7 @@
     </property>
     <property key="OrderAutoReserve">
         <value xml:lang="en">Auto Reserve</value>
+        <value xml:lang="nl">Automatische reserving</value>
     </property>
     <property key="OrderAverageRating">
         <value xml:lang="ar">متوسط التقييم</value>
@@ -2444,6 +2454,7 @@
         <value xml:lang="de">AVS</value>
         <value xml:lang="en">AVS</value>
         <value xml:lang="fr">AVS</value>
+        <value xml:lang="nl">AVS (betaling)</value>
         <value xml:lang="zh">地址验证服务</value>
         <value xml:lang="zh-TW">位址驗證服務</value>
     </property>
@@ -2672,6 +2683,7 @@
     </property>
     <property key="OrderCancelEdit">
         <value xml:lang="en">Cancel Edit</value>
+        <value xml:lang="nl">Annuleer wijziging</value>
     </property>
     <property key="OrderCancelledItemToOrder">
         <value xml:lang="ar">البند الملغى لأمر البيع\الشراء</value>
@@ -2686,6 +2698,7 @@
     </property>
     <property key="OrderCancelPlan">
         <value xml:lang="en">Cancel Plan</value>
+        <value xml:lang="nl">Annuleer plan</value>
     </property>
     <property key="OrderCancelOrder">
         <value xml:lang="ar">إلغاء أمر البيع\الشراء</value>
@@ -3326,6 +3339,7 @@
     </property>
     <property key="OrderCreatePlan">
       <value xml:lang="en">Create Plan</value>
+      <value xml:lang="nl">Allocatieplan aanmaken</value>
     </property>
     <property key="OrderCreateTestSalesOrderSingleError">
         <value xml:lang="ar">لا يوجد سلع موجودة في الفئة ${productCategoryId}; لن يتم خلق أمر بيع/شراء</value>
@@ -3982,6 +3996,7 @@
     </property>
     <property key="OrderDefaultOrderItemTypeValue">
         <value xml:lang="en">default value will be PRODUCT_ORDER_ITEM</value>
+        <value xml:lang="nl">Standaardwaarde = PRODUCT_ORDER_ITEM</value>
     </property>
     <property key="OrderDeliveryScheduleInfo">
         <value xml:lang="ar">معلومات جدول التوصيل</value>
@@ -4542,6 +4557,7 @@
     </property>
     <property key="OrderExtValue">
         <value xml:lang="en">Ext. Value</value>
+        <value xml:lang="nl">Ext. waarde</value>
     </property>
     <property key="OrderExternalId">
         <value xml:lang="ar">دليل خارجي</value>
@@ -5497,6 +5513,7 @@
         <value xml:lang="fr">Epuisé, plus fabriqué</value>
         <value xml:lang="it">Cessato</value>
         <value xml:lang="ja">中止済</value>
+        <value xml:lang="nl">Stopgezet</value>
         <value xml:lang="pt-BR">Arquivado</value>
         <value xml:lang="ru">Снято с производства</value>
         <value xml:lang="th">ไม่ต่อเนื่อง</value>
@@ -6200,6 +6217,7 @@
     </property>
     <property key="OrderNewAllocationPlan">
         <value xml:lang="en">New Allocation Plan</value>
+        <value xml:lang="nl">Nieuw allocatieplan</value>
     </property>
     <property key="OrderNewDropShipmentForShipGroup">
         <value xml:lang="de">Neue Direktlieferung für Versandgruppe</value>
@@ -7231,6 +7249,7 @@
         <value xml:lang="fr">Estimation d'expédition UPS en ligne basé sur le poids et les dimensions des colis</value>
         <value xml:lang="it">Stima spedizione online UPS basata su peso e dimensione dei pacchi</value>
         <value xml:lang="ja">オンラインUPS発送の見積は重量とパッケージの寸法にもとづいて計算されます</value>
+        <value xml:lang="nl">Online UPS kostenschatting gebaseerd op volume en massa pakket</value>
         <value xml:lang="pt-BR">Estimativa de envio online UPS baseada no peso e dimensões dos pacotes</value>
         <value xml:lang="vi">Chuyển hàng trực tuyến qua UPS ước lượng dựa trên cân nặng và độ lớn của gói hàng</value>
         <value xml:lang="zh">基于包裹重量和尺寸的在线UPS送货预估</value>
@@ -7343,6 +7362,7 @@
     </property>
     <property key="OrderOrderingChannel">
         <value xml:lang="en">Ordering Channel</value>
+        <value xml:lang="nl">Verkoopkanaal</value>
     </property>
     <property key="OrderOrderBillFromParty">
         <value xml:lang="ar">فوترة من طرف</value>
@@ -7741,6 +7761,7 @@
         <value xml:lang="fr">Erreur lors de l'appel du service de traitement externe</value>
         <value xml:lang="it">Errore durante l'esecuzione del servizio esterno di avanzamento ordine</value>
         <value xml:lang="ja">外部執行サービスの実行中にエラー</value>
+        <value xml:lang="nl">Fout opgetreden tijdens uitvoering externe service</value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ cung cấp của bên ngoài</value>
         <value xml:lang="zh">运行外部执行服务时出错</value>
         <value xml:lang="zh-TW">責任履行履行外部責任履行履行服務時出錯</value>
@@ -8300,6 +8321,7 @@
     </property>
     <property key="OrderOrderQuoteCreatedSuccessfully">
         <value xml:lang="en">Quote Created Successfully</value>
+        <value xml:lang="nl">Quote aangemaakt</value>
     </property>
     <property key="OrderOrderQuoteDefaultUnitPrice">
         <value xml:lang="ar">سعر الوحدة الإفتراضي</value>
@@ -8732,6 +8754,7 @@
         <value xml:lang="de">Liste der Angebotsbedingungen</value>
         <value xml:lang="en">List Quote Terms</value>
         <value xml:lang="fr">Liste des conditions de règlement du devis</value>
+        <value xml:lang="nl">Voorwaarden</value>
         <value xml:lang="zh">询价条款列表</value>
         <value xml:lang="zh-TW">詢價條款清單</value>
     </property>
@@ -8887,6 +8910,7 @@
     </property>
     <property key="OrderOrderQuoteRoleAddedSuccessfully">
         <value xml:lang="en">Quote Role Added Successfully.</value>
+        <value xml:lang="nl">Party en rol toegevoegd.</value>
     </property>
     <property key="OrderOrderQuoteRoles">
         <value xml:lang="ar">أدوار عرض السعر</value>
@@ -9026,6 +9050,7 @@
     <property key="OrderOrderQuoteUpdatedSuccessfully">
         <value xml:lang="en">Quote updated successfully.</value>
         <value xml:lang="fr">Le devis a été mis à jour avec succès.</value>
+        <value xml:lang="nl">Update uitgevoerd</value>
     </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="ar">مشاهدة ربحية عرض السعر</value>
@@ -9366,9 +9391,11 @@
     </property>
     <property key="OrderOrderedUnits">
         <value xml:lang="en">Ordered Units</value>
+        <value xml:lang="nl">Bestelde eenheden</value>
     </property>
     <property key="OrderOrderedValue">
         <value xml:lang="en">Ordered Value</value>
+        <value xml:lang="nl">Bestelwaarde</value>
     </property>
     <property key="OrderOrders">
         <value xml:lang="ar">أوامر البيع/الشراء</value>
@@ -9984,12 +10011,15 @@
     </property>
     <property key="OrderPlanHeader">
         <value xml:lang="en">Plan Header</value>
+        <value xml:lang="nl">Kop</value>
     </property>
     <property key="OrderPlanItems">
         <value xml:lang="en">Plan Items</value>
+        <value xml:lang="nl">Artikelen</value>
     </property>
     <property key="OrderPlanName">
         <value xml:lang="en">Plan Name</value>
+        <value xml:lang="nl">Naam</value>
     </property>
     <property key="OrderPlannedInReceive">
         <value xml:lang="ar">الكمية المستلمة</value>
@@ -10360,6 +10390,7 @@
         <value xml:lang="hi-IN">प्रोत्साहन कि श्रेणी</value>
         <value xml:lang="it">Categorie nella Promozione</value>
         <value xml:lang="ja">プロモーションカテゴリ</value>
+        <value xml:lang="nl">PROMO-categorieën</value>
         <value xml:lang="pt-BR">Categorias de promoção</value>
         <value xml:lang="ro">Categorie in Promotie</value>
         <value xml:lang="ru">Акционные категории</value>
@@ -10376,7 +10407,7 @@
         <value xml:lang="fr">Promotion/Codes de coupons</value>
         <value xml:lang="it">Promozione/Codici Tagliando</value>
         <value xml:lang="ja">プロモーション/クーポンコード</value>
-        <value xml:lang="nl">Promo-/couponcodes</value>
+        <value xml:lang="nl">PROMO-/couponcodes</value>
         <value xml:lang="pt-BR">Promoção/código de cupom</value>
         <value xml:lang="ro">Promovare/Coduri Cupoane</value>
         <value xml:lang="ru">Коды по акциям/купонам</value>
@@ -11303,6 +11334,7 @@
         <value xml:lang="de">Promotion entfernen</value>
         <value xml:lang="en">Remove Promotion</value>
         <value xml:lang="fr">Supprimer la promotion</value>
+        <value xml:lang="nl">Verwijder PROMO</value>
         <value xml:lang="zh">删除促销</value>
     </property>
     <property key="OrderRemoveSelected">
@@ -11313,7 +11345,7 @@
         <value xml:lang="fr">Retirer la sélection</value>
         <value xml:lang="it">Rimuovi Selezionati</value>
         <value xml:lang="ja">選択を削除</value>
-        <value xml:lang="nl">Verwijderen geselecteerde regels</value>
+        <value xml:lang="nl">Verwijderen geselecteerde regel(s)</value>
         <value xml:lang="pt-BR">Remover selecionados</value>
         <value xml:lang="ro">Stergere Selectionari</value>
         <value xml:lang="ru">Удалить выбранный</value>
@@ -12051,10 +12083,12 @@
     <property key="OrderReserveAfterDate">
          <value xml:lang="en">Reserve After Date</value>
          <value xml:lang="fr">Réserver après cette date</value>
+         <value xml:lang="nl">Reserveer na de datum</value>
     </property>
     <property key="OrderReserveAfterDateDefault">
          <value xml:lang="en">Default Reserve After Date</value>
          <value xml:lang="fr">Date de réservation par défaut</value>
+         <value xml:lang="nl">Reserveer na standaarddatum</value>
     </property>
     <property key="OrderReturnAccept">
         <value xml:lang="ar">الموافقة للمسترجع</value>
@@ -13960,10 +13994,12 @@
     <property key="OrderShoppingListCreatedSuccessfully">
         <value xml:lang="de">Die Einkaufsliste wurde erfolgreich erstellt.</value>
         <value xml:lang="en">Shopping list has been created successfully.</value>
+        <value xml:lang="nl">Boodschappenlijst aangemaakt.</value>
     </property>
     <property key="OrderShoppingListUpdatedSuccessfully">
         <value xml:lang="de">Die Einkaufsliste wurde erfolgreich aktualisiert.</value>
         <value xml:lang="en">Shopping list has been updated successfully.</value>
+        <value xml:lang="nl">Boodschappenlijst bijgewerkt.</value>
     </property>
     <property key="OrderShortfalled">
         <value xml:lang="de">Rückstand</value>
@@ -15533,6 +15569,7 @@
     </property>
     <property key="PageTitleCreateAllocationPlan">
         <value xml:lang="en">Create Allocation Plan</value>
+        <value xml:lang="nl">Nieuw allocatieplan</value>
     </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="ar">خلق عرض سعر جديد وبند عرض السعر لطلب العميل</value>
@@ -15567,6 +15604,7 @@
     </property>
     <property key="PageTitleEditAllocationPlan">
         <value xml:lang="en">Edit Allocation Plan</value>
+        <value xml:lang="nl">Allocatieplan wijzigen</value>
     </property>
     <property key="PageTitleEditQuoteItemForCustRequest">
         <value xml:lang="ar">تعديل بند عرض السعر لطلب العميل</value>
@@ -15680,6 +15718,7 @@
     </property>
     <property key="PageTitleFindAllocationPlan">
         <value xml:lang="en">Find Allocation Plan</value>
+        <value xml:lang="nl">Allocatieplan zoeken/vinden</value>
     </property>
     <property key="PageTitleFindApprovedProductRequirements">
         <value xml:lang="ar">إيجاد متطلبات سلعة موافق عليها</value>
@@ -15689,6 +15728,7 @@
         <value xml:lang="fr">Chercher les besoins approuvés</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Prodotto</value>
         <value xml:lang="ja">承認済製品要求を検索</value>
+        <value xml:lang="nl">Goedgekeurde vereisten zoeken/vinden</value>
         <value xml:lang="pt-BR">Encontrar requisitos aprovados de produtos</value>
         <value xml:lang="th">ค้นหาสินค้าที่ต้องการอนุมัติ</value>
         <value xml:lang="vi">Tìm nhu cầu sản phẩm đã phê duyệt</value>
@@ -15703,6 +15743,7 @@
         <value xml:lang="fr">Chercher les besoins approuvés par le vendeur</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Fornitore</value>
         <value xml:lang="ja">サプライヤ別承認済要求を検索</value>
+        <value xml:lang="nl">Goedgekeurde vereisten (per leverancier) zoeken/vinden</value>
         <value xml:lang="pt-BR">Encontrar requisitos aprovados por fornecedor</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติโดยผู้จำหน่าย</value>
         <value xml:lang="vi">Tìm kiếm các phê duyệt nguồn lực bởi nhà cung cấp</value>
@@ -15717,6 +15758,7 @@
         <value xml:lang="fr">Chercher les besoins non approuvés</value>
         <value xml:lang="it">Ricerca fabbisogni non ancora approvati</value>
         <value xml:lang="ja">承認未済要求を検索</value>
+        <value xml:lang="nl">Geweigerde vereisten zoeken/vinden</value>
         <value xml:lang="pt-BR">Encontrar requisitos não aprovados</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติ</value>
         <value xml:lang="vi">Tìm kiếm các nhu cầu nguồn lực không được phê duyệt</value>
@@ -15764,6 +15806,7 @@
         <value xml:lang="fr">Liste des entêtes de commande</value>
         <value xml:lang="it">Lista testate ordini</value>
         <value xml:lang="ja">注文ヘッダ一覧</value>
+        <value xml:lang="nl">Orderkoppen</value>
         <value xml:lang="pt-BR">Listar cabeçalhos de pedidos</value>
         <value xml:lang="vi">Danh sách các phần đầu của Đặt hàng</value>
         <value xml:lang="zh">订单头列表</value>
@@ -15811,6 +15854,7 @@
         <value xml:lang="fr">Voir les rôles de besoin</value>
         <value xml:lang="it">Lista Fabbisogni Ruoli</value>
         <value xml:lang="ja">要求ロール一覧</value>
+        <value xml:lang="nl">Rollen</value>
         <value xml:lang="pt-BR">Listar papéis de requisitos</value>
         <value xml:lang="ru">Список ролей требования</value>
         <value xml:lang="th">รายการสถานะสิ่งที่ต้องการ</value>
@@ -16030,6 +16074,7 @@
         <value xml:lang="fr">Informations du projet</value>
         <value xml:lang="it">Informazione progetto</value>
         <value xml:lang="ja">プロジェクト情報</value>
+        <value xml:lang="nl">Informatie project</value>
         <value xml:lang="pt-BR">Informação de projeto</value>
         <value xml:lang="th">ข้อมูลโปรเจค</value>
         <value xml:lang="vi">Thông tin dự án</value>
@@ -16181,6 +16226,7 @@
         <value xml:lang="fr">Ligne du panier</value>
         <value xml:lang="it">Riga lista d'acquisto</value>
         <value xml:lang="ja">買い物リストアイテム</value>
+        <value xml:lang="nl">Artikel boodschappenlijst</value>
         <value xml:lang="pt-BR">Item da lista de compras</value>
         <value xml:lang="vi">Hàng hóa trong danh sách mua sắm</value>
         <value xml:lang="zh">送货列表明细</value>
@@ -16263,11 +16309,13 @@
         <value xml:lang="en">Update Note</value>
         <value xml:lang="fr">Màj Note</value>
         <value xml:lang="ja">連絡を更新</value>
+        <value xml:lang="nl">Notitie wijzigen</value>
         <value xml:lang="vi">Cập nhật ghi chú</value>
         <value xml:lang="zh">更新便笺</value>
         <value xml:lang="zh-TW">更新便箋</value>
     </property>
     <property key="PageTitleLookupReturnHeader">
         <value xml:lang="en">Lookup Return Header</value>
+        <value xml:lang="nl">Retouren zoeken/vinden</value>
     </property>
 </resource>
