@@ -97,7 +97,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
         <menu-item name="editInvoice" title="${uiLabelMap.AccountingInvoiceHeader}">
             <condition>
                 <and>
@@ -105,6 +104,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>

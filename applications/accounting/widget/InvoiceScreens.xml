@@ -156,7 +156,13 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                    <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                                </and>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditInvoice}">
@@ -164,9 +170,7 @@ under the License.
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <screenlet title="${uiLabelMap.PageTitleEditInvoice}">
-                                    <include-form name="InvoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
-                                </screenlet>
+                                <label style="h3" text="${uiLabelMap.AccountingPermissionError}"/>
                             </fail-widgets>
                         </section>
                     </decorator-section>
