@@ -25,6 +25,7 @@ name: "CodeQL"
 
 on:
   push:
+    branches: [ '**' ]
     paths:
         - '**.java'
         - '**.js'
