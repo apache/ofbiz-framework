@@ -20,6 +20,7 @@ package org.apache.ofbiz.base.util;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.joining;
+
 import static org.apache.ofbiz.base.util.UtilProperties.getPropertyValue;
 
 import java.io.IOException;
