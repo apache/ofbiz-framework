@@ -746,7 +746,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                 var queryArgs = {"term": request.term};
                 if (typeof args == "object" && jQuery.isArray(args)) {
                      for (var i = 0; i < args.length; i++) {
-                         queryArgs["parm" + i] = jQuery(args[i]).val();
+                         queryArgs["parm" + i] = jQuery(DOMPurify.sanitize(args[i]).val());
                      }
                 }
                 jQuery.ajax({
@@ -771,7 +771,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
 
                         if (typeof autocomp != 'undefined') {
                             jQuery.each(autocomp, function(index, item){
-                                item.label = jQuery("<div>").html(item.label).text();
+                                item.label = DOMPurify.sanitize(jQuery("<div>").html(item.label).text());
                             })
                             // autocomp is the JSON Object which will be used for the autocomplete box
                             response(autocomp);

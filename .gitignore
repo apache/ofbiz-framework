@@ -37,3 +37,5 @@ desktop.ini
 .*.swp
 .*.swo
 *.patch
+/themes/common-theme/webapp/common/js/node_modules/
+/docs/asciidoc/images/
