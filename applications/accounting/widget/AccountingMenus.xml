@@ -194,12 +194,22 @@ under the License.
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
+        <menu-item name="createNew" title="${uiLabelMap.AccountingCreateNewInvoice}" widget-style="buttontext create">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                    </or>
+                </and>
+            </condition>
             <link target="newInvoice"/>
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
             <condition>
-                <not><if-empty field="invoice.invoiceId"/></not>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </and>
             </condition>
             <link target="copyInvoice">
                 <parameter param-name="invoiceIdToCopyFrom" from-field="invoiceId"/>
@@ -234,6 +244,10 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus">
@@ -249,6 +263,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
                         <if-compare field="invoice.invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>
@@ -287,6 +305,10 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus">
@@ -300,6 +322,10 @@ under the License.
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>
@@ -315,6 +341,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus" request-confirmation="true" confirmation-message="You want to writeoff this invoice number ${invoice.invoiceId}?">
@@ -329,6 +359,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>
@@ -348,6 +382,10 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus" request-confirmation="true" confirmation-message="${uiLabelMap.AccountingConfirmationCancelOrder}">
@@ -363,6 +401,10 @@ under the License.
                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="copyInvoiceToTemplate">
@@ -372,7 +414,13 @@ under the License.
         </menu-item>
         <menu-item name="sendPerEmail" title="${uiLabelMap.CommonEmail}">
             <condition>
-                <not><if-empty field="invoice.invoiceId"/></not>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                </and>
             </condition>
             <link target="sendPerEmail">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
@@ -383,6 +431,10 @@ under the License.
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="addtax">
