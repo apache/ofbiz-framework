@@ -115,7 +115,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
         <menu-item name="listInvoiceItems" title="${uiLabelMap.AccountingInvoiceItems}">
             <condition>
                 <and>
@@ -130,7 +129,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
         <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
             <condition>
                 <and>
@@ -145,7 +143,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
         <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
             <condition>
                 <and>
@@ -160,7 +157,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
         <menu-item name="invoiceTerms" title="${uiLabelMap.PartyTerms}">
             <condition>
                 <and>
@@ -175,7 +171,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
         <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingApplications}">
             <condition>
                 <and>
@@ -192,16 +187,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
-        <menu-item name="sendPerEmail" title="${uiLabelMap.CommonSendPerEmail}">
-            <condition>
-                <not><if-empty field="invoice.invoiceId"/></not>
-            </condition>
-            <link target="sendPerEmail">
-                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
-            </link>
-        </menu-item>
-        
         <menu-item name="commissionRun" title="${uiLabelMap.AccountingCommissionRun}">
             <link target="CommissionRun"/>
         </menu-item>
@@ -383,6 +368,14 @@ under the License.
             <link target="copyInvoiceToTemplate">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
                 <parameter param-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
+            </link>
+        </menu-item>
+        <menu-item name="sendPerEmail" title="${uiLabelMap.CommonEmail}">
+            <condition>
+                <not><if-empty field="invoice.invoiceId"/></not>
+            </condition>
+            <link target="sendPerEmail">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
         <menu-item name="addtax" title="${uiLabelMap.AccountingAddTax}">
