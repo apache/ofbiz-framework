@@ -91,6 +91,6 @@ jobs:
 
     - name: Debug
       uses: github/codeql-action@v1
-        with:
-          debug: true
+      with:
+        debug: true
 
