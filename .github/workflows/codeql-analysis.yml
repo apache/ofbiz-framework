@@ -50,8 +50,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #language: [ 'java', 'javascript' ]
-        language: [ 'javascript' ]
+        language: [ 'java', 'javascript' ]
+        #language: [ 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         # Learn more:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
@@ -89,8 +89,6 @@ jobs:
     #- name: Perform CodeQL Analysis
     # uses: github/codeql-action/analyze@v1
 
-    - name: Debug
-      uses: github/codeql-action/analyze@v1
+    - uses: github/codeql-action@v1
       with:
         debug: true
-
