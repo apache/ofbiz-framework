@@ -79,10 +79,29 @@ under the License.
     <!-- see the children of entitymodel section for description, etc. -->
     <xs:attributeGroup name="attlist.entity">
         <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute name="table-name" type="xs:string"/>
+        <xs:attribute name="table-name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the table in the underlying rdbms
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="package-name" type="xs:string" use="required"/>
-        <xs:attribute name="default-resource-name" type="xs:string"/>
-        <xs:attribute name="dependent-on" type="xs:string"/>
+        <xs:attribute name="default-resource-name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Association to a particular resource. Currently only an association with an EntityLabel.xml files is supported.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="dependent-on" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Establishes the sub/super class structure of the entity. 
+                    The entity (sub class) takes elements from the entity on which it depends (super class).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="sequence-bank-size" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
