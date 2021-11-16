@@ -396,7 +396,7 @@ public class ControlServlet extends HttpServlet {
         Debug.logVerbose("--- End Request Headers: ---", MODULE);
         Debug.logVerbose("--- Start Request Parameters: ---", MODULE);
         request.getParameterMap().forEach((name, values) -> {
-            Debug.logVerbose(name + ":" + values, MODULE);
+            Debug.logVerbose(name + ":" + String.join(",", values), MODULE);
         });
         Debug.logVerbose("--- End Request Parameters: ---", MODULE);
         Debug.logVerbose("--- Start Request Attributes: ---", MODULE);
