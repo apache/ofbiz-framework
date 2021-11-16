@@ -86,11 +86,11 @@ jobs:
     #   make bootstrap
     #   make release
 
-    - name: Perform CodeQL Analysis
-      #uses: github/codeql-action/analyze@v1
+    #- name: Perform CodeQL Analysis
+    # uses: github/codeql-action/analyze@v1
 
-     - name: Debug
-       uses: github/codeql-action@v1
-       with:
-         debug: true
+    - name: Debug
+      uses: github/codeql-action@v1
+        with:
+        debug: true
 
