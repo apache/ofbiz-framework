@@ -25,6 +25,60 @@ import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
 
+def createInvoice() {
+    result = success()
+    nowTimestamp = UtilDateTime.nowTimestamp()
+    /*
+     * call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not supplied 
+     * else use it from the provided parameter
+     */
+    if(!parameters.invoiceId){
+        nextInvoiceIdMap = parameters
+        nextInvoiceIdMap.partyId = parameters.partyIdFrom
+        serviceInvoiceIdResult = run service: 'getNextInvoiceId', with: nextInvoiceIdMap
+        if (ServiceUtil.isError(serviceInvoiceIdResult)) return serviceInvoiceIdResult
+    }
+    parameters.invoiceId = invoiceId = serviceInvoiceIdResult.invoiceId
+    if(!parameters.invoiceDate) parameters.invoiceDate = nowTimestamp
+    if(!parameters.statusId) parameters.statusId = 'INVOICE_IN_PROCESS'
+    /*
+     * use currency of the 'receiving' party
+     */
+    party =  from('Party').where('partyId', parameters.partyId).queryOne()
+    if(party.preferredCurrencyUomId) parameters.currencyUomId = party.preferredCurrencyUomId
+    /*
+     * now we create entity record
+     */
+    GenericValue newEntity = makeValue('Invoice', parameters)
+    newEntity.create()
+    statusId = newEntity.statusId
+    /*
+     * create new status entry, and set lastStatusUpdate date
+     */
+    Map invoiceStatusMap = [invoiceId : invoiceId, statusId : statusId, statusDate : parameters.invoiceDate]
+    Map serviceInvoiceStatusResult = run service: 'createInvoiceStatus', with: invoiceStatusMap
+    if(ServiceUtil.isError(serviceInvoiceStatusResult)) return serviceInvoiceStatusResult
+    /* 
+     *  ensure the user has roleTypeId 'INVOICE_CRTR'
+     */
+    roleTypeId = 'INVOICE_CRTR'
+    Map partyRole =  [partyId : userLogin.partyId, roleTypeId : roleTypeId]
+    Map servicePartyRoleResult = run service: 'ensurePartyRole', with: partyRole
+    if (ServiceUtil.isError(servicePartyRoleResult)) return servicePartyRoleResult
+    /*
+     *  create the InvoiceRole for the user
+     */
+    Map invoiceRole =  [invoiceId : invoiceId,
+                        partyId : userLogin.partyId, 
+                        roleTypeId : roleTypeId, 
+                        fromDate : parameters.invoiceDate]
+    Map serviceInvoiceRoleResult = run service: 'createInvoiceRole', with: invoiceRole
+    if (ServiceUtil.isError(serviceInvoiceRoleResult)) return serviceInvoiceRoleResult
+    
+    result = invoiceId
+    return result
+}
+
 def getNextInvoiceId() {
     result = success()
 
@@ -98,7 +152,6 @@ def invoiceSequenceEnforced() {
 }
 
 def invoiceSequenceRestart() {
-    result = success()
 
     logInfo('In createInvoice sequence enum Enforced')
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference

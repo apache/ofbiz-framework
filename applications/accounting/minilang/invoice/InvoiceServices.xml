@@ -21,48 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="createInvoice" short-description="Create a new Invoice">
-        <now-timestamp field="nowTimestamp"/>
-
-        <make-value entity-name="Invoice" value-field="newEntity"/>
-
-        <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
-                            else use it from the input -->
-        <if-empty field="parameters.invoiceId">
-            <set-service-fields service-name="getNextInvoiceId" map="parameters" to-map="getNextInvoiceIdMap"/>
-            <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
-            <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
-                <result-to-field result-name="invoiceId" field="parameters.invoiceId"/>
-            </call-service>
-        </if-empty>
-        <field-to-result field="parameters.invoiceId" result-name="invoiceId"/>
-
-        <!-- set the invoice date if not provided -->
-        <if-empty field="parameters.invoiceDate">
-            <set from-field="nowTimestamp" field="parameters.invoiceDate"/>
-        </if-empty>
-
-        <!-- set the invoice status if not provided -->
-        <if-empty field="parameters.statusId">
-            <set field="parameters.statusId" value="INVOICE_IN_PROCESS"/>
-        </if-empty>
-
-        <!-- use currency of receiving company -->
-        <entity-one entity-name="Party" value-field="party"/>
-        <if-not-empty field="party.preferredCurrencyUomId">
-            <set field="parameters.currencyUomId" from-field="party.preferredCurrencyUomId"/>
-        </if-not-empty>
-
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-
-        <!-- create new status entry, and set lastStatusUpdate date -->
-        <set field="createInvoiceStatusMap.invoiceId" from-field="newEntity.invoiceId" />
-        <set field="createInvoiceStatusMap.statusId" from-field="newEntity.statusId" />
-        <call-service service-name="createInvoiceStatus" in-map-name="createInvoiceStatusMap"/>
-    </simple-method>
-
     <simple-method method-name="copyInvoice" short-description="Create a new Invoice from an existing invoice">
         <set field="invoiceLookup.invoiceId" from-field="parameters.invoiceIdToCopyFrom"/>
         <call-service service-name="getInvoice" in-map-name="invoiceLookup">

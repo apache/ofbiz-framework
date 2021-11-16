@@ -198,6 +198,14 @@ under the License.
     <RoleType description="Budget Reviewer" roleTypeId="BUDGET_RVR" parentTypeId="BUDGET" hasTable="N" />
     <RoleType description="Budget Approver" roleTypeId="BUDGET_APPRV" parentTypeId="BUDGET" hasTable="N" />
     
+    <!-- Accounting component role types regarding invoice entities-->
+    <RoleType description="Invoice Roles Group (not to be assigned to parties)" roleTypeId="INVOICE" hasTable="Y" />
+    <RoleType description="Invoice Creator" roleTypeId="INVOICE_CRTR" parentTypeId="INVOICE" hasTable="N" />
+    <RoleType description="Invoice Editor" roleTypeId="INVOICE_DTR" parentTypeId="INVOICE" hasTable="N" />
+    <RoleType description="Invoice Manager" roleTypeId="INVOICE_MGR" parentTypeId="INVOICE" hasTable="N" />
+    <RoleType description="Invoice Reviewer" roleTypeId="INVOICE_RVR" parentTypeId="INVOICE" hasTable="N" />
+    <RoleType description="Invoice Approver" roleTypeId="INVOICE_PPRVR" parentTypeId="INVOICE" hasTable="N" />
+    
     <!-- Accounting component role types regarding Fixed Asset Maintenance party roles -->
     <RoleType description="Fixed Asset Maint Assignee" hasTable="N" roleTypeId="FAM_ASSIGNEE"/>
     <RoleType description="Maintenance Supplier or Service" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_SUPPLIER"/>

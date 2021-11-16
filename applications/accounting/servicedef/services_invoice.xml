@@ -47,8 +47,8 @@ under the License.
     </service>
 
     <!-- Invoice services -->
-    <service name="createInvoice" engine="simple" default-entity-name="Invoice"
-        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="createInvoice">
+    <service name="createInvoice" engine="groovy" default-entity-name="Invoice"
+        location="component://accounting/groovyScripts/invoice/InvoiceServices.groovy" invoke="createInvoice">
         <description>Create Invoice Record</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
