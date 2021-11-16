@@ -90,7 +90,7 @@ jobs:
     # uses: github/codeql-action/analyze@v1
 
     - name: Debug
-      uses: github/codeql-action@v1
+      uses: github/codeql-action/analyze@v1
       with:
         debug: true
 
