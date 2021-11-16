@@ -56,7 +56,7 @@ include::HELP_editInvoice.adoc[leveloffset=+2]
 
 include::HELP_newInvoice.adoc[leveloffset=+2]
 
-include::HELP_editInvoiceApplications.adoc[leveloffset=+2]
+include::HELP_invoicePayments.adoc[leveloffset=+2]
 
 include::HELP_listInvoiceItems.adoc[leveloffset=+2]
 

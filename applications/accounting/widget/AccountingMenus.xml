@@ -171,7 +171,7 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingApplications}">
+        <menu-item name="invoicePayments" title="${uiLabelMap.CommonPayments}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
@@ -183,7 +183,7 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="editInvoiceApplications">
+            <link target="invoicePayments">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>

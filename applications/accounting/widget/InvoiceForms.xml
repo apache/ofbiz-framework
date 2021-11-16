@@ -188,23 +188,22 @@ under the License.
         <field name="datetimePerformed"><display/></field>
     </form>
 
-    <form name="ListInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true"
+    <grid name="InvoiceOverviewPayments"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         target="updatePaymentApplication" title="Apply payments to invoices" separate-columns="false">
-        <field name="invoiceItemSeqId"><display/></field>
-        <field name="productId"><display/></field>
-        <field name="description" encode-output="false"><display/></field>
-        <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
+        <field name="billingAccountId"><hidden/></field>
+        <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId" widget-style="linktext">
             <hyperlink description="${paymentId}" target="paymentOverview">
                 <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
-        <field name="billingAccountId"><hidden/></field>
-        <field name="paymentApplicationId"><hidden/></field>
+        <field name="invoiceItemSeqId"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="amountApplied" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
-    </form>
+    </grid>
     <form name="AcctgTransAndEntries" type="list" title="Accounting Transactions" list-name="acctgTransAndEntries"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
@@ -501,30 +500,43 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="true"
+    <grid name="InvoicePayments" list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="invoiceId"><hidden/></field>
         <field name="statusId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>
+        <field name="billingAccountId"><hidden/></field>
+        <field name="paymentId"><display/></field>
+        <field name="description"><display/></field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="productId"><display/></field>
-        <field name="description"><display/></field>
         <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
+        <field name="amountToApply" disabled="true"><display type="currency" currency="${invoice.currencyUomId}"/></field>
+    </grid>
+    <grid name="UpdateInvoicePayments" list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" target="updateInvoicePayment" title="Apply payments to invoices" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
-        <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
+        <field name="statusId"><hidden/></field>
+        <field name="paymentApplicationId"><hidden/></field>
         <field name="billingAccountId"><hidden/></field>
+        <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
+        <field name="description"><display/></field>
+        <field name="invoiceItemSeqId"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="amountToApply" disabled="true"><text size="10"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title=" " widget-style="buttontext" use-when="paymentApplicationId!=null">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoicePayment">
                 <parameter param-name="paymentApplicationId"/>
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="viewIndex"/>
                 <parameter param-name="viewSize"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
-    <form name="AddPayment" type="single" target="updateInvoiceApplication" title=""
+    <form name="AddPayment" type="single" target="updateInvoicePayment" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
@@ -535,7 +547,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListPaymentsNotApplied" type="list" list-name="payments" target="updateInvoiceApplication" title=""
+    <form name="ListPaymentsNotApplied" type="list" list-name="payments" target="updateInvoicePayment" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="buttontext">

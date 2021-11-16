@@ -24357,16 +24357,16 @@
         <value xml:lang="es">Listas de Roles de Presupuesto</value>
         <value xml:lang="zh">预算角色列表</value>
     </property>
-    <property key="PageTitleListEditInvoiceApplications">
+    <property key="PageTitleInvoicePayments">
         <value xml:lang="ar">قائمة تطبيقات تعديل الفاتورة</value>
         <value xml:lang="de">Rechnungszuordnungen auflisten</value>
-        <value xml:lang="en">List Edit Invoice Applications</value>
+        <value xml:lang="en">Invoice Payments</value>
         <value xml:lang="es">Lista Editar Aplicaciones de Factura</value>
         <value xml:lang="fr">Liste des assignations à la facture</value>
         <value xml:lang="hi-IN">संपादित चालान अनुप्रयोग की सूची</value>
         <value xml:lang="it">Aggiorna Applicazioni Fattura</value>
         <value xml:lang="ja">請求編集申請一覧</value>
-        <value xml:lang="nl">Toon edit factuurtoewijzingen</value>
+        <value xml:lang="nl">Factuurbetalingen</value>
         <value xml:lang="pt">Listar Edições das Apliicações de Fatura</value>
         <value xml:lang="ro">Actualizeaza Aplicatii Factura</value>
         <value xml:lang="ru">Список ред. приложений накл.</value>
