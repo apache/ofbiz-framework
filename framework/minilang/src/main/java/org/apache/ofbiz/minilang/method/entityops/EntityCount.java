@@ -65,11 +65,11 @@ public final class EntityCount extends EntityOperation {
         this.countFma = FlexibleMapAccessor.getInstance(element.getAttribute("count-field"));
         int conditionElementCount = 0;
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
-        conditionElementCount = conditionExprElement == null ? conditionElementCount : conditionElementCount++;
+        conditionElementCount = conditionExprElement == null ? conditionElementCount : ++conditionElementCount;
         Element conditionListElement = UtilXml.firstChildElement(element, "condition-list");
-        conditionElementCount = conditionListElement == null ? conditionElementCount : conditionElementCount++;
+        conditionElementCount = conditionListElement == null ? conditionElementCount : ++conditionElementCount;
         Element conditionObjectElement = UtilXml.firstChildElement(element, "condition-object");
-        conditionElementCount = conditionObjectElement == null ? conditionElementCount : conditionElementCount++;
+        conditionElementCount = conditionObjectElement == null ? conditionElementCount : ++conditionElementCount;
         if (conditionElementCount > 1) {
             MiniLangValidate.handleError("Element must include only one condition child element", simpleMethod, conditionObjectElement);
         }
