@@ -44,7 +44,7 @@ public final class UtilHtml {
     private static final String MODULE = UtilHtml.class.getName();
     private static final Parser JSOUP_HTML_PARSER = createJSoupHtmlParser();
     private static final String[] TAG_SHOULD_CLOSE_LIST = new String[]{"div"};
-    private static List<String> visualThemeBasePathsName;
+    private static List<String> visualThemeBasePathsName = new ArrayList<>();
     private UtilHtml() { }
 
     private static Parser createJSoupHtmlParser() {
@@ -117,29 +117,26 @@ public final class UtilHtml {
     }
 
     public static List<String> getVisualThemeFolderNamesToExempt() {
-        if (visualThemeBasePathsName == null) {
-            try {
-                List<File> xmlThemes = ThemeFactory.getThemeXmlFiles();
-                visualThemeBasePathsName = new ArrayList<>();
-                String themePathKey = "/themes/";
-                String pluginPathKey = "/plugins/";
-                for (File xmlTheme : xmlThemes) {
-                    String path = xmlTheme.toURI().toURL().toString();
-                    // get the path after themes or plugins folders
-                    if (path.indexOf(themePathKey) > 0) {
-                        path = path.substring(path.indexOf(themePathKey) + 8);
-                    } else if (path.indexOf(pluginPathKey) > 0) {
-                        path = path.substring(path.indexOf(pluginPathKey) + 9);
-                    }
-                    // get folder name
-                    path = path.substring(0, path.indexOf("/"));
-                    if (!path.contains("common-theme") && !path.contains("ecommerce")) {
-                        visualThemeBasePathsName.add("/" + path + "/");
-                    }
+        try {
+            List<File> xmlThemes = ThemeFactory.getThemeXmlFiles();
+            String themePathKey = "/themes/";
+            String pluginPathKey = "/plugins/";
+            for (File xmlTheme : xmlThemes) {
+                String path = xmlTheme.toURI().toURL().toString();
+                // get the path after themes or plugins folders
+                if (path.indexOf(themePathKey) > 0) {
+                    path = path.substring(path.indexOf(themePathKey) + 8);
+                } else if (path.indexOf(pluginPathKey) > 0) {
+                    path = path.substring(path.indexOf(pluginPathKey) + 9);
                 }
-            } catch (IOException e) {
-                Debug.logError(e, MODULE);
+                // get folder name
+                path = path.substring(0, path.indexOf("/"));
+                if (!path.contains("common-theme") && !path.contains("ecommerce")) {
+                    visualThemeBasePathsName.add("/" + path + "/");
+                }
             }
+        } catch (IOException e) {
+            Debug.logError(e, MODULE);
         }
         return Collections.unmodifiableList(visualThemeBasePathsName);
     }
