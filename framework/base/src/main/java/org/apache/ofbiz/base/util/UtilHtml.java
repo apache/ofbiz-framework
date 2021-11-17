@@ -31,7 +31,6 @@ import java.util.Stack;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
@@ -86,7 +85,6 @@ public final class UtilHtml {
                         stack.push(startElement);
                     }
                     if (event.isEndElement()) {
-                        EndElement endElement = event.asEndElement();
                         stack.pop();
                     }
                 } catch (XMLStreamException e) {
