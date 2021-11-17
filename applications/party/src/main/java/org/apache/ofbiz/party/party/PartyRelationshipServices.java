@@ -46,7 +46,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class PartyRelationshipServices {
 
     private static final String MODULE = PartyRelationshipServices.class.getName();
-
     private static final String RES_ERROR = "PartyErrorUiLabels";
 
     /** Creates and updates a PartyRelationship creating related PartyRoles if needed.
