@@ -39,7 +39,7 @@ under the License.
         <field name="displayAdvancedSearch"><hidden value="true"></hidden></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFinAccounts" type="list" separate-columns="true" default-entity-name="FinAccount" list-name="listIt" paginate-target="FindFinAccount" paginate="true"
+    <grid name="ListFinAccounts" separate-columns="true" default-entity-name="FinAccount" list-name="listIt" paginate-target="FindFinAccount" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -78,7 +78,7 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount"
         header-row-style="header-row" default-table-style="basic-table">
@@ -140,7 +140,7 @@ under the License.
         <field name="availableBalance"><display/></field>
     </form>
 
-    <form name="ListFinAccountRoles" type="list"  list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true"
+    <grid name="ListFinAccountRoles" list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFinAccountRoles">
         <actions>
             <entity-condition entity-name="FinAccountRole">
@@ -162,7 +162,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddFinAccountRole" type="single" target="createFinAccountRole"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFinAccountRole"/>
@@ -218,7 +218,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListFinAccountAuths" type="list"  list-name="finAccountauths"  target="expireFinAccountAuth" separate-columns="true"
+    <grid name="ListFinAccountAuths" list-name="finAccountauths"  target="expireFinAccountAuth" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFinAccountAuths">
         <actions>
             <entity-condition entity-name="FinAccountAuth">
@@ -235,7 +235,7 @@ under the License.
                 <parameter param-name="finAccountAuthId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddFinAccountAuth" type="single" target="createFinAccountAuth"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFinAccountAuth"/>
@@ -256,7 +256,7 @@ under the License.
         <field name="finAccountId"><hidden/></field>
         <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
     </form>
-    <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml" list-name="paymentGroupList"
+    <grid name="ListDepositSlips" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml" list-name="paymentGroupList"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" paginate-target="FindDepositSlips">
         <field name="paymentGroupId" widget-style="buttontext">
             <hyperlink description="${paymentGroupId}" target="EditDepositSlipAndMembers">
@@ -271,7 +271,7 @@ under the License.
                 <parameter param-name="glReconciliationId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditDepositSlip" type="single" target="updateDepositSlip" extends="EditPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
         <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PaymentGroupType"/></field>
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
@@ -279,7 +279,7 @@ under the License.
     <form name="AddDepositSlipMember" type="single" target="addDepositSlipMember" extends="AddPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
-    <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
+    <grid name="ListDepositSlipMember" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" paginate-target="EditDepositSlipAndMembers">
         <actions>
             <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
@@ -295,7 +295,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
-    </form>
+    </grid>
     <form name="QuickFindFinAccounts" type="single" target="FindFinAccount"
             header-row-style="header-row" default-table-style="basic-table">
         <field name="finAccountId"><text-find ignore-case="true"/></field>
@@ -410,7 +410,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListFinAccountReconciliations" type="list" list-name="glReconciliations" list-entry-name="glReconciliation" separate-columns="true"
+    <grid name="ListFinAccountReconciliations" list-name="glReconciliations" list-entry-name="glReconciliation" separate-columns="true"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="FindFinAccountReconciliations">
         <row-actions>
             <entity-one entity-name="PartyNameView" value-field="partyName">
@@ -439,7 +439,7 @@ under the License.
         </field>
         <field name="reconciledBalance"><display type="currency" currency="${currencyUomId}"></display></field>
         <field name="openingBalance"><display type="currency" currency="${currencyUomId}"></display></field>
-    </form>
+    </grid>
     <form name="FindBankReconciliation" type="single" target="FindFinAccountReconciliations">
         <field name="finAccountId"><hidden value="${parameters.finAccountId}"/></field>
         <field name="glReconciliationId"><lookup target-form-name="LookupGlReconciliation"/></field>

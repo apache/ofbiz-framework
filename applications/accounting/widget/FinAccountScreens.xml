@@ -104,7 +104,7 @@ under the License.
                                         </section>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        <include-grid name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -170,7 +170,7 @@ under the License.
                         <screenlet id="FinAccountRolePanel" collapsible="true">
                             <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <include-grid name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -217,7 +217,7 @@ under the License.
                         <screenlet id="FinAccountAuthsPanel" title="${uiLabelMap.AccountingEditFinAccountAuthorityFor}]" collapsible="true">
                             <include-form name="AddFinAccountAuth" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <include-grid name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -336,7 +336,7 @@ under the License.
                                         <include-form name="FindDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        <include-grid name="ListDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -379,7 +379,7 @@ under the License.
                             <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMemberFor}">
-                            <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
+                            <include-grid name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -543,7 +543,7 @@ under the License.
     <screen name="FinAccountPortlets">
         <section>
             <widgets>
-                <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+                <include-grid name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -715,7 +715,7 @@ under the License.
                                 <include-form name="FindBankReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListFinAccountReconciliations" location="component://accounting/widget/FinAccountForms.xml"/>
+                                <include-grid name="ListFinAccountReconciliations" location="component://accounting/widget/FinAccountForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
