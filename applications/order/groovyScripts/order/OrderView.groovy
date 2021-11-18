@@ -17,22 +17,20 @@
  * under the License.
  */
 
-import java.math.BigDecimal
-import java.util.*
 import java.sql.Timestamp
+
+import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.order.order.OrderReadHelper
-import org.apache.ofbiz.party.contact.ContactMechWorker
 import org.apache.ofbiz.party.contact.ContactHelper
-import org.apache.ofbiz.product.inventory.InventoryWorker
+import org.apache.ofbiz.party.contact.ContactMechWorker
 import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.inventory.InventoryWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.accounting.payment.PaymentWorker
 
 orderId = parameters.orderId
 context.orderId = orderId
@@ -60,7 +58,11 @@ comments = null
 
 if (orderId) {
     orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
-    comments = select("orderItemSeqId", "changeComments", "changeDatetime", "changeUserLogin").from("OrderItemChange").where(UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId))).orderBy("-changeDatetime").queryList()
+    comments = select("orderItemSeqId", "changeComments", "changeDatetime", "changeUserLogin")
+            .from("OrderItemChange")
+            .where(UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId)))
+            .orderBy("-changeDatetime")
+            .queryList()
 }
 
 if (orderHeader) {
@@ -89,7 +91,7 @@ if (orderHeader) {
 
     // get sales reps
     context.salesReps = orderHeader.getRelated("OrderRole", [orderId : orderHeader.orderId, roleTypeId : "SALES_REP"], null, false)
-    
+
     // get the order type
     orderType = orderHeader.orderTypeId
     context.orderType = orderType
@@ -152,7 +154,10 @@ if (orderHeader) {
         allShipmentsMap[primaryShipment.shipmentId] = primaryShipment
     }
     itemIssuancesPerItem = [:]
-    itemIssuances = orderHeader.getRelated("ItemIssuance", null, ["shipmentId", "shipmentItemSeqId"], false)
+    itemIssuances = orderHeader.getRelated("ItemIssuance", null, [
+        "shipmentId",
+        "shipmentItemSeqId"
+    ], false)
     itemIssuances.each { itemIssuance ->
         if (!allShipmentsMap.containsKey(itemIssuance.shipmentId)) {
             iiShipment = itemIssuance.getRelatedOne("Shipment", false)
@@ -176,9 +181,10 @@ if (orderHeader) {
     context.invoices = orderBilling*.invoiceId.unique()
 
     ecl = EntityCondition.makeCondition([
-                                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
-                                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")],
-                                EntityOperator.AND)
+        EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
+        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")
+    ],
+    EntityOperator.AND)
     orderPaymentPreferences = from("OrderPaymentPreference").where(ecl).queryList()
     context.orderPaymentPreferences = orderPaymentPreferences
 
@@ -202,16 +208,16 @@ if (orderHeader) {
         }
         BigDecimal totalQuantityPlanned = 0
         OISGAssContents.each { OISGAssContent ->
-           BigDecimal cancelQty = OISGAssContent.get("cancelQuantity")
-           BigDecimal qty = OISGAssContent.get("quantity")
-           if (qty != null) {
-               totalQuantityPlanned = totalQuantityPlanned.add(qty)
-           }
-           if (cancelQty != null){
-               OISGAssContent.set("quantity", qty.subtract(cancelQty))
-           } else {
-               OISGAssContent.set("quantity", qty)
-           }
+            BigDecimal cancelQty = OISGAssContent.get("cancelQuantity")
+            BigDecimal qty = OISGAssContent.get("quantity")
+            if (qty != null) {
+                totalQuantityPlanned = totalQuantityPlanned.add(qty)
+            }
+            if (cancelQty != null){
+                OISGAssContent.set("quantity", qty.subtract(cancelQty))
+            } else {
+                OISGAssContent.set("quantity", qty)
+            }
         }
         totalQuantityToPlan = totalQuantityPlanned - quantityOrdered
         BigDecimal quantityNotAvailable = 0
@@ -232,7 +238,7 @@ if (orderHeader) {
         orderItemDatas.add(orderItemData)
     }
     context.put("orderItemDatas", orderItemDatas)
-    
+
     // create the actualDate for calendar
     actualDateCal = Calendar.getInstance()
     actualDateCal.setTime(new java.util.Date())
@@ -247,11 +253,11 @@ if (orderHeader) {
 
     // get Shipment tracking info
     orderShipmentInfoSummaryList = select("shipGroupSeqId", "shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId", "shipmentPackageSeqId", "trackingCode", "boxNumber")
-                                    .from("OrderShipmentInfoSummary")
-                                    .where("orderId", orderId)
-                                    .orderBy("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId")
-                                    .distinct()
-                                    .queryList()
+            .from("OrderShipmentInfoSummary")
+            .where("orderId", orderId)
+            .orderBy("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId")
+            .distinct()
+            .queryList()
     context.orderShipmentInfoSummaryList = orderShipmentInfoSummaryList
 
     customerPoNumber = null
@@ -407,10 +413,10 @@ if (orderHeader) {
     context.productionProductQuantityMap = productionMap
 
     if (productIds.size() > 0) {
-        // INVENTORY: find the number of products in outstanding sales orders for the same product store    
+        // INVENTORY: find the number of products in outstanding sales orders for the same product store
         requiredMap = InventoryWorker.getOutstandingProductQuantitiesForSalesOrders(productIds, delegator)
         context.requiredProductQuantityMap = requiredMap
-    
+
         // INVENTORY: find the quantity of each product in outstanding purchase orders
         onOrderMap = InventoryWorker.getOutstandingProductQuantitiesForPurchaseOrders(productIds, delegator)
         context.onOrderProductQuantityMap = onOrderMap
@@ -419,7 +425,7 @@ if (orderHeader) {
         context.onOrderProductQuantityMap = [:]
     }
 
-        // list to find all the POSTAL_ADDRESS for the shipment party.
+    // list to find all the POSTAL_ADDRESS for the shipment party.
     orderParty = from("Party").where("partyId", partyId).queryOne()
     shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
     context.shippingContactMechList = shippingContactMechList
@@ -464,18 +470,18 @@ if (orderHeader) {
         }
     }
 
-   // list to find all the POSTAL_ADDRESS for the party.
-   orderParty = from("Party").where("partyId", partyId).queryOne()
-   postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false)
-   context.postalContactMechList = postalContactMechList
+    // list to find all the POSTAL_ADDRESS for the party.
+    orderParty = from("Party").where("partyId", partyId).queryOne()
+    postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false)
+    context.postalContactMechList = postalContactMechList
 
-   // list to find all the TELECOM_NUMBER for the party.
-   telecomContactMechList = ContactHelper.getContactMechByType(orderParty,"TELECOM_NUMBER", false)
-   context.telecomContactMechList = telecomContactMechList
+    // list to find all the TELECOM_NUMBER for the party.
+    telecomContactMechList = ContactHelper.getContactMechByType(orderParty,"TELECOM_NUMBER", false)
+    context.telecomContactMechList = telecomContactMechList
 
-   // list to find all the EMAIL_ADDRESS for the party.
-   emailContactMechList = ContactHelper.getContactMechByType(orderParty,"EMAIL_ADDRESS", false)
-   context.emailContactMechList = emailContactMechList
+    // list to find all the EMAIL_ADDRESS for the party.
+    emailContactMechList = ContactHelper.getContactMechByType(orderParty,"EMAIL_ADDRESS", false)
+    context.emailContactMechList = emailContactMechList
 }
 
 paramString = ""
@@ -533,7 +539,7 @@ if (shipments) {
                     shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription
                     shippingRateList.add(shippingMethodAndRate)
                 }
-           }
+            }
             context.shippingRateList = shippingRateList
         }
     }
