@@ -384,8 +384,10 @@ def updateReturnStatusFromReceipt() {
             // update the status for the item
             item.statusId = "RETURN_RECEIVED"
         }
+        Map serviceInMap = [:]
+        serviceInMap << item
         // update the returnItem with at least receivedQuantity, and also statusId if applicable
-        run service: "updateReturnItem", with: item
+        run service: "updateReturnItem", with: serviceInMap
     }
     // check to see if all items have been received
     boolean allReceived = true
