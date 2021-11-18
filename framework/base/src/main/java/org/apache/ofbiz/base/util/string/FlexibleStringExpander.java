@@ -236,9 +236,8 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
     private abstract static class Key {
         @Override
         public final boolean equals(Object o) {
-            // No class test here, nor null, as this class is only used
-            // internally
-            return toString().equals(o.toString());
+            // No class test here, nor null, as this class is only used internally
+            return (o == null) ? false : toString().equals(o.toString());
         }
 
         @Override
