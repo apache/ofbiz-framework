@@ -18,18 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.ftl;
 
-import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateTransformModel;
-import freemarker.template.TemplateScalarModel;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -42,6 +38,13 @@ import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.xml.sax.SAXException;
+
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateScalarModel;
+import freemarker.template.TemplateTransformModel;
 
 /**
  * OfbizScreenTransform - Freemarker Transform to display a screen by is location and name
@@ -108,12 +111,13 @@ public class OfbizScreenTransform implements TemplateTransformModel {
                 try {
                     Environment env = Environment.getCurrentEnvironment();
                     BeanModel req = (BeanModel) env.getVariable("request");
-                    HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
+                    if (req == null) {
+                        return;
+                    }
+                    HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                     VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
                     ModelTheme modelTheme = visualTheme.getModelTheme();
-
                     String screenName = name.isEmpty() ? buf.toString() : name;
-
                     String screenMacroLibraryPath = modelTheme.getScreenRendererLocation(screenType);
                     ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType(screenType), screenMacroLibraryPath);
 
