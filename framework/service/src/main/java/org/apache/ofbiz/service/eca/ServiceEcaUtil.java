@@ -154,7 +154,7 @@ public final class ServiceEcaUtil {
 
     public static Map<String, List<ServiceEcaRule>> getServiceEventMap(String serviceName) {
         if (ServiceEcaUtil.ecaCache == null) ServiceEcaUtil.readConfig();
-        return ServiceEcaUtil.ecaCache.get(serviceName);
+        return (serviceName == null) ? null : ServiceEcaUtil.ecaCache.get(serviceName);
     }
 
     public static List<ServiceEcaRule> getServiceEventRules(String serviceName, String event) {
