@@ -92,9 +92,6 @@ under the License.
                                 <if-has-permission permission="FACILITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://product/template/shipment/ShipmentTabBar.ftl"/></html>
-                                </platform-specific>
                                 <section>
                                     <condition>
                                         <not><if-empty field="shipment"/></not>
@@ -102,9 +99,8 @@ under the License.
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf" target-window="_BLANK">
-                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                            </link>
+                                            <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentTabBar"/>
+                                            <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentActionBar"/>
                                         </container>
                                     </widgets>
                                 </section>
