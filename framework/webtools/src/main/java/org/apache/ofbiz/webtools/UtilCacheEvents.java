@@ -19,10 +19,11 @@
 package org.apache.ofbiz.webtools;
 
 import java.util.Iterator;
-import java.util.Locale;
-import java.util.List;
-import java.util.Map;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -210,18 +211,17 @@ public final class UtilCacheEvents {
             if (name == null) {
                 errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCache", locale) + ".";
                 eventList.add(errMsg);
-            }
-
-            UtilCache<?, ?> utilCache = UtilCache.findCache(name);
-
-            if (utilCache != null) {
-                utilCache.clear();
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
-                eventList.add(errMsg);
             } else {
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName",
-                        UtilMisc.toMap("name", name), locale) + ".";
-                eventList.add(errMsg);
+                UtilCache<?, ?> utilCache = UtilCache.findCache(name);
+                if (utilCache != null) {
+                    utilCache.clear();
+                    errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
+                    eventList.add(errMsg);
+                } else {
+                    errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName",
+                            UtilMisc.toMap("name", name), locale) + ".";
+                    eventList.add(errMsg);
+                }
             }
         }
         request.setAttribute("_EVENT_MESSAGE_LIST_", eventList);
