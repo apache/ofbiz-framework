@@ -68,7 +68,7 @@ under the License.
                             <include-form name="FindShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductShipmentsFound}">
-                            <include-form name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                            <include-grid name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -274,7 +274,7 @@ under the License.
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ProductShipmentPlanList}">
-                            <include-form name="ListShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
+                            <include-grid name="ListShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
                             <label style="h2" text="${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}"/>
                         </screenlet>
                         <section>
@@ -363,7 +363,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
+                        <include-grid name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

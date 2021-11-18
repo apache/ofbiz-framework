@@ -60,7 +60,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListShipment" type="list" target="updateShipment" list-name="listIt"
+    <grid name="ListShipment" target="updateShipment" list-name="listIt"
           header-row-style="header-row" default-table-style="basic-table" odd-row-style="alternate-row">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -81,7 +81,7 @@ under the License.
         <field name="destinationFacilityId" title="${uiLabelMap.ProductDestinationFacility}"><display-entity entity-name="Facility" description="${facilityName}" key-field-name="facilityId"/></field>
         <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><display/></field>
         <field name="entryDate" title="${uiLabelMap.FormFieldTitle_entryDate}"><display/></field>
-    </form>
+    </grid>
     <form name="EditShipment" type="single" target="updateShipment" title="" default-map-name="shipment"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="shipment==null&amp;&amp;shipmentTypeId==null" target="createShipment"/>
@@ -196,7 +196,7 @@ under the License.
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
     <!-- List for Shipment Plan -->
-    <form name="ListShipmentPlan" type="list" target="" title="" list-name="listShipmentPlanRows"
+    <grid name="ListShipmentPlan" list-name="listShipmentPlanRows"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentItemSeqId" title="${uiLabelMap.ProductShipmentItemSeqId}"><display/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
@@ -230,7 +230,7 @@ under the License.
                 <parameter param-name="shipGroupSeqId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddToShipmentPlan" type="multi" target="addToShipmentPlan?shipmentId=${shipmentId}" title="" list-name="addToShipmentPlanRows"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentId"><hidden/></field>
@@ -272,7 +272,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
+    <grid name="ShipmentReceipts" list-name="shipmentReceiptList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ShipmentReceipt" list="shipmentReceiptList">
@@ -292,6 +292,5 @@ under the License.
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
-    </form>
-
+    </grid>
 </forms>
