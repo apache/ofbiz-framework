@@ -67,7 +67,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-form name="ListBudgets" location="component://accounting/widget/BudgetForms.xml"/>
+                <include-grid name="ListBudgets" location="component://accounting/widget/BudgetForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -189,21 +189,21 @@ under the License.
                                 </screenlet>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.AccountingBudgetStatus}" navigation-form-name="BudgetStatus">
-                                        <include-form name="BudgetStatus" location="component://accounting/widget/BudgetForms.xml"/>
+                                        <include-grid name="BudgetStatus" location="component://accounting/widget/BudgetForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
                                     <screenlet title="${uiLabelMap.AccountingBudgetRoles}" navigation-form-name="BudgetRoles">
-                                        <include-form name="BudgetRoles" location="component://accounting/widget/BudgetForms.xml"/>
+                                        <include-grid name="BudgetRoles" location="component://accounting/widget/BudgetForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="clear"/>
                                 <screenlet title="${uiLabelMap.AccountingBudgetItems}" navigation-form-name="BudgetItems">
-                                    <include-form name="BudgetItems" location="component://accounting/widget/BudgetForms.xml"/>
+                                    <include-grid name="BudgetItems" location="component://accounting/widget/BudgetForms.xml"/>
                                 </screenlet>
                                 <container style="clear"/>
                                 <screenlet title="${uiLabelMap.AccountingBudgetReviews}" navigation-form-name="BudgetReviews">
-                                    <include-form name="BudgetReviews" location="component://accounting/widget/BudgetForms.xml"/>
+                                    <include-grid name="BudgetReviews" location="component://accounting/widget/BudgetForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -263,7 +263,7 @@ under the License.
                         <screenlet id="PartyBudgetRolePanel" title="${uiLabelMap.AccountingPartyRoleAdd}" collapsible="true">
                             <include-form name="EditBudgetRole" location="component://accounting/widget/BudgetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListBudgetRoles" location="component://accounting/widget/BudgetForms.xml"/>
+                        <include-grid name="ListBudgetRoles" location="component://accounting/widget/BudgetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -287,7 +287,7 @@ under the License.
                         <screenlet id="BudgetReviewPanel" title="${uiLabelMap.AccountingBudgetReviewAdd}" collapsible="true">
                             <include-form name="EditBudgetReview" location="component://accounting/widget/BudgetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListBudgetReviews" location="component://accounting/widget/BudgetForms.xml"/>
+                        <include-grid name="ListBudgetReviews" location="component://accounting/widget/BudgetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

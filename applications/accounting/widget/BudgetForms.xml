@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- list all assets in a tabular format -->
-    <form name="ListBudgets" type="list" list-name="listIt" paginate-target="ListBudgets"
+    <grid name="ListBudgets" list-name="listIt" paginate-target="ListBudgets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -45,7 +45,7 @@ under the License.
             <display/>
         </field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="BudgetSearchResults"/>
-    </form>
+    </grid>
 
     <form name="FindBudgetOptions" extends="LookupBudget" extends-resource="component://accounting/widget/FieldLookupForms.xml"
         target="ListBudgets">
@@ -79,15 +79,15 @@ under the License.
         <field position="1" name="comments"><display/></field>
     </form>
     
-    <form name="BudgetStatus" list-name="budgetStatuses" target="" title="" type="list" separate-columns="true" paginate-target="budgetOverview"
+    <grid name="BudgetStatus" list-name="budgetStatuses" separate-columns="true" paginate-target="budgetOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="budgetId"><hidden/></field>
         <field name="statusDate"><display type="date-time"/></field>
         <field name="statusId" title="${uiLabelMap.AccountingBudgetStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="changeByUserLoginId"><display/></field>
-    </form>
+    </grid>
     
-    <form name="BudgetRoles" type="list" use-row-submit="true" title="" list-name="budgetRoles" paginate-target="BudgetOverview"
+    <grid name="BudgetRoles" use-row-submit="true" list-name="budgetRoles" paginate-target="BudgetOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="budgetId"><hidden/></field>
@@ -102,9 +102,9 @@ under the License.
         <field name="roleTypeId">
             <display-entity also-hidden="false" entity-name="RoleType"/>
         </field>
-    </form>
+    </grid>
     
-    <form name="BudgetItems" list-name="budgetItems" target="" title="" type="list" separate-columns="true" paginate-target="BudgetOverview"
+    <grid name="BudgetItems" list-name="budgetItems" separate-columns="true" paginate-target="BudgetOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="BudgetItem" default-field-type="display"/>
         <field name="budgetId"><hidden/></field>
@@ -113,9 +113,9 @@ under the License.
         <field name="amount" ><display/></field>
         <field name="purpose" ><display/></field>
         <field name="justification" ><display/></field>
-    </form>
+    </grid>
     
-    <form name="BudgetReviews" list-name="budgetReviews" target="" title="" type="list" separate-columns="true" paginate-target="BudgetOverview"
+    <grid name="BudgetReviews" list-name="budgetReviews" separate-columns="true" paginate-target="BudgetOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="budgetReviewId"><display/></field>
         <field name="partyId" widget-style="buttontext">
@@ -130,7 +130,7 @@ under the License.
             <display-entity also-hidden="false" entity-name="BudgetReviewResultType"/>
         </field>
         <field name="reviewDate"><display/></field>
-    </form>
+    </grid>
     
     <form name="EditBudgetItems" type="multi"  list-name="budgetItems" default-entity-name="BudgetItem" target="updateBudgetItem?budgetId=${budgetId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}" title="Edit Budget Items" paginate-target="EditBudgetItems"
        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
@@ -196,7 +196,7 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListBudgetRoles" type="list" use-row-submit="true" title="" list-name="budgetRoles" paginate-target="BudgetRoles"
+    <grid name="ListBudgetRoles" use-row-submit="true" list-name="budgetRoles" paginate-target="BudgetRoles"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="budgetId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
@@ -219,7 +219,7 @@ under the License.
                 <parameter param-name="viewSize"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     
     <form name="EditBudgetReview" type="single" target="createBudgetReview" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -236,7 +236,7 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListBudgetReviews" type="list" use-row-submit="true" title="" list-name="budgetReviews" paginate-target="BudgetReviews"
+    <grid name="ListBudgetReviews" use-row-submit="true" list-name="budgetReviews" paginate-target="BudgetReviews"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="budgetId"><hidden/></field>
         <field name="budgetReviewId"><display/></field>
@@ -262,5 +262,5 @@ under the License.
                 <parameter param-name="viewSize"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 </forms>
