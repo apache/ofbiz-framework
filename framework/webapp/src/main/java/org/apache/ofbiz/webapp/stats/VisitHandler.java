@@ -206,7 +206,7 @@ public class VisitHandler {
 
     public static GenericValue getVisitor(HttpServletRequest request, HttpServletResponse response) {
         // this defaults to true: ie if anything but "false" it will be true
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (!EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visitor", "false", delegator)) {
             HttpSession session = request.getSession();
 
@@ -228,7 +228,7 @@ public class VisitHandler {
                             String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
                             if (Debug.verboseOn()) {
-                                Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), MODULE);
+                                Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), module);
                             }
                             if (cookies != null) {
                                 for (int i = 0; i < cookies.length; i++) {

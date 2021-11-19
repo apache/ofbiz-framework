@@ -43,8 +43,8 @@ public final class UtilCacheEvents {
     private static final String ERR_RESOURCE = "WebtoolsErrorUiLabels";
     private static final String MODULE = UtilCacheEvents.class.getName();
 
-
-    private UtilCacheEvents() { }
+    private UtilCacheEvents() {
+    }
 
     /** An HTTP WebEvent handler the specified element from the specified cache
      * @param request The HTTP request object for the current JSP or Servlet request.
@@ -269,7 +269,6 @@ public final class UtilCacheEvents {
         } catch (Exception e) {
             Debug.logError(e, MODULE);
         }
-
 
         UtilCache<?, ?> utilCache = UtilCache.findCache(name);
 
