@@ -297,6 +297,7 @@ public final class FinAccountHelper {
             }
 
             if (isId) {
+                // FIXME number is null!
                 int check = UtilValidate.getLuhnCheckDigit(number);
                 numberBuilder.append(check);
                 number = numberBuilder.toString();
