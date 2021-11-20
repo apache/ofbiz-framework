@@ -1898,10 +1898,6 @@ under the License.
     <field name="fromDate" type="date-time"></field>
     <field name="thruDate" type="date-time"></field>
     <field name="price" type="currency-precise"></field>
-    <field name="createdDate" type="date-time"></field>
-    <field name="createdByUserLogin" type="id-vlong"></field>
-    <field name="lastModifiedDate" type="date-time"></field>
-    <field name="lastModifiedByUserLogin" type="id-vlong"></field>
     <prim-key field="productFeatureId"/>
     <prim-key field="productPriceTypeId"/>
     <prim-key field="currencyUomId"/>
@@ -2528,10 +2524,6 @@ under the License.
       <field name="taxAuthPartyId" type="id"/>
       <field name="taxAuthGeoId" type="id"/>
       <field name="taxInPrice" type="indicator"><description>If Y the price field has tax included for the given taxAuthPartyId/taxAuthGeoId at the taxPercentage.</description></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="productId"/>
       <prim-key field="productPriceTypeId"/>
       <prim-key field="productPricePurposeId"/>
@@ -2866,10 +2858,6 @@ under the License.
       <field name="reserv2ndPPPerc" type="fixed-point"><description>percentage of the end price for the 2nd person renting this asset connected to this product</description></field>
       <field name="reservNthPPPerc" type="fixed-point"><description>percentage of the end price for the Nth person renting this asset connected to this product</description></field>
       <field name="configId" type="id"><description>Used to safe the persisted configuration Id for AGGREGATED products.</description></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="inShippingBox" type="indicator"></field>
       <field name="defaultShipmentBoxTypeId" type="id"></field>
       <field name="lotIdFilledIn" type="long-varchar"><description>Indicate if the lotId must be informed</description></field>
@@ -3527,10 +3515,6 @@ under the License.
       <field name="useLimitPerPromotion" type="numeric"></field>
       <field name="billbackFactor" type="fixed-point"></field>
       <field name="overrideOrgPartyId" type="id"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="productPromoId"/>
       <relation type="one" fk-name="PROD_PRMO_OPA" rel-entity-name="Party">
         <key-map field-name="overrideOrgPartyId" rel-field-name="partyId"/>
@@ -3625,10 +3609,6 @@ under the License.
       <field name="useLimitPerCustomer" type="numeric"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="productPromoCodeId"/>
       <relation type="one" fk-name="PROD_PRCOD_PROMO" rel-entity-name="ProductPromo">
         <key-map field-name="productPromoId"/>
