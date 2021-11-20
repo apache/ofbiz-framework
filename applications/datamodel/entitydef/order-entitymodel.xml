@@ -92,10 +92,6 @@ under the License.
       <field name="includeInTax" type="indicator"></field>
       <field name="includeInShipping" type="indicator"></field>
       <field name="isManual" type="indicator"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="originalAdjustmentId" type="id">
           <description>specifies relation to source OrderAdjustment - eg. for tax on shipping charges</description>
       </field>
@@ -1121,10 +1117,6 @@ under the License.
       <field name="manualRefNum" type="short-varchar"></field>
       <field name="statusId" type="id"></field>
       <field name="needsNsfRetry" type="indicator"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="orderPaymentPreferenceId"/>
       <relation type="one" fk-name="ORDER_PMPRF_OHDR" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
@@ -1711,10 +1703,6 @@ under the License.
       <field name="overrideGlAccountId" type="id"><!-- used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc --></field>
       <field name="includeInTax" type="indicator"></field>
       <field name="includeInShipping" type="indicator"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="quoteAdjustmentId"/>
       <relation type="one" fk-name="QUOTE_ADJ_TYPE" rel-entity-name="OrderAdjustmentType">
         <key-map field-name="quoteAdjustmentTypeId" rel-field-name="orderAdjustmentTypeId"/>
@@ -1804,19 +1792,6 @@ under the License.
       </field>
       <field name="internalComment" type="comment"></field>
       <field name="reason" type="description"></field>
-      <field name="createdDate" type="date-time">
-        <description>
-          When it is actually stored in the system.
-        </description>
-      </field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time">
-        <description>
-          Last modified date can be till the closedDateTime which is when the customer service people, or anyone assigned to handle the incoming request, says it is resolved.
-          This gives when the last action was done to see if the steps to resolve the request are happening in a timely manner.
-        </description>
-      </field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="custRequestId"/>
       <relation type="one" fk-name="CUST_REQ_TYPE" rel-entity-name="CustRequestType">
         <key-map field-name="custRequestTypeId"/>
@@ -2185,10 +2160,6 @@ under the License.
       <field name="quantity" type="fixed-point"></field>
       <field name="useCase" type="very-long"></field>
       <field name="reason" type="long-varchar"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="facilityIdTo" type="id"></field>
       <prim-key field="requirementId"/>
       <relation type="one" fk-name="REQ_TYPE" rel-entity-name="RequirementType">
@@ -2423,10 +2394,6 @@ under the License.
       </field>
       <field name="includeInTax" type="indicator"></field>
       <field name="includeInShipping" type="indicator"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="returnAdjustmentId"/>
       <relation type="one" fk-name="RETURN_ADJ_TYPE" rel-entity-name="ReturnAdjustmentType">
         <key-map field-name="returnAdjustmentTypeId"/>
@@ -3009,8 +2976,6 @@ under the License.
         <field name="planTypeId" type="id"/>
         <field name="planName" type="name"/>
         <field name="statusId" type="id"/>
-        <field name="createdByUserLogin" type="id-vlong"/>
-        <field name="lastModifiedByUserLogin" type="id-vlong"/>
         <prim-key field="planId"/>
         <prim-key field="productId"/>
         <relation type="many" fk-name="ALC_PLN_HDR_PRO" title="Product Id" rel-entity-name="Product">
@@ -3041,8 +3006,6 @@ under the License.
         <field name="productId" type="id"/>
         <field name="allocatedQuantity" type="fixed-point"/>
         <field name="prioritySeqId" type="id"/>
-        <field name="createdByUserLogin" type="id-vlong"/>
-        <field name="lastModifiedByUserLogin" type="id-vlong"/>
         <prim-key field="planId"/>
         <prim-key field="planItemSeqId"/>
         <prim-key field="productId"/>
