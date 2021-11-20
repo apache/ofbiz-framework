@@ -95,10 +95,6 @@ under the License.
       <field name="characterSetId" type="id-long"></field>
       <field name="childLeafCount" type="numeric"/>
       <field name="childBranchCount" type="numeric"/>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="contentId"/>
       <relation type="one" fk-name="CONTENT_TO_TYPE" rel-entity-name="ContentType">
         <key-map field-name="contentTypeId"/>
@@ -217,10 +213,6 @@ under the License.
       <field name="mapKey" type="name"></field>
       <field name="upperCoordinate" type="numeric"></field>
       <field name="leftCoordinate" type="numeric"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="contentId"/>
       <prim-key field="contentIdTo"/>
       <prim-key field="contentAssocTypeId"/>
@@ -702,10 +694,6 @@ under the License.
       <field name="surveyResponseId" type="id"></field>
       <field name="relatedDetailId" type="id"><description>Depending on the dataResourceTypeId this can point to other entities, like: Survey, SurveyResponse, etc.</description></field>
       <field name="isPublic" type="indicator"><description>If this is set to Y then anyone can download it, otherwise the download is restricted.</description></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DTRSRC_STATUS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
