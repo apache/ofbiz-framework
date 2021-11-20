@@ -61,8 +61,6 @@ under the License.
         <field name="expectedRevenue" type="currency-amount"/>
         <field name="numSent" type="numeric"/>
         <field name="startDate" type="date-time"/>
-        <field name="createdByUserLogin" type="id-vlong"/>
-        <field name="lastModifiedByUserLogin" type="id-vlong"/>
         <prim-key field="marketingCampaignId"/>
         <relation type="one" fk-name="MKTGCPN_PRNT" title="Parent" rel-entity-name="MarketingCampaign">
             <key-map field-name="parentCampaignId" rel-field-name="marketingCampaignId"/>
@@ -171,8 +169,6 @@ under the License.
         <field name="verifyEmailSubject" type="long-varchar"/>
         <field name="verifyEmailWebSiteId" type="id"/>
         <field name="optOutScreen" type="long-varchar"/>
-        <field name="createdByUserLogin" type="id-vlong"/>
-        <field name="lastModifiedByUserLogin" type="id-vlong"/>
         <prim-key field="contactListId"/>
         <relation type="one" fk-name="CNCT_LST_MKCMPN" rel-entity-name="MarketingCampaign">
             <key-map field-name="marketingCampaignId"/>
@@ -182,12 +178,6 @@ under the License.
         </relation>
         <relation type="one" fk-name="CNCT_LST_CMCHTP" rel-entity-name="ContactMechType">
             <key-map field-name="contactMechTypeId"/>
-        </relation>
-        <relation type="one" fk-name="CNCT_LST_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
-            <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
-        </relation>
-        <relation type="one" fk-name="CNCT_LST_LMUL" title="LastModifiedBy" rel-entity-name="UserLogin">
-            <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
         </relation>
         <relation type="one" fk-name="CNCT_LST_OPTY" title="Owner" rel-entity-name="Party">
             <key-map field-name="ownerPartyId" rel-field-name="partyId"/>
@@ -461,10 +451,6 @@ under the License.
         <field name="thruDate" type="date-time"/>
         <field name="groupId" type="id"/>
         <field name="subgroupId" type="id"/>
-        <field name="createdDate" type="date-time"/>
-        <field name="createdByUserLogin" type="id-vlong"/>
-        <field name="lastModifiedDate" type="date-time"/>
-        <field name="lastModifiedByUserLogin" type="id-vlong"/>
         <prim-key field="trackingCodeId"/>
         <relation type="one" fk-name="TKNG_COD_MKCMPN" rel-entity-name="MarketingCampaign">
             <key-map field-name="marketingCampaignId"/>
@@ -674,7 +660,6 @@ under the License.
         <field name="estimatedCloseDate" type="date-time"/>
         <field name="opportunityStageId" type="id"/>
         <field name="typeEnumId" type="id"/>
-        <field name="createdByUserLogin" type="id-vlong"/>
         <prim-key field="salesOpportunityId"/>
         <relation fk-name="SLSOPP_CRNCY_UOM" rel-entity-name="Uom" type="one">
             <key-map field-name="currencyUomId" rel-field-name="uomId"/>
@@ -687,9 +672,6 @@ under the License.
         </relation>
         <relation fk-name="SLSOPP_MKTGCMPG" rel-entity-name="MarketingCampaign" type="one">
             <key-map field-name="marketingCampaignId"/>
-        </relation>
-        <relation fk-name="SLSOPP_USRLGN" rel-entity-name="UserLogin" type="one">
-            <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
         </relation>
         <relation type="one" fk-name="SLSOPP_DTSRC" rel-entity-name="DataSource">
             <key-map field-name="dataSourceId"/>
@@ -820,8 +802,6 @@ under the License.
         <field name="percentOfQuotaForecast" type="fixed-point"/>
         <field name="percentOfQuotaClosed" type="fixed-point"/>
         <field name="pipelineAmount" type="currency-amount"/>
-        <field name="createdByUserLoginId" type="id-vlong"/>
-        <field name="modifiedByUserLoginId" type="id-vlong"/>
         <prim-key field="salesForecastId"/>
         <relation type="one" fk-name="SALES4C_PARENT" title="Parent" rel-entity-name="SalesForecast">
             <key-map field-name="parentSalesForecastId" rel-field-name="salesForecastId"/>
@@ -837,12 +817,6 @@ under the License.
         </relation>
         <relation type="one" fk-name="SALES4C_CUR_UOM" rel-entity-name="Uom">
             <key-map field-name="currencyUomId" rel-field-name="uomId"/>
-        </relation>
-        <relation type="one" fk-name="SALES4C_CRT_USER" title="CreatedBy" rel-entity-name="UserLogin">
-            <key-map field-name="createdByUserLoginId" rel-field-name="userLoginId"/>
-        </relation>
-        <relation type="one" fk-name="SALES4C_MOD_USER" title="ModifiedBy" rel-entity-name="UserLogin">
-            <key-map field-name="modifiedByUserLoginId" rel-field-name="userLoginId"/>
         </relation>
     </entity>
 
