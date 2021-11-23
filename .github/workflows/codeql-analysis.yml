@@ -31,7 +31,7 @@ on:
         - '**.js'
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ release* ]
+    branches: [ trunk ]
     paths:
         - '**.java'
         - '**.js'
@@ -50,7 +50,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'java', 'javascript' ]
+        #language: [ 'java', 'javascript' ]
+        language: [  'javascript' ]
+        #language: [ 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         # Learn more:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
@@ -64,6 +66,7 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
+        debug: true
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
@@ -87,4 +90,3 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-
