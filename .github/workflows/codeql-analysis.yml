@@ -50,8 +50,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #language: [ 'java', 'javascript' ]
-        language: [ 'javascript' ]
+        language: [ 'java', 'javascript' ]
         #language: [ 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         # Learn more:
