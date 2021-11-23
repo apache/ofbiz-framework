@@ -285,7 +285,7 @@ public final class UtilProperties implements Serializable {
         } catch (Exception e) {
             Debug.logInfo(e, MODULE);
         }
-        return value == null ? "" : value.trim();
+        return value == null ? "" : getEnvironmentProperty(value.trim());
     }
 
     /**
@@ -986,6 +986,35 @@ public final class UtilProperties implements Serializable {
             }
         }
         return properties;
+    }
+
+    /**
+     * Resolve a property to check if it contains an environment variable
+     * represented by ${env:ENV_VARIABLE:DEFAULT_VALUE}
+     * @param value
+     * @return
+     */
+    public static String getEnvironmentProperty(String value) {
+        if (value != null) {
+            if (value.startsWith("${env:") && value.endsWith("}")) {
+                String envNameWithDefault = value.substring(6, value.length() - 1);
+                String environmentName = envNameWithDefault;
+                String defaultValue = null;
+                if (envNameWithDefault.contains(":")) {
+                    environmentName = envNameWithDefault.substring(0, envNameWithDefault.indexOf(":"));
+                    defaultValue = envNameWithDefault.substring(envNameWithDefault.indexOf(":") + 1);
+                }
+                String environmentValue = System.getenv(environmentName);
+                if (environmentValue != null) {
+                    return environmentValue;
+                }
+                if (defaultValue != null) {
+                    return defaultValue;
+                }
+                return "";
+            }
+        }
+        return value;
     }
 
     /** Custom ResourceBundle class. This class extends ResourceBundle

@@ -48,6 +48,7 @@ import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -147,7 +148,8 @@ public class JavaMailContainer implements Container {
         Map<String, Configuration.Property> clientProps = client.properties();
         if (clientProps != null) {
             for (Configuration.Property p: clientProps.values()) {
-                props.setProperty(p.name().toLowerCase(Locale.getDefault()), p.value());
+                props.setProperty(p.name().toLowerCase(Locale.getDefault()),
+                        UtilProperties.getEnvironmentProperty(p.value()));
             }
         }
         return Session.getInstance(props);
