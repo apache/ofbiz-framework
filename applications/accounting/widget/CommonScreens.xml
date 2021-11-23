@@ -118,6 +118,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="PaymentTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
