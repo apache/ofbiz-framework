@@ -83,7 +83,7 @@ under the License.
                                         <include-form name="FindPayments" location="component://accounting/widget/PaymentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListPayments"  location="component://accounting/widget/PaymentForms.xml"/>
+                                        <include-form name="ListPayments" location="component://accounting/widget/PaymentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -372,17 +372,11 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.AccountingPaymentHeader}">
-                                        <link target="editPayment" text="${uiLabelMap.CommonUpdate}" style="buttontext">
-                                            <parameter param-name="paymentId"/>
-                                        </link>
                                         <include-form name="PaymentHeader" location="component://accounting/widget/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
                                     <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${payment.currencyUomId})}">
-                                        <link target="editPaymentApplications" text="${uiLabelMap.CommonUpdate}" style="buttontext">
-                                            <parameter param-name="paymentId"/>
-                                        </link>
                                         <include-form name="PaymentApplications" location="component://accounting/widget/PaymentForms.xml"/>
                                     </screenlet>
                                     <section>
