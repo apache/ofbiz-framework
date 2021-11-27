@@ -478,6 +478,27 @@ under the License.
         </field>
     </form>
     
+    <grid name="InvoiceTerms" list-name="invoiceTerms" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="invoiceId"><hidden/></field>
+        <field name="invoiceItemSeqId" title="${uiLabelMap.CommonItem}"><display/></field>
+        <field name="invoiceTermId"><display/></field>
+        <field name="termTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="TermType"/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="termDays" title="${uiLabelMap.CommonDays}" widget-area-style="align-right" title-area-style="align-right">
+            <display/>
+        </field>
+        <field name="termValue" title="${uiLabelMap.CommonValue}" widget-area-style="align-right" title-area-style="align-right">
+            <display type="currency" currency="${uomId}"/>
+        </field>
+        <field name="uomId" title="${uiLabelMap.CommonCurrency}">
+            <display-entity entity-name="Uom"/>
+        </field>
+        <field name="textValue" title="${uiLabelMap.CommonText}"><display/></field>
+    </grid>
+    
     <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title="" 
         header-row-style="header-row" default-table-style="basic-table" default-map-name="invoiceTerm" default-entity-name="InvoiceTerm" >
         <alt-target use-when="invoiceTerm!=null" target="updateInvoiceTerm"/>
