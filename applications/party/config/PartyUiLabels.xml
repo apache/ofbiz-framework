@@ -1909,7 +1909,7 @@
         <value xml:lang="ar">إجمالي الفاتورة الغير مطبق</value>
         <value xml:lang="de">Gesamtrechnung nicht angewandt</value>
         <value xml:lang="en">Total Invoice Not Applied</value>
-        <value xml:lang="fr">Total des factures non allouées</value>
+        <value xml:lang="fr">Total des factures non enregistrées</value>
         <value xml:lang="hi-IN">कुल चालान लागू नहीं हुई</value>
         <value xml:lang="it">Totale fatture non applicate</value>
         <value xml:lang="ja">未消込の請求合計</value>
@@ -1922,7 +1922,7 @@
         <value xml:lang="ar">إجمالي الدفعة الغير مطبق</value>
         <value xml:lang="de">Gesamtzahlung nicht angewandt</value>
         <value xml:lang="en">Total Payment Not Applied</value>
-        <value xml:lang="fr">Total des paiements non alloués</value>
+        <value xml:lang="fr">Total des paiements non enregistrés</value>
         <value xml:lang="hi-IN">कुल भुगतान लागू नहीं हुआ</value>
         <value xml:lang="it">Totale pagamenti non applicati</value>
         <value xml:lang="ja">未消込の支払合計</value>

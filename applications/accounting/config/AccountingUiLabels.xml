@@ -1054,7 +1054,7 @@
         <value xml:lang="de">Noch nicht angewandter Betrag</value>
         <value xml:lang="en">Amount not yet applied</value>
         <value xml:lang="es">Cantidad aún no aplicada</value>
-        <value xml:lang="fr">Montant non encore alloué</value>
+        <value xml:lang="fr">Montant non encore enregistré</value>
         <value xml:lang="hi-IN">राशि अब तक लागु नहीं  है</value>
         <value xml:lang="it">Importo non ancora applicato</value>
         <value xml:lang="ja">未消込金額</value>
@@ -1269,7 +1269,7 @@
         <value xml:lang="de">Zuweisungen</value>
         <value xml:lang="en">Applications</value>
         <value xml:lang="es">Aplicaciones</value>
-        <value xml:lang="fr">Allocations</value>
+        <value xml:lang="fr">Enregistrements</value>
         <value xml:lang="hi-IN">अनुप्रयोग</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">適用</value>
@@ -1288,7 +1288,7 @@
         <value xml:lang="en">Applied Payments</value>
         <value xml:lang="es">Pagos aplicados</value>
         <value xml:lang="es-CL">Pagos Aplicados</value>
-        <value xml:lang="fr">Paiements alloués</value>
+        <value xml:lang="fr">Paiements enregistrés</value>
         <value xml:lang="hi-IN">प्रयुक्त भुगतान</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">消込済支払</value>
@@ -2056,7 +2056,7 @@
         <value xml:lang="en">Billing Account [${billingAccountId}] has ${billingAccountApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="es-CL">Cuenta de Facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">Le compte de facturation [${billingAccountId}] a un solde de ${billingAccountApplyAvailable?currency(${isoCode})}; un montant de ${amountApplied?currency(${isoCode})} trop élevé ne peut être alloué</value>
+        <value xml:lang="fr">Le compte de facturation [${billingAccountId}] a un solde de ${billingAccountApplyAvailable?currency(${isoCode})}; un montant de ${amountApplied?currency(${isoCode})} trop élevé ne peut être enregistré</value>
         <value xml:lang="hi-IN">देयकांकन खाता [${billingAccountId}] लागू करने के लिए ${billingAccountApplyAvailable?currency(${isoCode})} रखता है पर ${amountApplied?currency(${isoCode})} अपेक्षित  है</value>
         <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha ${billingAccountApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
         <value xml:lang="ja">請求先アカウント [${billingAccountId}] は ${billingAccountApplyAvailable?currency(${isoCode})} を消込していますが、${amountApplied?currency(${isoCode})} がリクエストされています</value>
@@ -3394,7 +3394,7 @@
         <value xml:lang="en">Create Assignment</value>
         <value xml:lang="es">Crear obligación</value>
         <value xml:lang="es-CL">Crear Asignación</value>
-        <value xml:lang="fr">Créer une allocation</value>
+        <value xml:lang="fr">Créer une enregistrement</value>
         <value xml:lang="hi-IN">नियत कार्य  बनाएँ</value>
         <value xml:lang="it">Creare Assegnazione</value>
         <value xml:lang="ja">割当を作成</value>
@@ -5393,7 +5393,7 @@
         <value xml:lang="de">Fehler bei der Erstellung einer Rechnung aus Auftrag während der Überprüfung von Zahlungen</value>
         <value xml:lang="en">Error creating invoice from order while checking payment applications</value>
         <value xml:lang="es">Error creando factura a partir de orden mientras se verificaba la aplicación de pago</value>
-        <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande; problème avec les allocations de paiements</value>
+        <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande; problème avec les enregistrements de paiements</value>
         <value xml:lang="hi-IN">आर्डर से चालान  बनाने में त्रुटि, भुगतान अनुप्रयोगों जांच के समय</value>
         <value xml:lang="it">Errore creazione fattura dall'ordine durante il controllo pagamento</value>
         <value xml:lang="ja">注文から請求書の作成中、支払申請の確認中にエラー</value>
@@ -7431,7 +7431,7 @@
         <value xml:lang="en">GL Account Assignments</value>
         <value xml:lang="es">Asignaciones a cuentas de LM</value>
         <value xml:lang="es-CL">Asignaciones a Cuentas del Libro Mayor</value>
-        <value xml:lang="fr">Allocations du compte comptable</value>
+        <value xml:lang="fr">Enregistrements du compte comptable</value>
         <value xml:lang="hi-IN">जीएल(GL) खाता नियत कार्य</value>
         <value xml:lang="it">Assegnazione Conti Gl</value>
         <value xml:lang="ja">GL勘定割当</value>
@@ -8003,7 +8003,7 @@
         <value xml:lang="de">Rechnung [${invoiceId}] ist storniert und kann nicht zugewiesen werden...</value>
         <value xml:lang="en">Invoice [${invoiceId}] is cancelled, cannot be applied to...</value>
         <value xml:lang="es">Factura [${invoiceId}] esta cancelada, no puede ser aplicada...</value>
-        <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être alloué de paiement...</value>
+        <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être enregistré de paiement...</value>
         <value xml:lang="hi-IN">चालान [$(invoiceId)] रद्द कर दिया गया है, पर लागू नहीं किया जा सकता है...</value>
         <value xml:lang="it">Fattura [${invoiceId}] è annullata, non può essere applicata a...</value>
         <value xml:lang="ja">請求書 [${invoiceId}] は取消済です、消込できません...</value>
@@ -9075,7 +9075,7 @@
         <value xml:lang="de">Zahlungen zu Rechnungen zugewiesen</value>
         <value xml:lang="en">Payments applied to Invoices</value>
         <value xml:lang="es">Pagos aplicados para la Facturas</value>
-        <value xml:lang="fr">Paiements alloués aux factures</value>
+        <value xml:lang="fr">Paiements enregistrés aux factures</value>
         <value xml:lang="hi-IN">चालान भुगतान पर लागु हो गया है</value>
         <value xml:lang="it">Pagamenti applicati alle Fatture</value>
         <value xml:lang="ja">請求に消込済の支払</value>
@@ -9336,7 +9336,7 @@
         <value xml:lang="de">Rechnungen die zugewiesen werden könnten</value>
         <value xml:lang="en">Possible invoices to apply</value>
         <value xml:lang="es">Posibles facturas a aplicar</value>
-        <value xml:lang="fr">Factures pouvant être allouées</value>
+        <value xml:lang="fr">Factures pouvant être enregistrées</value>
         <value xml:lang="hi-IN">लागू करने के लिए संभावित चालान</value>
         <value xml:lang="it">Possibili fatture da applicare</value>
         <value xml:lang="ja">消込可能請求一覧</value>
@@ -9370,7 +9370,7 @@
         <value xml:lang="de">Zuzuweisende Zahlungen</value>
         <value xml:lang="en">Possible payments to apply</value>
         <value xml:lang="es">Posibles pagos a aplicar</value>
-        <value xml:lang="fr">Paiements pouvant être alloués</value>
+        <value xml:lang="fr">Paiements pouvant être enregistrés</value>
         <value xml:lang="hi-IN">लागू करने के लिए संभावित भुगतान</value>
         <value xml:lang="it">Possibili pagamenti da applicare</value>
         <value xml:lang="ja">消込可能請求一覧</value>
@@ -10579,7 +10579,7 @@
         <value xml:lang="en">No applications found..</value>
         <value xml:lang="es">No se encontraton aplicaciones..</value>
         <value xml:lang="es-CL">No se encontrarón aplicaciones..</value>
-        <value xml:lang="fr">Aucune allocation trouvée...</value>
+        <value xml:lang="fr">Aucun enregistrement trouvé...</value>
         <value xml:lang="hi-IN">अनुप्रयोग नहीं मिला..</value>
         <value xml:lang="it">Nessun applicazione pagamento trovata.</value>
         <value xml:lang="ja">申請はありません..</value>
@@ -10597,7 +10597,7 @@
         <value xml:lang="de">Keine Zahlungen gefunden..</value>
         <value xml:lang="en">No Payments found</value>
         <value xml:lang="es">No se encontraron pagos</value>
-        <value xml:lang="fr">Aucunpaiement trouvé</value>
+        <value xml:lang="fr">Aucun paiement trouvé</value>
         <value xml:lang="hi-IN">भुगतान नहीं मिला</value>
         <value xml:lang="it">Nessun Pagamento trovato</value>
         <value xml:lang="ja">支払はありません</value>
@@ -11203,7 +11203,7 @@
         <value xml:lang="en">Status cannot be set to 'Confirmed', the payment is not fully applied!</value>
         <value xml:lang="es">Status no puede ser 'Confirmado', el pago no esta completamente aplicado!</value>
         <value xml:lang="es-CL">Estado no puede ser 'Confirmado', el pago no esta completamente aplicado!</value>
-        <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement alloué !</value>
+        <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement enregistré !</value>
         <value xml:lang="hi-IN">नई स्थिति को 'पुष्टिकृत (Confirmed)' स्थिति में नहीं स्थापित किया जा सकता, भुगतान पूरी तरह से लागू नहीं किया गया है</value>
         <value xml:lang="it">Stato non può essere impostato a 'Confermato', il pagamento non è completamento applicato!</value>
         <value xml:lang="ja">ステータスは'完了'にできません、支払はまだすべて消込されていません!</value>
@@ -11670,7 +11670,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] ist schon komplett zugewiesen</value>
         <value xml:lang="en">Payment [${paymentId}] is already fully applied</value>
         <value xml:lang="es">Pago [${paymentId}] esta completamente aplicado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] a déjà été entièrement alloué</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] a déjà été entièrement enregistré</value>
         <value xml:lang="hi-IN">भुगतान [${paymentId}] पहले से ही पूरी तरह से लागू किया जा चुका है</value>
         <value xml:lang="it">Pagamento [${paymentId}] è già completamente applicato</value>
         <value xml:lang="ja">支払 [${paymentId}] はすでにすべて消込済です</value>
@@ -11842,7 +11842,7 @@
         <value xml:lang="en">PaymentApplication record [${paymentApplicationId}] not found</value>
         <value xml:lang="es">Registro de Aplicación de Pago [${paymentApplicationId}] not found</value>
         <value xml:lang="es-CL">Registro de Aplicación de Pago [${paymentApplicationId}] no encontrado</value>
-        <value xml:lang="fr">L'allocation du paiement  [${paymentApplicationId}] n'a pas été trouvée</value>
+        <value xml:lang="fr">L'enregistrement du paiement  [${paymentApplicationId}] n'a pas été trouvé</value>
         <value xml:lang="hi-IN">PaymentApplication रिकार्ड [$(paymentApplicationId)] नहीं मिला</value>
         <value xml:lang="it">PaymentApplication record [${paymentApplicationId}] non trovato</value>
         <value xml:lang="ja">支払申請レコード [${paymentApplicationId}] が見つかりません</value>
@@ -11916,7 +11916,7 @@
         <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido concelado y no puede ser aplicado</value>
         <value xml:lang="es-CL">Pago [${paymentId}] ha sido cancelado y no puede ser aplicado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est annullé est ne peut être alloué</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est annullé est ne peut être enregistré</value>
         <value xml:lang="hi-IN">भुगतान [$(paymentId)] रद्द कर दिया गया है और लागू नहीं किया जा सकता है</value>
         <value xml:lang="it">Pagamento [${paymentId}] è annullato e non può essere applicato</value>
         <value xml:lang="ja">支払 [${paymentId}] は取消済のため消込できません</value>
@@ -11966,7 +11966,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] ist bestätigt und kann nicht zugewiesen werden</value>
         <value xml:lang="en">Payment [${paymentId}] is confirmed and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido confirmado y no puede ser aplicado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est confirmé et ne peut pas être alloué</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est confirmé et ne peut pas être enregistré</value>
         <value xml:lang="hi-IN">भुगतान [$(paymentId)] स्थिर है और लागू नहीं किया जा सकता है</value>
         <value xml:lang="it">Pagamento [${paymentId}] è confermato e non può essere applicato</value>
         <value xml:lang="ja">支払 [${paymentId}] は確認済のため消込できません</value>
@@ -12850,7 +12850,7 @@
         <value xml:lang="de">Zuweisungen</value>
         <value xml:lang="en">Applications</value>
         <value xml:lang="es">Aplicaciones</value>
-        <value xml:lang="fr">Allocations</value>
+        <value xml:lang="fr">Enregistrements</value>
         <value xml:lang="hi-IN">अनुप्रयोग</value>
         <value xml:lang="it">Applicazioni Pagamento</value>
         <value xml:lang="ja">適用</value>
@@ -13276,7 +13276,7 @@
         <value xml:lang="de">Zahlung zugewiesen</value>
         <value xml:lang="en">Payments Applied</value>
         <value xml:lang="es">Pagos Aplicados</value>
-        <value xml:lang="fr">Paiements alloués</value>
+        <value xml:lang="fr">Paiements enregistrés</value>
         <value xml:lang="hi-IN">लागू भुगतान</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">消込済支払</value>
@@ -13971,7 +13971,7 @@
         <value xml:lang="en">Problem getting PaymentApplication(s) for Invoice ID [${invoiceId}]</value>
         <value xml:lang="es">Problema obteniendo Aplicación de Pago(s) para Id Factura [${invoiceId}]</value>
         <value xml:lang="es-CL">Problema obteniendo Aplicación de Pago(s) para ID de Factura [${invoiceId}]</value>
-        <value xml:lang="fr">Erreur en recherchant les paiements alloués à la commande [${invoiceId}]</value>
+        <value xml:lang="fr">Erreur en recherchant les paiements enregistrés à la commande [${invoiceId}]</value>
         <value xml:lang="hi-IN">चालान क्रमांक [$(invoiceId)] के लिए PaymentApplication(s) में समस्या हो रही</value>
         <value xml:lang="it">Problema leggendo PaymentApplication(s) per Numero Fattura [${invoiceId}]</value>
         <value xml:lang="ja">請求ID [${invoiceId}] に対する注文申請の取得時に問題があります</value>
@@ -18116,7 +18116,7 @@
         <value xml:lang="de">Menge zugewiesen</value>
         <value xml:lang="en">Amount Applied</value>
         <value xml:lang="es">Cantidad Aplicada</value>
-        <value xml:lang="fr">Montant alloué</value>
+        <value xml:lang="fr">Montant enregistré</value>
         <value xml:lang="hi-IN">लागू राशि</value>
         <value xml:lang="it">Importo Applicato</value>
         <value xml:lang="ja">消込済金額</value>
@@ -18172,7 +18172,7 @@
         <value xml:lang="de">Angelegt</value>
         <value xml:lang="en">Applied</value>
         <value xml:lang="es">Aplicado</value>
-        <value xml:lang="fr">Alloué</value>
+        <value xml:lang="fr">enregistré</value>
         <value xml:lang="hi-IN">लागू</value>
         <value xml:lang="it">Applicato</value>
         <value xml:lang="ja">消込済</value>
@@ -19984,7 +19984,7 @@
         <value xml:lang="de">Nicht angewendet</value>
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="es">No Aplica</value>
-        <value xml:lang="fr">Non alloué</value>
+        <value xml:lang="fr">Non enregistré</value>
         <value xml:lang="hi-IN">लागू नहीं</value>
         <value xml:lang="it">Non applicata</value>
         <value xml:lang="ja">未消込</value>
@@ -20519,7 +20519,7 @@
         <value xml:lang="de">Nicht zugewiesen</value>
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="es">No Aplica</value>
-        <value xml:lang="fr">Non alloué</value>
+        <value xml:lang="fr">Non enregistré</value>
         <value xml:lang="hi-IN">लागू नहीं</value>
         <value xml:lang="it">Non applicata</value>
         <value xml:lang="ja">未消込</value>
@@ -20909,7 +20909,7 @@
         <value xml:lang="en">Already Applied</value>
         <value xml:lang="es">Ya aplicado</value>
         <value xml:lang="es-CL">Ya Aplicado</value>
-        <value xml:lang="fr">Déjà alloué</value>
+        <value xml:lang="fr">Déjà enregistré</value>
         <value xml:lang="hi-IN">पहले से ही लागू</value>
         <value xml:lang="it">Pagamento già Applicato</value>
         <value xml:lang="ja">すでに消込済</value>
@@ -22581,7 +22581,7 @@
         <value xml:lang="de">alle angelegten Rechnungen</value>
         <value xml:lang="en">Tot Invoice Applied</value>
         <value xml:lang="es">Total Factura Aplicada</value>
-        <value xml:lang="fr">Total alloué</value>
+        <value xml:lang="fr">Total enregistré</value>
         <value xml:lang="hi-IN">कुल एप्लाइड चालान</value>
         <value xml:lang="it">Totale fattura applicato</value>
         <value xml:lang="ja">消込済請求合計</value>
