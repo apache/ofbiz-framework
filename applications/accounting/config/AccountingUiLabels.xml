@@ -1178,7 +1178,7 @@
         <value xml:lang="de">${amountApplied?currency(${isoCode})} von Zahlung [${paymentId}] to ${toMessage} zugewiesen</value>
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
         <value xml:lang="es">Aplicando ${amountApplied?currency(${isoCode})} de pago [${paymentId}] a ${toMessage}</value>
-        <value xml:lang="fr">Allouer ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
+        <value xml:lang="fr">Enregistrer ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
         <value xml:lang="hi-IN">${toMessage} के लिए  भुगतान से [${paymentId}], ${amountApplied?currency(${isoCode})} को लगाएं</value>
         <value xml:lang="it">Applicazione ${amountApplied?currency(${isoCode})} dal pagamento [${paymentId}] a ${toMessage}</value>
         <value xml:lang="ja">${amountApplied?currency(${isoCode})} を、支払 [${paymentId}] から ${toMessage} に消込中</value>
@@ -1307,7 +1307,7 @@
         <value xml:lang="en">Apply this payment to</value>
         <value xml:lang="es">Aplicar este pago a</value>
         <value xml:lang="es-CL">Aplicar este Pago a</value>
-        <value xml:lang="fr">Allouer ce paiement à</value>
+        <value xml:lang="fr">Enregistrer ce paiement à</value>
         <value xml:lang="hi-IN">इस भुगतान के लिए लागू करें</value>
         <value xml:lang="it">Applica questo pagamento a</value>
         <value xml:lang="ja">この支払を消込(先)</value>
@@ -1468,7 +1468,7 @@
         <value xml:lang="de">Zahlung zu dieser Rechnung zuweisen</value>
         <value xml:lang="en">Assign Payment to This Invoice</value>
         <value xml:lang="es">Asignar pago a esta factura</value>
-        <value xml:lang="fr">Allouer le paiement à cette facture</value>
+        <value xml:lang="fr">Enregistrer le paiement à cette facture</value>
         <value xml:lang="hi-IN">इस चालान को निरुपित भुगतान</value>
         <value xml:lang="it">Assegna Pagamento a Questa Fattura</value>
         <value xml:lang="ja">この請求に支払を割当</value>
@@ -1506,7 +1506,7 @@
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
         <value xml:lang="es">Asignar tipo de factura de venta a ingresos número de cuenta de LM de ingresos</value>
         <value xml:lang="es-CL">Asignar Tipo de Factura de Venta a Cuenta del Libro Mayor</value>
-        <value xml:lang="fr">Allouer un type de facture de vente au compte comptable n°</value>
+        <value xml:lang="fr">Enregistrer un type de facture de vente au compte comptable n°</value>
         <value xml:lang="hi-IN">राजस्व सामान्य बही खाता निरुपित करने के लिए बिक्री चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Vendita al Numero Conto Profitti Gl</value>
         <value xml:lang="ja">収入GL勘定に販売請求種類を割当</value>
@@ -10144,7 +10144,7 @@
         <value xml:lang="en">Amount requested to apply is zero or not provided: no amount applied/n</value>
         <value xml:lang="es">Cantidad requerida a aplicar es cero o no se proporciono: ninguna cantidad aplicada/n</value>
         <value xml:lang="es-CL">Cantidad requerida a aplicar es cero o no se proporciono ninguna cantidad aplicada</value>
-        <value xml:lang="fr">Le montant à allouer est zéro ou manquant: il n'a pas été appliqué de montant/n</value>
+        <value xml:lang="fr">Le montant à enregistrer est zéro ou manquant: il n'a pas été appliqué de montant/n</value>
         <value xml:lang="hi-IN">लागु करने के लिए दी गयी राशी शून्य है या प्रदान नहीं की गयी : कोई राशि लागू नहीं/n</value>
         <value xml:lang="it">Importo richiesto da applicare è zero o non inserito: nessun importo applicato/n</value>
         <value xml:lang="ja">消込するリクエスト金額は0または提供されていません: 消込する金額はありません</value>
@@ -11885,7 +11885,7 @@
         <value xml:lang="en">Payment application requires either an invoiceId, a billingAccountId, a taxAuthGeoId or a glAccountId</value>
         <value xml:lang="es">Aplicación de pago requiere cualquiera de IdFactua, un IdCuentaFacturación, o un IdAreaAutoridadFiscal</value>
         <value xml:lang="es-CL">Aplicación de pago requiere cualquier ID de Factura, un Id de Cuenta Facturación o un Id de Area Autoridad Tributaria</value>
-        <value xml:lang="fr">Pour allouer ce paiement, il faut ou bien une réf. de facture, un compte de facturation, une administration fiscale ou un compte comptable</value>
+        <value xml:lang="fr">Pour enregistrer ce paiement, il faut ou bien une réf. de facture, un compte de facturation, une administration fiscale ou un compte comptable</value>
         <value xml:lang="hi-IN">PaymentApplication के लिए या तो एक invoiceId, एक billingAccountId, एक taxAuthGeoId या एक glAccountId आवश्यक है</value>
         <value xml:lang="it">Applicazione pagamento richiede entrambi un fattura, un conto fatturazione, o una autorità tasse geografia</value>
         <value xml:lang="ja">支払申請は請求ID、請求先アカウントID、税務機関位置ID、またはGL勘定IDのいずれかが必要です</value>
@@ -12373,7 +12373,7 @@
         <value xml:lang="en">PaymentID to apply</value>
         <value xml:lang="es">IdPago a aplicar</value>
         <value xml:lang="es-CL">ID Pago a aplicar</value>
-        <value xml:lang="fr">Réf. paiement à allouer</value>
+        <value xml:lang="fr">Réf. paiement à enregistrer</value>
         <value xml:lang="hi-IN">लागू करने के लिए भुगतानक्रमांक</value>
         <value xml:lang="it">Numero Pagamento da applicare</value>
         <value xml:lang="ja">消込支払ID</value>
@@ -12586,7 +12586,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] hat einen Betrag (${paymentApplyAvailable?currency(${isoCode})} zur Verfügung und der angeforderte Betrag  ${amountApplied?currency(${isoCode})} ist zu hoch</value>
         <value xml:lang="en">Payment [${paymentId}] has an amount (${paymentApplyAvailable?currency(${isoCode})} to apply and the  ${amountApplied?currency(${isoCode})} requested is too much</value>
         <value xml:lang="es">Pago [${paymentId}] tiene una cantidad (${paymentApplyAvailable?currency(${isoCode})} para aplicar y ${amountApplied?currency(${isoCode})} requerido es demasiado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est d'un montant à allouer de (${paymentApplyAvailable?currency(${isoCode})} et le montant demande ${amountApplied?currency(${isoCode})} est trop élevé</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est d'un montant à enregistrer de (${paymentApplyAvailable?currency(${isoCode})} et le montant demande ${amountApplied?currency(${isoCode})} est trop élevé</value>
         <value xml:lang="hi-IN">भुगतान [${paymentId}] पर लागू करने के लिए राशि ${paymentApplyAvailable?currency(${isoCode})} उपलब्ध है और अनुरोधित ${amountApplied?currency(${isoCode})} बहुत अधिक है</value>
         <value xml:lang="it">Pagamento [${paymentId}] ha un'importo (${paymentApplyAvailable?currency(${isoCode})} da applicare e ${amountApplied?currency(${isoCode})} richiesto è troppo grosso</value>
         <value xml:lang="ja">支払 [${paymentId}] は金額 (${paymentApplyAvailable?currency(${isoCode})} を消込していますが、リクエストされた ${amountApplied?currency(${isoCode})} は多すぎます</value>
@@ -18135,7 +18135,7 @@
         <value xml:lang="en">Outstanding amount</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à allouer</value>
+        <value xml:lang="fr">Montant à enregistrer</value>
         <value xml:lang="hi-IN">बकाया राशि</value>
         <value xml:lang="it">Importo Da Applicare</value>
         <value xml:lang="ja">未払金額</value>
@@ -18190,7 +18190,7 @@
         <value xml:lang="de">Zuweisen</value>
         <value xml:lang="en">Apply</value>
         <value xml:lang="es">Aplicar</value>
-        <value xml:lang="fr">Allouer</value>
+        <value xml:lang="fr">Enregistrer</value>
         <value xml:lang="hi-IN">लागू करे</value>
         <value xml:lang="it">Applicare</value>
         <value xml:lang="ja">消込</value>
@@ -20013,7 +20013,7 @@
         <value xml:lang="en">Assign to whole invoice</value>
         <value xml:lang="es">Asignar a factura completa</value>
         <value xml:lang="es-CL">Asignar a Factura Completa</value>
-        <value xml:lang="fr">Allouer à la facture dans son entièreté</value>
+        <value xml:lang="fr">Enregistrer à la facture dans son entièreté</value>
         <value xml:lang="hi-IN">पूरे चालान को आवंटित</value>
         <value xml:lang="it">Assegna a Tutte le Fatture</value>
         <value xml:lang="ja">請求書すべてに割当</value>
@@ -20928,7 +20928,7 @@
         <value xml:lang="en">Amount to Apply</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à allouer</value>
+        <value xml:lang="fr">Montant à enregistrer</value>
         <value xml:lang="hi-IN">लागू करने के लिए राशि</value>
         <value xml:lang="it">Importo da Applicare</value>
         <value xml:lang="ja">消込金額</value>
