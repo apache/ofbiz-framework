@@ -569,17 +569,32 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not>
-                                    <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
-                                </not>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
                             </condition>
                             <widgets>
-                                <screenlet id="PartyInvoiceTermPanel" collapsible="true">
-                                    <include-form name="EditInvoiceTerm" location="component://accounting/widget/InvoiceForms.xml"/>
-                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not>
+                                            <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                                        </not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="PartyInvoiceTermPanel" collapsible="true">
+                                            <include-form name="EditInvoiceTerm" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <include-form name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
                             </widgets>
+                            <fail-widgets>
+                                <include-grid name="InvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </fail-widgets>
                         </section>
-                        <include-form name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
