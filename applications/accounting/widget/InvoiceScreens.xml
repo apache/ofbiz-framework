@@ -524,10 +524,25 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PartyInvoiceRolePanel" title="${uiLabelMap.AccountingPartyRoleAdd}" collapsible="true">
-                            <include-form name="EditInvoiceRole" location="component://accounting/widget/InvoiceForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListInvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet id="PartyInvoiceRolePanel" title="${uiLabelMap.AccountingPartyRoleAdd}" collapsible="true">
+                                    <include-form name="EditInvoiceRole" location="component://accounting/widget/InvoiceForms.xml"/>
+                                </screenlet>
+                                <include-form name="ListInvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="InvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
