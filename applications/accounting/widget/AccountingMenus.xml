@@ -125,6 +125,16 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
+        <menu-item name="invoiceContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                </and>
+            </condition>
+            <link target="invoiceContent">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
         <menu-item name="listInvoiceItems" title="${uiLabelMap.AccountingInvoiceItems}">
             <condition>
                 <and>
