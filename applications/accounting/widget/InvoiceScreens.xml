@@ -535,7 +535,22 @@ under the License.
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}">
-                            <include-form name="EditTimeEntries" location="component://accounting/widget/InvoiceForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-form name="EditTimeEntries" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="ListTimeEntries" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </fail-widgets>
+                        </section>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
