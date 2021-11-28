@@ -454,27 +454,62 @@ under the License.
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
                 <entity-condition entity-name="InvoiceItemType" list="PayrolList"/>
+                <entity-condition entity-name="InvItemAndOrdItem" list="invItemAndOrdItems">
+                    <condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
+                    <order-by field-name="invoiceItemSeqId"/>
+                </entity-condition>
                 <script location="component://accounting/groovyScripts/invoice/GetAccountOrganizationAndClass.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingInvoiceItemAdd}">
-                            <section>
-                                <condition>
-                                    <not><if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/></not>
-                                </condition>
-                                <widgets>
-                                    <include-form name="EditInvoiceItem" location="component://accounting/widget/InvoiceForms.xml"/>
-                                </widgets>
-                                <fail-widgets>
-                                    <platform-specific><html><html-template location="component://accounting/template/invoice/InvoiceItemsPayrol.ftl"/></html></platform-specific>
-                                </fail-widgets>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingInvoiceItemAdd}">
+                                    <section>
+                                    <condition>
+                                        <not><if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-form name="EditInvoiceItem" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <platform-specific><html>
+                                            <html-template location="component://accounting/template/invoice/InvoiceItemsPayrol.ftl"/>
+                                        </html></platform-specific>
+                                        </fail-widgets>
+                                    </section>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.AccountingInvoiceItems}">
+                                    <include-form name="EditInvoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/></not>
+                                    </condition>
+                                    <widgets>
+                                <include-form name="InvoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <platform-specific>
+                                            <html>
+                                            <html-template location="component://accounting/template/invoice/InvoiceItemsPayrol.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </fail-widgets>
+                                </section>
+                            </fail-widgets>
                             </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.AccountingInvoiceItems}">
-                            <include-form name="EditInvoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
