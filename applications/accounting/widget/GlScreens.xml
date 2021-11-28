@@ -126,7 +126,7 @@ under the License.
                                         <parameter param-name="fromDate" from-field="parameters.fromDate"/>
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                     </link>
-                                    <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                    <include-grid name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -208,7 +208,7 @@ under the License.
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         <parameter param-name="paymentId" from-field="parameters.paymentId"/>
                                     </link>
-                                    <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
+                                    <include-grid name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -255,7 +255,7 @@ under the License.
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         <parameter param-name="paymentId" from-field="parameters.paymentId"/>
                                     </link>
-                                    <include-form name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
+                                    <include-grid name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -320,7 +320,7 @@ under the License.
                                             <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.PageTitleViewTransactionEntries}">
-                                            <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                            <include-grid name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
@@ -328,7 +328,7 @@ under the License.
                                             <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.PageTitleEditTransactionEntries}">
-                                            <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                            <include-grid name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.PageTitleAddTransactionEntry}">
                                             <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
@@ -359,7 +359,7 @@ under the License.
                 <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleUnpostedTransactions}">
-                            <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                            <include-grid name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -518,7 +518,7 @@ under the License.
                             <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingEditAcctRecon}">
-                            <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
+                            <include-grid name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -545,7 +545,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingAcctRecons}">
-                                    <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                                    <include-grid name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -562,7 +562,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <include-form name="AcctgTransSearchResultsCsv" location="component://accounting/widget/GlForms.xml"/>
+                    <include-grid name="AcctgTransSearchResultsCsv" location="component://accounting/widget/GlForms.xml"/>
                 </container>
             </widgets>
         </section>
@@ -575,7 +575,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <include-form name="AcctgTransEntriesSearchResultsCsv" location="component://accounting/widget/GlForms.xml"/>
+                    <include-grid name="AcctgTransEntriesSearchResultsCsv" location="component://accounting/widget/GlForms.xml"/>
                 </container>
             </widgets>
         </section>
@@ -677,7 +677,7 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="AcctgTransDetailReportPdf" location="component://accounting/widget/GlForms.xml"/>
-                        <include-form name="AcctgTransEntriesDetailReportPdf" location="component://accounting/widget/GlForms.xml"/>
+                        <include-grid name="AcctgTransEntriesDetailReportPdf" location="component://accounting/widget/GlForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
