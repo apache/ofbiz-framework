@@ -24163,6 +24163,10 @@
         <value xml:lang="zh">发票总览</value>
         <value xml:lang="zh-TW">發票總覽</value>
     </property>
+    <property key="PageTitleInvoiceAttributes">
+        <value xml:lang="en">Invoice Attributes</value>
+        <value xml:lang="nl">Factuurattributen</value>
+    </property>
     <property key="PageTitleListAccounts">
         <value xml:lang="ar">قائمة الحسابات</value>
         <value xml:lang="cs">Seznam účtů</value>
