@@ -557,7 +557,33 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="InvoiceAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleInvoiceAttributes"/>
+                <set field="tabButtonItem" value="invoiceAttributes"/>
+                <set field="invoiceId" from-field="parameters.invoiceId"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="InvoiceAttribute" list="invoiceAttributes">
+                    <field-map field-name="invoiceId" from-field="invoiceId"/>
+                    <order-by field-name="attrName"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.CommonAttributes}">
+                                <include-grid name="InvoiceAttributes" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="InvoiceRoles">
         <section>
             <actions>
