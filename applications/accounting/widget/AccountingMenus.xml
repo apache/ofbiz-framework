@@ -469,17 +469,6 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
-        <menu-item name="editPayment" title="${uiLabelMap.AccountingPaymentTabHeader}">
-            <condition>
-                <and>
-                    <not><if-empty field="payment.paymentId"/></not>
-                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
-                </and>
-            </condition>
-            <link target="editPayment">
-                <parameter param-name="paymentId" from-field="payment.paymentId"/>
-            </link>
-        </menu-item>
         <menu-item name="editPaymentApplications" title="${uiLabelMap.AccountingPaymentTabApplications}">
             <condition>
                 <and>
@@ -504,13 +493,37 @@ under the License.
         </actions>
         <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create" >
             <condition>
-                <not><if-empty field="payment.paymentId"/></not>
+                <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                </and>
             </condition>
             <link target="newPayment"/>
+        </menu-item>
+        <menu-item name="editPayment" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                </and>
+            </condition>
+            <link target="editPayment">
+                <parameter param-name="paymentId" from-field="payment.paymentId"/>
+            </link>
         </menu-item>
         <menu-item name="statusToSend" title="${uiLabelMap.AccountingPaymentTabStatusToSent}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="isDisbursement" operator="equals" value="true"/>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
@@ -524,6 +537,10 @@ under the License.
         <menu-item name="statusToReceived" title="${uiLabelMap.AccountingPaymentTabStatusToReceived}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="isDisbursement" operator="equals" value="false"/>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
@@ -537,6 +554,10 @@ under the License.
         <menu-item name="statusToCancelled" title="${uiLabelMap.AccountingPaymentTabStatusToCancelled}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
@@ -549,6 +570,10 @@ under the License.
         <menu-item name="statusToConfirmed" title="${uiLabelMap.AccountingPaymentTabStatusToConfirmed}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <or>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
@@ -564,6 +589,10 @@ under the License.
         <menu-item name="printAsCheck" title="${uiLabelMap.AccountingPrintAsCheck}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
@@ -575,6 +604,10 @@ under the License.
         <menu-item name="statusToVoidPayment" title="${uiLabelMap.AccountingPaymentTabStatusToVoid}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <and>
                         <if-compare field="payment.statusId" operator="not-equals" value="PMNT_CONFIRMED"/>
