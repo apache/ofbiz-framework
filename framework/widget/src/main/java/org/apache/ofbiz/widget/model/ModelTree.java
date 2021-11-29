@@ -680,7 +680,9 @@ public class ModelTree extends ModelWidget {
                 } else {
                     id = (String) context.get(pkName);
                 }
-                currentNodeTrail.add(id);
+                if (currentNodeTrail != null) {
+                    currentNodeTrail.add(id);
+                }
                 treeStringRenderer.renderNodeBegin(writer, context, this, depth);
                 try {
                     String screenName = null;
@@ -737,9 +739,12 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
                 treeStringRenderer.renderNodeEnd(writer, context, this);
-                int removeIdx = currentNodeTrail.size() - 1;
-                if (removeIdx >= 0) {
-                    currentNodeTrail.remove(removeIdx);
+                int removeIdx = 0;
+                if (currentNodeTrail != null) {
+                    removeIdx = currentNodeTrail.size() - 1;
+                    if (removeIdx >= 0) {
+                        currentNodeTrail.remove(removeIdx);
+                    }
                 }
             }
         }

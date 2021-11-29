@@ -29,7 +29,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.collect.ImmutableList;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -45,6 +44,8 @@ import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.TreeStringRenderer;
+
+import com.google.common.collect.ImmutableList;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
@@ -157,7 +158,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
             String targetEntityId = null;
             Object obj1 = context.get("targetNodeTrail");
             List<String> targetNodeTrail = (obj1 instanceof List) ? UtilGenerics.cast(obj1) : null;
-            if (depth < targetNodeTrail.size()) {
+            if (targetNodeTrail != null && depth < targetNodeTrail.size()) {
                 targetEntityId = targetNodeTrail.get(depth);
             }
 
