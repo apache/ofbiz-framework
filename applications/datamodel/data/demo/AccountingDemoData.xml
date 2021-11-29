@@ -62,6 +62,7 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="ACCTG_PREF_DELETE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="ACCTG_PREF_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="ACCTG_PREF_VIEW"/>
 
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ACCTG_FX_UPDATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="ACCTG_FX_UPDATE"/>
