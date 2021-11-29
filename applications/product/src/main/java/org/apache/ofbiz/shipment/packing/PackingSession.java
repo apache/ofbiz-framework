@@ -63,7 +63,6 @@ public class PackingSession implements java.io.Serializable {
     private String shipmentId = null;
     private String instructions = null;
     private String weightUomId = null;
-    private String shipmentBoxTypeId = null;
     private BigDecimal additionalShippingCharge = null;
     private Map<Integer, BigDecimal> packageWeights = null;
     private List<PackingEvent> packEvents = null;
@@ -1219,8 +1218,9 @@ public class PackingSession implements java.io.Serializable {
         Delegator delegator = this.getDelegator();
         if (picklistBinId != null) {
             GenericValue picklist = EntityQuery.use(delegator).from("PicklistAndBin").where("picklistBinId", picklistBinId).queryFirst();
-            if (picklist == null) {
-                if (!"PICKLIST_PICKED".equals(picklist.getString("statusId")) && !"PICKLIST_COMPLETED".equals(picklist.getString("statusId"))
+            if (picklist != null) {
+                if (!"PICKLIST_PICKED".equals(picklist.getString("statusId"))
+                        && !"PICKLIST_COMPLETED".equals(picklist.getString("statusId"))
                         && !"PICKLIST_CANCELLED".equals(picklist.getString("statusId"))) {
                     Map<String, Object> serviceResult = this.getDispatcher().runSync("updatePicklist", UtilMisc.toMap("picklistId",
                             picklist.getString("picklistId"), "statusId", "PICKLIST_PICKED", "userLogin", userLogin));
@@ -1422,14 +1422,6 @@ public class PackingSession implements java.io.Serializable {
      */
     public void setWeightUomId(String weightUomId) {
         this.weightUomId = weightUomId;
-    }
-
-    /**
-     * Sets shipment box type id.
-     * @param shipmentBoxTypeId the shipment box type id
-     */
-    public void setShipmentBoxTypeId(String shipmentBoxTypeId) {
-        this.shipmentBoxTypeId = shipmentBoxTypeId;
     }
 
     /**

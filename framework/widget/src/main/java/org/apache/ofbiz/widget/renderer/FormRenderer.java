@@ -1087,10 +1087,15 @@ public class FormRenderer {
                 }
             }
 
-            FieldInfo fieldInfo = currentFormField.getFieldInfo();
-            if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
-                    || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
-                continue;
+            FieldInfo fieldInfo = null;
+            if (currentFormField != null) {
+                fieldInfo = currentFormField.getFieldInfo();
+            }
+            if (fieldInfo != null) {
+                if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                        || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
+                    continue;
+                }
             }
             if (alreadyRendered.contains(currentFormField.getName())) {
                 continue;
@@ -1227,8 +1232,7 @@ public class FormRenderer {
         }
         int itemIndex = -1;
         if (iter instanceof EntityListIterator) {
-            EntityListIterator eli = (EntityListIterator) iter;
-            try {
+            try (EntityListIterator eli = (EntityListIterator) iter) {
                 if (eli.getResultsSizeAfterPartialList() > 0) {
                     itemIndex++;
                 }
@@ -1236,9 +1240,11 @@ public class FormRenderer {
                 Debug.logError(gee, MODULE);
             }
         } else {
-            while (iter.hasNext()) {
-                itemIndex++;
-                break;
+            if (iter != null) {
+                while (iter.hasNext()) {
+                    itemIndex++;
+                    break;
+                }
             }
         }
         if (itemIndex < 0) {
