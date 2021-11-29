@@ -170,7 +170,7 @@ under the License.
                         <screenlet id="add-fixedasset-product" title="${uiLabelMap.AccountingFixedAssetProductAdd}" collapsible="true">
                             <include-form name="AddFixedAssetProduct" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetProducts" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetProducts" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -212,7 +212,7 @@ under the License.
                         <screenlet id="add-fixed-asset-std-cost" title="${uiLabelMap.AccountingAddFixedAssetStdCost}" collapsible="true">
                             <include-form name="EditFixedAssetStdCost" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetStdCosts" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetStdCosts" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -236,7 +236,7 @@ under the License.
                         <screenlet id="edit-fixed-asset-idents" title="${uiLabelMap.AccountingAddFixedAssetIdent}" collapsible="true">
                             <include-form name="AddFixedAssetIdent" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetIdents" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetIdents" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -310,7 +310,7 @@ under the License.
                         <screenlet id="add-fixed-asset-registration" title="${uiLabelMap.AccountingAddFixedAssetRegistration}" collapsible="true">
                             <include-form name="AddFixedAssetRegistration" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetRegistrations" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetRegistrations" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -357,7 +357,7 @@ under the License.
                                 <parameter param-name="fixedAssetId"/>
                             </link>
                         </container>
-                        <include-form name="ListFixedAssetMaints" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetMaints" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -423,7 +423,7 @@ under the License.
                         <screenlet id="add-fixedasset-meter" title="${uiLabelMap.AccountingAddFixedAssetMeter}" collapsible="true">
                             <include-form name="AddFixedAssetMeter" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetMeters" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetMeters" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -473,7 +473,7 @@ under the License.
                         <screenlet id="add-fixedasset-maint-order" title="${uiLabelMap.AccountingAddFixedAssetMaintOrder}" collapsible="true">
                             <include-form name="AddFixedAssetMaintOrder" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetMaintOrders" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListFixedAssetMaintOrders" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -499,7 +499,7 @@ under the License.
                         <screenlet id="add-party-fixedasset-assignments" title="${uiLabelMap.AccountingAddFixedAssetPartyAssignment}" collapsible="true">
                             <include-form name="AddPartyFixedAssetAssignment" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListPartyFixedAssetAssignments" location="component://accounting/widget/FixedAssetForms.xml"/>
+                        <include-grid name="ListPartyFixedAssetAssignments" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -572,14 +572,14 @@ under the License.
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationMethod}">
                                     <include-form name="AddFixedAssetDepMethod" location="component://accounting/widget/FixedAssetForms.xml"/>
-                                    <include-form name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <include-grid name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.AccountingGlMappings}">
                                     <include-form name="AddFixedAssetTypeGlAccount" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <label style="h3">${uiLabelMap.PageTitleFixedAssetMappings}</label>
-                                    <include-form name="FixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <include-grid name="FixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <label style="h3">${uiLabelMap.PageTitleFixedAssetGlobalMappings}</label>
-                                    <include-form name="GlobalFixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <include-grid name="GlobalFixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>
                                 <section>
                                     <condition>
@@ -587,7 +587,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
-                                            <include-form name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                            <include-grid name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
@@ -597,7 +597,7 @@ under the License.
                                     </fail-widgets>
                                 </section>
                                 <screenlet title="${uiLabelMap.AccountingTransactions}">
-                                    <include-form name="FixedAssetTransactions" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <include-grid name="FixedAssetTransactions" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
