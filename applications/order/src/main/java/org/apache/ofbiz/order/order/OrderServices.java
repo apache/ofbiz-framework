@@ -1260,7 +1260,10 @@ public class OrderServices {
                     }
                     GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
                     String shipGroupFacilityId = orderItemShipGroup.getString("facilityId");
-                    String itemStatus = orderItem.getString("statusId");
+                    String itemStatus = null;
+                    if (orderItem != null) {
+                        itemStatus = orderItem.getString("statusId");
+                    }
                     if ("ITEM_REJECTED".equals(itemStatus) || "ITEM_CANCELLED".equals(itemStatus) || "ITEM_COMPLETED".equals(itemStatus)) {
                         Debug.logInfo("Order item [" + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + "] is not "
                                 + "in a proper status for reservation", MODULE);
@@ -2610,7 +2613,7 @@ public class OrderServices {
             // first check and see if we are already there; if so, just return success
             GenericValue testValue = EntityQuery.use(delegator).from("OrderRole").where(fields).queryOne();
             if (testValue != null) {
-                ServiceUtil.returnSuccess();
+                return ServiceUtil.returnSuccess();
             } else {
                 GenericValue value = delegator.makeValue("OrderRole", fields);
                 delegator.create(value);

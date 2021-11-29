@@ -532,7 +532,10 @@ public class BOMServices {
             if (orderShipment != null && !orderReadHelpers.containsKey(orderShipment.getString("orderId"))) {
                 orderReadHelpers.put(orderShipment.getString("orderId"), new OrderReadHelper(delegator, orderShipment.getString("orderId")));
             }
-            OrderReadHelper orderReadHelper = (OrderReadHelper) orderReadHelpers.get(orderShipment.getString("orderId"));
+            OrderReadHelper orderReadHelper = null;
+            if (orderShipment != null) {
+                orderReadHelper = (OrderReadHelper) orderReadHelpers.get(orderShipment.getString("orderId"));
+            }
             if (orderReadHelper != null) {
                 Map<String, Object> orderShipmentReadMap = UtilMisc.toMap("orderShipment", orderShipment, "orderReadHelper", orderReadHelper);
                 String partyId = (orderReadHelper.getPlacingParty() != null ? orderReadHelper.getPlacingParty().getString("partyId") : null);
