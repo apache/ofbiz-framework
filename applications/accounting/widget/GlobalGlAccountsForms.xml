@@ -66,7 +66,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount" 
+    <grid name="ListGlAccount" list-name="listIt" default-entity-name="GlAccount" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="GlAccount"/>
@@ -100,7 +100,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="productId"><display-entity entity-name="Product"/></field>
         <field name="externalId"><display/></field>
-    </form>
+    </grid>
     <form name="ListGlAccountPdf" extends="ListGlAccount">
         <actions>
             <entity-condition entity-name="GlAccount" list="listIt"/>
@@ -158,7 +158,7 @@ under the License.
     </form>
 
     <!-- this is used to list AcctgTransEntries and can be called either by using an acctgTransId or a glAccountId -->
-    <form name="ListAcctgTransEntries" type="list" list-name="entries"  default-entity-name="AcctgTransEntry"
+    <grid name="ListAcctgTransEntries" list-name="entries"  default-entity-name="AcctgTransEntry"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="acctgTransId">
             <hyperlink description="${acctgTransId}" target="ListAcctgTransEntries" also-hidden="false">
@@ -183,7 +183,7 @@ under the License.
         <field name="reconcileStatusId"><display/></field>
         <field name="settlementTermId"><display/></field>
         <field name="isSummary"><display/></field>
-    </form>
+    </grid>
 
     <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
         header-row-style="header-row" default-table-style="basic-table">
@@ -229,7 +229,7 @@ under the License.
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="reconciledAmount"><display/></field>
     </form>
-    <form name="ListRateAmounts" type="list" target="expireRateAmount" paginate-target="viewRateAmounts"
+    <grid name="ListRateAmounts" target="expireRateAmount" paginate-target="viewRateAmounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="sortField" from-field="parameters.sortField" default-value="rateTypeId"/>
@@ -253,7 +253,7 @@ under the License.
         <field name="emplPositionTypeId" sort-field="true"><display description="${employeePositionDescription}"/></field>
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="delete" title="${uiLabelMap.CommonDelete}"><submit/></field>
-    </form>
+    </grid>
 
     <form name="UpdateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount"
         header-row-style="header-row" default-table-style="basic-table">
