@@ -1173,12 +1173,12 @@
         <value xml:lang="zh">应付支付组</value>
         <value xml:lang="zh-TW">應付支付群組</value>
     </property>
-    <property key="AccountingApplicationSuccess">
+    <property key="AccountingPaymentApplicationSuccess">
         <value xml:lang="ar">تطبيق ${amountApplied?currency$({isoCode})} من الدفعة [${paymentId}] إلى ${toMessage}</value>
         <value xml:lang="de">${amountApplied?currency(${isoCode})} von Zahlung [${paymentId}] to ${toMessage} zugewiesen</value>
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
         <value xml:lang="es">Aplicando ${amountApplied?currency(${isoCode})} de pago [${paymentId}] a ${toMessage}</value>
-        <value xml:lang="fr">Enregistrer ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
+        <value xml:lang="fr">Enregistrement de ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
         <value xml:lang="hi-IN">${toMessage} के लिए  भुगतान से [${paymentId}], ${amountApplied?currency(${isoCode})} को लगाएं</value>
         <value xml:lang="it">Applicazione ${amountApplied?currency(${isoCode})} dal pagamento [${paymentId}] a ${toMessage}</value>
         <value xml:lang="ja">${amountApplied?currency(${isoCode})} を、支払 [${paymentId}] から ${toMessage} に消込中</value>
@@ -1264,12 +1264,12 @@
         <value xml:lang="zh">到税务机关辖区[${taxAuthGeoId}]</value>
         <value xml:lang="zh-TW">到稅務機關轄區[${taxAuthGeoId}]</value>
     </property>
-    <property key="AccountingApplications">
+    <property key="AccountingPaymentsApplications">
         <value xml:lang="ar">تطبيقات</value>
         <value xml:lang="de">Zuweisungen</value>
-        <value xml:lang="en">Applications</value>
+        <value xml:lang="en">Payments</value>
         <value xml:lang="es">Aplicaciones</value>
-        <value xml:lang="fr">Enregistrements</value>
+        <value xml:lang="fr">Enregistrement des paiements</value>
         <value xml:lang="hi-IN">अनुप्रयोग</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">適用</value>

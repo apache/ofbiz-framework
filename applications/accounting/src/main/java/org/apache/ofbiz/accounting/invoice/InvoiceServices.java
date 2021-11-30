@@ -3310,7 +3310,7 @@ public class InvoiceServices {
             errorMessageList.add(UtilProperties.getMessage(RESOURCE, "AccountingNoAmount", locale));
         } else {
             successMessage = UtilProperties.getMessage(RESOURCE,
-                    "AccountingApplicationSuccess",
+                    "AccountingPaymentApplicationSuccess",
                     UtilMisc.<String, Object>toMap("amountApplied", amountApplied,
                             "paymentId", paymentId,
                             "isoCode", currencyUomId,
