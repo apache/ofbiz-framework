@@ -821,8 +821,13 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     }
                     String formrenderer = modelTheme.getFormRendererLocation("screen");
                     MacroFormRenderer renderer = new MacroFormRenderer(formrenderer, request, response);
-                    FormRenderer formRenderer = new FormRenderer(modelForm, renderer);
-                    formRenderer.render(out, context);
+                    FormRenderer formRenderer = null;
+                    if (modelForm != null) {
+                        formRenderer = new FormRenderer(modelForm, renderer);
+                        formRenderer.render(out, context);
+                    } else {
+                        throw new GeneralException("Error rendering Screen template");
+                    }
                 } catch (TemplateException e) {
                     throw new GeneralException("Error creating Screen renderer", e);
                 } catch (Exception e) {

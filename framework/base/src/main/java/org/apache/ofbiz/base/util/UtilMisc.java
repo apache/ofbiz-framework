@@ -611,8 +611,9 @@ public final class UtilMisc {
         List<String> hostHeadersAllowed = null;
         if (UtilValidate.isNotEmpty(hostHeadersAllowedString)) {
             hostHeadersAllowed = StringUtil.split(hostHeadersAllowedString, ",");
+            hostHeadersAllowed = Collections.unmodifiableList(hostHeadersAllowed);
         }
-        return Collections.unmodifiableList(hostHeadersAllowed);
+        return hostHeadersAllowed;
     }
 
     /**
