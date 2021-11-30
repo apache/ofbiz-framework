@@ -84,7 +84,7 @@ under the License.
     <service name="setAcctgCompany" engine="groovy"
         location="component://accounting/groovyScripts/admin/AcctgAdminServices.groovy" invoke="setAcctgCompany" auth="true">
         <description>Set Accounting Company when select</description>
-        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="VIEW"/>
         <attribute type="String" mode="INOUT" name="organizationPartyId" optional="true"/>
     </service>
 
