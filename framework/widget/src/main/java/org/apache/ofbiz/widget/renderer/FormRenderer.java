@@ -1232,7 +1232,8 @@ public class FormRenderer {
         }
         int itemIndex = -1;
         if (iter instanceof EntityListIterator) {
-            try (EntityListIterator eli = (EntityListIterator) iter) {
+            EntityListIterator eli = (EntityListIterator) iter;
+            try {
                 if (eli.getResultsSizeAfterPartialList() > 0) {
                     itemIndex++;
                 }
@@ -1240,11 +1241,9 @@ public class FormRenderer {
                 Debug.logError(gee, MODULE);
             }
         } else {
-            if (iter != null) {
-                while (iter.hasNext()) {
-                    itemIndex++;
-                    break;
-                }
+            while (iter.hasNext()) {
+                itemIndex++;
+                break;
             }
         }
         if (itemIndex < 0) {
