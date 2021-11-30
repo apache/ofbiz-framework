@@ -402,7 +402,7 @@ under the License.
         </field>
     </form>
 
-    <grid name="PaymentApplications" type="list" list-name="paymentApplications"
+    <grid name="PaymentApplications" list-name="paymentApplications"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentApplication">
