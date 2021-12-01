@@ -141,7 +141,6 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                         serviceInParam.content(new Content().addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON,
                                 new MediaType().schema(refSchema)));
                         operation.addParametersItem(serviceInParam);
-                        operation.addParametersItem(HEADER_ACCEPT_JSON);
                     } else if (verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
                         RequestBody request = new RequestBody()
                                 .description("Request Body for operation " + op.getDescription())
@@ -158,7 +157,8 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                                 .findFirst().orElse(null);
                         final PathParameter pathParameter = (PathParameter) new PathParameter().required(true)
                                 .description(mdParam != null ? mdParam.getShortDisplayDescription() : "")
-                                .name(pathParam);
+                                .name(pathParam)
+                                .schema(OpenApiUtil.getAttributeSchema(service, mdParam));
                         operation.addParametersItem(pathParameter);
                     }
                     addServiceOutSchema(service);
