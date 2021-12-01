@@ -328,7 +328,7 @@ under the License.
                                                 <label style="h2" text="${uiLabelMap.CommonFrom}: ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
                                                 <label style="h2" text="${uiLabelMap.CommonTo}: ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
                                             </container>
-                                            <include-form name="ListPaymentsNotApplied" location="component://accounting/widget/PaymentForms.xml"/>
+                                            <include-grid name="ListPaymentsNotApplied" location="component://accounting/widget/PaymentForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
