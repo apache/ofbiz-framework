@@ -160,7 +160,7 @@ public final class OpenApiUtil {
     private static void buildApiResponseSchemas() {
         Schema<?> genericErrorSchema = new MapSchema().addProperties("statusCode", new IntegerSchema().description("HTTP Status Code"))
                  .addProperties("statusDescription", new StringSchema().description("HTTP Status Code Description"))
-                 .addProperties("errorTyoe", new StringSchema().description("Error Type for the error"))
+                 .addProperties("errorType", new StringSchema().description("Error Type for the error"))
                  .addProperties("errorMessage", new StringSchema().description("Error Message"));
         SCHEMAS.put("api.response.unauthorized.noheader", genericErrorSchema);
         SCHEMAS.put("api.response.unauthorized.invalidtoken", genericErrorSchema);
@@ -203,7 +203,7 @@ public final class OpenApiUtil {
                 "errorMessage", "HTTP POST is not allowed on service 'demoDoGetService'.");
 
         final ApiResponse unauthorizedNoHeader = new ApiResponse().addHeaderObject(HttpHeaders.WWW_AUTHENTICATE, new Header()
-                .example(HttpHeaders.WWW_AUTHENTICATE + ": "
+                .schema(new Schema<>().type("string").format("string")).example(HttpHeaders.WWW_AUTHENTICATE + ": "
                  + AuthenticationScheme.BEARER.getScheme() + " realm=\"" + AuthenticationScheme.REALM + "\""))
                 .description("Unauthorized: Access is denied due to invalid or absent Authorization header.")
                 .content(new Content()
@@ -221,6 +221,7 @@ public final class OpenApiUtil {
                                 .example(unauthorizedInvalidTokenExample)));
 
         final ApiResponse forbidden = new ApiResponse().addHeaderObject(HttpHeaders.WWW_AUTHENTICATE, new Header()
+                .schema(new Schema<>().type("string"))
                 .example(HttpHeaders.WWW_AUTHENTICATE + ": "
                 + AuthenticationScheme.BEARER.getScheme() + " realm=\"" + AuthenticationScheme.REALM + "\""))
                 .description("Forbidden: Insufficient rights to perform this API call.")
@@ -244,6 +245,7 @@ public final class OpenApiUtil {
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.service.unprocessableentity"))
                                 .example(unprocessableEntExample)));
+        
         final ApiResponse methodNotAllowed = new ApiResponse()
                 .description("Method Not Allowed: Service called with HTTP method other than the declared one.")
                 .content(new Content()
@@ -287,7 +289,7 @@ public final class OpenApiUtil {
         return parentSchema;
     }
 
-    private static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
+    public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
         Schema<?> schema = null;
         Class<?> schemaClass = getOpenApiTypeForAttributeType(param.getType());
         if (schemaClass == null) {
