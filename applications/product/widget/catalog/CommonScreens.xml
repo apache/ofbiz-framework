@@ -309,7 +309,7 @@ under the License.
                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
                         </container>
                         <screenlet title="${uiLabelMap.ProductCategoryWithNoParent}">
-                            <include-form name="ListTopCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
+                            <include-grid name="ListTopCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
