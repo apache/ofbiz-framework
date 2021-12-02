@@ -2438,6 +2438,10 @@ public class PartyServices {
                                         "userLogin", userLogin);
                                 result = dispatcher.runSync("updatePartyGroup", partyGroup);
                                 if (ServiceUtil.isError(result)) {
+                                    // Eclipse reports here: Resource leak: '<unassigned Closeable value>' is not closed at this location
+                                    // but it's OK. As csvReader is in a try-with-ressource it will be closed anyway
+                                    // I prefer to not put @SuppressWarnings("resource") to the whole method
+                                    // BTW to be consistent Eclipse should also reports the same issue below
                                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                                 }
                             } else { // person
