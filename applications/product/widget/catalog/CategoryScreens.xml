@@ -96,7 +96,7 @@ under the License.
                                         <include-form name="FindCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                        <include-grid name="ListCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -204,20 +204,18 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCategoryContent"/>
                 <set field="tabButtonItem" value="EditCategoryContent"/>
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
-
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
                 <get-related-one value-field="productCategory" relation-name="ProductCategoryType" to-value-field="productCategoryType"/>
                 <set field="categoryContentOrderList[]" value="prodCatContentTypeId"/>
                 <get-related value-field="productCategory" relation-name="ProductCategoryContent" list="productCategoryContentList" order-by-list="categoryContentOrderList"/>
-
                 <entity-condition entity-name="ProductCategoryType" list="productCategoryTypes"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductUpdateCategoryContentAssoc}">
-                            <include-form name="UpdateCategoryContentAssoc" location="component://product/widget/catalog/CategoryForms.xml"/>
+                            <include-grid name="UpdateCategoryContentAssoc" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddProductCategoryContentFromDate}">
                             <include-form name="PrepareAddCategoryContentAssoc" location="component://product/widget/catalog/CategoryForms.xml"/>
@@ -459,7 +457,7 @@ under the License.
                             <include-form name="CreateProductCategoryAttribute" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditCategoryAttributes}">
-                            <include-form name="EditProductCategoryAttributes" location="component://product/widget/catalog/CategoryForms.xml"/>
+                            <include-grid name="EditProductCategoryAttributes" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -529,7 +527,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductCategoryLink}">
-                            <include-form name="ListProductCategoryLinks" location="component://product/widget/catalog/CategoryForms.xml"/>
+                            <include-grid name="ListProductCategoryLinks" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleCreateProductCategoryLink}">
                             <label style="h3">&gt;&gt;&gt;&gt;&gt;This function is depreciated and replaced by the function under the tab &quot;Content&quot; with the content type "Related URL"</label>
