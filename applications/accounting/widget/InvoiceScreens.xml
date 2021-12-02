@@ -584,6 +584,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="InvoiceContactMech">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleInvoiceContactMech"/>
+                <set field="tabButtonItem" value="invoiceContactMech"/>
+                <set field="invoiceId" from-field="parameters.invoiceId"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="InvoiceContactMech" list="invoiceContactMechList">
+                    <field-map field-name="invoiceId" from-field="invoiceId"/>
+                    <order-by field-name="contactMechId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PartyContactMechs}">
+                                <include-grid name="InvoiceContactMech" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="InvoiceContent">
         <section>
             <actions>
