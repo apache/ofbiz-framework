@@ -17,12 +17,22 @@
  * under the License.
  */
 
-apply from: 'common.gradle'
-rootProject.name = 'ofbiz'
+plugins {
+    id 'groovy'
+    id 'eclipse'
+    id 'maven-publish'
+}
 
-def fileSep = System.getProperty("file.separator")
-def isWindows = System.getProperty('os.name').toLowerCase().contains("windows")
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
-include 'framework'
-include 'applications'
-include 'themes'
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['netdavaofbiz/config',
+                       'rainbowstone/config',
+                       'helveticus/config',
+                       'common-theme/config',]
+        }
+    }
+}
