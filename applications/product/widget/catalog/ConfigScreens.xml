@@ -76,7 +76,7 @@ under the License.
                                 <include-form name="FindProductConfigItemsFrom" location="component://product/widget/catalog/ConfigForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="FindProductConfigItems" location="component://product/widget/catalog/ConfigForms.xml"/>
+                                <include-grid name="FindProductConfigItems" location="component://product/widget/catalog/ConfigForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
@@ -178,7 +178,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.ProductComponents} - ${uiLabelMap.CommonId}: ${configOption.configOptionId} - ${configOption.description}">
-                    <include-form name="ProductConfigList" location="component://product/widget/catalog/ConfigForms.xml"/>
+                    <include-grid name="ProductConfigList" location="component://product/widget/catalog/ConfigForms.xml"/>
                 </screenlet>
                 <section>
                     <condition>
