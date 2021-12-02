@@ -237,6 +237,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceAttributes"/>
     </request-map>
+    <request-map uri="invoiceContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceContent"/>
+    </request-map>
     
     <!-- re Invoice Roles -->
     <request-map uri="invoiceRoles">
@@ -2633,6 +2637,7 @@ under the License.
     <view-map name="invoiceStatus" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceStatus"/>
     <view-map name="editInvoiceApplications" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceApplications"/>
     <view-map name="invoiceAttributes" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceAttributes"/>
+    <view-map name="invoiceContent" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceContent"/>
     <view-map name="invoiceRoles" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceRoles"/>
     <view-map name="invoiceTerms" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceTerms"/>
     <view-map name="sendPerEmail" type="screen" page="component://accounting/widget/InvoiceScreens.xml#SendPerEmail"/>
