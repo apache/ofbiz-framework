@@ -3,22 +3,25 @@
               xmlns="https://github.com/spotbugs/filter/3.0.0"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
-  <Match>
+              
+  <!-- CN_IDIOM_NO_SUPER_CALL = clone method does not call supper.clone(). OK since shallow clone wanted-->
+  <Match>  
     <Class name="org.apache.ofbiz.entity.GenericEntity" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
-    <Priority value="2" />
+    <Confidence value="1" />
   </Match>
   <Match>
     <Class name="org.apache.ofbiz.entity.GenericPK" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
-    <Priority value="2" />
+    <Confidence value="1" />
   </Match>
   <Match>
     <Class name="org.apache.ofbiz.entity.GenericValue" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
-    <Priority value="2" />
+    <Confidence value="1" />
   </Match>
+  
 </FindBugsFilter>
