@@ -248,7 +248,7 @@ under the License.
                                         <include-form name="InvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyTerms}">
-                                        <include-form name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        <include-grid name="InvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
                                         <include-form name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                 </container>
