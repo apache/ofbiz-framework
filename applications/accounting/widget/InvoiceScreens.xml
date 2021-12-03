@@ -638,6 +638,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="InvoiceNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleInvoiceNotes"/>
+                <set field="tabButtonItem" value="invoiceNotes"/>
+                <set field="invoiceId" from-field="parameters.invoiceId"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="InvoiceNote" list="invoiceNotesList">
+                    <field-map field-name="invoiceId" from-field="invoiceId"/>
+                    <order-by field-name="noteId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.CommonNotes}">
+                                <include-grid name="InvoiceNotes" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="InvoiceRoles">
         <section>
             <actions>

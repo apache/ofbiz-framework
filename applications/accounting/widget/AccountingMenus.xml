@@ -159,17 +159,29 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
+        <menu-item name="invoiceNotes" title="${uiLabelMap.CommonNotes}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                </and>
+            </condition>
+            <link target="invoiceNotes">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingPaymentsApplications}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
                 </and>
             </condition>
-            <link target="editInvoiceTimeEntries">
+            <link target="editInvoiceApplications">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
@@ -201,26 +213,23 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingPaymentsApplications}">
+        <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
                 </and>
             </condition>
-            <link target="editInvoiceApplications">
+            <link target="editInvoiceTimeEntries">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
         <menu-item name="commissionRun" title="${uiLabelMap.AccountingCommissionRun}">
             <link target="CommissionRun"/>
         </menu-item>
-        
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">

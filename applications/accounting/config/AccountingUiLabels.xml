@@ -24175,6 +24175,10 @@
         <value xml:lang="en">Invoice Content</value>
         <value xml:lang="nl">Factuurcontent</value>
     </property>
+    <property key="PageTitleInvoiceNotes">
+        <value xml:lang="en">Invoice Notes</value>
+        <value xml:lang="nl">Factuurnotities</value>
+    </property>
     <property key="PageTitleListAccounts">
         <value xml:lang="ar">قائمة الحسابات</value>
         <value xml:lang="cs">Seznam účtů</value>
