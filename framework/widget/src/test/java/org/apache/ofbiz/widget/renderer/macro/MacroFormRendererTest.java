@@ -845,6 +845,7 @@ public class MacroFormRendererTest {
                 modelForm.getPaginateTarget(withNotNull());
                 result = targetService;
                 // FIXME SpotBugs reports: Argument 1 is definitely null but must not be null
+                // Also this method is not used at all OOTB
                 requestHandler.makeLink(null, null, withSubstring(qbeString));
                 result = linkFromQbeString;
             }
@@ -872,6 +873,7 @@ public class MacroFormRendererTest {
                 modelForm.getPaginateTarget(withNotNull());
                 result = paginateTarget;
                 // FIXME SpotBugs reports: Argument 1 is definitely null but must not be null
+                // Also this method is not used at all OOTB
                 requestHandler.makeLink(null, null, withSubstring(qbeString));
                 result = linkFromQbeString;
 
