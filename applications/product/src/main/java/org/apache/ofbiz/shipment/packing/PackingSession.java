@@ -1217,7 +1217,10 @@ public class PackingSession implements java.io.Serializable {
     protected void setPicklistToPicked() throws GeneralException {
         Delegator delegator = this.getDelegator();
         if (picklistBinId != null) {
-            GenericValue picklist = EntityQuery.use(delegator).from("PicklistAndBin").where("picklistBinId", picklistBinId).queryFirst();
+            GenericValue picklist = EntityQuery.use(delegator)
+                    .from("PicklistAndBin")
+                    .where("picklistBinId", picklistBinId)
+                    .queryFirst();
             if (picklist != null) {
                 if (!"PICKLIST_PICKED".equals(picklist.getString("statusId"))
                         && !"PICKLIST_COMPLETED".equals(picklist.getString("statusId"))
@@ -1230,7 +1233,10 @@ public class PackingSession implements java.io.Serializable {
                 }
             }
         } else {
-            List<GenericValue> picklistBins = EntityQuery.use(delegator).from("PicklistAndBin").where("primaryOrderId", primaryOrderId).queryList();
+            List<GenericValue> picklistBins = EntityQuery.use(delegator)
+                    .from("PicklistAndBin")
+                    .where("primaryOrderId", primaryOrderId)
+                    .queryList();
             if (UtilValidate.isNotEmpty(picklistBins)) {
                 for (GenericValue picklistBin : picklistBins) {
                     if (!"PICKLIST_PICKED".equals(picklistBin.getString("statusId"))
