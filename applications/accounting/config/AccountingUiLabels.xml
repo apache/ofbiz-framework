@@ -24167,6 +24167,10 @@
         <value xml:lang="en">Invoice Attributes</value>
         <value xml:lang="nl">Factuurattributen</value>
     </property>
+    <property key="PageTitleInvoiceContactMech">
+        <value xml:lang="en">Invoice Contact Info</value>
+        <value xml:lang="nl">Factuurcontactgegevens</value>
+    </property>
     <property key="PageTitleInvoiceContent">
         <value xml:lang="en">Invoice Content</value>
         <value xml:lang="nl">Factuurcontent</value>

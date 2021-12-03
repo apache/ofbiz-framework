@@ -140,6 +140,14 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceAttribute" default-field-type="display"/>
     </grid>
+    <grid name="InvoiceContactMech" list-name="invoiceContactMechList" paginate-target="invoiceContactMech"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="ContactMechDetail" value-field="contactMechDetail"/>
+        </row-actions>
+        <auto-fields-entity entity-name="InvoiceContactMech" default-field-type="display"/>
+        <field name="contactMechDetail" title="${uiLabelMap.FormFieldTitle_cmDetail}"><display/></field>
+    </grid>
     <grid name="InvoiceContent" list-name="invoiceContentList" paginate-target="invoiceContent"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceContent" default-field-type="display"/>
