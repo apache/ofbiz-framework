@@ -585,7 +585,7 @@ public class CommunicationEventServices {
                         }
 
                         if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
-                            if (ServiceUtil.getErrorMessage(tmpResult).startsWith("[ADDRERR]")) {
+                            if (tmpResult != null && ServiceUtil.getErrorMessage(tmpResult).startsWith("[ADDRERR]")) {
                                 // address error; mark the communication event as BOUNCED
                                 contactListCommStatusRecord.set("statusId", "COM_BOUNCED");
                                 try {
@@ -608,38 +608,39 @@ public class CommunicationEventServices {
                                 continue;
                             }
                             // If the send attempt fails, just log and skip the email address
-                            Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult),
-                                    MODULE);
-                            errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(
-                                    tmpResult));
-                            continue;
+                            if (tmpResult != null) {
+                                Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult), MODULE);
+                                errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                                continue;
+                            }
                         }
                         // attach the parent communication event to the new event created when sending
                         // the mail
-                        String thisCommEventId = (String) tmpResult.get("communicationEventId");
-                        GenericValue thisCommEvent = EntityQuery.use(delegator).from("CommunicationEvent").where(
-                                "communicationEventId", thisCommEventId).queryOne();
-                        if (thisCommEvent != null) {
-                            thisCommEvent.set("contactListId", contactListId);
-                            thisCommEvent.set("parentCommEventId", communicationEventId);
-                            thisCommEvent.store();
-                        }
-                        String messageId = (String) tmpResult.get("messageId");
-                        contactListCommStatusRecord.set("messageId", messageId);
+                        if (tmpResult != null) {
+                            String thisCommEventId = (String) tmpResult.get("communicationEventId");
+                            GenericValue thisCommEvent = EntityQuery.use(delegator).from("CommunicationEvent").where(
+                                    "communicationEventId", thisCommEventId).queryOne();
+                            if (thisCommEvent != null) {
+                                thisCommEvent.set("contactListId", contactListId);
+                                thisCommEvent.set("parentCommEventId", communicationEventId);
+                                thisCommEvent.store();
+                            }
+                            String messageId = (String) tmpResult.get("messageId");
+                            contactListCommStatusRecord.set("messageId", messageId);
 
-                        if ("Y".equals(contactList.get("singleUse"))) {
+                            if ("Y".equals(contactList.get("singleUse"))) {
+                                // Expire the ContactListParty if the list is single use and sendEmail finishes successfully
+                                tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId",
+                                        lastContactListPartyACM.get("contactListId"),
+                                        "partyId", partyId, "fromDate", lastContactListPartyACM.get("fromDate"),
+                                        "thruDate", UtilDateTime.nowTimestamp(), "userLogin", userLogin));
+                                if (ServiceUtil.isError(tmpResult)) {
 
-                            // Expire the ContactListParty if the list is single use and sendEmail finishes successfully
-                            tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId",
-                                    lastContactListPartyACM.get("contactListId"),
-                                    "partyId", partyId, "fromDate", lastContactListPartyACM.get("fromDate"),
-                                    "thruDate", UtilDateTime.nowTimestamp(), "userLogin", userLogin));
-                            if (ServiceUtil.isError(tmpResult)) {
-
-                                // If the expiry fails, just log and skip the email address
-                                Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), MODULE);
-                                errorMessages.add(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult));
-                                continue;
+                                    // If the expiry fails, just log and skip the email address
+                                    Debug.logError(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult), MODULE);
+                                    errorMessages.add(errorCallingUpdateContactListPartyService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                                    continue;
+                                }
                             }
                         }
 
