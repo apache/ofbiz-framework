@@ -152,6 +152,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceContent" default-field-type="display"/>
     </grid>
+    <grid name="InvoiceNotes" list-name="invoiceNotesList" paginate-target="invoiceNotes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="InvoiceNote" default-field-type="display"/>
+    </grid>
     <form name="InvoiceItems" list-name="invItemAndOrdItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
