@@ -28,13 +28,13 @@ import org.apache.ofbiz.base.util.UtilValidate;
  * ControlServlet.java - Master servlet for the web application.
  */
 @SuppressWarnings("serial")
-public class OfbizControlServlet extends org.apache.ofbiz.webapp.control.ControlServlet {
+public class CategoryControlServlet extends org.apache.ofbiz.webapp.control.ControlServlet {
 
     private static String defaultPage = null;
     private static String pageNotFound = null;
     private static String controlServlet = null;
 
-    public OfbizControlServlet() {
+    public CategoryControlServlet() {
         super();
     }
 
@@ -67,7 +67,7 @@ public class OfbizControlServlet extends org.apache.ofbiz.webapp.control.Control
     }
 
     public static void setDefaultPage(String defaultPage) {
-        OfbizControlServlet.defaultPage = defaultPage;
+        CategoryControlServlet.defaultPage = defaultPage;
     }
 
     public static String getPageNotFound() {
@@ -75,7 +75,7 @@ public class OfbizControlServlet extends org.apache.ofbiz.webapp.control.Control
     }
 
     public static void setPageNotFound(String pageNotFound) {
-        OfbizControlServlet.pageNotFound = pageNotFound;
+        CategoryControlServlet.pageNotFound = pageNotFound;
     }
 
     public static String getControlServlet() {
@@ -83,7 +83,7 @@ public class OfbizControlServlet extends org.apache.ofbiz.webapp.control.Control
     }
 
     public static void setControlServlet(String controlServlet) {
-        OfbizControlServlet.controlServlet = controlServlet;
+        CategoryControlServlet.controlServlet = controlServlet;
     }
 
 }

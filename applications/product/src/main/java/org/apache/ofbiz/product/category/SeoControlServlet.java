@@ -31,16 +31,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.jasper.servlet.JspServlet;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.webapp.control.ControlServlet;
 import org.apache.ofbiz.webapp.SeoConfigUtil;
+import org.apache.ofbiz.webapp.control.ControlServlet;
 
 /**
  * SeoControlServlet.java - SEO Master servlet for the web application.
  */
 @SuppressWarnings("serial")
 public class SeoControlServlet extends ControlServlet {
-
-    private static final String MODULE = SeoControlServlet.class.getName();
 
     private static String defaultPage = null;
     private static String controlServlet = null;
