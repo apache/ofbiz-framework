@@ -1599,10 +1599,6 @@ under the License.
       <field name="preferredCurrencyUomId" type="id"></field>
       <field name="description" type="very-long"></field>
       <field name="statusId" type="id"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="dataSourceId" type="id"></field>
       <field name="isUnread" type="indicator"></field>
       <prim-key field="partyId"/>

@@ -604,8 +604,6 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="dateModified" type="date-time"></field>
       <field name="amount" type="currency-amount"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="salaryStepSeqId"/>
       <prim-key field="payGradeId"/>
       <prim-key field="fromDate"/>

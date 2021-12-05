@@ -231,10 +231,6 @@ under the License.
       <field name="accommodationMapId" type="id"/>
       <field name="accommodationSpotId" type="id"/>
       <field name="revisionNumber" type="numeric"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="workEffortId"/>
       <relation type="one" fk-name="WK_EFFRT_TYPE" rel-entity-name="WorkEffortType">
         <key-map field-name="workEffortTypeId"/>

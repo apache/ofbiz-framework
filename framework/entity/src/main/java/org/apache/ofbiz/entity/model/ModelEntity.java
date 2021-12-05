@@ -68,6 +68,12 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     public static final String CREATE_STAMP_FIELD = "createdStamp";
     public static final String CREATE_STAMP_TX_FIELD = "createdTxStamp";
 
+    /** Other fields that we want entities to have by default for audit purposes*/
+    public static final String CREATED_BY_FIELD = "createdByUserLogin";
+    public static final String CREATED_DATE_FIELD = "createdDate";
+    public static final String MODIFIED_BY_FIELD = "lastModifiedByUserLogin";
+    public static final String MODIFIED_DATE_FIELD = "lastModifiedDate";
+
     private ModelInfo modelInfo;
 
     /** The ModelReader that created this Entity */
@@ -209,6 +215,27 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             Field indexField = new Field(CREATE_STAMP_TX_FIELD, null);
             ModelIndex txIndex = ModelIndex.create(this, null, indexName, UtilMisc.toList(indexField), false);
             indexes.add(txIndex);
+        }
+        // if applicable automatically add the for audit purposes
+        if ((this.doLock || !this.noAutoStamp) && !fieldsMap.containsKey(CREATED_BY_FIELD)) {
+            ModelField newField = ModelField.create(this, "", CREATED_BY_FIELD, "id-vlong", null, null, null, false,
+                                                    false, false, true, false, null);
+            internalAddField(newField, pkFieldNames);
+        }
+        if ((this.doLock || !this.noAutoStamp) && !fieldsMap.containsKey(CREATED_DATE_FIELD)) {
+            ModelField newField = ModelField.create(this, "", CREATED_DATE_FIELD, "date-time", null, null, null, false,
+                                                    false, false, true, false, null);
+            internalAddField(newField, pkFieldNames);
+        }
+        if (!this.noAutoStamp && !fieldsMap.containsKey(MODIFIED_BY_FIELD)) {
+            ModelField newField = ModelField.create(this, "", MODIFIED_BY_FIELD, "id-vlong", null, null, null, false,
+                                                    false, false, true, false, null);
+            internalAddField(newField, pkFieldNames);
+        }
+        if (!this.noAutoStamp && !fieldsMap.containsKey(MODIFIED_DATE_FIELD)) {
+            ModelField newField = ModelField.create(this, "", MODIFIED_DATE_FIELD, "date-time", null, null, null, false,
+                                                    false, false, true, false, null);
+            internalAddField(newField, pkFieldNames);
         }
         // Must be done last to preserve pk field sequence
         for (String pkFieldName : pkFieldNames) {

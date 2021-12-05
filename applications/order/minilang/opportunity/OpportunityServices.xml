@@ -26,16 +26,19 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createSalesForecast" short-description="Creates a sales forecast and stores a copy in sales forecast history.">
-
         <!-- make the value and set the fields from the parameters -->
+        <now-timestamp field="nowTimestamp"/>
         <make-value entity-name="SalesForecast" value-field="salesForecast"/>
         <sequenced-id sequence-name="SalesForecast" field="salesForecastId"/>
         <set field="salesForecast.salesForecastId" from-field="salesForecastId"/>
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
 
-        <!-- set the creation info -->
-        <set field="salesForecast.createdByUserLoginId" from-field="userLogin.userLoginId"/>
-        <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
+        <!-- set the creation data -->
+        <set field="salesForecast.createdDate" from-field="nowTimestamp"/>
+        <set field="salesForecast.createdByUserLogin" from-field="userLogin.userLoginId"/>
+        <!-- set the modification data -->
+        <set field="salesForecast.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="salesForecast.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
 
         <!-- create the value -->
         <create-value value-field="salesForecast"/>
@@ -48,12 +51,16 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     </simple-method>
 
     <simple-method method-name="updateSalesForecast" short-description="Updates a sales forecast and stores a copy in sales forecast history.">
-
+        
+        <now-timestamp field="nowTimestamp"/>
         <!-- get the forecast -->
         <entity-one entity-name="SalesForecast" auto-field-map="true" value-field="salesForecast"/>
 
         <!-- set the fields from the parameters -->
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
+        <!-- set the modification data -->
+        <set field="salesForecast.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="salesForecast.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
 
         <!-- store the value -->
         <store-value value-field="salesForecast"/>
@@ -73,10 +80,10 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <!-- get the change note from the parameters -->
         <set field="salesForecastHistory.changeNote" from-field="parameters.changeNote"/>
 
-        <!-- set the modified info -->
+        <!-- set the modified data -->
         <now-timestamp field="nowTimestamp"/>
-        <set field="salesForecastHistory.modifiedTimestamp" from-field="nowTimestamp"/>
-        <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
+        <set field="salesForecastHistory.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="salesForecast.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
 
         <!-- create the value -->
         <create-value value-field="salesForecastHistory"/>
