@@ -245,7 +245,7 @@ public final class OpenApiUtil {
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.service.unprocessableentity"))
                                 .example(unprocessableEntExample)));
-        
+
         final ApiResponse methodNotAllowed = new ApiResponse()
                 .description("Method Not Allowed: Service called with HTTP method other than the declared one.")
                 .content(new Content()
