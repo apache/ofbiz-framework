@@ -19,11 +19,11 @@
 package org.apache.ofbiz.order.test;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -120,7 +120,7 @@ public class OrderTestServices {
                     UtilMisc.toMap("productCategoryId", productCategoryId), locale));
         }
 
-        Random r = new Random();
+        SecureRandom r = new SecureRandom();
 
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currencyUomId);
         cart.setOrderType("SALES_ORDER");

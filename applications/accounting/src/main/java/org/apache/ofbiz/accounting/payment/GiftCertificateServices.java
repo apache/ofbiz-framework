@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -1418,13 +1417,13 @@ public class GiftCertificateServices {
             length = 19;
         }
 
-        Random rand = new SecureRandom();
+        SecureRandom secureRandom = new SecureRandom();
         boolean isValid = false;
         StringBuilder number = null;
         while (!isValid) {
             number = new StringBuilder("");
             for (int i = 0; i < length; i++) {
-                int randInt = rand.nextInt(9);
+                int randInt = secureRandom.nextInt(9);
                 number.append(randInt);
             }
 

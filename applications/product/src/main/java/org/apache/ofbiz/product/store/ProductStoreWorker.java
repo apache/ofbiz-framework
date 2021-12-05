@@ -19,12 +19,12 @@
 package org.apache.ofbiz.product.store;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 import java.util.TimeZone;
 
 import javax.servlet.ServletRequest;
@@ -453,7 +453,7 @@ public final class ProductStoreWorker {
             partyId, Map<String, Object> passThruFields) {
         List<GenericValue> randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
         if (UtilValidate.isNotEmpty(randomSurveys)) {
-            Random rand = new Random();
+            SecureRandom rand = new SecureRandom();
             int index = rand.nextInt(randomSurveys.size());
             GenericValue appl = randomSurveys.get(index);
             return new ProductStoreSurveyWrapper(appl, partyId, passThruFields);

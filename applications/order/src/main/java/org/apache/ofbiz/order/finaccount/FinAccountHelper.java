@@ -21,10 +21,10 @@ package org.apache.ofbiz.order.finaccount;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -117,7 +117,7 @@ public final class FinAccountHelper {
     public static String getNewFinAccountCode(int codeLength, Delegator delegator) throws GenericEntityException {
 
         // keep generating new account codes until a unique one is found
-        Random r = new Random();
+        SecureRandom r = new SecureRandom();
         boolean foundUniqueNewCode = false;
         StringBuilder newAccountCode = null;
         long count = 0;
