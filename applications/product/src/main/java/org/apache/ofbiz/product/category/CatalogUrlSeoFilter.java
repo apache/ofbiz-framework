@@ -60,7 +60,7 @@ public class CatalogUrlSeoFilter extends CatalogUrlFilter {
 
         // set the ServletContext in the request for future use
         httpRequest.setAttribute("servletContext", getConfig().getServletContext());
-        if (CatalogUrlSeoTransform.forwardUri(httpRequest, httpResponse, delegator, ControlServlet.getControlServlet())) {
+        if (CatalogUrlSeoTransform.forwardUri(httpRequest, httpResponse, delegator, OfbizControlServlet.getControlServlet())) {
             return;
         }
         super.doFilter(httpRequest, httpResponse, chain);

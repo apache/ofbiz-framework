@@ -30,15 +30,15 @@ import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 /**
  * XmlRpcClient
  */
-public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
+public class OfbizXmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
 
-    private static final String MODULE = XmlRpcClient.class.getName();
+    private static final String MODULE = OfbizXmlRpcClient.class.getName();
 
     private String keyStoreComponent;
     private String keyStoreName;
     private String keyAlias;
 
-    public XmlRpcClient(XmlRpcClientConfig config, String keyStoreComponent, String keyStoreName, String keyAlias) {
+    public OfbizXmlRpcClient(XmlRpcClientConfig config, String keyStoreComponent, String keyStoreName, String keyAlias) {
         this(config);
         this.keyStoreComponent = keyStoreComponent;
         this.keyStoreName = keyStoreName;
@@ -46,7 +46,7 @@ public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
         this.setTransportFactory(this.getClientTransportFactory());
     }
 
-    public XmlRpcClient(XmlRpcClientConfig config) {
+    public OfbizXmlRpcClient(XmlRpcClientConfig config) {
         super();
         this.setConfig(config);
     }

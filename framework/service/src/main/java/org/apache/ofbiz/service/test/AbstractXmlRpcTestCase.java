@@ -22,7 +22,7 @@ package org.apache.ofbiz.service.test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.ofbiz.service.xmlrpc.XmlRpcClient;
+import org.apache.ofbiz.service.xmlrpc.OfbizXmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 import junit.framework.TestCase;
@@ -82,8 +82,8 @@ public class AbstractXmlRpcTestCase extends TestCase {
         }
 
         if (keyStoreComponent != null && keyStoreName != null && keyAlias != null) {
-            return new XmlRpcClient(config, keyStoreComponent, keyStoreName, keyAlias);
+            return new OfbizXmlRpcClient(config, keyStoreComponent, keyStoreName, keyAlias);
         }
-        return new XmlRpcClient(config);
+        return new OfbizXmlRpcClient(config);
     }
 }

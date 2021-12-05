@@ -173,7 +173,8 @@ public class FlexibleServletAccessor<T> implements Serializable {
         return this.name.hashCode();
     }
 
-    /** The equals and hashCode methods are implemented just case this object is ever accidently used as a Map key
+    /**
+     * The equals and hashCode methods are implemented just in case this object is ever accidently used as a Map key
      * @param obj
      * @return whether this object is equal to the passed object
      */

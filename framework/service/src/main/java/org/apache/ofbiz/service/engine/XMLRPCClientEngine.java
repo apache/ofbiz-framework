@@ -36,7 +36,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
-import org.apache.ofbiz.service.xmlrpc.XmlRpcClient;
+import org.apache.ofbiz.service.xmlrpc.OfbizXmlRpcClient;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
@@ -82,7 +82,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         }
 
         XmlRpcClientConfigImpl config = null;
-        XmlRpcClient client = null;
+        OfbizXmlRpcClient client = null;
         String serviceName = modelService.getInvoke();
         String engine = modelService.getEngineName();
         String url = null;
@@ -116,9 +116,9 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Cannot invoke service : engine parameters are not correct");
         }
         if (UtilValidate.isNotEmpty(keyStoreComponent) && UtilValidate.isNotEmpty(keyStoreName) && UtilValidate.isNotEmpty(keyAlias)) {
-            client = new XmlRpcClient(config, keyStoreComponent, keyStoreName, keyAlias);
+            client = new OfbizXmlRpcClient(config, keyStoreComponent, keyStoreName, keyAlias);
         } else {
-            client = new XmlRpcClient(config);
+            client = new OfbizXmlRpcClient(config);
         }
         List<ModelParam> inModelParamList = modelService.getInModelParamList();
 
