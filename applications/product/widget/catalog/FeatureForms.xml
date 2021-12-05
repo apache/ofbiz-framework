@@ -85,14 +85,13 @@
         <field name="productFeatureId" ><hidden/></field>
         <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
-    <form name="EditSupplierProductFeatures" type="list" target="updateSupplierProductFeature" title="" list-name="supplierProductFeatures"
+    <grid name="EditSupplierProductFeatures" target="updateSupplierProductFeature" list-name="supplierProductFeatures"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateSupplierProductFeature" default-field-type="display"/>
         <field name="productFeatureId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.ProductSuppliers}">
             <display-entity entity-name="PartyGroup" description="${groupName}"/>
         </field>
-
         <field name="description" title="${uiLabelMap.ProductProductDescription}"><text size="40"/></field>
         <field name="idCode" title="${uiLabelMap.ProductIdCode}"><text size="5"/></field>
         <field name="uomId" title="${uiLabelMap.ProductCurrency}">
@@ -107,14 +106,14 @@
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="FindFeatureType" type="single" target="EditFeatureTypes"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureTypeId"><text-find size="25"></text-find></field>
         <field name="description"><text-find size="25"></text-find></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="ListFeatureTypes" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureTypes"
+    <grid name="ListFeatureTypes" list-name="listIt" paginate-target="EditFeatureTypes"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -144,7 +143,7 @@
                 <parameter param-name="productFeatureTypeId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditFeatureType" type="single" target="updateProductFeatureType" title="" default-map-name="productFeatureType"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productFeatureType==null" target="createProductFeatureType"/>
@@ -167,7 +166,7 @@
         <field name="productFeatureIdTo"><text-find size="25"></text-find></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="ListFeatureInterActions" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureInterAction"
+    <grid name="ListFeatureInterActions" list-name="listIt" paginate-target="EditFeatureInterAction"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -179,7 +178,6 @@
                 <field-map field-name="viewSize" from-field="viewSize"/>
                 </service>
             </actions>
-
         <field name="productFeatureId">
             <display-entity entity-name="ProductFeature">
                 <sub-hyperlink target="EditFeature" description="[${productFeatureId}]">
@@ -195,14 +193,13 @@
             </display-entity>
         </field>
         <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>
-
         <field name="removeFeatureInterAction" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeProductFeatureIactn">
                 <parameter param-name="productFeatureId"/>
                 <parameter param-name="productFeatureIdTo"/>
             </hyperlink>
         </field>
-        </form>
+        </grid>
     <form name="EditFeatureInterAction" type="single" target="createProductFeatureIactn" title="" default-map-name="productFeatureIactn"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureId">
@@ -297,7 +294,7 @@
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit find"><submit/></field>
     </form>
 
-    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories" target="UpdateFeatureCategory"
+    <grid name="ListProductFeature" list-name="listIt" paginate-target="EditFeatureCategories" target="UpdateFeatureCategory"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -316,8 +313,7 @@
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="update" title="${uiLabelMap.CommonUpdate}"><submit/></field>
-    </form>
-
+    </grid>
     <form name="CreateProductFeature" type="single" target="CreateFeatureCategory">
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text size="25"></text></field>
         <field name="parentCategory" title="${uiLabelMap.ProductParentCategory}">
@@ -329,7 +325,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
     </form>
-    <form name="ListFeaturePrice" type="list" target="updateFeaturePrice"  list-name="productFeaturePrice"
+    <grid name="ListFeaturePrice" target="updateFeaturePrice" list-name="productFeaturePrice"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="ProductFeaturePrice" list="productFeaturePrice">
@@ -352,7 +348,7 @@
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="CreateFeaturePrice" type="single" target="createFeaturePrice">
         <actions>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>

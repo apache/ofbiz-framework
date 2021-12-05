@@ -75,7 +75,7 @@
                             <include-form name="CreateFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductSupplierSpecificFeatureInformation}">
-                            <include-form name="EditSupplierProductFeatures" location="component://product/widget/catalog/FeatureForms.xml"/>
+                            <include-grid name="EditSupplierProductFeatures" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductCreateInformationNewSupplier}">
                             <include-form name="CreateSupplierProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
@@ -107,7 +107,7 @@
                                         <include-form name="FindFeatureType" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFeatureTypes" location="component://product/widget/catalog/FeatureForms.xml"/>
+                                        <include-grid name="ListFeatureTypes" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -159,7 +159,7 @@
                                         <include-form name="FindFeatureInterAction" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFeatureInterActions" location="component://product/widget/catalog/FeatureForms.xml"/>
+                                        <include-grid name="ListFeatureInterActions" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -233,7 +233,7 @@
                                         <include-form name="FindProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
+                                        <include-grid name="ListProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -358,7 +358,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditFeaturePrice}">
-                            <include-form name="ListFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
+                            <include-grid name="ListFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddFeaturePrice}">
                             <include-form name="CreateFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
