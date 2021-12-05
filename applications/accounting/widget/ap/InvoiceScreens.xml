@@ -214,7 +214,7 @@ under the License.
                                             </widgets>
                                             <fail-widgets>
                                                 <platform-specific>
-                                                <html><html-template multi-block="true" location="component://accounting/template/invoice/CommissionRun.ftl"/></html>
+                                                <html><html-template multi-block="true" location="component://accounting/template/invoice/CommissionRunSearchResult.ftl"/></html>
                                                 </platform-specific>
                                             </fail-widgets>
                                         </section>
