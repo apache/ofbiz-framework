@@ -501,9 +501,9 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     public class ConfigItem implements java.io.Serializable {
-        transient private GenericValue configItem = null;
+        private transient GenericValue configItem = null;
         private GenericValue configItemAssoc = null;
-        transient private ProductConfigItemContentWrapper content = null;
+        private transient ProductConfigItemContentWrapper content = null;
         private List<ConfigOption> options = null;
         private boolean first = true;
 

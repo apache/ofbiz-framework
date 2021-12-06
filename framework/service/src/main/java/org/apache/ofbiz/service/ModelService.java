@@ -185,7 +185,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     private boolean hideResultInLog;
 
     /** Set of services this service implements */
-    transient private Set<ModelServiceIface> implServices = new LinkedHashSet<>();
+    private transient Set<ModelServiceIface> implServices = new LinkedHashSet<>();
 
     /** Set of override parameters */
     private Set<ModelParam> overrideParameters = new LinkedHashSet<>();
@@ -194,10 +194,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     private List<ModelPermGroup> permissionGroups = new LinkedList<>();
 
     /** List of email-notifications for this service */
-    transient private List<ModelNotification> notifications = new LinkedList<>();
+    private transient List<ModelNotification> notifications = new LinkedList<>();
 
     /** Internal Service Group */
-    transient private GroupModel internalGroup = null;
+    private transient GroupModel internalGroup = null;
 
     /**Deprecated information*/
     private String deprecatedUseInstead = null;
