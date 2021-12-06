@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.lang;
 
-/** A range of values. */
-@SourceMonitored
-public class ComparableRange<T extends Comparable<T>> implements Range<T>, Comparable<ComparableRange<T>> {
+import java.io.Serializable;
 
+/** A range of values. */
+@SuppressWarnings("serial")
+@SourceMonitored
+public class ComparableRange<T extends Comparable<T>> implements Range<T>, Comparable<ComparableRange<T>>, Serializable {
     private final T start;
     private final T end;
     private final boolean isPoint;
