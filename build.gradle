@@ -25,7 +25,6 @@ import org.asciidoctor.gradle.AsciidoctorTask
  * ======================================================== */
 buildscript {
     repositories {
-        jcenter() // temporary fix
         mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -107,10 +106,6 @@ allprojects {
                 artifact()
             }
         }
-        maven {
-            // com.springsource.com.sun.syndication
-            url "https://repo.spring.io/plugins-release"
-        }
     }
 }
 
@@ -146,7 +141,8 @@ dependencies {
     compile 'com.ibm.icu:icu4j:60.2'
     compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     compile 'com.sun.mail:javax.mail:1.6.0'
-    compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
+    compile 'com.rometools:rome:1.16.0'
+    compile 'org.jdom:jdom:1.1.3' // don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
     compile 'commons-cli:commons-cli:1.4'
     compile 'commons-net:commons-net:3.6'

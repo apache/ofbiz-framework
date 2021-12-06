@@ -437,7 +437,7 @@ under the License.
         <attribute name="feedType" type="String" mode="IN" optional="false"/>
         <attribute name="mainLink" type="String" mode="IN" optional="false"/>
         <attribute name="entryLink" type="String" mode="IN" optional="false"/>
-        <attribute name="wireFeed" type="com.sun.syndication.feed.WireFeed" mode="OUT" optional="false"/>
+        <attribute name="wireFeed" type="com.rometools.rome.feed.WireFeed" mode="OUT" optional="false"/>
     </service>
 
     <!-- User preferences services -->
