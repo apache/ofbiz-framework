@@ -29,6 +29,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 /**
  * Abstract Job.
  */
+@SuppressWarnings("serial")
 public abstract class AbstractJob implements Job, Serializable {
 
     private static final String MODULE = AbstractJob.class.getName();
