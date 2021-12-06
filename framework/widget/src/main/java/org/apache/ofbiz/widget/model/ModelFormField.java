@@ -1114,7 +1114,7 @@ public final class ModelFormField {
             if (!allCheckedStr.isEmpty()) {
                 return "true".equals(allCheckedStr);
             }
-            return null;
+            return false;
         }
 
         @Override
