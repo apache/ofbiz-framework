@@ -352,7 +352,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListEditInvoiceApplications"/>
                 <set field="tabButtonItem" value="editInvoiceApplications"/>
                 <set field="helpAnchor" value="_help_for_edit_invoice_applications"/>
-
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <script location="component://accounting/groovyScripts/invoice/CreateApplicationList.groovy"/>
@@ -366,64 +365,89 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-compare field="notAppliedAmount" operator="greater" value="0"/>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
-                                   <include-form name="EditInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
-                                </screenlet>
                                 <section>
                                     <condition>
-                                        <if-empty field="invoiceApplications"/>
+                                        <if-compare field="notAppliedAmount" operator="greater" value="0"/>
                                     </condition>
-                                    <widgets>
-                                        <container><label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label></container>
-                                    </widgets>
+                                        <widgets>
+                                            <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} 
+                                                ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
+                                                <include-form name="EditInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
+                                            </screenlet>
+                                            <section>
+                                                <condition>
+                                                    <if-empty field="invoiceApplications"/>
+                                                </condition>
+                                                <widgets>
+                                                    <container><label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label></container>
+                                                </widgets>
+                                            </section>
+                                            <section>
+                                                <condition>
+                                                    <or>
+                                                        <not><if-empty field="payments"/></not>
+                                                        <not><if-empty field="paymentsActualCurrency"/></not>
+                                                    </or>
+                                                </condition>
+                                                <widgets>
+                                                    <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}] 
+                                                        ${uiLabelMap.AccountingPaymentSentForm} [${invoice.partyId}]">
+                                                        <section>
+                                                            <condition>
+                                                                <not><if-empty field="payments"/></not>
+                                                            </condition>
+                                                            <widgets>
+                                                                <include-form name="ListPaymentsNotApplied" location="component://accounting/widget/InvoiceForms.xml"/>
+                                                            </widgets>
+                                                        </section>
+                                                        <section>
+                                                            <condition>
+                                                                <not><if-empty field="paymentsActualCurrency"/></not>
+                                                            </condition>
+                                                            <widgets>
+                                                                <include-form name="ListPaymentsNotAppliedForeignCurrency" location="component://accounting/widget/InvoiceForms.xml"/>
+                                                            </widgets>
+                                                        </section>
+                                                    </screenlet>
+                                                </widgets>
+                                            </section>
+                                            <screenlet title="${uiLabelMap.AccountingAssignPaymentToInvoice}">
+                                                <include-form name="AddPayment" location="component://accounting/widget/InvoiceForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} 
+                                                ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
+                                                <include-form name="EditInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
+                                            </screenlet>
+                                            <section>
+                                                <condition>
+                                                    <if-empty field="invoiceApplications"/>
+                                                </condition>
+                                                <widgets>
+                                                    <container>
+                                                        <label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label>
+                                                    </container>
+                                                </widgets>
+                                            </section>
+                                        </fail-widgets>
                                 </section>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <not><if-empty field="payments"/></not>
-                                            <not><if-empty field="paymentsActualCurrency"/></not>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}] ${uiLabelMap.AccountingPaymentSentForm} [${invoice.partyId}]">
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field="payments"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="ListPaymentsNotApplied" location="component://accounting/widget/InvoiceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field="paymentsActualCurrency"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="ListPaymentsNotAppliedForeignCurrency" location="component://accounting/widget/InvoiceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                        </screenlet>
-                                    </widgets>
-                                </section>
-                                <screenlet title="${uiLabelMap.AccountingAssignPaymentToInvoice}">
-                                    <include-form name="AddPayment" location="component://accounting/widget/InvoiceForms.xml"/>
-                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})}  ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
-                                    <include-form name="EditInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
+                                <screenlet 
+                                    title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} 
+                                        ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
+                                        navigation-form-name="ListInvoiceApplications">
+                                    <include-form name="ListInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
-                                <section>
-                                    <condition>
-                                        <if-empty field="invoiceApplications"/>
-                                    </condition>
-                                    <widgets>
-                                        <container><label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label></container>
-                                    </widgets>
-                                </section>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -431,7 +455,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditInvoiceItems">
         <section>
             <actions>
