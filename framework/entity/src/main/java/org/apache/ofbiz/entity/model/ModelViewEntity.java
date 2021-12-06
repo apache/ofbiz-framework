@@ -1247,7 +1247,7 @@ public class ModelViewEntity extends ModelEntity {
         private final String relEntityAlias;
         private final boolean relOptional;
         private final List<ModelKeyMap> keyMaps = new LinkedList<>();
-        private final ViewEntityCondition viewEntityCondition;
+        transient private final ViewEntityCondition viewEntityCondition;
 
         public ModelViewLink(ModelViewEntity modelViewEntity, Element viewLinkElement) {
             this.entityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("entity-alias")).intern();

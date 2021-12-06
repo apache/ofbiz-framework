@@ -68,7 +68,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     public static final String CREATE_STAMP_FIELD = "createdStamp";
     public static final String CREATE_STAMP_TX_FIELD = "createdTxStamp";
 
-    private ModelInfo modelInfo;
+    transient private ModelInfo modelInfo;
 
     /** The ModelReader that created this Entity */
     private final ModelReader modelReader;
