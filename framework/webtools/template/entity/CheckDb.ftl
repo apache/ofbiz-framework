@@ -37,11 +37,11 @@ under the License.
             <td class="label">
             </td>
             <td>
-               <label>&nbsp;<input type="checkbox" name="checkPks" value="true" checked="checked"/>&nbsp;${uiLabelMap.WebtoolsPks}</label>
-               <label>&nbsp;<input type="checkbox" name="checkFks" value="true"/>&nbsp;${uiLabelMap.WebtoolsFks}</label>
-               <label>&nbsp;<input type="checkbox" name="checkFkIdx" value="true"/>&nbsp;${uiLabelMap.WebtoolsFkIdx}</label>
-               <label>&nbsp;<input type="checkbox" name="addMissing" value="true"/>&nbsp;${uiLabelMap.WebtoolsAddMissing}</label>
-               <label>&nbsp;<input type="checkbox" name="repair" value="true"/>&nbsp;${uiLabelMap.WebtoolsRepairColumnSizes}</label>
+               <label>&nbsp;<input type="checkbox" name="checkPks" value="true" checked="checked"/>${uiLabelMap.WebtoolsPks}</label>
+               <label>&nbsp;<input type="checkbox" name="checkFks" value="true"/>${uiLabelMap.WebtoolsFks}</label>
+               <label>&nbsp;<input type="checkbox" name="checkFkIdx" value="true"/>${uiLabelMap.WebtoolsFkIdx}</label>
+               <label>&nbsp;<input type="checkbox" name="addMissing" value="true"/>${uiLabelMap.WebtoolsAddMissing}</label>
+               <label>&nbsp;<input type="checkbox" name="repair" value="true"/>${uiLabelMap.WebtoolsRepairColumnSizes}</label>
             </td>
          </tr>
          <tr>
