@@ -198,9 +198,26 @@ under the License.
                                         <include-form name="CommissionRun" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <platform-specific>
-                                            <html><html-template multi-block="true" location="component://accounting/template/ap/invoices/CommissionRun.ftl"/></html>
-                                        </platform-specific>
+                                        <section>
+                                            <condition>
+                                                <and>
+                                                    <or>
+                                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                                    </or>
+                                                </and>
+                                            </condition>
+                                            <widgets>
+                                                <platform-specific>
+                                                <html><html-template multi-block="true" location="component://accounting/template/ap/invoices/CommissionRun.ftl"/></html>
+                                                </platform-specific>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <platform-specific>
+                                                <html><html-template multi-block="true" location="component://accounting/template/invoice/CommissionRunSearchResult.ftl"/></html>
+                                                </platform-specific>
+                                            </fail-widgets>
+                                        </section>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
