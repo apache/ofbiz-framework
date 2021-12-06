@@ -130,18 +130,36 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field="finAccountId"/></not>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
                             </condition>
                             <widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"></label>
-                                <screenlet id="EditFinAccountPanel" collapsible="true">
-                                    <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
-                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="finAccountId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                        <screenlet id="EditFinAccountPanel" collapsible="true">
+                                            <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h1" text="${uiLabelMap.CommonCreate} ${uiLabelMap.AccountingFinAccount}"></label>
+                                         <screenlet id="CreateFinAccountPanel" collapsible="true">
+                                            <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="h1" text="${uiLabelMap.CommonCreate}"></label>
-                                <screenlet id="CreateFinAccountPanel" collapsible="true">
-                                    <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <screenlet>
+                                <include-form name="FinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
