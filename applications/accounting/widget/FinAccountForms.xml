@@ -80,6 +80,45 @@ under the License.
         </field>
     </grid>
 
+    <form name="FinAccount" type="single" target="updateFinAccount" default-map-name="finAccount"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="finAccount.statusId"/>
+            </entity-one>
+        </actions>
+        <field name="finAccountId" title="${uiLabelMap.CommonId}" use-when="finAccountId!=null"><display/></field>
+        <field name="finAccountCode" title="${uiLabelMap.CommonCode}"><display/></field>
+        <field name="finAccountPin" title="${uiLabelMap.AccountingPINNumber}"><display/></field>
+        <field name="finAccountTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="FinAccountType"/>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}"><display/></field>
+        <field name="organizationPartyId" title="${uiLabelMap.InternalOrganisation}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${organizationPartyId}]" >
+                    <parameter param-name="partyId" from-field="organizationPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="ownerPartyId" title="${uiLabelMap.CommonOwner}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${ownerPartyId}]" >
+                    <parameter param-name="partyId" from-field="ownerPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="postToGlAccountId"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem"/>
+        </field>
+        <field name="isRefundable"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+        <field name="replenishPaymentId"><display/></field>
+        <field name="actualBalance"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="availableBalance"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
     <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -89,11 +128,9 @@ under the License.
         </actions>
         <alt-target use-when="finAccount==null" target="createFinAccount"/>
         <auto-fields-service service-name="updateFinAccount"/>
-
         <field name="finAccountId" use-when="finAccountId!=null"><display/></field>
         <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId==null"><ignored/></field>
         <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${finAccountId}]"><display also-hidden="false"/></field>
-
         <field name="finAccountCode"><text size="20"/></field>
         <field name="finAccountPin"><text size="10"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
@@ -118,7 +155,6 @@ under the License.
             <drop-down allow-empty="false">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="FINACCT_STATUS"/>
-
                 </entity-options>
             </drop-down>
         </field>
@@ -136,8 +172,8 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" use-when="finAccountId==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="finAccountId!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="actualBalance"><display/></field>
-        <field name="availableBalance"><display/></field>
+        <field name="actualBalance"><display type="accounting-number"/></field>
+        <field name="availableBalance"><display type="accounting-number"/></field>
     </form>
 
     <grid name="ListFinAccountRoles" list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true"
