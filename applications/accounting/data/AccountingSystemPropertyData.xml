@@ -51,9 +51,4 @@ under the License.
     <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" 
     systemPropertyValue="Y"
     description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/>
-
-    <SystemProperty systemResourceId="accounting" systemPropertyId="" 
-    systemPropertyValue=""
-    description=""/>
-
 </entity-engine-xml>
