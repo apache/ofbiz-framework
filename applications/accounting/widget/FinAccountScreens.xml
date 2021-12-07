@@ -177,18 +177,40 @@ under the License.
                 <set field="helpAnchor" value="_help_for_edit_financial_account_roles"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>
+                <entity-condition entity-name="FinAccountRole" list="finAccountRoles">
+                    <order-by field-name="partyId"/>
+                    <order-by field-name="roleTypeId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h1" text="${uiLabelMap.AccountingEditFinAccountRoleFor}"/>
-                        <screenlet id="FinAccountRolePanel" collapsible="true">
-                            <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
-                        </screenlet>
-                        <include-grid name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <screenlet id="FinAccountRolePanel" title="${uiLabelMap.PartyAddRole}">
+                                    <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
+                                 </screenlet>
+                                 <screenlet title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                                 </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                 <screenlet title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="FinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                                 </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
