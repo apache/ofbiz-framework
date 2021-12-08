@@ -116,8 +116,8 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
         <field name="replenishPaymentId"><display/></field>
-        <field name="actualBalance"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="availableBalance"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="actualBalance"><display type="currency" currency="${finAccount.currencyUomId}"/></field>
+        <field name="availableBalance"><display type="currency" currency="${finAccount.currencyUomId}"/></field>
     </form>
     <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount"
         header-row-style="header-row" default-table-style="basic-table">
