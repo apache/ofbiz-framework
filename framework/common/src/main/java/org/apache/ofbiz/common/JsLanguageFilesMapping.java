@@ -31,7 +31,7 @@ public final class JsLanguageFilesMapping {
 
     public static class DateJs {
 
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultDateJs = "/common/js/jquery/plugins/datejs/date-en-US.js";
 
         static {
