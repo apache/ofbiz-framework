@@ -489,30 +489,56 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
-                            <parameter param-name="finAccountId" from-field="finAccountId"/>
-                        </link>
                         <section>
                             <condition>
-                                <if-compare field="finAccount.finAccountTypeId" operator="equals" value="BANK_ACCOUNT"/>
+                                <or>
+                                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                    <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                </or>
                             </condition>
                             <widgets>
-                                <link target="BankReconciliation" text="${uiLabelMap.AccountingBankReconciliation}" style="buttontext">
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
                                     <parameter param-name="finAccountId" from-field="finAccountId"/>
-                                    <parameter param-name="statusId" value="FINACT_TRNS_CREATED"/>
                                 </link>
+                                <section>
+                                    <condition>
+                                        <if-compare field="finAccount.finAccountTypeId" operator="equals" value="BANK_ACCOUNT"/>
+                                    </condition>
+                                    <widgets>
+                                        <link target="BankReconciliation" text="${uiLabelMap.AccountingBankReconciliation}" style="buttontext">
+                                            <parameter param-name="finAccountId" from-field="finAccountId"/>
+                                            <parameter param-name="statusId" value="FINACT_TRNS_CREATED"/>
+                                        </link>
+                                    </widgets>
+                                </section>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <platform-specific>
+                                        <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                        </platform-specific>
+                                    </decorator-section>
+                                </decorator-screen>
                             </widgets>
+                            <fail-widgets>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <screenlet>
+                                        <platform-specific>
+                                        <html><html-template multi-block="true" location="component://accounting/template/finaccount/FinAccountTrans.ftl"/></html>
+                                        </platform-specific>
+                                        </screenlet>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </fail-widgets>
                         </section>
-                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="search-options">
-                                <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
-                            </decorator-section>
-                            <decorator-section name="search-results">
-                                <platform-specific>
-                                    <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
-                                </platform-specific>
-                            </decorator-section>
-                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
