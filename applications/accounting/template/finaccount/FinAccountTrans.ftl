@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<assign accountCurrencyUomId = finAccount.currencyUomId/>
+<#assign accountCurrencyUomId = finAccount.currencyUomId/>
 <#if finAccountTransList?has_content && parameters.noConditionFind?? && parameters.noConditionFind == 'Y'>
   <#if !grandTotal??>
       <div>
