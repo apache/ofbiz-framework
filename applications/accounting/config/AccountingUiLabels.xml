@@ -24528,6 +24528,10 @@
         <value xml:lang="zh">支付总览</value>
         <value xml:lang="zh-TW">支付總覽</value>
     </property>
+    <property key="PageTitlePaymentAttributes">
+        <value xml:lang="en">Payment Attributes</value>
+        <value xml:lang="nl">Betalingsattributen</value>
+    </property>
     <property key="PageTitleSalesInvoiceByProductCategorySummary">
         <value xml:lang="ar">ملخص فواتير المبيعات بفئة السلعة</value>
         <value xml:lang="cs">Souhrn prodejních faktur podle kategorií produktů</value>
