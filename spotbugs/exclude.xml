@@ -9,19 +9,25 @@
     <Class name="org.apache.ofbiz.entity.GenericEntity" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
-    <Confidence value="1" />
   </Match>
   <Match>
     <Class name="org.apache.ofbiz.entity.GenericPK" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
-    <Confidence value="1" />
   </Match>
   <Match>
     <Class name="org.apache.ofbiz.entity.GenericValue" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
-    <Confidence value="1" />
   </Match>
-  
+  <Match>
+    <Class name="org.apache.ofbiz.webapp.view.ApacheFopWorker" />
+    <Method name="getFactoryInstance" />
+    <Bug pattern="DC_DOUBLECHECK" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.accounting.thirdparty.valuelink.ValueLinkApi" />
+    <Method name="getWorkingKeyIndex" />
+    <Bug pattern="DC_DOUBLECHECK" />
+  </Match>
 </FindBugsFilter>

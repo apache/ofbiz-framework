@@ -1640,7 +1640,9 @@ public class UspsServices {
                     Debug.logInfo(e, MODULE);
                 }
 
-                UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
+                if (product != null) {
+                    UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
+                }
                 UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity")
                         .setScale(0, RoundingMode.CEILING).toPlainString(), packageDocument);
                 String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2,
@@ -1651,7 +1653,9 @@ public class UspsServices {
                 UtilXml.addChildElementValue(itemDetail, "NetPounds", productPoundsOunces[0].toString(), packageDocument);
                 UtilXml.addChildElementValue(itemDetail, "NetOunces", productPoundsOunces[1].toString(), packageDocument);
                 UtilXml.addChildElementValue(itemDetail, "HSTariffNumber", "", packageDocument);
-                UtilXml.addChildElementValue(itemDetail, "CountryOfOrigin", originGeo.getString("geoName"), packageDocument);
+                if (originGeo != null) {
+                    UtilXml.addChildElementValue(itemDetail, "CountryOfOrigin", originGeo.getString("geoName"), packageDocument);
+                }
             }
 
             // Send the request

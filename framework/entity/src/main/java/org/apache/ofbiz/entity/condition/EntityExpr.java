@@ -279,7 +279,8 @@ public final class EntityExpr implements EntityCondition {
                 Debug.logWarning(e, MODULE);
             }
             try {
-                if (!ObjectType.instanceOf(ObjectType.loadClass(rhsType.getJavaType()), type.getJavaType())) {
+                if (rhsType != null
+                        && !ObjectType.instanceOf(ObjectType.loadClass(rhsType.getJavaType()), type.getJavaType())) {
                     String msg = "Warning using [" + value.getClass().getName() + "]"
                             + " and entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "]."
                             + " The Java type [" + rhsType.getJavaType() + "] of rhsFieldName : [" + rhsFieldName + "]"

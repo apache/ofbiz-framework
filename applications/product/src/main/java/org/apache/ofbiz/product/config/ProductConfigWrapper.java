@@ -1093,7 +1093,7 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigOption that = (ConfigOption) o;
-            return that.getId() == getId()
+            return that.getId().equals(getId())
                     && that.isSelected() == isSelected()
                     && Objects.equals(availabilityDate, that.availabilityDate)
                     && Objects.equals(componentList, that.componentList)
