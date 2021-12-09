@@ -7400,7 +7400,7 @@
         <value xml:lang="hi-IN">नया</value>
         <value xml:lang="it">Nuovo</value>
         <value xml:lang="ja">新規</value>
-        <value xml:lang="nl">Nieuw</value>
+        <value xml:lang="nl">Nieuw(e)</value>
         <value xml:lang="pt">Novo</value>
         <value xml:lang="ro">Nou</value>
         <value xml:lang="ru">Новый</value>
@@ -8803,6 +8803,7 @@
         <value xml:lang="es">Pago</value>
         <value xml:lang="fr">Paiement</value>
         <value xml:lang="ja">支払</value>
+        <value xml:lang="nl">Betaling</value>
         <value xml:lang="ru">Платеж </value>
         <value xml:lang="vi">Thanh toán</value>
         <value xml:lang="zh">付款</value>
