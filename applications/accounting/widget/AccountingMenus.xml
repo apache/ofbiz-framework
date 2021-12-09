@@ -52,6 +52,34 @@ under the License.
         <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="globalGLSettings"/></menu-item>
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
+        <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewGLTransaction" title="${uiLabelMap.CommonNew} ${uiLabelMap.GlTransaction}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newAcctgTrans">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewInvoice" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonInvoice}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newInvoice"/>
+        </menu-item>
+        <menu-item name="NewPayment" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonPayment}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newPayment"/>
+        </menu-item>
+    </menu>
 
     <menu name="AccountingShortcutAppBar" title="${uiLabelMap.AccountingManager}">
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="/accounting/control/findInvoices" url-mode="inter-app"/></menu-item>
