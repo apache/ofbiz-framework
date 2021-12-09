@@ -366,6 +366,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="paymentOverview"/>
     </request-map>
+    <request-map uri="paymentAttributes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="paymentAttributes"/>
+    </request-map>
     <request-map uri="editPaymentApplications">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editPaymentApplications"/>
@@ -2656,6 +2660,7 @@ under the License.
     <!-- Payment -->
     <view-map name="findPayments" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPayments"/>
     <view-map name="paymentOverview" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentOverview"/>
+    <view-map name="paymentAttributes" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentAttributes"/>
     <view-map name="newPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#NewPayment"/>
     <view-map name="editPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPayment"/>
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>

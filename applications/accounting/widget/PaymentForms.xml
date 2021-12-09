@@ -401,7 +401,6 @@ under the License.
             </hyperlink>
         </field>
     </form>
-
     <grid name="PaymentApplications" list-name="paymentApplications"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -444,7 +443,10 @@ under the License.
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"></display-entity></field>
         <field name="amountApplied"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </grid>
-
+    <grid name="PaymentAttributes" list-name="paymentAttributes" paginate-target="paymentAttributes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="PaymentAttribute" default-field-type="display"/>
+    </grid>
     <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries" extends="AcctgTransAndEntries" extends-resource="component://accounting/widget/InvoiceForms.xml">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId"><hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/></field>
