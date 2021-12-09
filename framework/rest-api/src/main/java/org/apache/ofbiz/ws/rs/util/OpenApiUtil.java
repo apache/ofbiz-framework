@@ -381,7 +381,9 @@ public final class OpenApiUtil {
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-            dataSchema.addProperties(fieldNm, schema.description(fieldNm));
+            if (schemaClass != null) {
+                dataSchema.addProperties(fieldNm, schema.description(fieldNm));
+            }
         }
         return dataSchema;
     }
