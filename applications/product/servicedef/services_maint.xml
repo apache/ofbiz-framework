@@ -204,12 +204,12 @@ under the License.
     <!-- ============================== -->
     <!-- Inventory Maintenance Services -->
     <!-- ============================== -->
-    <service name="updateOldInventoryToDetailAll" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailAll" auth="true">
+    <service name="updateOldInventoryToDetailAll" engine="groovy"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="updateOldInventoryToDetailAll" auth="true">
         <description>Update Old Inventory To Detail</description>
     </service>
-    <service name="updateOldInventoryToDetailSingle" engine="simple" require-new-transaction="true"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
+    <service name="updateOldInventoryToDetailSingle" engine="groovy" require-new-transaction="true"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="updateOldInventoryToDetailSingle" auth="true">
         <description>Update Old Inventory To Detail</description>
         <attribute name="inventoryItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
 	     <type-validate>
