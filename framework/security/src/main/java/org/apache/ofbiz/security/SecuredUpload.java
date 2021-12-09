@@ -114,34 +114,36 @@ public class SecuredUpload {
 
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
-        String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
-
-        if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
-            Debug.logError("This file extension is not allowed for security reason", MODULE);
-            deleteBadFile(fileToCheck);
-            return false;
-        }
-
-        if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            if (fileToCheck.length() > 259) { // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
-                Debug.logError("Uploaded file name too long", MODULE);
-            } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
-                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
-                    wrongFile = false;
-                }
-            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
-                wrongFile = false;
+        if (p != null) {
+            String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
+            if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
+                Debug.logError("This file extension is not allowed for security reason", MODULE);
+                deleteBadFile(fileToCheck);
+                return false;
             }
-        } else { // Suppose a *nix system
-            if (fileToCheck.length() > 4096) {
-                Debug.logError("Uploaded file name too long", MODULE);
-            } else if (p.toString().contains(imageServerUrl)) {
-                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+
+            if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
+                // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+                if (fileToCheck.length() > 259) {
+                    Debug.logError("Uploaded file name too long", MODULE);
+                } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
+                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                        wrongFile = false;
+                    }
+                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
                     wrongFile = false;
                 }
-            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
-                wrongFile = false;
+            } else { // Suppose a *nix system
+                if (fileToCheck.length() > 4096) {
+                    Debug.logError("Uploaded file name too long", MODULE);
+                } else if (p.toString().contains(imageServerUrl)) {
+                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                        wrongFile = false;
+                    }
+                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                    wrongFile = false;
+                }
             }
         }
 
