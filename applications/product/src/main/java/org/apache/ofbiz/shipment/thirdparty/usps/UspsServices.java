@@ -1642,19 +1642,19 @@ public class UspsServices {
 
                 if (product != null) {
                     UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
-                }
-                UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity")
-                        .setScale(0, RoundingMode.CEILING).toPlainString(), packageDocument);
-                String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent).setScale(2,
-                        RoundingMode.HALF_UP).toPlainString();
-                UtilXml.addChildElementValue(itemDetail, "Value", packageContentValue, packageDocument);
-                BigDecimal productWeight = ProductWorker.getProductWeight(product, "WT_lbs", delegator, dispatcher);
-                Integer[] productPoundsOunces = convertPoundsToPoundsOunces(productWeight);
-                UtilXml.addChildElementValue(itemDetail, "NetPounds", productPoundsOunces[0].toString(), packageDocument);
-                UtilXml.addChildElementValue(itemDetail, "NetOunces", productPoundsOunces[1].toString(), packageDocument);
-                UtilXml.addChildElementValue(itemDetail, "HSTariffNumber", "", packageDocument);
-                if (originGeo != null) {
-                    UtilXml.addChildElementValue(itemDetail, "CountryOfOrigin", originGeo.getString("geoName"), packageDocument);
+                    UtilXml.addChildElementValue(itemDetail, "Quantity", shipmentPackageContent.getBigDecimal("quantity")
+                            .setScale(0, RoundingMode.CEILING).toPlainString(), packageDocument);
+                    String packageContentValue = ShipmentWorker.getShipmentPackageContentValue(shipmentPackageContent)
+                            .setScale(2, RoundingMode.HALF_UP).toPlainString();
+                    UtilXml.addChildElementValue(itemDetail, "Value", packageContentValue, packageDocument);
+                    BigDecimal productWeight = ProductWorker.getProductWeight(product, "WT_lbs", delegator, dispatcher);
+                    Integer[] productPoundsOunces = convertPoundsToPoundsOunces(productWeight);
+                    UtilXml.addChildElementValue(itemDetail, "NetPounds", productPoundsOunces[0].toString(), packageDocument);
+                    UtilXml.addChildElementValue(itemDetail, "NetOunces", productPoundsOunces[1].toString(), packageDocument);
+                    UtilXml.addChildElementValue(itemDetail, "HSTariffNumber", "", packageDocument);
+                    if (originGeo != null) {
+                        UtilXml.addChildElementValue(itemDetail, "CountryOfOrigin", originGeo.getString("geoName"), packageDocument);
+                    }
                 }
             }
 
