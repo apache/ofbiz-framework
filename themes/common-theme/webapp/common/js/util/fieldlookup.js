@@ -851,10 +851,3 @@ lookupDescriptionLoaded.prototype.update = function() {
         });
     }
 }
-
-// Needed because IE8 does not implement trim yet
-if (typeof String.prototype.trim !== 'function') {
-    String.prototype.trim = function() {
-        return this.replace(/^\s+|\s+$/g, '');
-    }
-}
