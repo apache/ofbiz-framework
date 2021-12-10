@@ -1514,19 +1514,20 @@
         <value xml:lang="zh-TW">到產品識別</value>
     </property>
     <property key="ManufacturingCostCalcs">
-        <value xml:lang="de">Kosten</value>
-        <value xml:lang="en">Costs</value>
-        <value xml:lang="es">Costos</value>
-        <value xml:lang="fr">Coûts</value>
-        <value xml:lang="it">Costi</value>
-        <value xml:lang="ja">原価</value>
-        <value xml:lang="nl">Kosten</value>
-        <value xml:lang="pt-BR">Custos</value>
-        <value xml:lang="ro">Cost</value>
-        <value xml:lang="th">ราคา</value>
-        <value xml:lang="vi">Chi phí</value>
-        <value xml:lang="zh">费用</value>
-        <value xml:lang="zh-TW">費用</value>
+        <value xml:lang="de">Kostenkalkulationen</value>
+        <value xml:lang="en">Cost Calculations</value>
+        <value xml:lang="es">Cálculos de costos</value>
+        <value xml:lang="fr">Calculs de coûts</value>
+        <value xml:lang="it">Calcoli dei costi </value>
+        <value xml:lang="ja">コスト計算</value>
+        <value xml:lang="nl">Kostencalculaties</value>
+        <value xml:lang="pt">Cálculos de custo</value>
+        <value xml:lang="pt-BR">Cálculos de custo</value>
+        <value xml:lang="ro">Calculele costurilor</value>
+        <value xml:lang="th">การคำนวณต้นทุน</value>
+        <value xml:lang="vi">Tính toán chi phí</value>
+        <value xml:lang="zh">成本计算</value>
+        <value xml:lang="zh-TW">成本計算</value>
     </property>
     <property key="ManufacturingCreateBom">
         <value xml:lang="en">Create Bom</value>
@@ -4747,6 +4748,11 @@
         <value xml:lang="vi">Tác vụ - Đầu việc</value>
         <value xml:lang="zh">规程任务</value>
         <value xml:lang="zh-TW">規程任務</value>
+    </property>
+    <property key="ManufacturingRoutingTasks">
+        <value xml:lang="de">Arbeitsgänge</value>
+        <value xml:lang="en">Routing Tasks</value>
+        <value xml:lang="nl">Schema-taken</value>
     </property>
     <property key="ManufacturingRoutingTaskAssocCreateSuccessfully">
         <value xml:lang="de">Arbeitsgang-Zuordnung erfolgreich erstellt</value>
