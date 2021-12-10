@@ -115,7 +115,7 @@ public class SecuredUpload {
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
         boolean wrongFile = true;
-        if (p != null) {
+        if (p != null && p.getFileName() != null) {
             String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
             if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
                 Debug.logError("This file extension is not allowed for security reason", MODULE);

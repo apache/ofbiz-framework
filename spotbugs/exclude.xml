@@ -30,4 +30,14 @@
     <Method name="getWorkingKeyIndex" />
     <Bug pattern="DC_DOUBLECHECK" />
   </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.pricat.PricatParseExcelHtmlThread" />
+    <Method name="storePricatFile" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.security.SecuredUpload" />
+    <Method name="isValidFile" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
 </FindBugsFilter>
