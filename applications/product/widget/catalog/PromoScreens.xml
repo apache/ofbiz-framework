@@ -26,7 +26,7 @@ under the License.
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -46,7 +46,6 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -64,7 +63,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindProductPromos"/>
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="ProductPromo"/>
-
                 <set field="userEntered" from-field="parameters.userEntered"/>
                 <entity-condition entity-name="ProductPromo" list="productPromos">
                     <condition-expr field-name="userEntered" from-field="userEntered" ignore-if-empty="true"/>
@@ -94,9 +92,8 @@ under the License.
                                 </widgets>
                             </section>
                         </screenlet>
-                    
                         <screenlet title="${uiLabelMap.ProductProductPromotionsList}">
-                            <include-form name="ListProductPromos" location="component://product/widget/catalog/PromoForms.xml"/>
+                            <include-grid name="ListProductPromos" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -110,7 +107,6 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="EditProductPromo"/>
                 <set field="labelTitleProperty" value="ProductPromotion"/>
-
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
             </actions>
@@ -132,11 +128,9 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="EditProductPromoRules"/>
                 <set field="labelTitleProperty" value="ProductRules"/>
-
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
-
                 <!-- Data Related to the Promo -->
                 <entity-condition entity-name="ProductPromoRule" list="productPromoRules">
                     <condition-expr field-name="productPromoId" from-field="productPromoId"/>
@@ -158,7 +152,6 @@ under the License.
                         <condition-expr field-name="productPromoCondSeqId" value="_NA_"/>
                     </condition-list>
                 </entity-condition>
-
                 <!-- General Data for Drop-downs, etc -->
                 <entity-condition entity-name="CustomMethod" list="inputParamCustomMethods" use-cache="true">
                     <condition-expr field-name="customMethodTypeId" value="PRODUCT_PROMO_COND"/>
@@ -179,7 +172,6 @@ under the License.
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_PCAPPL"/>
                     <order-by field-name="sequenceId"/>
                 </entity-condition>
-
                 <entity-condition entity-name="OrderAdjustmentType" list="orderAdjustmentTypes" use-cache="true">
                     <order-by field-name="description"/>
                 </entity-condition>
@@ -206,7 +198,6 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="EditProductPromoStores"/>
                 <set field="labelTitleProperty" value="ProductStores"/>
-
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
                 <entity-condition entity-name="ProductStorePromoAppl" list="productStorePromoAppls">
@@ -214,7 +205,6 @@ under the License.
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productPromoId"/>
                 </entity-condition>
-
                 <entity-condition entity-name="ProductStore" list="productStores">
                     <order-by field-name="storeName"/>
                 </entity-condition>
@@ -237,10 +227,8 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="FindProductPromoCode"/>
                 <set field="labelTitleProperty" value="ProductPromotionCode"/>
-
                 <set field="productPromoId" from-field="parameters.productPromoId"/>
                 <entity-one entity-name="ProductPromo" value-field="productPromo" auto-field-map="true"/>
-
                 <set field="manualOnly" from-field="parameters.manualOnly" default-value="Y"/>
                 <entity-condition entity-name="ProductPromoCode" list="productPromoCodes">
                     <condition-list combine="and">
@@ -280,7 +268,7 @@ under the License.
                             </fail-widgets>
                         </section>
                         <screenlet title="${uiLabelMap.PageTitleFindProductPromotionCode}">
-                            <include-form name="ListProductPromoCodes" location="component://product/widget/catalog/PromoForms.xml"/>
+                            <include-grid name="ListProductPromoCodes" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <platform-specific>
                             <html><html-template location="component://product/template/promo/FindProductPromoCode.ftl"/></html>
@@ -297,7 +285,6 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="FindProductPromoCode"/>
                 <set field="labelTitleProperty" value="ProductPromotionCode"/>
-
                 <script location="component://product/groovyScripts/catalog/promo/EditProductPromoCode.groovy"/>
             </actions>
             <widgets>
@@ -306,7 +293,6 @@ under the License.
                         <container>
                             <link target="EditProductPromoCode" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext"/>
                         </container>
-
                         <screenlet title="${uiLabelMap.PageTitleEditProductPromotionCode}">
                             <include-form name="EditProductPromoCode" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
@@ -318,7 +304,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditProductPromoContent">
         <section>
             <actions>
@@ -342,7 +327,7 @@ under the License.
                             <include-form name="EditProductPromoContentImage" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductProductPromoContentList}">
-                            <include-form name="ListProductPromoContent" location="component://product/widget/catalog/PromoForms.xml"/>
+                            <include-grid name="ListProductPromoContent" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

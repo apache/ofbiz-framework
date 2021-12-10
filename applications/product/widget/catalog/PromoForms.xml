@@ -20,8 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListProductPromos" type="list" title="" list-name="productPromos"
-        paginate-target="FindProductPromo" odd-row-style="alternate-row" default-table-style="basic-table">
+    <grid name="ListProductPromos" list-name="productPromos" paginate-target="FindProductPromo"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productPromoId" widget-style="buttontext">
             <hyperlink description="${productPromoId}" target="EditProductPromo" also-hidden="false">
                 <parameter param-name="productPromoId"/>
@@ -31,7 +31,7 @@ under the License.
         <field name="promoText" encode-output="false"><display/></field>
         <field name="requireCode"><display/></field>
         <field name="createdDate"><display/></field>
-    </form>
+    </grid>
     <form name="GoToProductPromoCode" type="single" target="EditProductPromoCode" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productPromoCodeId"><text/></field>
@@ -41,18 +41,14 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productPromo==null" target="createProductPromo"/>
         <auto-fields-service service-name="updateProductPromo" map-name=""/>
-
         <field name="createdDate"><hidden/></field>
         <field name="createdByUserLogin"><hidden/></field>
         <field name="lastModifiedDate"><hidden/></field>
         <field name="lastModifiedByUserLogin"><hidden/></field>
-
-
         <field use-when="productPromo!=null" name="productPromoId" title="${uiLabelMap.ProductPromotion}" tooltip=""><display/></field>
         <field use-when="productPromo==null&amp;&amp;productPromoId!=null" name="productPromoId" title="${uiLabelMap.ProductPromotion}" tooltip="${uiLabelMap.ProductCouldNotFindProductPromotion} [${productPromoId}]"><display/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="productPromo==null&amp;&amp;productPromoId==null" name="productPromoId" title="${uiLabelMap.ProductPromotion}"><ignored/></field>
-
         <field name="promoText" title="${uiLabelMap.ProductPromoText}"><textarea cols="70" rows="5"/></field>
         <field name="userEntered" title="${uiLabelMap.ProductPromoUserEntered}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
@@ -64,10 +60,8 @@ under the License.
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
         <field name="overrideOrgPartyId"><lookup target-form-name="LookupPartyName"/></field>
-
         <field use-when="productPromo!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="productPromo==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-
         <field use-when="productPromo!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${productPromo.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.lastModifiedDate}" also-hidden="false"/>
         </field>
@@ -79,7 +73,6 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
-
         <field name="productPromoId">
             <drop-down>
                 <entity-options entity-name="ProductPromo" description="[${productPromoId}] ${promoName}">
@@ -91,16 +84,13 @@ under the License.
         <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId!=null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductCouldNotFindProductPromoCode} [${productPromoCodeId}]"><display/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId==null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductPromoCodeBlank}"><text/></field>
-
         <field name="userEntered">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="requireEmailOrParty">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
-
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-
         <field use-when="productPromoCode!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${productPromoCode.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.lastModifiedDate}" also-hidden="false"/>
         </field>
@@ -108,8 +98,7 @@ under the License.
             <display description="[${productPromoCode.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.createdDate}" also-hidden="false"/>
         </field>
     </form>
-
-    <form name="ListProductPromoCodes" type="list" title="" list-name="productPromoCodes"
+    <grid name="ListProductPromoCodes" list-name="productPromoCodes"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>
         <field name="productPromoId"><hidden/></field>
@@ -124,8 +113,7 @@ under the License.
                 <parameter param-name="productPromoId"/>
             </hyperlink>
         </field>
-    </form>
-
+    </grid>
     <form name="EditProductPromoContentImage" type="upload" target="addImageContentForProductPromo" default-map-name="productPromoContent">
         <field name="productPromoId"><hidden/></field>
         <field use-when="productPromoContent != null" name="contentId"><display/></field>
@@ -137,8 +125,7 @@ under the License.
         <field use-when="productPromoContent == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="productPromoContent != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
-    <form name="ListProductPromoContent" type="list" list-name="productPromoContents"
+    <grid name="ListProductPromoContent" list-name="productPromoContents"
             odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="editProductPromoContent" title="${uiLabelMap.ProductContent}" widget-style="buttontext">
             <hyperlink description="${description} [${contentId}]" target="EditProductPromoContent" also-hidden="false">
@@ -166,5 +153,5 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 </forms>
