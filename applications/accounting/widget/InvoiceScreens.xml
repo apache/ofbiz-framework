@@ -249,7 +249,7 @@ under the License.
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyTerms}">
                                         <include-grid name="InvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
-                                        <include-form name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        <include-grid name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="clear"/>
@@ -289,7 +289,7 @@ under the License.
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyTerms}">
                                         <include-grid name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
-                                        <include-form name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        <include-grid name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="clear"/>
