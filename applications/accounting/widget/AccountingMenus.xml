@@ -261,16 +261,6 @@ under the License.
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="createNew" title="${uiLabelMap.AccountingCreateNewInvoice}" widget-style="buttontext create">
-            <condition>
-                <and>
-                    <or>
-                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
-                    </or>
-                </and>
-            </condition>
-            <link target="newInvoice"/>
-        </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
             <condition>
                 <and>
@@ -566,17 +556,6 @@ under the License.
         <actions>
             <set field="isDisbursement" value="${groovy:if(context.payment != null) return org.apache.ofbiz.accounting.util.UtilAccounting.isDisbursement(context.payment)}"/>
         </actions>
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create" >
-            <condition>
-                <and>
-                    <or>
-                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
-                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
-                    </or>
-                </and>
-            </condition>
-            <link target="newPayment"/>
-        </menu-item>
         <menu-item name="editPayment" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <and>
