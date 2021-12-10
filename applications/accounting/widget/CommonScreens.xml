@@ -71,6 +71,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/>
@@ -112,6 +113,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
@@ -165,6 +167,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
                         <section>
                             <condition>
                                 <and>
@@ -310,6 +313,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingMainPage}">
                             <platform-specific><html><html-template location="component://accounting/template/Main.ftl"/></html></platform-specific>
@@ -336,6 +342,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
                         <include-menu name="GlobalGLSettingMenus" location="component://accounting/widget/AccountingMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
