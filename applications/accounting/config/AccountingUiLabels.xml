@@ -19446,7 +19446,7 @@
         <value xml:lang="de">Hauptbuch Transaktionen</value>
         <value xml:lang="en">Gl Transactions</value>
         <value xml:lang="es">Transacciones GL</value>
-        <value xml:lang="fr">Transactions GL</value>
+        <value xml:lang="fr">des opérations comptables</value>
         <value xml:lang="ja">GLトランザクション</value>
         <value xml:lang="pt">Transações contábeis</value>
         <value xml:lang="vi">Bút toán</value>
@@ -22575,6 +22575,14 @@
         <value xml:lang="vi">Năm đến Ngày cân đối hạn mức (debit)</value>
         <value xml:lang="zh">本年借方余额</value>
         <value xml:lang="zh-TW">本年借方餘額</value>
+    </property>
+    <property key="GlTransaction">
+        <value xml:lang="de">Hauptbuch Transaktion</value>
+        <value xml:lang="en">a Gl Transaction</value>
+        <value xml:lang="es">uno Transaccione GL</value>
+        <value xml:lang="fr">une opération comptable</value>
+        <value xml:lang="ja">GLトランザクション</value>
+        <value xml:lang="pt">Transaçõe contábei</value>
     </property>
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="ar">إضافة أدوار الإتفاقية</value>
