@@ -251,6 +251,10 @@ public class WebToolsServices {
             if (baseDir.isDirectory() && baseDir.canRead()) {
                 File[] fileArray = baseDir.listFiles();
                 List<File> files = new LinkedList<>();
+                if (fileArray == null) {
+                    Debug.logError("There are no files to import from this directory!", MODULE);
+                    return null;
+                }
                 for (File file : fileArray) {
                     if (file.getName().toUpperCase().endsWith("XML")) {
                         files.add(file);
