@@ -418,8 +418,8 @@ public final class ProductWorker {
     }
 
     public static List<GenericValue> getProductFeaturesApplIncludeMarketingPackage(GenericValue product) {
-        Delegator delegator = product.getDelegator();
         if (product != null) {
+            Delegator delegator = product.getDelegator();
             try {
                 List<String> productIds = UtilMisc.toList(product.getString("productId"));
 
