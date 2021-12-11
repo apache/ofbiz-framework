@@ -103,13 +103,13 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         }
 
         // compute elapsed years
-        long yearMillis = 86400000 * calStart.getLeastMaximum(Calendar.DAY_OF_YEAR);
+        long yearMillis = 86400000L * calStart.getLeastMaximum(Calendar.DAY_OF_YEAR);
         float units = deltaMillis / yearMillis;
         this.years = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.YEAR);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed months
-        long monthMillis = 86400000 * (calStart.getMaximum(Calendar.DAY_OF_MONTH) / 2);
+        long monthMillis = 86400000L * (calStart.getMaximum(Calendar.DAY_OF_MONTH) / 2);
         units = deltaMillis / monthMillis;
         this.months = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.MONTH);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
@@ -329,9 +329,9 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         units = duration / 0x9CA41900L;
         int months = (int) units;
         duration -= 0x9CA41900L * months;
-        units = duration / 86400000;
+        units = duration / 86400000L;
         int days = (int) units;
-        duration -= 86400000 * (long) days;
+        duration -= 86400000L * (long) days;
         units = duration / 3600000;
         int hours = (int) units;
         duration -= 3600000 * (long) hours;
@@ -390,7 +390,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     public static long toLong(TimeDuration duration) {
         return (0x757B12C00L * duration.years)
                 + (0x9CA41900L * duration.months)
-                + (86400000 * (long) duration.days)
+                + (86400000L * (long) duration.days)
                 + (3600000 * (long) duration.hours)
                 + (60000 * (long) duration.minutes)
                 + (1000 * (long) duration.seconds)

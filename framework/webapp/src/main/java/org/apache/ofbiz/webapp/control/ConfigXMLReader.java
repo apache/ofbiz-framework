@@ -955,14 +955,6 @@ public final class ConfigXMLReader {
         private boolean noCache = false;
 
         /**
-         * Gets view map.
-         * @return the view map
-         */
-        public String getViewMap() {
-            return viewMap;
-        }
-
-        /**
          * Gets name.
          *
          * @return the name

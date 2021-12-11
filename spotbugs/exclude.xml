@@ -3,9 +3,9 @@
               xmlns="https://github.com/spotbugs/filter/3.0.0"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
-              
-  <!-- CN_IDIOM_NO_SUPER_CALL = clone method does not call supper.clone(). OK since shallow clone wanted-->
-  <Match>  
+
+  <!-- v v CN_IDIOM_NO_SUPER_CALL = clone method does not call supper.clone(). OK since shallow clone wanted-->
+  <Match>
     <Class name="org.apache.ofbiz.entity.GenericEntity" />
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
@@ -20,6 +20,10 @@
     <Method name="clone" />
     <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
   </Match>
+<!-- ^ ^ CN_IDIOM_NO_SUPER_CALL = clone method does not call supper.clone(). OK since shallow clone wanted-->
+
+
+<!-- v v OK because of synchronized use -->
   <Match>
     <Class name="org.apache.ofbiz.webapp.view.ApacheFopWorker" />
     <Method name="getFactoryInstance" />
@@ -30,6 +34,9 @@
     <Method name="getWorkingKeyIndex" />
     <Bug pattern="DC_DOUBLECHECK" />
   </Match>
+<!-- ^ ^ OK because of synchronized use -->
+
+<!-- v v OK see remark about OWASP advice at bottom of OFBIZ-9973 -->
   <Match>
     <Class name="org.apache.ofbiz.pricat.PricatParseExcelHtmlThread" />
     <Method name="storePricatFile" />
@@ -40,4 +47,89 @@
     <Method name="isValidFile" />
     <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
   </Match>
+<!-- ^ ^ OK see remark about OWASP advice at bottom of OFBIZ-9973 -->
+
+<!-- v v OK all is internal -->
+<!-- Though asmentioned by SpotBugs: "a PreparedStatement, is more efficient" -->
+  <Match>
+    <Class name="org.apache.ofbiz.entity.util.SequenceUtil" />
+    <Method name="SequenceBank" />
+    <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.jdbc.DatabaseUtil" />
+    <Method name="createTable" />
+    <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.util.SequenceUtil$SequenceBank" />
+    <Method name="fillBank" />
+    <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+  </Match>
+<!-- ^ ^  OK all is internal -->
+
+
+<!-- v v OK all is internal (as long as not proved otherwise...)-->
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="partialSelect"/>
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="select" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="selectByMultiRelation" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="selectCountByCondition" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="selectListIteratorByCondition" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="singleInsert" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="customUpdate" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="updateByCondition" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="singleUpdate" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+<!-- ^ ^ OK all is internal (as long as not proved otherwise...)-->
+
+<!-- v v not a problem, false positive -->
+  <Match>
+    <Class name="org.apache.ofbiz.product.product.ProductSearchSession" />
+    <Method name="makeSearchParametersString" />
+    <Bug pattern="NS_DANGEROUS_NON_SHORT_CIRCUIT" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.product.imagemanagement.FrameImage" />
+    <Method name="previewFrameImage" />
+    <Bug pattern="PT_RELATIVE_PATH_TRAVERSAL" />
+  </Match>
+<!-- ^ ^ not a problem, false positive -->
+  
+
+
 </FindBugsFilter>
