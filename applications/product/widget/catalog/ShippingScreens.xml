@@ -28,7 +28,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListQuantityBreaks"/>
                 <set field="headerItem" value="shipping"/>
                 <set field="tabButtonItem" value="ListQuantityBreaks"/>
-
                 <entity-condition entity-name="QuantityBreak" list="quantityBreaks">
                     <order-by field-name="quantityBreakId"/>
                 </entity-condition>
@@ -54,7 +53,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListShipmentMethodTypes"/>
                 <set field="headerItem" value="shipping"/>
                 <set field="tabButtonItem" value="ListShipmentMethodTypes"/>
-
                 <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypes">
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="description"/>
@@ -65,7 +63,7 @@ under the License.
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListShipmentMethodTypes}">
-                            <include-form name="ListShipmentMethodTypes" location="component://product/widget/catalog/ShippingForms.xml"/>
+                            <include-grid name="ListShipmentMethodTypes" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditShipmentMethodTypes}">
                             <include-form name="EditShipmentMethodType" location="component://product/widget/catalog/ShippingForms.xml"/>
@@ -82,7 +80,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListCarrierShipmentMethods"/>
                 <set field="headerItem" value="shipping"/>
                 <set field="tabButtonItem" value="ListCarrierShipmentMethods"/>
-
                 <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
@@ -92,7 +89,7 @@ under the License.
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListCarrierShipmentMethods}">
-                            <include-form name="ListCarrierShipmentMethods" location="component://product/widget/catalog/ShippingForms.xml"/>
+                            <include-grid name="ListCarrierShipmentMethods" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditCarrierShipmentMethods}">
                             <include-form name="EditCarrierShipmentMethod" location="component://product/widget/catalog/ShippingForms.xml"/>
@@ -114,14 +111,11 @@ under the License.
                     <order-by field-name="shipmentMethodTypeId"/>
                 </entity-condition>
                 <entity-one entity-name="ShipmentTimeEstimate" value-field="shipmentTimeEstimate"/>
-
                 <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
                 <set field="targetUrl" value="prepareCreateShipmentTimeEstimate"/><!-- Necessary for SelectShipmentMethod.ftl -->
-
                 <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
-
                 <set field="dependentForm" value="EditShipmentTimeEstimate"/>
                 <set field="paramKey" value="shipmentMethodTypeId"/>
                 <set field="mainId" value="shipmentMethodTypeId"/>
@@ -136,7 +130,7 @@ under the License.
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListShipmentTimeEstimates}">
-                            <include-form name="ListShipmentTimeEstimates" location="component://product/widget/catalog/ShippingForms.xml"/>
+                            <include-grid name="ListShipmentTimeEstimates" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
