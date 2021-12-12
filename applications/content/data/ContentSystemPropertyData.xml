@@ -22,6 +22,10 @@ under the License.
     systemPropertyValue="CONTENT_ROOT"
      description="content id regarding base content owner"/>
 
+    <SystemProperty systemResourceId="content" systemPropertyId="img.request" 
+    systemPropertyValue="/content/control/img/"
+     description="uri path for image requests"/>
+
     <SystemProperty systemResourceId="content" systemPropertyId="img.request.param.name" 
     systemPropertyValue="imgId"
      description="request param for images"/>
@@ -29,6 +33,10 @@ under the License.
     <SystemProperty systemResourceId="content" systemPropertyId="stream.permission.service" 
     systemPropertyValue="genericContentPermission"
      description="service for checking permissions regarding content"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="stream.buffersize" 
+    systemPropertyValue="8192"
+     description="buffer size of streams"/>
 
    <SystemProperty systemResourceId="content" systemPropertyId="baseUrl" 
     systemPropertyValue="https://localhost:8443"
