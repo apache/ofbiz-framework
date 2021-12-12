@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <SystemProperty systemResourceId="content" systemPropertyId="owner.content.id" 
+    systemPropertyValue="CONTENT_ROOT"
+     description="content id regarding base content owner"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="img.request" 
+    systemPropertyValue="/content/control/img/"
+     description="uri path for image requests"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="img.request.param.name" 
+    systemPropertyValue="imgId"
+     description="request param for images"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="stream.permission.service" 
+    systemPropertyValue="genericContentPermission"
+     description="service for checking permissions regarding content"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="stream.buffersize" 
+    systemPropertyValue="8192"
+     description="buffer size of streams"/>
+
+   <SystemProperty systemResourceId="content" systemPropertyId="baseUrl" 
+    systemPropertyValue="https://localhost:8443"
+    description="base uri for content"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="disable.ftl.template.cache" 
+    systemPropertyValue="true"
+    description="Whether or not ftl templates are cached. Options: true, false"/>
+
+    <SystemProperty systemResourceId="content" systemPropertyId="permissionRecorderOn" 
+    systemPropertyValue="true"
+    description="Whether or not permission checks are recorded, Options: true, false"/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="allowedHasRoleOperations" 
+    systemPropertyValue="HAS_USER_ROLE|HAS_AUTHOR_ROLE|HAS_EDITOR_ROLE|HAS_ADMIN_ROLE|HAS_PUBLISHER_ROLE"
+    description="Allowed party roles regarding content"/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="viewSize" 
+    systemPropertyValue="10"
+    description="Number of 'content' records to be shown when paginate functionality is in play"/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.upload.path.prefix" 
+    systemPropertyValue="runtime/uploads"
+    description="Location of content uploaded by a user (relative to ofbiz.home)."/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.upload.path.prefix" 
+    systemPropertyValue="runtime/uploads"
+    description="Location of content uploaded by a user (relative to ofbiz.home)."/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.upload.max.files" 
+    systemPropertyValue="250"
+    description="Maximum number of files allowed to be uploaded in one request."/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.upload.always.local.file" 
+    systemPropertyValue="true"
+    description="How upload is treated. Options: true, false"/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.output.path" 
+    systemPropertyValue="runtime/output"
+    description="Location of generated content output (relative to ofbiz.home)."/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.upload.path.prefix" 
+    systemPropertyValue="runtime/uploads"
+    description="Location of content uploaded by a user (relative to ofbiz.home)."/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="defaultMimeType" 
+    systemPropertyValue="text/html; charset=utf-8"
+    description="Default mime type used in *ContentWrapper* classes"/>
+    
+    <SystemProperty systemResourceId="content" systemPropertyId="content.keyword.max.length" 
+    systemPropertyValue="15"
+    description="Length of content keyword. A content keyword will not be created when the length of a keyword exceeds this value."/>
+    
+</entity-engine-xml>
