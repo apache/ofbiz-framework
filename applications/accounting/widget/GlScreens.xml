@@ -78,9 +78,6 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAcctgTrans}">
                             <container>
-                                <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans">
-                                    <parameter param-name="organizationPartyId"/>
-                                </link>
                                 <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries">
                                     <parameter param-name="organizationPartyId"/>
                                 </link>
