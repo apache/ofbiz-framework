@@ -48,7 +48,6 @@ under the License.
     systemPropertyValue="Y"
     description="Create a 'not-paid' payment record if the sales order is completed and no payment exist yet. Options:: Y, N"/>
 
-    <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" 
-    systemPropertyValue="Y"
-    description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/>
+    <!-- <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" systemPropertyValue="Y"
+    description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/> -->
 </entity-engine-xml>
