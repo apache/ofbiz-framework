@@ -128,8 +128,11 @@
     <Method name="previewFrameImage" />
     <Bug pattern="PT_RELATIVE_PATH_TRAVERSAL" />
   </Match>
+  <Match>
+    <!-- not a problem this is used only once during test, no possible collisions -->
+    <Class name="org.apache.ofbiz.service.test" />
+    <Method name="XmlRpcTests" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+  </Match>
 <!-- ^ ^ not a problem, false positive -->
-  
-
-
 </FindBugsFilter>
