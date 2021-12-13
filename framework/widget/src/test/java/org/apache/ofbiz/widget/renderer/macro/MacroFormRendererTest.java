@@ -871,8 +871,7 @@ public class MacroFormRendererTest {
 
                 modelForm.getPaginateTarget(withNotNull());
                 result = paginateTarget;
-                // FIXME SpotBugs reports: Argument 1 is definitely null but must not be null
-                requestHandler.makeLink(null, null, withSubstring(qbeString));
+                requestHandler.makeLink(withNotNull(), withNotNull(), withSubstring(qbeString));
                 result = linkFromQbeString;
 
                 modelFormField.getSortFieldHelpText(withNotNull());
