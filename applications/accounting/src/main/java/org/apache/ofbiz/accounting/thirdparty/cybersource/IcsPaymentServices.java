@@ -255,26 +255,22 @@ public class IcsPaymentServices {
 
     private static Properties buildCsProperties(Map<String, ? extends Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        String configString = (String) context.get("paymentConfig");
-        if (configString == null) {
-            configString = "payment.properties";
-        }
-        String merchantId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantId", configString, "payment.cybersource.merchantID");
-        String targetApi = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "apiVersion", configString, "payment.cybersource.api.version");
-        String production = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "production", configString, "payment.cybersource.production");
-        String enableLog = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "logEnabled", configString, "payment.cybersource.log");
-        String logSize = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "logSize", configString, "payment.cybersource.log.size");
-        String logFile = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "logFile", configString, "payment.cybersource.log.file");
-        String logDir = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "logDir", configString, "payment.cybersource.log.dir"), context);
-        String keysDir = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "keysDir", configString, "payment.cybersource.keysDir"), context);
-        String keysFile = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "keysFile", configString, "payment.cybersource.keysFile");
+        String merchantId = EntityUtilProperties.getPropertyValue("cybersource", "merchant.id", delegator);
+        String targetApi = EntityUtilProperties.getPropertyValue("cybersource", "api.version", delegator);
+        String production = EntityUtilProperties.getPropertyValue("cybersource", "api.production", delegator);
+        String enableLog = EntityUtilProperties.getPropertyValue("cybersource", "log.enabled", delegator);
+        String logSize = EntityUtilProperties.getPropertyValue("cybersource", "log.size", delegator);
+        String logFile = EntityUtilProperties.getPropertyValue("cybersource", "log.file", delegator);
+        String logDir = EntityUtilProperties.getPropertyValue("cybersource", "log.dir", delegator);
+        String keysDir = EntityUtilProperties.getPropertyValue("cybersource", "keystore.dir", delegator);
+        String keysFile = EntityUtilProperties.getPropertyValue("cybersource", "keystore.file", delegator);
         // some property checking
         if (UtilValidate.isEmpty(merchantId)) {
-            Debug.logWarning("The merchantId property is not configured", MODULE);
+            Debug.logWarning("The cybersource merchantId property is not configured", MODULE);
             return null;
         }
         if (UtilValidate.isEmpty(keysDir)) {
-            Debug.logWarning("The keysDir property is not configured", MODULE);
+            Debug.logWarning("The cybersource keysDir property is not configured", MODULE);
             return null;
         }
         // create some properties for CS Client
@@ -296,13 +292,9 @@ public class IcsPaymentServices {
 
     private static Map<String, Object> buildAuthRequest(Map<String, ? extends Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        String configString = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
-        if (configString == null) {
-            configString = "payment.properties";
-        }
         // make the request map
-        String capture = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "autoBill", configString, "payment.cybersource.autoBill", "false");
+        String capture = EntityUtilProperties.getPropertyValue("cybersource", "autoBill", delegator);
         String orderId = (String) context.get("orderId");
         Map<String, Object> request = new HashMap<>();
         request.put("ccAuthService_run", "true");              // run auth service
@@ -318,13 +310,9 @@ public class IcsPaymentServices {
     private static Map<String, Object> buildCaptureRequest(Map<String, ? extends Object> context, GenericValue authTransaction, Delegator delegator) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        String configString = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
-        if (configString == null) {
-            configString = "payment.properties";
-        }
-        String merchantDesc = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantDescr", configString, "payment.cybersource.merchantDescr", null);
-        String merchantCont = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantContact", configString, "payment.cybersource.merchantContact", null);
+        String merchantDescription = EntityUtilProperties.getPropertyValue("cybersource", "merchant.description", delegator);
+        String merchantContact = EntityUtilProperties.getPropertyValue("cybersource", "merchant.contact", delegator);
         Map<String, Object> request = new HashMap<>();
         request.put("ccCaptureService_run", "true");
         request.put("ccCaptureService_authRequestID", authTransaction.getString("referenceNum"));
@@ -333,11 +321,11 @@ public class IcsPaymentServices {
         request.put("purchaseTotals_currency", currency);
 
         // TODO: add support for verbal authorizations
-        if (merchantDesc != null) {
-            request.put("invoiceHeader_merchantDescriptor", merchantDesc);        // merchant description
+        if (merchantDescription != null) {
+            request.put("invoiceHeader_merchantDescriptor", merchantDescription);
         }
-        if (merchantCont != null) {
-            request.put("invoiceHeader_merchantDescriptorContact", merchantCont); // merchant contact info
+        if (merchantContact != null) {
+            request.put("invoiceHeader_merchantDescriptorContact", merchantContact);
         }
         return request;
     }
@@ -357,24 +345,20 @@ public class IcsPaymentServices {
     private static Map<String, Object> buildRefundRequest(Map<String, ? extends Object> context, GenericValue authTransaction, Delegator delegator) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        String configString = (String) context.get("paymentConfig");
-        if (configString == null) {
-            configString = "payment.properties";
-        }
         String currency = (String) context.get("currency");
-        String merchantDesc = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantDescr", configString, "payment.cybersource.merchantDescr", null);
-        String merchantCont = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantContact", configString, "payment.cybersource.merchantContact", null);
+        String merchantDescription = EntityUtilProperties.getPropertyValue("cybersource", "merchant.description", delegator);
+        String merchantContact = EntityUtilProperties.getPropertyValue("cybersource", "merchant.contact", delegator);
         Map<String, Object> request = new HashMap<>();
         request.put("ccCreditService_run", "true");
         request.put("ccCreditService_captureRequestID", authTransaction.getString("referenceNum"));
         request.put("item_0_unitPrice", getAmountString(context, "refundAmount"));
         request.put("merchantReferenceCode", orderPaymentPreference.getString("orderId"));
         request.put("purchaseTotals_currency", currency);
-        if (merchantDesc != null) {
-            request.put("invoiceHeader_merchantDescriptor", merchantDesc);        // merchant description
+        if (merchantDescription != null) {
+            request.put("invoiceHeader_merchantDescriptor", merchantDescription);
         }
-        if (merchantCont != null) {
-            request.put("invoiceHeader_merchantDescriptorContact", merchantCont); // merchant contact info
+        if (merchantContact != null) {
+            request.put("invoiceHeader_merchantDescriptorContact", merchantContact);
         }
         return request;
     }
@@ -391,11 +375,7 @@ public class IcsPaymentServices {
 
     private static void appendAvsRules(Map<String, Object> request, Map<String, ? extends Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        String configString = (String) context.get("paymentConfig");
-        if (configString == null) {
-            configString = "payment.properties";
-        }
-        String avsCodes = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "avsDeclineCodes", configString, "payment.cybersource.avsDeclineCodes", null);
+        String avsCodes = EntityUtilProperties.getPropertyValue("cybersource", "avs.decline.codes", delegator);
         GenericValue party = (GenericValue) context.get("billToParty");
         if (party != null) {
             GenericValue avsOverride = null;
@@ -415,7 +395,7 @@ public class IcsPaymentServices {
         if (UtilValidate.isNotEmpty(avsCodes)) {
             request.put("businessRules_declineAVSFlags", avsCodes);
         }
-        String avsIgnore = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "ignoreAvs", configString, "payment.cybersource.ignoreAvs", "false");
+        String avsIgnore = EntityUtilProperties.getPropertyValue("cybersource", "avs.ignore", delegator);
         request.put("businessRules_ignoreAVS", avsIgnore);
     }
 
@@ -535,7 +515,7 @@ public class IcsPaymentServices {
 
     private static void processAuthResult(Map<String, Object> reply, Map<String, Object> result, Delegator delegator) {
         String decision = getDecision(reply);
-        String checkModeStatus = EntityUtilProperties.getPropertyValue("payment", "payment.cybersource.ignoreStatus", delegator);
+        String checkModeStatus = EntityUtilProperties.getPropertyValue("cybersource", "status.ignore", delegator);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("authCode", reply.get("ccAuthReply_authorizationCode"));
             result.put("authResult", Boolean.TRUE);

@@ -50,4 +50,44 @@ under the License.
 
     <!-- <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" systemPropertyValue="Y"
     description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/> -->
+
+    <!-- 3rd Party Fintech Cybersource integration related -->
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="merchant.id" systemPropertyValue="[MerchantID]"
+    description="Cybersource merchant id"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="api.version" systemPropertyValue="1.43"
+    description="Cybersource API version"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="api.production" systemPropertyValue="false"
+    description="Is Cybersource API production? Allowed values are: true or false. Default value = false"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="keystore.dir" systemPropertyValue="${sys:getProperty('ofbiz.home')}/applications/accounting/icskeys"
+    description="Directory of holding the Cybersource keystore"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="keystore.file" systemPropertyValue=""
+    description="File name of the keystore (if different then [merchantID].p12)"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="log.enabled" systemPropertyValue="true"
+    description="Enable Cybersource logging. Allowed values are: true or false. Default value = true"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="log.dir" systemPropertyValue="${sys:getProperty('ofbiz.home')}/runtime/logs"
+    description="Cybersource log directory"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="log.file" systemPropertyValue="cybersource.log"
+    description="Cybersource log file"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="log.size" systemPropertyValue="10"
+    description="Cybersource max log size (number in megabytes)"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="merchant.description" systemPropertyValue="OFBiz Demo"
+    description="Cybersource merchant description - Shown on credit card statement"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="merchant.contact" systemPropertyValue=""
+    description="Cybersource merchant contact - Shown on credit card statement"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="autoBill" systemPropertyValue="false"
+    description="Automatic billing In Authorization. Allowed values are: true or false. Default value = false"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="avs.ignore" systemPropertyValue="false"
+    description="Ignore AVS results. Allowed values are: true or false. Default value = false"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="avs.decline.codes" systemPropertyValue="false"
+    description="AVS Decline Codes -- May not be supported any longer"/>
+    <SystemProperty systemResourceId="cybersource" systemPropertyId="status.ignore" systemPropertyValue="N"
+    description="Ignore status of cybersource transaction reply. Allowed values are: Y or N. Default value = N"/>
+    <!-- 
+    # Ignore status of cybersource transaction reply  (Y|N) (if cybersource response transaction status not equals "ACCEPT",
+    then OFBiz will still create the order but in status 'created').
+    # default N = Don't create order if cybersource reported transaction status not equals "ACCEPT"
+    # It happens pretty often that a creditcard is rejected for no valid reasons.
+    The user can check Cybersource fraud queue, and after that the order can still be rejected or approved.
+     -->
+    <!-- The following may no longer be supported -->
 </entity-engine-xml>
