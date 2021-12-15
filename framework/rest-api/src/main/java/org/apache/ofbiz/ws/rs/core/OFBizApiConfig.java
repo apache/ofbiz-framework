@@ -96,7 +96,7 @@ public class OFBizApiConfig extends ResourceConfig {
 
     private void traverseAndRegisterApiDefinitions() {
         if (UtilValidate.isEmpty(MICRO_APIS)) {
-            Debug.logInfo("No API defintion to process", MODULE);
+            Debug.logInfo("No API definitions to process", MODULE);
             return;
         }
         MICRO_APIS.forEach((k, v) -> {
