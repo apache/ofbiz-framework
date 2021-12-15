@@ -109,7 +109,7 @@ javadoc {
 
 node {
     download = true
-    version = "12.18.1"
+    version = "16.13.1"
     // npmVersion will be the one that comes default with node
 
     // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
