@@ -67,10 +67,11 @@ under the License.
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceEcaGlobalEventAssertData.xml"/>
     </test-case>
 
-    <test-case case-name="service-xml-rpc">
+    <!-- This alone should allow Buildbot 3.2 to run the integration tests, cf OFBIZ-12456 -->
+    <!-- <test-case case-name="service-xml-rpc">
         <junit-test-suite class-name="org.apache.ofbiz.service.test.XmlRpcTests"/>
     </test-case>
     <test-case case-name="service-xml-rpc-local-engine">
         <service-test service-name="testXmlRpcClientAdd"/>
-    </test-case>
+    </test-case!-->
 </test-suite>
