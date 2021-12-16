@@ -30,7 +30,6 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AccountingCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
@@ -104,7 +103,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonPaymentDecorator">
         <section>
             <actions>
@@ -126,7 +124,6 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
                             <condition>
                                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                             </condition>
@@ -153,7 +150,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonPaymentGroupDecorator">
         <section>
             <actions>
@@ -176,29 +172,21 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
+                                <label style="h1">${uiLabelMap.AccountingPaymentGroup}: ${paymentGroupId}</label>
                                 <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
+                            <fail-widgets>
+                                <label style="h1">${uiLabelMap.AccountingNewPaymentGroup}</label>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
                             <condition>
                                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="paymentGroup"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                        <label style="h1">${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label style="h1">${uiLabelMap.AccountingNewPaymentGroup}</label>
-                                    </fail-widgets>
-                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -210,7 +198,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
@@ -243,7 +230,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonOrganizationAccountingReportsDecorator">
         <section>
             <actions>
@@ -263,7 +249,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonAdminChecksDecorator">
         <section>
             <actions>
@@ -284,7 +269,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="main">
         <section>
             <condition>
@@ -325,7 +309,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="creditCardFields">
         <section>
             <widgets>
@@ -333,7 +316,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="GlobalGLSettingsDecorator">
         <section>
             <actions>
@@ -352,7 +334,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonInvoiceDecorator"><!-- used for invoice commission runs -->
         <section>
             <widgets>
@@ -360,5 +341,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-
 </screens>
