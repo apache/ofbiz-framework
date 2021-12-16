@@ -43,6 +43,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
+                                <label style="h1">${uiLabelMap.AccountingAgreement}: ${agreementId}</label>
                                 <include-menu name="AgreementTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
                         </section>
@@ -66,7 +67,6 @@ under the License.
                                                 <include-menu name="AgreementItemTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                             </widgets>
                                         </section>
-                                        <label style="h1">${agreement.description} [${agreement.agreementId}] </label>
                                         <container style="button-bar">
                                             <link target="EditAgreement" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
                                         </container>
