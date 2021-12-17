@@ -115,4 +115,18 @@ under the License.
     <!-- Product store group management demo -->
     <ProductStoreGroupType productStoreGroupTypeId="PSGT_AREA" description="Area cover"/>
 
+    <!-- PriceRule data -->
+    <ProductPriceRule productPriceRuleId="PR4FC" ruleName="PR4FC" description="PriceRule 4 French Customer" isSale="Y" fromDate="2001-01-01 12:00:00.0"/>
+    <ProductPriceCond inputParamEnumId="PRIP_PARTY_ID" operatorEnumId="PRC_EQ" condValue="EuroCustomer" productPriceCondSeqId="01" productPriceRuleId="PR4FC"/>
+
+    <ProductPriceRule productPriceRuleId="PR4PC" ruleName="PR4PC" description="PriceRule 4 Party Classification" isSale="Y" fromDate="2001-01-01 12:00:00.0"/>
+    <ProductPriceCond inputParamEnumId="PRIP_PARTY_CLASS" operatorEnumId="PRC_EQ" condValue="EMEA" productPriceCondSeqId="01" productPriceRuleId="PR4PC"/>
+    <ProductPriceAction productPriceActionTypeId="PRICE_POD" productPriceActionSeqId="00001" productPriceRuleId="PR4PC" amount="98.000000"/>
+
+    <ProductPriceRule productPriceRuleId="PR4P" ruleName="PR4P" description="PriceRule 4 Product" isSale="Y" fromDate="2001-01-01 12:00:00.0"/>
+    <ProductPriceCond inputParamEnumId="PRIP_PRODUCT_ID" operatorEnumId="PRC_EQ" condValue="FAJITA_BEEF" productPriceCondSeqId="01" productPriceRuleId="PR4P"/>
+
+    <ProductPriceRule productPriceRuleId="PR4C" ruleName="PR4C" description="PriceRule 4 Category" isSale="Y" fromDate="2001-01-01 12:00:00.0"/>
+    <ProductPriceCond  inputParamEnumId="PRIP_PROD_CAT_ID" operatorEnumId="PRC_EQ" condValue="GB_LUGGAGE" productPriceCondSeqId="01" productPriceRuleId="PR4C"/>
+
 </entity-engine-xml>

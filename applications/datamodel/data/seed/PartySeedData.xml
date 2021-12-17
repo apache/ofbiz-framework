@@ -274,6 +274,7 @@ under the License.
     <PartyClassificationType description="Value Rating" hasTable="N" partyClassificationTypeId="VALUE_RATING"/>
     <PartyClassificationType description="SIC Code" hasTable="N" partyClassificationTypeId="SIC_CODE"/>
     <PartyClassificationType description="Ownership" hasTable="N" partyClassificationTypeId="OWNERSHIP"/>
+    <PartyClassificationType description="Region" hasTable="N" partyClassificationTypeId="REGION"/>
 
     <PartyQualType description="Work experience" hasTable="N" partyQualTypeId="EXPERIENCE"/>
     <PartyQualType description="Certification" hasTable="N" partyQualTypeId="CERTIFICATION"/>
