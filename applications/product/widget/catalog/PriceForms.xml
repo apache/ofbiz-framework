@@ -72,7 +72,7 @@
             </hyperlink>
         </field>
     </grid>
-    <grid name="EditProductPriceRulesCond" list-name="productPriceCond" target="updateProductPriceCond" 
+    <grid name="EditProductPriceRulesCond" list-name="productPriceConds" target="updateProductPriceCond" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
         <field name="productPriceCondSeqId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
