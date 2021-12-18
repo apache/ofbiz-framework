@@ -32,7 +32,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="UserJobsList" list-name="userJobs" title="" type="list"
+    <grid name="UserJobsList" list-name="userJobs"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
@@ -47,7 +47,7 @@ under the License.
         <field name="runByInstanceId"><hidden/></field>
         <field name="runtimeDataId"><hidden/></field>
         <field name="recurrenceInfoId"><hidden/></field>
-    </form>
+    </grid>
 
     <form name="EditWorkEffort" default-map-name="workEffort" target="updateWorkEffort" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -482,7 +482,7 @@ under the License.
         </field>
     </form>
 
-    <form name="DisplayWorkEffortPartyAssigns" type="list" list-name="partyAssignments"
+    <grid name="DisplayWorkEffortPartyAssigns" list-name="partyAssignments"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName}">
@@ -496,7 +496,7 @@ under the License.
         <field name="thruDate"><display/></field>
         <field name="assignmentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="expectationEnumId" title="${uiLabelMap.WorkEffortExpectation}"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
-    </form>
+    </grid>
 
     <form name="ListPreferredContactMech" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -648,7 +648,7 @@ under the License.
         <field name="mustRsvp"><ignored/></field>
     </form>
 
-    <form name="ListIcalendars" list-name="listIt" type="list"
+    <grid name="ListIcalendars" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortAndPartyAssign" list="listIt" filter-by-date="true">
@@ -667,7 +667,7 @@ under the License.
             <hyperlink description="${serverRootUrl}/iCalendar/${workEffortId}/" target="${serverRootUrl}/iCalendar/${workEffortId}/" also-hidden="false" target-type="plain"/>
         </field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortICalendarName}"><display/></field>
-    </form>
+    </grid>
 
     <form name="EditICalendarFixedAssetAssign" extends="EditWorkEffortFixedAssetAssign" target="createICalendarFixedAssetAssign">
         <actions>
