@@ -258,7 +258,8 @@ dependencies {
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
     runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.17.0' // for external jars using the old log4j1.2: routes logging to log4j 2
     runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.17.0' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j18-impl:2.17.0' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.0' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.17.0' //???
     runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.17.0' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtimeOnly 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
