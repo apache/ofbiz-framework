@@ -26,15 +26,9 @@ name: "CodeQL"
 on:
   push:
     branches: [ trunk, release* ]
-    paths:
-        - '**.java'
-        - '**.js'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ trunk ]
-    paths:
-        - '**.java'
-        - '**.js'
   schedule:
     - cron: '27 15 * * 1'
 
