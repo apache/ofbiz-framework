@@ -19,7 +19,7 @@
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.AsciidoctorTask
- 
+
 /* ========================================================
  * Project setup
  * ======================================================== */
