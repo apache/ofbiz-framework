@@ -30,7 +30,7 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 public class ApiContextListener implements ServletContextListener {
 
     public static final String MODULE = ApiContextListener.class.getName();
-    private static ServletContext servletContext;
+    private static ServletContext servletContext = null;
 
     /**
      */
