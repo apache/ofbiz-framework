@@ -137,5 +137,11 @@
     <Field name="report" />
     <Bug pattern="UWF_UNWRITTEN_FIELD " />
   </Match>
+  <Match>
+    <!-- not a problem servletContext is initialised by contextInitialized() and then only read before being destroyed by contextDestroyed() -->
+    <Class name="org.apache.ofbiz.ws.rs.listener.ApiContextListener" />
+    <Field name="servletContext" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
+  </Match>
 <!-- ^ ^ not a problem, false positive -->
 </FindBugsFilter>
