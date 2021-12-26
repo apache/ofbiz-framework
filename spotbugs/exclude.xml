@@ -143,5 +143,17 @@
     <Field name="servletContext" />
     <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
   </Match>
+  <Match>
+    <!-- not a problem apiKey is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
+    <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
+    <Field name="apiKey" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
+  </Match>
+  <Match>
+    <!-- not a problem baseUrl is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
+    <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
+    <Field name="baseUrl" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
+  </Match>
 <!-- ^ ^ not a problem, false positive -->
 </FindBugsFilter>
