@@ -180,6 +180,9 @@ public class FlexibleServletAccessor<T> implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj instanceof FlexibleServletAccessor<?>) {
             FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
             if (this.name == null) {
@@ -205,7 +208,6 @@ public class FlexibleServletAccessor<T> implements Serializable {
     }
 
     protected static class AttributeAccessor<T> implements Serializable {
-        private Map<String, Object> expandContext;
         private String attributeName;
         private FlexibleMapAccessor<T> fma;
         private boolean isListReference;
