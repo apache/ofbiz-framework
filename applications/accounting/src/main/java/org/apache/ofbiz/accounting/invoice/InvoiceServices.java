@@ -37,6 +37,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVFormat.Builder;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.apache.ofbiz.accounting.payment.PaymentWorker;
@@ -3552,7 +3553,8 @@ public class InvoiceServices {
         String organizationPartyId = (String) context.get("organizationPartyId");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        CSVFormat fmt = CSVFormat.DEFAULT;
+        Builder csvFormatBuilder = Builder.create().setHeader();
+        CSVFormat fmt = csvFormatBuilder.build();
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs;
         String lastInvoiceId = null;
