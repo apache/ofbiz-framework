@@ -125,35 +125,41 @@
     <Bug pattern="PT_RELATIVE_PATH_TRAVERSAL" />
   </Match>
   <Match>
-    <!-- not a problem this is used only once during test, no possible collisions -->
+    <!-- not a problem, this is used only once during test, no possible collisions -->
     <!-- Moreover this is now commented out to allow building with BuilBot 3.3.2 -->
     <Class name="org.apache.ofbiz.service.test.XmlRpcTests" />
     <Field name="url" />
     <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
   <Match>
-    <!-- not a problem report is initialised by initHtmlReport and then feed by different threads -->
+    <!-- not a problem, report is initialised by initHtmlReport and then feed by different threads -->
     <Class name="org.apache.ofbiz.htmlreport.AbstractReportThread" />
     <Field name="report" />
     <Bug pattern="UWF_UNWRITTEN_FIELD " />
   </Match>
   <Match>
-    <!-- not a problem servletContext is initialised by contextInitialized() and then only read before being destroyed by contextDestroyed() -->
+    <!-- not a problem, servletContext is initialised by contextInitialized() and then only read before being destroyed by contextDestroyed() -->
     <Class name="org.apache.ofbiz.ws.rs.listener.ApiContextListener" />
     <Field name="servletContext" />
-    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
   <Match>
-    <!-- not a problem apiKey is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
+    <!-- not a problem, apiKey is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
     <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
     <Field name="apiKey" />
-    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
   <Match>
-    <!-- not a problem baseUrl is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
+    <!-- not a problem, baseUrl is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
     <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
     <Field name="baseUrl" />
-    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD " />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
-<!-- ^ ^ not a problem, false positive -->
+  <Match>
+    <!-- not a problem, it's fixed, but despite SpotBugs continues to report the same error -->
+    <Class name="org.apache.ofbiz.base.util.collections.FlexibleServletAccessor" />
+    <Method name="equals" />
+    <Bug pattern="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" />
+  </Match>  
+<!-- ^ ^ not a problem, false positives -->
 </FindBugsFilter>
