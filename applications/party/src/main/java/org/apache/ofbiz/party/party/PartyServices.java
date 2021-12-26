@@ -2303,7 +2303,7 @@ public class PartyServices {
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
+        CSVFormat fmt = CSVFormat.DEFAULT;
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs = new LinkedList<>();
         String lastPartyId = null;        // last partyId read from the csv file
@@ -2333,7 +2333,7 @@ public class PartyServices {
 
 
         try (BufferedReader csvReader = new BufferedReader(new StringReader(csvString))) {
-            for (final CSVRecord rec : fmt.parse(csvReader)) {
+            for (CSVRecord rec : fmt.parse(csvReader)) {
                 if (UtilValidate.isNotEmpty(rec.get("partyId"))) {
                     currentPartyId = rec.get("partyId");
                 }
