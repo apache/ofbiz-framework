@@ -23,4 +23,4 @@ if exist "%~dp0gradle\wrapper\gradle-wrapper.jar" (
     exit /b
 )
 
-pwsh  -command "  Start-Process pwsh -Verb RunAs \""-Command `\""cd '%cd%'; & 'gradle\init-gradle-wrapper.ps1';`\""\""   "
+%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\powershell.exe -command "  Start-Process pwsh -Verb RunAs \""-Command `\""cd '%cd%'; & 'gradle\init-gradle-wrapper.ps1';`\""\""   "
