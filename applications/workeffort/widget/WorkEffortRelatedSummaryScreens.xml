@@ -89,7 +89,7 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleListWorkEffortPartyAssigns}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <include-form name="DisplayWorkEffortPartyAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    <include-grid name="DisplayWorkEffortPartyAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </container>
                             </widgets>
                         </section>
