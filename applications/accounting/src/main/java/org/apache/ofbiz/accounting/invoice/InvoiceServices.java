@@ -3552,8 +3552,7 @@ public class InvoiceServices {
         String organizationPartyId = (String) context.get("organizationPartyId");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        final BufferedReader csvReader = new BufferedReader(new StringReader(csvString));
-        CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
+        CSVFormat fmt = CSVFormat.DEFAULT;
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs;
         String lastInvoiceId = null;
@@ -3561,7 +3560,7 @@ public class InvoiceServices {
         String newInvoiceId = null;
         int invoicesCreated = 0;
 
-        try {
+        try (BufferedReader csvReader = new BufferedReader(new StringReader(csvString))) {
             for (final CSVRecord rec : fmt.parse(csvReader)) {
                 currentInvoiceId =  rec.get("invoiceId");
                 if (lastInvoiceId == null || !currentInvoiceId.equals(lastInvoiceId)) {
@@ -3626,11 +3625,18 @@ public class InvoiceServices {
                         try {
                             invoiceResult = dispatcher.runSync("createInvoice", invoice);
                             if (ServiceUtil.isError(invoiceResult)) {
+                                // Eclipse reports here: Resource leak: '<unassigned Closeable value>' is not closed at this location
+                                // but it's OK. As csvReader is in a try-with-ressource it will be closed anyway
+                                // I prefer to not put @SuppressWarnings("resource") to the whole method
+                                // BTW to be consistent Eclipse should also reports the same issue in PartyService (see there)
                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
                             }
                         } catch (GenericServiceException e) {
-                            csvReader.close();
-                            Debug.logError(e, module);
+                            Debug.logError(e, MODULE);
+                            // Eclipse reports here: Resource leak: '<unassigned Closeable value>' is not closed at this location
+                            // but it's OK. As csvReader is in a try-with-ressource it will be closed anyway
+                            // I prefer to not put @SuppressWarnings("resource") to the whole method
+                            // BTW to be consistent Eclipse should also reports the same issue in PartyService (see there)
                             return ServiceUtil.returnError(e.getMessage());
                         }
                         newInvoiceId = (String) invoiceResult.get("invoiceId");
@@ -3685,6 +3691,10 @@ public class InvoiceServices {
                         try {
                             Map<String, Object> result = dispatcher.runSync("createInvoiceItem", invoiceItem);
                             if (ServiceUtil.isError(result)) {
+                                // Eclipse reports here: Resource leak: '<unassigned Closeable value>' is not closed at this location
+                                // but it's OK. As csvReader is in a try-with-ressource it will be closed anyway
+                                // I prefer to not put @SuppressWarnings("resource") to the whole method
+                                // BTW to be consistent Eclipse should also reports the same issue in PartyService (see there)
                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
                         } catch (GenericServiceException e) {
