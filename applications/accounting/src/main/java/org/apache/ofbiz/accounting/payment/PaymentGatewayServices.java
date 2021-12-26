@@ -92,6 +92,8 @@ public class PaymentGatewayServices {
     private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
     private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
      * "errors" and "finished" which notify the user if there were any errors and if the authorization was finished.
@@ -3441,8 +3443,7 @@ public class PaymentGatewayServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         String refNum = UtilDateTime.nowAsString();
-        SecureRandom secureRandom = new SecureRandom();
-        int i = secureRandom.nextInt(9);
+        int i = SECURE_RANDOM.nextInt(9);
         if (i < 5 || i % 2 == 0) {
             result.put("authResult", Boolean.TRUE);
             result.put("authFlag", "A");

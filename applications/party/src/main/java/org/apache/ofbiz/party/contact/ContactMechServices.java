@@ -61,6 +61,8 @@ public class ContactMechServices {
     private static final String RESOURCE = "PartyUiLabels";
     private static final String RES_ERROR = "PartyErrorUiLabels";
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     /**
      * Creates a ContactMech
      * <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
@@ -976,11 +978,9 @@ public class ContactMechServices {
         Date date = calendar.getTime();
         Timestamp expireDate = UtilDateTime.toTimestamp(date);
 
-        SecureRandom secureRandom = new SecureRandom();
-
         synchronized (ContactMechServices.class) {
             while (true) {
-                Long random = secureRandom.nextLong();
+                Long random = SECURE_RANDOM.nextLong();
                 verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(StandardCharsets.UTF_8));
                 List<GenericValue> emailAddVerifications = null;
                 try {

@@ -43,6 +43,8 @@ import org.apache.ofbiz.base.util.GeneralException;
  */
 public class DesCrypt {
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     public static Key generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("DESede");
 
@@ -52,8 +54,7 @@ public class DesCrypt {
 
     public static byte[] encrypt(Key key, byte[] bytes) throws GeneralException {
         byte[] rawIv = new byte[8];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(rawIv);
+        SECURE_RANDOM.nextBytes(rawIv);
         IvParameterSpec iv = new IvParameterSpec(rawIv);
 
         // Create the Cipher - DESede/CBC/PKCS5Padding

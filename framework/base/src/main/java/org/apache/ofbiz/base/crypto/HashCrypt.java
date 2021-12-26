@@ -54,6 +54,8 @@ public class HashCrypt {
     private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties",
             "password.encrypt.pbkdf2.iterations", 10000);
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     public static MessageDigest getMessageDigest(String type) {
         try {
             return MessageDigest.getInstance(type);
@@ -145,7 +147,7 @@ public class HashCrypt {
             hashType = "SHA";
         }
         if (salt == null) {
-            salt = RandomStringUtils.random(new SecureRandom().nextInt(15) + 1, CRYPT_CHAR_SET);
+            salt = RandomStringUtils.random(SECURE_RANDOM.nextInt(15) + 1, CRYPT_CHAR_SET);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
