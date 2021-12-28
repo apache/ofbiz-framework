@@ -51,9 +51,13 @@ public class GiftCertificateServices {
     private static final String MODULE = GiftCertificateServices.class.getName();
     private static final String RES_ERROR = "AccountingErrorUiLabels";
     private static final String RES_ORDER_ERROR = "OrderErrorUiLabels";
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     // These are default settings, in case ProductStoreFinActSetting does not have them
     public static final int CARD_NUMBER_LENGTH = 14;
     public static final int PIN_NUMBER_LENGTH = 6;
+
 
     // Base Gift Certificate Services
     public static Map<String, Object> createGiftCertificate(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -1417,13 +1421,12 @@ public class GiftCertificateServices {
             length = 19;
         }
 
-        SecureRandom secureRandom = new SecureRandom();
         boolean isValid = false;
         StringBuilder number = null;
         while (!isValid) {
             number = new StringBuilder("");
             for (int i = 0; i < length; i++) {
-                int randInt = secureRandom.nextInt(9);
+                int randInt = SECURE_RANDOM.nextInt(9);
                 number.append(randInt);
             }
 

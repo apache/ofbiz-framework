@@ -52,6 +52,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 public class ContextFilter implements Filter {
 
     private static final String MODULE = ContextFilter.class.getName();
+
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private FilterConfig config = null;

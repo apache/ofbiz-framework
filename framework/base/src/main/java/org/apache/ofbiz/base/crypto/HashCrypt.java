@@ -45,7 +45,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 public class HashCrypt {
 
     private static final String MODULE = HashCrypt.class.getName();
-    public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     private static final String PBKDF2_SHA1 = "PBKDF2-SHA1";
     private static final String PBKDF2_SHA256 = "PBKDF2-SHA256";
@@ -55,6 +54,8 @@ public class HashCrypt {
             "password.encrypt.pbkdf2.iterations", 10000);
 
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
+    public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     public static MessageDigest getMessageDigest(String type) {
         try {

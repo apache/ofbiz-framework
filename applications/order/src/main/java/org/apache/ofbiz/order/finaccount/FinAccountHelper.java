@@ -53,6 +53,8 @@ public final class FinAccountHelper {
     // pool of available characters for account codes, here numbers plus uppercase characters
     private static char[] charPool = new char[10 + 26];
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     static {
         int j = 0;
         for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
@@ -117,7 +119,6 @@ public final class FinAccountHelper {
     public static String getNewFinAccountCode(int codeLength, Delegator delegator) throws GenericEntityException {
 
         // keep generating new account codes until a unique one is found
-        SecureRandom r = new SecureRandom();
         boolean foundUniqueNewCode = false;
         StringBuilder newAccountCode = null;
         long count = 0;
@@ -125,7 +126,7 @@ public final class FinAccountHelper {
         while (!foundUniqueNewCode) {
             newAccountCode = new StringBuilder(codeLength);
             for (int i = 0; i < codeLength; i++) {
-                newAccountCode.append(charPool[r.nextInt(charPool.length)]);
+                newAccountCode.append(charPool[SECURE_RANDOM.nextInt(charPool.length)]);
             }
 
             GenericValue existingAccountWithCode = EntityQuery.use(delegator).from("FinAccount")

@@ -60,6 +60,8 @@ public final class SSLUtil {
 
     private static boolean loadedProps = false;
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     private SSLUtil() { }
 
     static {
@@ -212,7 +214,7 @@ public final class SSLUtil {
         }
 
         SSLContext context = SSLContext.getInstance("SSL");
-        context.init(km, tm, new SecureRandom());
+        context.init(km, tm, SECURE_RANDOM);
         return context;
     }
 
@@ -231,7 +233,7 @@ public final class SSLUtil {
         }
 
         SSLContext context = SSLContext.getInstance("SSL");
-        context.init(km, tm, new SecureRandom());
+        context.init(km, tm, SECURE_RANDOM);
         return context;
     }
 
