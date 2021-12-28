@@ -43,6 +43,7 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
                         <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
