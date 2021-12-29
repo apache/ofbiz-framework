@@ -3634,7 +3634,7 @@ public class InvoiceServices {
                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invoiceResult));
                             }
                         } catch (GenericServiceException e) {
-                            Debug.logError(e, MODULE);
+                            Debug.logError(e, module);
                             // Eclipse reports here: Resource leak: '<unassigned Closeable value>' is not closed at this location
                             // but it's OK. As csvReader is in a try-with-ressource it will be closed anyway
                             // I prefer to not put @SuppressWarnings("resource") to the whole method
@@ -3700,7 +3700,6 @@ public class InvoiceServices {
                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
                         } catch (GenericServiceException e) {
-                            csvReader.close();
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
