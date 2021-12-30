@@ -100,6 +100,7 @@ Unix-like OS: `./gradle/init-gradle-wrapper.sh`
 [[prepare-ofbiz]]
 === Prepare OFBiz:
 
+==== Clean system and load the complete OFBiz data
 _________________________________________________________________________________________________________________________________________________________________________________________________________________
 _Note_: Depending on your Internet connection speed it might take a long time
 for this step to complete if you are using OFBiz for the first time as it needs
