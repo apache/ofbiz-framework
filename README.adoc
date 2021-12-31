@@ -27,7 +27,7 @@ image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-fram
 image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 
 If you are reading this file in AsciiDoc format you may want to see it at
-https://ci.apache.org/projects/ofbiz/site/trunk/readme/html5/README.html[HTML] +
+https://nightlies.apache.org/ofbiz/trunk/readme/html5/[HTML] +
 or https://ci.apache.org/projects/ofbiz/site/trunk/readme/pdf/README.pdf[PDF] format
 
 ---
