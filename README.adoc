@@ -26,7 +26,7 @@ image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysi
 //image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status&branch=release18.12[link=notReadyYet]
 
 If you are reading this file in AsciiDoc format you may want to see it in
-https://nightlies.apache.org/ofbiz/stable/readme/html5/[HTML] +
+https://nightlies.apache.org/ofbiz/stable/readme/html5/[HTML]
 //or https://nightlies.apache.org/ofbiz/stable/readme/pdf/[HTML] +[PDF] format Not Ready Yet see 
 or https://ci.apache.org/projects/ofbiz/site/stable/readme/pdf/README.pdf[PDF] format
 
