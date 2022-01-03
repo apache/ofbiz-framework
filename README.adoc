@@ -82,8 +82,6 @@ https://adoptopenjdk.net/[JDK download]
 * If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link. +
 https://github.com/PowerShell/PowerShell[Powershell]
 
-
-
 [[quick-start]]
 // tag::quickstart[]
 == Quick start
@@ -95,6 +93,22 @@ the command line at the OFBiz top level directory (folder).
 === Download the Gradle wrapper:
 
 MS Windows: `init-gradle-wrapper`
+[IMPORTANT]
+====
+If you cross the error 
+
+"Powershell is not recognized as an internal or external command, operable program or batch file"
+
+follows advice there: https://s.apache.org/vdcv8. 
+
+If you want more details: https://s.apache.org/ac7no
+
+====
+[NOTE]
+====
+If you wonder where are stored the PowerShell Executables, here are the answers: https://s.apache.org/w5dye
+====
+
 
 Unix-like OS: `./gradle/init-gradle-wrapper.sh`
 
