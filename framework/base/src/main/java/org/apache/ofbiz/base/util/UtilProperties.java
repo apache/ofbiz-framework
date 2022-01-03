@@ -991,10 +991,11 @@ public final class UtilProperties implements Serializable {
     /**
      * Resolve a property to check if it contains an environment variable
      * represented by ${env:ENV_VARIABLE:DEFAULT_VALUE}
-     * @param value
-     * @return
+     * @param env : map that contains available env variables
+     * @param value : the property to resolve
+     * @return resolved value
      */
-    public static String getEnvironmentProperty(String value) {
+    public static String getEnvironmentProperty(Map<String, String> env, String value) {
         if (value != null) {
             if (value.startsWith("${env:") && value.endsWith("}")) {
                 String envNameWithDefault = value.substring(6, value.length() - 1);
@@ -1004,7 +1005,7 @@ public final class UtilProperties implements Serializable {
                     environmentName = envNameWithDefault.substring(0, envNameWithDefault.indexOf(":"));
                     defaultValue = envNameWithDefault.substring(envNameWithDefault.indexOf(":") + 1);
                 }
-                String environmentValue = System.getenv(environmentName);
+                String environmentValue = env.get(environmentName);
                 if (environmentValue != null) {
                     return environmentValue;
                 }
@@ -1015,6 +1016,16 @@ public final class UtilProperties implements Serializable {
             }
         }
         return value;
+    }
+
+    /**
+     * Resolve a property to check if it contains an environment variable
+     * represented by ${env:ENV_VARIABLE:DEFAULT_VALUE}
+     * @param value : the property to resolve
+     * @return resolved value
+     */
+    public static String getEnvironmentProperty(String value) {
+        return getEnvironmentProperty(System.getenv(), value);
     }
 
     /** Custom ResourceBundle class. This class extends ResourceBundle

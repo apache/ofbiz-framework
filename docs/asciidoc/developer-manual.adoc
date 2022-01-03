@@ -289,6 +289,7 @@ For a core configuration guide check
 https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Configuration+Guide[the OFBiz configuration Guide]
  (some points are not up to date).
 
+include::../../framework/base/src/docs/asciidoc/configuration.adoc[leveloffset=+2]
 
 include::../../framework/base/src/docs/asciidoc/email.adoc[leveloffset=+2]
 
