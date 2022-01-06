@@ -38,9 +38,9 @@ under the License.
 <#macro renderSectionEnd boundaryComment>
 </#macro>
 
-<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval>
+<#macro renderContainerBegin id style type autoUpdateLink autoUpdateInterval>
 </#macro>
-<#macro renderContainerEnd></#macro>
+<#macro renderContainerEnd type></#macro>
 <#macro renderContentBegin editRequest enableEditValue editContainerStyle></#macro>
 <#macro renderContentBody></#macro>
 <#macro renderContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
@@ -64,3 +64,8 @@ under the License.
 <#macro renderScreenletEnd></#macro>
 <#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle lastLinkUrl paginateLastLabel paginateNextStyle nextLinkUrl paginateNextLabel paginatePreviousStyle paginatePreviousLabel previousLinkUrl paginateFirstStyle paginateFirstLabel firstLinkUrl>
 </#macro>
+
+<#macro renderColumnContainerBegin id style></#macro>
+<#macro renderColumnContainerEnd></#macro>
+<#macro renderColumnBegin id style></#macro>
+<#macro renderColumnEnd></#macro>
