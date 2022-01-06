@@ -42,7 +42,6 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
     </grid>
-
     <grid name="ListBillingAccountsByParty" list-name="billingAccounts" paginate-target="FindBillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
@@ -60,7 +59,6 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display description="${parameters.partyId}"/></field>
         <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
     </grid>
-
     <grid name="ListBillingAccountInvoices" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
         odd-row-style="alternate-row"  header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -113,8 +111,32 @@ under the License.
         </field>
         <field name="capture" use-when="${groovy:paidInvoice}"><display/></field>
     </grid>
-
-    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
+    <form name="BillingAccount" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="availableBalance" value="${groovy:billingAccount != null ? org.apache.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
+        </actions>
+        <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
+        <field name="billingAccountId"><display/></field>
+        <field name="accountCurrencyUomId" title="${uiLabelMap.CommonCurrency}" position="2"><display/></field>
+        <field name="externalAccountId"><display/></field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}"><display/></field>
+        <field name="contactMechId" title="${uiLabelMap.PartyContactInfo}" position="2">
+            <display-entity entity-name="PostalAddress" description="${toName}, ${attnName}, ${address1}, ${stateProvinceGeoId} ${postalCode}">
+            </display-entity>
+        </field>
+        <field name="accountLimit"><display type="currency" currency="${billingAccount.accountCurrencyUomId}"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}">
+            <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+        </field>
+        <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" position="2">
+            <display description="${groovy:org.apache.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}" position="2"><display type="date-time"/></field>
+    </form>
+    <form name="EditBillingAccount" type="single" target="updateBillingAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="availableBalance" value="${groovy:billingAccount != null ? org.apache.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
@@ -145,11 +167,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <!--
-        <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMessage}">
-            <display description="${groovy:org.apache.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
-        </field>
-        -->
         <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
             <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
@@ -157,7 +174,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="billingAccount == null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="billingAccount!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
     <grid name="ListBillingAccountRoles" list-name="billingAccountRoleList" target="updateBillingAccountRole"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="EditBillingAccountRoles" separate-columns="true">
@@ -167,9 +183,7 @@ under the License.
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
-
         <auto-fields-service service-name="updateBillingAccountRole" default-field-type="edit"/>
-
         <field name="billingAccountId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
@@ -193,8 +207,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    
-    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
+    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" default-map-name="billingAccountRole"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createBillingAccountRole"/>
         <field name="billingAccountId"><hidden/></field>
@@ -209,7 +222,6 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
     <grid name="ListBillingAccountTerms" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -238,8 +250,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    
-    <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" title="" default-map-name="billingAccountTerm"
+    <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" default-map-name="billingAccountTerm"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="billingAccountTermId==null" target="createBillingAccountTerm"/>
         <field name="billingAccountId"><hidden/></field>
@@ -287,8 +298,7 @@ under the License.
             <display type="currency" currency="${currencyUomId}"/>
         </field>
     </grid>
-    
-    <form name="CreateIncomingBillingAccountPayment" type="single" target="createPaymentAndAssociateToBillingAccount" title=""
+    <form name="CreateIncomingBillingAccountPayment" type="single" target="createPaymentAndAssociateToBillingAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="partyIdFrom" from-field="billToCustomer.partyId"/>
@@ -324,7 +334,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
     <grid name="ListBillingAccountOrders" list-name="orderPaymentPreferencesList" paginate-target="BillingAccountOrders"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><hidden/></field>
@@ -344,8 +353,8 @@ under the License.
             <display type="currency" currency="${currencyUomId}"/>
         </field>
     </grid>
-    
-    <form name="FindBillingAccounts" type="single" target="FindBillingAccount" header-row-style="header-row" default-table-style="basic-table">
+    <form name="FindBillingAccounts" type="single" target="FindBillingAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="billingAccountId"><text-find ignore-case="true"/></field>
         <field name="description"><text-find ignore-case="true"/></field>
         <field name="accountLimit"><text/></field>
