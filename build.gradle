@@ -166,10 +166,11 @@ dependencies {
     compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.4'
-    compile 'org.apache.logging.log4j:log4j-api:2.10.0' // the API of log4j 2
+    compile 'org.apache.logging.log4j:log4j-api:2.17.1' // the API of log4j 2
+    compile 'org.apache.logging.log4j:log4j-web:2.17.1'
     compile 'org.apache.shiro:shiro-core:1.4.0'
-    compile 'org.apache.tika:tika-core:1.26'
-    compile 'org.apache.tika:tika-parsers:1.26'
+    compile 'org.apache.tika:tika-core:1.28'
+    compile 'org.apache.tika:tika-parsers:1.28'
     compile 'org.apache.pdfbox:pdfbox:2.0.24'
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.54'
@@ -203,11 +204,11 @@ dependencies {
     runtime 'org.apache.axis2:axis2-transport-local:1.7.7'
     runtime 'org.apache.derby:derby:10.14.1.0'
     runtime 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.10.0' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-core:2.10.0' // the implementation of the log4j 2 API
-    runtime 'org.apache.logging.log4j:log4j-jul:2.10.0' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.10.0' // for external jars using slf4j: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-jcl:2.10.0' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
+    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.17.1' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-core:2.17.1' // the implementation of the log4j 2 API
+    runtime 'org.apache.logging.log4j:log4j-jul:2.17.1' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1' // for external jars using slf4j: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-jcl:2.17.1' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // plugin libs
