@@ -39,7 +39,14 @@ under the License.
                                 <if-service-permission service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="InvoiceTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <section>
+                                    <condition><not><if-empty field="parameters.invoiceId"/></not></condition>
+                                    <widgets>
+                                        <label style="h1">${uiLabelMap.CommonInvoice}: ${invoiceId}</label>
+                                        <include-menu name="InvoiceTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                    </widgets>
+                                </section>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -49,15 +56,6 @@ under the License.
                                 <if-service-permission service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition><not><if-empty field="parameters.invoiceId"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                        <container style="leftclear">
-                                            <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${invoice.description} [${invoiceId}]  ${${extraFunctionName}}"/>
-                                        </container>
-                                    </widgets>
-                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -65,12 +63,10 @@ under the License.
                             </fail-widgets>
                         </section>
                     </decorator-section>
-
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="FindInvoices">
         <section>
             <actions>
@@ -113,7 +109,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="NewInvoice">
         <section>
             <actions>
@@ -139,7 +134,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditInvoice">
         <section>
             <actions>
@@ -179,7 +173,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="invoiceOverview">
         <section>
             <actions>
@@ -322,7 +315,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="InvoiceStatus">
         <section>
             <actions>
@@ -346,7 +338,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditInvoiceApplications">
         <section>
             <actions>
@@ -541,7 +532,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditInvoiceTimeEntries">
         <section>
             <actions>
@@ -735,7 +725,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="InvoiceTerms">
         <section>
             <actions>
@@ -787,7 +776,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="SendPerEmail">
         <section>
             <actions>
@@ -808,7 +796,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="sendPerEmailBody">
         <section>
             <widgets>
@@ -816,7 +803,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListCustomerInvoices">
         <section>
             <actions>
