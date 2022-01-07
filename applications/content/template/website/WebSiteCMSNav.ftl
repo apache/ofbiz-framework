@@ -440,21 +440,33 @@ var contextmenu = { 'items': {
 <#-------------------------------------------------------------------------------------createEditor function-->
 function createEditor() {
     if($('#cmseditor').length) {
-        var libraryFiles = ["/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js",
-                "/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"];
-        <#if language?has_content && language != "en">
-        libraryFiles.push("/common/js/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js")
-        </#if>
+        var libraryFiles = ["/common/js/node_modules/trumbowyg/dist/trumbowyg.min.js",
+            "/common/js/node_modules/trumbowyg/dist/plugins/indent/trumbowyg.indent.min.js"];
         importLibrary(libraryFiles, function() {
+            var element = jQuery(self);
+            var language = element.data('language');
+            var buttons = [['viewHTML'],
+                ['undo', 'redo'],
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['insertImage'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['indent', 'outdent'],
+                ['fullscreen']
+            ]
             var opts = {
-                cssClass : 'el-rte',
-                lang     : '${language!"en"}',
-                height   : 350,
-                toolbar  : 'maxi',
-                doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
-                cssfiles : ['/common/js/jquery/plugins/elrte-1.3/css/elrte-inner.css']
+                lang     : language,
+                btns    : buttons,
+                semantic: false,
+                tagsToRemove: ['script', 'link'],
+                svgPath : '/common/js/node_modules/trumbowyg/dist/ui/icons.svg'
             }
-            jQuery('#cmseditor').elrte(opts);
+            jQuery('#cmseditor').trumbowyg(opts);
         });
     }
 }
