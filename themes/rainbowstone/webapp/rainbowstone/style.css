@@ -18,7 +18,7 @@
  */
 
 /* ----------------------------------------------------- */
-/* This CSS file is used for the Flat Grey visual theme. */
+/* This CSS file is used for the Rainbow Stone visual theme. */
 /* ----------------------------------------------------- */
 
 /* This theme uses a scalable, floating layout - so most
@@ -1927,4 +1927,16 @@ html > /**/ body .jstree-default a {
 /* The custom CSS to show mouse pointer on links using featherlight plugin  */
 a[data-featherlight] {
     cursor: pointer;
+}
+
+/*The custom css for Trumbowyg*/
+.trumbowyg-button-pane {
+    margin: 0 !important;
+}
+.trumbowyg-button-pane .trumbowyg-button-group {
+    display: inline-block; 
+    margin: 0 !important;
+}
+.trumbowyg-button-pane button {
+    color: #000;
 }

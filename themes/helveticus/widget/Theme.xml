@@ -60,6 +60,7 @@ under the License.
         <property name="VT_STYLESHEET['add']" value="/helveticus/javascript.css"/>
         <property name="VT_RTL_STYLESHEET['add']" value="/helveticus/stylertl.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/helveticus/help.css"/>
+        <property name="VT_STYLESHEET['add']" value="/helveticus/style.css"/>
     </theme-properties>
 
     <templates>
