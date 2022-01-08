@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="GenericShipmentGatewayConfigDecorator">
         <section>
             <actions>
@@ -32,15 +31,12 @@ under the License.
                     <decorator-section name="pre-body">
                         <include-menu name="ShipmentGatewayConfigTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                     </decorator-section>
-                <!-- body is the primary display for this page and is called recursively -->
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
-                                
-                                <!-- Now call the SimpleScreen form -->
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -49,7 +45,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="FindShipmentGatewayConfig">
         <section>
             <actions>
@@ -69,7 +64,7 @@ under the License.
                                         <include-form name="FindShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                        <include-grid name="ListShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -79,13 +74,11 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="EditShipmentGatewayConfig">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUpdateShipmentGatewayConfig"/>
                 <set field="tabButtonItem" value="shipmentGatewayConfigTab"/> 
-                
                 <set field="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
                 <entity-one entity-name="ShipmentGatewayConfig" value-field="shipmentGatewayConfig"/>
                 <entity-one entity-name="ShipmentGatewayDhl" value-field="shipmentGatewayDhl">
@@ -152,7 +145,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="FindShipmentGatewayConfigTypes">
         <section>
             <actions>
@@ -172,7 +164,7 @@ under the License.
                                         <include-form name="FindShipmentGatewayConfigTypes" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListShipmentGatewayConfigTypes" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                        <include-grid name="ListShipmentGatewayConfigTypes" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -182,13 +174,11 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="EditShipmentGatewayConfigType">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUpdateShipmentGatewayConfigType"/>
-                <set field="tabButtonItem" value="shipmentGatewayConfigTypesTab"/> 
-                
+                <set field="tabButtonItem" value="shipmentGatewayConfigTypesTab"/>
                 <set field="shipmentGatewayConfTypeId" from-field="parameters.shipmentGatewayConfTypeId"/>
                 <entity-one entity-name="ShipmentGatewayConfigType" value-field="shipmentGatewayConfigType"/>
             </actions>
