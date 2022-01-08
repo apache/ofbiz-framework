@@ -4,12 +4,12 @@
   "repository": "https://github.com/apache/ofbiz-framework.git",
   "license": "Apache-2.0",
   "dependencies": {
-    "jquery": "^3.5.1",
-    "jquery-migrate": "^3.3.1",
+    "jquery": "^3.6.0",
+    "jquery-migrate": "^3.3.2",
     "jquery-validation": "^1.19.3",
     "jquery.browser": "^0.1.0",
-    "dompurify": "^2.3.3",
-    "jquery-ui-dist": "^1.12.1",
+    "dompurify": "^2.3.4",
+    "jquery-ui-dist": "^1.13.0",
     "trumbowyg": "^2.25.1",
     "flot": "^4.2.2"
   }
