@@ -169,14 +169,14 @@ under the License.
         <field name="comments"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ViewPhysicalInventoryAndVariance" type="list" target="" title="" list-name="physicalInventoryAndVarianceDatas"
+    <grid name="ViewPhysicalInventoryAndVariance" list-name="physicalInventoryAndVarianceDatas"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="PhysicalInventoryAndVariance" map-name="physicalInventoryAndVariance" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
         <field name="varianceReasonId"><display description="${varianceReason.description}"/></field>
-    </form>
-    <form name="ViewInventoryItemShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
+    </grid>
+    <grid name="ViewInventoryItemShipmentReceipts" list-name="shipmentReceiptList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ShipmentReceipt" list="shipmentReceiptList">
@@ -185,9 +185,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ShipmentReceipt" map-name="shipmentReceipt" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
-    </form>
-
-    <form name="ListInventoryItemDetail" type="list" target="" title="" list-name="inventoryItemDetails"
+    </grid>
+    <grid name="ListInventoryItemDetail" list-name="inventoryItemDetails"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->
@@ -204,10 +203,8 @@ under the License.
         <field name="reasonEnumId">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <!-- workEffortId - not sure if it's better to show manufacturing or workeffort app
-        itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
-    </form>
-    <form name="InventoryItemReservations" type="list" target="" title="" list-name="inventoryItemReservations"
+    </grid>
+    <grid name="InventoryItemReservations" list-name="inventoryItemReservations"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
@@ -216,9 +213,8 @@ under the License.
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
-    </form>
-    <!-- Inventory Item Labels -->
-    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls"
+    </grid>
+    <grid name="UpdateInventoryItemLabelAppls" list-name="inventoryItemLabelAppls" target="updateInventoryItemLabelApplFromItem"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId" title=" " widget-style="buttontext">
@@ -240,7 +236,7 @@ under the License.
                 <parameter param-name="facilityId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelApplFromItem" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createInventoryItemLabelAppl"/>
