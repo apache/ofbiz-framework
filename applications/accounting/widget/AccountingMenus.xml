@@ -125,24 +125,6 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        <menu-item name="editInvoice" title="${uiLabelMap.AccountingInvoiceHeader}">
-            <condition>
-                <and>
-                    <not><if-empty field="invoice.invoiceId"/></not>
-                    <or>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>
-                    <or>
-                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
-                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
-                    </or>
-                </and>
-            </condition>
-            <link target="editInvoice">
-                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
-            </link>
-        </menu-item>
         <menu-item name="invoiceAttributes" title="${uiLabelMap.CommonAttributes}">
             <condition>
                 <and>
@@ -261,6 +243,24 @@ under the License.
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="editInvoice" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="editInvoice">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
             <condition>
                 <and>
