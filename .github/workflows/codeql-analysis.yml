@@ -28,7 +28,7 @@ on:
     branches: [ trunk, release* ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ trunk ]
+    branches: [ release22.01 ]
   schedule:
     - cron: '27 15 * * 1'
 
