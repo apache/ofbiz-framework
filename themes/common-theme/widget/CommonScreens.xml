@@ -125,6 +125,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.Validation.getFilePath(initialLocaleComplete)}" global="true" />
                 <!-- Jgrowl -->
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.css" global="true" />
+                <!-- Trumbowyg -->
+                <set field="layoutSettings.styleSheets[+0]" value="/common/js/node_modules/trumbowyg/dist/ui/trumbowyg.min.css" global="true" />
                 <!-- Set default user locale from browser -->
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/util/setUserTimeZone.js"/>
             </actions>

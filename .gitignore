@@ -18,7 +18,6 @@ runtime/catalina/work/*
 runtime/tempfiles/*
 runtime/indexes/products/
 !runtime/tempfiles/README
-applications/content/index/
 changelog
 .classpath
 .project

@@ -871,7 +871,7 @@
         <value xml:lang="en">Agreement Items</value>
         <value xml:lang="es">Elementos de acuerdo</value>
         <value xml:lang="es-CL">Ítems del Contrato</value>
-        <value xml:lang="fr">Points d'accord commercial</value>
+        <value xml:lang="fr">Articles de l'accord commercial</value>
         <value xml:lang="hi-IN">अनुबंध मदें</value>
         <value xml:lang="it">Righe Contratto</value>
         <value xml:lang="ja">契約アイテム</value>
@@ -3162,26 +3162,6 @@
         <value xml:lang="zh">新建账单账户</value>
         <value xml:lang="zh-TW">新建帳單帳戶</value>
     </property>
-    <property key="AccountingCreateBillingAccountRole">
-        <value xml:lang="ar">خلق دور حساب فوترة</value>
-        <value xml:lang="de">Rechnungskontorolle erstellen</value>
-        <value xml:lang="en">Create Billing Account Role</value>
-        <value xml:lang="es">Rol de creación de cuenta de facturacón</value>
-        <value xml:lang="es-CL">Crear Rol de cuenta de facturación</value>
-        <value xml:lang="fr">Associer un rôle à ce compte de facturation</value>
-        <value xml:lang="hi-IN">देयकांकन(बिलिंग) खाते की भूमिका बनाएँ</value>
-        <value xml:lang="it">Creare Ruolo Conto Fatturazione</value>
-        <value xml:lang="ja">請求先アカウントロールを作成</value>
-        <value xml:lang="nl">Maak rol voor factuurrekeningen aan</value>
-        <value xml:lang="pt-BR">Criar papel de conta de cobrança</value>
-        <value xml:lang="pt-PT">&gt;Criar Função de Conta para Pagamento</value>
-        <value xml:lang="ro">Creaza Rol Cont Facturare</value>
-        <value xml:lang="ru">Создать роль кредитного счета</value>
-        <value xml:lang="th">สร้างสถานะยอดรวมของบัญชี</value>
-        <value xml:lang="vi">Tạo vai trò tài khoản thanh toán</value>
-        <value xml:lang="zh">新建账单账户角色</value>
-        <value xml:lang="zh-TW">新建帳單帳戶角色</value>
-    </property>
     <property key="AccountingCreateBillingAccountTerm">
         <value xml:lang="ar">خلق بند لحساب الفوترة</value>
         <value xml:lang="de">Rechnungskontobedingung erstellen</value>
@@ -4232,24 +4212,6 @@
         <value xml:lang="zh">启用生产状态</value>
         <value xml:lang="zh-TW">啟用生產狀態</value>
     </property>
-    <property key="AccountingDataExchange">
-        <value xml:lang="ar">يجب تساوي مجموع الأرصدة المدينة والدائنة للرصد في الحساب.</value>
-        <value xml:lang="de">Datenaustausch</value>
-        <value xml:lang="en">Data Exchange</value>
-        <value xml:lang="es">Intercambio de datos</value>
-        <value xml:lang="fr">Echange de données</value>
-        <value xml:lang="hi-IN">आंकड़ा विनिमय</value>
-        <value xml:lang="it">Scambio Dati</value>
-        <value xml:lang="ja">データ交換</value>
-        <value xml:lang="nl">Data-overdracht</value>
-        <value xml:lang="pt">Intercâmbio de Dados</value>
-        <value xml:lang="ro">Schimb de Date</value>
-        <value xml:lang="ru">ОбменДанными</value>
-        <value xml:lang="th">การแลกเปลี่ยนข้อมูล</value>
-        <value xml:lang="vi">Chuyển đổi dữ liệu</value>
-        <value xml:lang="zh">数据交换</value>
-        <value xml:lang="zh-TW">資料交換</value>
-    </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="ar">حقل تاريخ الشراء فارغ في بيانات الأصل الثابت</value>
         <value xml:lang="de">Das Feld Erwerbsdatum bei den Anlage-Daten ist leer.</value>
@@ -4266,22 +4228,6 @@
         <value xml:lang="vi">Trường dateAcquired hiện chưa có giá trị trong dữ liệu FixedAsset.</value>
         <value xml:lang="zh">在固定资产数据中，到手日期(dateAcquired)是空的。</value>
         <value xml:lang="zh-TW">在固定資產資料中,到手日期(dateAcquired)是空的.</value>
-    </property>
-    <property key="AccountingDateFilter">
-        <value xml:lang="ar">تصفية البيانات</value>
-        <value xml:lang="de">Datumsfilter</value>
-        <value xml:lang="en">Date Filter</value>
-        <value xml:lang="es">Filtro de Datos</value>
-        <value xml:lang="fr">Filtre de date</value>
-        <value xml:lang="hi-IN">दिनांक फ़िल्टर</value>
-        <value xml:lang="it">Data filtro</value>
-        <value xml:lang="ja">日付フィルタ</value>
-        <value xml:lang="nl">Filter boekhouddatum</value>
-        <value xml:lang="pt">Filtro de Data</value>
-        <value xml:lang="th">Date Filter</value>
-        <value xml:lang="vi">Bộ lọc ngày</value>
-        <value xml:lang="zh">日期过滤器</value>
-        <value xml:lang="zh-TW">日期過濾器</value>
     </property>
     <property key="AccountingDateOpened">
         <value xml:lang="ar">تاريخ الفتح</value>
@@ -4306,25 +4252,6 @@
         <value xml:lang="vi">Tiền Có</value>
         <value xml:lang="zh">借方发生额</value>
         <value xml:lang="zh-TW">借方發生額</value>
-    </property>
-    <property key="AccountingDebitCreditMustEqual">
-        <value xml:lang="ar">تاريخ الإستحقاق</value>
-        <value xml:lang="de">Soll und Haben müssen beim Buchen auf das Hauptkonto gleich sein.</value>
-        <value xml:lang="en">Debit and Credit Totals must be equal to post to GL.</value>
-        <value xml:lang="es">Totales de Débito y Crédito deben ser iguales para enviar a LM.</value>
-        <value xml:lang="es-CL">Totales de Débito y Crédito deben ser iguales para enviar a Libro Mayor.</value>
-        <value xml:lang="fr">Les montants du débit et du crédit doivent être égaux</value>
-        <value xml:lang="hi-IN">नामे/उधार या जमा राशि योग करने के लिए जीएल(GL) पद के बराबर होना चाहिए</value>
-        <value xml:lang="it">Totale Debito e Credito deve essere contabilizzato in Contabilità Generale.</value>
-        <value xml:lang="ja">GLに転記するためには借方および貸方の合計が等しい必要があります。</value>
-        <value xml:lang="nl">Debet and Credit totalen moeten overeenkomen om te kunnen boeken in het grootboek</value>
-        <value xml:lang="pt">Os totais de débito e crédito devem ser iguais para submeter à contabilidade.</value>
-        <value xml:lang="ro">Total Debit si Credit trebuie sa fie Contabilizat de Contabilitatea Generala</value>
-        <value xml:lang="ru">Для записи в ГК суммы дебита и кредита должны быть равны.</value>
-        <value xml:lang="th">ผลรวมเดบิตและเครดิตต้องเท่ากับที่แจ้งถึง GL</value>
-        <value xml:lang="vi">Định khoản Có (debit) và Định khoản Nợ (credit) phải bằng nhau khi gửi đến Sổ cái.</value>
-        <value xml:lang="zh">借方和贷方合计必须等于过账到总账的金额。</value>
-        <value xml:lang="zh-TW">借方和貸方合計必須等於過帳到總帳的金額.</value>
     </property>
     <property key="AccountingDebitFlag">
         <value xml:lang="ar">مدين</value>
@@ -4355,23 +4282,6 @@
         <value xml:lang="vi">Cân đối Nợ và Có </value>
         <value xml:lang="zh">借/贷余额</value>
         <value xml:lang="zh-TW">借/貸餘額</value>
-    </property>
-    <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
-        <value xml:lang="ar">خطأ امني : لعمل deleteFixedAssetMaintOrder يجب الحصول على صلاحية ACCOUNTING_DELETE أو ACCOUNTING_ADMIN أو الصلاحية المحدودة ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="de">Berechtigungsfehler: Um 'deleteFixedAssetMaintOrder' auszuführen muss man ACCOUNTING_DELETE or ACCOUNTING_ADMIN oder die eingeschränkte ACCOUNTING_ROLE_UPDATE Berechtigungen haben</value>
-        <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
-        <value xml:lang="es">Error de seguridad: para borrar una orden de mantenimiento de activo fijo debes tener el permiso ACCOUNTING_DELETE o ACCOUNTING_ADMIN, o el permiso limitado ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les autorisations ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée  ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="hi-IN">सुरक्षा त्रुटि: deleteFixedAssetMaintOrder चलाने के लिए आप को ACCOUNTING_DELETE or ACCOUNTING_ADMIN की अनुमति या सीमित ACCOUNTING_ROLE_UPDATE की अनुमति होना चाहिए</value>
-        <value xml:lang="it">Errore sicurezza: per eseguire il servizio deleteFixedAssetMaintOrder tu devi avere il permesso ACCOUNTING_DELETE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="ja">セキュリティエラー: 固定資産メンテナンス注文の削除は ACCOUNTING_DELETE または ACCOUNTING_ADMIN 権限、または制限された ACCOUNTING_ROLE_UPDATE 権限が必要です</value>
-        <value xml:lang="nl">Toegangfout: om deleteFixedAssetMaintOrder te draaien heb je ACCOUNTING_DELETE- of ACCOUNTING_ADMIN-, of de beperkte ACCOUNTING_ROLE_UPDATE-permissie nodig.</value>
-        <value xml:lang="pt">Erro de segurança: para executar deleteFixedAssetMaintOrder você deve ter permissão ACCOUNTING_DELETE, ACCOUNTING_ADMIN, ou a permissão limitada ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
-        <value xml:lang="vi">Lỗi phân quyền: để thực thi hàm deleteFixedAssetMaintOrder bạn cần có quyền ACCOUNTING_DELETE hoặc quyền ACCOUNTING_ADMIN, hoặc ít nhất quyền ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="zh">安全错误：要运行删除固定资产维修保养订单(deleteFixedAssetMaintOrder)，你必须有ACCOUNTING_DELETE或ACCOUNTING_ADMIN权限，或者受限制的ACCOUNTING_ROLE_UPDATE权限</value>
-        <value xml:lang="zh-TW">安全錯誤:要執行刪除固定資產維修保養訂單(deleteFixedAssetMaintOrder),你必須有ACCOUNTING_DELETE或ACCOUNTING_ADMIN權限,或者受限制的ACCOUNTING_ROLE_UPDATE權限</value>
     </property>
     <property key="AccountingDeposit">
         <value xml:lang="ar">إيداع</value>
@@ -4687,24 +4597,6 @@
         <value xml:lang="zh">编辑定制时间段</value>
         <value xml:lang="zh-TW">編輯客製時間段</value>
     </property>
-    <property key="AccountingEditFinAccount">
-        <value xml:lang="ar">تعديل الحساب المالي ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="de">Finanzkonto bearbeiten</value>
-        <value xml:lang="en">Edit Financial Account ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es">Editar cuenta financiera ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es-CL">Editar Cuenta Financiera ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="fr">Créer/ mettre à jour un compte financier</value>
-        <value xml:lang="hi-IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाता बनाएँ/सम्पादित करे</value>
-        <value xml:lang="it">Crea/Aggiorna Conto Finanziario</value>
-        <value xml:lang="ja">金融アカウント ${finAccount.finAccountName} [${finAccountId}] を編集</value>
-        <value xml:lang="nl">Maak/wijzig financiele rekening</value>
-        <value xml:lang="pt">Editar Conta Financeira ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="ru">Создать/обновить финансовый счет</value>
-        <value xml:lang="th">สร้าง/เปลี่ยนแปลงงบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
-        <value xml:lang="vi">Cập nhật tài khoản tài chính ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="zh">创建/更新金融账户</value>
-        <value xml:lang="zh-TW">新建/更新金融帳戶</value>
-    </property>
     <property key="AccountingEditFinAccountAuthorityFor">
         <value xml:lang="ar">تعديل السلطة للحساب المالي لـ ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="de">Berechtigungen für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
@@ -4732,20 +4624,6 @@
         <value xml:lang="vi">Cập nhật tài khoản tài chính Đối ứng cho Tài khoản tài chính: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">编辑财务账目  ${finAccount.finAccountName} [${finAccountId}] 的对账</value>
         <value xml:lang="zh-TW">編輯財務帳目 ${finAccount.finAccountName} [${finAccountId}] 的對帳</value>
-    </property>
-    <property key="AccountingEditFinAccountRoleFor">
-        <value xml:lang="ar">تعديل طرف الحساب المالي لـ ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="de">Rolle für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
-        <value xml:lang="en">Edit Financial Account Role For ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es">Editar Rol de Cuenta financiera para ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es-CL">Editar Rol de Cuenta Financiera para ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="fr">Éditer les rôles pour le compte financier ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="hi-IN">वित्तीय खाता भूमिका ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
-        <value xml:lang="ja">${finAccount.finAccountName} [${finAccountId}] に対する金融アカウントロールを編集</value>
-        <value xml:lang="pt">Editar Papel da Conta Financeira para ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="vi">Cập nhật vai trò tài khoản tài chính cho ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="zh">编辑财务账目  ${finAccount.finAccountName} [${finAccountId}] 的角色</value>
-        <value xml:lang="zh-TW">編輯財務帳目 ${finAccount.finAccountName} [${finAccountId}] 的角色</value>
     </property>
     <property key="AccountingEditFinAccountTransactionFor">
         <value xml:lang="ar">تعديل عملية الحساب المالي لـ ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -4779,25 +4657,6 @@
         <value xml:lang="vi">Cập nhật thẻ quà tặng</value>
         <value xml:lang="zh">编辑礼品卡</value>
         <value xml:lang="zh-TW">編輯禮物卡</value>
-    </property>
-    <property key="AccountingEditPayment">
-        <value xml:lang="ar">فعال</value>
-        <value xml:lang="cs">Upravit způsob platby</value>
-        <value xml:lang="de">Zahlung bearbeiten</value>
-        <value xml:lang="en">Edit Payment</value>
-        <value xml:lang="es">Editar Pago</value>
-        <value xml:lang="fr">Modifier un paiement</value>
-        <value xml:lang="hi-IN">भुगतान सम्पादित करें</value>
-        <value xml:lang="it">Aggiorna Pagamento</value>
-        <value xml:lang="ja">支払を編集</value>
-        <value xml:lang="nl">Wijzig betaling</value>
-        <value xml:lang="pt">Editar pagamento</value>
-        <value xml:lang="ro">Actualizeaza Plata</value>
-        <value xml:lang="ru">Редактировать платеж</value>
-        <value xml:lang="th">แก้ไขการชำระเงิน</value>
-        <value xml:lang="vi">Cập nhật thanh toán</value>
-        <value xml:lang="zh">编辑支付</value>
-        <value xml:lang="zh-TW">編輯支付</value>
     </property>
     <property key="AccountingEditPaymentGroup">
         <value xml:lang="ar">تعديل مجموعة الدفعة</value>
@@ -4852,40 +4711,6 @@
         <value xml:lang="zh">编辑 ${finAccount.finAccountName} [${finAccountId}] 的支付组成员</value>
         <value xml:lang="zh-TW">編輯 ${finAccount.finAccountName} [${finAccountId}] 支付群組會員</value>
     </property>
-    <property key="AccountingEditTaxAuthorityGlAccounts">
-        <value xml:lang="ar">تعديل حسابات سلطة الضريبة</value>
-        <value xml:lang="de">Steuerkonten bearbeiten</value>
-        <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
-        <value xml:lang="es">Editar cuentas de autoridad tributaria</value>
-        <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
-        <value xml:lang="hi-IN">टैक्स प्राधिकरण जीएल(GL) लेखा कोसम्पादित करें</value>
-        <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
-        <value xml:lang="ja">税務機関GL勘定を編集</value>
-        <value xml:lang="nl">Wijzig Gb-rekeningen belastinginstantie</value>
-        <value xml:lang="pt">Editar contas financeiras da autoridade tributária</value>
-        <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
-        <value xml:lang="vi">Sửa đổi tài khoản sổ cái Cục thuế</value>
-        <value xml:lang="zh">编辑税务机关总账账户</value>
-        <value xml:lang="zh-TW">編輯稅務機關總帳科目</value>
-    </property>
-    <property key="AccountingEffective">
-        <value xml:lang="ar">مشكلة كيان/بيان لخلق فاتورة من بند أمر البيع/الشراء</value>
-        <value xml:lang="de">Ist-</value>
-        <value xml:lang="en">Effective</value>
-        <value xml:lang="es">Efectivo</value>
-        <value xml:lang="fr">Effectif</value>
-        <value xml:lang="hi-IN">प्रभावी</value>
-        <value xml:lang="it">Effettiva</value>
-        <value xml:lang="ja">発効</value>
-        <value xml:lang="nl">Effectief</value>
-        <value xml:lang="pt">Efetivo</value>
-        <value xml:lang="ro">Efectiva</value>
-        <value xml:lang="ru">Эффективный</value>
-        <value xml:lang="th">มีผล</value>
-        <value xml:lang="vi">Hiệu lực</value>
-        <value xml:lang="zh">生效</value>
-        <value xml:lang="zh-TW">生效</value>
-    </property>
     <property key="AccountingEffectiveDate">
         <value xml:lang="ar">تاريخ الفعالية</value>
         <value xml:lang="de">Anwendungszeitpunkt</value>
@@ -4923,24 +4748,6 @@
         <value xml:lang="vi">Thư điện tử với Hóa đơn đính kèm: ${parameters.invoiceId} đã được đặt lịch để gửi đi....</value>
         <value xml:lang="zh">电子邮件信息带有发票：${parameters.invoiceId}已列入发送计划...</value>
         <value xml:lang="zh-TW">電子郵件資訊帶有發票:${parameters.invoiceId}已列入發送計劃...</value>
-    </property>
-    <property key="AccountingEmptyForMaxAmount">
-        <value xml:lang="ar">أتركه فارغا لأقصى المبلغ</value>
-        <value xml:lang="de">Leer lassen für maximalen Betrag</value>
-        <value xml:lang="en">Leave empty for maximum amount</value>
-        <value xml:lang="es">Dejar vacio para cantidad máxima</value>
-        <value xml:lang="fr">Laisser vide pour un montant maximum</value>
-        <value xml:lang="hi-IN">अधिकतम राशि के लिए खाली छोड़ो</value>
-        <value xml:lang="it">Lascia vuoto per importo massimo</value>
-        <value xml:lang="ja">最大金額を空にしてください</value>
-        <value xml:lang="nl">Laat leeg voor maximumbedrag</value>
-        <value xml:lang="pt">Deixe em branco para a quantia máxima</value>
-        <value xml:lang="ro">Lasa liber pentru  pentru totalul maxim</value>
-        <value xml:lang="ru">Оставьте пустым для максимальной суммы</value>
-        <value xml:lang="th">ว่างไว้สำหรับจำนวนมาก</value>
-        <value xml:lang="vi">Để trống nếu bạn muốn giá trị tối đa</value>
-        <value xml:lang="zh">空白时取最大金额</value>
-        <value xml:lang="zh-TW">空白時取最大金額</value>
     </property>
     <property key="AccountingEndingBalance">
         <value xml:lang="ar">الرصيد النهائي</value>
@@ -5233,12 +5040,6 @@
         <value xml:lang="vi">Trường expectedEndOfLife không được trống trong dữ liệu FixedAsset.</value>
         <value xml:lang="zh">固定资产数据中的期望使用寿命结束为空。</value>
         <value xml:lang="zh-TW">固定資產資料中的期望使用壽命結束為空.</value>
-    </property>
-    <property key="AccountingExportInvoices">
-        <value xml:lang="de">Rechnungen exportieren</value>
-        <value xml:lang="en">Export Invoices</value>
-        <value xml:lang="es">Exportar facturas</value>
-        <value xml:lang="zh">导出发票</value>
     </property>
     <property key="AccountingExpenses">
         <value xml:lang="ar">المصروفات</value>
@@ -6089,24 +5890,6 @@
         <value xml:lang="zh">没有找到描述方法</value>
         <value xml:lang="zh-TW">沒有找到描述方法</value>
     </property>
-    <property key="AccountingFixedAssetEdit">
-        <value xml:lang="ar">نوع الهوية</value>
-        <value xml:lang="de">Anlage erstellen/ändern</value>
-        <value xml:lang="en">Create/Update Fixed Asset</value>
-        <value xml:lang="es">Crear/Actualizar Activo Fijo</value>
-        <value xml:lang="fr">Créer/modifier une immobilisation</value>
-        <value xml:lang="hi-IN">अचल संपत्ति बनाएँ/सम्पादित करे</value>
-        <value xml:lang="it">Crea/Aggiorna Cespite</value>
-        <value xml:lang="ja">固定資産を作成/更新</value>
-        <value xml:lang="nl">Maken/veranderen vaste activa</value>
-        <value xml:lang="pt">Criar/Atualizar Ativo Fixo</value>
-        <value xml:lang="ro">Creaza/Actualizeaza Mijloace Fixe</value>
-        <value xml:lang="ru">Создать/обновить основные средства</value>
-        <value xml:lang="th">สร้าง/เปลี่ยนแปลงทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="vi">Tạo mới/Cập nhật Tài sản cố định</value>
-        <value xml:lang="zh">新建/更新固定资产</value>
-        <value xml:lang="zh-TW">新建/更新固定資產</value>
-    </property>
     <property key="AccountingFixedAssetGovAgencyPartyId">
         <value xml:lang="ar">وكالة حكومية</value>
         <value xml:lang="cs">Státní úřad</value>
@@ -6147,23 +5930,6 @@
         <value xml:lang="zh">固定资产标识</value>
         <value xml:lang="zh-TW">固定資產識別</value>
     </property>
-    <property key="AccountingFixedAssetIdAlreadyExists">
-        <value xml:lang="ar">دليل الأصل الثابت [${parameters.fixedAssetId}] موجود</value>
-        <value xml:lang="de">Anlage [${parameters.fixedAssetId}] schon vorhanden</value>
-        <value xml:lang="en">Fixed Asset Id [${parameters.fixedAssetId}] Already Exists</value>
-        <value xml:lang="es">ID Activo fijo [${parameters.fixedAssetId}] ya existe</value>
-        <value xml:lang="fr">Cet identifiant d'immobilisation [${parameters.fixedAssetId}] existe déjà</value>
-        <value xml:lang="hi-IN">अचल संपत्ति क्रमांक [${parameters.fixedAssetId}] पहले से ही मौजूद है</value>
-        <value xml:lang="it">Cespite ${parameters.fixedAssetId} già esistente</value>
-        <value xml:lang="ja">固定資産ID [${parameters.fixedAssetId}] はすでに存在します</value>
-        <value xml:lang="nl">Vaste activa ID [${parameters.fixedAssetId}] bestaat al.</value>
-        <value xml:lang="pt">ID do Ativo Fixo [${parameters.fixedAssetId}] já existe</value>
-        <value xml:lang="ru">Основные средства с кодом [${parameters.fixedAssetId}] уже существует</value>
-        <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน [${parameters.fixedAssetId}] ยังคงมีอยู่แล้ว</value>
-        <value xml:lang="vi">Id tài sản cố định [${parameters.fixedAssetId}] đã sử dụng</value>
-        <value xml:lang="zh">固定资产标识[${parameters.fixedAssetId}]已存在</value>
-        <value xml:lang="zh-TW">固定資產識別[${parameters.fixedAssetId}]已存在</value>
-    </property>
     <property key="AccountingFixedAssetIdentIdValue">
         <value xml:lang="ar">القيمة</value>
         <value xml:lang="cs">Hodnota</value>
@@ -6200,22 +5966,6 @@
         <value xml:lang="vi">Kiểu định danh</value>
         <value xml:lang="zh">标识类型</value>
         <value xml:lang="zh-TW">識別類型</value>
-    </property>
-    <property key="AccountingFixedAssetIdentTypeId">
-        <value xml:lang="ar">نوع التعريف لدليل الأصل الثابت</value>
-        <value xml:lang="de">Identifikationsart ID</value>
-        <value xml:lang="en">Fixed Asset Ident Type ID</value>
-        <value xml:lang="es">ID de tipo de identificación de Activo Fijo</value>
-        <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
-        <value xml:lang="hi-IN">अचल संपत्ति पहचान प्रकार क्रमांक</value>
-        <value xml:lang="it">Tipo identificazione cespite</value>
-        <value xml:lang="ja">固定資産標識種類ID</value>
-        <value xml:lang="nl">AccountingFixedAssetIdentTypeId</value>
-        <value xml:lang="pt">ID de tipo de identificação de Ativo Fixo</value>
-        <value xml:lang="th">รหัสประเภทการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="vi">Id kiểu định danh</value>
-        <value xml:lang="zh">固定资产证书类型标识</value>
-        <value xml:lang="zh-TW">固定資產証書類型識別</value>
     </property>
     <property key="AccountingFixedAssetIdents">
         <value xml:lang="ar">أوامر الشراء</value>
@@ -6384,26 +6134,6 @@
         <value xml:lang="zh">如果为产品维修保养指定了维修保养模板，这会自动设置/复位</value>
         <value xml:lang="zh-TW">如果為產品維修保養指定了維修保養模板,這會自動設置/複位</value>
     </property>
-    <property key="AccountingFixedAssetMaintName">
-        <value xml:lang="ar">اسم الصيانة</value>
-        <value xml:lang="cs">Název údržby</value>
-        <value xml:lang="de">Wartungsname</value>
-        <value xml:lang="en">Maintenance Name</value>
-        <value xml:lang="es">Nombre de mantenimiento</value>
-        <value xml:lang="es-CL">Nombre del mantenimiento</value>
-        <value xml:lang="fr">Nom de la maintenance</value>
-        <value xml:lang="hi-IN">रखरखाव का नाम</value>
-        <value xml:lang="it">Nome Manutenzione</value>
-        <value xml:lang="ja">メンテナンス名称</value>
-        <value xml:lang="nl">Onderhoudsnaam</value>
-        <value xml:lang="pt">Nome de Manutenção</value>
-        <value xml:lang="ro">Nume Intretinere</value>
-        <value xml:lang="ru">Название обслуживания</value>
-        <value xml:lang="th">ชื่อการบำรุงรักษา</value>
-        <value xml:lang="vi">Tên bảo trì</value>
-        <value xml:lang="zh">维修保养名称</value>
-        <value xml:lang="zh-TW">維修保養名稱</value>
-    </property>
     <property key="AccountingFixedAssetMaintOrders">
         <value xml:lang="ar">قراءات المقياس</value>
         <value xml:lang="de">Bestellungen</value>
@@ -6506,20 +6236,6 @@
         <value xml:lang="vi">Bảo trì</value>
         <value xml:lang="zh">维修保养</value>
         <value xml:lang="zh-TW">維修保養</value>
-    </property>
-    <property key="AccountingFixedAssetManufacturerId">
-        <value xml:lang="ar">دليل صانع/مصنع الأصل الثابت</value>
-        <value xml:lang="de">Anlagen-Herstellernummer</value>
-        <value xml:lang="en">Fixed Asset Manufacturer ID</value>
-        <value xml:lang="es">ID del fabricante de activo fijo</value>
-        <value xml:lang="fr">Réf. du fabricant de l'actif immobilisé</value>
-        <value xml:lang="hi-IN">अचल संपत्ति निर्माता क्रमांक</value>
-        <value xml:lang="it">Produttore cespite</value>
-        <value xml:lang="ja">固定資産メーカID</value>
-        <value xml:lang="pt">ID de Fabricante de Ativo Fixo</value>
-        <value xml:lang="vi">Nhà sản xuất</value>
-        <value xml:lang="zh">固定资产制造商标识</value>
-        <value xml:lang="zh-TW">固定資產製造商識別</value>
     </property>
     <property key="AccountingFixedAssetMessage1">
         <value xml:lang="ar">*) فارغة, لكن الحد الأقصى من الأصل الثابت معرض</value>

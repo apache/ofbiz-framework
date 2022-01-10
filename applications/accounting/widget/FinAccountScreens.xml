@@ -298,9 +298,28 @@ under the License.
                                         <include-form name="PaymentsDepositWithdraw" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <platform-specific>
-                                            <html><html-template multi-block="true" location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
-                                        </platform-specific>
+                                        <section>
+                                            <condition>
+                                                <and>
+                                                    <or>
+                                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                                       <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                                    </or>
+                                                </and>
+                                            </condition>
+                                            <widgets>
+                                                <platform-specific>
+                                                    <html><html-template multi-block="true" location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
+                                                </platform-specific>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <screenlet>
+                                                    <platform-specific>
+                                                        <html><html-template multi-block="true" location="component://accounting/template/finaccount/Mutations.ftl"/></html>
+                                                    </platform-specific>
+                                                </screenlet>
+                                            </fail-widgets>
+                                        </section>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>

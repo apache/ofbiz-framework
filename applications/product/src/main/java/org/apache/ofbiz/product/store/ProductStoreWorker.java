@@ -55,6 +55,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 public final class ProductStoreWorker {
 
     private static final String MODULE = ProductStoreWorker.class.getName();
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private ProductStoreWorker() { }
 
@@ -453,8 +454,7 @@ public final class ProductStoreWorker {
             partyId, Map<String, Object> passThruFields) {
         List<GenericValue> randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
         if (UtilValidate.isNotEmpty(randomSurveys)) {
-            SecureRandom rand = new SecureRandom();
-            int index = rand.nextInt(randomSurveys.size());
+            int index = SECURE_RANDOM.nextInt(randomSurveys.size());
             GenericValue appl = randomSurveys.get(index);
             return new ProductStoreSurveyWrapper(appl, partyId, passThruFields);
         } else {

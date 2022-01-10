@@ -45,7 +45,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 public class HashCrypt {
 
     private static final String MODULE = HashCrypt.class.getName();
-    public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     private static final String PBKDF2_SHA1 = "PBKDF2-SHA1";
     private static final String PBKDF2_SHA256 = "PBKDF2-SHA256";
@@ -53,6 +52,10 @@ public class HashCrypt {
     private static final String PBKDF2_SHA512 = "PBKDF2-SHA512";
     private static final int PBKDF2_ITERATIONS = UtilProperties.getPropertyAsInteger("security.properties",
             "password.encrypt.pbkdf2.iterations", 10000);
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
+    public static final String CRYPT_CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
     public static MessageDigest getMessageDigest(String type) {
         try {
@@ -145,7 +148,7 @@ public class HashCrypt {
             hashType = "SHA";
         }
         if (salt == null) {
-            salt = RandomStringUtils.random(new SecureRandom().nextInt(15) + 1, CRYPT_CHAR_SET);
+            salt = RandomStringUtils.random(SECURE_RANDOM.nextInt(15) + 1, CRYPT_CHAR_SET);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");

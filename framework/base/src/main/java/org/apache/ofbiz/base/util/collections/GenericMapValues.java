@@ -43,6 +43,9 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
         if (!(o instanceof Collection<?>)) {
             return false;
         }

@@ -1188,7 +1188,7 @@ public class ProductSearchSession {
                 searchParamString.append("&amp;SEARCH_ANYPRESUF");
                 searchParamString.append(keywordsCount);
                 searchParamString.append("=");
-                searchParamString.append(kc.isAnyPrefix() | kc.isAnySuffix() ? "Y" : "N");
+                searchParamString.append(kc.isAnyPrefix() || kc.isAnySuffix() ? "Y" : "N");
             } else if (psc instanceof ProductSearch.ListPriceRangeConstraint) {
                 ProductSearch.ListPriceRangeConstraint lprc = (ProductSearch.ListPriceRangeConstraint) psc;
                 if (lprc.getLowPrice() != null || lprc.getHighPrice() != null) {

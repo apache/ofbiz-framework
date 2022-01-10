@@ -39,7 +39,6 @@ under the License.
             </widgets>
        </section>
     </screen>
-
     <screen name="EditProductStore">
        <section>
             <actions>
@@ -47,7 +46,6 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStore"/>
                 <set field="labelTitleProperty" value="ProductStore"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
@@ -164,10 +162,8 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreCatalogs"/>
                 <set field="labelTitleProperty" value="ProductCatalogs"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <entity-condition entity-name="ProductStoreCatalog" list="productStoreCatalogs">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="sequenceNum"/>
@@ -223,7 +219,6 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreShipSetup"/>
                 <set field="labelTitleProperty" value="ProductProductStoreShipmentSettings"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <entity-condition entity-name="ProductStoreShipmentMethView" list="storeShipMethods">
@@ -277,7 +272,6 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreShipmentCostEstimates"/>
                 <set field="labelTitleProperty" value="ProductProductStoreShipmentSettings"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <entity-condition entity-name="ShipmentCostEstimate" list="estimates">
@@ -321,13 +315,11 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStorePaySetup"/>
                 <set field="labelTitleProperty" value="ProductProductStorePaymentSettings"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
                 <set field="paymentServiceTypeEnumId" from-field="parameters.paymentServiceTypeEnumId"/>
                 <entity-one entity-name="ProductStorePaymentSetting" value-field="productStorePaymentSetting" auto-field-map="true"/>
-                
                 <script location="component://product/groovyScripts/catalog/store/EditProductStorePaySetup.groovy"/>
             </actions>
             <widgets>
@@ -358,10 +350,8 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreEmails"/>
                 <set field="labelTitleProperty" value="ProductProductStoreEmailSettings"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="emailType"/>
@@ -388,10 +378,8 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreSurveys"/>
                 <set field="labelTitleProperty" value="ProductStoreSurveySettings"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <script location="component://product/groovyScripts/catalog/store/EditProductStoreSurveys.groovy"/>
             </actions>
             <widgets>
@@ -412,10 +400,8 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreKeywordOvrd"/>
                 <set field="labelTitleProperty" value="ProductStoreKeywordOverrides"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <entity-condition entity-name="ProductStoreKeywordOvrd" list="productStorekeywordOvrdList">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
@@ -470,10 +456,8 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreFinAccountSettings"/>
                 <set field="labelTitleProperty" value="ProductStoreFinAccountSettings"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <entity-one entity-name="ProductStoreFinActSetting" value-field="finAccountSetting"/>
                 <entity-condition entity-name="ProductStoreFinActSetting" list="productStoreFinActSettings">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
@@ -493,7 +477,6 @@ under the License.
             </widgets>
        </section>
     </screen>
-
     <screen name="EditProductStoreVendorPayments">
         <section>
             <actions>
@@ -502,9 +485,7 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreVendorPayments"/>
                 <set field="labelTitleProperty" value="ProductStoreVendorPayments"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-
                 <entity-condition entity-name="ProductStoreVendorPayment" list="productStoreVendorPaymentList">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
@@ -523,7 +504,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditProductStoreVendorShipments">
         <section>
             <actions>
@@ -531,9 +511,7 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreVendorShipments"/>
                 <set field="labelTitleProperty" value="ProductStoreVendorShipments"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-
                 <entity-condition entity-name="ProductStoreVendorShipment" list="productStoreVendorShipmentList">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
@@ -552,8 +530,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!--   Assoc with product -->
     <screen name="ListProductStoreFacility">
         <section>
             <actions>
@@ -591,7 +567,6 @@ under the License.
            </fail-widgets>
         </section>
     </screen>
-
     <screen name="ListParentProductStoreGroup">
         <section>
             <actions>
@@ -609,7 +584,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditProductStoreGroup">
         <section>
             <actions>
@@ -628,31 +602,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <screen name="EditProductStoreGroupAndAssoc">
-        <section>
-            <actions>
-                <property-map map-name="uiLabelMap" resource="CommonUiLabels"/>
-                <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
-                <entity-one entity-name="ProductStoreGroup" value-field="productStoreGroup"/>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.ProductProductStoreGroup} ${productStoreGroup.productStoreGroupName} [${productStoreGroup.productStoreGroupId}]" name="editProductStoreGroup" collapsible="true" initially-collapsed="true">
-                    <include-form name="EditProductStoreGroup" location="component://product/widget/catalog/StoreForms.xml"/>
-                </screenlet>
-                <screenlet title="${uiLabelMap.ProductProductStoreGroupRollup}" id="editProductStoreGroupRollup" name="editProductStoreGroupRollup" collapsible="true" initially-collapsed="true">
-                    <include-grid name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
-                </screenlet>
-                <screenlet title="${uiLabelMap.ProductProductStoreMember}">
-                    <include-grid name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
-                </screenlet>
-                <screenlet title="${uiLabelMap.ProductAddToProductStoreGroup}">
-                    <include-form name="AddProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-    
     <screen name="EditProductStoreGroupAndAssoc">
        <section>
            <actions>
@@ -673,10 +622,10 @@ under the License.
                                    <include-form name="EditProductStoreGroup" location="component://product/widget/catalog/StoreForms.xml"/>
                                </screenlet>
                                <screenlet title="${uiLabelMap.ProductProductStoreGroupRollup}" id="editProductStoreGroupRollup" name="editProductStoreGroupRollup" collapsible="true" initially-collapsed="true">
-                                   <include-form name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                                   <include-grid name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
                                </screenlet>
                                <screenlet title="${uiLabelMap.ProductProductStoreMember}">
-                                   <include-form name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                                   <include-grid name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
                                </screenlet>
                                <screenlet title="${uiLabelMap.ProductAddToProductStoreGroup}">
                                    <include-form name="AddProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
@@ -689,10 +638,10 @@ under the License.
                             <include-form name="EditProductStoreGroup" location="component://product/widget/catalog/StoreForms.xml"/>
                            </screenlet>
                         <screenlet title="${uiLabelMap.ProductProductStoreGroupRollup}" id="editProductStoreGroupRollup" name="editProductStoreGroupRollup" collapsible="true" initially-collapsed="true">
-                            <include-form name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                            <include-grid name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductProductStoreMember}">
-                            <include-form name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                            <include-grid name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddToProductStoreGroup}">
                             <include-form name="AddProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
@@ -702,5 +651,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-
 </screens>

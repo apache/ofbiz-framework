@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -91,6 +90,8 @@ public class ValueLinkApi {
     private String terminalId = null;
     private Long mwkIndex = null;
     private boolean debug = false;
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     protected ValueLinkApi() { }
     protected ValueLinkApi(Delegator delegator, Properties props) {
@@ -158,8 +159,7 @@ public class ValueLinkApi {
      */
     public String encryptPin(String pin) {
         byte[] rawIv = new byte[8];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(rawIv);
+        SECURE_RANDOM.nextBytes(rawIv);
         IvParameterSpec iv = new IvParameterSpec(rawIv);
         // get the Cipher
         Cipher mwkCipher = null;
@@ -352,8 +352,7 @@ public class ValueLinkApi {
 
         // test the KEK
         byte[] rawIv = new byte[8];
-        SecureRandom secRandom = new SecureRandom();
-        secRandom.nextBytes(rawIv);
+        SECURE_RANDOM.nextBytes(rawIv);
         IvParameterSpec iv = new IvParameterSpec(rawIv);
 
         Cipher cipher = null;
@@ -600,12 +599,9 @@ public class ValueLinkApi {
 
         // 8 bytes random data
         byte[] random = new byte[8];
-        Random ran = new SecureRandom();
-        ran.nextBytes(random);
 
         byte[] rawIv = new byte[8];
-        SecureRandom secRandom = new SecureRandom();
-        secRandom.nextBytes(rawIv);
+        SECURE_RANDOM.nextBytes(rawIv);
         IvParameterSpec iv = new IvParameterSpec(rawIv);
 
         // open a cipher using the new mwk
@@ -821,8 +817,7 @@ public class ValueLinkApi {
     protected byte[] cryptoViaKek(byte[] content, int mode) throws GeneralException {
         // open a cipher using the kek for transport
         byte[] rawIv = new byte[8];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(rawIv);
+        SECURE_RANDOM.nextBytes(rawIv);
         IvParameterSpec iv = new IvParameterSpec(rawIv);
 
         // Create the Cipher - DESede/CBC/PKCS5Padding
@@ -880,9 +875,8 @@ public class ValueLinkApi {
      * @return the byte [ ]
      */
     protected byte[] getRandomBytes(int length) {
-        Random rand = new SecureRandom();
         byte[] randomBytes = new byte[length];
-        rand.nextBytes(randomBytes);
+        SECURE_RANDOM.nextBytes(randomBytes);
         return randomBytes;
     }
 

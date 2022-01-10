@@ -43,7 +43,7 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.WorkEffortJobList}">
                                     <include-form name="FilterUserJobs" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                    <include-form name="UserJobsList" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    <include-grid name="UserJobsList" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -758,7 +758,7 @@ under the License.
                                     <link text="${uiLabelMap.CommonCreate}" target="EditICalendar" style="buttontext"/>
                                     <link text="${uiLabelMap.CommonHelp}" target="ICalendarHelp" style="buttontext"/>
                                 </container>
-                                <include-form name="ListIcalendars" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <include-grid name="ListIcalendars" location="component://workeffort/widget/WorkEffortForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
