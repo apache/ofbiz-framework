@@ -99,7 +99,6 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-
     <form name="EditAgreement" type="single" target="updateAgreement" title="" default-map-name="agreement"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="agreement==null" target="createAgreement"/>
@@ -136,7 +135,33 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-
+    <form name="Agreement" type="single" default-map-name="agreement"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="updateAgreement" default-field-type="display" map-name="agreement"/>
+        <field name="agreementId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="agreementTypeId" title="${uiLabelMap.CommonType}" position="2"><display-entity entity-name="AgreementType"/></field>
+        <field name="agreementDate" title="${uiLabelMap.CommonDate}"><display type="date-time"/></field>
+        <field name="productId" title="${uiLabelMap.CommonProduct}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}">
+            <display-entity also-hidden="false" entity-name="PartyNameView" 
+                key-field-name="partyId" description="[${partyId}] ${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}" position="2">
+            <display-entity entity-name="PartyNameView" 
+                key-field-name="partyId" description="[${partyId}] ${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="[${roleTypeId}] ${description}"/>
+        </field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}" position="2">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="[${roleTypeId}] ${description}"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}" position="2"><display type="date-time"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+    </form>
     <grid name="ListAgreementItems" list-name="agreementItems" target=""  title="" paginate-target="ListAgreementItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="AgreementItem" default-field-type="display"/>
