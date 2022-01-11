@@ -185,18 +185,18 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateBillingAccountRole" default-field-type="edit"/>
         <field name="billingAccountId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+        <field name="partyId" title="${uiLabelMap.CommonParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
             <display-entity entity-name="RoleType"/>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteBillingAccountRole" also-hidden="false">
@@ -207,19 +207,43 @@ under the License.
             </hyperlink>
         </field>
     </grid>
+    <grid name="BillingAccountRoles" list-name="billingAccountRoleList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+        paginate-target="EditBillingAccountRoles" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="BillingAccountRole" list="billingAccountRoleList">
+                <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
+                <order-by field-name="roleTypeId"/>
+            </entity-condition>
+        </actions>
+        <field name="billingAccountId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                    <parameter param-name="partyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
+            <display-entity entity-name="RoleType"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+    </grid>
     <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" default-map-name="billingAccountRole"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createBillingAccountRole"/>
         <field name="billingAccountId"><hidden/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
             <drop-down allow-empty="false" no-current-selected-key="BILL_TO_CUSTOMER">
                 <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><date-time/></field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <grid name="ListBillingAccountTerms" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"

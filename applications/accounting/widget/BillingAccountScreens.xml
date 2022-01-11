@@ -169,17 +169,32 @@ under the License.
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="EditBillingAccountRoles"/>
                 <set field="helpAnchor" value="_help_for_billing_account_roles"/>
-
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="BllingAccountRolePanel" title="${uiLabelMap.PageTitleAddBillingAccountRoles}" collapsible="true">
-                            <include-form name="AddBillingAccountRole" location="component://accounting/widget/BillingAccountForms.xml"/>
-                        </screenlet>
-                        <include-grid name="ListBillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                    <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <screenlet id="BllingAccountRolePanel" title="${uiLabelMap.PageTitleAddBillingAccountRoles}" collapsible="true">
+                                    <include-form name="AddBillingAccountRole" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                </screenlet>
+                                <screenlet>
+                                    <include-grid name="ListBillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <include-grid name="BillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
