@@ -38,8 +38,11 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-
-    <!-- Product Category Content Forms  -->
+    <grid name="CategoryProducts" list-name="productCategoryMembers"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ProductCategoryMember" default-field-type="display"/>
+        <field name="productCategoryId"><hidden/></field>
+    </grid>
     <form name="AddCategoryContentAssoc" type="single" target="addContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductCategoryContent"/>
