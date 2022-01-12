@@ -480,8 +480,8 @@ under the License.
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}" ><display/></field>
         <field name="productStoreGroupId" title="${uiLabelMap.CommonGroup}"><display-entity entity-name="ProductStoreGroup" description="${productStoreGroupName}"/></field>
         <field name="price" title="${uiLabelMap.CommonPrice}" widget-area-style="align-right" title-area-style="align-right"><display type="accounting-number"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
         <field name="viewHistoryLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ProductHistory}" target="ProductPriceHistory" also-hidden="false">
                 <parameter param-name="productId"/>
