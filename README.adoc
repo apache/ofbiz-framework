@@ -21,8 +21,8 @@ under the License.
 The Apache OFBiz Project
 
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
-image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.com/apache/ofbiz-framework]
-image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
+image:https://img.shields.io/badge/Version-release22.01-blue.svg[link=https://github.com/apache/ofbiz-framework]
+image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=release22.01[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 
