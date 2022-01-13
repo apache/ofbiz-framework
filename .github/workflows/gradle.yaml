@@ -21,9 +21,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ release20.01 ]
+    branches: [ release22.01 ]
   pull_request:
-    branches: [ release20.01 ]
+    branches: [ release22.01 ]
 
 jobs:
   build:
