@@ -59,10 +59,27 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${groovy: parameters.prodCatalogId ? uiLabelMap.PageTitleEditProductCatalog : uiLabelMap.PageTitleNewProductCatalog}">
-                            <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
-                            <include-form name="EditProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${groovy: parameters.prodCatalogId ? uiLabelMap.PageTitleEditProductCatalog : uiLabelMap.PageTitleNewProductCatalog}">
+                                    <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
+                                    <include-form name="EditProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-form name="Catalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
