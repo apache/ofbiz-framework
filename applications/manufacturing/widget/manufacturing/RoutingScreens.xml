@@ -37,9 +37,6 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
-                                        <container style="button-bar">
-                                            <link target="EditRouting" text="${uiLabelMap.ManufacturingNewRouting}" style="buttontext create"/>
-                                        </container>
                                     </widgets>
                                 </section>
                                 <container>
