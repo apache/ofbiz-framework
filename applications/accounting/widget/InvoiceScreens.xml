@@ -710,12 +710,12 @@ under the License.
                                 <screenlet id="PartyInvoiceRolePanel" title="${uiLabelMap.AccountingPartyRoleAdd}" collapsible="true">
                                     <include-form name="EditInvoiceRole" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
-                                <screenlet>
+                                <screenlet title="${uiLabelMap.CommonRoles}">
                                     <include-grid name="ListInvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <screenlet>
+                                <screenlet title="${uiLabelMap.CommonRoles}">
                                     <include-grid name="InvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
@@ -765,10 +765,14 @@ under the License.
                                         </screenlet>
                                     </widgets>
                                 </section>
-                                <include-grid name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
+                                <screenlet title="${uiLabelMap.PartyTerms}">
+                                    <include-grid name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <include-grid name="InvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
+                                <screenlet title="${uiLabelMap.PartyTerms}">
+                                    <include-grid name="InvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>
