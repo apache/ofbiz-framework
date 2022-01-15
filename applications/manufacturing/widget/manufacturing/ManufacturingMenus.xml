@@ -116,7 +116,7 @@ under the License.
              </condition>
              <link target="CreateProductionRun"/>
          </menu-item>
-         <menu-item name="NewRouting" title="${uiLabelMap.CommonNew} ${uiLabelMap.ManufacturingRouting}">
+         <menu-item name="NewRouting" title="${uiLabelMap.ManufacturingNewRouting}">
              <condition>
                  <or>
                      <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
@@ -124,7 +124,7 @@ under the License.
              </condition>
              <link target="EditRouting"/>
          </menu-item>
-         <menu-item name="NewRoutingTask" title="${uiLabelMap.CommonNew} ${uiLabelMap.ManufacturingRoutingTask}">
+         <menu-item name="NewRoutingTask" title="${uiLabelMap.ManufacturingNewRoutingTask}">
              <condition>
                  <or>
                      <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
