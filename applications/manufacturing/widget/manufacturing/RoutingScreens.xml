@@ -37,9 +37,6 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
-                                        <container style="button-bar">
-                                            <link target="EditRouting" text="${uiLabelMap.ManufacturingNewRouting}" style="buttontext create"/>
-                                        </container>
                                     </widgets>
                                 </section>
                                 <container>
@@ -70,9 +67,6 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
-                                        <container style="button-bar">
-                                            <link target="EditRoutingTask" text="${uiLabelMap.ManufacturingNewRoutingTask}" style="buttontext create"/>
-                                        </container>
                                     </widgets>
                                 </section>
                                 <container>
@@ -86,7 +80,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="FindRouting">
         <section>
             <actions>
@@ -97,7 +90,6 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-
                 <set field="asm_multipleSelectForm" value="FindRoutings"/>
                 <set field="asm_formSize" value="700"/>
                 <set field="asm_multipleSelect" value="FindRoutings_currentStatusId"/>
@@ -112,11 +104,6 @@ under the License.
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditRouting" text="${uiLabelMap.ManufacturingNewRouting}" style="buttontext create"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindRoutings" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                                     </decorator-section>
@@ -138,7 +125,6 @@ under the License.
                 <set field="headerItem" value="routing"/>
                 <set field="tabButtonItem" value="editRouting"/>
                 <set field="helpAnchor" value="_create_edit_routing"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routing"/>
             </actions>
@@ -160,7 +146,6 @@ under the License.
                 <set field="tabButtonItem" value="routingTask"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="helpAnchor" value="_routing_task"/>
-
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROU_TASK"/>
                 <set field="requestParameters.currentStatusId" to-scope="screen" default-value="ROU_ACTIVE"/>
             </actions>
@@ -170,11 +155,6 @@ under the License.
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditRoutingTask" text="${uiLabelMap.ManufacturingNewRoutingTask}" style="buttontext create"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindRoutingTasks" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                                     </decorator-section>
@@ -196,7 +176,6 @@ under the License.
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="editRoutingTask"/>
                 <set field="helpAnchor" value="_create_edit_route_task"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
             </actions>
@@ -204,9 +183,6 @@ under the License.
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
                         <screenlet title="${groovy: workEffortId ? uiLabelMap.PageTitleEditRoutingTask : uiLabelMap.ManufacturingNewRoutingTask}">
-                            <container style="button-bar">
-                                <link target="EditRoutingTask" text="${uiLabelMap.ManufacturingNewRoutingTask}" style="buttontext create"/>
-                            </container>
                             <include-form name="EditRoutingTask" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -221,7 +197,6 @@ under the License.
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="editRoutingTaskCosts"/>
                 <set field="helpAnchor" value="_create_edit_route_task_cost"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortCostCalc" list="allCosts">
@@ -246,7 +221,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListRoutingTaskRoutings"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskRoutings"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortAssoc" list="allRoutings">
@@ -271,7 +245,6 @@ under the License.
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
                 <set field="helpAnchor" value="_routing_task_deliverable_products"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allProducts">
@@ -300,7 +273,6 @@ under the License.
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
                 <set field="helpAnchor" value="_create_edit_deliverable_products"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
@@ -326,7 +298,6 @@ under the License.
                 <set field="tabButtonItem" value="routingTaskAssoc"/>
                 <set field="headerItem" value="routing"/>
                 <set field="helpAnchor" value="_create_edit_route_associated_task"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
                 <entity-and entity-name="WorkEffortAssocView" list="allRoutingTasks">
@@ -360,7 +331,6 @@ under the License.
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="routing"/>
                 <set field="helpAnchor" value="_create_edit_routing_associated_product_link"/>
-
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <!--<entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>-->
