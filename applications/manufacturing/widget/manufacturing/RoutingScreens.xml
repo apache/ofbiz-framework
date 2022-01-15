@@ -36,12 +36,10 @@ under the License.
                                         <not><if-empty field="routing"/></not>
                                     </condition>
                                     <widgets>
+                                        <label style="h1">${uiLabelMap.CommonRouting}: ${routing.workEffortId}</label>
                                         <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                                     </widgets>
                                 </section>
-                                <container>
-                                    <label style="h1">[${uiLabelMap.CommonId} ${routing.workEffortId}] ${routing.workEffortName}</label>
-                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -66,12 +64,10 @@ under the License.
                                         <not><if-empty field="routingTask"/></not>
                                     </condition>
                                     <widgets>
+                                        <label style="h1">${uiLabelMap.WorkEffortTask}: ${routingTask.workEffortId}</label>
                                         <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                                     </widgets>
                                 </section>
-                                <container>
-                                    <label style="h1">[${uiLabelMap.CommonId} ${routingTask.workEffortId}] ${routingTask.workEffortName}</label>
-                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
