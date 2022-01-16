@@ -84,7 +84,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="NewOrder" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonOrder}">
+        <menu-item name="NewOrder" title="${uiLabelMap.OrderNewOrder}">
             <condition>
                 <or>
                     <if-has-permission permission="ORDERMGR" action="_CREATE"/>
@@ -93,7 +93,7 @@ under the License.
             </condition>
             <link target="orderentry" link-type="anchor"/>
         </menu-item>
-        <menu-item name="NewQuote" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonQuote}">
+        <menu-item name="NewQuote" title="${uiLabelMap.OrderNewQuote}">
            <condition>
                 <or>
                     <if-has-permission permission="ORDERMGR" action="_CREATE"/>
@@ -101,7 +101,7 @@ under the License.
             </condition>
             <link target="EditQuote"/>
         </menu-item>
-        <menu-item name="NewRequest" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonRequest}">
+        <menu-item name="NewRequest" title="${uiLabelMap.OrderNewRequest}">
             <condition>
                 <or>
                     <if-has-permission permission="ORDERMGR" action="_CREATE"/>
@@ -109,7 +109,7 @@ under the License.
             </condition>
             <link target="request"/>
         </menu-item>
-        <menu-item name="NewRequirement" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderRequirement}">
+        <menu-item name="NewRequirement" title="${uiLabelMap.OrderNewRequirement}">
             <condition>
                 <or>
                     <if-has-permission permission="ORDERMGR" action="_CREATE"/>

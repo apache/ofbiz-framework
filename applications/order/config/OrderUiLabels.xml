@@ -2094,6 +2094,7 @@
     </property>
     <property key="OrderAllocationPlan">
         <value xml:lang="en">Allocation Plan</value>
+        <value xml:lang="fr">Plan d'allocation</value>
         <value xml:lang="nl">Allocatieplan</value>
     </property>
     <property key="OrderAllocationPlanNotFound">

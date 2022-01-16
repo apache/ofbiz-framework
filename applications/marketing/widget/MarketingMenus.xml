@@ -27,7 +27,7 @@ under the License.
         <menu-item name="Reports" title="${uiLabelMap.MarketingReports}"><link target="MarketingReport"/></menu-item>
     </menu>
     <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="NewCampaign" title="${uiLabelMap.CommonNew} ${uiLabelMap.MarketingCampaign}">
+        <menu-item name="NewCampaign" title="${uiLabelMap.MarketingCampaignCreate}">
             <condition>
                 <or>
                     <if-has-permission permission="MARKETING" action="_CREATE"/>

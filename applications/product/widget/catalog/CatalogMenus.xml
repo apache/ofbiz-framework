@@ -35,7 +35,7 @@ under the License.
         <menu-item name="Imagemanagement" title="${uiLabelMap.ImageManagement}"><link target="Imagemanagement"/></menu-item>
     </menu>
     <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="newProduct" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonProduct}">
+        <menu-item name="newProduct" title="${uiLabelMap.ProductCreateNewProduct}">
             <condition>
                 <and>
                     <or>
@@ -65,7 +65,7 @@ under the License.
             </condition>
             <link target="EditProdCatalog"/>
         </menu-item>
-        <menu-item name="newCategory" title="${uiLabelMap.CommonNew} ${uiLabelMap.ProductCategory}">
+        <menu-item name="newCategory" title="${uiLabelMap.ProductCreateNewCategory}">
             <condition>
                 <and>
                     <or>
