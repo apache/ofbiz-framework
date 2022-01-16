@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <!-- Subscription Screens -->
     <screen name="FindSubscription">
         <section>
@@ -54,7 +53,7 @@ under the License.
                                         <include-form name="FindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                        <include-grid name="ListFindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -67,7 +66,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonSubscriptionDecorator">
         <section>
             <actions>
@@ -79,7 +77,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -117,7 +115,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditSubscription">
         <section>
             <actions>
@@ -143,7 +140,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditSubscriptionAttributes">
         <section>
             <actions>
@@ -161,13 +157,12 @@ under the License.
                         <screenlet id="addSubscriptionAttribute" title="${uiLabelMap.PageTitleAddSubscriptionAttributes}" collapsible="true">
                             <include-form name="AddSubscriptionAttribute" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                         </screenlet>
-                        <include-form name="EditSubscriptionAttributes" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <include-grid name="EditSubscriptionAttributes" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <!-- SubscriptionResource Screens -->
     <screen name="FindSubscriptionResource">
         <section>
@@ -187,7 +182,7 @@ under the License.
                                 <container style="button-bar">
                                     <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext create"/>
                                 </container>
-                                <include-form name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                <include-grid name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label>${uiLabelMap.ProductSubscriptionViewPermissionError}</label>
@@ -198,7 +193,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonSubscriptionResourceDecorator">
         <section>
             <actions>
@@ -210,7 +204,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -246,7 +240,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditSubscriptionResource">
         <section>
             <actions>
@@ -272,7 +265,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditSubscriptionResourceProducts">
         <section>
             <actions>
@@ -286,13 +278,12 @@ under the License.
                         <screenlet id="addSubscriptionResourceProduct" title="${uiLabelMap.PageTitleAddSubscriptionResourceProducts}" collapsible="true">
                             <include-form name="AddSubscriptionResourceProduct" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSubscriptionResourceProducts" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <include-grid name="ListSubscriptionResourceProducts" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="EditSubscriptionCommEvent">
         <section>
             <actions>
@@ -309,11 +300,10 @@ under the License.
                         <screenlet id="addSubscriptionCommEvent" title="${uiLabelMap.PageTitleAddSubscriptionCommEvent}" collapsible="true">
                             <include-form name="CreateSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <include-grid name="ListSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
 </screens>
