@@ -9436,14 +9436,6 @@
         <value xml:lang="zh-CN">处理中</value>
         <value xml:lang="zh-TW">處理中</value>
     </property>
-    <property key="CommonProduct">
-        <value xml:lang="en">Product</value>
-        <value xml:lang="es">Producto</value>
-        <value xml:lang="es-CL">Producto</value>
-        <value xml:lang="es-MX">Producto</value>
-        <value xml:lang="nl">Product</value>
-        <value xml:lang="zh">产品</value>
-    </property>
     <property key="CommonProductRating"><!--  Used to demark the section where ProductRating setting are made. -->
         <value xml:lang="de">Bewertung</value>
         <value xml:lang="en">Rating</value>

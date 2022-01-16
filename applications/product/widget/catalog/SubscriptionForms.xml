@@ -56,7 +56,7 @@ under the License.
             </drop-down>
         </field>
         <field name="orderId" title="${uiLabelMap.CommonOrder}"><lookup target-form-name="LookupOrderHeader"/></field>
-        <field name="productId" title="${uiLabelMap.CommonProduct}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProduct}"><lookup target-form-name="LookupProduct"/></field>
         <field name="productCategoryId" title="${uiLabelMap.CommonCategory}"><lookup target-form-name="LookupProductCategory"/></field>
         <field name="automaticExtend" title="Automatic Extend" ><!-- TODO: ${uiLabelMap.FormFieldTitle_automaticExtend} get overwritten with the description of the field from the entitymodel-->
             <drop-down allow-empty="true">
@@ -130,7 +130,7 @@ under the License.
                 <parameter param-name="orderId"/>
             </hyperlink>
         </field>
-        <field name="productId" title="${uiLabelMap.CommonProduct}">
+        <field name="productId" title="${uiLabelMap.ProductProduct}">
             <display-entity entity-name="Product" description="${productName}">
                 <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}" link-style="buttontext">
                     <parameter param-name="productId"/>
@@ -241,7 +241,7 @@ under the License.
             </sub-hyperlink>
             </lookup>
         </field>
-        <field name="productId" title="${uiLabelMap.CommonProduct}">
+        <field name="productId" title="${uiLabelMap.ProductProduct}">
             <lookup target-form-name="LookupProduct">
                 <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${subscription.productId}" link-style="buttontext">
                 <parameter param-name="productId" from-field="subscription.productId"/>
@@ -351,7 +351,7 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateProductSubscriptionResource"/>
         <field name="subscriptionResourceId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.CommonProduct}"><display/></field>
+        <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
         <field name="useTimeUomId">
             <drop-down>
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} (${abbreviation})">
@@ -394,7 +394,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductSubscriptionResource"/>
         <field name="subscriptionResourceId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.CommonProduct}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProduct}"><lookup target-form-name="LookupProduct"/></field>
         <field name="useTimeUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} (${abbreviation})">
@@ -476,7 +476,13 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createSubscriptionCommEvent"/>
         <field name="subscriptionId"><hidden value="${parameters.subscriptionId}"/></field>
-        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        <field name="communicationEventId">
+            <lookup target-form-name="LookupCommEvent">
+                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app" link-type="hidden-form" description="${subscription.communicationEventId}" link-style="buttontext">
+                <parameter param-name="communicationEventId" from-field="subscription.communicationEventId"/>
+            </sub-hyperlink>
+            </lookup>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
