@@ -35,7 +35,7 @@
         <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
     <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="NewEmployee" title="${uiLabelMap.CommonNew} ${uiLabelMap.Employee}">
+        <menu-item name="NewEmployee" title="${uiLabelMap.HumanResNewEmployee}">
             <condition>
                 <or>
                     <if-has-permission permission="HUMANRES" action="_CREATE"/>
@@ -43,7 +43,7 @@
             </condition>
             <link target="NewEmployee"/>
         </menu-item>
-        <menu-item name="NewPosition" title="${uiLabelMap.CommonNew} ${uiLabelMap.Position}">
+        <menu-item name="NewPosition" title="${uiLabelMap.HumanResNewEmplPosition}">
             <condition>
                 <or>
                     <if-has-permission permission="HUMANRES" action="_CREATE"/>
@@ -51,7 +51,7 @@
             </condition>
             <link target="EditEmplPosition"/>
         </menu-item>
-        <menu-item name="NewFulfilmennt" title="${uiLabelMap.CommonNew} ${uiLabelMap.Fulfilmnent}">
+        <menu-item name="NewFulfilmennt" title="${uiLabelMap.HumanResNewEmplPositionFulfillment}">
             <condition>
                 <or>
                     <if-has-permission permission="HUMANRES" action="_CREATE"/>
@@ -59,7 +59,7 @@
             </condition>
             <link target="EditEmplPositionFulfillments"/>
         </menu-item>
-        <menu-item name="NewPerformanceReview" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonReview}">
+        <menu-item name="NewPerformanceReview" title="${uiLabelMap.HumanResNewPartyReview}">
             <condition>
                 <or>
                     <if-has-permission permission="HUMANRES" action="_CREATE"/>
@@ -67,7 +67,7 @@
             </condition>
             <link target="EditPerfReview"/>
         </menu-item>
-        <menu-item name="NewLeave" title="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmplLeave}">
+        <menu-item name="NewLeave" title="${uiLabelMap.HumanResAddEmplLeave}">
             <condition>
                 <or>
                     <if-has-permission permission="HUMANRES" action="_CREATE"/>

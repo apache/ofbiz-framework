@@ -22296,7 +22296,7 @@
         <value xml:lang="de">Hauptbuch Transaktion</value>
         <value xml:lang="en">a Gl Transaction</value>
         <value xml:lang="es">uno Transaccione GL</value>
-        <value xml:lang="fr">une opération comptable</value>
+        <value xml:lang="fr">une transaction comptable</value>
         <value xml:lang="ja">GLトランザクション</value>
         <value xml:lang="pt">Transaçõe contábei</value>
     </property>

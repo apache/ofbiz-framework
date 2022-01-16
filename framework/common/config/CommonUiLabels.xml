@@ -5957,6 +5957,7 @@
         <value xml:lang="en">Invoice</value>
         <value xml:lang="es">Factura</value>
         <value xml:lang="es-MX">Factura</value>
+        <value xml:lang="fr">Facture</value>
         <value xml:lang="nl">Factuur</value>
     </property>
     <property key="CommonIsA">
