@@ -37,7 +37,28 @@
         <menu-item name="partyinv" title="${uiLabelMap.PartyInvitation}"><link target="partyInvitation"/></menu-item>
         <menu-item name="importexport" title="${uiLabelMap.CommonImportExport}"><link target="ImportExport"/></menu-item>
     </menu>
-
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="newPerson" title="${uiLabelMap.PartyCreateNewPerson}">
+             <condition>
+                 <or>
+                     <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                 </or>
+             </condition>
+             <link target="editperson">
+                <parameter param-name="create_new" value="Y"/>
+             </link>
+         </menu-item>
+         <menu-item name="newPartyGroup" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonGroup}">
+             <condition>
+                 <or>
+                     <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                 </or>
+             </condition>
+             <link target="editpartygroup">
+                <parameter param-name="create_new" value="Y"/>
+             </link>
+         </menu-item>
+    </menu>
     <menu name="PartyShortcutAppBar" title="${uiLabelMap.PartyManager}">
         <menu-item name="find" title="${uiLabelMap.PartyParties}"><link target="/partymgr/control/findparty" url-mode="inter-app"/></menu-item>
         <menu-item name="mycomm" title="${uiLabelMap.PartyMyCommunications}"><link target="/partymgr/control/MyCommunicationEvents" url-mode="inter-app"/></menu-item>

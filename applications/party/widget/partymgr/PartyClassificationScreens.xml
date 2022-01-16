@@ -60,6 +60,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://party/widget/partymgr/PartyMenus.xml"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
