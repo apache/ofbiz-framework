@@ -38,7 +38,7 @@
         <menu-item name="importexport" title="${uiLabelMap.CommonImportExport}"><link target="ImportExport"/></menu-item>
     </menu>
     <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="newPerson" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonPerson}">
+        <menu-item name="newPerson" title="${uiLabelMap.PartyCreateNewPerson}">
              <condition>
                  <or>
                      <if-has-permission permission="PARTYMGR" action="_CREATE"/>
