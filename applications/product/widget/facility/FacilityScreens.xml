@@ -714,7 +714,9 @@ under the License.
                         <screenlet id="add-facility-group-member" title="${uiLabelMap.ProductAddFacilityGroupMember}" collapsible="true">
                             <include-form name="AddGroupToFacility" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
-                        <include-grid name="EditFacilityGroups" location="component://product/widget/facility/FacilityForms.xml"/>
+                        <screenlet>
+                            <include-grid name="EditFacilityGroups" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -745,7 +747,9 @@ under the License.
                         <screenlet id="add-facility-party-role" title="${uiLabelMap.ProductAddFacilityPartyRole}" collapsible="true">
                             <include-form name="AddPartyToFacility" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
-                        <include-grid name="EditFacilityParties" location="component://product/widget/facility/FacilityForms.xml"/>
+                        <screenlet>
+                            <include-grid name="EditFacilityParties" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -915,7 +919,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="inventory-item-reservations" title="${uiLabelMap.ProductInventoryItemReservations}" initially-collapsed="true">
-                                    <include-form name="InventoryItemReservations" location="component://product/widget/facility/InventoryForms.xml"/>
+                                    <include-grid name="InventoryItemReservations" location="component://product/widget/facility/InventoryForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -929,7 +933,9 @@ under the License.
                             <widgets>
                                 <screenlet id="physical-inventory-variances" title="${uiLabelMap.ProductPhysicalInventoryVariances}" initially-collapsed="true">
                                     <include-form name="CreatePhysicalInventoryAndVariance" location="component://product/widget/facility/InventoryForms.xml"/>
-                                    <include-form name="ViewPhysicalInventoryAndVariance" location="component://product/widget/facility/InventoryForms.xml"/>
+                                </screenlet>
+                                <screenlet>
+                                    <include-grid name="ViewPhysicalInventoryAndVariance" location="component://product/widget/facility/InventoryForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -962,10 +968,10 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                         <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]">
-                            <include-form name="ListInventoryItemDetail" location="component://product/widget/facility/InventoryForms.xml"/>
+                            <include-grid name="ListInventoryItemDetail" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductShipmentReceiptsFor} [${inventoryItemId}]">
-                            <include-form name="ViewInventoryItemShipmentReceipts" location="component://product/widget/facility/InventoryForms.xml"/>
+                            <include-grid name="ViewInventoryItemShipmentReceipts" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -997,7 +1003,9 @@ under the License.
                         <screenlet id="AddInventoryItemLabelPanel" title="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]" collapsible="true">
                             <include-form name="AddInventoryItemLabelAppl" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateInventoryItemLabelAppls" location="component://product/widget/facility/InventoryForms.xml"/>
+                        <screenlet>
+                            <include-grid name="UpdateInventoryItemLabelAppls" location="component://product/widget/facility/InventoryForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1505,7 +1513,9 @@ under the License.
                         <screenlet id="add-facility-content" title="${uiLabelMap.ProductAddFacilityContent}" collapsible="true">
                             <include-form name="AddFacilityContent" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListFacilityContent" location="component://product/widget/facility/FacilityForms.xml"/>
+                        <screenlet>
+                            <include-grid name="ListFacilityContent" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
