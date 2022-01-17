@@ -91,7 +91,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
 
-    <form name="ListFindProductionRun" list-name="listIt" title="" type="list" paginate-target="FindProductionRun"
+    <grid name="ListFindProductionRun" list-name="listIt" paginate-target="FindProductionRun"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -123,8 +123,7 @@ under the License.
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
-    </form>
-
+    </grid>
      <form name="UpdateProductionRun" type="single" target="updateProductionRun" title="" default-map-name="productionRunData"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productionRunId"><hidden/></field>
@@ -151,7 +150,7 @@ under the License.
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
-    <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems"
+    <grid name="ListProductionRunOrderItems"  list-name="orderItems" target="EditProductionRun" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}/${orderItemSeqId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
@@ -168,8 +167,8 @@ under the License.
         <field name="estimatedShipDate"><display/></field>
         <field name="estimatedDeliveryDate"><display/></field>
         -->
-    </form>
-    <form name="ListProductionRunInventoryItems" type="list" title="" list-name="inventoryItems"
+    </grid>
+    <grid name="ListProductionRunInventoryItems" list-name="inventoryItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
@@ -189,9 +188,8 @@ under the License.
         <field name="unitCost" map-name="inventoryItem"><display/></field>
         <field name="quantity" entry-name="quantityOnHandDiff"><display/></field>
         <field name="datetimeReceived" map-name="inventoryItem"><display/></field>
-    </form>
-
-     <form name="ViewListProductionRunRoutingTasks" type="list" title="" list-name="productionRunRoutingTasks"
+    </grid>
+     <grid name="ViewListProductionRunRoutingTasks"  list-name="productionRunRoutingTasks"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
          <row-actions>
              <set field="estimatedTotalMilliSeconds" value="${groovy:estimatedMilliSeconds * quantity}"  type="BigDecimal"/>
@@ -205,8 +203,8 @@ under the License.
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
         <!--<field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>-->
         <field name="estimatedTotalMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedTotalMilliSeconds}" ><display/></field>
-    </form>
-    <form name="ListProductionRunRoutingTasks" type="list" target="ProductionRunTasks" title="" list-name="productionRunRoutingTasks"
+    </grid>
+    <grid name="ListProductionRunRoutingTasks" list-name="productionRunRoutingTasks" target="ProductionRunTasks"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="estimatedTotalMilliSeconds" value="${groovy:estimatedMilliSeconds * quantity}" type="BigDecimal"/>
@@ -238,9 +236,8 @@ under the License.
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
         </field>
-    </form>
-
-    <form name="ListProductionRunComponents" type="list" target="EditProductionRun" title="" list-name="productionRunComponents"
+    </grid>
+    <grid name="ListProductionRunComponents" list-name="productionRunComponents" target="EditProductionRun"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="Product" value-field="product" use-cache="true"/>
@@ -253,8 +250,7 @@ under the License.
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
         <field name="quantityUomId" map-name="product" title="${uiLabelMap.CommonUom}"><display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/></field>
-    </form>
-
+    </grid>
     <form name="EditProductionRunRoutingTask" type="single" target="updateProductionRunRoutingTask" title="" default-map-name="productionRunTask"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productionRunTask==null" target="addProductionRunRoutingTask"/>
@@ -367,8 +363,7 @@ under the License.
         <field name="_rowSubmit"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-
-    <form name="ListProductionRunDeclRoutingTasks" type="list" target="ProductionRunDeclaration" title="" list-name="productionRunRoutingTasks"
+    <grid name="ListProductionRunDeclRoutingTasks" list-name="productionRunRoutingTasks" target="ProductionRunDeclaration"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="actionForm"><hidden value="EditRoutingTask"/></field>
         <field name="productionRunId"><hidden value="${workEffortParentId}"/></field>
@@ -417,7 +412,7 @@ under the License.
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <form name="ListIssueProductionRunDeclComponents" type="multi" target="issueProductionRunTaskComponents?productionRunId=${productionRunId}" title="" list-name="productionRunComponentsDataReadyForIssuance"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -522,14 +517,14 @@ under the License.
         <field name="lotId" title="${uiLabelMap.ProductLotId}"><text /></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="ProductionRunTaskInventoryProducedList" type="list" title="" list-name="prunInventoryProduced"
+    <grid name="ProductionRunTaskInventoryProducedList" list-name="prunInventoryProduced"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}" widget-style="buttontext">
             <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="FindDelivProductContent" type="single" target="ProductionRunContent">
         <field name="productionRunId"><hidden/></field>
         <field name="productId" entry-name="delivProductId"><hidden/></field>
@@ -538,7 +533,7 @@ under the License.
         <field name="roleTypeId"><hidden value="CONTENT_USER"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductionRunContent" type="list" title="" list-name="productionRunContents">
+    <grid name="ListProductionRunContent" list-name="productionRunContents">
         <actions>
             <entity-and entity-name="WorkEffortContentAndInfo" list="productionRunContents">
                 <field-map field-name="workEffortId" from-field="productionRunId"/>
@@ -574,7 +569,7 @@ under the License.
                 <parameter param-name="productionRunId" from-field="productionRunId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="ListDelivProductContent" type="multi" use-row-submit="true" target="createProductionRunContents?productionRunId=${productionRunId}" title="" list-name="delivProductContentsForLocaleAndUser">
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId" entry-name="productionRunId"><hidden/></field>
@@ -630,7 +625,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="ListProductionRunTaskFixedAssets" type="list" title="" list-name="productionRunFixedAssetsData"
+    <grid name="ListProductionRunTaskFixedAssets" list-name="productionRunFixedAssetsData"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="display"/>
         <field name="workEffortId">
@@ -642,8 +637,8 @@ under the License.
         <field name="statusId">
             <display-entity entity-name="StatusItem"/>
         </field>
-    </form>
-    <form name="ListProductionRunNotes" type="list" title="" list-name="productionRunNoteData"
+    </grid>
+    <grid name="ListProductionRunNotes" list-name="productionRunNoteData"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="WorkEffortNoteAndData" default-field-type="display"/>
         <field name="workEffortId"><hidden/></field>
@@ -651,7 +646,7 @@ under the License.
         <field name="noteId"><hidden/></field>
         <field name="noteParty"><hidden/></field>
         <field name="noteDateTime"><hidden/></field>
-    </form>
+    </grid>
     <form name="EditProductionRunTaskFixedAsset" type="single" target="EditProductionRun" title="" default-map-name="fixedAssetData"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration"/>
@@ -725,12 +720,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
-
-    <!-- ******************* -->
-    <!-- Shipment Plan Forms -->
-    <!-- ******************* -->
-    <!-- List for Shipment Plan -->
-    <form name="ListShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
+    <grid name="ListShipmentPlan" list-name="shipmentPlan"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
@@ -739,17 +729,11 @@ under the License.
         </field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
-        <!-- quantity planned in this shipment -->
         <field name="quantity" title="${uiLabelMap.ProductQuantity}"><display/></field>
-        <!-- quantity issued in this shipment -->
         <field name="issuedQuantity"><display/></field>
-        <!-- total ordered quantity -->
         <field name="totOrderedQuantity"><display/></field>
-        <!-- total not available quantity -->
         <field name="notAvailableQuantity" title="${uiLabelMap.ProductNotAvailable}"><display/></field>
-        <!-- total planned quantity not issued -->
         <field name="totPlannedQuantity"><display/></field>
-        <!-- total issued quantity -->
         <field name="totIssuedQuantity"><display/></field>
         <field name="productionRunId" widget-style="buttontext">
             <hyperlink description="${productionRunId}" target="ShowProductionRun" also-hidden="false">
@@ -759,9 +743,8 @@ under the License.
         <field name="productionRunStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="productionRunEstimatedCompletionDate"><display/></field>
         <field name="productionRunQuantityProduced"><display/></field>
-    </form>
-
-    <form name="ListShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
+    </grid>
+    <grid name="ListShipmentPlans" list-name="shipmentPlans"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="shipmentId" widget-style="buttontext" sort-field="true">
             <hyperlink description="${shipmentId}" target="/facility/control/ViewShipment" target-type="inter-app">
@@ -777,7 +760,7 @@ under the License.
                 <parameter param-name="shipmentId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="SelectMrpName" type="single" target="ManufacturingReports" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="mrpName" title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
@@ -805,7 +788,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <form name="MandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
+    <grid name="MandatoryWorkEfforts" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title=" " widget-style="buttontext">
             <hyperlink description="${workEffortIdFrom}" target="ShowProductionRun" also-hidden="false" link-type="anchor">
@@ -842,8 +825,8 @@ under the License.
                 <parameter param-name="productionRunId"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="DependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
+    </grid>
+    <grid name="DependentWorkEfforts"  list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdTo" title=" " widget-style="buttontext">
             <hyperlink description="${workEffortIdTo}" target="ShowProductionRun" also-hidden="false" link-type="anchor">
@@ -880,8 +863,8 @@ under the License.
                 <parameter param-name="productionRunId"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="ProductionRunTaskCosts" type="list" target="" title="" list-name="taskCosts"
+    </grid>
+    <grid name="ProductionRunTaskCosts" list-name="taskCosts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CostComponent" default-field-type="display"/>
         <field name="workEffortId"><hidden/></field>
@@ -895,7 +878,7 @@ under the License.
         <field name="costComponentCalcId">
             <display-entity entity-name="CostComponentCalc"/>
         </field>
-    </form>
+    </grid>
     <form name="AddProductionRunComponent" type="single" target="addProductionRunComponent" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addProductionRunComponent"/>
@@ -913,16 +896,14 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ProductionRunPartyAssocs" type="list" title="" list-name="productionRunParties"
+    <grid name="ProductionRunPartyAssocs" list-name="productionRunParties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        
         <field name="workEffortId"><hidden/></field>
         <field name="productionRunId"><hidden/></field>
-        
         <field name="partyId">
-            <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false">
-                
+            <display-entity entity-name="PartyNameView" 
+                description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" 
+                also-hidden="true" cache="false">
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
@@ -930,16 +911,17 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
-    </form>
-    <form name="ProductionRunTaskPartyAssocs" type="list" title="" list-name="productionRunTaskParties"
+    </grid>
+    <grid name="ProductionRunTaskPartyAssocs" list-name="productionRunTaskParties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskName}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} - [${workEffortId}]"/>
         </field>
         <field name="partyId">
-            <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false">
-                
+            <display-entity entity-name="PartyNameView" 
+                description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" 
+                also-hidden="true" cache="false">
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
@@ -950,9 +932,7 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
-        
-    </form>
-    
+    </grid>
     <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
