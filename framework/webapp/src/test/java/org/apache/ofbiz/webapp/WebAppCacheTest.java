@@ -93,17 +93,21 @@ public class WebAppCacheTest {
     }
 
     // Checks that when the same position is provided by the `WebappInfo` instance
-    // only one is retrieved
+    // both are received, but the later one is shifted to the end (position 999)
     @Test
     public void getAppBarWebInfosSamePosition() {
         WebappInfo wInfo0 = new WebappInfo.Builder().server("foo").title("foo").position("1").create();
         wInfos.add(wInfo0);
-        WebappInfo wInfo1 = new WebappInfo.Builder().server("foo").title("foo").position("1").create();
+        WebappInfo wInfo1 = new WebappInfo.Builder().server("foo").title("bar").position("14").create();
         wInfos.add(wInfo1);
+        WebappInfo wInfo2 = new WebappInfo.Builder().server("foo").title("fo").position("1").create();
+        wInfos.add(wInfo2);
 
         // Ensure that there is a collision between `wInfo0` and `wInfo1`
         // and only one of them are retrieved.
-        assertThat(wac.getAppBarWebInfos("foo").size(), is(1));
+        assertThat(wac.getAppBarWebInfos("foo").get(0), is(wInfo0));
+        assertThat(wac.getAppBarWebInfos("foo").get(1), is(wInfo1));
+        assertThat(wac.getAppBarWebInfos("foo").get(2), is(wInfo2));
     }
 
     // Checks that when the same title with no position is provided by the `WebappInfo` instance
