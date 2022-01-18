@@ -223,7 +223,7 @@ function bindObservers(bind_element) {
     });
     jQuery(bind_element).find("[data-lookup-presentation]").each(function(){
         var element = jQuery(this);
-        var form = element.form();
+        var form = element._form();
         var formName = form.attr("name");
         if (!formName) {
             console.log("Developer: For lookups to work you must provide a form name!");
@@ -651,7 +651,7 @@ function updateArea(areaId, data) {
 */
 function ajaxUpdateAreas(areaCsvString) {
     /*split all parameters separate by comma, the regExp manage areaId,target,param1=a&param2={b,c,d}&param3=e as three parameters*/
-    var regExpArea = /,(?=(?:[^{}]*{[^{}]*})*[^{}]*$)/g; 
+    var regExpArea = /,(?=(?:[^{}]*{[^{}]*})*[^{}]*$)/g;
     var areaArray = areaCsvString.split(regExpArea);
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
@@ -1515,7 +1515,7 @@ function loadJWT() {
 
 function sendJWT(targetUrl) {
     var redirectUrl = targetUrl;
-    var jwtToken = loadJWT(); 
+    var jwtToken = loadJWT();
     if (jwtToken != null && jwtToken != "") {
         jQuery.ajax({
             url: targetUrl,
