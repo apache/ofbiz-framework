@@ -61,7 +61,7 @@ under the License.
                            <link target="EntitySyncStatus" style="buttontext refresh" text="${uiLabelMap.CommonRefresh}"/>
                         </container>
                         <screenlet>
-                            <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
+                            <include-grid name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.WebtoolsLoadOfflineData}">
                             <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>

@@ -64,7 +64,7 @@ under the License.
                                         <include-form name="FindJobs" location="component://webtools/widget/ServiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListJobs" location="component://webtools/widget/ServiceForms.xml"/>
+                                        <include-grid name="ListJobs" location="component://webtools/widget/ServiceForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -88,7 +88,7 @@ under the License.
                             <include-form name="JobDetails" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.WebtoolsRunTimeDataInfo}">
-                            <include-form name="JobRuntimeDataInfo" location="component://webtools/widget/ServiceForms.xml"/>
+                            <include-grid name="JobRuntimeDataInfo" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -108,7 +108,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WebtoolsServiceEngineThreads}">
                             <include-form name="PoolState" location="component://webtools/widget/ServiceForms.xml"/>
-                            <include-form name="ListJavaThread" location="component://webtools/widget/ServiceForms.xml"/>
+                            <include-grid name="ListJavaThread" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.WebtoolsGeneralJavaThreads}">
                             <platform-specific>
