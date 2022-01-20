@@ -381,24 +381,12 @@ under the License.
     </menu>
 
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}">
+        <menu-item name="ViewRequest" title="${uiLabelMap.CommonOverview}">
             <link target="ViewRequest">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="editRequest" title="${uiLabelMap.OrderRequest}">
-            <condition>
-                <and>
-                    <not><if-empty field="custRequest"/></not>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
-                </and>
-            </condition>
-            <link target="request">
-                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
-            </link>
-        </menu-item>
-        <menu-item name="requestroles" title="${uiLabelMap.OrderRequestRoles}">
+        <menu-item name="requestroles" title="${uiLabelMap.CommonRoles}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -410,7 +398,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="requestitems" title="${uiLabelMap.OrderRequestItems}">
+        <menu-item name="requestitems" title="${uiLabelMap.CommonItems}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -422,7 +410,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="custRequestContent" title="${uiLabelMap.OrderRequestContent}">
+        <menu-item name="custRequestContent" title="${uiLabelMap.CommonContent}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -435,9 +423,23 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
+        <menu-item name="editRequest" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="request">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
         <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <condition>
                 <and>
