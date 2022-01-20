@@ -321,17 +321,32 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCategoryProducts"/>
                 <set field="tabButtonItem" value="EditCategoryProducts"/>
                 <set field="labelTitleProperty" value="ProductProducts"/>
-
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-
                 <script location="component://product/groovyScripts/catalog/category/EditCategoryProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/template/category/EditCategoryProducts.ftl"/></html>
-                        </platform-specific>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/template/category/EditCategoryProducts.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-grid name="CategoryProducts" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                            </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
