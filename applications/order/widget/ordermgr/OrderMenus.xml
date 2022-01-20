@@ -360,7 +360,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="NewItem" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonItem}">
+        <menu-item name="NewItem" title="${uiLabelMap.OrderCreateOrderQuoteItem}">
             <condition>
                 <and>
                     <or>
@@ -374,7 +374,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="NewAttribute" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonAttribute}">
+        <menu-item name="NewAttribute" title="${uiLabelMap.OrderNewQuoteAttribute}">
             <condition>
                 <and>
                     <or>
@@ -402,21 +402,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="NewNote" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonNote}">
-            <condition>
-                <and>
-                    <or>
-                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
-                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
-                    </or>
-                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
-                </and>
-            </condition>
-            <link target="EditQuoteRole">
-                <parameter param-name="quoteId" from-field="quote.quoteId"/>
-            </link>
-        </menu-item>
-        <menu-item name="NewNote" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonNote}">
+        <menu-item name="NewNote" title="${uiLabelMap.OrderAddNote}">
             <condition>
                 <and>
                     <or>
@@ -444,7 +430,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="NewTerm" title="${uiLabelMap.CommonNew} ${uiLabelMap.PartyTerm}">
+        <menu-item name="NewTerm" title="${uiLabelMap.OrderCreateOrderQuoteTerm}">
             <condition>
                 <and>
                     <or>
@@ -458,7 +444,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="NewWorkEffort" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonWorkEffort}">
+        <menu-item name="NewWorkEffort" title="${uiLabelMap.WorkEffortCreate}">
             <condition>
                 <and>
                     <or>
@@ -472,7 +458,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="quoteReport" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonReport}">
+        <menu-item name="quoteReport" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderOrderQuoteReport}">
             <link target="QuoteReport" target-window="_BLANK">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
