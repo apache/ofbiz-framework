@@ -167,7 +167,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductPrices"/>
                 <set field="tabButtonItem" value="EditProductPrices"/>
                 <set field="labelTitleProperty" value="ProductPrices"/>
-
                 <entity-and entity-name="ProductPrice" list="productPrices">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                     <order-by field-name="productStoreGroupId"/>
@@ -176,19 +175,35 @@ under the License.
                     <order-by field-name="currencyUomId"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
-
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductPrices}">
-                            <include-grid name="UpdateProductPrice" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleAddProductPrices}">
-                            <label style="h3" text="${uiLabelMap.ProductPricesWarning}"/>
-                            <include-form name="AddProductPrice" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditProductPrices}">
+                                    <include-grid name="UpdateProductPrice" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleAddProductPrices}">
+                                    <label style="h3" text="${uiLabelMap.ProductPricesWarning}"/>
+                                    <include-form name="AddProductPrice" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="ProductPrices">
+                                    <include-grid name="ProductPrices" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -470,6 +470,26 @@ under the License.
             </hyperlink>
         </field>
     </grid>
+    
+    <grid name="ProductPrices" list-name="productPrices" paginate-target="EditProductPrices" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ProductPrice" default-field-type="display"/>
+        <field name="productId"><hidden/></field>
+        <field name="productPriceTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ProductPriceType"/></field>
+        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ProductPricePurpose"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}" ><display/></field>
+        <field name="productStoreGroupId" title="${uiLabelMap.CommonGroup}"><display-entity entity-name="ProductStoreGroup" description="${productStoreGroupName}"/></field>
+        <field name="price" title="${uiLabelMap.CommonPrice}" widget-area-style="align-right" title-area-style="align-right"><display type="accounting-number"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+        <field name="viewHistoryLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.ProductHistory}" target="ProductPriceHistory" also-hidden="false">
+                <parameter param-name="productId"/>
+                <parameter param-name="productPriceTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </grid>
     <form name="AddProductPaymentMethodType" type="single" target="createProductPaymentMethodType" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductPaymentMethodType"/>
