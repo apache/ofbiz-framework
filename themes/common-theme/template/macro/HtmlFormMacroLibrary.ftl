@@ -94,7 +94,7 @@ under the License.
   <span class="view-calendar">
     <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
     <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
-    <#local timePicker = "/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js,/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css">
+    <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
     <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
     <#if dateType!="time" >
       <input type="text" <#if tabindex?has_content> tabindex="${tabindex}"</#if> name="${name}_i18n" <@renderClass className alert /><#rt/>
@@ -432,7 +432,7 @@ under the License.
   <#local shortDateInput = "date" == dateType/>
   <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
   <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
-  <#local timePicker = "/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js,/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css"/>
+  <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
   <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
   <span class="view-calendar">
     <input id="${id}_fld0_value" type="text" <@renderClass className alert />
