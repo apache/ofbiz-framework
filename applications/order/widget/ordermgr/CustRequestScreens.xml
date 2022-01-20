@@ -238,10 +238,29 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
-                            <include-form name="EditRequestRole" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
+                                    <include-form name="EditRequestRole" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </screenlet>
+                                <screenlet id="RequestRoles">
+                                    <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="RequestRoles">
+                                    <include-form name="ViewRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
