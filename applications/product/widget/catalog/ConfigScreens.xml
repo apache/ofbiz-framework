@@ -94,16 +94,32 @@ under the License.
                 <set field="headerItem" value="configs"/>
                 <set field="tabButtonItem" value="EditProductConfigItem"/>
                 <set field="labelTitleProperty" value="ProductConfigItem"/>
-
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${groovy: configItemId ? uiLabelMap.PageTitleEditConfigItem : uiLabelMap.PageTitleNewConfigItem}">
-                            <include-form name="EditProductConfigItem" location="component://product/widget/catalog/ConfigForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${groovy: configItemId ? uiLabelMap.PageTitleEditConfigItem : uiLabelMap.PageTitleNewConfigItem}">
+                                    <include-form name="EditProductConfigItem" location="component://product/widget/catalog/ConfigForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="ConfigItem">
+                                    <include-form name="ProductConfigItem" location="component://product/widget/catalog/ConfigForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
