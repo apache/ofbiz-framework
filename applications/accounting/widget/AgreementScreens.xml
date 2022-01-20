@@ -131,17 +131,33 @@ under the License.
                 <set field="helpAnchor" value="_help_for_edit_agreement"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement"/>
-
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditAgreement}">
-                            <include-form name="EditAgreement" location="component://accounting/widget/AgreementForms.xml"/>
-                        </screenlet>
-                        <platform-specific>
-                            <html><html-template location="component://accounting/template/agreement/CopyAgreement.ftl"/></html>
-                        </platform-specific>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditAgreement}">
+                                    <include-form name="EditAgreement" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                                <platform-specific>
+                                    <html><html-template location="component://accounting/template/agreement/CopyAgreement.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="agreement">
+                                    <include-form name="Agreement" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
