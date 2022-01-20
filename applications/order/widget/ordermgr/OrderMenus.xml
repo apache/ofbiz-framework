@@ -311,14 +311,6 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.CommonWorkEfforts}">
-            <condition>
-                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
-            </condition>
-            <link target="ListQuoteWorkEfforts">
-                <parameter param-name="quoteId" from-field="quote.quoteId"/>
-            </link>
-        </menu-item>
         <menu-item name="ListQuoteNotes" title="${uiLabelMap.CommonNotes}">
             <condition>
                 <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
@@ -343,19 +335,130 @@ under the License.
                 <parameter param-name="quoteId" from-field="parameters.quoteId"/>
             </link>
         </menu-item>
+        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.CommonWorkEfforts}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
+            <link target="ListQuoteWorkEfforts">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
     </menu>
-
     <menu name="QuoteSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
         <menu-item name="EditQuote" title="${uiLabelMap.CommonEdit}">
             <condition>
-                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
             </condition>
             <link target="EditQuote">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="quoteReport" title="${uiLabelMap.CommonPdf}">
+        <menu-item name="NewItem" title="${uiLabelMap.OrderCreateOrderQuoteItem}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteItem">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewAttribute" title="${uiLabelMap.OrderNewQuoteAttribute}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteAttribute">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewCoefficient" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderOrderQuoteCoefficients}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteCoefficient">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewNote" title="${uiLabelMap.OrderAddNote}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteRole">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewRole" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonRole}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteRole">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewTerm" title="${uiLabelMap.OrderCreateOrderQuoteTerm}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteRole">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewWorkEffort" title="${uiLabelMap.WorkEffortCreate}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteRole">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="quoteReport" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderOrderQuoteReport}">
             <link target="QuoteReport" target-window="_BLANK">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
@@ -379,7 +482,6 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewRequest" title="${uiLabelMap.CommonOverview}">
             <link target="ViewRequest">
