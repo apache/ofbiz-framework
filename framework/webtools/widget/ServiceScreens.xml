@@ -250,7 +250,7 @@ under the License.
                         <screenlet padded="false">
                             <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
                             <container id="search-results">
-                                <include-form name="ListJobManagerLock" location="component://webtools/widget/ServiceForms.xml"/>
+                                <include-grid name="ListJobManagerLock" location="component://webtools/widget/ServiceForms.xml"/>
                             </container>
                         </screenlet>
                     </decorator-section>
