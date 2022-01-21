@@ -286,10 +286,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                            <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
-                                <parameter param-name="custRequestId"/>
-                            </link>
+                        <screenlet title="${uiLabelMap.CommonItems}">
                             <include-form name="ListRequestItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -315,11 +312,6 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}">
-                            <container>
-                                <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
-                                    <parameter param-name="custRequestId"/>
-                                </link>
-                            </container>
                             <include-form name="EditCustRequestItem" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             <platform-specific>
                                 <html><html-template location="component://order/template/request/CopyRequestItem.ftl"/></html>
