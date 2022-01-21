@@ -3237,6 +3237,11 @@
         <value xml:lang="zh">技能类型编号</value>
         <value xml:lang="zh-TW">技能類型識別</value>
     </property>
+    <property key="HumanResSkill">
+        <value xml:lang="de">Fähigkeit</value>
+        <value xml:lang="en">Skill</value>
+        <value xml:lang="nl">Vaardigheid</value>
+    </property>
     <property key="HumanResSkills">
         <value xml:lang="de">Fähigkeiten</value>
         <value xml:lang="en">Skills</value>
@@ -3244,6 +3249,7 @@
         <value xml:lang="fr">Compétences</value>
         <value xml:lang="it">Abilità</value>
         <value xml:lang="ja">スキル</value>
+        <value xml:lang="nl">Vaardigheden</value>
         <value xml:lang="pt-BR">Habilidades</value>
         <value xml:lang="vi">Kỹ năng</value>
         <value xml:lang="zh">技能管理</value>
