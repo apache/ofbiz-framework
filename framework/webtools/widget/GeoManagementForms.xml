@@ -66,7 +66,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="ListGeoPoints" paginate-target="${currentUrl}" type="list" separate-columns="true" default-entity-name="GeoPoint" list-name="listIt" paginate="true"
+    <grid name="ListGeoPoints" list-name="listIt" paginate-target="${currentUrl}" separate-columns="true" default-entity-name="GeoPoint" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -90,8 +90,7 @@
             <display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/>
         </field>
         <field name="information"><display/></field>
-    </form>
-    
+    </grid>
     <form name="EditGeo" type="single" target="updateGeo" title="" default-map-name="geo"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="geo==null" target="createGeo"/>
