@@ -80,7 +80,7 @@
         <field name="skillLevel"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmployeeSkills" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmployeeSkill" paginate-target="findPartySkills"
+    <grid name="ListEmployeeSkills" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmployeeSkill" paginate-target="findPartySkills"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartySkill">
@@ -89,7 +89,7 @@
             </entity-condition>
         </actions>
         <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>
-        <field name="skillTypeId">
+        <field name="skillTypeId" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="SkillType"/>
         </field>
         <field name="yearsExperience"><text/></field>
@@ -102,7 +102,7 @@
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="AddEmployeeQualification" type="single" target="createEmployeeQualification">
         <auto-fields-service service-name="createPartyQual"/>
         <field name="partyId"><hidden/></field>
@@ -131,7 +131,7 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmployeeQualification" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmployeeQualification" paginate-target="FindPartyQuals"
+    <grid name="ListEmployeeQualification" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmployeeQualification" paginate-target="FindPartyQuals"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyQual">
@@ -141,11 +141,11 @@
         </actions>
         <auto-fields-service service-name="updatePartyQual"/>
         <field name="partyId"><hidden/></field>
-        <field name="partyQualTypeId"><display-entity entity-name="PartyQualType"/></field>
-        <field name="fromDate"><display/></field>
-        <field name="qualificationDesc"><text/></field>
+        <field name="partyQualTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PartyQualType"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
+        <field name="qualificationDesc" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="title"><text/></field>
-        <field name="statusId">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
@@ -170,7 +170,7 @@
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
-    </form>
+    </grid>
     <form name="AddEmployeeTraining" type="single" target="createEmployeeTraining">
         <field name="partyId"><hidden/></field>
         <field name="trainingClassTypeId" required-field="true">
@@ -203,7 +203,7 @@
         <field name="approverPartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmplLeaves" type="list" list-name="listIt" separate-columns="true" target="updateEmplLeave" paginate-target="FindEmplLeaves"
+    <grid name="ListEmplLeaves" list-name="listIt" separate-columns="true" target="updateEmplLeave" paginate-target="FindEmplLeaves"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="EmplLeave">
@@ -216,10 +216,10 @@
         <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="emplLeaveReasonTypeId"><display/></field>
-        <field name="leaveTypeId"><display-entity entity-name="EmplLeaveType"/></field>
-        <field name="fromDate"></field>
+        <field name="leaveTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="EmplLeaveType"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonGrom}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="CurrentEmploymentData" default-map-name="employmentData" type="single">
         <field name="company" entry-name="employment.partyIdFrom">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ">
@@ -237,12 +237,12 @@
             <display type="currency" currency="${employmentData.emplPositionRateAmount.rateCurrencyUomId}"/>
         </field>
     </form>
-    <form name="PayrollHistoryList" type="list" list-name="payroll" extends="ListInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml" paginate-target="PayrollHistory">
+    <grid name="PayrollHistoryList" list-name="payroll" extends="ListInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml" paginate-target="PayrollHistory">
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
             <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" target-type="inter-app">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 </forms>
 
