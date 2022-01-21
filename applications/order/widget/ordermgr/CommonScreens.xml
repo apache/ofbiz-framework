@@ -33,7 +33,6 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.OrderCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OrderCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
@@ -54,7 +53,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonRequestDecorator">
         <section>
             <actions>
@@ -69,29 +67,19 @@ under the License.
                                 <not><if-empty field="custRequest"/></not>
                             </condition>
                             <widgets>
+                                <label style="h1">${uiLabelMap.CommonRequest}: ${custRequestId}</label>
                                 <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                                <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
-                        <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                        <container>
-                            <section>
-                                <condition>
-                                    <not><if-empty field="custRequest"/></not>
-                                </condition>
-                                <widgets>
-                                    <label style="h1">${custRequest.custRequestName} [${uiLabelMap.CommonId}:${custRequest.custRequestId}] </label>
-                                </widgets>
-                            </section>
-                        </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonPartyDecorator">
         <section>
             <widgets>
@@ -103,7 +91,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonPopUpDecorator">
         <section>
             <actions>
@@ -116,7 +103,6 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.OrderCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OrderCompanySubtitle" global="true"/>
             </actions>
@@ -129,7 +115,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ShortcutApp">
         <section>
             <actions>
