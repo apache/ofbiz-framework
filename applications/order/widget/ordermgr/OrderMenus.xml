@@ -542,6 +542,21 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
+        <menu-item name="NewRequestItem" title="${uiLabelMap.ProductNewItem}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    </or>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="requestitem">
+                <parameter param-name="custRequestId"/>
+            </link>
+        </menu-item>
         <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <condition>
                 <and>
