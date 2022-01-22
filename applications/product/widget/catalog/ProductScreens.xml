@@ -1247,7 +1247,6 @@ under the License.
                 <set field="headerItem" value="product"/>
                 <set field="tabButtonItem" value="EditProductParties"/>
                 <set field="labelTitleProperty" value="PartyParties"/>
-
                 <entity-condition entity-name="ProductRole" list="productRoles">
                     <condition-expr field-name="productId" from-field="parameters.productId"/>
                     <order-by field-name="roleTypeId"/>
@@ -1257,13 +1256,29 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductParties}">
-                            <include-grid name="UpdateProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
-                        
-                        <screenlet title="${uiLabelMap.ProductAssociatePartyToProduct}">
-                            <include-form name="AddProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ProductAssociatePartyToProduct}">
+                                    <include-form name="AddProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="UpdateProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="ProductRoles" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
