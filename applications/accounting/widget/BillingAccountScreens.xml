@@ -194,7 +194,6 @@ under the License.
                                 <include-grid name="BillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
                             </fail-widgets>
                         </section>
-                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -210,28 +209,31 @@ under the License.
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
+                <entity-condition entity-name="BillingAccountTerm" list="billingAccountTermsList">
+                    <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditBillingAccountTerms} - ${uiLabelMap.AccountingAccountId} ${billingAccount.billingAccountId}">
-                            <include-grid name="ListBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
-                        </screenlet>
                         <section>
                             <condition>
-                                <not><if-empty field="parameters.billingAccountTermId"/></not>
+                                <or>
+                                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                    <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                </or>
                             </condition>
-                            <actions>
-                                <entity-one entity-name="BillingAccountTerm" value-field="billingAccountTerm"/>
-                            </actions>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleEditBillingAccountTerms}">
+                                <screenlet title="${uiLabelMap.AccountingCreateBillingAccountTerm}">
                                     <include-form name="EditBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                </screenlet>
+                                <screenlet>
+                                    <include-grid name="ListBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <screenlet title="${uiLabelMap.AccountingCreateBillingAccountTerm}">
-                                    <include-form name="EditBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                <screenlet title="${uiLabelMap.PartyTerms}">
+                                    <include-grid name="BillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
