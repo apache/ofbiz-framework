@@ -73,10 +73,16 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindTaxAuthority"/>
                 <set field="tabButtonItem" value="FindTaxAuthority"/>
                 <set field="entityName" value="TaxAuthority"/>
+                <set field="orderBy" from-field="parameters.orderBy" default-value="taxAuthGeoId"/>
                 <set field="helpAnchor" value="_help_for_find_tax_authorities"/>
+                <entity-condition entity-name="TaxAuthority" list="listIt">
+                    <condition-expr field-name="taxAuthGeoId" from-field="parameters.taxAuthGeoId" ignore-if-empty="true"/>
+                    <order-by field-name="${orderBy}"/>
+                </entity-condition>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+                <set field="queryString" from-field="result.queryString"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.taxAuthDecoratorLocation}">
