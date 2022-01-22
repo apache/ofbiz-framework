@@ -63,7 +63,8 @@ under the License.
         <field name="roleTypeId"> <hidden value="CAL_ATTENDEE"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
-    <form name="ListTrainingParticipants" list-name="listIt" title="" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <grid name="ListTrainingParticipants" list-name="listIt" 
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -80,10 +81,10 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="approvalStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="trainingRequestId" widget-style="buttontext"><display/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
-    </form>
+    </grid>
     <form name="FindTrainingApprovals" target="FindTrainingApprovals" title="" type="single" default-title-style="tableheadtext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="PersonTraining" default-field-type="find"/>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}"><lookup target-form-name="LookupPartyName"/></field>
@@ -99,7 +100,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTrainingApprovals" type="list" list-name="listIt" target="updateTrainingStatus" title="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <grid name="ListTrainingApprovals" list-name="listIt" target="updateTrainingStatus" 
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -133,9 +135,9 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="approvalStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
-    </form>
+    </grid>
     <form name="EditTrainingApprovals" type="single" target="updateTrainingStatus" default-map-name="personTraining">
         <auto-fields-service service-name="updateTrainingStatus" default-field-type="display"/>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}"/>
@@ -169,7 +171,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTrainingStatus" list-name="listIt" title="" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <grid name="ListTrainingStatus" list-name="listIt" 
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -193,13 +196,13 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="trainingRequestId" widget-style="buttontext"/>
+        <field name="trainingRequestId" title="${uiLabelMap.CommmonRequest}" widget-style="buttontext"/>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
-        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="approvalStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
-    </form>
-
-    <form name="SimpleListTrainingStatus" list-name="listIt" title="" type="list" odd-row-style="alternate-row" default-table-style="basic-table">
+    </grid>
+    <grid name="SimpleListTrainingStatus" list-name="listIt" 
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -209,17 +212,16 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="fromDate"><display type="date-time"/></field>
-        <field name="thruDate"><display type="date-time"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
-        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="approvalStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
         <field name="approverId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
         </field>
-    </form>
-
-    <form name="ListEmplTrainings" type="list" list-name="listIt" separate-columns="true" target="updateEmplLeave" paginate-target="FindEmplLeaves"
+    </grid>
+    <grid name="ListEmplTrainings" list-name="listIt" target="updateEmplLeave" paginate-target="FindEmplLeaves" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PersonTraining">
@@ -234,9 +236,9 @@ under the License.
         <field name="approverId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
         </field>
-        <field name="trainingRequestId"/>
+        <field name="trainingRequestId" title="${CommonRequest}"/>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
-        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="approvalStatus" title="${CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
-    </form>
+    </grid>
 </forms>
