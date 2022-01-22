@@ -10,6 +10,6 @@ Access: https://localhost:8443/docs/swagger-ui.html
 
 == Redoc
 
-Current version: redoc@2.0.0-rc.50
+Current version: redoc@2.0.0-rc.59
 
 Accesss: https://localhost:8443/docs/redoc.html
