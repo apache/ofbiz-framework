@@ -71,11 +71,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductManufacturingRules"/>
-                <set field="tabButtonItem" value="productManufacturingRules"/>
                 <set field="helpAnchor" value="_manufacturing_rules"/>
-                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
-                <set field="headerItem" value="bom"/>
-
+                <set field="headerItem" value="ManufacturingRules"/>
                 <set field="ruleId" from-field="parameters.ruleId"/>
                 <entity-one entity-name="ProductManufacturingRule" value-field="manufacturingRule"/>
                 <entity-condition entity-name="ProductManufacturingRule" list="manufacturingRules">
@@ -102,16 +99,13 @@ under the License.
                 <set field="tabButtonItem" value="bomSimulation"/>
                 <set field="headerItem" value="bom"/>
                 <set field="helpAnchor" value="_bom_simulation"/>
-
                 <set field="bomType" from-field="parameters.bomType"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="type" from-field="parameters.type"/>
                 <set field="quantity" from-field="parameters.quantity"/>
                 <set field="amount" from-field="parameters.amount"/>
-
                 <set field="productFeatureApplTypeId" value="STANDARD_FEATURE"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-
                 <entity-and entity-name="ProductFeatureAndAppl" list="selectedFeatures">
                     <field-map field-name="productId" from-field="productId"/>
                     <field-map field-name="productFeatureApplTypeId" from-field="productFeatureApplTypeId"/>
@@ -133,7 +127,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="FindBom">
         <section>
             <actions>
