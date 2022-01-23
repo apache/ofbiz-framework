@@ -70,7 +70,7 @@ under the License.
     <form name="FindProductionRun" target="FindProductionRun" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortTypeId"><hidden value="PROD_ORDER_HEADER"/></field>
-        <field name="workEffortId" title="${uiLabelMap.ManufacturingProductionRunId}"><text-find/></field>
+        <field name="workEffortId" title="${uiLabelMap.CommonId}"><text-find/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-multiple="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
@@ -78,10 +78,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find default-value="${nowTimestamp}"/></field>
-        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
+        <field name="productId" title="${uiLabelMap.ProductProduct}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><text-find/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find/></field>
+        <field name="facilityId" title="${uiLabelMap.CommonFacility}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <!--<entity-constraint name="facilityTypeId" value="WAREHOUSE"/>-->
@@ -108,46 +108,46 @@ under the License.
                 <field-map field-name="uomId" from-field="product.quantityUomId"/>
             </entity-one>
         </row-actions>
-        <field name="workEffortId" title=" " widget-style="buttontext">
+        <field name="workEffortId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
             <hyperlink description="${workEffortId}" target="ShowProductionRun" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="workEffortId"/>
             </hyperlink>
         </field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
-        <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
-        <field name="QuantityUom" title="${uiLabelMap.ProductQuantityUom}"><display description="${uom.abbreviation}"></display></field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
+        <field name="estimatedQuantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="QuantityUom" title="${uiLabelMap.CommonUom}"><display description="${uom.abbreviation}"></display></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
+        <field name="facilityId" title="${uiLabelMap.CommonFacility}"><display/></field>
     </grid>
      <form name="UpdateProductionRun" type="single" target="updateProductionRun" title="" default-map-name="productionRunData"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productionRunId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductName}">
+        <field name="productId" title="${uiLabelMap.ProductProduct}">
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
         </field>
-        <field name="currentStatusId">
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="manufacturerId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName} [${partyId}]"/>
         </field>
-        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
+        <field name="facilityId" title="${uiLabelMap.CommonFacility}">
             <drop-down>
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
                 </entity-options>
              </drop-down>
         </field>
-        <field name="quantity"  title="${uiLabelMap.ManufacturingQuantity}"><text size="10"/></field>
-        <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
-        <field name="workEffortName"  title="${uiLabelMap.ManufacturingProductionRunName}"><text/></field>
-        <field name="description"><text/></field>
+        <field name="quantity"  title="${uiLabelMap.CommonQuantity}"><text size="10"/></field>
+        <field name="estimatedStartDate"  title="${uiLabelMap.CommonStartDate}"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.CommonEstimatedCompletionDate}"><display/></field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
     <grid name="ListProductionRunOrderItems"  list-name="orderItems" target="EditProductionRun" 
@@ -275,22 +275,21 @@ under the License.
             <set field="useRequestParameters" value="false" type="Boolean"/>
         </actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductName}">
+        <field name="productId" title="${uiLabelMap.ProductProduct}">
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
         </field>
-        <field name="currentStatusId">
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
             <display/>
         </field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingEstimatedStartDate}"><display/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.CommonEstimatedStartDate}"><display/></field>
         <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}"><display/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}"><display/></field>
-        <field name="productionRunName"  title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.CommonEstimatedCompletionDate}"><display/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.CommonCompleted}"><display/></field>
+        <field name="productionRunName"  title="${uiLabelMap.CommonName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        
         <field name="manufacturerId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName} [${partyId}]"/>
         </field>
