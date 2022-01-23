@@ -127,9 +127,26 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+                                        <if-has-permission permission="MANUFACTURING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
                         <screenlet title="${groovy: workEffortId ? uiLabelMap.PageTitleEditRouting : uiLabelMap.ManufacturingNewRouting}">
                             <include-form name="EditRouting" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
                         </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                <include-form name="Routing" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
