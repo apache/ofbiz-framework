@@ -218,4 +218,9 @@ under the License.
     <!-- Demo WebSiteContactList -->
     <WebSiteContactList webSiteId="WebStore" contactListId="9000" fromDate="2011-08-16 17:15:20.0"/>
     <WebSiteContactList webSiteId="WebStore" contactListId="9010" fromDate="2011-08-16 17:15:20.0"/>
+
+    <SalesForecast currencyUomId="USD" forecastAmount="1000000.00" internalPartyId="SALES" organizationPartyId="Company" salesForecastId="1000"/>
+    <SalesForecastDetail amount="100000.00" productId="WG-9943" salesForecastDetailId="00001" salesForecastId="1000"/>
+    <SalesForecast currencyUomId="EUR" forecastAmount="20000.00" internalPartyId="DemoRepAll" organizationPartyId="EuroCustomer" salesForecastId="2000"/>
+    <SalesForecastDetail amount="20000.00" productCategoryId="SERV-001" salesForecastDetailId="00001" salesForecastId="2000"/>
 </entity-engine-xml>
