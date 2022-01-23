@@ -3379,13 +3379,27 @@
         <value xml:lang="zh">请输入人员的姓或名，或机构名称</value>
         <value xml:lang="zh-TW">請輸入人員的姓或名,或機構名稱</value>
     </property>
-    <property key="SfaForecasts">
+    <property key="SfaForecast">
         <value xml:lang="de">Prognose</value>
         <value xml:lang="en">Forecast</value>
         <value xml:lang="es">Previsión</value>
         <value xml:lang="fr">Prévision</value>
         <value xml:lang="it">Previsioni</value>
         <value xml:lang="ja">予測</value>
+        <value xml:lang="nl">Prognose</value>
+        <value xml:lang="pt-BR">Previsão</value>
+        <value xml:lang="vi">Dự báo</value>
+        <value xml:lang="zh">预测</value>
+        <value xml:lang="zh-TW">預測</value>
+    </property>
+    <property key="SfaForecasts">
+        <value xml:lang="de">Prognosen</value>
+        <value xml:lang="en">Forecasts</value>
+        <value xml:lang="es">Previsións</value>
+        <value xml:lang="fr">Prévision</value>
+        <value xml:lang="it">Previsioni</value>
+        <value xml:lang="ja">予測</value>
+        <value xml:lang="nl">Prognoses</value>
         <value xml:lang="pt-BR">Previsão</value>
         <value xml:lang="vi">Dự báo</value>
         <value xml:lang="zh">预测</value>
@@ -3682,6 +3696,14 @@
         <value xml:lang="vi">Truyền thông</value>
         <value xml:lang="zh">机会的沟通</value>
         <value xml:lang="zh-TW">機會的通訊</value>
+    </property>
+    <property key="SfaOpportunity">
+        <value xml:lang="en">Opportunity</value>
+        <value xml:lang="nl">Kans</value>
+    </property>
+    <property key="SfaOpportunities">
+        <value xml:lang="en">Opportunities</value>
+        <value xml:lang="nl">Kansen</value>
     </property>
     <property key="SfaOpportunityId">
         <value xml:lang="de">Opportunity ID</value>
