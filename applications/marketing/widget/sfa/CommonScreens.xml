@@ -49,7 +49,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="main">
         <section>
             <actions>
@@ -75,7 +74,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ShortcutApp">
         <section>
             <actions>
@@ -395,9 +393,7 @@ under the License.
                 <set field="tabButtonItem" value="profile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="parameters.roleTypeId" value="CONTACT"/>
-
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
-
                 <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
                 <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
@@ -477,7 +473,6 @@ under the License.
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="parameters.roleTypeId" value="ACCOUNT"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
-
                 <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
                 <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
@@ -554,9 +549,7 @@ under the License.
                 <set field="tabButtonItem" value="profile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="parameters.roleTypeId" value="ACCOUNT_LEAD"/>
-
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
-
                 <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
                 <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
