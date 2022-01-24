@@ -30,20 +30,38 @@ under the License.
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-
                 <entity-condition entity-name="CostComponentCalc" list="allCostComponentCalcs"/>
                 <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="h1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
-                        </container>
-                        <screenlet id="ManufacturingCostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
-                            <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
-                        </screenlet>
-                        <include-grid name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+                                        <if-has-permission permission="MANUFACTURING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                               <container>
+                                    <label style="h1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
+                                </container>
+                                <screenlet id="ManufacturingCostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
+                                    <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                                </screenlet>
+                                <screenlet>
+                                    <include-grid name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-grid name="CostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

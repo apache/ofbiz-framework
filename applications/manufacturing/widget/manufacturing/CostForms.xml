@@ -20,6 +20,21 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <grid name="CostComponentCalc" title="" list-name="allCostComponentCalcs"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
+        <field name="costComponentCalcId" widget-style="buttontext">
+            <hyperlink description="${costComponentCalcId}" target="EditCostCalcs" also-hidden="false">
+                <parameter param-name="costComponentCalcId"/>
+            </hyperlink>
+        </field>
+        <field name="costGlAccountTypeId"><hidden/></field>
+        <field name="offsettingGlAccountTypeId"><hidden/></field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}"><display/></field>
+        <field name="costCustomMethodId" title="${uiLabelMap.CommonMethod}">
+            <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
+        </field>
+    </grid>
     <grid name="ListCostComponentCalc" title="" list-name="allCostComponentCalcs"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
@@ -30,10 +45,8 @@ under the License.
         </field>
         <field name="costGlAccountTypeId"><hidden/></field>
         <field name="offsettingGlAccountTypeId"><hidden/></field>
-        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
-            <display-entity entity-name="Uom" key-field-name="uomId"/>
-        </field>
-        <field name="costCustomMethodId">
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}"><display/></field>
+        <field name="costCustomMethodId" title="${uiLabelMap.CommonMethod}">
             <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
         </field>
         <field name="removeCostComponentCalc" title=" " widget-style="buttontext">
@@ -42,7 +55,6 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    
     <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="costComponentCalc==null" target="createCostComponentCalc"/>
