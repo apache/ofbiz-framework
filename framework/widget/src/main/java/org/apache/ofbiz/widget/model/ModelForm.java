@@ -2476,7 +2476,7 @@ public abstract class ModelForm extends ModelWidget {
 
             Map<String, String> claims = UtilMisc.toMap(
                     "areaId", WidgetWorker.getScreenStack(context).resolveScreenAreaId(getAreaId()),
-                    "areaTarget", getAreaTarget());
+                    "areaTarget", getAreaTarget(context));
 
             // Propagate on the callback parameters use by pagination list
             Map<String, Object> parameters = WidgetWorker.resolveParametersMapFromQueryString(context);
