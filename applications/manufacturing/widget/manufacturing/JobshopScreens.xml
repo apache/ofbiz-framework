@@ -90,7 +90,6 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://manufacturing/groovyScripts/jobshopmgt/ViewProductionRun.groovy"/>
                 <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
-
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
@@ -113,45 +112,62 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}"  navigation-menu-name="ProductionRunStatusAction">
-                            <include-menu name="ProductionRunStatusTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
-                            <include-form name="UpdateProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
                         <section>
                             <condition>
-                                <not><if-empty field="mandatoryWorkEfforts"/></not>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="MANUFACTURING" action="_CREATE"/>
+                                        <if-has-permission permission="MANUFACTURING" action="_UPDATE"/>
+                                    </or>
+                                </and>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.ManufacturingPrecedingProductionRun}">
-                                    <include-grid name="MandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}"  navigation-menu-name="ProductionRunStatusAction">
+                                    <include-menu name="ProductionRunStatusTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                    <include-form name="UpdateProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="mandatoryWorkEfforts"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ManufacturingPrecedingProductionRun}">
+                                            <include-grid name="MandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="dependentWorkEfforts"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ManufacturingSucceedingProductionRun}">
+                                            <include-grid name="DependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <screenlet title="${uiLabelMap.ManufacturingOrderItems}">
+                                    <include-grid name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
+                                    <include-grid name="ViewListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ManufacturingMaterials}">
+                                    <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}">
+                                    <include-grid name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunNotes}">
+                                    <include-grid name="ListProductionRunNotes" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                             </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <not><if-empty field="dependentWorkEfforts"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.ManufacturingSucceedingProductionRun}">
-                                    <include-grid name="DependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-form name="ShowProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
-                            </widgets>
+                            </fail-widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.ManufacturingOrderItems}">
-                            <include-grid name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
-                            <include-grid name="ViewListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ManufacturingMaterials}">
-                            <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}">
-                            <include-grid name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunNotes}">
-                            <include-grid name="ListProductionRunNotes" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -167,10 +183,8 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-
                 <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunDeclaration.groovy"/>
                 <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
-
                 <set field="productionRunId" from-field="parameters.productionRunId" default-value="${parameters.workEffortId}"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
