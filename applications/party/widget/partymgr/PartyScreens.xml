@@ -20,8 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
-    <!-- Party Find Screen -->
     <screen name="findparty">
         <section>
             <actions>
@@ -35,7 +33,6 @@ under the License.
                 <set field="asm_formSize" value="700"/>
                 <set field="asm_listItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
-
                 <set field="initialyCollapsed" value="${groovy:'Y'.equals(parameters.hideFields)}" type="String"/>
                 <script location="component://party/groovyScripts/party/FindParty.groovy"/>
             </actions>
@@ -70,8 +67,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Party Profile Screens -->
-
     <screen name="viewprofile">
         <section>
             <actions>
@@ -260,7 +255,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditPartyRelationships">
         <section>
             <actions>
@@ -322,16 +316,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="viewvendor">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewVendorParty"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="viewvendor"/>
-
                 <set field="labelTitleProperty" value="PartyVendorInformation"/>
-
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="Vendor" value-field="vendor"/>
@@ -347,16 +338,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditPartyAttribute">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditPartyAttribute"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="viewvendor"/>
-
                 <set field="labelTitleProperty" value="PartyAttribute"/>
-
                 <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="attrName" from-field="parameters.attrName"/>
@@ -374,7 +362,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditPartyTaxAuthInfos">
         <section>
             <actions>
@@ -382,7 +369,6 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="EditPartyTaxAuthInfos"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-and entity-name="PartyTaxAuthInfo" list="partyTaxInfos">
@@ -410,9 +396,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleShoppingList"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="editShoppingList"/>
-
                 <set field="labelTitleProperty" value="PartyShoppingLists"/>
-
                 <script location="component://party/groovyScripts/party/EditShoppingList.groovy"/>
             </actions>
             <widgets>
@@ -426,19 +410,15 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="editcontactmech">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditContactMech"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="editcontactmech"/>
-
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
-
                 <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
                 <script location="component://party/groovyScripts/party/EditContactMech.groovy"/>
-
                 <set field="dependentForm" value="editcontactmechform"/>
                 <set field="paramKey" value="countryGeoId"/>
                 <set field="mainId" value="countryGeoId"/>
@@ -484,7 +464,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditPerson">
         <section>
             <actions>
@@ -492,7 +471,6 @@ under the License.
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PageTitleEditPersonalInformation"/>
-
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyAndPerson" value-field="personInfo"/>
@@ -515,7 +493,6 @@ under the License.
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PageTitleEditGroupInformation"/>
-
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyAndGroup" value-field="partyGroup"/>
@@ -580,7 +557,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CreatePartyRelatedAccount">
         <section>
             <actions>
@@ -600,7 +576,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CreateAccountRelatedContact">
         <section>
             <actions>
@@ -620,7 +595,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditUserLoginSecurityGroups">
         <section>
             <actions>
@@ -646,14 +620,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AddPartyNote">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleNewPartyNote"/>
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="PageTitleNewPartyNote"/>
-
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
@@ -668,7 +640,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditPartyRates">
         <section>
             <actions>
@@ -676,33 +647,46 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="EditPartyRates"/>
                 <set field="labelTitleProperty" value="PageTitleEditPartyRates"/>
-
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="AddPartyRatesPanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
-                            <include-form name="AddPartyRate" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
-                        <screenlet>
-                            <include-grid name="ListPartyRates" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="PARTYMGR" action="CREATE"/>
+                                        <if-has-permission permission="PARTYMGR" action="UPDATE"/>
+                                    </or>
+                                </and>
+                                </condition>
+                            <widgets>
+                                <screenlet id="AddPartyRatesPanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
+                                    <include-form name="AddPartyRate" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                </screenlet>
+                                <screenlet>
+                                    <include-grid name="ListPartyRates" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-grid name="PartyRates" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="ViewSegmentRoles">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartySegmentRoles"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="ViewSegmentRoles"/>
-
                 <set field="labelTitleProperty" value="ViewSegmentRoles"/>
-
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
             </actions>
@@ -720,8 +704,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- New Customer Party Screen -->
     <screen name="NewCustomer">
         <section>
             <actions>
@@ -767,8 +749,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- New Prospect Party Screen -->
     <screen name="NewProspect">
         <section>
             <actions>
@@ -812,8 +792,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- New Emplyee Party Screen -->
     <screen name="NewEmployee">
         <section>
             <actions>
@@ -857,8 +835,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- Address Match Map Screen -->
     <screen name="AddressMatchMap">
         <section>
             <actions>
@@ -879,7 +855,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="FindAddressMatch">
         <section>
             <actions>
@@ -898,8 +873,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- Party Content Screen -->
     <screen name="EditPartyContents">
         <section>
             <actions>
@@ -999,7 +972,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="PartyFinancialHistory">
         <section>
             <actions>
@@ -1292,17 +1264,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- PartyIdentification Screen -->
     <screen name="ListPartyIdentifications">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListPartyIdentifications"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="viewidentifications"/>
-
                 <set field="labelTitleProperty" value="PartyIdentification"/>
-
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party" use-cache="true"/>
                 <entity-one entity-name="PartyIdentification" value-field="partyIdentification"/>
@@ -1322,7 +1290,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ViewProductStoreRoles">
         <section>
             <actions>
@@ -1422,5 +1389,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-
 </screens>
