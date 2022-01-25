@@ -20,10 +20,14 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="CommonPartyGlDecorator">
         <section>
             <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
                 <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
                     <field-map field-name="partyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -39,16 +43,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="PartyAccountsSummary">
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingPartyAccountsSummary"/>
                 <set field="tabButtonItem" value="PartyAccountsSummary"/>
                 <set field="labelTitleProperty" value="AccountingPartyAccountsSummary"/>
-                <!-- entity-condition entity-name="GlAccountOrganization" list="entityList" use-cache="true" >
-                    <condition-expr field-name="glAccountId" operator="greater" value="0"/>
-                </entity-condition -->
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
@@ -65,7 +65,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="FindAcctgTrans">
         <section>
             <actions>
@@ -261,7 +260,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CreateAcctgTransAndEntries">
         <section>
             <actions>
@@ -280,15 +278,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditAcctgTrans">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditTransaction"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
-
                 <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
                 <entity-one entity-name="AcctgTransEntry" value-field="acctgTransEntry">
                     <field-map field-name="acctgTransId"/>
@@ -307,31 +302,52 @@ under the License.
                                 <not><if-empty field="acctgTransId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="EditGlAcctgTransSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <label style="h1" text="${uiLabelMap.GlTransaction}: ${acctgTransId}"></label>
                                 <section>
                                     <condition>
-                                        <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                        <and>
+                                            <or>
+                                                <if-has-permission permission="ACCOUNTING" action="CREATE"/>
+                                                <if-has-permission permission="ACCOUNTING" action="UPDATE"/>
+                                            </or>
+                                        </and>
                                     </condition>
                                     <widgets>
-                                        <screenlet title="${uiLabelMap.PageTitleViewTransaction}">
-                                            <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                                        </screenlet>
-                                        <screenlet title="${uiLabelMap.PageTitleViewTransactionEntries}">
-                                            <include-grid name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                        </screenlet>
+                                        <include-menu name="EditGlAcctgTransSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <section>
+                                            <condition>
+                                                <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                            </condition>
+                                            <widgets>
+                                                <screenlet>
+                                                    <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                                </screenlet>
+                                                <screenlet>
+                                                    <include-grid name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <screenlet title="${uiLabelMap.PageTitleEditTransaction}">
+                                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                                </screenlet>
+                                                <screenlet title="${uiLabelMap.PageTitleEditTransactionEntries}">
+                                                    <include-grid name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                                </screenlet>
+                                                <screenlet title="${uiLabelMap.PageTitleAddTransactionEntry}">
+                                                    <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
+                                                </screenlet>
+                                            </fail-widgets>
+                                        </section>
                                     </widgets>
                                     <fail-widgets>
-                                        <screenlet title="${uiLabelMap.PageTitleEditTransaction}">
-                                            <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                        <screenlet>
+                                            <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                         </screenlet>
-                                        <screenlet title="${uiLabelMap.PageTitleEditTransactionEntries}">
-                                            <include-grid name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                        </screenlet>
-                                        <screenlet title="${uiLabelMap.PageTitleAddTransactionEntry}">
-                                            <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
+                                        <screenlet>
+                                            <include-grid name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                                         </screenlet>
                                     </fail-widgets>
-                                </section>
+                                    </section>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -339,11 +355,9 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListUnpostedAcctgTrans">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleUnpostedTransactions"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleUnpostedTransactions"/>
@@ -363,17 +377,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListChecksToPrint">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingPrintChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="PrintChecksTabButton"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingPrintChecks"/>
-
-                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -409,12 +419,9 @@ under the License.
     <screen name="ListChecksToSend">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingSendChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="SendChecksTabButton"/>
-
-                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -470,7 +477,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="FindGlAccountReconciliation">
         <section>
             <actions>
@@ -551,7 +557,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AcctgTransSearchResultsCsv">
         <section>
             <actions>
@@ -564,7 +569,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AcctgTransEntriesSearchResultsCsv">
         <section>
             <actions>
@@ -577,7 +581,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AcctgTransEntriesSearchResultsPdf">
         <section>
             <actions>
@@ -658,7 +661,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AcctgTransDetailReportPdf">
         <section>
             <actions>
