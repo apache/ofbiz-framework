@@ -29,14 +29,8 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ProductCatalogCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ProductCompanySubtitle" global="true"/>
-                <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
-                     then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
-                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
-                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="catalogmgr" global="true"/>
                 <set field="applicationMenuName" value="CatalogAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://product/widget/catalog/CatalogMenus.xml" global="true"/>
@@ -49,7 +43,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonCatalogDecorator">
         <section>
             <actions>
@@ -116,7 +109,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonProductStoreDecorator">
         <section>
             <widgets>
@@ -152,15 +144,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="productStore"/></not></condition>
                                     <widgets>
-                                        <container>
-                                            <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
-                                        </container>
-                                        <section>
-                                            <widgets>
-                                                <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                            </widgets>
-                                        </section>
+                                        <label style="h1">${uiLabelMap.ProductStore}: ${productStoreId}</label>
+                                        <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -174,7 +160,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonProductStoreGroupDecorator">
         <section>
             <actions>
@@ -211,7 +196,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonShippingDecorator">
         <section>
             <widgets>
@@ -244,7 +228,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="leftbar">
         <section>
             <widgets>
@@ -321,7 +304,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="categorytree">
         <section>
             <actions>
@@ -335,7 +317,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ProductStoreGroupTree">
         <section>
             <actions>
@@ -352,7 +333,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="main">
         <section>
             <actions>
@@ -387,7 +367,6 @@ under the License.
             </widgets>
         </section>
      </screen>
-
     <screen name="ImageManagementDecorator">
         <section>
             <actions>
@@ -420,7 +399,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="listMiniproduct">
         <section>
             <actions>
@@ -436,7 +414,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ProductStoreFacilities">
         <section>
             <actions>
