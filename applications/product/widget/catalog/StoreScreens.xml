@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="FindProductStore">
        <section>
             <actions>
@@ -130,6 +129,16 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
                         <container>
                             <label style="h3">${uiLabelMap.CommonView}</label>
                             <link target="EditProductStorePromos" text="${uiLabelMap.CommonAll}" style="buttontext">
@@ -161,12 +170,19 @@ under the License.
                                         <parameter param-name="userEntered" value="N"/>
                                     </link>
                         </container>
-                        <screenlet title="${uiLabelMap.PageTitleEditProductStorePromos}">
+                        <screenlet title="${uiLabelMap.ProductPromos}">
                             <include-grid name="ListProductStorePromos" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddStorePromo}">
                             <include-form name="CreateProductStorePromo" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ProductPromos}">
+                                    <include-grid name="StorePromos" location="component://product/widget/catalog/StoreForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
