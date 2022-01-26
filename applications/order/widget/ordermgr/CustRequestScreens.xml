@@ -286,7 +286,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonItems}">
+                        <screenlet title="${uiLabelMap.PageTitleRequestItems}">
                             <include-form name="ListRequestItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
