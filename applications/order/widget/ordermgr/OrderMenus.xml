@@ -542,7 +542,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="NewRequestItem" title="${uiLabelMap.ProductNewItem}">
+        <menu-item name="NewRequestItem" title="${uiLabelMap.OrderNewRequestItem}">
             <condition>
                 <and>
                     <or>
