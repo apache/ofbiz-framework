@@ -63,7 +63,7 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="NewInvoice" title="${uiLabelMap.CommonCreate} ${uiLabelMap.CommonInvoice}">
+        <menu-item name="NewInvoice" title="${uiLabelMap.AccountingCreateNewInvoice}">
             <condition>
                 <or>
                     <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
