@@ -1,17 +1,20 @@
 {
-  "name": "ofbiz-framework",
-  "description": "ofbiz-framework NPM dependencies configuration",
-  "repository": "https://github.com/apache/ofbiz-framework.git",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "jquery": "^3.6.0",
-    "jquery-migrate": "^3.3.2",
-    "jquery-validation": "^1.19.3",
-    "jquery.browser": "^0.1.0",
-    "dompurify": "^2.3.4",
-    "jquery-ui-dist": "^1.13.0",
-    "trumbowyg": "^2.25.1",
-    "flot": "^4.2.2",
-    "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3"
-  }
+    "name": "ofbiz-framework",
+    "description": "ofbiz-framework NPM dependencies configuration",
+    "repository": "https://github.com/apache/ofbiz-framework.git",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "jquery": "^3.6.0",
+        "jquery-migrate": "^3.3.2",
+        "jquery-validation": "^1.19.3",
+        "jquery.browser": "^0.1.0",
+        "dompurify": "^2.3.4",
+        "jquery-ui-dist": "^1.13.0",
+        "trumbowyg": "^2.25.1",
+        "flot": "^4.2.2",
+        "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3"
+    },
+    "scripts": {
+        "lint": "jshint **.js --reporter checkstyle > checkstyle.xml"
+    }
 }
