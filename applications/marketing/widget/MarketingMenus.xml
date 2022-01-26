@@ -43,8 +43,16 @@ under the License.
             </condition>
             <link target="EditContactList"/>
         </menu-item>
+        <menu-item name="NewTrackingCode" title="${uiLabelMap.MarketingTrackingCodeCreate}">
+            <condition>
+                <or>
+                    <if-has-permission permission="MARKETING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditTrackingCode">
+            </link>
+        </menu-item>
     </menu>
-    
     <menu name="MarketingShortcutAppBar" title="${uiLabelMap.MarketingManager}">
         <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="/marketing/control/FindDataSource" url-mode="inter-app"/></menu-item>
         <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="/marketing/control/FindMarketingCampaign" url-mode="inter-app"/></menu-item>
