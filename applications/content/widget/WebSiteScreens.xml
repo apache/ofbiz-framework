@@ -17,7 +17,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindWebSite">
@@ -29,6 +28,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -36,9 +38,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleListWebSite}">
-                                    <container style="button-bar">
-                                        <link  text="${uiLabelMap.CommonCreate}" target="EditWebSite" style="buttontext create"/>
-                                    </container>
                                     <include-form name="ListWebSites" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                             </widgets>
@@ -51,7 +50,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditWebSite">
         <section>
             <actions>
@@ -76,7 +74,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteContent">
         <section>
             <actions>
@@ -110,7 +107,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditWebSiteParties">
         <section>
             <actions>
@@ -138,7 +134,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteCMS">
         <section>
             <actions>
@@ -147,7 +142,6 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-
                 <script location="component://content/groovyScripts/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
@@ -178,7 +172,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteCMSNav">
         <section>
             <widgets>
@@ -188,14 +181,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteCMSContent">
         <section>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="dataResourceTypeId" from-field="parameters.dataResourceTypeId"/>
                 <set field="newContentId" from-field="contentId" />
                 <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
@@ -253,7 +244,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteCMSEditor">
         <section>
             <actions>
@@ -278,7 +268,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteCMSMetaInfo">
         <section>
             <actions>
@@ -302,7 +291,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="WebSiteCMSPathAlias">
         <section>
             <actions>
@@ -353,8 +341,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen> 
-      
+    </screen>
     <screen name="WebSiteAliases">
         <section>
             <actions>
@@ -382,7 +369,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="WebSiteAliasesSearchResults">
         <section>
             <actions>
@@ -393,7 +379,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="WebSiteSEO">
         <section>
             <actions>

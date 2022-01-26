@@ -17,11 +17,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="EditContentType">
         <section>
             <actions>
@@ -43,7 +40,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentTypeAttr">
         <section>
             <actions>
@@ -65,7 +61,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentAssocType">
         <section>
             <actions>
@@ -87,7 +82,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentPurposeType">
         <section>
             <actions>
@@ -109,7 +103,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentAssocPredicate">
         <section>
             <actions>
@@ -131,7 +124,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentPurposeOperation">
         <section>
             <actions>
@@ -153,7 +145,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="UserPermissions">
         <section>
             <actions>

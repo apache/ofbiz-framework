@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="FindContent">
         <section>
             <condition>
@@ -161,13 +160,9 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="30" type="Integer"/>
                 <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
-               <!-- <entity-condition entity-name="ContentAssocViewTo" list="contentAssoc">
-                    <condition-expr field-name="contentIdStart" operator="equals" from-field="contentId"/>
-                    </entity-condition>-->
                 <script location="component://content/groovyScripts/content/GetContentLookupList.groovy"/>
             </actions>
             <widgets>
-<!--                <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>-->
                 <platform-specific>
                     <html>
                         <html-template location="component://content/template/lookup/ContentTreeLookupList.ftl"/>
@@ -287,14 +282,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentRole">
         <section>
             <actions>
                 <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentRole"/>
                 <set field="tabButtonItem" value="role"/>
-
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="contentRoleTarget" value=""/>
                 <entity-one entity-name="Content" value-field="currentValue">
@@ -315,7 +308,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentPurpose">
         <section>
             <actions>
@@ -341,7 +333,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentAttribute">
         <section>
             <actions>
@@ -367,7 +358,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListWebSite">
         <section>
             <actions>
@@ -403,7 +393,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentMetaData">
         <section>
             <actions>
@@ -429,7 +418,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentWorkEfforts">
         <section>
             <actions>
@@ -455,7 +443,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="LookupContent">
         <section>
             <actions>
@@ -478,7 +465,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListContentTree">
         <section>
             <actions>
@@ -502,7 +488,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="LookupContentTree">
         <section>
             <actions>
@@ -540,7 +525,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="LookupDetailContentTree">
         <section>
             <actions>
@@ -580,7 +564,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ViewContentDetail">
         <section>
             <actions>
@@ -611,7 +594,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ContentSearchOptions">
         <section>
             <actions>
@@ -629,7 +611,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ContentSearchResults">
         <section>
             <actions>
@@ -647,7 +628,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditContentKeywords">
         <section>
             <actions>
