@@ -295,15 +295,15 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
-        <field name="cancelLink" title=" " widget-style="smallSubmit">
+        <field name="cancelLink" use-when="partyGroup==null" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="backHome" also-hidden="false"/>
         </field>
     </form>
 
-    <form name="EditPartyGroup2" type="single" target="createPartyGroup" default-map-name="partyGroup"
+    <form name="EditPartyGroupForNewQuote" type="single" target="createPartyGroup" default-map-name="partyGroup" extends="EditPartyGroup"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="groupName"><text size="6" maxlength="10"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field name="cancelLink"><hidden/></field> 
+        
     </form>
 
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
