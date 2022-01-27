@@ -425,14 +425,14 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
        </actions>
-        <field name="partyId" title="${UiLabelMap.CommonParty}">
+        <field name="partyId" title="Employee Name">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">              
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="emplPositionId" title="${uiLabelMap.CommonPosition}" widget-style="linktext">
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
             <hyperlink description="${emplPositionId}" target="emplPositionView" also-hidden="false">
                 <parameter param-name="emplPositionId"/>
             </hyperlink>
