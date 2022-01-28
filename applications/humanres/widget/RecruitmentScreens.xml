@@ -20,7 +20,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindJobRequisitions">
-        <section>             
+        <section>
             <actions>   
                 <set field="titleProperty" value="PageTitleFindJobRequisition"/>
                 <set field="tabButtonItem" value="JobRequisition"/>
@@ -54,7 +54,7 @@ under the License.
                                         <include-form name="FindJobRequisitions" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListJobRequisitions" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
+                                        <include-grid name="ListJobRequisitions" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -124,7 +124,7 @@ under the License.
                                         <include-form name="FindInternalJobPosting" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListInternalJobPosting" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
+                                        <include-grid name="ListInternalJobPosting" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -187,7 +187,7 @@ under the License.
                                         <include-form name="FindJobInterview" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListInterview" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
+                                        <include-grid name="ListInterview" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -249,7 +249,7 @@ under the License.
                                         <include-form name="FindApprovals" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListApprovals" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
+                                        <include-grid name="ListApprovals" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -302,7 +302,7 @@ under the License.
                                         <include-form name="FindRelocation" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListRelocation" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
+                                        <include-grid name="ListRelocation" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
