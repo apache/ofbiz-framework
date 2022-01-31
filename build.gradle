@@ -119,7 +119,7 @@ allprojects {
             url "https://maven.restlet.talend.com"
         }
         maven {
-            // apache-xerces:xercesImpl:2.12.2
+            // xerces:xercesImpl:2.12.2
             url "https://maven.repository.redhat.com/ga/"
         }
         maven {
@@ -160,7 +160,7 @@ configurations {
 
 dependencies {
     // ofbiz compile libs
-    compile 'apache-xerces:xercesImpl:2.12.2'
+    compile 'xerces:xercesImpl:2.12.2'
     compile 'com.google.zxing:core:3.3.3'
     compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
