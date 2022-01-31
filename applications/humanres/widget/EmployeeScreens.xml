@@ -325,17 +325,15 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="trainingsList">
         <section>
             <widgets>
                 <screenlet title="${uiLabelMap.HumanResTrainings}">
-                    <include-form name="SimpleListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                    <include-grid name="SimpleListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
     </screen>
-
     <screen name="PayrollHistory">
         <section>
             <actions>
@@ -382,7 +380,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.HumanResMyTrainings}">
-                    <include-form name="ListEmplTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                    <include-grid name="ListEmplTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
