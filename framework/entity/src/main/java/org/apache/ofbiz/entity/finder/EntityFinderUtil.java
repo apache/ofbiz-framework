@@ -282,13 +282,17 @@ public final class EntityFinderUtil {
             } else {
                 List<Condition> conditionList = new ArrayList<>(subElements.size());
                 for (Element subElement : subElements) {
-                    if ("condition-expr".equals(subElement.getNodeName())) {
+                    switch (subElement.getLocalName()) {
+                    case "condition-expr":
                         conditionList.add(new ConditionExpr(subElement));
-                    } else if ("condition-list".equals(subElement.getNodeName())) {
+                        break;
+                    case "condition-list":
                         conditionList.add(new ConditionList(subElement));
-                    } else if ("condition-object".equals(subElement.getNodeName())) {
+                        break;
+                    case "condition-object":
                         conditionList.add(new ConditionObject(subElement));
-                    } else {
+                        break;
+                    default:
                         throw new IllegalArgumentException("Invalid element with name [" + subElement.getNodeName()
                                 + "] found under a condition-list element.");
                     }
