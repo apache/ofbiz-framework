@@ -192,7 +192,7 @@ configurations {
 }
 
 dependencies {
-    implementation 'xerces:xercesImpl:2.12.1'
+    implementation 'xerces:xercesImpl:2.12.2'
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.2'
