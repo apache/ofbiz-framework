@@ -47,8 +47,8 @@
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmplLeaves" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2"
-        paginate-target="FindEmplLeaves" default-table-style="basic-table hover-bar">
+    <grid name="ListEmplLeaves" list-name="listIt" paginate-target="FindEmplLeaves" 
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="EmplLeave"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -59,15 +59,15 @@
             </service>
         </actions>
         <auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
-        <field name="partyId">
+        <field name="partyId" title="${uiLabelMap.CommonParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="leaveTypeId"><display-entity entity-name="EmplLeaveType"/></field>
-        <field name="emplLeaveReasonTypeId"><display-entity entity-name="EmplLeaveReasonType"/></field>
+        <field name="leaveTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="EmplLeaveType"/></field>
+        <field name="emplLeaveReasonTypeId" title="${uiLabelMap.CommonReason}"><display-entity entity-name="EmplLeaveReasonType"/></field>
         <field name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
@@ -75,7 +75,7 @@
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="leaveStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="updateLeave" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" use-when="hasAdminPermission">
             <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditEmplLeave" also-hidden="false">
                 <parameter param-name="partyId"/>
@@ -91,7 +91,7 @@
             </hyperlink>
         </field>
         <field name="description"><hidden/></field>
-    </form>
+    </grid>
     <form name="EditEmplLeave" type="single" target="updateEmplLeaveExt" default-map-name="leaveApp"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="leaveApp==null" target="createEmplLeaveExt"/>
@@ -131,7 +131,7 @@
         <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListLeaveApprovals" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <grid name="ListLeaveApprovals" list-name="listIt" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="EmplLeave"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -140,15 +140,15 @@
             </service>
         </actions>
         <auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
-        <field name="partyId" field-name="partyId">
+        <field name="partyId" title="${uiLabelMap.CommonParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="leaveTypeId"><display-entity entity-name="EmplLeaveType"/></field>
-        <field name="emplLeaveReasonTypeId"><display-entity entity-name="EmplLeaveReasonType"/></field>
+        <field name="leaveTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="EmplLeaveType"/></field>
+        <field name="emplLeaveReasonTypeId" title="${uiLabelMap.CommonReason}"><display-entity entity-name="EmplLeaveReasonType"/></field>
         <field name="approverPartyId" field-name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
@@ -156,7 +156,7 @@
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="leaveStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="UpdateStatus" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditEmplLeaveStatus" >
                 <parameter param-name="partyId"/>
@@ -164,7 +164,7 @@
                 <parameter param-name="leaveTypeId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditEmplLeaveStatus" type="single" target="updateEmplLeaveStatus" default-map-name="leaveApp">
         <auto-fields-service service-name="updateEmplLeaveStatus" map-name="leaveApp"/>
         <field name="partyId"><display/></field>
