@@ -1937,7 +1937,7 @@ under the License.
     <view-map name="EditAddContent" type="screen" page="component://content/widget/cms/CMSScreens.xml#EditAddContent"/>
     <view-map name="EditAddSubContent" type="screen" page="component://content/widget/cms/CMSScreens.xml#EditAddSubContent"/>
 
-
+    <view-map name="ViewBinaryDataResource" page="" type="simplecontent"/>
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
 
     <!-- lookup content component -->
