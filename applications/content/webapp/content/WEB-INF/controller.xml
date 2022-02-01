@@ -2079,6 +2079,7 @@ under the License.
     <view-map name="EditAddContent" type="screen" page="component://content/widget/cms/CMSScreens.xml#EditAddContent"/>
     <view-map name="EditAddSubContent" type="screen" page="component://content/widget/cms/CMSScreens.xml#EditAddSubContent"/>
 
+    <view-map name="ViewBinaryDataResource" page="" type="simplecontent"/>
     <view-map name="ListContentRevisions" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentRevisions"/>
     <view-map name="EditContentRevision" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentRevision"/>
     <view-map name="ListContentRevisionItem" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentRevisionItem"/>
