@@ -673,6 +673,9 @@ public class ModelFormFieldBuilder {
         } else if ("display".equals(defaultFieldType)) {
             ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_SERVICE, null);
             this.setFieldInfo(displayField);
+        } else if ("hidden".equals(defaultFieldType)) {
+            ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            this.setFieldInfo(hiddenField);
         } else {
             // default to "edit"
             if (modelParam.type.indexOf("Double") != -1 || modelParam.type.indexOf("Float") != -1
