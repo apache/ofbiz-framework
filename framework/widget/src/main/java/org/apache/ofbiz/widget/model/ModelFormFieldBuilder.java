@@ -900,7 +900,7 @@ public class ModelFormFieldBuilder {
      * @return
      */
     private String computeFieldTypeToUse(String modelParamType) {
-        final Map<String, String> switchType = Map.of("Double", "numeric",
+        final Map<String, String> switchType = UtilMisc.toMap("Double", "numeric",
                 "Float", "numeric",
                 "Long", "numeric",
                 "Integer", "numeric",
