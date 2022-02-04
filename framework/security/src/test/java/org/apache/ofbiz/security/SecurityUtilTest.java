@@ -18,16 +18,16 @@
  */
 package org.apache.ofbiz.security;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 
 public class SecurityUtilTest {
     @Test
@@ -64,17 +64,18 @@ public class SecurityUtilTest {
             assertTrue(SecuredUpload.isValidText("hack.getFileName", allowed));
             allowed = new ArrayList<>();
             assertFalse(SecuredUpload.isValidText("hack.getFileName", allowed));
+
+            assertFalse(SecuredUpload.isValidText("<%", allowed));
+            assertFalse(SecuredUpload.isValidText("<jsp", allowed));
+            assertFalse(SecuredUpload.isValidText("<?", allowed));
+            assertFalse(SecuredUpload.isValidText("#!", allowed));
             assertFalse(SecuredUpload.isValidText("freemarker", allowed));
-            assertFalse(SecuredUpload.isValidText("import=\"java", allowed));
-            assertFalse(SecuredUpload.isValidText("runtime.getruntime().exec(", allowed));
-            assertFalse(SecuredUpload.isValidText("<%@ page", allowed));
             assertFalse(SecuredUpload.isValidText("<script", allowed));
-            assertFalse(SecuredUpload.isValidText("<body>", allowed));
-            assertFalse(SecuredUpload.isValidText("<form", allowed));
-            assertFalse(SecuredUpload.isValidText("php", allowed));
             assertFalse(SecuredUpload.isValidText("javascript", allowed));
             assertFalse(SecuredUpload.isValidText("%eval", allowed));
             assertFalse(SecuredUpload.isValidText("@eval", allowed));
+            assertFalse(SecuredUpload.isValidText("<body>", allowed));
+            assertFalse(SecuredUpload.isValidText("<form", allowed));
             assertFalse(SecuredUpload.isValidText("import os", allowed));
             assertFalse(SecuredUpload.isValidText("passthru", allowed));
             assertFalse(SecuredUpload.isValidText("exec", allowed));
@@ -82,7 +83,6 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("assert", allowed));
             assertFalse(SecuredUpload.isValidText("str_rot13", allowed));
             assertFalse(SecuredUpload.isValidText("system", allowed));
-            assertFalse(SecuredUpload.isValidText("phpinfo", allowed));
             assertFalse(SecuredUpload.isValidText("base64_decode", allowed));
             assertFalse(SecuredUpload.isValidText("chmod", allowed));
             assertFalse(SecuredUpload.isValidText("mkdir", allowed));
