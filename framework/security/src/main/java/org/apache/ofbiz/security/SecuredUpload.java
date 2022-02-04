@@ -242,7 +242,8 @@ public class SecuredUpload {
                 || imageFormat.equals(ImageFormats.GIF)
                 || imageFormat.equals(ImageFormats.TIFF)
                 || imageFormat.equals(ImageFormats.JPEG))
-                        && imageMadeSafe(fileName);
+                && imageMadeSafe(fileName)
+                && isValidTextFile(fileName);
     }
 
     /**
@@ -422,6 +423,7 @@ public class SecuredUpload {
         if ("application/x-elf".equals(mimeType)
                 || "application/x-sh".equals(mimeType)
                 || "application/text/x-perl".equals(mimeType)
+                || "application/text/x-ruby".equals(mimeType)
                 || "application/text/x-python".equals(mimeType)) {
             Debug.logError("The file" + fileName + " is a Linux executable, for security reason it's not accepted :", MODULE);
             return true;
