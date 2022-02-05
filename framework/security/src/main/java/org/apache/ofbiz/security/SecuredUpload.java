@@ -243,7 +243,7 @@ public class SecuredUpload {
                 || imageFormat.equals(ImageFormats.TIFF)
                 || imageFormat.equals(ImageFormats.JPEG))
                 && imageMadeSafe(fileName)
-                && isValidTextFile(fileName);
+                && isValidText(fileName, new ArrayList<>());
     }
 
     /**
