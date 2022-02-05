@@ -129,7 +129,7 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="blogSub" location="component://content/widget/content/ContentMenus.xml"/>
                         <screenlet title="${uiLabelMap.ContentBlogList}" navigation-form-name="ListBlogs">
-                            <include-form name="ListBlogs" location="component://content/widget/forum/BlogForms.xml"/>
+                            <include-grid name="ListBlogs" location="component://content/widget/forum/BlogForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -154,7 +154,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="BlogContent">
         <section>
             <actions>
@@ -172,14 +171,13 @@ under the License.
                 <decorator-screen name="blogDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentBlogArticleList}" navigation-form-name="BlogContent">
-                            <include-form name="BlogContent" location="component://content/widget/forum/BlogForms.xml"/>
+                            <include-grid name="BlogContent" location="component://content/widget/forum/BlogForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="EditArticle">
         <section>
             <actions>
