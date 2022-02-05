@@ -56,6 +56,7 @@
         <value xml:lang="fr">Date d'achèvement réelle</value>
         <value xml:lang="it">Data fine attuale</value>
         <value xml:lang="ja">実績終了日</value>
+        <value xml:lang="nl">Einddatum</value>
         <value xml:lang="ro">Data Finala Actuala</value>
         <value xml:lang="th">วันสิ้นสุดตามความจริง</value>
         <value xml:lang="vi">Ngày kết thúc thực tế</value>
@@ -68,7 +69,7 @@
         <value xml:lang="fr">Millisecondes</value>
         <value xml:lang="it">Millisecondi attuali</value>
         <value xml:lang="ja">実績ミリ秒</value>
-        <value xml:lang="nl">Actual Milli Seconds</value>
+        <value xml:lang="nl">Werlk. milliseconden</value>
         <value xml:lang="ro">Millisecunde Actuale</value>
         <value xml:lang="th">พันวินาทีตามความจริง</value>
         <value xml:lang="vi">Số giây thực tế</value>
@@ -81,7 +82,7 @@
         <value xml:lang="fr">Configuration en millisecondes</value>
         <value xml:lang="it">Millisecondi Configurazione Attuali</value>
         <value xml:lang="ja">実績設定ミリ秒</value>
-        <value xml:lang="nl">Actual Setup Millis</value>
+        <value xml:lang="nl">Setup - werk. milliseconden</value>
         <value xml:lang="ro">Configuratie Milisecunde Actuala </value>
         <value xml:lang="th">Actual Setup Millis</value>
         <value xml:lang="vi">Thời gian Thiết lập thực tế(giây)</value>
@@ -3428,7 +3429,7 @@
         <value xml:lang="fr">Nouveau Projet</value>
         <value xml:lang="it">Nuovo progetto</value>
         <value xml:lang="ja">新規プロジェクト</value>
-        <value xml:lang="nl">New Project</value>
+        <value xml:lang="nl">Nieuw Project</value>
         <value xml:lang="ro">Proiect Nou</value>
         <value xml:lang="ru">Новый проект</value>
         <value xml:lang="th">โปรเจคใหม่</value>
