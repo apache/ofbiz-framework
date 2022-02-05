@@ -76,14 +76,7 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("@eval", allowed));
             assertFalse(SecuredUpload.isValidText("<body>", allowed));
             assertFalse(SecuredUpload.isValidText("<form", allowed));
-            assertFalse(SecuredUpload.isValidText("import os", allowed));
-            assertFalse(SecuredUpload.isValidText("passthru", allowed));
-            assertFalse(SecuredUpload.isValidText("exec", allowed));
-            assertFalse(SecuredUpload.isValidText("shell_exec", allowed));
-            assertFalse(SecuredUpload.isValidText("assert", allowed));
-            assertFalse(SecuredUpload.isValidText("str_rot13", allowed));
-            assertFalse(SecuredUpload.isValidText("system", allowed));
-            assertFalse(SecuredUpload.isValidText("base64_decode", allowed));
+            assertFalse(SecuredUpload.isValidText("import", allowed));
             assertFalse(SecuredUpload.isValidText("chmod", allowed));
             assertFalse(SecuredUpload.isValidText("mkdir", allowed));
             assertFalse(SecuredUpload.isValidText("fopen", allowed));
