@@ -43,7 +43,7 @@ under the License.
                                         <include-form name="FindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        <include-grid name="ListFindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -56,7 +56,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonSurveyDecorator">
         <section>
             <actions>
@@ -102,7 +101,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSurvey"/>
                 <set field="tabButtonItem" value="Survey"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurvey"/>
-
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
             </actions>
@@ -136,7 +134,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSurveyMultiResps"/>
                 <set field="tabButtonItem" value="SurveyMultiResps"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyMultiResps"/>
-
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
                 <entity-condition entity-name="SurveyMultiResp" list="surveyMultiRespList">
@@ -153,7 +150,7 @@ under the License.
                                 <widgets>
                                     <screenlet title="${uiLabelMap.ContentSurveyEditSurveyMultiResp}">
                                         <include-form name="EditSurveyMultiResp" location="component://content/widget/survey/SurveyForms.xml"/>
-                                        <include-form name="ListSurveyMultiRespColumns" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        <include-grid name="ListSurveyMultiRespColumns" location="component://content/widget/survey/SurveyForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.ContentSurveyAddSurveyMultiRespColumn}">
                                         <include-form name="AddSurveyMultiRespColumn" location="component://content/widget/survey/SurveyForms.xml"/>
@@ -172,26 +169,18 @@ under the License.
     <screen name="EditSurveyQuestions">
         <section>
             <actions>
-
                 <set field="titleProperty" value="PageTitleEditSurveyQuestions"/>
                 <set field="tabButtonItem" value="SurveyQuestions"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyQuestions"/>
-
                 <set field="newCategory" from-field="parameters.newCategory" default-value="N"/>
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-
                 <script location="component://content/groovyScripts/survey/EditSurveyQuestions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://content/template/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
-
-                        <!-- This page is a bit of a mess, so will cleanup/modernize later...
-                        <include-form name="ListSurveyQuestions" location="component://content/widget/survey/SurveyForms.xml"/>
-                        <include-form name="CreateSurveyQuestion" location="component://content/widget/survey/SurveyForms.xml"/>
-                        -->
                         <section>
                             <condition>
                                 <if-compare operator="equals" value="Y" field="newCategory"/>
@@ -274,7 +263,9 @@ under the License.
                         <screenlet id="SurveyPagePanel" title="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}" collapsible="true">
                             <include-form name="AddSurveyPage" location="component://content/widget/survey/SurveyForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSurveyPages" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <screenlet>
+                            <include-grid name="ListSurveyPages" location="component://content/widget/survey/SurveyForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -287,12 +278,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindSurveyResponse"/>
                 <set field="tabButtonItem" value="FindSurveyResponse"/>
                 <set field="labelTitleProperty" value="PageTitleFindSurveyResponse"/>
-
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
             </actions>
@@ -311,7 +300,7 @@ under the License.
                             <include-form name="BuildSurveyResponseFromPdf" location="component://content/widget/survey/SurveyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleListSurveyResponse}">
-                            <include-form name="ListFindSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
+                            <include-grid name="ListFindSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -324,10 +313,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewSurveyResponses"/>
                 <set field="tabButtonItem" value="SurveyResponses"/>
                 <set field="labelTitleProperty" value="PageTitleViewSurveyResponses"/>
-
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-
                 <script location="component://content/groovyScripts/survey/ViewSurveyResponses.groovy"/>
             </actions>
             <widgets>
@@ -352,10 +339,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSurveyResponse"/>
                 <set field="tabButtonItem" value="SurveyResponses"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyResponse"/>
-
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-
                 <set field="surveyResponseId" from-field="parameters.surveyResponseId"/>
                 <entity-one entity-name="SurveyResponse" value-field="surveyResponse"/>
                 <script location="component://content/groovyScripts/survey/EditSurveyResponse.groovy"/>
@@ -371,7 +356,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="LookupSurvey">
         <section>
             <condition>
@@ -391,7 +375,7 @@ under the License.
                         <include-form name="LookupSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-grid name="ListLookupSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -416,7 +400,7 @@ under the License.
                         <include-form name="LookupSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-grid name="ListLookupSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -433,7 +417,7 @@ under the License.
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-form name="ListFindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                <include-grid name="ListFindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
             </widgets>
         </section>
     </screen>
