@@ -17,10 +17,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-    <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListForumGroups" type="list" list-name="forumGroups" separate-columns="true" target="updateForumGroup"
+    <grid name="ListForumGroups" list-name="forumGroups" separate-columns="true" target="updateForumGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId">
             <hyperlink description="${uiLabelMap.FormFieldTitle_forums}" target="findForums">
@@ -30,7 +29,7 @@ under the License.
         <field name="forumGroupName" entry-name="contentName" parameter-name="contentName"><text/></field>
         <field name="forumGroupDescription" entry-name="description" parameter-name="description"><text/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-    </form>
+    </grid>
     <form name="AddForumGroup" type="single" target="createForumGroup" title="" default-map-name="forumGroup"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="forumGroupName" parameter-name="contentName" required-field="true"><text/></field>
@@ -38,7 +37,6 @@ under the License.
         <field name="contentTypeId"><hidden value="FORUM_ROOT"/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
     <form name="ListForums" type="list" list-name="forums"  separate-columns="true" target="updateForum"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -81,15 +79,14 @@ under the License.
         <field name="caContentAssocTypeId"><hidden value="SUBSITE"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
-    <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose" separate-columns="true"
+    <grid name="ForumGroupPurposes" list-name="forumPurposes" target="deleteForumGroupPurpose" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentPurposeTypeId"><display-entity entity-name="ContentPurposeType"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="AddForumGroupPurpose" type="single" target="createForumGroupPurpose" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
@@ -101,8 +98,7 @@ under the License.
             </drop-down></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
-    <form name="ForumGroupRoles" type="list" list-name="forumRoles" target="updateForumGroupRole" separate-columns="true"
+    <grid name="ForumGroupRoles" list-name="forumRoles" target="updateForumGroupRole" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -121,7 +117,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddForumGroupRole" type="single" target="createForumGroupRole" default-map-name=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
@@ -137,8 +133,7 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
-    <form name="ListForumMessages" type="list" list-name="forumMessages" separate-columns="true" target="updateForumMessage"
+    <grid name="ListForumMessages" list-name="forumMessages" separate-columns="true" target="updateForumMessage"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>
             <service service-name="getContentAndDataResource" result-map="contentData">
@@ -178,8 +173,7 @@ under the License.
                 <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
             </hyperlink>
         </field>
-    </form>
-
+    </grid>
     <form name="EditForumMessage" type="single" target="updateForumMessage" default-map-name="message"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -232,7 +226,6 @@ under the License.
     </form>
     <form name="AddForumThreadMessage" type="single" extends="AddForumMessage" target="updateForumThreadMessage"
         header-row-style="header-row" default-table-style="basic-table"/>
-
     <form name="EditForumThreadMessage" type="single" target="updateForumThreadMessage"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -250,4 +243,4 @@ under the License.
         <field name="textData" title="${uiLabelMap.FormFieldTitle_textDataTitle}"><textarea rows="8"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    </forms>
+</forms>

@@ -17,10 +17,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="commonForumDecorator">
         <section>
             <actions>
@@ -61,7 +59,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="FindForumGroups">
         <section>
             <actions>
@@ -79,13 +76,14 @@ under the License.
                         <screenlet id="ForumGroupPanel" title="${uiLabelMap.ContentForumGroupCreate}" collapsible="true">
                             <include-form name="AddForumGroup" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
-                        <include-form name="ListForumGroups" location="component://content/widget/forum/ForumForms.xml"/>
+                        <screenlet>
+                            <include-grid name="ListForumGroups" location="component://content/widget/forum/ForumForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="FindForums">
         <section>
             <actions>
@@ -108,13 +106,14 @@ under the License.
                         <screenlet id="AddForumToForumGroupPanel" title="${uiLabelMap.ContentForumAddTo} ${forumGroup.contentName}" collapsible="true">
                             <include-form name="AddForum" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
-                        <include-form name="ListForums" location="component://content/widget/forum/ForumForms.xml"/>
+                        <screenlet>
+                            <include-grid name="ListForums" location="component://content/widget/forum/ForumForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="ForumGroupRoles">
         <section>
             <actions>
@@ -137,13 +136,14 @@ under the License.
                         <screenlet id="ForumGroupRolePanel" title="${uiLabelMap.ContentForumAddRoleTo} ${forumGroup.contentName} [${forumGroup.contentId}]" collapsible="true">
                             <include-form name="AddForumGroupRole" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
-                        <include-form name="ForumGroupRoles" location="component://content/widget/forum/ForumForms.xml"/>
+                        <screenlet>
+                            <include-grid name="ForumGroupRoles" location="component://content/widget/forum/ForumForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="ForumGroupPurposes">
         <section>
             <actions>
@@ -166,13 +166,14 @@ under the License.
                         <screenlet id="ForumGroupPurposePanel" title="${uiLabelMap.ContentForumAddPurposeTo} ${forumGroup.contentName} [${forumGroup.contentId}]" collapsible="true">
                             <include-form name="AddForumGroupPurpose" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
-                        <include-form name="ForumGroupPurposes" location="component://content/widget/forum/ForumForms.xml"/>
+                        <screenlet>
+                            <include-grid name="ForumGroupPurposes" location="component://content/widget/forum/ForumForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="FindForumMessages">
         <section>
             <actions>
@@ -196,16 +197,17 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.forumDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListForumMessages" location="component://content/widget/forum/ForumForms.xml"/>
                         <screenlet title="${uiLabelMap.ContentForumAddThreadTo} ${forum.description}">
                             <include-form name="AddForumMessage" location="component://content/widget/forum/ForumForms.xml"/>
+                        </screenlet>
+                        <screenlet>
+                            <include-grid name="ListForumMessages" location="component://content/widget/forum/ForumForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="FindForumThreads">
         <section>
             <actions>
@@ -273,7 +275,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditForumMessage">
         <section>
             <actions>
@@ -295,7 +296,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AddForumMessage">
         <section>
             <actions>
@@ -320,7 +320,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AddForumThreadMessage">
         <section>
             <actions>
@@ -345,5 +344,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-
 </screens>
