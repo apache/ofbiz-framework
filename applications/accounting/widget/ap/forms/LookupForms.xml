@@ -20,7 +20,6 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-
     <form name="LookupInvoice" target="LookupInvoice" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -49,11 +48,9 @@ under the License.
         <field position="2" name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="Datefrom" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field position="2" name="DateThru" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
     <form name="LookupPayment" target="LookupPayment" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Payment" default-field-type="hidden"/>
