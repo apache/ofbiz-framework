@@ -40,7 +40,7 @@ under the License.
                                         <include-form name="FindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                                        <include-grid name="ListFindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -67,7 +67,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListLayout}">
-                            <include-form name="ListListLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                            <include-grid name="ListListLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -80,7 +80,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayout"/>
-
                 <set field="wrapTemplateId" value="STDWRAP001"/>
                 <entity-one entity-name="ContentDataResourceView" value-field="currentValue"/>
             </actions>
@@ -107,7 +106,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayoutSubContent"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutSubContent"/>
-
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/groovyScripts/layout/EditSubContent.groovy"/>
             </actions>
@@ -128,7 +126,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutText"/>
-
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/groovyScripts/layout/EditSubContent.groovy"/>
             </actions>
@@ -149,7 +146,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutHtml"/>
-
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/groovyScripts/layout/EditSubContent.groovy"/>
             </actions>
@@ -170,7 +166,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutUrl"/>
-
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/groovyScripts/layout/EditSubContent.groovy"/>
             </actions>
@@ -191,7 +186,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutImage"/>
-
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/groovyScripts/layout/EditSubContent.groovy"/>
             </actions>
@@ -212,7 +206,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayout"/>
-
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
