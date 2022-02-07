@@ -81,7 +81,8 @@ under the License.
                  This is in relation with 
                  https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.31
                  and
-                 https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html#Connectors 
+                 https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html#Connectors
+                 Long story short, with this configuration only locahost works...
             -->
             <!-- <property name="secretRequired" value="false"/>
             <property name="allowedRequestAttributesPattern" value=".*"/> -->
