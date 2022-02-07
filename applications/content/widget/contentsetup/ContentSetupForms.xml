@@ -20,7 +20,6 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <!-- ContentType forms -->
     <form name="AddContentType" target="addContentType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentType"/>
@@ -28,10 +27,10 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentType" list-name="contentList" target="updateContentType" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
+    <grid name="UpdateContentType" list-name="contentList" target="updateContentType" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-          <entity-condition entity-name="ContentType" use-cache="false"/>
+            <entity-condition entity-name="ContentType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentType"/>
         <field name="contentTypeId">
@@ -45,9 +44,7 @@ under the License.
                 <parameter param-name="contentTypeId"/>
             </hyperlink>
         </field>
-    </form>
-
-    <!-- ContentTypeAttr forms -->
+    </grid>
     <form name="AddContentTypeAttr" target="addContentTypeAttr" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentTypeAttr"/>
@@ -60,10 +57,10 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentTypeAttr" list-name="contentList" target="updateContentTypeAttr" title="" type="list"
+    <grid name="UpdateContentTypeAttr" list-name="contentList" target="updateContentTypeAttr"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-        <entity-condition entity-name="ContentTypeAttr" use-cache="false"/>
+            <entity-condition entity-name="ContentTypeAttr" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="createContentTypeAttr"/>
         <field name="contentTypeId">
@@ -78,9 +75,7 @@ under the License.
                 <parameter param-name="attrName"/>
             </hyperlink>
         </field>
-    </form>
-
-    <!-- ContentAssocType forms -->
+    </grid>
     <form name="AddContentAssocType" target="addContentAssocType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentAssocType"/>
@@ -88,7 +83,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentAssocType" list-name="contentList" target="updateContentAssocType" title="" type="list"
+    <grid name="UpdateContentAssocType" list-name="contentList" target="updateContentAssocType"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentAssocType" use-cache="false"/>
@@ -105,9 +100,7 @@ under the License.
                 <parameter param-name="contentAssocTypeId"/>
             </hyperlink>
         </field>
-    </form>
-
-    <!-- ContentPurposeType forms -->
+    </grid>
     <form name="AddContentPurposeType" target="addContentPurposeType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentPurposeType"/>
@@ -115,7 +108,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentPurposeType" list-name="contentList" target="updateContentPurposeType" title="" type="list"
+    <grid name="UpdateContentPurposeType" list-name="contentList" target="updateContentPurposeType"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentPurposeType" use-cache="false"/>
@@ -132,9 +125,7 @@ under the License.
                 <parameter param-name="contentPurposeTypeId"/>
             </hyperlink>
         </field>
-    </form>
-
-    <!-- ContentAssocPredicate forms -->
+    </grid>
    <form name="AddContentAssocPredicate" target="addContentAssocPredicate" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentAssocPredicate"/>
@@ -142,7 +133,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentAssocPredicate" list-name="contentList" target="updateContentAssocPredicate" title="" type="list"
+    <grid name="UpdateContentAssocPredicate" list-name="contentList" target="updateContentAssocPredicate"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="ContentAssocPredicate" use-cache="false"/>
@@ -159,9 +150,7 @@ under the License.
                 <parameter param-name="contentAssocPredicateId"/>
             </hyperlink>
         </field>
-    </form>
-
-    <!-- ContentOperation forms -->
+    </grid>
     <form name="AddContentOperation" target="addContentOperation" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentOperation"/>
@@ -169,7 +158,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentOperation" list-name="contentList" target="updateContentOperation" title="" type="list"
+    <grid name="UpdateContentOperation" list-name="contentList" target="updateContentOperation"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="ContentOperation" use-cache="false"/>
@@ -186,8 +175,7 @@ under the License.
                 <parameter param-name="contentOperationId"/>
             </hyperlink>
         </field>
-    </form>
-    <!-- ContentPurposeOperation forms -->
+    </grid>
     <form name="AddContentPurposeOperation" target="addContentPurposeOperation" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentPurposeOperation"/>
@@ -202,7 +190,7 @@ under the License.
                 <entity-options entity-name="ContentOperation" key-field-name="contentOperationId"/>
             </drop-down>
         </field>
-        <field name="roleTypeId">
+        <field name="roleTypeId" title="${uiLabelMap.CommonAdd}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
@@ -211,7 +199,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateContentPurposeOperation" target="" title="" type="list" list-name="contentList"
+    <grid name="UpdateContentPurposeOperation" list-name="contentList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentPurposeOperation" use-cache="false"/>
@@ -226,5 +214,5 @@ under the License.
                 <parameter param-name="privilegeEnumId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 </forms>

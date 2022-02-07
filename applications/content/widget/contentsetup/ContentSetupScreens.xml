@@ -36,7 +36,7 @@ under the License.
                             <include-form name="AddContentType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -58,7 +58,7 @@ under the License.
                             <include-form name="AddContentTypeAttr" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentTypeAttr" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentTypeAttr" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -80,7 +80,7 @@ under the License.
                             <include-form name="AddContentAssocType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentAssocType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentAssocType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -102,7 +102,7 @@ under the License.
                             <include-form name="AddContentPurposeType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentPurposeType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentPurposeType" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -124,7 +124,7 @@ under the License.
                             <include-form name="AddContentAssocPredicate" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentAssocPredicate" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentAssocPredicate" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -146,7 +146,7 @@ under the License.
                             <include-form name="AddContentPurposeOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentPurposeOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentPurposeOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -190,7 +190,7 @@ under the License.
                             <include-form name="AddContentOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="UpdateContentOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
+                          <include-grid name="UpdateContentOperation" location="component://content/widget/contentsetup/ContentSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
