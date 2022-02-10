@@ -235,6 +235,7 @@ public class HttpRequestFileUpload {
                         }
                         fos.flush();
 
+                        // Check if a webshell is not uploaded
                         if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileTocheck, fileType, delegator)) {
                             return false;
                         }

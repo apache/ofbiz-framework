@@ -1638,6 +1638,9 @@ public class ContentManagementServices {
             File file = new File(objectInfo);
             if (file.isFile()) {
                 try {
+                    // Check if a webshell is not uploaded
+                    // This should now be useless after the add of SecuredUpload::isValidFile in GroovyBaseScript for createAnonFile service.
+                    // But I prefer to keep it anyway, it's hard to test all cases, better safe than sorry
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(objectInfo, "All", delegator)) {
                         errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     }

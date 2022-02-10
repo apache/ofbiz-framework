@@ -21,20 +21,24 @@ package org.apache.ofbiz.service.engine
 import java.util.Map
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
+import org.apache.ofbiz.service.ExecutionServiceException
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.ExecutionServiceException
-import org.apache.ofbiz.entity.GenericValue
 
 abstract class GroovyBaseScript extends Script {
     public static final String module = GroovyBaseScript.class.getName()
 
+    String getModule() {
+        return this.class.getName()
+    }
+
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
-        LocalDispatcher dispatcher = binding.getVariable('dispatcher');
-        DispatchContext dctx = dispatcher.getDispatchContext();
+        LocalDispatcher dispatcher = binding.getVariable('dispatcher')
+        DispatchContext dctx = dispatcher.getDispatchContext()
         if (!inputMap.userLogin) {
             inputMap.userLogin = this.binding.hasVariable('userLogin')
                     ? this.binding.getVariable('userLogin')
@@ -50,6 +54,17 @@ abstract class GroovyBaseScript extends Script {
                     ? this.binding.getVariable('locale')
                     : this.binding.getVariable('parameters').locale
         }
+        if (serviceName.equals("createAnonFile")) {
+            String dataResourceName = inputMap.get("dataResourceName")
+            File file = new File(dataResourceName)
+            if (file.exists()) {
+                // Check if a webshell is not uploaded
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(dataResourceName, "All", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", inputMap.locale)
+                    throw new ExecutionServiceException(errorMessage)
+                }
+            }
+        }
         Map serviceContext = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
         Map result = dispatcher.runSync(serviceName, serviceContext)
         if (ServiceUtil.isError(result)) {
@@ -63,11 +78,11 @@ abstract class GroovyBaseScript extends Script {
     }
 
     Map makeValue(String entityName) throws ExecutionServiceException {
-        return result = binding.getVariable('delegator').makeValue(entityName)
+        return binding.getVariable('delegator').makeValue(entityName)
     }
 
     Map makeValue(String entityName, Map inputMap) throws ExecutionServiceException {
-        return result = binding.getVariable('delegator').makeValidValue(entityName, inputMap)
+        return binding.getVariable('delegator').makeValidValue(entityName, inputMap)
     }
 
     EntityQuery from(def entity) {
@@ -87,21 +102,35 @@ abstract class GroovyBaseScript extends Script {
         return from(entityName).where(fields).cache(useCache).queryOne()
     }
 
+    def success() {
+        return success(null, null)
+    }
     def success(String message) {
+        return success(message, null)
+    }
+    def success(Map returnValues) {
+        return success(null, returnValues)
+    }
+    def success(String message, Map returnValues) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
                 this.binding.getVariable('request').setAttribute("_EVENT_MESSAGE_", message)
             }
+            if (returnValues) {
+                returnValues.each {
+                    this.binding.getVariable('request').setAttribute(it.getKey(), it.getValue())
+                }
+            }
             return 'success'
         } else {
             // the script is invoked as a "service"
-            if (message) {
-                return ServiceUtil.returnSuccess(message)
-            } else {
-                return ServiceUtil.returnSuccess()
+            Map result = message ? ServiceUtil.returnSuccess(message) : ServiceUtil.returnSuccess()
+            if (returnValues) {
+                result.putAll(returnValues)
             }
+            return result
         }
     }
     Map failure(String message) {
@@ -128,17 +157,37 @@ abstract class GroovyBaseScript extends Script {
             }
         }
     }
+
     def logInfo(String message) {
-        Debug.logInfo(message, module)
+        Debug.logInfo(message, getModule())
     }
     def logWarning(String message) {
-        Debug.logWarning(message, module)
+        Debug.logWarning(message, getModule())
     }
     def logError(String message) {
-        Debug.logError(message, module)
+        Debug.logError(message, getModule())
+    }
+    def logError(Throwable t, String message) {
+        Debug.logError(t, message, getModule())
+    }
+    def logError(Throwable t) {
+        Debug.logError(t, null, getModule())
+    }
+    def logVerbose(String message) {
+        Debug.logVerbose(message, getModule())
     }
 
-    def logVerbose(String message) {
-        Debug.logVerbose(message, module)
+    def label(String ressource, String message) {
+        return label(ressource, message, null)
+    }
+    def label(String ressource, String message, Map context) {
+        Locale locale = this.binding.getVariable('locale')
+        if (!locale) {
+            locale = Locale.getDefault()
+        }
+        if (context) {
+            return UtilProperties.getMessage(ressource, message, context, locale)
+        }
+        return UtilProperties.getMessage(ressource, message, locale)
     }
 }

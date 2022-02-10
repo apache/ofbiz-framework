@@ -460,6 +460,7 @@ public class DataServices {
             if (UtilValidate.isNotEmpty(textData)) {
                 try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                     out.write(textData);
+                    // Check if a webshell is not uploaded
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
                         return ServiceUtil.returnError(errorMessage);

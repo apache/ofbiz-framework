@@ -62,6 +62,7 @@ import org.apache.commons.imaging.formats.png.PngImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -89,44 +90,51 @@ import com.lowagie.text.pdf.PdfReader;
 
 public class SecuredUpload {
 
+    // To check if a webshell is not uploaded
+
     // This can be helpful:
     // https://en.wikipedia.org/wiki/File_format
     // https://en.wikipedia.org/wiki/List_of_file_signatures
     // See also information in security.properties:
-    // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
+    // Supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio, Video, Text, and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
     private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
     private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
 
-    /**
-     * @param fileToCheck
-     * @param fileType
-     * @return true if the file is valid
-     * @throws IOException
-     * @throws ImageReadException
-     */
-    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+    public static boolean isValidText(String content, List<String> allowed) throws IOException {
+        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
+    }
 
+    private static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
+        // Allow all
         if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
             return true;
+        }
+
+        // Prevent double extensions
+        if (StringUtils.countMatches(fileToCheck, ".") > 1) {
+            return false;
         }
 
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
         String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
-
+        
+        // Check extensions
         if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
             Debug.logError("This file extension is not allowed for security reason", MODULE);
             deleteBadFile(fileToCheck);
             return false;
         }
 
+            // Check the file and path names
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
             if (fileToCheck.length() > 259) { // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
                 Debug.logError("Uploaded file name too long", MODULE);
             } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
+                    // TODO check this is still useful in at least 1 case
                 if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
@@ -137,6 +145,7 @@ public class SecuredUpload {
             if (fileToCheck.length() > 4096) {
                 Debug.logError("Uploaded file name too long", MODULE);
             } else if (p.toString().contains(imageServerUrl)) {
+                    // TODO check this is still useful in at least 1 case
                 if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
@@ -154,7 +163,23 @@ public class SecuredUpload {
             deleteBadFile(fileToCheck);
             return false;
         }
+        return true;
+    }
 
+    /**
+     * @param fileToCheck
+     * @param fileType
+     * @return true if the file is valid
+     * @throws IOException
+     * @throws ImageReadException
+     */
+    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+
+        if (!isValidFileName(fileToCheck, delegator)) {
+            return false;
+        }
+
+        // Check the the file content
         if (isExecutable(fileToCheck)) {
             deleteBadFile(fileToCheck);
             return false;
@@ -186,7 +211,7 @@ public class SecuredUpload {
             break;
 
         case "AllButCompressed":
-            if (isValidTextFile(fileToCheck)
+            if (isValidTextFile(fileToCheck, true)
                     || isValidImageIncludingSvgFile(fileToCheck)
                     || isValidPdfFile(fileToCheck)) {
                 return true;
@@ -197,7 +222,7 @@ public class SecuredUpload {
             // The philosophy for isValidTextFile() is that
             // we can't presume of all possible text contents used for attacks with payloads
             // At least there is an easy way to prevent them in isValidTextFile
-            if (isValidTextFile(fileToCheck)) {
+            if (isValidTextFile(fileToCheck, true)) {
                 return true;
             }
             break;
@@ -214,7 +239,7 @@ public class SecuredUpload {
             break;
 
         default: // All
-            if (isValidTextFile(fileToCheck)
+            if (isValidTextFile(fileToCheck, true)
                     || isValidImageIncludingSvgFile(fileToCheck)
                     || isValidCompressedFile(fileToCheck, delegator)
                     || isValidAudioFile(fileToCheck)
@@ -243,7 +268,7 @@ public class SecuredUpload {
                 || imageFormat.equals(ImageFormats.TIFF)
                 || imageFormat.equals(ImageFormats.JPEG))
                 && imageMadeSafe(fileName)
-                && isValidText(fileName, new ArrayList<>());
+                && isValidTextFile(fileName, false);
     }
 
     /**
@@ -375,7 +400,7 @@ public class SecuredUpload {
             } catch (IOException e) {
                 return false;
             }
-            return isValidTextFile(fileName); // Validate content to prevent webshell
+            return isValidTextFile(fileName, true); // Validate content to prevent webshell
         }
         return false;
     }
@@ -489,8 +514,11 @@ public class SecuredUpload {
      */
     private static String getMimeTypeFromFileName(String fileName) throws IOException {
         File file = new File(fileName);
+        if (file.exists()) {
         Tika tika = new Tika();
         return tika.detect(file);
+    }
+        return null;
     }
 
     private static boolean isValidDirectoryInCompressedFile(String folderName, Delegator delegator) throws IOException, ImageReadException {
@@ -606,24 +634,23 @@ public class SecuredUpload {
     /**
      * Does this text file contains a Freemarker Server-Side Template Injection (SSTI) using freemarker.template.utility.Execute? Etc.
      * @param fileName must be an UTF-8 encoded text file
+     * @param encodedContent TODO
      * @return true if the text file does not contains a Freemarker SSTI
      * @throws IOException
      */
-    private static boolean isValidTextFile(String fileName) throws IOException {
+    private static boolean isValidTextFile(String fileName, Boolean encodedContent) throws IOException {
         Path filePath = Paths.get(fileName);
         byte[] bytesFromFile = Files.readAllBytes(filePath);
+        if (encodedContent) {
         try {
             Charset.availableCharsets().get("UTF-8").newDecoder().decode(ByteBuffer.wrap(bytesFromFile));
         } catch (CharacterCodingException e) {
             return false;
         }
+        }
         String content = new String(bytesFromFile);
         ArrayList<String> allowed = new ArrayList<>();
         return isValidText(content, allowed);
-    }
-
-    public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
     }
 
     private static boolean isValid(String content, String string, List<String> allowed) {
@@ -633,7 +660,7 @@ public class SecuredUpload {
     private static void deleteBadFile(String fileToCheck) {
         Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
         File badFile = new File(fileToCheck);
-        if (!badFile.delete()) {
+        if (badFile.exists() && !badFile.delete()) {
             Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
         }
     }
