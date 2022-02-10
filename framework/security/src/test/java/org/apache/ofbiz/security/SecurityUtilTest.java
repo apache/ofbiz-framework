@@ -63,7 +63,7 @@ public class SecurityUtilTest {
         // %eval,@eval,runtime,import,passthru,shell_exec,assert,str_rot13,system,base64_decode,include
         // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile
         // python,perl ,/perl,ruby ,/ruby,processbuilder
-        
+
         try {
             List<String> allowed = new ArrayList<>();
             allowed.add("getfilename");
@@ -84,7 +84,7 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("taglib", allowed));
             assertFalse(SecuredUpload.isValidText("<prefix", allowed));
             assertFalse(SecuredUpload.isValidText("<%@ page", allowed));
-            
+
             assertFalse(SecuredUpload.isValidText("%eval", allowed));
             assertFalse(SecuredUpload.isValidText("@eval", allowed));
             assertFalse(SecuredUpload.isValidText("runtime", allowed));
