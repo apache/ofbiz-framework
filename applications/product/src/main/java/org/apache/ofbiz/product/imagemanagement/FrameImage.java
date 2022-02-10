@@ -290,7 +290,7 @@ public class FrameImage {
         if (UtilValidate.isEmpty(imageName) || UtilValidate.isEmpty(imageData)) {
             session.setAttribute("frameContentId", request.getParameter("frameExistContentId"));
             session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
-            request.setAttribute("_ERROR_MESSAGE_", "There is no frame image, please select the image type *.PNG  uploading.");
+            request.setAttribute("_ERROR_MESSAGE_", "There is no frame image, please select the image type *.PNG to upload.");
             return "error";
         }
         if (!"image/png".equals(mimType)) {
@@ -320,6 +320,7 @@ public class FrameImage {
             }
             Path tmpFile = Files.createTempFile(null, null);
             Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
+            // Check if a webshell is not uploaded
             if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tmpFile.toString(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
