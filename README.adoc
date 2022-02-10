@@ -167,7 +167,8 @@ Once proper mitigations to the security issues are complete the OFBiz team will
 disclose this information to the public mailing list.
 * If you find a post-auth security issue, please https://s.apache.org/dsj2p[create a bug in our issue tracker (Jira)] .
 
-
+* If you want to use AJP on a non localhost OFBiz instance, you need to set the value of allowedRequestAttributesPattern
+in framework/catalina/ofbiz-component.xml
 
 You can find more information about security in OFBiz at
 https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
