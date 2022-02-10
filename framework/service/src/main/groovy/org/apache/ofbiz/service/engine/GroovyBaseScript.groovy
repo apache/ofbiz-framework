@@ -20,13 +20,13 @@ package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
+import org.apache.ofbiz.service.ExecutionServiceException
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.ExecutionServiceException
-import org.apache.ofbiz.entity.GenericValue
 
 abstract class GroovyBaseScript extends Script {
     public static final String module = GroovyBaseScript.class.getName()
@@ -52,6 +52,17 @@ abstract class GroovyBaseScript extends Script {
             inputMap.locale = this.binding.hasVariable('locale')
                     ? this.binding.getVariable('locale')
                     : this.binding.getVariable('parameters').locale
+        }
+        if (serviceName.equals("createAnonFile")) {
+            String dataResourceName = inputMap.get("dataResourceName")
+            File file = new File(dataResourceName)
+            if (file.exists()) {
+                // Check if a webshell is not uploaded
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(dataResourceName, "All", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", inputMap.locale)
+                    throw new ExecutionServiceException(errorMessage)
+                }
+            }
         }
         Map serviceContext = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
         Map result = dispatcher.runSync(serviceName, serviceContext)

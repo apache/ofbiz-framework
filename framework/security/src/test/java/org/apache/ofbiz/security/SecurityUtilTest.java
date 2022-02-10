@@ -58,6 +58,12 @@ public class SecurityUtilTest {
 
     @Test
     public void webShellTokensTesting() {
+        // Currently used
+        // freemarker,<script,javascript,<body,<form,<jsp:,scriptlet>,declaration>,expression>,<c:out,taglib,<prefix,<%@ page
+        // %eval,@eval,runtime,import,passthru,shell_exec,assert,str_rot13,system,base64_decode,include
+        // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile
+        // python,perl ,/perl,ruby ,/ruby,processbuilder
+        
         try {
             List<String> allowed = new ArrayList<>();
             allowed.add("getfilename");
@@ -65,29 +71,50 @@ public class SecurityUtilTest {
             allowed = new ArrayList<>();
             assertFalse(SecuredUpload.isValidText("hack.getFileName", allowed));
 
-            assertFalse(SecuredUpload.isValidText("<%", allowed));
-            assertFalse(SecuredUpload.isValidText("<jsp", allowed));
-            assertFalse(SecuredUpload.isValidText("<?", allowed));
-            assertFalse(SecuredUpload.isValidText("#!", allowed));
             assertFalse(SecuredUpload.isValidText("freemarker", allowed));
             assertFalse(SecuredUpload.isValidText("<script", allowed));
             assertFalse(SecuredUpload.isValidText("javascript", allowed));
+            assertFalse(SecuredUpload.isValidText("<body", allowed));
+            assertFalse(SecuredUpload.isValidText("<form", allowed));
+            assertFalse(SecuredUpload.isValidText("<jsp:", allowed));
+            assertFalse(SecuredUpload.isValidText("scriptlet>", allowed));
+            assertFalse(SecuredUpload.isValidText("declaration>", allowed));
+            assertFalse(SecuredUpload.isValidText("expression>", allowed));
+            assertFalse(SecuredUpload.isValidText("<c:out", allowed));
+            assertFalse(SecuredUpload.isValidText("taglib", allowed));
+            assertFalse(SecuredUpload.isValidText("<prefix", allowed));
+            assertFalse(SecuredUpload.isValidText("<%@ page", allowed));
+            
             assertFalse(SecuredUpload.isValidText("%eval", allowed));
             assertFalse(SecuredUpload.isValidText("@eval", allowed));
-            assertFalse(SecuredUpload.isValidText("<body>", allowed));
-            assertFalse(SecuredUpload.isValidText("<form", allowed));
+            assertFalse(SecuredUpload.isValidText("runtime", allowed));
             assertFalse(SecuredUpload.isValidText("import", allowed));
+            assertFalse(SecuredUpload.isValidText("passthru", allowed));
+            assertFalse(SecuredUpload.isValidText("shell_exec", allowed));
+            assertFalse(SecuredUpload.isValidText("assert", allowed));
+            assertFalse(SecuredUpload.isValidText("str_rot13", allowed));
+            assertFalse(SecuredUpload.isValidText("system", allowed));
+            assertFalse(SecuredUpload.isValidText("base64_decode", allowed));
+            assertFalse(SecuredUpload.isValidText("include", allowed));
+
             assertFalse(SecuredUpload.isValidText("chmod", allowed));
             assertFalse(SecuredUpload.isValidText("mkdir", allowed));
             assertFalse(SecuredUpload.isValidText("fopen", allowed));
             assertFalse(SecuredUpload.isValidText("fclose", allowed));
             assertFalse(SecuredUpload.isValidText("new file", allowed));
-            assertFalse(SecuredUpload.isValidText("import", allowed));
             assertFalse(SecuredUpload.isValidText("upload", allowed));
             assertFalse(SecuredUpload.isValidText("getfilename", allowed));
             assertFalse(SecuredUpload.isValidText("download", allowed));
             assertFalse(SecuredUpload.isValidText("getoutputstring", allowed));
             assertFalse(SecuredUpload.isValidText("readfile", allowed));
+
+            assertFalse(SecuredUpload.isValidText("python", allowed));
+            assertFalse(SecuredUpload.isValidText("perl ", allowed));
+            assertFalse(SecuredUpload.isValidText("/perl", allowed));
+            assertFalse(SecuredUpload.isValidText("ruby ", allowed));
+            assertFalse(SecuredUpload.isValidText("/ruby", allowed));
+            assertFalse(SecuredUpload.isValidText("processbuilder", allowed)); // Groovy
+
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
         }

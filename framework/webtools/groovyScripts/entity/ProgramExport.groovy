@@ -16,19 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.model.ModelEntity
-import org.apache.ofbiz.base.util.*
-
-import org.w3c.dom.Document
-
-import org.codehaus.groovy.control.customizers.ImportCustomizer
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.MultipleCompilationErrorsException
-import org.codehaus.groovy.control.ErrorCollector
+import org.codehaus.groovy.control.customizers.ImportCustomizer
 
 String groovyProgram = null
 recordValues = []
@@ -86,6 +77,7 @@ def shell = new GroovyShell(loader, binding, configuration)
 
 if (groovyProgram) {
     try {
+        // Check if a webshell is not uploaded but allow "import"
         if (!org.apache.ofbiz.security.SecuredUpload.isValidText(groovyProgram,["import"])) {
             request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
             return
