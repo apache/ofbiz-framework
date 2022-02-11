@@ -412,7 +412,7 @@ under the License.
                     <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
                 </and>
             </condition>
-            <link target="EditQuoteRole">
+            <link target="createnewquotenote">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
@@ -440,7 +440,7 @@ under the License.
                     <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
                 </and>
             </condition>
-            <link target="EditQuoteRole">
+            <link target="EditQuoteTerm">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
@@ -454,7 +454,7 @@ under the License.
                     <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
                 </and>
             </condition>
-            <link target="EditQuoteRole">
+            <link target="AddQuoteWorkEffort">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
