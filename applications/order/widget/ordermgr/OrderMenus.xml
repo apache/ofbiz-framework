@@ -335,7 +335,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="parameters.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.CommonWorkEfforts}">
+        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.WorkEffortWorkEfforts}">
             <condition>
                 <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
             </condition>

@@ -122,7 +122,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonWorkEfforts}">
+                        <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}">
                             <include-form name="ListQuoteWorkEfforts" location="component://order/widget/ordermgr/QuoteWorkEffortForms.xml"/>
                         </screenlet>
                     </decorator-section>
