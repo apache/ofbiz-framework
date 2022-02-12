@@ -411,7 +411,6 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
     public static String getMimeTypeWithByteBuffer(java.nio.ByteBuffer buffer) throws IOException {
         byte[] b = buffer.array();
-
         Tika tika = new Tika();
         return tika.detect(b);
     }
