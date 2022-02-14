@@ -209,10 +209,10 @@ For details, see framework/resources/fonts/NotoSans/.
 =========================================================================
 
 This product bundles "timezones" files, which are available in the "Public Domain".
-For details, see themes/common/webapp/common/js/plugins/date/timezones.
+For details, see themes/common/webapp/common-theme/js/plugins/date/timezones.
 
 =========================================================================
 
 This product bundles "jQuery Input Mask plugin", which is available
 under the "MIT" license.
-For details, see themes/common-theme/webapp/common/js/jquery/plugins/inputmask/jquery.inputmask*
+For details, see themes/common-theme/webapp/common-theme/js/jquery/plugins/inputmask/jquery.inputmask*
