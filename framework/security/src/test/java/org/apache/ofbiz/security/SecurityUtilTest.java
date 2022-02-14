@@ -59,10 +59,10 @@ public class SecurityUtilTest {
     @Test
     public void webShellTokensTesting() {
         // Currently used
-        // freemarker,<script,javascript,<body,<form,<jsp:,scriptlet>,declaration>,expression>,<c:out,taglib,<prefix,<%@ page
-        // %eval,@eval,runtime,import,passthru,shell_exec,assert,str_rot13,system,base64_decode,include
-        // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile
-        // python,perl ,/perl,ruby ,/ruby,processbuilder,function,class
+        // freemarker,<script,javascript,<body,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,\
+        // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
+        // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,\
+        // python,perl ,/perl,ruby ,/ruby,process,function,class
 
         try {
             List<String> allowed = new ArrayList<>();
@@ -77,9 +77,6 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("<body", allowed));
             assertFalse(SecuredUpload.isValidText("<form", allowed));
             assertFalse(SecuredUpload.isValidText("<jsp:", allowed));
-            assertFalse(SecuredUpload.isValidText("scriptlet>", allowed));
-            assertFalse(SecuredUpload.isValidText("declaration>", allowed));
-            assertFalse(SecuredUpload.isValidText("expression>", allowed));
             assertFalse(SecuredUpload.isValidText("<c:out", allowed));
             assertFalse(SecuredUpload.isValidText("taglib", allowed));
             assertFalse(SecuredUpload.isValidText("<prefix", allowed));
@@ -94,7 +91,7 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("assert", allowed));
             assertFalse(SecuredUpload.isValidText("str_rot13", allowed));
             assertFalse(SecuredUpload.isValidText("system", allowed));
-            assertFalse(SecuredUpload.isValidText("base64_decode", allowed));
+            assertFalse(SecuredUpload.isValidText("decode", allowed));
             assertFalse(SecuredUpload.isValidText("include", allowed));
 
             assertFalse(SecuredUpload.isValidText("chmod", allowed));
@@ -113,9 +110,9 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("/perl", allowed));
             assertFalse(SecuredUpload.isValidText("ruby ", allowed));
             assertFalse(SecuredUpload.isValidText("/ruby", allowed));
-            assertFalse(SecuredUpload.isValidText("processbuilder", allowed)); // Groovy
-            assertFalse(SecuredUpload.isValidText("function", allowed)); // Groovy
-            assertFalse(SecuredUpload.isValidText("class", allowed)); // Groovy
+            assertFalse(SecuredUpload.isValidText("process", allowed));
+            assertFalse(SecuredUpload.isValidText("function", allowed));
+            assertFalse(SecuredUpload.isValidText("class", allowed));
 
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
