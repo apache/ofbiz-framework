@@ -114,7 +114,7 @@ node {
 
     // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
     // Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common/js")
+    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common-theme/js")
     // If you set a "CI" env var then ci only will be used:
     // https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/faq.md#how-do-i-use-npm-ci-instead-of-npm-install
     npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
@@ -1016,7 +1016,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
 }
 task cleanNpm(group: cleanupGroup, description: 'clean node modules') {
     doLast {
-        delete "${project.projectDir}/themes/common-theme/webapp/common/js/node_modules"
+        delete "${project.projectDir}/themes/common-theme/webapp/common-theme/js/node_modules"
     }
 }
 /*
