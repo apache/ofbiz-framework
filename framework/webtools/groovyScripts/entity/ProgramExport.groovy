@@ -79,6 +79,7 @@ if (groovyProgram) {
     try {
         // Check if a webshell is not uploaded but allow "import"
         if (!org.apache.ofbiz.security.SecuredUpload.isValidText(groovyProgram,["import"])) {
+            logError("================== Not executed for security reason ==================")
             request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
             return
         }
