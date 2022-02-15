@@ -62,7 +62,8 @@ public class SecurityUtilTest {
         // freemarker,<script,javascript,<body,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,\
         // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
         // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,\
-        // python,perl ,/perl,ruby ,/ruby,process,function,class
+        // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,\
+        // ifconfig,route,crontab,netstat,uname,hostname,iptables,whoami
 
         try {
             List<String> allowed = new ArrayList<>();
@@ -113,6 +114,19 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("process", allowed));
             assertFalse(SecuredUpload.isValidText("function", allowed));
             assertFalse(SecuredUpload.isValidText("class", allowed));
+            assertFalse(SecuredUpload.isValidText("to_server", allowed));
+
+            assertFalse(SecuredUpload.isValidText("ifconfig", allowed));
+
+            assertFalse(SecuredUpload.isValidText("ifconfig", allowed));
+            assertFalse(SecuredUpload.isValidText("route", allowed));
+            assertFalse(SecuredUpload.isValidText("crontab", allowed));
+            assertFalse(SecuredUpload.isValidText("netstat", allowed));
+            assertFalse(SecuredUpload.isValidText("uname", allowed)); // found 1 image (on 33 600) with this token in
+            assertFalse(SecuredUpload.isValidText("hostname", allowed));
+            assertFalse(SecuredUpload.isValidText("iptables", allowed));
+            assertFalse(SecuredUpload.isValidText("whoami", allowed));
+            // ip, ls, nc, ip, cat and pwd can'tbe used, too short
 
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
